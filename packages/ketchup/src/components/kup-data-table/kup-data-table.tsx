@@ -3722,8 +3722,33 @@ export class KupDataTable {
                 );
 
                 let totalMenu = undefined;
-                // TODO Manage the label with different languages
                 let menuLabel = TotalLabel.CALC;
+                const translation = {
+                    [TotalLabel.AVERAGE]: this.kupManager.language.translate(
+                        KupLanguageCodes.AVERAGE
+                    ),
+                    [TotalLabel.CALC]: this.kupManager.language.translate(
+                        KupLanguageCodes.CALCULATE
+                    ),
+                    [TotalLabel.COUNT]: this.kupManager.language.translate(
+                        KupLanguageCodes.COUNT
+                    ),
+                    [TotalLabel.DISTINCT]: this.kupManager.language.translate(
+                        KupLanguageCodes.DISTINCT
+                    ),
+                    [TotalLabel.MATH]: this.kupManager.language.translate(
+                        KupLanguageCodes.FORMULA
+                    ),
+                    [TotalLabel.MAX]: this.kupManager.language.translate(
+                        KupLanguageCodes.MAXIMUM
+                    ),
+                    [TotalLabel.MIN]: this.kupManager.language.translate(
+                        KupLanguageCodes.MINIMUM
+                    ),
+                    [TotalLabel.SUM]: this.kupManager.language.translate(
+                        KupLanguageCodes.SUM
+                    ),
+                };
                 if (this.totals) {
                     const totalValue = this.totals[column.name];
                     if (totalValue) {
@@ -3759,12 +3784,12 @@ export class KupDataTable {
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
                     let listData: ComponentListElement[] = [
                         {
-                            text: TotalLabel.COUNT,
+                            text: translation[TotalLabel.COUNT],
                             value: TotalMode.COUNT,
                             selected: false,
                         },
                         {
-                            text: TotalLabel.DISTINCT,
+                            text: translation[TotalLabel.DISTINCT],
                             value: TotalMode.DISTINCT,
                             selected: false,
                         },
@@ -3778,22 +3803,22 @@ export class KupDataTable {
                                 isSeparator: true,
                             },
                             {
-                                text: TotalLabel.SUM,
+                                text: translation[TotalLabel.SUM],
                                 value: TotalMode.SUM,
                                 selected: false,
                             },
                             {
-                                text: TotalLabel.AVERAGE,
+                                text: translation[TotalLabel.AVERAGE],
                                 value: TotalMode.AVERAGE,
                                 selected: false,
                             },
                             {
-                                text: TotalLabel.MIN,
+                                text: translation[TotalLabel.MIN],
                                 value: TotalMode.MIN,
                                 selected: false,
                             },
                             {
-                                text: TotalLabel.MAX,
+                                text: translation[TotalLabel.MAX],
                                 value: TotalMode.MAX,
                                 selected: false,
                             }
@@ -3806,12 +3831,12 @@ export class KupDataTable {
                                 isSeparator: true,
                             },
                             {
-                                text: TotalLabel.MIN,
+                                text: translation[TotalLabel.MIN],
                                 value: TotalMode.MIN,
                                 selected: false,
                             },
                             {
-                                text: TotalLabel.MAX,
+                                text: translation[TotalLabel.MAX],
                                 value: TotalMode.MAX,
                                 selected: false,
                             }
@@ -3831,7 +3856,7 @@ export class KupDataTable {
                                 isSeparator: true,
                             },
                             {
-                                text: TotalLabel.CANC,
+                                text: translation[TotalLabel.CANC],
                                 value: TotalLabel.CANC,
                                 selected: false,
                             }
@@ -3906,7 +3931,10 @@ export class KupDataTable {
                         }
                     >
                         {totalMenu}
-                        <span class="totals-value" title={menuLabel}>
+                        <span
+                            class="totals-value"
+                            title={translation[menuLabel]}
+                        >
                             {value}
                         </span>
                     </td>

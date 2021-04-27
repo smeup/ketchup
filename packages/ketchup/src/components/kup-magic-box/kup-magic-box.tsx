@@ -31,6 +31,7 @@ import {
 } from './kup-magic-box-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
+import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -47,6 +48,11 @@ export class KupMagicBox {
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
 
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
     /**
      * The component-specific CSS set by the current Ketch.UP theme.
      * @default ""
@@ -91,6 +97,14 @@ export class KupMagicBox {
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
     /**
      * This method is invoked by the theme manager.
      * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
@@ -153,7 +167,9 @@ export class KupMagicBox {
                 'kup-text-field': {
                     emitSubmitEventOnEnter: false,
                     inputType: 'text',
-                    label: 'View as',
+                    label: this.kupManager.language.translate(
+                        KupLanguageCodes.VIEW_AS
+                    ),
                 },
             },
             id: 'comp-switcher',
@@ -179,7 +195,11 @@ export class KupMagicBox {
             content.push(
                 <div class="empty">
                     <FImage sizeY="100px" resource="move_to_inbox" />
-                    <div class="empty-text">Drop your data here.</div>
+                    <div class="empty-text">
+                        {this.kupManager.language.translate(
+                            KupLanguageCodes.DROP_YOUR_DATA
+                        )}
+                    </div>
                 </div>
             );
         } else {
@@ -303,6 +323,7 @@ export class KupMagicBox {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
     }
 
@@ -389,6 +410,7 @@ export class KupMagicBox {
 
     componentDidUnload() {
         this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
     }
 }

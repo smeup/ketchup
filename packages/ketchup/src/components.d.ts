@@ -1520,6 +1520,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
           * @param customStyleTheme - Contains current theme's component-specific CSS.
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1550,6 +1554,16 @@ export namespace Components {
           * Defines how the bar will be displayed.
          */
         "mode": ComponentNavBarMode;
+        /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupPaginator {
@@ -1557,6 +1571,10 @@ export namespace Components {
         "max": number;
         "mode": PaginatorMode;
         "perPage": number;
+        /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
         "selectedPerPage": number;
     }
     interface KupProgressBar {
@@ -2020,6 +2038,10 @@ export namespace Components {
          */
         "owner": string;
         /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Container element for tooltip
          */
         "relatedObject": TooltipRelatedObject;
@@ -2083,6 +2105,10 @@ export namespace Components {
           * The value of the global filter.
          */
         "globalFilterValue": string;
+        /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
         /**
           * Sets the possibility to remove the selected column.
          */

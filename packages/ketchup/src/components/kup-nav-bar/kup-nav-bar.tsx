@@ -25,6 +25,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -33,6 +34,11 @@ import { ComponentListElement } from '../kup-list/kup-list-declarations';
 })
 export class KupNavBar {
     @Element() rootElement: HTMLElement;
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -106,6 +112,21 @@ export class KupNavBar {
 
     //---- Methods ----
 
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
@@ -277,6 +298,7 @@ export class KupNavBar {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
         this.fetchThemeColors();
     }
@@ -348,7 +370,9 @@ export class KupNavBar {
                 <kup-button
                     customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
                     icon="more_vert"
-                    title="Options"
+                    title={this.kupManager.language.translate(
+                        KupLanguageCodes.OPTIONS
+                    )}
                     onKupButtonClick={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
                     ref={(el) => (this.optionsButtonEl = el as any)}
@@ -384,7 +408,9 @@ export class KupNavBar {
                 <kup-button
                     customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
                     icon="menu"
-                    title="Open navigation menu"
+                    title={this.kupManager.language.translate(
+                        KupLanguageCodes.OPEN_NAVIGATION_MENU
+                    )}
                     disabled={menuButtons.length == 0}
                     onKupButtonClick={() => this.openList(this.menuListEl)}
                     onClick={(e) => e.stopPropagation()}
@@ -427,6 +453,7 @@ export class KupNavBar {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
