@@ -70,7 +70,11 @@ import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageSearch,
+    KupLanguageTotals,
+} from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -1618,7 +1622,7 @@ export class KupTree {
             ) {
                 const svgLabel =
                     this.kupManager.language.translate(
-                        KupLanguageCodes.REMOVE_FILTERS
+                        KupLanguageGeneric.REMOVE_FILTERS
                     ) + `: '${this.getFilterValueForTooltip(column)}'`;
                 /**
                  * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
@@ -1698,11 +1702,11 @@ export class KupTree {
             <span
                 title={
                     this.kupManager.language.translate(
-                        KupLanguageCodes.EXPAND
+                        KupLanguageGeneric.EXPAND
                     ) +
                     '/' +
                     this.kupManager.language.translate(
-                        KupLanguageCodes.COLLAPSE
+                        KupLanguageGeneric.COLLAPSE
                     ) +
                     ' (CTRL + Click)'
                 }
@@ -1885,28 +1889,28 @@ export class KupTree {
             let menuLabel = TotalLabel.CALC;
             const translation = {
                 [TotalLabel.AVERAGE]: this.kupManager.language.translate(
-                    KupLanguageCodes.AVERAGE
+                    KupLanguageTotals.AVERAGE
                 ),
                 [TotalLabel.CALC]: this.kupManager.language.translate(
-                    KupLanguageCodes.CALCULATE
+                    KupLanguageTotals.CALCULATE
                 ),
                 [TotalLabel.COUNT]: this.kupManager.language.translate(
-                    KupLanguageCodes.COUNT
+                    KupLanguageTotals.COUNT
                 ),
                 [TotalLabel.DISTINCT]: this.kupManager.language.translate(
-                    KupLanguageCodes.DISTINCT
+                    KupLanguageTotals.DISTINCT
                 ),
                 [TotalLabel.MATH]: this.kupManager.language.translate(
-                    KupLanguageCodes.FORMULA
+                    KupLanguageTotals.FORMULA
                 ),
                 [TotalLabel.MAX]: this.kupManager.language.translate(
-                    KupLanguageCodes.MAXIMUM
+                    KupLanguageTotals.MAXIMUM
                 ),
                 [TotalLabel.MIN]: this.kupManager.language.translate(
-                    KupLanguageCodes.MINIMUM
+                    KupLanguageTotals.MINIMUM
                 ),
                 [TotalLabel.SUM]: this.kupManager.language.translate(
-                    KupLanguageCodes.SUM
+                    KupLanguageTotals.SUM
                 ),
             };
             if (this.totals) {
@@ -2163,11 +2167,9 @@ export class KupTree {
                     <kup-text-field
                         fullWidth={true}
                         isClearable={true}
-                        label={
-                            this.kupManager.language.translate(
-                                KupLanguageCodes.SEARCH
-                            ) + '...'
-                        }
+                        label={this.kupManager.language.translate(
+                            KupLanguageSearch.SEARCH
+                        )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
                         onKupTextFieldInput={(event) => {

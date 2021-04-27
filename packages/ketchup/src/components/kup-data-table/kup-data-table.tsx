@@ -146,7 +146,16 @@ import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import {
+    KupLanguageDensity,
+    KupLanguageFontsize,
+    KupLanguageGeneric,
+    KupLanguageGrid,
+    KupLanguageKey,
+    KupLanguageRow,
+    KupLanguageSearch,
+    KupLanguageTotals,
+} from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1699,7 +1708,7 @@ export class KupDataTable {
         this.kupManager.toolbar.register(this.rootElement);
         if (!this.emptyDataLabel) {
             this.emptyDataLabel = this.kupManager.language.translate(
-                KupLanguageCodes.EMPTY_DATA
+                KupLanguageGeneric.EMPTY_DATA
             );
         }
         this.columnMenuInstance = new ColumnMenu();
@@ -1940,10 +1949,10 @@ export class KupDataTable {
                     },
                     title: editable
                         ? this.kupManager.language.translate(
-                              KupLanguageCodes.RECORD_KEY_EDITABLE
+                              KupLanguageRow.EDITABLE_KEY
                           )
                         : this.kupManager.language.translate(
-                              KupLanguageCodes.RECORD_KEY
+                              KupLanguageRow.KEY
                           ),
                     value: editable ? 'edit-key' : 'key-variant',
                 };
@@ -1959,7 +1968,7 @@ export class KupDataTable {
                         resource: 'pencil',
                     },
                     title: this.kupManager.language.translate(
-                        KupLanguageCodes.EDITABLE_FIELD
+                        KupLanguageGeneric.EDITABLE_FIELD
                     ),
                     value: 'pencil',
                 };
@@ -3188,11 +3197,11 @@ export class KupDataTable {
                         onKupCheckboxChange={(e) => this.onSelectAll(e)}
                         title={
                             this.kupManager.language.translate(
-                                KupLanguageCodes.SELECTED_ROWS
+                                KupLanguageRow.SELECTED
                             ) +
                             `: ${this.selectedRows.length},` +
                             this.kupManager.language.translate(
-                                KupLanguageCodes.RENDERED_ROWS
+                                KupLanguageRow.RENDERED
                             ) +
                             `: ${this.renderedRows.length}`
                         }
@@ -3281,7 +3290,7 @@ export class KupDataTable {
                 ) {
                     const svgLabel =
                         this.kupManager.language.translate(
-                            KupLanguageCodes.REMOVE_FILTERS
+                            KupLanguageGeneric.REMOVE_FILTERS
                         ) + `: '${this.getFilterValueForTooltip(column)}'`;
                     /**
                      * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
@@ -3517,11 +3526,11 @@ export class KupDataTable {
                         onKupCheckboxChange={(e) => this.onSelectAll(e)}
                         title={
                             this.kupManager.language.translate(
-                                KupLanguageCodes.SELECTED_ROWS
+                                KupLanguageRow.SELECTED
                             ) +
                             `: ${this.selectedRows.length},` +
                             this.kupManager.language.translate(
-                                KupLanguageCodes.RENDERED_ROWS
+                                KupLanguageRow.RENDERED
                             ) +
                             `: ${this.renderedRows.length}`
                         }
@@ -3725,28 +3734,28 @@ export class KupDataTable {
                 let menuLabel = TotalLabel.CALC;
                 const translation = {
                     [TotalLabel.AVERAGE]: this.kupManager.language.translate(
-                        KupLanguageCodes.AVERAGE
+                        KupLanguageTotals.AVERAGE
                     ),
                     [TotalLabel.CALC]: this.kupManager.language.translate(
-                        KupLanguageCodes.CALCULATE
+                        KupLanguageTotals.CALCULATE
                     ),
                     [TotalLabel.COUNT]: this.kupManager.language.translate(
-                        KupLanguageCodes.COUNT
+                        KupLanguageTotals.COUNT
                     ),
                     [TotalLabel.DISTINCT]: this.kupManager.language.translate(
-                        KupLanguageCodes.DISTINCT
+                        KupLanguageTotals.DISTINCT
                     ),
                     [TotalLabel.MATH]: this.kupManager.language.translate(
-                        KupLanguageCodes.FORMULA
+                        KupLanguageTotals.FORMULA
                     ),
                     [TotalLabel.MAX]: this.kupManager.language.translate(
-                        KupLanguageCodes.MAXIMUM
+                        KupLanguageTotals.MAXIMUM
                     ),
                     [TotalLabel.MIN]: this.kupManager.language.translate(
-                        KupLanguageCodes.MINIMUM
+                        KupLanguageTotals.MINIMUM
                     ),
                     [TotalLabel.SUM]: this.kupManager.language.translate(
-                        KupLanguageCodes.SUM
+                        KupLanguageTotals.SUM
                     ),
                 };
                 if (this.totals) {
@@ -4246,7 +4255,7 @@ export class KupDataTable {
                         },
                         icon: 'chevron-right',
                         title: this.kupManager.language.translate(
-                            KupLanguageCodes.EXPAND
+                            KupLanguageGeneric.EXPAND
                         ),
                         wrapperClass: 'expander',
                     };
@@ -5013,7 +5022,7 @@ export class KupDataTable {
                 styling={FButtonStyling.FLAT}
                 class="load-more-button"
                 label={this.kupManager.language.translate(
-                    KupLanguageCodes.LOAD_MORE
+                    KupLanguageGeneric.LOAD_MORE
                 )}
                 icon="plus"
                 slot={isSlotted ? 'more-results' : null}
@@ -5117,7 +5126,7 @@ export class KupDataTable {
                     class="customize-element"
                     checked={this.editableData}
                     label={this.kupManager.language.translate(
-                        KupLanguageCodes.EDITABLE
+                        KupLanguageGeneric.EDITABLE
                     )}
                     leadingLabel={true}
                     onKupSwitchChange={() =>
@@ -5127,12 +5136,12 @@ export class KupDataTable {
                 <kup-button
                     title={
                         this.kupManager.language.translate(
-                            KupLanguageCodes.TOGGLE
+                            KupLanguageGeneric.TOGGLE
                         ) +
                         ' Magic Box ' +
                         '(' +
                         this.kupManager.language.translate(
-                            KupLanguageCodes.EXPERIMENTAL_FEAT
+                            KupLanguageGeneric.EXPERIMENTAL_FEAT
                         ) +
                         ')'
                     }
@@ -5270,35 +5279,35 @@ export class KupDataTable {
     ): ComponentListElement[] {
         let listItems: ComponentListElement[] = [];
         for (let i = 0; i < codes.length; i++) {
-            let text: KupLanguageCodes = null;
+            let text: KupLanguageKey = null;
             switch (codes[i]) {
                 //This whole customization panel thingy must be purged, for now -- it's ugly
                 case 'big':
-                    text = KupLanguageCodes.BIG;
+                    text = KupLanguageFontsize.BIG;
                     break;
                 case 'Col':
-                    text = KupLanguageCodes.COLUMN;
+                    text = KupLanguageGrid.COLUMN;
                     break;
                 case 'Complete':
-                    text = KupLanguageCodes.COMPLETE;
+                    text = KupLanguageGrid.COMPLETE;
                     break;
                 case 'dense':
-                    text = KupLanguageCodes.DENSE;
+                    text = KupLanguageDensity.DENSE;
                     break;
                 case 'medium':
-                    text = KupLanguageCodes.MEDIUM;
+                    text = KupLanguageDensity.MEDIUM;
                     break;
                 case 'None':
-                    text = KupLanguageCodes.NONE;
+                    text = KupLanguageGrid.NONE;
                     break;
                 case 'small':
-                    text = KupLanguageCodes.SMALL;
+                    text = KupLanguageFontsize.SMALL;
                     break;
                 case 'Row':
-                    text = KupLanguageCodes.ROW;
+                    text = KupLanguageGrid.ROW;
                     break;
                 case 'wide':
-                    text = KupLanguageCodes.WIDE;
+                    text = KupLanguageDensity.WIDE;
                     break;
             }
             listItems[i] = {
@@ -5340,22 +5349,22 @@ export class KupDataTable {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
             label: this.kupManager.language.translate(
-                KupLanguageCodes.FONT_SIZE
+                KupLanguageFontsize.LABEL
             ),
             icon: 'arrow_drop_down',
         };
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
-        let text: KupLanguageCodes = null;
+        let text: KupLanguageFontsize = null;
         switch (this.fontsize) {
             //This whole customization panel thingy must be purged, for now -- it's ugly
             case 'big':
-                text = KupLanguageCodes.BIG;
+                text = KupLanguageFontsize.BIG;
                 break;
             case 'medium':
-                text = KupLanguageCodes.MEDIUM;
+                text = KupLanguageFontsize.MEDIUM;
                 break;
             case 'small':
-                text = KupLanguageCodes.SMALL;
+                text = KupLanguageFontsize.SMALL;
                 break;
         }
         return (
@@ -5410,24 +5419,22 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            label: this.kupManager.language.translate(
-                KupLanguageCodes.ROW_DENSITY
-            ),
+            label: this.kupManager.language.translate(KupLanguageDensity.LABEL),
             icon: 'arrow_drop_down',
         };
 
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
-        let text: KupLanguageCodes = null;
+        let text: KupLanguageDensity = null;
         switch (this.density) {
             //This whole customization panel thingy must be purged, for now -- it's ugly
             case 'dense':
-                text = KupLanguageCodes.DENSE;
+                text = KupLanguageDensity.DENSE;
                 break;
             case 'medium':
-                text = KupLanguageCodes.MEDIUM;
+                text = KupLanguageDensity.MEDIUM;
                 break;
             case 'wide':
-                text = KupLanguageCodes.WIDE;
+                text = KupLanguageDensity.WIDE;
                 break;
         }
         return (
@@ -5472,7 +5479,7 @@ export class KupDataTable {
                 <kup-switch
                     checked={this.transpose}
                     label={this.kupManager.language.translate(
-                        KupLanguageCodes.TRANSPOSE_DATA
+                        KupLanguageGeneric.TRANSPOSE_DATA
                     )}
                     leadingLabel={true}
                     onKupSwitchChange={(e: CustomEvent) => {
@@ -5494,16 +5501,16 @@ export class KupDataTable {
                 <kup-button
                     title={
                         this.kupManager.language.translate(
-                            KupLanguageCodes.TOTALS_TABLE
+                            KupLanguageGeneric.TOTALS_TABLE
                         ) +
                         ' (' +
                         this.kupManager.language.translate(
-                            KupLanguageCodes.EXPERIMENTAL_FEAT
+                            KupLanguageGeneric.EXPERIMENTAL_FEAT
                         ) +
                         ')'
                     }
                     label={this.kupManager.language.translate(
-                        KupLanguageCodes.TOTALS_TABLE
+                        KupLanguageGeneric.TOTALS_TABLE
                     )}
                     icon="exposure"
                     onKupButtonClick={() => this.switchToTotalsMatrix()}
@@ -5524,26 +5531,24 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            label: this.kupManager.language.translate(
-                KupLanguageCodes.GRID_TYPE
-            ),
+            label: this.kupManager.language.translate(KupLanguageGrid.LABEL),
             icon: 'arrow_drop_down',
         };
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
-        let text: KupLanguageCodes = null;
+        let text: KupLanguageGrid = null;
         switch (this.showGrid) {
             //This whole customization panel thingy must be purged, for now -- it's ugly
             case ShowGrid.COL:
-                text = KupLanguageCodes.COLUMN;
+                text = KupLanguageGrid.COLUMN;
                 break;
             case ShowGrid.COMPLETE:
-                text = KupLanguageCodes.COMPLETE;
+                text = KupLanguageGrid.COMPLETE;
                 break;
             case ShowGrid.NONE:
-                text = KupLanguageCodes.NONE;
+                text = KupLanguageGrid.NONE;
                 break;
             case ShowGrid.ROW:
-                text = KupLanguageCodes.ROW;
+                text = KupLanguageGrid.ROW;
                 break;
         }
         return (
@@ -5747,11 +5752,9 @@ export class KupDataTable {
                                     fullWidth={true}
                                     icon="magnify"
                                     isClearable={true}
-                                    label={
-                                        this.kupManager.language.translate(
-                                            KupLanguageCodes.SEARCH
-                                        ) + '...'
-                                    }
+                                    label={this.kupManager.language.translate(
+                                        KupLanguageSearch.SEARCH
+                                    )}
                                     value={this.globalFilterValue}
                                 />
                             </div>

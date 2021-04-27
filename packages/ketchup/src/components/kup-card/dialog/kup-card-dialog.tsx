@@ -8,7 +8,7 @@ import {
     Column,
     TableData,
 } from '../../kup-data-table/kup-data-table-declarations';
-import { KupLanguageCodes } from '../../../utils/kup-language/kup-language-declarations';
+import { KupLanguageRow } from '../../../utils/kup-language/kup-language-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -147,7 +147,7 @@ export function create4(component: KupCard): VNode {
                         id="previous-row"
                         onKupButtonClick={() => prevButton(component)}
                         title={dom.ketchup.language.translate(
-                            KupLanguageCodes.PREV_ROW
+                            KupLanguageRow.PREVIOUS
                         )}
                     />
                     <kup-button
@@ -155,7 +155,7 @@ export function create4(component: KupCard): VNode {
                         id="next-row"
                         onKupButtonClick={() => nextButton(component)}
                         title={dom.ketchup.language.translate(
-                            KupLanguageCodes.NEXT_ROW
+                            KupLanguageRow.NEXT
                         )}
                     />
                 </div>

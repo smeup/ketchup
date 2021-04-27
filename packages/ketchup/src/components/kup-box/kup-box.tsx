@@ -87,7 +87,10 @@ import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageSearch,
+} from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -1495,11 +1498,11 @@ export class KupBox {
                 headerTitle = section.title;
             } else if (sectionExpanded) {
                 headerTitle = this.kupManager.language.translate(
-                    KupLanguageCodes.COLLAPSE
+                    KupLanguageGeneric.COLLAPSE
                 );
             } else {
                 headerTitle = this.kupManager.language.translate(
-                    KupLanguageCodes.EXPAND
+                    KupLanguageGeneric.EXPAND
                 );
             }
 
@@ -1758,7 +1761,7 @@ export class KupBox {
                 jsx: (
                     <p id="empty-data-message">
                         {this.kupManager.language.translate(
-                            KupLanguageCodes.EMPTY_DATA
+                            KupLanguageGeneric.EMPTY_DATA
                         ) + '.'}
                     </p>
                 ),
@@ -1894,7 +1897,7 @@ export class KupBox {
             const items = [{ text: '', value: '' }, ...visibleColumnsItems];
             let textfieldData = {
                 label: this.kupManager.language.translate(
-                    KupLanguageCodes.SORT_BY
+                    KupLanguageGeneric.SORT_BY
                 ),
                 trailingIcon: true,
             };
@@ -1925,11 +1928,9 @@ export class KupBox {
                     <kup-text-field
                         fullWidth={true}
                         isClearable={true}
-                        label={
-                            this.kupManager.language.translate(
-                                KupLanguageCodes.SEARCH
-                            ) + '...'
-                        }
+                        label={this.kupManager.language.translate(
+                            KupLanguageSearch.SEARCH
+                        )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
                         onKupTextFieldInput={(event) => {
@@ -1972,7 +1973,7 @@ export class KupBox {
             boxContent = (
                 <p id="empty-data-message">
                     {this.kupManager.language.translate(
-                        KupLanguageCodes.EMPTY_DATA
+                        KupLanguageGeneric.EMPTY_DATA
                     ) + '.'}
                 </p>
             );

@@ -25,7 +25,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -371,7 +371,7 @@ export class KupNavBar {
                     customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
                     icon="more_vert"
                     title={this.kupManager.language.translate(
-                        KupLanguageCodes.OPTIONS
+                        KupLanguageGeneric.OPTIONS
                     )}
                     onKupButtonClick={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
@@ -409,7 +409,7 @@ export class KupNavBar {
                     customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
                     icon="menu"
                     title={this.kupManager.language.translate(
-                        KupLanguageCodes.OPEN_NAVIGATION_MENU
+                        KupLanguageGeneric.OPEN_NAVIGATION_MENU
                     )}
                     disabled={menuButtons.length == 0}
                     onKupButtonClick={() => this.openList(this.menuListEl)}

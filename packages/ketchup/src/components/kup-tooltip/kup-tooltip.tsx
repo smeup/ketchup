@@ -29,7 +29,7 @@ import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -795,11 +795,11 @@ export class KupTooltip {
     getTooltipForShowOptionsButton(): string {
         if (this.isViewModeTooltip()) {
             return this.kupManager.language.translate(
-                KupLanguageCodes.SHOW_ROW_OPTIONS
+                KupLanguageGeneric.SHOW_ROW_OPTIONS
             );
         } else if (this.isViewModeCellOptions()) {
             return this.kupManager.language.translate(
-                KupLanguageCodes.SHOW_TOOLTIP_INFO
+                KupLanguageGeneric.SHOW_TOOLTIP_INFO
             );
         } else {
             return '???';

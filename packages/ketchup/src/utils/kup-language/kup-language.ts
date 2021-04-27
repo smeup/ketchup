@@ -1,8 +1,11 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import * as languagesJson from './languages.json';
-import { KupLanguageCodes } from './kup-language-declarations';
 import { KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import {
+    KupLanguageDefaults,
+    KupLanguageKey,
+} from './kup-language-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -23,20 +26,32 @@ export class KupLanguage {
         dom.ketchupInit.language &&
         dom.ketchupInit.language.name
             ? dom.ketchupInit.language.name
-            : 'english';
+            : KupLanguageDefaults.EN;
     /**
      * Translates the string to the given language.
      * When translation fails, the key will be displayed in place of the string - this way it will be easier to correct missing string <-> key bounds.
-     * @param {KupLanguageCodes} key - Key of a string to be translated.
+     * @param {KupLanguageKey} key - Key of a string to be translated.
      * @param {string} language - Language to translate the string to. When not provided, KupLanguage current language will be used.
      * @returns {string} Translated string or initial string (when translation failed).
      */
-    translate(key: KupLanguageCodes, language?: string): string {
+    translate(key: KupLanguageKey, language?: string): string {
         const name: string = language ? language : this.name;
         try {
             const translatedString: string = this.list[name][key];
-            return translatedString;
+            if (translatedString) {
+                return translatedString;
+            } else {
+                return invalidKey(key);
+            }
         } catch (error) {
+            return invalidKey(key);
+        }
+        function invalidKey(key: KupLanguageKey) {
+            dom.ketchup.debug.logMessage(
+                'kup-language',
+                'Invalid translation for key (' + key + ')!',
+                KupDebugCategory.WARNING
+            );
             return key;
         }
     }
@@ -45,6 +60,18 @@ export class KupLanguage {
      * @param {string} language - The new language. If not present in this.list, this function will keep the previous language.
      */
     setLanguage(language: string): void {
+        if (language && typeof language === 'string') {
+            language = language.toLowerCase();
+        } else {
+            dom.ketchup.debug.logMessage(
+                'kup-language',
+                "Couldn't set language, invalid string received (" +
+                    language +
+                    ')!',
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
         if (this.list[language]) {
             this.name = language;
         } else {
@@ -53,6 +80,7 @@ export class KupLanguage {
                 'Language not found (' + language + ')!',
                 KupDebugCategory.WARNING
             );
+            return;
         }
         this.managedComponents.forEach(function (comp) {
             if (comp.isConnected) {

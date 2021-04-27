@@ -37,7 +37,13 @@ import {
 import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
 import { Filters } from '../filters/filters';
-import { KupLanguageCodes } from '../kup-language/kup-language-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageColumn,
+    KupLanguageSearch,
+    KupLanguageGrouping,
+    KupLanguageCheckbox,
+} from '../kup-language/kup-language-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -149,10 +155,10 @@ export class ColumnMenu {
                 title:
                     comp.getGroupByName(column.name) != null
                         ? dom.ketchup.language.translate(
-                              KupLanguageCodes.DISABLE_GROUPING
+                              KupLanguageGrouping.DISABLE
                           )
                         : dom.ketchup.language.translate(
-                              KupLanguageCodes.ENABLE_GROUPING
+                              KupLanguageGrouping.ENABLE
                           ),
             });
         }
@@ -164,9 +170,7 @@ export class ColumnMenu {
                 },
                 icon: 'table-column-remove',
                 id: 'remove',
-                title: dom.ketchup.language.translate(
-                    KupLanguageCodes.HIDE_COLUMN
-                ),
+                title: dom.ketchup.language.translate(KupLanguageColumn.HIDE),
             });
         }
         if (comp.enableExtraColumns && canHaveExtraColumns(column.obj)) {
@@ -177,9 +181,7 @@ export class ColumnMenu {
                 },
                 icon: 'table-column-plus-after',
                 id: 'add',
-                title: dom.ketchup.language.translate(
-                    KupLanguageCodes.ADD_COLUMN
-                ),
+                title: dom.ketchup.language.translate(KupLanguageColumn.ADD),
             });
             if (canHaveAutomaticDerivedColumn(column.obj)) {
                 props.push({
@@ -190,7 +192,7 @@ export class ColumnMenu {
                     icon: 'label',
                     id: 'description',
                     title: dom.ketchup.language.translate(
-                        KupLanguageCodes.ADD_CODE_DESCRIPTION_COLUMN
+                        KupLanguageColumn.ADD_DESCRIPTION
                     ),
                 });
             }
@@ -228,7 +230,9 @@ export class ColumnMenu {
                         value: null,
                     },
                     id: 'global-checkbox',
-                    label: dom.ketchup.language.translate(KupLanguageCodes.ALL),
+                    label: dom.ketchup.language.translate(
+                        KupLanguageCheckbox.ALL
+                    ),
                 });
             }
             for (let index = 0; index < columnValues.length; index++) {
@@ -236,11 +240,11 @@ export class ColumnMenu {
                 if (isCheckbox(column.obj)) {
                     if (columnValues[index].value == '1') {
                         label = dom.ketchup.language.translate(
-                            KupLanguageCodes.CHECKED
+                            KupLanguageCheckbox.CHECKED
                         );
                     } else {
                         label = dom.ketchup.language.translate(
-                            KupLanguageCodes.UNCHECKED
+                            KupLanguageCheckbox.UNCHECKED
                         );
                     }
                 }
@@ -294,10 +298,9 @@ export class ColumnMenu {
                     id: 'filter',
                     initialValue: filterInitialValue,
                     isClearable: true,
-                    label:
-                        dom.ketchup.language.translate(
-                            KupLanguageCodes.SEARCH
-                        ) + '...',
+                    label: dom.ketchup.language.translate(
+                        KupLanguageSearch.SEARCH
+                    ),
                     trailingIcon: true,
                 },
             ];
@@ -341,8 +344,7 @@ export class ColumnMenu {
             id: 'filterFrom',
             initialValue: initialValueFrom,
             isClearable: true,
-            label:
-                dom.ketchup.language.translate(KupLanguageCodes.FROM) + '...',
+            label: dom.ketchup.language.translate(KupLanguageSearch.FROM),
             icon: 'magnify',
             trailingIcon: true,
         });
@@ -357,7 +359,7 @@ export class ColumnMenu {
             id: 'filterTo',
             initialValue: initialValueTo,
             isClearable: true,
-            label: dom.ketchup.language.translate(KupLanguageCodes.TO) + '...',
+            label: dom.ketchup.language.translate(KupLanguageSearch.TO),
             icon: 'magnify',
             trailingIcon: true,
         });
@@ -401,9 +403,9 @@ export class ColumnMenu {
                     helperWhenFocused: true,
                     id: 'filterFrom',
                     isClearable: true,
-                    label:
-                        dom.ketchup.language.translate(KupLanguageCodes.FROM) +
-                        '...',
+                    label: dom.ketchup.language.translate(
+                        KupLanguageSearch.FROM
+                    ),
                 },
             },
             initialValue: initialValueFrom,
@@ -421,9 +423,7 @@ export class ColumnMenu {
                     helperWhenFocused: true,
                     id: 'filterTo',
                     isClearable: true,
-                    label:
-                        dom.ketchup.language.translate(KupLanguageCodes.TO) +
-                        '...',
+                    label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
             },
             initialValue: initialValueTo,
@@ -491,9 +491,9 @@ export class ColumnMenu {
                     helperWhenFocused: true,
                     id: 'filterFrom',
                     isClearable: true,
-                    label:
-                        dom.ketchup.language.translate(KupLanguageCodes.FROM) +
-                        '...',
+                    label: dom.ketchup.language.translate(
+                        KupLanguageSearch.FROM
+                    ),
                 },
             },
             initialValue: initialValueFrom,
@@ -511,9 +511,7 @@ export class ColumnMenu {
                     helperWhenFocused: true,
                     id: 'filterTo',
                     isClearable: true,
-                    label:
-                        dom.ketchup.language.translate(KupLanguageCodes.TO) +
-                        '...',
+                    label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
             },
             initialValue: initialValueTo,

@@ -24,7 +24,7 @@ import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -323,7 +323,7 @@ export class KupCard {
                 resource: 'warning',
                 title:
                     this.kupManager.language.translate(
-                        KupLanguageCodes.LAYOUT_NYI
+                        KupLanguageGeneric.LAYOUT_NYI
                     ) + '!',
             };
             return <FImage {...props}></FImage>;

@@ -1,67 +1,146 @@
 /**
- * The english translation, used as key for any other language.
+ * Master type extending all subtypes of keys.
  * Remember to edit "languages.json"
  */
-export enum KupLanguageCodes {
-    ADD_CODE_DESCRIPTION_COLUMN = 'Add code/description column',
-    ADD_COLUMN = 'Add column',
-    ALL = 'All',
-    AVERAGE = 'Average',
-    BIG = 'Big',
-    CALCULATE = 'Calculate',
-    CANCEL = 'Cancel',
-    CHECKED = 'Checked',
-    COLLAPSE = 'Collapse',
-    COLUMN = 'Column',
-    COMPLETE = 'Complete',
-    COUNT = 'Count',
-    DENSE = 'Dense',
-    DISABLE_GROUPING = 'Disable grouping',
-    DISTINCT = 'Distinct',
-    DROP_YOUR_DATA = 'Drop your data here',
-    EDITABLE = 'Editable',
-    EDITABLE_FIELD = 'This field can be edited',
-    EMPTY_DATA = 'Empty data',
-    ENABLE_GROUPING = 'Enable grouping',
-    EXPAND = 'Expand',
-    EXPERIMENTAL_FEAT = 'Experimental feature',
-    FONT_SIZE = 'Font size',
-    FROM = 'From',
-    FORMULA = 'Formula',
-    GRID_TYPE = 'Grid type',
-    HIDE_COLUMN = 'Hide column',
-    INVALID_COLOR = 'Invalid color',
-    LAYOUT_NYI = 'Layout not yet implemented',
-    LOAD_MORE = 'Load more data',
-    MAXIMUM = 'Maximum',
-    MEDIUM = 'Medium',
-    MINIMUM = 'Minimum',
-    NEXT_ROW = 'Next row',
-    NONE = 'None',
-    OPTIONS = 'Options',
-    OPEN_NAVIGATION_MENU = 'Open navigation menu',
-    PAGE = 'Page',
-    PREV_ROW = 'Previous row',
-    ROW = 'Row',
-    ROW_DENSITY = 'Row density',
-    ROWS = 'Rows',
-    RECORD_KEY = 'Record key',
-    RECORD_KEY_EDITABLE = 'Editable ecord key',
-    REMOVE_FILTERS = 'Remove filters',
-    RENDERED_ROWS = 'Rendered rows',
-    SEARCH = 'Search',
-    SELECTED_ROWS = 'Selected rows',
-    SHOW_ROW_OPTIONS = 'Show row options',
-    SHOW_TOOLTIP_INFO = 'Show tooltip info',
-    SMALL = 'Small',
-    SORT_BY = 'Sort by',
-    SUM = 'Sum',
-    TO = 'To',
-    TOGGLE = 'Toggle',
-    TOTAL_ROWS = 'Total rows',
-    TOTALS_TABLE = 'Totals table',
-    TRANSPOSE_DATA = 'Transpose data',
-    UNCHECKED = 'Unchecked',
-    VIEW_AS = 'View as',
-    WIDE = 'Wide',
+export type KupLanguageKey =
+    | KupLanguageCheckbox
+    | KupLanguageColumn
+    | KupLanguageDensity
+    | KupLanguageFontsize
+    | KupLanguageGeneric
+    | KupLanguageGrid
+    | KupLanguageGrouping
+    | KupLanguagePage
+    | KupLanguageRow
+    | KupLanguageSearch
+    | KupLanguageTotals;
+/**
+ * Default languages available.
+ */
+export enum KupLanguageDefaults {
+    CN = 'chinese',
+    EN = 'english',
+    ES = 'spanish',
+    FR = 'french',
+    PL = 'polish',
+    RU = 'russian',
+}
+/**
+ * Checkbox statuses decodes (data table groups).
+ */
+export enum KupLanguageCheckbox {
+    ALL = 'checkboxAll',
+    CHECKED = 'checkboxChecked',
+    INDETERMINATE = 'checkboxIndeterminate',
+    UNCHECKED = 'checkboxUnchecked',
+}
+/**
+ * Column related decodes.
+ */
+export enum KupLanguageColumn {
+    ADD = 'columnAdd',
+    ADD_DESCRIPTION = 'columnAddDescription',
+    HIDE = 'columnHide',
+}
+/**
+ * Density decodes (data table customization settings).
+ */
+export enum KupLanguageDensity {
+    DENSE = 'densityDense',
+    LABEL = 'densityLabel',
+    MEDIUM = 'densityMedium',
+    WIDE = 'densityWide',
+}
+/**
+ * Font size decodes (data table customization settings).
+ */
+export enum KupLanguageFontsize {
+    BIG = 'fontsizeBig',
+    LABEL = 'fontsizeLabel',
+    MEDIUM = 'fontsizeMedium',
+    SMALL = 'fontsizeSmall',
+}
+/**
+ * Generic user interface action/messages.
+ */
+export enum KupLanguageGeneric {
+    COLLAPSE = 'geenericCollapse',
+    DROP_YOUR_DATA = 'genericDropYourData',
+    EDITABLE = 'genericEditable',
+    EDITABLE_FIELD = 'genericEditableField',
+    EMPTY_DATA = 'genericEmptyData',
+    EXPAND = 'genericExpand',
+    EXPERIMENTAL_FEAT = 'genericExperimentalFeat',
+    INVALID_COLOR = 'genericInvalidColor',
+    LAYOUT_NYI = 'genericLayoutNotYetImplemented',
+    LOAD_MORE = 'genericLoadMoreData',
+    OPEN_NAVIGATION_MENU = 'genericOpenNavigationMenu',
+    OPTIONS = 'genericOptions',
+    REMOVE_FILTERS = 'genericRemoveFilters',
+    SHOW_ROW_OPTIONS = 'genericShowRowOptions',
+    SHOW_TOOLTIP_INFO = 'genericShowTooltipInfo',
+    SORT_BY = 'genericSortBy',
+    TOGGLE = 'genericToggle',
+    TOTALS_TABLE = 'genericTotalsTable',
+    TRANSPOSE_DATA = 'genericTransposeData',
+    VIEW_AS = 'genericViewAs',
+}
+/**
+ * Grid decodes (data table customization settings).
+ */
+export enum KupLanguageGrid {
+    COLUMN = 'gridColumn',
+    COMPLETE = 'gridComplete',
+    LABEL = 'gridLabel',
+    NONE = 'gridNone',
+    ROW = 'gridRow',
+}
+/**
+ * Grouping decodes (data table groups).
+ */
+export enum KupLanguageGrouping {
+    DISABLE = 'groupingDisable',
+    ENABLE = 'groupingEnable',
+}
+/**
+ * Page related decodes.
+ */
+export enum KupLanguagePage {
+    PAGE = 'pagePage',
+    TOTAL = 'pageTotal',
+}
+/**
+ * Row related decodes.
+ */
+export enum KupLanguageRow {
+    NEXT = 'rowNext',
+    PREVIOUS = 'rowPrevious',
+    RENDERED = 'rowRendered',
+    KEY = 'rowKey',
+    EDITABLE_KEY = 'rowEditableKey',
+    ROWS = 'rowRows',
+    SELECTED = 'rowSelected',
+    TOTAL = 'rowTotal',
+}
+/**
+ * Search decodes.
+ */
+export enum KupLanguageSearch {
+    FROM = 'searchFrom',
+    SEARCH = 'searchSearch',
+    TO = 'searchTo',
+}
+/**
+ * Footer totals decodes (tree and data table).
+ */
+export enum KupLanguageTotals {
+    AVERAGE = 'totalsAverage',
+    CALCULATE = 'totalsCalculate',
+    CANCEL = 'totalsCancel',
+    COUNT = 'totalsCount',
+    DISTINCT = 'totalsDistinct',
+    FORMULA = 'totalsFormula',
+    MAXIMUM = 'totalsMaximum',
+    MINIMUM = 'totalsMinimum',
+    SUM = 'totalsSum',
 }

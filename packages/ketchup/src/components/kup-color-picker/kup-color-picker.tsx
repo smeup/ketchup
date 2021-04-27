@@ -18,7 +18,7 @@ import { KupTextField } from '../kup-text-field/kup-text-field';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import { KupColorPickerProps } from './kup-color-picker-declarations';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -184,7 +184,7 @@ export class KupColorPicker {
         } else if (!this.value) {
             const message: string =
                 this.kupManager.language.translate(
-                    KupLanguageCodes.INVALID_COLOR
+                    KupLanguageGeneric.INVALID_COLOR
                 ) +
                 ': ' +
                 this.value;

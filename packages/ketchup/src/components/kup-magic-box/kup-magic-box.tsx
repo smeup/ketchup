@@ -31,7 +31,7 @@ import {
 } from './kup-magic-box-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -168,7 +168,7 @@ export class KupMagicBox {
                     emitSubmitEventOnEnter: false,
                     inputType: 'text',
                     label: this.kupManager.language.translate(
-                        KupLanguageCodes.VIEW_AS
+                        KupLanguageGeneric.VIEW_AS
                     ),
                 },
             },
@@ -197,7 +197,7 @@ export class KupMagicBox {
                     <FImage sizeY="100px" resource="move_to_inbox" />
                     <div class="empty-text">
                         {this.kupManager.language.translate(
-                            KupLanguageCodes.DROP_YOUR_DATA
+                            KupLanguageGeneric.DROP_YOUR_DATA
                         )}
                     </div>
                 </div>

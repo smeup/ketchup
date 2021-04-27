@@ -17,7 +17,11 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
-import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguagePage,
+    KupLanguageRow,
+} from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-paginator',
@@ -270,8 +274,10 @@ export class KupPaginator {
         const rowsPerPageItems = this.getRowsPerPageItems();
 
         let textfieldDataPage = {
-            label: this.kupManager.language.translate(KupLanguageCodes.PAGE),
-            helper: `of ${maxNumberOfPage}`,
+            label: this.kupManager.language.translate(KupLanguagePage.PAGE),
+            helper:
+                this.kupManager.language.translate(KupLanguagePage.TOTAL) +
+                `: ${maxNumberOfPage}`,
             helperWhenFocused: true,
         };
         let listDataPage = {
@@ -281,13 +287,12 @@ export class KupPaginator {
 
         let textfieldDataRows = {
             label:
-                this.kupManager.language.translate(KupLanguageCodes.ROWS) +
+                this.kupManager.language.translate(KupLanguageRow.ROWS) +
                 ' / ' +
-                this.kupManager.language.translate(KupLanguageCodes.PAGE),
+                this.kupManager.language.translate(KupLanguagePage.PAGE),
             helper:
-                this.kupManager.language.translate(
-                    KupLanguageCodes.TOTAL_ROWS
-                ) + `: ${this.max}`,
+                this.kupManager.language.translate(KupLanguageRow.TOTAL) +
+                `: ${this.max}`,
             helperWhenFocused: true,
         };
         let listDataRows = {
