@@ -37,6 +37,7 @@ import {
 import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
 import { Filters } from '../filters/filters';
+import { KupLanguageCodes } from '../kup-language/kup-language-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -147,8 +148,12 @@ export class ColumnMenu {
                 id: 'group',
                 title:
                     comp.getGroupByName(column.name) != null
-                        ? 'Disable grouping'
-                        : 'Enable grouping',
+                        ? dom.ketchup.language.translate(
+                              KupLanguageCodes.DISABLE_GROUPING
+                          )
+                        : dom.ketchup.language.translate(
+                              KupLanguageCodes.ENABLE_GROUPING
+                          ),
             });
         }
         if (comp.removableColumns) {
@@ -159,7 +164,9 @@ export class ColumnMenu {
                 },
                 icon: 'table-column-remove',
                 id: 'remove',
-                title: 'Hide column',
+                title: dom.ketchup.language.translate(
+                    KupLanguageCodes.HIDE_COLUMN
+                ),
             });
         }
         if (comp.enableExtraColumns && canHaveExtraColumns(column.obj)) {
@@ -170,7 +177,9 @@ export class ColumnMenu {
                 },
                 icon: 'table-column-plus-after',
                 id: 'add',
-                title: 'Add column',
+                title: dom.ketchup.language.translate(
+                    KupLanguageCodes.ADD_COLUMN
+                ),
             });
             if (canHaveAutomaticDerivedColumn(column.obj)) {
                 props.push({
@@ -180,7 +189,9 @@ export class ColumnMenu {
                     },
                     icon: 'label',
                     id: 'description',
-                    title: 'Add code/description column',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageCodes.ADD_CODE_DESCRIPTION_COLUMN
+                    ),
                 });
             }
         }
@@ -217,16 +228,20 @@ export class ColumnMenu {
                         value: null,
                     },
                     id: 'global-checkbox',
-                    label: '(*All)',
+                    label: dom.ketchup.language.translate(KupLanguageCodes.ALL),
                 });
             }
             for (let index = 0; index < columnValues.length; index++) {
                 let label = getValueForDisplay2(columnValues[index], column);
                 if (isCheckbox(column.obj)) {
                     if (columnValues[index].value == '1') {
-                        label = 'Checked';
+                        label = dom.ketchup.language.translate(
+                            KupLanguageCodes.CHECKED
+                        );
                     } else {
-                        label = 'Unchecked';
+                        label = dom.ketchup.language.translate(
+                            KupLanguageCodes.UNCHECKED
+                        );
                     }
                 }
                 props.push({
@@ -279,7 +294,10 @@ export class ColumnMenu {
                     id: 'filter',
                     initialValue: filterInitialValue,
                     isClearable: true,
-                    label: 'Search...',
+                    label:
+                        dom.ketchup.language.translate(
+                            KupLanguageCodes.SEARCH
+                        ) + '...',
                     trailingIcon: true,
                 },
             ];
@@ -323,7 +341,8 @@ export class ColumnMenu {
             id: 'filterFrom',
             initialValue: initialValueFrom,
             isClearable: true,
-            label: 'Search from...',
+            label:
+                dom.ketchup.language.translate(KupLanguageCodes.FROM) + '...',
             icon: 'magnify',
             trailingIcon: true,
         });
@@ -338,7 +357,7 @@ export class ColumnMenu {
             id: 'filterTo',
             initialValue: initialValueTo,
             isClearable: true,
-            label: 'Search to...',
+            label: dom.ketchup.language.translate(KupLanguageCodes.TO) + '...',
             icon: 'magnify',
             trailingIcon: true,
         });
@@ -382,7 +401,9 @@ export class ColumnMenu {
                     helperWhenFocused: true,
                     id: 'filterFrom',
                     isClearable: true,
-                    label: 'Search from...',
+                    label:
+                        dom.ketchup.language.translate(KupLanguageCodes.FROM) +
+                        '...',
                 },
             },
             initialValue: initialValueFrom,
@@ -400,7 +421,9 @@ export class ColumnMenu {
                     helperWhenFocused: true,
                     id: 'filterTo',
                     isClearable: true,
-                    label: 'Search to...',
+                    label:
+                        dom.ketchup.language.translate(KupLanguageCodes.TO) +
+                        '...',
                 },
             },
             initialValue: initialValueTo,
@@ -468,7 +491,9 @@ export class ColumnMenu {
                     helperWhenFocused: true,
                     id: 'filterFrom',
                     isClearable: true,
-                    label: 'Search from...',
+                    label:
+                        dom.ketchup.language.translate(KupLanguageCodes.FROM) +
+                        '...',
                 },
             },
             initialValue: initialValueFrom,
@@ -486,7 +511,9 @@ export class ColumnMenu {
                     helperWhenFocused: true,
                     id: 'filterTo',
                     isClearable: true,
-                    label: 'Search to...',
+                    label:
+                        dom.ketchup.language.translate(KupLanguageCodes.TO) +
+                        '...',
                 },
             },
             initialValue: initialValueTo,
