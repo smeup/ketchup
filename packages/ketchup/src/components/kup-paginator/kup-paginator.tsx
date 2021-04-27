@@ -5,6 +5,8 @@ import {
     Event,
     EventEmitter,
     h,
+    Method,
+    State,
 } from '@stencil/core';
 
 import { PaginatorMode } from './kup-paginator-declarations';
@@ -15,6 +17,11 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
+import {
+    KupLanguageGeneric,
+    KupLanguagePage,
+    KupLanguageRow,
+} from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-paginator',
@@ -23,6 +30,11 @@ import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 })
 export class KupPaginator {
     @Element() rootElement: HTMLElement;
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
 
     @Prop() currentPage: number = 1;
 
@@ -62,6 +74,15 @@ export class KupPaginator {
         bubbles: true,
     })
     kupRowsPerPageChanged: EventEmitter<{ newRowsPerPage: number }>;
+
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
 
     private isPrevPageDisabled() {
         return this.currentPage == 1;
@@ -222,6 +243,7 @@ export class KupPaginator {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.selectedPerPage = this.perPage;
     }
 
@@ -252,8 +274,10 @@ export class KupPaginator {
         const rowsPerPageItems = this.getRowsPerPageItems();
 
         let textfieldDataPage = {
-            label: 'Page',
-            helper: `of ${maxNumberOfPage}`,
+            label: this.kupManager.language.translate(KupLanguagePage.PAGE),
+            helper:
+                this.kupManager.language.translate(KupLanguagePage.TOTAL) +
+                `: ${maxNumberOfPage}`,
             helperWhenFocused: true,
         };
         let listDataPage = {
@@ -262,8 +286,13 @@ export class KupPaginator {
         };
 
         let textfieldDataRows = {
-            label: 'Rows / page',
-            helper: `Total rows: ${this.max}`,
+            label:
+                this.kupManager.language.translate(KupLanguageRow.ROWS) +
+                ' / ' +
+                this.kupManager.language.translate(KupLanguagePage.PAGE),
+            helper:
+                this.kupManager.language.translate(KupLanguageRow.TOTAL) +
+                `: ${this.max}`,
             helperWhenFocused: true,
         };
         let listDataRows = {
@@ -329,5 +358,9 @@ export class KupPaginator {
         );
 
         return compCreated;
+    }
+
+    componentDidUnload() {
+        this.kupManager.language.unregister(this);
     }
 }

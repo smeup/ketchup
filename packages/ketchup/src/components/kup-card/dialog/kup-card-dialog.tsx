@@ -1,12 +1,16 @@
 import { h, VNode } from '@stencil/core';
 import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
+import type { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList, dialogHeader } from '../kup-card-helper';
 import {
     Column,
     TableData,
 } from '../../kup-data-table/kup-data-table-declarations';
+import { KupLanguageRow } from '../../../utils/kup-language/kup-language-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 /**
  * 1st dialog card layout, used to display information in string format.
  * @param {KupCard}  comp - Card component.
@@ -142,13 +146,17 @@ export function create4(component: KupCard): VNode {
                         {...buttonArray[0]}
                         id="previous-row"
                         onKupButtonClick={() => prevButton(component)}
-                        title="Previous row"
+                        title={dom.ketchup.language.translate(
+                            KupLanguageRow.PREVIOUS
+                        )}
                     />
                     <kup-button
                         {...buttonArray[1]}
                         id="next-row"
                         onKupButtonClick={() => nextButton(component)}
-                        title="Next row"
+                        title={dom.ketchup.language.translate(
+                            KupLanguageRow.NEXT
+                        )}
                     />
                 </div>
             ) : null}

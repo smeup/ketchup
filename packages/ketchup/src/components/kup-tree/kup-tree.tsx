@@ -70,6 +70,11 @@ import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageSearch,
+    KupLanguageTotals,
+} from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -158,6 +163,11 @@ export class KupTree {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
     @State() customStyleTheme: string = undefined;
     @State()
     private openedMenu: string = null;
@@ -466,6 +476,15 @@ export class KupTree {
 
     //---- Methods ----
 
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
+
     @Method()
     async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
@@ -483,7 +502,7 @@ export class KupTree {
                 expandAll: true,
             });
         }
-        this.forceUpdate();
+        this.refresh();
     }
 
     @Method()
@@ -498,7 +517,7 @@ export class KupTree {
                 expandAll: false,
             });
         }
-        this.forceUpdate();
+        this.refresh();
     }
     /**
      * Used to retrieve component's props values.
@@ -592,6 +611,7 @@ export class KupTree {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
 
         this.columnMenuInstance = new ColumnMenu();
@@ -847,28 +867,6 @@ export class KupTree {
         }
     }
 
-    /**
-     * Forces component update with a simple trick.
-     * Should be avoided if possible.
-     * Thinking about a more clean and functional solution.
-     *
-     * A possible idea on where to store the expanded flag could be the following:
-     * 1. generate an unique id for each tree instance and add a common prefix to it (something like 'kupTree${uniqueId}');
-     * 2. store that new string and use it as a key to access the flag for showing if that TreeNode is expanded or not.
-     * However there is a problem with this approach.
-     * When the necessity of recreating the state of the components after browsing another page away will arise,
-     * the fact that each time a new id is generated will make the previously used id invalid and the whole tree will be rendered with its initial state.
-     * The only solution to this is to add a prop which will allow the user of the component to pass an id to be used as
-     * index for storing and retrieving the expanded state of the current node.
-     * Also, when the component will be destroyed, it should emit an event containing the above discussed key to be stored.
-     *
-     * @todo Find a better way to achieve this. And maybe also where to store the expanded flag.
-     * @author Francesco Bonacini f.bonacini@dreamonkey.com
-     */
-    forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
-    }
-
     private onJ4btnClicked(
         treeNodeData: TreeNode,
         treeNodePath: string,
@@ -940,7 +938,7 @@ export class KupTree {
                         treeNodeData[treeExpandedPropName]
                     );
                 }
-                this.forceUpdate();
+                this.refresh();
                 if (treeNodeData[treeExpandedPropName]) {
                     // TreeNode is now expanded -> Fires expanded event
                     this.kupTreeNodeExpand.emit({
@@ -980,7 +978,7 @@ export class KupTree {
                             treeNodeData[treeExpandedPropName] = !treeNodeData[
                                 treeExpandedPropName
                             ];
-                            this.forceUpdate();
+                            this.refresh();
 
                             // TreeNode is now expanded -> Fires expanded event
                             this.kupTreeNodeExpand.emit({
@@ -1622,9 +1620,10 @@ export class KupTree {
                     column
                 )
             ) {
-                const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
-                    column
-                )}'`;
+                const svgLabel =
+                    this.kupManager.language.translate(
+                        KupLanguageGeneric.REMOVE_FILTERS
+                    ) + `: '${this.getFilterValueForTooltip(column)}'`;
                 /**
                  * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
                  * Upon click, the filter gets removed.
@@ -1701,7 +1700,16 @@ export class KupTree {
         }
         let treeExpandIcon = (
             <span
-                title="Expand/collapse children (CTRL + Click) "
+                title={
+                    this.kupManager.language.translate(
+                        KupLanguageGeneric.EXPAND
+                    ) +
+                    '/' +
+                    this.kupManager.language.translate(
+                        KupLanguageGeneric.COLLAPSE
+                    ) +
+                    ' (CTRL + Click)'
+                }
                 class={expandClass}
                 onClick={
                     !treeNodeData.disabled
@@ -1878,8 +1886,33 @@ export class KupTree {
         const nodesCell: HTMLTableDataCellElement = <td></td>;
         const footerCells = this.getVisibleColumns().map((column: Column) => {
             let totalMenu = undefined;
-            // TODO Manage the label with different languages
             let menuLabel = TotalLabel.CALC;
+            const translation = {
+                [TotalLabel.AVERAGE]: this.kupManager.language.translate(
+                    KupLanguageTotals.AVERAGE
+                ),
+                [TotalLabel.CALC]: this.kupManager.language.translate(
+                    KupLanguageTotals.CALCULATE
+                ),
+                [TotalLabel.COUNT]: this.kupManager.language.translate(
+                    KupLanguageTotals.COUNT
+                ),
+                [TotalLabel.DISTINCT]: this.kupManager.language.translate(
+                    KupLanguageTotals.DISTINCT
+                ),
+                [TotalLabel.MATH]: this.kupManager.language.translate(
+                    KupLanguageTotals.FORMULA
+                ),
+                [TotalLabel.MAX]: this.kupManager.language.translate(
+                    KupLanguageTotals.MAXIMUM
+                ),
+                [TotalLabel.MIN]: this.kupManager.language.translate(
+                    KupLanguageTotals.MINIMUM
+                ),
+                [TotalLabel.SUM]: this.kupManager.language.translate(
+                    KupLanguageTotals.SUM
+                ),
+            };
             if (this.totals) {
                 const totalValue = this.totals[column.name];
                 if (totalValue) {
@@ -1915,12 +1948,12 @@ export class KupTree {
             if (this.isOpenedTotalMenuForColumn(column.name)) {
                 let listData: ComponentListElement[] = [
                     {
-                        text: TotalLabel.COUNT,
+                        text: translation[TotalLabel.COUNT],
                         value: TotalMode.COUNT,
                         selected: false,
                     },
                     {
-                        text: TotalLabel.DISTINCT,
+                        text: translation[TotalLabel.DISTINCT],
                         value: TotalMode.DISTINCT,
                         selected: false,
                     },
@@ -1929,22 +1962,22 @@ export class KupTree {
                     // TODO Move these objects in declarations
                     listData.push(
                         {
-                            text: TotalLabel.SUM,
+                            text: translation[TotalLabel.SUM],
                             value: TotalMode.SUM,
                             selected: false,
                         },
                         {
-                            text: TotalLabel.AVERAGE,
+                            text: translation[TotalLabel.AVERAGE],
                             value: TotalMode.AVERAGE,
                             selected: false,
                         },
                         {
-                            text: TotalLabel.MIN,
+                            text: translation[TotalLabel.MIN],
                             value: TotalMode.MIN,
                             selected: false,
                         },
                         {
-                            text: TotalLabel.MAX,
+                            text: translation[TotalLabel.MAX],
                             value: TotalMode.MAX,
                             selected: false,
                         }
@@ -1964,7 +1997,7 @@ export class KupTree {
                             isSeparator: true,
                         },
                         {
-                            text: TotalLabel.CANC,
+                            text: translation[TotalLabel.CANC],
                             value: TotalLabel.CANC,
                             selected: false,
                         }
@@ -2004,7 +2037,7 @@ export class KupTree {
             return (
                 <td data-column={column.name}>
                     {totalMenu}
-                    <span class="totals-value" title={menuLabel}>
+                    <span class="totals-value" title={translation[menuLabel]}>
                         {value}
                     </span>
                 </td>
@@ -2134,7 +2167,9 @@ export class KupTree {
                     <kup-text-field
                         fullWidth={true}
                         isClearable={true}
-                        label="Search..."
+                        label={this.kupManager.language.translate(
+                            KupLanguageSearch.SEARCH
+                        )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
                         onKupTextFieldInput={(event) => {
@@ -2217,6 +2252,7 @@ export class KupTree {
     }
 
     componentDidUnload() {
+        this.kupManager.language.register(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'

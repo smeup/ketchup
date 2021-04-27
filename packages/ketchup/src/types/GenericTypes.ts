@@ -12,8 +12,9 @@ export interface KupComponent extends HTMLElement {
         startTime: number;
     };
     getProps?: (values?: boolean) => Promise<GenericObject>;
-    themeChangeCallback: Function;
+    refresh?: () => Promise<void>;
     rootElement: KupComponent;
+    themeChangeCallback: Function;
 }
 /**
  * Resizable KupComponent.

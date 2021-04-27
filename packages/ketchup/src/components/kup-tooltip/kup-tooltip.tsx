@@ -29,6 +29,7 @@ import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -38,6 +39,11 @@ import { GenericObject } from '../../types/GenericTypes';
 export class KupTooltip {
     @Element() rootElement: HTMLElement;
     @State() visible = false;
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
 
     /**
      * Data for cell options
@@ -273,6 +279,15 @@ export class KupTooltip {
     private waitingServerResponse = false;
 
     // ---- Public methods  ----
+
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
 
     @Method()
     async setTooltipInfo(relatedObject: TooltipRelatedObject) {
@@ -779,9 +794,13 @@ export class KupTooltip {
 
     getTooltipForShowOptionsButton(): string {
         if (this.isViewModeTooltip()) {
-            return 'Show row options';
+            return this.kupManager.language.translate(
+                KupLanguageGeneric.SHOW_ROW_OPTIONS
+            );
         } else if (this.isViewModeCellOptions()) {
-            return 'Show tooltip info';
+            return this.kupManager.language.translate(
+                KupLanguageGeneric.SHOW_TOOLTIP_INFO
+            );
         } else {
             return '???';
         }
@@ -808,6 +827,7 @@ export class KupTooltip {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
     }
 
     componentDidLoad() {
@@ -854,6 +874,7 @@ export class KupTooltip {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );

@@ -79,6 +79,17 @@ Type: `Promise<void>`
 
 
 
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+Useful when slots change.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 

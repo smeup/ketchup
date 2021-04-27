@@ -146,6 +146,16 @@ import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import {
+    KupLanguageDensity,
+    KupLanguageFontsize,
+    KupLanguageGeneric,
+    KupLanguageGrid,
+    KupLanguageKey,
+    KupLanguageRow,
+    KupLanguageSearch,
+    KupLanguageTotals,
+} from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -417,7 +427,7 @@ export class KupDataTable {
     /**
      * Defines the label to show when the table is empty.
      */
-    @Prop() emptyDataLabel: string = 'Empty data';
+    @Prop() emptyDataLabel: string = null;
     /**
      * Enables the extracolumns add buttons.
      */
@@ -1693,8 +1703,14 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
         this.kupManager.toolbar.register(this.rootElement);
+        if (!this.emptyDataLabel) {
+            this.emptyDataLabel = this.kupManager.language.translate(
+                KupLanguageGeneric.EMPTY_DATA
+            );
+        }
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersRowsInstance = new FiltersRows();
@@ -1931,7 +1947,13 @@ export class KupDataTable {
                         color: 'rgba(var(--kup-text-color-rgb), 1)',
                         resource: editable ? 'edit-key' : 'key-variant',
                     },
-                    title: editable ? 'Editable record key.' : 'Record key.',
+                    title: editable
+                        ? this.kupManager.language.translate(
+                              KupLanguageRow.EDITABLE_KEY
+                          )
+                        : this.kupManager.language.translate(
+                              KupLanguageRow.KEY
+                          ),
                     value: editable ? 'edit-key' : 'key-variant',
                 };
             } else if (editable) {
@@ -1945,7 +1967,9 @@ export class KupDataTable {
                         color: 'rgba(var(--kup-text-color-rgb), 1)',
                         resource: 'pencil',
                     },
-                    title: 'This field can be edited.',
+                    title: this.kupManager.language.translate(
+                        KupLanguageGeneric.EDITABLE_FIELD
+                    ),
                     value: 'pencil',
                 };
             } else {
@@ -3171,7 +3195,16 @@ export class KupDataTable {
                 >
                     <kup-checkbox
                         onKupCheckboxChange={(e) => this.onSelectAll(e)}
-                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        title={
+                            this.kupManager.language.translate(
+                                KupLanguageRow.SELECTED
+                            ) +
+                            `: ${this.selectedRows.length},` +
+                            this.kupManager.language.translate(
+                                KupLanguageRow.RENDERED
+                            ) +
+                            `: ${this.renderedRows.length}`
+                        }
                         checked={
                             this.selectedRows.length > 0 &&
                             this.selectedRows.length ===
@@ -3255,9 +3288,10 @@ export class KupDataTable {
                         column
                     )
                 ) {
-                    const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
-                        column
-                    )}'`;
+                    const svgLabel =
+                        this.kupManager.language.translate(
+                            KupLanguageGeneric.REMOVE_FILTERS
+                        ) + `: '${this.getFilterValueForTooltip(column)}'`;
                     /**
                      * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
                      * Upon click, the filter gets removed.
@@ -3490,7 +3524,16 @@ export class KupDataTable {
                 >
                     <kup-checkbox
                         onKupCheckboxChange={(e) => this.onSelectAll(e)}
-                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        title={
+                            this.kupManager.language.translate(
+                                KupLanguageRow.SELECTED
+                            ) +
+                            `: ${this.selectedRows.length},` +
+                            this.kupManager.language.translate(
+                                KupLanguageRow.RENDERED
+                            ) +
+                            `: ${this.renderedRows.length}`
+                        }
                         checked={
                             this.selectedRows.length > 0 &&
                             this.selectedRows.length ===
@@ -3688,8 +3731,33 @@ export class KupDataTable {
                 );
 
                 let totalMenu = undefined;
-                // TODO Manage the label with different languages
                 let menuLabel = TotalLabel.CALC;
+                const translation = {
+                    [TotalLabel.AVERAGE]: this.kupManager.language.translate(
+                        KupLanguageTotals.AVERAGE
+                    ),
+                    [TotalLabel.CALC]: this.kupManager.language.translate(
+                        KupLanguageTotals.CALCULATE
+                    ),
+                    [TotalLabel.COUNT]: this.kupManager.language.translate(
+                        KupLanguageTotals.COUNT
+                    ),
+                    [TotalLabel.DISTINCT]: this.kupManager.language.translate(
+                        KupLanguageTotals.DISTINCT
+                    ),
+                    [TotalLabel.MATH]: this.kupManager.language.translate(
+                        KupLanguageTotals.FORMULA
+                    ),
+                    [TotalLabel.MAX]: this.kupManager.language.translate(
+                        KupLanguageTotals.MAXIMUM
+                    ),
+                    [TotalLabel.MIN]: this.kupManager.language.translate(
+                        KupLanguageTotals.MINIMUM
+                    ),
+                    [TotalLabel.SUM]: this.kupManager.language.translate(
+                        KupLanguageTotals.SUM
+                    ),
+                };
                 if (this.totals) {
                     const totalValue = this.totals[column.name];
                     if (totalValue) {
@@ -3725,12 +3793,12 @@ export class KupDataTable {
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
                     let listData: ComponentListElement[] = [
                         {
-                            text: TotalLabel.COUNT,
+                            text: translation[TotalLabel.COUNT],
                             value: TotalMode.COUNT,
                             selected: false,
                         },
                         {
-                            text: TotalLabel.DISTINCT,
+                            text: translation[TotalLabel.DISTINCT],
                             value: TotalMode.DISTINCT,
                             selected: false,
                         },
@@ -3744,22 +3812,22 @@ export class KupDataTable {
                                 isSeparator: true,
                             },
                             {
-                                text: TotalLabel.SUM,
+                                text: translation[TotalLabel.SUM],
                                 value: TotalMode.SUM,
                                 selected: false,
                             },
                             {
-                                text: TotalLabel.AVERAGE,
+                                text: translation[TotalLabel.AVERAGE],
                                 value: TotalMode.AVERAGE,
                                 selected: false,
                             },
                             {
-                                text: TotalLabel.MIN,
+                                text: translation[TotalLabel.MIN],
                                 value: TotalMode.MIN,
                                 selected: false,
                             },
                             {
-                                text: TotalLabel.MAX,
+                                text: translation[TotalLabel.MAX],
                                 value: TotalMode.MAX,
                                 selected: false,
                             }
@@ -3772,12 +3840,12 @@ export class KupDataTable {
                                 isSeparator: true,
                             },
                             {
-                                text: TotalLabel.MIN,
+                                text: translation[TotalLabel.MIN],
                                 value: TotalMode.MIN,
                                 selected: false,
                             },
                             {
-                                text: TotalLabel.MAX,
+                                text: translation[TotalLabel.MAX],
                                 value: TotalMode.MAX,
                                 selected: false,
                             }
@@ -3797,7 +3865,7 @@ export class KupDataTable {
                                 isSeparator: true,
                             },
                             {
-                                text: TotalLabel.CANC,
+                                text: translation[TotalLabel.CANC],
                                 value: TotalLabel.CANC,
                                 selected: false,
                             }
@@ -3872,7 +3940,10 @@ export class KupDataTable {
                         }
                     >
                         {totalMenu}
-                        <span class="totals-value" title={menuLabel}>
+                        <span
+                            class="totals-value"
+                            title={translation[menuLabel]}
+                        >
                             {value}
                         </span>
                     </td>
@@ -4183,7 +4254,9 @@ export class KupDataTable {
                             'data-row': row,
                         },
                         icon: 'chevron-right',
-                        title: 'Expand items',
+                        title: this.kupManager.language.translate(
+                            KupLanguageGeneric.EXPAND
+                        ),
                         wrapperClass: 'expander',
                     };
                     rowActionExpander = <FButton {...props} />;
@@ -4948,7 +5021,9 @@ export class KupDataTable {
             <kup-button
                 styling={FButtonStyling.FLAT}
                 class="load-more-button"
-                label="Show more data"
+                label={this.kupManager.language.translate(
+                    KupLanguageGeneric.LOAD_MORE
+                )}
                 icon="plus"
                 slot={isSlotted ? 'more-results' : null}
                 onKupButtonClick={() => {
@@ -5041,7 +5116,9 @@ export class KupDataTable {
                 <kup-switch
                     class="customize-element"
                     checked={this.dragEnabled}
-                    label="Drag and drop"
+                    label={this.kupManager.language.translate(
+                        KupLanguageGeneric.DRAG_AND_DROP
+                    )}
                     leadingLabel={true}
                     onKupSwitchChange={() =>
                         (this.dragEnabled = !this.dragEnabled)
@@ -5050,14 +5127,26 @@ export class KupDataTable {
                 <kup-switch
                     class="customize-element"
                     checked={this.editableData}
-                    label="Editable"
+                    label={this.kupManager.language.translate(
+                        KupLanguageGeneric.EDITABLE
+                    )}
                     leadingLabel={true}
                     onKupSwitchChange={() =>
                         (this.editableData = !this.editableData)
                     }
                 ></kup-switch>
                 <kup-button
-                    title="Toggle Magic Box (experimental feature)"
+                    title={
+                        this.kupManager.language.translate(
+                            KupLanguageGeneric.TOGGLE
+                        ) +
+                        ' Magic Box ' +
+                        '(' +
+                        this.kupManager.language.translate(
+                            KupLanguageGeneric.EXPERIMENTAL_FEAT
+                        ) +
+                        ')'
+                    }
                     icon="auto-fix"
                     onKupButtonClick={() => this.kupManager.toggleMagicBox()}
                 />
@@ -5187,14 +5276,44 @@ export class KupDataTable {
 
     private createListData(
         codes: Array<string>,
-        decodes: Array<string>,
         icons: Array<string>,
         selectedCode: string
     ): ComponentListElement[] {
         let listItems: ComponentListElement[] = [];
         for (let i = 0; i < codes.length; i++) {
+            let text: KupLanguageKey = null;
+            switch (codes[i]) {
+                //This whole customization panel thingy must be purged, for now -- it's ugly
+                case 'big':
+                    text = KupLanguageFontsize.BIG;
+                    break;
+                case 'Col':
+                    text = KupLanguageGrid.COLUMN;
+                    break;
+                case 'Complete':
+                    text = KupLanguageGrid.COMPLETE;
+                    break;
+                case 'dense':
+                    text = KupLanguageDensity.DENSE;
+                    break;
+                case 'medium':
+                    text = KupLanguageDensity.MEDIUM;
+                    break;
+                case 'None':
+                    text = KupLanguageGrid.NONE;
+                    break;
+                case 'small':
+                    text = KupLanguageFontsize.SMALL;
+                    break;
+                case 'Row':
+                    text = KupLanguageGrid.ROW;
+                    break;
+                case 'wide':
+                    text = KupLanguageDensity.WIDE;
+                    break;
+            }
             listItems[i] = {
-                text: decodes[i],
+                text: this.kupManager.language.translate(text),
                 value: codes[i],
                 selected: selectedCode == codes[i],
                 icon: icons[i],
@@ -5210,13 +5329,6 @@ export class KupDataTable {
         'format-color-text',
         'format-font-size-increase',
     ];
-    private getFontSizeDecodeFromCode(code: string): string {
-        return this.transcodeItem(
-            code,
-            this.FONTSIZE_CODES,
-            this.FONTSIZE_DECODES
-        );
-    }
 
     private getFontSizeCodeFromDecode(decode: string): string {
         return this.transcodeItem(
@@ -5229,7 +5341,6 @@ export class KupDataTable {
     private renderFontSizePanel() {
         let listItems: ComponentListElement[] = this.createListData(
             this.FONTSIZE_CODES,
-            this.FONTSIZE_DECODES,
             this.FONTSIZE_ICONS,
             this.fontsize
         );
@@ -5239,16 +5350,31 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            label: 'Font size',
+            label: this.kupManager.language.translate(
+                KupLanguageFontsize.LABEL
+            ),
             icon: 'arrow_drop_down',
         };
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        let text: KupLanguageFontsize = null;
+        switch (this.fontsize) {
+            //This whole customization panel thingy must be purged, for now -- it's ugly
+            case 'big':
+                text = KupLanguageFontsize.BIG;
+                break;
+            case 'medium':
+                text = KupLanguageFontsize.MEDIUM;
+                break;
+            case 'small':
+                text = KupLanguageFontsize.SMALL;
+                break;
+        }
         return (
             <div class="customize-element fontsize-panel">
                 <kup-combobox
                     isSelect={true}
                     data={data}
-                    initialValue={this.getFontSizeDecodeFromCode(this.fontsize)}
+                    initialValue={this.kupManager.language.translate(text)}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.fontsize = this.getFontSizeCodeFromDecode(
@@ -5286,7 +5412,6 @@ export class KupDataTable {
     private renderDensityPanel() {
         let listItems: ComponentListElement[] = this.createListData(
             this.DENSITY_CODES,
-            this.DENSITY_DECODES,
             this.DENSITY_ICONS,
             this.density
         );
@@ -5296,16 +5421,29 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            label: 'Row density',
+            label: this.kupManager.language.translate(KupLanguageDensity.LABEL),
             icon: 'arrow_drop_down',
         };
 
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        let text: KupLanguageDensity = null;
+        switch (this.density) {
+            //This whole customization panel thingy must be purged, for now -- it's ugly
+            case 'dense':
+                text = KupLanguageDensity.DENSE;
+                break;
+            case 'medium':
+                text = KupLanguageDensity.MEDIUM;
+                break;
+            case 'wide':
+                text = KupLanguageDensity.WIDE;
+                break;
+        }
         return (
             <div class="customize-element density-panel">
                 <kup-combobox
                     isSelect={true}
-                    initialValue={this.getDensityDecodeFromCode(this.density)}
+                    initialValue={this.kupManager.language.translate(text)}
                     selectMode={ItemsDisplayMode.DESCRIPTION}
                     data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
@@ -5342,7 +5480,9 @@ export class KupDataTable {
             <div class="customize-element grid-panel">
                 <kup-switch
                     checked={this.transpose}
-                    label="Transposed data"
+                    label={this.kupManager.language.translate(
+                        KupLanguageGeneric.TRANSPOSE_DATA
+                    )}
                     leadingLabel={true}
                     onKupSwitchChange={(e: CustomEvent) => {
                         e.stopPropagation();
@@ -5361,8 +5501,19 @@ export class KupDataTable {
         return (
             <div class="customize-element grid-panel">
                 <kup-button
-                    title="Totals Table (experimental feature)"
-                    label="Totals Table"
+                    title={
+                        this.kupManager.language.translate(
+                            KupLanguageGeneric.TOTALS_TABLE
+                        ) +
+                        ' (' +
+                        this.kupManager.language.translate(
+                            KupLanguageGeneric.EXPERIMENTAL_FEAT
+                        ) +
+                        ')'
+                    }
+                    label={this.kupManager.language.translate(
+                        KupLanguageGeneric.TOTALS_TABLE
+                    )}
                     icon="exposure"
                     onKupButtonClick={() => this.switchToTotalsMatrix()}
                 />
@@ -5373,7 +5524,6 @@ export class KupDataTable {
     private renderGridPanel() {
         let listItems: ComponentListElement[] = this.createListData(
             this.GRID_CODES,
-            this.GRID_DECODES,
             this.GRID_ICONS,
             this.showGrid
         );
@@ -5383,15 +5533,31 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            label: 'Grid type',
+            label: this.kupManager.language.translate(KupLanguageGrid.LABEL),
             icon: 'arrow_drop_down',
         };
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        let text: KupLanguageGrid = null;
+        switch (this.showGrid) {
+            //This whole customization panel thingy must be purged, for now -- it's ugly
+            case ShowGrid.COL:
+                text = KupLanguageGrid.COLUMN;
+                break;
+            case ShowGrid.COMPLETE:
+                text = KupLanguageGrid.COMPLETE;
+                break;
+            case ShowGrid.NONE:
+                text = KupLanguageGrid.NONE;
+                break;
+            case ShowGrid.ROW:
+                text = KupLanguageGrid.ROW;
+                break;
+        }
         return (
             <div class="customize-element grid-panel">
                 <kup-combobox
                     isSelect={true}
-                    initialValue={this.getFontSizeDecodeFromCode(this.showGrid)}
+                    initialValue={this.kupManager.language.translate(text)}
                     data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
@@ -5588,7 +5754,9 @@ export class KupDataTable {
                                     fullWidth={true}
                                     icon="magnify"
                                     isClearable={true}
-                                    label="Search..."
+                                    label={this.kupManager.language.translate(
+                                        KupLanguageSearch.SEARCH
+                                    )}
                                     value={this.globalFilterValue}
                                 />
                             </div>
@@ -5690,6 +5858,7 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'

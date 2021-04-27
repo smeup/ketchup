@@ -24,6 +24,7 @@ import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -320,7 +321,10 @@ export class KupCard {
             );
             let props = {
                 resource: 'warning',
-                title: 'Layout not yet implemented!',
+                title:
+                    this.kupManager.language.translate(
+                        KupLanguageGeneric.LAYOUT_NYI
+                    ) + '!',
             };
             return <FImage {...props}></FImage>;
         }
@@ -467,6 +471,7 @@ export class KupCard {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
         this.registerListeners();
     }
@@ -524,6 +529,7 @@ export class KupCard {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
         this.kupManager.resize.unobserve(this.rootElement);

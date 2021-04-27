@@ -18,6 +18,7 @@ import { KupTextField } from '../kup-text-field/kup-text-field';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import { KupColorPickerProps } from './kup-color-picker-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -26,6 +27,11 @@ import { KupColorPickerProps } from './kup-color-picker-declarations';
 })
 export class KupColorPicker {
     @Element() rootElement: HTMLElement;
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
     @State() customStyleTheme: string = undefined;
     @State() value: string = undefined;
 
@@ -125,6 +131,14 @@ export class KupColorPicker {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
 
     private onKupInput(e: CustomEvent) {
         this.value = e.detail.value;
@@ -168,10 +182,15 @@ export class KupColorPicker {
             initialValue = this.value;
             textfieldData['icon'] = '';
         } else if (!this.value) {
-            let message = 'Invalid color: ' + this.value;
+            const message: string =
+                this.kupManager.language.translate(
+                    KupLanguageGeneric.INVALID_COLOR
+                ) +
+                ': ' +
+                this.value;
             initialValue = message;
             textfieldData['icon'] = 'warning';
-            textfieldData['title'] = 'Invalid color: ' + this.value;
+            textfieldData['title'] = message;
         } else {
             initialValue = this.value;
             if (textfieldData['icon'] === 'brightness-1') {
@@ -198,6 +217,7 @@ export class KupColorPicker {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
         this.value = this.initialValue;
         this.setHexValue();
@@ -312,6 +332,7 @@ export class KupColorPicker {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
