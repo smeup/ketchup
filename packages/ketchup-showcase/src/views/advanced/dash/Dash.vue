@@ -40,7 +40,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-dash',
       headtitle: 'Dash',
-      titles: ['Basic usage', 'Properties', 'Layouts', 'Events','Dynamism'],
+      titles: ['Basic usage', 'Properties', 'Layouts', 'Events', 'Dynamism'],
     };
   },
 };

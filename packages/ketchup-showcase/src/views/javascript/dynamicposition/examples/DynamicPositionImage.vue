@@ -28,7 +28,7 @@ export default {
     var el = document.querySelector('kup-chip');
     var anchorEl = document.querySelector('kup-image.anchor-point');
     var triggerEl = document.querySelector('#test-image-button');
-    triggerEl.addEventListener('click', function () {
+    triggerEl.addEventListener('click', function() {
       document.documentElement.ketchup.dynamicPosition.register(
         el,
         anchorEl,
