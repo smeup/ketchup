@@ -2028,14 +2028,19 @@ export class KupDataTable {
             isGroupRow: boolean = false,
             row: Row = null;
         if (isBody) {
-            if (td) {
-                cell = td['data-cell'];
-            }
             if (tr) {
                 if (tr.classList.contains('group')) {
                     isGroupRow = true;
                 }
                 row = tr['data-row'];
+            }
+        }
+        if (isHeader || isBody) {
+            if (td) {
+                cell = td['data-cell'];
+            }
+            if (th) {
+                cell = th['data-cell'];
             }
         }
         if (isHeader || isBody || isFooter) {
@@ -2077,6 +2082,12 @@ export class KupDataTable {
             details: details,
         });
         if (details.area === 'header') {
+            if (e.shiftKey && details.th && details.cell) {
+                console.log('Header tip breakpoint - remove before merging into develop');
+                e.preventDefault();
+                setTooltip(e, null, details.cell, this.tooltip);
+                return;
+            }
             if (details.th && details.column) {
                 if (details.filterRemove) {
                     this.onRemoveFilter(details.column);
@@ -3455,6 +3466,7 @@ export class KupDataTable {
 
                 return (
                     <th
+                        data-cell={column}
                         data-column={column.name}
                         class={columnClass}
                         style={thStyle}
