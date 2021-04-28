@@ -2083,7 +2083,6 @@ export class KupDataTable {
         });
         if (details.area === 'header') {
             if (e.shiftKey && details.th && details.cell) {
-                console.log('Header tip breakpoint - remove before merging into develop');
                 e.preventDefault();
                 setTooltip(e, null, details.cell, this.tooltip);
                 return;
