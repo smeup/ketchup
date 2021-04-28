@@ -1894,6 +1894,9 @@ export class KupTree {
                 [TotalLabel.CALC]: this.kupManager.language.translate(
                     KupLanguageTotals.CALCULATE
                 ),
+                [TotalLabel.CANC]: this.kupManager.language.translate(
+                    KupLanguageTotals.CANCEL
+                ),
                 [TotalLabel.COUNT]: this.kupManager.language.translate(
                     KupLanguageTotals.COUNT
                 ),

@@ -1876,7 +1876,9 @@ export class KupDataTable {
                     showHeader: false,
                 },
             ],
-            text: ['Record details'],
+            text: [this.kupManager.language.translate(
+                KupLanguageRow.DETAIL
+            )],
         };
         const columns: Column[] = cardData.datatable[0].data.columns;
         const rows: Row[] = cardData.datatable[0].data.rows;
@@ -3738,6 +3740,9 @@ export class KupDataTable {
                     ),
                     [TotalLabel.CALC]: this.kupManager.language.translate(
                         KupLanguageTotals.CALCULATE
+                    ),
+                    [TotalLabel.CANC]: this.kupManager.language.translate(
+                        KupLanguageTotals.CANCEL
                     ),
                     [TotalLabel.COUNT]: this.kupManager.language.translate(
                         KupLanguageTotals.COUNT

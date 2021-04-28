@@ -130,11 +130,12 @@ export enum KupLanguagePage {
  * Row related decodes.
  */
 export enum KupLanguageRow {
+    DETAIL = 'rowDetail',
+    EDITABLE_KEY = 'rowEditableKey',
+    KEY = 'rowKey',
     NEXT = 'rowNext',
     PREVIOUS = 'rowPrevious',
     RENDERED = 'rowRendered',
-    KEY = 'rowKey',
-    EDITABLE_KEY = 'rowEditableKey',
     ROWS = 'rowRows',
     SELECTED = 'rowSelected',
     TOTAL = 'rowTotal',
