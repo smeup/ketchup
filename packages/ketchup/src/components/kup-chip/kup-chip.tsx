@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
 import {
@@ -23,7 +22,7 @@ import {
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupChipProps } from './kup-chip-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -36,16 +35,6 @@ export class KupChip {
      * References the root HTML element of the component (<kup-image>).
      */
     @Element() rootElement: HTMLStencilElement;
-
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -237,17 +226,6 @@ export class KupChip {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -348,9 +326,13 @@ export class KupChip {
             return;
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <FChip {...props} />
                 </div>

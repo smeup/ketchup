@@ -35,7 +35,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { identify } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 declare const google: any;
@@ -48,7 +48,6 @@ declare const $: any;
 })
 export class KupChart {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
     @State() themeColors: string[] = undefined;
     @State() themeText: string = undefined;
 
@@ -198,20 +197,6 @@ export class KupChart {
                 this.loadOfflineChart();
             }
         }, 300);
-    }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme =
-            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
-        this.customStyleTheme = customStyleTheme;
-        this.fetchThemeColors();
     }
 
     private loadGoogleChart() {
@@ -630,7 +615,6 @@ export class KupChart {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
         this.identifyRows();
-        this.fetchThemeColors();
     }
 
     componentDidLoad() {
@@ -667,6 +651,7 @@ export class KupChart {
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);
+        this.fetchThemeColors();
     }
 
     componentDidRender() {
@@ -695,10 +680,13 @@ export class KupChart {
             width: this.sizeX,
             minWidth: this.sizeX,
         };
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host style={this.elStyle}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div
                     id="kup-component"
                     ref={(chartContainer) =>

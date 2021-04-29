@@ -9,7 +9,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCTabBar } from '@material/tab-bar';
@@ -21,7 +20,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -31,7 +30,6 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupTabBar {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -107,10 +105,6 @@ export class KupTabBar {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur(i: number, e: Event) {
@@ -263,9 +257,13 @@ export class KupTabBar {
             tabBar.push(tabEl);
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">
                         <div class="mdc-tab-scroller">

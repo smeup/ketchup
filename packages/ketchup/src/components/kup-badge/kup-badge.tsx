@@ -12,7 +12,7 @@ import {
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
 import { FImage } from '../../f-components/f-image/f-image';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
@@ -27,7 +27,6 @@ import { KupBadgeProps } from './kup-badge-declarations';
 })
 export class KupBadge {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -85,10 +84,6 @@ export class KupBadge {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     onKupClick(e: Event) {
         this.kupClick.emit({
@@ -140,10 +135,13 @@ export class KupBadge {
             }
             imageEl = <FImage {...this.imageData}></FImage>;
         }
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}
                     {imageEl}

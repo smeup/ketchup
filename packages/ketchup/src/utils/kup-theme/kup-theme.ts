@@ -1,8 +1,9 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type {
+import {
     KupThemeIcons,
     KupThemeVariables,
+    masterCustomStyle,
 } from './kup-theme-declarations';
 import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
@@ -134,17 +135,14 @@ export class KupTheme {
         return css;
     }
     /**
-     * Sets the customStyle of the theme on existing components.
+     * Refreshed managed components to apply theme customStyles.
      */
     customStyle(): void {
-        const _this: KupTheme = this;
         this.managedComponents.forEach(function (comp) {
             if (comp.isConnected) {
-                comp.themeChangeCallback(
-                    _this.fetchThemeCustomStyle(comp.tagName)
-                );
+                comp.refresh();
             }
-        }, _this);
+        });
     }
     /**
      * This method will just refresh the current theme.
@@ -173,64 +171,40 @@ export class KupTheme {
         }
     }
     /**
-     * Sets the customStyleTheme property on the component, which contains the combination of "MASTER" and component-specific styles of the current theme.
-     * @param {string} component - The component's tagName.
-     * @returns {string} Complete custom CSS of the component.
-     */
-    fetchThemeCustomStyle(component: string): string {
-        const styles: GenericObject = this.list[this.name].customStyles;
-        if (!styles) {
-            return '';
-        }
-        let completeStyle: string = '';
-
-        if (styles['MASTER']) {
-            completeStyle += styles['MASTER'];
-        }
-
-        if (styles[component]) {
-            completeStyle += ' ' + styles[component];
-        }
-
-        return completeStyle + ' ';
-    }
-    /**
      * Registers a KupComponent in KupTheme, in order to be properly handled whenever the theme changes.
-     * @param {any} component - The component calling this function.
+     * @param {any} comp - The component calling this function.
      */
-    register(component: any): void {
-        this.managedComponents.add(component.rootElement);
-        component.customStyleTheme = this.fetchThemeCustomStyle(
-            component.rootElement.tagName
-        );
+    register(comp: any): void {
+        this.managedComponents.add(comp.rootElement);
     }
     /**
      * Unregisters a KupComponent, so it won't be handled when the theme changes.
      *
-     * @param {any} component - The component calling this function.
+     * @param {any} comp - The component calling this function.
      */
-    unregister(component: any): void {
+    unregister(comp: any): void {
         if (this.managedComponents) {
-            this.managedComponents.delete(component.rootElement);
+            this.managedComponents.delete(comp.rootElement);
         }
     }
     /**
-     * Combines the component's customStyle and customStyleTheme properties, returning the result.
-     * @param component - The component calling this function.
+     * Combines theme's and component's customStyles, returning the result.
+     * @param comp - The component calling this function.
      * @returns {string} Combined customStyle.
      */
-    setCustomStyle(component: any): string {
-        if (component.customStyleTheme) {
-            if (component.customStyle) {
-                return component.customStyleTheme + '' + component.customStyle;
-            } else {
-                return component.customStyleTheme;
-            }
-        } else if (component.customStyle) {
-            return component.customStyle;
-        } else {
-            return '';
+    setCustomStyle(comp: KupComponent): string {
+        const styles: GenericObject = this.list[this.name].customStyles;
+        let completeStyle: string = '';
+        if (styles && styles[masterCustomStyle]) {
+            completeStyle += styles[masterCustomStyle];
         }
+        if (styles && styles[comp.tagName]) {
+            completeStyle += ' ' + styles[comp.tagName];
+        }
+        if (comp.customStyle) {
+            completeStyle += ' ' + comp.customStyle;
+        }
+        return completeStyle ? completeStyle : null;
     }
     /**
      * Checks whether on a given color the text should be white or black.

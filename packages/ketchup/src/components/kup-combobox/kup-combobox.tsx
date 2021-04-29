@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -33,7 +33,6 @@ import { KupComboboxProps } from './kup-combobox-declarations';
 })
 export class KupCombobox {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
     @State() displayedValue: string = undefined;
     @State() value: string = '';
 
@@ -184,11 +183,6 @@ export class KupCombobox {
     @Method()
     async getValue(): Promise<string> {
         return this.value;
-    }
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     @Method()
@@ -431,6 +425,10 @@ export class KupCombobox {
             'kup-full-width'
         );
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
@@ -439,7 +437,7 @@ export class KupCombobox {
                 onBlur={() => this.onKupBlur()}
                 style={this.elStyle}
             >
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}

@@ -83,7 +83,7 @@ import {
     isRadio as isRadioObj,
     canHaveAutomaticDerivedColumn,
 } from '../../utils/object-utils';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
@@ -394,7 +394,6 @@ export class KupDataTable {
     //////////////////////////////
 
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1033,17 +1032,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInput>;
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * This method is invoked by KupManager whenever the component changes size.
      */
@@ -5757,9 +5745,13 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         let compCreated = (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class="above-wrapper">
                         {this.globalFilter ? (

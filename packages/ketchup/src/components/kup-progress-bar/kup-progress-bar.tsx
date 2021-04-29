@@ -7,10 +7,9 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -24,7 +23,6 @@ import { KupProgressBarProps } from './kup-progress-bar-declarations';
 })
 export class KupProgressBar {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
@@ -92,10 +90,6 @@ export class KupProgressBar {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     private createIconElement() {
@@ -238,9 +232,13 @@ export class KupProgressBar {
             );
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">{el}</div>
             </Host>
         );

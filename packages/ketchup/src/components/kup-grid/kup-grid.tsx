@@ -10,7 +10,7 @@ import {
     State,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
@@ -25,7 +25,6 @@ import { KupGridProps } from './kup-grid-declarations';
 })
 export class KupGrid {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * The number of columns displayed by the grid, the default behavior is 12.
@@ -73,10 +72,6 @@ export class KupGrid {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     //---- Lifecycle hooks ----
@@ -151,9 +146,13 @@ export class KupGrid {
             el.push(content);
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host style={this.elStyle}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class={componentClass}>
                         <div class={contentClass}>{el}</div>

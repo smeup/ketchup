@@ -18,7 +18,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { KupTextField } from '../kup-text-field/kup-text-field';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupColorPickerProps } from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
@@ -29,7 +29,6 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 })
 export class KupColorPicker {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
     @State() value: string = undefined;
 
     /**
@@ -87,11 +86,6 @@ export class KupColorPicker {
     @Method()
     async getValue(): Promise<string> {
         return this.value;
-    }
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     @Method()
@@ -314,9 +308,13 @@ export class KupColorPicker {
             hostClass['kup-full-width'] = true;
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host class={hostClass}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div
                     id="kup-component"
                     ref={(el) => (this.anchorEl = el as any)}

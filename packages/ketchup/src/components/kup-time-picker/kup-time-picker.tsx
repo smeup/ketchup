@@ -31,7 +31,7 @@ import {
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { KupTimePickerProps } from './kup-time-picker-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -41,7 +41,6 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupTimePicker {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
     @State() value: string = '';
     /**
      * When set to true, the drop down menu will display a clock.
@@ -318,11 +317,6 @@ export class KupTimePicker {
     async setValue(value: string) {
         this.value = value;
         this.setTextFieldInitalValue(this.getTimeForOutput());
-    }
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur(e: UIEvent) {
@@ -962,9 +956,13 @@ export class KupTimePicker {
             hostClass['kup-full-width'] = true;
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host class={hostClass} onBlur={(e) => this.onKupBlur(e)}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     {this.prepTimeTextfield()}
                     {this.prepTimePicker()}

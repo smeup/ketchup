@@ -23,7 +23,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
@@ -33,7 +33,6 @@ import { FImage } from '../../f-components/f-image/f-image';
 })
 export class KupList {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
@@ -234,10 +233,6 @@ export class KupList {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
@@ -646,9 +641,13 @@ export class KupList {
         this.checkboxes = [];
         let index = 0;
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class={wrapperClass}>
                     <ul
                         class={componentClass}

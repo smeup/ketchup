@@ -11,7 +11,7 @@ import {
     State,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -45,11 +45,6 @@ export class KupButton {
      * @default ""
      */
     @State() value: string = '';
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -210,17 +205,6 @@ export class KupButton {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -309,10 +293,13 @@ export class KupButton {
             );
             return;
         }
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <FButton {...props} />
                 </div>

@@ -18,7 +18,7 @@ import {
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupTextFieldProps } from './kup-text-field-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
@@ -42,11 +42,6 @@ export class KupTextField {
      * @default ""
      */
     @State() value: string = '';
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -411,17 +406,6 @@ export class KupTextField {
             );
         }
     }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -527,9 +511,13 @@ export class KupTextField {
             value: this.value,
         };
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <FTextField {...props} />
                 </div>

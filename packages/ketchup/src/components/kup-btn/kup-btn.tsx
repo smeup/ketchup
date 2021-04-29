@@ -1,15 +1,16 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
 } from '@stencil/core';
-import type { GenericObject } from '../../types/GenericTypes';
+import { HTMLStencilElement } from '@stencil/core/internal';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -29,18 +30,9 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupBtn {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-btn>).
      */
-    @Element() rootElement: HTMLElement;
-
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
+    @Element() rootElement: HTMLStencilElement;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -109,17 +101,6 @@ export class KupBtn {
     /*-------------------------------------------------*/
 
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -137,6 +118,13 @@ export class KupBtn {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -356,9 +344,14 @@ export class KupBtn {
         let hostStyle = {
             '--grid-columns': `repeat(${nrOfColumns}, auto)`,
         };
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host style={hostStyle}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class="btn-container">{buttons}</div>
                 </div>

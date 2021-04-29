@@ -20,7 +20,7 @@ import {
     KupNavBarProps,
 } from './kup-nav-bar-declarations';
 import { MDCTopAppBar } from '@material/top-app-bar';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import {
     KupManager,
@@ -36,11 +36,7 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 })
 export class KupNavBar {
     @Element() rootElement: HTMLStencilElement;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
+
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -139,20 +135,6 @@ export class KupNavBar {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme =
-            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
-        this.customStyleTheme = customStyleTheme;
-        this.fetchThemeColors();
     }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {
@@ -301,7 +283,6 @@ export class KupNavBar {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
-        this.fetchThemeColors();
     }
 
     componentDidLoad() {
@@ -310,6 +291,7 @@ export class KupNavBar {
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);
+        this.fetchThemeColors();
     }
 
     componentDidRender() {
@@ -423,9 +405,14 @@ export class KupNavBar {
         let headerClassName =
             'mdc-top-app-bar ' + getClassNameByComponentMode(this.mode);
         let titleStyle = { color: this.textColor };
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class={wrapperClass}>
                     <header class={headerClassName}>
                         <div class="mdc-top-app-bar__row">

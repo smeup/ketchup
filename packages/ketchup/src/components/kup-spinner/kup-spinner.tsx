@@ -6,10 +6,9 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -24,7 +23,6 @@ import { KupSpinnerProps } from './kup-spinner-declarations';
 })
 export class KupSpinner {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * When set to true the spinner is animating.
@@ -93,10 +91,6 @@ export class KupSpinner {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     //---- Lifecycle hooks ----
@@ -236,9 +230,13 @@ export class KupSpinner {
             };
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host style={elStyle}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" style={elStyle}>
                     <div
                         id="loading-wrapper-master"

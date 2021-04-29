@@ -8,12 +8,11 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -27,7 +26,6 @@ import { ComponentRadioElement, KupRadioProps } from './kup-radio-declarations';
 })
 export class KupRadio {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Number of columns. When undefined, radio fields will be displayed inline.
@@ -141,10 +139,6 @@ export class KupRadio {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -277,9 +271,13 @@ export class KupRadio {
             radioList.push(radioEl);
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host style={hostStyle}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class={wrapperClass}>{radioList}</div>
                 </div>

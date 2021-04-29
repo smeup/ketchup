@@ -1,3 +1,10 @@
+/**
+ * Variable used to fetch the MASTER customStyle (used in every component).
+ */
+export const masterCustomStyle = 'MASTER';
+/**
+ * Interface wrapping all the others.
+ */
 export interface KupThemeVariables
     extends KupThemeCSSVariables,
         KupThemeCSSVariablesRGB,

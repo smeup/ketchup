@@ -9,7 +9,7 @@ import {
     State,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -26,7 +26,6 @@ declare const d3: any;
 })
 export class KupGauge {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Sets how much the arc of the gauge should be thick.
@@ -161,10 +160,6 @@ export class KupGauge {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     //---- Utility functions ----
@@ -452,9 +447,14 @@ export class KupGauge {
         }
 
         const width = { width: this.widthComponent };
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class="gauge__container">
                     <svg
                         class="gauge"

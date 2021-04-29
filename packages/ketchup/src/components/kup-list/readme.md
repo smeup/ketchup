@@ -45,9 +45,9 @@ Type: `Promise<GenericObject>`
 
 
 
-### `resetFilter(newFilter: string) => Promise<void>`
+### `refresh() => Promise<void>`
 
-
+This method is used to trigger a new render of the component.
 
 #### Returns
 
@@ -55,7 +55,7 @@ Type: `Promise<void>`
 
 
 
-### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
+### `resetFilter(newFilter: string) => Promise<void>`
 
 
 

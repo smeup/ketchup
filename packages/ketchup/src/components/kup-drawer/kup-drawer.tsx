@@ -12,7 +12,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -26,7 +26,6 @@ import { KupDrawerProps } from './kup-drawer-declarations';
 })
 export class KupDrawer {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -59,11 +58,6 @@ export class KupDrawer {
     @Event() kupDrawerOpen: EventEmitter;
 
     //---- Methods ----
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     @Method()
     async toggle() {
@@ -130,9 +124,13 @@ export class KupDrawer {
     }
 
     render() {
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class="backdrop" onClick={() => this.close()} />
                     <aside>

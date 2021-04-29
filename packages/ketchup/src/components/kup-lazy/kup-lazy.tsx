@@ -9,7 +9,7 @@ import {
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
 import { Method } from '@stencil/core/internal';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -23,7 +23,6 @@ import { KupLazyProps } from './kup-lazy-declarations';
 })
 export class KupLazy {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
     @State() isInViewport: boolean = false;
 
     /**
@@ -76,10 +75,6 @@ export class KupLazy {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     setObserver() {
@@ -259,9 +254,14 @@ export class KupLazy {
             content = resource;
             className += ' kup-to-be-loaded';
         }
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host class={className}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">{content}</div>
             </Host>
         );

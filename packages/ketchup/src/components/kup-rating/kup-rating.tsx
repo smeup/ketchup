@@ -12,7 +12,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -26,7 +26,6 @@ import { KupRatingProps } from './kup-rating-declarations';
 })
 export class KupRating {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
     @State() stars: Array<object> = [];
 
     /**
@@ -86,10 +85,6 @@ export class KupRating {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     onStarClicked(newValue: number) {
@@ -165,9 +160,13 @@ export class KupRating {
     }
 
     render() {
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div>{this.stars}</div>
                 </div>

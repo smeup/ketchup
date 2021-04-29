@@ -78,7 +78,7 @@ import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { deepEqual, identify, stringToNumber } from '../../utils/utils';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FChip } from '../../f-components/f-chip/f-chip';
@@ -187,7 +187,6 @@ export class KupBox {
     //////////////////////////////
 
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Data of the card linked to the box when the latter's layout must be a premade template.
@@ -500,10 +499,6 @@ export class KupBox {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -2016,10 +2011,13 @@ export class KupBox {
                 return KupBoxDragType;
             },
         };
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div
                         class={'box-component'}

@@ -68,7 +68,7 @@ import {
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 import {
@@ -164,12 +164,6 @@ export class KupTree {
     //////////////////////////////
 
     @Element() rootElement: HTMLStencilElement;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
-    @State() customStyleTheme: string = undefined;
     @State()
     private openedMenu: string = null;
     @State() private treeColumnVisible = true;
@@ -530,10 +524,6 @@ export class KupTree {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     setTreeColumnVisibility(value: boolean) {
@@ -2186,9 +2176,14 @@ export class KupTree {
                 </div>
             );
         }
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"

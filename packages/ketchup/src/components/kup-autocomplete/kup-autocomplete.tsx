@@ -23,7 +23,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupAutocompleteProps } from './kup-autocomplete-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
@@ -34,7 +34,6 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupAutocomplete {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
     @State() displayedValue: string = undefined;
     @State() value: string = '';
 
@@ -217,11 +216,6 @@ export class KupAutocomplete {
     @Method()
     async getValue(): Promise<string> {
         return this.value;
-    }
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     @Method()
@@ -501,6 +495,9 @@ export class KupAutocomplete {
         const fullWidth: boolean = this.rootElement.classList.contains(
             'kup-full-width'
         );
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host
@@ -510,7 +507,7 @@ export class KupAutocomplete {
                 onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}
             >
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}

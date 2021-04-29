@@ -23,7 +23,7 @@ import {
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDropdownButtonProps } from './kup-dropdown-button-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
@@ -34,7 +34,6 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 })
 export class KupDropdownButton {
     @Element() rootElement: HTMLStencilElement;
-    @State() customStyleTheme: string = undefined;
     @State() value: string = '';
 
     /**
@@ -142,11 +141,6 @@ export class KupDropdownButton {
     }>;
 
     //---- Methods ----
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     @Method()
     async getValue(): Promise<string> {
@@ -447,9 +441,13 @@ export class KupDropdownButton {
     }
 
     render() {
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host onBlur={() => this.onKupBlur()}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div
                     id="kup-component"
                     ref={(el) => (this.wrapperEl = el as any)}
