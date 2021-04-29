@@ -156,6 +156,7 @@ import {
     KupLanguageSearch,
     KupLanguageTotals,
 } from '../../utils/kup-language/kup-language-declarations';
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1620,37 +1621,26 @@ export class KupDataTable {
             }
             //Row actions: expander
             const expanderRowActions: NodeListOf<Element> = root.querySelectorAll(
-                '[row-action-cell] .f-button--wrapper.expander'
+                '[row-action-cell] .f-image--wrapper.expander'
             );
             for (let index = 0; index < expanderRowActions.length; index++) {
-                const buttonEl: HTMLButtonElement = expanderRowActions[
-                    index
-                ].querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onclick = (e: MouseEvent) =>
-                        this.onRowActionExpanderClick(
-                            e,
-                            expanderRowActions[index]['data-row']
-                        );
-                }
+                (expanderRowActions[index] as HTMLElement).onclick = (
+                    e: MouseEvent
+                ) =>
+                    this.onRowActionExpanderClick(
+                        e,
+                        expanderRowActions[index]['data-row']
+                    );
             }
-
             //Row actions: actions
             const rowActions: NodeListOf<Element> = root.querySelectorAll(
-                '[row-action-cell] .f-button--wrapper.action'
+                '[row-action-cell] .f-image--wrapper.action'
             );
-            if (rowActions) {
-                for (let index = 0; index < rowActions.length; index++) {
-                    const buttonEl: HTMLButtonElement = rowActions[
-                        index
-                    ].querySelector('button');
-                    if (buttonEl) {
-                        buttonEl.onclick = () =>
-                            this.onDefaultRowActionClick(
-                                rowActions[index]['data-action']
-                            );
-                    }
-                }
+            for (let index = 0; index < rowActions.length; index++) {
+                (rowActions[index] as HTMLElement).onclick = () =>
+                    this.onDefaultRowActionClick(
+                        rowActions[index]['data-action']
+                    );
             }
             //Groups chip set
             const groupChip: HTMLElement = root.querySelector(
@@ -1876,9 +1866,7 @@ export class KupDataTable {
                     showHeader: false,
                 },
             ],
-            text: [this.kupManager.language.translate(
-                KupLanguageRow.DETAIL
-            )],
+            text: [this.kupManager.language.translate(KupLanguageRow.DETAIL)],
         };
         const columns: Column[] = cardData.datatable[0].data.columns;
         const rows: Row[] = cardData.datatable[0].data.rows;
@@ -4018,6 +4006,7 @@ export class KupDataTable {
         previousRow?: Row
     ) {
         const visibleColumns = this.getVisibleColumns();
+        let rowActionsCount: number = 0;
 
         if (row.group) {
             // Composes the label the group must display
@@ -4248,6 +4237,7 @@ export class KupDataTable {
                     specialExtraCellsCount - 1
                 );
 
+                rowActionsCount += this.rowActions.length;
                 const defaultRowActions = this.renderActions(
                     this.rowActions,
                     row,
@@ -4257,6 +4247,7 @@ export class KupDataTable {
                 let rowActionExpander = null;
                 let variableActions = null;
                 if (row.actions) {
+                    rowActionsCount += row.actions.length;
                     // adding variable actions
                     variableActions = this.renderActions(
                         row.actions,
@@ -4265,17 +4256,21 @@ export class KupDataTable {
                     );
                 } else {
                     // adding expander
-                    const props: FButtonProps = {
+                    const props: FImageProps = {
+                        color: 'var(--kup-primary-color)',
                         dataSet: {
                             'data-row': row,
                         },
-                        icon: 'chevron-right',
+                        resource: 'chevron-right',
+                        sizeX: '1.5em',
+                        sizeY: '1.5em',
                         title: this.kupManager.language.translate(
                             KupLanguageGeneric.EXPAND
                         ),
                         wrapperClass: 'expander',
                     };
-                    rowActionExpander = <FButton {...props} />;
+                    rowActionsCount++;
+                    rowActionExpander = <FImage {...props} />;
                 }
 
                 rowActionsCell = (
@@ -4521,10 +4516,15 @@ export class KupDataTable {
                 },
             };
 
+            let style: GenericObject = {
+                '--row-actions': rowActionsCount,
+            };
+
             return (
                 <tr
                     data-row={row}
                     class={rowClass}
+                    style={style}
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlersRow, {
                               [KupDataTableRowDragType]: row,
@@ -4546,7 +4546,8 @@ export class KupDataTable {
         type: string
     ): JSX.Element[] {
         return actions.map((action, index) => {
-            const props: FButtonProps = {
+            const props: FImageProps = {
+                color: 'var(--kup-primary-color)',
                 dataSet: {
                     'data-action': {
                         action,
@@ -4555,11 +4556,13 @@ export class KupDataTable {
                         type,
                     },
                 },
-                icon: action.icon,
+                resource: action.icon,
+                sizeX: '1.5em',
+                sizeY: '1.5em',
                 title: action.text,
                 wrapperClass: 'action',
             };
-            return <FButton {...props} />;
+            return <FImage {...props} />;
         });
     }
 
