@@ -1,5 +1,3 @@
-import type { HTMLStencilElement } from '@stencil/core/internal';
-
 /**
  * HTML Attribute attached to dialogs.
  * Referenced by kup-theme.css
@@ -13,7 +11,7 @@ export const kupResizableDialogClass = 'kup-resizable';
 /**
  * Element used as a dialog.
  */
-export interface DialogElement extends HTMLStencilElement {
+export interface DialogElement extends HTMLElement {
     kupDialog: {
         dragHandle?: HTMLElement;
         resizable: boolean;

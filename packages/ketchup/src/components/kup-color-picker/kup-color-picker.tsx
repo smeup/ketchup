@@ -10,7 +10,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import Picker from 'vanilla-picker';
 import {
     KupManager,
@@ -28,7 +28,7 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
     shadow: true,
 })
 export class KupColorPicker {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() value: string = undefined;
 
     /**
@@ -325,7 +325,7 @@ export class KupColorPicker {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(

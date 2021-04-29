@@ -8,7 +8,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -25,7 +25,7 @@ declare const d3: any;
     shadow: true,
 })
 export class KupGauge {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Sets how much the arc of the gauge should be thick.
@@ -492,7 +492,7 @@ export class KupGauge {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

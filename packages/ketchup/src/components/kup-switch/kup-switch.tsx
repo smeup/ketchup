@@ -10,7 +10,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import {
     KupManager,
     kupManagerInstance,
@@ -30,7 +30,7 @@ export class KupSwitch {
     /**
      * References the root HTML element of the component (<kup-image>).
      */
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -274,7 +274,7 @@ export class KupSwitch {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

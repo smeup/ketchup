@@ -11,7 +11,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -25,7 +25,7 @@ import { KupRatingProps } from './kup-rating-declarations';
     shadow: true,
 })
 export class KupRating {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() stars: Array<object> = [];
 
     /**
@@ -174,7 +174,7 @@ export class KupRating {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

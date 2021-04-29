@@ -13,7 +13,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import {
     KupManager,
     kupManagerInstance,
@@ -40,7 +40,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupTimePicker {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
      * When set to true, the drop down menu will display a clock.
@@ -971,7 +971,7 @@ export class KupTimePicker {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'

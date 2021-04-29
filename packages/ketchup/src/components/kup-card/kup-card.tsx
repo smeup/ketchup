@@ -10,7 +10,6 @@ import {
     Prop,
     VNode,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCRipple } from '@material/ripple';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
@@ -36,7 +35,7 @@ export class KupCard {
     /**
      * References the root HTML element of the component (<kup-card>).
      */
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -506,7 +505,7 @@ export class KupCard {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         this.kupManager.dialog.unregister([this.rootElement as DialogElement]);

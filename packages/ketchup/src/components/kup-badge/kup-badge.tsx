@@ -10,7 +10,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
 import { FImage } from '../../f-components/f-image/f-image';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -26,7 +25,7 @@ import { KupBadgeProps } from './kup-badge-declarations';
     shadow: true,
 })
 export class KupBadge {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -150,7 +149,7 @@ export class KupBadge {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

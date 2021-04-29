@@ -7,7 +7,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -22,7 +22,7 @@ import { KupSpinnerProps } from './kup-spinner-declarations';
     assetsDirs: ['assets'],
 })
 export class KupSpinner {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * When set to true the spinner is animating.
@@ -252,7 +252,7 @@ export class KupSpinner {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

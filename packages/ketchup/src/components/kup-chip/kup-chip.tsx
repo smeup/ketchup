@@ -9,7 +9,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import {
     KupManager,
     kupManagerInstance,
@@ -34,7 +34,7 @@ export class KupChip {
     /**
      * References the root HTML element of the component (<kup-image>).
      */
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -340,7 +340,7 @@ export class KupChip {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

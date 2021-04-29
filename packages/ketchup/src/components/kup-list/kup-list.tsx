@@ -11,7 +11,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement, KupListProps } from './kup-list-declarations';
@@ -32,7 +32,7 @@ import { FImage } from '../../f-components/f-image/f-image';
     shadow: true,
 })
 export class KupList {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
@@ -668,7 +668,7 @@ export class KupList {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

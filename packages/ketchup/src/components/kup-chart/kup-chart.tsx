@@ -11,7 +11,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import {
     ChartType,
     ChartAspect,
@@ -47,7 +47,7 @@ declare const $: any;
     shadow: true,
 })
 export class KupChart {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() themeColors: string[] = undefined;
     @State() themeText: string = undefined;
 
@@ -697,7 +697,7 @@ export class KupChart {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
     }

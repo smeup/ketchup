@@ -10,7 +10,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import {
     TooltipData,
     TooltipDetailData,
@@ -38,7 +38,7 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
     shadow: true,
 })
 export class KupTooltip {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() visible = false;
 
     /**
@@ -868,7 +868,7 @@ export class KupTooltip {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'

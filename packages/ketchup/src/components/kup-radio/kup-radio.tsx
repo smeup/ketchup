@@ -9,7 +9,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -25,7 +25,7 @@ import { ComponentRadioElement, KupRadioProps } from './kup-radio-declarations';
     shadow: true,
 })
 export class KupRadio {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Number of columns. When undefined, radio fields will be displayed inline.
@@ -285,7 +285,7 @@ export class KupRadio {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

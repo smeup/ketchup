@@ -11,7 +11,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { EchartTitle, KupEchartProps } from './kup-echart-declarations';
 import {
     KupManager,
@@ -28,7 +28,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupEchart {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() themeBorder: string = undefined;
     @State() themeColors: string[] = undefined;
     @State() themeFont: string = undefined;
@@ -550,7 +550,7 @@ export class KupEchart {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
     }

@@ -10,7 +10,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -34,7 +33,7 @@ export class KupButton {
     /**
      * References the root HTML element of the component (<kup-button>).
      */
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -307,7 +306,7 @@ export class KupButton {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

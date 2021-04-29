@@ -280,7 +280,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -346,7 +346,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -492,7 +492,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -530,7 +530,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -798,13 +798,13 @@ export namespace Components {
         "loadMoreLimit": number;
         /**
           * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
-          * @see loadMoreStep
+          * @see loadMoreStep *
           * @see loadMoreLimit
          */
         "loadMoreMode": LoadMoreMode;
         /**
           * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
-          * @see loadMoreMode
+          * @see loadMoreMode *
           * @see loadMoreLimit
          */
         "loadMoreStep": number;
@@ -1331,7 +1331,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1505,7 +1505,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1633,7 +1633,7 @@ export namespace Components {
          */
         "fluid": boolean;
         /**
-          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL         noSelections --> define if selections in object are disable (default: false) Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>         },         {             obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>         }     ]   } ] }
+          * Set the grid structure (JSON) selections --> Data selection array    field   --> Qlik field on which to make the selection    values  --> Array of int or string value which to select rows    colums --> they define the structure of grid      obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)      colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%      size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL        noSelections --> define if selections in object are disable (default: false) Example: { selections:[  {      field: 'Anno',      values:[2020]  } ], rows:[  {    columns:[        {            obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>        },        {            obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>        }    ]  } ] }
          */
         "grid": Array<KupQlikGrid>;
         /**
@@ -1778,7 +1778,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1831,7 +1831,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -2069,7 +2069,7 @@ export namespace Components {
          */
         "density": string;
         /**
-          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
         "dynamicExpansionCallback": (
@@ -2815,7 +2815,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -2911,7 +2911,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3046,7 +3046,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3098,7 +3098,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3396,13 +3396,13 @@ declare namespace LocalJSX {
         "loadMoreLimit"?: number;
         /**
           * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
-          * @see loadMoreStep
+          * @see loadMoreStep *
           * @see loadMoreLimit
          */
         "loadMoreMode"?: LoadMoreMode;
         /**
           * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
-          * @see loadMoreMode
+          * @see loadMoreMode *
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
@@ -3965,7 +3965,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4137,7 +4137,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4246,7 +4246,7 @@ declare namespace LocalJSX {
          */
         "fluid"?: boolean;
         /**
-          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL         noSelections --> define if selections in object are disable (default: false) Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>         },         {             obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>         }     ]   } ] }
+          * Set the grid structure (JSON) selections --> Data selection array    field   --> Qlik field on which to make the selection    values  --> Array of int or string value which to select rows    colums --> they define the structure of grid      obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)      colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%      size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL        noSelections --> define if selections in object are disable (default: false) Example: { selections:[  {      field: 'Anno',      values:[2020]  } ], rows:[  {    columns:[        {            obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>        },        {            obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>        }    ]  } ] }
          */
         "grid"?: Array<KupQlikGrid>;
         /**
@@ -4387,7 +4387,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4456,7 +4456,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4795,7 +4795,7 @@ declare namespace LocalJSX {
          */
         "density"?: string;
         /**
-          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
         "dynamicExpansionCallback"?: (
@@ -4871,8 +4871,8 @@ declare namespace LocalJSX {
           * @property {TreeNode} treeNode - Reference to the TreeNode data object which is being expanded (passed through the data prop).
           * @property {boolean} usesDynamicExpansion - Flag to notify that the component is running in dynamicExpansion mode.
           * @property {boolean} dynamicExpansionRequireChildren - Flag to notify that the current dynamicExpansion event requires the parent component to add TreeNode children to the given TreeNode.
-          * @see useDynamicExpansion
-          * @see dynamicExpansionCallback
+          * @see useDynamicExpansion *
+          * @see dynamicExpansionCallback *
           * @since 1.0.0
          */
         "onKupTreeNodeExpand"?: (event: CustomEvent<{

@@ -9,7 +9,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import type { GenericObject } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
@@ -24,7 +24,7 @@ import { KupIframeProps } from './kup-iframe-declarations';
     shadow: true,
 })
 export class KupIframe {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      *  Props of the button (when isButton is set to true).

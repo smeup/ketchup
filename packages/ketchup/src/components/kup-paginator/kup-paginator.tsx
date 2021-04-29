@@ -8,7 +8,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
 import {
@@ -28,7 +28,7 @@ import {
     shadow: true,
 })
 export class KupPaginator {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     @Prop() currentPage: number = 1;
 
@@ -353,7 +353,7 @@ export class KupPaginator {
         return compCreated;
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
     }
 }

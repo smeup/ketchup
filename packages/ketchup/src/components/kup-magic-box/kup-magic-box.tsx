@@ -9,7 +9,7 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { DropHandlers, setKetchupDroppable } from '../../utils/drag-and-drop';
 import {
@@ -44,7 +44,7 @@ export class KupMagicBox {
     /**
      * References the root HTML element of the component (<kup-magic-box>).
      */
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -392,7 +392,7 @@ export class KupMagicBox {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);

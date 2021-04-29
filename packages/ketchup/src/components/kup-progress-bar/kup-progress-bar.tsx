@@ -8,7 +8,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -22,7 +22,7 @@ import { KupProgressBarProps } from './kup-progress-bar-declarations';
     shadow: true,
 })
 export class KupProgressBar {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
@@ -244,7 +244,7 @@ export class KupProgressBar {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

@@ -13,7 +13,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import {
     Cell,
     CellData,
@@ -163,7 +163,7 @@ export class KupTree {
     // End state stuff
     //////////////////////////////
 
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State()
     private openedMenu: string = null;
     @State() private treeColumnVisible = true;
@@ -2246,7 +2246,7 @@ export class KupTree {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.register(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(

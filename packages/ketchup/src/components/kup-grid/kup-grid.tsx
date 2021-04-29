@@ -9,7 +9,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
@@ -24,7 +24,7 @@ import { KupGridProps } from './kup-grid-declarations';
     shadow: true,
 })
 export class KupGrid {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * The number of columns displayed by the grid, the default behavior is 12.
@@ -162,7 +162,7 @@ export class KupGrid {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

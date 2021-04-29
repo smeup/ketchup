@@ -12,7 +12,6 @@ import {
     VNode,
     Watch,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
 import {
     Column,
     SortObject,
@@ -186,7 +185,7 @@ export class KupBox {
     // End state stuff
     //////////////////////////////
 
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Data of the card linked to the box when the latter's layout must be a premade template.
@@ -2058,7 +2057,7 @@ export class KupBox {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.scrollOnHover) {

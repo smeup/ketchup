@@ -11,7 +11,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -25,7 +25,7 @@ import { KupDrawerProps } from './kup-drawer-declarations';
     shadow: true,
 })
 export class KupDrawer {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -151,7 +151,7 @@ export class KupDrawer {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

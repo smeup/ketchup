@@ -7,7 +7,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { Method } from '@stencil/core/internal';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
@@ -22,7 +22,7 @@ import { KupLazyProps } from './kup-lazy-declarations';
     shadow: true,
 })
 export class KupLazy {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() isInViewport: boolean = false;
 
     /**
@@ -267,7 +267,7 @@ export class KupLazy {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
         this.intObserver.unobserve(this.rootElement);
     }

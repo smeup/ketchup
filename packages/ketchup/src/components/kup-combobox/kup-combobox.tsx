@@ -11,7 +11,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
@@ -32,7 +32,7 @@ import { KupComboboxProps } from './kup-combobox-declarations';
     shadow: true,
 })
 export class KupCombobox {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() displayedValue: string = undefined;
     @State() value: string = '';
 
@@ -454,7 +454,7 @@ export class KupCombobox {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'

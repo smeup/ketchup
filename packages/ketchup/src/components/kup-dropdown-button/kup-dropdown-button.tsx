@@ -12,7 +12,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import type { HTMLStencilElement } from '@stencil/core/internal';
+
 import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
@@ -33,7 +33,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
     shadow: true,
 })
 export class KupDropdownButton {
-    @Element() rootElement: HTMLStencilElement;
+    @Element() rootElement: HTMLElement;
     @State() value: string = '';
 
     /**
@@ -459,7 +459,7 @@ export class KupDropdownButton {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
