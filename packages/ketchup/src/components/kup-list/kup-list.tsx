@@ -1,15 +1,17 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
     h,
-    Watch,
+    Host,
     Method,
+    Prop,
+    State,
+    Watch,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement, KupListProps } from './kup-list-declarations';
@@ -30,7 +32,7 @@ import { FImage } from '../../f-components/f-image/f-image';
     shadow: true,
 })
 export class KupList {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -207,10 +209,6 @@ export class KupList {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -229,6 +227,17 @@ export class KupList {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {

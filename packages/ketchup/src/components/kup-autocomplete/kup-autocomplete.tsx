@@ -1,15 +1,17 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
-    Method,
+    Host,
     Listen,
+    Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import {
     ItemsDisplayMode,
     consistencyCheck,
@@ -31,7 +33,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupAutocomplete {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
     @State() displayedValue: string = undefined;
     @State() value: string = '';
@@ -205,6 +207,13 @@ export class KupAutocomplete {
 
     //---- Methods ----
 
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
     @Method()
     async getValue(): Promise<string> {
         return this.value;

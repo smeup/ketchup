@@ -1,16 +1,18 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
-    getAssetPath,
     EventEmitter,
-    State,
+    forceUpdate,
+    getAssetPath,
     h,
-    Method,
+    Host,
     Listen,
+    Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
@@ -31,7 +33,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
     shadow: true,
 })
 export class KupDropdownButton {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
     @State() value: string = '';
 
@@ -178,6 +180,13 @@ export class KupDropdownButton {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     @Listen('keyup', { target: 'document' })

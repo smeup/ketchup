@@ -1,18 +1,19 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
+    getAssetPath,
     h,
-    Watch,
+    Host,
     JSX,
     Method,
-    getAssetPath,
+    Prop,
+    State,
+    Watch,
 } from '@stencil/core';
-
+import { HTMLStencilElement } from '@stencil/core/internal';
 import {
     Cell,
     CellData,
@@ -162,7 +163,7 @@ export class KupTree {
     // End state stuff
     //////////////////////////////
 
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     /**
      * Used to trigger a new render of the component.
      * @default false
@@ -476,35 +477,6 @@ export class KupTree {
 
     //---- Methods ----
 
-    /**
-     * This method is used to trigger a new render of the component.
-     * Useful when slots change.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
-    }
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-
-    @Method()
-    async expandAll() {
-        if (!this.useDynamicExpansion) {
-            for (let index = 0; index < this.data.length; index++) {
-                this.data[index][treeExpandedPropName] = true;
-                this.handleChildren(this.data[index], true);
-            }
-        } else {
-            this.kupTreeDynamicMassExpansion.emit({
-                expandAll: true,
-            });
-        }
-        this.refresh();
-    }
-
     @Method()
     async collapseAll() {
         if (!this.useDynamicExpansion) {
@@ -515,6 +487,20 @@ export class KupTree {
         } else {
             this.kupTreeDynamicMassExpansion.emit({
                 expandAll: false,
+            });
+        }
+        this.refresh();
+    }
+    @Method()
+    async expandAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = true;
+                this.handleChildren(this.data[index], true);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: true,
             });
         }
         this.refresh();
@@ -537,6 +523,17 @@ export class KupTree {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     setTreeColumnVisibility(value: boolean) {

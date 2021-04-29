@@ -1,13 +1,15 @@
 import {
     Component,
-    Prop,
     Element,
+    forceUpdate,
     Host,
-    State,
     h,
     JSX,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
@@ -22,7 +24,7 @@ import { KupGridProps } from './kup-grid-declarations';
     shadow: true,
 })
 export class KupGrid {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -46,10 +48,6 @@ export class KupGrid {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -68,6 +66,17 @@ export class KupGrid {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     //---- Lifecycle hooks ----

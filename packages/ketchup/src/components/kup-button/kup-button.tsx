@@ -1,14 +1,16 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import type { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -32,7 +34,7 @@ export class KupButton {
     /**
      * References the root HTML element of the component (<kup-button>).
      */
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -183,17 +185,6 @@ export class KupButton {
     /*-------------------------------------------------*/
 
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -211,6 +202,24 @@ export class KupButton {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
+    @Method()
+    async themeChangeCallback(customStyleTheme: string): Promise<void> {
+        this.customStyleTheme = customStyleTheme;
     }
 
     /*-------------------------------------------------*/

@@ -1,15 +1,16 @@
 import {
     Component,
-    Prop,
     Element,
     Event,
     EventEmitter,
-    Watch,
-    State,
+    forceUpdate,
     h,
     Method,
+    Prop,
+    State,
+    Watch,
 } from '@stencil/core';
-
+import { HTMLStencilElement } from '@stencil/core/internal';
 import {
     TooltipData,
     TooltipDetailData,
@@ -37,13 +38,8 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
     shadow: true,
 })
 export class KupTooltip {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() visible = false;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     /**
      * Data for cell options
@@ -282,11 +278,10 @@ export class KupTooltip {
 
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     @Method()

@@ -1,7 +1,9 @@
+import { HTMLStencilElement } from '@stencil/core/internal';
+
 /**
  * Generic KupComponent.
  */
-export interface KupComponent extends HTMLElement {
+export interface KupComponent extends HTMLStencilElement {
     customStyle: string;
     customStyleTheme: string;
     debugInfo: {

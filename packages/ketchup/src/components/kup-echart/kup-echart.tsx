@@ -1,15 +1,17 @@
 import {
     Component,
-    Host,
-    h,
-    Prop,
     Element,
-    getAssetPath,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
+    getAssetPath,
+    Host,
+    h,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { EchartTitle, KupEchartProps } from './kup-echart-declarations';
 import {
     KupManager,
@@ -26,9 +28,8 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupEchart {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
-    @State() stateSwitcher: boolean = false;
     @State() themeBorder: string = undefined;
     @State() themeColors: string[] = undefined;
     @State() themeFont: string = undefined;
@@ -87,28 +88,6 @@ export class KupEchart {
     //---- Methods ----
 
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme =
-            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
-        this.customStyleTheme = customStyleTheme;
-        this.fetchThemeColors();
-    }
-    /**
-     * This method is invoked by KupManager whenever the component changes size.
-     */
-    @Method()
-    async resizeCallback(): Promise<void> {
-        window.clearTimeout(this.resizeTimeout);
-        this.resizeTimeout = window.setTimeout(() => this.forceUpdate(), 300);
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -127,13 +106,38 @@ export class KupEchart {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+    }
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme =
+            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
+        this.customStyleTheme = customStyleTheme;
+        this.fetchThemeColors();
+    }
 
     private onKupClick() {
         this.kupEchartClicked.emit();
-    }
-
-    private forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
     }
 
     private initChart() {

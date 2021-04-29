@@ -1,14 +1,16 @@
 import {
     Component,
     Element,
-    Prop,
     Event,
     EventEmitter,
+    forceUpdate,
     h,
-    State,
     Host,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { FImage } from '../../f-components/f-image/f-image';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -24,7 +26,7 @@ import { KupBadgeProps } from './kup-badge-declarations';
     shadow: true,
 })
 export class KupBadge {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -57,10 +59,6 @@ export class KupBadge {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -79,6 +77,17 @@ export class KupBadge {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupClick(e: Event) {

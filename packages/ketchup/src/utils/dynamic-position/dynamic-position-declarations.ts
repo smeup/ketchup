@@ -1,7 +1,9 @@
+import { HTMLStencilElement } from '@stencil/core/internal';
+
 /**
  * Fixed position element.
  */
-export interface DynamicallyPositionedElement extends HTMLElement {
+export interface DynamicallyPositionedElement extends HTMLStencilElement {
     dynamicPosition: {
         anchor: HTMLElement;
         margin: number;

@@ -1,16 +1,17 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
-    h,
-    Method,
+    forceUpdate,
     getAssetPath,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
 } from '@stencil/core';
-
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCTabBar } from '@material/tab-bar';
 import {
     ComponentTabBarElement,
@@ -29,7 +30,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupTabBar {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -81,10 +82,6 @@ export class KupTabBar {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -103,6 +100,17 @@ export class KupTabBar {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur(i: number, e: Event) {

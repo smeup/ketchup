@@ -1,15 +1,17 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
     h,
+    Host,
     Listen,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import {
     ComponentNavBarData,
     ComponentNavBarElement,
@@ -33,7 +35,7 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
     shadow: true,
 })
 export class KupNavBar {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     /**
      * Used to trigger a new render of the component.
      * @default false
@@ -113,28 +115,6 @@ export class KupNavBar {
     //---- Methods ----
 
     /**
-     * This method is used to trigger a new render of the component.
-     * Useful when slots change.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
-    }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme =
-            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
-        this.customStyleTheme = customStyleTheme;
-        this.fetchThemeColors();
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -152,6 +132,27 @@ export class KupNavBar {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme =
+            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
+        this.customStyleTheme = customStyleTheme;
+        this.fetchThemeColors();
     }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {

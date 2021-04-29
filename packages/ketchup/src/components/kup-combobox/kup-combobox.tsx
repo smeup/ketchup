@@ -2,14 +2,16 @@ import {
     Component,
     Event,
     EventEmitter,
-    Prop,
     Element,
-    Host,
-    State,
+    forceUpdate,
     h,
-    Method,
+    Host,
     Listen,
+    Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import {
@@ -30,7 +32,7 @@ import { KupComboboxProps } from './kup-combobox-declarations';
     shadow: true,
 })
 export class KupCombobox {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
     @State() displayedValue: string = undefined;
     @State() value: string = '';
@@ -233,6 +235,13 @@ export class KupCombobox {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {

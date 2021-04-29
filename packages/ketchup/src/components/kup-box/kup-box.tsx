@@ -1,20 +1,18 @@
-import { dragMultipleImg } from '../../assets/images/drag-multiple';
-
 import {
     Component,
-    Event,
-    Prop,
-    Host,
-    State,
-    Watch,
-    EventEmitter,
-    h,
-    Method,
     Element,
+    Event,
+    EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
     VNode,
-    JSX,
+    Watch,
 } from '@stencil/core';
-
+import { HTMLStencilElement } from '@stencil/core/internal';
 import {
     Column,
     SortObject,
@@ -32,7 +30,6 @@ import {
     BoxKanban,
     KupBoxProps,
 } from './kup-box-declarations';
-
 import {
     isButton,
     isPassword,
@@ -69,6 +66,7 @@ import {
 
 const KupBoxDragType = 'text/kup-box-drag';
 
+import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { CardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
@@ -104,11 +102,6 @@ export class KupBox {
 
     @Prop() stateId: string = '';
     @Prop() store: KupStore;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     state: KupBoxState = new KupBoxState();
 
@@ -193,7 +186,7 @@ export class KupBox {
     // End state stuff
     //////////////////////////////
 
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -532,11 +525,10 @@ export class KupBox {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     //---- Lifecycle hooks ----

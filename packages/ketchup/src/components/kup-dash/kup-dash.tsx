@@ -3,9 +3,10 @@ import {
     Element,
     Event,
     EventEmitter,
-    Prop,
     h,
+    Prop,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import {
     KupManager,
     kupManagerInstance,
@@ -17,7 +18,7 @@ import {
     shadow: true,
 })
 export class KupDash {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
 
     /**
      * The component can be clicked.

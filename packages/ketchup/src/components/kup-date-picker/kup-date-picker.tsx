@@ -1,16 +1,18 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Listen,
     Method,
+    Prop,
+    State,
     Watch,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import {
@@ -41,7 +43,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupDatePicker {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
     @State() stateSwitcher: boolean = false;
     @State() value: string = '';
@@ -299,6 +301,13 @@ export class KupDatePicker {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
 
     onKupBlur() {
         this.closePicker();
@@ -352,10 +361,6 @@ export class KupDatePicker {
         });
     }
 
-    forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
-    }
-
     refreshPickerValue(
         eventDetailValue: string,
         eventToRaise: EventEmitter,
@@ -394,7 +399,7 @@ export class KupDatePicker {
         }
         this.pickerEl.value = d.toISOString();
         this.pickerEl.date = d;
-        this.forceUpdate();
+        this.refresh();
     }
 
     setPickerValueSelected(newValue?: string) {
@@ -867,7 +872,7 @@ export class KupDatePicker {
                 this.calendarView = SourceEvent.DATE;
             }
         }
-        this.forceUpdate();
+        this.refresh();
     }
 
     private prevPage(e: CustomEvent) {
@@ -895,7 +900,7 @@ export class KupDatePicker {
         date.setMonth(mm);
         this.pickerEl.value = date.toISOString();
         this.pickerEl.date = date;
-        this.forceUpdate();
+        this.refresh();
     }
 
     private nextPage(e: CustomEvent) {
@@ -922,7 +927,7 @@ export class KupDatePicker {
         date.setMonth(mm);
         this.pickerEl.value = date.toISOString();
         this.pickerEl.date = date;
-        this.forceUpdate();
+        this.refresh();
     }
 
     getDateForOutput(): string {

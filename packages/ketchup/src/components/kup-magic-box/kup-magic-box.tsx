@@ -1,13 +1,15 @@
 import {
     Component,
     Element,
-    Host,
-    Prop,
+    forceUpdate,
     h,
-    VNode,
-    State,
+    Host,
     Method,
+    Prop,
+    State,
+    VNode,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import type { GenericObject } from '../../types/GenericTypes';
 import { DropHandlers, setKetchupDroppable } from '../../utils/drag-and-drop';
 import {
@@ -42,17 +44,12 @@ export class KupMagicBox {
     /**
      * References the root HTML element of the component (<kup-magic-box>).
      */
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
 
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
     /**
      * The component-specific CSS set by the current Ketch.UP theme.
      * @default ""
@@ -98,25 +95,6 @@ export class KupMagicBox {
     /*-------------------------------------------------*/
 
     /**
-     * This method is used to trigger a new render of the component.
-     * Useful when slots change.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
-    }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -136,6 +114,24 @@ export class KupMagicBox {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
+    @Method()
+    async themeChangeCallback(customStyleTheme: string): Promise<void> {
+        this.customStyleTheme = customStyleTheme;
     }
 
     /*-------------------------------------------------*/

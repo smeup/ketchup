@@ -1,19 +1,20 @@
-import moment from 'moment';
-
 import {
     Component,
+    Element,
     Event,
-    getAssetPath,
     EventEmitter,
+    forceUpdate,
+    getAssetPath,
     h,
+    Host,
     JSX,
     Method,
     Prop,
-    Element,
     State,
     Watch,
-    Host,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
+import moment from 'moment';
 import {
     Cell,
     Column,
@@ -392,13 +393,8 @@ export class KupDataTable {
     // End state stuff
     //////////////////////////////
 
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1081,11 +1077,10 @@ export class KupDataTable {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
     /**
      * This method will set the selected rows of the component.

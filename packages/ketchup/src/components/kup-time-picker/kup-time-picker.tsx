@@ -1,23 +1,24 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
+    JSX,
     Listen,
     Method,
+    Prop,
+    State,
     Watch,
-    JSX,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
-
 import {
     ISO_DEFAULT_TIME_FORMAT,
     ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
@@ -39,9 +40,8 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupTimePicker {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
-    @State() stateSwitcher: boolean = false;
     @State() value: string = '';
     /**
      * When set to true, the drop down menu will display a clock.
@@ -270,28 +270,6 @@ export class KupTimePicker {
 
     //---- Methods ----
 
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-
-    @Method()
-    async setFocus() {
-        if (this.textfieldEl != null) {
-            this.textfieldEl.setFocus();
-        }
-    }
-
-    @Method()
-    async setValue(value: string) {
-        this.value = value;
-        this.setTextFieldInitalValue(this.getTimeForOutput());
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -315,6 +293,36 @@ export class KupTimePicker {
             }
         }
         return props;
+    }
+
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+
+    @Method()
+    async setFocus() {
+        if (this.textfieldEl != null) {
+            this.textfieldEl.setFocus();
+        }
+    }
+
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        this.setTextFieldInitalValue(this.getTimeForOutput());
+    }
+
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur(e: UIEvent) {
@@ -368,10 +376,6 @@ export class KupTimePicker {
             id: this.rootElement.id,
             value: this.value,
         });
-    }
-
-    forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
     }
 
     refreshPickerValue(eventDetailValue: string, eventToRaise: EventEmitter) {
@@ -453,7 +457,7 @@ export class KupTimePicker {
                 elStyle.minWidth = textFieldWidth + 'px';
             }
         }
-        this.forceUpdate();
+        this.refresh();
     }
 
     closePicker() {

@@ -1,13 +1,15 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
-    State,
-    h,
-    Method,
+    forceUpdate,
     getAssetPath,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import type { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -21,7 +23,7 @@ import { KupProgressBarProps } from './kup-progress-bar-declarations';
     shadow: true,
 })
 export class KupProgressBar {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -60,10 +62,6 @@ export class KupProgressBar {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -87,6 +85,17 @@ export class KupProgressBar {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     private createIconElement() {

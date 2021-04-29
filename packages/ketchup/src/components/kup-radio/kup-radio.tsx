@@ -1,14 +1,16 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import type { GenericObject } from '../../types/GenericTypes';
@@ -24,7 +26,7 @@ import { ComponentRadioElement, KupRadioProps } from './kup-radio-declarations';
     shadow: true,
 })
 export class KupRadio {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -114,10 +116,6 @@ export class KupRadio {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -136,6 +134,17 @@ export class KupRadio {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {

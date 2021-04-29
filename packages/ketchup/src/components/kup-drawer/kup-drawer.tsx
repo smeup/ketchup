@@ -1,15 +1,17 @@
 import {
     Component,
-    h,
-    Prop,
-    Method,
-    Host,
     Element,
-    State,
     Event,
     EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
     Watch,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -23,7 +25,7 @@ import { KupDrawerProps } from './kup-drawer-declarations';
     shadow: true,
 })
 export class KupDrawer {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -99,6 +101,13 @@ export class KupDrawer {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     //---- Lifecycle hooks ----

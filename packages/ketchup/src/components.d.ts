@@ -74,6 +74,10 @@ export namespace Components {
          */
         "minimumChars": number;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
@@ -100,6 +104,10 @@ export namespace Components {
           * The data of the image displayed inside the badge.
          */
         "imageData": {};
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * The text displayed inside the badge.
          */
@@ -179,7 +187,7 @@ export namespace Components {
          */
         "pagination": boolean;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -308,6 +316,10 @@ export namespace Components {
          */
         "label": string;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
@@ -382,7 +394,7 @@ export namespace Components {
          */
         "menuVisible": boolean;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -450,6 +462,10 @@ export namespace Components {
           * Renders charts without the Google API and using jQuery Sparkline.
          */
         "offlineMode": ChartOfflineMode;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * This method is invoked by KupManager whenever the component changes size.
          */
@@ -533,6 +549,10 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
           * @param customStyleTheme - Contains current theme's component-specific CSS.
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -558,6 +578,10 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
           * @param customStyleTheme - Contains current theme's component-specific CSS.
@@ -596,7 +620,7 @@ export namespace Components {
          */
         "initialValue": string;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
@@ -639,6 +663,10 @@ export namespace Components {
           * Lets the combobox behave as a select element.
          */
         "isSelect": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
@@ -836,7 +864,7 @@ export namespace Components {
          */
         "paginatorPos": PaginatorPos;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -984,6 +1012,10 @@ export namespace Components {
           * Sets the initial value of the component
          */
         "initialValue": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
@@ -1005,6 +1037,10 @@ export namespace Components {
           * Defaults at false. When set to true, the drawer appears.
          */
         "opened": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         "toggle": () => Promise<void>;
     }
@@ -1044,6 +1080,10 @@ export namespace Components {
           * Defaults at null. When set, the button will show this text.
          */
         "label": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
@@ -1091,6 +1131,10 @@ export namespace Components {
           * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
          */
         "mapType": any;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * This method is invoked by KupManager whenever the component changes size.
          */
@@ -1146,6 +1190,10 @@ export namespace Components {
           * Sets the label's position, left right or top.
          */
         "labelPos": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * Sets whether the submit button must be displayed or not.
          */
@@ -1240,6 +1288,10 @@ export namespace Components {
          */
         "onlyValue": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * When true, the colors inside the colors array are used in the reversed order.
          */
         "reverseColors": boolean;
@@ -1295,6 +1347,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * When set to true, forces the content on a single line.
          */
         "singleLine": boolean;
@@ -1315,6 +1371,10 @@ export namespace Components {
           * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
         "isButton": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * The address the iframe should be referencing to.
          */
@@ -1358,6 +1418,10 @@ export namespace Components {
           * @default false
          */
         "isCanvas": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * The resource used to fetch the image.
           * @default null
@@ -1437,6 +1501,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Displays an animated SVG placeholder until the component is loaded.
          */
         "showPlaceholder": boolean;
@@ -1482,6 +1550,10 @@ export namespace Components {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
@@ -1520,7 +1592,7 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -1555,7 +1627,7 @@ export namespace Components {
          */
         "mode": ComponentNavBarMode;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -1572,7 +1644,7 @@ export namespace Components {
         "mode": PaginatorMode;
         "perPage": number;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         "selectedPerPage": number;
@@ -1608,6 +1680,10 @@ export namespace Components {
           * Specifies a text for the bar's label.
          */
         "label": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The current value the progress bar must display.
@@ -1683,6 +1759,10 @@ export namespace Components {
           * Defaults at null. It's the name that binds the radio buttons together.
          */
         "name": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupRating {
@@ -1704,6 +1784,10 @@ export namespace Components {
           * Max number of stars (default 5)
          */
         "maxValue": number;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Rated stars
@@ -1769,6 +1853,10 @@ export namespace Components {
           * Sets the layout of the spinner.
          */
         "layout": number;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupSwitch {
@@ -1805,6 +1893,10 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
           * @param customStyleTheme - Contains current theme's component-specific CSS.
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1827,6 +1919,10 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupTextField {
@@ -1927,6 +2023,10 @@ export namespace Components {
          */
         "readOnly": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Focuses the input element.
          */
         "setFocus": () => Promise<void>;
@@ -1994,6 +2094,10 @@ export namespace Components {
           * Manage seconds
          */
         "manageSeconds": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
@@ -2038,7 +2142,7 @@ export namespace Components {
          */
         "owner": string;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -2106,7 +2210,7 @@ export namespace Components {
          */
         "globalFilterValue": string;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**

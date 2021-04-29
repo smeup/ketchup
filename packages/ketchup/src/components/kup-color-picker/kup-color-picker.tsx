@@ -1,14 +1,16 @@
 import {
     Component,
     Element,
-    State,
     Event,
-    Prop,
+    EventEmitter,
+    forceUpdate,
     h,
     Host,
     Method,
-    EventEmitter,
+    Prop,
+    State,
 } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
 import Picker from 'vanilla-picker';
 import {
     KupManager,
@@ -26,12 +28,7 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
     shadow: true,
 })
 export class KupColorPicker {
-    @Element() rootElement: HTMLElement;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
     @State() value: string = undefined;
 
@@ -133,11 +130,10 @@ export class KupColorPicker {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     private onKupInput(e: CustomEvent) {

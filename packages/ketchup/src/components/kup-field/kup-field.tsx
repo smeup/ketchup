@@ -1,15 +1,16 @@
 import {
     Component,
-    Prop,
     Element,
+    h,
     Host,
     Event,
     EventEmitter,
-    State,
-    h,
+    forceUpdate,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
-
+import { HTMLStencilElement } from '@stencil/core/internal';
 import {
     KupFieldProps,
     KupFldChangeEvent,
@@ -28,7 +29,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupField {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement: HTMLStencilElement;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -102,10 +103,6 @@ export class KupField {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -124,6 +121,17 @@ export class KupField {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    @Method()
+    async themeChangeCallback(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     // When a change or update event must be launched as if it's coming from the FLD itself
