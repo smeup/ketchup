@@ -470,7 +470,8 @@ export default {
       //Layout 5
       markupBasic26: '<kup-dash id="layout5" layout="5">',
       markupBasic27: '  <div slot="icon">',
-      markupBasic28: '    <i class="mdi mdi-chart-bar" style="color: deepskyblue" />',
+      markupBasic28:
+        '    <i class="mdi mdi-chart-bar" style="color: deepskyblue" />',
       markupBasic29: '  </div>',
       markupBasic30: '  <div slot="value">34,678</div>',
       markupBasic31: '  <div slot="descr">Admissions Count</div>',
@@ -478,7 +479,8 @@ export default {
       //Layout 6
       markupBasic33: '<kup-dash id="layout6" layout="6">',
       markupBasic34: '  <div slot="icon">',
-      markupBasic35: '    <i class="mdi mdi-account-outline" style="color: #ffef3c" />',
+      markupBasic35:
+        '    <i class="mdi mdi-account-outline" style="color: #ffef3c" />',
       markupBasic36: '  </div>',
       markupBasic37: '  <div slot="value">12</div>',
       markupBasic38: '  <div slot="descr">Admissions Count</div>',
@@ -494,7 +496,8 @@ export default {
       //Layout 8
       markupBasic47: '<kup-dash id="layout8" layout="8">',
       markupBasic48: '  <div slot="icon">',
-      markupBasic49: '    <i class="mdi mdi-checkbox-blank-circle" style="color: green" />',
+      markupBasic49:
+        '    <i class="mdi mdi-checkbox-blank-circle" style="color: green" />',
       markupBasic50: '  </div>',
       markupBasic51: '  <div slot="value">35</div>',
       markupBasic52: '  <div slot="descr">TASKS DONE</div>',
