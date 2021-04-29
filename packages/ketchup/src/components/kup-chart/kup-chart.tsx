@@ -11,7 +11,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import {
     ChartType,
     ChartAspect,

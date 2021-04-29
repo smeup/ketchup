@@ -11,7 +11,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import { EchartTitle, KupEchartProps } from './kup-echart-declarations';
 import {
     KupManager,

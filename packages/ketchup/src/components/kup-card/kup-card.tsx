@@ -10,7 +10,7 @@ import {
     Prop,
     VNode,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCRipple } from '@material/ripple';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';

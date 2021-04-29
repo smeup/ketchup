@@ -8,7 +8,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
 import {

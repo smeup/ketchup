@@ -11,7 +11,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement, KupListProps } from './kup-list-declarations';

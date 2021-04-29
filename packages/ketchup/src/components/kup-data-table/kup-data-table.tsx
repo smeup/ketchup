@@ -13,7 +13,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import moment from 'moment';
 import {
     Cell,

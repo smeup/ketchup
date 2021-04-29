@@ -11,7 +11,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {

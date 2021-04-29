@@ -12,7 +12,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCRipple } from '@material/ripple';
 import {
     KupManager,

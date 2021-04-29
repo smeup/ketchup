@@ -9,7 +9,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';

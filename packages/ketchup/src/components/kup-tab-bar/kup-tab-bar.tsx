@@ -10,7 +10,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import { MDCTabBar } from '@material/tab-bar';
 import {
     ComponentTabBarElement,

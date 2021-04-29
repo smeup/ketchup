@@ -6,7 +6,7 @@ import {
     h,
     Prop,
 } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '@stencil/core/internal';
 import {
     KupManager,
     kupManagerInstance,
