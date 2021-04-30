@@ -13,6 +13,7 @@ export const config: Config = {
         {
             type: 'www',
             copy: [
+                { src: 'autocomplete.html' },
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
                 { src: 'btn.html' },
