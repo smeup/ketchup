@@ -1839,11 +1839,17 @@ export namespace Components {
           * @default ""
           * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
-        "features": { debug: boolean; language: boolean; theme: boolean };
+        "features": {
+        debug: boolean;
+        language: boolean;
+        longCycleProp: boolean;
+        longCycleVar: boolean;
+        theme: boolean;
+    };
         /**
           * This method is used to trigger a new render of the component.
          */
-        "printLifecycleTime": () => Promise<number>;
+        "printLifecycleTime": () => Promise<{ id: string; time: number; }>;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4493,7 +4499,13 @@ declare namespace LocalJSX {
           * @default ""
           * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
-        "features"?: { debug: boolean; language: boolean; theme: boolean };
+        "features"?: {
+        debug: boolean;
+        language: boolean;
+        longCycleProp: boolean;
+        longCycleVar: boolean;
+        theme: boolean;
+    };
     }
     interface KupTextField {
         /**

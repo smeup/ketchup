@@ -8,7 +8,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { time } from 'console';
 import { KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -17,7 +16,6 @@ import {
 
 @Component({
     tag: 'kup-test',
-    styleUrl: 'kup-test.scss',
     shadow: true,
 })
 export class KupTest {
@@ -51,117 +49,124 @@ export class KupTest {
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() features: { debug: boolean; language: boolean; theme: boolean } = {
-        debug: true,
-        language: true,
-        theme: true,
+    @Prop() features: {
+        debug: boolean;
+        language: boolean;
+        longCycleProp: boolean;
+        longCycleVar: boolean;
+        theme: boolean;
+    } = {
+        debug: false,
+        language: false,
+        longCycleProp: false,
+        longCycleVar: false,
+        theme: false,
     };
     /**
-     * Uncomment to test render times with many props (100).
+     * Uncomment the code below to test render times with many props (100).
      */
     /*
-    @Prop() test001 = null;
-    @Prop() test002 = null;
-    @Prop() test003 = null;
-    @Prop() test004 = null;
-    @Prop() test005 = null;
-    @Prop() test006 = null;
-    @Prop() test007 = null;
-    @Prop() test008 = null;
-    @Prop() test009 = null;
-    @Prop() test010 = null;
-    @Prop() test011 = null;
-    @Prop() test012 = null;
-    @Prop() test013 = null;
-    @Prop() test014 = null;
-    @Prop() test015 = null;
-    @Prop() test016 = null;
-    @Prop() test017 = null;
-    @Prop() test018 = null;
-    @Prop() test019 = null;
-    @Prop() test020 = null;
-    @Prop() test021 = null;
-    @Prop() test022 = null;
-    @Prop() test023 = null;
-    @Prop() test024 = null;
-    @Prop() test025 = null;
-    @Prop() test026 = null;
-    @Prop() test027 = null;
-    @Prop() test028 = null;
-    @Prop() test029 = null;
-    @Prop() test030 = null;
-    @Prop() test031 = null;
-    @Prop() test032 = null;
-    @Prop() test033 = null;
-    @Prop() test034 = null;
-    @Prop() test035 = null;
-    @Prop() test036 = null;
-    @Prop() test037 = null;
-    @Prop() test038 = null;
-    @Prop() test039 = null;
-    @Prop() test040 = null;
-    @Prop() test041 = null;
-    @Prop() test042 = null;
-    @Prop() test043 = null;
-    @Prop() test044 = null;
-    @Prop() test045 = null;
-    @Prop() test046 = null;
-    @Prop() test047 = null;
-    @Prop() test048 = null;
-    @Prop() test049 = null;
-    @Prop() test050 = null;
-    @Prop() test051 = null;
-    @Prop() test052 = null;
-    @Prop() test053 = null;
-    @Prop() test054 = null;
-    @Prop() test055 = null;
-    @Prop() test056 = null;
-    @Prop() test057 = null;
-    @Prop() test058 = null;
-    @Prop() test059 = null;
-    @Prop() test060 = null;
-    @Prop() test061 = null;
-    @Prop() test062 = null;
-    @Prop() test063 = null;
-    @Prop() test064 = null;
-    @Prop() test065 = null;
-    @Prop() test066 = null;
-    @Prop() test067 = null;
-    @Prop() test068 = null;
-    @Prop() test069 = null;
-    @Prop() test070 = null;
-    @Prop() test071 = null;
-    @Prop() test072 = null;
-    @Prop() test073 = null;
-    @Prop() test074 = null;
-    @Prop() test075 = null;
-    @Prop() test076 = null;
-    @Prop() test077 = null;
-    @Prop() test078 = null;
-    @Prop() test079 = null;
-    @Prop() test080 = null;
-    @Prop() test081 = null;
-    @Prop() test082 = null;
-    @Prop() test083 = null;
-    @Prop() test084 = null;
-    @Prop() test085 = null;
-    @Prop() test086 = null;
-    @Prop() test087 = null;
-    @Prop() test088 = null;
-    @Prop() test089 = null;
-    @Prop() test090 = null;
-    @Prop() test091 = null;
-    @Prop() test092 = null;
-    @Prop() test093 = null;
-    @Prop() test094 = null;
-    @Prop() test095 = null;
-    @Prop() test096 = null;
-    @Prop() test097 = null;
-    @Prop() test098 = null;
-    @Prop() test099 = null;
-    @Prop() test100 = null;
+    @Prop({ reflect: true }) test001 = 'null';
+    @Prop({ reflect: true }) test002 = 'null';
+    @Prop({ reflect: true }) test003 = 'null';
+    @Prop({ reflect: true }) test004 = 'null';
+    @Prop({ reflect: true }) test005 = 'null';
+    @Prop({ reflect: true }) test006 = 'null';
+    @Prop({ reflect: true }) test007 = 'null';
+    @Prop({ reflect: true }) test008 = 'null';
+    @Prop({ reflect: true }) test009 = 'null';
+    @Prop({ reflect: true }) test010 = 'null';
+    @Prop({ reflect: true }) test011 = 'null';
+    @Prop({ reflect: true }) test012 = 'null';
+    @Prop({ reflect: true }) test013 = 'null';
+    @Prop({ reflect: true }) test014 = 'null';
+    @Prop({ reflect: true }) test015 = 'null';
+    @Prop({ reflect: true }) test016 = 'null';
+    @Prop({ reflect: true }) test017 = 'null';
+    @Prop({ reflect: true }) test018 = 'null';
+    @Prop({ reflect: true }) test019 = 'null';
+    @Prop({ reflect: true }) test020 = 'null';
+    @Prop({ reflect: true }) test021 = 'null';
+    @Prop({ reflect: true }) test022 = 'null';
+    @Prop({ reflect: true }) test023 = 'null';
+    @Prop({ reflect: true }) test024 = 'null';
+    @Prop({ reflect: true }) test025 = 'null';
+    @Prop({ reflect: true }) test026 = 'null';
+    @Prop({ reflect: true }) test027 = 'null';
+    @Prop({ reflect: true }) test028 = 'null';
+    @Prop({ reflect: true }) test029 = 'null';
+    @Prop({ reflect: true }) test030 = 'null';
+    @Prop({ reflect: true }) test031 = 'null';
+    @Prop({ reflect: true }) test032 = 'null';
+    @Prop({ reflect: true }) test033 = 'null';
+    @Prop({ reflect: true }) test034 = 'null';
+    @Prop({ reflect: true }) test035 = 'null';
+    @Prop({ reflect: true }) test036 = 'null';
+    @Prop({ reflect: true }) test037 = 'null';
+    @Prop({ reflect: true }) test038 = 'null';
+    @Prop({ reflect: true }) test039 = 'null';
+    @Prop({ reflect: true }) test040 = 'null';
+    @Prop({ reflect: true }) test041 = 'null';
+    @Prop({ reflect: true }) test042 = 'null';
+    @Prop({ reflect: true }) test043 = 'null';
+    @Prop({ reflect: true }) test044 = 'null';
+    @Prop({ reflect: true }) test045 = 'null';
+    @Prop({ reflect: true }) test046 = 'null';
+    @Prop({ reflect: true }) test047 = 'null';
+    @Prop({ reflect: true }) test048 = 'null';
+    @Prop({ reflect: true }) test049 = 'null';
+    @Prop({ reflect: true }) test050 = 'null';
+    @Prop({ reflect: true }) test051 = 'null';
+    @Prop({ reflect: true }) test052 = 'null';
+    @Prop({ reflect: true }) test053 = 'null';
+    @Prop({ reflect: true }) test054 = 'null';
+    @Prop({ reflect: true }) test055 = 'null';
+    @Prop({ reflect: true }) test056 = 'null';
+    @Prop({ reflect: true }) test057 = 'null';
+    @Prop({ reflect: true }) test058 = 'null';
+    @Prop({ reflect: true }) test059 = 'null';
+    @Prop({ reflect: true }) test060 = 'null';
+    @Prop({ reflect: true }) test061 = 'null';
+    @Prop({ reflect: true }) test062 = 'null';
+    @Prop({ reflect: true }) test063 = 'null';
+    @Prop({ reflect: true }) test064 = 'null';
+    @Prop({ reflect: true }) test065 = 'null';
+    @Prop({ reflect: true }) test066 = 'null';
+    @Prop({ reflect: true }) test067 = 'null';
+    @Prop({ reflect: true }) test068 = 'null';
+    @Prop({ reflect: true }) test069 = 'null';
+    @Prop({ reflect: true }) test070 = 'null';
+    @Prop({ reflect: true }) test071 = 'null';
+    @Prop({ reflect: true }) test072 = 'null';
+    @Prop({ reflect: true }) test073 = 'null';
+    @Prop({ reflect: true }) test074 = 'null';
+    @Prop({ reflect: true }) test075 = 'null';
+    @Prop({ reflect: true }) test076 = 'null';
+    @Prop({ reflect: true }) test077 = 'null';
+    @Prop({ reflect: true }) test078 = 'null';
+    @Prop({ reflect: true }) test079 = 'null';
+    @Prop({ reflect: true }) test080 = 'null';
+    @Prop({ reflect: true }) test081 = 'null';
+    @Prop({ reflect: true }) test082 = 'null';
+    @Prop({ reflect: true }) test083 = 'null';
+    @Prop({ reflect: true }) test084 = 'null';
+    @Prop({ reflect: true }) test085 = 'null';
+    @Prop({ reflect: true }) test086 = 'null';
+    @Prop({ reflect: true }) test087 = 'null';
+    @Prop({ reflect: true }) test088 = 'null';
+    @Prop({ reflect: true }) test089 = 'null';
+    @Prop({ reflect: true }) test090 = 'null';
+    @Prop({ reflect: true }) test091 = 'null';
+    @Prop({ reflect: true }) test092 = 'null';
+    @Prop({ reflect: true }) test093 = 'null';
+    @Prop({ reflect: true }) test094 = 'null';
+    @Prop({ reflect: true }) test095 = 'null';
+    @Prop({ reflect: true }) test096 = 'null';
+    @Prop({ reflect: true }) test097 = 'null';
+    @Prop({ reflect: true }) test098 = 'null';
+    @Prop({ reflect: true }) test099 = 'null';
+    @Prop({ reflect: true }) test100 = 'null';
     */
-
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -187,7 +192,7 @@ export class KupTest {
      * This method is used to trigger a new render of the component.
      */
     @Method()
-    async printLifecycleTime(): Promise<number> {
+    async printLifecycleTime(): Promise<{ id: string; time: number }> {
         const time: number = this.endTime - this.startTime;
         this.content =
             this.rootElement.tagName +
@@ -196,7 +201,7 @@ export class KupTest {
             ' took ' +
             time +
             'ms to render.';
-        return time;
+        return { id: this.rootElement.id, time: time };
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -204,6 +209,25 @@ export class KupTest {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    private longCycleProp() {
+        let b: string = null;
+        for (let index = 0; index < 1000000; index++) {
+            b = this.customStyle;
+        }
+    }
+
+    private longCycleVar() {
+        const a: string = this.customStyle;
+        let b: string = null;
+        for (let index = 0; index < 1000000; index++) {
+            b = a;
+        }
     }
 
     /*-------------------------------------------------*/
@@ -216,6 +240,12 @@ export class KupTest {
         }
         if (this.features.language) {
             this.kupManager.language.register(this);
+        }
+        if (this.features.longCycleProp) {
+            this.longCycleProp();
+        }
+        if (this.features.longCycleVar) {
+            this.longCycleVar();
         }
         if (this.features.theme) {
             this.kupManager.theme.register(this);
