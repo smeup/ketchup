@@ -287,6 +287,7 @@ export class KupTextField {
 
     onKupChange(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
+        this.value = target.value;
         this.kupChange.emit({
             id: this.rootElement.id,
             value: target.value,
