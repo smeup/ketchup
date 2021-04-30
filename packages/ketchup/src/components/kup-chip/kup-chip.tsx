@@ -50,7 +50,7 @@ export class KupChip {
      * List of elements.
      * @default []
      */
-    @Prop() data: FChipData[] = [];
+    @Prop({ mutable: true }) data: FChipData[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD

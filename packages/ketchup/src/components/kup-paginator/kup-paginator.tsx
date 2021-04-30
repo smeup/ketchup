@@ -38,7 +38,7 @@ export class KupPaginator {
 
     @Prop() perPage: number = 10;
 
-    @Prop() selectedPerPage: number = 10;
+    @Prop({ mutable: true }) selectedPerPage: number = 10;
 
     private comboPageSelectorEl: any = undefined;
     private comboRowsSelectorEl: any = undefined;

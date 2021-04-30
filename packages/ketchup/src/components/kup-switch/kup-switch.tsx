@@ -50,7 +50,7 @@ export class KupSwitch {
      * Defaults at false. When set to true, the component will be set to 'checked'.
      * @default false
      */
-    @Prop() checked: boolean = false;
+    @Prop({ mutable: true }) checked: boolean = false;
     /**
      * Custom style of the component.
      * @default ""

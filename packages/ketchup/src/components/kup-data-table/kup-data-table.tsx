@@ -423,7 +423,7 @@ export class KupDataTable {
     /**
      * Defines the label to show when the table is empty.
      */
-    @Prop() emptyDataLabel: string = null;
+    @Prop({ mutable: true }) emptyDataLabel: string = null;
     /**
      * Enables the extracolumns add buttons.
      */

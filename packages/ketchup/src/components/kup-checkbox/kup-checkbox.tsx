@@ -50,7 +50,7 @@ export class KupCheckbox {
      * Defaults at false. When set to true, the component will be set to 'checked'.
      * @default false
      */
-    @Prop() checked: boolean = false;
+    @Prop({ mutable: true }) checked: boolean = false;
     /**
      * Custom style of the component.
      * @default ""
@@ -66,7 +66,7 @@ export class KupCheckbox {
      * When set to true, the component will be set to 'indeterminate'.
      * @default false
      */
-    @Prop() indeterminate: boolean = false;
+    @Prop({ mutable: true }) indeterminate: boolean = false;
     /**
      * When specified, its content will be shown as a label.
      * @default null

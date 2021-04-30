@@ -54,7 +54,7 @@ export class KupDatePicker {
     /**
      * Props of the sub-components.
      */
-    @Prop() data: Object = undefined;
+    @Prop({ mutable: true }) data: Object = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */

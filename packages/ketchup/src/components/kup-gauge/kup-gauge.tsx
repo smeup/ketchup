@@ -104,7 +104,7 @@ export class KupGauge {
      * The current value of the gauge.
      * The gauge's needle points to the percentage based on this prop.
      */
-    @Prop() value: number = 0;
+    @Prop({ mutable: true }) value: number = 0;
     /**
      * The current size of gauge's value.
      * Correct values are: 0,1,2 or 3.

@@ -46,7 +46,7 @@ export class KupList {
     /**
      * The data of the list.
      */
-    @Prop() data: ComponentListElement[] = [];
+    @Prop({ mutable: true }) data: ComponentListElement[] = [];
     /**
      * Selects how the items must display their label and how they can be filtered for.
      */
@@ -54,7 +54,7 @@ export class KupList {
     /**
      * Keeps string for filtering elements when filter mode is active
      */
-    @Prop() filter: string = '';
+    @Prop({ mutable: true }) filter: string = '';
     /**
      * Hides rows' text, ideally to display a list of icons only.
      */
@@ -70,7 +70,7 @@ export class KupList {
     /**
      * Defines the type of selection. Values accepted: listbox, radiogroup or group.
      */
-    @Prop() roleType?: string = KupList.ROLE_LISTBOX;
+    @Prop({ mutable: true }) roleType?: string = KupList.ROLE_LISTBOX;
     /**
      * Defines whether items are selectable or not.
      */

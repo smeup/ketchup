@@ -44,15 +44,15 @@ export class KupTooltip {
     /**
      * Data for cell options
      */
-    @Prop() cellOptions: TooltipCellOptions;
+    @Prop({ mutable: true }) cellOptions: TooltipCellOptions;
     /**
      * Data for top section
      */
-    @Prop() data: TooltipData;
+    @Prop({ mutable: true }) data: TooltipData;
     /**
      * Data for the detail
      */
-    @Prop() detailData: TooltipDetailData;
+    @Prop({ mutable: true }) detailData: TooltipDetailData;
     /**
      * Timeout for loadDetail
      */
@@ -72,7 +72,7 @@ export class KupTooltip {
     /**
      * Container element for tooltip
      */
-    @Prop() relatedObject: TooltipRelatedObject;
+    @Prop({ mutable: true }) relatedObject: TooltipRelatedObject;
 
     /**
      * Instance of the KupManager class.
