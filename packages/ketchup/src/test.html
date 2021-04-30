@@ -73,6 +73,11 @@
                 font-size: 1.2em;
                 opacity: 0.75;
             }
+
+            #feature-changer {
+                margin-bottom: 1em;
+                width: max-content;
+            }
         </style>
     </head>
 
@@ -92,8 +97,9 @@
             ></kup-button></div
         ><div id="average-section">
             <h1>Full lifecycle average time (milliseconds):</h1>
+            <kup-combobox is-select id="feature-changer"></kup-combobox>
             <div class="counter-wrapper">
-                <span class="label">Empty:</span>
+                <span class="label">No features:</span>
                 <span id="average-empty">0</span></div
             ><br />
             <div class="counter-wrapper">
@@ -117,7 +123,7 @@
                 <span id="average-cyclevars">0</span></div
             ><br />
             <div class="counter-wrapper">
-                <span class="label">Full:</span>
+                <span class="label">All features:</span>
                 <span id="average-full">0</span></div
             ><br />
             <div class="counter-wrapper">

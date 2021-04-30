@@ -12,6 +12,7 @@
         ></kup-button></div
       ><div id="average-section">
         <h1>Full lifecycle average time (milliseconds):</h1>
+        <kup-combobox is-select id="feature-changer"></kup-combobox>
         <div class="counter-wrapper">
           <span class="label">Empty:</span>
           <span id="average-empty">0</span></div
@@ -92,6 +93,11 @@ kup-test {
 #test-section {
   padding-top: 1em;
 }
+
+#feature-changer {
+  margin-bottom: 1em;
+  width: max-content;
+}
 </style>
 
 <script>
@@ -101,6 +107,7 @@ export default {
     // Elements selectors
     const printButton = document.querySelector('#print');
     const autorunButton = document.querySelector('#autorun');
+    const combobox = document.querySelector('#feature-changer');
     const wrapper = document.querySelector('#test-section');
     const number = document.querySelector('#number');
     // Ids
@@ -126,7 +133,49 @@ export default {
     // Print autorun
     let interval = null;
     let intervalTime = 50;
+    // Combobox
+    combobox.initialValue = 'full';
+    combobox.data = {
+      'kup-list': {
+        data: [
+          {
+            text: 'No features',
+            value: 'empty',
+          },
+          {
+            text: 'KupDebug',
+            value: 'debug',
+          },
+          {
+            text: 'KupLanguage',
+            value: 'language',
+          },
+          {
+            text: 'KupTheme',
+            value: 'theme',
+          },
+          {
+            text: 'Long cycle (props)',
+            value: 'cycleprops',
+          },
+          {
+            text: 'Long cycle (variables)',
+            value: 'cyclevars',
+          },
+          {
+            text: 'All features',
+            value: 'full',
+          },
+        ],
+      },
+      'kup-text-field': {
+        label: 'Select your feature',
+      },
+    };
     // Events handling
+    combobox.addEventListener('kupComboboxItemClick', () => {
+      runTests();
+    });
     printButton.onclick = () => runTests();
     autorunButton.onclick = () => {
       if (interval) {
@@ -138,92 +187,81 @@ export default {
     };
 
     function runTests() {
-      destroyComps();
-      createComps();
-      const tests = document.querySelectorAll('kup-test');
-      const promises = [];
-      for (let index = 0; index < tests.length; index++) {
-        promises.push(tests[index].printLifecycleTime());
+      let comp = document.querySelector('kup-test');
+      if (comp) {
+        comp.remove();
       }
-      Promise.all(promises).then((values) => {
-        number.innerText = (parseInt(number.innerText) + 1).toString();
-        for (let index = 0; index < values.length; index++) {
-          const id = values[index].id;
-          const time = values[index].time;
-          elements[totalID].values.push(time);
-          if (elements[id]) {
-            elements[id].values.push(time);
-          }
+      comp = document.createElement('kup-test');
+      combobox.getValue().then((res) => {
+        comp.id = res;
+        switch (res) {
+          case 'empty':
+            break;
+          case 'debug':
+            comp.features = {
+              debug: true,
+            };
+            break;
+          case 'language':
+            comp.features = {
+              language: true,
+            };
+            break;
+          case 'theme':
+            comp.features = {
+              theme: true,
+            };
+            break;
+          case 'cycleprops':
+            comp.features = {
+              longCycleProps: true,
+            };
+            break;
+          case 'cyclevars':
+            comp.features = {
+              longCycleVars: true,
+            };
+            break;
+          case 'full':
+            comp.features = {
+              debug: true,
+              language: true,
+              longCycleProps: true,
+              longCycleVars: true,
+              theme: true,
+            };
+            break;
+          case 'total':
+            break;
+          case 'default':
+            console.log(
+              'Something wrong happened, feature not supported by kup-test (' +
+                res +
+                ''
+            );
+            return;
         }
-        for (const key in elements) {
-          if (Object.hasOwnProperty.call(elements, key)) {
-            let sum = 0;
-            const element = elements[key];
-            for (let index = 0; index < element.values.length; index++) {
-              const value = element.values[index];
-              sum += value;
-            }
-            element.averageEl.innerText = sum / element.values.length;
-          }
+        wrapper.append(comp);
+        if (comp) {
+          comp.printLifecycleTime().then((res) => {
+            const id = res.id;
+            const time = res.time;
+            number.innerText = (parseInt(number.innerText) + 1).toString();
+            elementIteration([id, totalID], time);
+          });
         }
       });
     }
 
-    function createComps() {
-      for (let index = 0; index < IDs.length; index++) {
-        const ID = IDs[index];
-        if (ID !== totalID) {
-          const comp = document.createElement('kup-test');
-          comp.id = ID;
-          switch (ID) {
-            case 'empty':
-              break;
-            case 'debug':
-              comp.features = {
-                debug: true,
-              };
-              break;
-            case 'language':
-              comp.features = {
-                language: true,
-              };
-              break;
-            case 'theme':
-              comp.features = {
-                theme: true,
-              };
-              break;
-            case 'cycleprops':
-              comp.features = {
-                longCycleProps: true,
-              };
-              break;
-            case 'cyclevars':
-              comp.features = {
-                longCycleVars: true,
-              };
-              break;
-            case 'full':
-              comp.features = {
-                debug: true,
-                language: true,
-                longCycleProps: true,
-                longCycleVars: true,
-                theme: true,
-              };
-              break;
-            case 'total':
-              break;
-          }
-          wrapper.append(comp);
+    function elementIteration(ids, time) {
+      for (let index = 0; index < ids.length; index++) {
+        let sum = 0;
+        const id = ids[index];
+        elements[id].values.push(time);
+        for (let index = 0; index < elements[id].values.length; index++) {
+          sum += elements[id].values[index];
         }
-      }
-    }
-
-    function destroyComps() {
-      const tests = document.querySelectorAll('kup-test');
-      for (let index = 0; index < tests.length; index++) {
-        tests[index].remove();
+        elements[id].averageEl.innerText = sum / elements[id].values.length;
       }
     }
   },
