@@ -1827,6 +1827,28 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KupTest {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Specify features to test.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "features": { debug: boolean; language: boolean; theme: boolean };
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "printLifecycleTime": () => Promise<number>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+    }
     interface KupTextField {
         /**
           * Custom style of the component.
@@ -2431,6 +2453,12 @@ declare global {
         prototype: HTMLKupTabBarElement;
         new (): HTMLKupTabBarElement;
     };
+    interface HTMLKupTestElement extends Components.KupTest, HTMLStencilElement {
+    }
+    var HTMLKupTestElement: {
+        prototype: HTMLKupTestElement;
+        new (): HTMLKupTestElement;
+    };
     interface HTMLKupTextFieldElement extends Components.KupTextField, HTMLStencilElement {
     }
     var HTMLKupTextFieldElement: {
@@ -2505,6 +2533,7 @@ declare global {
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
         "kup-tab-bar": HTMLKupTabBarElement;
+        "kup-test": HTMLKupTestElement;
         "kup-text-field": HTMLKupTextFieldElement;
         "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
@@ -4452,6 +4481,20 @@ declare namespace LocalJSX {
         el: EventTarget;
     }>) => void;
     }
+    interface KupTest {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Specify features to test.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "features"?: { debug: boolean; language: boolean; theme: boolean };
+    }
     interface KupTextField {
         /**
           * Custom style of the component.
@@ -5005,6 +5048,7 @@ declare namespace LocalJSX {
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
         "kup-tab-bar": KupTabBar;
+        "kup-test": KupTest;
         "kup-text-field": KupTextField;
         "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
@@ -5059,6 +5103,7 @@ declare module "@stencil/core" {
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
+            "kup-test": LocalJSX.KupTest & JSXBase.HTMLAttributes<HTMLKupTestElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;

@@ -32,6 +32,7 @@ export const config: Config = {
                 { src: 'nav-bar.html' },
                 { src: 'rating.html' },
                 { src: 'tooltip.html' },
+                { src: 'test.html' },
                 { src: 'tree.html' },
             ],
             serviceWorker: null, // disable service workers

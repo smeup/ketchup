@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup chart</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <script>
+            if (google) {
+                google.charts.load('45.2', {
+                    packages: [
+                        'corechart',
+                        'gantt',
+                        'gauge',
+                        'geochart',
+                        'calendar',
+                        'sankey',
+                        'treemap',
+                    ],
+                    language: 'en',
+                });
+            }
+        </script>
+
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+            }
+
+            kup-test {
+                text-align: center;
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Test</h1>
+        <kup-button id="print" label="Print lifecycle time"></kup-button>
+        <div id="average-wrapper">
+            <h3>Average render time:</h3>
+            <h2 id="average">0</h2></div
+        >
+        <div id="number-wrapper">
+            <h3>Number of renders:</h3>
+            <h2 id="number">0</h2>
+        </div>
+        <div id="test-wrapper"> </div>
+    </body>
+    <script src="/assets/test.js"></script>
+</html>
