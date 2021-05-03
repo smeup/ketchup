@@ -36,6 +36,7 @@ export interface KupManager {
  */
 export interface KupManagerInitialization {
     debug: { active: boolean; autoPrint: boolean; logLimit: number };
+    dialog: { zIndex: number };
     language: { list: JSON; name: string };
     scrollOnHover: { delay: number; step: number };
     theme: { list: JSON; name: string };

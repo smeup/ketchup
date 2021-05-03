@@ -25,7 +25,12 @@ export class KupDialog {
     startingX: number = 0;
     startingY: number = 0;
     threshold: number = 5;
-    zIndex: number = 200;
+    zIndex: number =
+        dom.ketchupInit &&
+        dom.ketchupInit.dialog &&
+        dom.ketchupInit.dialog.zIndex
+            ? dom.ketchupInit.dialog.zIndex
+            : 200;
     #initialized: boolean = false;
     #elementDrag: (this: Document, e: Event) => any = function (e: MouseEvent) {
         const kupDialog: KupDialog = dom.ketchup.dialog;
