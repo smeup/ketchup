@@ -19,15 +19,18 @@
     <div class="demo-wrapper">
       <p>
         The class
-        <span class="code-word">shaped</span> will render a shaped text field
-        with rounded corners.
+        <span class="code-word">kup-shaped</span> will render a shaped text
+        field with rounded corners.
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-text-field class="shaped" label="I am shaped"></kup-text-field>
           <kup-text-field
-            class="shaped"
+            class="kup-shaped"
+            label="I am shaped"
+          ></kup-text-field>
+          <kup-text-field
+            class="kup-shaped"
             outlined
             label="I am shaped and outlined"
           ></kup-text-field>
@@ -98,7 +101,7 @@
             outlined
           ></kup-text-field>
           <kup-text-field
-            shaped
+            class="kup-shaped"
             label="I feel like dancing"
             icon="music_note"
           ></kup-text-field>
@@ -204,7 +207,7 @@ export default {
   data() {
     return {
       markupOutlined: '<kup-text-field outlined></kup-text-field>',
-      markupShaped: '<kup-text-field class="shaped"></kup-text-field>',
+      markupShaped: '<kup-text-field class="kup-shaped"></kup-text-field>',
       markupFullwidth: '<kup-text-field full-width></kup-text-field>',
       markupFullheight:
         '<kup-text-field class="kup-full-height"></kup-text-field>',
