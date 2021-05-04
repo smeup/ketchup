@@ -482,6 +482,7 @@ export class KupDebug {
     async getProps(detail?: boolean): Promise<GenericObject> {
         let comps: Set<KupComponent> = new Set();
         let props: GenericObject = detail ? { descriptions: {} } : {};
+        // Storing unique components inside "comps"
         for (let index = 0; index < this.logs.length; index++) {
             if (typeof this.logs[index].element !== 'string') {
                 if (!comps.has(this.logs[index].element as KupComponent)) {
@@ -489,44 +490,19 @@ export class KupDebug {
                 }
             }
         }
+        // Object of two arrays, positionally matching each other.
+        // One contains components, the other the relative promise.
+        const matchingObject: {
+            comps: KupComponent[];
+            promises: Promise<GenericObject>[];
+        } = {
+            comps: [],
+            promises: [],
+        };
         comps.forEach((el: KupComponent) => {
             try {
-                el.getProps()
-                    .then((res: GenericObject) => {
-                        let cnt: number = 0;
-                        let key: string = el.rootElement.id
-                            ? el.rootElement.tagName + '#' + el.rootElement.id
-                            : el.rootElement.tagName + '_' + ++cnt;
-                        while (props[key]) {
-                            key = el.rootElement.tagName + '_' + ++cnt;
-                        }
-                        if (detail) {
-                            let tag: GenericObject = {};
-                            for (const key in el.rootElement) {
-                                tag[key] = el.rootElement[key];
-                            }
-                            props[key] = {
-                                props: res,
-                                tagInfo: tag,
-                            };
-                            if (!props.descriptions[el.rootElement.tagName]) {
-                                el.getProps(true).then((res: GenericObject) => {
-                                    props.descriptions[
-                                        el.rootElement.tagName
-                                    ] = res;
-                                });
-                            }
-                        } else {
-                            props[key] = res;
-                        }
-                    })
-                    .catch((err) =>
-                        this.logMessage(
-                            'kup-debug',
-                            err,
-                            KupDebugCategory.WARNING
-                        )
-                    );
+                matchingObject.comps.push(el);
+                matchingObject.promises.push(el.getProps());
             } catch (error) {
                 this.logMessage(
                     'kup-debug',
@@ -536,7 +512,38 @@ export class KupDebug {
                 );
             }
         });
-        return props;
+        // Returning "props", which is returned by the Promise.all
+        return Promise.all(matchingObject.promises).then((responses) => {
+            for (let index = 0; index < matchingObject.comps.length; index++) {
+                const el: KupComponent = matchingObject.comps[index];
+                const res: GenericObject = responses[index];
+                let cnt: number = 0;
+                let key: string = el.rootElement.id
+                    ? el.rootElement.tagName + '#' + el.rootElement.id
+                    : el.rootElement.tagName + '_' + ++cnt;
+                while (props[key]) {
+                    key = el.rootElement.tagName + '_' + ++cnt;
+                }
+                if (detail) {
+                    let tag: GenericObject = {};
+                    for (const key in el.rootElement) {
+                        tag[key] = el.rootElement[key];
+                    }
+                    props[key] = {
+                        props: res,
+                        tagInfo: tag,
+                    };
+                    if (!props.descriptions[el.rootElement.tagName]) {
+                        el.getProps(true).then((res: GenericObject) => {
+                            props.descriptions[el.rootElement.tagName] = res;
+                        });
+                    }
+                } else {
+                    props[key] = res;
+                }
+            }
+            return props;
+        });
     }
     /**
      * Displays a timestamped message in the browser's console when the kupDebug property on document.documentElement is true.
