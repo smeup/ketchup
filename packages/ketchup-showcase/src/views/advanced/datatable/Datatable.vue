@@ -46,36 +46,39 @@
       <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:15>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-without-row-selection></datatable-without-row-selection>
     </template>
     <template v-slot:16>
-      <datatable-sort></datatable-sort>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:17>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:18>
-      <datatable-tooltip></datatable-tooltip>
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:19>
-      <datatable-total></datatable-total>
+      <datatable-tooltip></datatable-tooltip>
     </template>
     <template v-slot:20>
-      <datatable-j4ico></datatable-j4ico>
+      <datatable-total></datatable-total>
     </template>
     <template v-slot:21>
-      <datatable-images-and-badges />
+      <datatable-j4ico></datatable-j4ico>
     </template>
     <template v-slot:22>
-      <datatable-shapes></datatable-shapes>
+      <datatable-images-and-badges />
     </template>
     <template v-slot:23>
-      <datatable-cell-classes></datatable-cell-classes>
+      <datatable-shapes></datatable-shapes>
     </template>
     <template v-slot:24>
-      <datatable-j1col></datatable-j1col>
+      <datatable-cell-classes></datatable-cell-classes>
     </template>
     <template v-slot:25>
+      <datatable-j1col></datatable-j1col>
+    </template>
+    <template v-slot:26>
       <datatable-jl></datatable-jl>
     </template>
   </comp>
@@ -108,6 +111,7 @@ import DatatableProgressbar from '@/views/advanced/datatable/examples/DatatableP
 import DatatableRadio from '@/views/advanced/datatable/examples/DatatableRadio';
 import DatatableRowActions from '@/views/advanced/datatable/examples/DatatableRowActions';
 import DatatableRowSelection from '@/views/advanced/datatable/examples/DatatableRowSelection';
+import DatatableWithoutRowSelection from '@/views/advanced/datatable/examples/DatatableWithoutRowSelection';
 import DatatableRowsRepetition from '@/views/advanced/datatable/examples/DatatableRowsRepetition';
 import DatatableSort from '@/views/advanced/datatable/examples/DatatableSort';
 import DatatableSortableColumns from '@/views/advanced/datatable/examples/DatatableSortableColumns';
@@ -136,6 +140,7 @@ export default {
     DatatableRadio,
     DatatableRowActions,
     DatatableRowSelection,
+    DatatableWithoutRowSelection,
     DatatableRowsRepetition,
     DatatableSort,
     DatatableSortableColumns,
@@ -169,6 +174,7 @@ export default {
         'With radio buttons',
         'With row actions',
         'With row selection',
+        'Without row selection',
         'With row repetition',
         'Sorting',
         'Sortable columns',

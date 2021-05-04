@@ -6,11 +6,14 @@ h3 {
 
 <template>
   <div>
-    <h3>Select first record</h3>
+    <h3>First record Selected</h3>
     <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
 
-    <h3>Multi selection</h3>
+    <h3>Multiple selection</h3>
     <kup-lazy component-name="kup-data-table" :data.prop="data1"></kup-lazy>
+
+    <h3>Multiple selection with checkbox</h3>
+    <kup-lazy component-name="kup-data-table" :data.prop="data2"></kup-lazy>
   </div>
 </template>
 
@@ -37,7 +40,21 @@ export default {
         ],
       },
       data1: {
-        multiSelection: true,
+        selection: 'multiple',
+        data: sortDataTable,
+        showFilters: true,
+        filters: {
+          FLD1: 'fra',
+        },
+        sort: [
+          {
+            column: 'FLD2',
+            sortMode: 'D',
+          },
+        ],
+      },
+      data2: {
+        selection: 'multiple-checkbox',
         data: sortDataTable,
         showFilters: true,
         filters: {
