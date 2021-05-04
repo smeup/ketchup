@@ -2604,7 +2604,16 @@ export class KupDataTable {
         // selecting row
         switch (this.selection) {
             case SelectionMode.MULTIPLE:
-                this.selectedRows = [...this.selectedRows, row];
+                if (this.selectedRows.includes(row)) {
+                    let selectedRowsCopy = [...this.selectedRows];
+                    var index = selectedRowsCopy.indexOf(row);
+                    if (index !== -1) {
+                        selectedRowsCopy.splice(index, 1);
+                    }
+                    this.selectedRows = [...selectedRowsCopy];
+                } else {
+                    this.selectedRows = [...this.selectedRows, row];
+                }
                 break;
             case SelectionMode.SINGLE:
                 this.selectedRows = [row];
