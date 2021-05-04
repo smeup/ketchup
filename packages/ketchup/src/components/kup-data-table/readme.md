@@ -40,7 +40,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `density`                   | `density`                      | The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.                                                                                                                                       | `string`                                                                                         | `'dense'`                            |
 | `dragEnabled`               | `drag-enabled`                 | Enable row dragging                                                                                                                                                                                                            | `boolean`                                                                                        | `false`                              |
 | `dropEnabled`               | `drop-enabled`                 | Enable record dropping                                                                                                                                                                                                         | `boolean`                                                                                        | `false`                              |
-| `emptyDataLabel`            | `empty-data-label`             | Defines the label to show when the table is empty.                                                                                                                                                                             | `string`                                                                                         | `'Empty data'`                       |
+| `editableData`              | `editable-data`                | When set to true, editable cells will be rendered using input components.                                                                                                                                                      | `boolean`                                                                                        | `false`                              |
+| `emptyDataLabel`            | `empty-data-label`             | Defines the label to show when the table is empty.                                                                                                                                                                             | `string`                                                                                         | `null`                               |
 | `enableExtraColumns`        | `enable-extra-columns`         | Enables the extracolumns add buttons.                                                                                                                                                                                          | `boolean`                                                                                        | `true`                               |
 | `enableSortableColumns`     | `enable-sortable-columns`      | Enables the sorting of columns by dragging them into different columns.                                                                                                                                                        | `boolean`                                                                                        | `true`                               |
 | `expandGroups`              | `expand-groups`                | Expands groups when set to true.                                                                                                                                                                                               | `boolean`                                                                                        | `false`                              |
@@ -99,7 +100,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupAutoRowSelect`        | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
 | `kupCellButtonClicked`    |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
 | `kupCellTextFieldInput`   |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`                                                                 |
-| `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ cell: Cell; event: any; }>`                                                                    |
+| `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ cell: Cell; column: Column; id: string; row: Row; event: any; }>`                              |
 | `kupDataTableClick`       | Generic click event on data table.             | `CustomEvent<{ details: GenericObject; }>`                                                                    |
 | `kupDataTableContextMenu` | Generic right click event on data table.       | `CustomEvent<{ details: GenericObject; }>`                                                                    |
 | `kupDataTableDblClick`    | Generic double click event on data table.      | `CustomEvent<{ details: GenericObject; }>`                                                                    |
@@ -164,6 +165,17 @@ Type: `Promise<GenericObject>`
 
 
 
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+Useful when slots change.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.
@@ -210,6 +222,7 @@ Type: `Promise<void>`
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
+- [kup-date-picker](../kup-date-picker)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
 - [kup-chart](../kup-chart)
@@ -230,6 +243,7 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
+  kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
   kup-data-table --> kup-button
   kup-data-table --> kup-chart

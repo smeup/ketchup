@@ -45,7 +45,7 @@ describe('kup-data-table', () => {
         const bodyCells = await bodyRows[0].findAll('td');
         expect(bodyCells).toHaveLength(1);
         expect(bodyCells[0]).toEqualAttribute('colSpan', 1);
-        expect(bodyCells[0]).toEqualText('Empty data');
+        expect(bodyCells[0]).toEqualText('Empty data.');
 
         // no config
         // -> no filters
@@ -212,77 +212,83 @@ describe('kup-data-table', () => {
     describe.each([
         ['the default separator', '|'],
         ['a custom line separator', '-'],
-    ])('can insert line breaks by using %s inside', function (
-        description,
-        separator
-    ) {
-        let dataWithLineBreaksHeader,
-            columnsWithLineBreaks: ColumnsWithLineBreaksGenerator[];
-        let page, tableElement;
+    ])(
+        'can insert line breaks by using %s inside',
+        function (description, separator) {
+            let dataWithLineBreaksHeader,
+                columnsWithLineBreaks: ColumnsWithLineBreaksGenerator[];
+            let page, tableElement;
 
-        beforeAll(() => {
-            columnsWithLineBreaks = [
-                {
-                    colIndex: 1,
-                    breaksCount: 3,
-                },
-                {
-                    colIndex: 3,
-                    breaksCount: 2,
-                },
-            ];
+            beforeAll(() => {
+                columnsWithLineBreaks = [
+                    {
+                        colIndex: 1,
+                        breaksCount: 3,
+                    },
+                    {
+                        colIndex: 3,
+                        breaksCount: 2,
+                    },
+                ];
 
-            dataWithLineBreaksHeader = DataWithHeaderLineBreaksFactory(
-                {
-                    colSize: 7,
-                    rowSize: 10,
-                },
-                columnsWithLineBreaks,
-                separator
-            );
-        });
-
-        beforeEach(async () => {
-            page = await newE2EPage();
-            await page.setContent('<kup-data-table></kup-data-table>');
-            tableElement = await page.find('kup-data-table');
-            await tableElement.setProperty('data', dataWithLineBreaksHeader);
-            await tableElement.setProperty('lineBreakCharacter', separator);
-            await page.waitForChanges();
-        });
-
-        it.each([
-            ['thead', 'thead > tr > th'],
-            ['sticky', 'thead-sticky > tr-sticky > th-sticky'],
-        ])('the %s header', async (label, selector) => {
-            for (let i = 0; i < columnsWithLineBreaks.length; i++) {
-                const tableHeaderCellTitle = await page.find(
-                    `kup-data-table >>> ${selector}:nth-of-type(${
-                        columnsWithLineBreaks[i].colIndex + 1
-                    }) .column-title`
+                dataWithLineBreaksHeader = DataWithHeaderLineBreaksFactory(
+                    {
+                        colSize: 7,
+                        rowSize: 10,
+                    },
+                    columnsWithLineBreaks,
+                    separator
                 );
-                let textNodes = 0;
-                let breakNodes = 0;
+            });
 
-                // console.log(tableHeaderCellTitle);
-                for (let node of tableHeaderCellTitle.childNodes) {
-                    // For node types
-                    // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
-                    if (node.nodeType === 3) {
-                        // Text node
-                        textNodes++;
-                    } else if (node.nodeType === 1 && node.tagName === 'BR') {
-                        breakNodes++;
+            beforeEach(async () => {
+                page = await newE2EPage();
+                await page.setContent('<kup-data-table></kup-data-table>');
+                tableElement = await page.find('kup-data-table');
+                await tableElement.setProperty(
+                    'data',
+                    dataWithLineBreaksHeader
+                );
+                await tableElement.setProperty('lineBreakCharacter', separator);
+                await page.waitForChanges();
+            });
+
+            it.each([
+                ['thead', 'thead > tr > th'],
+                ['sticky', 'thead-sticky > tr-sticky > th-sticky'],
+            ])('the %s header', async (label, selector) => {
+                for (let i = 0; i < columnsWithLineBreaks.length; i++) {
+                    const tableHeaderCellTitle = await page.find(
+                        `kup-data-table >>> ${selector}:nth-of-type(${
+                            columnsWithLineBreaks[i].colIndex + 1
+                        }) .column-title`
+                    );
+                    let textNodes = 0;
+                    let breakNodes = 0;
+
+                    // console.log(tableHeaderCellTitle);
+                    for (let node of tableHeaderCellTitle.childNodes) {
+                        // For node types
+                        // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+                        if (node.nodeType === 3) {
+                            // Text node
+                            textNodes++;
+                        } else if (
+                            node.nodeType === 1 &&
+                            node.tagName === 'BR'
+                        ) {
+                            breakNodes++;
+                        }
                     }
-                }
 
-                expect(breakNodes).toEqual(
-                    columnsWithLineBreaks[i].breaksCount
-                );
-                expect(textNodes).toEqual(
-                    columnsWithLineBreaks[i].breaksCount + 1
-                );
-            }
-        });
-    });
+                    expect(breakNodes).toEqual(
+                        columnsWithLineBreaks[i].breaksCount
+                    );
+                    expect(textNodes).toEqual(
+                        columnsWithLineBreaks[i].breaksCount + 1
+                    );
+                }
+            });
+        }
+    );
 });

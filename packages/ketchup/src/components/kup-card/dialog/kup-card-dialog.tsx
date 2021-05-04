@@ -1,8 +1,16 @@
 import { h, VNode } from '@stencil/core';
 import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
+import type { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList, dialogHeader } from '../kup-card-helper';
+import {
+    Column,
+    TableData,
+} from '../../kup-data-table/kup-data-table-declarations';
+import { KupLanguageRow } from '../../../utils/kup-language/kup-language-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 /**
  * 1st dialog card layout, used to display information in string format.
  * @param {KupCard}  comp - Card component.
@@ -117,6 +125,10 @@ export function create3(component: KupCard): VNode {
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create4(component: KupCard): VNode {
+    //Action buttons
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
     //Dialog title
     const textArray: string[] = component.data['text']
         ? component.data['text']
@@ -128,8 +140,28 @@ export function create4(component: KupCard): VNode {
     return (
         <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
             {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
-            {datatableArray[0] ? (
+            {datatableArray[0] && buttonArray[0] && buttonArray[1] ? (
                 <div class="section-1">
+                    <kup-button
+                        {...buttonArray[0]}
+                        id="previous-row"
+                        onKupButtonClick={() => prevButton(component)}
+                        title={dom.ketchup.language.translate(
+                            KupLanguageRow.PREVIOUS
+                        )}
+                    />
+                    <kup-button
+                        {...buttonArray[1]}
+                        id="next-row"
+                        onKupButtonClick={() => nextButton(component)}
+                        title={dom.ketchup.language.translate(
+                            KupLanguageRow.NEXT
+                        )}
+                    />
+                </div>
+            ) : null}
+            {datatableArray[0] ? (
+                <div class="section-2">
                     <kup-data-table
                         id="datatable1"
                         {...datatableArray[0]}
@@ -138,4 +170,73 @@ export function create4(component: KupCard): VNode {
             ) : null}
         </div>
     );
+}
+/**
+ * Invoked by 4th layout to switch to the previous record of the original data table.
+ * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
+ * @param {KupCard}  component - Card component.
+ */
+function prevButton(component: KupCard): void {
+    const root: ShadowRoot = component.rootElement.shadowRoot;
+    let table: HTMLKupDataTableElement = null;
+    let data: TableData = null;
+    if (root) {
+        table = root.querySelector('kup-data-table');
+        if (table) {
+            data = table.data;
+        }
+    }
+    if (data) {
+        let visibleColumnIndex: number = getVisibleColumn(data);
+        if (visibleColumnIndex) {
+            const currColumn: Column = data.columns[visibleColumnIndex];
+            const prevColumn: Column = data.columns[visibleColumnIndex - 1];
+            if (!isNaN(parseInt(prevColumn.name))) {
+                currColumn.visible = false;
+                prevColumn.visible = true;
+            }
+        }
+        table.refresh();
+    }
+}
+/**
+ * Invoked by 4th layout to switch to the next record of the original data table.
+ * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
+ * @param {KupCard}  component - Card component.
+ */
+function nextButton(component: KupCard): void {
+    const root: ShadowRoot = component.rootElement.shadowRoot;
+    let table: HTMLKupDataTableElement = null;
+    let data: TableData = null;
+    if (root) {
+        table = root.querySelector('kup-data-table');
+        if (table) {
+            data = table.data;
+        }
+    }
+    if (data) {
+        let visibleColumnIndex: number = getVisibleColumn(data);
+        if (visibleColumnIndex) {
+            const currColumn: Column = data.columns[visibleColumnIndex];
+            const nextColumn: Column = data.columns[visibleColumnIndex + 1];
+            if (nextColumn) {
+                currColumn.visible = false;
+                nextColumn.visible = true;
+            }
+        }
+        table.refresh();
+    }
+}
+/**
+ * Returns the index of the first visible numerical column.
+ * @param {TableData}  data - Table data.
+ */
+function getVisibleColumn(data: TableData): number {
+    for (let index = 0; index < data.columns.length; index++) {
+        const column: Column = data.columns[index];
+        if (!isNaN(parseInt(column.name)) && column.visible) {
+            return index;
+        }
+    }
+    return null;
 }

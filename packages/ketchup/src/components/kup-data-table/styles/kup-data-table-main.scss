@@ -518,8 +518,18 @@ tr {
     min-height: 40px;
   }
 
-  td[row-action-cell] .f-button--wrapper {
-    display: inline-block;
+  td[row-action-cell] {
+    width: calc(3em * var(--row-actions));
+    & .f-image--wrapper {
+      cursor: pointer;
+      margin-left: 0.75em;
+      display: inline-block;
+      opacity: 1;
+      transition: 0.25s ease-in-out;
+      &:hover {
+        opacity: 0.5;
+      }
+    }
   }
 }
 

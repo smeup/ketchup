@@ -136,7 +136,6 @@ export class KupDashList {
                 ) {
                     newValue =
                         newValue + getSeparator(getCurrentLocale(), 'decimal');
-                    console.log('Nuovo valore ' + newValue);
                 }
                 valueInt = (
                     <div slot="value-int" style={valueColor}>

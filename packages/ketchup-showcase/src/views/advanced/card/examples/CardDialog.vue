@@ -118,10 +118,17 @@
         <span class="code-word">Layout 4</span> configuration:
         <br />
         <br />
-        <span class="code-word">- text[0]</span>: Sets the title inside the
-        header bar.
+        <span class="code-word">- button [0-1]</span>: Displays two buttons to
+        automatically navigate the table columns. Note: in order for this
+        feature to work, navigable columns should be named NUMERICALLY and only
+        1 should be initialized as visible. Any number of extra
+        non-numerically-named columns can be set and won't be impacted by this
+        feature.
         <br />
         <span class="code-word">- datatable [0]</span>: Displays a data table.
+        <br />
+        <span class="code-word">- text[0]</span>: Sets the title inside the
+        header bar.
         <br />
         <br />
       </p>
@@ -159,7 +166,10 @@ export default {
   data() {
     return {
       data: {
-        button: [{ icon: 'widgets', flat: true, title: 'button[0]' }],
+        button: [
+          { icon: 'widgets', styling: 'flat', title: 'button[0]' },
+          { icon: 'widgets', styling: 'flat', title: 'button[0]' },
+        ],
         chip: [
           {
             title: 'chip[0]',
@@ -247,8 +257,19 @@ export default {
                   title: 'Field',
                 },
                 {
-                  name: 'VALUE',
-                  title: 'Value',
+                  name: '1',
+                  title: '#1',
+                  visible: true,
+                },
+                {
+                  name: '2',
+                  title: '#2',
+                  visible: false,
+                },
+                {
+                  name: '3',
+                  title: '#3',
+                  visible: false,
                 },
               ],
               rows: [
@@ -270,15 +291,32 @@ export default {
                       },
                       value: 'Column 1',
                     },
-                    VALUE: {
+                    1: {
                       obj: {
-                        t: '',
+                        t: ' ',
                         p: '',
                         k: '',
                       },
                       value: 'datatable[0]',
-                      title: 'Simple tooltip for cell 1',
-                      options: true,
+                      icon: 'filter_1',
+                    },
+                    2: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'filter_2',
+                    },
+                    3: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'filter_3',
                     },
                   },
                   id: '0',
@@ -301,14 +339,32 @@ export default {
                       },
                       value: 'Column 2',
                     },
-                    VALUE: {
+                    1: {
                       obj: {
-                        t: '',
+                        t: ' ',
                         p: '',
                         k: '',
                       },
                       value: 'datatable[0]',
-                      title: 'Simple tooltip for cell 2',
+                      icon: 'filter_1',
+                    },
+                    2: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'filter_2',
+                    },
+                    3: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'filter_3',
                     },
                   },
                   id: '1',
@@ -331,14 +387,32 @@ export default {
                       },
                       value: 'Column 3',
                     },
-                    VALUE: {
+                    1: {
                       obj: {
-                        t: '',
+                        t: ' ',
                         p: '',
                         k: '',
                       },
                       value: 'datatable[0]',
-                      title: 'Simple tooltip for cell 3',
+                      icon: 'filter_1',
+                    },
+                    2: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'filter_2',
+                    },
+                    3: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'filter_3',
                     },
                   },
                   id: '2',
@@ -361,14 +435,32 @@ export default {
                       },
                       value: 'Column 4',
                     },
-                    VALUE: {
+                    1: {
                       obj: {
                         t: ' ',
                         p: '',
                         k: '',
                       },
                       value: 'datatable[0]',
-                      icon: 'calendar',
+                      icon: 'filter_1',
+                    },
+                    2: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'filter_2',
+                    },
+                    3: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'filter_3',
                     },
                   },
                   id: '3',

@@ -24,6 +24,7 @@ import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -167,6 +168,7 @@ export class KupCard {
     onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
+        //Collapsible layouts
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -178,6 +180,14 @@ export class KupCard {
                 this.sizeY = this.oldSizeY;
             }
             return;
+        }
+
+        //4th dialog layout
+        if (
+            e.type === 'kupButtonClick' &&
+            (e.detail.id === 'previous-row' || e.detail.id === 'next-row')
+        ) {
+            this.refresh();
         }
 
         this.kupEvent.emit({
@@ -311,7 +321,10 @@ export class KupCard {
             );
             let props = {
                 resource: 'warning',
-                title: 'Layout not yet implemented!',
+                title:
+                    this.kupManager.language.translate(
+                        KupLanguageGeneric.LAYOUT_NYI
+                    ) + '!',
             };
             return <FImage {...props}></FImage>;
         }
@@ -381,16 +394,17 @@ export class KupCard {
         root.addEventListener('kupChipClick', this.cardEvent);
         root.addEventListener('kupChipIconClick', this.cardEvent);
         root.addEventListener('kupComboboxItemClick', this.cardEvent);
-        root.addEventListener('kupTextFieldClearIconClick', this.cardEvent);
+        root.addEventListener('kupDataTableCellUpdate', this.cardEvent);
         root.addEventListener('kupDatePickerClearIconClick', this.cardEvent);
-        root.addEventListener('kupTimePickerClearIconClick', this.cardEvent);
-        root.addEventListener('kupTextFieldInput', this.cardEvent);
         root.addEventListener('kupDatePickerInput', this.cardEvent);
         root.addEventListener('kupDatePickerItemClick', this.cardEvent);
+        root.addEventListener('kupDatePickerTextFieldSubmit', this.cardEvent);
+        root.addEventListener('kupTextFieldClearIconClick', this.cardEvent);
+        root.addEventListener('kupTextFieldInput', this.cardEvent);
+        root.addEventListener('kupTextFieldSubmit', this.cardEvent);
+        root.addEventListener('kupTimePickerClearIconClick', this.cardEvent);
         root.addEventListener('kupTimePickerInput', this.cardEvent);
         root.addEventListener('kupTimePickerItemClick', this.cardEvent);
-        root.addEventListener('kupTextFieldSubmit', this.cardEvent);
-        root.addEventListener('kupDatePickerTextFieldSubmit', this.cardEvent);
         root.addEventListener('kupTimePickerTextFieldSubmit', this.cardEvent);
     }
     /**
@@ -457,6 +471,7 @@ export class KupCard {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
         this.registerListeners();
     }
@@ -514,6 +529,7 @@ export class KupCard {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
         this.kupManager.resize.unobserve(this.rootElement);

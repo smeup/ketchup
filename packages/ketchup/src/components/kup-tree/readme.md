@@ -139,6 +139,17 @@ Type: `Promise<GenericObject>`
 
 
 
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+Useful when slots change.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
@@ -221,6 +232,7 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
+  kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
   kup-data-table --> kup-button
   kup-data-table --> kup-chart

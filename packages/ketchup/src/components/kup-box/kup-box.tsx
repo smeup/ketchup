@@ -87,6 +87,10 @@ import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageSearch,
+} from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -100,6 +104,11 @@ export class KupBox {
 
     @Prop() stateId: string = '';
     @Prop() store: KupStore;
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
 
     state: KupBoxState = new KupBoxState();
 
@@ -521,6 +530,14 @@ export class KupBox {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
 
     //---- Lifecycle hooks ----
 
@@ -532,6 +549,7 @@ export class KupBox {
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
         this.onDataChanged();
         this.adjustPaginator();
@@ -1479,9 +1497,13 @@ export class KupBox {
             if (section.title) {
                 headerTitle = section.title;
             } else if (sectionExpanded) {
-                headerTitle = 'Chiudi';
+                headerTitle = this.kupManager.language.translate(
+                    KupLanguageGeneric.COLLAPSE
+                );
             } else {
-                headerTitle = 'Espandi';
+                headerTitle = this.kupManager.language.translate(
+                    KupLanguageGeneric.EXPAND
+                );
             }
 
             sectionContainer = (
@@ -1736,7 +1758,13 @@ export class KupBox {
                 KupDebugCategory.ERROR
             );
             return {
-                jsx: <p id="empty-data-message">Empty data</p>,
+                jsx: (
+                    <p id="empty-data-message">
+                        {this.kupManager.language.translate(
+                            KupLanguageGeneric.EMPTY_DATA
+                        )}
+                    </p>
+                ),
                 style: { 'grid-template-columns': `repeat(1, 1fr)` },
             };
         }
@@ -1868,7 +1896,9 @@ export class KupBox {
             });
             const items = [{ text: '', value: '' }, ...visibleColumnsItems];
             let textfieldData = {
-                label: 'Sort by',
+                label: this.kupManager.language.translate(
+                    KupLanguageGeneric.SORT_BY
+                ),
                 trailingIcon: true,
             };
             let listData = {
@@ -1898,7 +1928,9 @@ export class KupBox {
                     <kup-text-field
                         fullWidth={true}
                         isClearable={true}
-                        label="Search..."
+                        label={this.kupManager.language.translate(
+                            KupLanguageSearch.SEARCH
+                        )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
                         onKupTextFieldInput={(event) => {
@@ -1938,7 +1970,13 @@ export class KupBox {
         let containerStyle = {};
 
         if (this.rows.length === 0) {
-            boxContent = <p id="empty-data-message">Empty data</p>;
+            boxContent = (
+                <p id="empty-data-message">
+                    {this.kupManager.language.translate(
+                        KupLanguageGeneric.EMPTY_DATA
+                    )}
+                </p>
+            );
             containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };
         } else if (isKanban) {
             const kanban: {
@@ -2031,6 +2069,7 @@ export class KupBox {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.boxContainer);
