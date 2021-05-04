@@ -295,4 +295,5 @@ export enum SelectionMode {
     SINGLE = 'single',
     MULTIPLE_CHECKBOX = 'multiple-checkbox',
     MULTIPLE = 'multiple',
+    NONE = 'none',
 }
