@@ -13,8 +13,8 @@ export class KupDataTableState implements KupState {
     expandGroups = false;
     groupLabelDisplay = GroupLabelDisplayMode.BOTH;
     density: string = 'small';
-    enableSortableColumns: boolean = false;
     enableExtraColumns: boolean = true;
+    enableSortableColumns: boolean = false;
     forceOneLine: boolean = false;
     globalFilter = false;
     globalFilterValue = '';
