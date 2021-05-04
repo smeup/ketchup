@@ -52,7 +52,7 @@ export class KupGauge {
     /**
      * The distance the label and the value has from the gauge graph.
      */
-    @Prop() labelDistance: number = 20;
+    @Prop({ mutable: true }) labelDistance: number = 20;
     /**
      * The maximum value reachable in the current graph.
      */
