@@ -521,7 +521,7 @@ export class KupDataTable {
      */
     @Prop() loadMoreStep: number = 60;
     /**
-     * Set the type of the selection.
+     * Set the type of the rows selection.
      */
     @Prop() selection: SelectionMode = SelectionMode.SINGLE;
     /**

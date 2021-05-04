@@ -203,11 +203,11 @@ export default {
           try: 'field',
         },
         {
-          prop: 'multiSelection',
-          description: 'When set to true enables the multi selection.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'selection',
+          description: 'Set the type of the rows selection.',
+          type: 'SelectionMode',
+          default: 'single',
+          try: 'field',
         },
         {
           prop: 'pageSelected',
