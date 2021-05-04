@@ -50,6 +50,7 @@ export enum KupLanguageDebug {
     AUTOPRINT = 'debugAutoprint',
     CLEAR = 'debugClear',
     DUMP = 'debugDump',
+    DL_ALL = 'debugDLAll',
     DL_PROPS = 'debugDLProps',
     LANGUAGE_CHANGER = 'debugLanguageChanger',
     LOG_LIMIT = 'debugLogLimit',

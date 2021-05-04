@@ -126,13 +126,27 @@ export class KupDebug {
                 {
                     className: 'kup-full-height',
                     customStyle:
-                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
+                        ':host {border-left: 1px solid var(--kup-border-color);}',
                     icon: 'download',
                     id: 'kup-debug-dl-props',
                     label: 'Props',
                     styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.DL_PROPS
+                    ),
+                },
+                {
+                    className: 'kup-full-height',
+                    customStyle:
+                        ':host {border-right: 1px solid var(--kup-border-color);}',
+                    icon: 'download',
+                    id: 'kup-debug-dl-all',
+                    label: dom.ketchup.language.translate(
+                        KupLanguageDebug.DL_ALL
+                    ),
+                    styling: 'flat',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageDebug.DL_ALL
                     ),
                 },
                 {
@@ -424,6 +438,11 @@ export class KupDebug {
                             this.downloadProps(res);
                         });
                         break;
+                    case 'kup-debug-dl-all':
+                        this.getProps(true).then((res: GenericObject) => {
+                            this.downloadProps(res);
+                        });
+                        break;
                     case 'kup-debug-delete':
                         this.dump();
                         break;
@@ -534,9 +553,20 @@ export class KupDebug {
                         tagInfo: tag,
                     };
                     if (!props.descriptions[el.rootElement.tagName]) {
-                        el.getProps(true).then((res: GenericObject) => {
-                            props.descriptions[el.rootElement.tagName] = res;
-                        });
+                        try {
+                            el.getProps(true).then((res: GenericObject) => {
+                                props.descriptions[
+                                    el.rootElement.tagName
+                                ] = res;
+                            });
+                        } catch (error) {
+                            this.logMessage(
+                                'kup-debug',
+                                'Exception when accessing "getProps" public method for component: ' +
+                                    el.rootElement.tagName,
+                                KupDebugCategory.WARNING
+                            );
+                        }
                     }
                 } else {
                     props[key] = res;
