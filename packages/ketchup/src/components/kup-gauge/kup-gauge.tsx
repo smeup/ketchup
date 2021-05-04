@@ -6,10 +6,10 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -56,7 +56,7 @@ export class KupGauge {
     /**
      * The maximum value reachable in the current graph.
      */
-    @Prop() maxValue: number = 100;
+    @Prop({ mutable: true }) maxValue: number = 100;
     /**
      * A string which will be appended to the displayed values of the component.
      */
@@ -64,7 +64,7 @@ export class KupGauge {
     /**
      * The minimum value reachable in the current graph.
      */
-    @Prop() minValue: number = -100;
+    @Prop({ mutable: true }) minValue: number = -100;
     /**
      * When true, shows a rounded needle.
      */
@@ -252,6 +252,15 @@ export class KupGauge {
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);
+        if (!this.labelDistance) {
+            this.labelDistance = 20;
+        }
+        if (!this.maxValue) {
+            this.maxValue = 100;
+        }
+        if (!this.minValue) {
+            this.minValue = -100;
+        }
     }
 
     componentDidRender() {
@@ -259,6 +268,15 @@ export class KupGauge {
     }
 
     render() {
+        if (isNaN(this.value)) {
+            this.kupManager.debug.logMessage(
+                this,
+                'Invalid value, not rendering!',
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
+        console.log('wss');
         // mathematical operations
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
         let tempValue = this.value;
