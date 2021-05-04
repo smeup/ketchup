@@ -521,10 +521,6 @@ export class KupDataTable {
      */
     @Prop() loadMoreStep: number = 60;
     /**
-     * Set the type of the rows selection.
-     */
-    @Prop() selection: SelectionMode = SelectionMode.SINGLE;
-    /**
      * Current selected page set on component load
      */
     @Prop() pageSelected: number = -1;
@@ -548,6 +544,10 @@ export class KupDataTable {
      * Activates the scroll on hover function.
      */
     @Prop() scrollOnHover: boolean = false;
+    /**
+     * Set the type of the rows selection.
+     */
+    @Prop() selection: SelectionMode = SelectionMode.SINGLE;
     /**
      * Selects the row at the specified rendered rows prosition (base 1).
      */

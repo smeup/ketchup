@@ -203,13 +203,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'selection',
-          description: 'Set the type of the rows selection.',
-          type: 'SelectionMode',
-          default: 'single',
-          try: 'field',
-        },
-        {
           prop: 'pageSelected',
           description: 'Current selected page set on component load.',
           type: 'number',
@@ -252,6 +245,13 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'selection',
+          description: 'Set the type of the rows selection.',
+          type: 'SelectionMode',
+          default: 'single',
+          try: 'field',
         },
         {
           prop: 'selectRow',
