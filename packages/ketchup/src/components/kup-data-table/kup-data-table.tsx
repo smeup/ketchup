@@ -3595,7 +3595,7 @@ export class KupDataTable {
                         : this.tooltipLoadTimeout
                 }
                 onBlur={() => {
-                    this.closeMenuAndTooltip();
+                    this.tooltip.data = null;
                 }}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}

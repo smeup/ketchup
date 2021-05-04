@@ -842,6 +842,7 @@ export class KupTooltip {
             this.kupManager.dynamicPosition.start(
                 this.rootElement as DynamicallyPositionedElement
             );
+            this.rootElement.focus();
         } else {
             this.kupManager.dynamicPosition.stop(
                 this.rootElement as DynamicallyPositionedElement
