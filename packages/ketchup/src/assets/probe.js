@@ -81,11 +81,11 @@ autorunButton.onclick = () => {
 };
 
 function runTests() {
-    let comp = document.querySelector('kup-test');
+    let comp = document.querySelector('kup-probe');
     if (comp) {
         comp.remove();
     }
-    comp = document.createElement('kup-test');
+    comp = document.createElement('kup-probe');
     combobox.getValue().then((res) => {
         comp.id = res;
         switch (res) {
@@ -129,7 +129,7 @@ function runTests() {
                 break;
             case 'default':
                 console.log(
-                    'Something wrong happened, feature not supported by kup-test (' +
+                    'Something wrong happened, feature not supported by kup-probe (' +
                         res +
                         ''
                 );

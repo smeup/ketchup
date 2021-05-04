@@ -2,7 +2,7 @@
   <div>
     <div id="test-section">
       <h1>Test</h1>
-      <p>Here a simple performance test made with kup-test.</p>
+      <p>Here a simple performance test made with kup-probe.</p>
       <div id="button-section">
         <kup-button id="print" label="Print lifecycle time"></kup-button>
         <kup-button
@@ -72,7 +72,7 @@
   margin: 0 5px 0 auto;
 }
 
-kup-test {
+kup-probe {
   text-align: center;
   width: 100%;
   height: auto;
@@ -187,11 +187,11 @@ export default {
     };
 
     function runTests() {
-      let comp = document.querySelector('kup-test');
+      let comp = document.querySelector('kup-probe');
       if (comp) {
         comp.remove();
       }
-      comp = document.createElement('kup-test');
+      comp = document.createElement('kup-probe');
       combobox.getValue().then((res) => {
         comp.id = res;
         switch (res) {
@@ -235,7 +235,7 @@ export default {
             break;
           case 'default':
             console.log(
-              'Something wrong happened, feature not supported by kup-test (' +
+              'Something wrong happened, feature not supported by kup-probe (' +
                 res +
                 ''
             );

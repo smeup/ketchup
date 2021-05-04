@@ -15,12 +15,12 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 
 @Component({
-    tag: 'kup-test',
+    tag: 'kup-probe',
     shadow: true,
 })
-export class KupTest {
+export class KupProbe {
     /**
-     * References the root HTML element of the component (<kup-test>).
+     * References the root HTML element of the component (<kup-probe>).
      */
     @Element() rootElement: HTMLElement;
 

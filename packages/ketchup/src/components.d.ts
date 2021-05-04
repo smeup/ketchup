@@ -1563,6 +1563,34 @@ export namespace Components {
         "refresh": () => Promise<void>;
         "selectedPerPage": number;
     }
+    interface KupProbe {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Specify features to test.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "features": {
+        debug: boolean;
+        language: boolean;
+        longCycleProp: boolean;
+        longCycleVar: boolean;
+        theme: boolean;
+    };
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "printLifecycleTime": () => Promise<{ id: string; time: number; }>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+    }
     interface KupProgressBar {
         /**
           * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
@@ -1822,34 +1850,6 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-    }
-    interface KupTest {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
-          * Specify features to test.
-          * @default ""
-          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "features": {
-        debug: boolean;
-        language: boolean;
-        longCycleProp: boolean;
-        longCycleVar: boolean;
-        theme: boolean;
-    };
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "printLifecycleTime": () => Promise<{ id: string; time: number; }>;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2411,6 +2411,12 @@ declare global {
         prototype: HTMLKupPaginatorElement;
         new (): HTMLKupPaginatorElement;
     };
+    interface HTMLKupProbeElement extends Components.KupProbe, HTMLStencilElement {
+    }
+    var HTMLKupProbeElement: {
+        prototype: HTMLKupProbeElement;
+        new (): HTMLKupProbeElement;
+    };
     interface HTMLKupProgressBarElement extends Components.KupProgressBar, HTMLStencilElement {
     }
     var HTMLKupProgressBarElement: {
@@ -2458,12 +2464,6 @@ declare global {
     var HTMLKupTabBarElement: {
         prototype: HTMLKupTabBarElement;
         new (): HTMLKupTabBarElement;
-    };
-    interface HTMLKupTestElement extends Components.KupTest, HTMLStencilElement {
-    }
-    var HTMLKupTestElement: {
-        prototype: HTMLKupTestElement;
-        new (): HTMLKupTestElement;
     };
     interface HTMLKupTextFieldElement extends Components.KupTextField, HTMLStencilElement {
     }
@@ -2531,6 +2531,7 @@ declare global {
         "kup-modal": HTMLKupModalElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
+        "kup-probe": HTMLKupProbeElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
@@ -2539,7 +2540,6 @@ declare global {
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
         "kup-tab-bar": HTMLKupTabBarElement;
-        "kup-test": HTMLKupTestElement;
         "kup-text-field": HTMLKupTextFieldElement;
         "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
@@ -4221,6 +4221,26 @@ declare namespace LocalJSX {
         "perPage"?: number;
         "selectedPerPage"?: number;
     }
+    interface KupProbe {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Specify features to test.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "features"?: {
+        debug: boolean;
+        language: boolean;
+        longCycleProp: boolean;
+        longCycleVar: boolean;
+        theme: boolean;
+    };
+    }
     interface KupProgressBar {
         /**
           * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
@@ -4486,26 +4506,6 @@ declare namespace LocalJSX {
         index: number;
         el: EventTarget;
     }>) => void;
-    }
-    interface KupTest {
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * Specify features to test.
-          * @default ""
-          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "features"?: {
-        debug: boolean;
-        language: boolean;
-        longCycleProp: boolean;
-        longCycleVar: boolean;
-        theme: boolean;
-    };
     }
     interface KupTextField {
         /**
@@ -5052,6 +5052,7 @@ declare namespace LocalJSX {
         "kup-modal": KupModal;
         "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
+        "kup-probe": KupProbe;
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
@@ -5060,7 +5061,6 @@ declare namespace LocalJSX {
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
         "kup-tab-bar": KupTabBar;
-        "kup-test": KupTest;
         "kup-text-field": KupTextField;
         "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
@@ -5107,6 +5107,7 @@ declare module "@stencil/core" {
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
+            "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
@@ -5115,7 +5116,6 @@ declare module "@stencil/core" {
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
-            "kup-test": LocalJSX.KupTest & JSXBase.HTMLAttributes<HTMLKupTestElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;

@@ -30,9 +30,9 @@ export const config: Config = {
                 { src: 'gauge.html' },
                 { src: 'magic-box.html' },
                 { src: 'nav-bar.html' },
+                { src: 'probe.html' },
                 { src: 'rating.html' },
                 { src: 'tooltip.html' },
-                { src: 'test.html' },
                 { src: 'tree.html' },
             ],
             serviceWorker: null, // disable service workers
