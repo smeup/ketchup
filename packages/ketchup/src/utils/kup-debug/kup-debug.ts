@@ -550,7 +550,7 @@ export class KupDebug {
      * Warnings and errors will be displayed even when kupDebug !== true.
      * @param {any} comp - The component calling this function or a string.
      * @param {string} message - The actual message that will be printed.
-     * @param {string} type - The type of console message, defaults to "log" but "warning" and "error" can be used as well.
+     * @param {KupDebugCategory} category - The type of console message, defaults to log but warning and error can be used as well.
      */
     logMessage(comp: any, message: string, category?: KupDebugCategory): void {
         if (
