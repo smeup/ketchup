@@ -1824,13 +1824,19 @@ export class KupDataTable {
      * @memberof KupDataTable
      */
     private rowDetail(row: Row, x: number, y: number): void {
-        let transposedData: TableData = this.getTransposedData();
+        const transposedData: TableData = this.getTransposedData();
+        console.log('e');
         const cardData: CardData = {
             button: [
                 {
+                    disabled: parseInt(row.id) === 0 ? true : false,
                     icon: 'chevron_left',
                 },
                 {
+                    disabled:
+                        parseInt(row.id) === this.data.rows.length - 1
+                            ? true
+                            : false,
                     icon: 'chevron_right',
                 },
             ],

@@ -276,7 +276,6 @@ export class KupGauge {
             );
             return;
         }
-        console.log('wss');
         // mathematical operations
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
         let tempValue = this.value;
