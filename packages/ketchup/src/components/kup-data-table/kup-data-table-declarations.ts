@@ -290,3 +290,9 @@ export interface EventHandlerDetails {
 export const fieldColumn: string = 'Field';
 export const iconColumn: string = 'Icon';
 export const keyColumn: string = 'Key';
+
+export enum SelectionMode {
+    SINGLE = 'single',
+    MULTIPLE_CHECKBOX = 'multiple-checkbox',
+    MULTIPLE = 'multiple',
+}

@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { GenericObject } from "./types/GenericTypes";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
@@ -824,10 +824,6 @@ export namespace Components {
          */
         "loadMoreStep": number;
         /**
-          * When set to true enables rows multi selection.
-         */
-        "multiSelection": boolean;
-        /**
           * Current selected page set on component load
          */
         "pageSelected": number;
@@ -867,6 +863,10 @@ export namespace Components {
           * Semicolon separated rows id to select.
          */
         "selectRowsById": string;
+        /**
+          * Set the type of the selection.
+         */
+        "selection": SelectionMode;
         /**
           * This method will set the selected rows of the component.
           * @param rowsById - String containing the ids separated by ";".
@@ -3409,10 +3409,6 @@ declare namespace LocalJSX {
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
-        /**
-          * When set to true enables rows multi selection.
-         */
-        "multiSelection"?: boolean;
         "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{ column: string }>) => void;
         /**
           * When 'add column' menu item is clicked
@@ -3525,6 +3521,10 @@ declare namespace LocalJSX {
           * Semicolon separated rows id to select.
          */
         "selectRowsById"?: string;
+        /**
+          * Set the type of the selection.
+         */
+        "selection"?: SelectionMode;
         /**
           * If set to true, displays the button to open the customization panel.
          */
