@@ -237,7 +237,7 @@ export class KupDataTable {
             ) {
                 this.state.enableExtraColumns = this.enableExtraColumns;
                 somethingChanged = true;
-            }            
+            }
             if (
                 !deepEqual(
                     this.state.enableSortableColumns,
@@ -387,14 +387,14 @@ export class KupDataTable {
     /**
      * Enables the extracolumns add buttons.
      */
-     @Prop() enableExtraColumns: boolean = true;
+    @Prop() enableExtraColumns: boolean = true;
     /**
      * Enables the sorting of columns by dragging them into different columns.
      */
     @Prop() enableSortableColumns: boolean = true;
     /**
      * Expands groups when set to true.
-     */ 
+     */
     @Prop() expandGroups: boolean = false;
     /**
      * List of filters set by the user.
@@ -1180,7 +1180,7 @@ export class KupDataTable {
 
         //this.identifyAndInitRows();
         identify(this.getRows());
-        this.expandGroupsHandler();        
+        this.expandGroupsHandler();
 
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
@@ -3012,7 +3012,7 @@ export class KupDataTable {
                                     this.closeMenuAndTooltip();
                                 }}
                             />
-                        );   
+                        );
                     }
                     columnMenuItems.push(
                         <li role="menuitem" class="button-row">
@@ -3389,6 +3389,7 @@ export class KupDataTable {
         let extraCells = 0;
 
         // Composes initial cells if necessary
+        let actionRowCell = null;
         let selectRowCell = null;
         if (this.multiSelection) {
             extraCells++;
@@ -3399,6 +3400,25 @@ export class KupDataTable {
             );
 
             selectRowCell = (
+                <td
+                    class={
+                        fixedCellStyle ? fixedCellStyle.fixedCellClasses : null
+                    }
+                    style={
+                        fixedCellStyle ? fixedCellStyle.fixedCellStyle : null
+                    }
+                />
+            );
+        }
+        if (this.rowActions) {
+            extraCells++;
+            const fixedCellStyle = this.composeFixedCellStyleAndClass(
+                extraCells,
+                0,
+                extraCells
+            );
+
+            actionRowCell = (
                 <td
                     class={
                         fixedCellStyle ? fixedCellStyle.fixedCellClasses : null
@@ -3457,6 +3477,7 @@ export class KupDataTable {
             <tfoot>
                 <tr>
                     {selectRowCell}
+                    {actionRowCell}
                     {groupingCell}
                     {footerCells}
                 </tr>
