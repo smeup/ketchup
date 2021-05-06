@@ -3855,25 +3855,25 @@ export class KupDataTable {
                             }
                         );
                     }
-                    // TODO replace this with find which is a better approach
-                    // Note that this is not supported in older IE
-                    let selectedItem = listData.find(
-                        (item) => item.text === menuLabel
-                    );
-                    if (selectedItem) {
-                        selectedItem.selected = true;
-                        listData.push(
-                            {
-                                text: null,
-                                value: null,
-                                isSeparator: true,
-                            },
-                            {
-                                text: translation[TotalLabel.CANC],
-                                value: TotalLabel.CANC,
-                                selected: false,
-                            }
+                    if (this.totals) {
+                        let selectedItem: ComponentListElement = listData.find(
+                            (item) => item.value === this.totals[column.name]
                         );
+                        if (selectedItem) {
+                            selectedItem.selected = true;
+                            listData.push(
+                                {
+                                    text: null,
+                                    value: null,
+                                    isSeparator: true,
+                                },
+                                {
+                                    text: translation[TotalLabel.CANC],
+                                    value: TotalLabel.CANC,
+                                    selected: false,
+                                }
+                            );
+                        }
                     }
 
                     totalMenu = (
