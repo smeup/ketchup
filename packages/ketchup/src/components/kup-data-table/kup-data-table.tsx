@@ -1535,11 +1535,11 @@ export class KupDataTable {
 
         if (root) {
             //Row checkboxes
-            const checkboxes: NodeListOf<Element> = root.querySelectorAll(
+            const checkboxes: NodeListOf<HTMLElement> = root.querySelectorAll(
                 'td .f-checkbox--wrapper'
             );
             for (let index = 0; index < checkboxes.length; index++) {
-                const inputEl: HTMLButtonElement = checkboxes[
+                const inputEl: HTMLInputElement = checkboxes[
                     index
                 ].querySelector('input');
                 if (inputEl) {
@@ -1552,14 +1552,14 @@ export class KupDataTable {
                             checkboxes[index]['data-row']
                         );
                 }
-                FCheckboxMDC(checkboxes[index] as HTMLElement);
+                FCheckboxMDC(checkboxes[index]);
             }
             //Row textfields
-            const textfields: NodeListOf<Element> = root.querySelectorAll(
+            const textfields: NodeListOf<HTMLElement> = root.querySelectorAll(
                 'td .f-text-field--wrapper'
             );
             for (let index = 0; index < textfields.length; index++) {
-                const inputEl: HTMLButtonElement = textfields[
+                const inputEl: HTMLInputElement = textfields[
                     index
                 ].querySelector('input');
                 if (inputEl) {
@@ -1580,10 +1580,10 @@ export class KupDataTable {
                             textfields[index]['data-row']
                         );
                 }
-                FTextFieldMDC(textfields[index] as HTMLElement);
+                FTextFieldMDC(textfields[index]);
             }
             //Row multiselection checkboxes
-            const multiselectionCheckboxes: NodeListOf<Element> = root.querySelectorAll(
+            const multiselectionCheckboxes: NodeListOf<HTMLElement> = root.querySelectorAll(
                 'td[row-select-cell] .f-checkbox--wrapper'
             );
             for (
@@ -1591,7 +1591,7 @@ export class KupDataTable {
                 index < multiselectionCheckboxes.length;
                 index++
             ) {
-                const checkboxEl: HTMLButtonElement = multiselectionCheckboxes[
+                const checkboxEl: HTMLInputElement = multiselectionCheckboxes[
                     index
                 ].querySelector('input');
                 if (checkboxEl) {
@@ -1603,7 +1603,7 @@ export class KupDataTable {
                 FCheckboxMDC(multiselectionCheckboxes[index] as HTMLElement);
             }
             //Row actions: expander
-            const expanderRowActions: NodeListOf<Element> = root.querySelectorAll(
+            const expanderRowActions: NodeListOf<HTMLElement> = root.querySelectorAll(
                 '[row-action-cell] .f-image--wrapper.expander'
             );
             for (let index = 0; index < expanderRowActions.length; index++) {
@@ -1616,11 +1616,11 @@ export class KupDataTable {
                     );
             }
             //Row actions: actions
-            const rowActions: NodeListOf<Element> = root.querySelectorAll(
+            const rowActions: NodeListOf<HTMLElement> = root.querySelectorAll(
                 '[row-action-cell] .f-image--wrapper.action'
             );
             for (let index = 0; index < rowActions.length; index++) {
-                (rowActions[index] as HTMLElement).onclick = () =>
+                rowActions[index].onclick = () =>
                     this.onDefaultRowActionClick(
                         rowActions[index]['data-action']
                     );
@@ -1655,7 +1655,7 @@ export class KupDataTable {
                     '.clear'
                 );
                 globalFilterInput.oninput = (event) => {
-                    const t = event.target;
+                    const t: EventTarget = event.target;
                     window.clearTimeout(this.globalFilterTimeout);
                     this.globalFilterTimeout = window.setTimeout(
                         () => this.onGlobalFilterChange(t),
