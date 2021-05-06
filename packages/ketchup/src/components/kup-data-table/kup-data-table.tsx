@@ -1825,7 +1825,6 @@ export class KupDataTable {
      */
     private rowDetail(row: Row, x: number, y: number): void {
         const transposedData: TableData = this.getTransposedData();
-        console.log('e');
         const cardData: CardData = {
             button: [
                 {
