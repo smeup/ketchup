@@ -3856,7 +3856,6 @@ export class KupDataTable {
                         );
                     }
                     if (this.totals) {
-                        // Note that this is not supported in older IE
                         let selectedItem: ComponentListElement = listData.find(
                             (item) => item.value === this.totals[column.name]
                         );
