@@ -91,7 +91,6 @@ export function isProgressBar(cell: Cell, boxObject: BoxObject) {
     );
 }
 
-
 // -------------
 // CHIP
 // -------------
@@ -537,7 +536,9 @@ export function compareValues(
  * @see https://stackoverflow.com/questions/60300935/javascript-localecompare-returns-different-result-than-java-compareto
  */
 function localCompareAsInJava(t1: string, t2: string): number {
-    const lim = Math.min(t1.length, t2.length);
+    let t1Length = t1 == null ? 0 : t1.length;
+    let t2Length = t2 == null ? 0 : t2.length;
+    const lim = Math.min(t1Length, t2Length);
 
     let k = 0;
     while (k < lim) {
@@ -552,5 +553,5 @@ function localCompareAsInJava(t1: string, t2: string): number {
         }
         k++;
     }
-    return t1.length - t2.length;
+    return t1Length - t2Length;
 }
