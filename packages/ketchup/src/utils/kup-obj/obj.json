@@ -1,0 +1,11 @@
+{
+    "types": {
+        "CN": {
+            "parameters": {
+                "COL": {
+                    "FOSLUC": { "shape": "FLD" }
+                }
+            }
+        }
+    }
+}

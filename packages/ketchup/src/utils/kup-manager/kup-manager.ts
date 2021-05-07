@@ -12,6 +12,7 @@ import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
 import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import { KupDialog } from '../kup-dialog/kup-dialog';
 import { KupLanguage } from '../kup-language/kup-language';
+import { KupObj } from '../kup-obj/kup-obj';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -21,10 +22,11 @@ const dom: KupDom = document.documentElement as KupDom;
  */
 export class KupManager {
     debug: KupDebug = new KupDebug();
+    dialog: KupDialog = new KupDialog();
     dynamicPosition: DynamicPosition = new DynamicPosition();
     language: KupLanguage = new KupLanguage();
     magicBox: HTMLKupMagicBoxElement = null;
-    dialog: KupDialog = new KupDialog();
+    obj: KupObj = new KupObj();
     overrides?: KupManagerInitialization = dom.ketchupInit
         ? dom.ketchupInit
         : null;

@@ -6,6 +6,7 @@ import type { KupLanguage } from '../kup-language/kup-language';
 import type { KupTheme } from '../kup-theme/kup-theme';
 import type { ResizeObserver } from 'resize-observer';
 import type { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
+import { KupObj } from '../kup-obj/kup-obj';
 /**
  * Interface used to define the HTML element with Ketch.UP specific properties.
  */
@@ -22,6 +23,7 @@ export interface KupManager {
     dynamicPosition: DynamicPosition;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
+    obj: KupObj;
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: ScrollOnHover;
@@ -38,6 +40,7 @@ export interface KupManagerInitialization {
     debug: { active: boolean; autoPrint: boolean; logLimit: number };
     dialog: { zIndex: number };
     language: { list: JSON; name: string };
+    obj: { list: JSON };
     scrollOnHover: { delay: number; step: number };
     theme: { list: JSON; name: string };
 }
