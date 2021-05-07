@@ -4,11 +4,10 @@ import {
     DataTable,
 } from '../kup-data-table/kup-data-table-declarations';
 
-import { isDate, isNumber } from '../../utils/object-utils';
-
 import { formatToNumber, formatToMomentDate } from '../../utils/cell-formatter';
 import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
+import { KupObjects } from '../../utils/kup-obj/kup-obj';
 
 export function getSerieDecode(serie: string, series: ChartSerie[]): string {
     if (serie == null || series == null) {
@@ -55,6 +54,7 @@ export const convertRows = (
     columns: Column[],
     showMarks: boolean
 ) => {
+    const kupObjects: KupObjects = new KupObjects();
     if (!data) {
         return [];
     }
@@ -73,13 +73,13 @@ export const convertRows = (
                 if (cell && cell.obj) {
                     const addMark = showMarks && index > 0;
 
-                    if (isNumber(cell.obj)) {
+                    if (kupObjects.isNumber(cell.obj)) {
                         const value = formatToNumber(cell);
                         currentRow.push(value);
                         if (addMark) {
                             currentRow.push(value.toString());
                         }
-                    } else if (isDate(cell.obj)) {
+                    } else if (kupObjects.isDate(cell.obj)) {
                         const value = formatToMomentDate(cell).toDate();
                         currentRow.push(value);
                         if (addMark) {

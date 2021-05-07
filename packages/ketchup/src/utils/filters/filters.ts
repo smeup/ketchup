@@ -1,12 +1,7 @@
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
-import {
-    isDate,
-    isNumber,
-    isTime,
-    isTimestamp,
-    isTimeWithSeconds,
-} from '../object-utils';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { KupObjects } from '../kup-obj/kup-obj';
 import {
     formattedStringToCustomUnformattedStringTime,
     formattedStringToDefaultUnformattedStringDate,
@@ -32,6 +27,8 @@ import {
     FILTER_ANALIZER,
     ValueDisplayedValue,
 } from './filters-declarations';
+
+const kupObjects: KupObjects = new KupObjects();
 /**
  * Filtering algorithms.
  * @module Filters
@@ -48,16 +45,16 @@ export class Filters {
     }
 
     isObjFiltrableByInterval(obj): boolean {
-        if (isDate(obj)) {
+        if (kupObjects.isDate(obj)) {
             return true;
         }
-        if (isTime(obj)) {
+        if (kupObjects.isTime(obj)) {
             return true;
         }
-        if (isTimestamp(obj)) {
+        if (kupObjects.isTimestamp(obj)) {
             return true;
         }
-        if (isNumber(obj)) {
+        if (kupObjects.isNumber(obj)) {
             return true;
         }
         return false;
@@ -68,12 +65,12 @@ export class Filters {
         if (newValue == null || newValue == '' || smeupObj == null) {
             return newValue;
         }
-        if (isDate(smeupObj)) {
+        if (kupObjects.isDate(smeupObj)) {
             if (isValidFormattedStringDate(value)) {
                 return formattedStringToDefaultUnformattedStringDate(value);
             }
-        } else if (isTime(smeupObj)) {
-            let manageSeconds = isTimeWithSeconds(smeupObj);
+        } else if (kupObjects.isTime(smeupObj)) {
+            let manageSeconds = kupObjects.isTimeWithSeconds(smeupObj);
             if (isValidFormattedStringTime(value, manageSeconds)) {
                 formattedStringToCustomUnformattedStringTime(
                     value,
@@ -83,13 +80,13 @@ export class Filters {
                     manageSeconds
                 );
             }
-        } else if (isTimestamp(smeupObj)) {
+        } else if (kupObjects.isTimestamp(smeupObj)) {
             if (isValidFormattedStringTime(value, true)) {
                 return formattedStringToDefaultUnformattedStringTimestamp(
                     value
                 );
             }
-        } else if (isNumber(smeupObj)) {
+        } else if (kupObjects.isNumber(smeupObj)) {
             if (
                 isValidFormattedStringNumber(value, smeupObj ? smeupObj.p : '')
             ) {
@@ -240,7 +237,7 @@ export class Filters {
             to = interval[FilterInterval.TO];
         }
         let checkByRegularExpression = true;
-        if (isNumber(obj)) {
+        if (kupObjects.isNumber(obj)) {
             value = unformattedStringNumberToNumber(value, obj ? obj.p : '');
             let valueNumber: number = stringToNumber(value);
             if (from != '') {
@@ -266,17 +263,21 @@ export class Filters {
                 }
             }
         }
-        if (isDate(obj) || isTime(obj) || isTimestamp(obj)) {
+        if (
+            kupObjects.isDate(obj) ||
+            kupObjects.isTime(obj) ||
+            kupObjects.isTimestamp(obj)
+        ) {
             let valueDate: Date = null;
 
             let defaultFormat = ISO_DEFAULT_DATE_FORMAT;
-            if (isDate(obj)) {
+            if (kupObjects.isDate(obj)) {
                 defaultFormat = ISO_DEFAULT_DATE_FORMAT;
-            } else if (isTime(obj)) {
-                defaultFormat = isTimeWithSeconds(obj)
+            } else if (kupObjects.isTime(obj)) {
+                defaultFormat = kupObjects.isTimeWithSeconds(obj)
                     ? ISO_DEFAULT_TIME_FORMAT
                     : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS;
-            } else if (isTimestamp(obj)) {
+            } else if (kupObjects.isTimestamp(obj)) {
                 defaultFormat = ISO_DEFAULT_DATE_TIME_FORMAT;
             }
 

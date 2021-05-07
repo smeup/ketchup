@@ -3,8 +3,8 @@ import { dataTableHideRepetitionsData } from './mocked-data';
 import { rowsSelector } from './data-table-selectors';
 import { Column } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import { _numberToString, stringToNumber } from '../../../src/utils/utils';
-import { isNumber } from '../../../src/utils/object-utils';
 import { getColumnByName } from '../../../src/utils/cell-utils';
+import { KupObjects } from '../../../src/utils/kup-obj/kup-obj';
 
 describe('kup-data-table with hide repetitions active', () => {
     it('hides values where the previous cell on the same column has the same value', async () => {
@@ -43,7 +43,8 @@ describe('kup-data-table with hide repetitions active', () => {
                                 columns,
                                 column
                             );
-                            if (isNumber(row.cells[column].obj)) {
+                            let objects = new KupObjects();
+                            if (objects.isNumber(row.cells[column].obj)) {
                                 /*
                                 const cellValue = unformattedStringToFormattedStringNumber(
                                     row.cells[column].value,

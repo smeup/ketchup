@@ -29,13 +29,6 @@ import {
     BoxKanban,
     KupBoxProps,
 } from './kup-box-declarations';
-import {
-    isButton,
-    isPassword,
-    isIcon,
-    isCheckbox,
-    hasTooltip,
-} from '../../utils/object-utils';
 
 import {
     isEditor,
@@ -1547,7 +1540,7 @@ export class KupBox {
             cell = row.cells[boxObject.column];
             column = null;
             if (cell) {
-                _hasTooltip = hasTooltip(cell.obj);
+                _hasTooltip = this.kupManager.objects.hasTooltip(cell.obj);
                 // removing column from visibleColumns
                 let index = -1;
 
@@ -1570,7 +1563,7 @@ export class KupBox {
                 }
                 let props: any = { ...cell.data };
 
-                if (isButton(cell.obj)) {
+                if (this.kupManager.objects.isButton(cell.obj)) {
                     if (props) {
                         boContent = (
                             <FButton class="cell-button" {...props}></FButton>
@@ -1584,7 +1577,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (isCheckbox(cell.obj)) {
+                } else if (this.kupManager.objects.isCheckbox(cell.obj)) {
                     if (props) {
                         props['disabled'] = row;
                     } else {
@@ -1598,7 +1591,7 @@ export class KupBox {
                     );
                 } else if (isEditor(cell, boxObject)) {
                     boContent = <kup-editor text={cell.value}></kup-editor>;
-                } else if (isIcon(cell.obj)) {
+                } else if (this.kupManager.objects.isIcon(cell.obj)) {
                     if (props) {
                         if (!props.sizeX) {
                             props['sizeX'] = '18px';
@@ -1629,7 +1622,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (isPassword(cell.obj)) {
+                } else if (this.kupManager.objects.isPassword(cell.obj)) {
                     boContent = (
                         <kup-text-field
                             input-type="password"

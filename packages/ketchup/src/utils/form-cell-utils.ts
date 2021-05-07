@@ -15,10 +15,9 @@ import {
     isMultipleConfigurator,
     isInputText,
 } from './cell-utils';
-import {
-    isProgressBar as isProgressBarObj,
-    isImage as isImageObj,
-} from './object-utils';
+import { KupDom } from './kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 // ------------------------------------------------------------------------------------------------
 // Form cells utils functions -> TODO: refactor -> uniform Box, Datatable and Form structures ->
@@ -50,8 +49,11 @@ export function isProgressBarInForm(cell: FormCell, field: FormField) {
     let shape = getShape(cell, field);
     return (
         'PGB' === shape ||
-        (!shape && cell && cell.obj && isProgressBarObj(cell.obj)) ||
-        (!shape && field.obj && isProgressBarObj(field.obj))
+        (!shape &&
+            cell &&
+            cell.obj &&
+            dom.ketchup.objects.isProgressBar(cell.obj)) ||
+        (!shape && field.obj && dom.ketchup.objects.isProgressBar(field.obj))
     );
 }
 
@@ -72,8 +74,8 @@ export function isImageInForm(cell: FormCell, field: FormField) {
     let shape = getShape(cell, field);
     return (
         'IMG' === shape ||
-        (!shape && cell && cell.obj && isImageObj(cell.obj)) ||
-        (!shape && field.obj && isImageObj(field.obj))
+        (!shape && cell && cell.obj && dom.ketchup.objects.isImage(cell.obj)) ||
+        (!shape && field.obj && dom.ketchup.objects.isImage(field.obj))
     );
 }
 

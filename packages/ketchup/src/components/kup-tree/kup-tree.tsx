@@ -32,7 +32,6 @@ import {
     treeMainColumnName,
 } from './kup-tree-declarations';
 
-import { hasTooltip, isNumber } from '../../utils/object-utils';
 import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
@@ -1209,7 +1208,9 @@ export class KupTree {
             );
         }
 
-        const _hasTooltip: boolean = hasTooltip(cell.obj);
+        const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+            cell.obj
+        );
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
@@ -1778,7 +1779,9 @@ export class KupTree {
             }
         }
 
-        const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
+        const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+            treeNodeData.obj
+        );
         let title: string = undefined;
         if (_hasTooltip && this.kupManager.debug.isDebug()) {
             title =
@@ -1802,7 +1805,9 @@ export class KupTree {
                         'first-node': treeNodeDepth === 0 ? true : false,
                         'mdc-ripple-surface':
                             !this.showColumns && !treeNodeData.disabled,
-                        'is-obj': hasTooltip(treeNodeData.obj),
+                        'is-obj': this.kupManager.objects.hasTooltip(
+                            treeNodeData.obj
+                        ),
                     }}
                     style={treeNodeData.style || null}
                     title={title}
@@ -1948,7 +1953,7 @@ export class KupTree {
                         selected: false,
                     },
                 ];
-                if (isNumber(column.obj)) {
+                if (this.kupManager.objects.isNumber(column.obj)) {
                     // TODO Move these objects in declarations
                     listData.push(
                         {

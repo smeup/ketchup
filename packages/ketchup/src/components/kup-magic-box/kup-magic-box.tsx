@@ -22,7 +22,6 @@ import {
     KupDataTableRowDragType,
     Row,
 } from '../kup-data-table/kup-data-table-declarations';
-import { isNumber } from '../../utils/object-utils';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
@@ -199,7 +198,10 @@ export class KupMagicBox {
                         index++
                     ) {
                         const col: Column = this.data.columns[index];
-                        if (col.obj && isNumber(col.obj)) {
+                        if (
+                            col.obj &&
+                            this.kupManager.objects.isNumber(col.obj)
+                        ) {
                             props['series'].push({
                                 code: col.name,
                                 decode: col.title,

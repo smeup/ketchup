@@ -68,21 +68,6 @@ import {
     dropHandlersCell,
 } from './kup-data-table-helper';
 
-import {
-    isBar,
-    isChart,
-    isButton,
-    isIcon,
-    isImage,
-    isNumber,
-    isDate,
-    isProgressBar as isProgressBarObj,
-    isVoCodver,
-    isCheckbox,
-    hasTooltip,
-    isRadio as isRadioObj,
-    canHaveAutomaticDerivedColumn,
-} from '../../utils/object-utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 
 import {
@@ -1229,12 +1214,12 @@ export class KupDataTable {
     private setObjForTotalsMatrix(column: Column, totals: TotalsMap): void {
         const obj = column.obj;
         const totalMode = totals[column.name];
-        if (isDate(obj)) {
+        if (this.kupManager.objects.isDate(obj)) {
             // check if min or max totals mode
             if (totalMode === TotalMode.MAX || totalMode === TotalMode.MIN) {
                 return;
             }
-        } else if (isNumber(obj)) {
+        } else if (this.kupManager.objects.isNumber(obj)) {
             // check if percentage
             if (obj.p && obj.p.toUpperCase() === 'P') {
                 if (
@@ -2675,7 +2660,7 @@ export class KupDataTable {
         column: Column,
         row: Row
     ) {
-        if (isCheckbox(cell.obj)) {
+        if (this.kupManager.objects.isCheckbox(cell.obj)) {
             if (cell.data && cell.data['checked'] !== undefined) {
                 cell.data['checked'] = value === 'on' ? false : true;
             }
@@ -2805,7 +2790,9 @@ export class KupDataTable {
         if (column == null || column.obj == null) {
             return false;
         }
-        return canHaveAutomaticDerivedColumn(column.obj);
+        return this.kupManager.objects.canHaveAutomaticDerivedColumn(
+            column.obj
+        );
     }
 
     private onHeaderCellContextMenuClose(event: MouseEvent) {
@@ -3108,24 +3095,27 @@ export class KupDataTable {
             thStyle: GenericObject = {};
 
         if (
-            isBar(column.obj) ||
-            isButton(column.obj) ||
-            isChart(column.obj) ||
-            isCheckbox(column.obj) ||
-            isImage(column.obj) ||
-            isIcon(column.obj) ||
-            isProgressBarObj(column.obj) ||
-            isRadioObj(column.obj) ||
-            isVoCodver(column.obj)
+            this.kupManager.objects.isBar(column.obj) ||
+            this.kupManager.objects.isButton(column.obj) ||
+            this.kupManager.objects.isChart(column.obj) ||
+            this.kupManager.objects.isCheckbox(column.obj) ||
+            this.kupManager.objects.isImage(column.obj) ||
+            this.kupManager.objects.isIcon(column.obj) ||
+            this.kupManager.objects.isProgressBar(column.obj) ||
+            this.kupManager.objects.isRadio(column.obj) ||
+            this.kupManager.objects.isVoCodver(column.obj)
         ) {
             columnClass.centered = true;
         }
 
-        if (isNumber(column.obj)) {
+        if (this.kupManager.objects.isNumber(column.obj)) {
             columnClass.number = true;
         }
 
-        if (isIcon(column.obj) || isVoCodver(column.obj)) {
+        if (
+            this.kupManager.objects.isIcon(column.obj) ||
+            this.kupManager.objects.isVoCodver(column.obj)
+        ) {
             columnClass.icon = true;
         }
         // For fixed cells styles and classes
@@ -3439,7 +3429,9 @@ export class KupDataTable {
                     },
                 };
 
-                columnClass.number = isNumber(column.obj);
+                columnClass.number = this.kupManager.objects.isNumber(
+                    column.obj
+                );
 
                 return (
                     <th
@@ -3795,7 +3787,7 @@ export class KupDataTable {
                             selected: false,
                         },
                     ];
-                    if (isNumber(column.obj)) {
+                    if (this.kupManager.objects.isNumber(column.obj)) {
                         // TODO Move these objects in declarations
                         listData.push(
                             {
@@ -3824,7 +3816,7 @@ export class KupDataTable {
                                 selected: false,
                             }
                         );
-                    } else if (isDate(column.obj)) {
+                    } else if (this.kupManager.objects.isDate(column.obj)) {
                         listData.push(
                             {
                                 text: null,
@@ -3891,7 +3883,7 @@ export class KupDataTable {
                 } else if (
                     (menuLabel === TotalLabel.MAX ||
                         menuLabel === TotalLabel.MIN) &&
-                    isDate(column.obj)
+                    this.kupManager.objects.isDate(column.obj)
                 ) {
                     if (footerValue) {
                         if (
@@ -4058,7 +4050,7 @@ export class KupDataTable {
                     ) {
                         value = totalValue;
                     } else {
-                        if (isDate(column.obj)) {
+                        if (this.kupManager.objects.isDate(column.obj)) {
                             if (totalValue) {
                                 if (
                                     isValidStringDate(
@@ -4307,9 +4299,9 @@ export class KupDataTable {
                 // Classes which will be set onto the single data-table cell
                 let cellClass = {
                     //    'has-options': !!options,
-                    'is-graphic': isBar(cell.obj),
+                    'is-graphic': this.kupManager.objects.isBar(cell.obj),
                     number:
-                        isNumber(cell.obj) &&
+                        this.kupManager.objects.isNumber(cell.obj) &&
                         !isRating(cell, null) &&
                         !isGauge(cell, null) &&
                         !isKnob(cell, null),
@@ -4370,7 +4362,9 @@ export class KupDataTable {
                  * Controls if current cell needs a tooltip and eventually adds it.
                  * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
                  */
-                const _hasTooltip: boolean = hasTooltip(cell.obj);
+                const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+                    cell.obj
+                );
                 let eventHandlers = undefined;
                 let title: string = undefined;
                 if (_hasTooltip) {
