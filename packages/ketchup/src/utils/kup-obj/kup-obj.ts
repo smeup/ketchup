@@ -1,201 +1,281 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupObject } from './kup-obj-declarations';
+import type { KupObj } from './kup-obj-declarations';
 import * as objJson from './obj.json';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Handles objects definition and validation.
- * @module KupObj
+ * @module KupObjects
  */
-export class KupObj {
+export class KupObjects {
     list: JSON =
         dom.ketchupInit && dom.ketchupInit.obj && dom.ketchupInit.obj.list
             ? dom.ketchupInit.obj.list
             : objJson['default'];
     /**
-     * Checks whether the object represents a bar or not.
-     * @param {KupObject} kupObj - Object to check.
-     * @returns {boolean} True when the object is a bar.
+     * Checks whether the object can automatically derive columns.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when columns can be automatically derived from the object.
      */
-    isBar(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J4' === kupObj.t && 'BAR' === kupObj.p;
-    }
-    /**
-     * Checks whether the object represents a button or not.
-     * @param {KupObject} kupObj - Object to check.
-     * @returns {boolean} True when the object is a button.
-     */
-    isButton(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J4' === kupObj.t && 'BTN' === kupObj.p;
-    }
-    /**
-     * Checks whether the object represents a chart or not.
-     * @param {KupObject} kupObj - Object to check.
-     * @returns {boolean} True when the object is a chart.
-     */
-    isChart(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
+    canHaveAutomaticDerivedColumn(obj: KupObj): boolean {
+        if (!this.canHaveExtraColumns(obj)) {
+            return false;
+        }
         return (
-            'J4' === kupObj.t && kupObj.p.toLocaleUpperCase().startsWith('GRA_')
+            !this.isNumber(obj) &&
+            !this.isTime(obj) &&
+            !this.isTimestamp(obj) &&
+            !this.isPercentage(obj)
         );
     }
     /**
+     * Checks whether the object can have extra columns or not.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object has extra columns.
+     */
+    canHaveExtraColumns(obj: KupObj): boolean {
+        if (!obj) return false;
+        if (
+            !obj.t ||
+            (obj.t as string).trim() == '' ||
+            (obj.t as string).trim() == '**'
+        ) {
+            return false;
+        }
+        return (
+            !this.isBar(obj) &&
+            !this.isButton(obj) &&
+            !this.isCheckbox(obj) &&
+            !this.isIcon(obj) &&
+            !this.isImage(obj) &&
+            !this.isLink(obj) &&
+            !this.isProgressBar(obj) &&
+            !this.isRadio(obj) &&
+            !this.isVoCodver(obj) &&
+            !this.isChart(obj)
+        );
+    }
+    /**
+     * Checks whether the object can have a related tooltip or not.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object can have a related tooltip.
+     */
+    hasTooltip(obj: KupObj): boolean {
+        if (!obj) return false;
+        if (obj.t == null || (obj.t as string).trim() == '') return false;
+        return (
+            !this.isBar(obj) &&
+            !this.isButton(obj) &&
+            !this.isCheckbox(obj) &&
+            !this.isIcon(obj) &&
+            !this.isImage(obj) &&
+            !this.isLink(obj) &&
+            !this.isNumber(obj) &&
+            !this.isPercentage(obj) &&
+            !this.isProgressBar(obj) &&
+            !this.isRadio(obj) &&
+            !this.isVoCodver(obj) &&
+            !this.isChart(obj)
+        );
+    }
+    /**
+     * Checks whether the object represents a bar or not.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object is a bar.
+     */
+    isBar(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J4' === obj.t && 'BAR' === obj.p;
+    }
+    /**
+     * Checks whether the object represents a button or not.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object is a button.
+     */
+    isButton(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J4' === obj.t && 'BTN' === obj.p;
+    }
+    /**
+     * Checks whether the object represents a chart or not.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object is a chart.
+     */
+    isChart(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J4' === obj.t && obj.p.toLocaleUpperCase().startsWith('GRA_');
+    }
+    /**
      * Checks whether the object represents a checkbox or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a checkbox.
      */
-    isCheckbox(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'V2' === kupObj.t && 'SI/NO' === kupObj.p.toUpperCase();
+    isCheckbox(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'V2' === obj.t && 'SI/NO' === obj.p.toUpperCase();
     }
     /**
      * Checks whether the object represents a color or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a color.
      */
-    isColor(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J1' === kupObj.t && 'COL' === kupObj.p;
+    isColor(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J1' === obj.t && 'COL' === obj.p;
     }
     /**
      * Checks whether the object represents a date or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a date.
      */
-    isDate(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'D8' === kupObj.t;
+    isDate(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'D8' === obj.t;
     }
     /**
      * Checks whether the object represents an icon or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is an icon.
      */
-    isIcon(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J4' === kupObj.t && 'ICO' === kupObj.p;
+    isIcon(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J4' === obj.t && 'ICO' === obj.p;
     }
     /**
      * Checks whether the object represents an image or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is an image.
      */
-    isImage(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J4' === kupObj.t && 'IMG' === kupObj.p;
+    isImage(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J4' === obj.t && 'IMG' === obj.p;
     }
     /**
      * Checks whether the object represents an object list or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is an object list.
      */
-    isKupObjectList(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'JL' === kupObj.t;
+    isKupObjList(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'JL' === obj.t;
     }
     /**
      * Checks whether the object represents a link or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a link.
      */
-    isLink(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J1' === kupObj.t && 'URL' === kupObj.p;
+    isLink(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J1' === obj.t && 'URL' === obj.p;
     }
     /**
      * Checks whether the object represents a number or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a number.
      */
-    isNumber(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'NR' === kupObj.t;
+    isNumber(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'NR' === obj.t;
     }
     /**
      * Checks whether the object represents a password or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a password.
      */
-    isPassword(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J1' === kupObj.t && 'PWD' === kupObj.p;
+    isPassword(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J1' === obj.t && 'PWD' === obj.p;
     }
     /**
      * Checks whether the object represents a percentage or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a percentage.
      */
-    isPercentage(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        const obj = kupObj.t + kupObj.p;
-        return 'NRP' === obj;
+    isPercentage(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'NRP' === obj.t + obj.p;
     }
     /**
      * Checks whether the object represents a progress bar or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a progress bar.
      */
-    isProgressBar(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J4' === kupObj.t && 'PGB' === kupObj.p;
+    isProgressBar(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J4' === obj.t && 'PGB' === obj.p;
     }
     /**
      * Checks whether the object represents a radio button or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a radio button.
      */
-    isRadio(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'V2' === kupObj.t && 'RADIO' === kupObj.p;
+    isRadio(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'V2' === obj.t && 'RADIO' === obj.p;
+    }
+    /**
+     * Checks whether the object can be identifiable as a string.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object can be considered as a string.
+     */
+    isStringObject(obj: any): boolean {
+        if (!obj) return true;
+
+        return (
+            !this.isVoCodver(obj) &&
+            !this.isIcon(obj) &&
+            !this.isImage(obj) &&
+            !this.isCheckbox(obj) &&
+            !this.isRadio(obj) &&
+            !this.isChart(obj)
+        );
     }
     /**
      * Checks whether the object represents a text field or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a text field.
      */
-    isTextField(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'J4' === kupObj.t && 'TEXTFIELD' === kupObj.p;
+    isTextField(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'J4' === obj.t && 'TEXTFIELD' === obj.p;
     }
     /**
      * Checks whether the object represents a time or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a time.
      */
-    isTime(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'I1' === kupObj.t || 'I2' === kupObj.t;
+    isTime(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'I1' === obj.t || 'I2' === obj.t;
     }
     /**
      * Checks whether the object represents a timestamp or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a timestamp.
      */
-    isTimestamp(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'I3' === kupObj.t && '2' === kupObj.p;
+    isTimestamp(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'I3' === obj.t && '2' === obj.p;
     }
     /**
      * Checks whether the object represents a time and handles seconds or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a time and handles seconds.
      */
-    isTimeWithSeconds(kupObj: KupObject): boolean {
-        if (!this.isTime(kupObj)) {
+    isTimeWithSeconds(obj: KupObj): boolean {
+        if (!this.isTime(obj)) {
             return false;
         }
-        return '2' === kupObj.p;
+        return '2' === obj.p;
     }
     /**
      * Checks whether the object represents a verb or not.
-     * @param {KupObject} kupObj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is a verb.
      */
-    isVoCodver(kupObj: KupObject): boolean {
-        if (!kupObj) return false;
-        return 'VO' === kupObj.t && 'COD_VER' === kupObj.p;
+    isVoCodver(obj: KupObj): boolean {
+        if (!obj) return false;
+        return 'VO' === obj.t && 'COD_VER' === obj.p;
     }
 }

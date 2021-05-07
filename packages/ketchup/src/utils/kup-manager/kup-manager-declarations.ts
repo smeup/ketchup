@@ -1,12 +1,12 @@
 import type { DynamicPosition } from '../dynamic-position/dynamic-position';
 import type { KupDebug } from '../kup-debug/kup-debug';
 import type { KupDialog } from '../kup-dialog/kup-dialog';
+import type { KupObjects } from '../kup-obj/kup-obj';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { KupLanguage } from '../kup-language/kup-language';
 import type { KupTheme } from '../kup-theme/kup-theme';
 import type { ResizeObserver } from 'resize-observer';
 import type { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
-import { KupObj } from '../kup-obj/kup-obj';
 /**
  * Interface used to define the HTML element with Ketch.UP specific properties.
  */
@@ -23,7 +23,7 @@ export interface KupManager {
     dynamicPosition: DynamicPosition;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
-    obj: KupObj;
+    objects: KupObjects;
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: ScrollOnHover;
