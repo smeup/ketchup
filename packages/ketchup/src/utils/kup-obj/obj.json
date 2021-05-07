@@ -3,7 +3,8 @@
         "CN": {
             "parameters": {
                 "COL": {
-                    "FOSLUC": { "shape": "FLD" }
+                    "CASFRA": { "shape": "kup-button" },
+                    "FOSLUC": { "shape": "kup-text-field" }
                 }
             }
         }
