@@ -1,14 +1,16 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+
 import {
     KupManager,
     kupManagerInstance,
@@ -16,7 +18,7 @@ import {
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupTextFieldProps } from './kup-text-field-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
@@ -40,11 +42,6 @@ export class KupTextField {
      * @default ""
      */
     @State() value: string = '';
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -290,6 +287,7 @@ export class KupTextField {
 
     onKupChange(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
+        this.value = target.value;
         this.kupChange.emit({
             id: this.rootElement.id,
             value: target.value,
@@ -352,24 +350,6 @@ export class KupTextField {
     /*-------------------------------------------------*/
 
     /**
-     * Returns the component's internal value.
-     */
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -389,6 +369,20 @@ export class KupTextField {
             }
         }
         return props;
+    }
+    /**
+     * Returns the component's internal value.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
     /**
      * Focuses the input element.
@@ -518,9 +512,13 @@ export class KupTextField {
             value: this.value,
         };
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <FTextField {...props} />
                 </div>
@@ -528,7 +526,7 @@ export class KupTextField {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

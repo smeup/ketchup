@@ -1,19 +1,20 @@
-import moment from 'moment';
-
 import {
     Component,
+    Element,
     Event,
-    getAssetPath,
     EventEmitter,
+    forceUpdate,
+    getAssetPath,
     h,
+    Host,
     JSX,
     Method,
     Prop,
-    Element,
     State,
     Watch,
-    Host,
 } from '@stencil/core';
+
+import moment from 'moment';
 import {
     Cell,
     Column,
@@ -82,7 +83,7 @@ import {
     isRadio as isRadioObj,
     canHaveAutomaticDerivedColumn,
 } from '../../utils/object-utils';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
@@ -393,12 +394,6 @@ export class KupDataTable {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -428,7 +423,7 @@ export class KupDataTable {
     /**
      * Defines the label to show when the table is empty.
      */
-    @Prop() emptyDataLabel: string = null;
+    @Prop({ mutable: true }) emptyDataLabel: string = null;
     /**
      * Enables the extracolumns add buttons.
      */
@@ -1038,17 +1033,6 @@ export class KupDataTable {
     })
     kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInput>;
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * This method is invoked by KupManager whenever the component changes size.
      */
     @Method()
@@ -1081,11 +1065,10 @@ export class KupDataTable {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
     /**
      * This method will set the selected rows of the component.
@@ -1552,11 +1535,11 @@ export class KupDataTable {
 
         if (root) {
             //Row checkboxes
-            const checkboxes: NodeListOf<Element> = root.querySelectorAll(
+            const checkboxes: NodeListOf<HTMLElement> = root.querySelectorAll(
                 'td .f-checkbox--wrapper'
             );
             for (let index = 0; index < checkboxes.length; index++) {
-                const inputEl: HTMLButtonElement = checkboxes[
+                const inputEl: HTMLInputElement = checkboxes[
                     index
                 ].querySelector('input');
                 if (inputEl) {
@@ -1569,14 +1552,14 @@ export class KupDataTable {
                             checkboxes[index]['data-row']
                         );
                 }
-                FCheckboxMDC(checkboxes[index] as HTMLElement);
+                FCheckboxMDC(checkboxes[index]);
             }
             //Row textfields
-            const textfields: NodeListOf<Element> = root.querySelectorAll(
+            const textfields: NodeListOf<HTMLElement> = root.querySelectorAll(
                 'td .f-text-field--wrapper'
             );
             for (let index = 0; index < textfields.length; index++) {
-                const inputEl: HTMLButtonElement = textfields[
+                const inputEl: HTMLInputElement = textfields[
                     index
                 ].querySelector('input');
                 if (inputEl) {
@@ -1597,10 +1580,10 @@ export class KupDataTable {
                             textfields[index]['data-row']
                         );
                 }
-                FTextFieldMDC(textfields[index] as HTMLElement);
+                FTextFieldMDC(textfields[index]);
             }
             //Row multiselection checkboxes
-            const multiselectionCheckboxes: NodeListOf<Element> = root.querySelectorAll(
+            const multiselectionCheckboxes: NodeListOf<HTMLElement> = root.querySelectorAll(
                 'td[row-select-cell] .f-checkbox--wrapper'
             );
             for (
@@ -1608,7 +1591,7 @@ export class KupDataTable {
                 index < multiselectionCheckboxes.length;
                 index++
             ) {
-                const checkboxEl: HTMLButtonElement = multiselectionCheckboxes[
+                const checkboxEl: HTMLInputElement = multiselectionCheckboxes[
                     index
                 ].querySelector('input');
                 if (checkboxEl) {
@@ -1620,7 +1603,7 @@ export class KupDataTable {
                 FCheckboxMDC(multiselectionCheckboxes[index] as HTMLElement);
             }
             //Row actions: expander
-            const expanderRowActions: NodeListOf<Element> = root.querySelectorAll(
+            const expanderRowActions: NodeListOf<HTMLElement> = root.querySelectorAll(
                 '[row-action-cell] .f-image--wrapper.expander'
             );
             for (let index = 0; index < expanderRowActions.length; index++) {
@@ -1633,11 +1616,11 @@ export class KupDataTable {
                     );
             }
             //Row actions: actions
-            const rowActions: NodeListOf<Element> = root.querySelectorAll(
+            const rowActions: NodeListOf<HTMLElement> = root.querySelectorAll(
                 '[row-action-cell] .f-image--wrapper.action'
             );
             for (let index = 0; index < rowActions.length; index++) {
-                (rowActions[index] as HTMLElement).onclick = () =>
+                rowActions[index].onclick = () =>
                     this.onDefaultRowActionClick(
                         rowActions[index]['data-action']
                     );
@@ -1672,7 +1655,7 @@ export class KupDataTable {
                     '.clear'
                 );
                 globalFilterInput.oninput = (event) => {
-                    const t = event.target;
+                    const t: EventTarget = event.target;
                     window.clearTimeout(this.globalFilterTimeout);
                     this.globalFilterTimeout = window.setTimeout(
                         () => this.onGlobalFilterChange(t),
@@ -1841,13 +1824,18 @@ export class KupDataTable {
      * @memberof KupDataTable
      */
     private rowDetail(row: Row, x: number, y: number): void {
-        let transposedData: TableData = this.getTransposedData();
+        const transposedData: TableData = this.getTransposedData();
         const cardData: CardData = {
             button: [
                 {
+                    disabled: parseInt(row.id) === 0 ? true : false,
                     icon: 'chevron_left',
                 },
                 {
+                    disabled:
+                        parseInt(row.id) === this.data.rows.length - 1
+                            ? true
+                            : false,
                     icon: 'chevron_right',
                 },
             ],
@@ -3612,7 +3600,7 @@ export class KupDataTable {
                         : this.tooltipLoadTimeout
                 }
                 onBlur={() => {
-                    this.closeMenuAndTooltip();
+                    this.tooltip.data = null;
                 }}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
@@ -5762,9 +5750,13 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         let compCreated = (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class="above-wrapper">
                         {this.globalFilter ? (
@@ -5876,7 +5868,7 @@ export class KupDataTable {
         return compCreated;
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(

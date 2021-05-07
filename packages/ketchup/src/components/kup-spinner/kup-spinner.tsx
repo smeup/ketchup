@@ -1,13 +1,14 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
 } from '@stencil/core';
-import { GenericObject } from '../../types/GenericTypes';
+
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -22,7 +23,6 @@ import { KupSpinnerProps } from './kup-spinner-declarations';
 })
 export class KupSpinner {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * When set to true the spinner is animating.
@@ -64,10 +64,6 @@ export class KupSpinner {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -88,6 +84,13 @@ export class KupSpinner {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     //---- Lifecycle hooks ----
@@ -227,9 +230,13 @@ export class KupSpinner {
             };
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host style={elStyle}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" style={elStyle}>
                     <div
                         id="loading-wrapper-master"
@@ -245,7 +252,7 @@ export class KupSpinner {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

@@ -1,16 +1,17 @@
 import {
     Component,
     Element,
-    Prop,
     Event,
     EventEmitter,
+    forceUpdate,
     h,
-    State,
     Host,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
 import { FImage } from '../../f-components/f-image/f-image';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
@@ -25,7 +26,6 @@ import { KupBadgeProps } from './kup-badge-declarations';
 })
 export class KupBadge {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -57,10 +57,6 @@ export class KupBadge {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -79,6 +75,13 @@ export class KupBadge {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     onKupClick(e: Event) {
@@ -131,10 +134,13 @@ export class KupBadge {
             }
             imageEl = <FImage {...this.imageData}></FImage>;
         }
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}
                     {imageEl}
@@ -143,7 +149,7 @@ export class KupBadge {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

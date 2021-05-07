@@ -3,9 +3,10 @@ import {
     Element,
     Event,
     EventEmitter,
-    Prop,
     h,
+    Prop,
 } from '@stencil/core';
+
 import {
     KupManager,
     kupManagerInstance,

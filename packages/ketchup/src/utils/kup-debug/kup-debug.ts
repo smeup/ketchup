@@ -126,13 +126,27 @@ export class KupDebug {
                 {
                     className: 'kup-full-height',
                     customStyle:
-                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
+                        ':host {border-left: 1px solid var(--kup-border-color);}',
                     icon: 'download',
                     id: 'kup-debug-dl-props',
                     label: 'Props',
                     styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.DL_PROPS
+                    ),
+                },
+                {
+                    className: 'kup-full-height',
+                    customStyle:
+                        ':host {border-right: 1px solid var(--kup-border-color);}',
+                    icon: 'download',
+                    id: 'kup-debug-dl-all',
+                    label: dom.ketchup.language.translate(
+                        KupLanguageDebug.DL_ALL
+                    ),
+                    styling: 'flat',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageDebug.DL_ALL
                     ),
                 },
                 {
@@ -424,6 +438,11 @@ export class KupDebug {
                             this.downloadProps(res);
                         });
                         break;
+                    case 'kup-debug-dl-all':
+                        this.getProps(true).then((res: GenericObject) => {
+                            this.downloadProps(res);
+                        });
+                        break;
                     case 'kup-debug-delete':
                         this.dump();
                         break;
@@ -482,6 +501,7 @@ export class KupDebug {
     async getProps(detail?: boolean): Promise<GenericObject> {
         let comps: Set<KupComponent> = new Set();
         let props: GenericObject = detail ? { descriptions: {} } : {};
+        // Storing unique components inside "comps"
         for (let index = 0; index < this.logs.length; index++) {
             if (typeof this.logs[index].element !== 'string') {
                 if (!comps.has(this.logs[index].element as KupComponent)) {
@@ -489,44 +509,19 @@ export class KupDebug {
                 }
             }
         }
+        // Object of two arrays, positionally matching each other.
+        // One contains components, the other the relative promise.
+        const matchingObject: {
+            comps: KupComponent[];
+            promises: Promise<GenericObject>[];
+        } = {
+            comps: [],
+            promises: [],
+        };
         comps.forEach((el: KupComponent) => {
             try {
-                el.getProps()
-                    .then((res: GenericObject) => {
-                        let cnt: number = 0;
-                        let key: string = el.rootElement.id
-                            ? el.rootElement.tagName + '#' + el.rootElement.id
-                            : el.rootElement.tagName + '_' + ++cnt;
-                        while (props[key]) {
-                            key = el.rootElement.tagName + '_' + ++cnt;
-                        }
-                        if (detail) {
-                            let tag: GenericObject = {};
-                            for (const key in el.rootElement) {
-                                tag[key] = el.rootElement[key];
-                            }
-                            props[key] = {
-                                props: res,
-                                tagInfo: tag,
-                            };
-                            if (!props.descriptions[el.rootElement.tagName]) {
-                                el.getProps(true).then((res: GenericObject) => {
-                                    props.descriptions[
-                                        el.rootElement.tagName
-                                    ] = res;
-                                });
-                            }
-                        } else {
-                            props[key] = res;
-                        }
-                    })
-                    .catch((err) =>
-                        this.logMessage(
-                            'kup-debug',
-                            err,
-                            KupDebugCategory.WARNING
-                        )
-                    );
+                matchingObject.comps.push(el);
+                matchingObject.promises.push(el.getProps());
             } catch (error) {
                 this.logMessage(
                     'kup-debug',
@@ -536,14 +531,56 @@ export class KupDebug {
                 );
             }
         });
-        return props;
+        // Returning "props", which is returned by the Promise.all
+        return Promise.all(matchingObject.promises).then((responses) => {
+            for (let index = 0; index < matchingObject.comps.length; index++) {
+                const el: KupComponent = matchingObject.comps[index];
+                const res: GenericObject = responses[index];
+                let cnt: number = 0;
+                let key: string = el.rootElement.id
+                    ? el.rootElement.tagName + '#' + el.rootElement.id
+                    : el.rootElement.tagName + '_' + ++cnt;
+                while (props[key]) {
+                    key = el.rootElement.tagName + '_' + ++cnt;
+                }
+                if (detail) {
+                    let tag: GenericObject = {};
+                    for (const key in el.rootElement) {
+                        tag[key] = el.rootElement[key];
+                    }
+                    props[key] = {
+                        props: res,
+                        tagInfo: tag,
+                    };
+                    if (!props.descriptions[el.rootElement.tagName]) {
+                        try {
+                            el.getProps(true).then((res: GenericObject) => {
+                                props.descriptions[
+                                    el.rootElement.tagName
+                                ] = res;
+                            });
+                        } catch (error) {
+                            this.logMessage(
+                                'kup-debug',
+                                'Exception when accessing "getProps" public method for component: ' +
+                                    el.rootElement.tagName,
+                                KupDebugCategory.WARNING
+                            );
+                        }
+                    }
+                } else {
+                    props[key] = res;
+                }
+            }
+            return props;
+        });
     }
     /**
      * Displays a timestamped message in the browser's console when the kupDebug property on document.documentElement is true.
      * Warnings and errors will be displayed even when kupDebug !== true.
      * @param {any} comp - The component calling this function or a string.
      * @param {string} message - The actual message that will be printed.
-     * @param {string} type - The type of console message, defaults to "log" but "warning" and "error" can be used as well.
+     * @param {KupDebugCategory} category - The type of console message, defaults to log but warning and error can be used as well.
      */
     logMessage(comp: any, message: string, category?: KupDebugCategory): void {
         if (

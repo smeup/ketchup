@@ -178,10 +178,14 @@ export function create4(component: KupCard): VNode {
  */
 function prevButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
+    let nextButton: HTMLKupButtonElement = null;
+    let prevButton: HTMLKupButtonElement = null;
     let table: HTMLKupDataTableElement = null;
     let data: TableData = null;
     if (root) {
         table = root.querySelector('kup-data-table');
+        nextButton = root.querySelector('kup-button#next-row');
+        prevButton = root.querySelector('kup-button#previous-row');
         if (table) {
             data = table.data;
         }
@@ -191,10 +195,15 @@ function prevButton(component: KupCard): void {
         if (visibleColumnIndex) {
             const currColumn: Column = data.columns[visibleColumnIndex];
             const prevColumn: Column = data.columns[visibleColumnIndex - 1];
+            const prevPrevColumn: Column = data.columns[visibleColumnIndex - 2];
             if (!isNaN(parseInt(prevColumn.name))) {
                 currColumn.visible = false;
                 prevColumn.visible = true;
+                if (isNaN(parseInt(prevPrevColumn.name))) {
+                    prevButton.disabled = true;
+                }
             }
+            nextButton.disabled = false;
         }
         table.refresh();
     }
@@ -206,10 +215,14 @@ function prevButton(component: KupCard): void {
  */
 function nextButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
+    let nextButton: HTMLKupButtonElement = null;
+    let prevButton: HTMLKupButtonElement = null;
     let table: HTMLKupDataTableElement = null;
     let data: TableData = null;
     if (root) {
         table = root.querySelector('kup-data-table');
+        nextButton = root.querySelector('kup-button#next-row');
+        prevButton = root.querySelector('kup-button#previous-row');
         if (table) {
             data = table.data;
         }
@@ -219,10 +232,15 @@ function nextButton(component: KupCard): void {
         if (visibleColumnIndex) {
             const currColumn: Column = data.columns[visibleColumnIndex];
             const nextColumn: Column = data.columns[visibleColumnIndex + 1];
+            const nextNextColumn: Column = data.columns[visibleColumnIndex + 2];
             if (nextColumn) {
                 currColumn.visible = false;
                 nextColumn.visible = true;
+                if (!nextNextColumn) {
+                    nextButton.disabled = true;
+                }
             }
+            prevButton.disabled = false;
         }
         table.refresh();
     }

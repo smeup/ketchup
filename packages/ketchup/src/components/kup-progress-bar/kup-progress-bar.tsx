@@ -1,14 +1,15 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
-    State,
-    h,
-    Method,
+    forceUpdate,
     getAssetPath,
+    h,
+    Host,
+    Method,
+    Prop,
 } from '@stencil/core';
-import type { GenericObject } from '../../types/GenericTypes';
+
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -22,7 +23,6 @@ import { KupProgressBarProps } from './kup-progress-bar-declarations';
 })
 export class KupProgressBar {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
@@ -60,10 +60,6 @@ export class KupProgressBar {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -87,6 +83,13 @@ export class KupProgressBar {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     private createIconElement() {
@@ -229,15 +232,19 @@ export class KupProgressBar {
             );
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">{el}</div>
             </Host>
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

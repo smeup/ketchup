@@ -1,16 +1,18 @@
 import {
     Component,
-    h,
-    Prop,
-    Method,
-    Host,
     Element,
-    State,
     Event,
     EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
     Watch,
 } from '@stencil/core';
-import { GenericObject } from '../../types/GenericTypes';
+
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -24,7 +26,6 @@ import { KupDrawerProps } from './kup-drawer-declarations';
 })
 export class KupDrawer {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -57,11 +58,6 @@ export class KupDrawer {
     @Event() kupDrawerOpen: EventEmitter;
 
     //---- Methods ----
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     @Method()
     async toggle() {
@@ -100,6 +96,13 @@ export class KupDrawer {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
 
     //---- Lifecycle hooks ----
 
@@ -121,9 +124,13 @@ export class KupDrawer {
     }
 
     render() {
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class="backdrop" onClick={() => this.close()} />
                     <aside>
@@ -144,7 +151,7 @@ export class KupDrawer {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

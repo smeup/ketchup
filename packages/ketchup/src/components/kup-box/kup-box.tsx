@@ -1,20 +1,17 @@
-import { dragMultipleImg } from '../../assets/images/drag-multiple';
-
 import {
     Component,
-    Event,
-    Prop,
-    Host,
-    State,
-    Watch,
-    EventEmitter,
-    h,
-    Method,
     Element,
+    Event,
+    EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
     VNode,
-    JSX,
+    Watch,
 } from '@stencil/core';
-
 import {
     Column,
     SortObject,
@@ -32,7 +29,6 @@ import {
     BoxKanban,
     KupBoxProps,
 } from './kup-box-declarations';
-
 import {
     isButton,
     isPassword,
@@ -69,6 +65,7 @@ import {
 
 const KupBoxDragType = 'text/kup-box-drag';
 
+import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { CardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
@@ -80,7 +77,7 @@ import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { deepEqual, identify, stringToNumber } from '../../utils/utils';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FChip } from '../../f-components/f-chip/f-chip';
@@ -104,11 +101,6 @@ export class KupBox {
 
     @Prop() stateId: string = '';
     @Prop() store: KupStore;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     state: KupBoxState = new KupBoxState();
 
@@ -194,7 +186,6 @@ export class KupBox {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Data of the card linked to the box when the latter's layout must be a premade template.
@@ -507,10 +498,6 @@ export class KupBox {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -532,11 +519,10 @@ export class KupBox {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     //---- Lifecycle hooks ----
@@ -2024,10 +2010,13 @@ export class KupBox {
                 return KupBoxDragType;
             },
         };
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div
                         class={'box-component'}
@@ -2068,7 +2057,7 @@ export class KupBox {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.scrollOnHover) {

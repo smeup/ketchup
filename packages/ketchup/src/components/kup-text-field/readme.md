@@ -66,6 +66,16 @@ Type: `Promise<string>`
 
 
 
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFocus() => Promise<void>`
 
 Focuses the input element.
@@ -79,17 +89,6 @@ Type: `Promise<void>`
 ### `setValue(value: string) => Promise<void>`
 
 Sets the internal value of the component.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
-
-This method is invoked by the theme manager.
-Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
 
 #### Returns
 

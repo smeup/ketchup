@@ -1,13 +1,14 @@
 import {
     Component,
-    Prop,
     Element,
     Event,
     EventEmitter,
-    Watch,
-    State,
+    forceUpdate,
     h,
     Method,
+    Prop,
+    State,
+    Watch,
 } from '@stencil/core';
 
 import {
@@ -39,24 +40,19 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 export class KupTooltip {
     @Element() rootElement: HTMLElement;
     @State() visible = false;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     /**
      * Data for cell options
      */
-    @Prop() cellOptions: TooltipCellOptions;
+    @Prop({ mutable: true }) cellOptions: TooltipCellOptions;
     /**
      * Data for top section
      */
-    @Prop() data: TooltipData;
+    @Prop({ mutable: true }) data: TooltipData;
     /**
      * Data for the detail
      */
-    @Prop() detailData: TooltipDetailData;
+    @Prop({ mutable: true }) detailData: TooltipDetailData;
     /**
      * Timeout for loadDetail
      */
@@ -76,7 +72,7 @@ export class KupTooltip {
     /**
      * Container element for tooltip
      */
-    @Prop() relatedObject: TooltipRelatedObject;
+    @Prop({ mutable: true }) relatedObject: TooltipRelatedObject;
 
     /**
      * Instance of the KupManager class.
@@ -282,11 +278,10 @@ export class KupTooltip {
 
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     @Method()
@@ -847,6 +842,7 @@ export class KupTooltip {
             this.kupManager.dynamicPosition.start(
                 this.rootElement as DynamicallyPositionedElement
             );
+            this.rootElement.focus();
         } else {
             this.kupManager.dynamicPosition.stop(
                 this.rootElement as DynamicallyPositionedElement
@@ -873,7 +869,7 @@ export class KupTooltip {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'

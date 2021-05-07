@@ -74,6 +74,10 @@ export namespace Components {
          */
         "minimumChars": number;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
@@ -83,7 +87,6 @@ export namespace Components {
         "serverHandledFilter": boolean;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupBadge {
         /**
@@ -101,10 +104,13 @@ export namespace Components {
          */
         "imageData": {};
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * The text displayed inside the badge.
          */
         "text": string;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupBox {
         /**
@@ -179,7 +185,7 @@ export namespace Components {
          */
         "pagination": boolean;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -220,7 +226,6 @@ export namespace Components {
           * Disable swipe
          */
         "swipeDisabled": boolean;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Defines the timeout for tooltip detail
          */
@@ -258,16 +263,13 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
          */
         "styling": string;
-        /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupButton {
         /**
@@ -278,7 +280,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -308,17 +310,14 @@ export namespace Components {
          */
         "label": string;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
         "styling": FButtonStyling;
-        /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * When set to true, the icon button will be toggable on/off.
           * @default false
@@ -347,7 +346,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -382,7 +381,7 @@ export namespace Components {
          */
         "menuVisible": boolean;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -399,13 +398,6 @@ export namespace Components {
           * @default "100%"
          */
         "sizeY": string;
-        /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupChart {
         /**
@@ -451,6 +443,10 @@ export namespace Components {
          */
         "offlineMode": ChartOfflineMode;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * This method is invoked by KupManager whenever the component changes size.
          */
         "resizeCallback": () => Promise<void>;
@@ -475,13 +471,6 @@ export namespace Components {
          */
         "stacked": boolean;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
-        /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
          */
         "types": ChartType[];
@@ -503,7 +492,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -533,18 +522,15 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+          * This method is used to trigger a new render of the component.
          */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        "refresh": () => Promise<void>;
     }
     interface KupChip {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -559,12 +545,9 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+          * This method is used to trigger a new render of the component.
          */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        "refresh": () => Promise<void>;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
@@ -596,7 +579,7 @@ export namespace Components {
          */
         "initialValue": string;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
@@ -605,7 +588,6 @@ export namespace Components {
           * When true, the component's text field will be replaced by a swatch.
          */
         "swatchOnly": boolean;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupCombobox {
         /**
@@ -640,12 +622,15 @@ export namespace Components {
          */
         "isSelect": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupCrud {
         "actions": FormActions;
@@ -813,13 +798,13 @@ export namespace Components {
         "loadMoreLimit": number;
         /**
           * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
-          * @see loadMoreStep
+          * @see loadMoreStep *
           * @see loadMoreLimit
          */
         "loadMoreMode": LoadMoreMode;
         /**
           * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
-          * @see loadMoreMode
+          * @see loadMoreMode *
           * @see loadMoreLimit
          */
         "loadMoreStep": number;
@@ -836,7 +821,7 @@ export namespace Components {
          */
         "paginatorPos": PaginatorPos;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -929,13 +914,6 @@ export namespace Components {
          */
         "tableWidth": string;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
-        /**
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout": number;
@@ -984,9 +962,12 @@ export namespace Components {
           * Sets the initial value of the component
          */
         "initialValue": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupDrawer {
         "close": () => Promise<void>;
@@ -1005,7 +986,10 @@ export namespace Components {
           * Defaults at false. When set to true, the drawer appears.
          */
         "opened": boolean;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "toggle": () => Promise<void>;
     }
     interface KupDropdownButton {
@@ -1045,6 +1029,10 @@ export namespace Components {
          */
         "label": string;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
@@ -1054,7 +1042,6 @@ export namespace Components {
           * @default FButtonStyling.RAISED
          */
         "styling": FButtonStyling;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
          */
@@ -1092,6 +1079,10 @@ export namespace Components {
          */
         "mapType": any;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * This method is invoked by KupManager whenever the component changes size.
          */
         "resizeCallback": () => Promise<void>;
@@ -1099,13 +1090,6 @@ export namespace Components {
           * The data series to be displayed. They must be of the same type.
          */
         "series": string[];
-        /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -1147,6 +1131,10 @@ export namespace Components {
          */
         "labelPos": string;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Sets whether the submit button must be displayed or not.
          */
         "showSubmit": boolean;
@@ -1158,7 +1146,6 @@ export namespace Components {
           * Sets the submit button's position, top right bottom or left.
          */
         "submitPos": string;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The type of the FLD
          */
@@ -1240,6 +1227,10 @@ export namespace Components {
          */
         "onlyValue": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * When true, the colors inside the colors array are used in the reversed order.
          */
         "reverseColors": boolean;
@@ -1265,7 +1256,6 @@ export namespace Components {
           * @see kup-gauge.arcThickness
          */
         "size": number;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
          */
@@ -1295,10 +1285,13 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * When set to true, forces the content on a single line.
          */
         "singleLine": boolean;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupIframe {
         /**
@@ -1315,6 +1308,10 @@ export namespace Components {
           * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
         "isButton": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * The address the iframe should be referencing to.
          */
@@ -1334,7 +1331,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1359,6 +1356,10 @@ export namespace Components {
          */
         "isCanvas": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * The resource used to fetch the image.
           * @default null
          */
@@ -1373,13 +1374,6 @@ export namespace Components {
           * @default '100%'
          */
         "sizeY": string;
-        /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupImageButton {
         /**
@@ -1437,10 +1431,13 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Displays an animated SVG placeholder until the component is loaded.
          */
         "showPlaceholder": boolean;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupList {
         /**
@@ -1482,6 +1479,10 @@ export namespace Components {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
@@ -1495,7 +1496,6 @@ export namespace Components {
           * Displays the icons associated to each row when set to true.
          */
         "showIcons": boolean;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The list elements descriptions will be arranged in two lines.
          */
@@ -1505,7 +1505,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1520,16 +1520,9 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupModal {
         "header": string;
@@ -1555,16 +1548,9 @@ export namespace Components {
          */
         "mode": ComponentNavBarMode;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
-        /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupPaginator {
         "currentPage": number;
@@ -1572,10 +1558,38 @@ export namespace Components {
         "mode": PaginatorMode;
         "perPage": number;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         "selectedPerPage": number;
+    }
+    interface KupProbe {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Specify features to test.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "features": {
+        debug: boolean;
+        language: boolean;
+        longCycleProp: boolean;
+        longCycleVar: boolean;
+        theme: boolean;
+    };
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "printLifecycleTime": () => Promise<{ id: string; time: number; }>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
     }
     interface KupProgressBar {
         /**
@@ -1608,7 +1622,10 @@ export namespace Components {
           * Specifies a text for the bar's label.
          */
         "label": string;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * The current value the progress bar must display.
          */
@@ -1644,7 +1661,7 @@ export namespace Components {
          */
         "fluid": boolean;
         /**
-          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL         noSelections --> define if selections in object are disable (default: false) Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>         },         {             obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>         }     ]   } ] }
+          * Set the grid structure (JSON) selections --> Data selection array    field   --> Qlik field on which to make the selection    values  --> Array of int or string value which to select rows    colums --> they define the structure of grid      obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)      colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%      size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL        noSelections --> define if selections in object are disable (default: false) Example: { selections:[  {      field: 'Anno',      values:[2020]  } ], rows:[  {    columns:[        {            obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>        },        {            obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>        }    ]  } ] }
          */
         "grid": Array<KupQlikGrid>;
         /**
@@ -1683,7 +1700,10 @@ export namespace Components {
           * Defaults at null. It's the name that binds the radio buttons together.
          */
         "name": string;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
     }
     interface KupRating {
         /**
@@ -1704,7 +1724,10 @@ export namespace Components {
           * Max number of stars (default 5)
          */
         "maxValue": number;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         /**
           * Rated stars
          */
@@ -1769,7 +1792,10 @@ export namespace Components {
           * Sets the layout of the spinner.
          */
         "layout": number;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
     }
     interface KupSwitch {
         /**
@@ -1780,7 +1806,7 @@ export namespace Components {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1805,12 +1831,9 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+          * This method is used to trigger a new render of the component.
          */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        "refresh": () => Promise<void>;
     }
     interface KupTabBar {
         /**
@@ -1827,13 +1850,16 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
     }
     interface KupTextField {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1927,6 +1953,10 @@ export namespace Components {
          */
         "readOnly": boolean;
         /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Focuses the input element.
          */
         "setFocus": () => Promise<void>;
@@ -1944,13 +1974,6 @@ export namespace Components {
           * @default false
          */
         "textArea": boolean;
-        /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * When set, the icon will be shown after the text.
           * @default false
@@ -1994,9 +2017,12 @@ export namespace Components {
           * Manage seconds
          */
         "manageSeconds": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Minutes step
          */
@@ -2038,7 +2064,7 @@ export namespace Components {
          */
         "owner": string;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -2071,7 +2097,7 @@ export namespace Components {
          */
         "density": string;
         /**
-          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
         "dynamicExpansionCallback": (
@@ -2106,7 +2132,7 @@ export namespace Components {
          */
         "globalFilterValue": string;
         /**
-          * This method is used to trigger a new render of the component. Useful when slots change.
+          * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
@@ -2148,7 +2174,6 @@ export namespace Components {
         "showTooltipOnRightClick": boolean;
         "stateId": string;
         "store": KupStore;
-        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Defines the timeout for tooltip detail
          */
@@ -2386,6 +2411,12 @@ declare global {
         prototype: HTMLKupPaginatorElement;
         new (): HTMLKupPaginatorElement;
     };
+    interface HTMLKupProbeElement extends Components.KupProbe, HTMLStencilElement {
+    }
+    var HTMLKupProbeElement: {
+        prototype: HTMLKupProbeElement;
+        new (): HTMLKupProbeElement;
+    };
     interface HTMLKupProgressBarElement extends Components.KupProgressBar, HTMLStencilElement {
     }
     var HTMLKupProgressBarElement: {
@@ -2500,6 +2531,7 @@ declare global {
         "kup-modal": HTMLKupModalElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
+        "kup-probe": HTMLKupProbeElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
@@ -2818,7 +2850,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -2914,7 +2946,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3049,7 +3081,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3101,7 +3133,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3399,13 +3431,13 @@ declare namespace LocalJSX {
         "loadMoreLimit"?: number;
         /**
           * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
-          * @see loadMoreStep
+          * @see loadMoreStep *
           * @see loadMoreLimit
          */
         "loadMoreMode"?: LoadMoreMode;
         /**
           * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
-          * @see loadMoreMode
+          * @see loadMoreMode *
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
@@ -3968,7 +4000,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4140,7 +4172,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4188,6 +4220,26 @@ declare namespace LocalJSX {
         "onKupRowsPerPageChanged"?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
         "perPage"?: number;
         "selectedPerPage"?: number;
+    }
+    interface KupProbe {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Specify features to test.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "features"?: {
+        debug: boolean;
+        language: boolean;
+        longCycleProp: boolean;
+        longCycleVar: boolean;
+        theme: boolean;
+    };
     }
     interface KupProgressBar {
         /**
@@ -4249,7 +4301,7 @@ declare namespace LocalJSX {
          */
         "fluid"?: boolean;
         /**
-          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL         noSelections --> define if selections in object are disable (default: false) Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>         },         {             obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>         }     ]   } ] }
+          * Set the grid structure (JSON) selections --> Data selection array    field   --> Qlik field on which to make the selection    values  --> Array of int or string value which to select rows    colums --> they define the structure of grid      obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)      colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%      size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL        noSelections --> define if selections in object are disable (default: false) Example: { selections:[  {      field: 'Anno',      values:[2020]  } ], rows:[  {    columns:[        {            obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>        },        {            obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>        }    ]  } ] }
          */
         "grid"?: Array<KupQlikGrid>;
         /**
@@ -4390,7 +4442,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4459,7 +4511,7 @@ declare namespace LocalJSX {
         /**
           * Custom style of the component.
           * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4798,7 +4850,7 @@ declare namespace LocalJSX {
          */
         "density"?: string;
         /**
-          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
         "dynamicExpansionCallback"?: (
@@ -4874,8 +4926,8 @@ declare namespace LocalJSX {
           * @property {TreeNode} treeNode - Reference to the TreeNode data object which is being expanded (passed through the data prop).
           * @property {boolean} usesDynamicExpansion - Flag to notify that the component is running in dynamicExpansion mode.
           * @property {boolean} dynamicExpansionRequireChildren - Flag to notify that the current dynamicExpansion event requires the parent component to add TreeNode children to the given TreeNode.
-          * @see useDynamicExpansion
-          * @see dynamicExpansionCallback
+          * @see useDynamicExpansion *
+          * @see dynamicExpansionCallback *
           * @since 1.0.0
          */
         "onKupTreeNodeExpand"?: (event: CustomEvent<{
@@ -5000,6 +5052,7 @@ declare namespace LocalJSX {
         "kup-modal": KupModal;
         "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
+        "kup-probe": KupProbe;
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
@@ -5054,6 +5107,7 @@ declare module "@stencil/core" {
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
+            "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;

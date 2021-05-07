@@ -40,7 +40,6 @@ Type: `Promise<GenericObject>`
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
-Useful when slots change.
 
 #### Returns
 
@@ -51,17 +50,6 @@ Type: `Promise<void>`
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
-
-This method is invoked by the theme manager.
-Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
 
 #### Returns
 

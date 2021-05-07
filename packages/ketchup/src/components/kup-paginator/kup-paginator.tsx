@@ -1,12 +1,12 @@
 import {
     Component,
-    Prop,
     Element,
     Event,
     EventEmitter,
+    forceUpdate,
     h,
     Method,
-    State,
+    Prop,
 } from '@stencil/core';
 
 import { PaginatorMode } from './kup-paginator-declarations';
@@ -18,7 +18,6 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import {
-    KupLanguageGeneric,
     KupLanguagePage,
     KupLanguageRow,
 } from '../../utils/kup-language/kup-language-declarations';
@@ -30,11 +29,6 @@ import {
 })
 export class KupPaginator {
     @Element() rootElement: HTMLElement;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     @Prop() currentPage: number = 1;
 
@@ -44,7 +38,7 @@ export class KupPaginator {
 
     @Prop() perPage: number = 10;
 
-    @Prop() selectedPerPage: number = 10;
+    @Prop({ mutable: true }) selectedPerPage: number = 10;
 
     private comboPageSelectorEl: any = undefined;
     private comboRowsSelectorEl: any = undefined;
@@ -77,11 +71,10 @@ export class KupPaginator {
 
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     private isPrevPageDisabled() {
@@ -360,7 +353,7 @@ export class KupPaginator {
         return compCreated;
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
     }
 }

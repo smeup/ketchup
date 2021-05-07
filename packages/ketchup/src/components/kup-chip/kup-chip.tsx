@@ -1,14 +1,15 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
 } from '@stencil/core';
+
 import {
     KupManager,
     kupManagerInstance,
@@ -21,7 +22,7 @@ import {
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupChipProps } from './kup-chip-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -34,16 +35,6 @@ export class KupChip {
      * References the root HTML element of the component (<kup-image>).
      */
     @Element() rootElement: HTMLElement;
-
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -59,7 +50,7 @@ export class KupChip {
      * List of elements.
      * @default []
      */
-    @Prop() data: FChipData[] = [];
+    @Prop({ mutable: true }) data: FChipData[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
@@ -210,17 +201,6 @@ export class KupChip {
     /*-------------------------------------------------*/
 
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -238,6 +218,13 @@ export class KupChip {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -339,9 +326,13 @@ export class KupChip {
             return;
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <FChip {...props} />
                 </div>
@@ -349,7 +340,7 @@ export class KupChip {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

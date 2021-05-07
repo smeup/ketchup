@@ -1,14 +1,16 @@
 import {
     Component,
     Element,
-    State,
     Event,
-    Prop,
+    EventEmitter,
+    forceUpdate,
     h,
     Host,
     Method,
-    EventEmitter,
+    Prop,
+    State,
 } from '@stencil/core';
+
 import Picker from 'vanilla-picker';
 import {
     KupManager,
@@ -16,7 +18,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { KupTextField } from '../kup-text-field/kup-text-field';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupColorPickerProps } from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
@@ -27,12 +29,6 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 })
 export class KupColorPicker {
     @Element() rootElement: HTMLElement;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
-    @State() customStyleTheme: string = undefined;
     @State() value: string = undefined;
 
     /**
@@ -42,7 +38,7 @@ export class KupColorPicker {
     /**
      * Props of the text field.
      */
-    @Prop() data: Object = undefined;
+    @Prop({ mutable: true }) data: Object = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
@@ -93,11 +89,6 @@ export class KupColorPicker {
     }
 
     @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-
-    @Method()
     async setFocus() {
         this.textfieldEl.setFocus();
     }
@@ -133,11 +124,10 @@ export class KupColorPicker {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     private onKupInput(e: CustomEvent) {
@@ -318,9 +308,13 @@ export class KupColorPicker {
             hostClass['kup-full-width'] = true;
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host class={hostClass}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div
                     id="kup-component"
                     ref={(el) => (this.anchorEl = el as any)}
@@ -331,7 +325,7 @@ export class KupColorPicker {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(

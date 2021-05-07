@@ -1,6 +1,15 @@
-import { Component, Element, Host, Prop, State, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    forceUpdate,
+    h,
+    Host,
+    Prop,
+    State,
+} from '@stencil/core';
+
 import { Method } from '@stencil/core/internal';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -14,7 +23,6 @@ import { KupLazyProps } from './kup-lazy-declarations';
 })
 export class KupLazy {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
     @State() isInViewport: boolean = false;
 
     /**
@@ -42,10 +50,6 @@ export class KupLazy {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -64,6 +68,13 @@ export class KupLazy {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     setObserver() {
@@ -243,15 +254,20 @@ export class KupLazy {
             content = resource;
             className += ' kup-to-be-loaded';
         }
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host class={className}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">{content}</div>
             </Host>
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
         this.intObserver.unobserve(this.rootElement);
     }
