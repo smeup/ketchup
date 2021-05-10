@@ -1587,7 +1587,7 @@ export namespace Components {
         /**
           * This method is used to trigger a new render of the component.
          */
-        "printLifecycleTime": () => Promise<{ id: string; time: number; }>;
+        "printLifecycleTime": () => Promise<{ id: string; featuresTime: number; fullTime: number; }>;
         /**
           * This method is used to trigger a new render of the component.
          */

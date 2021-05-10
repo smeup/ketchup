@@ -185,6 +185,10 @@ export class KupProbe {
      */
     private startTime: number = performance.now();
     /**
+     * Start performance.now() inside componentWillLoad() lifecycle hook - to measure actual features
+     */
+    private featuresStartTime: number = null;
+    /**
      * End performance.now()
      */
     private endTime: number = null;
@@ -197,17 +201,28 @@ export class KupProbe {
      * This method is used to trigger a new render of the component.
      */
     @Method()
-    async printLifecycleTime(): Promise<{ id: string; time: number }> {
-        const time: number = this.endTime - this.startTime;
+    async printLifecycleTime(): Promise<{
+        id: string;
+        featuresTime: number;
+        fullTime: number;
+    }> {
+        const featuresTime: number = this.endTime - this.featuresStartTime;
+        const fullTime: number = this.endTime - this.startTime;
         this.content =
-            'Lifecycle of this probe (' +
+            'Full lifecycle of this probe (' +
             this.rootElement.tagName +
             '#' +
             this.rootElement.id +
             ') took ' +
-            time +
+            fullTime +
+            'ms, while features took ' +
+            featuresTime +
             'ms.';
-        return { id: this.rootElement.id, time: time };
+        return {
+            id: this.rootElement.id,
+            fullTime: fullTime,
+            featuresTime: featuresTime,
+        };
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -259,6 +274,7 @@ export class KupProbe {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.featuresStartTime = performance.now();
         if (this.features.debug) {
             this.kupManager.debug.logLoad(this, false);
         }

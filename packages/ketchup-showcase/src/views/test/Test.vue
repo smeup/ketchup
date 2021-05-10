@@ -275,7 +275,7 @@ export default {
         if (comp) {
           comp.printLifecycleTime().then((res) => {
             const id = res.id;
-            const time = res.time;
+            const time = res.featuresTime;
             number.innerText = (parseInt(number.innerText) + 1).toString();
             elementIteration([id, totalID], time);
           });
