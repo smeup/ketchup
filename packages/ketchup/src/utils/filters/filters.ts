@@ -28,7 +28,11 @@ import {
     ValueDisplayedValue,
 } from './filters-declarations';
 
-const kupObjects: KupObjects = new KupObjects();
+const dom: KupDom = document.documentElement as KupDom;
+const kupObjects: KupObjects = dom.ketchup
+    ? dom.ketchup.objects
+    : new KupObjects();
+
 /**
  * Filtering algorithms.
  * @module Filters

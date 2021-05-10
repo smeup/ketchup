@@ -28,8 +28,12 @@ import { kupManagerInstance } from '../../utils/kup-manager/kup-manager';
 import { formatToMomentDate } from '../../utils/cell-formatter';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupObjects } from '../../utils/kup-obj/kup-obj';
+import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
 
-const kupObjects: KupObjects = new KupObjects();
+const dom: KupDom = document.documentElement as KupDom;
+const kupObjects: KupObjects = dom.ketchup
+    ? dom.ketchup.objects
+    : new KupObjects();
 
 export function sortRows(
     rows: Array<Row> = [],

@@ -23,8 +23,12 @@ import {
 } from './utils';
 import { ValueDisplayedValue } from './filters/filters-declarations';
 import { KupObjects } from './kup-obj/kup-obj';
+import { KupDom } from './kup-manager/kup-manager-declarations';
 
-const kupObjects: KupObjects = new KupObjects();
+const dom: KupDom = document.documentElement as KupDom;
+const kupObjects: KupObjects = dom.ketchup
+    ? dom.ketchup.objects
+    : new KupObjects();
 
 // -------------
 // COMMONS

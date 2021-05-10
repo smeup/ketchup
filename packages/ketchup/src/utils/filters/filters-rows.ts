@@ -22,8 +22,12 @@ import { Filters } from './filters';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import { KupObjects } from '../kup-obj/kup-obj';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
 
-const kupObjects: KupObjects = new KupObjects();
+const dom: KupDom = document.documentElement as KupDom;
+const kupObjects: KupObjects = dom.ketchup
+    ? dom.ketchup.objects
+    : new KupObjects();
 
 /**
  * Filtering algorithms related to data-table rows.
