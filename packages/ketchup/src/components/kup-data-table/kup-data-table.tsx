@@ -45,6 +45,7 @@ import {
     fieldColumn,
     iconColumn,
     keyColumn,
+    SelectionMode,
 } from './kup-data-table-declarations';
 
 import {
@@ -177,7 +178,7 @@ export class KupDataTable {
                 this.headerIsPersistent = state.headerIsPersistent;
                 this.lazyLoadRows = state.lazyLoadRows;
                 this.loadMoreLimit = state.loadMoreLimit;
-                this.multiSelection = state.multiSelection;
+                this.selection = state.selection;
                 this.rowsPerPage = state.rowsPerPage;
                 this.showFilters = state.showFilters;
                 this.showGroups = state.showGroups;
@@ -276,8 +277,8 @@ export class KupDataTable {
                 this.state.loadMoreLimit = this.loadMoreLimit;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.multiSelection, this.multiSelection)) {
-                this.state.multiSelection = this.multiSelection;
+            if (!deepEqual(this.state.selection, this.selection)) {
+                this.state.selection = this.selection;
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
@@ -496,10 +497,6 @@ export class KupDataTable {
      */
     @Prop() loadMoreStep: number = 60;
     /**
-     * When set to true enables rows multi selection.
-     */
-    @Prop() multiSelection: boolean = false;
-    /**
      * Current selected page set on component load
      */
     @Prop() pageSelected: number = -1;
@@ -523,6 +520,10 @@ export class KupDataTable {
      * Activates the scroll on hover function.
      */
     @Prop() scrollOnHover: boolean = false;
+    /**
+     * Set the type of the rows selection.
+     */
+    @Prop() selection: SelectionMode = SelectionMode.SINGLE;
     /**
      * Selects the row at the specified rendered rows prosition (base 1).
      */
@@ -2470,7 +2471,7 @@ export class KupDataTable {
             let totalFixedColumns =
                 this.fixedColumns +
                 (this.hasRowActions() ? 1 : 0) +
-                (this.multiSelection ? 1 : 0);
+                (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
 
             // @See [CSSCount]
             for (let i = 1; i <= totalFixedColumns && currentCell; i++) {
@@ -2570,9 +2571,26 @@ export class KupDataTable {
         const target = event.target;
 
         // selecting row
-        if (!this.multiSelection) {
-            this.selectedRows = [row];
+        switch (this.selection) {
+            case SelectionMode.MULTIPLE:
+                if (this.selectedRows.includes(row)) {
+                    let selectedRowsCopy = [...this.selectedRows];
+                    var index = selectedRowsCopy.indexOf(row);
+                    if (index !== -1) {
+                        selectedRowsCopy.splice(index, 1);
+                    }
+                    this.selectedRows = [...selectedRowsCopy];
+                } else {
+                    this.selectedRows = [...this.selectedRows, row];
+                }
+                break;
+            case SelectionMode.SINGLE:
+                this.selectedRows = [row];
+                break;
+            default:
+                break;
         }
+
         // find clicked column
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
@@ -2581,7 +2599,6 @@ export class KupDataTable {
                 while (currentElement.tagName !== 'TD') {
                     currentElement = currentElement.parentElement;
                 }
-
                 clickedColumn = currentElement.dataset.column;
             }
         }
@@ -2987,7 +3004,7 @@ export class KupDataTable {
     private calculateColspan() {
         let colSpan = this.getVisibleColumns().length;
 
-        if (this.multiSelection) {
+        if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             colSpan += 1;
         }
 
@@ -3142,7 +3159,7 @@ export class KupDataTable {
 
         // Renders multiple selection column
         let multiSelectColumn = null;
-        if (this.multiSelection) {
+        if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
@@ -3475,7 +3492,7 @@ export class KupDataTable {
         let specialExtraCellsCount: number = 0;
 
         let multiSelectColumn = null;
-        if (this.multiSelection) {
+        if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
@@ -3654,7 +3671,7 @@ export class KupDataTable {
 
         // Composes initial cells if necessary
         let selectRowCell = null;
-        if (this.multiSelection) {
+        if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             extraCells++;
             const fixedCellStyle = this.composeFixedCellStyleAndClass(
                 extraCells,
@@ -4167,7 +4184,7 @@ export class KupDataTable {
             // IF active, this must be the first cell
             // This is a special cell
             let selectRowCell = null;
-            if (this.multiSelection) {
+            if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
                 specialExtraCellsCount++;
                 const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
                     specialExtraCellsCount,
