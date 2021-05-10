@@ -4,15 +4,15 @@ import type {
 } from './kup-manager-declarations';
 import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
-import { KupDebug } from '../kup-debug/kup-debug';
-import { KupTheme } from '../kup-theme/kup-theme';
 import { ResizeObserver } from 'resize-observer';
 import { DynamicPosition } from '../dynamic-position/dynamic-position';
 import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
-import { KupToolbar } from '../kup-toolbar/kup-toolbar';
+import { KupDebug } from '../kup-debug/kup-debug';
 import { KupDialog } from '../kup-dialog/kup-dialog';
 import { KupLanguage } from '../kup-language/kup-language';
 import { KupObjects } from '../kup-obj/kup-obj';
+import { KupTheme } from '../kup-theme/kup-theme';
+import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 
 const dom: KupDom = document.documentElement as KupDom;
 
