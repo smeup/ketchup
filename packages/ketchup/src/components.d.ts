@@ -1580,6 +1580,8 @@ export namespace Components {
         language: boolean;
         longCycleProp: boolean;
         longCycleVar: boolean;
+        objects: boolean;
+        objectsFunction: boolean;
         theme: boolean;
     };
         /**
@@ -4238,6 +4240,8 @@ declare namespace LocalJSX {
         language: boolean;
         longCycleProp: boolean;
         longCycleVar: boolean;
+        objects: boolean;
+        objectsFunction: boolean;
         theme: boolean;
     };
     }

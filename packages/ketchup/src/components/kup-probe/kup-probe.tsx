@@ -13,6 +13,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { KupObj } from '../../utils/kup-obj/kup-obj-declarations';
 
 @Component({
     tag: 'kup-probe',
@@ -54,12 +55,16 @@ export class KupProbe {
         language: boolean;
         longCycleProp: boolean;
         longCycleVar: boolean;
+        objects: boolean;
+        objectsFunction: boolean;
         theme: boolean;
     } = {
         debug: false,
         language: false,
         longCycleProp: false,
         longCycleVar: false,
+        objects: false,
+        objectsFunction: false,
         theme: false,
     };
     /**
@@ -230,6 +235,24 @@ export class KupProbe {
         }
     }
 
+    private longCycleObjects() {
+        let b: boolean = null;
+        for (let index = 0; index < 1000000; index++) {
+            b = this.kupManager.objects.isNumber({ t: 'NR', p: '', k: '' });
+        }
+    }
+
+    private longCycleObjectsFunction() {
+        let b: boolean = null;
+        for (let index = 0; index < 1000000; index++) {
+            b = isNumber({ t: 'NR', p: '', k: '' });
+        }
+        function isNumber(obj: KupObj): boolean {
+            if (obj == null) return false;
+            return 'NR' === obj.t;
+        }
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -246,6 +269,12 @@ export class KupProbe {
         }
         if (this.features.longCycleVar) {
             this.longCycleVar();
+        }
+        if (this.features.objects) {
+            this.longCycleObjects();
+        }
+        if (this.features.objectsFunction) {
+            this.longCycleObjectsFunction();
         }
         if (this.features.theme) {
             this.kupManager.theme.register(this);

@@ -13,6 +13,8 @@ const IDs = [
     'theme',
     'cycleprops',
     'cyclevars',
+    'cycleobjects',
+    'cycleobjectsfunction',
     'full',
     totalID,
 ];
@@ -55,6 +57,14 @@ combobox.data = {
             {
                 text: 'Long cycle (variables)',
                 value: 'cyclevars',
+            },
+            {
+                text: 'Long cycle (KupObjects)',
+                value: 'cycleobjects',
+            },
+            {
+                text: 'Long cycle (object function)',
+                value: 'cycleobjectsfunction',
             },
             {
                 text: 'All features',
@@ -116,12 +126,24 @@ function runTests() {
                     longCycleVars: true,
                 };
                 break;
+            case 'cycleobjects':
+                comp.features = {
+                    objects: true,
+                };
+                break;
+            case 'cycleobjectsfunction':
+                comp.features = {
+                    objectsFunction: true,
+                };
+                break;
             case 'full':
                 comp.features = {
                     debug: true,
                     language: true,
                     longCycleProps: true,
                     longCycleVars: true,
+                    objects: true,
+                    objectsFunction: true,
                     theme: true,
                 };
                 break;
