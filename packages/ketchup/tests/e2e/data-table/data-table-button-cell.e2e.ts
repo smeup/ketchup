@@ -1,7 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { tableButtonData } from './mocked-data';
 import { cellsSelector } from './data-table-selectors';
-import { KupObjects } from '../../../src/utils/kup-obj/kup-obj';
+import { KupObjects } from '../../../src/utils/kup-objects/kup-objects';
 
 const { columns, rows } = tableButtonData;
 

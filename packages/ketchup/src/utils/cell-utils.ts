@@ -22,7 +22,7 @@ import {
     unformattedStringToFormattedStringTimestamp,
 } from './utils';
 import { ValueDisplayedValue } from './filters/filters-declarations';
-import { KupObjects } from './kup-obj/kup-obj';
+import { KupObjects } from './kup-objects/kup-objects';
 import { KupDom } from './kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;

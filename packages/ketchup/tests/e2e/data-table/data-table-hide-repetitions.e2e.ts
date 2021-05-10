@@ -4,7 +4,7 @@ import { rowsSelector } from './data-table-selectors';
 import { Column } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import { _numberToString, stringToNumber } from '../../../src/utils/utils';
 import { getColumnByName } from '../../../src/utils/cell-utils';
-import { KupObjects } from '../../../src/utils/kup-obj/kup-obj';
+import { KupObjects } from '../../../src/utils/kup-objects/kup-objects';
 
 describe('kup-data-table with hide repetitions active', () => {
     it('hides values where the previous cell on the same column has the same value', async () => {

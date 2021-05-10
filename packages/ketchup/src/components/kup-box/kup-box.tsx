@@ -75,7 +75,7 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
-import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupLanguageGeneric,
@@ -450,7 +450,7 @@ export class KupBox {
 
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
-    private boxContainer: ScrollableElement;
+    private boxContainer: KupScrollOnHoverElement;
     /**
      * Instance of the KupManager class.
      */
@@ -2038,7 +2038,7 @@ export class KupBox {
                                 unsetTooltip(this.tooltip);
                             }}
                             ref={(el: HTMLElement) =>
-                                (this.boxContainer = el as ScrollableElement)
+                                (this.boxContainer = el as KupScrollOnHoverElement)
                             }
                         >
                             {boxContent}

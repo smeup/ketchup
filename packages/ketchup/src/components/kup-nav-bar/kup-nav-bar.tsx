@@ -21,7 +21,7 @@ import {
 } from './kup-nav-bar-declarations';
 import { MDCTopAppBar } from '@material/top-app-bar';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -192,7 +192,7 @@ export class KupNavBar {
         }
         listEl.menuVisible = true;
         this.kupManager.dynamicPosition.start(
-            listEl as DynamicallyPositionedElement
+            listEl as KupDynamicPositionElement
         );
         let elStyle: any = listEl.style;
         elStyle.height = 'auto';
@@ -214,7 +214,7 @@ export class KupNavBar {
         }
         listEl.menuVisible = false;
         this.kupManager.dynamicPosition.stop(
-            listEl as DynamicallyPositionedElement
+            listEl as KupDynamicPositionElement
         );
     }
 
@@ -443,7 +443,7 @@ export class KupNavBar {
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

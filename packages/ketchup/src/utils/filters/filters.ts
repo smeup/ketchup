@@ -1,7 +1,7 @@
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupObjects } from '../kup-obj/kup-obj';
+import { KupObjects } from '../kup-objects/kup-objects';
 import {
     formattedStringToCustomUnformattedStringTime,
     formattedStringToDefaultUnformattedStringDate,

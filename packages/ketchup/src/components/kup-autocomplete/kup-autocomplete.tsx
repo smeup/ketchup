@@ -11,20 +11,20 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import {
-    ItemsDisplayMode,
-    consistencyCheck,
-} from '../kup-list/kup-list-declarations';
-import { FTextField } from '../../f-components/f-text-field/f-text-field';
-import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupAutocompleteProps } from './kup-autocomplete-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import {
+    ItemsDisplayMode,
+    consistencyCheck,
+} from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -360,7 +360,7 @@ export class KupAutocomplete {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
         this.kupManager.dynamicPosition.start(
-            this.listEl as DynamicallyPositionedElement
+            this.listEl as KupDynamicPositionElement
         );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
@@ -372,7 +372,7 @@ export class KupAutocomplete {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
         this.kupManager.dynamicPosition.stop(
-            this.rootElement as DynamicallyPositionedElement
+            this.rootElement as KupDynamicPositionElement
         );
     }
 
@@ -525,7 +525,7 @@ export class KupAutocomplete {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

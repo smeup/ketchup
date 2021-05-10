@@ -125,11 +125,11 @@ import {
     GenericFilter,
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
-import { ColumnMenu } from '../../utils/column-menu/column-menu';
+import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
@@ -803,7 +803,7 @@ export class KupDataTable {
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
      */
-    private tableAreaRef: ScrollableElement;
+    private tableAreaRef: KupScrollOnHoverElement;
     private stickyTheadRef: any;
     private customizeTopButtonRef: any;
     private customizeBottomButtonRef: any;
@@ -823,7 +823,7 @@ export class KupDataTable {
      * Used to prevent too many resizes callbacks at once.
      */
     private resizeTimeout: number;
-    private columnMenuInstance: ColumnMenu;
+    private columnMenuInstance: KupColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu;
     private filtersRowsInstance: FiltersRows;
     /**
@@ -1669,7 +1669,7 @@ export class KupDataTable {
                 KupLanguageGeneric.EMPTY_DATA
             );
         }
-        this.columnMenuInstance = new ColumnMenu();
+        this.columnMenuInstance = new KupColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersRowsInstance = new FiltersRows();
 
@@ -3632,14 +3632,14 @@ export class KupDataTable {
             if (menu) {
                 let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
-                    menu as DynamicallyPositionedElement,
+                    menu as KupDynamicPositionElement,
                     wrapper,
                     0,
                     true,
                     true
                 );
                 this.kupManager.dynamicPosition.start(
-                    menu as DynamicallyPositionedElement
+                    menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
                 menu.focus();
@@ -3963,14 +3963,14 @@ export class KupDataTable {
             if (menu) {
                 let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
-                    menu as DynamicallyPositionedElement,
+                    menu as KupDynamicPositionElement,
                     wrapper,
                     0,
                     true,
                     true
                 );
                 this.kupManager.dynamicPosition.start(
-                    menu as DynamicallyPositionedElement
+                    menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
                 menu.focus();
@@ -5046,7 +5046,7 @@ export class KupDataTable {
         this.customizeTopPanelRef.classList.add('visible');
         this.customizeTopButtonRef.classList.add('toggled');
         this.kupManager.dynamicPosition.start(
-            this.customizeTopPanelRef as DynamicallyPositionedElement
+            this.customizeTopPanelRef as KupDynamicPositionElement
         );
         this.openedCustomSettings = true;
     }
@@ -5058,7 +5058,7 @@ export class KupDataTable {
         }
         this.customizeTopPanelRef.classList.remove('visible');
         this.kupManager.dynamicPosition.stop(
-            this.customizeTopPanelRef as DynamicallyPositionedElement
+            this.customizeTopPanelRef as KupDynamicPositionElement
         );
         this.openedCustomSettings = false;
     }
@@ -5230,19 +5230,19 @@ export class KupDataTable {
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
             this.tableAreaRef.appendChild(dropArea);
             this.kupManager.dynamicPosition.register(
-                dropArea as DynamicallyPositionedElement,
+                dropArea as KupDynamicPositionElement,
                 th,
                 10,
                 true
             );
             this.kupManager.dynamicPosition.start(
-                dropArea as DynamicallyPositionedElement
+                dropArea as KupDynamicPositionElement
             );
             dropArea.classList.add('visible');
         } else {
             dropArea.classList.remove('visible');
             this.kupManager.dynamicPosition.stop(
-                dropArea as DynamicallyPositionedElement
+                dropArea as KupDynamicPositionElement
             );
         }
     }
@@ -5773,7 +5773,7 @@ export class KupDataTable {
                         style={elStyle}
                         class={belowClass}
                         ref={(el: HTMLElement) =>
-                            (this.tableAreaRef = el as ScrollableElement)
+                            (this.tableAreaRef = el as KupScrollOnHoverElement)
                         }
                     >
                         {this.showCustomization
@@ -5865,7 +5865,7 @@ export class KupDataTable {
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

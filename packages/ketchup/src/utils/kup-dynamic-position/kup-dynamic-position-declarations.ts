@@ -1,7 +1,7 @@
 /**
  * Fixed position element.
  */
-export interface DynamicallyPositionedElement extends HTMLElement {
+export interface KupDynamicPositionElement extends HTMLElement {
     dynamicPosition: {
         anchor: HTMLElement;
         margin: number;

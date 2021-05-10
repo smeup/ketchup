@@ -27,7 +27,7 @@ import { FiltersRows } from '../../utils/filters/filters-rows';
 import { kupManagerInstance } from '../../utils/kup-manager/kup-manager';
 import { formatToMomentDate } from '../../utils/cell-formatter';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupObjects } from '../../utils/kup-obj/kup-obj';
+import { KupObjects } from '../../utils/kup-objects/kup-objects';
 import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;

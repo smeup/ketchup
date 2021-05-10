@@ -21,7 +21,7 @@ import {
 import { Filters } from './filters';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
-import { KupObjects } from '../kup-obj/kup-obj';
+import { KupObjects } from '../kup-objects/kup-objects';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;

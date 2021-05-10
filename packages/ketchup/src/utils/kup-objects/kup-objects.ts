@@ -1,5 +1,5 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import type { KupObj } from './kup-obj-declarations';
+import type { KupObj } from './kup-objects-declarations';
 import * as objJson from './obj.json';
 
 const dom: KupDom = document.documentElement as KupDom;

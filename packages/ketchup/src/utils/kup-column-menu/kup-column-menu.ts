@@ -2,6 +2,7 @@ import type { CardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { KupCard } from '../../components/kup-card/kup-card';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import type { KupDynamicPositionElement } from '../kup-dynamic-position/kup-dynamic-position-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
@@ -10,7 +11,6 @@ import type {
     Column,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import type { DynamicallyPositionedElement } from '../dynamic-position/dynamic-position-declarations';
 import { unsetTooltip } from '../helpers';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import {
@@ -36,9 +36,9 @@ import {
 const dom: KupDom = document.documentElement as KupDom;
 /**
  * Definition and events of the column menu card.
- * @module ColumnMenu
+ * @module KupColumnMenu
  */
-export class ColumnMenu {
+export class KupColumnMenu {
     filtersColumnMenuInstance = new FiltersColumnMenu();
     filtersRowsInstance = new FiltersRows();
     /**
@@ -94,7 +94,7 @@ export class ColumnMenu {
                 } else {
                     dom.ketchup.dynamicPosition.register(card, wrapper);
                     dom.ketchup.dynamicPosition.start(
-                        card as DynamicallyPositionedElement
+                        card as KupDynamicPositionElement
                     );
                     card.menuVisible = true;
                     card.focus();

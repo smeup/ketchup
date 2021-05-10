@@ -59,7 +59,7 @@ import {
     numberToFormattedStringNumber,
     stringToNumber,
 } from '../../utils/utils';
-import { ColumnMenu } from '../../utils/column-menu/column-menu';
+import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
     GenericFilter,
@@ -68,8 +68,8 @@ import {
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
     KupLanguageGeneric,
     KupLanguageSearch,
@@ -303,7 +303,7 @@ export class KupTree {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private treeWrapperRef: ScrollableElement;
+    private treeWrapperRef: KupScrollOnHoverElement;
     private selectedColumn: string = '';
     private clickTimeout: any[] = [];
     private iconPaths: [{ icon: string; path: string }] = undefined;
@@ -315,7 +315,7 @@ export class KupTree {
 
     private tooltip: KupTooltip;
     columnFilterTimeout: number;
-    private columnMenuInstance: ColumnMenu;
+    private columnMenuInstance: KupColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu;
     private filtersTreeItemsInstance: FiltersTreeItems;
 
@@ -600,7 +600,7 @@ export class KupTree {
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
 
-        this.columnMenuInstance = new ColumnMenu();
+        this.columnMenuInstance = new KupColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersTreeItemsInstance = new FiltersTreeItems();
 
@@ -2057,14 +2057,14 @@ export class KupTree {
             if (menu) {
                 let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
-                    menu as DynamicallyPositionedElement,
+                    menu as KupDynamicPositionElement,
                     wrapper,
                     0,
                     true,
                     true
                 );
                 this.kupManager.dynamicPosition.start(
-                    menu as DynamicallyPositionedElement
+                    menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
                 menu.focus();
@@ -2193,7 +2193,7 @@ export class KupTree {
                     <div
                         class="wrapper"
                         ref={(el: HTMLElement) =>
-                            (this.treeWrapperRef = el as ScrollableElement)
+                            (this.treeWrapperRef = el as KupScrollOnHoverElement)
                         }
                     >
                         {filterField}
@@ -2254,7 +2254,7 @@ export class KupTree {
     disconnectedCallback() {
         this.kupManager.language.register(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

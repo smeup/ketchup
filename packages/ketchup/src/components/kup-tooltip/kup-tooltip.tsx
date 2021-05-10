@@ -28,7 +28,7 @@ import {
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
@@ -836,16 +836,16 @@ export class KupTooltip {
     componentDidRender() {
         if (this.visible) {
             this.kupManager.dynamicPosition.register(
-                this.rootElement as DynamicallyPositionedElement,
+                this.rootElement as KupDynamicPositionElement,
                 this.relatedObject.element
             );
             this.kupManager.dynamicPosition.start(
-                this.rootElement as DynamicallyPositionedElement
+                this.rootElement as KupDynamicPositionElement
             );
             this.rootElement.focus();
         } else {
             this.kupManager.dynamicPosition.stop(
-                this.rootElement as DynamicallyPositionedElement
+                this.rootElement as KupDynamicPositionElement
             );
         }
         this.kupManager.debug.logRender(this, true);
@@ -871,7 +871,7 @@ export class KupTooltip {
 
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

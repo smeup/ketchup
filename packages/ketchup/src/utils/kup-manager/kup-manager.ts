@@ -4,15 +4,15 @@ import type {
 } from './kup-manager-declarations';
 import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
-import { ResizeObserver } from 'resize-observer';
-import { DynamicPosition } from '../dynamic-position/dynamic-position';
-import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
+import { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
 import { KupDebug } from '../kup-debug/kup-debug';
 import { KupDialog } from '../kup-dialog/kup-dialog';
 import { KupLanguage } from '../kup-language/kup-language';
-import { KupObjects } from '../kup-obj/kup-obj';
+import { KupObjects } from '../kup-objects/kup-objects';
+import { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
 import { KupTheme } from '../kup-theme/kup-theme';
 import { KupToolbar } from '../kup-toolbar/kup-toolbar';
+import { ResizeObserver } from 'resize-observer';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -23,7 +23,7 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupManager {
     debug: KupDebug = new KupDebug();
     dialog: KupDialog = new KupDialog();
-    dynamicPosition: DynamicPosition = new DynamicPosition();
+    dynamicPosition: KupDynamicPosition = new KupDynamicPosition();
     language: KupLanguage = new KupLanguage();
     magicBox: HTMLKupMagicBoxElement = null;
     objects: KupObjects = new KupObjects();
@@ -51,7 +51,7 @@ export class KupManager {
             });
         }
     );
-    scrollOnHover: ScrollOnHover = new ScrollOnHover();
+    scrollOnHover: KupScrollOnHover = new KupScrollOnHover();
     theme: KupTheme = new KupTheme();
     toolbar: KupToolbar = new KupToolbar();
 

@@ -7,7 +7,7 @@ import {
 import { formatToNumber, formatToMomentDate } from '../../utils/cell-formatter';
 import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
-import { KupObjects } from '../../utils/kup-obj/kup-obj';
+import { KupObjects } from '../../utils/kup-objects/kup-objects';
 
 export function getSerieDecode(serie: string, series: ChartSerie[]): string {
     if (serie == null || series == null) {
