@@ -7,27 +7,6 @@ import {
     SortMode,
 } from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
-import {
-    isBar,
-    isButton,
-    isCheckbox,
-    isDate,
-    isIcon,
-    isLink,
-    isNumber,
-    isObjectList,
-    isProgressBar as isProgressBarObj,
-    isTextField,
-    isTime,
-    isTimestamp,
-    isTimeWithSeconds,
-    isVoCodver,
-} from './object-utils';
-import { isColor as isColorObj } from './object-utils';
-import { isRadio as isRadioObj } from './object-utils';
-import { isChart as isChartObj } from './object-utils';
-
-import { isImage as isImageObj } from './object-utils';
 import numeral from 'numeral';
 import {
     ISO_DEFAULT_DATE_FORMAT,
@@ -43,6 +22,13 @@ import {
     unformattedStringToFormattedStringTimestamp,
 } from './utils';
 import { ValueDisplayedValue } from './filters/filters-declarations';
+import { KupObjects } from './kup-objects/kup-objects';
+import { KupDom } from './kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
+const kupObjects: KupObjects = dom.ketchup
+    ? dom.ketchup.objects
+    : new KupObjects();
 
 // -------------
 // COMMONS
@@ -87,7 +73,7 @@ export function isProgressBar(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
         'PGB' === shape ||
-        (!shape && cell && cell.obj && isProgressBarObj(cell.obj))
+        (!shape && cell && cell.obj && kupObjects.isProgressBar(cell.obj))
     );
 }
 
@@ -99,7 +85,7 @@ export function isChip(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
         'CHI' === shape ||
-        (!shape && cell && cell.obj && isObjectList(cell.obj))
+        (!shape && cell && cell.obj && kupObjects.isKupObjList(cell.obj))
     );
 }
 /**
@@ -162,7 +148,8 @@ export function buildProgressBarConfig(
 export function isImage(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
-        'IMG' === shape || (!shape && cell && cell.obj && isImageObj(cell.obj))
+        'IMG' === shape ||
+        (!shape && cell && cell.obj && kupObjects.isImage(cell.obj))
     );
 }
 
@@ -274,7 +261,8 @@ export function isRating(cell: Cell, boxObject: BoxObject) {
 export function isColor(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
-        'CLP' === shape || (!shape && cell && cell.obj && isColorObj(cell.obj))
+        'CLP' === shape ||
+        (!shape && cell && cell.obj && kupObjects.isColor(cell.obj))
     );
 }
 
@@ -285,7 +273,8 @@ export function isColor(cell: Cell, boxObject: BoxObject) {
 export function isChart(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
-        'GRA' === shape || (!shape && cell && cell.obj && isChartObj(cell.obj))
+        'GRA' === shape ||
+        (!shape && cell && cell.obj && kupObjects.isChart(cell.obj))
     );
 }
 
@@ -296,7 +285,8 @@ export function isChart(cell: Cell, boxObject: BoxObject) {
 export function isRadio(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
-        'RAD' === shape || (!shape && cell && cell.obj && isRadioObj(cell.obj))
+        'RAD' === shape ||
+        (!shape && cell && cell.obj && kupObjects.isRadio(cell.obj))
     );
 }
 
@@ -320,13 +310,13 @@ export function isKnob(cell: Cell, boxObject: BoxObject) {
 
 export function getCellType(cell: Cell) {
     let obj = cell.obj;
-    if (isBar(obj)) {
+    if (kupObjects.isBar(obj)) {
         return 'bar';
-    } else if (isButton(obj)) {
+    } else if (kupObjects.isButton(obj)) {
         return 'button';
-    } else if (isChartObj(obj)) {
+    } else if (kupObjects.isChart(obj)) {
         return 'chart';
-    } else if (isCheckbox(obj)) {
+    } else if (kupObjects.isCheckbox(obj)) {
         return 'checkbox';
     } else if (isColor(cell, null)) {
         return 'color-picker';
@@ -334,11 +324,11 @@ export function getCellType(cell: Cell) {
         return 'gauge';
     } else if (isKnob(cell, null)) {
         return 'knob';
-    } else if (isIcon(obj) || isVoCodver(obj)) {
+    } else if (kupObjects.isIcon(obj) || kupObjects.isVoCodver(obj)) {
         return 'icon';
     } else if (isImage(cell, null)) {
         return 'image';
-    } else if (isLink(obj)) {
+    } else if (kupObjects.isLink(obj)) {
         return 'link';
     } else if (isProgressBar(cell, null)) {
         return 'progress-bar';
@@ -348,15 +338,15 @@ export function getCellType(cell: Cell) {
         return 'rating';
     } else if (isChip(cell, null)) {
         return 'chips';
-    } else if (isNumber(obj)) {
+    } else if (kupObjects.isNumber(obj)) {
         return 'number';
-    } else if (isDate(obj)) {
+    } else if (kupObjects.isDate(obj)) {
         return 'date';
-    } else if (isTimestamp(obj)) {
+    } else if (kupObjects.isTimestamp(obj)) {
         return 'datetime';
-    } else if (isTime(obj)) {
+    } else if (kupObjects.isTime(obj)) {
         return 'time';
-    } else if (isTextField(obj)) {
+    } else if (kupObjects.isTextField(obj)) {
         return 'text-field';
     } else {
         return 'string';
@@ -409,29 +399,32 @@ export function getValueForDisplay(value, obj, decimals: number): string {
     if (value == null || value.trim() == '') {
         return value;
     }
-    if (isNumber(obj)) {
+    if (kupObjects.isNumber(obj)) {
         return unformattedStringToFormattedStringNumber(
             value,
             decimals ? decimals : -1,
             obj ? obj.p : ''
         );
     }
-    if (isDate(obj) && isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
+    if (
+        kupObjects.isDate(obj) &&
+        isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)
+    ) {
         return unformattedStringToFormattedStringDate(
             value,
             null,
             obj.t + obj.p
         );
     }
-    if (isTime(obj)) {
+    if (kupObjects.isTime(obj)) {
         return unformattedStringToFormattedStringTime(
             value,
-            isTimeWithSeconds(obj),
+            kupObjects.isTimeWithSeconds(obj),
             null,
             obj.t + obj.p
         );
     }
-    if (isTimestamp(obj)) {
+    if (kupObjects.isTimestamp(obj)) {
         return unformattedStringToFormattedStringTimestamp(value);
     }
     return value;
@@ -503,16 +496,16 @@ export function compareValues(
 
     let v1: any = s1;
     let v2: any = s2;
-    if (isNumber(obj1)) {
+    if (kupObjects.isNumber(obj1)) {
         v1 = stringToNumber(s1);
         v2 = stringToNumber(s2);
-    } else if (isDate(obj1)) {
+    } else if (kupObjects.isDate(obj1)) {
         v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_FORMAT);
         v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_FORMAT);
-    } else if (isTime(obj1)) {
+    } else if (kupObjects.isTime(obj1)) {
         v1 = unformatDateTime(s1, ISO_DEFAULT_TIME_FORMAT);
         v2 = unformatDateTime(s2, ISO_DEFAULT_TIME_FORMAT);
-    } else if (isTimestamp(obj1)) {
+    } else if (kupObjects.isTimestamp(obj1)) {
         v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_TIME_FORMAT);
         v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_TIME_FORMAT);
     }

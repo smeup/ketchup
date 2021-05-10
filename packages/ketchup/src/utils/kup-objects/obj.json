@@ -1,0 +1,13 @@
+{
+    "NOTE": "This is a currently unused mock up of what the definition of objects could be inside Ketch.UP ( possible use case: bind specific shapes to specific objects ).",
+    "types": {
+        "CN": {
+            "parameters": {
+                "COL": {
+                    "CASFRA": { "shape": "kup-button" },
+                    "FOSLUC": { "shape": "kup-text-field" }
+                }
+            }
+        }
+    }
+}

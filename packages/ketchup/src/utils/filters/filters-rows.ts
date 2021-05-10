@@ -18,10 +18,16 @@ import {
     getValueForDisplay,
     getValueForDisplay2,
 } from '../cell-utils';
-import { isDate, isNumber, isTime, isTimestamp } from '../object-utils';
 import { Filters } from './filters';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
+import { KupObjects } from '../kup-objects/kup-objects';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
+const kupObjects: KupObjects = dom.ketchup
+    ? dom.ketchup.objects
+    : new KupObjects();
 
 /**
  * Filtering algorithms related to data-table rows.
@@ -163,10 +169,10 @@ export class FiltersRows extends Filters {
             let b1 = this.isFilterCompliantForCell(cell, filterValue, interval);
             let b2 = _filterIsNegative;
             if (
-                !isNumber(cell.obj) &&
-                !isDate(cell.obj) &&
-                !isTime(cell.obj) &&
-                !isTimestamp(cell.obj)
+                !kupObjects.isNumber(cell.obj) &&
+                !kupObjects.isDate(cell.obj) &&
+                !kupObjects.isTime(cell.obj) &&
+                !kupObjects.isTimestamp(cell.obj)
             ) {
                 b2 = this.isFilterCompliantForCellObj(
                     cell,

@@ -12,7 +12,7 @@ import {
     State,
 } from '@stencil/core';
 
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -300,7 +300,7 @@ export class KupCombobox {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
         this.kupManager.dynamicPosition.start(
-            this.listEl as DynamicallyPositionedElement
+            this.listEl as KupDynamicPositionElement
         );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
@@ -311,7 +311,7 @@ export class KupCombobox {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
         this.kupManager.dynamicPosition.stop(
-            this.listEl as DynamicallyPositionedElement
+            this.listEl as KupDynamicPositionElement
         );
     }
 
@@ -456,7 +456,7 @@ export class KupCombobox {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

@@ -1,24 +1,24 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import type { DynamicallyPositionedElement } from './dynamic-position-declarations';
+import type { KupDynamicPositionElement } from './kup-dynamic-position-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * This class is used to dynamically reposition HTML elements.
- * @module DynamicPosition
+ * @module KupDynamicPosition
  */
-export class DynamicPosition {
-    managedElements: Set<DynamicallyPositionedElement> = new Set();
+export class KupDynamicPosition {
+    managedElements: Set<KupDynamicPositionElement> = new Set();
     /**
      * Watches the element eligible to dynamic positioning.
-     * @param {DynamicallyPositionedElement} el - Element to reposition.
+     * @param {KupDynamicPositionElement} el - Element to reposition.
      * @param {HTMLElement} anchorEl - "el" position will be anchored to this element.
      * @param {number} margin - "el" distance from its parent in pixels.
      * @param {boolean} above - When true "el" will be always placed above its wrapper.
      * @param {boolean} right - When true "el" will be always placed on the right of its wrapper.
      */
     register(
-        el: DynamicallyPositionedElement,
+        el: KupDynamicPositionElement,
         anchorEl: HTMLElement,
         margin?: number,
         above?: boolean,
@@ -58,20 +58,17 @@ export class DynamicPosition {
     }
     /**
      * Changes the anchor point of the given element.
-     * @param {DynamicallyPositionedElement} elements - Dynamically positioned element previously registered.
+     * @param {KupDynamicPositionElement} elements - Dynamically positioned element previously registered.
      * @param {HTMLElement} anchorEl - New anchor point.
      */
-    changeAnchor(
-        el: DynamicallyPositionedElement,
-        anchorEl: HTMLElement
-    ): void {
+    changeAnchor(el: KupDynamicPositionElement, anchorEl: HTMLElement): void {
         el.dynamicPosition.anchor = anchorEl;
     }
     /**
      * Removes the element from dynamic position management.
-     * @param {DynamicallyPositionedElement[]} elements - Elements to remove from the managed elements set.
+     * @param {KupDynamicPositionElement[]} elements - Elements to remove from the managed elements set.
      */
-    unregister(elements: DynamicallyPositionedElement[]): void {
+    unregister(elements: KupDynamicPositionElement[]): void {
         if (this.managedElements) {
             for (let index = 0; index < elements.length; index++) {
                 this.managedElements.delete(elements[index]);
@@ -80,31 +77,31 @@ export class DynamicPosition {
     }
     /**
      * Returns whether an element was previously registered or not.
-     * @param {DynamicallyPositionedElement} el - Element to test.
+     * @param {KupDynamicPositionElement} el - Element to test.
      * @returns {boolean} True if the element was registered.
      */
-    isRegistered(el: DynamicallyPositionedElement): boolean {
+    isRegistered(el: KupDynamicPositionElement): boolean {
         return !this.managedElements ? false : this.managedElements.has(el);
     }
     /**
      * Starts the process of dynamically reposition the element (which must be firstly initialized through this.setup()).
-     * @param {DynamicallyPositionedElement} el - Element to reposition.
+     * @param {KupDynamicPositionElement} el - Element to reposition.
      */
-    start(el: DynamicallyPositionedElement): void {
+    start(el: KupDynamicPositionElement): void {
         el.classList.add('dynamic-position-active');
     }
     /**
      * Ends the process of dynamically reposition the element.
-     * @param {DynamicallyPositionedElement} el - Element to reposition.
+     * @param {KupDynamicPositionElement} el - Element to reposition.
      */
-    stop(el: DynamicallyPositionedElement): void {
+    stop(el: KupDynamicPositionElement): void {
         el.classList.remove('dynamic-position-active');
     }
     /**
      * This function calculates where to place the element in order to correctly display it attached to its anchor point.
-     * @param {DynamicallyPositionedElement} el - Element to reposition.
+     * @param {KupDynamicPositionElement} el - Element to reposition.
      */
-    run(el: DynamicallyPositionedElement): void {
+    run(el: KupDynamicPositionElement): void {
         if (!el.isConnected) {
             dom.ketchup.dynamicPosition.managedElements.delete(el);
             cancelAnimationFrame(el.dynamicPosition.rAF);

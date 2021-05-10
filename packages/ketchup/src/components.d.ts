@@ -1580,12 +1580,14 @@ export namespace Components {
         language: boolean;
         longCycleProp: boolean;
         longCycleVar: boolean;
+        objects: boolean;
+        objectsFunction: boolean;
         theme: boolean;
     };
         /**
           * This method is used to trigger a new render of the component.
          */
-        "printLifecycleTime": () => Promise<{ id: string; time: number; }>;
+        "printLifecycleTime": () => Promise<{ id: string; featuresTime: number; fullTime: number; }>;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4238,6 +4240,8 @@ declare namespace LocalJSX {
         language: boolean;
         longCycleProp: boolean;
         longCycleVar: boolean;
+        objects: boolean;
+        objectsFunction: boolean;
         theme: boolean;
     };
     }

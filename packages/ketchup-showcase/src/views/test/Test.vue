@@ -38,6 +38,14 @@
           <span id="average-cyclevars">0</span></div
         ><br />
         <div class="counter-wrapper">
+          <span class="label">Long cycle (KupObjects):</span>
+          <span id="average-cycleobjects">0</span></div
+        >
+        <div class="counter-wrapper">
+          <span class="label">Long cycle (object function):</span>
+          <span id="average-cycleobjectsfunction">0</span></div
+        ><br />
+        <div class="counter-wrapper">
           <span class="label">Full:</span>
           <span id="average-full">0</span></div
         ><br />
@@ -119,6 +127,8 @@ export default {
       'theme',
       'cycleprops',
       'cyclevars',
+      'cycleobjects',
+      'cycleobjectsfunction',
       'full',
       totalID,
     ];
@@ -161,6 +171,14 @@ export default {
           {
             text: 'Long cycle (variables)',
             value: 'cyclevars',
+          },
+          {
+            text: 'Long cycle (KupObjects)',
+            value: 'cycleobjects',
+          },
+          {
+            text: 'Long cycle (object function)',
+            value: 'cycleobjectsfunction',
           },
           {
             text: 'All features',
@@ -222,12 +240,24 @@ export default {
               longCycleVars: true,
             };
             break;
+          case 'cycleobjects':
+            comp.features = {
+              objects: true,
+            };
+            break;
+          case 'cycleobjectsfunction':
+            comp.features = {
+              objectsFunction: true,
+            };
+            break;
           case 'full':
             comp.features = {
               debug: true,
               language: true,
               longCycleProps: true,
               longCycleVars: true,
+              objects: true,
+              objectsFunction: true,
               theme: true,
             };
             break;
@@ -245,7 +275,7 @@ export default {
         if (comp) {
           comp.printLifecycleTime().then((res) => {
             const id = res.id;
-            const time = res.time;
+            const time = res.featuresTime;
             number.innerText = (parseInt(number.innerText) + 1).toString();
             elementIteration([id, totalID], time);
           });

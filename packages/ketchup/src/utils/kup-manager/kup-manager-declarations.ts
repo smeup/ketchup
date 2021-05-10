@@ -1,11 +1,12 @@
-import type { DynamicPosition } from '../dynamic-position/dynamic-position';
 import type { KupDebug } from '../kup-debug/kup-debug';
 import type { KupDialog } from '../kup-dialog/kup-dialog';
-import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
+import type { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
 import type { KupLanguage } from '../kup-language/kup-language';
+import type { KupObjects } from '../kup-objects/kup-objects';
+import type { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
 import type { KupTheme } from '../kup-theme/kup-theme';
+import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { ResizeObserver } from 'resize-observer';
-import type { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
 /**
  * Interface used to define the HTML element with Ketch.UP specific properties.
  */
@@ -19,12 +20,13 @@ export interface KupDom extends HTMLHtmlElement {
 export interface KupManager {
     debug: KupDebug;
     dialog: KupDialog;
-    dynamicPosition: DynamicPosition;
+    dynamicPosition: KupDynamicPosition;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
+    objects: KupObjects;
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
-    scrollOnHover: ScrollOnHover;
+    scrollOnHover: KupScrollOnHover;
     theme: KupTheme;
     toolbar: KupToolbar;
     showMagicBox: () => void;
@@ -38,6 +40,7 @@ export interface KupManagerInitialization {
     debug: { active: boolean; autoPrint: boolean; logLimit: number };
     dialog: { zIndex: number };
     language: { list: JSON; name: string };
+    obj: { list: JSON };
     scrollOnHover: { delay: number; step: number };
     theme: { list: JSON; name: string };
 }

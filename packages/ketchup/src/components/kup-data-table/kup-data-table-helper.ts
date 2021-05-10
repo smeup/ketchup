@@ -14,8 +14,6 @@ import {
     RowGroup,
     KupDataTableRowDragType,
 } from './kup-data-table-declarations';
-
-import { isNumber, isDate } from '../../utils/object-utils';
 import { isEmpty, stringToNumber } from '../../utils/utils';
 import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
@@ -26,12 +24,16 @@ import {
     compareCell,
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import {
-    KupManager,
-    kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+import { kupManagerInstance } from '../../utils/kup-manager/kup-manager';
 import { formatToMomentDate } from '../../utils/cell-formatter';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupObjects } from '../../utils/kup-objects/kup-objects';
+import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
+const kupObjects: KupObjects = dom.ketchup
+    ? dom.ketchup.objects
+    : new KupObjects();
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -337,7 +339,7 @@ function updateGroupTotal(
         const cell = addedRow.cells[key];
 
         if (cell) {
-            let _isNumber = isNumber(cell.obj);
+            let _isNumber = kupObjects.isNumber(cell.obj);
 
             const totalMode = totals[key];
 
@@ -461,7 +463,7 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
-                    } else if (isDate(cell.obj)) {
+                    } else if (kupObjects.isDate(cell.obj)) {
                         const momentValue = formatToMomentDate(cell);
                         if (momentValue.isValid()) {
                             const cellValue = momentValue.toDate();
@@ -533,7 +535,7 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
-                    } else if (isDate(cell.obj)) {
+                    } else if (kupObjects.isDate(cell.obj)) {
                         const momentValue = formatToMomentDate(cell);
                         if (momentValue.isValid()) {
                             const cellValue = momentValue.toDate();
@@ -804,7 +806,7 @@ export function calcTotals(
                 if (cell) {
                     if (totals[key] === TotalMode.DISTINCT) {
                         let cellValue;
-                        if (isNumber(cell.obj)) {
+                        if (kupObjects.isNumber(cell.obj)) {
                             cellValue = numeral(
                                 stringToNumber(cell.value)
                             ).value();
@@ -825,7 +827,7 @@ export function calcTotals(
                                 distinctObj[key] = [];
                             }
                         }
-                    } else if (isNumber(cell.obj)) {
+                    } else if (kupObjects.isNumber(cell.obj)) {
                         const cellValue = numeral(stringToNumber(cell.value));
                         let currentFooterValue = footerRow[key];
                         switch (true) {
@@ -858,7 +860,7 @@ export function calcTotals(
                                     .value();
                         }
                         // TODO DRY the MIN and MAX functions
-                    } else if (isDate(cell.obj)) {
+                    } else if (kupObjects.isDate(cell.obj)) {
                         const momentValue = formatToMomentDate(cell);
                         if (momentValue.isValid()) {
                             const cellValue = momentValue.toDate();

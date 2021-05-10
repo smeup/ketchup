@@ -17,7 +17,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { KupTextField } from '../kup-text-field/kup-text-field';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupColorPickerProps } from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
@@ -232,7 +232,7 @@ export class KupColorPicker {
                 let colorPicker = this['kupColorPicker'];
                 colorPicker.setValue(color.hex.substr(0, 7));
                 colorPicker.kupManager.dynamicPosition.stop(
-                    colorPicker.dropdownEl as DynamicallyPositionedElement
+                    colorPicker.dropdownEl as KupDynamicPositionElement
                 );
                 colorPicker.kupChange.emit({
                     value: colorPicker.value,
@@ -251,7 +251,7 @@ export class KupColorPicker {
                 }
                 if (!colorPicker.disabled) {
                     colorPicker.kupManager.dynamicPosition.start(
-                        colorPicker.dropdownEl as DynamicallyPositionedElement
+                        colorPicker.dropdownEl as KupDynamicPositionElement
                     );
                 }
             };
@@ -328,7 +328,7 @@ export class KupColorPicker {
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

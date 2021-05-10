@@ -29,7 +29,7 @@ import {
     formatTime,
 } from '../../utils/utils';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupTimePickerProps } from './kup-time-picker-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -442,7 +442,7 @@ export class KupTimePicker {
         }
         if (containerEl != null) {
             this.kupManager.dynamicPosition.start(
-                containerEl as DynamicallyPositionedElement
+                containerEl as KupDynamicPositionElement
             );
             containerEl.classList.add('visible');
             let elStyle: any = containerEl.style;
@@ -464,7 +464,7 @@ export class KupTimePicker {
         }
         if (containerEl != null) {
             this.kupManager.dynamicPosition.stop(
-                containerEl as DynamicallyPositionedElement
+                containerEl as KupDynamicPositionElement
             );
             containerEl.classList.remove('visible');
         }
@@ -891,7 +891,7 @@ export class KupTimePicker {
     recalcPosition() {
         if (this.pickerContainerEl != null && this.textfieldEl != null) {
             this.kupManager.dynamicPosition.register(
-                this.pickerContainerEl as DynamicallyPositionedElement,
+                this.pickerContainerEl as KupDynamicPositionElement,
                 this.textfieldEl
             );
         }
@@ -973,7 +973,7 @@ export class KupTimePicker {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

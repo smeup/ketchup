@@ -13,6 +13,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 
 @Component({
     tag: 'kup-probe',
@@ -54,12 +55,16 @@ export class KupProbe {
         language: boolean;
         longCycleProp: boolean;
         longCycleVar: boolean;
+        objects: boolean;
+        objectsFunction: boolean;
         theme: boolean;
     } = {
         debug: false,
         language: false,
         longCycleProp: false,
         longCycleVar: false,
+        objects: false,
+        objectsFunction: false,
         theme: false,
     };
     /**
@@ -180,6 +185,10 @@ export class KupProbe {
      */
     private startTime: number = performance.now();
     /**
+     * Start performance.now() inside componentWillLoad() lifecycle hook - to measure actual features
+     */
+    private featuresStartTime: number = null;
+    /**
      * End performance.now()
      */
     private endTime: number = null;
@@ -192,16 +201,28 @@ export class KupProbe {
      * This method is used to trigger a new render of the component.
      */
     @Method()
-    async printLifecycleTime(): Promise<{ id: string; time: number }> {
-        const time: number = this.endTime - this.startTime;
+    async printLifecycleTime(): Promise<{
+        id: string;
+        featuresTime: number;
+        fullTime: number;
+    }> {
+        const featuresTime: number = this.endTime - this.featuresStartTime;
+        const fullTime: number = this.endTime - this.startTime;
         this.content =
+            'Full lifecycle of this probe (' +
             this.rootElement.tagName +
             '#' +
             this.rootElement.id +
-            ' took ' +
-            time +
-            'ms to render.';
-        return { id: this.rootElement.id, time: time };
+            ') took ' +
+            fullTime +
+            'ms, while features took ' +
+            featuresTime +
+            'ms.';
+        return {
+            id: this.rootElement.id,
+            fullTime: fullTime,
+            featuresTime: featuresTime,
+        };
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -230,11 +251,30 @@ export class KupProbe {
         }
     }
 
+    private longCycleObjects() {
+        let b: boolean = null;
+        for (let index = 0; index < 1000000; index++) {
+            b = this.kupManager.objects.isNumber({ t: 'NR', p: '', k: '' });
+        }
+    }
+
+    private longCycleObjectsFunction() {
+        let b: boolean = null;
+        for (let index = 0; index < 1000000; index++) {
+            b = isNumber({ t: 'NR', p: '', k: '' });
+        }
+        function isNumber(obj: KupObj): boolean {
+            if (obj == null) return false;
+            return 'NR' === obj.t;
+        }
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.featuresStartTime = performance.now();
         if (this.features.debug) {
             this.kupManager.debug.logLoad(this, false);
         }
@@ -246,6 +286,12 @@ export class KupProbe {
         }
         if (this.features.longCycleVar) {
             this.longCycleVar();
+        }
+        if (this.features.objects) {
+            this.longCycleObjects();
+        }
+        if (this.features.objectsFunction) {
+            this.longCycleObjectsFunction();
         }
         if (this.features.theme) {
             this.kupManager.theme.register(this);

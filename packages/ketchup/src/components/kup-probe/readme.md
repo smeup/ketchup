@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type                                                                                                    | Default                                                                                                                                   |
-| ------------- | -------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`                                                                                                | `''`                                                                                                                                      |
-| `features`    | --             | Specify features to test.      | `{ debug: boolean; language: boolean; longCycleProp: boolean; longCycleVar: boolean; theme: boolean; }` | `{         debug: false,         language: false,         longCycleProp: false,         longCycleVar: false,         theme: false,     }` |
+| Property      | Attribute      | Description                    | Type                                                                                                                                                | Default                                                                                                                                                                                           |
+| ------------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string`                                                                                                                                            | `''`                                                                                                                                                                                              |
+| `features`    | --             | Specify features to test.      | `{ debug: boolean; language: boolean; longCycleProp: boolean; longCycleVar: boolean; objects: boolean; objectsFunction: boolean; theme: boolean; }` | `{         debug: false,         language: false,         longCycleProp: false,         longCycleVar: false,         objects: false,         objectsFunction: false,         theme: false,     }` |
 
 
 ## Methods

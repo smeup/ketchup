@@ -29,13 +29,6 @@ import {
     BoxKanban,
     KupBoxProps,
 } from './kup-box-declarations';
-import {
-    isButton,
-    isPassword,
-    isIcon,
-    isCheckbox,
-    hasTooltip,
-} from '../../utils/object-utils';
 
 import {
     isEditor,
@@ -82,7 +75,7 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
-import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupLanguageGeneric,
@@ -457,7 +450,7 @@ export class KupBox {
 
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
-    private boxContainer: ScrollableElement;
+    private boxContainer: KupScrollOnHoverElement;
     /**
      * Instance of the KupManager class.
      */
@@ -1547,7 +1540,7 @@ export class KupBox {
             cell = row.cells[boxObject.column];
             column = null;
             if (cell) {
-                _hasTooltip = hasTooltip(cell.obj);
+                _hasTooltip = this.kupManager.objects.hasTooltip(cell.obj);
                 // removing column from visibleColumns
                 let index = -1;
 
@@ -1570,7 +1563,7 @@ export class KupBox {
                 }
                 let props: any = { ...cell.data };
 
-                if (isButton(cell.obj)) {
+                if (this.kupManager.objects.isButton(cell.obj)) {
                     if (props) {
                         boContent = (
                             <FButton class="cell-button" {...props}></FButton>
@@ -1584,7 +1577,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (isCheckbox(cell.obj)) {
+                } else if (this.kupManager.objects.isCheckbox(cell.obj)) {
                     if (props) {
                         props['disabled'] = row;
                     } else {
@@ -1598,7 +1591,7 @@ export class KupBox {
                     );
                 } else if (isEditor(cell, boxObject)) {
                     boContent = <kup-editor text={cell.value}></kup-editor>;
-                } else if (isIcon(cell.obj)) {
+                } else if (this.kupManager.objects.isIcon(cell.obj)) {
                     if (props) {
                         if (!props.sizeX) {
                             props['sizeX'] = '18px';
@@ -1629,7 +1622,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (isPassword(cell.obj)) {
+                } else if (this.kupManager.objects.isPassword(cell.obj)) {
                     boContent = (
                         <kup-text-field
                             input-type="password"
@@ -2045,7 +2038,7 @@ export class KupBox {
                                 unsetTooltip(this.tooltip);
                             }}
                             ref={(el: HTMLElement) =>
-                                (this.boxContainer = el as ScrollableElement)
+                                (this.boxContainer = el as KupScrollOnHoverElement)
                             }
                         >
                             {boxContent}
