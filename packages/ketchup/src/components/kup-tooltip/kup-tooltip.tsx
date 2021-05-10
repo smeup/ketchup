@@ -398,6 +398,7 @@ export class KupTooltip {
             this.resetAll();
             return;
         }
+        this.rootElement.focus();
         if (this.isViewModeTooltip()) {
             this.cellOptions = null;
             this.kupTooltipLoadDetail.emit({

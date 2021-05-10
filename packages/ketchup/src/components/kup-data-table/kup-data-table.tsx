@@ -113,11 +113,7 @@ import {
     FChipData,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import {
-    FButtonProps,
-    FButtonStyling,
-} from '../../f-components/f-button/f-button-declarations';
-import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
