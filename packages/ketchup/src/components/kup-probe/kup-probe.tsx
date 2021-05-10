@@ -200,12 +200,13 @@ export class KupProbe {
     async printLifecycleTime(): Promise<{ id: string; time: number }> {
         const time: number = this.endTime - this.startTime;
         this.content =
+            'Lifecycle of this probe (' +
             this.rootElement.tagName +
             '#' +
             this.rootElement.id +
-            ' took ' +
+            ') took ' +
             time +
-            'ms to render.';
+            'ms.';
         return { id: this.rootElement.id, time: time };
     }
     /**

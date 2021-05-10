@@ -273,7 +273,9 @@ export class KupDebug {
             // If the log is tied to a KupComponent, on click its props will be downloaded.
             // Also, a different style will be applied to distinguish it between the others.
             if (typeof this.logs[index].element == 'object') {
-                slot.title = 'Download component props';
+                slot.title = dom.ketchup.language.translate(
+                    KupLanguageDebug.DL_PROPS_COMP
+                );
                 slot.style.fontWeight = 'bold';
                 slot.style.cursor = 'pointer';
                 slot.onclick = () => {

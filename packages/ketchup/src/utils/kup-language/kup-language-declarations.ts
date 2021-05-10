@@ -52,6 +52,7 @@ export enum KupLanguageDebug {
     DUMP = 'debugDump',
     DL_ALL = 'debugDLAll',
     DL_PROPS = 'debugDLProps',
+    DL_PROPS_COMP = 'debugDLPropsComp',
     LANGUAGE_CHANGER = 'debugLanguageChanger',
     LOG_LIMIT = 'debugLogLimit',
     MAGIC_BOX = 'debugMagicBox',
