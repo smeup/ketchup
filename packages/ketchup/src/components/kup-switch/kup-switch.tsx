@@ -111,18 +111,6 @@ export class KupSwitch {
         value: string;
     }>;
     /**
-     * Triggered when the input element is clicked.
-     */
-    @Event({
-        eventName: 'kupSwitchClick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<{
-        value: string;
-    }>;
-    /**
      * Triggered when the input element gets focused.
      */
     @Event({
@@ -150,12 +138,6 @@ export class KupSwitch {
             this.value = 'on';
         }
         this.kupChange.emit({
-            value: this.value,
-        });
-    }
-
-    onKupClick() {
-        this.kupClick.emit({
             value: this.value,
         });
     }
@@ -214,11 +196,10 @@ export class KupSwitch {
                 if (inputEl) {
                     inputEl.onblur = () => this.onKupBlur();
                     inputEl.onchange = () => this.onKupChange();
-                    inputEl.onclick = () => this.onKupClick();
                     inputEl.onfocus = () => this.onKupFocus();
                 }
                 if (labelEl) {
-                    labelEl.onclick = () => this.onKupClick();
+                    labelEl.onclick = () => this.onKupChange();
                 }
                 FSwitchMDC(f);
             }

@@ -22,10 +22,6 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupSwitchClick',
-          type: 'click',
-        },
-        {
           name: 'kupSwitchChange',
           type: 'change',
         },
@@ -112,6 +108,7 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-switch');
   comp.id = 'demo-component';
+  comp.label = 'Demo';
   return comp;
 }
 </script>

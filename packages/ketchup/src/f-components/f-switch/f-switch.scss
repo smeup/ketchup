@@ -21,6 +21,9 @@
       &.mdc-switch--disabled {
         opacity: 0.5;
       }
+      &.mdc-switch--disabled + label {
+        pointer-events: none;
+      }
     }
     label {
       color: var(--kup-text-color);
