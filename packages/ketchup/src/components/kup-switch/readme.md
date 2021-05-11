@@ -20,7 +20,6 @@
 | ----------------- | ------------------------------------------------- | --------------------------------- |
 | `kupSwitchBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ value: string; }>` |
 | `kupSwitchChange` | Triggered when the input element's value changes. | `CustomEvent<{ value: string; }>` |
-| `kupSwitchClick`  | Triggered when the input element is clicked.      | `CustomEvent<{ value: string; }>` |
 | `kupSwitchFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ value: string; }>` |
 
 

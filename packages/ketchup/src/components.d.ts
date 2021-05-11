@@ -849,7 +849,7 @@ export namespace Components {
          */
         "selectRowsById": string;
         /**
-          * Set the type of the selection.
+          * Set the type of the rows selection.
          */
         "selection": SelectionMode;
         /**
@@ -3556,7 +3556,7 @@ declare namespace LocalJSX {
          */
         "selectRowsById"?: string;
         /**
-          * Set the type of the selection.
+          * Set the type of the rows selection.
          */
         "selection"?: SelectionMode;
         /**
@@ -4474,12 +4474,6 @@ declare namespace LocalJSX {
           * Triggered when the input element's value changes.
          */
         "onKupSwitchChange"?: (event: CustomEvent<{
-        value: string;
-    }>) => void;
-        /**
-          * Triggered when the input element is clicked.
-         */
-        "onKupSwitchClick"?: (event: CustomEvent<{
         value: string;
     }>) => void;
         /**

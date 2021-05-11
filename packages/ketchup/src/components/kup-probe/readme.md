@@ -15,13 +15,13 @@
 
 ## Methods
 
-### `printLifecycleTime() => Promise<{ id: string; time: number; }>`
+### `printLifecycleTime() => Promise<{ id: string; featuresTime: number; fullTime: number; }>`
 
 This method is used to trigger a new render of the component.
 
 #### Returns
 
-Type: `Promise<{ id: string; time: number; }>`
+Type: `Promise<{ id: string; featuresTime: number; fullTime: number; }>`
 
 
 
