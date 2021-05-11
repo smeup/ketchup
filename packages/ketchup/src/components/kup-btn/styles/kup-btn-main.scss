@@ -10,12 +10,11 @@
   width: max-content;
 
   &.show-selection {
-    .kup-dropdown-button,
-    .f-button--wrapper {
-      opacity: 0.75;
-      &.selected {
-        opacity: 1;
-      }
+    .selected {
+      --kup-primary-color: var(--kup-secondary-color);
+      --mdc-theme-primary: var(--kup-secondary-color);
+      --kup-text-on-primary-color: var(--kup-text-on-secondary-color);
+      --mdc-theme-on-primary: var(--kup-text-on-secondary-color);
     }
   }
 }

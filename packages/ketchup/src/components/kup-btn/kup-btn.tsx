@@ -108,6 +108,7 @@ export class KupBtn {
     }
 
     onDropDownItemClick(e: CustomEvent, index: string) {
+        this.selected = index;
         this.onKupClick(index, e.detail.value);
     }
 
@@ -152,15 +153,13 @@ export class KupBtn {
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const fs: NodeListOf<HTMLElement> = root.querySelectorAll(
-                '.f-button--wrapper'
-            );
+            const fs: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.f-button--wrapper');
             if (fs != null) {
                 for (let i = 0; i < fs.length; i++) {
                     let f: HTMLElement = fs[i];
-                    const buttonEl: HTMLButtonElement = f.querySelector(
-                        'button'
-                    );
+                    const buttonEl: HTMLButtonElement =
+                        f.querySelector('button');
                     if (buttonEl) {
                         buttonEl.onclick = () => this.onKupClick(f.id, '-1');
                     }
@@ -240,6 +239,9 @@ export class KupBtn {
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}
                 {...data}
+                onKupDropdownButtonClick={() =>
+                    this.onKupClick(index.toString(), '-1')
+                }
                 onKupDropdownSelectionItemClick={(e) =>
                     this.onDropDownItemClick(e, index.toString())
                 }
