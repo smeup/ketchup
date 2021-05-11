@@ -68,21 +68,33 @@ export interface CellData {
 }
 
 export interface Cell {
+    value: string;
+    cardID?: number;
+    cssClass?: string;
+    data?: CellData;
+    displayedValue?: string;
+    icon?: string;
+    info?: KupCellInfo;
+    isEditable?: boolean;
     obj?: {
         t: string;
         p: string;
         k: string;
     };
-    value: string;
-    displayedValue?: string;
-    style?: GenericMap;
     shape?: string;
-    data?: CellData;
-    cardID?: number;
-    cssClass?: string;
-    icon?: string;
+    style?: GenericMap;
     title?: string;
-    isEditable?: boolean;
+}
+/**
+ * Information about the cell, displayed before the content.
+ *
+ * @export
+ * @interface KupCellInfo
+ */
+export interface KupCellInfo {
+    color?: string;
+    icon?: string;
+    message: string;
 }
 
 export interface CellsHolder {

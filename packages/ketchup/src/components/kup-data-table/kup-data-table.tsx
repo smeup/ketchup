@@ -46,6 +46,7 @@ import {
     iconColumn,
     keyColumn,
     SelectionMode,
+    KupCellInfo,
 } from './kup-data-table-declarations';
 
 import {
@@ -311,7 +312,8 @@ export class KupDataTable {
                     this.sortableColumnsMutateData
                 )
             ) {
-                this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+                this.state.sortableColumnsMutateData =
+                    this.sortableColumnsMutateData;
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.pageSelected, this.currentPage)) {
@@ -1356,9 +1358,8 @@ export class KupDataTable {
         let widthTable: number = this.tableAreaRef.offsetWidth;
         this.stickyTheadRef.style.maxWidth = widthTable + 'px';
         let thCollection: any = this.theadRef.querySelectorAll('th');
-        let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
-            'th-sticky'
-        );
+        let thStickyCollection: any =
+            this.stickyTheadRef.querySelectorAll('th-sticky');
         for (let i = 0; i < thCollection.length; i++) {
             let widthTH = thCollection[i].offsetWidth;
             thStickyCollection[i].style.width = widthTH + 'px';
@@ -1521,9 +1522,8 @@ export class KupDataTable {
                 'td .f-checkbox--wrapper'
             );
             for (let index = 0; index < checkboxes.length; index++) {
-                const inputEl: HTMLInputElement = checkboxes[
-                    index
-                ].querySelector('input');
+                const inputEl: HTMLInputElement =
+                    checkboxes[index].querySelector('input');
                 if (inputEl) {
                     inputEl.onchange = (e: Event) =>
                         this.cellUpdate(
@@ -1541,9 +1541,8 @@ export class KupDataTable {
                 'td .f-text-field--wrapper'
             );
             for (let index = 0; index < textfields.length; index++) {
-                const inputEl: HTMLInputElement = textfields[
-                    index
-                ].querySelector('input');
+                const inputEl: HTMLInputElement =
+                    textfields[index].querySelector('input');
                 if (inputEl) {
                     inputEl.onblur = (e: FocusEvent) =>
                         this.cellUpdate(
@@ -1565,17 +1564,17 @@ export class KupDataTable {
                 FTextFieldMDC(textfields[index]);
             }
             //Row multiselection checkboxes
-            const multiselectionCheckboxes: NodeListOf<HTMLElement> = root.querySelectorAll(
-                'td[row-select-cell] .f-checkbox--wrapper'
-            );
+            const multiselectionCheckboxes: NodeListOf<HTMLElement> =
+                root.querySelectorAll(
+                    'td[row-select-cell] .f-checkbox--wrapper'
+                );
             for (
                 let index = 0;
                 index < multiselectionCheckboxes.length;
                 index++
             ) {
-                const checkboxEl: HTMLInputElement = multiselectionCheckboxes[
-                    index
-                ].querySelector('input');
+                const checkboxEl: HTMLInputElement =
+                    multiselectionCheckboxes[index].querySelector('input');
                 if (checkboxEl) {
                     checkboxEl.onchange = () =>
                         this.handleRowSelect(
@@ -1585,9 +1584,10 @@ export class KupDataTable {
                 FCheckboxMDC(multiselectionCheckboxes[index] as HTMLElement);
             }
             //Row actions: expander
-            const expanderRowActions: NodeListOf<HTMLElement> = root.querySelectorAll(
-                '[row-action-cell] .f-image--wrapper.expander'
-            );
+            const expanderRowActions: NodeListOf<HTMLElement> =
+                root.querySelectorAll(
+                    '[row-action-cell] .f-image--wrapper.expander'
+                );
             for (let index = 0; index < expanderRowActions.length; index++) {
                 (expanderRowActions[index] as HTMLElement).onclick = (
                     e: MouseEvent
@@ -1612,9 +1612,8 @@ export class KupDataTable {
                 '#group-chips.f-chip--wrapper'
             );
             if (groupChip) {
-                const chips: NodeListOf<HTMLElement> = groupChip.querySelectorAll(
-                    '.mdc-chip'
-                );
+                const chips: NodeListOf<HTMLElement> =
+                    groupChip.querySelectorAll('.mdc-chip');
                 for (let index = 0; index < chips.length; index++) {
                     const cancelIcon: HTMLElement = chips[index].querySelector(
                         '.mdc-chip__icon.clear'
@@ -1630,12 +1629,10 @@ export class KupDataTable {
                 '#global-filter .f-text-field--wrapper'
             );
             if (globalFilter) {
-                const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
-                    'input'
-                );
-                const globalFilterClear: HTMLElement = globalFilter.querySelector(
-                    '.clear'
-                );
+                const globalFilterInput: HTMLInputElement =
+                    globalFilter.querySelector('input');
+                const globalFilterClear: HTMLElement =
+                    globalFilter.querySelector('.clear');
                 globalFilterInput.oninput = (event) => {
                     const t: EventTarget = event.target;
                     window.clearTimeout(this.globalFilterTimeout);
@@ -1685,9 +1682,8 @@ export class KupDataTable {
         this.expandGroupsHandler();
 
         if (document.querySelectorAll('.header')[0]) {
-            this.navBarHeight = document.querySelectorAll(
-                '.header'
-            )[0].clientHeight;
+            this.navBarHeight =
+                document.querySelectorAll('.header')[0].clientHeight;
         } else {
             this.navBarHeight = 0;
         }
@@ -1856,9 +1852,8 @@ export class KupDataTable {
             columns[index].visible = false;
         }
         // Setting Field column and current record column to visible
-        columns.find(
-            (x) => x.name === fieldColumn.toUpperCase()
-        ).visible = true;
+        columns.find((x) => x.name === fieldColumn.toUpperCase()).visible =
+            true;
         const currentColumn = columns.find((x) => x.name === row.id);
         if (currentColumn) {
             currentColumn.visible = true;
@@ -2062,9 +2057,8 @@ export class KupDataTable {
                 details.tr &&
                 !details.isGroupRow
             ) {
-                const focusEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                    'tr.focus'
-                );
+                const focusEl: HTMLElement =
+                    this.rootElement.shadowRoot.querySelector('tr.focus');
                 if (focusEl) {
                     focusEl.classList.remove('focus');
                 }
@@ -2151,9 +2145,8 @@ export class KupDataTable {
             e.target as HTMLElement
         );
 
-        const hoverEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '.hover'
-        );
+        const hoverEl: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('.hover');
         if (hoverEl) {
             hoverEl.classList.remove('hover');
         }
@@ -2167,9 +2160,8 @@ export class KupDataTable {
     }
 
     private mouseOutHandler(): void {
-        const hoverEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '.hover'
-        );
+        const hoverEl: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('.hover');
         if (hoverEl) {
             hoverEl.classList.remove('hover');
         }
@@ -2444,9 +2436,11 @@ export class KupDataTable {
             // Safari handles the sticky position on the tables in a different way, making it start from the tbody element
             // and not on the table with a specified position of sticky. There fore in that case we must set initial height to 0.
             let previousHeight: number = !this.isSafariBrowser
-                ? (this.tableRef.querySelector(
-                      'thead > tr:first-of-type > th:first-of-type'
-                  ) as HTMLTableCellElement).getBoundingClientRect().height // [ffbf]
+                ? (
+                      this.tableRef.querySelector(
+                          'thead > tr:first-of-type > th:first-of-type'
+                      ) as HTMLTableCellElement
+                  ).getBoundingClientRect().height // [ffbf]
                 : 0;
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
@@ -2455,10 +2449,11 @@ export class KupDataTable {
                     FixedCellsCSSVarsBase.rows + i,
                     previousHeight + 'px'
                 );
-                previousHeight += (currentRow
-                    .children[0] as HTMLTableCellElement).getBoundingClientRect()
-                    .height; // [ffbf]
-                currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
+                previousHeight += (
+                    currentRow.children[0] as HTMLTableCellElement
+                ).getBoundingClientRect().height; // [ffbf]
+                currentRow =
+                    currentRow.nextElementSibling as HTMLTableRowElement;
             }
             toRet = true;
         }
@@ -2480,7 +2475,8 @@ export class KupDataTable {
                     previousWidth + 'px'
                 );
                 previousWidth += currentCell.getBoundingClientRect().width; // [ffbf]
-                currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
+                currentCell =
+                    currentCell.nextElementSibling as HTMLTableCellElement;
             }
             toRet = true;
         }
@@ -3236,14 +3232,12 @@ export class KupDataTable {
         const dataColumns = this.getVisibleColumns().map(
             (column, columnIndex) => {
                 // Composes column cell style and classes
-                const {
-                    columnClass,
-                    thStyle,
-                } = this.composeHeaderCellClassAndStyle(
-                    columnIndex,
-                    specialExtraCellsCount,
-                    column
-                );
+                const { columnClass, thStyle } =
+                    this.composeHeaderCellClassAndStyle(
+                        columnIndex,
+                        specialExtraCellsCount,
+                        column
+                    );
 
                 //---- AddCodeDecodeColumn ----
                 let overlay = null;
@@ -3569,14 +3563,12 @@ export class KupDataTable {
         // Composes normal header cells
         const dataColumns = this.getVisibleColumns().map(
             (column, columnIndex) => {
-                const {
-                    columnClass,
-                    thStyle,
-                } = this.composeHeaderCellClassAndStyle(
-                    columnIndex,
-                    specialExtraCellsCount,
-                    column
-                );
+                const { columnClass, thStyle } =
+                    this.composeHeaderCellClassAndStyle(
+                        columnIndex,
+                        specialExtraCellsCount,
+                        column
+                    );
 
                 return (
                     <th-sticky class={columnClass} style={thStyle}>
@@ -3639,9 +3631,8 @@ export class KupDataTable {
 
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                '#totals-menu'
-            );
+            let menu: HTMLElement =
+                this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
                 let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
@@ -4071,11 +4062,12 @@ export class KupDataTable {
                                         ISO_DEFAULT_DATE_FORMAT
                                     )
                                 ) {
-                                    value = unformattedStringToFormattedStringDate(
-                                        totalValue,
-                                        null,
-                                        column.obj.t + column.obj.p
-                                    );
+                                    value =
+                                        unformattedStringToFormattedStringDate(
+                                            totalValue,
+                                            null,
+                                            column.obj.t + column.obj.p
+                                        );
                                 } else {
                                     console.warn(`invalid date: ${totalValue}`);
                                 }
@@ -4186,11 +4178,12 @@ export class KupDataTable {
             let selectRowCell = null;
             if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
                 specialExtraCellsCount++;
-                const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
-                    specialExtraCellsCount,
-                    rowCssIndex,
-                    specialExtraCellsCount - 1
-                );
+                const selectionStyleAndClass =
+                    this.composeFixedCellStyleAndClass(
+                        specialExtraCellsCount,
+                        rowCssIndex,
+                        specialExtraCellsCount - 1
+                    );
 
                 let props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
@@ -4449,17 +4442,16 @@ export class KupDataTable {
                     let column = {};
                     if (trElement) {
                         // get the elements inside the row that were touched
-                        const hoverElements = trElement.querySelectorAll(
-                            ':hover'
-                        );
+                        const hoverElements =
+                            trElement.querySelectorAll(':hover');
                         if (hoverElements) {
                             // the td in position 0 is ALWAYS the last td touched
-                            const tdElement = hoverElements[0] as HTMLTableCellElement;
+                            const tdElement =
+                                hoverElements[0] as HTMLTableCellElement;
                             if (tdElement) {
                                 // get the column name in td element
-                                const columnName = tdElement.getAttribute(
-                                    'data-column'
-                                );
+                                const columnName =
+                                    tdElement.getAttribute('data-column');
                                 if (columnName) {
                                     // finally get the cell
                                     cell = row.cells[columnName];
@@ -4667,9 +4659,32 @@ export class KupDataTable {
         if (cell.title != null && cell.title.trim() != '') {
             cellTitle = cell.title;
         }
+
+        // Informational icon
+        let infoEl: HTMLElement = null;
+        if (cell.info && cell.info.message) {
+            const info: KupCellInfo = { ...cell.info };
+            if (!info.color) {
+                info.color = 'var(--kup-info-color)';
+            }
+            if (!info.icon) {
+                info.icon = 'info';
+            }
+            let fProps: FImageProps = {
+                color: info.color,
+                resource: info.icon,
+                sizeX: '1.25em',
+                sizeY: '1.25em',
+                title: info.message,
+                wrapperClass: 'cell-info',
+            };
+            infoEl = <FImage {...fProps} />;
+        }
+
         return (
             <span class={classObj} style={style} title={cellTitle}>
                 {indend}
+                {infoEl}
                 {icon}
                 {content}
             </span>
@@ -5797,7 +5812,8 @@ export class KupDataTable {
                                           this.onCustomSettingsClick();
                                       }}
                                       ref={(el) => {
-                                          this.customizeTopButtonRef = el as any;
+                                          this.customizeTopButtonRef =
+                                              el as any;
                                       }}
                                   >
                                       <FImage
@@ -5878,9 +5894,8 @@ export class KupDataTable {
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
