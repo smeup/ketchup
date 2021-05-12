@@ -27,6 +27,7 @@ export interface CardData {
     datepicker?: GenericObject[];
     image?: GenericObject[];
     progressbar?: GenericObject[];
+    tabbar?: GenericObject[];
     text?: string[];
     textfield?: GenericObject[];
     timepicker?: GenericObject[];

@@ -175,6 +175,25 @@ export class KupCard {
             this.refresh();
         }
 
+        //Tab change - 14th standard layout
+        if (
+            root &&
+            e.type === 'kupTabBarClick' &&
+            e.detail.id === 'view-selector'
+        ) {
+            const views: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.card-view');
+            for (let index = 0; index < views.length; index++) {
+                const view: HTMLElement = views[index];
+                if (view.classList.contains('view-' + (e.detail.index + 1))) {
+                    view.classList.add('visible');
+                } else {
+                    view.classList.remove('visible');
+                }
+            }
+            this.refresh();
+        }
+
         this.kupEvent.emit({
             card: this,
             event: e,
@@ -232,9 +251,8 @@ export class KupCard {
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const dialogClose: HTMLElement = root.querySelector(
-                '#dialog-close'
-            );
+            const dialogClose: HTMLElement =
+                root.querySelector('#dialog-close');
             if (dialogClose) {
                 dialogClose.onclick = () => this.rootElement.remove();
             }
@@ -330,9 +348,8 @@ export class KupCard {
     layoutManager(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         const family: string = this.layoutFamily.toLowerCase();
-        const dynColors: NodeListOf<HTMLElement> = root.querySelectorAll(
-            '.dyn-color'
-        );
+        const dynColors: NodeListOf<HTMLElement> =
+            root.querySelectorAll('.dyn-color');
         for (let index = 0; index < dynColors.length; index++) {
             this.rootElement.style.setProperty(
                 '--dyn-color-' + index,
@@ -372,6 +389,7 @@ export class KupCard {
         root.addEventListener('kupDatePickerInput', this.cardEvent);
         root.addEventListener('kupDatePickerItemClick', this.cardEvent);
         root.addEventListener('kupDatePickerTextFieldSubmit', this.cardEvent);
+        root.addEventListener('kupTabBarClick', this.cardEvent);
         root.addEventListener('kupTextFieldClearIconClick', this.cardEvent);
         root.addEventListener('kupTextFieldInput', this.cardEvent);
         root.addEventListener('kupTextFieldSubmit', this.cardEvent);

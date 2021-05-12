@@ -4497,6 +4497,7 @@ declare namespace LocalJSX {
         el: EventTarget;
     }>) => void;
         "onKupTabBarClick"?: (event: CustomEvent<{
+        id: string;
         index: number;
         el: EventTarget;
     }>) => void;

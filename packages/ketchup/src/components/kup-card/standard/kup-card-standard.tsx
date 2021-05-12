@@ -3,6 +3,7 @@ import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList } from '../kup-card-helper';
+import { ComponentTabBarElement } from '../../kup-tab-bar/kup-tab-bar-declarations';
 /**
  * 1st standard card layout, inspired by Material Design.
  * @param {KupCard} component - Card component.
@@ -867,7 +868,7 @@ export function create12(component: KupCard): VNode {
 /**
  * 13th standard card layout, buttons and text lines, used for debug window.
  * @param {KupCard} component - Card component.
- * @returns {VNode} 1st standard layout virtual node.
+ * @returns {VNode} 13th standard layout virtual node.
  */
 export function create13(component: KupCard): VNode {
     //Action buttons
@@ -903,6 +904,94 @@ export function create13(component: KupCard): VNode {
                 {textArray.length > 0 ? (
                     <div class="section-2">{compList(textArray, 'text')}</div>
                 ) : null}
+            </div>
+        </div>
+    );
+}
+/**
+ * 14th standard card layout, used for column menus in tree and data table (with tabs).
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 14th standard layout virtual node.
+ */
+export function create14(component: KupCard): VNode {
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    const checkboxArray: GenericObject[] = component.data['checkbox']
+        ? component.data['checkbox']
+        : [];
+    const datepickerArray: GenericObject[] = component.data['datepicker']
+        ? component.data['datepicker']
+        : [];
+    const tabbarArray: GenericObject[] = component.data['tabbar']
+        ? component.data['tabbar']
+        : [];
+    const textfieldArray: GenericObject[] = component.data['textfield']
+        ? component.data['textfield']
+        : [];
+    const timepickerArray: GenericObject[] = component.data['timepicker']
+        ? component.data['timepicker']
+        : [];
+    let visibleView: number = 1;
+    if (tabbarArray[0] && tabbarArray[0].data) {
+        for (let index = 0; index < tabbarArray[0].data.length; index++) {
+            const tab: ComponentTabBarElement = tabbarArray[0].data[index];
+            if (tab.active) {
+                visibleView = index + 1;
+            }
+        }
+    }
+    return (
+        <div class={`standard-layout-${component.layoutNumber} `}>
+            <div class="section-1">
+                {tabbarArray[0] ? (
+                    <kup-tab-bar {...tabbarArray[0]} id="view-selector" />
+                ) : null}
+            </div>
+            <div class="section-2">
+                <div
+                    class={`card-view view-1 ${
+                        visibleView === 1 ? 'visible' : ''
+                    }`}
+                >
+                    <div
+                        class={`sub-1 ${
+                            textfieldArray.length > 0 ||
+                            datepickerArray.length > 0 ||
+                            timepickerArray.length > 0
+                                ? 'has-content'
+                                : ''
+                        }`}
+                    >
+                        {datepickerArray.length > 0
+                            ? compList(datepickerArray, 'datepicker')
+                            : null}
+                        {textfieldArray.length > 0
+                            ? compList(textfieldArray, 'textfield')
+                            : null}
+                        {timepickerArray.length > 0
+                            ? compList(timepickerArray, 'timepicker')
+                            : null}
+                    </div>
+                    {checkboxArray.length > 0 ? (
+                        <div class="sub-2">
+                            {compList(checkboxArray, 'checkbox')}
+                        </div>
+                    ) : null}
+                </div>
+                <div
+                    class={`card-view view-2 ${
+                        visibleView === 2 ? 'visible' : ''
+                    }`}
+                >
+                    {buttonArray.length > 0 ? (
+                        <div class="sub-1">
+                            {buttonArray.length > 0
+                                ? compList(buttonArray, 'button')
+                                : null}
+                        </div>
+                    ) : null}
+                </div>
             </div>
         </div>
     );

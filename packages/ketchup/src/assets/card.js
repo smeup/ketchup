@@ -254,6 +254,20 @@ for (let index = 0; index < cards.length; index++) {
                 centeredLabel: false,
             },
         ],
+        tabbar: [
+            {
+                data: [
+                    {
+                        text: 'First',
+                        active: true,
+                    },
+                    {
+                        text: 'Second',
+                        active: false,
+                    },
+                ],
+            },
+        ],
         text: [
             '#1 L U L',
             '#2 LUL',
@@ -807,9 +821,8 @@ for (let index = 0; index < cards.length; index++) {
                     }
                     if (isNumber(fieldvalue)) {
                         if (options.get('numberFormatter')) {
-                            fieldvalue = options.get('numberFormatter')(
-                                fieldvalue
-                            );
+                            fieldvalue =
+                                options.get('numberFormatter')(fieldvalue);
                         } else {
                             fieldvalue = formatNumber(
                                 fieldvalue,
@@ -919,9 +932,8 @@ for (let index = 0; index < cards.length; index++) {
 
         formatNumber = function (num, prec, groupsize, groupsep, decsep) {
             var p, i;
-            num = (prec === false
-                ? parseFloat(num).toString()
-                : num.toFixed(prec)
+            num = (
+                prec === false ? parseFloat(num).toString() : num.toFixed(prec)
             ).split('');
             p = (p = $.inArray('.', num)) < 0 ? num.length : p;
             if (p < num.length) {
@@ -1569,11 +1581,10 @@ for (let index = 0; index < cards.length; index++) {
                         val = {};
                         for (i = pairs.length; i--; ) {
                             keyval = pairs[i].split(':', 2);
-                            val[
-                                keyval[0].replace(/(^\s*)|(\s*$)/g, '')
-                            ] = normalizeValue(
-                                keyval[1].replace(/(^\s*)|(\s*$)/g, '')
-                            );
+                            val[keyval[0].replace(/(^\s*)|(\s*$)/g, '')] =
+                                normalizeValue(
+                                    keyval[1].replace(/(^\s*)|(\s*$)/g, '')
+                                );
                         }
                     } else {
                         val = normalizeValue(val);
@@ -3341,9 +3352,10 @@ for (let index = 0; index < cards.length; index++) {
                         end = next + circle * (values[i] / total);
                     }
                     if (valuenum === i) {
-                        color = options.get('sliceColors')[
-                            i % options.get('sliceColors').length
-                        ];
+                        color =
+                            options.get('sliceColors')[
+                                i % options.get('sliceColors').length
+                            ];
                         if (highlight) {
                             color = this.calcHighlightColor(color, options);
                         }
