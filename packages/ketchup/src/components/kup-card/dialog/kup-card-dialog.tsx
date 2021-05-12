@@ -13,7 +13,7 @@ import { KupLanguageRow } from '../../../utils/kup-language/kup-language-declara
 const dom: KupDom = document.documentElement as KupDom;
 /**
  * 1st dialog card layout, used to display information in string format.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create1(component: KupCard): VNode {
@@ -40,7 +40,7 @@ export function create1(component: KupCard): VNode {
 }
 /**
  * 2nd dialog card layout, used to display information in string format and features an highlighted row on top.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create2(component: KupCard): VNode {
@@ -73,7 +73,7 @@ export function create2(component: KupCard): VNode {
 }
 /**
  * 3rd dialog card layout, buttons and text lines, used for debug window.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create3(component: KupCard): VNode {
@@ -121,7 +121,7 @@ export function create3(component: KupCard): VNode {
 }
 /**
  * 4th dialog card layout, used to display information with data table.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create4(component: KupCard): VNode {
@@ -174,7 +174,7 @@ export function create4(component: KupCard): VNode {
 /**
  * Invoked by 4th layout to switch to the previous record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
- * @param {KupCard}  component - Card component.
+ * @param {KupCard} componentonent - Card component.
  */
 function prevButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
@@ -211,7 +211,7 @@ function prevButton(component: KupCard): void {
 /**
  * Invoked by 4th layout to switch to the next record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
- * @param {KupCard}  component - Card component.
+ * @param {KupCard} componentonent - Card component.
  */
 function nextButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;

@@ -6,7 +6,7 @@ import { collapsibleBar } from '../kup-card-helper';
 
 /**
  * 1st collapsible card layout, left bar and collapsible chips.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st collapsible layout virtual node.
  */
 export function create1(component: KupCard): VNode {
@@ -65,7 +65,7 @@ export function create1(component: KupCard): VNode {
 }
 /**
  * 2nd collapsible card layout, colored text and icon in top right corner.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 2nd collapsible layout virtual node.
  */
 export function create2(component: KupCard): VNode {

@@ -5,7 +5,7 @@ import { FImage } from '../../../f-components/f-image/f-image';
 import { compList } from '../kup-card-helper';
 /**
  * 1st standard card layout, inspired by Material Design.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create1(component: KupCard): VNode {
@@ -65,7 +65,7 @@ export function create1(component: KupCard): VNode {
 }
 /**
  * 2nd standard card layout, inspired by Material Design.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 2nd standard layout virtual node.
  */
 export function create2(component: KupCard): VNode {
@@ -127,7 +127,7 @@ export function create2(component: KupCard): VNode {
 }
 /**
  * 3rd standard card layout, inspired by Material Design.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 3rd standard layout virtual node.
  */
 export function create3(component: KupCard): VNode {
@@ -191,7 +191,7 @@ export function create3(component: KupCard): VNode {
 }
 /**
  * 4th standard card layout, inspired by Material Design.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 4th standard layout virtual node.
  */
 export function create4(component: KupCard): VNode {
@@ -248,7 +248,7 @@ export function create4(component: KupCard): VNode {
 }
 /**
  * 5th standard card layout, useful to display TODOs with extensive information.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 5th standard layout virtual node.
  */
 export function create5(component: KupCard): VNode {
@@ -362,7 +362,7 @@ export function create5(component: KupCard): VNode {
 }
 /**
  * 6th standard card layout, useful to display TODOs in a compact view.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 6th standard layout virtual node.
  */
 export function create6(component: KupCard): VNode {
@@ -422,7 +422,7 @@ export function create6(component: KupCard): VNode {
 }
 /**
  * 7th standard card layout, centered image and text.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 7th standard layout virtual node.
  */
 export function create7(component: KupCard): VNode {
@@ -481,7 +481,7 @@ export function create7(component: KupCard): VNode {
 }
 /**
  * 8th standard card layout, useful to display a list of chips.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 8th standard layout virtual node.
  */
 export function create8(component: KupCard): VNode {
@@ -551,7 +551,7 @@ export function create8(component: KupCard): VNode {
 }
 /**
  * 9th standard card layout, chart displayed on the right with some info on the left.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 9th standard layout virtual node.
  */
 export function create9(component: KupCard): VNode {
@@ -633,7 +633,7 @@ export function create9(component: KupCard): VNode {
 }
 /**
  * 10th standard card layout, chart displayed on the left with some info on the right.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 10th standard layout virtual node.
  */
 export function create10(component: KupCard): VNode {
@@ -715,10 +715,10 @@ export function create10(component: KupCard): VNode {
 }
 /**
  * 11th standard card layout, chart displayed on the right with some info on the left, visible when hovering on the colored bar.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 11th standard layout virtual node.
  */
-export function create11(component: KupCard) {
+export function create11(component: KupCard): VNode {
     //Chart
     const chartArray: GenericObject[] = component.data['chart']
         ? component.data['chart']
@@ -809,10 +809,10 @@ export function create11(component: KupCard) {
 }
 /**
  * 12th standard card layout, used for column menus in tree and data table.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 12th standard layout virtual node.
  */
-export function create12(component: KupCard) {
+export function create12(component: KupCard): VNode {
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
@@ -866,7 +866,7 @@ export function create12(component: KupCard) {
 }
 /**
  * 13th standard card layout, buttons and text lines, used for debug window.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create13(component: KupCard): VNode {
