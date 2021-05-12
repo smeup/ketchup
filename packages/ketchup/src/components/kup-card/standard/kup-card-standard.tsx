@@ -932,6 +932,7 @@ export function create14(component: KupCard): VNode {
     const timepickerArray: GenericObject[] = component.data['timepicker']
         ? component.data['timepicker']
         : [];
+    let viewIndex: number = 1;
     let visibleView: number = 1;
     if (tabbarArray[0] && tabbarArray[0].data) {
         for (let index = 0; index < tabbarArray[0].data.length; index++) {
@@ -949,49 +950,71 @@ export function create14(component: KupCard): VNode {
                 ) : null}
             </div>
             <div class="section-2">
-                <div
-                    class={`card-view view-1 ${
-                        visibleView === 1 ? 'visible' : ''
-                    }`}
-                >
+                {checkboxArray.length > 0 ||
+                datepickerArray.length > 0 ||
+                textfieldArray.length > 0 ||
+                timepickerArray.length > 0 ? (
                     <div
-                        class={`sub-1 ${
-                            textfieldArray.length > 0 ||
-                            datepickerArray.length > 0 ||
-                            timepickerArray.length > 0
-                                ? 'has-content'
-                                : ''
+                        class={`card-view view-${viewIndex} ${
+                            visibleView === viewIndex++ ? 'visible' : ''
                         }`}
                     >
-                        {datepickerArray.length > 0
-                            ? compList(datepickerArray, 'datepicker')
-                            : null}
-                        {textfieldArray.length > 0
-                            ? compList(textfieldArray, 'textfield')
-                            : null}
-                        {timepickerArray.length > 0
-                            ? compList(timepickerArray, 'timepicker')
-                            : null}
-                    </div>
-                    {checkboxArray.length > 0 ? (
-                        <div class="sub-2">
-                            {compList(checkboxArray, 'checkbox')}
-                        </div>
-                    ) : null}
-                </div>
-                <div
-                    class={`card-view view-2 ${
-                        visibleView === 2 ? 'visible' : ''
-                    }`}
-                >
-                    {buttonArray.length > 0 ? (
-                        <div class="sub-1">
-                            {buttonArray.length > 0
-                                ? compList(buttonArray, 'button')
+                        <div
+                            class={`sub-1 ${
+                                textfieldArray.length > 0 ||
+                                datepickerArray.length > 0 ||
+                                timepickerArray.length > 0
+                                    ? 'has-content'
+                                    : ''
+                            }`}
+                        >
+                            {datepickerArray.length > 0
+                                ? compList(datepickerArray, 'datepicker')
+                                : null}
+                            {textfieldArray.length > 0
+                                ? compList(textfieldArray, 'textfield')
+                                : null}
+                            {timepickerArray.length > 0
+                                ? compList(timepickerArray, 'timepicker')
                                 : null}
                         </div>
-                    ) : null}
-                </div>
+                        {checkboxArray.length > 0 ? (
+                            <div class="sub-2">
+                                {compList(checkboxArray, 'checkbox')}
+                            </div>
+                        ) : null}
+                    </div>
+                ) : null}
+                {buttonArray[0] ? (
+                    <div
+                        class={`card-view view-${viewIndex} ${
+                            visibleView === viewIndex++ ? 'visible' : ''
+                        }`}
+                    >
+                        <div class="sub-1">
+                            <kup-button {...buttonArray[0]} />
+                        </div>
+                    </div>
+                ) : null}
+                {buttonArray[1] || buttonArray[2] || buttonArray[3] ? (
+                    <div
+                        class={`card-view view-${viewIndex} ${
+                            visibleView === viewIndex++ ? 'visible' : ''
+                        }`}
+                    >
+                        <div class="sub-1">
+                            {buttonArray[1] ? (
+                                <kup-button {...buttonArray[1]} />
+                            ) : null}
+                            {buttonArray[2] ? (
+                                <kup-button {...buttonArray[2]} />
+                            ) : null}
+                            {buttonArray[3] ? (
+                                <kup-button {...buttonArray[3]} />
+                            ) : null}
+                        </div>
+                    </div>
+                ) : null}
             </div>
         </div>
     );

@@ -114,7 +114,7 @@ export class KupColumnMenu {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
-            tabbar: this.prepTabBar(comp),
+            tabbar: this.prepTabBar(comp, column),
             textfield:
                 !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
                     column
@@ -152,6 +152,8 @@ export class KupColumnMenu {
                               KupLanguageGrouping.ENABLE
                           ),
             });
+        } else {
+            props.push(null);
         }
         if (comp.removableColumns) {
             props.push({
@@ -163,6 +165,8 @@ export class KupColumnMenu {
                 id: 'remove',
                 title: dom.ketchup.language.translate(KupLanguageColumn.HIDE),
             });
+        } else {
+            props.push(null);
         }
         if (
             comp.enableExtraColumns &&
@@ -189,7 +193,11 @@ export class KupColumnMenu {
                         KupLanguageColumn.ADD_DESCRIPTION
                     ),
                 });
+            } else {
+                props.push(null);
             }
+        } else {
+            props.push(null, null);
         }
         return props;
     }
@@ -267,21 +275,31 @@ export class KupColumnMenu {
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @returns {GenericObject[]} Tab bar props.
      */
-    prepTabBar(comp: KupDataTable | KupTree): GenericObject[] {
+    prepTabBar(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [{ data: [] }];
         const data: ComponentTabBarElement[] = props[0].data;
-        data.push({
-            active: true,
-            text: 'Filters',
-        });
-        if (!FiltersColumnMenu.isTree(comp)) {
+        if (comp.showFilters) {
+            data.push({
+                active: true,
+                text: 'Filters',
+            });
+        }
+        if (
+            !FiltersColumnMenu.isTree(comp) &&
+            (comp as KupDataTable).showGroups
+        ) {
             data.push({
                 text: 'Groups',
             });
         }
-        data.push({
-            text: 'Columns',
-        });
+        if (
+            comp.enableExtraColumns &&
+            dom.ketchup.objects.canHaveExtraColumns(column.obj)
+        ) {
+            data.push({
+                text: 'Columns',
+            });
+        }
         return props;
     }
     /**

@@ -35,7 +35,16 @@
   .view-2 {
     .sub-1 {
       display: inline-flex;
-      border-bottom: 1px solid var(--kup-border-color);
+      width: 100%;
+      kup-button {
+        margin: 0;
+      }
+    }
+  }
+
+  .view-3 {
+    .sub-1 {
+      display: inline-flex;
       width: 100%;
       kup-button {
         margin: 0;
