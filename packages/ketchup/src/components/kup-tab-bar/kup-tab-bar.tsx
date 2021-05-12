@@ -63,6 +63,7 @@ export class KupTabBar {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: string;
         index: number;
         el: EventTarget;
     }>;
@@ -121,6 +122,7 @@ export class KupTabBar {
         this.data[i].active = true;
 
         this.kupClick.emit({
+            id: this.rootElement.id,
             index: i,
             el: e.target,
         });
