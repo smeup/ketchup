@@ -153,13 +153,15 @@ export class KupBtn {
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const fs: NodeListOf<HTMLElement> =
-                root.querySelectorAll('.f-button--wrapper');
+            const fs: NodeListOf<HTMLElement> = root.querySelectorAll(
+                '.f-button--wrapper'
+            );
             if (fs != null) {
                 for (let i = 0; i < fs.length; i++) {
                     let f: HTMLElement = fs[i];
-                    const buttonEl: HTMLButtonElement =
-                        f.querySelector('button');
+                    const buttonEl: HTMLButtonElement = f.querySelector(
+                        'button'
+                    );
                     if (buttonEl) {
                         buttonEl.onclick = () => this.onKupClick(f.id, '-1');
                     }
@@ -371,7 +373,7 @@ export class KupBtn {
     render() {
         let buttons = this.renderButtons();
         let nrOfColumns = this.columns;
-        if (nrOfColumns <= 0) {
+        if (this.data != null && this.data.length > 0 && nrOfColumns <= 0) {
             nrOfColumns = this.data.length;
         }
 
