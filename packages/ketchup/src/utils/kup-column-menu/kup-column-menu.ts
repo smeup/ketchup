@@ -32,6 +32,7 @@ import {
     KupLanguageGrouping,
     KupLanguageCheckbox,
 } from '../kup-language/kup-language-declarations';
+import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -113,11 +114,13 @@ export class KupColumnMenu {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
-            textfield: !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
-                column
-            )
-                ? this.prepTextfield(comp, column)
-                : this.prepIntervalTextfield(comp, column),
+            tabbar: this.prepTabBar(comp),
+            textfield:
+                !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
+                    column
+                )
+                    ? this.prepTextfield(comp, column)
+                    : this.prepIntervalTextfield(comp, column),
             timepicker: this.prepIntervalTimePicker(comp, column),
         };
     }
@@ -206,13 +209,13 @@ export class KupColumnMenu {
             (dom.ketchup.objects.isStringObject(column.obj) ||
                 dom.ketchup.objects.isCheckbox(column.obj))
         ) {
-            const checkBoxesFilter: ValueDisplayedValue[] = this.filtersColumnMenuInstance.getCheckBoxFilterValues(
-                comp.filters,
-                column.name
-            );
-            const columnValues: ValueDisplayedValue[] = comp.getColumnValues(
-                column
-            );
+            const checkBoxesFilter: ValueDisplayedValue[] =
+                this.filtersColumnMenuInstance.getCheckBoxFilterValues(
+                    comp.filters,
+                    column.name
+                );
+            const columnValues: ValueDisplayedValue[] =
+                comp.getColumnValues(column);
 
             if (columnValues.length > 0) {
                 props.push({
@@ -260,6 +263,28 @@ export class KupColumnMenu {
         return props;
     }
     /**
+     * Handles the column menu's tabbar prop.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @returns {GenericObject[]} Tab bar props.
+     */
+    prepTabBar(comp: KupDataTable | KupTree): GenericObject[] {
+        const props: GenericObject[] = [{ data: [] }];
+        const data: ComponentTabBarElement[] = props[0].data;
+        data.push({
+            active: true,
+            text: 'Filters',
+        });
+        if (!FiltersColumnMenu.isTree(comp)) {
+            data.push({
+                text: 'Groups',
+            });
+        }
+        data.push({
+            text: 'Columns',
+        });
+        return props;
+    }
+    /**
      * Handles the column menu's textfield prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
@@ -274,10 +299,11 @@ export class KupColumnMenu {
             comp.showFilters &&
             dom.ketchup.objects.isStringObject(column.obj)
         ) {
-            let filterInitialValue = this.filtersColumnMenuInstance.getTextFilterValue(
-                comp.filters,
-                column.name
-            );
+            let filterInitialValue =
+                this.filtersColumnMenuInstance.getTextFilterValue(
+                    comp.filters,
+                    column.name
+                );
             filterInitialValue = getValueForDisplay(
                 filterInitialValue,
                 column.obj,
@@ -321,10 +347,11 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
@@ -379,10 +406,11 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
@@ -448,10 +476,11 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
