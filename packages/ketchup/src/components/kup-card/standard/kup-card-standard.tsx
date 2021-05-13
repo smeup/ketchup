@@ -4,6 +4,17 @@ import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList } from '../kup-card-helper';
 import { ComponentTabBarElement } from '../../kup-tab-bar/kup-tab-bar-declarations';
+import {
+    KupLanguageColumn,
+    KupLanguageGeneric,
+    KupLanguageGrouping,
+} from '../../../utils/kup-language/kup-language-declarations';
+import {
+    addID,
+    descriptionID,
+    groupID,
+    removeID,
+} from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 /**
  * 1st standard card layout, inspired by Material Design.
  * @param {KupCard} component - Card component.
@@ -909,7 +920,7 @@ export function create13(component: KupCard): VNode {
     );
 }
 /**
- * 14th standard card layout, used for column menus in tree and data table (with tabs).
+ * 14th standard card layout, used for column menus in tree and data table (with tabs). This is a very specifically-designed layout, so correct ids are a must.
  * @param {KupCard} component - Card component.
  * @returns {VNode} 14th standard layout virtual node.
  */
@@ -932,14 +943,25 @@ export function create14(component: KupCard): VNode {
     const timepickerArray: GenericObject[] = component.data['timepicker']
         ? component.data['timepicker']
         : [];
+    // Setting up currently visible view.
+    const tabsValues: string[] = [];
     let viewIndex: number = 1;
     let visibleView: number = 1;
     if (tabbarArray[0] && tabbarArray[0].data) {
         for (let index = 0; index < tabbarArray[0].data.length; index++) {
             const tab: ComponentTabBarElement = tabbarArray[0].data[index];
+            tabsValues.push(tab.value);
             if (tab.active) {
                 visibleView = index + 1;
             }
+        }
+    }
+    // Setting up buttons.
+    const buttonsIds: string[] = [];
+    for (let index = 0; index < buttonArray.length; index++) {
+        const button: GenericObject = buttonArray[index];
+        if (button['id']) {
+            buttonsIds.push(button['id']);
         }
     }
     return (
@@ -950,10 +972,7 @@ export function create14(component: KupCard): VNode {
                 ) : null}
             </div>
             <div class="section-2">
-                {checkboxArray.length > 0 ||
-                datepickerArray.length > 0 ||
-                textfieldArray.length > 0 ||
-                timepickerArray.length > 0 ? (
+                {tabsValues.includes(KupLanguageGeneric.FILTERS) ? (
                     <div
                         class={`card-view view-${viewIndex} ${
                             visibleView === viewIndex++ ? 'visible' : ''
@@ -985,32 +1004,48 @@ export function create14(component: KupCard): VNode {
                         ) : null}
                     </div>
                 ) : null}
-                {buttonArray[0] ? (
+                {tabsValues.includes(KupLanguageGrouping.GROUPS) ? (
                     <div
                         class={`card-view view-${viewIndex} ${
                             visibleView === viewIndex++ ? 'visible' : ''
                         }`}
                     >
-                        <div class="sub-button">
-                            <kup-button {...buttonArray[0]} />
-                        </div>
+                        {buttonsIds.includes(groupID) ? (
+                            <div class="sub-button">
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) => x.id === groupID
+                                    )}
+                                />
+                            </div>
+                        ) : null}
                     </div>
                 ) : null}
-                {buttonArray[1] || buttonArray[2] || buttonArray[3] ? (
+                {tabsValues.includes(KupLanguageColumn.COLUMNS) ? (
                     <div
                         class={`card-view view-${viewIndex} ${
                             visibleView === viewIndex++ ? 'visible' : ''
                         }`}
                     >
                         <div class="sub-button">
-                            {buttonArray[1] ? (
-                                <kup-button {...buttonArray[1]} />
+                            {buttonsIds.includes(addID) ? (
+                                <kup-button
+                                    {...buttonArray.find((x) => x.id === addID)}
+                                />
                             ) : null}
-                            {buttonArray[2] ? (
-                                <kup-button {...buttonArray[2]} />
+                            {buttonsIds.includes(removeID) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) => x.id === removeID
+                                    )}
+                                />
                             ) : null}
-                            {buttonArray[3] ? (
-                                <kup-button {...buttonArray[3]} />
+                            {buttonsIds.includes(descriptionID) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) => x.id === descriptionID
+                                    )}
+                                />
                             ) : null}
                         </div>
                     </div>

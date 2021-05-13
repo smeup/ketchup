@@ -18,6 +18,33 @@ for (let index = 0; index < cards.length; index++) {
                 icon: 'label',
                 title: 'Add code/description column',
             },
+            {
+                className: 'printable',
+                'data-storage': {
+                    columnName: 'FLD3',
+                },
+                icon: 'book',
+                id: 'group',
+                title: 'Enable grouping',
+            },
+            {
+                className: 'printable',
+                'data-storage': {
+                    columnName: 'FLD3',
+                },
+                icon: 'table-column-plus-after',
+                id: 'add',
+                title: 'Add column',
+            },
+            {
+                className: 'printable',
+                'data-storage': {
+                    columnName: 'FLD3',
+                },
+                icon: 'table-column-plus-before',
+                id: 'remove',
+                title: 'Remove column',
+            },
         ],
         chart: [
             {
@@ -258,11 +285,18 @@ for (let index = 0; index < cards.length; index++) {
             {
                 data: [
                     {
-                        text: 'First',
                         active: true,
+                        text: 'genericFilters',
+                        value: 'genericFilters',
                     },
                     {
-                        text: 'Second',
+                        text: 'groupingGroups',
+                        value: 'groupingGroups',
+                        active: false,
+                    },
+                    {
+                        text: 'columnColumns',
+                        value: 'columnColumns',
                         active: false,
                     },
                 ],

@@ -31,8 +31,15 @@ import {
     KupLanguageSearch,
     KupLanguageGrouping,
     KupLanguageCheckbox,
+    KupLanguageGeneric,
 } from '../kup-language/kup-language-declarations';
 import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
+import {
+    addID,
+    descriptionID,
+    groupID,
+    removeID,
+} from './kup-column-menu-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -142,7 +149,7 @@ export class KupColumnMenu {
                     columnName: column.name,
                 },
                 icon: 'book',
-                id: 'group',
+                id: groupID,
                 title:
                     comp.getGroupByName(column.name) != null
                         ? dom.ketchup.language.translate(
@@ -152,8 +159,6 @@ export class KupColumnMenu {
                               KupLanguageGrouping.ENABLE
                           ),
             });
-        } else {
-            props.push(null);
         }
         if (comp.removableColumns) {
             props.push({
@@ -162,11 +167,9 @@ export class KupColumnMenu {
                     column: column,
                 },
                 icon: 'table-column-remove',
-                id: 'remove',
+                id: removeID,
                 title: dom.ketchup.language.translate(KupLanguageColumn.HIDE),
             });
-        } else {
-            props.push(null);
         }
         if (
             comp.enableExtraColumns &&
@@ -178,7 +181,7 @@ export class KupColumnMenu {
                     columnName: column.name,
                 },
                 icon: 'table-column-plus-after',
-                id: 'add',
+                id: addID,
                 title: dom.ketchup.language.translate(KupLanguageColumn.ADD),
             });
             if (dom.ketchup.objects.canHaveAutomaticDerivedColumn(column.obj)) {
@@ -188,16 +191,12 @@ export class KupColumnMenu {
                         columnName: column.name,
                     },
                     icon: 'label',
-                    id: 'description',
+                    id: descriptionID,
                     title: dom.ketchup.language.translate(
                         KupLanguageColumn.ADD_DESCRIPTION
                     ),
                 });
-            } else {
-                props.push(null);
             }
-        } else {
-            props.push(null, null);
         }
         return props;
     }
@@ -281,7 +280,10 @@ export class KupColumnMenu {
         if (comp.showFilters) {
             data.push({
                 active: true,
-                text: 'Filters',
+                text: dom.ketchup.language.translate(
+                    KupLanguageGeneric.FILTERS
+                ),
+                value: KupLanguageGeneric.FILTERS,
             });
         }
         if (
@@ -289,7 +291,10 @@ export class KupColumnMenu {
             (comp as KupDataTable).showGroups
         ) {
             data.push({
-                text: 'Groups',
+                text: dom.ketchup.language.translate(
+                    KupLanguageGrouping.GROUPS
+                ),
+                value: KupLanguageGrouping.GROUPS,
             });
         }
         if (
@@ -297,7 +302,8 @@ export class KupColumnMenu {
             dom.ketchup.objects.canHaveExtraColumns(column.obj)
         ) {
             data.push({
-                text: 'Columns',
+                text: dom.ketchup.language.translate(KupLanguageColumn.COLUMNS),
+                value: KupLanguageColumn.COLUMNS,
             });
         }
         return props;
