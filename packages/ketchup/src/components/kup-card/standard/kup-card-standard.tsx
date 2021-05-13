@@ -15,6 +15,7 @@ import {
     groupID,
     removeID,
 } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
+import { FChipType } from '../../../f-components/f-chip/f-chip-declarations';
 /**
  * 1st standard card layout, inspired by Material Design.
  * @param {KupCard} component - Card component.
@@ -931,6 +932,9 @@ export function create14(component: KupCard): VNode {
     const checkboxArray: GenericObject[] = component.data['checkbox']
         ? component.data['checkbox']
         : [];
+    const chipArray: GenericObject[] = component.data['chip']
+        ? component.data['chip']
+        : [];
     const datepickerArray: GenericObject[] = component.data['datepicker']
         ? component.data['datepicker']
         : [];
@@ -942,6 +946,9 @@ export function create14(component: KupCard): VNode {
         : [];
     const timepickerArray: GenericObject[] = component.data['timepicker']
         ? component.data['timepicker']
+        : [];
+    const treeArray: GenericObject[] = component.data['tree']
+        ? component.data['tree']
         : [];
     // Setting up currently visible view.
     const tabsValues: string[] = [];
@@ -1045,6 +1052,22 @@ export function create14(component: KupCard): VNode {
                                     {...buttonArray.find(
                                         (x) => x.id === descriptionID
                                     )}
+                                />
+                            ) : null}
+                        </div>
+                        <div class="sub-chip">
+                            {chipArray[0] ? (
+                                <kup-chip
+                                    type={FChipType.INPUT}
+                                    {...chipArray[0]}
+                                />
+                            ) : null}
+                        </div>
+                        <div class="sub-tree">
+                            {treeArray[0] ? (
+                                <kup-tree
+                                    class="kup-full-width"
+                                    {...treeArray[0]}
                                 />
                             ) : null}
                         </div>

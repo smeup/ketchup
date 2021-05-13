@@ -31,6 +31,7 @@ export interface CardData {
     text?: string[];
     textfield?: GenericObject[];
     timepicker?: GenericObject[];
+    tree?: GenericObject[];
 }
 /**
  * Layout families of the kup-card component.
