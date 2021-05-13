@@ -6,49 +6,35 @@
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
 
-  .view-1 {
-    .sub-1 {
-      display: flex;
-      flex-direction: column;
-      &.has-content {
-        border-bottom: 1px solid var(--kup-border-color);
-        padding: 0.5em 0.5em;
-      }
-      kup-date-picker:first-of-type,
-      kup-time-picker:first-of-type {
-        margin-bottom: 0.5em;
-      }
+  .sub-field {
+    display: flex;
+    flex-direction: column;
+    &.has-content {
+      border-bottom: 1px solid var(--kup-border-color);
+      padding: 0.5em 0.5em;
     }
-
-    .sub-2 {
-      display: flex;
-      flex-direction: column;
-      max-height: 20vh;
-      overflow: auto;
-      kup-checkbox {
-        margin-left: 0;
-        margin-right: auto;
-      }
+    kup-date-picker:first-of-type,
+    kup-time-picker:first-of-type {
+      margin-bottom: 0.5em;
     }
   }
 
-  .view-2 {
-    .sub-1 {
-      display: inline-flex;
-      width: 100%;
-      kup-button {
-        margin: 0;
-      }
+  .sub-checkbox {
+    display: flex;
+    flex-direction: column;
+    max-height: 20vh;
+    overflow: auto;
+    kup-checkbox {
+      margin-left: 0;
+      margin-right: auto;
     }
   }
 
-  .view-3 {
-    .sub-1 {
-      display: inline-flex;
-      width: 100%;
-      kup-button {
-        margin: 0;
-      }
+  .sub-button {
+    display: inline-flex;
+    width: 100%;
+    kup-button {
+      margin: 0;
     }
   }
 }

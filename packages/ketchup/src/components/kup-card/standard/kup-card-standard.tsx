@@ -960,7 +960,7 @@ export function create14(component: KupCard): VNode {
                         }`}
                     >
                         <div
-                            class={`sub-1 ${
+                            class={`sub-field ${
                                 textfieldArray.length > 0 ||
                                 datepickerArray.length > 0 ||
                                 timepickerArray.length > 0
@@ -979,7 +979,7 @@ export function create14(component: KupCard): VNode {
                                 : null}
                         </div>
                         {checkboxArray.length > 0 ? (
-                            <div class="sub-2">
+                            <div class="sub-checkbox">
                                 {compList(checkboxArray, 'checkbox')}
                             </div>
                         ) : null}
@@ -991,7 +991,7 @@ export function create14(component: KupCard): VNode {
                             visibleView === viewIndex++ ? 'visible' : ''
                         }`}
                     >
-                        <div class="sub-1">
+                        <div class="sub-button">
                             <kup-button {...buttonArray[0]} />
                         </div>
                     </div>
@@ -1002,7 +1002,7 @@ export function create14(component: KupCard): VNode {
                             visibleView === viewIndex++ ? 'visible' : ''
                         }`}
                     >
-                        <div class="sub-1">
+                        <div class="sub-button">
                             {buttonArray[1] ? (
                                 <kup-button {...buttonArray[1]} />
                             ) : null}
