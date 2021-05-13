@@ -138,7 +138,7 @@ export class KupTabBar {
     private consistencyCheck() {
         let activeTabs: number = 0;
         let lastActiveOccurrence: number = 0;
-        if (this.data) {
+        if (this.data && this.data.length > 0) {
             for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i].active) {
                     activeTabs++;
