@@ -1,4 +1,5 @@
 import { GenericObject } from '../../types/GenericTypes';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -26,6 +27,7 @@ export interface CardData {
     datatable?: GenericObject[];
     datepicker?: GenericObject[];
     image?: GenericObject[];
+    object?: KupObj[];
     progressbar?: GenericObject[];
     tabbar?: GenericObject[];
     text?: string[];

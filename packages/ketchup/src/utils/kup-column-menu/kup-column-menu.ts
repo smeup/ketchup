@@ -121,6 +121,7 @@ export class KupColumnMenu {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
+            object: [column.obj],
             tabbar: this.prepTabBar(comp, column),
             textfield:
                 !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
