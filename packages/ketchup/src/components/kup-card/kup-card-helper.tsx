@@ -1,6 +1,16 @@
 import { h, VNode } from '@stencil/core';
-import { FImage } from '../../f-components/f-image/f-image';
 import type { GenericObject } from '../../types/GenericTypes';
+import { applyID } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
+import { FImage } from '../../f-components/f-image/f-image';
+import { KupCard } from './kup-card';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
+import {
+    KupCardCSSClasses,
+    KupCardIds,
+    KupCardSubEvents,
+} from './kup-card-declarations';
 /**
  * This function returns a list of components.
  * @param {GenericObject[]} compArray - Components' props.
@@ -75,13 +85,15 @@ export function compList(
  */
 export function dialogHeader(title: string): VNode {
     return (
-        <div id="drag-handle" class="header-bar">
-            {title ? <div class="dialog-title">{title}</div> : null}
+        <div id={KupCardIds.DRAG_HANDLE} class={KupCardCSSClasses.HEADER_BAR}>
+            {title ? (
+                <div class={KupCardCSSClasses.DIALOG_TITLE}>{title}</div>
+            ) : null}
             <FImage
                 sizeX="2em"
                 sizeY="2em"
                 resource="clear"
-                id="dialog-close"
+                id={KupCardIds.DIALOG_CLOSE}
             />
         </div>
     );
@@ -94,11 +106,128 @@ export function collapsibleBar(): VNode {
     return (
         <div class="collapsible-trigger">
             <kup-button
-                id="expand-action"
+                id={KupCardIds.EXPAND_ACTION}
                 toggable
                 iconOff="keyboard_arrow_down"
                 icon="keyboard_arrow_up"
             ></kup-button>
         </div>
     );
+}
+/**
+ * Handles layout-specific actions when an event occurs.
+ * @param {KupCard} component - Card component.
+ * @param {CustomEvent} e - Event triggered by a sub-component.
+ */
+export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
+    const root: ShadowRoot = component.rootElement.shadowRoot;
+    /*-------------------------------------------------*/
+    /*      C o l l a p s i b l e   L a y o u t s      */
+    /*-------------------------------------------------*/
+    if (
+        e.type === KupCardSubEvents.BUTTON_CLICK &&
+        e.detail.id === KupCardIds.EXPAND_ACTION
+    ) {
+        const collapsibleCard = root.querySelector(
+            '.' + KupCardCSSClasses.COLLAPSIBLE_CARD
+        );
+        if (
+            !collapsibleCard.classList.contains(
+                '.' + KupCardCSSClasses.EXPANDED
+            )
+        ) {
+            collapsibleCard.classList.add('.' + KupCardCSSClasses.EXPANDED);
+            component.oldSizeY = component.sizeY;
+            component.sizeY = 'auto';
+        } else if (component.oldSizeY) {
+            collapsibleCard.classList.remove('.' + KupCardCSSClasses.EXPANDED);
+            component.sizeY = component.oldSizeY;
+        }
+        return;
+    }
+    /*-------------------------------------------------*/
+    /*      1 4 t h   S t a n d a r d  L a y o u t     */
+    /*-------------------------------------------------*/
+    // Tab change: when a tab is clicked, the corresponding view will be activated while the others will become hidden.
+    if (
+        root &&
+        e.type === KupCardSubEvents.TABBAR_CLICK &&
+        e.detail.id === KupCardIds.VIEW_SELECTOR
+    ) {
+        const views: NodeListOf<HTMLElement> = root.querySelectorAll(
+            '.' + KupCardCSSClasses.CARD_VIEW
+        );
+        for (let index = 0; index < views.length; index++) {
+            const view: HTMLElement = views[index];
+            if (
+                view.classList.contains(
+                    KupCardCSSClasses.VIEW_PREFIX + (e.detail.index + 1)
+                )
+            ) {
+                view.classList.add(KupCardCSSClasses.VISIBLE);
+            } else {
+                view.classList.remove(KupCardCSSClasses.VISIBLE);
+            }
+        }
+    }
+
+    // Apply button: the chip data will be updated so it will be available to the listener.
+    if (
+        root &&
+        e.type === KupCardSubEvents.BUTTON_CLICK &&
+        e.detail.id === applyID
+    ) {
+        const chip: HTMLKupChipElement = root.querySelector(
+            '#' + KupCardIds.COLUMNS_LIST
+        );
+        component.data.chip[0] = chip.data;
+    }
+
+    // Chip creation: upon clicking on the tree, the chip list will updated by adding or removing an entry.
+    if (
+        root &&
+        e.type === KupCardSubEvents.TREE_NODESELECTED &&
+        e.detail.id === KupCardIds.EXTRA_COLUMNS
+    ) {
+        if (e.detail.treeNode) {
+            const chip: HTMLKupChipElement = root.querySelector(
+                '#' + KupCardIds.COLUMNS_LIST
+            );
+            const node: TreeNode = e.detail.treeNode;
+            const obj: KupObj = e.detail.treeNode.obj;
+            if (obj && obj.t !== '' && obj.t !== '**') {
+                const key: string = obj.t + ';' + obj.p + ';' + obj.k;
+                const chipData: FChipData[] =
+                    chip && chip.data ? chip.data : null;
+                if (chipData) {
+                    const existingChip: FChipData = chipData.find(
+                        (x: FChipData) => x.value === key
+                    );
+                    if (existingChip) {
+                        chipData.splice(chipData.indexOf(existingChip), 1);
+                    } else {
+                        chipData.push({
+                            icon: node.icon,
+                            label: node.value,
+                            value: key,
+                        });
+                    }
+                } else {
+                    chip.data['chip'] = [{ label: node.value, value: key }];
+                }
+                chip.refresh();
+            }
+        }
+    }
+    /*-------------------------------------------------*/
+    /*        4 t h   D i a l o g   L a y o u t        */
+    /*-------------------------------------------------*/
+    // Refresh when switching row
+    if (
+        e.type === KupCardSubEvents.BUTTON_CLICK &&
+        (e.detail.id === KupCardIds.NEXT_ROW ||
+            e.detail.id === KupCardIds.PREVIOUS_ROW)
+    ) {
+        component.refresh();
+    }
 }

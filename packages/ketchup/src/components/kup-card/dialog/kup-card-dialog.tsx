@@ -9,6 +9,7 @@ import {
     TableData,
 } from '../../kup-data-table/kup-data-table-declarations';
 import { KupLanguageRow } from '../../../utils/kup-language/kup-language-declarations';
+import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -96,13 +97,13 @@ export function create3(component: KupCard): VNode {
         : [];
     return (
         <div
-            class={`dialog-layout-${component.layoutNumber} dialog-unresizable`}
+            class={`dialog-layout-${component.layoutNumber} ${KupCardCSSClasses.DIALOG_UNRESIZABLE}`}
         >
             <div>
                 {buttonArray.length > 0 || textfieldArray.length > 0 ? (
                     <div class="section-1">
                         <FImage
-                            id="drag-handle"
+                            id={KupCardIds.DRAG_HANDLE}
                             resource="drag_handle"
                             sizeX="32px"
                             sizeY="32px"
@@ -144,7 +145,7 @@ export function create4(component: KupCard): VNode {
                 <div class="section-1">
                     <kup-button
                         {...buttonArray[0]}
-                        id="previous-row"
+                        id={KupCardIds.PREVIOUS_ROW}
                         onKupButtonClick={() => prevButton(component)}
                         title={dom.ketchup.language.translate(
                             KupLanguageRow.PREVIOUS
@@ -152,7 +153,7 @@ export function create4(component: KupCard): VNode {
                     />
                     <kup-button
                         {...buttonArray[1]}
-                        id="next-row"
+                        id={KupCardIds.NEXT_ROW}
                         onKupButtonClick={() => nextButton(component)}
                         title={dom.ketchup.language.translate(
                             KupLanguageRow.NEXT
@@ -184,8 +185,8 @@ function prevButton(component: KupCard): void {
     let data: TableData = null;
     if (root) {
         table = root.querySelector('kup-data-table');
-        nextButton = root.querySelector('kup-button#next-row');
-        prevButton = root.querySelector('kup-button#previous-row');
+        nextButton = root.querySelector('#' + KupCardIds.NEXT_ROW);
+        prevButton = root.querySelector('#' + KupCardIds.PREVIOUS_ROW);
         if (table) {
             data = table.data;
         }
@@ -221,8 +222,8 @@ function nextButton(component: KupCard): void {
     let data: TableData = null;
     if (root) {
         table = root.querySelector('kup-data-table');
-        nextButton = root.querySelector('kup-button#next-row');
-        prevButton = root.querySelector('kup-button#previous-row');
+        nextButton = root.querySelector('#' + KupCardIds.NEXT_ROW);
+        prevButton = root.querySelector('#' + KupCardIds.PREVIOUS_ROW);
         if (table) {
             data = table.data;
         }

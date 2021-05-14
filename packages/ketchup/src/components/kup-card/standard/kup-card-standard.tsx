@@ -17,6 +17,7 @@ import {
     removeID,
 } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 import { FChipType } from '../../../f-components/f-chip/f-chip-declarations';
+import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 /**
  * 1st standard card layout, inspired by Material Design.
  * @param {KupCard} component - Card component.
@@ -39,7 +40,7 @@ export function create1(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray.length > 0 ? 'has-actions' : ''
+                buttonArray.length > 0 ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div class="mdc-ripple-surface">
@@ -99,7 +100,7 @@ export function create2(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray.length > 0 ? 'has-actions' : ''
+                buttonArray.length > 0 ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div class="section-1">
@@ -161,7 +162,7 @@ export function create3(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray ? 'has-actions' : ''
+                buttonArray ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div class="mdc-ripple-surface">
@@ -225,7 +226,7 @@ export function create4(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray ? 'has-actions' : ''
+                buttonArray ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div class="mdc-ripple-surface">
@@ -856,7 +857,7 @@ export function create12(component: KupCard): VNode {
                     textfieldArray.length > 0 ||
                     datepickerArray.length > 0 ||
                     timepickerArray.length > 0
-                        ? 'has-content'
+                        ? KupCardCSSClasses.HAS_CONTENT
                         : ''
                 }`}
             >
@@ -903,7 +904,7 @@ export function create13(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray.length > 0 ? 'has-actions' : ''
+                buttonArray.length > 0 ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div>
@@ -976,14 +977,21 @@ export function create14(component: KupCard): VNode {
         <div class={`standard-layout-${component.layoutNumber} `}>
             <div class="section-1">
                 {tabbarArray[0] ? (
-                    <kup-tab-bar {...tabbarArray[0]} id="view-selector" />
+                    <kup-tab-bar
+                        {...tabbarArray[0]}
+                        id={KupCardIds.VIEW_SELECTOR}
+                    />
                 ) : null}
             </div>
             <div class="section-2">
                 {tabsValues.includes(KupLanguageGeneric.FILTERS) ? (
                     <div
-                        class={`card-view view-${viewIndex} ${
-                            visibleView === viewIndex++ ? 'visible' : ''
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${viewIndex} ${
+                            visibleView === viewIndex++
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
                         }`}
                     >
                         <div
@@ -991,7 +999,7 @@ export function create14(component: KupCard): VNode {
                                 textfieldArray.length > 0 ||
                                 datepickerArray.length > 0 ||
                                 timepickerArray.length > 0
-                                    ? 'has-content'
+                                    ? KupCardCSSClasses.HAS_CONTENT
                                     : ''
                             }`}
                         >
@@ -1014,8 +1022,12 @@ export function create14(component: KupCard): VNode {
                 ) : null}
                 {tabsValues.includes(KupLanguageGrouping.GROUPS) ? (
                     <div
-                        class={`card-view view-${viewIndex} ${
-                            visibleView === viewIndex++ ? 'visible' : ''
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${viewIndex} ${
+                            visibleView === viewIndex++
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
                         }`}
                     >
                         {buttonsIds.includes(groupID) ? (
@@ -1031,8 +1043,12 @@ export function create14(component: KupCard): VNode {
                 ) : null}
                 {tabsValues.includes(KupLanguageColumn.COLUMNS) ? (
                     <div
-                        class={`card-view view-${viewIndex} ${
-                            visibleView === viewIndex++ ? 'visible' : ''
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${viewIndex} ${
+                            visibleView === viewIndex++
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
                         }`}
                     >
                         <div class="sub-button">
@@ -1062,7 +1078,7 @@ export function create14(component: KupCard): VNode {
                                       <kup-chip
                                           type={FChipType.INPUT}
                                           {...chipArray[0]}
-                                          id="columns-list"
+                                          id={KupCardIds.COLUMNS_LIST}
                                       />,
                                       buttonsIds.includes(applyID) ? (
                                           <kup-button
@@ -1080,7 +1096,7 @@ export function create14(component: KupCard): VNode {
                                     class="kup-full-width"
                                     globalFilter
                                     {...treeArray[0]}
-                                    id="extra-columns"
+                                    id={KupCardIds.EXTRA_COLUMNS}
                                 />
                             ) : null}
                         </div>

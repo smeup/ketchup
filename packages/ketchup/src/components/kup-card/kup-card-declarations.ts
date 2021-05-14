@@ -48,3 +48,42 @@ export enum CardFamily {
     SCALABLE = 'scalable',
     STANDARD = 'standard',
 }
+/**
+ * Recurring IDs.
+ */
+export enum KupCardIds {
+    COLUMNS_LIST = 'columns-list',
+    DIALOG_CLOSE = 'dialog-close',
+    DRAG_HANDLE = 'drag-handle',
+    EXPAND_ACTION = 'expand-action',
+    EXTRA_COLUMNS = 'extra-columns',
+    NEXT_ROW = 'next-row',
+    PREVIOUS_ROW = 'previous-row',
+    VIEW_SELECTOR = 'view-selector',
+}
+/**
+ * Recurring CSS classes.
+ */
+export enum KupCardCSSClasses {
+    CARD_VIEW = 'card-view',
+    COLLAPSIBLE_ACTIVE = 'collapsible-active',
+    COLLAPSIBLE_CARD = 'collapsible-card',
+    COLLAPSIBLE_ELEMENT = 'collapsible-element',
+    COLLAPSIBLE_WRAPPER = 'collapsible-wrapper',
+    DIALOG_TITLE = 'dialog-title',
+    DIALOG_UNRESIZABLE = 'dialog-unresizable',
+    EXPANDED = 'expanded',
+    HAS_ACTIONS = 'has-actions',
+    HAS_CONTENT = 'has-content',
+    HEADER_BAR = 'header-bar',
+    VIEW_PREFIX = 'view-',
+    VISIBLE = 'visible',
+}
+/**
+ * Internally-handled sub-component events.
+ */
+export enum KupCardSubEvents {
+    BUTTON_CLICK = 'kupButtonClick',
+    TABBAR_CLICK = 'kupTabBarClick',
+    TREE_NODESELECTED = 'kupTreeNodeSelected',
+}

@@ -20,15 +20,18 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
+import {
+    CardData,
+    CardFamily,
+    KupCardCSSClasses,
+    KupCardIds,
+    KupCardProps,
+} from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
-import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
-import { TreeNode } from '../kup-tree/kup-tree-declarations';
-import { applyID } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { layoutSpecificEvents } from './kup-card-helper';
 
 @Component({
     tag: 'kup-card',
@@ -109,7 +112,7 @@ export class KupCard {
     /**
      * Previous height of the component, tested when the card is collapsible.
      */
-    private oldSizeY: string;
+    oldSizeY: string;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -156,90 +159,7 @@ export class KupCard {
     }
 
     onKupEvent(e: CustomEvent): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-
-        // Collapsible layouts
-        if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
-            let collapsibleCard = root.querySelector('.collapsible-card');
-            if (!collapsibleCard.classList.contains('expanded')) {
-                collapsibleCard.classList.add('expanded');
-                this.oldSizeY = this.sizeY;
-                this.sizeY = 'auto';
-            } else if (this.oldSizeY) {
-                collapsibleCard.classList.remove('expanded');
-                this.sizeY = this.oldSizeY;
-            }
-            return;
-        }
-
-        // Refresh when switching row - 4th dialog layout
-        if (
-            e.type === 'kupButtonClick' &&
-            (e.detail.id === 'previous-row' || e.detail.id === 'next-row')
-        ) {
-            this.refresh();
-        }
-
-        // Tab change - 14th standard layout
-        if (
-            root &&
-            e.type === 'kupTabBarClick' &&
-            e.detail.id === 'view-selector'
-        ) {
-            const views: NodeListOf<HTMLElement> =
-                root.querySelectorAll('.card-view');
-            for (let index = 0; index < views.length; index++) {
-                const view: HTMLElement = views[index];
-                if (view.classList.contains('view-' + (e.detail.index + 1))) {
-                    view.classList.add('visible');
-                } else {
-                    view.classList.remove('visible');
-                }
-            }
-        }
-
-        // Apply button - 14th standard layout
-        if (root && e.type === 'kupButtonClick' && e.detail.id === applyID) {
-            const chip: HTMLKupChipElement =
-                root.querySelector('#columns-list');
-            this.data.chip[0] = chip.data;
-        }
-
-        // Chip creation - 14th standard layout
-        if (
-            root &&
-            e.type === 'kupTreeNodeSelected' &&
-            e.detail.id === 'extra-columns'
-        ) {
-            if (e.detail.treeNode) {
-                const chip: HTMLKupChipElement =
-                    root.querySelector('#columns-list');
-                const node: TreeNode = e.detail.treeNode;
-                const obj: KupObj = e.detail.treeNode.obj;
-                if (obj && obj.t !== '' && obj.t !== '**') {
-                    const key: string = obj.t + ';' + obj.p + ';' + obj.k;
-                    const chipData: FChipData[] =
-                        chip && chip.data ? chip.data : null;
-                    if (chipData) {
-                        const existingChip: FChipData = chipData.find(
-                            (x: FChipData) => x.value === key
-                        );
-                        if (existingChip) {
-                            chipData.splice(chipData.indexOf(existingChip), 1);
-                        } else {
-                            chipData.push({
-                                icon: node.icon,
-                                label: node.value,
-                                value: key,
-                            });
-                        }
-                    } else {
-                        chip.data['chip'] = [{ label: node.value, value: key }];
-                    }
-                    chip.refresh();
-                }
-            }
-        }
+        layoutSpecificEvents(this, e);
 
         this.kupEvent.emit({
             card: this,
@@ -298,8 +218,9 @@ export class KupCard {
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const dialogClose: HTMLElement =
-                root.querySelector('#dialog-close');
+            const dialogClose: HTMLElement = root.querySelector(
+                '#' + KupCardIds.DIALOG_CLOSE
+            );
             if (dialogClose) {
                 dialogClose.onclick = () => this.rootElement.remove();
             }
@@ -311,18 +232,32 @@ export class KupCard {
      * When the card is not expanded and the collapsible content fits the wrapper, the bottom bar won't be displayed.
      */
     collapsible(): void {
-        const root = this.rootElement.shadowRoot;
-        const el = root.querySelector('.collapsible-element');
-        const card = root.querySelector('.collapsible-card');
-        const wrapper = root.querySelector('.collapsible-wrapper');
-        if (!card.classList.contains('expanded')) {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        const el: HTMLElement = root.querySelector(
+            '.' + KupCardCSSClasses.COLLAPSIBLE_ELEMENT
+        );
+        const card: HTMLElement = root.querySelector(
+            '.' + KupCardCSSClasses.COLLAPSIBLE_CARD
+        );
+        const wrapper: HTMLElement = root.querySelector(
+            '.' + KupCardCSSClasses.COLLAPSIBLE_WRAPPER
+        );
+        if (!card.classList.contains(KupCardCSSClasses.EXPANDED)) {
             if (el.clientHeight > wrapper.clientHeight) {
-                if (!card.classList.contains('collapsible-active')) {
-                    card.classList.add('collapsible-active');
+                if (
+                    !card.classList.contains(
+                        KupCardCSSClasses.COLLAPSIBLE_ACTIVE
+                    )
+                ) {
+                    card.classList.add(KupCardCSSClasses.COLLAPSIBLE_ACTIVE);
                 }
             } else {
-                if (card.classList.contains('collapsible-active')) {
-                    card.classList.remove('collapsible-active');
+                if (
+                    card.classList.contains(
+                        KupCardCSSClasses.COLLAPSIBLE_ACTIVE
+                    )
+                ) {
+                    card.classList.remove(KupCardCSSClasses.COLLAPSIBLE_ACTIVE);
                 }
             }
         }
@@ -375,9 +310,11 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const card: HTMLElement = this.rootElement as HTMLElement;
-            const dragHandle: HTMLElement = root.querySelector('#drag-handle');
+            const dragHandle: HTMLElement = root.querySelector(
+                '#' + KupCardIds.DRAG_HANDLE
+            );
             const unresizable: boolean = !!root.querySelector(
-                '.dialog-unresizable'
+                '.' + KupCardCSSClasses.DIALOG_UNRESIZABLE
             );
             if (!this.kupManager.dialog.isRegistered(card as DialogElement)) {
                 this.kupManager.dialog.register(
