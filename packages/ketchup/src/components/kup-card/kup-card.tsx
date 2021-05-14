@@ -28,6 +28,7 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
+import { applyID } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -98,6 +99,7 @@ export class KupCard {
     private cardEvent: EventListenerOrEventListenerObject = (
         e: CustomEvent
     ) => {
+        e.stopPropagation();
         this.onKupEvent(e);
     };
     /**
@@ -154,7 +156,7 @@ export class KupCard {
     }
 
     onKupEvent(e: CustomEvent): void {
-        const root = this.rootElement.shadowRoot;
+        const root: ShadowRoot = this.rootElement.shadowRoot;
 
         // Collapsible layouts
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
@@ -196,6 +198,13 @@ export class KupCard {
             }
         }
 
+        // Apply button - 14th standard layout
+        if (root && e.type === 'kupButtonClick' && e.detail.id === applyID) {
+            const chip: HTMLKupChipElement =
+                root.querySelector('#columns-list');
+            this.data.chip[0] = chip.data;
+        }
+
         // Chip creation - 14th standard layout
         if (
             root &&
@@ -218,7 +227,11 @@ export class KupCard {
                         if (existingChip) {
                             chipData.splice(chipData.indexOf(existingChip), 1);
                         } else {
-                            chipData.push({ label: node.value, value: key });
+                            chipData.push({
+                                icon: node.icon,
+                                label: node.value,
+                                value: key,
+                            });
                         }
                     } else {
                         chip.data['chip'] = [{ label: node.value, value: key }];

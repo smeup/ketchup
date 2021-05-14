@@ -45,6 +45,13 @@ for (let index = 0; index < cards.length; index++) {
                 id: 'remove',
                 title: 'Remove column',
             },
+            {
+                className: 'printable',
+                label: 'apply',
+                id: 'apply',
+                styling: 'flat',
+                title: 'Apply',
+            },
         ],
         chart: [
             {

@@ -36,10 +36,12 @@ import {
 import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import {
     addID,
+    applyID,
     descriptionID,
     groupID,
     removeID,
 } from './kup-column-menu-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -198,6 +200,13 @@ export class KupColumnMenu {
                     ),
                 });
             }
+            props.push({
+                className: 'printable',
+                label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
+                id: applyID,
+                styling: FButtonStyling.FLAT,
+                title: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
+            });
         }
         return props;
     }

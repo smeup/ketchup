@@ -83,6 +83,7 @@ export enum KupLanguageFontsize {
  * Generic user interface action/messages.
  */
 export enum KupLanguageGeneric {
+    APPLY = 'genericApply',
     COLLAPSE = 'genericCollapse',
     DRAG_AND_DROP = 'genericDragAndDrop',
     DROP_YOUR_DATA = 'genericDropYourData',

@@ -1,4 +1,8 @@
 /**
+ * Apply column button ID.
+ */
+export const applyID = 'apply';
+/**
  * Add column button ID.
  */
 export const addID = 'add';

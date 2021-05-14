@@ -11,6 +11,7 @@ import {
 } from '../../../utils/kup-language/kup-language-declarations';
 import {
     addID,
+    applyID,
     descriptionID,
     groupID,
     removeID,
@@ -1056,13 +1057,22 @@ export function create14(component: KupCard): VNode {
                             ) : null}
                         </div>
                         <div class="sub-chip">
-                            {chipArray[0] ? (
-                                <kup-chip
-                                    type={FChipType.INPUT}
-                                    {...chipArray[0]}
-                                    id="columns-list"
-                                />
-                            ) : null}
+                            {chipArray[0]
+                                ? [
+                                      <kup-chip
+                                          type={FChipType.INPUT}
+                                          {...chipArray[0]}
+                                          id="columns-list"
+                                      />,
+                                      buttonsIds.includes(applyID) ? (
+                                          <kup-button
+                                              {...buttonArray.find(
+                                                  (x) => x.id === applyID
+                                              )}
+                                          />
+                                      ) : null,
+                                  ]
+                                : null}
                         </div>
                         <div class="sub-tree">
                             {treeArray[0] ? (
