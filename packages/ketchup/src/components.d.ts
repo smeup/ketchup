@@ -267,6 +267,10 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * If enabled, highlights the selected button
+         */
+        "showSelection": boolean;
+        /**
           * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
          */
         "styling": string;
@@ -2838,6 +2842,10 @@ declare namespace LocalJSX {
         subId: string;
         obj: any;
     }>) => void;
+        /**
+          * If enabled, highlights the selected button
+         */
+        "showSelection"?: boolean;
         /**
           * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
          */
