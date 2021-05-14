@@ -4500,6 +4500,7 @@ declare namespace LocalJSX {
         id: string;
         index: number;
         el: EventTarget;
+        value: string;
     }>) => void;
         "onKupTabBarFocus"?: (event: CustomEvent<{
         index: number;

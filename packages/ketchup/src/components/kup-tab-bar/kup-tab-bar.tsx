@@ -66,6 +66,7 @@ export class KupTabBar {
         id: string;
         index: number;
         el: EventTarget;
+        value: string;
     }>;
 
     @Event({
@@ -125,6 +126,7 @@ export class KupTabBar {
             id: this.rootElement.id,
             index: i,
             el: e.target,
+            value: this.data[i].value,
         });
     }
 
