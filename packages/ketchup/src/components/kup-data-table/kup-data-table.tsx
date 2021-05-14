@@ -2118,7 +2118,6 @@ export class KupDataTable {
             if (this.showTooltipOnRightClick && details.td && details.cell) {
                 e.preventDefault();
                 setTooltip(e, details.row.id, details.cell, this.tooltip);
-                //(this.tooltip as any).focus();
                 return;
             }
         } else if (details.area === 'footer') {
@@ -5230,7 +5229,6 @@ export class KupDataTable {
         let dropArea: HTMLElement = this.rootElement.shadowRoot.querySelector(
             '#remove-column-area'
         );
-
         if (show) {
             dropArea.style.marginLeft =
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
