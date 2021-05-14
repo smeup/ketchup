@@ -4940,6 +4940,7 @@ declare namespace LocalJSX {
           * Fired when a node of the tree has been selected
          */
         "onKupTreeNodeSelected"?: (event: CustomEvent<{
+        id: string;
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         columnName: string;

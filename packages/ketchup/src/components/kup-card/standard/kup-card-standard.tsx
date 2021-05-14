@@ -1060,6 +1060,7 @@ export function create14(component: KupCard): VNode {
                                 <kup-chip
                                     type={FChipType.INPUT}
                                     {...chipArray[0]}
+                                    id="columns-list"
                                 />
                             ) : null}
                         </div>
@@ -1069,6 +1070,7 @@ export function create14(component: KupCard): VNode {
                                     class="kup-full-width"
                                     globalFilter
                                     {...treeArray[0]}
+                                    id="extra-columns"
                                 />
                             ) : null}
                         </div>

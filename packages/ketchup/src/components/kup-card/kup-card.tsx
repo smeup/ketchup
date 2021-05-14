@@ -25,6 +25,9 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -153,7 +156,7 @@ export class KupCard {
     onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
-        //Collapsible layouts
+        // Collapsible layouts
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -167,7 +170,7 @@ export class KupCard {
             return;
         }
 
-        //4th dialog layout
+        // Refresh when switching row - 4th dialog layout
         if (
             e.type === 'kupButtonClick' &&
             (e.detail.id === 'previous-row' || e.detail.id === 'next-row')
@@ -175,7 +178,7 @@ export class KupCard {
             this.refresh();
         }
 
-        //Tab change - 14th standard layout
+        // Tab change - 14th standard layout
         if (
             root &&
             e.type === 'kupTabBarClick' &&
@@ -191,7 +194,38 @@ export class KupCard {
                     view.classList.remove('visible');
                 }
             }
-            this.refresh();
+        }
+
+        // Chip creation - 14th standard layout
+        if (
+            root &&
+            e.type === 'kupTreeNodeSelected' &&
+            e.detail.id === 'extra-columns'
+        ) {
+            if (e.detail.treeNode) {
+                const chip: HTMLKupChipElement =
+                    root.querySelector('#columns-list');
+                const node: TreeNode = e.detail.treeNode;
+                const obj: KupObj = e.detail.treeNode.obj;
+                if (obj && obj.t !== '' && obj.t !== '**') {
+                    const key: string = obj.t + ';' + obj.p + ';' + obj.k;
+                    const chipData: FChipData[] =
+                        chip && chip.data ? chip.data : null;
+                    if (chipData) {
+                        const existingChip: FChipData = chipData.find(
+                            (x: FChipData) => x.value === key
+                        );
+                        if (existingChip) {
+                            chipData.splice(chipData.indexOf(existingChip), 1);
+                        } else {
+                            chipData.push({ label: node.value, value: key });
+                        }
+                    } else {
+                        chip.data['chip'] = [{ label: node.value, value: key }];
+                    }
+                    chip.refresh();
+                }
+            }
         }
 
         this.kupEvent.emit({
@@ -397,6 +431,7 @@ export class KupCard {
         root.addEventListener('kupTimePickerInput', this.cardEvent);
         root.addEventListener('kupTimePickerItemClick', this.cardEvent);
         root.addEventListener('kupTimePickerTextFieldSubmit', this.cardEvent);
+        root.addEventListener('kupTreeNodeSelected', this.cardEvent);
     }
     /**
      * This method is invoked by the layout manager when the layout family is scalable.

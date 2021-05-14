@@ -373,6 +373,7 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeNodeSelected: EventEmitter<{
+        id: string;
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         columnName: string;
@@ -884,6 +885,7 @@ export class KupTree {
                     .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
             this.kupTreeNodeSelected.emit({
+                id: this.rootElement.id,
                 treeNodePath: treeNodePath
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),

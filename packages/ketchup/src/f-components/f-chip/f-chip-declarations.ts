@@ -15,9 +15,9 @@ export interface FChipsProps extends FComponent {
  */
 export interface FChipData {
     value: string;
+    checked?: boolean;
     icon?: string;
     label: string;
-    checked: boolean;
 }
 /**
  * Types of the f-chip component.
