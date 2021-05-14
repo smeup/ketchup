@@ -120,6 +120,7 @@ export interface Row extends Identifiable {
 
     cssClass?: string;
     name?: string;
+    unselectable?: boolean;
 }
 
 export interface RowGroup {
