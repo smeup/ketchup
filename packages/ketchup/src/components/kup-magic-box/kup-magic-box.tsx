@@ -1,14 +1,16 @@
 import {
     Component,
     Element,
-    Host,
-    Prop,
+    forceUpdate,
     h,
-    VNode,
-    State,
+    Host,
     Method,
+    Prop,
+    State,
+    VNode,
 } from '@stencil/core';
-import type { GenericObject } from '../../types/GenericTypes';
+
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { DropHandlers, setKetchupDroppable } from '../../utils/drag-and-drop';
 import {
     KupManager,
@@ -20,7 +22,6 @@ import {
     KupDataTableRowDragType,
     Row,
 } from '../kup-data-table/kup-data-table-declarations';
-import { isNumber } from '../../utils/object-utils';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
@@ -48,16 +49,6 @@ export class KupMagicBox {
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
 
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
     /**
      * Data will be displayed using this component.
      * @default MagicBoxDisplay.DATATABLE
@@ -98,25 +89,6 @@ export class KupMagicBox {
     /*-------------------------------------------------*/
 
     /**
-     * This method is used to trigger a new render of the component.
-     * Useful when slots change.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
-    }
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -136,6 +108,13 @@ export class KupMagicBox {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -219,7 +198,10 @@ export class KupMagicBox {
                         index++
                     ) {
                         const col: Column = this.data.columns[index];
-                        if (col.obj && isNumber(col.obj)) {
+                        if (
+                            col.obj &&
+                            this.kupManager.objects.isNumber(col.obj)
+                        ) {
                             props['series'].push({
                                 code: col.name,
                                 decode: col.title,
@@ -361,9 +343,13 @@ export class KupMagicBox {
             },
         };
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div
                         class="magic-box-wrapper"
@@ -408,7 +394,7 @@ export class KupMagicBox {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);

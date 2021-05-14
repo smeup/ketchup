@@ -1,13 +1,14 @@
 import {
     Component,
-    Prop,
     Element,
     Event,
     EventEmitter,
-    Watch,
-    State,
+    forceUpdate,
     h,
     Method,
+    Prop,
+    State,
+    Watch,
 } from '@stencil/core';
 
 import {
@@ -27,7 +28,7 @@ import {
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
@@ -39,24 +40,19 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 export class KupTooltip {
     @Element() rootElement: HTMLElement;
     @State() visible = false;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     /**
      * Data for cell options
      */
-    @Prop() cellOptions: TooltipCellOptions;
+    @Prop({ mutable: true }) cellOptions: TooltipCellOptions;
     /**
      * Data for top section
      */
-    @Prop() data: TooltipData;
+    @Prop({ mutable: true }) data: TooltipData;
     /**
      * Data for the detail
      */
-    @Prop() detailData: TooltipDetailData;
+    @Prop({ mutable: true }) detailData: TooltipDetailData;
     /**
      * Timeout for loadDetail
      */
@@ -76,7 +72,7 @@ export class KupTooltip {
     /**
      * Container element for tooltip
      */
-    @Prop() relatedObject: TooltipRelatedObject;
+    @Prop({ mutable: true }) relatedObject: TooltipRelatedObject;
 
     /**
      * Instance of the KupManager class.
@@ -282,11 +278,10 @@ export class KupTooltip {
 
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     @Method()
@@ -403,6 +398,7 @@ export class KupTooltip {
             this.resetAll();
             return;
         }
+        this.rootElement.focus();
         if (this.isViewModeTooltip()) {
             this.cellOptions = null;
             this.kupTooltipLoadDetail.emit({
@@ -841,15 +837,16 @@ export class KupTooltip {
     componentDidRender() {
         if (this.visible) {
             this.kupManager.dynamicPosition.register(
-                this.rootElement as DynamicallyPositionedElement,
+                this.rootElement as KupDynamicPositionElement,
                 this.relatedObject.element
             );
             this.kupManager.dynamicPosition.start(
-                this.rootElement as DynamicallyPositionedElement
+                this.rootElement as KupDynamicPositionElement
             );
+            this.rootElement.focus();
         } else {
             this.kupManager.dynamicPosition.stop(
-                this.rootElement as DynamicallyPositionedElement
+                this.rootElement as KupDynamicPositionElement
             );
         }
         this.kupManager.debug.logRender(this, true);
@@ -873,9 +870,9 @@ export class KupTooltip {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

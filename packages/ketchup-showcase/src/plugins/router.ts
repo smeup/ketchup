@@ -254,6 +254,11 @@ let javascriptRoutes = [
 
 let testRoutes = [
   {
+    path: `/test/`,
+    name: 'test',
+    component: () => import(`@/views/test/Test.vue`),
+  },
+  {
     path: `/test/performance`,
     name: 'testPerformance',
     component: () => import(`@/views/test/Performance.vue`),

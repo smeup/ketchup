@@ -1,14 +1,16 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+
 import {
     KupManager,
     kupManagerInstance,
@@ -16,7 +18,7 @@ import {
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupSwitchProps } from './kup-switch-declarations';
 
 @Component({
@@ -39,11 +41,6 @@ export class KupSwitch {
      * @default ""
      */
     @State() value: string = '';
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -53,7 +50,7 @@ export class KupSwitch {
      * Defaults at false. When set to true, the component will be set to 'checked'.
      * @default false
      */
-    @Prop() checked: boolean = false;
+    @Prop({ mutable: true }) checked: boolean = false;
     /**
      * Custom style of the component.
      * @default ""
@@ -114,18 +111,6 @@ export class KupSwitch {
         value: string;
     }>;
     /**
-     * Triggered when the input element is clicked.
-     */
-    @Event({
-        eventName: 'kupSwitchClick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<{
-        value: string;
-    }>;
-    /**
      * Triggered when the input element gets focused.
      */
     @Event({
@@ -157,12 +142,6 @@ export class KupSwitch {
         });
     }
 
-    onKupClick() {
-        this.kupClick.emit({
-            value: this.value,
-        });
-    }
-
     onKupFocus() {
         this.kupFocus.emit({
             value: this.value,
@@ -173,17 +152,6 @@ export class KupSwitch {
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -203,6 +171,13 @@ export class KupSwitch {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -221,11 +196,10 @@ export class KupSwitch {
                 if (inputEl) {
                     inputEl.onblur = () => this.onKupBlur();
                     inputEl.onchange = () => this.onKupChange();
-                    inputEl.onclick = () => this.onKupClick();
                     inputEl.onfocus = () => this.onKupFocus();
                 }
                 if (labelEl) {
-                    labelEl.onclick = () => this.onKupClick();
+                    labelEl.onclick = () => this.onKupChange();
                 }
                 FSwitchMDC(f);
             }
@@ -267,9 +241,13 @@ export class KupSwitch {
             leadingLabel: this.leadingLabel,
         };
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <FSwitch {...props} />
                 </div>
@@ -277,7 +255,7 @@ export class KupSwitch {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

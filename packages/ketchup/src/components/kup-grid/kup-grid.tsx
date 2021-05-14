@@ -1,14 +1,16 @@
 import {
     Component,
-    Prop,
     Element,
+    forceUpdate,
     Host,
-    State,
     h,
     JSX,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
-import { GenericObject } from '../../types/GenericTypes';
+
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
@@ -23,7 +25,6 @@ import { KupGridProps } from './kup-grid-declarations';
 })
 export class KupGrid {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * The number of columns displayed by the grid, the default behavior is 12.
@@ -46,10 +47,6 @@ export class KupGrid {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -68,6 +65,13 @@ export class KupGrid {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     //---- Lifecycle hooks ----
@@ -142,9 +146,13 @@ export class KupGrid {
             el.push(content);
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host style={this.elStyle}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class={componentClass}>
                         <div class={contentClass}>{el}</div>
@@ -154,7 +162,7 @@ export class KupGrid {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

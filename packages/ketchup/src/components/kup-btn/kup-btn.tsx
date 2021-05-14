@@ -1,15 +1,16 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -29,18 +30,19 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupBtn {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-btn>).
      */
     @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
+
     /**
-     * The component-specific CSS set by the current Ketch.UP theme.
+     * The id of the selected button.
      * @default ""
      */
-    @State() customStyleTheme: string = '';
+    @State() selected: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -61,6 +63,10 @@ export class KupBtn {
      * Default at false. When set to true, the sub-components are disabled.
      */
     @Prop() disabled: boolean = false;
+    /**
+     * If enabled, highlights the selected button
+     */
+    @Prop() showSelection: boolean = true;
     /**
      * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default.
      * If set, will be valid for all sub-components.
@@ -93,6 +99,7 @@ export class KupBtn {
     }>;
 
     onKupClick(index: string, subIndex: string) {
+        this.selected = index;
         this.kupClick.emit({
             id: index,
             subId: subIndex,
@@ -101,6 +108,7 @@ export class KupBtn {
     }
 
     onDropDownItemClick(e: CustomEvent, index: string) {
+        this.selected = index;
         this.onKupClick(index, e.detail.value);
     }
 
@@ -108,17 +116,6 @@ export class KupBtn {
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
-    /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -137,6 +134,13 @@ export class KupBtn {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -202,6 +206,7 @@ export class KupBtn {
             toggable: data.toggable,
             trailingIcon: data.trailingIcon,
             title: data.title,
+            wrapperClass: this.rootElement.className + ' ' + data.wrapperClass,
         };
         return <FButton {...props} />;
     }
@@ -234,8 +239,11 @@ export class KupBtn {
         };
         return (
             <kup-dropdown-button
-                class={this.rootElement.className}
+                class={this.rootElement.className + ' ' + data.wrapperClass}
                 {...data}
+                onKupDropdownButtonClick={() =>
+                    this.onKupClick(index.toString(), '-1')
+                }
                 onKupDropdownSelectionItemClick={(e) =>
                     this.onDropDownItemClick(e, index.toString())
                 }
@@ -277,6 +285,13 @@ export class KupBtn {
         data.shaped = this.rootElement.classList.contains('kup-shaped')
             ? true
             : false;
+        if (!data.wrapperClass) {
+            data.wrapperClass = '';
+        }
+        if (this.selected == data.id) {
+            data.wrapperClass = data.wrapperClass + ' selected';
+        }
+
         return data;
     }
 
@@ -307,6 +322,15 @@ export class KupBtn {
     }
 
     private renderButtons() {
+        if (this.data == null || this.data.length < 1) {
+            let message = 'Empty data btn.';
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
+            return null;
+        }
         let columns = [];
         for (let i = 0; i < this.data.length; i++) {
             let node: TreeNode = this.data[i];
@@ -349,24 +373,35 @@ export class KupBtn {
     render() {
         let buttons = this.renderButtons();
         let nrOfColumns = this.columns;
-        if (nrOfColumns <= 0) {
+        if (this.data != null && this.data.length > 0 && nrOfColumns <= 0) {
             nrOfColumns = this.data.length;
         }
 
         let hostStyle = {
             '--grid-columns': `repeat(${nrOfColumns}, auto)`,
         };
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
+        const classObj: Record<string, boolean> = {
+            'btn-container': true,
+            'show-selection':
+                this.showSelection && this.selected ? true : false,
+        };
+
         return (
             <Host style={hostStyle}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
-                    <div class="btn-container">{buttons}</div>
+                    <div class={classObj}>{buttons}</div>
                 </div>
             </Host>
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

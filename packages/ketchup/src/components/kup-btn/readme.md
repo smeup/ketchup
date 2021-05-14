@@ -9,13 +9,14 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                          | Type         | Default |
-| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
-| `columns`     | `columns`      | Number of columns for draw sub-components.                                                                                                           | `number`     | `0`     |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                      | `string`     | `''`    |
-| `data`        | --             | Props of the sub-components.                                                                                                                         | `TreeNode[]` | `[]`    |
-| `disabled`    | `disabled`     | Default at false. When set to true, the sub-components are disabled.                                                                                 | `boolean`    | `false` |
-| `styling`     | `styling`      | Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components. | `string`     | `''`    |
+| Property        | Attribute        | Description                                                                                                                                          | Type         | Default |
+| --------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
+| `columns`       | `columns`        | Number of columns for draw sub-components.                                                                                                           | `number`     | `0`     |
+| `customStyle`   | `custom-style`   | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                      | `string`     | `''`    |
+| `data`          | --               | Props of the sub-components.                                                                                                                         | `TreeNode[]` | `[]`    |
+| `disabled`      | `disabled`       | Default at false. When set to true, the sub-components are disabled.                                                                                 | `boolean`    | `false` |
+| `showSelection` | `show-selection` | If enabled, highlights the selected button                                                                                                           | `boolean`    | `true`  |
+| `styling`       | `styling`        | Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components. | `string`     | `''`    |
 
 
 ## Events
@@ -37,10 +38,9 @@ Type: `Promise<GenericObject>`
 
 
 
-### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
+### `refresh() => Promise<void>`
 
-This method is invoked by the theme manager.
-Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+This method is used to trigger a new render of the component.
 
 #### Returns
 

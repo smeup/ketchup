@@ -1,20 +1,17 @@
-import { dragMultipleImg } from '../../assets/images/drag-multiple';
-
 import {
     Component,
-    Event,
-    Prop,
-    Host,
-    State,
-    Watch,
-    EventEmitter,
-    h,
-    Method,
     Element,
+    Event,
+    EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
     VNode,
-    JSX,
+    Watch,
 } from '@stencil/core';
-
 import {
     Column,
     SortObject,
@@ -32,14 +29,6 @@ import {
     BoxKanban,
     KupBoxProps,
 } from './kup-box-declarations';
-
-import {
-    isButton,
-    isPassword,
-    isIcon,
-    isCheckbox,
-    hasTooltip,
-} from '../../utils/object-utils';
 
 import {
     isEditor,
@@ -69,6 +58,7 @@ import {
 
 const KupBoxDragType = 'text/kup-box-drag';
 
+import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { CardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
@@ -80,12 +70,12 @@ import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { deepEqual, identify, stringToNumber } from '../../utils/utils';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
-import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupLanguageGeneric,
@@ -104,11 +94,6 @@ export class KupBox {
 
     @Prop() stateId: string = '';
     @Prop() store: KupStore;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     state: KupBoxState = new KupBoxState();
 
@@ -194,7 +179,6 @@ export class KupBox {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Data of the card linked to the box when the latter's layout must be a premade template.
@@ -466,7 +450,7 @@ export class KupBox {
 
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
-    private boxContainer: ScrollableElement;
+    private boxContainer: KupScrollOnHoverElement;
     /**
      * Instance of the KupManager class.
      */
@@ -507,10 +491,6 @@ export class KupBox {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -532,11 +512,10 @@ export class KupBox {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
 
     //---- Lifecycle hooks ----
@@ -1561,7 +1540,7 @@ export class KupBox {
             cell = row.cells[boxObject.column];
             column = null;
             if (cell) {
-                _hasTooltip = hasTooltip(cell.obj);
+                _hasTooltip = this.kupManager.objects.hasTooltip(cell.obj);
                 // removing column from visibleColumns
                 let index = -1;
 
@@ -1584,7 +1563,7 @@ export class KupBox {
                 }
                 let props: any = { ...cell.data };
 
-                if (isButton(cell.obj)) {
+                if (this.kupManager.objects.isButton(cell.obj)) {
                     if (props) {
                         boContent = (
                             <FButton class="cell-button" {...props}></FButton>
@@ -1598,7 +1577,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (isCheckbox(cell.obj)) {
+                } else if (this.kupManager.objects.isCheckbox(cell.obj)) {
                     if (props) {
                         props['disabled'] = row;
                     } else {
@@ -1612,7 +1591,7 @@ export class KupBox {
                     );
                 } else if (isEditor(cell, boxObject)) {
                     boContent = <kup-editor text={cell.value}></kup-editor>;
-                } else if (isIcon(cell.obj)) {
+                } else if (this.kupManager.objects.isIcon(cell.obj)) {
                     if (props) {
                         if (!props.sizeX) {
                             props['sizeX'] = '18px';
@@ -1643,7 +1622,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (isPassword(cell.obj)) {
+                } else if (this.kupManager.objects.isPassword(cell.obj)) {
                     boContent = (
                         <kup-text-field
                             input-type="password"
@@ -2024,10 +2003,13 @@ export class KupBox {
                 return KupBoxDragType;
             },
         };
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div
                         class={'box-component'}
@@ -2056,7 +2038,7 @@ export class KupBox {
                                 unsetTooltip(this.tooltip);
                             }}
                             ref={(el: HTMLElement) =>
-                                (this.boxContainer = el as ScrollableElement)
+                                (this.boxContainer = el as KupScrollOnHoverElement)
                             }
                         >
                             {boxContent}
@@ -2068,7 +2050,7 @@ export class KupBox {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.scrollOnHover) {

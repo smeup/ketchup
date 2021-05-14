@@ -1,25 +1,25 @@
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
-    ScrollableElement,
+    KupScrollOnHoverElement,
     ScrollOnHoverDirection,
-} from './scroll-on-hover-declarations';
+} from './kup-scroll-on-hover-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Lets the user scroll an element's overflow by hovering with the mouse on its left/right edge.
- * @module ScrollOnHover
+ * @module KupScrollOnHover
  */
-export class ScrollOnHover {
+export class KupScrollOnHover {
     #arrowsContainer: HTMLElement = null;
     #leftArrows: HTMLElement[] = [];
     #rightArrows: HTMLElement[] = [];
     #initialized: boolean = false;
     #scrollEvent = (event: Event) =>
-        this.updateChildren(event.target as ScrollableElement);
+        this.updateChildren(event.target as KupScrollOnHoverElement);
     #mousemoveEvent = (event: MouseEvent) => this.start(event);
     #mouseleaveEvent = (event: MouseEvent) =>
-        this.stop(event.target as ScrollableElement);
+        this.stop(event.target as KupScrollOnHoverElement);
     #rAF: number = null;
     #timeout: ReturnType<typeof setTimeout> = null;
     delay: number =
@@ -28,7 +28,7 @@ export class ScrollOnHover {
         dom.ketchupInit.scrollOnHover.delay
             ? dom.ketchupInit.scrollOnHover.delay
             : 500;
-    managedElements: Set<ScrollableElement> = null;
+    managedElements: Set<KupScrollOnHoverElement> = null;
     step: number =
         dom.ketchupInit &&
         dom.ketchupInit.scrollOnHover &&
@@ -66,9 +66,9 @@ export class ScrollOnHover {
     /**
      * Watches the given element in order to trigger the scroll on hover when conditions are met.
      * Children nodes with the "hover-scrolling-child" will be watched and scrolled when el scrolls.
-     * @param {ScrollableElement} el - Element to watch.
+     * @param {KupScrollOnHoverElement} el - Element to watch.
      */
-    register(el: ScrollableElement): void {
+    register(el: KupScrollOnHoverElement): void {
         if (!this.#initialized) {
             this.initialize();
         }
@@ -89,9 +89,9 @@ export class ScrollOnHover {
     }
     /**
      * Removes the given element from ScrollOnHover watchlist.
-     * @param {ScrollableElement} el - Element to unregister.
+     * @param {KupScrollOnHoverElement} el - Element to unregister.
      */
-    unregister(el: ScrollableElement): void {
+    unregister(el: KupScrollOnHoverElement): void {
         el.removeEventListener('scroll', this.#scrollEvent);
         el.removeEventListener('mousemove', this.#mousemoveEvent);
         el.removeEventListener('mouseleave', this.#mouseleaveEvent);
@@ -101,10 +101,10 @@ export class ScrollOnHover {
     }
     /**
      * Returns whether an element was previously registered or not.
-     * @param {ScrollableElement} el - Element to test.
+     * @param {KupScrollOnHoverElement} el - Element to test.
      * @returns {boolean} True if the element was registered.
      */
-    isRegistered(el: ScrollableElement): boolean {
+    isRegistered(el: KupScrollOnHoverElement): boolean {
         return !this.managedElements ? false : this.managedElements.has(el);
     }
     /**
@@ -112,7 +112,7 @@ export class ScrollOnHover {
      * @param {MouseEvent} event - The starter event, which should be a MouseMove event.
      */
     async start(event: MouseEvent): Promise<void> {
-        const el: ScrollableElement = event.currentTarget as ScrollableElement;
+        const el: KupScrollOnHoverElement = event.currentTarget as KupScrollOnHoverElement;
         el.scrollOnHover.rect = el.getBoundingClientRect();
         el.scrollOnHover.x = event.clientX;
         el.scrollOnHover.y = event.clientY;
@@ -165,9 +165,9 @@ export class ScrollOnHover {
     }
     /**
      * When called, this function stops the scrolling process.
-     * @param {ScrollableElement} el - The scrolled element.
+     * @param {KupScrollOnHoverElement} el - The scrolled element.
      */
-    async stop(el: ScrollableElement): Promise<void> {
+    async stop(el: KupScrollOnHoverElement): Promise<void> {
         el.scrollOnHover.active = false;
         cancelAnimationFrame(this.#rAF);
         clearTimeout(this.#timeout);
@@ -183,14 +183,14 @@ export class ScrollOnHover {
     }
     /**
      * The actual recursive scroll function.
-     * @param {ScrollableElement} el - The scrolled element.
+     * @param {KupScrollOnHoverElement} el - The scrolled element.
      * @param {number} maxScrollLeft - Left coordinates to which the recursiveness must be stopped.
      * @param {number} percRight - Range of the right scrollable area.
      * @param {number} percLeft - Range of the left scrollable area.
      * @param {ScrollOnHoverDirection} direction - Direction of the scroll.
      */
     run(
-        el: ScrollableElement,
+        el: KupScrollOnHoverElement,
         maxScrollLeft: number,
         percRight: number,
         percLeft: number,
@@ -248,9 +248,9 @@ export class ScrollOnHover {
     }
     /**
      * Scrolls children of the element having the "hover-scrolling-child" class
-     * @param {ScrollableElement} el - The scrolled element.
+     * @param {KupScrollOnHoverElement} el - The scrolled element.
      */
-    updateChildren(el: ScrollableElement): void {
+    updateChildren(el: KupScrollOnHoverElement): void {
         for (let i = 0; i < el.scrollOnHover.children.length; i++) {
             el.scrollOnHover.children[i].scrollLeft = el.scrollLeft;
         }

@@ -8,7 +8,7 @@ import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 export class KupModal {
     @Prop({
         mutable: true,
-        reflectToAttr: true,
+        reflect: true,
     })
     public visible: boolean;
 

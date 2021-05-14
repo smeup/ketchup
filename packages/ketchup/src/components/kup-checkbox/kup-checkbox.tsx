@@ -1,14 +1,16 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+
 import {
     KupManager,
     kupManagerInstance,
@@ -16,7 +18,7 @@ import {
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupCheckboxProps } from './kup-checkbox-declarations';
 
 @Component({
@@ -39,11 +41,6 @@ export class KupCheckbox {
      * @default ""
      */
     @State() value: string = '';
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -53,7 +50,7 @@ export class KupCheckbox {
      * Defaults at false. When set to true, the component will be set to 'checked'.
      * @default false
      */
-    @Prop() checked: boolean = false;
+    @Prop({ mutable: true }) checked: boolean = false;
     /**
      * Custom style of the component.
      * @default ""
@@ -69,7 +66,7 @@ export class KupCheckbox {
      * When set to true, the component will be set to 'indeterminate'.
      * @default false
      */
-    @Prop() indeterminate: boolean = false;
+    @Prop({ mutable: true }) indeterminate: boolean = false;
     /**
      * When specified, its content will be shown as a label.
      * @default null
@@ -177,17 +174,6 @@ export class KupCheckbox {
     /*-------------------------------------------------*/
 
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -207,6 +193,13 @@ export class KupCheckbox {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -264,16 +257,21 @@ export class KupCheckbox {
     }
 
     render() {
-        let props: FCheckboxProps = {
+        const props: FCheckboxProps = {
             checked: this.checked,
             disabled: this.disabled,
             indeterminate: this.indeterminate,
             label: this.label,
             leadingLabel: this.leadingLabel,
         };
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <FCheckbox {...props} />
                 </div>
@@ -281,7 +279,7 @@ export class KupCheckbox {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

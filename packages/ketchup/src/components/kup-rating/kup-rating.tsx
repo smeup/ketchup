@@ -1,16 +1,18 @@
 import {
     Component,
-    Prop,
     Event,
     Element,
-    Host,
     EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
     State,
     Watch,
-    h,
-    Method,
 } from '@stencil/core';
-import { GenericObject } from '../../types/GenericTypes';
+
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -24,7 +26,6 @@ import { KupRatingProps } from './kup-rating-declarations';
 })
 export class KupRating {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
     @State() stars: Array<object> = [];
 
     /**
@@ -59,10 +60,6 @@ export class KupRating {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -81,6 +78,13 @@ export class KupRating {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     onStarClicked(newValue: number) {
@@ -156,9 +160,13 @@ export class KupRating {
     }
 
     render() {
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div>{this.stars}</div>
                 </div>
@@ -166,7 +174,7 @@ export class KupRating {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

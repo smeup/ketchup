@@ -1,7 +1,7 @@
 /**
  * Element scrollable on mouse over.
  */
-export interface ScrollableElement extends HTMLElement {
+export interface KupScrollOnHoverElement extends HTMLElement {
     scrollOnHover: {
         active: boolean;
         children: NodeListOf<HTMLElement>;

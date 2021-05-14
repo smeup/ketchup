@@ -1,19 +1,20 @@
-import moment from 'moment';
-
 import {
     Component,
+    Element,
     Event,
-    getAssetPath,
     EventEmitter,
+    forceUpdate,
+    getAssetPath,
     h,
+    Host,
     JSX,
     Method,
     Prop,
-    Element,
     State,
     Watch,
-    Host,
 } from '@stencil/core';
+
+import moment from 'moment';
 import {
     Cell,
     Column,
@@ -44,6 +45,7 @@ import {
     fieldColumn,
     iconColumn,
     keyColumn,
+    SelectionMode,
 } from './kup-data-table-declarations';
 
 import {
@@ -67,22 +69,7 @@ import {
     dropHandlersCell,
 } from './kup-data-table-helper';
 
-import {
-    isBar,
-    isChart,
-    isButton,
-    isIcon,
-    isImage,
-    isNumber,
-    isDate,
-    isProgressBar as isProgressBarObj,
-    isVoCodver,
-    isCheckbox,
-    hasTooltip,
-    isRadio as isRadioObj,
-    canHaveAutomaticDerivedColumn,
-} from '../../utils/object-utils';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
@@ -127,11 +114,7 @@ import {
     FChipData,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import {
-    FButtonProps,
-    FButtonStyling,
-} from '../../f-components/f-button/f-button-declarations';
-import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
@@ -139,11 +122,11 @@ import {
     GenericFilter,
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
-import { ColumnMenu } from '../../utils/column-menu/column-menu';
+import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
@@ -195,7 +178,7 @@ export class KupDataTable {
                 this.headerIsPersistent = state.headerIsPersistent;
                 this.lazyLoadRows = state.lazyLoadRows;
                 this.loadMoreLimit = state.loadMoreLimit;
-                this.multiSelection = state.multiSelection;
+                this.selection = state.selection;
                 this.rowsPerPage = state.rowsPerPage;
                 this.showFilters = state.showFilters;
                 this.showGroups = state.showGroups;
@@ -294,8 +277,8 @@ export class KupDataTable {
                 this.state.loadMoreLimit = this.loadMoreLimit;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.multiSelection, this.multiSelection)) {
-                this.state.multiSelection = this.multiSelection;
+            if (!deepEqual(this.state.selection, this.selection)) {
+                this.state.selection = this.selection;
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
@@ -328,7 +311,8 @@ export class KupDataTable {
                     this.sortableColumnsMutateData
                 )
             ) {
-                this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+                this.state.sortableColumnsMutateData =
+                    this.sortableColumnsMutateData;
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.pageSelected, this.currentPage)) {
@@ -393,12 +377,6 @@ export class KupDataTable {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -428,7 +406,7 @@ export class KupDataTable {
     /**
      * Defines the label to show when the table is empty.
      */
-    @Prop() emptyDataLabel: string = null;
+    @Prop({ mutable: true }) emptyDataLabel: string = null;
     /**
      * Enables the extracolumns add buttons.
      */
@@ -520,10 +498,6 @@ export class KupDataTable {
      */
     @Prop() loadMoreStep: number = 60;
     /**
-     * When set to true enables rows multi selection.
-     */
-    @Prop() multiSelection: boolean = false;
-    /**
      * Current selected page set on component load
      */
     @Prop() pageSelected: number = -1;
@@ -547,6 +521,10 @@ export class KupDataTable {
      * Activates the scroll on hover function.
      */
     @Prop() scrollOnHover: boolean = false;
+    /**
+     * Set the type of the rows selection.
+     */
+    @Prop() selection: SelectionMode = SelectionMode.SINGLE;
     /**
      * Selects the row at the specified rendered rows prosition (base 1).
      */
@@ -823,7 +801,7 @@ export class KupDataTable {
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
      */
-    private tableAreaRef: ScrollableElement;
+    private tableAreaRef: KupScrollOnHoverElement;
     private stickyTheadRef: any;
     private customizeTopButtonRef: any;
     private customizeBottomButtonRef: any;
@@ -843,7 +821,7 @@ export class KupDataTable {
      * Used to prevent too many resizes callbacks at once.
      */
     private resizeTimeout: number;
-    private columnMenuInstance: ColumnMenu;
+    private columnMenuInstance: KupColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu;
     private filtersRowsInstance: FiltersRows;
     /**
@@ -1038,17 +1016,6 @@ export class KupDataTable {
     })
     kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInput>;
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
      * This method is invoked by KupManager whenever the component changes size.
      */
     @Method()
@@ -1081,11 +1048,10 @@ export class KupDataTable {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
     }
     /**
      * This method will set the selected rows of the component.
@@ -1246,12 +1212,12 @@ export class KupDataTable {
     private setObjForTotalsMatrix(column: Column, totals: TotalsMap): void {
         const obj = column.obj;
         const totalMode = totals[column.name];
-        if (isDate(obj)) {
+        if (this.kupManager.objects.isDate(obj)) {
             // check if min or max totals mode
             if (totalMode === TotalMode.MAX || totalMode === TotalMode.MIN) {
                 return;
             }
-        } else if (isNumber(obj)) {
+        } else if (this.kupManager.objects.isNumber(obj)) {
             // check if percentage
             if (obj.p && obj.p.toUpperCase() === 'P') {
                 if (
@@ -1391,9 +1357,8 @@ export class KupDataTable {
         let widthTable: number = this.tableAreaRef.offsetWidth;
         this.stickyTheadRef.style.maxWidth = widthTable + 'px';
         let thCollection: any = this.theadRef.querySelectorAll('th');
-        let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
-            'th-sticky'
-        );
+        let thStickyCollection: any =
+            this.stickyTheadRef.querySelectorAll('th-sticky');
         for (let i = 0; i < thCollection.length; i++) {
             let widthTH = thCollection[i].offsetWidth;
             thStickyCollection[i].style.width = widthTH + 'px';
@@ -1552,13 +1517,12 @@ export class KupDataTable {
 
         if (root) {
             //Row checkboxes
-            const checkboxes: NodeListOf<Element> = root.querySelectorAll(
+            const checkboxes: NodeListOf<HTMLElement> = root.querySelectorAll(
                 'td .f-checkbox--wrapper'
             );
             for (let index = 0; index < checkboxes.length; index++) {
-                const inputEl: HTMLButtonElement = checkboxes[
-                    index
-                ].querySelector('input');
+                const inputEl: HTMLInputElement =
+                    checkboxes[index].querySelector('input');
                 if (inputEl) {
                     inputEl.onchange = (e: Event) =>
                         this.cellUpdate(
@@ -1569,16 +1533,15 @@ export class KupDataTable {
                             checkboxes[index]['data-row']
                         );
                 }
-                FCheckboxMDC(checkboxes[index] as HTMLElement);
+                FCheckboxMDC(checkboxes[index]);
             }
             //Row textfields
-            const textfields: NodeListOf<Element> = root.querySelectorAll(
+            const textfields: NodeListOf<HTMLElement> = root.querySelectorAll(
                 'td .f-text-field--wrapper'
             );
             for (let index = 0; index < textfields.length; index++) {
-                const inputEl: HTMLButtonElement = textfields[
-                    index
-                ].querySelector('input');
+                const inputEl: HTMLInputElement =
+                    textfields[index].querySelector('input');
                 if (inputEl) {
                     inputEl.onblur = (e: FocusEvent) =>
                         this.cellUpdate(
@@ -1597,20 +1560,20 @@ export class KupDataTable {
                             textfields[index]['data-row']
                         );
                 }
-                FTextFieldMDC(textfields[index] as HTMLElement);
+                FTextFieldMDC(textfields[index]);
             }
             //Row multiselection checkboxes
-            const multiselectionCheckboxes: NodeListOf<Element> = root.querySelectorAll(
-                'td[row-select-cell] .f-checkbox--wrapper'
-            );
+            const multiselectionCheckboxes: NodeListOf<HTMLElement> =
+                root.querySelectorAll(
+                    'td[row-select-cell] .f-checkbox--wrapper'
+                );
             for (
                 let index = 0;
                 index < multiselectionCheckboxes.length;
                 index++
             ) {
-                const checkboxEl: HTMLButtonElement = multiselectionCheckboxes[
-                    index
-                ].querySelector('input');
+                const checkboxEl: HTMLInputElement =
+                    multiselectionCheckboxes[index].querySelector('input');
                 if (checkboxEl) {
                     checkboxEl.onchange = () =>
                         this.handleRowSelect(
@@ -1620,9 +1583,10 @@ export class KupDataTable {
                 FCheckboxMDC(multiselectionCheckboxes[index] as HTMLElement);
             }
             //Row actions: expander
-            const expanderRowActions: NodeListOf<Element> = root.querySelectorAll(
-                '[row-action-cell] .f-image--wrapper.expander'
-            );
+            const expanderRowActions: NodeListOf<HTMLElement> =
+                root.querySelectorAll(
+                    '[row-action-cell] .f-image--wrapper.expander'
+                );
             for (let index = 0; index < expanderRowActions.length; index++) {
                 (expanderRowActions[index] as HTMLElement).onclick = (
                     e: MouseEvent
@@ -1633,11 +1597,11 @@ export class KupDataTable {
                     );
             }
             //Row actions: actions
-            const rowActions: NodeListOf<Element> = root.querySelectorAll(
+            const rowActions: NodeListOf<HTMLElement> = root.querySelectorAll(
                 '[row-action-cell] .f-image--wrapper.action'
             );
             for (let index = 0; index < rowActions.length; index++) {
-                (rowActions[index] as HTMLElement).onclick = () =>
+                rowActions[index].onclick = () =>
                     this.onDefaultRowActionClick(
                         rowActions[index]['data-action']
                     );
@@ -1647,9 +1611,8 @@ export class KupDataTable {
                 '#group-chips.f-chip--wrapper'
             );
             if (groupChip) {
-                const chips: NodeListOf<HTMLElement> = groupChip.querySelectorAll(
-                    '.mdc-chip'
-                );
+                const chips: NodeListOf<HTMLElement> =
+                    groupChip.querySelectorAll('.mdc-chip');
                 for (let index = 0; index < chips.length; index++) {
                     const cancelIcon: HTMLElement = chips[index].querySelector(
                         '.mdc-chip__icon.clear'
@@ -1665,14 +1628,12 @@ export class KupDataTable {
                 '#global-filter .f-text-field--wrapper'
             );
             if (globalFilter) {
-                const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
-                    'input'
-                );
-                const globalFilterClear: HTMLElement = globalFilter.querySelector(
-                    '.clear'
-                );
+                const globalFilterInput: HTMLInputElement =
+                    globalFilter.querySelector('input');
+                const globalFilterClear: HTMLElement =
+                    globalFilter.querySelector('.clear');
                 globalFilterInput.oninput = (event) => {
-                    const t = event.target;
+                    const t: EventTarget = event.target;
                     window.clearTimeout(this.globalFilterTimeout);
                     this.globalFilterTimeout = window.setTimeout(
                         () => this.onGlobalFilterChange(t),
@@ -1701,7 +1662,7 @@ export class KupDataTable {
                 KupLanguageGeneric.EMPTY_DATA
             );
         }
-        this.columnMenuInstance = new ColumnMenu();
+        this.columnMenuInstance = new KupColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersRowsInstance = new FiltersRows();
 
@@ -1720,9 +1681,8 @@ export class KupDataTable {
         this.expandGroupsHandler();
 
         if (document.querySelectorAll('.header')[0]) {
-            this.navBarHeight = document.querySelectorAll(
-                '.header'
-            )[0].clientHeight;
+            this.navBarHeight =
+                document.querySelectorAll('.header')[0].clientHeight;
         } else {
             this.navBarHeight = 0;
         }
@@ -1841,13 +1801,18 @@ export class KupDataTable {
      * @memberof KupDataTable
      */
     private rowDetail(row: Row, x: number, y: number): void {
-        let transposedData: TableData = this.getTransposedData();
+        const transposedData: TableData = this.getTransposedData();
         const cardData: CardData = {
             button: [
                 {
+                    disabled: parseInt(row.id) === 0 ? true : false,
                     icon: 'chevron_left',
                 },
                 {
+                    disabled:
+                        parseInt(row.id) === this.data.rows.length - 1
+                            ? true
+                            : false,
                     icon: 'chevron_right',
                 },
             ],
@@ -1886,9 +1851,8 @@ export class KupDataTable {
             columns[index].visible = false;
         }
         // Setting Field column and current record column to visible
-        columns.find(
-            (x) => x.name === fieldColumn.toUpperCase()
-        ).visible = true;
+        columns.find((x) => x.name === fieldColumn.toUpperCase()).visible =
+            true;
         const currentColumn = columns.find((x) => x.name === row.id);
         if (currentColumn) {
             currentColumn.visible = true;
@@ -2092,9 +2056,8 @@ export class KupDataTable {
                 details.tr &&
                 !details.isGroupRow
             ) {
-                const focusEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                    'tr.focus'
-                );
+                const focusEl: HTMLElement =
+                    this.rootElement.shadowRoot.querySelector('tr.focus');
                 if (focusEl) {
                     focusEl.classList.remove('focus');
                 }
@@ -2180,9 +2143,8 @@ export class KupDataTable {
             e.target as HTMLElement
         );
 
-        const hoverEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '.hover'
-        );
+        const hoverEl: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('.hover');
         if (hoverEl) {
             hoverEl.classList.remove('hover');
         }
@@ -2196,9 +2158,8 @@ export class KupDataTable {
     }
 
     private mouseOutHandler(): void {
-        const hoverEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '.hover'
-        );
+        const hoverEl: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('.hover');
         if (hoverEl) {
             hoverEl.classList.remove('hover');
         }
@@ -2473,9 +2434,11 @@ export class KupDataTable {
             // Safari handles the sticky position on the tables in a different way, making it start from the tbody element
             // and not on the table with a specified position of sticky. There fore in that case we must set initial height to 0.
             let previousHeight: number = !this.isSafariBrowser
-                ? (this.tableRef.querySelector(
-                      'thead > tr:first-of-type > th:first-of-type'
-                  ) as HTMLTableCellElement).getBoundingClientRect().height // [ffbf]
+                ? (
+                      this.tableRef.querySelector(
+                          'thead > tr:first-of-type > th:first-of-type'
+                      ) as HTMLTableCellElement
+                  ).getBoundingClientRect().height // [ffbf]
                 : 0;
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
@@ -2484,10 +2447,11 @@ export class KupDataTable {
                     FixedCellsCSSVarsBase.rows + i,
                     previousHeight + 'px'
                 );
-                previousHeight += (currentRow
-                    .children[0] as HTMLTableCellElement).getBoundingClientRect()
-                    .height; // [ffbf]
-                currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
+                previousHeight += (
+                    currentRow.children[0] as HTMLTableCellElement
+                ).getBoundingClientRect().height; // [ffbf]
+                currentRow =
+                    currentRow.nextElementSibling as HTMLTableRowElement;
             }
             toRet = true;
         }
@@ -2500,7 +2464,7 @@ export class KupDataTable {
             let totalFixedColumns =
                 this.fixedColumns +
                 (this.hasRowActions() ? 1 : 0) +
-                (this.multiSelection ? 1 : 0);
+                (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
 
             // @See [CSSCount]
             for (let i = 1; i <= totalFixedColumns && currentCell; i++) {
@@ -2509,7 +2473,8 @@ export class KupDataTable {
                     previousWidth + 'px'
                 );
                 previousWidth += currentCell.getBoundingClientRect().width; // [ffbf]
-                currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
+                currentCell =
+                    currentCell.nextElementSibling as HTMLTableCellElement;
             }
             toRet = true;
         }
@@ -2600,9 +2565,28 @@ export class KupDataTable {
         const target = event.target;
 
         // selecting row
-        if (!this.multiSelection) {
-            this.selectedRows = [row];
+        if (!row.unselectable) {
+            switch (this.selection) {
+                case SelectionMode.MULTIPLE:
+                    if (this.selectedRows.includes(row)) {
+                        let selectedRowsCopy = [...this.selectedRows];
+                        var index = selectedRowsCopy.indexOf(row);
+                        if (index !== -1) {
+                            selectedRowsCopy.splice(index, 1);
+                        }
+                        this.selectedRows = [...selectedRowsCopy];
+                    } else {
+                        this.selectedRows = [...this.selectedRows, row];
+                    }
+                    break;
+                case SelectionMode.SINGLE:
+                    this.selectedRows = [row];
+                    break;
+                default:
+                    break;
+            }
         }
+
         // find clicked column
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
@@ -2611,7 +2595,6 @@ export class KupDataTable {
                 while (currentElement.tagName !== 'TD') {
                     currentElement = currentElement.parentElement;
                 }
-
                 clickedColumn = currentElement.dataset.column;
             }
         }
@@ -2686,7 +2669,7 @@ export class KupDataTable {
         column: Column,
         row: Row
     ) {
-        if (isCheckbox(cell.obj)) {
+        if (this.kupManager.objects.isCheckbox(cell.obj)) {
             if (cell.data && cell.data['checked'] !== undefined) {
                 cell.data['checked'] = value === 'on' ? false : true;
             }
@@ -2816,7 +2799,9 @@ export class KupDataTable {
         if (column == null || column.obj == null) {
             return false;
         }
-        return canHaveAutomaticDerivedColumn(column.obj);
+        return this.kupManager.objects.canHaveAutomaticDerivedColumn(
+            column.obj
+        );
     }
 
     private onHeaderCellContextMenuClose(event: MouseEvent) {
@@ -3015,7 +3000,7 @@ export class KupDataTable {
     private calculateColspan() {
         let colSpan = this.getVisibleColumns().length;
 
-        if (this.multiSelection) {
+        if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             colSpan += 1;
         }
 
@@ -3119,24 +3104,27 @@ export class KupDataTable {
             thStyle: GenericObject = {};
 
         if (
-            isBar(column.obj) ||
-            isButton(column.obj) ||
-            isChart(column.obj) ||
-            isCheckbox(column.obj) ||
-            isImage(column.obj) ||
-            isIcon(column.obj) ||
-            isProgressBarObj(column.obj) ||
-            isRadioObj(column.obj) ||
-            isVoCodver(column.obj)
+            this.kupManager.objects.isBar(column.obj) ||
+            this.kupManager.objects.isButton(column.obj) ||
+            this.kupManager.objects.isChart(column.obj) ||
+            this.kupManager.objects.isCheckbox(column.obj) ||
+            this.kupManager.objects.isImage(column.obj) ||
+            this.kupManager.objects.isIcon(column.obj) ||
+            this.kupManager.objects.isProgressBar(column.obj) ||
+            this.kupManager.objects.isRadio(column.obj) ||
+            this.kupManager.objects.isVoCodver(column.obj)
         ) {
             columnClass.centered = true;
         }
 
-        if (isNumber(column.obj)) {
+        if (this.kupManager.objects.isNumber(column.obj)) {
             columnClass.number = true;
         }
 
-        if (isIcon(column.obj) || isVoCodver(column.obj)) {
+        if (
+            this.kupManager.objects.isIcon(column.obj) ||
+            this.kupManager.objects.isVoCodver(column.obj)
+        ) {
             columnClass.icon = true;
         }
         // For fixed cells styles and classes
@@ -3167,7 +3155,7 @@ export class KupDataTable {
 
         // Renders multiple selection column
         let multiSelectColumn = null;
-        if (this.multiSelection) {
+        if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
@@ -3244,14 +3232,12 @@ export class KupDataTable {
         const dataColumns = this.getVisibleColumns().map(
             (column, columnIndex) => {
                 // Composes column cell style and classes
-                const {
-                    columnClass,
-                    thStyle,
-                } = this.composeHeaderCellClassAndStyle(
-                    columnIndex,
-                    specialExtraCellsCount,
-                    column
-                );
+                const { columnClass, thStyle } =
+                    this.composeHeaderCellClassAndStyle(
+                        columnIndex,
+                        specialExtraCellsCount,
+                        column
+                    );
 
                 //---- AddCodeDecodeColumn ----
                 let overlay = null;
@@ -3450,7 +3436,9 @@ export class KupDataTable {
                     },
                 };
 
-                columnClass.number = isNumber(column.obj);
+                columnClass.number = this.kupManager.objects.isNumber(
+                    column.obj
+                );
 
                 return (
                     <th
@@ -3498,7 +3486,7 @@ export class KupDataTable {
         let specialExtraCellsCount: number = 0;
 
         let multiSelectColumn = null;
-        if (this.multiSelection) {
+        if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             specialExtraCellsCount++;
             const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
                 specialExtraCellsCount,
@@ -3575,14 +3563,12 @@ export class KupDataTable {
         // Composes normal header cells
         const dataColumns = this.getVisibleColumns().map(
             (column, columnIndex) => {
-                const {
-                    columnClass,
-                    thStyle,
-                } = this.composeHeaderCellClassAndStyle(
-                    columnIndex,
-                    specialExtraCellsCount,
-                    column
-                );
+                const { columnClass, thStyle } =
+                    this.composeHeaderCellClassAndStyle(
+                        columnIndex,
+                        specialExtraCellsCount,
+                        column
+                    );
 
                 return (
                     <th-sticky class={columnClass} style={thStyle}>
@@ -3611,7 +3597,7 @@ export class KupDataTable {
                         : this.tooltipLoadTimeout
                 }
                 onBlur={() => {
-                    this.closeMenuAndTooltip();
+                    this.tooltip.data = null;
                 }}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
@@ -3645,20 +3631,19 @@ export class KupDataTable {
 
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                '#totals-menu'
-            );
+            let menu: HTMLElement =
+                this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
                 let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
-                    menu as DynamicallyPositionedElement,
+                    menu as KupDynamicPositionElement,
                     wrapper,
                     0,
                     true,
                     true
                 );
                 this.kupManager.dynamicPosition.start(
-                    menu as DynamicallyPositionedElement
+                    menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
                 menu.focus();
@@ -3677,7 +3662,7 @@ export class KupDataTable {
 
         // Composes initial cells if necessary
         let selectRowCell = null;
-        if (this.multiSelection) {
+        if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             extraCells++;
             const fixedCellStyle = this.composeFixedCellStyleAndClass(
                 extraCells,
@@ -3806,7 +3791,7 @@ export class KupDataTable {
                             selected: false,
                         },
                     ];
-                    if (isNumber(column.obj)) {
+                    if (this.kupManager.objects.isNumber(column.obj)) {
                         // TODO Move these objects in declarations
                         listData.push(
                             {
@@ -3835,7 +3820,7 @@ export class KupDataTable {
                                 selected: false,
                             }
                         );
-                    } else if (isDate(column.obj)) {
+                    } else if (this.kupManager.objects.isDate(column.obj)) {
                         listData.push(
                             {
                                 text: null,
@@ -3854,25 +3839,25 @@ export class KupDataTable {
                             }
                         );
                     }
-                    // TODO replace this with find which is a better approach
-                    // Note that this is not supported in older IE
-                    let selectedItem = listData.find(
-                        (item) => item.text === menuLabel
-                    );
-                    if (selectedItem) {
-                        selectedItem.selected = true;
-                        listData.push(
-                            {
-                                text: null,
-                                value: null,
-                                isSeparator: true,
-                            },
-                            {
-                                text: translation[TotalLabel.CANC],
-                                value: TotalLabel.CANC,
-                                selected: false,
-                            }
+                    if (this.totals) {
+                        let selectedItem: ComponentListElement = listData.find(
+                            (item) => item.value === this.totals[column.name]
                         );
+                        if (selectedItem) {
+                            selectedItem.selected = true;
+                            listData.push(
+                                {
+                                    text: null,
+                                    value: null,
+                                    isSeparator: true,
+                                },
+                                {
+                                    text: translation[TotalLabel.CANC],
+                                    value: TotalLabel.CANC,
+                                    selected: false,
+                                }
+                            );
+                        }
                     }
 
                     totalMenu = (
@@ -3902,7 +3887,7 @@ export class KupDataTable {
                 } else if (
                     (menuLabel === TotalLabel.MAX ||
                         menuLabel === TotalLabel.MIN) &&
-                    isDate(column.obj)
+                    this.kupManager.objects.isDate(column.obj)
                 ) {
                     if (footerValue) {
                         if (
@@ -3982,14 +3967,14 @@ export class KupDataTable {
             if (menu) {
                 let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
-                    menu as DynamicallyPositionedElement,
+                    menu as KupDynamicPositionElement,
                     wrapper,
                     0,
                     true,
                     true
                 );
                 this.kupManager.dynamicPosition.start(
-                    menu as DynamicallyPositionedElement
+                    menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
                 menu.focus();
@@ -4069,7 +4054,7 @@ export class KupDataTable {
                     ) {
                         value = totalValue;
                     } else {
-                        if (isDate(column.obj)) {
+                        if (this.kupManager.objects.isDate(column.obj)) {
                             if (totalValue) {
                                 if (
                                     isValidStringDate(
@@ -4077,11 +4062,12 @@ export class KupDataTable {
                                         ISO_DEFAULT_DATE_FORMAT
                                     )
                                 ) {
-                                    value = unformattedStringToFormattedStringDate(
-                                        totalValue,
-                                        null,
-                                        column.obj.t + column.obj.p
-                                    );
+                                    value =
+                                        unformattedStringToFormattedStringDate(
+                                            totalValue,
+                                            null,
+                                            column.obj.t + column.obj.p
+                                        );
                                 } else {
                                     console.warn(`invalid date: ${totalValue}`);
                                 }
@@ -4190,13 +4176,14 @@ export class KupDataTable {
             // IF active, this must be the first cell
             // This is a special cell
             let selectRowCell = null;
-            if (this.multiSelection) {
+            if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
                 specialExtraCellsCount++;
-                const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
-                    specialExtraCellsCount,
-                    rowCssIndex,
-                    specialExtraCellsCount - 1
-                );
+                const selectionStyleAndClass =
+                    this.composeFixedCellStyleAndClass(
+                        specialExtraCellsCount,
+                        rowCssIndex,
+                        specialExtraCellsCount - 1
+                    );
 
                 let props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
@@ -4318,9 +4305,9 @@ export class KupDataTable {
                 // Classes which will be set onto the single data-table cell
                 let cellClass = {
                     //    'has-options': !!options,
-                    'is-graphic': isBar(cell.obj),
+                    'is-graphic': this.kupManager.objects.isBar(cell.obj),
                     number:
-                        isNumber(cell.obj) &&
+                        this.kupManager.objects.isNumber(cell.obj) &&
                         !isRating(cell, null) &&
                         !isGauge(cell, null) &&
                         !isKnob(cell, null),
@@ -4381,7 +4368,9 @@ export class KupDataTable {
                  * Controls if current cell needs a tooltip and eventually adds it.
                  * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
                  */
-                const _hasTooltip: boolean = hasTooltip(cell.obj);
+                const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+                    cell.obj
+                );
                 let eventHandlers = undefined;
                 let title: string = undefined;
                 if (_hasTooltip) {
@@ -4453,17 +4442,16 @@ export class KupDataTable {
                     let column = {};
                     if (trElement) {
                         // get the elements inside the row that were touched
-                        const hoverElements = trElement.querySelectorAll(
-                            ':hover'
-                        );
+                        const hoverElements =
+                            trElement.querySelectorAll(':hover');
                         if (hoverElements) {
                             // the td in position 0 is ALWAYS the last td touched
-                            const tdElement = hoverElements[0] as HTMLTableCellElement;
+                            const tdElement =
+                                hoverElements[0] as HTMLTableCellElement;
                             if (tdElement) {
                                 // get the column name in td element
-                                const columnName = tdElement.getAttribute(
-                                    'data-column'
-                                );
+                                const columnName =
+                                    tdElement.getAttribute('data-column');
                                 if (columnName) {
                                     // finally get the cell
                                     cell = row.cells[columnName];
@@ -5063,7 +5051,7 @@ export class KupDataTable {
         this.customizeTopPanelRef.classList.add('visible');
         this.customizeTopButtonRef.classList.add('toggled');
         this.kupManager.dynamicPosition.start(
-            this.customizeTopPanelRef as DynamicallyPositionedElement
+            this.customizeTopPanelRef as KupDynamicPositionElement
         );
         this.openedCustomSettings = true;
     }
@@ -5075,7 +5063,7 @@ export class KupDataTable {
         }
         this.customizeTopPanelRef.classList.remove('visible');
         this.kupManager.dynamicPosition.stop(
-            this.customizeTopPanelRef as DynamicallyPositionedElement
+            this.customizeTopPanelRef as KupDynamicPositionElement
         );
         this.openedCustomSettings = false;
     }
@@ -5246,19 +5234,19 @@ export class KupDataTable {
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
             this.tableAreaRef.appendChild(dropArea);
             this.kupManager.dynamicPosition.register(
-                dropArea as DynamicallyPositionedElement,
+                dropArea as KupDynamicPositionElement,
                 th,
                 10,
                 true
             );
             this.kupManager.dynamicPosition.start(
-                dropArea as DynamicallyPositionedElement
+                dropArea as KupDynamicPositionElement
             );
             dropArea.classList.add('visible');
         } else {
             dropArea.classList.remove('visible');
             this.kupManager.dynamicPosition.stop(
-                dropArea as DynamicallyPositionedElement
+                dropArea as KupDynamicPositionElement
             );
         }
     }
@@ -5760,9 +5748,13 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         let compCreated = (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class="above-wrapper">
                         {this.globalFilter ? (
@@ -5785,7 +5777,7 @@ export class KupDataTable {
                         style={elStyle}
                         class={belowClass}
                         ref={(el: HTMLElement) =>
-                            (this.tableAreaRef = el as ScrollableElement)
+                            (this.tableAreaRef = el as KupScrollOnHoverElement)
                         }
                     >
                         {this.showCustomization
@@ -5796,7 +5788,8 @@ export class KupDataTable {
                                           this.onCustomSettingsClick();
                                       }}
                                       ref={(el) => {
-                                          this.customizeTopButtonRef = el as any;
+                                          this.customizeTopButtonRef =
+                                              el as any;
                                       }}
                                   >
                                       <FImage
@@ -5874,12 +5867,11 @@ export class KupDataTable {
         return compCreated;
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

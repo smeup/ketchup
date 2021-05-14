@@ -1,4 +1,4 @@
-import { MDCChipSet } from '@material/chips';
+import { MDCChipSet } from '@material/chips/deprecated/chip-set';
 
 /**
  * Instantiates Material Design chip component.

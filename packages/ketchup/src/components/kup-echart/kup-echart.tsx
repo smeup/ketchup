@@ -1,22 +1,24 @@
 import {
     Component,
-    Host,
-    h,
-    Prop,
     Element,
-    getAssetPath,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
+    getAssetPath,
+    Host,
+    h,
     Method,
+    Prop,
+    State,
 } from '@stencil/core';
+
 import { EchartTitle, KupEchartProps } from './kup-echart-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import echarts, { EChartOption, ECharts } from 'echarts';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -27,8 +29,6 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupEchart {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
-    @State() stateSwitcher: boolean = false;
     @State() themeBorder: string = undefined;
     @State() themeColors: string[] = undefined;
     @State() themeFont: string = undefined;
@@ -87,28 +87,6 @@ export class KupEchart {
     //---- Methods ----
 
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme =
-            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
-        this.customStyleTheme = customStyleTheme;
-        this.fetchThemeColors();
-    }
-    /**
-     * This method is invoked by KupManager whenever the component changes size.
-     */
-    @Method()
-    async resizeCallback(): Promise<void> {
-        window.clearTimeout(this.resizeTimeout);
-        this.resizeTimeout = window.setTimeout(() => this.forceUpdate(), 300);
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -127,13 +105,24 @@ export class KupEchart {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+    }
 
     private onKupClick() {
         this.kupEchartClicked.emit();
-    }
-
-    private forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
     }
 
     private initChart() {
@@ -534,6 +523,7 @@ export class KupEchart {
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);
+        this.fetchThemeColors();
     }
 
     componentDidRender() {
@@ -542,9 +532,13 @@ export class KupEchart {
     }
 
     render() {
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div
                     id="kup-component"
                     onClick={() => this.onKupClick()}
@@ -556,7 +550,7 @@ export class KupEchart {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
     }

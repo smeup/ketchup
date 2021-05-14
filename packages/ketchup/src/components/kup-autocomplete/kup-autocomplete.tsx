@@ -1,29 +1,30 @@
 import {
     Component,
+    Element,
     Event,
     EventEmitter,
-    Prop,
-    Element,
-    Host,
-    State,
+    forceUpdate,
     h,
-    Method,
+    Host,
     Listen,
+    Method,
+    Prop,
+    State,
 } from '@stencil/core';
-import {
-    ItemsDisplayMode,
-    consistencyCheck,
-} from '../kup-list/kup-list-declarations';
-import { FTextField } from '../../f-components/f-text-field/f-text-field';
-import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupAutocompleteProps } from './kup-autocomplete-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import {
+    ItemsDisplayMode,
+    consistencyCheck,
+} from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -32,7 +33,6 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupAutocomplete {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
     @State() displayedValue: string = undefined;
     @State() value: string = '';
 
@@ -43,7 +43,7 @@ export class KupAutocomplete {
     /**
      * Props of the sub-components.
      */
-    @Prop() data: Object = undefined;
+    @Prop({ mutable: true }) data: Object = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
@@ -205,14 +205,16 @@ export class KupAutocomplete {
 
     //---- Methods ----
 
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
     @Method()
     async getValue(): Promise<string> {
         return this.value;
-    }
-
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
     }
 
     @Method()
@@ -358,7 +360,7 @@ export class KupAutocomplete {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
         this.kupManager.dynamicPosition.start(
-            this.listEl as DynamicallyPositionedElement
+            this.listEl as KupDynamicPositionElement
         );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
@@ -370,7 +372,7 @@ export class KupAutocomplete {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
         this.kupManager.dynamicPosition.stop(
-            this.rootElement as DynamicallyPositionedElement
+            this.rootElement as KupDynamicPositionElement
         );
     }
 
@@ -492,6 +494,9 @@ export class KupAutocomplete {
         const fullWidth: boolean = this.rootElement.classList.contains(
             'kup-full-width'
         );
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
 
         return (
             <Host
@@ -501,7 +506,7 @@ export class KupAutocomplete {
                 onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}
             >
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}
@@ -518,9 +523,9 @@ export class KupAutocomplete {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {

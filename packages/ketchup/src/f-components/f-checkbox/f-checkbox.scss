@@ -22,6 +22,9 @@
         background-color: var(--kup-primary-color);
         border-color: var(--kup-primary-color);
       }
+      &.mdc-checkbox--disabled + label {
+        pointer-events: none;
+      }
       &.mdc-checkbox--disabled .mdc-checkbox__background {
         background-color: transparent;
         border-color: rgba(var(--kup-text-color-rgb), 0.325);

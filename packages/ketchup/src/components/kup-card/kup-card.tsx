@@ -1,13 +1,13 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
     VNode,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
@@ -15,7 +15,7 @@ import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -36,21 +36,6 @@ export class KupCard {
      * References the root HTML element of the component (<kup-card>).
      */
     @Element() rootElement: HTMLElement;
-
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-
-    /**
-     * The component-specific CSS set by the current Ketch.UP theme.
-     * @default ""
-     */
-    @State() customStyleTheme: string = '';
-    /**
-     * Used to trigger a new render of the component.
-     * @default false
-     */
-    @State() _refresh: boolean = false;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -201,27 +186,6 @@ export class KupCard {
     /*-------------------------------------------------*/
 
     /**
-     * This method is invoked by the theme manager.
-     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-     * @param customStyleTheme - Contains current theme's component-specific CSS.
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-     */
-    @Method()
-    async themeChangeCallback(customStyleTheme: string): Promise<void> {
-        this.customStyleTheme = customStyleTheme;
-    }
-    /**
-     * This method is invoked by KupManager whenever the component changes size.
-     */
-    @Method()
-    async resizeCallback(): Promise<void> {
-        window.clearTimeout(this.resizeTimeout);
-        this.resizeTimeout = window.setTimeout(() => {
-            this.layoutManager();
-        }, 300);
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -242,11 +206,20 @@ export class KupCard {
     }
     /**
      * This method is used to trigger a new render of the component.
-     * Useful when slots change.
      */
     @Method()
     async refresh(): Promise<void> {
-        this._refresh = !this._refresh;
+        forceUpdate(this);
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            this.layoutManager();
+        }, 300);
     }
 
     /*-------------------------------------------------*/
@@ -507,14 +480,18 @@ export class KupCard {
             return;
         }
 
-        const style = {
+        const style: GenericObject = {
             '--kup-card-height': this.sizeY ? this.sizeY : '100%',
             '--kup-card-width': this.sizeX ? this.sizeX : '100%',
         };
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host style={style}>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div
                     id="kup-component"
                     class={`${this.isMenu ? 'mdc-menu mdc-menu-surface' : ''} ${
@@ -528,7 +505,7 @@ export class KupCard {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         this.kupManager.dialog.unregister([this.rootElement as DialogElement]);

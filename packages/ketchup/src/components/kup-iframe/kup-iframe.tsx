@@ -1,13 +1,15 @@
 import {
     Component,
-    Event,
     Element,
-    Host,
+    Event,
     EventEmitter,
-    Prop,
+    forceUpdate,
     h,
+    Host,
     Method,
+    Prop,
 } from '@stencil/core';
+
 import type { GenericObject } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
@@ -89,6 +91,13 @@ export class KupIframe {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     //---- Lifecycle hooks ----

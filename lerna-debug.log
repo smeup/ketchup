@@ -7,20 +7,20 @@
 0 silly argv   script: 'serve'
 0 silly argv }
 1 notice cli v3.22.1
-2 verbose rootPath C:\Users\aziz.urrehman\Desktop\Ketchup_1\ketchup
+2 verbose rootPath D:\Projects\ketchup
 3 info versioning independent
 4 notice filter including "ketchup-showcase"
 5 info filter [ 'ketchup-showcase' ]
 6 info Executing command in 1 package: "npm run serve"
 7 silly npmRunScript.stream [ 'serve', [], 'ketchup-showcase' ]
-8 silly getExecOpts C:\Users\aziz.urrehman\Desktop\Ketchup_1\ketchup\packages\ketchup-showcase undefined
+8 silly getExecOpts D:\Projects\ketchup\packages\ketchup-showcase undefined
 9 error MaxBufferError: stdout maxBuffer exceeded
-9 error     at PassThrough.<anonymous> (C:\Users\aziz.urrehman\Desktop\Ketchup_1\ketchup\node_modules\get-stream\index.js:41:19)
-9 error     at PassThrough.emit (events.js:327:22)
-9 error     at addChunk (internal/streams/readable.js:309:12)
-9 error     at readableAddChunk (internal/streams/readable.js:280:11)
-9 error     at PassThrough.Readable.push (internal/streams/readable.js:223:10)
-9 error     at PassThrough.Transform.push (internal/streams/transform.js:166:32)
-9 error     at PassThrough.afterTransform (internal/streams/transform.js:101:10)
-9 error     at PassThrough._transform (internal/streams/passthrough.js:46:3)
-9 error     at PassThrough.Transform._read (internal/streams/transform.js:205:10)
+9 error     at PassThrough.<anonymous> (D:\Projects\ketchup\node_modules\get-stream\index.js:41:19)
+9 error     at PassThrough.emit (events.js:326:22)
+9 error     at addChunk (_stream_readable.js:307:12)
+9 error     at readableAddChunk (_stream_readable.js:278:11)
+9 error     at PassThrough.Readable.push (_stream_readable.js:221:10)
+9 error     at PassThrough.Transform.push (_stream_transform.js:166:32)
+9 error     at PassThrough.afterTransform (_stream_transform.js:101:10)
+9 error     at PassThrough._transform (_stream_passthrough.js:46:3)
+9 error     at PassThrough.Transform._read (_stream_transform.js:205:10)

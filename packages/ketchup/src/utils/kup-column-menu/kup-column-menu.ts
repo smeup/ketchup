@@ -2,6 +2,7 @@ import type { CardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { KupCard } from '../../components/kup-card/kup-card';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import type { KupDynamicPositionElement } from '../kup-dynamic-position/kup-dynamic-position-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
@@ -10,19 +11,7 @@ import type {
     Column,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import type { DynamicallyPositionedElement } from '../dynamic-position/dynamic-position-declarations';
 import { unsetTooltip } from '../helpers';
-import {
-    isCheckbox,
-    isDate,
-    isNumber,
-    isStringObject,
-    isTime,
-    isTimestamp,
-    isTimeWithSeconds,
-    canHaveExtraColumns,
-    canHaveAutomaticDerivedColumn,
-} from '../object-utils';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import {
     FilterInterval,
@@ -38,7 +27,6 @@ import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
 import { Filters } from '../filters/filters';
 import {
-    KupLanguageGeneric,
     KupLanguageColumn,
     KupLanguageSearch,
     KupLanguageGrouping,
@@ -48,9 +36,9 @@ import {
 const dom: KupDom = document.documentElement as KupDom;
 /**
  * Definition and events of the column menu card.
- * @module ColumnMenu
+ * @module KupColumnMenu
  */
-export class ColumnMenu {
+export class KupColumnMenu {
     filtersColumnMenuInstance = new FiltersColumnMenu();
     filtersRowsInstance = new FiltersRows();
     /**
@@ -106,7 +94,7 @@ export class ColumnMenu {
                 } else {
                     dom.ketchup.dynamicPosition.register(card, wrapper);
                     dom.ketchup.dynamicPosition.start(
-                        card as DynamicallyPositionedElement
+                        card as KupDynamicPositionElement
                     );
                     card.menuVisible = true;
                     card.focus();
@@ -125,11 +113,12 @@ export class ColumnMenu {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
-            textfield: !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
-                column
-            )
-                ? this.prepTextfield(comp, column)
-                : this.prepIntervalTextfield(comp, column),
+            textfield:
+                !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
+                    column
+                )
+                    ? this.prepTextfield(comp, column)
+                    : this.prepIntervalTextfield(comp, column),
             timepicker: this.prepIntervalTimePicker(comp, column),
         };
     }
@@ -173,7 +162,10 @@ export class ColumnMenu {
                 title: dom.ketchup.language.translate(KupLanguageColumn.HIDE),
             });
         }
-        if (comp.enableExtraColumns && canHaveExtraColumns(column.obj)) {
+        if (
+            comp.enableExtraColumns &&
+            dom.ketchup.objects.canHaveExtraColumns(column.obj)
+        ) {
             props.push({
                 className: 'printable',
                 'data-storage': {
@@ -183,7 +175,7 @@ export class ColumnMenu {
                 id: 'add',
                 title: dom.ketchup.language.translate(KupLanguageColumn.ADD),
             });
-            if (canHaveAutomaticDerivedColumn(column.obj)) {
+            if (dom.ketchup.objects.canHaveAutomaticDerivedColumn(column.obj)) {
                 props.push({
                     className: 'printable',
                     'data-storage': {
@@ -212,15 +204,16 @@ export class ColumnMenu {
         let props: GenericObject[] = [];
         if (
             comp.showFilters &&
-            (isStringObject(column.obj) || isCheckbox(column.obj))
+            (dom.ketchup.objects.isStringObject(column.obj) ||
+                dom.ketchup.objects.isCheckbox(column.obj))
         ) {
-            const checkBoxesFilter: ValueDisplayedValue[] = this.filtersColumnMenuInstance.getCheckBoxFilterValues(
-                comp.filters,
-                column.name
-            );
-            const columnValues: ValueDisplayedValue[] = comp.getColumnValues(
-                column
-            );
+            const checkBoxesFilter: ValueDisplayedValue[] =
+                this.filtersColumnMenuInstance.getCheckBoxFilterValues(
+                    comp.filters,
+                    column.name
+                );
+            const columnValues: ValueDisplayedValue[] =
+                comp.getColumnValues(column);
 
             if (columnValues.length > 0) {
                 props.push({
@@ -237,7 +230,7 @@ export class ColumnMenu {
             }
             for (let index = 0; index < columnValues.length; index++) {
                 let label = getValueForDisplay2(columnValues[index], column);
-                if (isCheckbox(column.obj)) {
+                if (dom.ketchup.objects.isCheckbox(column.obj)) {
                     if (columnValues[index].value == '1') {
                         label = dom.ketchup.language.translate(
                             KupLanguageCheckbox.CHECKED
@@ -278,11 +271,15 @@ export class ColumnMenu {
         column: Column
     ): GenericObject[] {
         let props: GenericObject[] = [];
-        if (comp.showFilters && isStringObject(column.obj)) {
-            let filterInitialValue = this.filtersColumnMenuInstance.getTextFilterValue(
-                comp.filters,
-                column.name
-            );
+        if (
+            comp.showFilters &&
+            dom.ketchup.objects.isStringObject(column.obj)
+        ) {
+            let filterInitialValue =
+                this.filtersColumnMenuInstance.getTextFilterValue(
+                    comp.filters,
+                    column.name
+                );
             filterInitialValue = getValueForDisplay(
                 filterInitialValue,
                 column.obj,
@@ -322,14 +319,15 @@ export class ColumnMenu {
         if (!comp.showFilters) {
             return props;
         }
-        if (!isNumber(column.obj)) {
+        if (!dom.ketchup.objects.isNumber(column.obj)) {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
@@ -380,14 +378,15 @@ export class ColumnMenu {
         if (!comp.showFilters) {
             return props;
         }
-        if (!isTime(column.obj)) {
+        if (!dom.ketchup.objects.isTime(column.obj)) {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
@@ -409,7 +408,7 @@ export class ColumnMenu {
                 },
             },
             initialValue: initialValueFrom,
-            manageSeconds: isTimeWithSeconds(column.obj),
+            manageSeconds: dom.ketchup.objects.isTimeWithSeconds(column.obj),
         });
         props.push({
             'data-storage': {
@@ -427,7 +426,7 @@ export class ColumnMenu {
                 },
             },
             initialValue: initialValueTo,
-            manageSeconds: isTimeWithSeconds(column.obj),
+            manageSeconds: dom.ketchup.objects.isTimeWithSeconds(column.obj),
         });
 
         return props;
@@ -446,20 +445,24 @@ export class ColumnMenu {
         if (!comp.showFilters) {
             return props;
         }
-        if (!isDate(column.obj) && !isTimestamp(column.obj)) {
+        if (
+            !dom.ketchup.objects.isDate(column.obj) &&
+            !dom.ketchup.objects.isTimestamp(column.obj)
+        ) {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
         let suffixFrom = null;
         let suffixTo = null;
-        if (isTimestamp(column.obj)) {
+        if (dom.ketchup.objects.isTimestamp(column.obj)) {
             suffixFrom = ' 00:00:00';
             suffixTo = ' 23:59:59';
             if (initialValueFrom != '') {
@@ -603,7 +606,7 @@ export class ColumnMenu {
                 } else {
                     this.textfieldChange(comp, null, dataStorage['column']);
                 }
-                this.saveTextualFilters(comp, dataStorage['columnName']);
+                this.saveTextualFilters(comp, dataStorage['column']);
                 break;
             case 'kupTextFieldInput':
             case 'kupDatePickerInput':
@@ -629,10 +632,7 @@ export class ColumnMenu {
                         );
                     }
                     if (isClickEvent) {
-                        this.saveTextualFilters(
-                            comp,
-                            dataStorage['columnName']
-                        );
+                        this.saveTextualFilters(comp, dataStorage['column']);
                     }
                 }, 300);
                 break;

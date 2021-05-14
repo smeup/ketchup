@@ -6,6 +6,7 @@ import {
     SortObject,
     GroupLabelDisplayMode,
     TotalsMap,
+    SelectionMode,
 } from './kup-data-table-declarations';
 
 export class KupDataTableState implements KupState {
@@ -22,7 +23,7 @@ export class KupDataTableState implements KupState {
     headerIsPersistent = true;
     lazyLoadRows = false;
     loadMoreLimit: number = 1000;
-    multiSelection = false;
+    selection = SelectionMode.SINGLE;
     rowsPerPage = 10;
     showFilters = false;
     showGroups = false;

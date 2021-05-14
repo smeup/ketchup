@@ -34,6 +34,16 @@ Type: `Promise<GenericObject>`
 
 
 
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 

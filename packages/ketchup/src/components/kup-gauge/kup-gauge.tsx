@@ -1,13 +1,15 @@
 import {
     Component,
     Element,
-    Prop,
+    forceUpdate,
     h,
-    State,
-    Method,
     Host,
+    Method,
+    Prop,
 } from '@stencil/core';
-import { GenericObject } from '../../types/GenericTypes';
+
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -24,7 +26,6 @@ declare const d3: any;
 })
 export class KupGauge {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Sets how much the arc of the gauge should be thick.
@@ -51,11 +52,11 @@ export class KupGauge {
     /**
      * The distance the label and the value has from the gauge graph.
      */
-    @Prop() labelDistance: number = 20;
+    @Prop({ mutable: true }) labelDistance: number = 20;
     /**
      * The maximum value reachable in the current graph.
      */
-    @Prop() maxValue: number = 100;
+    @Prop({ mutable: true }) maxValue: number = 100;
     /**
      * A string which will be appended to the displayed values of the component.
      */
@@ -63,7 +64,7 @@ export class KupGauge {
     /**
      * The minimum value reachable in the current graph.
      */
-    @Prop() minValue: number = -100;
+    @Prop({ mutable: true }) minValue: number = -100;
     /**
      * When true, shows a rounded needle.
      */
@@ -103,7 +104,7 @@ export class KupGauge {
      * The current value of the gauge.
      * The gauge's needle points to the percentage based on this prop.
      */
-    @Prop() value: number = 0;
+    @Prop({ mutable: true }) value: number = 0;
     /**
      * The current size of gauge's value.
      * Correct values are: 0,1,2 or 3.
@@ -134,10 +135,6 @@ export class KupGauge {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -156,6 +153,13 @@ export class KupGauge {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     //---- Utility functions ----
@@ -248,6 +252,15 @@ export class KupGauge {
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);
+        if (!this.labelDistance) {
+            this.labelDistance = 20;
+        }
+        if (!this.maxValue) {
+            this.maxValue = 100;
+        }
+        if (!this.minValue) {
+            this.minValue = -100;
+        }
     }
 
     componentDidRender() {
@@ -255,6 +268,14 @@ export class KupGauge {
     }
 
     render() {
+        if (isNaN(this.value)) {
+            this.kupManager.debug.logMessage(
+                this,
+                'Invalid value, not rendering!',
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
         // mathematical operations
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
         let tempValue = this.value;
@@ -443,9 +464,14 @@ export class KupGauge {
         }
 
         const width = { width: this.widthComponent };
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class="gauge__container">
                     <svg
                         class="gauge"
@@ -483,7 +509,7 @@ export class KupGauge {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

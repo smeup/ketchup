@@ -1,15 +1,17 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
     h,
-    Watch,
+    Host,
     Method,
+    Prop,
+    State,
+    Watch,
 } from '@stencil/core';
+
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement, KupListProps } from './kup-list-declarations';
@@ -21,7 +23,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
@@ -31,7 +33,6 @@ import { FImage } from '../../f-components/f-image/f-image';
 })
 export class KupList {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
@@ -45,7 +46,7 @@ export class KupList {
     /**
      * The data of the list.
      */
-    @Prop() data: ComponentListElement[] = [];
+    @Prop({ mutable: true }) data: ComponentListElement[] = [];
     /**
      * Selects how the items must display their label and how they can be filtered for.
      */
@@ -53,7 +54,7 @@ export class KupList {
     /**
      * Keeps string for filtering elements when filter mode is active
      */
-    @Prop() filter: string = '';
+    @Prop({ mutable: true }) filter: string = '';
     /**
      * Hides rows' text, ideally to display a list of icons only.
      */
@@ -69,7 +70,7 @@ export class KupList {
     /**
      * Defines the type of selection. Values accepted: listbox, radiogroup or group.
      */
-    @Prop() roleType?: string = KupList.ROLE_LISTBOX;
+    @Prop({ mutable: true }) roleType?: string = KupList.ROLE_LISTBOX;
     /**
      * Defines whether items are selectable or not.
      */
@@ -207,10 +208,6 @@ export class KupList {
 
     //---- Methods ----
 
-    @Method()
-    async themeChangeCallback(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -229,6 +226,13 @@ export class KupList {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
@@ -637,9 +641,13 @@ export class KupList {
         this.checkboxes = [];
         let index = 0;
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class={wrapperClass}>
                     <ul
                         class={componentClass}
@@ -660,7 +668,7 @@ export class KupList {
         );
     }
 
-    componentDidUnload() {
+    disconnectedCallback() {
         this.kupManager.theme.unregister(this);
     }
 }

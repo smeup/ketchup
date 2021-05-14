@@ -11,7 +11,7 @@ export class KupLayout {
      *
      * If this is greater than 1, then the horizontal prop will have no effect.
      */
-    @Prop({ reflect: true })
+    @Prop({ reflect: true, mutable: true })
     columnsNumber: number = 1;
 
     /**
