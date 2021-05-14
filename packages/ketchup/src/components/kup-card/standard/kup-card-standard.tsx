@@ -1067,6 +1067,7 @@ export function create14(component: KupCard): VNode {
                             {treeArray[0] ? (
                                 <kup-tree
                                     class="kup-full-width"
+                                    globalFilter
                                     {...treeArray[0]}
                                 />
                             ) : null}
