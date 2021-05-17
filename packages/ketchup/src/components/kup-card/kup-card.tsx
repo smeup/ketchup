@@ -381,6 +381,7 @@ export class KupCard {
         root.addEventListener('kupTimePickerInput', this.cardEvent);
         root.addEventListener('kupTimePickerItemClick', this.cardEvent);
         root.addEventListener('kupTimePickerTextFieldSubmit', this.cardEvent);
+        root.addEventListener('kupTreeNodeExpand', this.cardEvent);
         root.addEventListener('kupTreeNodeSelected', this.cardEvent);
     }
     /**
