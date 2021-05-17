@@ -113,11 +113,12 @@ export class KupColumnMenu {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
-            textfield: !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
-                column
-            )
-                ? this.prepTextfield(comp, column)
-                : this.prepIntervalTextfield(comp, column),
+            textfield:
+                !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
+                    column
+                )
+                    ? this.prepTextfield(comp, column)
+                    : this.prepIntervalTextfield(comp, column),
             timepicker: this.prepIntervalTimePicker(comp, column),
         };
     }
@@ -206,13 +207,13 @@ export class KupColumnMenu {
             (dom.ketchup.objects.isStringObject(column.obj) ||
                 dom.ketchup.objects.isCheckbox(column.obj))
         ) {
-            const checkBoxesFilter: ValueDisplayedValue[] = this.filtersColumnMenuInstance.getCheckBoxFilterValues(
-                comp.filters,
-                column.name
-            );
-            const columnValues: ValueDisplayedValue[] = comp.getColumnValues(
-                column
-            );
+            const checkBoxesFilter: ValueDisplayedValue[] =
+                this.filtersColumnMenuInstance.getCheckBoxFilterValues(
+                    comp.filters,
+                    column.name
+                );
+            const columnValues: ValueDisplayedValue[] =
+                comp.getColumnValues(column);
 
             if (columnValues.length > 0) {
                 props.push({
@@ -274,10 +275,11 @@ export class KupColumnMenu {
             comp.showFilters &&
             dom.ketchup.objects.isStringObject(column.obj)
         ) {
-            let filterInitialValue = this.filtersColumnMenuInstance.getTextFilterValue(
-                comp.filters,
-                column.name
-            );
+            let filterInitialValue =
+                this.filtersColumnMenuInstance.getTextFilterValue(
+                    comp.filters,
+                    column.name
+                );
             filterInitialValue = getValueForDisplay(
                 filterInitialValue,
                 column.obj,
@@ -321,10 +323,11 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
@@ -379,10 +382,11 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
@@ -448,10 +452,11 @@ export class KupColumnMenu {
             return props;
         }
 
-        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            comp.filters,
-            column
-        );
+        let interval =
+            this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+                comp.filters,
+                column
+            );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
@@ -601,7 +606,7 @@ export class KupColumnMenu {
                 } else {
                     this.textfieldChange(comp, null, dataStorage['column']);
                 }
-                this.saveTextualFilters(comp, dataStorage['columnName']);
+                this.saveTextualFilters(comp, dataStorage['column']);
                 break;
             case 'kupTextFieldInput':
             case 'kupDatePickerInput':
@@ -627,10 +632,7 @@ export class KupColumnMenu {
                         );
                     }
                     if (isClickEvent) {
-                        this.saveTextualFilters(
-                            comp,
-                            dataStorage['columnName']
-                        );
+                        this.saveTextualFilters(comp, dataStorage['column']);
                     }
                 }, 300);
                 break;
