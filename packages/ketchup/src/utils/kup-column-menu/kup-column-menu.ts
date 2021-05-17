@@ -664,7 +664,7 @@ export class KupColumnMenu {
                 } else {
                     this.textfieldChange(comp, null, dataStorage['column']);
                 }
-                this.saveTextualFilters(comp, dataStorage['columnName']);
+                this.saveTextualFilters(comp, dataStorage['column']);
                 break;
             case 'kupTextFieldInput':
             case 'kupDatePickerInput':
@@ -690,10 +690,7 @@ export class KupColumnMenu {
                         );
                     }
                     if (isClickEvent) {
-                        this.saveTextualFilters(
-                            comp,
-                            dataStorage['columnName']
-                        );
+                        this.saveTextualFilters(comp, dataStorage['column']);
                     }
                 }, 300);
                 break;
