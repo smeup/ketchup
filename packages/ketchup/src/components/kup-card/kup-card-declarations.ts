@@ -27,6 +27,7 @@ export interface CardData {
     datatable?: GenericObject[];
     datepicker?: GenericObject[];
     image?: GenericObject[];
+    list?: GenericObject[];
     object?: KupObj[];
     progressbar?: GenericObject[];
     tabbar?: GenericObject[];

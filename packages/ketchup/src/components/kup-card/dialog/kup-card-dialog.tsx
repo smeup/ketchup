@@ -173,6 +173,43 @@ export function create4(component: KupCard): VNode {
     );
 }
 /**
+ * 5th dialog card layout, buttons and text lines, used for debug window.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
+ */
+export function create5(component: KupCard): VNode {
+    //Slot list
+    const slots: Array<HTMLElement> = Array.prototype.slice.call(
+        component.rootElement.children,
+        0
+    );
+    //List
+    const listArray: GenericObject[] = component.data['list']
+        ? component.data['list']
+        : [];
+    //Dialog title
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    return (
+        <div
+            class={`dialog-layout-${component.layoutNumber} ${KupCardCSSClasses.DIALOG_UNRESIZABLE}`}
+        >
+            {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
+            <div>
+                {slots.length > 0 ? (
+                    <div class="section-1">{compList(slots, 'slot')}</div>
+                ) : null}
+                {listArray[0] ? (
+                    <div class="section-2">
+                        <kup-list id="list1" {...listArray[0]} />
+                    </div>
+                ) : null}
+            </div>
+        </div>
+    );
+}
+/**
  * Invoked by 4th layout to switch to the previous record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
  * @param {KupCard} componentonent - Card component.

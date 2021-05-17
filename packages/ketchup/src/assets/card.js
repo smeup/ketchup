@@ -240,6 +240,36 @@ for (let index = 0; index < cards.length; index++) {
                 resource: 'radioactive',
             },
         ],
+        list: [
+            {
+                data: [
+                    {
+                        text: 'First choice',
+                        value: '1',
+                        icon: 'add_alert',
+                        trailingIcon: true,
+                        selected: false,
+                    },
+                    {
+                        text: 'Selected choice',
+                        value: '2',
+                        selected: true,
+                        icon: 'ac_unit',
+                    },
+                    {
+                        text: null,
+                        value: null,
+                        isSeparator: true,
+                    },
+                    {
+                        text: 'Third choice (below a separator)',
+                        value: '3',
+                        icon: '3d_rotation',
+                        selected: false,
+                    },
+                ],
+            },
+        ],
         progressbar: [
             {
                 value: 75,
