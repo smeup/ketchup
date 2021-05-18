@@ -40,6 +40,13 @@
 
   .sub-chip {
     max-width: 40vw;
+    overflow: auto;
+    box-shadow: 0 3px 2px -2px grey;
+  }
+
+  .sub-tree {
+    max-height: 40vh;
+    overflow: auto;
   }
 
   #apply {
