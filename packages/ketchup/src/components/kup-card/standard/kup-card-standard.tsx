@@ -1073,22 +1073,27 @@ export function create14(component: KupCard): VNode {
                             ) : null}
                         </div>
                         <div class="sub-chip">
-                            {chipArray[0]
-                                ? [
-                                      <kup-chip
-                                          type={FChipType.INPUT}
-                                          {...chipArray[0]}
-                                          id={KupCardIds.COLUMNS_LIST}
-                                      />,
-                                      buttonsIds.includes(applyID) ? (
-                                          <kup-button
-                                              {...buttonArray.find(
-                                                  (x) => x.id === applyID
-                                              )}
-                                          />
-                                      ) : null,
-                                  ]
-                                : null}
+                            {chipArray[0] ? (
+                                [
+                                    <kup-chip
+                                        {...chipArray[0]}
+                                        type={FChipType.INPUT}
+                                        id={KupCardIds.COLUMNS_LIST}
+                                    />,
+                                    buttonsIds.includes(applyID) ? (
+                                        <kup-button
+                                            {...buttonArray.find(
+                                                (x) => x.id === applyID
+                                            )}
+                                        />
+                                    ) : null,
+                                ]
+                            ) : (
+                                <kup-chip
+                                    type={FChipType.INPUT}
+                                    id={KupCardIds.COLUMNS_LIST}
+                                />
+                            )}
                         </div>
                         <div class="sub-tree">
                             {treeArray[0] ? (
