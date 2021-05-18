@@ -196,7 +196,11 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
             );
             const node: TreeNode = e.detail.treeNode;
             const obj: KupObj = e.detail.treeNode.obj;
-            if (obj && obj.t !== '' && obj.t !== '**') {
+            if (
+                obj &&
+                obj.t !== '' &&
+                (obj.t !== '**' || (obj.t === '**' && !obj.k))
+            ) {
                 const key: string = obj.t + ';' + obj.p + ';' + obj.k;
                 const chipData: FChipData[] =
                     chip && chip.data ? chip.data : null;
