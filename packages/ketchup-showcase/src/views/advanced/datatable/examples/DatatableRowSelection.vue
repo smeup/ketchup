@@ -7,6 +7,10 @@ h3 {
 <template>
   <div>
     <h3>First record Selected</h3>
+    <p
+      >With the <b>selectRow</b> prop it is possibile to select a specific
+      row.</p
+    >
     <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
 
     <h3>Multiple selection</h3>
