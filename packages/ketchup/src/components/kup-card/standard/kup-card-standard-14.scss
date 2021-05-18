@@ -41,7 +41,7 @@
   .sub-chip {
     max-width: 40vw;
     overflow: auto;
-    box-shadow: 0 3px 2px -2px grey;
+    box-shadow: 0 3px 2px -2px var(--kup-border-color);
   }
 
   .sub-tree {

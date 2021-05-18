@@ -85,6 +85,7 @@ export enum KupCardCSSClasses {
  */
 export enum KupCardSubEvents {
     BUTTON_CLICK = 'kupButtonClick',
+    CHIP_ICONCLICK = 'kupChipIconClick',
     TABBAR_CLICK = 'kupTabBarClick',
     TREE_NODESELECTED = 'kupTreeNodeSelected',
 }

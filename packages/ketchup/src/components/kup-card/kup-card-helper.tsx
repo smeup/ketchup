@@ -171,16 +171,14 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         }
     }
 
-    // Apply button: the chip data will be updated so it will be available to the listener.
+    // Chip deleted: when a chip is deleted, the apply button must appear.
     if (
         root &&
-        e.type === KupCardSubEvents.BUTTON_CLICK &&
-        e.detail.id === applyID
+        e.type === KupCardSubEvents.CHIP_ICONCLICK &&
+        e.detail.id === KupCardIds.COLUMNS_LIST
     ) {
-        const chip: HTMLKupChipElement = root.querySelector(
-            '#' + KupCardIds.COLUMNS_LIST
-        );
-        component.data.chip[0] = chip.data;
+        const apply: HTMLKupButtonElement = root.querySelector('#' + applyID);
+        apply.classList.add('visible');
     }
 
     // Chip creation: upon clicking on the tree, the chip list will updated by adding or removing an entry.
@@ -222,6 +220,18 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                 chip.refresh();
             }
         }
+    }
+
+    // Apply button: the chip data will be updated so it will be available to the listener.
+    if (
+        root &&
+        e.type === KupCardSubEvents.BUTTON_CLICK &&
+        e.detail.id === applyID
+    ) {
+        const chip: HTMLKupChipElement = root.querySelector(
+            '#' + KupCardIds.COLUMNS_LIST
+        );
+        component.data.chip[0] = chip.data;
     }
     /*-------------------------------------------------*/
     /*        4 t h   D i a l o g   L a y o u t        */
