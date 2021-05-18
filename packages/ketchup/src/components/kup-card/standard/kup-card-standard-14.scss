@@ -41,4 +41,11 @@
   .sub-chip {
     max-width: 40vw;
   }
+
+  #apply {
+    display: none;
+    &.visible {
+      display: block;
+    }
+  }
 }

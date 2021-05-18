@@ -190,6 +190,9 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         e.detail.id === KupCardIds.EXTRA_COLUMNS
     ) {
         if (e.detail.treeNode) {
+            const apply: HTMLKupButtonElement = root.querySelector(
+                '#' + applyID
+            );
             const chip: HTMLKupChipElement = root.querySelector(
                 '#' + KupCardIds.COLUMNS_LIST
             );
@@ -212,6 +215,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                             value: key,
                         });
                     }
+                    apply.classList.add('visible');
                 } else {
                     chip.data['chip'] = [{ label: node.value, value: key }];
                 }

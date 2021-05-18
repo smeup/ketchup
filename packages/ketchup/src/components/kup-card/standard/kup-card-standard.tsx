@@ -1074,26 +1074,24 @@ export function create14(component: KupCard): VNode {
                         </div>
                         <div class="sub-chip">
                             {chipArray[0] ? (
-                                [
-                                    <kup-chip
-                                        {...chipArray[0]}
-                                        type={FChipType.INPUT}
-                                        id={KupCardIds.COLUMNS_LIST}
-                                    />,
-                                    buttonsIds.includes(applyID) ? (
-                                        <kup-button
-                                            {...buttonArray.find(
-                                                (x) => x.id === applyID
-                                            )}
-                                        />
-                                    ) : null,
-                                ]
+                                <kup-chip
+                                    {...chipArray[0]}
+                                    type={FChipType.INPUT}
+                                    id={KupCardIds.COLUMNS_LIST}
+                                />
                             ) : (
                                 <kup-chip
                                     type={FChipType.INPUT}
                                     id={KupCardIds.COLUMNS_LIST}
                                 />
                             )}
+                            {buttonsIds.includes(applyID) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) => x.id === applyID
+                                    )}
+                                />
+                            ) : null}
                         </div>
                         <div class="sub-tree">
                             {treeArray[0] ? (
