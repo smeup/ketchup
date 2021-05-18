@@ -212,7 +212,7 @@ export function create5(component: KupCard): VNode {
 /**
  * Invoked by 4th layout to switch to the previous record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
- * @param {KupCard} componentonent - Card component.
+ * @param {KupCard} component - Card component.
  */
 function prevButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
@@ -249,7 +249,7 @@ function prevButton(component: KupCard): void {
 /**
  * Invoked by 4th layout to switch to the next record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
- * @param {KupCard} componentonent - Card component.
+ * @param {KupCard} component - Card component.
  */
 function nextButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
