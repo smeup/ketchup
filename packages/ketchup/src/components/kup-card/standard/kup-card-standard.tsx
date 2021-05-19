@@ -9,15 +9,9 @@ import {
     KupLanguageGeneric,
     KupLanguageGrouping,
 } from '../../../utils/kup-language/kup-language-declarations';
-import {
-    addID,
-    applyID,
-    descriptionID,
-    groupID,
-    removeID,
-} from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 import { FChipType } from '../../../f-components/f-chip/f-chip-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
+import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 /**
  * 1st standard card layout, inspired by Material Design.
  * @param {KupCard} component - Card component.
@@ -1030,11 +1024,13 @@ export function create14(component: KupCard): VNode {
                                 : ''
                         }`}
                     >
-                        {buttonsIds.includes(groupID) ? (
+                        {buttonsIds.includes(KupColumnMenuIds.BUTTON_GROUP) ? (
                             <div class="sub-button">
                                 <kup-button
                                     {...buttonArray.find(
-                                        (x) => x.id === groupID
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_GROUP
                                     )}
                                 />
                             </div>
@@ -1052,22 +1048,25 @@ export function create14(component: KupCard): VNode {
                         }`}
                     >
                         <div class="sub-button">
-                            {buttonsIds.includes(addID) ? (
-                                <kup-button
-                                    {...buttonArray.find((x) => x.id === addID)}
-                                />
-                            ) : null}
-                            {buttonsIds.includes(removeID) ? (
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_REMOVE
+                            ) ? (
                                 <kup-button
                                     {...buttonArray.find(
-                                        (x) => x.id === removeID
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_REMOVE
                                     )}
                                 />
                             ) : null}
-                            {buttonsIds.includes(descriptionID) ? (
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_DESCRIPTION
+                            ) ? (
                                 <kup-button
                                     {...buttonArray.find(
-                                        (x) => x.id === descriptionID
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_DESCRIPTION
                                     )}
                                 />
                             ) : null}
@@ -1085,10 +1084,14 @@ export function create14(component: KupCard): VNode {
                                     id={KupCardIds.COLUMNS_LIST}
                                 />
                             )}
-                            {buttonsIds.includes(applyID) ? (
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_APPLY
+                            ) ? (
                                 <kup-button
                                     {...buttonArray.find(
-                                        (x) => x.id === applyID
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_APPLY
                                     )}
                                 />
                             ) : null}

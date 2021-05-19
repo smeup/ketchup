@@ -1,20 +1,14 @@
 /**
- * Apply column button ID.
+ * Component IDs.
  */
-export const applyID = 'apply';
-/**
- * Add column button ID.
- */
-export const addID = 'add';
-/**
- * Add column description ID.
- */
-export const descriptionID = 'description';
-/**
- * Grouping button ID.
- */
-export const groupID = 'group';
-/**
- * Remove column button ID.
- */
-export const removeID = 'remove';
+export enum KupColumnMenuIds {
+    BUTTON_APPLY = 'apply',
+    BUTTON_DESCRIPTION = 'description',
+    BUTTON_GROUP = 'group',
+    BUTTON_REMOVE = 'remove',
+    CARD_COLUMN_MENU = 'column-menu',
+    CHECKBOX_GLOBAL = 'global-checkbox',
+    TEXTFIELD_FILTER = 'filter',
+    TEXTFIELD_FROM = 'filter-from',
+    TEXTFIELD_TO = 'filter-to',
+}

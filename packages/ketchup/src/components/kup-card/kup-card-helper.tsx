@@ -1,6 +1,5 @@
 import { h, VNode } from '@stencil/core';
 import type { GenericObject } from '../../types/GenericTypes';
-import { applyID } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupCard } from './kup-card';
@@ -11,6 +10,7 @@ import {
     KupCardIds,
     KupCardSubEvents,
 } from './kup-card-declarations';
+import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 /**
  * This function returns a list of components.
  * @param {GenericObject[]} compArray - Components' props.
@@ -177,7 +177,9 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         e.type === KupCardSubEvents.CHIP_ICONCLICK &&
         e.detail.id === KupCardIds.COLUMNS_LIST
     ) {
-        const apply: HTMLKupButtonElement = root.querySelector('#' + applyID);
+        const apply: HTMLKupButtonElement = root.querySelector(
+            '#' + KupColumnMenuIds.BUTTON_APPLY
+        );
         apply.classList.add('visible');
     }
 
@@ -189,7 +191,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
     ) {
         if (e.detail.treeNode) {
             const apply: HTMLKupButtonElement = root.querySelector(
-                '#' + applyID
+                '#' + KupColumnMenuIds.BUTTON_APPLY
             );
             const chip: HTMLKupChipElement = root.querySelector(
                 '#' + KupCardIds.COLUMNS_LIST
@@ -230,7 +232,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
     if (
         root &&
         e.type === KupCardSubEvents.BUTTON_CLICK &&
-        e.detail.id === applyID
+        e.detail.id === KupColumnMenuIds.BUTTON_APPLY
     ) {
         const chip: HTMLKupChipElement = root.querySelector(
             '#' + KupCardIds.COLUMNS_LIST

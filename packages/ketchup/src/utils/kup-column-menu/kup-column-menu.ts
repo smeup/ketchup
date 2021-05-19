@@ -34,14 +34,8 @@ import {
     KupLanguageGeneric,
 } from '../kup-language/kup-language-declarations';
 import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
-import {
-    addID,
-    applyID,
-    descriptionID,
-    groupID,
-    removeID,
-} from './kup-column-menu-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { KupColumnMenuIds } from './kup-column-menu-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -93,19 +87,22 @@ export class KupColumnMenu {
     reposition(comp: KupDataTable | KupTree): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: any = root.querySelector('#column-menu');
+            const card: HTMLKupCardElement = root.querySelector(
+                '#' + KupColumnMenuIds.CARD_COLUMN_MENU
+            );
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
                     'th[data-column="' + column + '"]'
                 );
-                if (dom.ketchup.dynamicPosition.isRegistered(card)) {
-                    dom.ketchup.dynamicPosition.changeAnchor(card, wrapper);
-                } else {
-                    dom.ketchup.dynamicPosition.register(card, wrapper);
-                    dom.ketchup.dynamicPosition.start(
-                        card as KupDynamicPositionElement
+                if (dom.ketchup.dynamicPosition.isRegistered(card as any)) {
+                    dom.ketchup.dynamicPosition.changeAnchor(
+                        card as any,
+                        wrapper
                     );
+                } else {
+                    dom.ketchup.dynamicPosition.register(card as any, wrapper);
+                    dom.ketchup.dynamicPosition.start(card as any);
                     card.menuVisible = true;
                     card.focus();
                 }
@@ -152,7 +149,7 @@ export class KupColumnMenu {
                     columnName: column.name,
                 },
                 icon: 'book',
-                id: groupID,
+                id: KupColumnMenuIds.BUTTON_GROUP,
                 title:
                     comp.getGroupByName(column.name) != null
                         ? dom.ketchup.language.translate(
@@ -170,7 +167,7 @@ export class KupColumnMenu {
                     column: column,
                 },
                 icon: 'table-column-remove',
-                id: removeID,
+                id: KupColumnMenuIds.BUTTON_REMOVE,
                 title: dom.ketchup.language.translate(KupLanguageColumn.HIDE),
             });
         }
@@ -178,15 +175,6 @@ export class KupColumnMenu {
             comp.enableExtraColumns &&
             dom.ketchup.objects.canHaveExtraColumns(column.obj)
         ) {
-            props.push({
-                className: 'printable',
-                'data-storage': {
-                    columnName: column.name,
-                },
-                icon: 'table-column-plus-after',
-                id: addID,
-                title: dom.ketchup.language.translate(KupLanguageColumn.ADD),
-            });
             if (dom.ketchup.objects.canHaveAutomaticDerivedColumn(column.obj)) {
                 props.push({
                     className: 'printable',
@@ -194,7 +182,7 @@ export class KupColumnMenu {
                         columnName: column.name,
                     },
                     icon: 'label',
-                    id: descriptionID,
+                    id: KupColumnMenuIds.BUTTON_DESCRIPTION,
                     title: dom.ketchup.language.translate(
                         KupLanguageColumn.ADD_DESCRIPTION
                     ),
@@ -203,7 +191,7 @@ export class KupColumnMenu {
             props.push({
                 className: 'printable',
                 label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
-                id: applyID,
+                id: KupColumnMenuIds.BUTTON_APPLY,
                 styling: FButtonStyling.FLAT,
                 title: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
             });
@@ -241,7 +229,7 @@ export class KupColumnMenu {
                         column: column,
                         value: null,
                     },
-                    id: 'global-checkbox',
+                    id: KupColumnMenuIds.CHECKBOX_GLOBAL,
                     label: dom.ketchup.language.translate(
                         KupLanguageCheckbox.ALL
                     ),
@@ -308,8 +296,9 @@ export class KupColumnMenu {
             });
         }
         if (
-            comp.enableExtraColumns &&
-            dom.ketchup.objects.canHaveExtraColumns(column.obj)
+            (comp.enableExtraColumns &&
+                dom.ketchup.objects.canHaveExtraColumns(column.obj)) ||
+            comp.removableColumns
         ) {
             data.push({
                 text: dom.ketchup.language.translate(KupLanguageColumn.COLUMNS),
@@ -350,7 +339,7 @@ export class KupColumnMenu {
                     },
                     fullWidth: true,
                     icon: 'magnify',
-                    id: 'filter',
+                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
                     initialValue: filterInitialValue,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
@@ -397,7 +386,7 @@ export class KupColumnMenu {
             },
             fullWidth: true,
             helperWhenFocused: true,
-            id: 'filterFrom',
+            id: KupColumnMenuIds.TEXTFIELD_FROM,
             initialValue: initialValueFrom,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.FROM),
@@ -412,7 +401,7 @@ export class KupColumnMenu {
             },
             fullWidth: true,
             helperWhenFocused: true,
-            id: 'filterTo',
+            id: KupColumnMenuIds.TEXTFIELD_TO,
             initialValue: initialValueTo,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.TO),
@@ -458,7 +447,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterFrom',
+                    id: KupColumnMenuIds.TEXTFIELD_FROM,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
@@ -478,7 +467,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterTo',
+                    id: KupColumnMenuIds.TEXTFIELD_TO,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
@@ -550,7 +539,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterFrom',
+                    id: KupColumnMenuIds.TEXTFIELD_FROM,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
@@ -570,7 +559,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterTo',
+                    id: KupColumnMenuIds.TEXTFIELD_TO,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
@@ -624,22 +613,19 @@ export class KupColumnMenu {
                 break;
             case 'kupButtonClick':
                 switch (compID) {
-                    case 'add':
-                        this.addColumn(comp, dataStorage['columnName']);
-                        break;
-                    case 'description':
+                    case KupColumnMenuIds.BUTTON_DESCRIPTION:
                         this.addDescriptionColumn(
                             comp,
                             dataStorage['columnName']
                         );
                         break;
-                    case 'group':
+                    case KupColumnMenuIds.BUTTON_GROUP:
                         this.toggleGroup(
                             comp as KupDataTable,
                             dataStorage['columnName']
                         );
                         break;
-                    case 'remove':
+                    case KupColumnMenuIds.BUTTON_REMOVE:
                         this.removeColumn(comp, dataStorage['column']);
                         break;
                 }
