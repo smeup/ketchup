@@ -276,10 +276,10 @@ export class KupColumnMenu {
         return props;
     }
     /**
-     * Handles the column menu's button prop.
+     * Handles the column menu's chip prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
-     * @returns {GenericObject[]} Buttons props.
+     * @returns {GenericObject[]} Chips props (only 1 is handled).
      */
     prepChip(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         let props: GenericObject[] = [];
