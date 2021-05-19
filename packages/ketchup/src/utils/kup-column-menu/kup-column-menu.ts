@@ -9,6 +9,7 @@ import type { KupTree } from '../../components/kup-tree/kup-tree';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import type {
     Column,
+    ColumnChild,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { unsetTooltip } from '../helpers';
@@ -36,6 +37,12 @@ import {
 import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import {
+    FChipData,
+    FChipsProps,
+    FChipType,
+} from '../../f-components/f-chip/f-chip-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -119,6 +126,7 @@ export class KupColumnMenu {
         return {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
+            chip: this.prepChip(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
             object: [column.obj],
             tabbar: this.prepTabBar(comp, column),
@@ -138,7 +146,7 @@ export class KupColumnMenu {
      * @returns {GenericObject[]} Buttons props.
      */
     prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
-        let props: GenericObject[] = [];
+        const props: GenericObject[] = [];
         if (
             !FiltersColumnMenu.isTree(comp) &&
             (comp as KupDataTable).showGroups
@@ -208,7 +216,7 @@ export class KupColumnMenu {
         comp: KupDataTable | KupTree,
         column: Column
     ): GenericObject[] {
-        let props: GenericObject[] = [];
+        const props: GenericObject[] = [];
         if (
             comp.showFilters &&
             (dom.ketchup.objects.isStringObject(column.obj) ||
@@ -265,6 +273,50 @@ export class KupColumnMenu {
                 });
             }
         }
+        return props;
+    }
+    /**
+     * Handles the column menu's button prop.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     * @returns {GenericObject[]} Buttons props.
+     */
+    prepChip(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+        let props: GenericObject[] = [];
+        const chipProps: FChipsProps = {};
+        if (column.children) {
+            const chipData: FChipData[] = [];
+            for (let index = 0; index < column.children.length; index++) {
+                const child: ColumnChild = column.children[index];
+                let childColumn: Column = null;
+                try {
+                    if (FiltersColumnMenu.isTree(comp)) {
+                        (comp as KupTree).columns;
+                        childColumn = (comp as KupTree).columns.find(
+                            (x: Column) => x.name === child.name
+                        );
+                    } else {
+                        childColumn = (comp as KupDataTable).data.columns.find(
+                            (x: Column) => x.name === child.name
+                        );
+                    }
+                } catch (error) {
+                    dom.ketchup.debug.logMessage(
+                        this,
+                        'Child column not found (' + child.name + ')!' + error,
+                        KupDebugCategory.WARNING
+                    );
+                }
+                chipData.push({
+                    icon: child.icon ? child.icon : null,
+                    label: childColumn ? childColumn.name : '*Not found!',
+                    value: child.obj.t + ';' + child.obj.p + ';' + child.obj.k,
+                });
+            }
+            chipProps.data = chipData;
+        }
+        chipProps.type = FChipType.INPUT;
+        props.push(chipProps);
         return props;
     }
     /**

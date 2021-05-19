@@ -107,6 +107,16 @@ export interface Column {
     formula?: string;
     valuesForFilter?: string[];
     isKey?: boolean;
+    children?: ColumnChild[];
+}
+export interface ColumnChild {
+    name: string;
+    obj: {
+        t: string;
+        p: string;
+        k: string;
+    };
+    icon?: string;
 }
 
 export interface Row extends Identifiable {
