@@ -24,6 +24,7 @@ import {
 import { KupChipProps } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupCardIds } from '../kup-card/kup-card-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -127,7 +128,11 @@ export class KupChip {
         value: string;
     }>;
 
-    onKupBlur(i: number) {
+    onKupBlur(e: FocusEvent, i: number) {
+        // If this event is triggered by removing the last chip, the blur shouldn't propagate to the card in order to avoid its disappearance.
+        if (this.rootElement.id === KupCardIds.COLUMNS_LIST) {
+            e.stopPropagation();
+        }
         let value: string = undefined;
         if (this.data[i]) {
             value = this.data[i].value;
@@ -245,7 +250,7 @@ export class KupChip {
                     const primaryEl: HTMLElement = chips[j].querySelector(
                         '.mdc-chip__primary-action'
                     );
-                    primaryEl.onblur = () => this.onKupBlur(j);
+                    primaryEl.onblur = (e) => this.onKupBlur(e, j);
                     primaryEl.onfocus = () => this.onKupFocus(j);
 
                     const cancelIcon: HTMLElement = chips[j].querySelector(
