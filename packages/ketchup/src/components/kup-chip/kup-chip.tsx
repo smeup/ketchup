@@ -239,9 +239,8 @@ export class KupChip {
         if (root) {
             const f: HTMLElement = root.querySelector('.f-chip--wrapper');
             if (f) {
-                const chips: NodeListOf<HTMLElement> = f.querySelectorAll(
-                    '.mdc-chip'
-                );
+                const chips: NodeListOf<HTMLElement> =
+                    f.querySelectorAll('.mdc-chip');
                 for (let j = 0; j < chips.length; j++) {
                     const primaryEl: HTMLElement = chips[j].querySelector(
                         '.mdc-chip__primary-action'
@@ -316,7 +315,7 @@ export class KupChip {
             type: this.type,
         };
 
-        if (this.data.length === 0) {
+        if (!this.data || this.data.length === 0) {
             let message = 'Empty data.';
             this.kupManager.debug.logMessage(
                 this,
