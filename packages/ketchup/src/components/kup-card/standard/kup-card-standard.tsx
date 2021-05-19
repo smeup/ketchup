@@ -1104,7 +1104,15 @@ export function create14(component: KupCard): VNode {
                                     {...treeArray[0]}
                                     id={KupCardIds.EXTRA_COLUMNS}
                                 />
-                            ) : null}
+                            ) : (
+                                <div class="sub-spinner">
+                                    <kup-spinner
+                                        active={true}
+                                        dimensions="8px"
+                                        layout={2}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 ) : null}

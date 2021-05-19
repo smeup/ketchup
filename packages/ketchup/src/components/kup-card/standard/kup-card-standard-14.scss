@@ -6,16 +6,11 @@
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
 
-  .sub-field {
-    display: flex;
-    flex-direction: column;
-    &.has-content {
-      border-bottom: 1px solid var(--kup-border-color);
-      padding: 0.5em 0.5em;
-    }
-    kup-date-picker:first-of-type,
-    kup-time-picker:first-of-type {
-      margin-bottom: 0.5em;
+  .sub-button {
+    display: inline-flex;
+    width: 100%;
+    kup-button {
+      margin: 0;
     }
   }
 
@@ -30,18 +25,27 @@
     }
   }
 
-  .sub-button {
-    display: inline-flex;
-    width: 100%;
-    kup-button {
-      margin: 0;
-    }
-  }
-
   .sub-chip {
     max-width: 40vw;
     overflow: auto;
     box-shadow: 0 3px 2px -2px var(--kup-border-color);
+  }
+
+  .sub-field {
+    display: flex;
+    flex-direction: column;
+    &.has-content {
+      border-bottom: 1px solid var(--kup-border-color);
+      padding: 0.5em 0.5em;
+    }
+    kup-date-picker:first-of-type,
+    kup-time-picker:first-of-type {
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .sub-spinner {
+    height: 100px;
   }
 
   .sub-tree {

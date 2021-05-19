@@ -304,12 +304,12 @@ export class KupColumnMenu {
                     dom.ketchup.debug.logMessage(
                         this,
                         'Child column not found (' + child.name + ')!' + error,
-                        KupDebugCategory.WARNING
+                        KupDebugCategory.ERROR
                     );
                 }
                 chipData.push({
                     icon: child.icon ? child.icon : null,
-                    label: childColumn ? childColumn.name : '*Not found!',
+                    label: childColumn ? childColumn.title : '*Not found!',
                     value: child.obj.t + ';' + child.obj.p + ';' + child.obj.k,
                 });
             }
