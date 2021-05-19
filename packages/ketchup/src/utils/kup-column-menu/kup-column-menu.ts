@@ -9,6 +9,7 @@ import type { KupTree } from '../../components/kup-tree/kup-tree';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import type {
     Column,
+    ColumnChild,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { unsetTooltip } from '../helpers';
@@ -31,7 +32,17 @@ import {
     KupLanguageSearch,
     KupLanguageGrouping,
     KupLanguageCheckbox,
+    KupLanguageGeneric,
 } from '../kup-language/kup-language-declarations';
+import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { KupColumnMenuIds } from './kup-column-menu-declarations';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import {
+    FChipData,
+    FChipsProps,
+    FChipType,
+} from '../../f-components/f-chip/f-chip-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -83,19 +94,22 @@ export class KupColumnMenu {
     reposition(comp: KupDataTable | KupTree): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: any = root.querySelector('#column-menu');
+            const card: HTMLKupCardElement = root.querySelector(
+                '#' + KupColumnMenuIds.CARD_COLUMN_MENU
+            );
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
                     'th[data-column="' + column + '"]'
                 );
-                if (dom.ketchup.dynamicPosition.isRegistered(card)) {
-                    dom.ketchup.dynamicPosition.changeAnchor(card, wrapper);
-                } else {
-                    dom.ketchup.dynamicPosition.register(card, wrapper);
-                    dom.ketchup.dynamicPosition.start(
-                        card as KupDynamicPositionElement
+                if (dom.ketchup.dynamicPosition.isRegistered(card as any)) {
+                    dom.ketchup.dynamicPosition.changeAnchor(
+                        card as any,
+                        wrapper
                     );
+                } else {
+                    dom.ketchup.dynamicPosition.register(card as any, wrapper);
+                    dom.ketchup.dynamicPosition.start(card as any);
                     card.menuVisible = true;
                     card.focus();
                 }
@@ -112,7 +126,10 @@ export class KupColumnMenu {
         return {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
+            chip: this.prepChip(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
+            object: [column.obj],
+            tabbar: this.prepTabBar(comp, column),
             textfield:
                 !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
                     column
@@ -129,7 +146,7 @@ export class KupColumnMenu {
      * @returns {GenericObject[]} Buttons props.
      */
     prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
-        let props: GenericObject[] = [];
+        const props: GenericObject[] = [];
         if (
             !FiltersColumnMenu.isTree(comp) &&
             (comp as KupDataTable).showGroups
@@ -140,7 +157,7 @@ export class KupColumnMenu {
                     columnName: column.name,
                 },
                 icon: 'book',
-                id: 'group',
+                id: KupColumnMenuIds.BUTTON_GROUP,
                 title:
                     comp.getGroupByName(column.name) != null
                         ? dom.ketchup.language.translate(
@@ -158,7 +175,7 @@ export class KupColumnMenu {
                     column: column,
                 },
                 icon: 'table-column-remove',
-                id: 'remove',
+                id: KupColumnMenuIds.BUTTON_REMOVE,
                 title: dom.ketchup.language.translate(KupLanguageColumn.HIDE),
             });
         }
@@ -166,15 +183,6 @@ export class KupColumnMenu {
             comp.enableExtraColumns &&
             dom.ketchup.objects.canHaveExtraColumns(column.obj)
         ) {
-            props.push({
-                className: 'printable',
-                'data-storage': {
-                    columnName: column.name,
-                },
-                icon: 'table-column-plus-after',
-                id: 'add',
-                title: dom.ketchup.language.translate(KupLanguageColumn.ADD),
-            });
             if (dom.ketchup.objects.canHaveAutomaticDerivedColumn(column.obj)) {
                 props.push({
                     className: 'printable',
@@ -182,12 +190,19 @@ export class KupColumnMenu {
                         columnName: column.name,
                     },
                     icon: 'label',
-                    id: 'description',
+                    id: KupColumnMenuIds.BUTTON_DESCRIPTION,
                     title: dom.ketchup.language.translate(
                         KupLanguageColumn.ADD_DESCRIPTION
                     ),
                 });
             }
+            props.push({
+                className: 'printable',
+                label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
+                id: KupColumnMenuIds.BUTTON_APPLY,
+                styling: FButtonStyling.FLAT,
+                title: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
+            });
         }
         return props;
     }
@@ -201,7 +216,7 @@ export class KupColumnMenu {
         comp: KupDataTable | KupTree,
         column: Column
     ): GenericObject[] {
-        let props: GenericObject[] = [];
+        const props: GenericObject[] = [];
         if (
             comp.showFilters &&
             (dom.ketchup.objects.isStringObject(column.obj) ||
@@ -222,7 +237,7 @@ export class KupColumnMenu {
                         column: column,
                         value: null,
                     },
-                    id: 'global-checkbox',
+                    id: KupColumnMenuIds.CHECKBOX_GLOBAL,
                     label: dom.ketchup.language.translate(
                         KupLanguageCheckbox.ALL
                     ),
@@ -261,6 +276,90 @@ export class KupColumnMenu {
         return props;
     }
     /**
+     * Handles the column menu's chip prop.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     * @returns {GenericObject[]} Chips props (only 1 is handled).
+     */
+    prepChip(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+        let props: GenericObject[] = [];
+        const chipProps: FChipsProps = {};
+        if (column.children) {
+            const chipData: FChipData[] = [];
+            for (let index = 0; index < column.children.length; index++) {
+                const child: ColumnChild = column.children[index];
+                let childColumn: Column = null;
+                try {
+                    if (FiltersColumnMenu.isTree(comp)) {
+                        (comp as KupTree).columns;
+                        childColumn = (comp as KupTree).columns.find(
+                            (x: Column) => x.name === child.name
+                        );
+                    } else {
+                        childColumn = (comp as KupDataTable).data.columns.find(
+                            (x: Column) => x.name === child.name
+                        );
+                    }
+                } catch (error) {
+                    dom.ketchup.debug.logMessage(
+                        this,
+                        'Child column not found (' + child.name + ')!' + error,
+                        KupDebugCategory.ERROR
+                    );
+                }
+                chipData.push({
+                    icon: child.icon ? child.icon : null,
+                    label: childColumn ? childColumn.title : '*Not found!',
+                    value: child.obj.t + ';' + child.obj.p + ';' + child.obj.k,
+                });
+            }
+            chipProps.data = chipData;
+        }
+        chipProps.type = FChipType.INPUT;
+        props.push(chipProps);
+        return props;
+    }
+    /**
+     * Handles the column menu's tabbar prop.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @returns {GenericObject[]} Tab bar props.
+     */
+    prepTabBar(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+        const props: GenericObject[] = [{ data: [] }];
+        const data: ComponentTabBarElement[] = props[0].data;
+        if (comp.showFilters) {
+            data.push({
+                active: true,
+                text: dom.ketchup.language.translate(
+                    KupLanguageGeneric.FILTERS
+                ),
+                value: KupLanguageGeneric.FILTERS,
+            });
+        }
+        if (
+            !FiltersColumnMenu.isTree(comp) &&
+            (comp as KupDataTable).showGroups
+        ) {
+            data.push({
+                text: dom.ketchup.language.translate(
+                    KupLanguageGrouping.GROUPS
+                ),
+                value: KupLanguageGrouping.GROUPS,
+            });
+        }
+        if (
+            (comp.enableExtraColumns &&
+                dom.ketchup.objects.canHaveExtraColumns(column.obj)) ||
+            comp.removableColumns
+        ) {
+            data.push({
+                text: dom.ketchup.language.translate(KupLanguageColumn.COLUMNS),
+                value: KupLanguageColumn.COLUMNS,
+            });
+        }
+        return props;
+    }
+    /**
      * Handles the column menu's textfield prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
@@ -292,7 +391,7 @@ export class KupColumnMenu {
                     },
                     fullWidth: true,
                     icon: 'magnify',
-                    id: 'filter',
+                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
                     initialValue: filterInitialValue,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
@@ -339,7 +438,7 @@ export class KupColumnMenu {
             },
             fullWidth: true,
             helperWhenFocused: true,
-            id: 'filterFrom',
+            id: KupColumnMenuIds.TEXTFIELD_FROM,
             initialValue: initialValueFrom,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.FROM),
@@ -354,7 +453,7 @@ export class KupColumnMenu {
             },
             fullWidth: true,
             helperWhenFocused: true,
-            id: 'filterTo',
+            id: KupColumnMenuIds.TEXTFIELD_TO,
             initialValue: initialValueTo,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.TO),
@@ -400,7 +499,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterFrom',
+                    id: KupColumnMenuIds.TEXTFIELD_FROM,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
@@ -420,7 +519,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterTo',
+                    id: KupColumnMenuIds.TEXTFIELD_TO,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
@@ -492,7 +591,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterFrom',
+                    id: KupColumnMenuIds.TEXTFIELD_FROM,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
@@ -512,7 +611,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterTo',
+                    id: KupColumnMenuIds.TEXTFIELD_TO,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
@@ -566,22 +665,19 @@ export class KupColumnMenu {
                 break;
             case 'kupButtonClick':
                 switch (compID) {
-                    case 'add':
-                        this.addColumn(comp, dataStorage['columnName']);
-                        break;
-                    case 'description':
+                    case KupColumnMenuIds.BUTTON_DESCRIPTION:
                         this.addDescriptionColumn(
                             comp,
                             dataStorage['columnName']
                         );
                         break;
-                    case 'group':
+                    case KupColumnMenuIds.BUTTON_GROUP:
                         this.toggleGroup(
                             comp as KupDataTable,
                             dataStorage['columnName']
                         );
                         break;
-                    case 'remove':
+                    case KupColumnMenuIds.BUTTON_REMOVE:
                         this.removeColumn(comp, dataStorage['column']);
                         break;
                 }

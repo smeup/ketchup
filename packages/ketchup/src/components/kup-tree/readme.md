@@ -104,7 +104,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `kupTreeNodeCollapse`         | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
 | `kupTreeNodeDblClick`         |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
 | `kupTreeNodeExpand`           | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
-| `kupTreeNodeSelected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                                         |
+| `kupTreeNodeSelected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ id: string; treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                             |
 
 
 ## Methods
@@ -154,6 +154,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-card](../kup-card)
  - [kup-tooltip](../kup-tooltip)
 
 ### Depends on
@@ -200,17 +201,7 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge
-  kup-card --> kup-chip
-  kup-card --> kup-badge
-  kup-card --> kup-button
-  kup-card --> kup-checkbox
-  kup-card --> kup-combobox
-  kup-card --> kup-date-picker
-  kup-card --> kup-text-field
-  kup-card --> kup-time-picker
-  kup-card --> kup-data-table
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
+  kup-card --> kup-tree
   kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button

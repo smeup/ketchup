@@ -3,9 +3,18 @@ import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList } from '../kup-card-helper';
+import { ComponentTabBarElement } from '../../kup-tab-bar/kup-tab-bar-declarations';
+import {
+    KupLanguageColumn,
+    KupLanguageGeneric,
+    KupLanguageGrouping,
+} from '../../../utils/kup-language/kup-language-declarations';
+import { FChipType } from '../../../f-components/f-chip/f-chip-declarations';
+import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
+import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 /**
  * 1st standard card layout, inspired by Material Design.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create1(component: KupCard): VNode {
@@ -25,7 +34,7 @@ export function create1(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray.length > 0 ? 'has-actions' : ''
+                buttonArray.length > 0 ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div class="mdc-ripple-surface">
@@ -65,7 +74,7 @@ export function create1(component: KupCard): VNode {
 }
 /**
  * 2nd standard card layout, inspired by Material Design.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 2nd standard layout virtual node.
  */
 export function create2(component: KupCard): VNode {
@@ -85,7 +94,7 @@ export function create2(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray.length > 0 ? 'has-actions' : ''
+                buttonArray.length > 0 ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div class="section-1">
@@ -127,7 +136,7 @@ export function create2(component: KupCard): VNode {
 }
 /**
  * 3rd standard card layout, inspired by Material Design.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 3rd standard layout virtual node.
  */
 export function create3(component: KupCard): VNode {
@@ -147,7 +156,7 @@ export function create3(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray ? 'has-actions' : ''
+                buttonArray ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div class="mdc-ripple-surface">
@@ -191,7 +200,7 @@ export function create3(component: KupCard): VNode {
 }
 /**
  * 4th standard card layout, inspired by Material Design.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 4th standard layout virtual node.
  */
 export function create4(component: KupCard): VNode {
@@ -211,7 +220,7 @@ export function create4(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray ? 'has-actions' : ''
+                buttonArray ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div class="mdc-ripple-surface">
@@ -248,7 +257,7 @@ export function create4(component: KupCard): VNode {
 }
 /**
  * 5th standard card layout, useful to display TODOs with extensive information.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 5th standard layout virtual node.
  */
 export function create5(component: KupCard): VNode {
@@ -362,7 +371,7 @@ export function create5(component: KupCard): VNode {
 }
 /**
  * 6th standard card layout, useful to display TODOs in a compact view.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 6th standard layout virtual node.
  */
 export function create6(component: KupCard): VNode {
@@ -422,7 +431,7 @@ export function create6(component: KupCard): VNode {
 }
 /**
  * 7th standard card layout, centered image and text.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 7th standard layout virtual node.
  */
 export function create7(component: KupCard): VNode {
@@ -481,7 +490,7 @@ export function create7(component: KupCard): VNode {
 }
 /**
  * 8th standard card layout, useful to display a list of chips.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 8th standard layout virtual node.
  */
 export function create8(component: KupCard): VNode {
@@ -551,7 +560,7 @@ export function create8(component: KupCard): VNode {
 }
 /**
  * 9th standard card layout, chart displayed on the right with some info on the left.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 9th standard layout virtual node.
  */
 export function create9(component: KupCard): VNode {
@@ -633,7 +642,7 @@ export function create9(component: KupCard): VNode {
 }
 /**
  * 10th standard card layout, chart displayed on the left with some info on the right.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 10th standard layout virtual node.
  */
 export function create10(component: KupCard): VNode {
@@ -715,10 +724,10 @@ export function create10(component: KupCard): VNode {
 }
 /**
  * 11th standard card layout, chart displayed on the right with some info on the left, visible when hovering on the colored bar.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 11th standard layout virtual node.
  */
-export function create11(component: KupCard) {
+export function create11(component: KupCard): VNode {
     //Chart
     const chartArray: GenericObject[] = component.data['chart']
         ? component.data['chart']
@@ -809,10 +818,10 @@ export function create11(component: KupCard) {
 }
 /**
  * 12th standard card layout, used for column menus in tree and data table.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 12th standard layout virtual node.
  */
-export function create12(component: KupCard) {
+export function create12(component: KupCard): VNode {
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
@@ -842,7 +851,7 @@ export function create12(component: KupCard) {
                     textfieldArray.length > 0 ||
                     datepickerArray.length > 0 ||
                     timepickerArray.length > 0
-                        ? 'has-content'
+                        ? KupCardCSSClasses.HAS_CONTENT
                         : ''
                 }`}
             >
@@ -866,8 +875,8 @@ export function create12(component: KupCard) {
 }
 /**
  * 13th standard card layout, buttons and text lines, used for debug window.
- * @param {KupCard}  comp - Card component.
- * @returns {VNode} 1st standard layout virtual node.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 13th standard layout virtual node.
  */
 export function create13(component: KupCard): VNode {
     //Action buttons
@@ -889,7 +898,7 @@ export function create13(component: KupCard): VNode {
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray.length > 0 ? 'has-actions' : ''
+                buttonArray.length > 0 ? KupCardCSSClasses.HAS_ACTIONS : ''
             }`}
         >
             <div>
@@ -902,6 +911,210 @@ export function create13(component: KupCard): VNode {
                 ) : null}
                 {textArray.length > 0 ? (
                     <div class="section-2">{compList(textArray, 'text')}</div>
+                ) : null}
+            </div>
+        </div>
+    );
+}
+/**
+ * 14th standard card layout, used for column menus in tree and data table (with tabs). This is a very specifically-designed layout, so correct ids are a must.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 14th standard layout virtual node.
+ */
+export function create14(component: KupCard): VNode {
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    const checkboxArray: GenericObject[] = component.data['checkbox']
+        ? component.data['checkbox']
+        : [];
+    const chipArray: GenericObject[] = component.data['chip']
+        ? component.data['chip']
+        : [];
+    const datepickerArray: GenericObject[] = component.data['datepicker']
+        ? component.data['datepicker']
+        : [];
+    const tabbarArray: GenericObject[] = component.data['tabbar']
+        ? component.data['tabbar']
+        : [];
+    const textfieldArray: GenericObject[] = component.data['textfield']
+        ? component.data['textfield']
+        : [];
+    const timepickerArray: GenericObject[] = component.data['timepicker']
+        ? component.data['timepicker']
+        : [];
+    const treeArray: GenericObject[] = component.data['tree']
+        ? component.data['tree']
+        : [];
+    // Setting up currently visible view.
+    const tabsValues: string[] = [];
+    let viewIndex: number = 1;
+    let visibleView: number = 1;
+    if (tabbarArray[0] && tabbarArray[0].data) {
+        for (let index = 0; index < tabbarArray[0].data.length; index++) {
+            const tab: ComponentTabBarElement = tabbarArray[0].data[index];
+            tabsValues.push(tab.value);
+            if (tab.active) {
+                visibleView = index + 1;
+            }
+        }
+    }
+    // Setting up buttons.
+    const buttonsIds: string[] = [];
+    for (let index = 0; index < buttonArray.length; index++) {
+        const button: GenericObject = buttonArray[index];
+        if (button['id']) {
+            buttonsIds.push(button['id']);
+        }
+    }
+    return (
+        <div class={`standard-layout-${component.layoutNumber} `}>
+            <div class="section-1">
+                {tabbarArray[0] ? (
+                    <kup-tab-bar
+                        {...tabbarArray[0]}
+                        id={KupCardIds.VIEW_SELECTOR}
+                    />
+                ) : null}
+            </div>
+            <div class="section-2">
+                {tabsValues.includes(KupLanguageGeneric.FILTERS) ? (
+                    <div
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${viewIndex} ${
+                            visibleView === viewIndex++
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
+                        }`}
+                    >
+                        <div
+                            class={`sub-field ${
+                                textfieldArray.length > 0 ||
+                                datepickerArray.length > 0 ||
+                                timepickerArray.length > 0
+                                    ? KupCardCSSClasses.HAS_CONTENT
+                                    : ''
+                            }`}
+                        >
+                            {datepickerArray.length > 0
+                                ? compList(datepickerArray, 'datepicker')
+                                : null}
+                            {textfieldArray.length > 0
+                                ? compList(textfieldArray, 'textfield')
+                                : null}
+                            {timepickerArray.length > 0
+                                ? compList(timepickerArray, 'timepicker')
+                                : null}
+                        </div>
+                        {checkboxArray.length > 0 ? (
+                            <div class="sub-checkbox">
+                                {compList(checkboxArray, 'checkbox')}
+                            </div>
+                        ) : null}
+                    </div>
+                ) : null}
+                {tabsValues.includes(KupLanguageGrouping.GROUPS) ? (
+                    <div
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${viewIndex} ${
+                            visibleView === viewIndex++
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
+                        }`}
+                    >
+                        {buttonsIds.includes(KupColumnMenuIds.BUTTON_GROUP) ? (
+                            <div class="sub-button">
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_GROUP
+                                    )}
+                                />
+                            </div>
+                        ) : null}
+                    </div>
+                ) : null}
+                {tabsValues.includes(KupLanguageColumn.COLUMNS) ? (
+                    <div
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${viewIndex} ${
+                            visibleView === viewIndex++
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
+                        }`}
+                    >
+                        <div class="sub-button">
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_REMOVE
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_REMOVE
+                                    )}
+                                />
+                            ) : null}
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_DESCRIPTION
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_DESCRIPTION
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                        <div class="sub-chip">
+                            {chipArray[0] ? (
+                                <kup-chip
+                                    {...chipArray[0]}
+                                    type={FChipType.INPUT}
+                                    id={KupCardIds.COLUMNS_LIST}
+                                />
+                            ) : (
+                                <kup-chip
+                                    type={FChipType.INPUT}
+                                    id={KupCardIds.COLUMNS_LIST}
+                                />
+                            )}
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_APPLY
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_APPLY
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                        <div class="sub-tree">
+                            {treeArray[0] ? (
+                                <kup-tree
+                                    class="kup-full-width"
+                                    globalFilter
+                                    {...treeArray[0]}
+                                    id={KupCardIds.EXTRA_COLUMNS}
+                                />
+                            ) : (
+                                <div class="sub-spinner">
+                                    <kup-spinner
+                                        active={true}
+                                        dimensions="8px"
+                                        layout={2}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 ) : null}
             </div>
         </div>

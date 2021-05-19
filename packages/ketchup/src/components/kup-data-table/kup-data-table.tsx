@@ -140,6 +140,7 @@ import {
     KupLanguageTotals,
 } from '../../utils/kup-language/kup-language-declarations';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
+import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -2830,7 +2831,7 @@ export class KupDataTable {
             // If the event comes from a menu of the table header
             if (
                 this.isHTMLElementFromEventTarget(elem) &&
-                elem.id === 'column-menu'
+                elem.id === KupColumnMenuIds.CARD_COLUMN_MENU
             ) {
                 fromMenu = true;
             }
@@ -5846,9 +5847,9 @@ export class KupDataTable {
                                 )
                             )}
                             data-column={this.openedMenu}
-                            id="column-menu"
+                            id={KupColumnMenuIds.CARD_COLUMN_MENU}
                             isMenu={true}
-                            layoutNumber={12}
+                            layoutNumber={14}
                             onBlur={(e) => {
                                 this.columnMenuInstance.close(e, this);
                             }}

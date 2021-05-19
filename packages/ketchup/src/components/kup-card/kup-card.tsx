@@ -20,11 +20,18 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
+import {
+    CardData,
+    CardFamily,
+    KupCardCSSClasses,
+    KupCardIds,
+    KupCardProps,
+} from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { layoutSpecificEvents } from './kup-card-helper';
 
 @Component({
     tag: 'kup-card',
@@ -95,6 +102,7 @@ export class KupCard {
     private cardEvent: EventListenerOrEventListenerObject = (
         e: CustomEvent
     ) => {
+        e.stopPropagation();
         this.onKupEvent(e);
     };
     /**
@@ -104,7 +112,7 @@ export class KupCard {
     /**
      * Previous height of the component, tested when the card is collapsible.
      */
-    private oldSizeY: string;
+    oldSizeY: string;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -151,29 +159,7 @@ export class KupCard {
     }
 
     onKupEvent(e: CustomEvent): void {
-        const root = this.rootElement.shadowRoot;
-
-        //Collapsible layouts
-        if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
-            let collapsibleCard = root.querySelector('.collapsible-card');
-            if (!collapsibleCard.classList.contains('expanded')) {
-                collapsibleCard.classList.add('expanded');
-                this.oldSizeY = this.sizeY;
-                this.sizeY = 'auto';
-            } else if (this.oldSizeY) {
-                collapsibleCard.classList.remove('expanded');
-                this.sizeY = this.oldSizeY;
-            }
-            return;
-        }
-
-        //4th dialog layout
-        if (
-            e.type === 'kupButtonClick' &&
-            (e.detail.id === 'previous-row' || e.detail.id === 'next-row')
-        ) {
-            this.refresh();
-        }
+        layoutSpecificEvents(this, e);
 
         this.kupEvent.emit({
             card: this,
@@ -233,7 +219,7 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const dialogClose: HTMLElement = root.querySelector(
-                '#dialog-close'
+                '#' + KupCardIds.DIALOG_CLOSE
             );
             if (dialogClose) {
                 dialogClose.onclick = () => this.rootElement.remove();
@@ -246,18 +232,32 @@ export class KupCard {
      * When the card is not expanded and the collapsible content fits the wrapper, the bottom bar won't be displayed.
      */
     collapsible(): void {
-        const root = this.rootElement.shadowRoot;
-        const el = root.querySelector('.collapsible-element');
-        const card = root.querySelector('.collapsible-card');
-        const wrapper = root.querySelector('.collapsible-wrapper');
-        if (!card.classList.contains('expanded')) {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        const el: HTMLElement = root.querySelector(
+            '.' + KupCardCSSClasses.COLLAPSIBLE_ELEMENT
+        );
+        const card: HTMLElement = root.querySelector(
+            '.' + KupCardCSSClasses.COLLAPSIBLE_CARD
+        );
+        const wrapper: HTMLElement = root.querySelector(
+            '.' + KupCardCSSClasses.COLLAPSIBLE_WRAPPER
+        );
+        if (!card.classList.contains(KupCardCSSClasses.EXPANDED)) {
             if (el.clientHeight > wrapper.clientHeight) {
-                if (!card.classList.contains('collapsible-active')) {
-                    card.classList.add('collapsible-active');
+                if (
+                    !card.classList.contains(
+                        KupCardCSSClasses.COLLAPSIBLE_ACTIVE
+                    )
+                ) {
+                    card.classList.add(KupCardCSSClasses.COLLAPSIBLE_ACTIVE);
                 }
             } else {
-                if (card.classList.contains('collapsible-active')) {
-                    card.classList.remove('collapsible-active');
+                if (
+                    card.classList.contains(
+                        KupCardCSSClasses.COLLAPSIBLE_ACTIVE
+                    )
+                ) {
+                    card.classList.remove(KupCardCSSClasses.COLLAPSIBLE_ACTIVE);
                 }
             }
         }
@@ -306,13 +306,15 @@ export class KupCard {
      * This method will trigger whenever the card's render() hook occurs or when the size changes (through KupManager), in order to manage the more complex layout families.
      * It will also update any dynamic color handled by the selected layout.
      */
-    dialog() {
+    dialog(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const card: HTMLElement = this.rootElement as HTMLElement;
-            const dragHandle: HTMLElement = root.querySelector('#drag-handle');
+            const dragHandle: HTMLElement = root.querySelector(
+                '#' + KupCardIds.DRAG_HANDLE
+            );
             const unresizable: boolean = !!root.querySelector(
-                '.dialog-unresizable'
+                '.' + KupCardCSSClasses.DIALOG_UNRESIZABLE
             );
             if (!this.kupManager.dialog.isRegistered(card as DialogElement)) {
                 this.kupManager.dialog.register(
@@ -330,9 +332,8 @@ export class KupCard {
     layoutManager(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         const family: string = this.layoutFamily.toLowerCase();
-        const dynColors: NodeListOf<HTMLElement> = root.querySelectorAll(
-            '.dyn-color'
-        );
+        const dynColors: NodeListOf<HTMLElement> =
+            root.querySelectorAll('.dyn-color');
         for (let index = 0; index < dynColors.length; index++) {
             this.rootElement.style.setProperty(
                 '--dyn-color-' + index,
@@ -361,7 +362,7 @@ export class KupCard {
      * Sets the event listeners on the sub-components, in order to properly emit the generic kupCardEvent.
      */
     registerListeners(): void {
-        const root = this.rootElement.shadowRoot;
+        const root: ShadowRoot = this.rootElement.shadowRoot;
         root.addEventListener('kupButtonClick', this.cardEvent);
         root.addEventListener('kupCheckboxChange', this.cardEvent);
         root.addEventListener('kupChipClick', this.cardEvent);
@@ -372,6 +373,8 @@ export class KupCard {
         root.addEventListener('kupDatePickerInput', this.cardEvent);
         root.addEventListener('kupDatePickerItemClick', this.cardEvent);
         root.addEventListener('kupDatePickerTextFieldSubmit', this.cardEvent);
+        root.addEventListener('kupListClick', this.cardEvent);
+        root.addEventListener('kupTabBarClick', this.cardEvent);
         root.addEventListener('kupTextFieldClearIconClick', this.cardEvent);
         root.addEventListener('kupTextFieldInput', this.cardEvent);
         root.addEventListener('kupTextFieldSubmit', this.cardEvent);
@@ -379,6 +382,8 @@ export class KupCard {
         root.addEventListener('kupTimePickerInput', this.cardEvent);
         root.addEventListener('kupTimePickerItemClick', this.cardEvent);
         root.addEventListener('kupTimePickerTextFieldSubmit', this.cardEvent);
+        root.addEventListener('kupTreeNodeExpand', this.cardEvent);
+        root.addEventListener('kupTreeNodeSelected', this.cardEvent);
     }
     /**
      * This method is invoked by the layout manager when the layout family is scalable.
@@ -392,23 +397,23 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         const el: HTMLElement = root.querySelector('.scalable-element');
         const card: HTMLElement = root.querySelector('.scalable-card');
-        let multiplierStep: number = 0.1;
+        const multiplierStep: number = 0.1;
+        /**
+         * cardHeight sets the maximum height of the content, when exceeded the multiplier will be reduced (90%).
+         */
+        const cardHeight: number = (90 / 100) * card.clientHeight;
+        /**
+         * cardWidthLow and cardWidthHigh will set the boundaries in which the component must fit (85% - 95%).
+         */
+        const cardWidthLow: number = (85 / 100) * card.clientWidth;
+        const cardWidthHigh: number = (95 / 100) * card.clientWidth;
+        let tooManyAttempts: number = 2000;
         let multiplier: number = parseFloat(
             card.style.getPropertyValue('--multiplier')
         );
         if (multiplier < 0.1) {
             multiplier = 1;
         }
-        /**
-         * cardHeight sets the maximum height of the content, when exceeded the multiplier will be reduced (90%).
-         */
-        let cardHeight: number = (90 / 100) * card.clientHeight;
-        /**
-         * cardWidthLow and cardWidthHigh will set the boundaries in which the component must fit (85% - 95%).
-         */
-        let cardWidthLow: number = (85 / 100) * card.clientWidth;
-        let cardWidthHigh: number = (95 / 100) * card.clientWidth;
-        let tooManyAttempts: number = 2000;
         /**
          * Cycle to adjust the width.
          */

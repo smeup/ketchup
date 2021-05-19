@@ -373,6 +373,7 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeNodeSelected: EventEmitter<{
+        id: string;
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         columnName: string;
@@ -780,9 +781,7 @@ export class KupTree {
         this.openTotalMenu(column);
     }
 
-    private getEventDetails(
-        el: HTMLElement
-    ): {
+    private getEventDetails(el: HTMLElement): {
         area: string;
         cell: Cell;
         column: Column;
@@ -886,6 +885,7 @@ export class KupTree {
                     .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
             this.kupTreeNodeSelected.emit({
+                id: this.rootElement.id,
                 treeNodePath: treeNodePath
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),
@@ -915,9 +915,8 @@ export class KupTree {
             // There are already children set in this TreeNode -> expand or collapse node and emit appropriate event
             if (treeNodeData.children && treeNodeData.children.length) {
                 // Updates expanded state and force rerender
-                treeNodeData[treeExpandedPropName] = !treeNodeData[
-                    treeExpandedPropName
-                ];
+                treeNodeData[treeExpandedPropName] =
+                    !treeNodeData[treeExpandedPropName];
                 if (ctrlKey) {
                     this.handleChildren(
                         treeNodeData,
@@ -961,9 +960,8 @@ export class KupTree {
                         .then((childrenTreeNodes) => {
                             // Children returned successfully
                             treeNodeData.children = childrenTreeNodes;
-                            treeNodeData[treeExpandedPropName] = !treeNodeData[
-                                treeExpandedPropName
-                            ];
+                            treeNodeData[treeExpandedPropName] =
+                                !treeNodeData[treeExpandedPropName];
                             this.refresh();
 
                             // TreeNode is now expanded -> Fires expanded event
@@ -992,9 +990,8 @@ export class KupTree {
                         tree: this,
                     });
 
-                    treeNodeData[treeExpandedPropName] = !treeNodeData[
-                        treeExpandedPropName
-                    ];
+                    treeNodeData[treeExpandedPropName] =
+                        !treeNodeData[treeExpandedPropName];
                 }
             }
         }
@@ -2051,9 +2048,8 @@ export class KupTree {
 
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                '#totals-menu'
-            );
+            let menu: HTMLElement =
+                this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
                 let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
@@ -2142,7 +2138,11 @@ export class KupTree {
             // There are no TreeNodes, so we print a single cell with a caption
             treeNodes.push(
                 <tr>
-                    <td>Nessun elemento nell'albero</td>
+                    <td>
+                        {this.kupManager.language.translate(
+                            KupLanguageGeneric.EMPTY_DATA
+                        )}
+                    </td>
                 </tr>
             );
         }
@@ -2193,7 +2193,8 @@ export class KupTree {
                     <div
                         class="wrapper"
                         ref={(el: HTMLElement) =>
-                            (this.treeWrapperRef = el as KupScrollOnHoverElement)
+                            (this.treeWrapperRef =
+                                el as KupScrollOnHoverElement)
                         }
                     >
                         {filterField}
@@ -2233,7 +2234,7 @@ export class KupTree {
                             data-column={this.openedMenu}
                             id="column-menu"
                             isMenu={true}
-                            layoutNumber={12}
+                            layoutNumber={14}
                             onBlur={(e) =>
                                 this.columnMenuInstance.close(e, this)
                             }
@@ -2254,9 +2255,8 @@ export class KupTree {
     disconnectedCallback() {
         this.kupManager.language.register(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

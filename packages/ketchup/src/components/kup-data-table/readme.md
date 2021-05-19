@@ -257,8 +257,6 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-tree
   kup-tree --> kup-image
   kup-tree --> kup-button
   kup-tree --> kup-chart
@@ -276,6 +274,8 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-color-picker --> kup-text-field
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-tree
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-magic-box --> kup-data-table

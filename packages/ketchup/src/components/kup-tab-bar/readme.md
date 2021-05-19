@@ -13,11 +13,11 @@
 
 ## Events
 
-| Event            | Description | Type                                               |
-| ---------------- | ----------- | -------------------------------------------------- |
-| `kupTabBarBlur`  |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
-| `kupTabBarClick` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
-| `kupTabBarFocus` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+| Event            | Description | Type                                                                          |
+| ---------------- | ----------- | ----------------------------------------------------------------------------- |
+| `kupTabBarBlur`  |             | `CustomEvent<{ index: number; el: EventTarget; }>`                            |
+| `kupTabBarClick` |             | `CustomEvent<{ id: string; index: number; el: EventTarget; value: string; }>` |
+| `kupTabBarFocus` |             | `CustomEvent<{ index: number; el: EventTarget; }>`                            |
 
 
 ## Methods
@@ -42,6 +42,19 @@ Type: `Promise<void>`
 
 
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-card](../kup-card)
+
+### Graph
+```mermaid
+graph TD;
+  kup-card --> kup-tab-bar
+  style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

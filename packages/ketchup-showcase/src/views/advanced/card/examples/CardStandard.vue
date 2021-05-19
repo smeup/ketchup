@@ -351,7 +351,11 @@
         section will be scrollable with an height limit of 20vh in order to
         avoid undesired sizes.
         <br />
+        <span class="code-word">- datepicker[0 to n]</span>: Datepicker list.
+        <br />
         <span class="code-word">- textfield[0 to n]</span>: Textfield list.
+        <br />
+        <span class="code-word">- timepicker[0 to n]</span>: Timepicker list.
         <br />
         <br />
       </p>
@@ -392,6 +396,29 @@
             size-x="600px"
             size-y="300px"
             layout-number="13"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 14</span> configuration (this layout
+        covers a very specific use-case, so it's less dynamic than the average):
+        <br />
+        <br />
+        <span class="code-word">W. I. P.</span>
+        <br />
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            size-x="600px"
+            size-y="300px"
+            layout-number="14"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -549,6 +576,23 @@ export default {
           },
         ],
         progressbar: [{ value: 50, title: 'progressbar[0]' }],
+        tabbar: [
+          {
+            data: [
+              {
+                active: true,
+                text: 'tab-bar[0]',
+                value: '1',
+              },
+              {
+                text: 'tab-bar[0]',
+                value: '2',
+                active: false,
+              },
+            ],
+            title: 'tab-bar[0]',
+          },
+        ],
         text: [
           'text[0]',
           'text[1]',
@@ -564,6 +608,148 @@ export default {
             isClearable: true,
             label: 'textfield[0]',
             title: 'textfield[0]',
+          },
+        ],
+        tree: [
+          {
+            data: [
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '00Mat',
+                    },
+                    value: '00Mat',
+                    options: true,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '00Program',
+                    },
+                    value: '00Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '00Attack',
+                    },
+                    value: '00Attack',
+                    options: true,
+                  },
+                },
+                children: [
+                  {
+                    cells: {
+                      Mat: {
+                        obj: {
+                          t: 'NR',
+                          p: '',
+                          k: '10Mat',
+                        },
+                        value: '10Mat',
+                        options: false,
+                      },
+                      Program: {
+                        obj: {
+                          t: 'NR',
+                          p: '',
+                          k: '10Program',
+                        },
+                        value: '10Program',
+                        options: false,
+                      },
+                      Attack: {
+                        obj: {
+                          t: 'NR',
+                          p: '',
+                          k: '10Attack',
+                        },
+                        value: '10Attack',
+                        options: true,
+                      },
+                    },
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'filter_1',
+                    id: '00100',
+                    isExpanded: false,
+                    obj: {
+                      t: 'TN',
+                      p: '',
+                      k: 'tree[0]',
+                    },
+                    options: false,
+                    value: 'tree[0]',
+                    visible: true,
+                  },
+                  {
+                    cells: {
+                      Mat: {
+                        obj: {
+                          t: 'NR',
+                          p: '',
+                          k: '11Mat',
+                        },
+                        value: '11Mat',
+                        options: false,
+                      },
+                      Program: {
+                        obj: {
+                          t: 'NR',
+                          p: '',
+                          k: '11Program',
+                        },
+                        value: '11Program',
+                        options: true,
+                      },
+                      Attack: {
+                        obj: {
+                          t: 'NR',
+                          p: '',
+                          k: '11Attack',
+                        },
+                        value: '11Attack',
+                        options: false,
+                      },
+                    },
+                    disabled: false,
+                    expandable: true,
+                    icon: 'filter_2',
+                    id: '00111',
+                    isExpanded: true,
+                    obj: {
+                      t: 'TN',
+                      p: '',
+                      k: 'tree[0]',
+                    },
+                    options: false,
+                    value: 'tree[0]',
+                    visible: true,
+                  },
+                ],
+                disabled: false,
+                expandable: true,
+                icon: 'widgets',
+                id: '0005',
+                isExpanded: true,
+                obj: {
+                  t: '',
+                  p: '',
+                  k: 'tree[0]',
+                },
+                options: true,
+                value: 'tree[0]',
+                visible: true,
+              },
+            ],
+            title: 'tree[0]',
           },
         ],
       },

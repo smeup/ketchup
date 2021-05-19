@@ -4505,8 +4505,10 @@ declare namespace LocalJSX {
         el: EventTarget;
     }>) => void;
         "onKupTabBarClick"?: (event: CustomEvent<{
+        id: string;
         index: number;
         el: EventTarget;
+        value: string;
     }>) => void;
         "onKupTabBarFocus"?: (event: CustomEvent<{
         index: number;
@@ -4947,6 +4949,7 @@ declare namespace LocalJSX {
           * Fired when a node of the tree has been selected
          */
         "onKupTreeNodeSelected"?: (event: CustomEvent<{
+        id: string;
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         columnName: string;

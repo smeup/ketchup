@@ -63,8 +63,10 @@ export class KupTabBar {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: string;
         index: number;
         el: EventTarget;
+        value: string;
     }>;
 
     @Event({
@@ -121,8 +123,10 @@ export class KupTabBar {
         this.data[i].active = true;
 
         this.kupClick.emit({
+            id: this.rootElement.id,
             index: i,
             el: e.target,
+            value: this.data[i].value,
         });
     }
 
@@ -136,7 +140,7 @@ export class KupTabBar {
     private consistencyCheck() {
         let activeTabs: number = 0;
         let lastActiveOccurrence: number = 0;
-        if (this.data) {
+        if (this.data && this.data.length > 0) {
             for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i].active) {
                     activeTabs++;
