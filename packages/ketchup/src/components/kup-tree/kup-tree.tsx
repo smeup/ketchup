@@ -2138,7 +2138,11 @@ export class KupTree {
             // There are no TreeNodes, so we print a single cell with a caption
             treeNodes.push(
                 <tr>
-                    <td>Nessun elemento nell'albero</td>
+                    <td>
+                        {this.kupManager.language.translate(
+                            KupLanguageGeneric.EMPTY_DATA
+                        )}
+                    </td>
                 </tr>
             );
         }
