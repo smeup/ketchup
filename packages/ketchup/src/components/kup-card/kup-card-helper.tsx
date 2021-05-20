@@ -209,8 +209,9 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                 // Right now the only way to bind chips with tree nodes is a consistent value - which is the child column's name.
                 // Hence, the algorithm below.
                 const key: string =
-                    component.rootElement.dataset.column + '_' + node.id;
-                key.replace('/', '_');
+                    component.rootElement.dataset.column +
+                    '_' +
+                    (node.id ? node.id.replace(/\//g, '_') : '');
                 if (chipData) {
                     const existingChip: FChipData = chipData.find(
                         (x: FChipData) => x.value === node.id
