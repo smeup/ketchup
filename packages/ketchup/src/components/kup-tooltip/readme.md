@@ -122,6 +122,7 @@ graph TD;
   kup-card --> kup-chart
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
+  kup-card --> kup-spinner
   kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
