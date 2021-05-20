@@ -170,6 +170,14 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
             }
         }
     }
+    // When chip loses focus: it must go back to the card to prevent.
+    if (
+        root &&
+        e.type === KupCardSubEvents.CHIP_BLUR &&
+        e.detail.id === KupCardIds.COLUMNS_LIST
+    ) {
+        component.rootElement.focus();
+    }
 
     // Chip deleted: when a chip is deleted, the apply button must appear.
     if (
@@ -251,7 +259,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         const chip: HTMLKupChipElement = root.querySelector(
             '#' + KupCardIds.COLUMNS_LIST
         );
-        component.data.chip.push({ data: chip.data });
+        component.data.chip[0]['data'] = chip.data;
     }
     /*-------------------------------------------------*/
     /*        4 t h   D i a l o g   L a y o u t        */

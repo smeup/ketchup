@@ -314,6 +314,7 @@ export class KupColumnMenu {
                     value: childColumn ? childColumn.name : '*NOTFND',
                 });
             }
+            chipProps.dataSet = { initialData: [...chipData] };
             chipProps.data = chipData;
         }
         chipProps.type = FChipType.INPUT;

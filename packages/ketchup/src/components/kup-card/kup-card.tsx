@@ -365,6 +365,7 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         root.addEventListener('kupButtonClick', this.cardEvent);
         root.addEventListener('kupCheckboxChange', this.cardEvent);
+        root.addEventListener('kupChipBlur', this.cardEvent);
         root.addEventListener('kupChipClick', this.cardEvent);
         root.addEventListener('kupChipIconClick', this.cardEvent);
         root.addEventListener('kupComboboxItemClick', this.cardEvent);
