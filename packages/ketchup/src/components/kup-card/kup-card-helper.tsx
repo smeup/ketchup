@@ -242,7 +242,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         }
     }
 
-    // Apply button: the chip data will be updated so it will be available to the listener.
+    // Apply button: a new chip will be created with updated data.
     if (
         root &&
         e.type === KupCardSubEvents.BUTTON_CLICK &&
@@ -251,7 +251,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         const chip: HTMLKupChipElement = root.querySelector(
             '#' + KupCardIds.COLUMNS_LIST
         );
-        component.data.chip[0] = chip.data;
+        component.data.chip.push({ data: chip.data });
     }
     /*-------------------------------------------------*/
     /*        4 t h   D i a l o g   L a y o u t        */
