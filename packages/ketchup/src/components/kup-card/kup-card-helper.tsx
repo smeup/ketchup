@@ -203,12 +203,11 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                 obj.t !== '' &&
                 (obj.t !== '**' || (obj.t === '**' && !obj.k))
             ) {
-                const key: string = obj.t + ';' + obj.p + ';' + obj.k;
                 const chipData: FChipData[] =
                     chip && chip.data ? chip.data : null;
                 if (chipData) {
                     const existingChip: FChipData = chipData.find(
-                        (x: FChipData) => x.value === key
+                        (x: FChipData) => x.value === node.id
                     );
                     if (existingChip) {
                         chipData.splice(chipData.indexOf(existingChip), 1);
@@ -216,12 +215,20 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                         chipData.push({
                             icon: node.icon,
                             label: node.value,
-                            value: key,
+                            obj: node.obj,
+                            value: node.id,
                         });
                     }
                     apply.classList.add('visible');
                 } else {
-                    chip.data['chip'] = [{ label: node.value, value: key }];
+                    chip.data['chip'] = [
+                        {
+                            icon: node.icon,
+                            label: node.value,
+                            obj: node.obj,
+                            value: node.id,
+                        },
+                    ];
                 }
                 chip.refresh();
             }

@@ -153,8 +153,8 @@ export class KupChip {
     }
 
     onKupClick(i: number) {
-        const isChoice = this.type.toLowerCase() === FChipType.CHOICE;
-        const isFilter = this.type.toLowerCase() === FChipType.FILTER;
+        const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
+        const isFilter: boolean = this.type.toLowerCase() === FChipType.FILTER;
         let obj: KupObj = null;
         let value: string = null;
         if (this.data[i]) {
@@ -298,7 +298,7 @@ export class KupChip {
     }
 
     componentWillUpdate() {
-        const isChoice = this.type.toLowerCase() === FChipType.CHOICE;
+        const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
         let firstCheckedFound: boolean = false;
         if (isChoice) {
             for (let j = 0; j < this.data.length; j++) {
