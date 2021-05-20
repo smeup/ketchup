@@ -170,7 +170,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
             }
         }
     }
-    // When chip loses focus: it must go back to the card to prevent.
+    // When chip loses focus: it must go back to the card to prevent closing.
     if (
         root &&
         e.type === KupCardSubEvents.CHIP_BLUR &&
@@ -178,7 +178,6 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
     ) {
         component.rootElement.focus();
     }
-
     // Chip deleted: when a chip is deleted, the apply button must appear.
     if (
         root &&
@@ -190,7 +189,6 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         );
         apply.classList.add('visible');
     }
-
     // Chip creation: upon clicking on the tree, the chip list will updated by adding or removing an entry.
     if (
         root &&
@@ -249,7 +247,6 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
             }
         }
     }
-
     // Apply button: a new chip will be created with updated data.
     if (
         root &&
