@@ -25,6 +25,7 @@ import { KupChipProps } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupCardIds } from '../kup-card/kup-card-declarations';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -83,6 +84,7 @@ export class KupChip {
     kupBlur: EventEmitter<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>;
     /**
@@ -97,6 +99,7 @@ export class KupChip {
     kupClick: EventEmitter<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>;
     /**
@@ -111,6 +114,7 @@ export class KupChip {
     kupFocus: EventEmitter<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>;
     /**
@@ -125,6 +129,7 @@ export class KupChip {
     kupIconClick: EventEmitter<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>;
 
@@ -133,13 +138,16 @@ export class KupChip {
         if (this.rootElement.id === KupCardIds.COLUMNS_LIST) {
             e.stopPropagation();
         }
-        let value: string = undefined;
+        let obj: KupObj = null;
+        let value: string = null;
         if (this.data[i]) {
+            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         this.kupBlur.emit({
             id: this.rootElement.id,
             index: i,
+            obj: obj,
             value: value,
         });
     }
@@ -147,8 +155,10 @@ export class KupChip {
     onKupClick(i: number) {
         const isChoice = this.type.toLowerCase() === FChipType.CHOICE;
         const isFilter = this.type.toLowerCase() === FChipType.FILTER;
-        let value: string;
+        let obj: KupObj = null;
+        let value: string = null;
         if (this.data[i]) {
+            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         if (isChoice) {
@@ -170,25 +180,31 @@ export class KupChip {
         this.kupClick.emit({
             id: this.rootElement.id,
             index: i,
+            obj: obj,
             value: value,
         });
     }
 
     onKupFocus(i: number) {
-        let value: string = undefined;
+        let obj: KupObj = null;
+        let value: string = null;
         if (this.data[i]) {
+            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         this.kupFocus.emit({
             id: this.rootElement.id,
             index: i,
+            obj: obj,
             value: value,
         });
     }
 
     onKupIconClick(i: number) {
-        let value: string = undefined;
+        let obj: KupObj = null;
+        let value: string = null;
         if (this.data[i]) {
+            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         this.data.splice(i, 1);
@@ -197,6 +213,7 @@ export class KupChip {
         this.kupIconClick.emit({
             id: this.rootElement.id,
             index: i,
+            obj: obj,
             value: value,
         });
     }

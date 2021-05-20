@@ -310,7 +310,8 @@ export class KupColumnMenu {
                 chipData.push({
                     icon: child.icon ? child.icon : null,
                     label: childColumn ? childColumn.title : '*Not found!',
-                    value: child.obj.t + ';' + child.obj.p + ';' + child.obj.k,
+                    obj: child.obj ? child.obj : null,
+                    value: childColumn ? childColumn.name : '*NOTFND',
                 });
             }
             chipProps.data = chipData;
