@@ -318,7 +318,7 @@ export class KupTree {
     private columnMenuInstance: KupColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu =
         new FiltersColumnMenu();
-    private filtersTreeItemsInstance: FiltersTreeItems;
+    private filtersTreeItemsInstance: FiltersTreeItems = new FiltersTreeItems();
 
     //-------- Events --------
     /**
@@ -603,7 +603,6 @@ export class KupTree {
         this.kupManager.theme.register(this);
 
         this.columnMenuInstance = new KupColumnMenu();
-        this.filtersTreeItemsInstance = new FiltersTreeItems();
 
         this.refreshStructureState();
 
