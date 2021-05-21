@@ -170,7 +170,14 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
             }
         }
     }
-
+    // When chip loses focus: it must go back to the card to prevent closing.
+    if (
+        root &&
+        e.type === KupCardSubEvents.CHIP_BLUR &&
+        e.detail.id === KupCardIds.COLUMNS_LIST
+    ) {
+        component.rootElement.focus();
+    }
     // Chip deleted: when a chip is deleted, the apply button must appear.
     if (
         root &&
@@ -182,7 +189,6 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         );
         apply.classList.add('visible');
     }
-
     // Chip creation: upon clicking on the tree, the chip list will updated by adding or removing an entry.
     if (
         root &&
@@ -203,12 +209,18 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                 obj.t !== '' &&
                 (obj.t !== '**' || (obj.t === '**' && !obj.k))
             ) {
-                const key: string = obj.t + ';' + obj.p + ';' + obj.k;
                 const chipData: FChipData[] =
                     chip && chip.data ? chip.data : null;
+                // This should be handled server-side, data should arrive correctly.
+                // Right now the only way to bind chips with tree nodes is a consistent value - which is the child column's name.
+                // Hence, the algorithm below.
+                const key: string =
+                    component.rootElement.dataset.column +
+                    '_' +
+                    (node.id ? node.id.replace(/\//g, '_') : '');
                 if (chipData) {
                     const existingChip: FChipData = chipData.find(
-                        (x: FChipData) => x.value === key
+                        (x: FChipData) => x.value === node.id
                     );
                     if (existingChip) {
                         chipData.splice(chipData.indexOf(existingChip), 1);
@@ -216,19 +228,26 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                         chipData.push({
                             icon: node.icon,
                             label: node.value,
+                            obj: node.obj,
                             value: key,
                         });
                     }
                     apply.classList.add('visible');
                 } else {
-                    chip.data['chip'] = [{ label: node.value, value: key }];
+                    chip.data['chip'] = [
+                        {
+                            icon: node.icon,
+                            label: node.value,
+                            obj: node.obj,
+                            value: key,
+                        },
+                    ];
                 }
                 chip.refresh();
             }
         }
     }
-
-    // Apply button: the chip data will be updated so it will be available to the listener.
+    // Apply button: a new chip will be created with updated data.
     if (
         root &&
         e.type === KupCardSubEvents.BUTTON_CLICK &&
@@ -237,7 +256,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         const chip: HTMLKupChipElement = root.querySelector(
             '#' + KupCardIds.COLUMNS_LIST
         );
-        component.data.chip[0] = chip.data;
+        component.data.chip[0]['data'] = chip.data;
     }
     /*-------------------------------------------------*/
     /*        4 t h   D i a l o g   L a y o u t        */

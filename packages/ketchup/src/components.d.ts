@@ -15,6 +15,7 @@ import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
+import { KupObj } from "./utils/kup-objects/kup-objects-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
@@ -3157,6 +3158,7 @@ declare namespace LocalJSX {
         "onKupChipBlur"?: (event: CustomEvent<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>) => void;
         /**
@@ -3165,6 +3167,7 @@ declare namespace LocalJSX {
         "onKupChipClick"?: (event: CustomEvent<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>) => void;
         /**
@@ -3173,6 +3176,7 @@ declare namespace LocalJSX {
         "onKupChipFocus"?: (event: CustomEvent<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>) => void;
         /**
@@ -3181,6 +3185,7 @@ declare namespace LocalJSX {
         "onKupChipIconClick"?: (event: CustomEvent<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>) => void;
         /**

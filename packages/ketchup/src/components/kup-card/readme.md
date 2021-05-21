@@ -82,6 +82,7 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-tab-bar](../kup-tab-bar)
 - [kup-tree](../kup-tree)
+- [kup-spinner](../kup-spinner)
 
 ### Graph
 ```mermaid
@@ -100,6 +101,7 @@ graph TD;
   kup-card --> kup-chart
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
+  kup-card --> kup-spinner
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge
