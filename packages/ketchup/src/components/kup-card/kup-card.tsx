@@ -363,6 +363,8 @@ export class KupCard {
      */
     registerListeners(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
+        root.addEventListener('kupAddCodeDecodeColumn', this.cardEvent);
+        root.addEventListener('kupAddColumn', this.cardEvent);
         root.addEventListener('kupButtonClick', this.cardEvent);
         root.addEventListener('kupCheckboxChange', this.cardEvent);
         root.addEventListener('kupChipBlur', this.cardEvent);
@@ -383,6 +385,10 @@ export class KupCard {
         root.addEventListener('kupTimePickerInput', this.cardEvent);
         root.addEventListener('kupTimePickerItemClick', this.cardEvent);
         root.addEventListener('kupTimePickerTextFieldSubmit', this.cardEvent);
+        root.addEventListener('kupTreeDynamicMassExpansion', this.cardEvent);
+        root.addEventListener('kupTreeNodeButtonClicked', this.cardEvent);
+        root.addEventListener('kupTreeNodeCollapse', this.cardEvent);
+        root.addEventListener('kupTreeNodeDblClick', this.cardEvent);
         root.addEventListener('kupTreeNodeExpand', this.cardEvent);
         root.addEventListener('kupTreeNodeSelected', this.cardEvent);
     }
