@@ -9,11 +9,12 @@ import {
     TableData,
 } from '../../kup-data-table/kup-data-table-declarations';
 import { KupLanguageRow } from '../../../utils/kup-language/kup-language-declarations';
+import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
  * 1st dialog card layout, used to display information in string format.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create1(component: KupCard): VNode {
@@ -40,7 +41,7 @@ export function create1(component: KupCard): VNode {
 }
 /**
  * 2nd dialog card layout, used to display information in string format and features an highlighted row on top.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create2(component: KupCard): VNode {
@@ -73,7 +74,7 @@ export function create2(component: KupCard): VNode {
 }
 /**
  * 3rd dialog card layout, buttons and text lines, used for debug window.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create3(component: KupCard): VNode {
@@ -96,13 +97,13 @@ export function create3(component: KupCard): VNode {
         : [];
     return (
         <div
-            class={`dialog-layout-${component.layoutNumber} dialog-unresizable`}
+            class={`dialog-layout-${component.layoutNumber} ${KupCardCSSClasses.DIALOG_UNRESIZABLE}`}
         >
             <div>
                 {buttonArray.length > 0 || textfieldArray.length > 0 ? (
                     <div class="section-1">
                         <FImage
-                            id="drag-handle"
+                            id={KupCardIds.DRAG_HANDLE}
                             resource="drag_handle"
                             sizeX="32px"
                             sizeY="32px"
@@ -121,7 +122,7 @@ export function create3(component: KupCard): VNode {
 }
 /**
  * 4th dialog card layout, used to display information with data table.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
 export function create4(component: KupCard): VNode {
@@ -144,7 +145,7 @@ export function create4(component: KupCard): VNode {
                 <div class="section-1">
                     <kup-button
                         {...buttonArray[0]}
-                        id="previous-row"
+                        id={KupCardIds.PREVIOUS_ROW}
                         onKupButtonClick={() => prevButton(component)}
                         title={dom.ketchup.language.translate(
                             KupLanguageRow.PREVIOUS
@@ -152,7 +153,7 @@ export function create4(component: KupCard): VNode {
                     />
                     <kup-button
                         {...buttonArray[1]}
-                        id="next-row"
+                        id={KupCardIds.NEXT_ROW}
                         onKupButtonClick={() => nextButton(component)}
                         title={dom.ketchup.language.translate(
                             KupLanguageRow.NEXT
@@ -172,9 +173,46 @@ export function create4(component: KupCard): VNode {
     );
 }
 /**
+ * 5th dialog card layout, buttons and text lines, used for debug window.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
+ */
+export function create5(component: KupCard): VNode {
+    //Slot list
+    const slots: Array<HTMLElement> = Array.prototype.slice.call(
+        component.rootElement.children,
+        0
+    );
+    //List
+    const listArray: GenericObject[] = component.data['list']
+        ? component.data['list']
+        : [];
+    //Dialog title
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    return (
+        <div
+            class={`dialog-layout-${component.layoutNumber} ${KupCardCSSClasses.DIALOG_UNRESIZABLE}`}
+        >
+            {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
+            <div>
+                {slots.length > 0 ? (
+                    <div class="section-1">{compList(slots, 'slot')}</div>
+                ) : null}
+                {listArray[0] ? (
+                    <div class="section-2">
+                        <kup-list id="list1" {...listArray[0]} />
+                    </div>
+                ) : null}
+            </div>
+        </div>
+    );
+}
+/**
  * Invoked by 4th layout to switch to the previous record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
- * @param {KupCard}  component - Card component.
+ * @param {KupCard} component - Card component.
  */
 function prevButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
@@ -184,8 +222,8 @@ function prevButton(component: KupCard): void {
     let data: TableData = null;
     if (root) {
         table = root.querySelector('kup-data-table');
-        nextButton = root.querySelector('kup-button#next-row');
-        prevButton = root.querySelector('kup-button#previous-row');
+        nextButton = root.querySelector('#' + KupCardIds.NEXT_ROW);
+        prevButton = root.querySelector('#' + KupCardIds.PREVIOUS_ROW);
         if (table) {
             data = table.data;
         }
@@ -211,7 +249,7 @@ function prevButton(component: KupCard): void {
 /**
  * Invoked by 4th layout to switch to the next record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
- * @param {KupCard}  component - Card component.
+ * @param {KupCard} component - Card component.
  */
 function nextButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
@@ -221,8 +259,8 @@ function nextButton(component: KupCard): void {
     let data: TableData = null;
     if (root) {
         table = root.querySelector('kup-data-table');
-        nextButton = root.querySelector('kup-button#next-row');
-        prevButton = root.querySelector('kup-button#previous-row');
+        nextButton = root.querySelector('#' + KupCardIds.NEXT_ROW);
+        prevButton = root.querySelector('#' + KupCardIds.PREVIOUS_ROW);
         if (table) {
             data = table.data;
         }

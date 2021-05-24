@@ -41,6 +41,7 @@ export enum KupLanguageCheckbox {
 export enum KupLanguageColumn {
     ADD = 'columnAdd',
     ADD_DESCRIPTION = 'columnAddDescription',
+    COLUMNS = 'columnColumns',
     HIDE = 'columnHide',
 }
 /**
@@ -82,6 +83,7 @@ export enum KupLanguageFontsize {
  * Generic user interface action/messages.
  */
 export enum KupLanguageGeneric {
+    APPLY = 'genericApply',
     COLLAPSE = 'genericCollapse',
     DRAG_AND_DROP = 'genericDragAndDrop',
     DROP_YOUR_DATA = 'genericDropYourData',
@@ -90,6 +92,7 @@ export enum KupLanguageGeneric {
     EMPTY_DATA = 'genericEmptyData',
     EXPAND = 'genericExpand',
     EXPERIMENTAL_FEAT = 'genericExperimentalFeat',
+    FILTERS = 'genericFilters',
     INVALID_COLOR = 'genericInvalidColor',
     LAYOUT_NYI = 'genericLayoutNotYetImplemented',
     LOAD_MORE = 'genericLoadMoreData',
@@ -120,6 +123,7 @@ export enum KupLanguageGrid {
 export enum KupLanguageGrouping {
     DISABLE = 'groupingDisable',
     ENABLE = 'groupingEnable',
+    GROUPS = 'groupingGroups',
 }
 /**
  * Page related decodes.

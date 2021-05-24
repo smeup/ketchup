@@ -1,4 +1,5 @@
 import type { FComponent } from '../../types/GenericTypes';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 /**
  * Props of the f-chip component.
  */
@@ -14,10 +15,11 @@ export interface FChipsProps extends FComponent {
  * @property {boolean} checked - Defines whether a chip is selected or not.
  */
 export interface FChipData {
-    value: string;
-    icon?: string;
     label: string;
-    checked: boolean;
+    value: string;
+    checked?: boolean;
+    icon?: string;
+    obj?: KupObj;
 }
 /**
  * Types of the f-chip component.

@@ -71,6 +71,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-autocomplete](../kup-autocomplete)
+ - [kup-card](../kup-card)
  - [kup-combobox](../kup-combobox)
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
@@ -92,6 +93,7 @@ graph TD;
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list
+  kup-card --> kup-list
   kup-combobox --> kup-list
   kup-data-table --> kup-list
   kup-dropdown-button --> kup-list

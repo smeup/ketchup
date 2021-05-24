@@ -44,11 +44,13 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-card](../kup-card)
  - [kup-image](../kup-image)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-card --> kup-spinner
   kup-image --> kup-spinner
   style kup-spinner fill:#f9f,stroke:#333,stroke-width:4px
 ```

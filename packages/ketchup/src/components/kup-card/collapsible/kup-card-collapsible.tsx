@@ -3,10 +3,11 @@ import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { collapsibleBar } from '../kup-card-helper';
+import { KupCardCSSClasses } from '../kup-card-declarations';
 
 /**
  * 1st collapsible card layout, left bar and collapsible chips.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st collapsible layout virtual node.
  */
 export function create1(component: KupCard): VNode {
@@ -31,7 +32,7 @@ export function create1(component: KupCard): VNode {
     };
     return (
         <div
-            class={`collapsible-layout-${component.layoutNumber} collapsible-card`}
+            class={`collapsible-layout-${component.layoutNumber} ${KupCardCSSClasses.COLLAPSIBLE_CARD}`}
             style={CSSVariables}
         >
             <div class="section-1"></div>
@@ -49,10 +50,10 @@ export function create1(component: KupCard): VNode {
                         {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
-                <div class="sub-3 collapsible-wrapper">
+                <div class={`sub-3 ${KupCardCSSClasses.COLLAPSIBLE_WRAPPER}`}>
                     {chipArray[0] ? (
                         <kup-chip
-                            class="collapsible-element"
+                            class={KupCardCSSClasses.COLLAPSIBLE_ELEMENT}
                             id="chip1"
                             {...chipArray[0]}
                         ></kup-chip>
@@ -65,7 +66,7 @@ export function create1(component: KupCard): VNode {
 }
 /**
  * 2nd collapsible card layout, colored text and icon in top right corner.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 2nd collapsible layout virtual node.
  */
 export function create2(component: KupCard): VNode {
@@ -94,7 +95,7 @@ export function create2(component: KupCard): VNode {
     };
     return (
         <div
-            class={`collapsible-layout-${component.layoutNumber} collapsible-card`}
+            class={`collapsible-layout-${component.layoutNumber} ${KupCardCSSClasses.COLLAPSIBLE_CARD}`}
             style={CSSVariables}
         >
             <div class="section-1">
@@ -123,10 +124,10 @@ export function create2(component: KupCard): VNode {
                         {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
-                <div class="sub-4 collapsible-wrapper">
+                <div class={`sub-4 ${KupCardCSSClasses.COLLAPSIBLE_WRAPPER}`}>
                     {chipArray[0] ? (
                         <kup-chip
-                            class="collapsible-element"
+                            class={KupCardCSSClasses.COLLAPSIBLE_ELEMENT}
                             id="chip1"
                             {...chipArray[0]}
                         ></kup-chip>
