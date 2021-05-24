@@ -5,8 +5,21 @@ export interface KupDynamicPositionElement extends HTMLElement {
     dynamicPosition: {
         anchor: HTMLElement;
         margin: number;
-        above: boolean;
+        position: KupDynamicPositionPlacement;
         rAF: number;
-        right: boolean;
     };
+}
+/**
+ * Available placements.
+ */
+export enum KupDynamicPositionPlacement {
+    AUTO = '',
+    BOTTOM = 'b',
+    BOTTOM_LEFT = 'bl',
+    BOTTOM_RIGHT = 'br',
+    LEFT = 'l',
+    RIGHT = 'r',
+    TOP = 't',
+    TOP_LEFT = 'tl',
+    TOP_RIGHT = 'tr',
 }

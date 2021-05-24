@@ -68,7 +68,10 @@ import {
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
     KupLanguageGeneric,
@@ -2055,8 +2058,7 @@ export class KupTree {
                     menu as KupDynamicPositionElement,
                     wrapper,
                     0,
-                    true,
-                    true
+                    KupDynamicPositionPlacement.TOP_RIGHT
                 );
                 this.kupManager.dynamicPosition.start(
                     menu as KupDynamicPositionElement
