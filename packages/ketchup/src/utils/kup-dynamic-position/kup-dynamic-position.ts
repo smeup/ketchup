@@ -15,13 +15,15 @@ export class KupDynamicPosition {
      * @param {KupDynamicPositionElement} el - Element to reposition.
      * @param {HTMLElement} anchorEl - "el" position will be anchored to this element.
      * @param {number} margin - "el" distance from its parent in pixels.
-     * @param {KupDynamicPositionPlacement} position -  "el" placement.
+     * @param {KupDynamicPositionPlacement} position - "el" placement.
+     * @param {boolean} detached - When true, the function won't be recursive but it will be executed only once, causing "el" to be detached from its anchor when scrolling.
      */
     register(
         el: KupDynamicPositionElement,
         anchorEl: HTMLElement,
         margin?: number,
-        position?: KupDynamicPositionPlacement
+        position?: KupDynamicPositionPlacement,
+        detached?: boolean
     ): void {
         el.classList.add('dynamic-position');
         el.style.position = 'fixed';
@@ -31,6 +33,7 @@ export class KupDynamicPosition {
             anchor: anchorEl,
             margin: margin ? margin : 0,
             position: position ? position : KupDynamicPositionPlacement.AUTO,
+            detached: detached ? true : false,
             rAF: null,
         };
 
@@ -184,8 +187,10 @@ export class KupDynamicPosition {
             }
         }
         // Recursive
-        el.dynamicPosition.rAF = requestAnimationFrame(function () {
-            dom.ketchup.dynamicPosition.run(el);
-        });
+        if (!el.dynamicPosition.detached) {
+            el.dynamicPosition.rAF = requestAnimationFrame(function () {
+                dom.ketchup.dynamicPosition.run(el);
+            });
+        }
     }
 }
