@@ -126,6 +126,7 @@ import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import {
+    kupDynamicPositionAttribute,
     KupDynamicPositionElement,
     KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
@@ -5845,7 +5846,9 @@ export class KupDataTable {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

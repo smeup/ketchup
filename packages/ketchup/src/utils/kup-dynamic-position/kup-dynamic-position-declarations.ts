@@ -1,4 +1,16 @@
 /**
+ * HTML attribute attached to dynamically positioned elements.
+ */
+export const kupDynamicPositionAttribute = 'kup-dynamic-position';
+/**
+ * HTML attribute attached to dynamically positioned elements' anchor point.
+ */
+export const kupDynamicPositionAnchorAttribute = 'kup-dynamic-position-anchor';
+/**
+ * CSS class attached to dynamically positioned elements when the script is running.
+ */
+export const kupDynamicPositionActiveClass = 'kup-dynamic-position-active';
+/**
  * Fixed position element.
  */
 export interface KupDynamicPositionElement extends HTMLElement {

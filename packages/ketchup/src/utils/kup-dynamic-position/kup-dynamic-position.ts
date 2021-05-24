@@ -1,5 +1,10 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import type { KupDynamicPositionElement } from './kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionActiveClass,
+    kupDynamicPositionAnchorAttribute,
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from './kup-dynamic-position-declarations';
 import { KupDynamicPositionPlacement } from './kup-dynamic-position-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -25,10 +30,10 @@ export class KupDynamicPosition {
         position?: KupDynamicPositionPlacement,
         detached?: boolean
     ): void {
-        el.classList.add('dynamic-position');
+        el.setAttribute(kupDynamicPositionAttribute, '');
+        anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
         el.style.position = 'fixed';
         el.style.zIndex = '1000';
-        anchorEl.classList.add('dynamic-position-anchor');
         el.dynamicPosition = {
             anchor: anchorEl,
             margin: margin ? margin : 0,
@@ -43,7 +48,7 @@ export class KupDynamicPosition {
             const target: Node = mutations[0].target;
             if (
                 (target as HTMLElement).classList.contains(
-                    'dynamic-position-active'
+                    kupDynamicPositionActiveClass
                 )
             ) {
                 requestAnimationFrame(function () {
@@ -89,14 +94,14 @@ export class KupDynamicPosition {
      * @param {KupDynamicPositionElement} el - Element to reposition.
      */
     start(el: KupDynamicPositionElement): void {
-        el.classList.add('dynamic-position-active');
+        el.classList.add(kupDynamicPositionActiveClass);
     }
     /**
      * Ends the process of dynamically reposition the element.
      * @param {KupDynamicPositionElement} el - Element to reposition.
      */
     stop(el: KupDynamicPositionElement): void {
-        el.classList.remove('dynamic-position-active');
+        el.classList.remove(kupDynamicPositionActiveClass);
     }
     /**
      * This function calculates where to place the element in order to correctly display it attached to its anchor point.
@@ -108,7 +113,7 @@ export class KupDynamicPosition {
             cancelAnimationFrame(el.dynamicPosition.rAF);
             return;
         }
-        if (!el.classList.contains('dynamic-position-active')) {
+        if (!el.classList.contains(kupDynamicPositionActiveClass)) {
             cancelAnimationFrame(el.dynamicPosition.rAF);
             return;
         }

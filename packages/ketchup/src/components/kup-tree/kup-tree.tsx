@@ -69,6 +69,7 @@ import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    kupDynamicPositionAttribute,
     KupDynamicPositionElement,
     KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
@@ -2257,7 +2258,9 @@ export class KupTree {
         this.kupManager.language.register(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
