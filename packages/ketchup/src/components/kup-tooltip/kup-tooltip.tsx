@@ -31,6 +31,7 @@ import { KupTree } from '../kup-tree/kup-tree';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
@@ -841,7 +842,9 @@ export class KupTooltip {
         if (this.visible) {
             this.kupManager.dynamicPosition.register(
                 this.rootElement as KupDynamicPositionElement,
-                this.relatedObject.element
+                this.relatedObject.element,
+                0,
+                KupDynamicPositionPlacement.BOTTOM_LEFT
             );
             this.kupManager.dynamicPosition.start(
                 this.rootElement as KupDynamicPositionElement
