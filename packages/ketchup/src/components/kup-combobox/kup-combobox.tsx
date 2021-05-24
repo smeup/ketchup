@@ -12,7 +12,10 @@ import {
     State,
 } from '@stencil/core';
 
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -349,11 +352,8 @@ export class KupCombobox {
         if (root) {
             const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
             if (f) {
-                const inputEl:
-                    | HTMLInputElement
-                    | HTMLTextAreaElement = root.querySelector(
-                    '.mdc-text-field__input'
-                );
+                const inputEl: HTMLInputElement | HTMLTextAreaElement =
+                    root.querySelector('.mdc-text-field__input');
                 const icon: HTMLElement = root.querySelector(
                     '.mdc-text-field__icon'
                 );
@@ -418,12 +418,10 @@ export class KupCombobox {
     }
 
     render() {
-        const fullHeight: boolean = this.rootElement.classList.contains(
-            'kup-full-height'
-        );
-        const fullWidth: boolean = this.rootElement.classList.contains(
-            'kup-full-width'
-        );
+        const fullHeight: boolean =
+            this.rootElement.classList.contains('kup-full-height');
+        const fullWidth: boolean =
+            this.rootElement.classList.contains('kup-full-width');
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
@@ -456,9 +454,10 @@ export class KupCombobox {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
