@@ -220,7 +220,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                     (node.id ? node.id.replace(/\//g, '_') : '');
                 if (chipData) {
                     const existingChip: FChipData = chipData.find(
-                        (x: FChipData) => x.value === node.id
+                        (x: FChipData) => x.value === key
                     );
                     if (existingChip) {
                         chipData.splice(chipData.indexOf(existingChip), 1);
