@@ -2057,7 +2057,6 @@ export class KupTree {
             let menu: HTMLElement =
                 this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
-                let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
                     menu as KupDynamicPositionElement,
                     this.totalMenuCoords,
