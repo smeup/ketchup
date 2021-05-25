@@ -4400,7 +4400,7 @@ export class KupDataTable {
                                 setTooltip(
                                     ev,
                                     row.id,
-                                    name,
+                                    currentColumn.name,
                                     cell,
                                     this.tooltip
                                 );
