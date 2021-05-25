@@ -1,5 +1,3 @@
-import { KupComponent } from '../../types/GenericTypes';
-
 /**
  * HTML attribute attached to dynamically positioned elements.
  */
