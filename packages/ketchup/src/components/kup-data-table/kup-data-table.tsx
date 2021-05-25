@@ -3531,6 +3531,12 @@ export class KupDataTable {
             if (this.hasTotals()) {
                 //const colSpan = this.multiSelection ? 2 : 1;
                 const cells = [];
+                if (this.hasRowActions()) {
+                    cells.push(<td></td>);
+                }
+                if (this.multiSelection) {
+                    cells.push(<td></td>);
+                }
                 // adding 'grouping' cell
                 const grouplabelcell = (
                     <td colSpan={this.calculateColspan()}>
