@@ -21,7 +21,10 @@ import {
 } from './kup-nav-bar-declarations';
 import { MDCTopAppBar } from '@material/top-app-bar';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -271,9 +274,8 @@ export class KupNavBar {
     }
 
     private fetchThemeColors() {
-        let color = this.kupManager.theme.cssVars[
-            '--kup-nav-bar-background-color'
-        ];
+        let color =
+            this.kupManager.theme.cssVars['--kup-nav-bar-background-color'];
         this.textColor = this.kupManager.theme.colorContrast(color);
     }
 
@@ -443,9 +445,10 @@ export class KupNavBar {
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

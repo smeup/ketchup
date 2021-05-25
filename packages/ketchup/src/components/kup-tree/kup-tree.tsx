@@ -68,7 +68,11 @@ import {
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
     KupLanguageGeneric,
@@ -2067,8 +2071,7 @@ export class KupTree {
                     menu as KupDynamicPositionElement,
                     wrapper,
                     0,
-                    true,
-                    true
+                    KupDynamicPositionPlacement.TOP_RIGHT
                 );
                 this.kupManager.dynamicPosition.start(
                     menu as KupDynamicPositionElement
@@ -2267,7 +2270,9 @@ export class KupTree {
         this.kupManager.language.register(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

@@ -125,7 +125,11 @@ import {
 import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -3649,8 +3653,7 @@ export class KupDataTable {
                     menu as KupDynamicPositionElement,
                     wrapper,
                     0,
-                    true,
-                    true
+                    KupDynamicPositionPlacement.TOP_RIGHT
                 );
                 this.kupManager.dynamicPosition.start(
                     menu as KupDynamicPositionElement
@@ -3962,37 +3965,6 @@ export class KupDataTable {
         return footer;
     }
 
-    /*
-    private onGroupMenuOpen(column: Column) {
-        this.closeMenuAndTooltip();
-        this.closeGroupMenu();
-        this.openGroupMenu(column);
-    }
-
-    private groupMenuPosition() {
-        if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                '#group-menu'
-            );
-            if (menu) {
-                let wrapper = menu.closest('td');
-                this.kupManager.dynamicPosition.register(
-                    menu as KupDynamicPositionElement,
-                    wrapper,
-                    0,
-                    true,
-                    true
-                );
-                this.kupManager.dynamicPosition.start(
-                    menu as KupDynamicPositionElement
-                );
-                menu.classList.add('visible');
-                menu.focus();
-            }
-        }
-    }
-    */
-
     private renderRow(
         row: Row,
         level = 0,
@@ -4038,6 +4010,12 @@ export class KupDataTable {
             if (this.hasTotals()) {
                 //const colSpan = this.multiSelection ? 2 : 1;
                 const cells = [];
+                if (this.hasRowActions()) {
+                    cells.push(<td></td>);
+                }
+                if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
+                    cells.push(<td></td>);
+                }
                 // adding 'grouping' cell
                 const grouplabelcell = (
                     <td colSpan={this.calculateColspan()}>
@@ -4117,11 +4095,7 @@ export class KupDataTable {
                     }
                     {groupMenu}
                     */
-                    cells.push(
-                        <td class={totalClass} id="">
-                            {value}
-                        </td>
-                    );
+                    cells.push(<td class={totalClass}>{value}</td>);
                 }
 
                 jsxRows.push(
@@ -5254,7 +5228,7 @@ export class KupDataTable {
                 dropArea as KupDynamicPositionElement,
                 th,
                 10,
-                true
+                KupDynamicPositionPlacement.TOP
             );
             this.kupManager.dynamicPosition.start(
                 dropArea as KupDynamicPositionElement
@@ -5888,7 +5862,9 @@ export class KupDataTable {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

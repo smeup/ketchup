@@ -2,7 +2,10 @@ import type { CardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { KupCard } from '../../components/kup-card/kup-card';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import type { KupDynamicPositionElement } from '../kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../kup-dynamic-position/kup-dynamic-position-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
@@ -108,7 +111,12 @@ export class KupColumnMenu {
                         wrapper
                     );
                 } else {
-                    dom.ketchup.dynamicPosition.register(card as any, wrapper);
+                    dom.ketchup.dynamicPosition.register(
+                        card as any,
+                        wrapper,
+                        0,
+                        KupDynamicPositionPlacement.BOTTOM
+                    );
                     dom.ketchup.dynamicPosition.start(card as any);
                     card.menuVisible = true;
                     card.focus();

@@ -29,7 +29,10 @@ import {
     formatTime,
 } from '../../utils/utils';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupTimePickerProps } from './kup-time-picker-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -434,9 +437,10 @@ export class KupTimePicker {
 
         let textFieldWidth = null;
         if (textfieldEl != null) {
-            textFieldWidth = textfieldEl.shadowRoot.querySelector(
-                '.mdc-text-field'
-            ).clientWidth;
+            textFieldWidth =
+                textfieldEl.shadowRoot.querySelector(
+                    '.mdc-text-field'
+                ).clientWidth;
             textfieldEl.classList.add('toggled');
             textfieldEl.emitSubmitEventOnEnter = false;
         }
@@ -973,9 +977,10 @@ export class KupTimePicker {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
