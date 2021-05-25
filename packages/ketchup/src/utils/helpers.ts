@@ -5,6 +5,7 @@ import { KupTooltip } from '../components/kup-tooltip/kup-tooltip';
 export function setTooltip(
     event: MouseEvent,
     rowId: string,
+    colId: string,
     cell: Cell,
     tooltip: KupTooltip
 ) {
@@ -21,6 +22,9 @@ export function setTooltip(
         related.object = cell;
         if (rowId != null) {
             related.rowId = rowId;
+        }
+        if (colId != null) {
+            related.colId = colId;
         }
     }
 

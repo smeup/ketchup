@@ -2039,7 +2039,8 @@ export class KupDataTable {
         if (details.area === 'header') {
             if (e.shiftKey && details.th && details.cell) {
                 e.preventDefault();
-                setTooltip(e, null, details.cell, this.tooltip);
+                let columnName = details.column ? details.column.name : null;
+                setTooltip(e, null, columnName, details.cell, this.tooltip);
                 return;
             }
             if (details.th && details.column) {
@@ -2118,7 +2119,14 @@ export class KupDataTable {
             */
             if (this.showTooltipOnRightClick && details.td && details.cell) {
                 e.preventDefault();
-                setTooltip(e, details.row.id, details.cell, this.tooltip);
+                let columnName = details.column ? details.column.name : null;
+                setTooltip(
+                    e,
+                    details.row.id,
+                    columnName,
+                    details.cell,
+                    this.tooltip
+                );
                 //(this.tooltip as any).focus();
                 return;
             }
@@ -4389,7 +4397,13 @@ export class KupDataTable {
                     if (!this.showTooltipOnRightClick) {
                         eventHandlers = {
                             onMouseEnter: (ev) => {
-                                setTooltip(ev, row.id, cell, this.tooltip);
+                                setTooltip(
+                                    ev,
+                                    row.id,
+                                    name,
+                                    cell,
+                                    this.tooltip
+                                );
                             },
                             onMouseLeave: () => {
                                 unsetTooltip(this.tooltip);
