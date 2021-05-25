@@ -31,6 +31,7 @@ import { KupTree } from '../kup-tree/kup-tree';
 import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { CardFamily } from '../kup-card/kup-card-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -641,6 +642,38 @@ export class KupTooltip {
         ];
     }
 
+    private getLayout4() {
+        var info = null;
+        var content = this.getContent();
+        if (content) {
+            info = content[`info1`];
+        }
+        if (info) {
+            let htmlMarkup = <div innerHTML={info.value} />;
+
+            return [
+                <kup-card
+                    data={{
+                        list: [],
+                        text: [info.label ? info.label : ''],
+                    }}
+                    id="dialog-card-5"
+                    layoutNumber={5}
+                    layoutFamily={CardFamily.DIALOG}
+                    onClick={(e) => e.stopPropagation()}
+                    onKupCardEvent={(e) => {
+                        /** todo: action??? */
+                        this.onActionCommandClicked(e, null);
+                    }}
+                    sizeX="300px"
+                    sizeY="auto"
+                >
+                    {htmlMarkup}
+                </kup-card>,
+            ];
+        }
+    }
+
     private getInfos() {
         let infos = null;
 
@@ -667,6 +700,28 @@ export class KupTooltip {
         return infos;
     }
 
+    private isCardLayout(): boolean {
+        switch (this.layout) {
+            case '4': {
+                return true;
+            }
+            default: {
+                return false;
+            }
+        }
+    }
+
+    private getCardLayoutContent() {
+        switch (this.layout) {
+            case '4': {
+                return this.getLayout4();
+            }
+            default: {
+                return null;
+            }
+        }
+    }
+
     private createTooltip() {
         if (this.data == null) {
             return null;
@@ -675,14 +730,25 @@ export class KupTooltip {
         let mainContent = null;
         const mainContentClass = {};
 
-        if (this.layout === '2') {
-            mainContent = this.getLayout2();
-            mainContentClass['layout2'] = true;
-        } else if (this.layout === '3') {
-            mainContent = this.getLayout3();
-            mainContentClass['layout3'] = true;
-        } else {
-            mainContent = this.getDefaultLayout();
+        switch (this.layout) {
+            case '2': {
+                mainContent = this.getLayout2();
+                mainContentClass['layout2'] = true;
+                break;
+            }
+            case '3': {
+                mainContent = this.getLayout3();
+                mainContentClass['layout3'] = true;
+                break;
+            }
+            case '4': {
+                /** why are you here??? */
+                break;
+            }
+            default: {
+                mainContent = this.getDefaultLayout();
+                break;
+            }
         }
 
         let detailContent = null;
@@ -853,6 +919,9 @@ export class KupTooltip {
     }
 
     render() {
+        if (this.isCardLayout()) {
+            return this.getCardLayoutContent();
+        }
         return (
             <div
                 id="wrapper"
@@ -872,9 +941,8 @@ export class KupTooltip {
 
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
