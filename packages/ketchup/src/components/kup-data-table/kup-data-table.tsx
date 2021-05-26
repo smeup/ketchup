@@ -2121,7 +2121,15 @@ export class KupDataTable {
                 return;
             }
             */
-            if (this.showTooltipOnRightClick && details.td && details.cell) {
+            const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+                details.cell.obj
+            );
+            if (
+                _hasTooltip &&
+                this.showTooltipOnRightClick &&
+                details.td &&
+                details.cell
+            ) {
                 e.preventDefault();
                 let columnName = details.column ? details.column.name : null;
                 setTooltip(

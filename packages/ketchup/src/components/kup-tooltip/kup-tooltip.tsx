@@ -349,6 +349,9 @@ export class KupTooltip {
     }
 
     private startLoadDetail(withTimeout: boolean) {
+        if (this.isCardLayout()) {
+            return;
+        }
         this.waitingServerResponse = true;
         // loading detail
         var timeoutMs = withTimeout == true ? this.detailTimeout : 0;
