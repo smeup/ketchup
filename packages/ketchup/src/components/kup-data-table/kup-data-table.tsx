@@ -145,6 +145,7 @@ import {
 } from '../../utils/kup-language/kup-language-declarations';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -821,6 +822,7 @@ export class KupDataTable {
     private isSafariBrowser: boolean = false;
     private isRestoringState: boolean = false;
     private globalFilterTimeout: number;
+    private totalMenuCoords: KupDynamicPositionCoordinates = null;
     columnFilterTimeout: number;
     /**
      * Used to prevent too many resizes callbacks at once.
@@ -2090,7 +2092,6 @@ export class KupDataTable {
         this.kupDataTableContextMenu.emit({
             details: details,
         });
-        // console.log({ details });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.columnMenuInstance.open(
@@ -2102,33 +2103,15 @@ export class KupDataTable {
                 return;
             }
         } else if (details.area === 'body') {
-            /*
-            // TODO open group menu
-            //if (details.isGroupRow) {
-                e.preventDefault();
-                this.onGroupMenuOpen({
-                    name: 'FLD3',
-                    title: 'Column C',
-                    size: '10',
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '',
-                    },
-                });
-                // TODO
-                return;
-            }
-            */
             if (this.showTooltipOnRightClick && details.td && details.cell) {
                 e.preventDefault();
                 setTooltip(e, details.row.id, details.cell, this.tooltip);
-                //(this.tooltip as any).focus();
                 return;
             }
         } else if (details.area === 'footer') {
             if (details.td && details.column) {
                 e.preventDefault();
+                this.totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.onTotalMenuOpen(details.column);
                 return;
             }
@@ -3640,10 +3623,9 @@ export class KupDataTable {
             let menu: HTMLElement =
                 this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
-                let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
                     menu as KupDynamicPositionElement,
-                    wrapper,
+                    this.totalMenuCoords,
                     0,
                     KupDynamicPositionPlacement.TOP_RIGHT
                 );
