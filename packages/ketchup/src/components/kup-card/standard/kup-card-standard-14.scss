@@ -6,6 +6,25 @@
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
 
+  .section-1 {
+    display: flex;
+    padding: 0.5em;
+    .sub-spinner {
+      height: 88px;
+      width: 88px;
+      margin: 0 10px;
+    }
+    .f-image--wrapper {
+      margin: 0 0.5em 0 0;
+    }
+    .title {
+      font-size: 1.25em;
+      height: max-content;
+      margin: auto;
+      width: 100%;
+    }
+  }
+
   .sub-button {
     display: inline-flex;
     width: 100%;
