@@ -55,7 +55,7 @@ function createChipList(
     const chipList: Array<HTMLElement> = [];
     let chipEl: HTMLElement;
 
-    if (props.dataNew) {
+    if (props.dataNew && props.dataNew.length > 0) {
         props.data = treeNode2Data(props.dataNew);
     }
 
