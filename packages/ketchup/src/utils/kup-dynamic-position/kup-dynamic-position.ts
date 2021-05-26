@@ -1,8 +1,10 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     kupDynamicPositionActiveClass,
+    KupDynamicPositionAnchor,
     kupDynamicPositionAnchorAttribute,
     kupDynamicPositionAttribute,
+    KupDynamicPositionCoordinates,
     KupDynamicPositionElement,
 } from './kup-dynamic-position-declarations';
 import { KupDynamicPositionPlacement } from './kup-dynamic-position-declarations';
@@ -16,22 +18,35 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupDynamicPosition {
     managedElements: Set<KupDynamicPositionElement> = new Set();
     /**
+     * Function used to check whether the anchor point is an HTMLElement or a set of coordinates.
+     * @param {KupDynamicPositionAnchor} anchor - Anchor point.
+     * @returns {anchor is HTMLElement} Returns true when the anchor point is an HTMLElement.
+     */
+    anchorIsHTMLElement(
+        anchor: KupDynamicPositionAnchor
+    ): anchor is HTMLElement {
+        return (anchor as HTMLElement).tagName !== undefined;
+    }
+    /**
      * Watches the element eligible to dynamic positioning.
      * @param {KupDynamicPositionElement} el - Element to reposition.
      * @param {HTMLElement} anchorEl - "el" position will be anchored to this element.
      * @param {number} margin - "el" distance from its parent in pixels.
      * @param {KupDynamicPositionPlacement} position - "el" placement.
      * @param {boolean} detached - When true, the function won't be recursive but it will be executed only once, causing "el" to be detached from its anchor when scrolling.
+     * @param {KupDynamicPositionCoordinates} coordinates - When present, "el" will be places to these precise coordinates.
      */
     register(
         el: KupDynamicPositionElement,
-        anchorEl: HTMLElement,
+        anchorEl: KupDynamicPositionAnchor,
         margin?: number,
         position?: KupDynamicPositionPlacement,
         detached?: boolean
     ): void {
         el.setAttribute(kupDynamicPositionAttribute, '');
-        anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
+        if (this.anchorIsHTMLElement(anchorEl)) {
+            anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
+        }
         el.style.position = 'fixed';
         el.style.zIndex = '1000';
         el.dynamicPosition = {
@@ -117,9 +132,22 @@ export class KupDynamicPosition {
             cancelAnimationFrame(el.dynamicPosition.rAF);
             return;
         }
+        // Fixed position (usually from mouse events).
+        // When anchor doesn't have the tagName property, anchor is considered as a set of coordinates.
+        if (!this.anchorIsHTMLElement(el.dynamicPosition.anchor)) {
+            el.style.left =
+                (el.dynamicPosition.anchor as KupDynamicPositionCoordinates).x +
+                'px';
+            el.style.top =
+                (el.dynamicPosition.anchor as KupDynamicPositionCoordinates).y +
+                'px';
+            return;
+        }
         const offsetH: number = el.clientHeight;
         const offsetW: number = el.clientWidth;
-        const rect: DOMRect = el.dynamicPosition.anchor.getBoundingClientRect();
+        const rect: DOMRect = (
+            el.dynamicPosition.anchor as HTMLElement
+        ).getBoundingClientRect();
         // Reset placement
         el.style.top = '';
         el.style.right = '';

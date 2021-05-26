@@ -11,16 +11,29 @@ export const kupDynamicPositionAnchorAttribute = 'kup-dynamic-position-anchor';
  */
 export const kupDynamicPositionActiveClass = 'kup-dynamic-position-active';
 /**
+ * Master type extending all subtypes of available anchor points.
+ */
+export type KupDynamicPositionAnchor =
+    | HTMLElement
+    | KupDynamicPositionCoordinates;
+/**
  * Fixed position element.
  */
 export interface KupDynamicPositionElement extends HTMLElement {
     dynamicPosition: {
-        anchor: HTMLElement;
+        anchor: KupDynamicPositionAnchor;
         detached: boolean;
         margin: number;
         position: KupDynamicPositionPlacement;
         rAF: number;
     };
+}
+/**
+ * Coordinates for fixed positioning.
+ */
+export interface KupDynamicPositionCoordinates {
+    x: number;
+    y: number;
 }
 /**
  * Available placements.
