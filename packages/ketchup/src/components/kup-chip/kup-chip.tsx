@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    Watch,
 } from '@stencil/core';
 
 import {
@@ -74,6 +75,55 @@ export class KupChip {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e s                  */
+    /*-------------------------------------------------*/
+
+    /**
+     * This function converts TreeNode[] to FChipData[]. This is valid until FChipData, which is @deprecated, is removed.
+     *
+     * @return {FChipData} Array of FChipData.
+     */
+    @Watch('dataNew')
+    treeNode2Data(newValue: TreeNode[]): void {
+        function children(TreeNode: TreeNode) {
+            for (let index = 0; index < TreeNode.children.length; index++) {
+                const node: TreeNode = TreeNode.children[index];
+                data.push({
+                    icon: TreeNode.children[index].icon,
+                    label: TreeNode.children[index].value,
+                    obj: TreeNode.children[index].obj,
+                    value: TreeNode.children[index].id,
+                });
+                if (node.children) {
+                    children(node);
+                }
+            }
+        }
+        const data: FChipData[] = [];
+        if (newValue) {
+            for (let index = 0; index < newValue.length; index++) {
+                const node: TreeNode = newValue[index];
+                data.push({
+                    icon: node.icon,
+                    label: node.value,
+                    obj: node.obj,
+                    value: node.id,
+                });
+                if (node.children) {
+                    children(newValue[index]);
+                }
+            }
+            this.kupManager.debug.logMessage(
+                this,
+                'Chip data was deducted from a TreeNode[] structure (experimental feature).',
+                KupDebugCategory.WARNING
+            );
+            this.data = data;
+            this.dataNew = null;
+        }
+    }
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -290,41 +340,6 @@ export class KupChip {
             }
         }
     }
-    /**
-     * This function converts TreeNode[] to FChipData[]. This is valid until FChipData, which is @deprecated, is removed.
-     *
-     * @return {FChipData} Array of FChipData.
-     */
-    treeNode2Data(): FChipData[] {
-        function children(TreeNode: TreeNode) {
-            for (let index = 0; index < TreeNode.children.length; index++) {
-                const node: TreeNode = TreeNode.children[index];
-                data.push({
-                    icon: TreeNode.children[index].icon,
-                    label: TreeNode.children[index].value,
-                    obj: TreeNode.children[index].obj,
-                    value: TreeNode.children[index].id,
-                });
-                if (node.children) {
-                    children(node);
-                }
-            }
-        }
-        const data: FChipData[] = [];
-        for (let index = 0; index < this.dataNew.length; index++) {
-            const node: TreeNode = this.dataNew[index];
-            data.push({
-                icon: node.icon,
-                label: node.value,
-                obj: node.obj,
-                value: node.id,
-            });
-            if (node.children) {
-                children(this.dataNew[index]);
-            }
-        }
-        return data;
-    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -333,12 +348,7 @@ export class KupChip {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         if (this.dataNew && this.dataNew.length > 0) {
-            this.data = this.treeNode2Data();
-            this.kupManager.debug.logMessage(
-                this,
-                'Chip data was deducted from a TreeNode[] structure (experimental feature).',
-                KupDebugCategory.WARNING
-            );
+            this.treeNode2Data(this.dataNew);
         }
         this.kupManager.theme.register(this);
     }
