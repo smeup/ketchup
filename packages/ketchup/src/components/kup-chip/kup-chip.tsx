@@ -77,55 +77,6 @@ export class KupChip {
     private kupManager: KupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
-    /*                  W a t c h e s                  */
-    /*-------------------------------------------------*/
-
-    /**
-     * This function converts TreeNode[] to FChipData[]. This is valid until FChipData, which is @deprecated, is removed.
-     *
-     * @return {FChipData} Array of FChipData.
-     */
-    @Watch('dataNew')
-    treeNode2Data(newValue: TreeNode[]): void {
-        function children(TreeNode: TreeNode) {
-            for (let index = 0; index < TreeNode.children.length; index++) {
-                const node: TreeNode = TreeNode.children[index];
-                data.push({
-                    icon: TreeNode.children[index].icon,
-                    label: TreeNode.children[index].value,
-                    obj: TreeNode.children[index].obj,
-                    value: TreeNode.children[index].id,
-                });
-                if (node.children) {
-                    children(node);
-                }
-            }
-        }
-        const data: FChipData[] = [];
-        if (newValue) {
-            for (let index = 0; index < newValue.length; index++) {
-                const node: TreeNode = newValue[index];
-                data.push({
-                    icon: node.icon,
-                    label: node.value,
-                    obj: node.obj,
-                    value: node.id,
-                });
-                if (node.children) {
-                    children(newValue[index]);
-                }
-            }
-            this.kupManager.debug.logMessage(
-                this,
-                'Chip data was deducted from a TreeNode[] structure (experimental feature).',
-                KupDebugCategory.WARNING
-            );
-            this.data = data;
-            this.dataNew = null;
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
@@ -347,9 +298,6 @@ export class KupChip {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        if (this.dataNew && this.dataNew.length > 0) {
-            this.treeNode2Data(this.dataNew);
-        }
         this.kupManager.theme.register(this);
     }
 
@@ -394,10 +342,14 @@ export class KupChip {
     render() {
         let props: FChipsProps = {
             data: this.data,
+            dataNew: this.dataNew,
             type: this.type,
         };
 
-        if (!this.data || this.data.length === 0) {
+        if (
+            (!this.data || this.data.length === 0) &&
+            (!this.dataNew || this.dataNew.length === 0)
+        ) {
             this.kupManager.debug.logMessage(
                 this,
                 'Empty data.',
