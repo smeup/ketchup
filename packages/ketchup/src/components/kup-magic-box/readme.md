@@ -82,9 +82,9 @@ graph TD;
   kup-card --> kup-list
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
+  kup-card --> kup-spinner
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
-  kup-card --> kup-spinner
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge

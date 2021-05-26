@@ -1,6 +1,11 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { FChipsProps, FChipType } from './f-chip-declarations';
+import { FChipData, FChipsProps, FChipType } from './f-chip-declarations';
 import { FImage } from '../f-image/f-image';
+import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -47,8 +52,12 @@ function createChipList(
     isFilter: boolean,
     isInput: boolean
 ): HTMLElement[] {
-    let chipList: Array<HTMLElement> = [];
+    const chipList: Array<HTMLElement> = [];
     let chipEl: HTMLElement;
+
+    if (props.dataNew) {
+        props.data = treeNode2Data(props.dataNew);
+    }
 
     for (let i = 0; i < props.data.length; i++) {
         // could happen due to functions that change the data (such as transposition, etc)
@@ -126,4 +135,45 @@ function createChipList(
     }
 
     return chipList;
+}
+
+/**
+ * This function converts TreeNode[] to FChipData[]. This is valid until FChipData is removed.
+ *
+ * @return {FChipData} Array of FChipData.
+ */
+function treeNode2Data(dataNew: TreeNode[]): FChipData[] {
+    function children(TreeNode: TreeNode) {
+        for (let index = 0; index < TreeNode.children.length; index++) {
+            const node: TreeNode = TreeNode.children[index];
+            data.push({
+                icon: TreeNode.children[index].icon,
+                label: TreeNode.children[index].value,
+                obj: TreeNode.children[index].obj,
+                value: TreeNode.children[index].id,
+            });
+            if (node.children) {
+                children(node);
+            }
+        }
+    }
+    const data: FChipData[] = [];
+    for (let index = 0; index < dataNew.length; index++) {
+        const node: TreeNode = dataNew[index];
+        data.push({
+            icon: node.icon,
+            label: node.value,
+            obj: node.obj,
+            value: node.id,
+        });
+        if (node.children) {
+            children(dataNew[index]);
+        }
+    }
+    dom.ketchup.debug.logMessage(
+        'f-chip',
+        'Chip data was deducted from a TreeNode[] structure (experimental feature).',
+        KupDebugCategory.WARNING
+    );
+    return data;
 }

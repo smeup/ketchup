@@ -934,8 +934,14 @@ export function create14(component: KupCard): VNode {
     const datepickerArray: GenericObject[] = component.data['datepicker']
         ? component.data['datepicker']
         : [];
+    const imageArray: GenericObject[] = component.data['image']
+        ? component.data['image']
+        : [];
     const tabbarArray: GenericObject[] = component.data['tabbar']
         ? component.data['tabbar']
+        : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
         : [];
     const textfieldArray: GenericObject[] = component.data['textfield']
         ? component.data['textfield']
@@ -970,6 +976,29 @@ export function create14(component: KupCard): VNode {
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
             <div class="section-1">
+                {imageArray[0] ? (
+                    <FImage
+                        id="image1"
+                        {...imageArray[0]}
+                        sizeX="84px"
+                        sizeY="84px"
+                    ></FImage>
+                ) : (
+                    <div class="sub-spinner">
+                        <kup-spinner
+                            active={true}
+                            dimensions="7px"
+                            layout={14}
+                        />
+                    </div>
+                )}
+                {textArray[0] ? (
+                    <div class="sub-1 title">
+                        <div>{textArray[0]}</div>
+                    </div>
+                ) : null}
+            </div>
+            <div class="section-2">
                 {tabbarArray[0] ? (
                     <kup-tab-bar
                         {...tabbarArray[0]}
@@ -977,7 +1006,7 @@ export function create14(component: KupCard): VNode {
                     />
                 ) : null}
             </div>
-            <div class="section-2">
+            <div class="section-3">
                 {tabsValues.includes(KupLanguageGeneric.FILTERS) ? (
                     <div
                         class={`${KupCardCSSClasses.CARD_VIEW} ${
