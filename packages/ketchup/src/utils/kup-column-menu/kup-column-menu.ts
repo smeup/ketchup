@@ -118,7 +118,7 @@ export class KupColumnMenu {
                     card.menuVisible = true;
                     card.focus();
                 }
-                document.dispatchEvent(
+                comp.rootElement.dispatchEvent(
                     new CustomEvent('kupColumnMenuActive', {
                         detail: {
                             card: card,

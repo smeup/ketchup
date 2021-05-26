@@ -26,6 +26,7 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupCardIds } from '../kup-card/kup-card-declarations';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -50,9 +51,15 @@ export class KupChip {
     @Prop() customStyle: string = '';
     /**
      * List of elements.
+     * @deprecated soon to be replaced by TreeNode[]
      * @default []
      */
     @Prop({ mutable: true }) data: FChipData[] = [];
+    /**
+     * List of elements.
+     * @default []
+     */
+    @Prop({ mutable: true }) dataNew: TreeNode[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
@@ -283,6 +290,41 @@ export class KupChip {
             }
         }
     }
+    /**
+     * This function converts TreeNode[] to FChipData[]. This is valid until FChipData, which is @deprecated, is removed.
+     *
+     * @return {FChipData} Array of FChipData.
+     */
+    treeNode2Data(): FChipData[] {
+        function children(TreeNode: TreeNode) {
+            for (let index = 0; index < TreeNode.children.length; index++) {
+                const node: TreeNode = TreeNode.children[index];
+                data.push({
+                    icon: TreeNode.children[index].icon,
+                    label: TreeNode.children[index].value,
+                    obj: TreeNode.children[index].obj,
+                    value: TreeNode.children[index].id,
+                });
+                if (node.children) {
+                    children(node);
+                }
+            }
+        }
+        const data: FChipData[] = [];
+        for (let index = 0; index < this.dataNew.length; index++) {
+            const node: TreeNode = this.dataNew[index];
+            data.push({
+                icon: node.icon,
+                label: node.value,
+                obj: node.obj,
+                value: node.id,
+            });
+            if (node.children) {
+                children(this.dataNew[index]);
+            }
+        }
+        return data;
+    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -290,6 +332,14 @@ export class KupChip {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        if (this.dataNew && this.dataNew.length > 0) {
+            this.data = this.treeNode2Data();
+            this.kupManager.debug.logMessage(
+                this,
+                'Chip data was deducted from a TreeNode[] structure (experimental feature).',
+                KupDebugCategory.WARNING
+            );
+        }
         this.kupManager.theme.register(this);
     }
 
@@ -338,10 +388,9 @@ export class KupChip {
         };
 
         if (!this.data || this.data.length === 0) {
-            let message = 'Empty data.';
             this.kupManager.debug.logMessage(
                 this,
-                message,
+                'Empty data.',
                 KupDebugCategory.WARNING
             );
             return;
