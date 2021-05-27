@@ -30,6 +30,7 @@ export interface CardData {
     list?: GenericObject[];
     object?: KupObj[];
     progressbar?: GenericObject[];
+    switch?: GenericObject[];
     tabbar?: GenericObject[];
     text?: string[];
     textfield?: GenericObject[];
@@ -67,6 +68,7 @@ export enum KupCardIds {
  */
 export enum KupCardCSSClasses {
     CARD_VIEW = 'card-view',
+    CLICKABLE_LINK = 'clickable-link',
     COLLAPSIBLE_ACTIVE = 'collapsible-active',
     COLLAPSIBLE_CARD = 'collapsible-card',
     COLLAPSIBLE_ELEMENT = 'collapsible-element',

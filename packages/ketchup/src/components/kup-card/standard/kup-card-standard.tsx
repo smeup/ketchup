@@ -937,6 +937,9 @@ export function create14(component: KupCard): VNode {
     const imageArray: GenericObject[] = component.data['image']
         ? component.data['image']
         : [];
+    const switchArray: GenericObject[] = component.data['switch']
+        ? component.data['switch']
+        : [];
     const tabbarArray: GenericObject[] = component.data['tabbar']
         ? component.data['tabbar']
         : [];
@@ -992,11 +995,47 @@ export function create14(component: KupCard): VNode {
                         />
                     </div>
                 )}
-                {textArray[0] ? (
-                    <div class="sub-1 title">
-                        <div>{textArray[0]}</div>
-                    </div>
-                ) : null}
+                <div class="sub-1">
+                    {textArray[0] ? (
+                        <div class="title">
+                            <span
+                                class={`label ${KupCardCSSClasses.CLICKABLE_LINK}`}
+                                id="title-link"
+                            >
+                                {textArray[0]}
+                            </span>
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                                    )}
+                                />
+                            ) : null}
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_SEARCH
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_SEARCH
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                    ) : null}
+
+                    {textArray[1] && textArray[2] ? (
+                        <div class="info">
+                            <span class="label">{textArray[1]}</span>
+                            <span class="value">{textArray[2]}</span>
+                        </div>
+                    ) : null}
+                </div>
             </div>
             <div class="section-2">
                 {tabbarArray[0] ? (
@@ -1053,15 +1092,9 @@ export function create14(component: KupCard): VNode {
                                 : ''
                         }`}
                     >
-                        {buttonsIds.includes(KupColumnMenuIds.BUTTON_GROUP) ? (
-                            <div class="sub-button">
-                                <kup-button
-                                    {...buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BUTTON_GROUP
-                                    )}
-                                />
+                        {switchArray[0] ? (
+                            <div class="sub-switch">
+                                <kup-switch {...switchArray[0]} />
                             </div>
                         ) : null}
                     </div>

@@ -90,7 +90,7 @@ export function dialogHeader(title: string): VNode {
                 <div class={KupCardCSSClasses.DIALOG_TITLE}>{title}</div>
             ) : null}
             <FImage
-                sizeX="2em"
+                sizeX="1.25em"
                 sizeY="2em"
                 resource="clear"
                 id={KupCardIds.DIALOG_CLOSE}

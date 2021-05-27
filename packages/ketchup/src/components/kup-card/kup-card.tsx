@@ -137,6 +137,7 @@ export class KupCard {
     })
     kupClick: EventEmitter<{
         card: KupCard;
+        id: string;
     }>;
     /**
      * Triggered when a sub-component of the card emits an event.
@@ -152,9 +153,10 @@ export class KupCard {
         event: any;
     }>;
 
-    onKupClick(): void {
+    onKupClick(id: string): void {
         this.kupClick.emit({
             card: this,
+            id: id,
         });
     }
 
@@ -218,11 +220,23 @@ export class KupCard {
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
+            // The dialog "X" button.
             const dialogClose: HTMLElement = root.querySelector(
                 '#' + KupCardIds.DIALOG_CLOSE
             );
             if (dialogClose) {
                 dialogClose.onclick = () => this.rootElement.remove();
+            }
+            // When an element can be clicked. Ideally anchors/links.
+            const links: NodeListOf<HTMLElement> = root.querySelectorAll(
+                '.' + KupCardCSSClasses.CLICKABLE_LINK
+            );
+            for (let index = 0; index < links.length; index++) {
+                const link: HTMLElement = links[index];
+                link.onclick = (e) => {
+                    e.stopPropagation();
+                    this.onKupClick(link.id);
+                };
             }
         }
     }
@@ -377,6 +391,7 @@ export class KupCard {
         root.addEventListener('kupDatePickerItemClick', this.cardEvent);
         root.addEventListener('kupDatePickerTextFieldSubmit', this.cardEvent);
         root.addEventListener('kupListClick', this.cardEvent);
+        root.addEventListener('kupSwitchChange', this.cardEvent);
         root.addEventListener('kupTabBarClick', this.cardEvent);
         root.addEventListener('kupTextFieldClearIconClick', this.cardEvent);
         root.addEventListener('kupTextFieldInput', this.cardEvent);
@@ -509,7 +524,7 @@ export class KupCard {
                     class={`${this.isMenu ? 'mdc-menu mdc-menu-surface' : ''} ${
                         this.menuVisible ? 'visible' : ''
                     }`}
-                    onClick={() => this.onKupClick()}
+                    onClick={() => this.onKupClick(null)}
                 >
                     {this.getLayout()}
                 </div>

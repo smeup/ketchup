@@ -2996,6 +2996,7 @@ declare namespace LocalJSX {
          */
         "onKupCardClick"?: (event: CustomEvent<{
         card: KupCard;
+        id: string;
     }>) => void;
         /**
           * Triggered when a sub-component of the card emits an event.
@@ -4499,6 +4500,7 @@ declare namespace LocalJSX {
           * Triggered when the input element's value changes.
          */
         "onKupSwitchChange"?: (event: CustomEvent<{
+        id: string;
         value: string;
     }>) => void;
         /**

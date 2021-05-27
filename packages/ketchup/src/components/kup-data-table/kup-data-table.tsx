@@ -2043,11 +2043,6 @@ export class KupDataTable {
             details: details,
         });
         if (details.area === 'header') {
-            if (e.shiftKey && details.th && details.cell) {
-                e.preventDefault();
-                setTooltip(e, null, details.cell, this.tooltip);
-                return;
-            }
             if (details.th && details.column) {
                 if (details.filterRemove) {
                     this.onRemoveFilter(details.column);
