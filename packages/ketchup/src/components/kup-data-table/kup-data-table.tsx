@@ -1071,9 +1071,11 @@ export class KupDataTable {
         emitEvent?: boolean
     ): Promise<void> {
         this.selectedRows = [];
-        this.selectedRows = this.renderedRows.filter((r) => {
-            return rowsById.split(';').indexOf(r.id) >= 0;
-        });
+        if (rowsById) {
+            this.selectedRows = this.renderedRows.filter((r) => {
+                return rowsById.split(';').indexOf(r.id) >= 0;
+            });
+        }
 
         if (emitEvent !== false) {
             this.kupRowSelected.emit({

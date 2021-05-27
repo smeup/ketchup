@@ -298,7 +298,7 @@ export class KupTooltip {
 
     @Method()
     async unsetTooltipInfo() {
-        if (!this.mouseIsOn()) {
+        if (!this.mouseIsOn() && !this.isCardLayout()) {
             //console.log('tooltip unsetTooltipInfo');
             this.onMouseLeave();
         } else {
@@ -663,7 +663,7 @@ export class KupTooltip {
             return [
                 <kup-card
                     data={{
-                        list: listMenu?[listMenu]:[],
+                        list: listMenu ? [listMenu] : [],
                         text: [info.label ? info.label : ''],
                     }}
                     id="dialog-card-5"
