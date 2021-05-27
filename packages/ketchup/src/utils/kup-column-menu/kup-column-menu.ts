@@ -161,6 +161,16 @@ export class KupColumnMenu {
      */
     prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [];
+        props.push({
+            className: 'printable',
+            icon: 'open-in-new',
+            id: KupColumnMenuIds.BUTTON_OPEN_IN_NEW,
+        });
+        props.push({
+            className: 'printable',
+            icon: 'search',
+            id: KupColumnMenuIds.BUTTON_SEARCH,
+        });
         if (comp.removableColumns) {
             props.push({
                 className: 'printable',

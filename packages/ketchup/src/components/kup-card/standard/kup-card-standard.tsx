@@ -997,7 +997,31 @@ export function create14(component: KupCard): VNode {
                 )}
                 <div class="sub-1">
                     {textArray[0] ? (
-                        <div class="title">{textArray[0]}</div>
+                        <div class="title">
+                            <span class="label">{textArray[0]}</span>
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                                    )}
+                                />
+                            ) : null}
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_SEARCH
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_SEARCH
+                                    )}
+                                />
+                            ) : null}
+                        </div>
                     ) : null}
 
                     {textArray[1] && textArray[2] ? (
