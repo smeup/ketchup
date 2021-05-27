@@ -540,9 +540,15 @@ export namespace Components {
         "customStyle": string;
         /**
           * List of elements.
+          * @deprecated soon to be replaced by TreeNode[]
           * @default []
          */
         "data": FChipData[];
+        /**
+          * List of elements.
+          * @default []
+         */
+        "dataNew": TreeNode[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -3149,9 +3155,15 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * List of elements.
+          * @deprecated soon to be replaced by TreeNode[]
           * @default []
          */
         "data"?: FChipData[];
+        /**
+          * List of elements.
+          * @default []
+         */
+        "dataNew"?: TreeNode[];
         /**
           * Triggered when a chip loses focus.
          */

@@ -1,10 +1,12 @@
 import type { FComponent } from '../../types/GenericTypes';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 /**
  * Props of the f-chip component.
  */
 export interface FChipsProps extends FComponent {
     data?: FChipData[];
+    dataNew?: TreeNode[];
     type?: FChipType;
 }
 /**

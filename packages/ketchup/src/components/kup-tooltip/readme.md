@@ -1,41 +1,36 @@
 # kup-tooltip
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
-| Property        | Attribute        | Description                      | Type                   | Default     |
-| --------------- | ---------------- | -------------------------------- | ---------------------- | ----------- |
-| `cellOptions`   | --               | Data for cell options            | `TooltipCellOptions`   | `undefined` |
-| `data`          | --               | Data for top section             | `TooltipData`          | `undefined` |
-| `detailData`    | --               | Data for the detail              | `TooltipDetailData`    | `undefined` |
-| `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`               | `800`       |
-| `layout`        | `layout`         | Layout used to display the items | `string`               | `'1'`       |
-| `loadTimeout`   | `load-timeout`   | Timeout for tooltip              | `number`               | `1000`      |
-| `owner`         | `owner`          | Owner of this tooltip            | `string`               | `'not-set'` |
-| `relatedObject` | --               | Container element for tooltip    | `TooltipRelatedObject` | `undefined` |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `cellOptions` | -- | Data for cell options | `TooltipCellOptions` | `undefined` |
+| `data` | -- | Data for top section | `TooltipData` | `undefined` |
+| `detailData` | -- | Data for the detail | `TooltipDetailData` | `undefined` |
+| `detailTimeout` | `detail-timeout` | Timeout for loadDetail | `number` | `800` |
+| `layout` | `layout` | Layout used to display the items | `string` | `'1'` |
+| `loadTimeout` | `load-timeout` | Timeout for tooltip | `number` | `1000` |
+| `owner` | `owner` | Owner of this tooltip | `string` | `'not-set'` |
+| `relatedObject` | -- | Container element for tooltip | `TooltipRelatedObject` | `undefined` |
 
 ## Events
 
-| Event                                | Description                                     | Type                                                                                                                                                         |
-| ------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `kupActionCommandClicked`            |                                                 | `CustomEvent<{ actionCommand: TooltipAction; relatedObject: TooltipRelatedObject; }>`                                                                        |
-| `kupDefaultActionClicked`            |                                                 | `CustomEvent<{ obj: TooltipObject; }>`                                                                                                                       |
-| `kupDefaultOptionClicked`            |                                                 | `CustomEvent<{ obj: TooltipObject; }>`                                                                                                                       |
-| `kupDefaultPreviewClicked`           |                                                 | `CustomEvent<{ obj: TooltipObject; }>`                                                                                                                       |
-| `kupTooltipLoadCellOptions`          |                                                 | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>`                                                                                 |
-| `kupTooltipLoadData`                 |                                                 | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>`                                                                                 |
-| `kupTooltipLoadDetail`               |                                                 | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>`                                                                                 |
-| `kupTooltipTreeDynamicMassExpansion` |                                                 | `CustomEvent<{ treeNodePath?: TreeNodePath; treeNode?: TreeNode; expandAll?: boolean; }>`                                                                    |
-| `kupTooltipTreeNodeButtonClicked`    |                                                 | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
-| `kupTooltipTreeNodeDblClick`         |                                                 | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
-| `kupTooltipTreeNodeExpand`           |                                                 | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
-| `kupTooltipTreeNodeSelected`         | Fired when a node of the tree has been selected | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                                         |
-
+| Event | Description | Type |
+| --- | --- | --- |
+| `kupActionCommandClicked` |  | `CustomEvent<{ actionCommand: TooltipAction; relatedObject: TooltipRelatedObject; }>` |
+| `kupDefaultActionClicked` |  | `CustomEvent<{ obj: TooltipObject; }>` |
+| `kupDefaultOptionClicked` |  | `CustomEvent<{ obj: TooltipObject; }>` |
+| `kupDefaultPreviewClicked` |  | `CustomEvent<{ obj: TooltipObject; }>` |
+| `kupTooltipLoadCellOptions` |  | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
+| `kupTooltipLoadData` |  | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
+| `kupTooltipLoadDetail` |  | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
+| `kupTooltipTreeDynamicMassExpansion` |  | `CustomEvent<{ treeNodePath?: TreeNodePath; treeNode?: TreeNode; expandAll?: boolean; }>` |
+| `kupTooltipTreeNodeButtonClicked` |  | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>` |
+| `kupTooltipTreeNodeDblClick` |  | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>` |
+| `kupTooltipTreeNodeExpand` |  | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
+| `kupTooltipTreeNodeSelected` | Fired when a node of the tree has been selected | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>` |
 
 ## Methods
 
@@ -47,8 +42,6 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
-
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -57,44 +50,34 @@ This method is used to trigger a new render of the component.
 
 Type: `Promise<void>`
 
-
-
 ### `setTooltipInfo(relatedObject: TooltipRelatedObject) => Promise<void>`
-
-
 
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `unsetTooltipInfo() => Promise<void>`
 
-
-
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## Dependencies
 
 ### Used by
 
- - [kup-box](../kup-box)
- - [kup-data-table](../kup-data-table)
- - [kup-tree](../kup-tree)
+-   [kup-box](../kup-box)
+-   [kup-data-table](../kup-data-table)
+-   [kup-tree](../kup-tree)
 
 ### Depends on
 
-- [kup-button](../kup-button)
-- [kup-card](../kup-card)
-- [kup-tree](../kup-tree)
+-   [kup-button](../kup-button)
+-   [kup-card](../kup-card)
+-   [kup-tree](../kup-tree)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-tooltip --> kup-button
@@ -114,10 +97,9 @@ graph TD;
   kup-card --> kup-list
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
+  kup-card --> kup-spinner
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
-  kup-card --> kup-spinner
-  kup-chip --> kup-badge
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
@@ -138,6 +120,6 @@ graph TD;
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -132,15 +132,32 @@ export class KupDynamicPosition {
             cancelAnimationFrame(el.dynamicPosition.rAF);
             return;
         }
+        // Reset placement
+        el.style.top = '';
+        el.style.right = '';
+        el.style.bottom = '';
+        el.style.left = '';
         // Fixed position (usually from mouse events).
         // When anchor doesn't have the tagName property, anchor is considered as a set of coordinates.
         if (!this.anchorIsHTMLElement(el.dynamicPosition.anchor)) {
-            el.style.left =
-                (el.dynamicPosition.anchor as KupDynamicPositionCoordinates).x +
-                'px';
-            el.style.top =
-                (el.dynamicPosition.anchor as KupDynamicPositionCoordinates).y +
-                'px';
+            const x: number = el.dynamicPosition.anchor.x;
+            const y: number = el.dynamicPosition.anchor.y;
+            if (
+                el.offsetWidth >
+                window.innerWidth - el.dynamicPosition.anchor.x
+            ) {
+                el.style.left = x - el.offsetWidth + 'px';
+            } else {
+                el.style.left = x + 'px';
+            }
+            if (
+                el.offsetHeight >
+                window.innerHeight - el.dynamicPosition.anchor.y
+            ) {
+                el.style.top = y - el.offsetHeight + 'px';
+            } else {
+                el.style.top = y + 'px';
+            }
             return;
         }
         const offsetH: number = el.clientHeight;
@@ -148,11 +165,6 @@ export class KupDynamicPosition {
         const rect: DOMRect = (
             el.dynamicPosition.anchor as HTMLElement
         ).getBoundingClientRect();
-        // Reset placement
-        el.style.top = '';
-        el.style.right = '';
-        el.style.bottom = '';
-        el.style.left = '';
         // Vertical position
         if (
             el.dynamicPosition.position === KupDynamicPositionPlacement.TOP ||
