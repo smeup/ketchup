@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    Watch,
 } from '@stencil/core';
 
 import {
@@ -26,6 +27,7 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupCardIds } from '../kup-card/kup-card-declarations';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -50,9 +52,15 @@ export class KupChip {
     @Prop() customStyle: string = '';
     /**
      * List of elements.
+     * @deprecated soon to be replaced by TreeNode[]
      * @default []
      */
     @Prop({ mutable: true }) data: FChipData[] = [];
+    /**
+     * List of elements.
+     * @default []
+     */
+    @Prop({ mutable: true }) dataNew: TreeNode[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
@@ -334,14 +342,17 @@ export class KupChip {
     render() {
         let props: FChipsProps = {
             data: this.data,
+            dataNew: this.dataNew,
             type: this.type,
         };
 
-        if (!this.data || this.data.length === 0) {
-            let message = 'Empty data.';
+        if (
+            (!this.data || this.data.length === 0) &&
+            (!this.dataNew || this.dataNew.length === 0)
+        ) {
             this.kupManager.debug.logMessage(
                 this,
-                message,
+                'Empty data.',
                 KupDebugCategory.WARNING
             );
             return;
