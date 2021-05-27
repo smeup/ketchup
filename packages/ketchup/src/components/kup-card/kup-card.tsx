@@ -218,11 +218,26 @@ export class KupCard {
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
+            // The dialog "X" button.
             const dialogClose: HTMLElement = root.querySelector(
                 '#' + KupCardIds.DIALOG_CLOSE
             );
             if (dialogClose) {
                 dialogClose.onclick = () => this.rootElement.remove();
+            }
+            // When an element can be clicked. Ideally anchors/links.
+            const links: NodeListOf<HTMLElement> = root.querySelectorAll(
+                '.' + KupCardCSSClasses.CLICKABLE_LINK
+            );
+            for (let index = 0; index < links.length; index++) {
+                const link: HTMLElement = links[index];
+                link.onclick = () => {
+                    this.onKupEvent(
+                        new CustomEvent('kupCardLinkClick', {
+                            detail: { id: link.id },
+                        })
+                    );
+                };
             }
         }
     }

@@ -998,7 +998,12 @@ export function create14(component: KupCard): VNode {
                 <div class="sub-1">
                     {textArray[0] ? (
                         <div class="title">
-                            <span class="label">{textArray[0]}</span>
+                            <span
+                                class={`label ${KupCardCSSClasses.CLICKABLE_LINK}`}
+                                id="title-link"
+                            >
+                                {textArray[0]}
+                            </span>
                             {buttonsIds.includes(
                                 KupColumnMenuIds.BUTTON_OPEN_IN_NEW
                             ) ? (
