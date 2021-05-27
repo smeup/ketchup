@@ -1,6 +1,5 @@
 import type { CardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
-import type { KupCard } from '../../components/kup-card/kup-card';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
@@ -664,13 +663,14 @@ export class KupColumnMenu {
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
-        const card: KupCard = cardEvent.detail.card;
         const compEvent: CustomEvent = cardEvent.detail.event;
         const compID: string = compEvent.detail.id;
         const subcomp: HTMLElement = compEvent.target as HTMLElement;
         const dataStorage: GenericObject[] = subcomp['data-storage'];
         const compEventType: string = compEvent.type;
-        const isClickEvent = compEventType.toLowerCase().endsWith('click');
+        const isClickEvent: boolean = compEventType
+            .toLowerCase()
+            .endsWith('click');
         switch (compEvent.type) {
             case 'kupCheckboxChange':
                 this.checkboxChange(
