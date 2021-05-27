@@ -937,6 +937,9 @@ export function create14(component: KupCard): VNode {
     const imageArray: GenericObject[] = component.data['image']
         ? component.data['image']
         : [];
+    const switchArray: GenericObject[] = component.data['switch']
+        ? component.data['switch']
+        : [];
     const tabbarArray: GenericObject[] = component.data['tabbar']
         ? component.data['tabbar']
         : [];
@@ -1053,15 +1056,9 @@ export function create14(component: KupCard): VNode {
                                 : ''
                         }`}
                     >
-                        {buttonsIds.includes(KupColumnMenuIds.BUTTON_GROUP) ? (
-                            <div class="sub-button">
-                                <kup-button
-                                    {...buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BUTTON_GROUP
-                                    )}
-                                />
+                        {switchArray[0] ? (
+                            <div class="sub-switch">
+                                <kup-switch {...switchArray[0]} />
                             </div>
                         ) : null}
                     </div>

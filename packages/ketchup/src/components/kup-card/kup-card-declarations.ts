@@ -30,6 +30,7 @@ export interface CardData {
     list?: GenericObject[];
     object?: KupObj[];
     progressbar?: GenericObject[];
+    switch?: GenericObject[];
     tabbar?: GenericObject[];
     text?: string[];
     textfield?: GenericObject[];

@@ -67,6 +67,12 @@
     height: 100px;
   }
 
+  .sub-switch {
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+  }
+
   .sub-tree {
     max-height: 40vh;
     overflow: auto;

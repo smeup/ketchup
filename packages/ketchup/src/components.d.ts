@@ -4499,6 +4499,7 @@ declare namespace LocalJSX {
           * Triggered when the input element's value changes.
          */
         "onKupSwitchChange"?: (event: CustomEvent<{
+        id: string;
         value: string;
     }>) => void;
         /**

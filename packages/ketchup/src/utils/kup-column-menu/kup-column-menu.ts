@@ -141,6 +141,7 @@ export class KupColumnMenu {
             chip: this.prepChip(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
             object: [column.obj],
+            switch: this.prepSwitch(comp, column),
             tabbar: this.prepTabBar(comp, column),
             text: [column.title],
             textfield:
@@ -160,27 +161,6 @@ export class KupColumnMenu {
      */
     prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [];
-        if (
-            !FiltersColumnMenu.isTree(comp) &&
-            (comp as KupDataTable).showGroups
-        ) {
-            props.push({
-                className: 'printable',
-                'data-storage': {
-                    columnName: column.name,
-                },
-                icon: 'book',
-                id: KupColumnMenuIds.BUTTON_GROUP,
-                title:
-                    comp.getGroupByName(column.name) != null
-                        ? dom.ketchup.language.translate(
-                              KupLanguageGrouping.DISABLE
-                          )
-                        : dom.ketchup.language.translate(
-                              KupLanguageGrouping.ENABLE
-                          ),
-            });
-        }
         if (comp.removableColumns) {
             props.push({
                 className: 'printable',
@@ -332,6 +312,38 @@ export class KupColumnMenu {
         }
         chipProps.type = FChipType.INPUT;
         props.push(chipProps);
+        return props;
+    }
+    /**
+     * Handles the column menu's switch prop.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     * @returns {GenericObject[]} Switches props.
+     */
+    prepSwitch(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+        const props: GenericObject[] = [];
+        if (
+            !FiltersColumnMenu.isTree(comp) &&
+            (comp as KupDataTable).showGroups
+        ) {
+            const isGroupActive: boolean =
+                comp.getGroupByName(column.name) != null;
+            props.push({
+                'data-storage': {
+                    columnName: column.name,
+                },
+                checked: isGroupActive ? true : false,
+                id: KupColumnMenuIds.SWITCH_GROUP,
+                label: isGroupActive
+                    ? dom.ketchup.language.translate(
+                          KupLanguageGrouping.DISABLE
+                      )
+                    : dom.ketchup.language.translate(
+                          KupLanguageGrouping.ENABLE
+                      ),
+                leadingLabel: true,
+            });
+        }
         return props;
     }
     /**
@@ -643,29 +655,12 @@ export class KupColumnMenu {
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
         const card: KupCard = cardEvent.detail.card;
-        const cardData = card.data;
-        const compEvent = cardEvent.detail.event;
-        const compID = compEvent.detail.id;
-        let dataStorage: GenericObject[];
-        let compEventType: string = compEvent.type;
-        let isClickEvent = compEventType.toLowerCase().endsWith('click');
-        let cardDataId = '';
-        if (compEventType.indexOf('kupTextField') == 0) {
-            cardDataId = 'textfield';
-        } else if (compEventType.indexOf('kupDatePicker') == 0) {
-            cardDataId = 'datepicker';
-        } else if (compEventType.indexOf('kupTimePicker') == 0) {
-            cardDataId = 'timepicker';
-        } else if (compEventType.indexOf('kupCheckbox') == 0) {
-            cardDataId = 'checkbox';
-        } else if (compEventType.indexOf('kupButton') == 0) {
-            cardDataId = 'button';
-        }
-        if (cardDataId != '') {
-            dataStorage = cardData[cardDataId].find((x) => x.id === compID)[
-                'data-storage'
-            ];
-        }
+        const compEvent: CustomEvent = cardEvent.detail.event;
+        const compID: string = compEvent.detail.id;
+        const subcomp: HTMLElement = compEvent.target as HTMLElement;
+        const dataStorage: GenericObject[] = subcomp['data-storage'];
+        const compEventType: string = compEvent.type;
+        const isClickEvent = compEventType.toLowerCase().endsWith('click');
         switch (compEvent.type) {
             case 'kupCheckboxChange':
                 this.checkboxChange(
@@ -686,14 +681,18 @@ export class KupColumnMenu {
                             dataStorage['columnName']
                         );
                         break;
-                    case KupColumnMenuIds.BUTTON_GROUP:
+                    case KupColumnMenuIds.BUTTON_REMOVE:
+                        this.removeColumn(comp, dataStorage['column']);
+                        break;
+                }
+                break;
+            case 'kupSwitchChange':
+                switch (compID) {
+                    case KupColumnMenuIds.SWITCH_GROUP:
                         this.toggleGroup(
                             comp as KupDataTable,
                             dataStorage['columnName']
                         );
-                        break;
-                    case KupColumnMenuIds.BUTTON_REMOVE:
-                        this.removeColumn(comp, dataStorage['column']);
                         break;
                 }
                 break;

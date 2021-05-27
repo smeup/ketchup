@@ -276,6 +276,14 @@ for (let index = 0; index < cards.length; index++) {
                 centeredLabel: false,
             },
         ],
+        switch: [
+            {
+                checked: false,
+                id: 'group',
+                label: 'hehe',
+                leadingLabel: true,
+            },
+        ],
         tabbar: [
             {
                 data: [
