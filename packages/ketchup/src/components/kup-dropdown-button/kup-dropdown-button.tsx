@@ -22,7 +22,10 @@ import {
     consistencyCheck,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDropdownButtonProps } from './kup-dropdown-button-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
@@ -461,9 +464,10 @@ export class KupDropdownButton {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

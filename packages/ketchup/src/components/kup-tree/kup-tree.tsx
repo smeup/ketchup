@@ -68,7 +68,12 @@ import {
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionCoordinates,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
     KupLanguageGeneric,
@@ -292,7 +297,7 @@ export class KupTree {
     /**
      * Defines the current totals options.
      */
-    @Prop() totals: TotalsMap;
+    @Prop({ mutable: true }) totals: TotalsMap;
 
     //-------- State --------
     @State() selectedNodeString: string = '';
@@ -319,6 +324,7 @@ export class KupTree {
     private filtersColumnMenuInstance: FiltersColumnMenu =
         new FiltersColumnMenu();
     private filtersTreeItemsInstance: FiltersTreeItems = new FiltersTreeItems();
+    private totalMenuCoords: KupDynamicPositionCoordinates = null;
 
     //-------- Events --------
     /**
@@ -845,6 +851,7 @@ export class KupTree {
         if (details.area === 'footer') {
             if (details.td && details.column) {
                 e.preventDefault();
+                this.totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.onTotalMenuOpen(details.column);
                 return;
             }
@@ -2050,13 +2057,11 @@ export class KupTree {
             let menu: HTMLElement =
                 this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
-                let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
                     menu as KupDynamicPositionElement,
-                    wrapper,
+                    this.totalMenuCoords,
                     0,
-                    true,
-                    true
+                    KupDynamicPositionPlacement.TOP_RIGHT
                 );
                 this.kupManager.dynamicPosition.start(
                     menu as KupDynamicPositionElement
@@ -2255,7 +2260,9 @@ export class KupTree {
         this.kupManager.language.register(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll('.dynamic-position');
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

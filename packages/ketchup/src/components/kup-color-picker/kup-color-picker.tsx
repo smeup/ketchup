@@ -17,7 +17,10 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { KupTextField } from '../kup-text-field/kup-text-field';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupColorPickerProps } from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
@@ -241,9 +244,12 @@ export class KupColorPicker {
             this.picker['onOpen'] = function () {
                 let colorPicker = this['kupColorPicker'];
                 if (!colorPicker.dropdownEl) {
-                    colorPicker.dropdownEl = this[
-                        'kupColorPicker'
-                    ].rootElement.shadowRoot.querySelector('.picker_wrapper');
+                    colorPicker.dropdownEl =
+                        this[
+                            'kupColorPicker'
+                        ].rootElement.shadowRoot.querySelector(
+                            '.picker_wrapper'
+                        );
                     colorPicker.kupManager.dynamicPosition.register(
                         colorPicker.dropdownEl,
                         colorPicker.anchorEl
@@ -328,9 +334,10 @@ export class KupColorPicker {
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

@@ -90,7 +90,7 @@ export function dialogHeader(title: string): VNode {
                 <div class={KupCardCSSClasses.DIALOG_TITLE}>{title}</div>
             ) : null}
             <FImage
-                sizeX="2em"
+                sizeX="1.25em"
                 sizeY="2em"
                 resource="clear"
                 id={KupCardIds.DIALOG_CLOSE}
@@ -220,7 +220,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                     (node.id ? node.id.replace(/\//g, '_') : '');
                 if (chipData) {
                     const existingChip: FChipData = chipData.find(
-                        (x: FChipData) => x.value === node.id
+                        (x: FChipData) => x.value === key
                     );
                     if (existingChip) {
                         chipData.splice(chipData.indexOf(existingChip), 1);

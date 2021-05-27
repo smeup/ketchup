@@ -540,9 +540,15 @@ export namespace Components {
         "customStyle": string;
         /**
           * List of elements.
+          * @deprecated soon to be replaced by TreeNode[]
           * @default []
          */
         "data": FChipData[];
+        /**
+          * List of elements.
+          * @default []
+         */
+        "dataNew": TreeNode[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2990,6 +2996,7 @@ declare namespace LocalJSX {
          */
         "onKupCardClick"?: (event: CustomEvent<{
         card: KupCard;
+        id: string;
     }>) => void;
         /**
           * Triggered when a sub-component of the card emits an event.
@@ -3149,9 +3156,15 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * List of elements.
+          * @deprecated soon to be replaced by TreeNode[]
           * @default []
          */
         "data"?: FChipData[];
+        /**
+          * List of elements.
+          * @default []
+         */
+        "dataNew"?: TreeNode[];
         /**
           * Triggered when a chip loses focus.
          */
@@ -4487,6 +4500,7 @@ declare namespace LocalJSX {
           * Triggered when the input element's value changes.
          */
         "onKupSwitchChange"?: (event: CustomEvent<{
+        id: string;
         value: string;
     }>) => void;
         /**

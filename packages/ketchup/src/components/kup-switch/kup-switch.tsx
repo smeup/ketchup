@@ -108,6 +108,7 @@ export class KupSwitch {
         bubbles: true,
     })
     kupChange: EventEmitter<{
+        id: string;
         value: string;
     }>;
     /**
@@ -138,6 +139,7 @@ export class KupSwitch {
             this.value = 'on';
         }
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
