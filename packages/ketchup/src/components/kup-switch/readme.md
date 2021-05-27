@@ -16,11 +16,11 @@
 
 ## Events
 
-| Event             | Description                                       | Type                              |
-| ----------------- | ------------------------------------------------- | --------------------------------- |
-| `kupSwitchBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ value: string; }>` |
-| `kupSwitchChange` | Triggered when the input element's value changes. | `CustomEvent<{ value: string; }>` |
-| `kupSwitchFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ value: string; }>` |
+| Event             | Description                                       | Type                                          |
+| ----------------- | ------------------------------------------------- | --------------------------------------------- |
+| `kupSwitchBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ value: string; }>`             |
+| `kupSwitchChange` | Triggered when the input element's value changes. | `CustomEvent<{ id: string; value: string; }>` |
+| `kupSwitchFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ value: string; }>`             |
 
 
 ## Methods
@@ -50,11 +50,13 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-card --> kup-switch
   kup-data-table --> kup-switch
   style kup-switch fill:#f9f,stroke:#333,stroke-width:4px
 ```
