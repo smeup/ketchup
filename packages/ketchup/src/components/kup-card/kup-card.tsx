@@ -137,6 +137,7 @@ export class KupCard {
     })
     kupClick: EventEmitter<{
         card: KupCard;
+        id: string;
     }>;
     /**
      * Triggered when a sub-component of the card emits an event.
@@ -152,9 +153,10 @@ export class KupCard {
         event: any;
     }>;
 
-    onKupClick(): void {
+    onKupClick(id: string): void {
         this.kupClick.emit({
             card: this,
+            id: id,
         });
     }
 
@@ -231,12 +233,9 @@ export class KupCard {
             );
             for (let index = 0; index < links.length; index++) {
                 const link: HTMLElement = links[index];
-                link.onclick = () => {
-                    this.onKupEvent(
-                        new CustomEvent('kupCardLinkClick', {
-                            detail: { id: link.id },
-                        })
-                    );
+                link.onclick = (e) => {
+                    e.stopPropagation();
+                    this.onKupClick(link.id);
                 };
             }
         }
@@ -525,7 +524,7 @@ export class KupCard {
                     class={`${this.isMenu ? 'mdc-menu mdc-menu-surface' : ''} ${
                         this.menuVisible ? 'visible' : ''
                     }`}
-                    onClick={() => this.onKupClick()}
+                    onClick={() => this.onKupClick(null)}
                 >
                     {this.getLayout()}
                 </div>

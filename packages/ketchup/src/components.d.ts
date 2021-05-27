@@ -2996,6 +2996,7 @@ declare namespace LocalJSX {
          */
         "onKupCardClick"?: (event: CustomEvent<{
         card: KupCard;
+        id: string;
     }>) => void;
         /**
           * Triggered when a sub-component of the card emits an event.
