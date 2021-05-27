@@ -995,11 +995,18 @@ export function create14(component: KupCard): VNode {
                         />
                     </div>
                 )}
-                {textArray[0] ? (
-                    <div class="sub-1 title">
-                        <div>{textArray[0]}</div>
-                    </div>
-                ) : null}
+                <div class="sub-1">
+                    {textArray[0] ? (
+                        <div class="title">{textArray[0]}</div>
+                    ) : null}
+
+                    {textArray[1] && textArray[2] ? (
+                        <div class="info">
+                            <span class="label">{textArray[1]}</span>
+                            <span class="value">{textArray[2]}</span>
+                        </div>
+                    ) : null}
+                </div>
             </div>
             <div class="section-2">
                 {tabbarArray[0] ? (
