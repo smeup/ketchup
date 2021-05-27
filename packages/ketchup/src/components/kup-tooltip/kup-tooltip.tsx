@@ -651,27 +651,25 @@ export class KupTooltip {
 
     private getLayout4() {
         var info = null;
+        var listMenu = null;
         var content = this.getContent();
         if (content) {
             info = content[`info1`];
+            listMenu = content[`listMenu`];
         }
-        if (info) {
+        if (info || listMenu) {
             let htmlMarkup = <div innerHTML={info.value} />;
 
             return [
                 <kup-card
                     data={{
-                        list: [],
+                        list: listMenu?[listMenu]:[],
                         text: [info.label ? info.label : ''],
                     }}
                     id="dialog-card-5"
                     layoutNumber={5}
                     layoutFamily={CardFamily.DIALOG}
                     onClick={(e) => e.stopPropagation()}
-                    onKupCardEvent={(e) => {
-                        /** todo: action??? */
-                        this.onActionCommandClicked(e, null);
-                    }}
                     sizeX="300px"
                     sizeY="auto"
                 >
