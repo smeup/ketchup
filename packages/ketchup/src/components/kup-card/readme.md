@@ -21,7 +21,7 @@
 
 | Event          | Description                                                | Type                                          |
 | -------------- | ---------------------------------------------------------- | --------------------------------------------- |
-| `kupCardClick` | Triggered when the card is clicked.                        | `CustomEvent<{ card: KupCard; }>`             |
+| `kupCardClick` | Triggered when the card is clicked.                        | `CustomEvent<{ card: KupCard; id: string; }>` |
 | `kupCardEvent` | Triggered when a sub-component of the card emits an event. | `CustomEvent<{ card: KupCard; event: any; }>` |
 
 
@@ -83,6 +83,7 @@ Type: `Promise<void>`
 - [kup-chart](../kup-chart)
 - [kup-spinner](../kup-spinner)
 - [kup-tab-bar](../kup-tab-bar)
+- [kup-switch](../kup-switch)
 - [kup-tree](../kup-tree)
 
 ### Graph
@@ -102,6 +103,7 @@ graph TD;
   kup-card --> kup-chart
   kup-card --> kup-spinner
   kup-card --> kup-tab-bar
+  kup-card --> kup-switch
   kup-card --> kup-tree
   kup-chip --> kup-badge
   kup-badge --> kup-badge

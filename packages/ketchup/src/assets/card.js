@@ -1,3 +1,6 @@
+addEventListener('kupCardClick', (e) => {
+    console.log(e);
+});
 addEventListener('kupCardEvent', (e) => {
     console.log(e);
 });
@@ -51,6 +54,20 @@ for (let index = 0; index < cards.length; index++) {
                 id: 'apply',
                 styling: 'flat',
                 title: 'Apply',
+            },
+            {
+                className: 'printable',
+                icon: 'open-in-new',
+                id: 'open-in-new',
+                styling: 'flat',
+                title: 'open-in-new',
+            },
+            {
+                className: 'printable',
+                icon: 'search',
+                id: 'search',
+                styling: 'flat',
+                title: 'search',
             },
         ],
         chart: [
@@ -274,6 +291,14 @@ for (let index = 0; index < cards.length; index++) {
             {
                 value: 75,
                 centeredLabel: false,
+            },
+        ],
+        switch: [
+            {
+                checked: false,
+                id: 'group',
+                label: 'hehe',
+                leadingLabel: true,
             },
         ],
         tabbar: [
