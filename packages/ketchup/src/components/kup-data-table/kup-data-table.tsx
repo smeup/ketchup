@@ -825,6 +825,7 @@ export class KupDataTable {
     private globalFilterTimeout: number;
     private totalMenuCoords: KupDynamicPositionCoordinates = null;
     columnFilterTimeout: number;
+    private clickTimeout: ReturnType<typeof setTimeout>[] = [];
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -5786,13 +5787,42 @@ export class KupDataTable {
                                 ev.stopPropagation();
                                 unsetTooltip(this.tooltip);
                             }}
-                            onClick={(e: MouseEvent) => this.clickHandler(e)}
+                            onClick={(e: MouseEvent) => {
+                                // Note: event must be cloned, otherwise inside setTimeout will be exiting the Shadow DOM scope (causing loss of information, including target).
+                                const clone: GenericObject = {};
+                                for (const key in e) {
+                                    clone[key] = e[key];
+                                }
+                                this.clickTimeout.push(
+                                    setTimeout(
+                                        () =>
+                                            this.clickHandler(
+                                                clone as MouseEvent
+                                            ),
+                                        300
+                                    )
+                                );
+                            }}
                             onContextMenu={(e: MouseEvent) =>
                                 this.contextMenuHandler(e)
                             }
-                            onDblClick={(e: MouseEvent) =>
-                                this.dblClickHandler(e)
-                            }
+                            onDblClick={(e: MouseEvent) => {
+                                for (
+                                    let index = 0;
+                                    index < this.clickTimeout.length;
+                                    index++
+                                ) {
+                                    clearTimeout(this.clickTimeout[index]);
+                                    this.kupManager.debug.logMessage(
+                                        this,
+                                        'Cleared clickHandler timeout(' +
+                                            this.clickTimeout[index] +
+                                            ').'
+                                    );
+                                }
+                                this.clickTimeout = [];
+                                this.dblClickHandler(e);
+                            }}
                             onMouseMove={(e: MouseEvent) =>
                                 this.mouseMoveHandler(e)
                             }
