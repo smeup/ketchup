@@ -658,13 +658,13 @@ export class KupTooltip {
             listMenu = content[`listMenu`];
         }
         if (info || listMenu) {
-            let htmlMarkup = <div innerHTML={info.value} />;
+            let htmlMarkup = <div innerHTML={info?info.value:''} />;
 
             return [
                 <kup-card
                     data={{
                         list: listMenu ? [listMenu] : [],
-                        text: [info.label ? info.label : ''],
+                        text: [info? info.label : ''],
                     }}
                     id="dialog-card-5"
                     layoutNumber={5}
