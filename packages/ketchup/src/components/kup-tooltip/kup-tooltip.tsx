@@ -844,7 +844,8 @@ export class KupTooltip {
                 this.rootElement as KupDynamicPositionElement,
                 this.relatedObject.element,
                 0,
-                KupDynamicPositionPlacement.BOTTOM
+                KupDynamicPositionPlacement.AUTO,
+                true
             );
             this.kupManager.dynamicPosition.start(
                 this.rootElement as KupDynamicPositionElement

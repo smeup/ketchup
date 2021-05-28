@@ -255,10 +255,10 @@ export class KupGauge {
         if (!this.labelDistance) {
             this.labelDistance = 20;
         }
-        if (!this.maxValue) {
+        if (this.maxValue === undefined || this.maxValue === null) {
             this.maxValue = 100;
         }
-        if (!this.minValue) {
+        if (this.minValue === undefined || this.minValue === null) {
             this.minValue = -100;
         }
     }
@@ -376,9 +376,8 @@ export class KupGauge {
             this.showLabels || this.showMaxmin
                 ? arcsThresholds.map((threshold) => {
                       // Given the
-                      const thresholdPercentage = this.calculateValuePercentage(
-                          threshold
-                      );
+                      const thresholdPercentage =
+                          this.calculateValuePercentage(threshold);
                       // Decides the position of the text
                       // @see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
                       let textPosition = 'end';
