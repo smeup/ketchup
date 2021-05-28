@@ -40,7 +40,8 @@ describe('row selection', () => {
         const cells = await page.findAll(cellsSelector);
 
         await cells[0].click();
-
+        await page.waitForChanges();
+        page.waitForTimeout(500);
         await page.waitForChanges();
 
         expect(kupRowSelected).toHaveLength(1);
