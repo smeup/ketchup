@@ -111,7 +111,8 @@ export class KupColumnMenu {
                         card as any,
                         wrapper,
                         0,
-                        KupDynamicPositionPlacement.BOTTOM
+                        KupDynamicPositionPlacement.BOTTOM,
+                        true
                     );
                     dom.ketchup.dynamicPosition.start(card as any);
                     card.menuVisible = true;
