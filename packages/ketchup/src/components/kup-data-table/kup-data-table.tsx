@@ -1072,9 +1072,11 @@ export class KupDataTable {
         emitEvent?: boolean
     ): Promise<void> {
         this.selectedRows = [];
-        this.selectedRows = this.renderedRows.filter((r) => {
-            return rowsById.split(';').indexOf(r.id) >= 0;
-        });
+        if (rowsById) {
+            this.selectedRows = this.renderedRows.filter((r) => {
+                return rowsById.split(';').indexOf(r.id) >= 0;
+            });
+        }
 
         if (emitEvent !== false) {
             this.kupRowSelected.emit({
@@ -2075,7 +2077,7 @@ export class KupDataTable {
                 return;
             }
             if (details.td && details.row && !details.textfield) {
-                this.onRowClick(e, details.row);
+                this.onRowClick(e, details.row, true);
                 return;
             }
         }
@@ -2099,9 +2101,24 @@ export class KupDataTable {
                 return;
             }
         } else if (details.area === 'body') {
-            if (this.showTooltipOnRightClick && details.td && details.cell) {
+            const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+                details.cell.obj
+            );
+            if (
+                _hasTooltip &&
+                this.showTooltipOnRightClick &&
+                details.td &&
+                details.cell
+            ) {
                 e.preventDefault();
-                setTooltip(e, details.row.id, details.cell, this.tooltip);
+                let columnName = details.column ? details.column.name : null;
+                setTooltip(
+                    e,
+                    details.row.id,
+                    columnName,
+                    details.cell,
+                    this.tooltip
+                );
                 return;
             }
         } else if (details.area === 'footer') {
@@ -2118,6 +2135,15 @@ export class KupDataTable {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
+        if (this.selection == SelectionMode.MULTIPLE) {
+            this.resetSelectedRows();
+        }
+        if (
+            this.selection == SelectionMode.SINGLE ||
+            this.selection == SelectionMode.MULTIPLE
+        ) {
+            this.onRowClick(e, details.row, false);
+        }
         this.kupDataTableDblClick.emit({
             details: details,
         });
@@ -2545,7 +2571,7 @@ export class KupDataTable {
         this.adjustPaginator();
     }
 
-    private onRowClick(event: MouseEvent, row: Row) {
+    private onRowClick(event: MouseEvent, row: Row, emitEvent?: boolean) {
         // checking target
         const target = event.target;
 
@@ -2590,12 +2616,14 @@ export class KupDataTable {
             this.selectedColumn = clickedColumn;
             this.selectColumn(this.selectedColumn);
 
-            // emit event
-            this.kupRowSelected.emit({
-                selectedRows: this.selectedRows,
-                clickedRow: row,
-                clickedColumn,
-            });
+            if (emitEvent !== false) {
+                // emit event
+                this.kupRowSelected.emit({
+                    selectedRows: this.selectedRows,
+                    clickedRow: row,
+                    clickedColumn,
+                });
+            }
         }
     }
 
@@ -4341,7 +4369,13 @@ export class KupDataTable {
                     if (!this.showTooltipOnRightClick) {
                         eventHandlers = {
                             onMouseEnter: (ev) => {
-                                setTooltip(ev, row.id, cell, this.tooltip);
+                                setTooltip(
+                                    ev,
+                                    row.id,
+                                    currentColumn.name,
+                                    cell,
+                                    this.tooltip
+                                );
                             },
                             onMouseLeave: () => {
                                 unsetTooltip(this.tooltip);

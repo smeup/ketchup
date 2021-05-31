@@ -172,6 +172,7 @@ graph TD;
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-tooltip --> kup-button
+  kup-tooltip --> kup-card
   kup-tooltip --> kup-tree
   kup-tree --> kup-image
   kup-tree --> kup-button

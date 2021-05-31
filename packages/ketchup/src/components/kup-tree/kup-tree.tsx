@@ -1266,13 +1266,25 @@ export class KupTree {
                 eventHandlers = {
                     onContextMenu: (ev) => {
                         ev.preventDefault();
-                        setTooltip(ev, treeNodeData.id, cell, this.tooltip);
+                        setTooltip(
+                            ev,
+                            treeNodeData.id,
+                            null,
+                            cell,
+                            this.tooltip
+                        );
                     },
                 };
             } else {
                 eventHandlers = {
                     onMouseEnter: (ev) => {
-                        setTooltip(ev, treeNodeData.id, cell, this.tooltip);
+                        setTooltip(
+                            ev,
+                            treeNodeData.id,
+                            null,
+                            cell,
+                            this.tooltip
+                        );
                     },
                     onMouseLeave: () => {
                         unsetTooltip(this.tooltip);
