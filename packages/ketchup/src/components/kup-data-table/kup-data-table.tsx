@@ -2077,7 +2077,7 @@ export class KupDataTable {
                 return;
             }
             if (details.td && details.row && !details.textfield) {
-                this.onRowClick(e, details.row);
+                this.onRowClick(e, details.row, true);
                 return;
             }
         }
@@ -2135,6 +2135,15 @@ export class KupDataTable {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
+        if (this.selection == SelectionMode.MULTIPLE) {
+            this.resetSelectedRows();
+        }
+        if (
+            this.selection == SelectionMode.SINGLE ||
+            this.selection == SelectionMode.MULTIPLE
+        ) {
+            this.onRowClick(e, details.row, false);
+        }
         this.kupDataTableDblClick.emit({
             details: details,
         });
@@ -2562,7 +2571,7 @@ export class KupDataTable {
         this.adjustPaginator();
     }
 
-    private onRowClick(event: MouseEvent, row: Row) {
+    private onRowClick(event: MouseEvent, row: Row, emitEvent?: boolean) {
         // checking target
         const target = event.target;
 
@@ -2607,12 +2616,14 @@ export class KupDataTable {
             this.selectedColumn = clickedColumn;
             this.selectColumn(this.selectedColumn);
 
-            // emit event
-            this.kupRowSelected.emit({
-                selectedRows: this.selectedRows,
-                clickedRow: row,
-                clickedColumn,
-            });
+            if (emitEvent !== false) {
+                // emit event
+                this.kupRowSelected.emit({
+                    selectedRows: this.selectedRows,
+                    clickedRow: row,
+                    clickedColumn,
+                });
+            }
         }
     }
 
