@@ -174,7 +174,7 @@ export class KupColumnMenu {
         props.push({
             className: 'printable',
             icon: 'add',
-            id: KupColumnMenuIds.BUTTON_ADD,
+            id: KupColumnMenuIds.BUTTON_NEW,
         });
         if (comp.removableColumns) {
             props.push({

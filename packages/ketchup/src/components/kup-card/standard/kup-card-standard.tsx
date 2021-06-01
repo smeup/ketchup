@@ -1027,12 +1027,12 @@ export function create14(component: KupCard): VNode {
                                 />
                             ) : null}
                             {buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_ADD
+                                KupColumnMenuIds.BUTTON_NEW
                             ) ? (
                                 <kup-button
                                     {...buttonArray.find(
                                         (x) =>
-                                            x.id === KupColumnMenuIds.BUTTON_ADD
+                                            x.id === KupColumnMenuIds.BUTTON_NEW
                                     )}
                                 />
                             ) : null}
