@@ -2,6 +2,7 @@
  * Component IDs.
  */
 export enum KupColumnMenuIds {
+    BUTTON_ADD = 'add',
     BUTTON_APPLY = 'apply',
     BUTTON_DESCRIPTION = 'description',
     BUTTON_OPEN_IN_NEW = 'open-in-new',

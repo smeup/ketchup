@@ -171,6 +171,11 @@ export class KupColumnMenu {
             icon: 'search',
             id: KupColumnMenuIds.BUTTON_SEARCH,
         });
+        props.push({
+            className: 'printable',
+            icon: 'add',
+            id: KupColumnMenuIds.BUTTON_ADD,
+        });
         if (comp.removableColumns) {
             props.push({
                 className: 'printable',
