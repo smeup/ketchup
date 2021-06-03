@@ -1073,7 +1073,7 @@ export class KupTree {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getColumns(),
+            this.getVisibleColumns(),
             treeExpandedPropName,
             this.filtersColumnMenuInstance
         );
