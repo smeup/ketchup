@@ -2271,7 +2271,7 @@ export class KupDataTable {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getColumns()
+            this.getVisibleColumns()
         );
         this.rowsLength = this.rowsPointLength();
     }
