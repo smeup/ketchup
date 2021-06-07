@@ -499,11 +499,6 @@ export class KupCard {
 
     render() {
         if (!this.data) {
-            this.kupManager.debug.logMessage(
-                this,
-                'Data missing, not rendering!',
-                KupDebugCategory.WARNING
-            );
             return;
         }
 
