@@ -287,6 +287,7 @@ export interface EventHandlerDetails {
     area: string;
     cell: Cell;
     column: Column;
+    columnMenuCard: HTMLKupCardElement;
     filterRemove: HTMLSpanElement;
     isGroupRow: boolean;
     row: Row;

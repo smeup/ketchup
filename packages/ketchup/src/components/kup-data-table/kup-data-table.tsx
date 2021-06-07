@@ -639,12 +639,6 @@ export class KupDataTable {
     } = {};
 
     /**
-     * name of the column with an open menu
-     */
-    @State()
-    private openedMenu: string = null;
-
-    /**
      * name of the column with the opened total menu
      */
     @State()
@@ -836,6 +830,10 @@ export class KupDataTable {
      * Reference to the row detail card.
      */
     private detailCard: HTMLKupCardElement = null;
+    /**
+     * Reference to the column menu card.
+     */
+    private columnMenuCard: HTMLKupCardElement = null;
 
     /**
      * When component unload is complete
@@ -1716,7 +1714,6 @@ export class KupDataTable {
         if (this.showCustomization) {
             this.customizePanelPosition();
         }
-        this.columnMenuInstance.reposition(this);
         this.totalMenuPosition();
         // TODO
         // this.groupMenuPosition();
@@ -2028,6 +2025,7 @@ export class KupDataTable {
                 : null,
             cell: cell ? cell : null,
             column: column ? column : null,
+            columnMenuCard: this.columnMenuCard,
             filterRemove: filterRemove ? filterRemove : null,
             isGroupRow: isGroupRow,
             row: row ? row : null,
@@ -2092,12 +2090,24 @@ export class KupDataTable {
         });
         if (details.area === 'header') {
             if (details.th && details.column) {
+                this.columnMenuCard.setAttribute(
+                    'data-column',
+                    details.column.name
+                );
+                this.columnMenuCard.data = this.columnMenuInstance.prepData(
+                    this,
+                    getColumnByName(
+                        this.getVisibleColumns(),
+                        details.column.name
+                    )
+                );
                 this.columnMenuInstance.open(
                     e,
                     this,
                     details.column.name,
                     this.tooltip
                 );
+                this.columnMenuInstance.reposition(this);
                 return;
             }
         } else if (details.area === 'body') {
@@ -2751,10 +2761,6 @@ export class KupDataTable {
         }
     }
 
-    private closeMenu() {
-        this.openedMenu = null;
-    }
-
     private openTotalMenu(column: Column) {
         this.openedTotalMenu = column.name;
     }
@@ -2774,12 +2780,7 @@ export class KupDataTable {
     */
 
     private closeMenuAndTooltip() {
-        this.closeMenu();
         unsetTooltip(this.tooltip);
-    }
-
-    private isOpenedMenu(): boolean {
-        return this.openedMenu != null;
     }
 
     private isOpenedTotalMenu(): boolean {
@@ -2858,11 +2859,6 @@ export class KupDataTable {
             }
         }
 
-        // When we have an open menu and the event does NOT come from the same table, we close the menu.
-        if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
-            this.closeMenuAndTooltip();
-        }
-
         // TODO When the footer is considered stable please do this in another dedicated method
         if (this.isOpenedTotalMenu() && !(fromTotalMenu && fromSameTable)) {
             this.closeTotalMenu();
@@ -2909,10 +2905,6 @@ export class KupDataTable {
             filters: this.filters,
             data: this.data,
         };
-    }
-
-    setColumnMenu(column: string) {
-        this.openedMenu = column;
     }
 
     // Handler for loadMore button is clicked.
@@ -5852,31 +5844,27 @@ export class KupDataTable {
                         {stickyEl}
                     </div>
                     {tooltip}
-                    {this.openedMenu ? (
-                        <kup-card
-                            data={this.columnMenuInstance.prepData(
-                                this,
-                                getColumnByName(
-                                    this.getVisibleColumns(),
-                                    this.openedMenu
-                                )
-                            )}
-                            data-column={this.openedMenu}
-                            id={KupColumnMenuIds.CARD_COLUMN_MENU}
-                            isMenu={true}
-                            layoutNumber={14}
-                            onBlur={(e) => {
-                                this.columnMenuInstance.close(e, this);
-                            }}
-                            onClick={(e) => e.stopPropagation()}
-                            onKupCardEvent={(e) => {
-                                this.columnMenuInstance.eventHandlers(e, this);
-                            }}
-                            sizeX="auto"
-                            sizeY="auto"
-                            tabIndex={0}
-                        ></kup-card>
-                    ) : null}
+                    <kup-card
+                        id={KupColumnMenuIds.CARD_COLUMN_MENU}
+                        isMenu={true}
+                        layoutNumber={14}
+                        onBlur={(e) => {
+                            this.columnMenuInstance.close(
+                                e,
+                                this.columnMenuCard
+                            );
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        onKupCardEvent={(e) => {
+                            this.columnMenuInstance.eventHandlers(e, this);
+                        }}
+                        ref={(el: HTMLKupCardElement) =>
+                            (this.columnMenuCard = el)
+                        }
+                        sizeX="auto"
+                        sizeY="auto"
+                        tabIndex={0}
+                    ></kup-card>
                     {paginatorBottom}
                 </div>
                 {this.removableColumns ? this.columnRemoveArea() : null}
