@@ -117,13 +117,6 @@ export class KupColumnMenu {
                 dom.ketchup.dynamicPosition.start(card as any);
                 card.menuVisible = true;
                 card.focus();
-                comp.rootElement.dispatchEvent(
-                    new CustomEvent('kupColumnMenuActive', {
-                        detail: {
-                            card: card,
-                        },
-                    })
-                );
             }
         }
     }
