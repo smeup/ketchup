@@ -2036,21 +2036,18 @@ export class KupDataTable {
         };
     }
 
-    private clickHandler(e: MouseEvent): void {
+    private clickHandler(e: MouseEvent): EventHandlerDetails {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
-        this.kupDataTableClick.emit({
-            details: details,
-        });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 if (details.filterRemove) {
                     this.onRemoveFilter(details.column);
-                    return;
+                    return details;
                 } else {
                     this.onColumnSort(e, details.column.name);
-                    return;
+                    return details;
                 }
             }
         } else if (details.area === 'body') {
@@ -2067,27 +2064,24 @@ export class KupDataTable {
                 details.tr.classList.add('focus');
                 if (e.ctrlKey || e.metaKey) {
                     this.rowDetail({ ...details.row }, e.clientX, e.clientY);
-                    return;
+                    return details;
                 }
             }
             if (details.tr && details.row && details.isGroupRow) {
                 this.onRowExpand(details.row);
-                return;
+                return details;
             }
             if (details.td && details.row && !details.textfield) {
                 this.onRowClick(e, details.row, true);
-                return;
+                return details;
             }
         }
     }
 
-    private contextMenuHandler(e: MouseEvent): void {
+    private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
-        this.kupDataTableContextMenu.emit({
-            details: details,
-        });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.columnMenuCard.setAttribute(
@@ -2108,7 +2102,7 @@ export class KupDataTable {
                     this.tooltip
                 );
                 this.columnMenuInstance.reposition(this);
-                return;
+                return details;
             }
         } else if (details.area === 'body') {
             const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
@@ -2129,19 +2123,19 @@ export class KupDataTable {
                     details.cell,
                     this.tooltip
                 );
-                return;
+                return details;
             }
         } else if (details.area === 'footer') {
             if (details.td && details.column) {
                 e.preventDefault();
                 this.totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.onTotalMenuOpen(details.column);
-                return;
+                return details;
             }
         }
     }
 
-    private dblClickHandler(e: MouseEvent): void {
+    private dblClickHandler(e: MouseEvent): EventHandlerDetails {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
@@ -2154,9 +2148,7 @@ export class KupDataTable {
         ) {
             this.onRowClick(e, details.row, false);
         }
-        this.kupDataTableDblClick.emit({
-            details: details,
-        });
+        return details;
     }
 
     private mouseMoveHandler(e: MouseEvent): void {
@@ -5790,24 +5782,29 @@ export class KupDataTable {
                                 unsetTooltip(this.tooltip);
                             }}
                             onClick={(e: MouseEvent) => {
-                                // Note: event must be cloned, otherwise inside setTimeout will be exiting the Shadow DOM scope (causing loss of information, including target).
+                                // Note: event must be cloned
+                                // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
                                 const clone: GenericObject = {};
                                 for (const key in e) {
                                     clone[key] = e[key];
                                 }
                                 this.clickTimeout.push(
-                                    setTimeout(
-                                        () =>
-                                            this.clickHandler(
-                                                clone as MouseEvent
-                                            ),
-                                        300
-                                    )
+                                    setTimeout(() => {
+                                        const details = this.clickHandler(
+                                            clone as MouseEvent
+                                        );
+                                        this.kupDataTableClick.emit({
+                                            details,
+                                        });
+                                    }, 300)
                                 );
                             }}
-                            onContextMenu={(e: MouseEvent) =>
-                                this.contextMenuHandler(e)
-                            }
+                            onContextMenu={(e: MouseEvent) => {
+                                const details = this.contextMenuHandler(e);
+                                this.kupDataTableContextMenu.emit({
+                                    details,
+                                });
+                            }}
                             onDblClick={(e: MouseEvent) => {
                                 for (
                                     let index = 0;
@@ -5823,7 +5820,10 @@ export class KupDataTable {
                                     );
                                 }
                                 this.clickTimeout = [];
-                                this.dblClickHandler(e);
+                                const details = this.dblClickHandler(e);
+                                this.kupDataTableDblClick.emit({
+                                    details,
+                                });
                             }}
                             onMouseMove={(e: MouseEvent) =>
                                 this.mouseMoveHandler(e)
