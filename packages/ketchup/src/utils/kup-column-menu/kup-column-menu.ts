@@ -118,13 +118,6 @@ export class KupColumnMenu {
                     card.menuVisible = true;
                     card.focus();
                 }
-                comp.rootElement.dispatchEvent(
-                    new CustomEvent('kupColumnMenuActive', {
-                        detail: {
-                            card: card,
-                        },
-                    })
-                );
             }
         }
     }
