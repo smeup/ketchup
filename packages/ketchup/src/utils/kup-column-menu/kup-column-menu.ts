@@ -72,18 +72,17 @@ export class KupColumnMenu {
             comp.filters,
             column
         );
-        comp.setColumnMenu(column);
     }
     /**
      * Function called by the component when the column menu must be closed.
      * @param {Event} event - The event itself.
-     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {HTMLKupCardElement} card - Column menu card.
      */
-    close(event: Event, comp: KupDataTable | KupTree): void {
+    close(event: Event, card: HTMLKupCardElement): void {
+        card.menuVisible = false;
         if (event) {
             event.stopPropagation();
         }
-        comp.setColumnMenu(null);
     }
     /**
      * Function called to reposition the column menu card to the appropriate column.
@@ -114,17 +113,10 @@ export class KupColumnMenu {
                         KupDynamicPositionPlacement.AUTO,
                         true
                     );
-                    dom.ketchup.dynamicPosition.start(card as any);
-                    card.menuVisible = true;
-                    card.focus();
                 }
-                comp.rootElement.dispatchEvent(
-                    new CustomEvent('kupColumnMenuActive', {
-                        detail: {
-                            card: card,
-                        },
-                    })
-                );
+                dom.ketchup.dynamicPosition.start(card as any);
+                card.menuVisible = true;
+                card.focus();
             }
         }
     }
@@ -371,7 +363,6 @@ export class KupColumnMenu {
         const data: ComponentTabBarElement[] = props[0].data;
         if (comp.showFilters) {
             data.push({
-                active: true,
                 text: dom.ketchup.language.translate(
                     KupLanguageGeneric.FILTERS
                 ),
@@ -398,6 +389,9 @@ export class KupColumnMenu {
                 text: dom.ketchup.language.translate(KupLanguageColumn.COLUMNS),
                 value: KupLanguageColumn.COLUMNS,
             });
+        }
+        if (data.length > 0) {
+            data[0].active = true;
         }
         return props;
     }
@@ -669,6 +663,7 @@ export class KupColumnMenu {
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
+        const card: HTMLKupCardElement = cardEvent.detail.card;
         const compEvent: CustomEvent = cardEvent.detail.event;
         const compID: string = compEvent.detail.id;
         const subcomp: HTMLElement = compEvent.target as HTMLElement;
@@ -694,11 +689,12 @@ export class KupColumnMenu {
                     case KupColumnMenuIds.BUTTON_DESCRIPTION:
                         this.addDescriptionColumn(
                             comp,
-                            dataStorage['columnName']
+                            dataStorage['columnName'],
+                            card
                         );
                         break;
                     case KupColumnMenuIds.BUTTON_REMOVE:
-                        this.removeColumn(comp, dataStorage['column']);
+                        this.removeColumn(comp, dataStorage['column'], card);
                         break;
                 }
                 break;
@@ -707,7 +703,8 @@ export class KupColumnMenu {
                     case KupColumnMenuIds.SWITCH_GROUP:
                         this.toggleGroup(
                             comp as KupDataTable,
-                            dataStorage['columnName']
+                            dataStorage['columnName'],
+                            card
                         );
                         break;
                 }
@@ -716,7 +713,7 @@ export class KupColumnMenu {
             case 'kupDatePickerTextFieldSubmit':
             case 'kupTimePickerTextFieldSubmit':
                 this.saveTextualFilters(comp, dataStorage['column']);
-                this.close(compEvent, comp);
+                this.close(compEvent, card);
                 break;
             case 'kupTextFieldClearIconClick':
             case 'kupDatePickerClearIconClick':
@@ -881,7 +878,11 @@ export class KupColumnMenu {
      * @param {KupDataTable} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
      */
-    toggleGroup(comp: KupDataTable, column: string): void {
+    toggleGroup(
+        comp: KupDataTable,
+        column: string,
+        card: HTMLKupCardElement
+    ): void {
         const group: GroupObject = comp.getGroupByName(column);
         if (group !== null) {
             const index = comp.groups.indexOf(group);
@@ -890,25 +891,33 @@ export class KupColumnMenu {
         } else {
             comp.groups = [...comp.groups, { column, visible: true }];
         }
-        this.close(null, comp);
+        this.close(null, card);
     }
     /**
      * Emits the kupAddColumn event on the given component.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
      */
-    addColumn(comp: KupDataTable | KupTree, column: string): void {
+    addColumn(
+        comp: KupDataTable | KupTree,
+        column: string,
+        card: HTMLKupCardElement
+    ): void {
         comp.kupAddColumn.emit({
             column: column,
         });
-        this.close(null, comp);
+        this.close(null, card);
     }
     /**
      * The given column will be set to be hidden.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
      */
-    removeColumn(comp: KupDataTable | KupTree, column: Column): void {
+    removeColumn(
+        comp: KupDataTable | KupTree,
+        column: Column,
+        card: HTMLKupCardElement
+    ): void {
         if (
             FiltersColumnMenu.isTree(comp) &&
             column.name === treeMainColumnName
@@ -917,17 +926,21 @@ export class KupColumnMenu {
         } else {
             column.visible = false;
         }
-        this.close(null, comp);
+        this.close(null, card);
     }
     /**
      * Adds the description column (or code column, if it is a description).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {string} column - Name of the column.
      */
-    addDescriptionColumn(comp: KupDataTable | KupTree, column: string): void {
+    addDescriptionColumn(
+        comp: KupDataTable | KupTree,
+        column: string,
+        card: HTMLKupCardElement
+    ): void {
         comp.kupAddCodeDecodeColumn.emit({
             column: column,
         });
-        this.close(null, comp);
+        this.close(null, card);
     }
 }
