@@ -1,6 +1,9 @@
 import { GenericObject } from '../../types/GenericTypes';
 import {
+    Cell,
     CellsHolder,
+    Column,
+    Row,
     RowAction,
 } from './../kup-data-table/kup-data-table-declarations';
 /**
@@ -90,3 +93,18 @@ export type TreeNodePath = number[];
  * @constant
  */
 export const treeMainColumnName = 'TREE_COLUMN';
+
+/**
+ * Contains all the data of an event.
+ */
+export interface EventHandlerDetails {
+    area: string;
+    cell: Cell;
+    column: Column;
+    columnMenuCard: HTMLKupCardElement;
+    filterRemove: HTMLSpanElement;
+    row: Row;
+    td: HTMLTableDataCellElement;
+    th: HTMLTableHeaderCellElement;
+    tr: HTMLTableRowElement;
+}

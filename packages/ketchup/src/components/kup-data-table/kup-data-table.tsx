@@ -632,6 +632,9 @@ export class KupDataTable {
     private selectedColumn: string;
 
     @State()
+    private columnMenuAnchor: string = null;
+
+    @State()
     private groupState: {
         [index: string]: {
             expanded: boolean;
@@ -921,7 +924,7 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableClick: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>;
     /**
      * Generic right click event on data table.
@@ -933,7 +936,7 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableContextMenu: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>;
     /**
      * Generic double click event on data table.
@@ -945,7 +948,7 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableDblClick: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>;
     /**
      * When cell option is clicked
@@ -1051,6 +1054,25 @@ export class KupDataTable {
             }
         }
         return props;
+    }
+    /**
+     * Opens the column menu of the given column.
+     * @param {string} column - Name of the column.
+     */
+    @Method()
+    async openColumnMenu(column: string): Promise<void> {
+        this.columnMenuAnchor = column;
+        this.columnMenuCard.setAttribute('data-column', column);
+        this.columnMenuInstance.open(this, column, this.tooltip);
+        this.columnMenuInstance.reposition(this);
+    }
+    /**
+     * Closes any opened column menu.
+     */
+    @Method()
+    async closeColumnMenu(): Promise<void> {
+        this.columnMenuAnchor = null;
+        this.columnMenuInstance.close(this.columnMenuCard);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -2079,42 +2101,25 @@ export class KupDataTable {
     }
 
     private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
+        e.preventDefault();
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
-                this.columnMenuCard.setAttribute(
-                    'data-column',
-                    details.column.name
-                );
-                this.columnMenuCard.data = this.columnMenuInstance.prepData(
-                    this,
-                    getColumnByName(
-                        this.getVisibleColumns(),
-                        details.column.name
-                    )
-                );
-                this.columnMenuInstance.open(
-                    e,
-                    this,
-                    details.column.name,
-                    this.tooltip
-                );
-                this.columnMenuInstance.reposition(this);
+                this.openColumnMenu(details.column.name);
                 return details;
             }
         } else if (details.area === 'body') {
-            const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
-                details.cell.obj
-            );
+            const _hasTooltip: boolean = details.cell.obj
+                ? this.kupManager.objects.hasTooltip(details.cell.obj)
+                : false;
             if (
                 _hasTooltip &&
                 this.showTooltipOnRightClick &&
                 details.td &&
                 details.cell
             ) {
-                e.preventDefault();
                 let columnName = details.column ? details.column.name : null;
                 setTooltip(
                     e,
@@ -2127,7 +2132,6 @@ export class KupDataTable {
             }
         } else if (details.area === 'footer') {
             if (details.td && details.column) {
-                e.preventDefault();
                 this.totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.onTotalMenuOpen(details.column);
                 return details;
@@ -5790,19 +5794,17 @@ export class KupDataTable {
                                 }
                                 this.clickTimeout.push(
                                     setTimeout(() => {
-                                        const details = this.clickHandler(
-                                            clone as MouseEvent
-                                        );
                                         this.kupDataTableClick.emit({
-                                            details,
+                                            details: this.clickHandler(
+                                                clone as MouseEvent
+                                            ),
                                         });
                                     }, 300)
                                 );
                             }}
                             onContextMenu={(e: MouseEvent) => {
-                                const details = this.contextMenuHandler(e);
                                 this.kupDataTableContextMenu.emit({
-                                    details,
+                                    details: this.contextMenuHandler(e),
                                 });
                             }}
                             onDblClick={(e: MouseEvent) => {
@@ -5820,9 +5822,8 @@ export class KupDataTable {
                                     );
                                 }
                                 this.clickTimeout = [];
-                                const details = this.dblClickHandler(e);
                                 this.kupDataTableDblClick.emit({
-                                    details,
+                                    details: this.dblClickHandler(e),
                                 });
                             }}
                             onMouseMove={(e: MouseEvent) =>
@@ -5845,14 +5846,22 @@ export class KupDataTable {
                     </div>
                     {tooltip}
                     <kup-card
+                        data={
+                            this.columnMenuAnchor
+                                ? this.columnMenuInstance.prepData(
+                                      this,
+                                      getColumnByName(
+                                          this.getVisibleColumns(),
+                                          this.columnMenuAnchor
+                                      )
+                                  )
+                                : null
+                        }
                         id={KupColumnMenuIds.CARD_COLUMN_MENU}
                         isMenu={true}
                         layoutNumber={14}
-                        onBlur={(e) => {
-                            this.columnMenuInstance.close(
-                                e,
-                                this.columnMenuCard
-                            );
+                        onBlur={() => {
+                            this.closeColumnMenu();
                         }}
                         onClick={(e) => e.stopPropagation()}
                         onKupCardEvent={(e) => {
