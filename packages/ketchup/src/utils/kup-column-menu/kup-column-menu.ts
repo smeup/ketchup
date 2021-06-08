@@ -53,18 +53,15 @@ export class KupColumnMenu {
     filtersRowsInstance = new FiltersRows();
     /**
      * Function called by the component when the column menu must be opened.
-     * @param {Event} event - The event itself.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {string} column - Name of the column.
      * @param {KupTooltip} tooltip - Tooltip of the component, when present.
      */
     open(
-        event: Event,
         comp: KupDataTable | KupTree,
         column: string,
         tooltip?: KupTooltip
     ): void {
-        event.preventDefault();
         if (tooltip) {
             unsetTooltip(tooltip);
         }
@@ -75,14 +72,10 @@ export class KupColumnMenu {
     }
     /**
      * Function called by the component when the column menu must be closed.
-     * @param {Event} event - The event itself.
      * @param {HTMLKupCardElement} card - Column menu card.
      */
-    close(event: Event, card: HTMLKupCardElement): void {
+    close(card: HTMLKupCardElement): void {
         card.menuVisible = false;
-        if (event) {
-            event.stopPropagation();
-        }
     }
     /**
      * Function called to reposition the column menu card to the appropriate column.
@@ -713,7 +706,7 @@ export class KupColumnMenu {
             case 'kupDatePickerTextFieldSubmit':
             case 'kupTimePickerTextFieldSubmit':
                 this.saveTextualFilters(comp, dataStorage['column']);
-                this.close(compEvent, card);
+                this.close(card);
                 break;
             case 'kupTextFieldClearIconClick':
             case 'kupDatePickerClearIconClick':
@@ -891,7 +884,7 @@ export class KupColumnMenu {
         } else {
             comp.groups = [...comp.groups, { column, visible: true }];
         }
-        this.close(null, card);
+        this.close(card);
     }
     /**
      * Emits the kupAddColumn event on the given component.
@@ -906,7 +899,7 @@ export class KupColumnMenu {
         comp.kupAddColumn.emit({
             column: column,
         });
-        this.close(null, card);
+        this.close(card);
     }
     /**
      * The given column will be set to be hidden.
@@ -926,7 +919,7 @@ export class KupColumnMenu {
         } else {
             column.visible = false;
         }
-        this.close(null, card);
+        this.close(card);
     }
     /**
      * Adds the description column (or code column, if it is a description).
@@ -941,6 +934,6 @@ export class KupColumnMenu {
         comp.kupAddCodeDecodeColumn.emit({
             column: column,
         });
-        this.close(null, card);
+        this.close(card);
     }
 }

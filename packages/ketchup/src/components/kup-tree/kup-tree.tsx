@@ -30,6 +30,7 @@ import {
     TreeNode,
     TreeNodePath,
     treeMainColumnName,
+    EventHandlerDetails,
 } from './kup-tree-declarations';
 
 import { MDCRipple } from '@material/ripple';
@@ -175,6 +176,8 @@ export class KupTree {
      */
     @State()
     private openedTotalMenu: string = null;
+    @State()
+    private columnMenuAnchor: string = null;
 
     /**
      * Auto select programmatic selectic node
@@ -426,7 +429,7 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeContextMenu: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>;
     @Event({
         eventName: 'kupAddCodeDecodeColumn',
@@ -527,6 +530,25 @@ export class KupTree {
             }
         }
         return props;
+    }
+    /**
+     * Opens the column menu of the given column.
+     * @param {string} column - Name of the column.
+     */
+    @Method()
+    async openColumnMenu(column: string): Promise<void> {
+        this.columnMenuAnchor = column;
+        this.columnMenuCard.setAttribute('data-column', column);
+        this.columnMenuInstance.open(this, column, this.tooltip);
+        this.columnMenuInstance.reposition(this);
+    }
+    /**
+     * Closes any opened column menu.
+     */
+    @Method()
+    async closeColumnMenu(): Promise<void> {
+        this.columnMenuAnchor = null;
+        this.columnMenuInstance.close(this.columnMenuCard);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -778,17 +800,7 @@ export class KupTree {
         this.openTotalMenu(column);
     }
 
-    private getEventDetails(el: HTMLElement): {
-        area: string;
-        cell: Cell;
-        column: Column;
-        columnMenuCard: HTMLKupCardElement;
-        filterRemove: HTMLSpanElement;
-        row: Row;
-        td: HTMLTableDataCellElement;
-        th: HTMLTableHeaderCellElement;
-        tr: HTMLTableRowElement;
-    } {
+    private getEventDetails(el: HTMLElement): EventHandlerDetails {
         const isHeader: boolean = !!el.closest('thead'),
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
@@ -837,41 +849,24 @@ export class KupTree {
         };
     }
 
-    private contextMenuHandler(e: MouseEvent): void {
-        const details = this.getEventDetails(e.target as HTMLElement);
-        this.kupTreeContextMenu.emit({
-            details: details,
-        });
+    private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
+        e.preventDefault();
+        const details: EventHandlerDetails = this.getEventDetails(
+            e.target as HTMLElement
+        );
         if (details.area === 'header') {
             if (details.th && details.column) {
-                this.columnMenuCard.setAttribute(
-                    'data-column',
-                    details.column.name
-                );
-                this.columnMenuCard.data = this.columnMenuInstance.prepData(
-                    this,
-                    getColumnByName(
-                        this.getVisibleColumns(),
-                        details.column.name
-                    )
-                );
-                this.columnMenuInstance.open(
-                    e,
-                    this,
-                    details.column.name,
-                    this.tooltip
-                );
-                this.columnMenuInstance.reposition(this);
-                return;
+                this.openColumnMenu(details.column.name);
+                return details;
             }
         } else if (details.area === 'footer') {
             if (details.td && details.column) {
-                e.preventDefault();
                 this.totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.onTotalMenuOpen(details.column);
-                return;
+                return details;
             }
         }
+        return details;
     }
 
     private onJ4btnClicked(
@@ -1662,14 +1657,6 @@ export class KupTree {
             return (
                 <th
                     data-column={column.name}
-                    onContextMenu={(e: MouseEvent) =>
-                        this.columnMenuInstance.open(
-                            e,
-                            this,
-                            column.name,
-                            this.tooltip
-                        )
-                    }
                     style={this.getCellStyle(column.name, null)}
                 >
                     <span class="column-title">{column.title}</span>
@@ -2234,7 +2221,9 @@ export class KupTree {
                             class="kup-tree"
                             data-show-columns={this.showColumns}
                             onContextMenu={(e: MouseEvent) =>
-                                this.contextMenuHandler(e)
+                                this.kupTreeContextMenu.emit({
+                                    details: this.contextMenuHandler(e),
+                                })
                             }
                         >
                             <thead
@@ -2255,14 +2244,22 @@ export class KupTree {
                     </div>
                     {tooltip}
                     <kup-card
+                        data={
+                            this.columnMenuAnchor
+                                ? this.columnMenuInstance.prepData(
+                                      this,
+                                      getColumnByName(
+                                          this.getVisibleColumns(),
+                                          this.columnMenuAnchor
+                                      )
+                                  )
+                                : null
+                        }
                         id={KupColumnMenuIds.CARD_COLUMN_MENU}
                         isMenu={true}
                         layoutNumber={14}
-                        onBlur={(e) => {
-                            this.columnMenuInstance.close(
-                                e,
-                                this.columnMenuCard
-                            );
+                        onBlur={() => {
+                            this.closeColumnMenu();
                         }}
                         onClick={(e) => e.stopPropagation()}
                         onKupCardEvent={(e) => {
