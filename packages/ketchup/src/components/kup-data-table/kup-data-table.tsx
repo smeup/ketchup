@@ -1076,7 +1076,7 @@ export class KupDataTable {
     async openColumnMenu(column: string): Promise<void> {
         this.columnMenuAnchor = column;
         this.columnMenuCard.setAttribute('data-column', column);
-        this.columnMenuInstance.prepData(
+        this.columnMenuCard.data = this.columnMenuInstance.prepData(
             this,
             getColumnByName(this.getVisibleColumns(), column)
         );
