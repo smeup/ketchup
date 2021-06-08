@@ -101,7 +101,6 @@ export interface EventHandlerDetails {
     area: string;
     cell: Cell;
     column: Column;
-    columnMenuCard: HTMLKupCardElement;
     filterRemove: HTMLSpanElement;
     row: Row;
     td: HTMLTableDataCellElement;

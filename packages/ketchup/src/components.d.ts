@@ -3517,6 +3517,13 @@ declare namespace LocalJSX {
         details: EventHandlerDetails;
     }>) => void;
         /**
+          * When the column menu is being opened/closed.
+         */
+        "onKupDataTableColumnMenu"?: (event: CustomEvent<{
+        card: HTMLKupCardElement;
+        open: boolean;
+    }>) => void;
+        /**
           * Generic right click event on data table.
          */
         "onKupDataTableContextMenu"?: (event: CustomEvent<{
@@ -4932,6 +4939,13 @@ declare namespace LocalJSX {
           * Triggered when stop propagation event
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        /**
+          * When the column menu is being opened/closed.
+         */
+        "onKupTreeColumnMenu"?: (event: CustomEvent<{
+        card: HTMLKupCardElement;
+        open: boolean;
+    }>) => void;
         /**
           * Generic right click event on tree.
          */

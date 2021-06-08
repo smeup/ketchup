@@ -102,6 +102,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupCellTextFieldInput`   |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`                                                                 |
 | `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ cell: Cell; column: Column; id: string; row: Row; event: any; }>`                              |
 | `kupDataTableClick`       | Generic click event on data table.             | `CustomEvent<{ details: EventHandlerDetails; }>`                                                              |
+| `kupDataTableColumnMenu`  | When the column menu is being opened/closed.   | `CustomEvent<{ card: HTMLKupCardElement; open: boolean; }>`                                                   |
 | `kupDataTableContextMenu` | Generic right click event on data table.       | `CustomEvent<{ details: EventHandlerDetails; }>`                                                              |
 | `kupDataTableDblClick`    | Generic double click event on data table.      | `CustomEvent<{ details: EventHandlerDetails; }>`                                                              |
 | `kupDidLoad`              | When component load is complete                | `CustomEvent<{}>`                                                                                             |
