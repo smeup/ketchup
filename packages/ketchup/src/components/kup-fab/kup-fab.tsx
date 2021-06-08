@@ -30,8 +30,8 @@ export class KupFab {
         const propsFImage = {
             color: 'var(--kup-text-on-primary-color)',
             resource: 'bug',
-            sizeX: '18px',
-            sizeY: '18px',
+            sizeX: '40px',
+            sizeY: '40px',
             wrapperClass: 'mdc-button__icon icon-container material-icons',
         };
 
