@@ -8,10 +8,18 @@ import { FImage } from '../../f-components/f-image/f-image';
     shadow: true,
 })
 export class KupFab {
-    @Prop() align: string;
+    // PROPS
 
-    @Prop() colorButton: string;
+    /*
+        Set the color of button. Default #FFC107
+    */
+    @Prop() colorButton: string = '#FFC107';
 
+    // EVENT
+
+    /*
+     *   Triggered when the fab is clicked.
+     */
     @Event({
         eventName: 'kupFabClick',
         composed: true,
