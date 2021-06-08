@@ -29,7 +29,7 @@ export class KupFab {
     render() {
         const propsFImage = {
             color: 'var(--kup-text-on-primary-color)',
-            resource: 'brightness_5',
+            resource: 'bug',
             sizeX: '18px',
             sizeY: '18px',
             wrapperClass: 'mdc-button__icon icon-container material-icons',
