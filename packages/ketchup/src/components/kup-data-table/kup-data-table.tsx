@@ -951,6 +951,19 @@ export class KupDataTable {
         details: EventHandlerDetails;
     }>;
     /**
+     * When the column menu is being opened/closed.
+     */
+    @Event({
+        eventName: 'kupDataTableColumnMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableColumnMenu: EventEmitter<{
+        card: HTMLKupCardElement;
+        open: boolean;
+    }>;
+    /**
      * When cell option is clicked
      */
     @Event({
@@ -1069,6 +1082,10 @@ export class KupDataTable {
         );
         this.columnMenuInstance.open(this, column, this.tooltip);
         this.columnMenuInstance.reposition(this);
+        this.kupDataTableColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: true,
+        });
     }
     /**
      * Closes any opened column menu.
@@ -1077,6 +1094,10 @@ export class KupDataTable {
     async closeColumnMenu(): Promise<void> {
         this.columnMenuAnchor = null;
         this.columnMenuInstance.close(this.columnMenuCard);
+        this.kupDataTableColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: false,
+        });
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -2051,7 +2072,6 @@ export class KupDataTable {
                 : null,
             cell: cell ? cell : null,
             column: column ? column : null,
-            columnMenuCard: this.columnMenuCard,
             filterRemove: filterRemove ? filterRemove : null,
             isGroupRow: isGroupRow,
             row: row ? row : null,
