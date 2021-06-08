@@ -539,6 +539,10 @@ export class KupTree {
     async openColumnMenu(column: string): Promise<void> {
         this.columnMenuAnchor = column;
         this.columnMenuCard.setAttribute('data-column', column);
+        this.columnMenuInstance.prepData(
+            this,
+            getColumnByName(this.getVisibleColumns(), column)
+        );
         this.columnMenuInstance.open(this, column, this.tooltip);
         this.columnMenuInstance.reposition(this);
     }
