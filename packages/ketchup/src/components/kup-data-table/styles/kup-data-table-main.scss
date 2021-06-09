@@ -138,6 +138,7 @@ table {
 
   &.ascending,
   &.descending,
+  &.key,
   &.filter-remove {
     float: right;
   }
@@ -147,7 +148,8 @@ table {
     float: left;
   }
 
-  &.filter-remove {
+  &.filter-remove,
+  &.key {
     margin: 0 0.25em;
   }
 

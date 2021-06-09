@@ -328,32 +328,31 @@ export class KupColumnMenu {
      */
     prepSwitch(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [];
-        props.push({
-            'data-storage': {
-                columnName: column.name,
-            },
-            checked: column.isKey ? true : false,
-            id: KupColumnMenuIds.SWITCH_KEY,
-            label: dom.ketchup.language.translate(KupLanguageRow.KEY),
-            leadingLabel: true,
-        });
-        if (
-            !FiltersColumnMenu.isTree(comp) &&
-            (comp as KupDataTable).showGroups
-        ) {
-            const isGroupActive: boolean =
-                comp.getGroupByName(column.name) != null;
+        if (!FiltersColumnMenu.isTree(comp)) {
             props.push({
                 'data-storage': {
                     columnName: column.name,
                 },
-                checked: isGroupActive ? true : false,
-                id: KupColumnMenuIds.SWITCH_GROUP,
-                label: dom.ketchup.language.translate(
-                    KupLanguageGrouping.GROUPS
-                ),
+                checked: column.isKey ? true : false,
+                id: KupColumnMenuIds.SWITCH_KEY,
+                label: dom.ketchup.language.translate(KupLanguageRow.KEY),
                 leadingLabel: true,
             });
+            if ((comp as KupDataTable).showGroups) {
+                const isGroupActive: boolean =
+                    comp.getGroupByName(column.name) != null;
+                props.push({
+                    'data-storage': {
+                        columnName: column.name,
+                    },
+                    checked: isGroupActive ? true : false,
+                    id: KupColumnMenuIds.SWITCH_GROUP,
+                    label: dom.ketchup.language.translate(
+                        KupLanguageGrouping.GROUPS
+                    ),
+                    leadingLabel: true,
+                });
+            }
         }
         return props;
     }
@@ -700,8 +699,13 @@ export class KupColumnMenu {
                     case KupColumnMenuIds.SWITCH_GROUP:
                         this.toggleGroup(
                             comp as KupDataTable,
-                            dataStorage['columnName'],
-                            card
+                            dataStorage['columnName']
+                        );
+                        break;
+                    case KupColumnMenuIds.SWITCH_KEY:
+                        this.setKey(
+                            comp as KupDataTable,
+                            dataStorage['columnName']
                         );
                         break;
                 }
@@ -875,11 +879,7 @@ export class KupColumnMenu {
      * @param {KupDataTable} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
      */
-    toggleGroup(
-        comp: KupDataTable,
-        column: string,
-        card: HTMLKupCardElement
-    ): void {
+    toggleGroup(comp: KupDataTable, column: string): void {
         const group: GroupObject = comp.getGroupByName(column);
         if (group !== null) {
             const index = comp.groups.indexOf(group);
@@ -888,7 +888,23 @@ export class KupColumnMenu {
         } else {
             comp.groups = [...comp.groups, { column, visible: true }];
         }
-        this.close(card);
+    }
+    /**
+     * Sets the given column as key for the table.
+     * @param {KupDataTable} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     */
+    setKey(comp: KupDataTable, column: string): void {
+        const columns: Column[] = comp.data.columns;
+        for (let index = 0; index < columns.length; index++) {
+            const col: Column = columns[index];
+            if (col.name === column) {
+                col.isKey = true;
+            } else {
+                col.isKey = false;
+            }
+        }
+        comp.refresh();
     }
     /**
      * Emits the kupAddColumn event on the given component.
