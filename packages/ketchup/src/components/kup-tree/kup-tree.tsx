@@ -2275,7 +2275,8 @@ export class KupTree {
                                       getColumnByName(
                                           this.getVisibleColumns(),
                                           this.columnMenuAnchor
-                                      )
+                                      ),
+                                      this.columnMenuCard.data
                                   )
                                 : null
                         }

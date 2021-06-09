@@ -22,6 +22,7 @@
     }
     .title {
       font-size: 1.25em;
+      margin-top: -0.5em;
       padding: 0 0.25em 0.25em;
       .label {
         cursor: pointer;
@@ -91,7 +92,7 @@
 
   .sub-switch {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     padding: 2em;
   }
 

@@ -11,6 +11,7 @@ export enum KupColumnMenuIds {
     CARD_COLUMN_MENU = 'column-menu',
     CHECKBOX_GLOBAL = 'global-checkbox',
     SWITCH_GROUP = 'group',
+    SWITCH_KEY = 'key',
     TEXTFIELD_FILTER = 'filter',
     TEXTFIELD_FROM = 'filter-from',
     TEXTFIELD_TO = 'filter-to',

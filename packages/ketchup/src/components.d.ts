@@ -1122,7 +1122,6 @@ export namespace Components {
         "text": string;
     }
     interface KupFab {
-        "align": string;
         "colorButton": string;
     }
     interface KupField {
@@ -3869,7 +3868,6 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface KupFab {
-        "align"?: string;
         "colorButton"?: string;
         "onKupFabClick"?: (event: CustomEvent<{ id: string }>) => void;
     }

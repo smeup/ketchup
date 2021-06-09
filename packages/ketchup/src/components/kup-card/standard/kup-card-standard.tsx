@@ -922,6 +922,9 @@ export function create13(component: KupCard): VNode {
  * @returns {VNode} 14th standard layout virtual node.
  */
 export function create14(component: KupCard): VNode {
+    const autocompleteArray: GenericObject[] = component.data['autocomplete']
+        ? component.data['autocomplete']
+        : [];
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
@@ -974,6 +977,14 @@ export function create14(component: KupCard): VNode {
         const button: GenericObject = buttonArray[index];
         if (button['id']) {
             buttonsIds.push(button['id']);
+        }
+    }
+    // Setting up switches.
+    const switchesIds: string[] = [];
+    for (let index = 0; index < switchArray.length; index++) {
+        const switchEl: GenericObject = switchArray[index];
+        if (switchEl['id']) {
+            switchesIds.push(switchEl['id']);
         }
     }
     return (
@@ -1099,23 +1110,6 @@ export function create14(component: KupCard): VNode {
                         ) : null}
                     </div>
                 ) : null}
-                {tabsValues.includes(KupLanguageGrouping.GROUPS) ? (
-                    <div
-                        class={`${KupCardCSSClasses.CARD_VIEW} ${
-                            KupCardCSSClasses.VIEW_PREFIX
-                        }${viewIndex} ${
-                            visibleView === viewIndex++
-                                ? KupCardCSSClasses.VISIBLE
-                                : ''
-                        }`}
-                    >
-                        {switchArray[0] ? (
-                            <div class="sub-switch">
-                                <kup-switch {...switchArray[0]} />
-                            </div>
-                        ) : null}
-                    </div>
-                ) : null}
                 {tabsValues.includes(KupLanguageColumn.COLUMNS) ? (
                     <div
                         class={`${KupCardCSSClasses.CARD_VIEW} ${
@@ -1192,6 +1186,46 @@ export function create14(component: KupCard): VNode {
                                     />
                                 </div>
                             )}
+                        </div>
+                    </div>
+                ) : null}
+                {tabsValues.includes(KupLanguageGeneric.SETTINGS) ? (
+                    <div
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${viewIndex} ${
+                            visibleView === viewIndex++
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
+                        }`}
+                    >
+                        <div class="sub-switch">
+                            {switchesIds.includes(
+                                KupColumnMenuIds.SWITCH_KEY
+                            ) ? (
+                                <kup-switch
+                                    {...switchArray.find(
+                                        (x) =>
+                                            x.id === KupColumnMenuIds.SWITCH_KEY
+                                    )}
+                                />
+                            ) : null}
+                            {switchesIds.includes(
+                                KupColumnMenuIds.SWITCH_GROUP
+                            ) ? (
+                                <kup-switch
+                                    {...switchArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.SWITCH_GROUP
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                        <div class="sub-autocomplete">
+                            {autocompleteArray.length > 0
+                                ? compList(autocompleteArray, 'autocomplete')
+                                : null}
                         </div>
                     </div>
                 ) : null}

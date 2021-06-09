@@ -3337,6 +3337,18 @@ export class KupDataTable {
                     columnClass['header-cell--sortable'] = true;
                 }
 
+                let keyIcon: HTMLSpanElement = null;
+                if (column.isKey) {
+                    keyIcon = (
+                        <span
+                            class="key icon-container"
+                            title={this.kupManager.language.translate(
+                                KupLanguageRow.KEY
+                            )}
+                        ></span>
+                    );
+                }
+
                 // Sets custom columns width
                 if (this.sizedColumns) {
                     for (let i = 0; i < this.sizedColumns.length; i++) {
@@ -3496,6 +3508,7 @@ export class KupDataTable {
                             {this.applyLineBreaks(column.title)}
                         </span>
                         {overlay}
+                        {keyIcon}
                         {sortIcon}
                         {filter}
                     </th>
@@ -5877,7 +5890,8 @@ export class KupDataTable {
                                       getColumnByName(
                                           this.getVisibleColumns(),
                                           this.columnMenuAnchor
-                                      )
+                                      ),
+                                      this.columnMenuCard.data
                                   )
                                 : null
                         }
