@@ -705,7 +705,8 @@ export class KupColumnMenu {
                     case KupColumnMenuIds.SWITCH_KEY:
                         this.setKey(
                             comp as KupDataTable,
-                            dataStorage['columnName']
+                            dataStorage['columnName'],
+                            compEvent.detail.value
                         );
                         break;
                 }
@@ -882,25 +883,28 @@ export class KupColumnMenu {
     toggleGroup(comp: KupDataTable, column: string): void {
         const group: GroupObject = comp.getGroupByName(column);
         if (group !== null) {
-            const index = comp.groups.indexOf(group);
+            const index: number = comp.groups.indexOf(group);
             comp.groups.splice(index, 1);
             comp.groups = [...comp.groups];
         } else {
             comp.groups = [...comp.groups, { column, visible: true }];
         }
+        comp.refresh();
     }
     /**
      * Sets the given column as key for the table.
      * @param {KupDataTable} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
+     * @param {string} value - The status of the switch.
      */
-    setKey(comp: KupDataTable, column: string): void {
+    setKey(comp: KupDataTable, column: string, value: string): void {
         const columns: Column[] = comp.data.columns;
+        const switchOn: boolean = value === 'on' ? true : false;
         for (let index = 0; index < columns.length; index++) {
             const col: Column = columns[index];
             if (col.name === column) {
-                col.isKey = true;
-            } else {
+                col.isKey = switchOn;
+            } else if (switchOn) {
                 col.isKey = false;
             }
         }
