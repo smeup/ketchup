@@ -42,3 +42,121 @@
     display: block;
   }
 }
+
+.standard-layout-14 {
+  background-color: var(--kup-background-color);
+  box-shadow: var(--kup-box-shadow);
+  color: var(--kup-text-color);
+  min-width: 200px;
+  min-width: -moz-max-content; /* Firefox/Gecko */
+  min-width: -webkit-max-content; /* Chrome */
+
+  .section-1 {
+    display: flex;
+    padding: 1em;
+    .sub-1 {
+      width: 100%;
+    }
+    .sub-spinner {
+      height: 88px;
+      width: 88px;
+      margin: 0 10px;
+    }
+    .f-image--wrapper {
+      margin: 0 0.5em 0 0;
+    }
+    .title {
+      font-size: 1.25em;
+      margin-top: -0.5em;
+      padding: 0 0.25em 0.25em;
+      .label {
+        cursor: pointer;
+        padding-right: 0.25em;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .info {
+      display: flex;
+      padding: 0 0.25em 0.25em;
+      width: 100%;
+      .label {
+        color: rgba(var(--kup-text-color-rgb), 0.75);
+        margin-right: 0.75em;
+        min-width: max-content;
+        width: auto;
+      }
+      .value {
+        width: 100%;
+      }
+    }
+  }
+
+  .sub-button {
+    display: inline-flex;
+    width: 100%;
+    kup-button {
+      margin: 0;
+    }
+  }
+
+  .sub-checkbox {
+    display: flex;
+    flex-direction: column;
+    max-height: 20vh;
+    overflow: auto;
+    kup-checkbox {
+      margin-left: 0;
+      margin-right: auto;
+    }
+  }
+
+  .sub-chip {
+    max-width: 40vw;
+    overflow: auto;
+    box-shadow: 0 3px 2px -2px var(--kup-border-color);
+  }
+
+  .sub-field {
+    display: flex;
+    flex-direction: column;
+    &.has-content {
+      border-bottom: 1px solid var(--kup-border-color);
+      padding: 0.5em 0.5em;
+    }
+    kup-date-picker:first-of-type,
+    kup-time-picker:first-of-type {
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .sub-spinner {
+    height: 100px;
+  }
+
+  .sub-switch {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2em;
+  }
+
+  .sub-tree {
+    max-height: 40vh;
+    overflow: auto;
+  }
+
+  #apply {
+    display: none;
+    &.visible {
+      display: block;
+    }
+  }
+
+  #open-in-new,
+  #search,
+  #new {
+    margin: 0;
+    display: inline-flex;
+  }
+}

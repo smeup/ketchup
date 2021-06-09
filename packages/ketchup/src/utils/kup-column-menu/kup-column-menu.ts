@@ -32,6 +32,7 @@ import {
     KupLanguageGrouping,
     KupLanguageCheckbox,
     KupLanguageGeneric,
+    KupLanguageRow,
 } from '../kup-language/kup-language-declarations';
 import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
@@ -327,6 +328,15 @@ export class KupColumnMenu {
      */
     prepSwitch(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [];
+        props.push({
+            'data-storage': {
+                columnName: column.name,
+            },
+            checked: column.isKey ? true : false,
+            id: KupColumnMenuIds.SWITCH_KEY,
+            label: dom.ketchup.language.translate(KupLanguageRow.KEY),
+            leadingLabel: true,
+        });
         if (
             !FiltersColumnMenu.isTree(comp) &&
             (comp as KupDataTable).showGroups
@@ -339,13 +349,9 @@ export class KupColumnMenu {
                 },
                 checked: isGroupActive ? true : false,
                 id: KupColumnMenuIds.SWITCH_GROUP,
-                label: isGroupActive
-                    ? dom.ketchup.language.translate(
-                          KupLanguageGrouping.DISABLE
-                      )
-                    : dom.ketchup.language.translate(
-                          KupLanguageGrouping.ENABLE
-                      ),
+                label: dom.ketchup.language.translate(
+                    KupLanguageGrouping.GROUPS
+                ),
                 leadingLabel: true,
             });
         }
@@ -368,17 +374,6 @@ export class KupColumnMenu {
             });
         }
         if (
-            !FiltersColumnMenu.isTree(comp) &&
-            (comp as KupDataTable).showGroups
-        ) {
-            data.push({
-                text: dom.ketchup.language.translate(
-                    KupLanguageGrouping.GROUPS
-                ),
-                value: KupLanguageGrouping.GROUPS,
-            });
-        }
-        if (
             (comp.enableExtraColumns &&
                 dom.ketchup.objects.canHaveExtraColumns(column.obj)) ||
             comp.removableColumns
@@ -388,6 +383,10 @@ export class KupColumnMenu {
                 value: KupLanguageColumn.COLUMNS,
             });
         }
+        data.push({
+            icon: 'settings',
+            value: KupLanguageGeneric.SETTINGS,
+        });
         if (data.length > 0) {
             data[0].active = true;
         }
