@@ -1121,6 +1121,10 @@ export namespace Components {
          */
         "text": string;
     }
+    interface KupFab {
+        "align": string;
+        "colorButton": string;
+    }
     interface KupField {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -2358,6 +2362,12 @@ declare global {
         prototype: HTMLKupEditorElement;
         new (): HTMLKupEditorElement;
     };
+    interface HTMLKupFabElement extends Components.KupFab, HTMLStencilElement {
+    }
+    var HTMLKupFabElement: {
+        prototype: HTMLKupFabElement;
+        new (): HTMLKupFabElement;
+    };
     interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
     }
     var HTMLKupFieldElement: {
@@ -2548,6 +2558,7 @@ declare global {
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
+        "kup-fab": HTMLKupFabElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
@@ -3857,6 +3868,11 @@ declare namespace LocalJSX {
          */
         "text"?: string;
     }
+    interface KupFab {
+        "align"?: string;
+        "colorButton"?: string;
+        "onKupFabClick"?: (event: CustomEvent<{ id: string }>) => void;
+    }
     interface KupField {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -5098,6 +5114,7 @@ declare namespace LocalJSX {
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
         "kup-editor": KupEditor;
+        "kup-fab": KupFab;
         "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
@@ -5153,6 +5170,7 @@ declare module "@stencil/core" {
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
+            "kup-fab": LocalJSX.KupFab & JSXBase.HTMLAttributes<HTMLKupFabElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
