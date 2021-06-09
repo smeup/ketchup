@@ -119,24 +119,28 @@ export class KupColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
-    prepData(comp: KupDataTable | KupTree, column: Column): CardData {
-        return {
-            button: this.prepButton(comp, column),
-            checkbox: this.prepCheckbox(comp, column),
-            chip: this.prepChip(comp, column),
-            datepicker: this.prepIntervalDatePicker(comp, column),
-            object: [column.obj],
-            switch: this.prepSwitch(comp, column),
-            tabbar: this.prepTabBar(comp, column),
-            text: [column.title],
-            textfield:
-                !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
-                    column
-                )
-                    ? this.prepTextfield(comp, column)
-                    : this.prepIntervalTextfield(comp, column),
-            timepicker: this.prepIntervalTimePicker(comp, column),
-        };
+    prepData(
+        comp: KupDataTable | KupTree,
+        column: Column,
+        currentData?: CardData
+    ): CardData {
+        const data: CardData = currentData ? { ...currentData } : {};
+        data.button = this.prepButton(comp, column);
+        data.checkbox = this.prepCheckbox(comp, column);
+        data.chip = this.prepChip(comp, column);
+        data.datepicker = this.prepIntervalDatePicker(comp, column);
+        data.object = [column.obj];
+        data.switch = this.prepSwitch(comp, column);
+        data.tabbar = this.prepTabBar(comp, column);
+        if (!currentData) {
+            data.text = [column.title];
+        }
+        data.textfield =
+            !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(column)
+                ? this.prepTextfield(comp, column)
+                : this.prepIntervalTextfield(comp, column);
+        data.timepicker = this.prepIntervalTimePicker(comp, column);
+        return data;
     }
     /**
      * Handles the column menu's button prop.
