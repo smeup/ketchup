@@ -922,6 +922,9 @@ export function create13(component: KupCard): VNode {
  * @returns {VNode} 14th standard layout virtual node.
  */
 export function create14(component: KupCard): VNode {
+    const autocompleteArray: GenericObject[] = component.data['autocomplete']
+        ? component.data['autocomplete']
+        : [];
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
@@ -1218,6 +1221,11 @@ export function create14(component: KupCard): VNode {
                                     )}
                                 />
                             ) : null}
+                        </div>
+                        <div class="sub-autocomplete">
+                            {autocompleteArray.length > 0
+                                ? compList(autocompleteArray, 'autocomplete')
+                                : null}
                         </div>
                     </div>
                 ) : null}

@@ -30,6 +30,13 @@ export function compList(
             (compArray as GenericObject[])[index]['id'] = compType + index;
         }
         switch (compType) {
+            case 'autocomplete':
+                list.push(
+                    <kup-autocomplete
+                        {...(compArray as GenericObject[])[index]}
+                    />
+                );
+                break;
             case 'button':
                 list.push(
                     <kup-button {...(compArray as GenericObject[])[index]} />

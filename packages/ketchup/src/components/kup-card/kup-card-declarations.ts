@@ -18,6 +18,7 @@ export enum KupCardProps {
  * Data prop of the kup-card component.
  */
 export interface CardData {
+    autocomplete?: GenericObject[];
     button?: GenericObject[];
     chart?: GenericObject[];
     checkbox?: GenericObject[];
