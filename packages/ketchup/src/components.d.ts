@@ -1848,6 +1848,44 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KupSwitchNew {
+        /**
+          * Defaults at false. When set to true, the component will be set to 'checked'.
+          * @default false
+         */
+        "checked": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Defaults at null. When specified, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
+          * Defaults at false. When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+    }
     interface KupTabBar {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -2472,6 +2510,12 @@ declare global {
         prototype: HTMLKupSwitchElement;
         new (): HTMLKupSwitchElement;
     };
+    interface HTMLKupSwitchNewElement extends Components.KupSwitchNew, HTMLStencilElement {
+    }
+    var HTMLKupSwitchNewElement: {
+        prototype: HTMLKupSwitchNewElement;
+        new (): HTMLKupSwitchNewElement;
+    };
     interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {
     }
     var HTMLKupTabBarElement: {
@@ -2552,6 +2596,7 @@ declare global {
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
+        "kup-switch-new": HTMLKupSwitchNewElement;
         "kup-tab-bar": HTMLKupTabBarElement;
         "kup-text-field": HTMLKupTextFieldElement;
         "kup-time-picker": HTMLKupTimePickerElement;
@@ -4510,6 +4555,53 @@ declare namespace LocalJSX {
         value: string;
     }>) => void;
     }
+    interface KupSwitchNew {
+        /**
+          * Defaults at false. When set to true, the component will be set to 'checked'.
+          * @default false
+         */
+        "checked"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Defaults at null. When specified, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
+          * Defaults at false. When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel"?: boolean;
+        /**
+          * Triggered when the input element loses focus.
+         */
+        "onKupSwitchBlur"?: (event: CustomEvent<{
+        value: string;
+    }>) => void;
+        /**
+          * Triggered when the input element's value changes.
+         */
+        "onKupSwitchChange"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
+        "onKupSwitchFocus"?: (event: CustomEvent<{
+        value: string;
+    }>) => void;
+    }
     interface KupTabBar {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -5088,6 +5180,7 @@ declare namespace LocalJSX {
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
+        "kup-switch-new": KupSwitchNew;
         "kup-tab-bar": KupTabBar;
         "kup-text-field": KupTextField;
         "kup-time-picker": KupTimePicker;
@@ -5143,6 +5236,7 @@ declare module "@stencil/core" {
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
+            "kup-switch-new": LocalJSX.KupSwitchNew & JSXBase.HTMLAttributes<HTMLKupSwitchNewElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
