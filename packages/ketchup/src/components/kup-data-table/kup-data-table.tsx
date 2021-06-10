@@ -3560,8 +3560,6 @@ export class KupDataTable {
             );
         }
 
-        const groupColumn = null;
-
         // Empty cell for the actions
         let actionsColumn = null;
         if (this.hasRowActions()) {
@@ -3608,7 +3606,8 @@ export class KupDataTable {
             }
         );
 
-        return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
+        return [multiSelectColumn, actionsColumn, ...dataColumns];
+        //return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     renderTooltip() {
