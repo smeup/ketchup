@@ -109,6 +109,7 @@ graph TD;
   kup-image --> kup-badge
   kup-color-picker --> kup-text-field
   kup-tooltip --> kup-button
+  kup-tooltip --> kup-card
   kup-tooltip --> kup-tree
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge

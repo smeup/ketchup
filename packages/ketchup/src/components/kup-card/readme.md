@@ -64,6 +64,7 @@ Type: `Promise<void>`
 
  - [kup-box](../kup-box)
  - [kup-data-table](../kup-data-table)
+ - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -117,8 +118,7 @@ graph TD;
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-tree
+  kup-tooltip --> kup-card
   kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge

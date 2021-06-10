@@ -922,6 +922,9 @@ export function create13(component: KupCard): VNode {
  * @returns {VNode} 14th standard layout virtual node.
  */
 export function create14(component: KupCard): VNode {
+    const autocompleteArray: GenericObject[] = component.data['autocomplete']
+        ? component.data['autocomplete']
+        : [];
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
@@ -976,6 +979,14 @@ export function create14(component: KupCard): VNode {
             buttonsIds.push(button['id']);
         }
     }
+    // Setting up switches.
+    const switchesIds: string[] = [];
+    for (let index = 0; index < switchArray.length; index++) {
+        const switchEl: GenericObject = switchArray[index];
+        if (switchEl['id']) {
+            switchesIds.push(switchEl['id']);
+        }
+    }
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
             <div class="section-1">
@@ -1026,6 +1037,16 @@ export function create14(component: KupCard): VNode {
                                     )}
                                 />
                             ) : null}
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_NEW
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id === KupColumnMenuIds.BUTTON_NEW
+                                    )}
+                                />
+                            ) : null}
                         </div>
                     ) : null}
 
@@ -1033,6 +1054,13 @@ export function create14(component: KupCard): VNode {
                         <div class="info">
                             <span class="label">{textArray[1]}</span>
                             <span class="value">{textArray[2]}</span>
+                        </div>
+                    ) : null}
+
+                    {textArray[3] && textArray[4] ? (
+                        <div class="info">
+                            <span class="label">{textArray[3]}</span>
+                            <span class="value">{textArray[4]}</span>
                         </div>
                     ) : null}
                 </div>
@@ -1078,23 +1106,6 @@ export function create14(component: KupCard): VNode {
                         {checkboxArray.length > 0 ? (
                             <div class="sub-checkbox">
                                 {compList(checkboxArray, 'checkbox')}
-                            </div>
-                        ) : null}
-                    </div>
-                ) : null}
-                {tabsValues.includes(KupLanguageGrouping.GROUPS) ? (
-                    <div
-                        class={`${KupCardCSSClasses.CARD_VIEW} ${
-                            KupCardCSSClasses.VIEW_PREFIX
-                        }${viewIndex} ${
-                            visibleView === viewIndex++
-                                ? KupCardCSSClasses.VISIBLE
-                                : ''
-                        }`}
-                    >
-                        {switchArray[0] ? (
-                            <div class="sub-switch">
-                                <kup-switch {...switchArray[0]} />
                             </div>
                         ) : null}
                     </div>
@@ -1175,6 +1186,46 @@ export function create14(component: KupCard): VNode {
                                     />
                                 </div>
                             )}
+                        </div>
+                    </div>
+                ) : null}
+                {tabsValues.includes(KupLanguageGeneric.SETTINGS) ? (
+                    <div
+                        class={`${KupCardCSSClasses.CARD_VIEW} ${
+                            KupCardCSSClasses.VIEW_PREFIX
+                        }${viewIndex} ${
+                            visibleView === viewIndex++
+                                ? KupCardCSSClasses.VISIBLE
+                                : ''
+                        }`}
+                    >
+                        <div class="sub-switch">
+                            {switchesIds.includes(
+                                KupColumnMenuIds.SWITCH_KEY
+                            ) ? (
+                                <kup-switch
+                                    {...switchArray.find(
+                                        (x) =>
+                                            x.id === KupColumnMenuIds.SWITCH_KEY
+                                    )}
+                                />
+                            ) : null}
+                            {switchesIds.includes(
+                                KupColumnMenuIds.SWITCH_GROUP
+                            ) ? (
+                                <kup-switch
+                                    {...switchArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.SWITCH_GROUP
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                        <div class="sub-autocomplete">
+                            {autocompleteArray.length > 0
+                                ? compList(autocompleteArray, 'autocomplete')
+                                : null}
                         </div>
                     </div>
                 ) : null}

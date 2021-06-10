@@ -123,9 +123,8 @@ export function buildProgressBarConfig(
         );
 
         if (progressbarCssVar) {
-            wrapperStyle[
-                '--kup-pb_' + toKebabCase(progressbarCssVars[i])
-            ] = progressbarCssVar;
+            wrapperStyle['--kup-pb_' + toKebabCase(progressbarCssVars[i])] =
+                progressbarCssVar;
         }
     }
 
@@ -523,10 +522,14 @@ export function compareValues(
  * This is meant as a replacement for the JavaScript function localCompare() which produces a slightly different result from
  * the Java version of compareTo().
  *
- * This function has been taken from the link below, but it is slightly improved.
- * @param t1
- * @param t2
- * @see https://stackoverflow.com/questions/60300935/javascript-localecompare-returns-different-result-than-java-compareto
+ * Re-implemented from java source method compareTo() of java.lang.String
+ * @param t1 firstString the first string to be compared
+ * @param t2 anotherString the another string to be compared to the first one
+ * @returns the value 0 if the anotherString is equal to
+ *          firstString; a value less than 0 if firstString
+ *          is lexicographically less than the anotherString; and a
+ *          value greater than 0 if firstString is
+ *          lexicographically greater than the anotherString.
  */
 function localCompareAsInJava(t1: string, t2: string): number {
     let t1Length = t1 == null ? 0 : t1.length;
@@ -538,11 +541,7 @@ function localCompareAsInJava(t1: string, t2: string): number {
         const c1 = t1[k];
         const c2 = t2[k];
         if (c1 !== c2) {
-            if (c1.charCodeAt(0) === 32) {
-                return c1.charCodeAt(0) + c2.charCodeAt(0);
-            } else {
-                return c1.charCodeAt(0) - c2.charCodeAt(0);
-            }
+            return c1.charCodeAt(0) - c2.charCodeAt(0);
         }
         k++;
     }

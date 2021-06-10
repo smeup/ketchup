@@ -350,11 +350,6 @@ export class KupChip {
             (!this.data || this.data.length === 0) &&
             (!this.dataNew || this.dataNew.length === 0)
         ) {
-            this.kupManager.debug.logMessage(
-                this,
-                'Empty data.',
-                KupDebugCategory.WARNING
-            );
             return;
         }
 

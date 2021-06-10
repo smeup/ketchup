@@ -1112,6 +1112,19 @@
                     id="filter-remove-icon"
                     @kupTextFieldInput="updateThemeIcons"
                   ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-key-icon</span>
+                </td>
+                <td>Used to identify a key.</td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="key-icon"
+                    @kupTextFieldInput="updateThemeIcons"
+                  ></kup-text-field>
                 </td> </tr
             ></tbody>
           </table>

@@ -98,7 +98,8 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `kupAddColumn`                | When 'add column' menu item is clicked                                                                                            | `CustomEvent<{ column: string; }>`                                                                                                                           |
 | `kupDidLoad`                  |                                                                                                                                   | `CustomEvent<void>`                                                                                                                                          |
 | `kupDidUnload`                | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
-| `kupTreeContextMenu`          | Generic right click event on tree.                                                                                                | `CustomEvent<{ details: GenericObject; }>`                                                                                                                   |
+| `kupTreeColumnMenu`           | When the column menu is being opened/closed.                                                                                      | `CustomEvent<{ card: HTMLKupCardElement; open: boolean; }>`                                                                                                  |
+| `kupTreeContextMenu`          | Generic right click event on tree.                                                                                                | `CustomEvent<{ details: EventHandlerDetails; }>`                                                                                                             |
 | `kupTreeDynamicMassExpansion` |                                                                                                                                   | `CustomEvent<{ treeNodePath?: TreeNodePath; treeNode?: TreeNode; expandAll?: boolean; }>`                                                                    |
 | `kupTreeNodeButtonClicked`    |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
 | `kupTreeNodeCollapse`         | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
@@ -108,6 +109,16 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 
 ## Methods
+
+### `closeColumnMenu() => Promise<void>`
+
+Closes any opened column menu.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `collapseAll() => Promise<void>`
 
@@ -136,6 +147,16 @@ Used to retrieve component's props values.
 #### Returns
 
 Type: `Promise<GenericObject>`
+
+
+
+### `openColumnMenu(column: string) => Promise<void>`
+
+Opens the column menu of the given column.
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 
@@ -198,11 +219,11 @@ graph TD;
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
   kup-tooltip --> kup-tree
+  kup-card --> kup-tree
+  kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge
-  kup-card --> kup-tree
-  kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field

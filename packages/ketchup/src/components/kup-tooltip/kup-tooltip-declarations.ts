@@ -49,6 +49,7 @@ export interface TooltipRelatedObject {
     element: HTMLElement;
     object?: any;
     rowId?: string;
+    colId?: string;
 }
 
 export interface TooltipCellOptions extends TreeNode {
