@@ -1199,6 +1199,11 @@ export function create14(component: KupCard): VNode {
                                 : ''
                         }`}
                     >
+                        <div class="sub-autocomplete">
+                            {autocompleteArray.length > 0
+                                ? compList(autocompleteArray, 'autocomplete')
+                                : null}
+                        </div>
                         <div class="sub-switch">
                             {switchesIds.includes(
                                 KupColumnMenuIds.SWITCH_KEY
@@ -1221,11 +1226,6 @@ export function create14(component: KupCard): VNode {
                                     )}
                                 />
                             ) : null}
-                        </div>
-                        <div class="sub-autocomplete">
-                            {autocompleteArray.length > 0
-                                ? compList(autocompleteArray, 'autocomplete')
-                                : null}
                         </div>
                     </div>
                 ) : null}
