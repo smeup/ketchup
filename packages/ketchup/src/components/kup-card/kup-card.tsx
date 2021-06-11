@@ -379,6 +379,9 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         root.addEventListener('kupAddCodeDecodeColumn', this.cardEvent);
         root.addEventListener('kupAddColumn', this.cardEvent);
+        root.addEventListener('kupAutocompleteBlur', this.cardEvent);
+        root.addEventListener('kupAutocompleteChange', this.cardEvent);
+        root.addEventListener('kupAutocompleteItemClick', this.cardEvent);
         root.addEventListener('kupButtonClick', this.cardEvent);
         root.addEventListener('kupCheckboxChange', this.cardEvent);
         root.addEventListener('kupChipBlur', this.cardEvent);

@@ -178,10 +178,18 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         }
     }
     // When chip loses focus: it must go back to the card to prevent closing.
+    // When autocomplete loses focus: it must go back to the card to prevent closing.
+    // When click on one autocomplete item (in list) loses focus: it must go back to the card to prevent closing.
+    // (last 2 issues: workaround for: avoid closing the card during the interaction with the autocomplete field,
+    // composed of text-field + kup-list, due to a blur event that is not stopped by the card, but reached by the data-table)
     if (
         root &&
-        e.type === KupCardSubEvents.CHIP_BLUR &&
-        e.detail.id === KupCardIds.COLUMNS_LIST
+        ((e.type === KupCardSubEvents.CHIP_BLUR &&
+            e.detail.id === KupCardIds.COLUMNS_LIST) ||
+            (e.type === KupCardSubEvents.AUTOCOMPLETE_BLUR &&
+                e.detail.id === KupCardIds.OBJECT_CHANGE) ||
+            (e.type === KupCardSubEvents.AUTOCOMPLETE_ITEMCLICK &&
+                e.detail.id === KupCardIds.OBJECT_CHANGE))
     ) {
         component.rootElement.focus();
     }
