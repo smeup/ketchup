@@ -178,10 +178,17 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
         }
     }
     // When chip loses focus: it must go back to the card to prevent closing.
+    // When autocomplete loses focus: it must go back to the card to prevent closing.
+    // Issue: couldn't intercept "blur" event before it reached kup-data-table, causing the card to close itself.
+    // Investigate further in the future whether any blur event can be stopped by the card before bubbling outside.
     if (
         root &&
-        e.type === KupCardSubEvents.CHIP_BLUR &&
-        e.detail.id === KupCardIds.COLUMNS_LIST
+        ((e.type === KupCardSubEvents.CHIP_BLUR &&
+            e.detail.id === KupCardIds.COLUMNS_LIST) ||
+            (e.type === KupCardSubEvents.AUTOCOMPLETE_BLUR &&
+                e.detail.id === KupCardIds.OBJECT_CHANGE) ||
+            (e.type === KupCardSubEvents.AUTOCOMPLETE_ITEMCLICK &&
+                e.detail.id === KupCardIds.OBJECT_CHANGE))
     ) {
         component.rootElement.focus();
     }
