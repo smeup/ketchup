@@ -5,14 +5,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    </link>
 
     <script src="https://d3js.org/d3-path.v1.min.js"></script>
     <script src="https://d3js.org/d3-shape.v1.min.js"></script>
     <script type="module" src="/build/ketchup.esm.js"></script>
     <script nomodule src="/build/ketchup.js"></script>
 
-    <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet"
+        type="text/css" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
 
@@ -23,11 +25,11 @@
             box-sizing: border-box;
             transition: all .125s ease;
         }
-        
-         :focus {
+
+        :focus {
             outline: none;
         }
-        
+
         html {
             background-color: var(--kup-background-color);
             color: var(--kup-text-color);
@@ -35,26 +37,26 @@
             font-size: var(--kup-font-size);
             padding: 1rem;
         }
-        
+
         .options {
             margin-bottom: 1rem;
         }
-        
+
         hr {
             margin: 2rem 0;
         }
-        
+
         .btn-options {
             margin-bottom: 1rem;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-gap: 0.5rem;
         }
-        
+
         .BTN {
             display: block;
         }
-        
+
         #theme-tester {
             position: fixed;
             right: 0;
@@ -130,37 +132,36 @@
     <kup-dropdown-button id="ddb8" styling="outlined" icon="document"></kup-dropdown-button>
     <kup-dropdown-button id="ddb9" styling="flat" icon="document"></kup-dropdown-button>
 
+    <kup-fab color-button="#FFC107" style="position: fixed; bottom: 25px; right: 25px; z-index: 100"></kup-fab>
+
     <script>
-        let ilb = [{
-            text: 'documento1.txt',
-            value: 'txt1',
-            icon: '3d_rotation'
-        }, {
-            text: 'document2.pdf',
-            value: 'txt2',
-            icon: 'ac_unit'
-        }, {
-            text: 'documento3.xls',
-            value: 'txt3',
-            icon: 'accessibility',
-        }, ];
+        let ilb = [
+            {
+                text: 'documento1.txt',
+                value: 'txt1',
+                icon: '3d_rotation'
+            },
+            {
+                text: 'document2.pdf',
+                value: 'txt2',
+                icon: 'ac_unit'
+            },
+            {
+                text: 'documento3.xls',
+                value: 'txt3',
+                icon: 'accessibility',
+            },
+        ];
 
         let dropDownButtons = document.getElementsByTagName('kup-dropdown-button');
         let selIndex = 0;
         if (dropDownButtons != null) {
             for (let i = 0; i < dropDownButtons.length; i++) {
                 let dropDownButton = dropDownButtons[i];
-                let dropDownData = {
-                    data: {
-                        'kup-list': {
-                            data: {}
-                        }
-                    }
-                };
+                let dropDownData = { data: { 'kup-list': { data: {} } } };
                 dropDownData.data['kup-list'].data = JSON.parse(JSON.stringify(ilb));
                 dropDownButton.initialValue = ilb[selIndex].text;
-                dropDownButton.data = {...dropDownData.data
-                };
+                dropDownButton.data = { ...dropDownData.data };
 
                 selIndex++;
                 if (selIndex >= ilb.length) {
@@ -212,7 +213,7 @@
             }
         }
     </script>
-    <br/><br/><br/><br/>
+    <br /><br /><br /><br />
     <h1>Simple text field</h1>
     <kup-text-field id="int1" is-clearable initial-value="ciao"></kup-text-field>
 
@@ -319,7 +320,8 @@
 
     <h4>Material Select (widget)</h4>
     <kup-combobox is-filterable="false" field-id="pluto1" is-select="true"></kup-combobox>
-    <kup-combobox is-filterable="false" field-id="pluto2" is-select="true" display-mode="both" select-mode="code"></kup-combobox>
+    <kup-combobox is-filterable="false" field-id="pluto2" is-select="true" display-mode="both" select-mode="code">
+    </kup-combobox>
 
     <h4>Events testing</h4>
     <kup-tab-bar id="event-tabbar"></kup-tab-bar>
@@ -338,9 +340,7 @@
         function changeTheme() {
             if (document.documentElement.getAttribute("kup-theme") === "ketchup") {
                 document.documentElement.ketchup.theme.set("dark");
-            } else {
-                document.documentElement.ketchup.theme.set("ketchup");
-            }
+            } else { document.documentElement.ketchup.theme.set("ketchup"); }
         }
 
         let treeEl = document.getElementById('tree');
@@ -464,51 +464,63 @@
         }
 
         let tabBar = document.getElementsByTagName('kup-tab-bar')[0];
-        tabBar.data = [{
-            text: 'Favorites',
-            icon: 'favorite',
-            active: true
-        }, {
-            text: 'Set alarm clock',
-            icon: 'alarm_on',
-            active: false
-        }, {
-            text: 'Settings',
-            icon: 'build',
-            active: false
-        }, {
-            text: 'Iconless',
-            icon: '',
-            active: false
-        }, ];
+        tabBar.data = [
+            {
+                text: 'Favorites',
+                icon: 'favorite',
+                active: true
+            },
+            {
+                text: 'Set alarm clock',
+                icon: 'alarm_on',
+                active: false
+            },
+            {
+                text: 'Settings',
+                icon: 'build',
+                active: false
+            },
+            {
+                text: 'Iconless',
+                icon: '',
+                active: false
+            },
+        ];
 
         let radioList = document.getElementsByTagName('kup-radio')[0];
-        radioList.data = [{
-            value: 'Favorites',
-            label: "label 1",
-            checked: true
-        }, {
-            value: 'Set alarm clock',
-            label: "label 2",
-            checked: false
-        }, {
-            value: 'Settings',
-            label: "label 3",
-            checked: false
-        }, ];
+        radioList.data = [
+            {
+                value: 'Favorites',
+                label: "label 1",
+                checked: true
+            },
+            {
+                value: 'Set alarm clock',
+                label: "label 2",
+                checked: false
+            },
+            {
+                value: 'Settings',
+                label: "label 3",
+                checked: false
+            },
+        ];
 
         let chipList = document.getElementsByTagName('kup-chip')[0];
-        chipList.data = [{
-            value: 'favorites',
-            icon: 'favorite',
-            label: "Favorites",
-            checked: false
-        }, {
-            value: 'Set alarm clock',
-            label: "Label 2",
-            icon: 'filter_2',
-            checked: true
-        }, ];
+        chipList.data = [
+            {
+                value: 'favorites',
+                icon: 'favorite',
+                label: "Favorites",
+                checked: false
+            },
+            {
+                value: 'Set alarm clock',
+                label: "Label 2",
+                icon: 'filter_2',
+                checked: true
+            },
+        ];
 
         let listBox1 = document.getElementsByTagName('kup-list')[0];
         let listBox2 = document.getElementsByTagName('kup-list')[1];
@@ -516,33 +528,40 @@
         let listBox4 = document.getElementsByTagName('kup-list')[3];
         let listBox5 = document.getElementsByTagName('kup-list')[4];
 
-        let itemsForListBox = [{
-            text: 'Text 1',
-            secondaryText: 'Secondary text 1',
-            value: 'txt1',
-            icon: '3d_rotation'
-        }, {
-            text: 'Text 2',
-            value: 'txt2',
-            icon: 'ac_unit'
-        }, {
-            text: 'Text 3',
-            value: 'txt3',
-            icon: 'accessibility'
-        }, {
-            text: null,
-            value: null,
-            isSeparator: true,
-        }, {
-            text: 'Text 4',
-            value: 'txt4',
-            icon: 'account_box'
-        }, {
-            text: 'Text 5',
-            value: 'txt5',
-            /*selected: true,*/
-            /*icon: 'add_alert'*/
-        }, ];
+        let itemsForListBox = [
+            {
+                text: 'Text 1',
+                secondaryText: 'Secondary text 1',
+                value: 'txt1',
+                icon: '3d_rotation'
+            },
+            {
+                text: 'Text 2',
+                value: 'txt2',
+                icon: 'ac_unit'
+            },
+            {
+                text: 'Text 3',
+                value: 'txt3',
+                icon: 'accessibility'
+            },
+            {
+                text: null,
+                value: null,
+                isSeparator: true,
+            },
+            {
+                text: 'Text 4',
+                value: 'txt4',
+                icon: 'account_box'
+            },
+            {
+                text: 'Text 5',
+                value: 'txt5',
+                /*selected: true,*/
+                /*icon: 'add_alert'*/
+            },
+        ];
 
         listBox1.data = JSON.parse(JSON.stringify(itemsForListBox));
         listBox1.data[0].selected = true;
@@ -555,55 +574,33 @@
         listBox5.data = JSON.parse(JSON.stringify(itemsForListBox));
         listBox5.data[2].selected = true;
 
-        let listBoxData = {
-            data: {
-                'kup-list': {
-                    data: {}
-                }
-            }
-        };
+        let listBoxData = { data: { 'kup-list': { data: {} } } };
         listBoxData.data['kup-list'].data = itemsForListBox;
 
         let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
-        let textfieldData = {
-            trailingIcon: true,
-            icon: "arrow_drop_down",
-        };
-        let listData = {
-            data: [...itemsForListBox],
-            selectable: true,
-        };
-        selectBox1.data = {
-            'kup-text-field': {...textfieldData
-            },
-            'kup-list': JSON.parse(JSON.stringify(listData))
-        };
+        let textfieldData = { trailingIcon: true, icon: "arrow_drop_down", };
+        let listData = { data: [...itemsForListBox], selectable: true, };
+        selectBox1.data = { 'kup-text-field': { ...textfieldData }, 'kup-list': JSON.parse(JSON.stringify(listData)) };
         selectBox1.initialValue = "Text 5";
         //Object.getOwnPropertyNames(String.prototype).filter(item => typeof String.prototype[item] === 'function')
 
         let selectBox2 = document.getElementsByTagName('kup-combobox')[1];
         //selectBox2.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
         //selectBox2.listData = {data: [...itemsForListBox], selectable: true,};
-        selectBox2.data = {
-            'text-field': {...textfieldData
-            },
-            'kup-list': JSON.parse(JSON.stringify(listData))
-        };
+        selectBox2.data = { 'text-field': { ...textfieldData }, 'kup-list': JSON.parse(JSON.stringify(listData)) };
         selectBox2.initialValue = "Text 4";
 
         let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
         //autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
         //autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
-        autocompleteBox1.data = {
-            'kup-list': JSON.parse(JSON.stringify(listData))
-        };
+        autocompleteBox1.data = { 'kup-list': JSON.parse(JSON.stringify(listData)) };
         autocompleteBox1.initialValue = "txt1";
         autocompleteBox1.selectMode = 'code';
 
         let once = true;
         // This is a script for testing these elements
         // This is mandatory for testing the passage of complex parameters inside web components
-        setInterval(function() {
+        setInterval(function () {
             // Radio develop test
             /*
             const radio = document.querySelector('#krg1');
@@ -669,31 +666,36 @@
                             forceSelection: true,
                         },
                     };
-                    fld_1.data = [{
-                        value: 'label bottone #1',
-                        options: true,
-                        obj: 'J1KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #2',
-                        options: true,
-                        obj: 'J2KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #3',
-                        options: true,
-                        obj: 'J3KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #4',
-                        options: true,
-                        obj: 'J4KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, ];
+                    fld_1.data = [
+                        {
+                            value: 'label bottone #1',
+                            options: true,
+                            obj: 'J1KEY',
+                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #2',
+                            options: true,
+                            obj: 'J2KEY',
+                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #3',
+                            options: true,
+                            obj: 'J3KEY',
+                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #4',
+                            options: true,
+                            obj: 'J4KEY',
+                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                    ];
                     fld_1.addEventListener('ketchupFldChanged', (payload) => {
                         console.log('Text FLD change', payload);
                     });
@@ -719,31 +721,36 @@
                         submitLabel: 'Conferma 1',
                         valueField: 'obj',
                     };
-                    fld_2.data = [{
-                        value: 'label bottone #1',
-                        options: true,
-                        obj: 'J1KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #2',
-                        options: true,
-                        obj: 'J2KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #3',
-                        options: true,
-                        obj: 'J3KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #4',
-                        options: true,
-                        obj: 'J4KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, ];
+                    fld_2.data = [
+                        {
+                            value: 'label bottone #1',
+                            options: true,
+                            obj: 'J1KEY',
+                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #2',
+                            options: true,
+                            obj: 'J2KEY',
+                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #3',
+                            options: true,
+                            obj: 'J3KEY',
+                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #4',
+                            options: true,
+                            obj: 'J4KEY',
+                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                    ];
                     fld_2.addEventListener('ketchupFldChanged', (payload) => {
                         console.log('Text FLD change', payload);
                     });
@@ -776,19 +783,15 @@
                         type: 'cmb',
                         displayedField: 'value',
                         isClearable: true,
-                        initialValue: {
-                            value: 'PRVSHO'
-                        },
+                        initialValue: { value: 'PRVSHO' },
                         showSubmit: true,
                         submitLabel: 'Conferma',
                     };
-                    fld_4.data = [{
-                        value: 'PRVSHO'
-                    }, {
-                        value: 'PRV123'
-                    }, {
-                        value: 'PRV456'
-                    }, ];
+                    fld_4.data = [
+                        { value: 'PRVSHO' },
+                        { value: 'PRV123' },
+                        { value: 'PRV456' },
+                    ];
                     fld_4.addEventListener('ketchupFldChanged', (payload) => {
                         console.log('Text FLD change', payload);
                     });
@@ -821,13 +824,11 @@
                             value: 'PRVSHO',
                         },
                     };
-                    fldRadioInitial.data = [{
-                        value: 'PRVSHO'
-                    }, {
-                        value: 'PRV123'
-                    }, {
-                        value: 'PRV456'
-                    }, ];
+                    fldRadioInitial.data = [
+                        { value: 'PRVSHO' },
+                        { value: 'PRV123' },
+                        { value: 'PRV456' },
+                    ];
                 }
 
                 // Text FLD
@@ -990,12 +991,12 @@
             <div>
                 <label for="btn-buttonclass">Button class</label>
                 <select name="btn-buttonclass" id="btn-buttonclass" onchange="onBorderButtonClassChange(event)">
-                        <option value=""></option>
-                        <option value="btn-info">btn-info</option>
-                        <option value="btn-danger">btn-danger</option>
-                        <option value="btn-warning">btn-warning</option>
-                        <option value="btn-selected">btn-selected</option>
-                    </select>
+                    <option value=""></option>
+                    <option value="btn-info">btn-info</option>
+                    <option value="btn-danger">btn-danger</option>
+                    <option value="btn-warning">btn-warning</option>
+                    <option value="btn-selected">btn-selected</option>
+                </select>
             </div>
 
             <div>
@@ -1032,10 +1033,10 @@
             <div>
                 <label for="btn-align">Align</label>
                 <select name="btn-align" id="btn-align" onchange="onBtnAlignChange(event)">
-                        <option value=""></option>
-                        <option value="left">left</option>
-                        <option value="right">right</option>
-                    </select>
+                    <option value=""></option>
+                    <option value="left">left</option>
+                    <option value="right">right</option>
+                </select>
             </div>
 
             <div>
@@ -1079,7 +1080,8 @@
 
             <div>
                 <label for="btn-fontcolor">Font color</label>
-                <input type="color" value="#FFFFFF" name="btn-fontcolor" id="btn-fontcolor" onchange="toggleBtnStyle()" />
+                <input type="color" value="#FFFFFF" name="btn-fontcolor" id="btn-fontcolor"
+                    onchange="toggleBtnStyle()" />
             </div>
 
             <div>
@@ -1090,10 +1092,10 @@
             <div>
                 <label for="btn-font">Font</label>
                 <select name="btn-font" id="btn-font" onchange="toggleBtnStyle()">
-                        <option value=""></option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Courier">Courier</option>
-                    </select>
+                    <option value=""></option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Courier">Courier</option>
+                </select>
             </div>
 
             <div>
@@ -1120,7 +1122,7 @@
 
     <script src="/assets/index.js"></script>
     <style>
-         :root {
+        :root {
             --kup-background-color: #ffffff;
             --kup-nav-bar-background-color: #2e2e2e;
             --kup-drawer-background-color: #ffffff;

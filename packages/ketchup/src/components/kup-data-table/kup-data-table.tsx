@@ -46,6 +46,7 @@ import {
     iconColumn,
     keyColumn,
     SelectionMode,
+    KupDataTableColumnDragGroupType,
 } from './kup-data-table-declarations';
 
 import {
@@ -632,17 +633,14 @@ export class KupDataTable {
     private selectedColumn: string;
 
     @State()
+    private columnMenuAnchor: string = null;
+
+    @State()
     private groupState: {
         [index: string]: {
             expanded: boolean;
         };
     } = {};
-
-    /**
-     * name of the column with an open menu
-     */
-    @State()
-    private openedMenu: string = null;
 
     /**
      * name of the column with the opened total menu
@@ -836,6 +834,10 @@ export class KupDataTable {
      * Reference to the row detail card.
      */
     private detailCard: HTMLKupCardElement = null;
+    /**
+     * Reference to the column menu card.
+     */
+    private columnMenuCard: HTMLKupCardElement = null;
 
     /**
      * When component unload is complete
@@ -923,7 +925,7 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableClick: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>;
     /**
      * Generic right click event on data table.
@@ -935,7 +937,7 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableContextMenu: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>;
     /**
      * Generic double click event on data table.
@@ -947,7 +949,20 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableDblClick: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
+    }>;
+    /**
+     * When the column menu is being opened/closed.
+     */
+    @Event({
+        eventName: 'kupDataTableColumnMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableColumnMenu: EventEmitter<{
+        card: HTMLKupCardElement;
+        open: boolean;
     }>;
     /**
      * When cell option is clicked
@@ -1055,6 +1070,37 @@ export class KupDataTable {
         return props;
     }
     /**
+     * Opens the column menu of the given column.
+     * @param {string} column - Name of the column.
+     */
+    @Method()
+    async openColumnMenu(column: string): Promise<void> {
+        this.columnMenuAnchor = column;
+        this.columnMenuCard.setAttribute('data-column', column);
+        this.columnMenuCard.data = this.columnMenuInstance.prepData(
+            this,
+            getColumnByName(this.getVisibleColumns(), column)
+        );
+        this.columnMenuInstance.open(this, column, this.tooltip);
+        this.columnMenuInstance.reposition(this);
+        this.kupDataTableColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: true,
+        });
+    }
+    /**
+     * Closes any opened column menu.
+     */
+    @Method()
+    async closeColumnMenu(): Promise<void> {
+        this.columnMenuAnchor = null;
+        this.columnMenuInstance.close(this.columnMenuCard);
+        this.kupDataTableColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: false,
+        });
+    }
+    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
@@ -1120,7 +1166,7 @@ export class KupDataTable {
     private switchToTotalsMatrix(): void {
         if (this.rows.length === 0 || !this.rows[0].group) return;
         // calc totals matrix data
-        let totalsMatrixData: TableData = {};
+        const totalsMatrixData: TableData = {};
         // calc columns id
         // note that the sorting of the columns depends on the totals selection
         // the first column is the one that is selected first in the totals, and so on...
@@ -1134,7 +1180,7 @@ export class KupDataTable {
         ids.forEach((id) => {
             this.data.columns.forEach((column) => {
                 if (column.name === id) {
-                    let currentColumn = { ...column };
+                    const currentColumn = { ...column };
                     const totalMode = this.totals[currentColumn.name];
                     if (totalMode) {
                         if (totalMode.startsWith(TotalMode.MATH)) {
@@ -1199,7 +1245,7 @@ export class KupDataTable {
         // calc totals
         // distinct becomes count
         // count becomes sum
-        let updatedTotals: TotalsMap = {};
+        const updatedTotals: TotalsMap = {};
         Object.keys(this.totals).forEach((key) => {
             switch (this.totals[key]) {
                 case TotalMode.DISTINCT:
@@ -1250,7 +1296,7 @@ export class KupDataTable {
     }
 
     private getTransposedData(column?: Column): TableData {
-        let transposedData: TableData = {};
+        const transposedData: TableData = {};
         // TODO manage better the filters, this is just a fix in order to release the function
         if (column) {
             this.filters = {};
@@ -1333,7 +1379,7 @@ export class KupDataTable {
     }
 
     private getColumnFromCell(cell: Cell, id: string): Column {
-        let title = cell.displayedValue ? cell.displayedValue : cell.value;
+        const title = cell.displayedValue ? cell.displayedValue : cell.value;
         // TODO set obj? like this --> obj: cell.obj
         return {
             name: cell.value + '_' + id,
@@ -1357,26 +1403,26 @@ export class KupDataTable {
     };
 
     private updateStickyHeaderSize() {
-        let navBar: Element = document.querySelectorAll('.header')[0];
+        const navBar: Element = document.querySelectorAll('.header')[0];
         if (navBar) {
             this.navBarHeight = navBar.clientHeight;
         } else {
             this.navBarHeight = 0;
         }
         this.stickyTheadRef.style.top = this.navBarHeight + 'px';
-        let widthTable: number = this.tableAreaRef.offsetWidth;
+        const widthTable: number = this.tableAreaRef.offsetWidth;
         this.stickyTheadRef.style.maxWidth = widthTable + 'px';
-        let thCollection: any = this.theadRef.querySelectorAll('th');
-        let thStickyCollection: any =
+        const thCollection: any = this.theadRef.querySelectorAll('th');
+        const thStickyCollection: any =
             this.stickyTheadRef.querySelectorAll('th-sticky');
         for (let i = 0; i < thCollection.length; i++) {
-            let widthTH = thCollection[i].offsetWidth;
+            const widthTH = thCollection[i].offsetWidth;
             thStickyCollection[i].style.width = widthTH + 'px';
         }
     }
 
     private setObserver() {
-        let callback: IntersectionObserverCallback = (
+        const callback: IntersectionObserverCallback = (
             entries: IntersectionObserverEntry[]
         ) => {
             entries.forEach((entry) => {
@@ -1386,7 +1432,8 @@ export class KupDataTable {
                             this,
                             'Last row entering the viewport, loading more elements.'
                         );
-                        let delta = this.rows.length - this.currentRowsPerPage;
+                        const delta =
+                            this.rows.length - this.currentRowsPerPage;
                         if (delta < this.loadMoreStep) {
                             this.currentRowsPerPage += delta;
                         } else {
@@ -1423,7 +1470,7 @@ export class KupDataTable {
                 }
             });
         };
-        let options: IntersectionObserverInit = {
+        const options: IntersectionObserverInit = {
             threshold: 0,
             rootMargin: '-' + this.navBarHeight + 'px 0px 0px 0px',
         };
@@ -1431,7 +1478,7 @@ export class KupDataTable {
     }
 
     private didRenderObservers() {
-        let rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
+        const rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
         if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
             this.intObserver.observe(rows[this.paginatedRowsLength - 1]);
         }
@@ -1510,7 +1557,7 @@ export class KupDataTable {
         }
         let count = 0;
         for (let i: number = 0; i < r.length; i++) {
-            let row = r[i];
+            const row = r[i];
             if (row == null) {
                 continue;
             }
@@ -1716,13 +1763,12 @@ export class KupDataTable {
         if (this.showCustomization) {
             this.customizePanelPosition();
         }
-        this.columnMenuInstance.reposition(this);
         this.totalMenuPosition();
         // TODO
         // this.groupMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
-        this.hideShowColumnRemoveDropArea(false);
+        this.hideShowColumnDropArea(false);
         this.setEvents();
 
         if (
@@ -1785,8 +1831,8 @@ export class KupDataTable {
     }
 
     private getSizedColumns() {
-        let columns = this.getColumns();
-        let sizedColumns = [];
+        const columns = this.getColumns();
+        const sizedColumns = [];
         for (let j = 0; j < columns.length; j++) {
             if (
                 columns[j].size !== null &&
@@ -2038,21 +2084,18 @@ export class KupDataTable {
         };
     }
 
-    private clickHandler(e: MouseEvent): void {
+    private clickHandler(e: MouseEvent): EventHandlerDetails {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
-        this.kupDataTableClick.emit({
-            details: details,
-        });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 if (details.filterRemove) {
                     this.onRemoveFilter(details.column);
-                    return;
+                    return details;
                 } else {
                     this.onColumnSort(e, details.column.name);
-                    return;
+                    return details;
                 }
             }
         } else if (details.area === 'body') {
@@ -2069,49 +2112,41 @@ export class KupDataTable {
                 details.tr.classList.add('focus');
                 if (e.ctrlKey || e.metaKey) {
                     this.rowDetail({ ...details.row }, e.clientX, e.clientY);
-                    return;
+                    return details;
                 }
             }
             if (details.tr && details.row && details.isGroupRow) {
                 this.onRowExpand(details.row);
-                return;
+                return details;
             }
             if (details.td && details.row && !details.textfield) {
                 this.onRowClick(e, details.row, true);
-                return;
+                return details;
             }
         }
     }
 
-    private contextMenuHandler(e: MouseEvent): void {
+    private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
+        e.preventDefault();
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
-        this.kupDataTableContextMenu.emit({
-            details: details,
-        });
         if (details.area === 'header') {
             if (details.th && details.column) {
-                this.columnMenuInstance.open(
-                    e,
-                    this,
-                    details.column.name,
-                    this.tooltip
-                );
-                return;
+                this.openColumnMenu(details.column.name);
+                return details;
             }
         } else if (details.area === 'body') {
-            const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
-                details.cell.obj
-            );
+            const _hasTooltip: boolean = details.cell.obj
+                ? this.kupManager.objects.hasTooltip(details.cell.obj)
+                : false;
             if (
                 _hasTooltip &&
                 this.showTooltipOnRightClick &&
                 details.td &&
                 details.cell
             ) {
-                e.preventDefault();
-                let columnName = details.column ? details.column.name : null;
+                const columnName = details.column ? details.column.name : null;
                 setTooltip(
                     e,
                     details.row.id,
@@ -2119,19 +2154,18 @@ export class KupDataTable {
                     details.cell,
                     this.tooltip
                 );
-                return;
+                return details;
             }
         } else if (details.area === 'footer') {
             if (details.td && details.column) {
-                e.preventDefault();
                 this.totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.onTotalMenuOpen(details.column);
-                return;
+                return details;
             }
         }
     }
 
-    private dblClickHandler(e: MouseEvent): void {
+    private dblClickHandler(e: MouseEvent): EventHandlerDetails {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
@@ -2144,9 +2178,7 @@ export class KupDataTable {
         ) {
             this.onRowClick(e, details.row, false);
         }
-        this.kupDataTableDblClick.emit({
-            details: details,
-        });
+        return details;
     }
 
     private mouseMoveHandler(e: MouseEvent): void {
@@ -2239,7 +2271,7 @@ export class KupDataTable {
 
     // TODO if is not shared, move this in the third parameter of setKetchupDraggable method
     private addMultiSelectDragImageToEvent(event: DragEvent) {
-        let dragImage = document.createElement('img');
+        const dragImage = document.createElement('img');
         dragImage.src = dragMultipleImg;
         event.dataTransfer.setDragImage(dragImage, 0, 0);
     }
@@ -2271,7 +2303,7 @@ export class KupDataTable {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getColumns()
+            this.getVisibleColumns()
         );
         this.rowsLength = this.rowsPointLength();
     }
@@ -2472,7 +2504,7 @@ export class KupDataTable {
                 'tbody > tr:first-of-type > td:first-of-type'
             );
             let previousWidth: number = 0;
-            let totalFixedColumns =
+            const totalFixedColumns =
                 this.fixedColumns +
                 (this.hasRowActions() ? 1 : 0) +
                 (this.selection === SelectionMode.MULTIPLE_CHECKBOX ? 1 : 0);
@@ -2555,7 +2587,7 @@ export class KupDataTable {
     private onGlobalFilterChange(inputEl: EventTarget) {
         this.resetCurrentPage();
         if (inputEl) {
-            let el = inputEl as HTMLInputElement;
+            const el = inputEl as HTMLInputElement;
             this.globalFilterValue = el.value;
         } else {
             this.globalFilterValue = '';
@@ -2580,7 +2612,7 @@ export class KupDataTable {
             switch (this.selection) {
                 case SelectionMode.MULTIPLE:
                     if (this.selectedRows.includes(row)) {
-                        let selectedRowsCopy = [...this.selectedRows];
+                        const selectedRowsCopy = [...this.selectedRows];
                         var index = selectedRowsCopy.indexOf(row);
                         if (index !== -1) {
                             selectedRowsCopy.splice(index, 1);
@@ -2628,13 +2660,13 @@ export class KupDataTable {
     }
 
     private selectColumn(selectedColumn: string) {
-        let columnCells = this.rootElement.shadowRoot.querySelectorAll(
+        const columnCells = this.rootElement.shadowRoot.querySelectorAll(
             'td[data-column="' + selectedColumn + '"]'
         );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.add('selected');
         }
-        let column = this.rootElement.shadowRoot.querySelector(
+        const column = this.rootElement.shadowRoot.querySelector(
             'th[data-column="' + selectedColumn + '"]'
         );
         if (column) {
@@ -2643,13 +2675,13 @@ export class KupDataTable {
     }
 
     private deselectColumn(selectedColumn: string) {
-        let columnCells = this.rootElement.shadowRoot.querySelectorAll(
+        const columnCells = this.rootElement.shadowRoot.querySelectorAll(
             'td[data-column="' + selectedColumn + '"]'
         );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.remove('selected');
         }
-        let column = this.rootElement.shadowRoot.querySelector(
+        const column = this.rootElement.shadowRoot.querySelector(
             'th[data-column="' + selectedColumn + '"]'
         );
         if (column) {
@@ -2751,10 +2783,6 @@ export class KupDataTable {
         }
     }
 
-    private closeMenu() {
-        this.openedMenu = null;
-    }
-
     private openTotalMenu(column: Column) {
         this.openedTotalMenu = column.name;
     }
@@ -2774,12 +2802,7 @@ export class KupDataTable {
     */
 
     private closeMenuAndTooltip() {
-        this.closeMenu();
         unsetTooltip(this.tooltip);
-    }
-
-    private isOpenedMenu(): boolean {
-        return this.openedMenu != null;
     }
 
     private isOpenedTotalMenu(): boolean {
@@ -2820,7 +2843,6 @@ export class KupDataTable {
     private onHeaderCellContextMenuClose(event: MouseEvent) {
         // Gets the path of the event (does not work in IE11 or previous)
         const eventPath = event.composedPath();
-        let fromMenu = false;
         let fromTotalMenu = false;
         let fromSameTable = false;
 
@@ -2839,14 +2861,6 @@ export class KupDataTable {
                 break;
             }
 
-            // If the event comes from a menu of the table header
-            if (
-                this.isHTMLElementFromEventTarget(elem) &&
-                elem.id === KupColumnMenuIds.CARD_COLUMN_MENU
-            ) {
-                fromMenu = true;
-            }
-
             // TODO When the footer is considered stable please do this in another dedicated method
             // If the event comes from a menu of the table footer
             if (
@@ -2856,11 +2870,6 @@ export class KupDataTable {
             ) {
                 fromTotalMenu = true;
             }
-        }
-
-        // When we have an open menu and the event does NOT come from the same table, we close the menu.
-        if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
-            this.closeMenuAndTooltip();
         }
 
         // TODO When the footer is considered stable please do this in another dedicated method
@@ -2909,10 +2918,6 @@ export class KupDataTable {
             filters: this.filters,
             data: this.data,
         };
-    }
-
-    setColumnMenu(column: string) {
-        this.openedMenu = column;
     }
 
     // Handler for loadMore button is clicked.
@@ -2969,7 +2974,7 @@ export class KupDataTable {
         const group = row.group;
 
         // check if already in group state
-        let groupFromState = this.groupState[group.id];
+        const groupFromState = this.groupState[group.id];
 
         if (!groupFromState) {
             // add to state
@@ -3253,14 +3258,14 @@ export class KupDataTable {
                     );
 
                 //---- AddCodeDecodeColumn ----
-                let overlay = null;
+                const overlay = null;
                 /** disabled on release, for now... */
                 /*
                 if (this.hasOverlayActions(column)) {
                     columnClass['obj'] = true;
                     const svgLabel = 'Add code/decode column';
-                    let svg = this.getIconPath('table-column-plus-after');
-                    let iconStyle = {
+                    const svg = this.getIconPath('table-column-plus-after');
+                    const iconStyle = {
                         mask: svg,
                         webkitMask: svg,
                     };
@@ -3325,6 +3330,18 @@ export class KupDataTable {
                     columnClass['header-cell--sortable'] = true;
                 }
 
+                let keyIcon: HTMLSpanElement = null;
+                if (column.isKey) {
+                    keyIcon = (
+                        <span
+                            class="key icon-container"
+                            title={this.kupManager.language.translate(
+                                KupLanguageRow.KEY
+                            )}
+                        ></span>
+                    );
+                }
+
                 // Sets custom columns width
                 if (this.sizedColumns) {
                     for (let i = 0; i < this.sizedColumns.length; i++) {
@@ -3349,22 +3366,15 @@ export class KupDataTable {
                     onDragStart: (e: DragEvent) => {
                         // Sets the type of drag
                         setDragEffectAllowed(e, 'move');
-
-                        // Remember that the current target is different from the one print out in the console
-                        // Sets which element has started the drag
-                        (e.target as HTMLElement).setAttribute(
-                            this.dragStarterAttribute,
-                            ''
-                        );
-
-                        this.theadRef.setAttribute(this.dragFlagAttribute, '');
-                        this.columnsAreBeingDragged = true;
-
-                        this.hideShowColumnRemoveDropArea(
-                            true,
+                        const overElement = this.getThElement(
                             e.target as HTMLElement
                         );
-
+                        // Remember that the current target is different from the one print out in the console
+                        // Sets which element has started the drag
+                        overElement.setAttribute(this.dragStarterAttribute, '');
+                        this.theadRef.setAttribute(this.dragFlagAttribute, '');
+                        this.columnsAreBeingDragged = true;
+                        this.hideShowColumnDropArea(true, overElement);
                         // TODO set drag payload and get it in the other methods when need it
                         // setDragDropPayload
                         // getDragDropPayload
@@ -3372,10 +3382,12 @@ export class KupDataTable {
                     },
                     onDragEnd: (e: DragEvent) => {
                         // When the drag has ended, checks if the element still exists or it was destroyed by JSX
-                        const targetElement = e.target as HTMLElement;
-                        if (targetElement) {
+                        const overElement = this.getThElement(
+                            e.target as HTMLElement
+                        );
+                        if (overElement) {
                             // If it still exists, removes the attribute so that it can perform a new drag again
-                            targetElement.removeAttribute(
+                            overElement.removeAttribute(
                                 this.dragStarterAttribute
                             );
                         }
@@ -3388,8 +3400,7 @@ export class KupDataTable {
                         }
                         this.theadRef.removeAttribute(this.dragFlagAttribute);
                         this.columnsAreBeingDragged = false;
-                        //
-                        this.hideShowColumnRemoveDropArea(false);
+                        this.hideShowColumnDropArea(false);
                     },
                 };
                 const dropHandlers: DropHandlers = {
@@ -3408,10 +3419,14 @@ export class KupDataTable {
                                 KupDataTableColumnDragType
                             ) >= 0
                         ) {
-                            /*  */
-                            (e.target as HTMLElement).removeAttribute(
-                                this.dragOverAttribute
+                            const overElement = this.getThElement(
+                                e.target as HTMLElement
                             );
+                            if (overElement) {
+                                overElement.removeAttribute(
+                                    this.dragOverAttribute
+                                );
+                            }
                         }
                     },
                     onDragOver: (e: DragEvent) => {
@@ -3420,10 +3435,9 @@ export class KupDataTable {
                                 KupDataTableColumnDragType
                             ) >= 0
                         ) {
-                            let overElement = e.target as HTMLElement;
-                            if (overElement.tagName !== 'TH') {
-                                overElement = overElement.closest('th');
-                            }
+                            const overElement = this.getThElement(
+                                e.target as HTMLElement
+                            );
                             overElement.setAttribute(
                                 this.dragOverAttribute,
                                 ''
@@ -3484,6 +3498,7 @@ export class KupDataTable {
                             {this.applyLineBreaks(column.title)}
                         </span>
                         {overlay}
+                        {keyIcon}
                         {sortIcon}
                         {filter}
                     </th>
@@ -3545,8 +3560,6 @@ export class KupDataTable {
             );
         }
 
-        let groupColumn = null;
-
         // Empty cell for the actions
         let actionsColumn = null;
         if (this.hasRowActions()) {
@@ -3593,7 +3606,8 @@ export class KupDataTable {
             }
         );
 
-        return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
+        return [multiSelectColumn, actionsColumn, ...dataColumns];
+        //return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     renderTooltip() {
@@ -3644,7 +3658,7 @@ export class KupDataTable {
 
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement =
+            const menu: HTMLElement =
                 this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
                 this.kupManager.dynamicPosition.register(
@@ -3790,7 +3804,7 @@ export class KupDataTable {
                 }
 
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    let listData: ComponentListElement[] = [
+                    const listData: ComponentListElement[] = [
                         {
                             text: translation[TotalLabel.COUNT],
                             value: TotalMode.COUNT,
@@ -3851,9 +3865,11 @@ export class KupDataTable {
                         );
                     }
                     if (this.totals) {
-                        let selectedItem: ComponentListElement = listData.find(
-                            (item) => item.value === this.totals[column.name]
-                        );
+                        const selectedItem: ComponentListElement =
+                            listData.find(
+                                (item) =>
+                                    item.value === this.totals[column.name]
+                            );
                         if (selectedItem) {
                             selectedItem.selected = true;
                             listData.push(
@@ -4000,7 +4016,7 @@ export class KupDataTable {
 
             const jsxRows = [];
 
-            let indent = [];
+            const indent = [];
             for (let i = 0; i < level; i++) {
                 indent.push(<span class="indent" />);
             }
@@ -4033,7 +4049,7 @@ export class KupDataTable {
                     }
                     // TODO please use getValueForDisplay
                     let value;
-                    let totalValue = row.group.totals[column.name];
+                    const totalValue = row.group.totals[column.name];
                     if (
                         this.totals[column.name] === TotalMode.COUNT ||
                         this.totals[column.name] === TotalMode.DISTINCT
@@ -4068,9 +4084,9 @@ export class KupDataTable {
                     }
                     /*
                     TODO Group Menu
-                    let groupMenu = undefined;
+                    const groupMenu = undefined;
                     if (this.isOpenedGroupMenuForColumn(column.name)) {
-                        let listData: ComponentListElement[] = [
+                        const listData: ComponentListElement[] = [
                             {
                                 text: 'Matrice dei totali',
                                 value: 'MATTOT',
@@ -4167,7 +4183,7 @@ export class KupDataTable {
                         specialExtraCellsCount - 1
                     );
 
-                let props: FCheckboxProps = {
+                const props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
                     dataSet: {
                         'data-row': row,
@@ -4265,7 +4281,7 @@ export class KupDataTable {
             // Renders plain rows cells
             const cells = visibleColumns.map((currentColumn, cellIndex) => {
                 const { name, hideValuesRepetitions } = currentColumn;
-                let indend = [];
+                const indend = [];
                 if (cellIndex === 0) {
                     for (let i = 0; i < level; i++) {
                         indend.push(<span class="indent" />);
@@ -4491,7 +4507,7 @@ export class KupDataTable {
                 },
             };
 
-            let style: GenericObject = {
+            const style: GenericObject = {
                 '--row-actions': rowActionsCount,
             };
 
@@ -4571,8 +4587,8 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let cellType: string = this.getCellType(cell);
-        let props: any = { ...cell.data };
+        const cellType: string = this.getCellType(cell);
+        const props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
         if (
             isEditable &&
@@ -4618,7 +4634,7 @@ export class KupDataTable {
             }
         }
 
-        let style = cell.style;
+        const style = cell.style;
 
         if (styleHasWritingMode(cell)) {
             classObj['is-vertical'] = true;
@@ -4634,7 +4650,7 @@ export class KupDataTable {
                 svg = column.icon;
             }
             svg = this.getIconPath(svg);
-            let iconStyle = {
+            const iconStyle = {
                 mask: svg,
                 webkitMask: svg,
             };
@@ -4696,8 +4712,8 @@ export class KupDataTable {
     }
 
     private setLazyKupCell(cellType: string, props: any) {
-        let lazyClass = 'cell-' + cellType + ' placeholder';
-        let style = { minHeight: props.sizeY };
+        const lazyClass = 'cell-' + cellType + ' placeholder';
+        const style = { minHeight: props.sizeY };
         return <span style={style} class={lazyClass}></span>;
     }
 
@@ -4882,7 +4898,7 @@ export class KupDataTable {
                 if (!props.data) {
                     return <kup-image {...props} />;
                 } else {
-                    let barStyle = {
+                    const barStyle = {
                         height: props.sizeY,
                     };
                     return (
@@ -5155,28 +5171,28 @@ export class KupDataTable {
                 const transferredData = JSON.parse(
                     e.dataTransfer.getData(KupDataTableColumnDragType)
                 ) as Column;
-                let overElement = e.target as HTMLElement;
-                if (overElement.id !== 'remove-column-area') {
-                    overElement = overElement.closest('#remove-column-area');
-                }
+                const overElement = this.getElementById(
+                    e.target as HTMLElement,
+                    'remove-column-area'
+                );
                 overElement.removeAttribute(this.dragOverAttribute);
                 // We are sure the tables have been dropped in a valid location -> starts ...
                 this.handleColumnRemove(transferredData);
                 return KupDataTableColumnDragRemoveType;
             },
             onDragOver: (e: DragEvent) => {
-                let overElement = e.target as HTMLElement;
-                if (overElement.id !== 'remove-column-area') {
-                    overElement = overElement.closest('#remove-column-area');
-                }
+                const overElement = this.getElementById(
+                    e.target as HTMLElement,
+                    'remove-column-area'
+                );
                 overElement.setAttribute(this.dragOverAttribute, '');
                 return true;
             },
             onDragLeave: (e: DragEvent) => {
-                let overElement = e.target as HTMLElement;
-                if (overElement.id !== 'remove-column-area') {
-                    overElement = overElement.closest('#remove-column-area');
-                }
+                const overElement = this.getElementById(
+                    e.target as HTMLElement,
+                    'remove-column-area'
+                );
                 overElement.removeAttribute(this.dragOverAttribute);
                 return true;
             },
@@ -5210,33 +5226,168 @@ export class KupDataTable {
         );
     }
 
-    private hideShowColumnRemoveDropArea(show: boolean, th?: HTMLElement) {
-        if (!this.removableColumns) {
-            return;
-        }
-        let dropArea: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '#remove-column-area'
+    private columnGroupArea(): HTMLDivElement {
+        const dropHandlersGroupCols: DropHandlers = {
+            onDrop: (e: DragEvent) => {
+                const transferredData = JSON.parse(
+                    e.dataTransfer.getData(KupDataTableColumnDragType)
+                ) as Column;
+                const overElement = this.getElementById(
+                    e.target as HTMLElement,
+                    'group-column-area'
+                );
+                overElement.removeAttribute(this.dragOverAttribute);
+                // We are sure the tables have been dropped in a valid location -> starts ...
+                this.handleColumnGroup(transferredData);
+                return KupDataTableColumnDragGroupType;
+            },
+            onDragOver: (e: DragEvent) => {
+                const overElement = this.getElementById(
+                    e.target as HTMLElement,
+                    'group-column-area'
+                );
+                overElement.setAttribute(this.dragOverAttribute, '');
+                return true;
+            },
+            onDragLeave: (e: DragEvent) => {
+                const overElement = this.getElementById(
+                    e.target as HTMLElement,
+                    'group-column-area'
+                );
+                overElement.removeAttribute(this.dragOverAttribute);
+                return true;
+            },
+        };
+        return (
+            <div
+                id="group-column-area"
+                {...setKetchupDroppable(
+                    dropHandlersGroupCols,
+                    [
+                        KupDataTableColumnDragType,
+                        KupDataTableColumnDragGroupType,
+                    ],
+                    this.rootElement,
+                    {}
+                )}
+            >
+                <FImage
+                    resource="bookmark"
+                    color="var(--kup-danger-color)"
+                    sizeX="30px"
+                    sizeY="50px"
+                />
+                <FImage
+                    resource="book"
+                    color="var(--kup-danger-color)"
+                    sizeX="30px"
+                    sizeY="50px"
+                />
+            </div>
         );
+    }
 
-        if (show) {
-            dropArea.style.marginLeft =
-                'calc(' + th.clientWidth / 2 + 'px - 25px)';
-            this.tableAreaRef.appendChild(dropArea);
+    private startDynamicPositioning(
+        dropArea: KupDynamicPositionElement,
+        th: HTMLElement
+    ) {
+        if (this.kupManager.dynamicPosition.isRegistered(dropArea)) {
+            this.kupManager.dynamicPosition.changeAnchor(
+                dropArea as KupDynamicPositionElement,
+                th
+            );
+        } else {
             this.kupManager.dynamicPosition.register(
                 dropArea as KupDynamicPositionElement,
                 th,
                 10,
                 KupDynamicPositionPlacement.TOP
             );
-            this.kupManager.dynamicPosition.start(
-                dropArea as KupDynamicPositionElement
+        }
+
+        this.kupManager.dynamicPosition.start(
+            dropArea as KupDynamicPositionElement
+        );
+        dropArea.classList.add('visible');
+    }
+
+    private stopDynamicPositioning(dropArea: KupDynamicPositionElement) {
+        dropArea.classList.remove('visible');
+        this.kupManager.dynamicPosition.stop(
+            dropArea as KupDynamicPositionElement
+        );
+        // Chrome workaround: dropArea is draggable even with the display:none rule
+        dropArea.style.top = '-50px';
+        dropArea.style.left = '-50px';
+    }
+
+    private getElementById(target: HTMLElement, id: string): HTMLElement {
+        let element: HTMLElement = target as HTMLElement;
+        if (element) {
+            if (element.nodeType == Node.TEXT_NODE) {
+                element = element.parentNode as HTMLElement;
+            }
+            if (element.id !== id) {
+                element = element.closest('#' + id);
+            }
+        }
+        return element;
+    }
+
+    private getThElement(target: HTMLElement): HTMLElement {
+        let element: HTMLElement = target as HTMLElement;
+        if (element) {
+            if (element.nodeType == Node.TEXT_NODE) {
+                element = element.parentNode as HTMLElement;
+            }
+            if (element.tagName !== 'TH') {
+                element = element.closest('th');
+            }
+        }
+        return element;
+    }
+
+    private hideShowColumnDropArea(show: boolean, th?: HTMLElement) {
+        this.hideShowColumnRemoveDropArea(show, th);
+        this.hideShowColumnGroupDropArea(show, th);
+    }
+
+    private hideShowColumnRemoveDropArea(show: boolean, th?: HTMLElement) {
+        if (!this.removableColumns) {
+            return;
+        }
+        const dropArea: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '#remove-column-area'
+        );
+        if (show) {
+            const offset: string = this.showGroups ? '0px' : '25px';
+            dropArea.style.marginLeft =
+                'calc(' + th.clientWidth / 2 + 'px - ' + offset + ')';
+            this.startDynamicPositioning(
+                dropArea as KupDynamicPositionElement,
+                th
             );
-            dropArea.classList.add('visible');
         } else {
-            dropArea.classList.remove('visible');
-            this.kupManager.dynamicPosition.stop(
-                dropArea as KupDynamicPositionElement
+            this.stopDynamicPositioning(dropArea as KupDynamicPositionElement);
+        }
+    }
+
+    private hideShowColumnGroupDropArea(show: boolean, th?: HTMLElement) {
+        if (!this.showGroups) {
+            return;
+        }
+        const dropArea: HTMLElement =
+            this.rootElement.shadowRoot.querySelector('#group-column-area');
+        if (show) {
+            const offset: string = this.removableColumns ? '51px' : '25px';
+            dropArea.style.marginLeft =
+                'calc(' + th.clientWidth / 2 + 'px - ' + offset + ')';
+            this.startDynamicPositioning(
+                dropArea as KupDynamicPositionElement,
+                th
             );
+        } else {
+            this.stopDynamicPositioning(dropArea as KupDynamicPositionElement);
         }
     }
 
@@ -5254,13 +5405,38 @@ export class KupDataTable {
         }
     }
 
+    private handleColumnGroup(column2group: Column) {
+        // Get sorted column current position
+        this.getVisibleColumns();
+        const columnX = this.getVisibleColumns().find(
+            (col) =>
+                col.name === column2group.name &&
+                col.title === column2group.title
+        );
+        if (columnX) {
+            let found: boolean = false;
+            for (let i = 0; i < this.groups.length; i++) {
+                if (this.groups[i].column == columnX.name) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                this.groups.push({ column: columnX.name, visible: true });
+                this.groups = [...this.groups];
+                this.triggerColumnSortRerender =
+                    !this.triggerColumnSortRerender;
+            }
+        }
+    }
+
     private transcodeItem(
         item: string | ShowGrid,
         searchIn: Array<string>,
         returnFrom: Array<string>
     ): string {
         for (let i = 0; i < searchIn.length; i++) {
-            let tmpCode = searchIn[i];
+            const tmpCode = searchIn[i];
             if (tmpCode == item && i < returnFrom.length) {
                 return returnFrom[i];
             }
@@ -5273,7 +5449,7 @@ export class KupDataTable {
         icons: Array<string>,
         selectedCode: string
     ): ComponentListElement[] {
-        let listItems: ComponentListElement[] = [];
+        const listItems: ComponentListElement[] = [];
         for (let i = 0; i < codes.length; i++) {
             let text: KupLanguageKey = null;
             switch (codes[i]) {
@@ -5333,15 +5509,15 @@ export class KupDataTable {
     }
 
     private renderFontSizePanel() {
-        let listItems: ComponentListElement[] = this.createListData(
+        const listItems: ComponentListElement[] = this.createListData(
             this.FONTSIZE_CODES,
             this.FONTSIZE_ICONS,
             this.fontsize
         );
 
-        let listData = { data: listItems, showIcons: true };
+        const listData = { data: listItems, showIcons: true };
 
-        let textfieldData = {
+        const textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
             label: this.kupManager.language.translate(
@@ -5349,7 +5525,7 @@ export class KupDataTable {
             ),
             icon: 'arrow_drop_down',
         };
-        let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        const data = { 'kup-text-field': textfieldData, 'kup-list': listData };
         let text: KupLanguageFontsize = null;
         switch (this.fontsize) {
             //This whole customization panel thingy must be purged, for now -- it's ugly
@@ -5404,22 +5580,22 @@ export class KupDataTable {
     }
 
     private renderDensityPanel() {
-        let listItems: ComponentListElement[] = this.createListData(
+        const listItems: ComponentListElement[] = this.createListData(
             this.DENSITY_CODES,
             this.DENSITY_ICONS,
             this.density
         );
 
-        let listData = { data: listItems, showIcons: true };
+        const listData = { data: listItems, showIcons: true };
 
-        let textfieldData = {
+        const textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageDensity.LABEL),
             icon: 'arrow_drop_down',
         };
 
-        let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        const data = { 'kup-text-field': textfieldData, 'kup-list': listData };
         let text: KupLanguageDensity = null;
         switch (this.density) {
             //This whole customization panel thingy must be purged, for now -- it's ugly
@@ -5516,21 +5692,21 @@ export class KupDataTable {
     }
 
     private renderGridPanel() {
-        let listItems: ComponentListElement[] = this.createListData(
+        const listItems: ComponentListElement[] = this.createListData(
             this.GRID_CODES,
             this.GRID_ICONS,
             this.showGrid
         );
 
-        let listData = { data: listItems, showIcons: true };
+        const listData = { data: listItems, showIcons: true };
 
-        let textfieldData = {
+        const textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageGrid.LABEL),
             icon: 'arrow_drop_down',
         };
-        let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        const data = { 'kup-text-field': textfieldData, 'kup-list': listData };
         let text: KupLanguageGrid = null;
         switch (this.showGrid) {
             //This whole customization panel thingy must be purged, for now -- it's ugly
@@ -5555,7 +5731,7 @@ export class KupDataTable {
                     data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
-                        let grid: any = this.getGridCodeFromDecode(
+                        const grid: any = this.getGridCodeFromDecode(
                             e.detail.value
                         );
                         this.showGrid = grid;
@@ -5651,7 +5827,7 @@ export class KupDataTable {
                 const column = getColumnByName(this.getColumns(), group.column);
 
                 if (column) {
-                    let a: FChipData = {
+                    const a: FChipData = {
                         label: column.title,
                         value: column.name,
                         checked: true,
@@ -5662,7 +5838,7 @@ export class KupDataTable {
                 }
             });
             if (chipsData.length > 0) {
-                let props = {
+                const props = {
                     data: chipsData,
                     id: 'group-chips',
                     type: FChipType.INPUT,
@@ -5741,7 +5917,7 @@ export class KupDataTable {
             this.rootElement as KupComponent
         );
 
-        let compCreated = (
+        const compCreated = (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
@@ -5798,24 +5974,27 @@ export class KupDataTable {
                                 unsetTooltip(this.tooltip);
                             }}
                             onClick={(e: MouseEvent) => {
-                                // Note: event must be cloned, otherwise inside setTimeout will be exiting the Shadow DOM scope (causing loss of information, including target).
+                                // Note: event must be cloned
+                                // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
                                 const clone: GenericObject = {};
                                 for (const key in e) {
                                     clone[key] = e[key];
                                 }
                                 this.clickTimeout.push(
-                                    setTimeout(
-                                        () =>
-                                            this.clickHandler(
+                                    setTimeout(() => {
+                                        this.kupDataTableClick.emit({
+                                            details: this.clickHandler(
                                                 clone as MouseEvent
                                             ),
-                                        300
-                                    )
+                                        });
+                                    }, 300)
                                 );
                             }}
-                            onContextMenu={(e: MouseEvent) =>
-                                this.contextMenuHandler(e)
-                            }
+                            onContextMenu={(e: MouseEvent) => {
+                                this.kupDataTableContextMenu.emit({
+                                    details: this.contextMenuHandler(e),
+                                });
+                            }}
                             onDblClick={(e: MouseEvent) => {
                                 for (
                                     let index = 0;
@@ -5831,7 +6010,9 @@ export class KupDataTable {
                                     );
                                 }
                                 this.clickTimeout = [];
-                                this.dblClickHandler(e);
+                                this.kupDataTableDblClick.emit({
+                                    details: this.dblClickHandler(e),
+                                });
                             }}
                             onMouseMove={(e: MouseEvent) =>
                                 this.mouseMoveHandler(e)
@@ -5852,33 +6033,39 @@ export class KupDataTable {
                         {stickyEl}
                     </div>
                     {tooltip}
-                    {this.openedMenu ? (
-                        <kup-card
-                            data={this.columnMenuInstance.prepData(
-                                this,
-                                getColumnByName(
-                                    this.getVisibleColumns(),
-                                    this.openedMenu
-                                )
-                            )}
-                            data-column={this.openedMenu}
-                            id={KupColumnMenuIds.CARD_COLUMN_MENU}
-                            isMenu={true}
-                            layoutNumber={14}
-                            onBlur={(e) => {
-                                this.columnMenuInstance.close(e, this);
-                            }}
-                            onClick={(e) => e.stopPropagation()}
-                            onKupCardEvent={(e) => {
-                                this.columnMenuInstance.eventHandlers(e, this);
-                            }}
-                            sizeX="auto"
-                            sizeY="auto"
-                            tabIndex={0}
-                        ></kup-card>
-                    ) : null}
+                    <kup-card
+                        data={
+                            this.columnMenuAnchor
+                                ? this.columnMenuInstance.prepData(
+                                      this,
+                                      getColumnByName(
+                                          this.getVisibleColumns(),
+                                          this.columnMenuAnchor
+                                      ),
+                                      this.columnMenuCard.data
+                                  )
+                                : null
+                        }
+                        id={KupColumnMenuIds.CARD_COLUMN_MENU}
+                        isMenu={true}
+                        layoutNumber={14}
+                        onBlur={() => {
+                            this.closeColumnMenu();
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        onKupCardEvent={(e) => {
+                            this.columnMenuInstance.eventHandlers(e, this);
+                        }}
+                        ref={(el: HTMLKupCardElement) =>
+                            (this.columnMenuCard = el)
+                        }
+                        sizeX="auto"
+                        sizeY="auto"
+                        tabIndex={0}
+                    ></kup-card>
                     {paginatorBottom}
                 </div>
+                {this.showGroups ? this.columnGroupArea() : null}
                 {this.removableColumns ? this.columnRemoveArea() : null}
             </Host>
         );

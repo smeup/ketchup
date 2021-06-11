@@ -30,11 +30,10 @@ export class KupDynamicPosition {
     /**
      * Watches the element eligible to dynamic positioning.
      * @param {KupDynamicPositionElement} el - Element to reposition.
-     * @param {HTMLElement} anchorEl - "el" position will be anchored to this element.
+     * @param {KupDynamicPositionAnchor} anchorEl - "el" position will be anchored to this element or to these coordinates.
      * @param {number} margin - "el" distance from its parent in pixels.
      * @param {KupDynamicPositionPlacement} position - "el" placement.
      * @param {boolean} detached - When true, the function won't be recursive but it will be executed only once, causing "el" to be detached from its anchor when scrolling.
-     * @param {KupDynamicPositionCoordinates} coordinates - When present, "el" will be places to these precise coordinates.
      */
     register(
         el: KupDynamicPositionElement,

@@ -39,7 +39,8 @@
             "--kup-expanded-icon": "chevron-down",
             "--kup-collapsed-icon": "chevron_right",
             "--kup-clear-icon": "clear",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         },
         "customStyles": {},
         "imports": [
@@ -86,7 +87,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         },
         "imports": [
             "url('https://fonts.googleapis.com/css2?family=Blinker:wght@200;300;600&display=swap')"
@@ -132,7 +134,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         },
         "imports": [
             "@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap')"
@@ -178,7 +181,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         },
         "imports": [
             "url('https://fonts.googleapis.com/css2?family=Mali:wght@300&display=swap')"
@@ -233,7 +237,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         }
     },
     "ketchup": {
@@ -276,7 +281,8 @@
             "--kup-expanded-icon": "chevron-down",
             "--kup-collapsed-icon": "chevron_right",
             "--kup-clear-icon": "clear",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key"
         },
         "imports": [
             "url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap')"
@@ -322,7 +328,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         },
         "imports": [
             "url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap')"
@@ -383,7 +390,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         }
     },
     "raj": {
@@ -478,7 +486,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         },
         "customStyles": {},
         "imports": [
@@ -531,7 +540,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         }
     },
     "wildlife": {
@@ -574,7 +584,8 @@
             "--kup-expanded-icon": "arrow_drop_down",
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "filter-remove"
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant"
         },
         "imports": [
             "url('https://fonts.googleapis.com/css2?family=Abel&display=swap')"
@@ -652,7 +663,8 @@
             "--kup-expanded-icon": "chevron-down",
             "--kup-collapsed-icon": "chevron_right",
             "--kup-clear-icon": "cancel",
-            "--kup-filter-remove-icon": "broom"
+            "--kup-filter-remove-icon": "broom",
+            "--kup-key-icon": "key"
         },
         "imports": [
             "url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap')"

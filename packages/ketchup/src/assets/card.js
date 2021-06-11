@@ -296,8 +296,14 @@ for (let index = 0; index < cards.length; index++) {
         switch: [
             {
                 checked: false,
+                id: 'key',
+                label: 'Key',
+                leadingLabel: true,
+            },
+            {
+                checked: false,
                 id: 'group',
-                label: 'hehe',
+                label: 'Group',
                 leadingLabel: true,
             },
         ],
@@ -310,13 +316,13 @@ for (let index = 0; index < cards.length; index++) {
                         value: 'genericFilters',
                     },
                     {
-                        text: 'groupingGroups',
-                        value: 'groupingGroups',
+                        text: 'columnColumns',
+                        value: 'columnColumns',
                         active: false,
                     },
                     {
-                        text: 'columnColumns',
-                        value: 'columnColumns',
+                        icon: 'settings',
+                        value: 'genericSettings',
                         active: false,
                     },
                 ],

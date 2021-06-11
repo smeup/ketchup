@@ -101,9 +101,10 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupCellButtonClicked`    |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
 | `kupCellTextFieldInput`   |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`                                                                 |
 | `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ cell: Cell; column: Column; id: string; row: Row; event: any; }>`                              |
-| `kupDataTableClick`       | Generic click event on data table.             | `CustomEvent<{ details: GenericObject; }>`                                                                    |
-| `kupDataTableContextMenu` | Generic right click event on data table.       | `CustomEvent<{ details: GenericObject; }>`                                                                    |
-| `kupDataTableDblClick`    | Generic double click event on data table.      | `CustomEvent<{ details: GenericObject; }>`                                                                    |
+| `kupDataTableClick`       | Generic click event on data table.             | `CustomEvent<{ details: EventHandlerDetails; }>`                                                              |
+| `kupDataTableColumnMenu`  | When the column menu is being opened/closed.   | `CustomEvent<{ card: HTMLKupCardElement; open: boolean; }>`                                                   |
+| `kupDataTableContextMenu` | Generic right click event on data table.       | `CustomEvent<{ details: EventHandlerDetails; }>`                                                              |
+| `kupDataTableDblClick`    | Generic double click event on data table.      | `CustomEvent<{ details: EventHandlerDetails; }>`                                                              |
 | `kupDidLoad`              | When component load is complete                | `CustomEvent<{}>`                                                                                             |
 | `kupDidUnload`            | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
 | `kupLoadMoreClicked`      |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
@@ -114,6 +115,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 
 ## Methods
+
+### `closeColumnMenu() => Promise<void>`
+
+Closes any opened column menu.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `collapseAll() => Promise<void>`
 
@@ -162,6 +173,16 @@ Used to retrieve component's props values.
 #### Returns
 
 Type: `Promise<GenericObject>`
+
+
+
+### `openColumnMenu(column: string) => Promise<void>`
+
+Opens the column menu of the given column.
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 
@@ -247,11 +268,12 @@ graph TD;
   kup-card --> kup-data-table
   kup-chip --> kup-badge
   kup-badge --> kup-badge
-  kup-button --> kup-badge
-  kup-combobox --> kup-list
+  kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge
+  kup-button --> kup-badge
+  kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field

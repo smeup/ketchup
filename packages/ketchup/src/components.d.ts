@@ -8,9 +8,9 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { GenericObject } from "./types/GenericTypes";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, EventHandlerDetails, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
-import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { EventHandlerDetails as EventHandlerDetails1, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
@@ -701,6 +701,10 @@ export namespace Components {
         "valueColor": Array<any>;
     }
     interface KupDataTable {
+        /**
+          * Closes any opened column menu.
+         */
+        "closeColumnMenu": () => Promise<void>;
         "collapseAll": () => Promise<void>;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -819,6 +823,11 @@ export namespace Components {
           * @see loadMoreLimit
          */
         "loadMoreStep": number;
+        /**
+          * Opens the column menu of the given column.
+          * @param column - Name of the column.
+         */
+        "openColumnMenu": (column: string) => Promise<void>;
         /**
           * Current selected page set on component load
          */
@@ -1111,6 +1120,9 @@ export namespace Components {
           * The html to be rendered and edited
          */
         "text": string;
+    }
+    interface KupFab {
+        "colorButton": string;
     }
     interface KupField {
         /**
@@ -2092,6 +2104,10 @@ export namespace Components {
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode": boolean;
+        /**
+          * Closes any opened column menu.
+         */
+        "closeColumnMenu": () => Promise<void>;
         "collapseAll": () => Promise<void>;
         /**
           * The columns of the tree when tree visualization is active.
@@ -2144,6 +2160,11 @@ export namespace Components {
           * The value of the global filter.
          */
         "globalFilterValue": string;
+        /**
+          * Opens the column menu of the given column.
+          * @param column - Name of the column.
+         */
+        "openColumnMenu": (column: string) => Promise<void>;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2340,6 +2361,12 @@ declare global {
         prototype: HTMLKupEditorElement;
         new (): HTMLKupEditorElement;
     };
+    interface HTMLKupFabElement extends Components.KupFab, HTMLStencilElement {
+    }
+    var HTMLKupFabElement: {
+        prototype: HTMLKupFabElement;
+        new (): HTMLKupFabElement;
+    };
     interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
     }
     var HTMLKupFieldElement: {
@@ -2530,6 +2557,7 @@ declare global {
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
+        "kup-fab": HTMLKupFabElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
@@ -3496,19 +3524,26 @@ declare namespace LocalJSX {
           * Generic click event on data table.
          */
         "onKupDataTableClick"?: (event: CustomEvent<{
-        details: GenericObject;
+        details: EventHandlerDetails;
+    }>) => void;
+        /**
+          * When the column menu is being opened/closed.
+         */
+        "onKupDataTableColumnMenu"?: (event: CustomEvent<{
+        card: HTMLKupCardElement;
+        open: boolean;
     }>) => void;
         /**
           * Generic right click event on data table.
          */
         "onKupDataTableContextMenu"?: (event: CustomEvent<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>) => void;
         /**
           * Generic double click event on data table.
          */
         "onKupDataTableDblClick"?: (event: CustomEvent<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>) => void;
         /**
           * When component load is complete
@@ -3831,6 +3866,10 @@ declare namespace LocalJSX {
           * The html to be rendered and edited
          */
         "text"?: string;
+    }
+    interface KupFab {
+        "colorButton"?: string;
+        "onKupFabClick"?: (event: CustomEvent<{ id: string }>) => void;
     }
     interface KupField {
         /**
@@ -4915,10 +4954,17 @@ declare namespace LocalJSX {
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
         /**
+          * When the column menu is being opened/closed.
+         */
+        "onKupTreeColumnMenu"?: (event: CustomEvent<{
+        card: HTMLKupCardElement;
+        open: boolean;
+    }>) => void;
+        /**
           * Generic right click event on tree.
          */
         "onKupTreeContextMenu"?: (event: CustomEvent<{
-        details: GenericObject;
+        details: EventHandlerDetails;
     }>) => void;
         "onKupTreeDynamicMassExpansion"?: (event: CustomEvent<{
         treeNodePath?: TreeNodePath;
@@ -5066,6 +5112,7 @@ declare namespace LocalJSX {
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
         "kup-editor": KupEditor;
+        "kup-fab": KupFab;
         "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
@@ -5121,6 +5168,7 @@ declare module "@stencil/core" {
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
+            "kup-fab": LocalJSX.KupFab & JSXBase.HTMLAttributes<HTMLKupFabElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;

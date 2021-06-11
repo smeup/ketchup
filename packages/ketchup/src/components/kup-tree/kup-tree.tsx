@@ -30,6 +30,7 @@ import {
     TreeNode,
     TreeNodePath,
     treeMainColumnName,
+    EventHandlerDetails,
 } from './kup-tree-declarations';
 
 import { MDCRipple } from '@material/ripple';
@@ -80,6 +81,7 @@ import {
     KupLanguageSearch,
     KupLanguageTotals,
 } from '../../utils/kup-language/kup-language-declarations';
+import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -168,14 +170,14 @@ export class KupTree {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
-    @State()
-    private openedMenu: string = null;
     @State() private treeColumnVisible = true;
     /**
      * name of the column with the opened total menu
      */
     @State()
     private openedTotalMenu: string = null;
+    @State()
+    private columnMenuAnchor: string = null;
 
     /**
      * Auto select programmatic selectic node
@@ -325,6 +327,10 @@ export class KupTree {
         new FiltersColumnMenu();
     private filtersTreeItemsInstance: FiltersTreeItems = new FiltersTreeItems();
     private totalMenuCoords: KupDynamicPositionCoordinates = null;
+    /**
+     * Reference to the column menu card.
+     */
+    private columnMenuCard: HTMLKupCardElement = null;
 
     //-------- Events --------
     /**
@@ -423,7 +429,20 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeContextMenu: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
+    }>;
+    /**
+     * When the column menu is being opened/closed.
+     */
+    @Event({
+        eventName: 'kupTreeColumnMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeColumnMenu: EventEmitter<{
+        card: HTMLKupCardElement;
+        open: boolean;
     }>;
     @Event({
         eventName: 'kupAddCodeDecodeColumn',
@@ -526,6 +545,37 @@ export class KupTree {
         return props;
     }
     /**
+     * Opens the column menu of the given column.
+     * @param {string} column - Name of the column.
+     */
+    @Method()
+    async openColumnMenu(column: string): Promise<void> {
+        this.columnMenuAnchor = column;
+        this.columnMenuCard.setAttribute('data-column', column);
+        this.columnMenuCard.data = this.columnMenuInstance.prepData(
+            this,
+            getColumnByName(this.getVisibleColumns(), column)
+        );
+        this.columnMenuInstance.open(this, column, this.tooltip);
+        this.columnMenuInstance.reposition(this);
+        this.kupTreeColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: true,
+        });
+    }
+    /**
+     * Closes any opened column menu.
+     */
+    @Method()
+    async closeColumnMenu(): Promise<void> {
+        this.columnMenuAnchor = null;
+        this.columnMenuInstance.close(this.columnMenuCard);
+        this.kupTreeColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: false,
+        });
+    }
+    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
@@ -539,10 +589,6 @@ export class KupTree {
 
     isTreeColumnVisible(): boolean {
         return this.treeColumnVisible;
-    }
-
-    setColumnMenu(column: string) {
-        this.openedMenu = column;
     }
 
     private checkScrollOnHover() {
@@ -650,8 +696,6 @@ export class KupTree {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-
-        this.columnMenuInstance.reposition(this);
         this.totalMenuPosition();
         this.checkScrollOnHover();
 
@@ -767,16 +811,11 @@ export class KupTree {
         }
     }
 
-    private closeMenu() {
-        this.openedMenu = null;
-    }
-
     private openTotalMenu(column: Column) {
         this.openedTotalMenu = column.name;
     }
 
     private closeMenuAndTooltip() {
-        this.closeMenu();
         unsetTooltip(this.tooltip);
     }
 
@@ -786,16 +825,7 @@ export class KupTree {
         this.openTotalMenu(column);
     }
 
-    private getEventDetails(el: HTMLElement): {
-        area: string;
-        cell: Cell;
-        column: Column;
-        filterRemove: HTMLSpanElement;
-        row: Row;
-        td: HTMLTableDataCellElement;
-        th: HTMLTableHeaderCellElement;
-        tr: HTMLTableRowElement;
-    } {
+    private getEventDetails(el: HTMLElement): EventHandlerDetails {
         const isHeader: boolean = !!el.closest('thead'),
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
@@ -843,19 +873,24 @@ export class KupTree {
         };
     }
 
-    private contextMenuHandler(e: MouseEvent): void {
-        const details = this.getEventDetails(e.target as HTMLElement);
-        this.kupTreeContextMenu.emit({
-            details: details,
-        });
-        if (details.area === 'footer') {
+    private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
+        e.preventDefault();
+        const details: EventHandlerDetails = this.getEventDetails(
+            e.target as HTMLElement
+        );
+        if (details.area === 'header') {
+            if (details.th && details.column) {
+                this.openColumnMenu(details.column.name);
+                return details;
+            }
+        } else if (details.area === 'footer') {
             if (details.td && details.column) {
-                e.preventDefault();
                 this.totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.onTotalMenuOpen(details.column);
-                return;
+                return details;
             }
         }
+        return details;
     }
 
     private onJ4btnClicked(
@@ -1073,7 +1108,7 @@ export class KupTree {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getColumns(),
+            this.getVisibleColumns(),
             treeExpandedPropName,
             this.filtersColumnMenuInstance
         );
@@ -1646,14 +1681,6 @@ export class KupTree {
             return (
                 <th
                     data-column={column.name}
-                    onContextMenu={(e: MouseEvent) =>
-                        this.columnMenuInstance.open(
-                            e,
-                            this,
-                            column.name,
-                            this.tooltip
-                        )
-                    }
                     style={this.getCellStyle(column.name, null)}
                 >
                     <span class="column-title">{column.title}</span>
@@ -2218,7 +2245,9 @@ export class KupTree {
                             class="kup-tree"
                             data-show-columns={this.showColumns}
                             onContextMenu={(e: MouseEvent) =>
-                                this.contextMenuHandler(e)
+                                this.kupTreeContextMenu.emit({
+                                    details: this.contextMenuHandler(e),
+                                })
                             }
                         >
                             <thead
@@ -2238,31 +2267,36 @@ export class KupTree {
                         </table>
                     </div>
                     {tooltip}
-                    {this.openedMenu ? (
-                        <kup-card
-                            data={this.columnMenuInstance.prepData(
-                                this,
-                                getColumnByName(
-                                    this.getHeadingColumns(),
-                                    this.openedMenu
-                                )
-                            )}
-                            data-column={this.openedMenu}
-                            id="column-menu"
-                            isMenu={true}
-                            layoutNumber={14}
-                            onBlur={(e) =>
-                                this.columnMenuInstance.close(e, this)
-                            }
-                            onClick={(e) => e.stopPropagation()}
-                            onKupCardEvent={(e) => {
-                                this.columnMenuInstance.eventHandlers(e, this);
-                            }}
-                            sizeX="auto"
-                            sizeY="auto"
-                            tabIndex={0}
-                        ></kup-card>
-                    ) : null}
+                    <kup-card
+                        data={
+                            this.columnMenuAnchor
+                                ? this.columnMenuInstance.prepData(
+                                      this,
+                                      getColumnByName(
+                                          this.getVisibleColumns(),
+                                          this.columnMenuAnchor
+                                      ),
+                                      this.columnMenuCard.data
+                                  )
+                                : null
+                        }
+                        id={KupColumnMenuIds.CARD_COLUMN_MENU}
+                        isMenu={true}
+                        layoutNumber={14}
+                        onBlur={() => {
+                            this.closeColumnMenu();
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        onKupCardEvent={(e) => {
+                            this.columnMenuInstance.eventHandlers(e, this);
+                        }}
+                        ref={(el: HTMLKupCardElement) =>
+                            (this.columnMenuCard = el)
+                        }
+                        sizeX="auto"
+                        sizeY="auto"
+                        tabIndex={0}
+                    ></kup-card>
                 </div>
             </Host>
         );

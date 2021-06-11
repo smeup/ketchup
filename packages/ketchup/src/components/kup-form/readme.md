@@ -169,6 +169,7 @@ graph TD;
   kup-data-table --> kup-badge
   kup-card --> kup-chip
   kup-card --> kup-badge
+  kup-card --> kup-autocomplete
   kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
@@ -181,8 +182,8 @@ graph TD;
   kup-card --> kup-chart
   kup-card --> kup-spinner
   kup-card --> kup-tab-bar
-  kup-card --> kup-switch
   kup-card --> kup-tree
+  kup-card --> kup-switch
   kup-chip --> kup-badge
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button

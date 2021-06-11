@@ -13,6 +13,11 @@
         Here is a list of properties that are currently used.</p
       >
       <br />
+      <span class="code-word">autocomplete</span>: array of objects containing
+      <a href="https://ketchup.smeup.com/ketchup-showcase/#/autocomplete"
+        >kup-autocomplete</a
+      >
+      <br />
       <span class="code-word">button</span>: array of objects containing
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/button"
         >kup-button</a

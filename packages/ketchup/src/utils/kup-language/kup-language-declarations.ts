@@ -99,6 +99,7 @@ export enum KupLanguageGeneric {
     OPEN_NAVIGATION_MENU = 'genericOpenNavigationMenu',
     OPTIONS = 'genericOptions',
     REMOVE_FILTERS = 'genericRemoveFilters',
+    SETTINGS = 'genericSettings',
     SHOW_ROW_OPTIONS = 'genericShowRowOptions',
     SHOW_TOOLTIP_INFO = 'genericShowTooltipInfo',
     SORT_BY = 'genericSortBy',
