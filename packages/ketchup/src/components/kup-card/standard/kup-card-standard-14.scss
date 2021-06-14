@@ -92,6 +92,12 @@
 
   .sub-autocomplete {
     padding-top: 1em;
+
+    kup-autocomplete {
+      margin: auto;
+      padding: 0.5em 0;
+      width: max-content;
+    }
   }
 
   .sub-switch {

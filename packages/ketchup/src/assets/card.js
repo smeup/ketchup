@@ -9,6 +9,96 @@ const cards = document.querySelectorAll('kup-card');
 
 for (let index = 0; index < cards.length; index++) {
     cards[index].data = {
+        autocomplete: [
+            {
+                customStyle: '',
+                data: {
+                    'kup-list': {
+                        data: [
+                            {
+                                text: 'Cliente',
+                                value: 'CN;CLI;',
+                                selected: false,
+                            },
+                            {
+                                text: 'Collaboratore',
+                                value: 'CN;COL;',
+                                selected: false,
+                            },
+                            {
+                                text: 'Fornitore',
+                                value: 'CN;FOR;',
+                                selected: false,
+                            },
+                            {
+                                text: 'Oggetto V2 JAGRA',
+                                value: 'OG;V2;JAGRA',
+                                selected: false,
+                            },
+                            {
+                                text: 'Oggetto number',
+                                value: 'NR;;',
+                                selected: false,
+                            },
+                            {
+                                text: 'Oggetto date',
+                                value: 'D8;;',
+                                selected: false,
+                            },
+                        ],
+                    },
+                },
+                disabled: false,
+                displayMode: 'description',
+                initialValue: 'OG;OG;',
+                minimumChars: 1,
+                selectMode: 'code',
+            },
+            {
+                customStyle: '',
+                data: {
+                    'kup-list': {
+                        data: [
+                            {
+                                text: 'Cliente',
+                                value: 'CN;CLI;',
+                                selected: false,
+                            },
+                            {
+                                text: 'Collaboratore',
+                                value: 'CN;COL;',
+                                selected: false,
+                            },
+                            {
+                                text: 'Fornitore',
+                                value: 'CN;FOR;',
+                                selected: false,
+                            },
+                            {
+                                text: 'Oggetto V2 JAGRA',
+                                value: 'OG;V2;JAGRA',
+                                selected: false,
+                            },
+                            {
+                                text: 'Oggetto number',
+                                value: 'NR;;',
+                                selected: false,
+                            },
+                            {
+                                text: 'Oggetto date',
+                                value: 'D8;;',
+                                selected: false,
+                            },
+                        ],
+                    },
+                },
+                disabled: false,
+                displayMode: 'description',
+                initialValue: 'OG;OG;',
+                minimumChars: 1,
+                selectMode: 'code',
+            },
+        ],
         button: [
             {
                 icon: 'book',
