@@ -80,7 +80,7 @@ export class KupCard {
      * Works together with isMenu.
      * @default false
      */
-    @Prop() menuVisible: boolean = false;
+    @Prop({ mutable: true }) menuVisible: boolean = false;
     /**
      * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "100%"
