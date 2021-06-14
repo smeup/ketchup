@@ -59,7 +59,7 @@ export class KupManager {
     /**
      * Initializes KupManager.
      */
-    init(): void {
+    constructor() {
         document.addEventListener('mousedown', (e) => {
             this.utilities.lastMouseDownPath = e.composedPath();
         });
@@ -106,7 +106,6 @@ export class KupManager {
 export function kupManagerInstance(): KupManager {
     if (!dom.ketchup) {
         dom.ketchup = new KupManager();
-        dom.ketchup.init();
         dom.ketchup.theme.set();
         if (
             dom.ketchupInit &&

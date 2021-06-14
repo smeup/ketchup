@@ -13,7 +13,7 @@ export class KupToolbar {
         KupToolbarModifierKeys.ALT,
         KupToolbarModifierKeys.CTRL,
     ];
-    managedElements: Set<HTMLElement> = null;
+    managedElements: Set<HTMLElement> = new Set();
     #keyEvent: (this: Document, ev: KeyboardEvent) => any = function (
         e: KeyboardEvent
     ) {
@@ -39,15 +39,12 @@ export class KupToolbar {
             toolbar.show();
         }
     };
-    #initialized: boolean = false;
     /**
-     * Initializes the class' elements.
+     * Initializes KupToolbar.
      */
-    initialize(): void {
+    constructor() {
         document.addEventListener('keydown', this.#keyEvent);
         document.addEventListener('keyup', this.#keyEvent);
-        this.#initialized = true;
-        this.managedElements = new Set();
     }
     /**
      * Shows components' toolbar.
@@ -77,9 +74,6 @@ export class KupToolbar {
      * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger the movement. When not provided, dragging anywhere on "el" will trigger the movement.
      */
     register(el: HTMLElement): void {
-        if (!this.#initialized) {
-            this.initialize();
-        }
         this.managedElements.add(el);
     }
     /**

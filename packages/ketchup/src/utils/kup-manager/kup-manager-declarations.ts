@@ -30,7 +30,6 @@ export interface KupManager {
     theme: KupTheme;
     toolbar: KupToolbar;
     utilities: KupManagerUtilities;
-    init: () => void;
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
