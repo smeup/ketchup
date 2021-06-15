@@ -32,6 +32,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { layoutSpecificEvents } from './kup-card-helper';
+import { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -345,31 +346,34 @@ export class KupCard {
      */
     layoutManager(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        const family: string = this.layoutFamily.toLowerCase();
-        const dynColors: NodeListOf<HTMLElement> =
-            root.querySelectorAll('.dyn-color');
-        for (let index = 0; index < dynColors.length; index++) {
-            this.rootElement.style.setProperty(
-                '--dyn-color-' + index,
-                this.kupManager.theme.colorContrast(
-                    window.getComputedStyle(dynColors[index]).backgroundColor
-                )
-            );
-        }
-        switch (family) {
-            case CardFamily.COLLAPSIBLE:
-                this.collapsible();
-                break;
-            case CardFamily.DIALOG:
-                this.dialog();
-                break;
-            case CardFamily.SCALABLE:
-                if (!this.scalingActive) {
-                    this.scalable();
-                }
-                break;
-            default:
-                break;
+        if (root.querySelector('#kup-component')) {
+            const family: string = this.layoutFamily.toLowerCase();
+            const dynColors: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.dyn-color');
+            for (let index = 0; index < dynColors.length; index++) {
+                this.rootElement.style.setProperty(
+                    '--dyn-color-' + index,
+                    this.kupManager.theme.colorContrast(
+                        window.getComputedStyle(dynColors[index])
+                            .backgroundColor
+                    )
+                );
+            }
+            switch (family) {
+                case CardFamily.COLLAPSIBLE:
+                    this.collapsible();
+                    break;
+                case CardFamily.DIALOG:
+                    this.dialog();
+                    break;
+                case CardFamily.SCALABLE:
+                    if (!this.scalingActive) {
+                        this.scalable();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
     /**
@@ -497,6 +501,13 @@ export class KupCard {
     componentDidRender() {
         this.setEvents();
         this.layoutManager();
+        if (this.isMenu && this.menuVisible) {
+            const dynCard: KupDynamicPositionElement = this
+                .rootElement as KupDynamicPositionElement;
+            if (dynCard.dynamicPosition && dynCard.dynamicPosition.detached) {
+                this.kupManager.dynamicPosition.run(dynCard);
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
