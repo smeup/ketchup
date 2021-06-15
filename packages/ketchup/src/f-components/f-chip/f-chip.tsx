@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { FChipData, FChipsProps, FChipType } from './f-chip-declarations';
+import { FChipData, FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -20,10 +20,10 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     const isFilter = props.type.toLowerCase() === FChipType.FILTER;
     const isInput = props.type.toLowerCase() === FChipType.INPUT;
     const classObj: Record<string, boolean> = {
-        'mdc-chip-set': true,
-        'mdc-chip-set--choice': isChoice ? true : false,
-        'mdc-chip-set--filter': isFilter ? true : false,
-        'mdc-chip-set--input': isInput ? true : false,
+        'chip-set': true,
+        'chip-set--choice': isChoice ? true : false,
+        'chip-set--filter': isFilter ? true : false,
+        'chip-set--input': isInput ? true : false,
     };
 
     return (
@@ -65,15 +65,15 @@ function createChipList(
             continue;
         }
 
-        let componentClass: string = 'mdc-chip';
+        let componentClass: string = 'chip';
         let iconEl = [];
-        let iconClass = 'mdc-chip__icon mdc-chip__icon--leading';
+        let iconClass = 'chip__icon chip__icon--leading';
 
         if (isFilter || isChoice) {
             if (props.data[i].checked) {
-                componentClass += ' mdc-chip--selected';
+                componentClass += ' chip--selected';
                 if (isFilter) {
-                    iconClass += ' mdc-chip__icon--leading-hidden';
+                    iconClass += ' chip__icon--leading-hidden';
                 }
             }
         }
@@ -90,10 +90,10 @@ function createChipList(
 
         if (isFilter) {
             iconEl.push(
-                <span class="mdc-chip__checkmark">
-                    <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
+                <span class="chip__checkmark">
+                    <svg class="chip__checkmark-svg" viewBox="-2 -3 30 30">
                         <path
-                            class="mdc-chip__checkmark-path"
+                            class="chip__checkmark-path"
                             fill="none"
                             stroke="black"
                             d="M1.73,12.91 8.1,19.28 22.79,4.59"
@@ -105,18 +105,18 @@ function createChipList(
 
         chipEl = (
             <div class={componentClass} role="row">
-                <div class="mdc-chip__ripple"></div>
+                <div class="chip__ripple"></div>
                 {iconEl}
                 <span role="gridcell">
                     <span
                         role="button"
                         tabindex={i}
-                        class="mdc-chip__primary-action"
+                        class="chip__primary-action"
                         // @ts-ignore
                         value={props.data[i].value}
                         checked={props.data[i].checked}
                     >
-                        <span class="mdc-chip__text">
+                        <span class="chip__text">
                             {props.data[i].label}
                         </span>
                     </span>
@@ -125,7 +125,7 @@ function createChipList(
                     <span role="gridcell">
                         <span
                             tabindex="-1"
-                            class="icon-container material-icons mdc-chip__icon clear"
+                            class="icon-container material-icons chip__icon clear"
                         ></span>
                     </span>
                 ) : undefined}
