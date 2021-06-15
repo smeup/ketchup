@@ -106,10 +106,9 @@ import {
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
-import { FChip } from '../../f-components/f-chip/f-chip';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
-import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
+import { FChip } from '../../f-components/f-chip/f-chip';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import {
     FChipData,
@@ -1669,16 +1668,15 @@ export class KupDataTable {
             );
             if (groupChip) {
                 const chips: NodeListOf<HTMLElement> =
-                    groupChip.querySelectorAll('.mdc-chip');
+                    groupChip.querySelectorAll('.chip');
                 for (let index = 0; index < chips.length; index++) {
                     const cancelIcon: HTMLElement = chips[index].querySelector(
-                        '.mdc-chip__icon.clear'
+                        '.chip__icon.clear'
                     );
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.removeGroup(index);
                     }
                 }
-                FChipMDC(groupChip);
             }
             //Global filter text field
             const globalFilter: HTMLElement = root.querySelector(

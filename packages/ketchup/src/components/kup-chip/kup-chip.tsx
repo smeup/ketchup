@@ -14,19 +14,19 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../../../../../../../Desktop/SmeUp/Ketch.UP/ketchup/packages/ketchup/src/utils/kup-manager/kup-manager';
-import { FChip } from '../../../../../../../../Desktop/SmeUp/Ketch.UP/ketchup/packages/ketchup/src/f-components/f-chip/f-chip';
+} from '../../utils/kup-manager/kup-manager';
+import { FChip } from '../../f-components/f-chip/f-chip';
 import {
     FChipData,
     FChipsProps,
     FChipType,
-} from '../../../../../../../../Desktop/SmeUp/Ketch.UP/ketchup/packages/ketchup/src/f-components/f-chip/f-chip-declarations';
+} from '../../f-components/f-chip/f-chip-declarations';
 import { KupChipProps } from './kup-chip-declarations';
-import { GenericObject, KupComponent } from '../../../../../../../../Desktop/SmeUp/Ketch.UP/ketchup/packages/ketchup/src/types/GenericTypes';
-import { KupDebugCategory } from '../../../../../../../../Desktop/SmeUp/Ketch.UP/ketchup/packages/ketchup/src/utils/kup-debug/kup-debug-declarations';
-import { KupCardIds } from '../../../../../../../../Desktop/SmeUp/Ketch.UP/ketchup/packages/ketchup/src/components/kup-card/kup-card-declarations';
-import { KupObj } from '../../../../../../../../Desktop/SmeUp/Ketch.UP/ketchup/packages/ketchup/src/utils/kup-objects/kup-objects-declarations';
-import { TreeNode } from '../../../../../../../../Desktop/SmeUp/Ketch.UP/ketchup/packages/ketchup/src/components/kup-tree/kup-tree-declarations';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupCardIds } from '../kup-card/kup-card-declarations';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
 
 @Component({
     tag: 'kup-chip',
