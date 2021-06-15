@@ -22,15 +22,15 @@
 
 | Event                            | Description    | Type                                                                     |
 | -------------------------------- | -------------- | ------------------------------------------------------------------------ |
-| `kupAutocompleteBlur`            | Event example. | `CustomEvent<{ value: any; }>`                                           |
-| `kupAutocompleteChange`          |                | `CustomEvent<{ value: any; }>`                                           |
-| `kupAutocompleteClick`           |                | `CustomEvent<{ value: any; }>`                                           |
+| `kupAutocompleteBlur`            | Event example. | `CustomEvent<{ value: any; id: string; }>`                               |
+| `kupAutocompleteChange`          |                | `CustomEvent<{ value: any; id: string; }>`                               |
+| `kupAutocompleteClick`           |                | `CustomEvent<{ value: any; id: string; }>`                               |
 | `kupAutocompleteFilterChanged`   |                | `CustomEvent<{ filter: string; matchesMinimumCharsRequired: boolean; }>` |
-| `kupAutocompleteFocus`           |                | `CustomEvent<{ value: any; }>`                                           |
-| `kupAutocompleteIconClick`       |                | `CustomEvent<{ value: any; }>`                                           |
-| `kupAutocompleteInput`           |                | `CustomEvent<{ value: any; }>`                                           |
-| `kupAutocompleteItemClick`       |                | `CustomEvent<{ value: any; }>`                                           |
-| `kupAutocompleteTextFieldSubmit` |                | `CustomEvent<{ value: any; }>`                                           |
+| `kupAutocompleteFocus`           |                | `CustomEvent<{ value: any; id: string; }>`                               |
+| `kupAutocompleteIconClick`       |                | `CustomEvent<{ value: any; id: string; }>`                               |
+| `kupAutocompleteInput`           |                | `CustomEvent<{ value: any; id: string; }>`                               |
+| `kupAutocompleteItemClick`       |                | `CustomEvent<{ value: any; id: string; }>`                               |
+| `kupAutocompleteTextFieldSubmit` |                | `CustomEvent<{ value: any; id: string; }>`                               |
 
 
 ## Methods

@@ -141,11 +141,7 @@ export class KupChip {
         value: string;
     }>;
 
-    onKupBlur(e: FocusEvent, i: number) {
-        // If this event is triggered by removing the last chip, the blur shouldn't propagate to the card in order to avoid its disappearance.
-        if (this.rootElement.id === KupCardIds.COLUMNS_LIST) {
-            e.stopPropagation();
-        }
+    onKupBlur(i: number) {
         let obj: KupObj = null;
         let value: string = null;
         if (this.data[i]) {
@@ -275,7 +271,7 @@ export class KupChip {
                     const primaryEl: HTMLElement = chips[j].querySelector(
                         '.mdc-chip__primary-action'
                     );
-                    primaryEl.onblur = (e) => this.onKupBlur(e, j);
+                    primaryEl.onblur = () => this.onKupBlur(j);
                     primaryEl.onfocus = () => this.onKupFocus(j);
 
                     const cancelIcon: HTMLElement = chips[j].querySelector(

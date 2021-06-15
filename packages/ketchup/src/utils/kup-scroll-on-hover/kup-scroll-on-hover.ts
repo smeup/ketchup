@@ -14,7 +14,6 @@ export class KupScrollOnHover {
     #arrowsContainer: HTMLElement = null;
     #leftArrows: HTMLElement[] = [];
     #rightArrows: HTMLElement[] = [];
-    #initialized: boolean = false;
     #scrollEvent = (event: Event) =>
         this.updateChildren(event.target as KupScrollOnHoverElement);
     #mousemoveEvent = (event: MouseEvent) => this.start(event);
@@ -28,7 +27,7 @@ export class KupScrollOnHover {
         dom.ketchupInit.scrollOnHover.delay
             ? dom.ketchupInit.scrollOnHover.delay
             : 500;
-    managedElements: Set<KupScrollOnHoverElement> = null;
+    managedElements: Set<KupScrollOnHoverElement> = new Set();
     step: number =
         dom.ketchupInit &&
         dom.ketchupInit.scrollOnHover &&
@@ -36,9 +35,9 @@ export class KupScrollOnHover {
             ? dom.ketchupInit.scrollOnHover.step
             : 50;
     /**
-     * Initializes the class' elements.
+     * Initializes KupScrollOnHover.
      */
-    initialize(): void {
+    constructor() {
         this.#arrowsContainer = document.createElement('div');
         this.#arrowsContainer.id = 'container-scrolling-arrow';
         for (let index = 1; index < 4; index++) {
@@ -60,8 +59,6 @@ export class KupScrollOnHover {
             this.#rightArrows[2]
         );
         document.body.append(this.#arrowsContainer);
-        this.#initialized = true;
-        this.managedElements = new Set();
     }
     /**
      * Watches the given element in order to trigger the scroll on hover when conditions are met.
@@ -69,9 +66,6 @@ export class KupScrollOnHover {
      * @param {KupScrollOnHoverElement} el - Element to watch.
      */
     register(el: KupScrollOnHoverElement): void {
-        if (!this.#initialized) {
-            this.initialize();
-        }
         el.style.overflowX = 'auto';
         el.scrollOnHover = {
             active: false,
@@ -112,7 +106,8 @@ export class KupScrollOnHover {
      * @param {MouseEvent} event - The starter event, which should be a MouseMove event.
      */
     async start(event: MouseEvent): Promise<void> {
-        const el: KupScrollOnHoverElement = event.currentTarget as KupScrollOnHoverElement;
+        const el: KupScrollOnHoverElement =
+            event.currentTarget as KupScrollOnHoverElement;
         el.scrollOnHover.rect = el.getBoundingClientRect();
         el.scrollOnHover.x = event.clientX;
         el.scrollOnHover.y = event.clientY;
