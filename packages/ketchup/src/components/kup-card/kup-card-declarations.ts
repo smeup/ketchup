@@ -61,6 +61,7 @@ export enum KupCardIds {
     EXPAND_ACTION = 'expand-action',
     EXTRA_COLUMNS = 'extra-columns',
     NEXT_ROW = 'next-row',
+    OBJECT_CHANGE = 'object-change',
     PREVIOUS_ROW = 'previous-row',
     VIEW_SELECTOR = 'view-selector',
 }
@@ -87,6 +88,8 @@ export enum KupCardCSSClasses {
  * Internally-handled sub-component events.
  */
 export enum KupCardSubEvents {
+    AUTOCOMPLETE_BLUR = 'kupAutocompleteBlur',
+    AUTOCOMPLETE_ITEMCLICK = 'kupAutocompleteItemClick',
     BUTTON_CLICK = 'kupButtonClick',
     CHIP_BLUR = 'kupChipBlur',
     CHIP_ICONCLICK = 'kupChipIconClick',

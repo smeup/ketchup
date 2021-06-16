@@ -1,6 +1,7 @@
 import type {
     KupDom,
     KupManagerInitialization,
+    KupManagerUtilities,
 } from './kup-manager-declarations';
 import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
@@ -52,9 +53,17 @@ export class KupManager {
         }
     );
     scrollOnHover: KupScrollOnHover = new KupScrollOnHover();
+    utilities: KupManagerUtilities = { lastMouseDownPath: null };
     theme: KupTheme = new KupTheme();
     toolbar: KupToolbar = new KupToolbar();
-
+    /**
+     * Initializes KupManager.
+     */
+    constructor() {
+        document.addEventListener('mousedown', (e) => {
+            this.utilities.lastMouseDownPath = e.composedPath();
+        });
+    }
     /**
      * Creates kup-magic-box component.
      */

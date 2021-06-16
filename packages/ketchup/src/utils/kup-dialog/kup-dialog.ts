@@ -19,7 +19,7 @@ export class KupDialog {
     activeX: number = 0;
     activeY: number = 0;
     coordinates: KupDialogCoordinates = null;
-    managedElements: Set<DialogElement> = null;
+    managedElements: Set<DialogElement> = new Set();
     startingHeight: number = 0;
     startingWidth: number = 0;
     startingX: number = 0;
@@ -31,7 +31,6 @@ export class KupDialog {
         dom.ketchupInit.dialog.zIndex
             ? dom.ketchupInit.dialog.zIndex
             : 200;
-    #initialized: boolean = false;
     #elementDrag: (this: Document, e: Event) => any = function (e: MouseEvent) {
         const kupDialog: KupDialog = dom.ketchup.dialog;
         const paths: EventTarget[] = e.composedPath();
@@ -151,13 +150,11 @@ export class KupDialog {
         kupDialog.activeElement = null;
     };
     /**
-     * Initializes the class' elements.
+     * Initializes KupDialog.
      */
-    initialize(): void {
+    constructor() {
         document.addEventListener('mousemove', this.#elementDrag);
         document.addEventListener('mouseup', this.#mouseUp);
-        this.#initialized = true;
-        this.managedElements = new Set();
     }
     /**
      * Checks whether the mouse overs on the edges of the element or not.
@@ -251,9 +248,6 @@ export class KupDialog {
         handleEl?: HTMLElement,
         unresizable?: boolean
     ): void {
-        if (!this.#initialized) {
-            this.initialize();
-        }
         el.setAttribute(kupDialogAttribute, '');
         el.style.zIndex = (this.zIndex++).toString();
         if (!el.style.left) {

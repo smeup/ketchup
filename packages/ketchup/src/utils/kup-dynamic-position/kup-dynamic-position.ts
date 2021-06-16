@@ -4,7 +4,6 @@ import {
     KupDynamicPositionAnchor,
     kupDynamicPositionAnchorAttribute,
     kupDynamicPositionAttribute,
-    KupDynamicPositionCoordinates,
     KupDynamicPositionElement,
 } from './kup-dynamic-position-declarations';
 import { KupDynamicPositionPlacement } from './kup-dynamic-position-declarations';
