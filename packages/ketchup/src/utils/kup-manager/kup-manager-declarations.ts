@@ -29,6 +29,7 @@ export interface KupManager {
     scrollOnHover: KupScrollOnHover;
     theme: KupTheme;
     toolbar: KupToolbar;
+    utilities: KupManagerUtilities;
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
@@ -43,4 +44,10 @@ export interface KupManagerInitialization {
     obj: { list: JSON };
     scrollOnHover: { delay: number; step: number };
     theme: { list: JSON; name: string };
+}
+/**
+ * Interface for the KupManager utilities.
+ */
+export interface KupManagerUtilities {
+    lastMouseDownPath: EventTarget[];
 }

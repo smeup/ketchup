@@ -6050,7 +6050,15 @@ export class KupDataTable {
                         isMenu={true}
                         layoutNumber={14}
                         onBlur={() => {
-                            this.closeColumnMenu();
+                            if (
+                                this.kupManager.utilities.lastMouseDownPath.includes(
+                                    this.columnMenuCard
+                                )
+                            ) {
+                                this.columnMenuCard.focus();
+                            } else {
+                                this.closeColumnMenu();
+                            }
                         }}
                         onClick={(e) => e.stopPropagation()}
                         onKupCardEvent={(e) => {
@@ -6061,7 +6069,7 @@ export class KupDataTable {
                         }
                         sizeX="auto"
                         sizeY="auto"
-                        tabIndex={0}
+                        tabIndex={-1}
                     ></kup-card>
                     {paginatorBottom}
                 </div>

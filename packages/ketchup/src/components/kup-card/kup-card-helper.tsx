@@ -177,14 +177,6 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
             }
         }
     }
-    // When chip loses focus: it must go back to the card to prevent closing.
-    if (
-        root &&
-        e.type === KupCardSubEvents.CHIP_BLUR &&
-        e.detail.id === KupCardIds.COLUMNS_LIST
-    ) {
-        component.rootElement.focus();
-    }
     // Chip deleted: when a chip is deleted, the apply button must appear.
     if (
         root &&
