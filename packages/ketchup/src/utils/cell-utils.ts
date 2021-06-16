@@ -307,7 +307,7 @@ export function isKnob(cell: Cell, boxObject: BoxObject) {
     return 'KNB' === shape;
 }
 
-export function getCellType(cell: Cell) {
+export function getCellType(cell: Cell) {    
     let obj = cell.obj;
     if (kupObjects.isBar(obj)) {
         return 'bar';
@@ -323,7 +323,7 @@ export function getCellType(cell: Cell) {
         return 'gauge';
     } else if (isKnob(cell, null)) {
         return 'knob';
-    } else if (kupObjects.isIcon(obj) || kupObjects.isVoCodver(obj)) {
+    } else if (kupObjects.isIcon(obj)) {
         return 'icon';
     } else if (isImage(cell, null)) {
         return 'image';
@@ -347,7 +347,10 @@ export function getCellType(cell: Cell) {
         return 'time';
     } else if (kupObjects.isTextField(obj)) {
         return 'text-field';
-    } else {
+    } else if (kupObjects.isVoCodver(obj)) {
+        return 'btn';
+    }
+    else {
         return 'string';
     }
 }

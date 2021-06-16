@@ -3140,8 +3140,7 @@ export class KupDataTable {
         }
 
         if (
-            this.kupManager.objects.isIcon(column.obj) ||
-            this.kupManager.objects.isVoCodver(column.obj)
+            this.kupManager.objects.isIcon(column.obj)
         ) {
             columnClass.icon = true;
         }
@@ -4917,6 +4916,14 @@ export class KupDataTable {
                     cell
                 );
                 return <kup-button {...props}></kup-button>;
+            case 'btn':                                   
+                console.log("btn props.data before = " + JSON.stringify(props.data));
+                
+                if (props.data === undefined) props.data = [{"icon":"edit","obj":{"t":"","p":"","k":"b4"}}];
+
+                console.log("btn props after" + JSON.stringify(props));
+                
+                return <kup-btn {...props}></kup-btn>;
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
@@ -4951,7 +4958,7 @@ export class KupDataTable {
                 );
             case 'radio':
                 classObj['is-centered'] = true;
-                props['disabled'] = row.readOnly;
+                props['disabled'] = row.readOnly;                
                 return <kup-radio {...props}></kup-radio>;
             case 'text-field':
                 props['disabled'] = row.readOnly;
