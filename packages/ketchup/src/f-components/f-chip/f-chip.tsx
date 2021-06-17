@@ -1,5 +1,9 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { FChipData, FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
+import {
+    FChipData,
+    FChipsProps,
+    FChipType,
+} from '../f-chip/f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -105,7 +109,6 @@ function createChipList(
 
         chipEl = (
             <div class={componentClass} role="row">
-                <div class="chip__ripple"></div>
                 {iconEl}
                 <span role="gridcell">
                     <span
@@ -116,9 +119,7 @@ function createChipList(
                         value={props.data[i].value}
                         checked={props.data[i].checked}
                     >
-                        <span class="chip__text">
-                            {props.data[i].label}
-                        </span>
+                        <span class="chip__text">{props.data[i].label}</span>
                     </span>
                 </span>
                 {isInput ? (

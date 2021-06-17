@@ -16,7 +16,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
-// import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupSwitchProps } from './kup-switch-declarations';
@@ -203,7 +202,6 @@ export class KupSwitch {
                 if (labelEl) {
                     labelEl.onclick = () => this.onKupChange();
                 }
-                // FSwitchMDC(f);
             }
         }
     }
