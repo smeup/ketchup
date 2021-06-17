@@ -1,5 +1,5 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import type { KupObj } from './kup-objects-declarations';
+import type { KupObj, KupObjectsJSON } from './kup-objects-declarations';
 import * as objJson from './obj.json';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -9,7 +9,7 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupObjects
  */
 export class KupObjects {
-    list: JSON =
+    list: KupObjectsJSON =
         dom.ketchupInit && dom.ketchupInit.obj && dom.ketchupInit.obj.list
             ? dom.ketchupInit.obj.list
             : objJson['default'];
