@@ -257,6 +257,8 @@ export enum LoadMoreMode {
 export const KupDataTableColumnDragType = 'text/kup-data-table-column-drag';
 export const KupDataTableColumnDragRemoveType =
     'text/kup-data-table-column-drag-remove';
+export const KupDataTableColumnDragGroupType =
+    'text/kup-data-table-column-drag-group';
 export const KupDataTableRowDragType = 'text/kup-data-table-row-drag';
 
 export interface KupDataTableSortedColumnIndexes {

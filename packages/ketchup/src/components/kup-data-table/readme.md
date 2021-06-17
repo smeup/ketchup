@@ -268,11 +268,12 @@ graph TD;
   kup-card --> kup-data-table
   kup-chip --> kup-badge
   kup-badge --> kup-badge
-  kup-button --> kup-badge
-  kup-combobox --> kup-list
+  kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge
+  kup-button --> kup-badge
+  kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field
