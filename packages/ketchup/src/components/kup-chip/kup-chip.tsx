@@ -273,9 +273,8 @@ export class KupChip {
                     primaryEl.onblur = () => this.onKupBlur(j);
                     primaryEl.onfocus = () => this.onKupFocus(j);
 
-                    const cancelIcon: HTMLElement = chips[j].querySelector(
-                        '.chip__icon.clear'
-                    );
+                    const cancelIcon: HTMLElement =
+                        chips[j].querySelector('.chip__icon.clear');
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.onKupIconClick(j);
                     }
@@ -344,11 +343,6 @@ export class KupChip {
             (!this.data || this.data.length === 0) &&
             (!this.dataNew || this.dataNew.length === 0)
         ) {
-            this.kupManager.debug.logMessage(
-                this,
-                'Empty data.',
-                KupDebugCategory.WARNING
-            );
             return;
         }
 
