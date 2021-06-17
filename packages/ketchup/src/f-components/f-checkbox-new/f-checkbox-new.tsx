@@ -13,7 +13,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
     };
 
     const classObj: Record<string, boolean> = {
-        'checkbox': true,
+        checkbox: true,
         'checkbox--checked':
             props.checked && !props.indeterminate ? true : false,
         'checkbox--disabled': props.disabled ? true : false,
@@ -44,10 +44,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                         value={props.checked ? 'on' : 'off'}
                     />
                     <div class="checkbox__background">
-                        <svg
-                            class="checkbox__checkmark"
-                            viewBox="0 0 24 24"
-                        >
+                        <svg class="checkbox__checkmark" viewBox="0 0 24 24">
                             <path
                                 class="checkbox__checkmark-path"
                                 fill="none"
@@ -56,9 +53,6 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                         </svg>
                         <div class="checkbox__mixedmark"></div>
                     </div>
-                    {!props.disabled ? (
-                        <div class="checkbox__ripple"></div>
-                    ) : undefined}
                 </div>
                 {props.label ? <label>{props.label}</label> : undefined}
             </div>
