@@ -531,6 +531,49 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KupCheckboxNew {
+        /**
+          * Defaults at false. When set to true, the component will be set to 'checked'.
+          * @default false
+         */
+        "checked": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When set to true, the component will be set to 'indeterminate'.
+          * @default false
+         */
+        "indeterminate": boolean;
+        /**
+          * When specified, its content will be shown as a label.
+          * @default null
+         */
+        "label": string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+    }
     interface KupChip {
         /**
           * Custom style of the component.
@@ -2289,6 +2332,12 @@ declare global {
         prototype: HTMLKupCheckboxElement;
         new (): HTMLKupCheckboxElement;
     };
+    interface HTMLKupCheckboxNewElement extends Components.KupCheckboxNew, HTMLStencilElement {
+    }
+    var HTMLKupCheckboxNewElement: {
+        prototype: HTMLKupCheckboxNewElement;
+        new (): HTMLKupCheckboxNewElement;
+    };
     interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {
     }
     var HTMLKupChipElement: {
@@ -2545,6 +2594,7 @@ declare global {
         "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
         "kup-checkbox": HTMLKupCheckboxElement;
+        "kup-checkbox-new": HTMLKupCheckboxNewElement;
         "kup-chip": HTMLKupChipElement;
         "kup-color-picker": HTMLKupColorPickerElement;
         "kup-combobox": HTMLKupComboboxElement;
@@ -3127,6 +3177,63 @@ declare namespace LocalJSX {
         "version"?: string;
     }
     interface KupCheckbox {
+        /**
+          * Defaults at false. When set to true, the component will be set to 'checked'.
+          * @default false
+         */
+        "checked"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * When set to true, the component will be set to 'indeterminate'.
+          * @default false
+         */
+        "indeterminate"?: boolean;
+        /**
+          * When specified, its content will be shown as a label.
+          * @default null
+         */
+        "label"?: string;
+        /**
+          * When set to true, the label will be on the left of the component.
+          * @default false
+         */
+        "leadingLabel"?: boolean;
+        /**
+          * Triggered when the input element loses focus.
+         */
+        "onKupCheckboxBlur"?: (event: CustomEvent<{
+        id: string;
+        checked: boolean;
+        value: string;
+    }>) => void;
+        /**
+          * Triggered when the input element's value changes.
+         */
+        "onKupCheckboxChange"?: (event: CustomEvent<{
+        id: string;
+        checked: boolean;
+        value: string;
+    }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
+        "onKupCheckboxFocus"?: (event: CustomEvent<{
+        id: string;
+        checked: boolean;
+        value: string;
+    }>) => void;
+    }
+    interface KupCheckboxNew {
         /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
           * @default false
@@ -5108,6 +5215,7 @@ declare namespace LocalJSX {
         "kup-card": KupCard;
         "kup-chart": KupChart;
         "kup-checkbox": KupCheckbox;
+        "kup-checkbox-new": KupCheckboxNew;
         "kup-chip": KupChip;
         "kup-color-picker": KupColorPicker;
         "kup-combobox": KupCombobox;
@@ -5164,6 +5272,7 @@ declare module "@stencil/core" {
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
+            "kup-checkbox-new": LocalJSX.KupCheckboxNew & JSXBase.HTMLAttributes<HTMLKupCheckboxNewElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
             "kup-color-picker": LocalJSX.KupColorPicker & JSXBase.HTMLAttributes<HTMLKupColorPickerElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
