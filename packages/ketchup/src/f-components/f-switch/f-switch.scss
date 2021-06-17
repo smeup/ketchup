@@ -103,7 +103,9 @@
       }
 
       &.switch--disabled {
+        cursor: auto;
         opacity: 0.5;
+        pointer-events: none;
       }
 
       &.switch--checked {
