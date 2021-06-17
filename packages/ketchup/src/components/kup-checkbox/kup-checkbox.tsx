@@ -16,7 +16,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
-import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupCheckboxProps } from './kup-checkbox-declarations';
@@ -224,7 +223,6 @@ export class KupCheckbox {
                 if (labelEl) {
                     labelEl.onclick = () => this.onKupChange();
                 }
-                FCheckboxMDC(f);
             }
         }
     }

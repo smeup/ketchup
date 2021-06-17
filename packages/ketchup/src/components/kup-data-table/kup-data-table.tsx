@@ -116,7 +116,6 @@ import {
 } from '../../f-components/f-chip/f-chip-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
-import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import {
     GenericFilter,
@@ -1589,7 +1588,7 @@ export class KupDataTable {
                             checkboxes[index]['data-row']
                         );
                 }
-                FCheckboxMDC(checkboxes[index]);
+
             }
             //Row textfields
             const textfields: NodeListOf<HTMLElement> = root.querySelectorAll(
@@ -1636,7 +1635,7 @@ export class KupDataTable {
                             multiselectionCheckboxes[index]['data-row']
                         );
                 }
-                FCheckboxMDC(multiselectionCheckboxes[index] as HTMLElement);
+
             }
             //Row actions: expander
             const expanderRowActions: NodeListOf<HTMLElement> =
