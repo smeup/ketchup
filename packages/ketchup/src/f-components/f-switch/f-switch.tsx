@@ -9,42 +9,40 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
     props: FSwitchProps
 ) => {
     const classObj: Record<string, boolean> = {
-        'mdc-switch': true,
-        'mdc-switch--checked': props.checked,
-        'mdc-switch--disabled': props.disabled,
+        'switch': true,
+        'switch--checked': props.checked,
+        'switch--disabled': props.disabled,
     };
 
     return (
         <div
-            class={`f-switch--wrapper ${
-                props.wrapperClass ? props.wrapperClass : ''
-            }`}
-            {...props.dataSet}
-            id={props.id}
-            title={props.title}
-        >
-            <div
-                class={`mdc-form-field ${
-                    props.leadingLabel ? 'mdc-form-field--align-end' : ''
-                }`}
-            >
-                <div class={classObj}>
-                    <div class="mdc-switch__track"></div>
-                    <div class="mdc-switch__thumb-underlay">
-                        <div class="mdc-switch__thumb">
-                            <input
-                                type="checkbox"
-                                class="mdc-switch__native-control"
-                                role="switch"
-                                checked={props.checked}
-                                disabled={props.disabled}
-                                value={props.checked ? 'on' : 'off'}
-                            ></input>
-                        </div>
+        class={`f-switch--wrapper ${
+            props.wrapperClass ? props.wrapperClass : ''
+        }`}
+        {...props.dataSet}
+        id={props.id}
+        title={props.title}
+    >
+        <div
+            class={`form-field ${props.leadingLabel ? 'form-field--align-end' : ''}`}>
+            <div class={`switch ${props.checked ? 'switch--checked' : ''}`}>
+                <div class="switch__track"></div>
+                <div class="switch__thumb-underlay">
+                    <div class="switch__thumb">
+                        <input
+                            type="checkbox"
+                            class="switch__native-control"
+                            role="switch"
+                            checked={props.checked}
+                            disabled={props.disabled}
+                            value={props.checked ? 'on' : 'off'}
+                        ></input>
+                         
                     </div>
                 </div>
-                <label>{props.label}</label>
             </div>
+            <label>{props.label}</label>
         </div>
+    </div>
     );
 };
