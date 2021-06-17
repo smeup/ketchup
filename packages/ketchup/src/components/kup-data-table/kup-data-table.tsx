@@ -46,6 +46,7 @@ import {
     iconColumn,
     keyColumn,
     SelectionMode,
+    KupCellInfo,
     KupDataTableColumnDragGroupType,
 } from './kup-data-table-declarations';
 
@@ -4663,9 +4664,32 @@ export class KupDataTable {
         if (cell.title != null && cell.title.trim() != '') {
             cellTitle = cell.title;
         }
+
+        // Informational icon
+        let infoEl: HTMLElement = null;
+        if (cell.info && cell.info.message) {
+            const info: KupCellInfo = { ...cell.info };
+            if (!info.color) {
+                info.color = 'var(--kup-info-color)';
+            }
+            if (!info.icon) {
+                info.icon = 'info';
+            }
+            let fProps: FImageProps = {
+                color: info.color,
+                resource: info.icon,
+                sizeX: '1.25em',
+                sizeY: '1.25em',
+                title: info.message,
+                wrapperClass: 'cell-info',
+            };
+            infoEl = <FImage {...fProps} />;
+        }
+
         return (
             <span class={classObj} style={style} title={cellTitle}>
                 {indend}
+                {infoEl}
                 {icon}
                 {content}
             </span>
