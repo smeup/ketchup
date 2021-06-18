@@ -62,7 +62,7 @@
         "vanilla-picker": "^2.11.0"
     },
     "devDependencies": {
-        "@stencil/core": "^2.5.2",
+        "@stencil/core": "^2.6.0",
         "@stencil/sass": "^1.4.1",
         "@types/jest": "^26.0.21",
         "@types/jest-cli": "^24.3.0",
