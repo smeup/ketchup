@@ -87,21 +87,25 @@ function createComp() {
   let comp = document.createElement('kup-tab-bar');
   comp.data = [
     {
+      value: 'First',
       text: 'First',
       icon: 'filter_1',
       active: true,
     },
     {
+      value: 'Second',
       text: 'Second',
       icon: 'filter_2',
       active: false,
     },
     {
+      value: 'Third',
       text: 'Third',
       icon: 'filter_3',
       active: false,
     },
     {
+      value: 'Fourth',
       text: 'Fourth',
       icon: 'filter_4',
       active: false,

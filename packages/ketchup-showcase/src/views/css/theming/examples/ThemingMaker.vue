@@ -1150,21 +1150,25 @@ export default {
       colorPickerData: { 'kup-text-field': { fullWidth: true } },
       tabs: [
         {
+          value: 'CSSvariables',
           text: 'CSS variables',
           icon: 'color_lens',
           title: "List of the current theme's variables",
         },
         {
+          value: 'customStyles',
           text: 'customStyles',
           icon: 'style',
           title: "List of the current theme's customStyles",
         },
         {
+          value: 'Icons',
           text: 'Icons',
           icon: 'photo',
           title: "List of the current theme's icons",
         },
         {
+          value: 'JSON',
           text: 'JSON',
           icon: 'json',
           title: 'The JSON of your theme',
