@@ -9,6 +9,7 @@ import {
     Host,
     Method,
     Prop,
+    State,
 } from '@stencil/core';
 
 import {
@@ -29,6 +30,8 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupTabBarNew {
     @Element() rootElement: HTMLElement;
+
+    @State() value: string = '';
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -120,6 +123,7 @@ export class KupTabBarNew {
             this.data[i].active = false;
         }
         this.data[i].active = true;
+        this.value = this.data[i].value;
 
         this.kupClick.emit({
             id: this.rootElement.id,
@@ -149,6 +153,7 @@ export class KupTabBarNew {
             }
             if (activeTabs > 1) {
                 this.data[lastActiveOccurrence].active = true;
+                this.value = this.data[lastActiveOccurrence].value;
                 this.kupManager.debug.logMessage(
                     this,
                     'Too many active tabs, forcing last one.',
@@ -156,6 +161,7 @@ export class KupTabBarNew {
                 );
             } else if (activeTabs === 0) {
                 this.data[0].active = true;
+                this.value = this.data[0].value;
                 this.kupManager.debug.logMessage(
                     this,
                     'No active tabs detected, forcing first one.'
@@ -185,9 +191,8 @@ export class KupTabBarNew {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-      
         root.querySelector('.tab-bar');
-        
+
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -202,7 +207,7 @@ export class KupTabBarNew {
 
         for (let i = 0; i < this.data.length; i++) {
             const tabClass: Record<string, boolean> = {
-                'tab': true,
+                tab: true,
                 'tab--active': this.data[i].active ? true : false,
             };
             let indicatorClass: string = 'tab-indicator';
@@ -245,14 +250,11 @@ export class KupTabBarNew {
                 >
                     <span class="tab__content">
                         {iconEl}
-                        <span class="tab__text-label">
-                            {this.data[i].text}
-                        </span>
+                        <span class="tab__text-label">{this.data[i].text}</span>
                     </span>
                     <span class={indicatorClass}>
                         <span class="tab-indicator__content tab-indicator__content--underline"></span>
                     </span>
-                    <span class="tab__ripple"></span>
                 </button>
             );
             tabBar.push(tabEl);
