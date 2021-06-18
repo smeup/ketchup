@@ -1,136 +1,194 @@
-                :host {
-                   display: block;
-                   font-size: var(--kup-font-size);
-               }
-               
-               .tab-bar {
-                   width: 100%;
-                   .tab-scroller {
-                       overflow-y: hidden;
-                       .tab-scroller__scroll-area--scroll {
-                           overflow: auto;
-                       }
-                   }
-                   .tab {
-                       font-size: 0.875em;
-                       height: 36px;
-                       .tab__icon {
-                           color: rgba(0, 0, 0, 0.54);
-                           fill: currentColor;
-                       }
-                       .tab__text-label {
-                           color: rgba(0, 0, 0, 0.6);
-                       }
-                       &:not(.tab--stacked) {
-                           .tab__icon {
-                               +.tab__text-label {
-                                   padding-left: 8px;
-                                   padding-right: 0;
-                               }
-                           }
-                       }
-                       .tab-indicator {
-                           display: flex;
-                           position: absolute;
-                           top: 0;
-                           left: 0;
-                           justify-content: center;
-                           width: 100%;
-                           height: 100%;
-                           pointer-events: none;
-                           z-index: 1;
-                           .tab-indicator__content {
-                               transform-origin: left;
-                               opacity: 0;
-                               transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1);
-                               .tab-indicator__content--underline {
-                                   border-color: #6200ee;
-                                   border-top-width: 2px;
-                               }
-                           }
-                           .tab-indicator__content--underline {
-                               align-self: flex-end;
-                               box-sizing: border-box;
-                               width: 100%;
-                               border-top-style: solid;
-                           }
-                           .tab-indicator--active {
-                               .tab-indicator__content {
-                                   opacity: 1;
-                               }
-                           }
-                       }
-                       .tab__ripple {
-                           position: absolute;
-                           top: 0;
-                           left: 0;
-                           width: 100%;
-                           height: 100%;
-                           overflow: hidden;
-                           will-change: transform, opacity;
-                       }
-                   }
-               }
-               
-               button {
-                   font-family: var(--kup-font-family);
-               }
-               
-               .tab__text-label {
-                   color: var(--kup-primary-color);
-                   transition: 150ms color linear;
-                   display: inline-block;
-                   line-height: 1;
-                   z-index: 2;
-               }
-               
-               .tab-scroller__scroll-area {
-                   -webkit-overflow-scrolling: touch;
-                   display: flex;
-                   overflow-x: hidden;
-                   .tab-scroller__scroll-content {
-                       position: relative;
-                       display: flex;
-                       flex: 1 0 auto;
-                       transform: none;
-                       will-change: transform;
-                   }
-                   .tab-bar button {
-                       font-family: var(--kup-font-family);
-                       .tab__content {
-                           position: relative;
-                           display: flex;
-                           align-items: center;
-                           justify-content: center;
-                           height: inherit;
-                           pointer-events: none;
-                           .tab__icon {
-                               transition: 150ms color linear;
-                               width: 24px;
-                               height: 24px;
-                               font-size: 24px;
-                               z-index: 2;
-                           }
-                           .icon-container {
-                               background-color: var(--kup-primary-color);
-                               height: 24px;
-                               width: 24px;
-                           }
-                           .tab--active {
-                               .tab__icon {
-                                   color: #6200ee;
-                                   fill: currentColor;
-                               }
-                           }
-                           .tab__text-label {
-                               transition-delay: 100ms;
-                           }
-                           .tab__icon {
-                               transition-delay: 100ms;
-                           }
-                       }
-                   }
-                   .tab__text-label {
-                       color: var(--kup-primary-color);
-                   }
-               }
+:host {
+  display: block;
+  font-size: var(--kup-font-size);
+}
+
+.tab-bar {
+  width: 100%;
+}
+.tab-scroller {
+  overflow-y: hidden;
+}
+.tab-scroller__scroll-area {
+  display: flex;
+  overflow-x: hidden;
+}
+.tab-bar .tab-scroller__scroll-area--scroll {
+  overflow: auto;
+}
+
+.tab-scroller__scroll-area--scroll {
+  overflow-x: scroll;
+}
+
+.tab-scroller__scroll-content {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  transform: none;
+  will-change: transform;
+}
+.tab {
+  -webkit-font-smoothing: antialiased;
+  padding: 0px 24px;
+  min-width: 90px;
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0px;
+  border: none;
+  outline: none;
+  background: none;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  appearance: none;
+  z-index: 1;
+  height: 48px;
+}
+
+.tab-bar button {
+  font-family: var(--kup-font-family);
+}
+
+.tab-bar .tab {
+  height: 36px;
+  font-size: 0.875em;
+}
+
+.tab__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+  pointer-events: none;
+}
+
+.tab__icon {
+  transition: color 150ms linear 0s;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  z-index: 2;
+}
+
+.icon-container {
+  background-color: var(--kup-primary-color);
+  height: 24px;
+  width: 24px;
+}
+
+.tab .tab__icon {
+  color: rgba(0, 0, 0, 0.54);
+  fill: currentcolor;
+}
+
+.tab--active .tab__icon {
+  fill: currentcolor;
+}
+
+.tab--active .tab__text-label,
+.tab--active .tab__icon {
+  transition-delay: 100ms;
+}
+
+.tab__text-label {
+  transition: color 150ms linear 0s;
+  display: inline-block;
+  line-height: 1;
+  z-index: 2;
+}
+
+.tab .tab__text-label {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.tab--active .tab__text-label,
+.tab--active .tab__icon {
+  transition-delay: 100ms;
+}
+
+.tab-bar .tab__text-label {
+  color: var(--kup-primary-color);
+}
+
+.tab:not(.tab--stacked) .tab__icon + .tab__text-label {
+  padding-left: 8px;
+  padding-right: 0px;
+}
+
+.tab-indicator {
+  display: flex;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tab-indicator__content {
+  transform-origin: left center;
+  opacity: 0;
+}
+
+.tab-indicator__content--underline {
+  align-self: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  border-top-style: solid;
+}
+
+.tab-indicator .tab-indicator__content--underline {
+  border-top-width: 2px;
+}
+
+.tab-indicator--active .tab-indicator__content {
+  opacity: 1;
+}
+
+.tab-indicator .tab-indicator__content {
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+}
+
+.tab__ripple {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.tab .tab__ripple::before,
+.tab .tab__ripple::after {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  content: '';
+}
+.tab .tab__ripple::before,
+.tab .tab__ripple::after {
+  top: calc(-50%);
+  left: calc(-50%);
+  width: 200%;
+  height: 200%;
+}
+
+.tab .tab__ripple::before {
+  transition: opacity 15ms linear 0s, background-color 15ms linear 0s;
+}
+
+.tab.ripple-upgraded .tab__ripple::after {
+  top: 0px;
+  left: 0px;
+  transform: scale(0);
+  transform-origin: center center;
+}
