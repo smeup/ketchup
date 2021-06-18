@@ -9,9 +9,9 @@ import {
     Host,
     Method,
     Prop,
+    State,
 } from '@stencil/core';
 
-import { MDCTabBar } from '@material/tab-bar';
 import {
     ComponentTabBarElement,
     KupTabBarProps,
@@ -30,6 +30,8 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupTabBar {
     @Element() rootElement: HTMLElement;
+
+    @State() value: string = '';
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -121,6 +123,7 @@ export class KupTabBar {
             this.data[i].active = false;
         }
         this.data[i].active = true;
+        this.value = this.data[i].value;
 
         this.kupClick.emit({
             id: this.rootElement.id,
@@ -150,6 +153,7 @@ export class KupTabBar {
             }
             if (activeTabs > 1) {
                 this.data[lastActiveOccurrence].active = true;
+                this.value = this.data[lastActiveOccurrence].value;
                 this.kupManager.debug.logMessage(
                     this,
                     'Too many active tabs, forcing last one.',
@@ -157,6 +161,7 @@ export class KupTabBar {
                 );
             } else if (activeTabs === 0) {
                 this.data[0].active = true;
+                this.value = this.data[0].value;
                 this.kupManager.debug.logMessage(
                     this,
                     'No active tabs detected, forcing first one.'
@@ -186,9 +191,8 @@ export class KupTabBar {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root) {
-            MDCTabBar.attachTo(root.querySelector('.mdc-tab-bar'));
-        }
+        root.querySelector('.tab-bar');
+
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -199,18 +203,18 @@ export class KupTabBar {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
         let title: string = '';
-        let componentClass: string = 'mdc-tab-bar';
+        let componentClass: string = 'tab-bar';
 
         for (let i = 0; i < this.data.length; i++) {
             const tabClass: Record<string, boolean> = {
-                'mdc-tab': true,
-                'mdc-tab--active': this.data[i].active ? true : false,
+                tab: true,
+                'tab--active': this.data[i].active ? true : false,
             };
-            let indicatorClass: string = 'mdc-tab-indicator';
+            let indicatorClass: string = 'tab-indicator';
             let iconEl: HTMLElement = null;
 
             if (this.data[i].active) {
-                indicatorClass += ' mdc-tab-indicator--active';
+                indicatorClass += ' tab-indicator--active';
             }
 
             if (this.data[i].icon) {
@@ -224,7 +228,7 @@ export class KupTabBar {
                 iconEl = (
                     <span
                         style={iconStyle}
-                        class="mdc-tab__icon material-icons icon-container"
+                        class="tab__icon icon-container"
                     ></span>
                 );
             }
@@ -237,23 +241,20 @@ export class KupTabBar {
                 <button
                     class={tabClass}
                     role="tab"
-                    aria-selected="true"
-                    tabindex={i}
+                    aria-selected={this.data[i].active ? true : false}
+                    tabIndex={i}
                     title={title}
                     onBlur={(e) => this.onKupBlur(i, e)}
                     onClick={(e) => this.onKupClick(i, e)}
                     onFocus={(e) => this.onKupFocus(i, e)}
                 >
-                    <span class="mdc-tab__content">
+                    <span class="tab__content">
                         {iconEl}
-                        <span class="mdc-tab__text-label">
-                            {this.data[i].text}
-                        </span>
+                        <span class="tab__text-label">{this.data[i].text}</span>
                     </span>
                     <span class={indicatorClass}>
-                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                        <span class="tab-indicator__content tab-indicator__content--underline"></span>
                     </span>
-                    <span class="mdc-tab__ripple"></span>
                 </button>
             );
             tabBar.push(tabEl);
@@ -268,9 +269,9 @@ export class KupTabBar {
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">
-                        <div class="mdc-tab-scroller">
-                            <div class="mdc-tab-scroller__scroll-area">
-                                <div class="mdc-tab-scroller__scroll-content">
+                        <div class="tab-scroller">
+                            <div class="tab-scroller__scroll-area">
+                                <div class="tab-scroller__scroll-content">
                                     {tabBar}
                                 </div>
                             </div>
