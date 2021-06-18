@@ -10,13 +10,13 @@
         :data.prop="comboboxData"
         is-select
         id="debug-changer"
-        @kupComboboxItemClick="createDebugComponent" />
+        @kupComboboxItemClick="createDebugComponent"/>
       <kup-text-field
         id="debug-props"
         label="Paste your JSON"
         full-width
         text-area
-        @kupTextFieldChange="createDebugComponent" />
+        @kupTextFieldChange="createDebugComponent"/>
       <div
         id="debug-wrapper"
         title="Your component will be displayed here."
