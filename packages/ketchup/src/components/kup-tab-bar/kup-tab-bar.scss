@@ -6,10 +6,12 @@
 .tab-bar {
   width: 100%;
   .tab-scroller {
+    height: 36px;
     overflow-y: hidden;
     .tab-scroller__scroll-area {
       display: flex;
       overflow-x: hidden;
+      overflow: auto;
       .tab-scroller__scroll-content {
         position: relative;
         display: flex;
@@ -17,11 +19,6 @@
         transform: none;
         will-change: transform;
       }
-    }
-
-    &.tab-scroller__scroll-area--scroll {
-      overflow: auto;
-      overflow-x: scroll;
     }
 
     .tab {

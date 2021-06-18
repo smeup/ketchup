@@ -241,8 +241,8 @@ export class KupTabBar {
                 <button
                     class={tabClass}
                     role="tab"
-                    aria-selected="true"
-                    tabindex={i}
+                    aria-selected={this.data[i].active ? true : false}
+                    tabIndex={i}
                     title={title}
                     onBlur={(e) => this.onKupBlur(i, e)}
                     onClick={(e) => this.onKupClick(i, e)}
