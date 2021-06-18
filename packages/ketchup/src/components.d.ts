@@ -30,7 +30,6 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { ComponentTabBarElement as ComponentTabBarElement1 } from "./components/kup-tab-bar-new/kup-tab-bar-declarations-new";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { KupTree } from "./components/kup-tree/kup-tree";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
@@ -1881,26 +1880,6 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
-    interface KupTabBarNew {
-        /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
-          * List of elements.
-         */
-        "data": ComponentTabBarElement[];
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-    }
     interface KupTextField {
         /**
           * Custom style of the component.
@@ -2526,12 +2505,6 @@ declare global {
         prototype: HTMLKupTabBarElement;
         new (): HTMLKupTabBarElement;
     };
-    interface HTMLKupTabBarNewElement extends Components.KupTabBarNew, HTMLStencilElement {
-    }
-    var HTMLKupTabBarNewElement: {
-        prototype: HTMLKupTabBarNewElement;
-        new (): HTMLKupTabBarNewElement;
-    };
     interface HTMLKupTextFieldElement extends Components.KupTextField, HTMLStencilElement {
     }
     var HTMLKupTextFieldElement: {
@@ -2608,7 +2581,6 @@ declare global {
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
         "kup-tab-bar": HTMLKupTabBarElement;
-        "kup-tab-bar-new": HTMLKupTabBarNewElement;
         "kup-text-field": HTMLKupTextFieldElement;
         "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
@@ -4609,30 +4581,6 @@ declare namespace LocalJSX {
         el: EventTarget;
     }>) => void;
     }
-    interface KupTabBarNew {
-        /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * List of elements.
-         */
-        "data"?: ComponentTabBarElement[];
-        "onKupTabBarBlur"?: (event: CustomEvent<{
-        index: number;
-        el: EventTarget;
-    }>) => void;
-        "onKupTabBarClick"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        el: EventTarget;
-        value: string;
-    }>) => void;
-        "onKupTabBarFocus"?: (event: CustomEvent<{
-        index: number;
-        el: EventTarget;
-    }>) => void;
-    }
     interface KupTextField {
         /**
           * Custom style of the component.
@@ -5196,7 +5144,6 @@ declare namespace LocalJSX {
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
         "kup-tab-bar": KupTabBar;
-        "kup-tab-bar-new": KupTabBarNew;
         "kup-text-field": KupTextField;
         "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
@@ -5253,7 +5200,6 @@ declare module "@stencil/core" {
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
-            "kup-tab-bar-new": LocalJSX.KupTabBarNew & JSXBase.HTMLAttributes<HTMLKupTabBarNewElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
