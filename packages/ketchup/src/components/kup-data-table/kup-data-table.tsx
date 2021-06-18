@@ -4387,8 +4387,16 @@ export class KupDataTable {
             case 'image':
                 //This code replaces <kup-image> because of performance-related issues, but uses its props
                 classObj['is-centered'] = true;
+                let badgeEl = [];
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
+                    for (
+                        let index = 0;
+                        index < props.badgeData.length;
+                        index++
+                    ) {
+                        badgeEl.push(<kup-badge {...props.badgeData[index]} />);
+                    }
                 }
                 if (
                     props.resource.indexOf('.') > -1 ||
@@ -4397,10 +4405,12 @@ export class KupDataTable {
                 ) {
                     let iconStyle = {
                         height: props.sizeY,
+                        position: props.badgeData ? 'relative' : '',
                         width: props.sizeX,
                     };
                     return (
-                        <div class="image-cell-content" style={iconStyle}>
+                        <div class={`image-cell-content`} style={iconStyle}>
+                            {badgeEl}
                             <img style={iconStyle} src={props.resource}></img>
                         </div>
                     );

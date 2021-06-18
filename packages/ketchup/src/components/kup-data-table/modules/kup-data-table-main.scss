@@ -527,6 +527,9 @@ tr {
 
 .image-cell-content {
   margin: auto;
+  kup-badge {
+    z-index: 1;
+  }
 }
 
 //Temporary removal of borders inside cells: they should be applied only to <td> elements
