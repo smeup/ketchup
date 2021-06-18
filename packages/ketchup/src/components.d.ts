@@ -2628,38 +2628,47 @@ declare namespace LocalJSX {
         "onKupAutocompleteBlur"?: (event: CustomEvent<{
         value: any;
         id: string;
+        comp: KupAutocomplete;
     }>) => void;
         "onKupAutocompleteChange"?: (event: CustomEvent<{
         value: any;
         id: string;
+        comp: KupAutocomplete;
     }>) => void;
         "onKupAutocompleteClick"?: (event: CustomEvent<{
         value: any;
         id: string;
+        comp: KupAutocomplete;
     }>) => void;
         "onKupAutocompleteFilterChanged"?: (event: CustomEvent<{
         filter: string;
         matchesMinimumCharsRequired: boolean;
+        comp: KupAutocomplete;
     }>) => void;
         "onKupAutocompleteFocus"?: (event: CustomEvent<{
         value: any;
         id: string;
+        comp: KupAutocomplete;
     }>) => void;
         "onKupAutocompleteIconClick"?: (event: CustomEvent<{
         value: any;
         id: string;
+        comp: KupAutocomplete;
     }>) => void;
         "onKupAutocompleteInput"?: (event: CustomEvent<{
         value: any;
         id: string;
+        comp: KupAutocomplete;
     }>) => void;
         "onKupAutocompleteItemClick"?: (event: CustomEvent<{
         value: any;
         id: string;
+        comp: KupAutocomplete;
     }>) => void;
         "onKupAutocompleteTextFieldSubmit"?: (event: CustomEvent<{
         value: any;
         id: string;
+        comp: KupAutocomplete;
     }>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
