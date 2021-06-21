@@ -586,3 +586,10 @@ th.obj:hover span:not(.overlay-action) {
 .f-image--wrapper.cell-info {
   margin: auto 0.5em auto 0.25em;
 }
+
+[kup-dialog] {
+  background-color: var(--kup-background-color);
+  margin: 0;
+  position: fixed;
+  transition: none;
+}

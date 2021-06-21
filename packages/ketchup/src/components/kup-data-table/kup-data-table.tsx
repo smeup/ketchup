@@ -1881,6 +1881,7 @@ export class KupDataTable {
                         '"]{background-color: rgba(var(--kup-text-color-rgb), 0.15); width: 10px;}',
                     data: transposedData,
                     density: 'medium',
+                    editableData: true,
                     headerIsPersistent: false,
                     id: this.rootElement.id ? this.rootElement.id : '',
                     rowsPerPage: 1000,
@@ -2020,7 +2021,9 @@ export class KupDataTable {
         this.detailCard.data = cardData;
         this.detailCard.style.left = x + 'px';
         this.detailCard.style.top = y + 'px';
-        document.body.append(this.detailCard);
+        this.rootElement
+            .shadowRoot
+            .append(this.detailCard);
     }
 
     private getEventDetails(el: HTMLElement): EventHandlerDetails {
