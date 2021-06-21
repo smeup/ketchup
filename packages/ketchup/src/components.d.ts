@@ -29,6 +29,7 @@ import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-b
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
+import { ComponentRadioElement as ComponentRadioElement1 } from "./components/kup-radio-new/kup-radio-declarations-new";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { KupTree } from "./components/kup-tree/kup-tree";
@@ -1730,6 +1731,42 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
     }
+    interface KupRadioNew {
+        /**
+          * Number of columns. When undefined, radio fields will be displayed inline.
+         */
+        "columns": number;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * List of elements.
+         */
+        "data": ComponentRadioElement[];
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        "leadingLabel": boolean;
+        /**
+          * Defaults at null. It's the name that binds the radio buttons together.
+         */
+        "name": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+    }
     interface KupRating {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -2475,6 +2512,12 @@ declare global {
         prototype: HTMLKupRadioElement;
         new (): HTMLKupRadioElement;
     };
+    interface HTMLKupRadioNewElement extends Components.KupRadioNew, HTMLStencilElement {
+    }
+    var HTMLKupRadioNewElement: {
+        prototype: HTMLKupRadioNewElement;
+        new (): HTMLKupRadioNewElement;
+    };
     interface HTMLKupRatingElement extends Components.KupRating, HTMLStencilElement {
     }
     var HTMLKupRatingElement: {
@@ -2576,6 +2619,7 @@ declare global {
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
+        "kup-radio-new": HTMLKupRadioNewElement;
         "kup-rating": HTMLKupRatingElement;
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
@@ -4441,6 +4485,52 @@ declare namespace LocalJSX {
         checked: boolean;
     }>) => void;
     }
+    interface KupRadioNew {
+        /**
+          * Number of columns. When undefined, radio fields will be displayed inline.
+         */
+        "columns"?: number;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * List of elements.
+         */
+        "data"?: ComponentRadioElement[];
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        "leadingLabel"?: boolean;
+        /**
+          * Defaults at null. It's the name that binds the radio buttons together.
+         */
+        "name"?: string;
+        "onKupRadioBlur"?: (event: CustomEvent<{
+        value: string;
+        checked: boolean;
+    }>) => void;
+        "onKupRadioChange"?: (event: CustomEvent<{
+        value: string;
+        checked: boolean;
+    }>) => void;
+        "onKupRadioClick"?: (event: CustomEvent<{
+        value: string;
+        checked: boolean;
+    }>) => void;
+        "onKupRadioFocus"?: (event: CustomEvent<{
+        value: string;
+        checked: boolean;
+    }>) => void;
+        "onKupRadioInput"?: (event: CustomEvent<{
+        value: string;
+        checked: boolean;
+    }>) => void;
+    }
     interface KupRating {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -5148,6 +5238,7 @@ declare namespace LocalJSX {
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
+        "kup-radio-new": KupRadioNew;
         "kup-rating": KupRating;
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
@@ -5204,6 +5295,7 @@ declare module "@stencil/core" {
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
+            "kup-radio-new": LocalJSX.KupRadioNew & JSXBase.HTMLAttributes<HTMLKupRadioNewElement>;
             "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
