@@ -1006,7 +1006,6 @@ export class KupDataTable {
     })
     kupAddCodeDecodeColumn: EventEmitter<{
         column: string;
-        comp: KupDataTable;
     }>;
 
     /**

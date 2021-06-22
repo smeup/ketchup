@@ -3516,7 +3516,6 @@ declare namespace LocalJSX {
         "loadMoreStep"?: number;
         "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{
         column: string;
-        comp: KupDataTable;
     }>) => void;
         /**
           * When 'add column' menu item is clicked

@@ -95,7 +95,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 | Event                     | Description                                    | Type                                                                                                                              |
 | ------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `kupAddCodeDecodeColumn`  |                                                | `CustomEvent<{ column: string; comp: KupDataTable; }>`                                                                            |
+| `kupAddCodeDecodeColumn`  |                                                | `CustomEvent<{ column: string; }>`                                                                                                |
 | `kupAddColumn`            | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; comp: KupDataTable; }>`                                                                            |
 | `kupAutoRowSelect`        | When a row is auto selected via selectRow prop | `CustomEvent<{ comp: KupDataTable; selectedRow: Row; }>`                                                                          |
 | `kupCellButtonClicked`    |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                                        |
