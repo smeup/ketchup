@@ -273,6 +273,7 @@
     <kup-switch></kup-switch>
     <h4>Material Buttons (widget)</h4>
     <span>empty:</span>
+    
     <kup-button></kup-button>
     <span>icon:</span>
     <kup-button icon="favorite"></kup-button>
@@ -287,6 +288,21 @@
     <span>icon+tooltip:</span>
     <kup-button icon="favorite"></kup-button>
 
+    <h4>New Button </h4>
+    <kup-button-new></kup-button-new>
+    <span>icon:</span>
+    <kup-button-new icon="favorite"></kup-button-new>
+    <span>disabled:</span>
+    <kup-button-new disabled icon="favorite"></kup-button-new>
+    <span>toggable:</span>
+    <kup-button-new toggable icon="favorite"></kup-button-new>
+    <span>toggable+icon-off:</span>
+    <kup-button-new toggable icon="fullscreen" icon-off="fullscreen_exit"></kup-button-new>
+    <span>toggable+checked:</span>
+    <kup-button-new toggable checked icon="favorite"></kup-button-new>
+    <span>icon+tooltip:</span>
+    <kup-button-new icon="favorite"></kup-button-new>
+
     <!-- -->
     <kup-button label="Flat" flat></kup-button>
     <kup-button label="Raised"></kup-button>
@@ -299,11 +315,27 @@
     <kup-button shaped disabled label="Shaped & disabled"></kup-button>
     <kup-button shaped label="Shaped & raised"></kup-button>
     <kup-button shaped outlined label="Shaped & outlined"></kup-button>
-    <kup-image color="red" resource="favorite"></kup-image>
-    <kup-image resource="favorite"></kup-image>
-
     <kup-button class="kup-full-width" label="Fill space"></kup-button>
     <kup-button title="Tooltip" label="With tooltip" icon="favorite"></kup-button>
+    <h4>Button new</h4>
+
+    <kup-button-new label="Flat" flat></kup-button-new>
+    <kup-button-new label="Raised"></kup-button-new>
+    <kup-button-new  label="Flat & disabled" flat disabled></kup-button-new>
+    <kup-button-new  label="Outlined & disabled" disabled outlined></kup-button-new>
+    <kup-button-new  disabled label="Raised & disabled"></kup-button-new>
+    <kup-button-new  icon="favorite" label="Raised favorite"></kup-button-new>
+    <kup-button-new  trailing-icon icon="favorite" label="Raised trailing favorite"></kup-button-new>
+    <kup-button-new  outlined label="Outlined"></kup-button-new>
+    <kup-button-new  shaped disabled label="Shaped & disabled"></kup-button-new>
+    <kup-button-new  shaped label="Shaped & raised"></kup-button-new>
+    <kup-button-new shaped outlined label="Shaped & outlined"></kup-button-new>
+    <kup-image color="red" resource="favorite"></kup-image>
+    <kup-image resource="favorite"></kup-image>
+    <kup-button-new class="kup-full-width" label="Fill space"></kup-button-new>
+    <kup-button-new title="Tooltip" label="With tooltip" icon="favorite"></kup-button-new>
+
+
     <kup-chip type="filter"></kup-chip>
     <kup-chip id="chip-tree"></kup-chip>
 

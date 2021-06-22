@@ -12,6 +12,7 @@ import { Cell, Column, DataTable, EventHandlerDetails, GroupLabelDisplayMode, Gr
 import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { EventHandlerDetails as EventHandlerDetails1, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
+import { FButtonStyling as FButtonStyling1 } from "./f-components/f-button-new/f-button-declarations-new";
 import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
@@ -277,6 +278,64 @@ export namespace Components {
         "styling": string;
     }
     interface KupButton {
+        /**
+          * When set to true, the icon button state will be on.
+          * @default false
+         */
+        "checked": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When set, the button will show this icon.
+          * @default null
+         */
+        "icon": string;
+        /**
+          * When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+          * @default null
+         */
+        "iconOff": string;
+        /**
+          * When set, the button will show this text.
+          * @default null
+         */
+        "label": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
+         */
+        "styling": FButtonStyling;
+        /**
+          * When set to true, the icon button will be toggable on/off.
+          * @default false
+         */
+        "toggable": boolean;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon": boolean;
+    }
+    interface KupButtonNew {
         /**
           * When set to true, the icon button state will be on.
           * @default false
@@ -2265,6 +2324,12 @@ declare global {
         prototype: HTMLKupButtonElement;
         new (): HTMLKupButtonElement;
     };
+    interface HTMLKupButtonNewElement extends Components.KupButtonNew, HTMLStencilElement {
+    }
+    var HTMLKupButtonNewElement: {
+        prototype: HTMLKupButtonNewElement;
+        new (): HTMLKupButtonNewElement;
+    };
     interface HTMLKupCalendarElement extends Components.KupCalendar, HTMLStencilElement {
     }
     var HTMLKupCalendarElement: {
@@ -2541,6 +2606,7 @@ declare global {
         "kup-box": HTMLKupBoxElement;
         "kup-btn": HTMLKupBtnElement;
         "kup-button": HTMLKupButtonElement;
+        "kup-button-new": HTMLKupButtonNewElement;
         "kup-calendar": HTMLKupCalendarElement;
         "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
@@ -2904,6 +2970,66 @@ declare namespace LocalJSX {
         "styling"?: string;
     }
     interface KupButton {
+        /**
+          * When set to true, the icon button state will be on.
+          * @default false
+         */
+        "checked"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * When set, the button will show this icon.
+          * @default null
+         */
+        "icon"?: string;
+        /**
+          * When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+          * @default null
+         */
+        "iconOff"?: string;
+        /**
+          * When set, the button will show this text.
+          * @default null
+         */
+        "label"?: string;
+        "onKupButtonBlur"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        "onKupButtonClick"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        "onKupButtonFocus"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        /**
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
+         */
+        "styling"?: FButtonStyling;
+        /**
+          * When set to true, the icon button will be toggable on/off.
+          * @default false
+         */
+        "toggable"?: boolean;
+        /**
+          * When set, the icon will be shown after the text.
+          * @default false
+         */
+        "trailingIcon"?: boolean;
+    }
+    interface KupButtonNew {
         /**
           * When set to true, the icon button state will be on.
           * @default false
@@ -5113,6 +5239,7 @@ declare namespace LocalJSX {
         "kup-box": KupBox;
         "kup-btn": KupBtn;
         "kup-button": KupButton;
+        "kup-button-new": KupButtonNew;
         "kup-calendar": KupCalendar;
         "kup-card": KupCard;
         "kup-chart": KupChart;
@@ -5169,6 +5296,7 @@ declare module "@stencil/core" {
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;
             "kup-btn": LocalJSX.KupBtn & JSXBase.HTMLAttributes<HTMLKupBtnElement>;
             "kup-button": LocalJSX.KupButton & JSXBase.HTMLAttributes<HTMLKupButtonElement>;
+            "kup-button-new": LocalJSX.KupButtonNew & JSXBase.HTMLAttributes<HTMLKupButtonNewElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
