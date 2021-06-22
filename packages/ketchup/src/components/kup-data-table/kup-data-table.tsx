@@ -4916,13 +4916,7 @@ export class KupDataTable {
                     cell
                 );
                 return <kup-button {...props}></kup-button>;
-            case 'btn':                                   
-                console.log("btn props.data before = " + JSON.stringify(props.data));
-                
-                if (props.data === undefined) props.data = [{"icon":"edit","obj":{"t":"","p":"","k":"b4"}}];
-
-                console.log("btn props after" + JSON.stringify(props));
-                
+            case 'btn':                
                 return <kup-btn {...props}></kup-btn>;
             case 'chart':
                 classObj['is-centered'] = true;
