@@ -20,40 +20,6 @@
     }
   }
 
-  .icon-button {
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    fill: currentColor;
-    color: inherit;
-    font-size: 24px;
-    text-decoration: none;
-    cursor: pointer;
-    user-select: none;
-    width: 48px;
-    height: 48px;
-    padding: 12px;
-    will-change: transform, opacity;
-    .icon-button__icon {
-      display: inline-block;
-    }
-    .f-image--wrapper {
-      display: block;
-      margin: auto;
-      position: relative;
-      height: var(--f-image-height, 100%);
-      width: var(--f-image-width, 100%);
-      .f-image__icon {
-        margin: auto;
-        height: var(--f-image-height, 100%);
-        width: var(--f-image-width, 100%);
-      }
-    }
-  }
-
   &.kup-full-height {
     height: 100%;
     .button {
@@ -86,11 +52,6 @@
     .button,
     .button__ripple {
       border-radius: 18px;
-      position: absolute;
-      box-sizing: content-box;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
     }
   }
 }
@@ -106,12 +67,16 @@
   height: 36px;
   border-radius: 4px;
 }
+.button:not(.button--outlined) .button__ripple {
+  top: 0px;
+  left: 0px;
+}
 
 .button:not(:disabled) {
   background-color: transparent;
 }
 .button--raised:not(:disabled) {
-  background-color: #6200ee;
+  background-color: var(--kup-primary-color);
 }
 
 .button:not(:disabled) {
@@ -137,4 +102,64 @@
   left: calc(50% - 100%);
   width: 200%;
   height: 200%;
+}
+.button__ripple {
+  position: absolute;
+  box-sizing: content-box;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.button {
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--kup-font-family);
+  font-size: 0.875em;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 64px;
+  border: none;
+  outline: none;
+  line-height: inherit;
+  user-select: none;
+  appearance: none;
+  overflow: visible;
+  vertical-align: middle;
+}
+.button--raised .button__icon,
+.button--unelevated .button__icon,
+.button--outlined .button__icon {
+  margin-left: -4px;
+  margin-right: 8px;
+}
+
+.icon-button {
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  fill: currentColor;
+  color: inherit;
+  font-size: 24px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+}
+
+.button .button__icon {
+  margin-left: 0px;
+  margin-right: 8px;
+  display: inline-block;
+  font-size: 1.125rem;
+  height: 1.125rem;
+  vertical-align: top;
+  width: 1.125rem;
 }

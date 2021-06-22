@@ -50,7 +50,7 @@ function renderButton(props: FButtonProps): HTMLButtonElement {
         wrapperClass: 'button__icon icon-container material-icons',
     };
     const classObj: Record<string, boolean> = {
-        '-button': true,
+        ['button']: true,
         'button--disabled': props.disabled ? true : false,
         'button--outlined': isOutlined ? true : false,
         'button--raised': !isFlat && !isOutlined ? true : false,
