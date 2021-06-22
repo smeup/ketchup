@@ -2019,6 +2019,7 @@ export class KupDataTable {
             }
         }
         this.detailCard.data = cardData;
+        this.detailCard.style.position = "fixed";
         this.detailCard.style.left = x + 'px';
         this.detailCard.style.top = y + 'px';
         this.rootElement
