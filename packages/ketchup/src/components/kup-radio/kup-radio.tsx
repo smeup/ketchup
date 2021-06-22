@@ -8,10 +8,9 @@ import {
     Host,
     Method,
     Prop,
+    State,
 } from '@stencil/core';
 
-import { MDCRadio } from '@material/radio';
-import { MDCFormField } from '@material/form-field';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -26,6 +25,8 @@ import { ComponentRadioElement, KupRadioProps } from './kup-radio-declarations';
 })
 export class KupRadio {
     @Element() rootElement: HTMLElement;
+
+    @State() value: string = '';
 
     /**
      * Number of columns. When undefined, radio fields will be displayed inline.
@@ -75,19 +76,8 @@ export class KupRadio {
         bubbles: true,
     })
     kupChange: EventEmitter<{
+        comp: KupRadio;
         value: string;
-        checked: boolean;
-    }>;
-
-    @Event({
-        eventName: 'kupRadioClick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<{
-        value: string;
-        checked: boolean;
     }>;
 
     @Event({
@@ -149,19 +139,19 @@ export class KupRadio {
         });
     }
 
-    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupChange(i: number) {
+        this.value = this.data[i].value;
+        for (let index = 0; index < this.data.length; index++) {
+            const radio: ComponentRadioElement = this.data[index];
+            if (index === i) {
+                radio.checked = true;
+            } else {
+                radio.checked = false;
+            }
+        }
         this.kupChange.emit({
-            value: target.value,
-            checked: target.checked,
-        });
-    }
-
-    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupClick.emit({
-            value: target.value,
-            checked: target.checked,
+            comp: this,
+            value: this.value,
         });
     }
 
@@ -200,13 +190,12 @@ export class KupRadio {
         const root = this.rootElement.shadowRoot;
 
         if (root && !this.disabled) {
-            let formFields: any = root.querySelectorAll('.mdc-form-field');
+            let formFields: any = root.querySelectorAll('.form-field');
             for (let i = 0; i < formFields.length; i++) {
-                let component = MDCRadio.attachTo(
-                    formFields[i].querySelector('.mdc-radio')
-                );
-                let formField = MDCFormField.attachTo(formFields[i]);
-                formField.input = component;
+                // let component = MDCRadio.attachTo(
+                //     formFields[i].querySelector('.mdc-radio')
+                // let formField = MDCFormField.attachTo(formFields[i]);
+                // formField.input = component;
             }
         }
         this.kupManager.debug.logRender(this, true);
@@ -214,9 +203,8 @@ export class KupRadio {
 
     render() {
         let hostStyle: {} = undefined;
-        let formClass: string = 'mdc-form-field';
+        let formClass: string = 'form-field';
         let wrapperClass: string = 'radio-wrapper';
-        let componentClass: string = 'mdc-radio';
         let componentLabel: string = '';
         let radioList: Array<HTMLElement> = [];
         let radioEl: HTMLElement;
@@ -227,26 +215,25 @@ export class KupRadio {
                 '--grid-columns': `repeat(${this.columns}, 1fr)`,
             };
         }
-        if (this.disabled) {
-            componentClass += ' mdc-radio--disabled';
-        }
 
         if (this.leadingLabel) {
-            formClass += ' mdc-form-field--align-end';
+            formClass += ' form-field--align-end';
         }
 
         for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i].checked) {
-                componentClass += ' mdc-radio--checked';
-            }
+            const classObj: GenericObject = {
+                radio: true,
+                'radio--checked': this.data[i].checked,
+                'radio--disabled': this.disabled,
+            };
             componentLabel = this.data[i].label;
             let radioId = this.name + i;
 
             radioEl = (
                 <div class={formClass}>
-                    <div class={componentClass}>
+                    <div class={classObj}>
                         <input
-                            class="mdc-radio__native-control"
+                            class="radio__native-control"
                             type="radio"
                             id={radioId}
                             name={this.name}
@@ -254,16 +241,14 @@ export class KupRadio {
                             checked={this.data[i].checked}
                             disabled={this.disabled}
                             onBlur={(e: any) => this.onKupBlur(e)}
-                            onChange={(e: any) => this.onKupChange(e)}
-                            onClick={(e: any) => this.onKupClick(e)}
+                            onChange={() => this.onKupChange(i)}
                             onFocus={(e: any) => this.onKupFocus(e)}
                             onInput={(e: any) => this.onKupInput(e)}
                         ></input>
-                        <div class="mdc-radio__background">
-                            <div class="mdc-radio__outer-circle"></div>
-                            <div class="mdc-radio__inner-circle"></div>
+                        <div class="radio__background">
+                            <div class="radio__outer-circle"></div>
+                            <div class="radio__inner-circle"></div>
                         </div>
-                        <div class="mdc-radio__ripple"></div>
                     </div>
                     <label htmlFor={this.name}>{componentLabel}</label>
                 </div>

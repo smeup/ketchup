@@ -332,6 +332,7 @@
     <kup-checkbox id="event-checkbox"></kup-checkbox>
     <kup-button id="event-button" toggable icon="favorite"></kup-button>
     <kup-radio id="event-radio"></kup-radio>
+    <h3>Radio New</h3>
     <kup-switch id="event-switch"></kup-switch>
 
 
@@ -491,19 +492,23 @@
         }, ];
 
         let radioList = document.getElementsByTagName('kup-radio')[0];
-        radioList.data = [{
-            value: 'Favorites',
-            label: "label 1",
-            checked: true
-        }, {
-            value: 'Set alarm clock',
-            label: "label 2",
-            checked: false
-        }, {
-            value: 'Settings',
-            label: "label 3",
-            checked: false
-        }, ];
+        radioList.data = [
+            {
+                value: 'Favorites',
+                label: "label 1",
+                checked: false
+            },
+            {
+                value: 'Set alarm clock',
+                label: "label 2",
+                checked: true
+            },
+            {
+                value: 'Settings',
+                label: "label 3",
+                checked: false
+            },
+        ];
 
         let chipList = document.getElementsByTagName('kup-chip')[0];
         chipList.data = [{

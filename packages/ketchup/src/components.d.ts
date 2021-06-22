@@ -4425,12 +4425,8 @@ declare namespace LocalJSX {
         checked: boolean;
     }>) => void;
         "onKupRadioChange"?: (event: CustomEvent<{
+        comp: KupRadio;
         value: string;
-        checked: boolean;
-    }>) => void;
-        "onKupRadioClick"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
     }>) => void;
         "onKupRadioFocus"?: (event: CustomEvent<{
         value: string;
