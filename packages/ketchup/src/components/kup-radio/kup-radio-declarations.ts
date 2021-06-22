@@ -8,9 +8,11 @@ export enum KupRadioProps {
     data = 'List of elements.',
     disabled = 'Defaults at false. When set to true, the component is disabled.',
     leadingLabel = 'Defaults at false. When set to true, the label will be on the left of the component.',
-    name = "Defaults at null. It's the name that binds the radio buttons together.",
 }
-export interface ComponentRadioElement {
+/**
+ * The object of a single radio.
+ */
+export interface KupRadioData {
     value: string;
     label: string;
     checked: boolean;

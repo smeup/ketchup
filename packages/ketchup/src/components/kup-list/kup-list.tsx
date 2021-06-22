@@ -385,7 +385,6 @@ export class KupList {
                 <span class="mdc-list-item__graphic">
                     <input type="radio" style={trickForMDC} />
                     <kup-radio
-                        name={this.rootElement.id + '_radio'}
                         data={dataTmp}
                         id={this.rootElement.id + '_' + index}
                         ref={(el) => (this.radios[index] = el as any)}

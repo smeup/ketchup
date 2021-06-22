@@ -46,7 +46,6 @@
         "@material/layout-grid": "^11.0.0",
         "@material/list": "^11.0.0",
         "@material/menu": "^11.0.0",
-        "@material/radio": "^11.0.0",
         "@material/ripple": "^11.0.0",
         "@material/tab-bar": "^11.0.0",
         "@material/textfield": "^11.0.0",

@@ -28,7 +28,7 @@ import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarati
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
+import { KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { KupTree } from "./components/kup-tree/kup-tree";
@@ -1696,19 +1696,24 @@ export namespace Components {
     }
     interface KupRadio {
         /**
-          * Number of columns. When undefined, radio fields will be displayed inline.
+          * Number of columns. When null, radio fields will be displayed inline.
+          * @default null
          */
         "columns": number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * List of elements.
+          * @default null
          */
-        "data": ComponentRadioElement[];
+        "data": KupRadioData[];
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -1719,12 +1724,9 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Defaults at false. When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel": boolean;
-        /**
-          * Defaults at null. It's the name that binds the radio buttons together.
-         */
-        "name": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4397,44 +4399,49 @@ declare namespace LocalJSX {
     }
     interface KupRadio {
         /**
-          * Number of columns. When undefined, radio fields will be displayed inline.
+          * Number of columns. When null, radio fields will be displayed inline.
+          * @default null
          */
         "columns"?: number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * List of elements.
+          * @default null
          */
-        "data"?: ComponentRadioElement[];
+        "data"?: KupRadioData[];
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Defaults at false. When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel"?: boolean;
         /**
-          * Defaults at null. It's the name that binds the radio buttons together.
+          * Triggered when the input element loses focus.
          */
-        "name"?: string;
         "onKupRadioBlur"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
+        comp: KupRadio;
     }>) => void;
+        /**
+          * Triggered when the input element's value changes.
+         */
         "onKupRadioChange"?: (event: CustomEvent<{
         comp: KupRadio;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
         "onKupRadioFocus"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
-    }>) => void;
-        "onKupRadioInput"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
+        comp: KupRadio;
     }>) => void;
     }
     interface KupRating {

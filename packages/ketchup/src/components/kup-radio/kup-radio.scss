@@ -16,7 +16,7 @@
   align-items: center;
   vertical-align: middle;
 
-  & label {
+  label {
     color: var(--kup-text-color);
     font-family: var(--kup-font-family);
     margin-left: 0px;
@@ -38,7 +38,7 @@
 }
 
 .radio-wrapper {
-  &.is-grid {
+  &.radio-wrapper--grid {
     display: grid;
     grid-gap: 1em;
     grid-template-columns: var(--grid-columns);
@@ -129,6 +129,10 @@
 
     &.radio--disabled {
       pointer-events: none;
+
+      + label {
+        pointer-events: none;
+      }
 
       .radio__outer-circle {
         border-color: rgba(var(--kup-text-color-rgb), 0.5);
