@@ -22,10 +22,6 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupRadioClick',
-          type: 'click',
-        },
-        {
           name: 'kupRadioChange',
           type: 'change',
         },

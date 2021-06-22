@@ -20,8 +20,7 @@
 | Event            | Description | Type                                                |
 | ---------------- | ----------- | --------------------------------------------------- |
 | `kupRadioBlur`   |             | `CustomEvent<{ value: string; checked: boolean; }>` |
-| `kupRadioChange` |             | `CustomEvent<{ value: string; checked: boolean; }>` |
-| `kupRadioClick`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioChange` |             | `CustomEvent<{ comp: KupRadio; value: string; }>`   |
 | `kupRadioFocus`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
 | `kupRadioInput`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
 

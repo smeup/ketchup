@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    State,
 } from '@stencil/core';
 
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -24,6 +25,8 @@ import { ComponentRadioElement, KupRadioProps } from './kup-radio-declarations';
 })
 export class KupRadio {
     @Element() rootElement: HTMLElement;
+
+    @State() value: string = '';
 
     /**
      * Number of columns. When undefined, radio fields will be displayed inline.
@@ -73,19 +76,8 @@ export class KupRadio {
         bubbles: true,
     })
     kupChange: EventEmitter<{
+        comp: KupRadio;
         value: string;
-        checked: boolean;
-    }>;
-
-    @Event({
-        eventName: 'kupRadioClick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<{
-        value: string;
-        checked: boolean;
     }>;
 
     @Event({
@@ -147,19 +139,19 @@ export class KupRadio {
         });
     }
 
-    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupChange(i: number) {
+        this.value = this.data[i].value;
+        for (let index = 0; index < this.data.length; index++) {
+            const radio: ComponentRadioElement = this.data[index];
+            if (index === i) {
+                radio.checked = true;
+            } else {
+                radio.checked = false;
+            }
+        }
         this.kupChange.emit({
-            value: target.value,
-            checked: target.checked,
-        });
-    }
-
-    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupClick.emit({
-            value: target.value,
-            checked: target.checked,
+            comp: this,
+            value: this.value,
         });
     }
 
@@ -213,7 +205,6 @@ export class KupRadio {
         let hostStyle: {} = undefined;
         let formClass: string = 'form-field';
         let wrapperClass: string = 'radio-wrapper';
-        let componentClass: string = 'radio';
         let componentLabel: string = '';
         let radioList: Array<HTMLElement> = [];
         let radioEl: HTMLElement;
@@ -224,24 +215,23 @@ export class KupRadio {
                 '--grid-columns': `repeat(${this.columns}, 1fr)`,
             };
         }
-        if (this.disabled) {
-            componentClass += ' radio--disabled';
-        }
 
         if (this.leadingLabel) {
             formClass += ' form-field--align-end';
         }
 
         for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i].checked) {
-                componentClass += ' radio--checked';
-            }
+            const classObj: GenericObject = {
+                radio: true,
+                'radio--checked': this.data[i].checked,
+                'radio--disabled': this.disabled,
+            };
             componentLabel = this.data[i].label;
             let radioId = this.name + i;
 
             radioEl = (
                 <div class={formClass}>
-                    <div class={componentClass}>
+                    <div class={classObj}>
                         <input
                             class="radio__native-control"
                             type="radio"
@@ -251,8 +241,7 @@ export class KupRadio {
                             checked={this.data[i].checked}
                             disabled={this.disabled}
                             onBlur={(e: any) => this.onKupBlur(e)}
-                            onChange={(e: any) => this.onKupChange(e)}
-                            onClick={(e: any) => this.onKupClick(e)}
+                            onChange={() => this.onKupChange(i)}
                             onFocus={(e: any) => this.onKupFocus(e)}
                             onInput={(e: any) => this.onKupInput(e)}
                         ></input>
@@ -260,7 +249,6 @@ export class KupRadio {
                             <div class="radio__outer-circle"></div>
                             <div class="radio__inner-circle"></div>
                         </div>
-                        <div class="radio__ripple"></div>
                     </div>
                     <label htmlFor={this.name}>{componentLabel}</label>
                 </div>
