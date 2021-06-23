@@ -235,12 +235,14 @@ export enum ShowGrid {
 // }
 
 export interface KupDataTableCellButtonClick {
+    comp: any;
     cell: Cell;
     column: Column;
     row: Row;
 }
 
 export interface KupDataTableCellTextFieldInput {
+    comp: any;
     cell: Cell;
     column: Column;
     row: Row;

@@ -278,4 +278,14 @@ export class KupObjects {
         if (!obj) return false;
         return 'VO' === obj.t && 'COD_VER' === obj.p;
     }
+
+    /**
+     * Checks whether the object is null or empty
+     * @param obj - Object to check.
+     * @returns {boolean} True when the object is null or empty.
+     */
+    isEmptySmeupObject(obj: KupObj): boolean {
+        if (!obj) return true;
+        return obj.t.trim() == '' && obj.p.trim() == '' && obj.k.trim() == '';
+    }
 }
