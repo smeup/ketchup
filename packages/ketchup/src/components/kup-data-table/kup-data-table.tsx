@@ -2880,7 +2880,7 @@ export class KupDataTable {
 
     private onJ4btnClicked(row, column, cell) {
         // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
-        const buttonEvent = arguments[3] as UIEvent;
+        const buttonEvent = arguments[3] as UIEvent;        
         if (buttonEvent) {
             // Prevents double events to be fired.
             buttonEvent.stopPropagation();
@@ -4906,7 +4906,7 @@ export class KupDataTable {
                         </div>
                     );
                 }
-            case 'button':
+            case 'button':            
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
                 props['onKupButtonClick'] = this.onJ4btnClicked.bind(
@@ -4917,6 +4917,8 @@ export class KupDataTable {
                 );
                 return <kup-button {...props}></kup-button>;
             case 'btn':                
+                classObj['is-centered'] = true;                                
+                props["data-storage"] = {cell: cell, row: row, column: column};                
                 return <kup-btn {...props}></kup-btn>;
             case 'chart':
                 classObj['is-centered'] = true;
