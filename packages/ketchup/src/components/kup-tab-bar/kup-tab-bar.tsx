@@ -20,6 +20,7 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
+import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -62,6 +63,10 @@ export class KupTabBar {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    /**
+     * Element scrollable on mouse hover.
+     */
+    private scrollArea: KupScrollOnHoverElement = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -222,6 +227,7 @@ export class KupTabBar {
     }
 
     componentDidLoad() {
+        this.kupManager.scrollOnHover.register(this.scrollArea);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -292,7 +298,13 @@ export class KupTabBar {
                 <div id="kup-component">
                     <div class="tab-bar" role="tablist">
                         <div class="tab-scroller">
-                            <div class="tab-scroller__scroll-area">
+                            <div
+                                class="tab-scroller__scroll-area"
+                                ref={(el: HTMLElement) =>
+                                    (this.scrollArea =
+                                        el as KupScrollOnHoverElement)
+                                }
+                            >
                                 <div class="tab-scroller__scroll-content">
                                     {tabBar}
                                 </div>
@@ -305,6 +317,7 @@ export class KupTabBar {
     }
 
     disconnectedCallback() {
+        this.kupManager.scrollOnHover.unregister(this.scrollArea);
         this.kupManager.theme.unregister(this);
     }
 }

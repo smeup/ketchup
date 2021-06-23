@@ -47,7 +47,6 @@
         "@material/list": "^11.0.0",
         "@material/menu": "^11.0.0",
         "@material/ripple": "^11.0.0",
-        "@material/tab-bar": "^11.0.0",
         "@material/textfield": "^11.0.0",
         "@material/top-app-bar": "^11.0.0",
         "@types/echarts": "^4.8.0",
