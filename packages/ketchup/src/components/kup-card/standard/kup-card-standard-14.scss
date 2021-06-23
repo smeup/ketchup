@@ -68,7 +68,7 @@
   }
 
   .sub-chip {
-    max-width: 40vw;
+    max-width: 25vw;
     overflow: auto;
     box-shadow: 0 3px 2px -2px var(--kup-border-color);
   }
@@ -92,6 +92,12 @@
 
   .sub-autocomplete {
     padding-top: 1em;
+
+    kup-autocomplete {
+      margin: auto;
+      padding: 0.5em 0;
+      width: max-content;
+    }
   }
 
   .sub-switch {
@@ -101,7 +107,7 @@
   }
 
   .sub-tree {
-    max-height: 40vh;
+    max-height: 25vh;
     overflow: auto;
   }
 

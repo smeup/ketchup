@@ -35,7 +35,17 @@ export class KupDebug {
             : 250;
     logs: KupDebugLog[] = [];
     #debugWidget: HTMLKupCardElement = null;
-    #initialized: boolean = false;
+    /**
+     * Initializes KupDebug.
+     */
+    constructor() {
+        document.addEventListener('kupLanguageChange', () => {
+            if (this.active && this.#debugWidget) {
+                this.hideWidget();
+                this.showWidget();
+            }
+        });
+    }
     /**
      * Allows the download of props by creating a temporary clickable anchor element.
      */
@@ -43,9 +53,8 @@ export class KupDebug {
         const dataStr: string =
             'data:text/json;charset=utf-8,' +
             encodeURIComponent(JSON.stringify(res, null, 2));
-        const downloadAnchorNode: HTMLAnchorElement = document.createElement(
-            'a'
-        );
+        const downloadAnchorNode: HTMLAnchorElement =
+            document.createElement('a');
         downloadAnchorNode.setAttribute('href', dataStr);
         downloadAnchorNode.setAttribute('download', 'kup_props.json');
         document.body.appendChild(downloadAnchorNode);
@@ -56,9 +65,8 @@ export class KupDebug {
      * Creates the debug widget.
      */
     private showWidget(): void {
-        const debugWidget: HTMLKupCardElement = document.createElement(
-            'kup-card'
-        );
+        const debugWidget: HTMLKupCardElement =
+            document.createElement('kup-card');
         const languages: string[] = dom.ketchup.language.getLanguages();
         const languagesListData: ComponentListElement[] = [];
         for (let index = 0; index < languages.length; index++) {
@@ -312,18 +320,6 @@ export class KupDebug {
         }
     }
     /**
-     * Initializes the class' elements.
-     */
-    initialize(): void {
-        document.addEventListener('kupLanguageChange', () => {
-            if (this.active && this.#debugWidget) {
-                this.hideWidget();
-                this.showWidget();
-            }
-        });
-        this.#initialized = true;
-    }
-    /**
      * Dumps the stored logs.
      */
     dump(): void {
@@ -400,9 +396,6 @@ export class KupDebug {
      * @param {boolean} value - If this argument is provided, the debug status will be forced to its value.
      */
     toggle(value?: boolean): void {
-        if (!this.#initialized) {
-            this.initialize();
-        }
         if (typeof value !== 'boolean') {
             this.active = !this.active;
         } else {
@@ -557,9 +550,8 @@ export class KupDebug {
                     if (!props.descriptions[el.rootElement.tagName]) {
                         try {
                             el.getProps(true).then((res: GenericObject) => {
-                                props.descriptions[
-                                    el.rootElement.tagName
-                                ] = res;
+                                props.descriptions[el.rootElement.tagName] =
+                                    res;
                             });
                         } catch (error) {
                             this.logMessage(

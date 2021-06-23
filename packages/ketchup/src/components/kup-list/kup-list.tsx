@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
     Watch,
 } from '@stencil/core';
 
@@ -249,11 +248,14 @@ export class KupList {
         });
     }
 
-    onKupClick(
-        e: CustomEvent & { target: HTMLLIElement },
-        item: ComponentListElement,
-        index: number
-    ) {
+    onKupClick(e: MouseEvent, item: ComponentListElement, index: number) {
+        let el: HTMLLIElement = null;
+        if ((e.target as HTMLElement).tagName === 'LI') {
+            el = e.target as HTMLLIElement;
+        } else {
+            el = (e.target as HTMLElement).closest('li');
+        }
+        el.blur();
         this.onKupClickInternalUse(e.target, item, index);
     }
 
@@ -442,8 +444,8 @@ export class KupList {
                 }
                 onClick={
                     !this.selectable
-                        ? (e: any) => e.stopPropagation()
-                        : (e: any) => this.onKupClick(e, item, index)
+                        ? (e: MouseEvent) => e.stopPropagation()
+                        : (e: MouseEvent) => this.onKupClick(e, item, index)
                 }
                 onKeyUp={
                     !this.selectable
