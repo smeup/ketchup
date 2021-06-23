@@ -68,21 +68,33 @@ export interface CellData {
 }
 
 export interface Cell {
+    value: string;
+    cardID?: number;
+    cssClass?: string;
+    data?: CellData;
+    displayedValue?: string;
+    icon?: string;
+    info?: KupCellInfo;
+    isEditable?: boolean;
     obj?: {
         t: string;
         p: string;
         k: string;
     };
-    value: string;
-    displayedValue?: string;
-    style?: GenericMap;
     shape?: string;
-    data?: CellData;
-    cardID?: number;
-    cssClass?: string;
-    icon?: string;
+    style?: GenericMap;
     title?: string;
-    isEditable?: boolean;
+}
+/**
+ * Information about the cell, displayed before the content.
+ *
+ * @export
+ * @interface KupCellInfo
+ */
+export interface KupCellInfo {
+    color?: string;
+    icon?: string;
+    message: string;
 }
 
 export interface CellsHolder {
@@ -107,6 +119,16 @@ export interface Column {
     formula?: string;
     valuesForFilter?: string[];
     isKey?: boolean;
+    children?: ColumnChild[];
+}
+export interface ColumnChild {
+    name: string;
+    obj: {
+        t: string;
+        p: string;
+        k: string;
+    };
+    icon?: string;
 }
 
 export interface Row extends Identifiable {
@@ -213,12 +235,14 @@ export enum ShowGrid {
 // }
 
 export interface KupDataTableCellButtonClick {
+    comp: any;
     cell: Cell;
     column: Column;
     row: Row;
 }
 
 export interface KupDataTableCellTextFieldInput {
+    comp: any;
     cell: Cell;
     column: Column;
     row: Row;
@@ -235,6 +259,8 @@ export enum LoadMoreMode {
 export const KupDataTableColumnDragType = 'text/kup-data-table-column-drag';
 export const KupDataTableColumnDragRemoveType =
     'text/kup-data-table-column-drag-remove';
+export const KupDataTableColumnDragGroupType =
+    'text/kup-data-table-column-drag-group';
 export const KupDataTableRowDragType = 'text/kup-data-table-row-drag';
 
 export interface KupDataTableSortedColumnIndexes {

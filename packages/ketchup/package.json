@@ -1,6 +1,6 @@
 {
     "name": "ketchup",
-    "version": "1.0.12-rc",
+    "version": "1.0.13-rc",
     "keywords": [
         "Sme.UP",
         "KetchUP",
@@ -42,6 +42,7 @@
         "@material/button": "^11.0.0",
         "@material/checkbox": "^11.0.0",
         "@material/chips": "^11.0.0",
+        "@material/fab": "^11.0.0",
         "@material/form-field": "^11.0.0",
         "@material/icon-button": "^11.0.0",
         "@material/layout-grid": "^11.0.0",

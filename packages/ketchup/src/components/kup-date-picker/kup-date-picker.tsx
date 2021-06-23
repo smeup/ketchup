@@ -14,7 +14,10 @@ import {
 } from '@stencil/core';
 
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -362,9 +365,8 @@ export class KupDatePicker {
     ) {
         let newValue = eventDetailValue;
         if (isValidFormattedStringDate(eventDetailValue)) {
-            newValue = formattedStringToDefaultUnformattedStringDate(
-                eventDetailValue
-            );
+            newValue =
+                formattedStringToDefaultUnformattedStringDate(eventDetailValue);
             this.refreshPickerComponentValue(newValue);
             if (isOnInputEvent != true) {
                 this.setValue(newValue);
@@ -433,9 +435,10 @@ export class KupDatePicker {
 
         let textFieldWidth = null;
         if (textfieldEl != null) {
-            textFieldWidth = textfieldEl.shadowRoot.querySelector(
-                '.mdc-text-field'
-            ).clientWidth;
+            textFieldWidth =
+                textfieldEl.shadowRoot.querySelector(
+                    '.mdc-text-field'
+                ).clientWidth;
             textfieldEl.classList.add('toggled');
             textfieldEl.emitSubmitEventOnEnter = false;
         }
@@ -1007,9 +1010,10 @@ export class KupDatePicker {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

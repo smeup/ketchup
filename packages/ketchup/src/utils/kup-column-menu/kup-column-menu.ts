@@ -1,14 +1,14 @@
 import type { CardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
-import type { KupCard } from '../../components/kup-card/kup-card';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import type { KupDynamicPositionElement } from '../kup-dynamic-position/kup-dynamic-position-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
+import { KupDynamicPositionPlacement } from '../kup-dynamic-position/kup-dynamic-position-declarations';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import type {
     Column,
+    ColumnChild,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { unsetTooltip } from '../helpers';
@@ -31,9 +31,21 @@ import {
     KupLanguageSearch,
     KupLanguageGrouping,
     KupLanguageCheckbox,
+    KupLanguageGeneric,
+    KupLanguageRow,
 } from '../kup-language/kup-language-declarations';
+import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { KupColumnMenuIds } from './kup-column-menu-declarations';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import {
+    FChipData,
+    FChipsProps,
+    FChipType,
+} from '../../f-components/f-chip/f-chip-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
+
 /**
  * Definition and events of the column menu card.
  * @module KupColumnMenu
@@ -43,18 +55,15 @@ export class KupColumnMenu {
     filtersRowsInstance = new FiltersRows();
     /**
      * Function called by the component when the column menu must be opened.
-     * @param {Event} event - The event itself.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {string} column - Name of the column.
      * @param {KupTooltip} tooltip - Tooltip of the component, when present.
      */
     open(
-        event: Event,
         comp: KupDataTable | KupTree,
         column: string,
         tooltip?: KupTooltip
     ): void {
-        event.preventDefault();
         if (tooltip) {
             unsetTooltip(tooltip);
         }
@@ -62,43 +71,47 @@ export class KupColumnMenu {
             comp.filters,
             column
         );
-        comp.setColumnMenu(column);
     }
     /**
      * Function called by the component when the column menu must be closed.
-     * @param {Event} event - The event itself.
-     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {HTMLKupCardElement} card - Column menu card.
      */
-    close(event: Event, comp: KupDataTable | KupTree): void {
-        if (event) {
-            event.stopPropagation();
-        }
-        comp.setColumnMenu(null);
+    close(card: HTMLKupCardElement): void {
+        card.menuVisible = false;
     }
     /**
      * Function called to reposition the column menu card to the appropriate column.
-     * Note that focus() is mandatory in order to properly close the card on blur (along with the tab-index="0" attribute on the element).
+     * Note that focus() is mandatory in order to properly close the card on blur (along with the tab-index="-1" attribute on the element).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     reposition(comp: KupDataTable | KupTree): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: any = root.querySelector('#column-menu');
+            const card: HTMLKupCardElement = root.querySelector(
+                '#' + KupColumnMenuIds.CARD_COLUMN_MENU
+            );
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
                     'th[data-column="' + column + '"]'
                 );
-                if (dom.ketchup.dynamicPosition.isRegistered(card)) {
-                    dom.ketchup.dynamicPosition.changeAnchor(card, wrapper);
-                } else {
-                    dom.ketchup.dynamicPosition.register(card, wrapper);
-                    dom.ketchup.dynamicPosition.start(
-                        card as KupDynamicPositionElement
+                if (dom.ketchup.dynamicPosition.isRegistered(card as any)) {
+                    dom.ketchup.dynamicPosition.changeAnchor(
+                        card as any,
+                        wrapper
                     );
-                    card.menuVisible = true;
-                    card.focus();
+                } else {
+                    dom.ketchup.dynamicPosition.register(
+                        card as any,
+                        wrapper,
+                        0,
+                        KupDynamicPositionPlacement.AUTO,
+                        true
+                    );
                 }
+                dom.ketchup.dynamicPosition.start(card as any);
+                card.menuVisible = true;
+                card.focus();
             }
         }
     }
@@ -106,21 +119,31 @@ export class KupColumnMenu {
      * Function called by the column menu card to prepare its 'data' prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
+     * @param {CardData} currentData - 'data' prop of the column menu card when it's already initialized.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
-    prepData(comp: KupDataTable | KupTree, column: Column): CardData {
-        return {
-            button: this.prepButton(comp, column),
-            checkbox: this.prepCheckbox(comp, column),
-            datepicker: this.prepIntervalDatePicker(comp, column),
-            textfield:
-                !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
-                    column
-                )
-                    ? this.prepTextfield(comp, column)
-                    : this.prepIntervalTextfield(comp, column),
-            timepicker: this.prepIntervalTimePicker(comp, column),
-        };
+    prepData(
+        comp: KupDataTable | KupTree,
+        column: Column,
+        currentData?: CardData
+    ): CardData {
+        const data: CardData = currentData ? { ...currentData } : {};
+        data.button = this.prepButton(comp, column);
+        data.checkbox = this.prepCheckbox(comp, column);
+        data.chip = this.prepChip(comp, column);
+        data.datepicker = this.prepIntervalDatePicker(comp, column);
+        data.object = column.obj ? [column.obj] : null;
+        data.switch = this.prepSwitch(comp, column);
+        if (!currentData) {
+            data.tabbar = this.prepTabBar(comp, column);
+            data.text = [column.title];
+        }
+        data.textfield =
+            !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(column)
+                ? this.prepTextfield(comp, column)
+                : this.prepIntervalTextfield(comp, column);
+        data.timepicker = this.prepIntervalTimePicker(comp, column);
+        return data;
     }
     /**
      * Handles the column menu's button prop.
@@ -129,28 +152,22 @@ export class KupColumnMenu {
      * @returns {GenericObject[]} Buttons props.
      */
     prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
-        let props: GenericObject[] = [];
-        if (
-            !FiltersColumnMenu.isTree(comp) &&
-            (comp as KupDataTable).showGroups
-        ) {
-            props.push({
-                className: 'printable',
-                'data-storage': {
-                    columnName: column.name,
-                },
-                icon: 'book',
-                id: 'group',
-                title:
-                    comp.getGroupByName(column.name) != null
-                        ? dom.ketchup.language.translate(
-                              KupLanguageGrouping.DISABLE
-                          )
-                        : dom.ketchup.language.translate(
-                              KupLanguageGrouping.ENABLE
-                          ),
-            });
-        }
+        const props: GenericObject[] = [];
+        props.push({
+            className: 'printable',
+            icon: 'open-in-new',
+            id: KupColumnMenuIds.BUTTON_OPEN_IN_NEW,
+        });
+        props.push({
+            className: 'printable',
+            icon: 'search',
+            id: KupColumnMenuIds.BUTTON_SEARCH,
+        });
+        props.push({
+            className: 'printable',
+            icon: 'add',
+            id: KupColumnMenuIds.BUTTON_NEW,
+        });
         if (comp.removableColumns) {
             props.push({
                 className: 'printable',
@@ -158,7 +175,7 @@ export class KupColumnMenu {
                     column: column,
                 },
                 icon: 'table-column-remove',
-                id: 'remove',
+                id: KupColumnMenuIds.BUTTON_REMOVE,
                 title: dom.ketchup.language.translate(KupLanguageColumn.HIDE),
             });
         }
@@ -166,15 +183,6 @@ export class KupColumnMenu {
             comp.enableExtraColumns &&
             dom.ketchup.objects.canHaveExtraColumns(column.obj)
         ) {
-            props.push({
-                className: 'printable',
-                'data-storage': {
-                    columnName: column.name,
-                },
-                icon: 'table-column-plus-after',
-                id: 'add',
-                title: dom.ketchup.language.translate(KupLanguageColumn.ADD),
-            });
             if (dom.ketchup.objects.canHaveAutomaticDerivedColumn(column.obj)) {
                 props.push({
                     className: 'printable',
@@ -182,12 +190,19 @@ export class KupColumnMenu {
                         columnName: column.name,
                     },
                     icon: 'label',
-                    id: 'description',
+                    id: KupColumnMenuIds.BUTTON_DESCRIPTION,
                     title: dom.ketchup.language.translate(
                         KupLanguageColumn.ADD_DESCRIPTION
                     ),
                 });
             }
+            props.push({
+                className: 'printable',
+                label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
+                id: KupColumnMenuIds.BUTTON_APPLY,
+                styling: FButtonStyling.FLAT,
+                title: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
+            });
         }
         return props;
     }
@@ -201,7 +216,7 @@ export class KupColumnMenu {
         comp: KupDataTable | KupTree,
         column: Column
     ): GenericObject[] {
-        let props: GenericObject[] = [];
+        const props: GenericObject[] = [];
         if (
             comp.showFilters &&
             (dom.ketchup.objects.isStringObject(column.obj) ||
@@ -222,7 +237,7 @@ export class KupColumnMenu {
                         column: column,
                         value: null,
                     },
-                    id: 'global-checkbox',
+                    id: KupColumnMenuIds.CHECKBOX_GLOBAL,
                     label: dom.ketchup.language.translate(
                         KupLanguageCheckbox.ALL
                     ),
@@ -261,6 +276,125 @@ export class KupColumnMenu {
         return props;
     }
     /**
+     * Handles the column menu's chip prop.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     * @returns {GenericObject[]} Chips props (only 1 is handled).
+     */
+    prepChip(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+        let props: GenericObject[] = [];
+        const chipProps: FChipsProps = {};
+        if (column.children) {
+            const chipData: FChipData[] = [];
+            for (let index = 0; index < column.children.length; index++) {
+                const child: ColumnChild = column.children[index];
+                let childColumn: Column = null;
+                try {
+                    if (FiltersColumnMenu.isTree(comp)) {
+                        (comp as KupTree).columns;
+                        childColumn = (comp as KupTree).columns.find(
+                            (x: Column) => x.name === child.name
+                        );
+                    } else {
+                        childColumn = (comp as KupDataTable).data.columns.find(
+                            (x: Column) => x.name === child.name
+                        );
+                    }
+                } catch (error) {
+                    dom.ketchup.debug.logMessage(
+                        this,
+                        'Child column not found (' + child.name + ')!' + error,
+                        KupDebugCategory.ERROR
+                    );
+                }
+                chipData.push({
+                    icon: child.icon ? child.icon : null,
+                    label: childColumn ? childColumn.title : '*Not found!',
+                    obj: child.obj ? child.obj : null,
+                    value: childColumn ? childColumn.name : '*NOTFND',
+                });
+            }
+            chipProps.dataSet = { initialData: [...chipData] };
+            chipProps.data = chipData;
+        }
+        chipProps.type = FChipType.INPUT;
+        props.push(chipProps);
+        return props;
+    }
+    /**
+     * Handles the column menu's switch prop.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     * @returns {GenericObject[]} Switches props.
+     */
+    prepSwitch(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+        const props: GenericObject[] = [];
+        if (!FiltersColumnMenu.isTree(comp)) {
+            if (!dom.ketchup.objects.isEmptySmeupObject(column.obj)) {
+                props.push({
+                    'data-storage': {
+                        columnName: column.name,
+                    },
+                    checked: column.isKey ? true : false,
+                    id: KupColumnMenuIds.SWITCH_KEY,
+                    label: dom.ketchup.language.translate(KupLanguageRow.KEY),
+                    leadingLabel: true,
+                });
+            }
+            if ((comp as KupDataTable).showGroups) {
+                const isGroupActive: boolean =
+                    comp.getGroupByName(column.name) != null;
+                props.push({
+                    'data-storage': {
+                        columnName: column.name,
+                    },
+                    checked: isGroupActive ? true : false,
+                    id: KupColumnMenuIds.SWITCH_GROUP,
+                    label: dom.ketchup.language.translate(
+                        KupLanguageGrouping.GROUPS
+                    ),
+                    leadingLabel: true,
+                });
+            }
+        }
+        return props;
+    }
+    /**
+     * Handles the column menu's tabbar prop.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @returns {GenericObject[]} Tab bar props.
+     */
+    prepTabBar(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+        const props: GenericObject[] = [{ data: [] }];
+        const data: ComponentTabBarElement[] = props[0].data;
+        if (comp.showFilters) {
+            data.push({
+                text: dom.ketchup.language.translate(
+                    KupLanguageGeneric.FILTERS
+                ),
+                value: KupLanguageGeneric.FILTERS,
+            });
+        }
+        if (
+            (comp.enableExtraColumns &&
+                dom.ketchup.objects.canHaveExtraColumns(column.obj)) ||
+            comp.removableColumns
+        ) {
+            data.push({
+                text: dom.ketchup.language.translate(KupLanguageColumn.COLUMNS),
+                value: KupLanguageColumn.COLUMNS,
+            });
+        }
+        data.push({
+            icon: 'settings',
+            value: KupLanguageGeneric.SETTINGS,
+        });
+        if (data.length > 0) {
+            data[0].active = true;
+        }
+        return props;
+    }
+    /**
      * Handles the column menu's textfield prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
@@ -292,7 +426,7 @@ export class KupColumnMenu {
                     },
                     fullWidth: true,
                     icon: 'magnify',
-                    id: 'filter',
+                    id: KupColumnMenuIds.TEXTFIELD_FILTER,
                     initialValue: filterInitialValue,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
@@ -339,7 +473,7 @@ export class KupColumnMenu {
             },
             fullWidth: true,
             helperWhenFocused: true,
-            id: 'filterFrom',
+            id: KupColumnMenuIds.TEXTFIELD_FROM,
             initialValue: initialValueFrom,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.FROM),
@@ -354,7 +488,7 @@ export class KupColumnMenu {
             },
             fullWidth: true,
             helperWhenFocused: true,
-            id: 'filterTo',
+            id: KupColumnMenuIds.TEXTFIELD_TO,
             initialValue: initialValueTo,
             isClearable: true,
             label: dom.ketchup.language.translate(KupLanguageSearch.TO),
@@ -400,7 +534,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterFrom',
+                    id: KupColumnMenuIds.TEXTFIELD_FROM,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
@@ -420,7 +554,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterTo',
+                    id: KupColumnMenuIds.TEXTFIELD_TO,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
@@ -492,7 +626,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterFrom',
+                    id: KupColumnMenuIds.TEXTFIELD_FROM,
                     isClearable: true,
                     label: dom.ketchup.language.translate(
                         KupLanguageSearch.FROM
@@ -512,7 +646,7 @@ export class KupColumnMenu {
                 'kup-text-field': {
                     fullWidth: true,
                     helperWhenFocused: true,
-                    id: 'filterTo',
+                    id: KupColumnMenuIds.TEXTFIELD_TO,
                     isClearable: true,
                     label: dom.ketchup.language.translate(KupLanguageSearch.TO),
                 },
@@ -528,30 +662,15 @@ export class KupColumnMenu {
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
-        const card: KupCard = cardEvent.detail.card;
-        const cardData = card.data;
-        const compEvent = cardEvent.detail.event;
-        const compID = compEvent.detail.id;
-        let dataStorage: GenericObject[];
-        let compEventType: string = compEvent.type;
-        let isClickEvent = compEventType.toLowerCase().endsWith('click');
-        let cardDataId = '';
-        if (compEventType.indexOf('kupTextField') == 0) {
-            cardDataId = 'textfield';
-        } else if (compEventType.indexOf('kupDatePicker') == 0) {
-            cardDataId = 'datepicker';
-        } else if (compEventType.indexOf('kupTimePicker') == 0) {
-            cardDataId = 'timepicker';
-        } else if (compEventType.indexOf('kupCheckbox') == 0) {
-            cardDataId = 'checkbox';
-        } else if (compEventType.indexOf('kupButton') == 0) {
-            cardDataId = 'button';
-        }
-        if (cardDataId != '') {
-            dataStorage = cardData[cardDataId].find((x) => x.id === compID)[
-                'data-storage'
-            ];
-        }
+        const card: HTMLKupCardElement = cardEvent.detail.card;
+        const compEvent: CustomEvent = cardEvent.detail.event;
+        const compID: string = compEvent.detail.id;
+        const subcomp: HTMLElement = compEvent.target as HTMLElement;
+        const dataStorage: GenericObject[] = subcomp['data-storage'];
+        const compEventType: string = compEvent.type;
+        const isClickEvent: boolean = compEventType
+            .toLowerCase()
+            .endsWith('click');
         switch (compEvent.type) {
             case 'kupCheckboxChange':
                 this.checkboxChange(
@@ -566,23 +685,31 @@ export class KupColumnMenu {
                 break;
             case 'kupButtonClick':
                 switch (compID) {
-                    case 'add':
-                        this.addColumn(comp, dataStorage['columnName']);
-                        break;
-                    case 'description':
+                    case KupColumnMenuIds.BUTTON_DESCRIPTION:
                         this.addDescriptionColumn(
                             comp,
                             dataStorage['columnName']
                         );
                         break;
-                    case 'group':
+                    case KupColumnMenuIds.BUTTON_REMOVE:
+                        this.removeColumn(comp, dataStorage['column']);
+                        break;
+                }
+                break;
+            case 'kupSwitchChange':
+                switch (compID) {
+                    case KupColumnMenuIds.SWITCH_GROUP:
                         this.toggleGroup(
                             comp as KupDataTable,
                             dataStorage['columnName']
                         );
                         break;
-                    case 'remove':
-                        this.removeColumn(comp, dataStorage['column']);
+                    case KupColumnMenuIds.SWITCH_KEY:
+                        this.setKey(
+                            comp as KupDataTable,
+                            dataStorage['columnName'],
+                            compEvent.detail.value
+                        );
                         break;
                 }
                 break;
@@ -590,7 +717,7 @@ export class KupColumnMenu {
             case 'kupDatePickerTextFieldSubmit':
             case 'kupTimePickerTextFieldSubmit':
                 this.saveTextualFilters(comp, dataStorage['column']);
-                this.close(compEvent, comp);
+                this.close(card);
                 break;
             case 'kupTextFieldClearIconClick':
             case 'kupDatePickerClearIconClick':
@@ -758,24 +885,32 @@ export class KupColumnMenu {
     toggleGroup(comp: KupDataTable, column: string): void {
         const group: GroupObject = comp.getGroupByName(column);
         if (group !== null) {
-            const index = comp.groups.indexOf(group);
+            const index: number = comp.groups.indexOf(group);
             comp.groups.splice(index, 1);
             comp.groups = [...comp.groups];
         } else {
             comp.groups = [...comp.groups, { column, visible: true }];
         }
-        this.close(null, comp);
+        comp.refresh();
     }
     /**
-     * Emits the kupAddColumn event on the given component.
-     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * Sets the given column as key for the table.
+     * @param {KupDataTable} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
+     * @param {string} value - The status of the switch.
      */
-    addColumn(comp: KupDataTable | KupTree, column: string): void {
-        comp.kupAddColumn.emit({
-            column: column,
-        });
-        this.close(null, comp);
+    setKey(comp: KupDataTable, column: string, value: string): void {
+        const columns: Column[] = comp.data.columns;
+        const switchOn: boolean = value === 'on' ? true : false;
+        for (let index = 0; index < columns.length; index++) {
+            const col: Column = columns[index];
+            if (col.name === column) {
+                col.isKey = switchOn;
+            } else if (switchOn) {
+                col.isKey = false;
+            }
+        }
+        comp.refresh();
     }
     /**
      * The given column will be set to be hidden.
@@ -791,7 +926,7 @@ export class KupColumnMenu {
         } else {
             column.visible = false;
         }
-        this.close(null, comp);
+        comp.closeColumnMenu();
     }
     /**
      * Adds the description column (or code column, if it is a description).
@@ -802,6 +937,6 @@ export class KupColumnMenu {
         comp.kupAddCodeDecodeColumn.emit({
             column: column,
         });
-        this.close(null, comp);
+        comp.closeColumnMenu();
     }
 }

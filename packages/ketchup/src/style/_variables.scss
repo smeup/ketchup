@@ -48,3 +48,8 @@
   -webkit-mask: var(--kup-clear-icon);
   mask: var(--kup-clear-icon);
 }
+
+.icon-container.key {
+  -webkit-mask: var(--kup-key-icon);
+  mask: var(--kup-key-icon);
+}

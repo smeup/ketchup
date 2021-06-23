@@ -163,9 +163,8 @@ export class FiltersRows extends Filters {
                 getColumnByName(columns, key)
             );
 
-            const _filterIsNegative: boolean = this.filterIsNegative(
-                filterValue
-            );
+            const _filterIsNegative: boolean =
+                this.filterIsNegative(filterValue);
             let b1 = this.isFilterCompliantForCell(cell, filterValue, interval);
             let b2 = _filterIsNegative;
             if (
@@ -382,7 +381,7 @@ export class FiltersRows extends Filters {
             comp.getRows(),
             tmpFilters,
             globalFilterValue,
-            comp.getColumns(),
+            comp.getVisibleColumns(),
             columnFilters
         );
 

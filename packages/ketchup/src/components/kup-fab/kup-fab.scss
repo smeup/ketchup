@@ -1,0 +1,13 @@
+@import "@material/fab/mdc-fab";
+
+
+:host {
+  display: block;
+}
+
+.container {
+  display: relative;
+  margin: auto;
+  max-width: 100%;
+  min-height: 100%;
+}

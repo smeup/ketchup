@@ -144,10 +144,12 @@ export class FiltersTreeItems extends FiltersRows {
     }
 
     private setAllVisible(items: TreeNode[]) {
-        items.forEach((element) => {
-            element.visible = true;
-            this.setAllVisible(element.children);
-        });
+        if (items) {
+            items.forEach((element) => {
+                element.visible = true;
+                this.setAllVisible(element.children);
+            });
+        }
     }
 
     extractColumnValues(

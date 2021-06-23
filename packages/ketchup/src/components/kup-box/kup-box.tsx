@@ -737,24 +737,26 @@ export class KupBox {
         }
     }
 
-    private getEventDetails(
-        el: HTMLElement
-    ): {
+    private getEventDetails(el: HTMLElement): {
         boxObject: HTMLElement;
         row: BoxRow;
+        column: string;
         cell: Cell;
     } {
         const boxObject: HTMLDivElement = el.closest('.box-object');
         let cell: Cell = null;
         let row: BoxRow = null;
+        let column: string = null;
         if (boxObject) {
             cell = boxObject['data-cell'];
             row = boxObject['data-row'];
+            column = boxObject['data-column'];
         }
 
         return {
             boxObject: boxObject ? boxObject : null,
             row: row ? row : null,
+            column: column ? column : null,
             cell: cell ? cell : null,
         };
     }
@@ -763,6 +765,7 @@ export class KupBox {
         const details: {
             boxObject: HTMLElement;
             row: BoxRow;
+            column: string;
             cell: Cell;
         } = this.getEventDetails(e.target as HTMLElement);
         this.kupBoxContextMenu.emit({
@@ -770,7 +773,13 @@ export class KupBox {
         });
         if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
             e.preventDefault();
-            setTooltip(e, details.row.id, details.cell, this.tooltip);
+            setTooltip(
+                e,
+                details.row.id,
+                details.column,
+                details.cell,
+                this.tooltip
+            );
             return;
         }
     }
@@ -1699,7 +1708,13 @@ export class KupBox {
                 tipEvents = {
                     onMouseEnter: (ev) => {
                         if (_hasTooltip) {
-                            setTooltip(ev, row.id, cell, this.tooltip);
+                            setTooltip(
+                                ev,
+                                row.id,
+                                boxObject.column,
+                                cell,
+                                this.tooltip
+                            );
                         } else if (!_hasTooltip) {
                             unsetTooltip(this.tooltip);
                         }
@@ -2038,7 +2053,8 @@ export class KupBox {
                                 unsetTooltip(this.tooltip);
                             }}
                             ref={(el: HTMLElement) =>
-                                (this.boxContainer = el as KupScrollOnHoverElement)
+                                (this.boxContainer =
+                                    el as KupScrollOnHoverElement)
                             }
                         >
                             {boxContent}

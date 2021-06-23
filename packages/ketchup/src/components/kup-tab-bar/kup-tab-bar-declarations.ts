@@ -7,8 +7,9 @@ export enum KupTabBarProps {
     data = 'List of elements.',
 }
 export interface ComponentTabBarElement {
-    text?: string;
-    icon?: string;
+    value: string;
     active?: boolean;
+    icon?: string;
+    text?: string;
     title?: string;
 }

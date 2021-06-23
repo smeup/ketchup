@@ -12,7 +12,10 @@ import {
     State,
 } from '@stencil/core';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -87,6 +90,8 @@ export class KupAutocomplete {
     })
     kupBlur: EventEmitter<{
         value: any;
+        id: string;
+        comp: KupAutocomplete;
     }>;
 
     @Event({
@@ -97,6 +102,8 @@ export class KupAutocomplete {
     })
     kupChange: EventEmitter<{
         value: any;
+        id: string;
+        comp: KupAutocomplete;
     }>;
 
     @Event({
@@ -107,6 +114,8 @@ export class KupAutocomplete {
     })
     kupClick: EventEmitter<{
         value: any;
+        id: string;
+        comp: KupAutocomplete;
     }>;
 
     @Event({
@@ -117,6 +126,8 @@ export class KupAutocomplete {
     })
     kupFocus: EventEmitter<{
         value: any;
+        id: string;
+        comp: KupAutocomplete;
     }>;
 
     @Event({
@@ -127,6 +138,8 @@ export class KupAutocomplete {
     })
     kupInput: EventEmitter<{
         value: any;
+        id: string;
+        comp: KupAutocomplete;
     }>;
 
     @Event({
@@ -137,6 +150,8 @@ export class KupAutocomplete {
     })
     kupIconClick: EventEmitter<{
         value: any;
+        id: string;
+        comp: KupAutocomplete;
     }>;
 
     @Event({
@@ -147,6 +162,8 @@ export class KupAutocomplete {
     })
     kupItemClick: EventEmitter<{
         value: any;
+        id: string;
+        comp: KupAutocomplete;
     }>;
 
     @Event({
@@ -158,6 +175,7 @@ export class KupAutocomplete {
     kupFilterChanged: EventEmitter<{
         filter: string;
         matchesMinimumCharsRequired: boolean;
+        comp: KupAutocomplete;
     }>;
 
     @Event({
@@ -168,6 +186,8 @@ export class KupAutocomplete {
     })
     kupTextFieldSubmit: EventEmitter<{
         value: any;
+        id: string;
+        comp: KupAutocomplete;
     }>;
 
     /**
@@ -258,6 +278,8 @@ export class KupAutocomplete {
         const { target } = e;
         this.kupBlur.emit({
             value: target.value,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -266,6 +288,8 @@ export class KupAutocomplete {
         this.consistencyCheck(undefined, e.target.value);
         this.kupChange.emit({
             value: this.value,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -273,6 +297,8 @@ export class KupAutocomplete {
         const { target } = e;
         this.kupClick.emit({
             value: target.value,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -280,6 +306,8 @@ export class KupAutocomplete {
         const { target } = e;
         this.kupFocus.emit({
             value: target.value,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -289,9 +317,10 @@ export class KupAutocomplete {
         if (this.openList(false)) {
             this.handleFilterChange(this.displayedValue, e.target);
         }
-
         this.kupInput.emit({
             value: this.value,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -305,6 +334,8 @@ export class KupAutocomplete {
         }
         this.kupIconClick.emit({
             value: target.value,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -312,13 +343,16 @@ export class KupAutocomplete {
         this.doConsistencyCheck = true;
         this.consistencyCheck(e);
         this.closeList();
-
         this.kupChange.emit({
             value: this.value,
+            id: this.rootElement.id,
+            comp: this,
         });
 
         this.kupItemClick.emit({
             value: this.value,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -328,6 +362,7 @@ export class KupAutocomplete {
             matchesMinimumCharsRequired:
                 newFilter && newFilter.length >= this.minimumChars,
             el: eventTarget,
+            comp: this,
         };
         if (this.serverHandledFilter && this.callBackOnFilterUpdate) {
             this.callBackOnFilterUpdate(detail)
@@ -418,11 +453,8 @@ export class KupAutocomplete {
         if (root) {
             const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
             if (f) {
-                const inputEl:
-                    | HTMLInputElement
-                    | HTMLTextAreaElement = f.querySelector(
-                    '.mdc-text-field__input'
-                );
+                const inputEl: HTMLInputElement | HTMLTextAreaElement =
+                    f.querySelector('.mdc-text-field__input');
                 const icon: HTMLElement = f.querySelector(
                     '.mdc-text-field__icon'
                 );
@@ -488,12 +520,10 @@ export class KupAutocomplete {
     }
 
     render() {
-        const fullHeight: boolean = this.rootElement.classList.contains(
-            'kup-full-height'
-        );
-        const fullWidth: boolean = this.rootElement.classList.contains(
-            'kup-full-width'
-        );
+        const fullHeight: boolean =
+            this.rootElement.classList.contains('kup-full-height');
+        const fullWidth: boolean =
+            this.rootElement.classList.contains('kup-full-width');
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
@@ -525,9 +555,10 @@ export class KupAutocomplete {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

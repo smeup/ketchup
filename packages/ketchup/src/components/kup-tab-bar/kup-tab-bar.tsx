@@ -63,8 +63,10 @@ export class KupTabBar {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: string;
         index: number;
         el: EventTarget;
+        value: string;
     }>;
 
     @Event({
@@ -121,8 +123,10 @@ export class KupTabBar {
         this.data[i].active = true;
 
         this.kupClick.emit({
+            id: this.rootElement.id,
             index: i,
             el: e.target,
+            value: this.data[i].value,
         });
     }
 
@@ -136,7 +140,7 @@ export class KupTabBar {
     private consistencyCheck() {
         let activeTabs: number = 0;
         let lastActiveOccurrence: number = 0;
-        if (this.data) {
+        if (this.data && this.data.length > 0) {
             for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i].active) {
                     activeTabs++;
@@ -190,11 +194,7 @@ export class KupTabBar {
 
     render() {
         if (!this.data || this.data.length === 0) {
-            this.kupManager.debug.logMessage(
-                this,
-                'Empty data.',
-                KupDebugCategory.WARNING
-            );
+            return;
         }
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
@@ -202,12 +202,14 @@ export class KupTabBar {
         let componentClass: string = 'mdc-tab-bar';
 
         for (let i = 0; i < this.data.length; i++) {
-            let tabClass: string = 'mdc-tab';
+            const tabClass: Record<string, boolean> = {
+                'mdc-tab': true,
+                'mdc-tab--active': this.data[i].active ? true : false,
+            };
             let indicatorClass: string = 'mdc-tab-indicator';
             let iconEl: HTMLElement = null;
 
             if (this.data[i].active) {
-                tabClass += ' mdc-tab--active';
                 indicatorClass += ' mdc-tab-indicator--active';
             }
 

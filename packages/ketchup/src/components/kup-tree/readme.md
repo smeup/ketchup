@@ -98,16 +98,27 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `kupAddColumn`                | When 'add column' menu item is clicked                                                                                            | `CustomEvent<{ column: string; }>`                                                                                                                           |
 | `kupDidLoad`                  |                                                                                                                                   | `CustomEvent<void>`                                                                                                                                          |
 | `kupDidUnload`                | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
-| `kupTreeContextMenu`          | Generic right click event on tree.                                                                                                | `CustomEvent<{ details: GenericObject; }>`                                                                                                                   |
+| `kupTreeColumnMenu`           | When the column menu is being opened/closed.                                                                                      | `CustomEvent<{ card: HTMLKupCardElement; open: boolean; }>`                                                                                                  |
+| `kupTreeContextMenu`          | Generic right click event on tree.                                                                                                | `CustomEvent<{ details: EventHandlerDetails; }>`                                                                                                             |
 | `kupTreeDynamicMassExpansion` |                                                                                                                                   | `CustomEvent<{ treeNodePath?: TreeNodePath; treeNode?: TreeNode; expandAll?: boolean; }>`                                                                    |
 | `kupTreeNodeButtonClicked`    |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
 | `kupTreeNodeCollapse`         | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
 | `kupTreeNodeDblClick`         |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
 | `kupTreeNodeExpand`           | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
-| `kupTreeNodeSelected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                                         |
+| `kupTreeNodeSelected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ id: string; treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                             |
 
 
 ## Methods
+
+### `closeColumnMenu() => Promise<void>`
+
+Closes any opened column menu.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `collapseAll() => Promise<void>`
 
@@ -139,6 +150,16 @@ Type: `Promise<GenericObject>`
 
 
 
+### `openColumnMenu(column: string) => Promise<void>`
+
+Opens the column menu of the given column.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -154,6 +175,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-card](../kup-card)
  - [kup-tooltip](../kup-tooltip)
 
 ### Depends on
@@ -197,20 +219,11 @@ graph TD;
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
   kup-tooltip --> kup-tree
+  kup-card --> kup-tree
+  kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge
-  kup-card --> kup-chip
-  kup-card --> kup-badge
-  kup-card --> kup-button
-  kup-card --> kup-checkbox
-  kup-card --> kup-combobox
-  kup-card --> kup-date-picker
-  kup-card --> kup-text-field
-  kup-card --> kup-time-picker
-  kup-card --> kup-data-table
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
   kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button

@@ -30,6 +30,7 @@ import {
     TreeNode,
     TreeNodePath,
     treeMainColumnName,
+    EventHandlerDetails,
 } from './kup-tree-declarations';
 
 import { MDCRipple } from '@material/ripple';
@@ -68,13 +69,19 @@ import {
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import type { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionCoordinates,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
     KupLanguageGeneric,
     KupLanguageSearch,
     KupLanguageTotals,
 } from '../../utils/kup-language/kup-language-declarations';
+import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -163,14 +170,14 @@ export class KupTree {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
-    @State()
-    private openedMenu: string = null;
     @State() private treeColumnVisible = true;
     /**
      * name of the column with the opened total menu
      */
     @State()
     private openedTotalMenu: string = null;
+    @State()
+    private columnMenuAnchor: string = null;
 
     /**
      * Auto select programmatic selectic node
@@ -292,7 +299,7 @@ export class KupTree {
     /**
      * Defines the current totals options.
      */
-    @Prop() totals: TotalsMap;
+    @Prop({ mutable: true }) totals: TotalsMap;
 
     //-------- State --------
     @State() selectedNodeString: string = '';
@@ -316,8 +323,14 @@ export class KupTree {
     private tooltip: KupTooltip;
     columnFilterTimeout: number;
     private columnMenuInstance: KupColumnMenu;
-    private filtersColumnMenuInstance: FiltersColumnMenu;
-    private filtersTreeItemsInstance: FiltersTreeItems;
+    private filtersColumnMenuInstance: FiltersColumnMenu =
+        new FiltersColumnMenu();
+    private filtersTreeItemsInstance: FiltersTreeItems = new FiltersTreeItems();
+    private totalMenuCoords: KupDynamicPositionCoordinates = null;
+    /**
+     * Reference to the column menu card.
+     */
+    private columnMenuCard: HTMLKupCardElement = null;
 
     //-------- Events --------
     /**
@@ -373,6 +386,7 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeNodeSelected: EventEmitter<{
+        id: string;
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         columnName: string;
@@ -415,7 +429,20 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeContextMenu: EventEmitter<{
-        details: GenericObject;
+        details: EventHandlerDetails;
+    }>;
+    /**
+     * When the column menu is being opened/closed.
+     */
+    @Event({
+        eventName: 'kupTreeColumnMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeColumnMenu: EventEmitter<{
+        card: HTMLKupCardElement;
+        open: boolean;
     }>;
     @Event({
         eventName: 'kupAddCodeDecodeColumn',
@@ -518,6 +545,37 @@ export class KupTree {
         return props;
     }
     /**
+     * Opens the column menu of the given column.
+     * @param {string} column - Name of the column.
+     */
+    @Method()
+    async openColumnMenu(column: string): Promise<void> {
+        this.columnMenuAnchor = column;
+        this.columnMenuCard.setAttribute('data-column', column);
+        this.columnMenuCard.data = this.columnMenuInstance.prepData(
+            this,
+            getColumnByName(this.getVisibleColumns(), column)
+        );
+        this.columnMenuInstance.open(this, column, this.tooltip);
+        this.columnMenuInstance.reposition(this);
+        this.kupTreeColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: true,
+        });
+    }
+    /**
+     * Closes any opened column menu.
+     */
+    @Method()
+    async closeColumnMenu(): Promise<void> {
+        this.columnMenuAnchor = null;
+        this.columnMenuInstance.close(this.columnMenuCard);
+        this.kupTreeColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: false,
+        });
+    }
+    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
@@ -531,10 +589,6 @@ export class KupTree {
 
     isTreeColumnVisible(): boolean {
         return this.treeColumnVisible;
-    }
-
-    setColumnMenu(column: string) {
-        this.openedMenu = column;
     }
 
     private checkScrollOnHover() {
@@ -601,8 +655,6 @@ export class KupTree {
         this.kupManager.theme.register(this);
 
         this.columnMenuInstance = new KupColumnMenu();
-        this.filtersColumnMenuInstance = new FiltersColumnMenu();
-        this.filtersTreeItemsInstance = new FiltersTreeItems();
 
         this.refreshStructureState();
 
@@ -644,8 +696,6 @@ export class KupTree {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-
-        this.columnMenuInstance.reposition(this);
         this.totalMenuPosition();
         this.checkScrollOnHover();
 
@@ -761,16 +811,11 @@ export class KupTree {
         }
     }
 
-    private closeMenu() {
-        this.openedMenu = null;
-    }
-
     private openTotalMenu(column: Column) {
         this.openedTotalMenu = column.name;
     }
 
     private closeMenuAndTooltip() {
-        this.closeMenu();
         unsetTooltip(this.tooltip);
     }
 
@@ -780,18 +825,7 @@ export class KupTree {
         this.openTotalMenu(column);
     }
 
-    private getEventDetails(
-        el: HTMLElement
-    ): {
-        area: string;
-        cell: Cell;
-        column: Column;
-        filterRemove: HTMLSpanElement;
-        row: Row;
-        td: HTMLTableDataCellElement;
-        th: HTMLTableHeaderCellElement;
-        tr: HTMLTableRowElement;
-    } {
+    private getEventDetails(el: HTMLElement): EventHandlerDetails {
         const isHeader: boolean = !!el.closest('thead'),
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
@@ -839,18 +873,24 @@ export class KupTree {
         };
     }
 
-    private contextMenuHandler(e: MouseEvent): void {
-        const details = this.getEventDetails(e.target as HTMLElement);
-        this.kupTreeContextMenu.emit({
-            details: details,
-        });
-        if (details.area === 'footer') {
+    private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
+        e.preventDefault();
+        const details: EventHandlerDetails = this.getEventDetails(
+            e.target as HTMLElement
+        );
+        if (details.area === 'header') {
+            if (details.th && details.column) {
+                this.openColumnMenu(details.column.name);
+                return details;
+            }
+        } else if (details.area === 'footer') {
             if (details.td && details.column) {
-                e.preventDefault();
+                this.totalMenuCoords = { x: e.clientX, y: e.clientY };
                 this.onTotalMenuOpen(details.column);
-                return;
+                return details;
             }
         }
+        return details;
     }
 
     private onJ4btnClicked(
@@ -886,6 +926,7 @@ export class KupTree {
                     .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
             this.kupTreeNodeSelected.emit({
+                id: this.rootElement.id,
                 treeNodePath: treeNodePath
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),
@@ -915,9 +956,8 @@ export class KupTree {
             // There are already children set in this TreeNode -> expand or collapse node and emit appropriate event
             if (treeNodeData.children && treeNodeData.children.length) {
                 // Updates expanded state and force rerender
-                treeNodeData[treeExpandedPropName] = !treeNodeData[
-                    treeExpandedPropName
-                ];
+                treeNodeData[treeExpandedPropName] =
+                    !treeNodeData[treeExpandedPropName];
                 if (ctrlKey) {
                     this.handleChildren(
                         treeNodeData,
@@ -961,9 +1001,8 @@ export class KupTree {
                         .then((childrenTreeNodes) => {
                             // Children returned successfully
                             treeNodeData.children = childrenTreeNodes;
-                            treeNodeData[treeExpandedPropName] = !treeNodeData[
-                                treeExpandedPropName
-                            ];
+                            treeNodeData[treeExpandedPropName] =
+                                !treeNodeData[treeExpandedPropName];
                             this.refresh();
 
                             // TreeNode is now expanded -> Fires expanded event
@@ -992,9 +1031,8 @@ export class KupTree {
                         tree: this,
                     });
 
-                    treeNodeData[treeExpandedPropName] = !treeNodeData[
-                        treeExpandedPropName
-                    ];
+                    treeNodeData[treeExpandedPropName] =
+                        !treeNodeData[treeExpandedPropName];
                 }
             }
         }
@@ -1070,7 +1108,7 @@ export class KupTree {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getColumns(),
+            this.getVisibleColumns(),
             treeExpandedPropName,
             this.filtersColumnMenuInstance
         );
@@ -1263,13 +1301,25 @@ export class KupTree {
                 eventHandlers = {
                     onContextMenu: (ev) => {
                         ev.preventDefault();
-                        setTooltip(ev, treeNodeData.id, cell, this.tooltip);
+                        setTooltip(
+                            ev,
+                            treeNodeData.id,
+                            null,
+                            cell,
+                            this.tooltip
+                        );
                     },
                 };
             } else {
                 eventHandlers = {
                     onMouseEnter: (ev) => {
-                        setTooltip(ev, treeNodeData.id, cell, this.tooltip);
+                        setTooltip(
+                            ev,
+                            treeNodeData.id,
+                            null,
+                            cell,
+                            this.tooltip
+                        );
                     },
                     onMouseLeave: () => {
                         unsetTooltip(this.tooltip);
@@ -1631,14 +1681,6 @@ export class KupTree {
             return (
                 <th
                     data-column={column.name}
-                    onContextMenu={(e: MouseEvent) =>
-                        this.columnMenuInstance.open(
-                            e,
-                            this,
-                            column.name,
-                            this.tooltip
-                        )
-                    }
                     style={this.getCellStyle(column.name, null)}
                 >
                     <span class="column-title">{column.title}</span>
@@ -2051,17 +2093,14 @@ export class KupTree {
 
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                '#totals-menu'
-            );
+            let menu: HTMLElement =
+                this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
-                let wrapper = menu.closest('td');
                 this.kupManager.dynamicPosition.register(
                     menu as KupDynamicPositionElement,
-                    wrapper,
+                    this.totalMenuCoords,
                     0,
-                    true,
-                    true
+                    KupDynamicPositionPlacement.TOP_RIGHT
                 );
                 this.kupManager.dynamicPosition.start(
                     menu as KupDynamicPositionElement
@@ -2142,7 +2181,11 @@ export class KupTree {
             // There are no TreeNodes, so we print a single cell with a caption
             treeNodes.push(
                 <tr>
-                    <td>Nessun elemento nell'albero</td>
+                    <td>
+                        {this.kupManager.language.translate(
+                            KupLanguageGeneric.EMPTY_DATA
+                        )}
+                    </td>
                 </tr>
             );
         }
@@ -2193,7 +2236,8 @@ export class KupTree {
                     <div
                         class="wrapper"
                         ref={(el: HTMLElement) =>
-                            (this.treeWrapperRef = el as KupScrollOnHoverElement)
+                            (this.treeWrapperRef =
+                                el as KupScrollOnHoverElement)
                         }
                     >
                         {filterField}
@@ -2201,7 +2245,9 @@ export class KupTree {
                             class="kup-tree"
                             data-show-columns={this.showColumns}
                             onContextMenu={(e: MouseEvent) =>
-                                this.contextMenuHandler(e)
+                                this.kupTreeContextMenu.emit({
+                                    details: this.contextMenuHandler(e),
+                                })
                             }
                         >
                             <thead
@@ -2221,31 +2267,44 @@ export class KupTree {
                         </table>
                     </div>
                     {tooltip}
-                    {this.openedMenu ? (
-                        <kup-card
-                            data={this.columnMenuInstance.prepData(
-                                this,
-                                getColumnByName(
-                                    this.getHeadingColumns(),
-                                    this.openedMenu
+                    <kup-card
+                        data={
+                            this.columnMenuAnchor
+                                ? this.columnMenuInstance.prepData(
+                                      this,
+                                      getColumnByName(
+                                          this.getVisibleColumns(),
+                                          this.columnMenuAnchor
+                                      ),
+                                      this.columnMenuCard.data
+                                  )
+                                : null
+                        }
+                        id={KupColumnMenuIds.CARD_COLUMN_MENU}
+                        isMenu={true}
+                        layoutNumber={14}
+                        onBlur={() => {
+                            if (
+                                this.kupManager.utilities.lastMouseDownPath.includes(
+                                    this.columnMenuCard
                                 )
-                            )}
-                            data-column={this.openedMenu}
-                            id="column-menu"
-                            isMenu={true}
-                            layoutNumber={12}
-                            onBlur={(e) =>
-                                this.columnMenuInstance.close(e, this)
+                            ) {
+                                this.columnMenuCard.focus();
+                            } else {
+                                this.closeColumnMenu();
                             }
-                            onClick={(e) => e.stopPropagation()}
-                            onKupCardEvent={(e) => {
-                                this.columnMenuInstance.eventHandlers(e, this);
-                            }}
-                            sizeX="auto"
-                            sizeY="auto"
-                            tabIndex={0}
-                        ></kup-card>
-                    ) : null}
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        onKupCardEvent={(e) => {
+                            this.columnMenuInstance.eventHandlers(e, this);
+                        }}
+                        ref={(el: HTMLKupCardElement) =>
+                            (this.columnMenuCard = el)
+                        }
+                        sizeX="auto"
+                        sizeY="auto"
+                        tabIndex={-1}
+                    ></kup-card>
                 </div>
             </Host>
         );
@@ -2254,9 +2313,10 @@ export class KupTree {
     disconnectedCallback() {
         this.kupManager.language.register(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> = this.rootElement.shadowRoot.querySelectorAll(
-            '.dynamic-position'
-        );
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
         if (dynamicPositionElements.length > 0) {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)

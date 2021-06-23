@@ -5,21 +5,22 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                    | Type                                                                            | Default              |
-| ------------- | -------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | -------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                                 | `string`                                                                        | `''`                 |
-| `data`        | --             | List of elements.                                                              | `FChipData[]`                                                                   | `[]`                 |
-| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default. | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
+| Property      | Attribute      | Description                                                                                                  | Type                                                                            | Default              |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | -------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                                                               | `string`                                                                        | `''`                 |
+| `data`        | --             | <span style="color:red">**[DEPRECATED]**</span> soon to be replaced by TreeNode[]<br/><br/>List of elements. | `FChipData[]`                                                                   | `[]`                 |
+| `dataNew`     | --             | List of elements.                                                                                            | `TreeNode[]`                                                                    | `[]`                 |
+| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default.                               | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
 
 
 ## Events
 
-| Event              | Description                                                | Type                                                         |
-| ------------------ | ---------------------------------------------------------- | ------------------------------------------------------------ |
-| `kupChipBlur`      | Triggered when a chip loses focus.                         | `CustomEvent<{ id: string; index: number; value: string; }>` |
-| `kupChipClick`     | Triggered when a chip is clicked.                          | `CustomEvent<{ id: string; index: number; value: string; }>` |
-| `kupChipFocus`     | Triggered when a chip gets focused.                        | `CustomEvent<{ id: string; index: number; value: string; }>` |
-| `kupChipIconClick` | Triggered when the removal icon on input chips is clicked. | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| Event              | Description                                                | Type                                                                      |
+| ------------------ | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `kupChipBlur`      | Triggered when a chip loses focus.                         | `CustomEvent<{ id: string; index: number; obj: KupObj; value: string; }>` |
+| `kupChipClick`     | Triggered when a chip is clicked.                          | `CustomEvent<{ id: string; index: number; obj: KupObj; value: string; }>` |
+| `kupChipFocus`     | Triggered when a chip gets focused.                        | `CustomEvent<{ id: string; index: number; obj: KupObj; value: string; }>` |
+| `kupChipIconClick` | Triggered when the removal icon on input chips is clicked. | `CustomEvent<{ id: string; index: number; obj: KupObj; value: string; }>` |
 
 
 ## Methods

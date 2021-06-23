@@ -138,6 +138,7 @@ table {
 
   &.ascending,
   &.descending,
+  &.key,
   &.filter-remove {
     float: right;
   }
@@ -147,7 +148,8 @@ table {
     float: left;
   }
 
-  &.filter-remove {
+  &.filter-remove,
+  &.key {
     margin: 0 0.25em;
   }
 
@@ -289,52 +291,6 @@ thead {
       float: left;
       margin: 0 $column-sort-margin;
     }
-
-    //---- Column menu icon ----
-    .column-menu {
-      background: var(--kup-background-color);
-      box-shadow: var(--kup-box-shadow);
-      display: none;
-      color: var(--kup-text-color);
-      position: absolute;
-      z-index: 100;
-      font-weight: normal;
-      min-width: 200px;
-      min-width: -moz-max-content; /* Firefox/Gecko */
-      min-width: -webkit-max-content; /* Chrome */
-      max-height: unset;
-
-      ul {
-        list-style-type: none;
-        margin: 0; // override browser default
-        padding: 0; // override browser default
-        text-align: left;
-
-        > li {
-          padding: 0 0.5em;
-          transition: color 0.2s ease-in-out;
-          color: var(--kup-text-color);
-          transition: color 0.25s, background-color 0.25s, opacity 0.25s;
-
-          &.textfield-row {
-            padding: 0.5em 0.5em;
-          }
-
-          &.button-row {
-            border-bottom: 1px solid var(--kup-border-color);
-          }
-
-          &.checkbox-row {
-            max-height: 20vh;
-            overflow: auto;
-          }
-
-          & .f-button--wrapper {
-            display: inline-block;
-          }
-        }
-      }
-    }
   }
 }
 
@@ -411,9 +367,8 @@ tbody {
 
       &.number {
         .cell-content {
-          display: block;
           font-family: var(--kup-font-family-monospace);
-          text-align: right;
+          justify-content: flex-end;
         }
       }
 
@@ -626,4 +581,15 @@ th.obj:hover span:not(.overlay-action) {
 
 .customize-element:nth-child(1) {
   padding-top: 1em;
+}
+
+.f-image--wrapper.cell-info {
+  margin: auto 0.5em auto 0.25em;
+}
+
+[kup-dialog] {
+  background-color: var(--kup-background-color);
+  margin: 0;
+  position: fixed;
+  transition: none;
 }

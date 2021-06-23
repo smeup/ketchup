@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    Watch,
 } from '@stencil/core';
 
 import {
@@ -24,6 +25,9 @@ import {
 import { KupChipProps } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupCardIds } from '../kup-card/kup-card-declarations';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -48,9 +52,15 @@ export class KupChip {
     @Prop() customStyle: string = '';
     /**
      * List of elements.
+     * @deprecated soon to be replaced by TreeNode[]
      * @default []
      */
     @Prop({ mutable: true }) data: FChipData[] = [];
+    /**
+     * List of elements.
+     * @default []
+     */
+    @Prop({ mutable: true }) dataNew: TreeNode[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
@@ -82,6 +92,7 @@ export class KupChip {
     kupBlur: EventEmitter<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>;
     /**
@@ -96,6 +107,7 @@ export class KupChip {
     kupClick: EventEmitter<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>;
     /**
@@ -110,6 +122,7 @@ export class KupChip {
     kupFocus: EventEmitter<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>;
     /**
@@ -124,26 +137,32 @@ export class KupChip {
     kupIconClick: EventEmitter<{
         id: string;
         index: number;
+        obj: KupObj;
         value: string;
     }>;
 
     onKupBlur(i: number) {
-        let value: string = undefined;
+        let obj: KupObj = null;
+        let value: string = null;
         if (this.data[i]) {
+            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         this.kupBlur.emit({
             id: this.rootElement.id,
             index: i,
+            obj: obj,
             value: value,
         });
     }
 
     onKupClick(i: number) {
-        const isChoice = this.type.toLowerCase() === FChipType.CHOICE;
-        const isFilter = this.type.toLowerCase() === FChipType.FILTER;
-        let value: string;
+        const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
+        const isFilter: boolean = this.type.toLowerCase() === FChipType.FILTER;
+        let obj: KupObj = null;
+        let value: string = null;
         if (this.data[i]) {
+            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         if (isChoice) {
@@ -165,25 +184,31 @@ export class KupChip {
         this.kupClick.emit({
             id: this.rootElement.id,
             index: i,
+            obj: obj,
             value: value,
         });
     }
 
     onKupFocus(i: number) {
-        let value: string = undefined;
+        let obj: KupObj = null;
+        let value: string = null;
         if (this.data[i]) {
+            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         this.kupFocus.emit({
             id: this.rootElement.id,
             index: i,
+            obj: obj,
             value: value,
         });
     }
 
     onKupIconClick(i: number) {
-        let value: string = undefined;
+        let obj: KupObj = null;
+        let value: string = null;
         if (this.data[i]) {
+            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         this.data.splice(i, 1);
@@ -192,6 +217,7 @@ export class KupChip {
         this.kupIconClick.emit({
             id: this.rootElement.id,
             index: i,
+            obj: obj,
             value: value,
         });
     }
@@ -239,9 +265,8 @@ export class KupChip {
         if (root) {
             const f: HTMLElement = root.querySelector('.f-chip--wrapper');
             if (f) {
-                const chips: NodeListOf<HTMLElement> = f.querySelectorAll(
-                    '.mdc-chip'
-                );
+                const chips: NodeListOf<HTMLElement> =
+                    f.querySelectorAll('.mdc-chip');
                 for (let j = 0; j < chips.length; j++) {
                     const primaryEl: HTMLElement = chips[j].querySelector(
                         '.mdc-chip__primary-action'
@@ -277,7 +302,7 @@ export class KupChip {
     }
 
     componentWillUpdate() {
-        const isChoice = this.type.toLowerCase() === FChipType.CHOICE;
+        const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
         let firstCheckedFound: boolean = false;
         if (isChoice) {
             for (let j = 0; j < this.data.length; j++) {
@@ -313,16 +338,14 @@ export class KupChip {
     render() {
         let props: FChipsProps = {
             data: this.data,
+            dataNew: this.dataNew,
             type: this.type,
         };
 
-        if (this.data.length === 0) {
-            let message = 'Empty data.';
-            this.kupManager.debug.logMessage(
-                this,
-                message,
-                KupDebugCategory.WARNING
-            );
+        if (
+            (!this.data || this.data.length === 0) &&
+            (!this.dataNew || this.dataNew.length === 0)
+        ) {
             return;
         }
 

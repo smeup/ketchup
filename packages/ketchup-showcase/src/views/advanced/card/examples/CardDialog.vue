@@ -78,7 +78,7 @@
         <br />
         <span class="code-word">- combobox[0 to n]</span>: List of comboboxes.
         <br />
-        <span class="code-word">- slots [0 to n]</span>: List of elements,
+        <span class="code-word">- slots[0 to n]</span>: List of elements,
         ideally text. If the slot's class list contains "text", a monospace
         style will be applied.
         <br />
@@ -118,14 +118,14 @@
         <span class="code-word">Layout 4</span> configuration:
         <br />
         <br />
-        <span class="code-word">- button [0-1]</span>: Displays two buttons to
+        <span class="code-word">- button[0-1]</span>: Displays two buttons to
         automatically navigate the table columns. Note: in order for this
         feature to work, navigable columns should be named NUMERICALLY and only
         1 should be initialized as visible. Any number of extra
         non-numerically-named columns can be set and won't be impacted by this
         feature.
         <br />
-        <span class="code-word">- datatable [0]</span>: Displays a data table.
+        <span class="code-word">- datatable[0]</span>: Displays a data table.
         <br />
         <span class="code-word">- text[0]</span>: Sets the title inside the
         header bar.
@@ -140,6 +140,48 @@
             size-x="300px"
             size-y="300px"
             layout-number="4"
+            layout-family="dialog"
+            :data.prop="data"
+            ><div class="text" title="slot[0]" style="font-weight: bold"
+              >slot[0]</div
+            ><div class="text" title="slot[1]" style="font-weight: bold"
+              >slot[1]</div
+            ><div class="text" title="slot[2]" style="font-weight: bold"
+              >slot[2]</div
+            ><div class="text" title="slot[3]" style="font-weight: bold"
+              >slot[3]</div
+            ><div class="text" title="slot[4]" style="font-weight: bold"
+              >slot[4]</div
+            ></kup-card
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 5</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- list[0]</span>: Displays a list in the bottom
+        section.
+        <br />
+        <span class="code-word">- slots[0 to n]</span>: List of elements to be
+        displayed in the top section.
+        <br />
+        <span class="code-word">- text[0]</span>: Sets the title inside the
+        header bar.
+        <br />
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            style="position: absolute !important; top: unset; left: unset"
+            size-x="300px"
+            size-y="300px"
+            layout-number="5"
             layout-family="dialog"
             :data.prop="data"
             ><div class="text" title="slot[0]" style="font-weight: bold"
@@ -496,6 +538,34 @@ export default {
               },
             ],
             title: 'image[1]',
+          },
+        ],
+        list: [
+          {
+            data: [
+              {
+                text: 'list[0]',
+                value: '1',
+                icon: 'filter_1',
+                trailingIcon: true,
+                selected: false,
+              },
+              {
+                text: 'list[0]',
+                value: '2',
+                icon: 'filter_2',
+                trailingIcon: true,
+                selected: false,
+              },
+              {
+                text: 'list[0]',
+                value: '3',
+                icon: 'filter_3',
+                trailingIcon: true,
+                selected: false,
+              },
+            ],
+            title: 'list[0]',
           },
         ],
         progressbar: [{ value: 50, title: 'progressbar[0]' }],

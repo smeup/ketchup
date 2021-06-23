@@ -1,3 +1,5 @@
+import type { GenericObject } from '../../types/GenericTypes';
+
 /**
  * Master type extending all subtypes of keys.
  * Remember to edit "languages.json"
@@ -15,6 +17,12 @@ export type KupLanguageKey =
     | KupLanguageRow
     | KupLanguageSearch
     | KupLanguageTotals;
+/**
+ * Interface of the languages JSON.
+ */
+export interface KupLanguageJSON {
+    [index: string]: GenericObject;
+}
 /**
  * Default languages available.
  */
@@ -41,6 +49,7 @@ export enum KupLanguageCheckbox {
 export enum KupLanguageColumn {
     ADD = 'columnAdd',
     ADD_DESCRIPTION = 'columnAddDescription',
+    COLUMNS = 'columnColumns',
     HIDE = 'columnHide',
 }
 /**
@@ -82,6 +91,7 @@ export enum KupLanguageFontsize {
  * Generic user interface action/messages.
  */
 export enum KupLanguageGeneric {
+    APPLY = 'genericApply',
     COLLAPSE = 'genericCollapse',
     DRAG_AND_DROP = 'genericDragAndDrop',
     DROP_YOUR_DATA = 'genericDropYourData',
@@ -90,12 +100,14 @@ export enum KupLanguageGeneric {
     EMPTY_DATA = 'genericEmptyData',
     EXPAND = 'genericExpand',
     EXPERIMENTAL_FEAT = 'genericExperimentalFeat',
+    FILTERS = 'genericFilters',
     INVALID_COLOR = 'genericInvalidColor',
     LAYOUT_NYI = 'genericLayoutNotYetImplemented',
     LOAD_MORE = 'genericLoadMoreData',
     OPEN_NAVIGATION_MENU = 'genericOpenNavigationMenu',
     OPTIONS = 'genericOptions',
     REMOVE_FILTERS = 'genericRemoveFilters',
+    SETTINGS = 'genericSettings',
     SHOW_ROW_OPTIONS = 'genericShowRowOptions',
     SHOW_TOOLTIP_INFO = 'genericShowTooltipInfo',
     SORT_BY = 'genericSortBy',
@@ -120,6 +132,7 @@ export enum KupLanguageGrid {
 export enum KupLanguageGrouping {
     DISABLE = 'groupingDisable',
     ENABLE = 'groupingEnable',
+    GROUPS = 'groupingGroups',
 }
 /**
  * Page related decodes.

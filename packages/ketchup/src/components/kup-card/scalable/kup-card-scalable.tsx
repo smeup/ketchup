@@ -4,7 +4,7 @@ import { FImage } from '../../../f-components/f-image/f-image';
 import { GenericObject } from '../../../types/GenericTypes';
 /**
  * 1st scalable card layout, column of 2 texts.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 1st scalable layout virtual node.
  */
 export function create1(component: KupCard): VNode {
@@ -39,7 +39,7 @@ export function create1(component: KupCard): VNode {
 }
 /**
  * 2nd scalable card layout, used to display numerical values.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 2nd scalable layout virtual node.
  */
 export function create2(component: KupCard): VNode {
@@ -102,7 +102,7 @@ export function create2(component: KupCard): VNode {
 }
 /**
  * 3rd scalable card layout, column of 2 texts.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 3rd scalable layout virtual node.
  */
 export function create3(component: KupCard): VNode {
@@ -137,7 +137,7 @@ export function create3(component: KupCard): VNode {
 }
 /**
  * 4th scalable card layout, used to display numerical values with subtitle.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 4th scalable layout virtual node.
  */
 export function create4(component: KupCard): VNode {
@@ -211,7 +211,7 @@ export function create4(component: KupCard): VNode {
 }
 /**
  * 5th scalable card layout, icon with title and subtitle.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 5th scalable layout virtual node.
  */
 export function create5(component: KupCard): VNode {
@@ -272,7 +272,7 @@ export function create5(component: KupCard): VNode {
 }
 /**
  * 6th scalable card layout, icon with title and subtitle.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 6th scalable layout virtual node.
  */
 export function create6(component: KupCard): VNode {
@@ -333,7 +333,7 @@ export function create6(component: KupCard): VNode {
 }
 /**
  * 7th scalable card layout, icon with title and subtitle.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 7th scalable layout virtual node.
  */
 export function create7(component: KupCard): VNode {
@@ -394,7 +394,7 @@ export function create7(component: KupCard): VNode {
 }
 /**
  * 8th scalable card layout, icon with title and subtitle.
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard} component - Card component.
  * @returns {VNode} 8th scalable layout virtual node.
  */
 export function create8(component: KupCard): VNode {
