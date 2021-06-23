@@ -203,12 +203,12 @@ export class KupRadio {
     }
 
     render() {
-        const hasColumns: boolean = !!this.columns;
-        const radioList: Array<VNode> = [];
-
         if (!this.data || this.data.length === 0) {
             return;
         }
+
+        const hasColumns: boolean = !!this.columns;
+        const radioList: Array<VNode> = [];
 
         for (let i = 0; i < this.data.length; i++) {
             const data: KupRadioData = this.data[i];

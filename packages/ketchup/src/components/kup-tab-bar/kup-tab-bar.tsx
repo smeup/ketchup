@@ -4,24 +4,22 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
-    getAssetPath,
     h,
     Host,
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
 
-import {
-    ComponentTabBarElement,
-    KupTabBarProps,
-} from './kup-tab-bar-declarations';
+import { KupTabBarData, KupTabBarProps } from './kup-tab-bar-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -29,24 +27,49 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupTabBar {
+    /**
+     * References the root HTML element of the component (<kup-checkbox>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
 
     @State() value: string = '';
 
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * List of elements.
+     * @default null
      */
-    @Prop() data: ComponentTabBarElement[] = [];
+    @Prop() data: KupTabBarData[] = null;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
 
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * Triggered when the tab loses focus.
+     */
     @Event({
         eventName: 'kupTabBarBlur',
         composed: true,
@@ -54,10 +77,13 @@ export class KupTabBar {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        comp: KupTabBar;
         index: number;
         el: EventTarget;
     }>;
-
+    /**
+     * Triggered when the tab is clicked.
+     */
     @Event({
         eventName: 'kupTabBarClick',
         composed: true,
@@ -65,12 +91,15 @@ export class KupTabBar {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        comp: KupTabBar;
         id: string;
         index: number;
         el: EventTarget;
         value: string;
     }>;
-
+    /**
+     * Triggered when the tab is focused.
+     */
     @Event({
         eventName: 'kupTabBarFocus',
         composed: true,
@@ -78,11 +107,46 @@ export class KupTabBar {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        comp: KupTabBar;
         index: number;
         el: EventTarget;
     }>;
 
-    //---- Methods ----
+    onKupBlur(i: number, e: Event) {
+        this.kupBlur.emit({
+            comp: this,
+            index: i,
+            el: e.target,
+        });
+    }
+
+    onKupClick(i: number, e: Event) {
+        for (let i = 0; i < this.data.length; i++) {
+            this.data[i].active = false;
+        }
+        this.data[i].active = true;
+        this.value = this.data[i].value;
+
+        this.kupClick.emit({
+            comp: this,
+            id: this.rootElement.id,
+            index: i,
+            el: e.target,
+            value: this.data[i].value,
+        });
+    }
+
+    onKupFocus(i: number, e: Event) {
+        this.kupFocus.emit({
+            comp: this,
+            index: i,
+            el: e.target,
+        });
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -111,34 +175,9 @@ export class KupTabBar {
         forceUpdate(this);
     }
 
-    onKupBlur(i: number, e: Event) {
-        this.kupBlur.emit({
-            index: i,
-            el: e.target,
-        });
-    }
-
-    onKupClick(i: number, e: Event) {
-        for (let i = 0; i < this.data.length; i++) {
-            this.data[i].active = false;
-        }
-        this.data[i].active = true;
-        this.value = this.data[i].value;
-
-        this.kupClick.emit({
-            id: this.rootElement.id,
-            index: i,
-            el: e.target,
-            value: this.data[i].value,
-        });
-    }
-
-    onKupFocus(i: number, e: Event) {
-        this.kupFocus.emit({
-            index: i,
-            el: e.target,
-        });
-    }
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     private consistencyCheck() {
         let activeTabs: number = 0;
@@ -172,7 +211,9 @@ export class KupTabBar {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -189,10 +230,6 @@ export class KupTabBar {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        root.querySelector('.tab-bar');
-
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -200,59 +237,44 @@ export class KupTabBar {
         if (!this.data || this.data.length === 0) {
             return;
         }
-        let tabBar: Array<HTMLElement> = [];
-        let tabEl: HTMLElement;
-        let title: string = '';
-        let componentClass: string = 'tab-bar';
+
+        const tabBar: Array<VNode> = [];
 
         for (let i = 0; i < this.data.length; i++) {
+            const data: KupTabBarData = this.data[i];
             const tabClass: Record<string, boolean> = {
                 tab: true,
-                'tab--active': this.data[i].active ? true : false,
+                'tab--active': data.active ? true : false,
             };
-            let indicatorClass: string = 'tab-indicator';
-            let iconEl: HTMLElement = null;
 
-            if (this.data[i].active) {
-                indicatorClass += ' tab-indicator--active';
-            }
-
-            if (this.data[i].icon) {
-                let svg: string = `url('${getAssetPath(
-                    `./assets/svg/${this.data[i].icon}.svg`
-                )}') no-repeat center`;
-                let iconStyle = {
-                    mask: svg,
-                    webkitMask: svg,
-                };
-                iconEl = (
-                    <span
-                        style={iconStyle}
-                        class="tab__icon icon-container"
-                    ></span>
-                );
-            }
-
-            if (this.data[i].title) {
-                title = this.data[i].title;
-            }
-
-            tabEl = (
+            const tabEl: VNode = (
                 <button
                     class={tabClass}
                     role="tab"
                     aria-selected={this.data[i].active ? true : false}
                     tabIndex={i}
-                    title={title}
+                    title={data.title ? data.title : null}
                     onBlur={(e) => this.onKupBlur(i, e)}
                     onClick={(e) => this.onKupClick(i, e)}
                     onFocus={(e) => this.onKupFocus(i, e)}
                 >
                     <span class="tab__content">
-                        {iconEl}
+                        {data.icon ? (
+                            <FImage
+                                color="var(--kup-primary-color)"
+                                resource={data.icon}
+                                sizeX="24px"
+                                sizeY="24px"
+                                wrapperClass="tab__icon"
+                            />
+                        ) : null}
                         <span class="tab__text-label">{this.data[i].text}</span>
                     </span>
-                    <span class={indicatorClass}>
+                    <span
+                        class={`tab-indicator ${
+                            data.active ? ' tab-indicator--active' : ''
+                        }`}
+                    >
                         <span class="tab-indicator__content tab-indicator__content--underline"></span>
                     </span>
                 </button>
@@ -268,7 +290,7 @@ export class KupTabBar {
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
-                    <div class={componentClass} role="tablist">
+                    <div class="tab-bar" role="tablist">
                         <div class="tab-scroller">
                             <div class="tab-scroller__scroll-area">
                                 <div class="tab-scroller__scroll-content">

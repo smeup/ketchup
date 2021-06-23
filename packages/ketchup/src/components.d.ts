@@ -29,7 +29,7 @@ import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-b
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioData } from "./components/kup-radio/kup-radio-declarations";
-import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarData } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { KupTree } from "./components/kup-tree/kup-tree";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
@@ -1864,13 +1864,16 @@ export namespace Components {
     }
     interface KupTabBar {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * List of elements.
+          * @default null
          */
-        "data": ComponentTabBarElement[];
+        "data": KupTabBarData[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4571,24 +4574,39 @@ declare namespace LocalJSX {
     }
     interface KupTabBar {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * List of elements.
+          * @default null
          */
-        "data"?: ComponentTabBarElement[];
+        "data"?: KupTabBarData[];
+        /**
+          * Triggered when the tab loses focus.
+         */
         "onKupTabBarBlur"?: (event: CustomEvent<{
+        comp: KupTabBar;
         index: number;
         el: EventTarget;
     }>) => void;
+        /**
+          * Triggered when the tab is clicked.
+         */
         "onKupTabBarClick"?: (event: CustomEvent<{
+        comp: KupTabBar;
         id: string;
         index: number;
         el: EventTarget;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the tab is focused.
+         */
         "onKupTabBarFocus"?: (event: CustomEvent<{
+        comp: KupTabBar;
         index: number;
         el: EventTarget;
     }>) => void;

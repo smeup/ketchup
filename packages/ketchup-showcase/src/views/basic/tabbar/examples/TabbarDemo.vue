@@ -47,8 +47,8 @@ export default {
           prop: 'data',
           description:
             'Object array containing the data of the tabs: text to be shown, optional icon and status (if active or not).',
-          type: 'ComponentTabBarElement[]',
-          default: '[]',
+          type: 'KupTabBarData[]',
+          default: 'null',
           try: 'json',
         },
       ],

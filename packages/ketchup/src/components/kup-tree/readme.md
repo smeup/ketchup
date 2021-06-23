@@ -249,6 +249,7 @@ graph TD;
   kup-data-table --> kup-badge
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
+  kup-tab-bar --> kup-badge
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

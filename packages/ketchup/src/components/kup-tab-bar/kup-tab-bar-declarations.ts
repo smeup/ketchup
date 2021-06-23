@@ -6,7 +6,10 @@ export enum KupTabBarProps {
     customStyle = 'Custom style of the component.',
     data = 'List of elements.',
 }
-export interface ComponentTabBarElement {
+/**
+ * The object of a single radio.
+ */
+export interface KupTabBarData {
     value: string;
     active?: boolean;
     icon?: string;

@@ -3,7 +3,7 @@ import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList } from '../kup-card-helper';
-import { ComponentTabBarElement } from '../../kup-tab-bar/kup-tab-bar-declarations';
+import { KupTabBarData } from '../../kup-tab-bar/kup-tab-bar-declarations';
 import {
     KupLanguageColumn,
     KupLanguageGeneric,
@@ -967,7 +967,7 @@ export function create14(component: KupCard): VNode {
     let visibleView: number = 1;
     if (tabbarArray[0] && tabbarArray[0].data) {
         for (let index = 0; index < tabbarArray[0].data.length; index++) {
-            const tab: ComponentTabBarElement = tabbarArray[0].data[index];
+            const tab: KupTabBarData = tabbarArray[0].data[index];
             tabsValues.push(tab.value);
             if (tab.active) {
                 visibleView = index + 1;

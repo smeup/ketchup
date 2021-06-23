@@ -34,7 +34,7 @@ import {
     KupLanguageGeneric,
     KupLanguageRow,
 } from '../kup-language/kup-language-declarations';
-import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
+import { KupTabBarData } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
@@ -366,7 +366,7 @@ export class KupColumnMenu {
      */
     prepTabBar(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [{ data: [] }];
-        const data: ComponentTabBarElement[] = props[0].data;
+        const data: KupTabBarData[] = props[0].data;
         if (comp.showFilters) {
             data.push({
                 text: dom.ketchup.language.translate(
