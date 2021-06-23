@@ -54,7 +54,7 @@ export interface TreeNode {
     cells: CellsHolder;
 
     children: Array<TreeNode>;
-
+ 
     disabled: boolean;
 
     expandable: boolean;

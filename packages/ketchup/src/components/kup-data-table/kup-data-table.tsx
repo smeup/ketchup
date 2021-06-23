@@ -420,6 +420,10 @@ export class KupDataTable {
      */
     @Prop() enableExtraColumns: boolean = true;
     /**
+     * Enables the extracolumns add buttons.
+     */
+    @Prop() enableExtraColumns: boolean = true;
+    /**
      * Enables the sorting of columns by dragging them into different columns.
      */
     @Prop() enableSortableColumns: boolean = true;
@@ -2322,7 +2326,7 @@ export class KupDataTable {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getVisibleColumns()
+            this.getColumns()
         );
         this.rowsLength = this.rowsPointLength();
     }
@@ -3713,6 +3717,7 @@ export class KupDataTable {
         let extraCells = 0;
 
         // Composes initial cells if necessary
+        let actionRowCell = null;
         let selectRowCell = null;
         if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             extraCells++;
@@ -3723,6 +3728,25 @@ export class KupDataTable {
             );
 
             selectRowCell = (
+                <td
+                    class={
+                        fixedCellStyle ? fixedCellStyle.fixedCellClasses : null
+                    }
+                    style={
+                        fixedCellStyle ? fixedCellStyle.fixedCellStyle : null
+                    }
+                />
+            );
+        }
+        if (this.rowActions) {
+            extraCells++;
+            const fixedCellStyle = this.composeFixedCellStyleAndClass(
+                extraCells,
+                0,
+                extraCells
+            );
+
+            actionRowCell = (
                 <td
                     class={
                         fixedCellStyle ? fixedCellStyle.fixedCellClasses : null
@@ -5245,6 +5269,13 @@ export class KupDataTable {
                 );
                 overElement.removeAttribute(this.dragOverAttribute);
                 return true;
+            },
+            onDragLeave: (e: DragEvent) => {
+                let overElement = e.target as HTMLElement;
+                if (overElement.id !== 'remove-column-area') {
+                    overElement = overElement.closest('#remove-column-area');
+                }
+                overElement.removeAttribute(this.dragOverAttribute);
             },
         };
         return (
