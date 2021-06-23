@@ -420,10 +420,6 @@ export class KupDataTable {
      */
     @Prop() enableExtraColumns: boolean = true;
     /**
-     * Enables the extracolumns add buttons.
-     */
-    @Prop() enableExtraColumns: boolean = true;
-    /**
      * Enables the sorting of columns by dragging them into different columns.
      */
     @Prop() enableSortableColumns: boolean = true;
@@ -5269,13 +5265,6 @@ export class KupDataTable {
                 );
                 overElement.removeAttribute(this.dragOverAttribute);
                 return true;
-            },
-            onDragLeave: (e: DragEvent) => {
-                let overElement = e.target as HTMLElement;
-                if (overElement.id !== 'remove-column-area') {
-                    overElement = overElement.closest('#remove-column-area');
-                }
-                overElement.removeAttribute(this.dragOverAttribute);
             },
         };
         return (
