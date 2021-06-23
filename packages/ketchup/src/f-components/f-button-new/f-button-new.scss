@@ -60,49 +60,16 @@
   box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
     0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.button--raised {
   padding: 0 16px 0 16px;
   height: 36px;
   border-radius: 4px;
 }
-.button:not(.button--outlined) .button__ripple {
-  top: 0px;
-  left: 0px;
-}
 
-.button:not(:disabled) {
-  background-color: transparent;
-}
 .button--raised:not(:disabled) {
   background-color: var(--kup-primary-color);
-}
-
-.button:not(:disabled) {
-  color: #6200ee;
-}
-
-.button--raised:not(:disabled) {
   color: #fff;
 }
 
-.button .button__ripple::before,
-.button .button__ripple::after {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0;
-  pointer-events: none;
-  content: '';
-}
-
-.button .button__ripple::before,
-.button .button__ripple::after {
-  top: calc(50% - 100%);
-  left: calc(50% - 100%);
-  width: 200%;
-  height: 200%;
-}
 .button__ripple {
   position: absolute;
   box-sizing: content-box;
@@ -112,9 +79,16 @@
 }
 
 .button {
+  -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: var(--kup-font-family);
-  font-size: 0.875em;
+  font-family: Roboto, sans-serif;
+  font-size: 0.875rem;
+  height: 36px;
+  line-height: 2.25rem;
+  font-weight: 500;
+  letter-spacing: 0.0892857143em;
+  text-decoration: none;
+  text-transform: uppercase;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -125,7 +99,7 @@
   outline: none;
   line-height: inherit;
   user-select: none;
-  appearance: none;
+  -webkit-appearance: none;
   overflow: visible;
   vertical-align: middle;
 }
@@ -162,4 +136,29 @@
   height: 1.125rem;
   vertical-align: top;
   width: 1.125rem;
+}
+
+.button--outlined {
+  height: 36px;
+  padding: 0px 15px;
+  border-width: 1px;
+  border-radius: 4px;
+  border-style: solid;
+}
+
+.f-button-new-wrapper .button.button--outlined:not(:disabled) {
+  border-color: var(--kup-primary-color);
+}
+
+.button--outlined:hover {
+  background-color: var(--kup-primary-color);
+}
+
+.button:active {
+  outline: none;
+}
+
+.button .button__ripple::before,
+.button .button__ripple::after {
+  background-color: var(--kup-primary-color);
 }
