@@ -5,6 +5,7 @@
 :host {
   display: block;
   font-size: var(--kup-font-size);
+  outline: none;
 }
 
 #kup-component .mdc-list {
@@ -15,6 +16,15 @@
     & .mdc-list-item__primary-text,
     & .mdc-list-item__secondary-text {
       font-family: var(--kup-font-family);
+    }
+
+    & .mdc-list-item__text {
+      padding-bottom: 4px;
+      padding-top: 4px;
+    }
+
+    & .mdc-list-item__graphic + .mdc-list-item__text {
+      padding-top: 10px;
     }
   }
 
@@ -37,7 +47,7 @@
 }
 
 .mdc-list:not(.mdc-list--two-line) {
-  @include mdc-list-single-line-density(-4);
+  @include mdc-list-deprecated-single-line-density(0);
 
   & .mdc-list-item:not(.mdc-list-item--selected) .mdc-list-item__text {
     color: var(--kup-text-color);
@@ -50,16 +60,10 @@
 }
 
 .icon-container {
-  background-color: var(--kup-icon-color);
-  height: 24px;
-  width: 24px;
-  margin-right: 6px;
+  margin: 0;
+  margin-right: 0.25em;
 }
 
 kup-checkbox {
   margin: 0;
-}
-
-.mdc-list-item--selected .icon-container {
-  background-color: var(--kup-primary-color);
 }

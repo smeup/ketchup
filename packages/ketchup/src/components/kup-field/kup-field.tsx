@@ -1,19 +1,26 @@
 import {
     Component,
-    Prop,
     Element,
+    h,
     Host,
     Event,
     EventEmitter,
-    State,
-    h,
+    forceUpdate,
     Method,
+    Prop,
 } from '@stencil/core';
 
-import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
-
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import {
+    KupFieldProps,
+    KupFldChangeEvent,
+    KupFldSubmitEvent,
+} from './kup-field-declarations';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-field',
@@ -22,12 +29,11 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 })
 export class KupField {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Effective data to pass to the component.
      */
@@ -59,6 +65,10 @@ export class KupField {
 
     //-- Not reactive --
     currentValue: object | string = null;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
     previousValue: object | string = null;
 
     // Generates an instance of the event handler while binding the current component as its this value
@@ -91,9 +101,31 @@ export class KupField {
 
     //---- Methods ----
 
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupFieldProps;
+        } else {
+            for (const key in KupFieldProps) {
+                if (Object.prototype.hasOwnProperty.call(KupFieldProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     // When a change or update event must be launched as if it's coming from the FLD itself
@@ -139,20 +171,20 @@ export class KupField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -222,8 +254,11 @@ export class KupField {
         let comp: string = undefined;
 
         if (this.type === undefined) {
-            let message = 'Type (state) is undefined!';
-            logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                'Type (state) is undefined!',
+                KupDebugCategory.WARNING
+            );
         } else {
             switch (this.type.toLowerCase()) {
                 case 'cmb':
@@ -262,13 +297,21 @@ export class KupField {
             toRender.push(submit);
         }
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
     }
 }

@@ -22,9 +22,19 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
 
 
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
 
 #### Returns
 
@@ -47,6 +57,9 @@ graph TD;
   kup-nav-bar --> kup-button
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
+  kup-badge --> kup-badge
+  kup-button --> kup-badge
   style kup-nav-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -1,14 +1,22 @@
 import {
     Component,
-    Event,
     Element,
-    Host,
+    Event,
     EventEmitter,
-    Prop,
+    forceUpdate,
     h,
+    Host,
+    Method,
+    Prop,
 } from '@stencil/core';
 
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import type { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { KupIframeProps } from './kup-iframe-declarations';
 
 @Component({
     tag: 'kup-iframe',
@@ -30,6 +38,11 @@ export class KupIframe {
      * The address the iframe should be referencing to.
      */
     @Prop() src: string = undefined;
+
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     //---- Methods ----
 
@@ -60,29 +73,59 @@ export class KupIframe {
     openInNew() {
         window.open(this.src, '_blank');
     }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupIframeProps;
+        } else {
+            for (const key in KupIframeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupIframeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         if (this.src === undefined || this.src === null || this.src === '') {
             let message = 'Resource undefined, not rendering!';
-            logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return;
         }
 
@@ -95,7 +138,7 @@ export class KupIframe {
         }
 
         return !this.isButton ? (
-            <Host class="iframe-version">
+            <Host class="kup-iframe-version">
                 <iframe
                     onError={this.onKupIframeError.bind(this)}
                     onLoad={this.onKupIframeLoad.bind(this)}
@@ -103,7 +146,7 @@ export class KupIframe {
                 />
             </Host>
         ) : (
-            <Host class="button-version">
+            <Host class="kup-button-version">
                 <kup-button
                     {...this.buttonData}
                     onKupButtonClick={() => this.openInNew()}

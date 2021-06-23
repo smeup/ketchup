@@ -1,13 +1,14 @@
 import {
     Component,
-    Prop,
     Element,
     Event,
     EventEmitter,
-    Watch,
-    State,
+    forceUpdate,
     h,
     Method,
+    Prop,
+    State,
+    Watch,
 } from '@stencil/core';
 
 import {
@@ -18,10 +19,23 @@ import {
     TooltipObject,
     ViewMode,
     TooltipCellOptions,
+    KupTooltipProps,
 } from './kup-tooltip-declarations';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
-import { positionRecalc } from '../../utils/recalc-position';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
+import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
+import { KupTree } from '../kup-tree/kup-tree';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { CardFamily } from '../kup-card/kup-card-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -35,15 +49,15 @@ export class KupTooltip {
     /**
      * Data for cell options
      */
-    @Prop() cellOptions: TooltipCellOptions;
+    @Prop({ mutable: true }) cellOptions: TooltipCellOptions;
     /**
      * Data for top section
      */
-    @Prop() data: TooltipData;
+    @Prop({ mutable: true }) data: TooltipData;
     /**
      * Data for the detail
      */
-    @Prop() detailData: TooltipDetailData;
+    @Prop({ mutable: true }) detailData: TooltipDetailData;
     /**
      * Timeout for loadDetail
      */
@@ -57,9 +71,18 @@ export class KupTooltip {
      */
     @Prop() loadTimeout: number = 1000;
     /**
+     * Owner of this tooltip
+     */
+    @Prop() owner: string = 'not-set';
+    /**
      * Container element for tooltip
      */
-    @Prop() relatedObject: TooltipRelatedObject;
+    @Prop({ mutable: true }) relatedObject: TooltipRelatedObject;
+
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     @Event({
         eventName: 'kupTooltipLoadData',
@@ -102,6 +125,7 @@ export class KupTooltip {
     })
     kupActionCommandClicked: EventEmitter<{
         actionCommand: TooltipAction;
+        relatedObject: TooltipRelatedObject;
     }>;
 
     @Event({
@@ -132,6 +156,75 @@ export class KupTooltip {
     })
     kupDefaultOptionClicked: EventEmitter<{
         obj: TooltipObject;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipTreeNodeExpand',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeExpand: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        usesDynamicExpansion?: boolean;
+        dynamicExpansionRequireChildren?: boolean;
+        tree: KupTree;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipTreeNodeButtonClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeButtonClicked: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        column: Column;
+        columnName: string;
+        auto: boolean;
+        tree: KupTree;
+    }>;
+
+    /**
+     * Fired when a node of the tree has been selected
+     */
+    @Event({
+        eventName: 'kupTooltipTreeNodeSelected',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeSelected: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        columnName: string;
+        auto: boolean;
+        tree: KupTree;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipTreeNodeDblClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeDblClick: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipTreeDynamicMassExpansion',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeDynamicMassExpansion: EventEmitter<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
     }>;
 
     @Watch('relatedObject')
@@ -188,6 +281,14 @@ export class KupTooltip {
 
     // ---- Public methods  ----
 
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+
     @Method()
     async setTooltipInfo(relatedObject: TooltipRelatedObject) {
         //console.log('tooltip setTooltipInfo');
@@ -197,12 +298,33 @@ export class KupTooltip {
 
     @Method()
     async unsetTooltipInfo() {
-        if (!this.mouseIsOn()) {
+        if (!this.mouseIsOn() && !this.isCardLayout()) {
             //console.log('tooltip unsetTooltipInfo');
             this.onMouseLeave();
         } else {
             //console.log('tooltip unsetTooltipInfo mouseIsoN');
         }
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTooltipProps;
+        } else {
+            for (const key in KupTooltipProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupTooltipProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     // ---- Private methods ----
@@ -227,6 +349,9 @@ export class KupTooltip {
     }
 
     private startLoadDetail(withTimeout: boolean) {
+        if (this.isCardLayout()) {
+            return;
+        }
         this.waitingServerResponse = true;
         // loading detail
         var timeoutMs = withTimeout == true ? this.detailTimeout : 0;
@@ -281,6 +406,7 @@ export class KupTooltip {
             this.resetAll();
             return;
         }
+        this.rootElement.focus();
         if (this.isViewModeTooltip()) {
             this.cellOptions = null;
             this.kupTooltipLoadDetail.emit({
@@ -371,7 +497,10 @@ export class KupTooltip {
         // Blocco la propagazione del onKupButtonClicked per evitare che lo stesso click
         // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
-        this.kupActionCommandClicked.emit({ actionCommand: action });
+        this.kupActionCommandClicked.emit({
+            actionCommand: action,
+            relatedObject: this.relatedObject,
+        });
     }
 
     private onDefaultActionClicked(event: Event) {
@@ -410,6 +539,69 @@ export class KupTooltip {
                 this.firstLoad = false;
             }, timeout);
         }
+    }
+
+    private onKupTreeNodeExpand(e: CustomEvent) {
+        e.stopPropagation();
+        if (e.detail.usesDynamicExpansion != true) {
+            return;
+        }
+        if (e.detail.dynamicExpansionRequireChildren != true) {
+            return;
+        }
+        // TreeNode is now expanded -> Fires expanded event
+        this.kupTreeNodeExpand.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            usesDynamicExpansion: e.detail.usesDynamicExpansion,
+            dynamicExpansionRequireChildren:
+                e.detail.dynamicExpansionRequireChildren,
+            tree: e.detail.tree,
+        });
+    }
+
+    private onKupTreeNodeSelected(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupTreeNodeSelected.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            columnName: e.detail.columnName,
+            auto: e.detail.auto,
+            tree: e.detail.tree,
+        });
+    }
+
+    private onKupTreeNodeButtonClicked(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupTreeNodeButtonClicked.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            column: e.detail.column,
+            columnName: e.detail.columnName,
+            auto: e.detail.auto,
+            tree: e.detail.tree,
+        });
+    }
+
+    private onKupTreeNodeDblClick(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupTreeNodeDblClick.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+        });
+    }
+
+    private onKupTreeDynamicMassExpansion(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupTreeDynamicMassExpansion.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            expandAll: e.detail.expandAll,
+        });
     }
 
     private resetAll() {
@@ -457,6 +649,36 @@ export class KupTooltip {
         ];
     }
 
+    private getLayout4() {
+        var info = null;
+        var listMenu = null;
+        var content = this.getContent();
+        if (content) {
+            info = content[`info1`];
+            listMenu = content[`listMenu`];
+        }
+        if (info || listMenu) {
+            let htmlMarkup = <div innerHTML={info?info.value:''} />;
+
+            return [
+                <kup-card
+                    data={{
+                        list: listMenu ? [listMenu] : [],
+                        text: [info? info.label : ''],
+                    }}
+                    id="dialog-card-5"
+                    layoutNumber={5}
+                    layoutFamily={CardFamily.DIALOG}
+                    onClick={(e) => e.stopPropagation()}
+                    sizeX="300px"
+                    sizeY="auto"
+                >
+                    {htmlMarkup}
+                </kup-card>,
+            ];
+        }
+    }
+
     private getInfos() {
         let infos = null;
 
@@ -483,6 +705,28 @@ export class KupTooltip {
         return infos;
     }
 
+    private isCardLayout(): boolean {
+        switch (this.layout) {
+            case '4': {
+                return true;
+            }
+            default: {
+                return false;
+            }
+        }
+    }
+
+    private getCardLayoutContent() {
+        switch (this.layout) {
+            case '4': {
+                return this.getLayout4();
+            }
+            default: {
+                return null;
+            }
+        }
+    }
+
     private createTooltip() {
         if (this.data == null) {
             return null;
@@ -491,14 +735,25 @@ export class KupTooltip {
         let mainContent = null;
         const mainContentClass = {};
 
-        if (this.layout === '2') {
-            mainContent = this.getLayout2();
-            mainContentClass['layout2'] = true;
-        } else if (this.layout === '3') {
-            mainContent = this.getLayout3();
-            mainContentClass['layout3'] = true;
-        } else {
-            mainContent = this.getDefaultLayout();
+        switch (this.layout) {
+            case '2': {
+                mainContent = this.getLayout2();
+                mainContentClass['layout2'] = true;
+                break;
+            }
+            case '3': {
+                mainContent = this.getLayout3();
+                mainContentClass['layout3'] = true;
+                break;
+            }
+            case '4': {
+                /** why are you here??? */
+                break;
+            }
+            default: {
+                mainContent = this.getDefaultLayout();
+                break;
+            }
         }
 
         let detailContent = null;
@@ -538,12 +793,23 @@ export class KupTooltip {
         if (this.hasCellOptionsData()) {
             detailContent = [
                 <kup-tree
-                    class="full-width"
+                    class="kup-full-width"
                     showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}
-                    /** not managed yet, in this release
-                     *  //tooltipEnabled={false} */
+                    tooltipEnabled={false}
+                    onKupTreeNodeCollapse={(e) => e.stopPropagation()}
+                    onKupTreeNodeExpand={(e) => this.onKupTreeNodeExpand(e)}
+                    onKupTreeNodeSelected={(e) => this.onKupTreeNodeSelected(e)}
+                    onKupTreeNodeButtonClicked={(e) =>
+                        this.onKupTreeNodeButtonClicked(e)
+                    }
+                    onKupDidLoad={(e) => e.stopPropagation()}
+                    onKupDidUnload={(e) => e.stopPropagation()}
+                    onKupTreeNodeDblClick={(e) => this.onKupTreeNodeDblClick(e)}
+                    onKupTreeDynamicMassExpansion={(e) =>
+                        this.onKupTreeDynamicMassExpansion(e)
+                    }
                 ></kup-tree>,
             ];
         }
@@ -595,9 +861,13 @@ export class KupTooltip {
 
     getTooltipForShowOptionsButton(): string {
         if (this.isViewModeTooltip()) {
-            return 'Show row options';
+            return this.kupManager.language.translate(
+                KupLanguageGeneric.SHOW_ROW_OPTIONS
+            );
         } else if (this.isViewModeCellOptions()) {
-            return 'Show tooltip info';
+            return this.kupManager.language.translate(
+                KupLanguageGeneric.SHOW_TOOLTIP_INFO
+            );
         } else {
             return '???';
         }
@@ -623,28 +893,43 @@ export class KupTooltip {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         if (this.visible) {
-            positionRecalc(this.rootElement, this.relatedObject.element);
-            this.rootElement.classList.add('dynamic-position-active');
+            this.kupManager.dynamicPosition.register(
+                this.rootElement as KupDynamicPositionElement,
+                this.relatedObject.element,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                this.rootElement as KupDynamicPositionElement
+            );
+            this.rootElement.focus();
         } else {
-            this.rootElement.classList.remove('dynamic-position-active');
+            this.kupManager.dynamicPosition.stop(
+                this.rootElement as KupDynamicPositionElement
+            );
         }
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
+        if (this.isCardLayout()) {
+            return this.getCardLayoutContent();
+        }
         return (
             <div
                 id="wrapper"
@@ -660,5 +945,18 @@ export class KupTooltip {
                 {this.createTooltip()}
             </div>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.language.unregister(this);
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

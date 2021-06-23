@@ -7,7 +7,7 @@
 
 | Property      | Attribute      | Description                                                                                                     | Type      | Default     |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`        |
 | `data`        | --             | Effective data to pass to the component.                                                                        | `Object`  | `{}`        |
 | `label`       | `label`        | The text of the label. If set to empty or has only white space chars, the label will be removed.                | `string`  | `''`        |
 | `labelPos`    | `label-pos`    | Sets the label's position, left right or top.                                                                   | `string`  | `'left'`    |
@@ -37,9 +37,19 @@ Type: `Promise<string | object>`
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
 
 
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
 
 #### Returns
 
@@ -58,6 +68,8 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-field --> kup-button
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   style kup-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -1,7 +1,12 @@
 .scalable-layout-8 {
+  #image1 img {
+    object-fit: contain;
+  }
+
   .scalable-element {
-    display: flex;
     align-items: center;
+    display: grid;
+    grid-template-columns: 0.25fr 1.25fr 0.25fr;
   }
 
   .icon {

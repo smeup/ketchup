@@ -33,7 +33,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -52,6 +52,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'editableData',
+          description:
+            'When set to true, editable cells will be rendered using input components.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'emptyDataLabel',
           description: 'Defines the label to show when the table is empty.',
           type: 'string',
@@ -60,8 +68,7 @@ export default {
         },
         {
           prop: 'enableExtraColumns',
-          description:
-            'Enables adding extracollumns button.',
+          description: 'Enables adding extra columns button.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -148,6 +155,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'isFocusable',
+          description:
+            'When set to true, clicked-on rows will have a visual feedback.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'lazyLoadRows',
           description:
             'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content.',
@@ -188,13 +203,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'multiSelection',
-          description: 'When set to true enables the multi selection.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'pageSelected',
           description: 'Current selected page set on component load.',
           type: 'number',
@@ -210,6 +218,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'removableColumns',
+          description: 'Sets the possibility to remove the selected column.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'rowActions',
           description: 'Sets the actions of the rows.',
           type: 'rowAction[]',
@@ -223,7 +238,6 @@ export default {
           default: '10',
           try: 'field',
         },
-
         {
           prop: 'scrollOnHover',
           description:
@@ -231,6 +245,13 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'selection',
+          description: 'Set the type of the rows selection.',
+          type: 'SelectionMode',
+          default: 'single',
+          try: 'field',
         },
         {
           prop: 'selectRow',
@@ -251,12 +272,19 @@ export default {
           description:
             'If set to true, displays the button to open the customization panel.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
         {
           prop: 'showFilters',
           description: 'When set to true enables the column filters.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showFooter',
+          description: 'When set to true shows the footer.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -268,6 +296,13 @@ export default {
           type: 'string',
           default: 'Row',
           try: 'field',
+        },
+        {
+          prop: 'showGroups',
+          description: 'When set to true enables the column grouping.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'showHeader',
@@ -358,22 +393,49 @@ export default {
           default: 'undefined',
           try: 'json',
         },
+        {
+          prop: 'transpose',
+          description: 'Transposes the data of the data table.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
       demoClasses: [
         {
-          class: 'cross-selection',
+          class: 'kup-cross-selection',
           description:
             'The selected cell will be highlighted by a cross-selection between its row and its column.',
         },
         {
-          class: 'kup-secondary-color',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-layout-fixed',
+          description:
+            'Sets a fixed layout to improve performances (specifically when using Google Chrome, becasue every scroll triggers a repaint).',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
         },
         {
-          class: 'layout-fixed',
+          class: 'kup-success',
           description:
-            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };
@@ -384,7 +446,7 @@ function createComp() {
   let comp = document.createElement('kup-data-table');
   comp.data = defaultDataTable;
   comp.density = 'dense';
-  comp.groupLabelDisplay = 'both'; 
+  comp.groupLabelDisplay = 'both';
   comp.headerIsPersistent = true;
   comp.id = 'demo-component';
   comp.enableExtraColumns = true;
@@ -394,6 +456,7 @@ function createComp() {
   comp.paginatorPos = 'Top';
   comp.rowsPerPage = '10';
   comp.showGrid = 'Row';
+  comp.showCustomization = true;
   comp.showHeader = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;

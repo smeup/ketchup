@@ -1,15 +1,21 @@
 import {
     Component,
     Element,
-    Prop,
+    forceUpdate,
     h,
-    State,
-    Method,
     Host,
+    Method,
+    Prop,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
+import { KupGaugeProps } from './kup-gauge-declarations';
 
 declare const d3: any;
 
@@ -20,7 +26,6 @@ declare const d3: any;
 })
 export class KupGauge {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Sets how much the arc of the gauge should be thick.
@@ -39,7 +44,7 @@ export class KupGauge {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The first threshold, establishing the length of the first and second arc.
      */
@@ -47,11 +52,11 @@ export class KupGauge {
     /**
      * The distance the label and the value has from the gauge graph.
      */
-    @Prop() labelDistance: number = 20;
+    @Prop({ mutable: true }) labelDistance: number = 20;
     /**
      * The maximum value reachable in the current graph.
      */
-    @Prop() maxValue: number = 100;
+    @Prop({ mutable: true }) maxValue: number = 100;
     /**
      * A string which will be appended to the displayed values of the component.
      */
@@ -59,7 +64,7 @@ export class KupGauge {
     /**
      * The minimum value reachable in the current graph.
      */
-    @Prop() minValue: number = -100;
+    @Prop({ mutable: true }) minValue: number = -100;
     /**
      * When true, shows a rounded needle.
      */
@@ -99,7 +104,7 @@ export class KupGauge {
      * The current value of the gauge.
      * The gauge's needle points to the percentage based on this prop.
      */
-    @Prop() value: number = 0;
+    @Prop({ mutable: true }) value: number = 0;
     /**
      * The current size of gauge's value.
      * Correct values are: 0,1,2 or 3.
@@ -123,12 +128,38 @@ export class KupGauge {
      * @namespace kup-gauge.maxValuePositive
      */
     private maxValuePositive = 0;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     //---- Methods ----
 
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupGaugeProps;
+        } else {
+            for (const key in KupGaugeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupGaugeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     //---- Utility functions ----
@@ -211,30 +242,47 @@ export class KupGauge {
     }
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
+        if (!this.labelDistance) {
+            this.labelDistance = 20;
+        }
+        if (this.maxValue === undefined || this.maxValue === null) {
+            this.maxValue = 100;
+        }
+        if (this.minValue === undefined || this.minValue === null) {
+            this.minValue = -100;
+        }
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
+        if (isNaN(this.value)) {
+            this.kupManager.debug.logMessage(
+                this,
+                'Invalid value, not rendering!',
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
         // mathematical operations
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
         let tempValue = this.value;
-        if(this.value > this.maxValue){
+        if (this.value > this.maxValue) {
             this.value = this.maxValue;
         }
-        if(this.value < this.minValue){
+        if (this.value < this.minValue) {
             this.value = this.minValue;
         }
 
@@ -328,9 +376,8 @@ export class KupGauge {
             this.showLabels || this.showMaxmin
                 ? arcsThresholds.map((threshold) => {
                       // Given the
-                      const thresholdPercentage = this.calculateValuePercentage(
-                          threshold
-                      );
+                      const thresholdPercentage =
+                          this.calculateValuePercentage(threshold);
                       // Decides the position of the text
                       // @see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
                       let textPosition = 'end';
@@ -356,7 +403,11 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
+                                      {unformattedStringToFormattedStringNumber(
+                                          String(threshold),
+                                          -1,
+                                          ''
+                                      )}
                                   </text>
                               );
                           }
@@ -376,7 +427,11 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
+                                      {unformattedStringToFormattedStringNumber(
+                                          String(threshold),
+                                          -1,
+                                          ''
+                                      )}
                                   </text>
                               );
                           }
@@ -396,15 +451,26 @@ export class KupGauge {
                     y={valueLabelYPosition}
                     style={style}
                 >
-                    {unformattedStringToFormattedStringNumber(String(tempValue), -1, '') + ' ' + this.measurementUnit}
+                    {unformattedStringToFormattedStringNumber(
+                        String(tempValue),
+                        -1,
+                        ''
+                    ) +
+                        ' ' +
+                        this.measurementUnit}
                 </text>
             );
         }
 
         const width = { width: this.widthComponent };
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class="gauge__container">
                     <svg
                         class="gauge"
@@ -440,5 +506,9 @@ export class KupGauge {
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
     }
 }

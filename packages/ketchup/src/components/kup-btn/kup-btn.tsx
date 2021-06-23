@@ -1,6 +1,27 @@
-import { Component, Prop, State, h, Event, EventEmitter } from '@stencil/core';
-
-import { ButtonConfig } from './kup-btn-declarations';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
+} from '@stencil/core';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
+import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
+import { KupBtnProps } from './kup-btn-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
+import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-btn',
@@ -8,12 +29,62 @@ import { ButtonConfig } from './kup-btn-declarations';
     shadow: true,
 })
 export class KupBtn {
-    @Prop() buttons: any[];
+    /**
+     * References the root HTML element of the component (<kup-btn>).
+     */
+    @Element() rootElement: HTMLElement;
 
-    // setup props
-    @Prop() config: ButtonConfig = { showicon: true, showtext: true };
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
 
-    @State() selectedBtnIndex: number;
+    /**
+     * The id of the selected button.
+     * @default ""
+     */
+    @State() selected: string = '';
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+    /**
+     * Number of columns for draw sub-components.
+     */
+    @Prop() columns: number = 0;
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = '';
+    /**
+     * Props of the sub-components.
+     */
+    @Prop() data: TreeNode[] = [];
+    /**
+     * Default at false. When set to true, the sub-components are disabled.
+     */
+    @Prop() disabled: boolean = false;
+    /**
+     * If enabled, highlights the selected button
+     */
+    @Prop() showSelection: boolean = true;
+    /**
+     * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default.
+     * If set, will be valid for all sub-components.
+     */
+    @Prop({ reflect: true }) styling: string = '';
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kupBtnClick',
@@ -21,93 +92,316 @@ export class KupBtn {
         cancelable: false,
         bubbles: true,
     })
-    btnClicked: EventEmitter<{
-        id: number;
+    kupClick: EventEmitter<{
+        id: string;
+        subId: string;
+        obj: any;
     }>;
 
-    onBtnClicked(event: CustomEvent) {
-        this.selectedBtnIndex = parseInt(
-            (event.target as HTMLElement).dataset.id
-        );
-        this.btnClicked.emit({
-            id: this.selectedBtnIndex,
+    onKupClick(index: string, subIndex: string) {
+        this.selected = index;
+        this.kupClick.emit({
+            id: index,
+            subId: subIndex,
+            obj: this.getObjForEvent(index, subIndex),
         });
     }
 
-    render() {
-        let buttonsInGrid = [];
-        if (this.buttons) {
-            if (this.config.columns && this.config.columns > 0) {
-                this.buttons.forEach((btn, index) => {
-                    const mod = index % this.config.columns;
+    onDropDownItemClick(e: CustomEvent, index: string) {
+        this.selected = index;
+        this.onKupClick(index, e.detail.value);
+    }
 
-                    if (mod === 0) {
-                        // new row
-                        buttonsInGrid.push([]);
-                    }
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
-                    buttonsInGrid[buttonsInGrid.length - 1].push(btn);
-                });
-            } else {
-                if (this.config.horizontal) {
-                    buttonsInGrid[0] = this.buttons;
-                } else {
-                    buttonsInGrid = this.buttons.map((b) => {
-                        const arr = [];
-                        arr.push(b);
-                        return arr;
-                    });
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupBtnProps;
+        } else {
+            for (const key in KupBtnProps) {
+                if (Object.prototype.hasOwnProperty.call(KupBtnProps, key)) {
+                    props[key] = this[key];
                 }
             }
         }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
 
-        let buttonsJsx = null;
-        let id = 0;
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
-        if (buttonsInGrid.length > 0) {
-            buttonsJsx = buttonsInGrid.map((btns) => {
-                const btnsJsx = btns.map((btn) => {
-                    const props = {
-                        ...(this.config.fillspace
-                            ? { class: 'full-width' }
-                            : {}),
-                        ...(this.config.showtext ? { label: btn.value } : {}),
-                        ...(this.config.showicon ? { icon: btn.icon } : {}),
-                        ...(this.config.flat ? { styling: 'flat' } : {}),
-                        'data-id': id++,
-                        onKupButtonClick: (ev) => this.onBtnClicked(ev),
-                    };
-
-                    return (
-                        <td>
-                            <kup-button {...props} />
-                        </td>
+    /**
+     * Set the events of the component and instantiates Material Design.
+     */
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fs: NodeListOf<HTMLElement> = root.querySelectorAll(
+                '.f-button--wrapper'
+            );
+            if (fs != null) {
+                for (let i = 0; i < fs.length; i++) {
+                    let f: HTMLElement = fs[i];
+                    const buttonEl: HTMLButtonElement = f.querySelector(
+                        'button'
                     );
-                });
+                    if (buttonEl) {
+                        buttonEl.onclick = () => this.onKupClick(f.id, '-1');
+                    }
+                    FButtonMDC(f);
+                }
+            }
+        }
+    }
 
-                return <tr>{btnsJsx}</tr>;
-            });
+    private renderButton(node: TreeNode, index: number) {
+        if (node == null) {
+            let message = 'Empty data button.';
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
+            return null;
+        }
+        let data: GenericObject = this.prepareDataFromTreeNode(node, index);
+        if (!data.label && !data.icon) {
+            let message = 'Empty button.';
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
+            return null;
+        }
+        let props: FButtonProps = {
+            checked: data.checked,
+            disabled: data.disabled,
+            fullHeight: data.fullHeight,
+            fullWidth: data.fullWidth,
+            icon: data.icon,
+            iconOff: data.iconOff,
+            id: data.id,
+            label: data.label,
+            large: data.large,
+            shaped: data.shaped,
+            styling: data.styling,
+            toggable: data.toggable,
+            trailingIcon: data.trailingIcon,
+            title: data.title,
+            wrapperClass: this.rootElement.className + ' ' + data.wrapperClass,
+        };
+        return <FButton {...props} />;
+    }
+
+    private renderDropdownButton(node: TreeNode, index: number) {
+        if (node == null) {
+            let message = 'Empty data dropdown button.';
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
+            return null;
+        }
+        let data: GenericObject = this.prepareDataFromTreeNode(node, index);
+        if (!data.label && !data.icon) {
+            let message = 'Empty dropdown button.';
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
+            return null;
+        }
+        data.data = {
+            'kup-list': {
+                data: this.getKupListDataForChildren(node.children),
+                showIcons: true,
+            },
+        };
+        return (
+            <kup-dropdown-button
+                class={this.rootElement.className + ' ' + data.wrapperClass}
+                {...data}
+                onKupDropdownButtonClick={() =>
+                    this.onKupClick(index.toString(), '-1')
+                }
+                onKupDropdownSelectionItemClick={(e) =>
+                    this.onDropDownItemClick(e, index.toString())
+                }
+            />
+        );
+    }
+
+    private prepareDataFromTreeNode(
+        node: TreeNode,
+        index: number
+    ): GenericObject {
+        let data: GenericObject = node.data != null ? { ...node.data } : {};
+
+        if (this.customStyle != null && this.customStyle.trim() != '') {
+            data.customStyle = this.customStyle;
+        }
+        if (this.disabled == true || node.disabled == true) {
+            data.disabled = true;
+        }
+        if (this.styling != null && this.styling.trim() != '') {
+            data.styling = this.styling;
+        }
+        if (data.icon == null) {
+            data.icon = node.icon;
+        }
+        if (data.label == null) {
+            data.label = node.value;
+        }
+        data.fullHeight = this.rootElement.classList.contains('kup-full-height')
+            ? true
+            : false;
+        data.fullWidth = this.rootElement.classList.contains('kup-full-width')
+            ? true
+            : false;
+        data.id = index.toString();
+        data.large = this.rootElement.classList.contains('kup-large')
+            ? true
+            : false;
+        data.shaped = this.rootElement.classList.contains('kup-shaped')
+            ? true
+            : false;
+        if (!data.wrapperClass) {
+            data.wrapperClass = '';
+        }
+        if (this.selected == data.id) {
+            data.wrapperClass = data.wrapperClass + ' selected';
         }
 
-        let compClass = 'btn-container';
-        if (this.config.fillspace) {
-            compClass += ' fillspace';
+        return data;
+    }
+
+    private getKupListDataForChildren(
+        children: TreeNode[]
+    ): ComponentListElement[] {
+        let ris: ComponentListElement[] = [];
+
+        for (let i = 0; i < children.length; i++) {
+            let tn: TreeNode = children[i];
+            ris.push({ text: tn.value, icon: tn.icon, value: i.toString() });
+        }
+        return ris;
+    }
+
+    private getObjForEvent(index: string, subIndex: string) {
+        let indexInt: number = Number(index);
+        let subIndexInt: number = -1;
+        if (subIndex != null && subIndex.trim() != '') {
+            subIndexInt = Number(subIndex);
         }
 
-        if (!this.config.horizontal) {
-            compClass += ' vertical';
+        let tn: TreeNode = this.data[indexInt];
+        if (subIndexInt != -1) {
+            return tn.children[subIndexInt].obj;
+        }
+        return tn.obj;
+    }
+
+    private renderButtons() {
+        if (this.data == null || this.data.length < 1) {
+            let message = 'Empty data btn.';
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
+            return null;
+        }
+        let columns = [];
+        for (let i = 0; i < this.data.length; i++) {
+            let node: TreeNode = this.data[i];
+            let b;
+            if (node.children != null && node.children.length > 0) {
+                b = this.renderDropdownButton(node, i);
+            } else {
+                b = this.renderButton(node, i);
+            }
+            if (b == null) {
+                continue;
+            }
+            columns.push(b);
+        }
+        return columns;
+    }
+
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
+
+    componentWillLoad() {
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
+    }
+
+    componentDidLoad() {
+        this.kupManager.debug.logLoad(this, true);
+    }
+
+    componentWillRender() {
+        this.kupManager.debug.logRender(this, false);
+    }
+
+    componentDidRender() {
+        this.setEvents();
+        this.kupManager.debug.logRender(this, true);
+    }
+
+    render() {
+        let buttons = this.renderButtons();
+        let nrOfColumns = this.columns;
+        if (this.data != null && this.data.length > 0 && nrOfColumns <= 0) {
+            nrOfColumns = this.data.length;
         }
 
-        //- Composes the style of the button -
-        // TODO this is how currently JSX can set custom CSS vars. Check periodically for a better way
-        // It simply sets them in style inside the html. Not the most elegant way,
-        // https://medium.com/geckoboard-under-the-hood/how-we-made-our-product-more-personalized-with-css-variables-and-react-b29298fde608
-        // https://medium.com/fbdevclagos/how-to-leverage-styled-components-and-css-variables-to-build-truly-reusable-components-in-react-4bbf50467666
+        let hostStyle = {
+            '--grid-columns': `repeat(${nrOfColumns}, auto)`,
+        };
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
+        const classObj: Record<string, boolean> = {
+            'btn-container': true,
+            'show-selection':
+                this.showSelection && this.selected ? true : false,
+        };
 
         return (
-            <table class={compClass}>
-                <tbody>{buttonsJsx}</tbody>
-            </table>
+            <Host style={hostStyle}>
+                {customStyle ? <style>{customStyle}</style> : null}
+                <div id="kup-component">
+                    <div class={classObj}>{buttons}</div>
+                </div>
+            </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
     }
 }

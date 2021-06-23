@@ -6,11 +6,15 @@
 
 <script>
 import { graphicCellsDataTable } from '@/mock/dataTable';
+document.documentElement['ketchupInit'] = { debug: { active: true } };
 
 export default {
   name: 'GraphicCells',
   mounted() {
-    document.documentElement.kupDebug = true;
+    const dom = document.documentElement;
+    if (dom.ketchup) {
+      dom.ketchup.debug.toggle(true);
+    }
     let wrapper = document.querySelector('#graphic-cells-wrapper');
     let comp = document.createElement('kup-data-table');
     comp.data = graphicCellsDataTable;

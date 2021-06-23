@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup chart</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <script>
+            if (google) {
+                google.charts.load('45.2', {
+                    packages: [
+                        'corechart',
+                        'gantt',
+                        'gauge',
+                        'geochart',
+                        'calendar',
+                        'sankey',
+                        'treemap',
+                    ],
+                    language: 'en',
+                });
+            }
+        </script>
+
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+            }
+
+            #button-section {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+            }
+
+            #autorun {
+                margin: 0 auto 0 5px;
+            }
+
+            #print {
+                margin: 0 5px 0 auto;
+            }
+
+            kup-probe {
+                text-align: center;
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+            }
+
+            .counter-wrapper {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .label {
+                width: 20em;
+                font-size: 1.2em;
+                opacity: 0.75;
+            }
+
+            #feature-changer {
+                margin-bottom: 1em;
+                width: max-content;
+            }
+        </style>
+    </head>
+
+    <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                theme: { name: 'dark' },
+            };
+        </script>
+        <h1>Probe</h1>
+        <div id="button-section">
+            <kup-button id="print" label="Print lifecycle time"></kup-button>
+            <kup-button
+                id="autorun"
+                styling="flat"
+                label="autorun (50ms interval)"
+            ></kup-button></div
+        ><div id="average-section">
+            <h1>Full lifecycle average time (milliseconds):</h1>
+            <kup-combobox is-select id="feature-changer"></kup-combobox>
+            <div class="counter-wrapper">
+                <span class="label">No features:</span>
+                <span id="average-empty">0</span></div
+            ><br />
+            <div class="counter-wrapper">
+                <span class="label">KupDebug:</span>
+                <span id="average-debug">0</span></div
+            >
+            <div class="counter-wrapper">
+                <span class="label">KupLanguage:</span>
+                <span id="average-language">0</span></div
+            >
+            <div class="counter-wrapper">
+                <span class="label">KupTheme:</span>
+                <span id="average-theme">0</span></div
+            ><br />
+            <div class="counter-wrapper">
+                <span class="label">Long cycle (props):</span>
+                <span id="average-cycleprops">0</span></div
+            >
+            <div class="counter-wrapper">
+                <span class="label">Long cycle (vars):</span>
+                <span id="average-cyclevars">0</span></div
+            ><br />
+            <div class="counter-wrapper">
+                <span class="label">Long cycle (KupObjects):</span>
+                <span id="average-cycleobjects">0</span></div
+            >
+            <div class="counter-wrapper">
+                <span class="label">Long cycle (object function):</span>
+                <span id="average-cycleobjectsfunction">0</span></div
+            ><br />
+            <div class="counter-wrapper">
+                <span class="label">All features:</span>
+                <span id="average-full">0</span></div
+            ><br />
+            <div class="counter-wrapper">
+                <span class="label">Total:</span>
+                <span id="average-total">0</span></div
+            >
+        </div>
+        <div id="misc-section">
+            <h1>Additional info:</h1>
+            <div class="counter-wrapper">
+                <span class="label">Number of renders:</span>
+                <span id="number">0</span>
+            </div></div
+        >
+        <div id="test-section"> </div>
+    </body>
+    <script src="/assets/probe.js"></script>
+</html>

@@ -32,7 +32,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -53,9 +53,29 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'kup-secondary-color',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };
@@ -67,13 +87,16 @@ function createComp() {
   comp.componentName = 'kup-card';
   comp.data = {
     data: {
-      button1: { icon: 'favorite', flat: true },
-      image1: {
-        resource: 'images/catz_small.jpg',
-      },
-      text1: 'Lazy loaded!',
-      text2:
+      button: [{ icon: 'favorite', flat: true }],
+      image: [
+        {
+          resource: 'images/catz_small.jpg',
+        },
+      ],
+      text: [
+        'Lazy loaded!',
         'This card was rendered as soon as it was partially included inside the viewport.',
+      ],
     },
   };
   comp.id = 'demo-component';

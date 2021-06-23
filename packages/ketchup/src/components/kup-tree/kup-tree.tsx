@@ -1,65 +1,88 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
+    getAssetPath,
     h,
-    Watch,
+    Host,
     JSX,
     Method,
-    getAssetPath,
+    Prop,
+    State,
+    Watch,
 } from '@stencil/core';
 
 import {
     Cell,
     CellData,
     Column,
+    Row,
+    TotalLabel,
+    TotalMode,
+    TotalsMap,
 } from './../kup-data-table/kup-data-table-declarations';
 
 import {
+    KupTreeProps,
     treeExpandedPropName,
     TreeNode,
     TreeNodePath,
+    treeMainColumnName,
+    EventHandlerDetails,
 } from './kup-tree-declarations';
 
-import {
-    isBar,
-    isCheckbox,
-    isIcon,
-    isImage,
-    isLink,
-    isVoCodver,
-    isButton,
-    isChart,
-    isNumber,
-    hasTooltip,
-    isObjectList,
-} from '../../utils/object-utils';
-
-import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { isFilterCompliantForValue } from '../../utils/filters';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import {
-    getCellValueForDisplay,
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import {
+    calcTotals,
+    normalizeRows,
     styleHasBorderRadius,
     styleHasWritingMode,
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
+
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
+import { setTooltip, unsetTooltip } from '../../utils/helpers';
+
 import {
-    isColor,
-    isGauge,
-    isKnob,
-    isProgressBar,
-    isRadio,
-    isRating,
+    getCellType,
+    getCellValueForDisplay,
+    getColumnByName,
 } from '../../utils/cell-utils';
-import { stringToNumber } from '../../utils/utils';
+import {
+    deepEqual,
+    numberToFormattedStringNumber,
+    stringToNumber,
+} from '../../utils/utils';
+import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
+import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
+import {
+    GenericFilter,
+    ValueDisplayedValue,
+} from '../../utils/filters/filters-declarations';
+import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
+import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionCoordinates,
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
+import {
+    KupLanguageGeneric,
+    KupLanguageSearch,
+    KupLanguageTotals,
+} from '../../utils/kup-language/kup-language-declarations';
+import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -83,25 +106,62 @@ export class KupTree {
                     'Initialize with state for stateId ' + this.stateId,
                     state
                 );
-                // *** PROPS ***
                 this.density = state.density;
+                this.showFilters = state.showFilters;
+                this.showFooter = state.showFooter;
+                this.globalFilter = state.globalFilter;
                 this.globalFilterValue = state.globalFilterValue;
-                //
+                this.filters = { ...state.filters };
+                this.totals = { ...state.totals };
             }
         }
     }
 
     persistState(): void {
         if (this.store && this.stateId) {
-            // *** PROPS ***
-            this.state.density = this.density;
-            this.state.globalFilterValue = this.globalFilterValue;
-            //
-            console.log(
-                'Persisting state for stateId ' + this.stateId + ': ',
-                this.state
-            );
-            this.store.persistState(this.stateId, this.state);
+            let somethingChanged = false;
+
+            if (!deepEqual(this.state.filters, this.filters)) {
+                this.state.filters = { ...this.filters };
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.density, this.density)) {
+                this.state.density = this.density;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+                this.state.showFilters = this.showFilters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+                this.state.showFooter = this.showFooter;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.totals, this.totals)) {
+                this.state.totals = { ...this.totals };
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+                this.state.globalFilter = this.globalFilter;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+            ) {
+                this.state.globalFilterValue = this.globalFilterValue;
+                somethingChanged = true;
+            }
+            if (!this.state.load) {
+                this.state.load = true;
+                return;
+            }
+            if (somethingChanged) {
+                console.log(
+                    'Persisting state for stateId ' + this.stateId + ': ',
+                    this.state
+                );
+                this.store.persistState(this.stateId, this.state);
+            }
         }
     }
 
@@ -110,7 +170,14 @@ export class KupTree {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
+    @State() private treeColumnVisible = true;
+    /**
+     * name of the column with the opened total menu
+     */
+    @State()
+    private openedTotalMenu: string = null;
+    @State()
+    private columnMenuAnchor: string = null;
 
     /**
      * Auto select programmatic selectic node
@@ -123,7 +190,7 @@ export class KupTree {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
@@ -148,9 +215,17 @@ export class KupTree {
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined = undefined;
     /**
+     * Enables the extracolumns add buttons.
+     */
+    @Prop() enableExtraColumns: boolean = true;
+    /**
      * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
      */
     @Prop() expanded: boolean = false;
+    /**
+     * List of filters set by the user.
+     */
+    @Prop({ mutable: true }) filters: GenericFilter = {};
     /**
      * When set to true it activates the global filter.
      */
@@ -159,6 +234,10 @@ export class KupTree {
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
+    /**
+     * Sets the possibility to remove the selected column.
+     */
+    @Prop() removableColumns: boolean = true;
     /**
      * Activates the scroll on hover function.
      */
@@ -172,6 +251,14 @@ export class KupTree {
      * Shows the tree data as a table.
      */
     @Prop() showColumns: boolean = false;
+    /**
+     * When set to true enables the column filters.
+     */
+    @Prop() showFilters: boolean = true;
+    /**
+     * When set to true shows the footer.
+     */
+    @Prop() showFooter: boolean = false;
     /**
      * Flag: shows the header of the tree when the tree is displayed as a table.
      * @see showColumns
@@ -193,19 +280,57 @@ export class KupTree {
      */
     @Prop() useDynamicExpansion: boolean = false;
 
+    /**
+     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+     */
+    @Prop() showTooltipOnRightClick: boolean = true;
+    /**
+     * Defines the timeout for tooltip detail
+     */
+    @Prop() tooltipDetailTimeout: number;
+    /**
+     * Enable show tooltip
+     */
+    @Prop() tooltipEnabled: boolean = true;
+    /**
+     * Defines the timeout for tooltip load
+     */
+    @Prop() tooltipLoadTimeout: number;
+    /**
+     * Defines the current totals options.
+     */
+    @Prop({ mutable: true }) totals: TotalsMap;
+
     //-------- State --------
     @State() selectedNodeString: string = '';
 
     @State() stateSwitcher: boolean = false;
 
-    private treeWrapperRef: any;
-    private scrollOnHoverInstance: scrollOnHover;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+    private treeWrapperRef: KupScrollOnHoverElement;
     private selectedColumn: string = '';
     private clickTimeout: any[] = [];
     private iconPaths: [{ icon: string; path: string }] = undefined;
     private globalFilterTimeout: number;
 
+    private footer: { [index: string]: number };
+
     private sizedColumns: Column[] = undefined;
+
+    private tooltip: KupTooltip;
+    columnFilterTimeout: number;
+    private columnMenuInstance: KupColumnMenu;
+    private filtersColumnMenuInstance: FiltersColumnMenu =
+        new FiltersColumnMenu();
+    private filtersTreeItemsInstance: FiltersTreeItems = new FiltersTreeItems();
+    private totalMenuCoords: KupDynamicPositionCoordinates = null;
+    /**
+     * Reference to the column menu card.
+     */
+    private columnMenuCard: HTMLKupCardElement = null;
 
     //-------- Events --------
     /**
@@ -261,6 +386,7 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeNodeSelected: EventEmitter<{
+        id: string;
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         columnName: string;
@@ -282,6 +408,49 @@ export class KupTree {
         auto: boolean;
         tree: KupTree;
     }>;
+
+    /**
+     * When 'add column' menu item is clicked
+     */
+    @Event({
+        eventName: 'kupAddColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddColumn: EventEmitter<{ column: string }>;
+    /**
+     * Generic right click event on tree.
+     */
+    @Event({
+        eventName: 'kupTreeContextMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeContextMenu: EventEmitter<{
+        details: EventHandlerDetails;
+    }>;
+    /**
+     * When the column menu is being opened/closed.
+     */
+    @Event({
+        eventName: 'kupTreeColumnMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeColumnMenu: EventEmitter<{
+        card: HTMLKupCardElement;
+        open: boolean;
+    }>;
+    @Event({
+        eventName: 'kupAddCodeDecodeColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddCodeDecodeColumn: EventEmitter<{ column: string }>;
 
     @Event({
         eventName: 'kupDidLoad',
@@ -329,10 +498,19 @@ export class KupTree {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
+    async collapseAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = false;
+                this.handleChildren(this.data[index], false);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: false,
+            });
+        }
+        this.refresh();
     }
-
     @Method()
     async expandAll() {
         if (!this.useDynamicExpansion) {
@@ -345,40 +523,82 @@ export class KupTree {
                 expandAll: true,
             });
         }
-        this.forceUpdate();
+        this.refresh();
     }
-
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
     @Method()
-    async collapseAll() {
-        if (!this.useDynamicExpansion) {
-            for (let index = 0; index < this.data.length; index++) {
-                this.data[index][treeExpandedPropName] = false;
-                this.handleChildren(this.data[index], false);
-            }
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTreeProps;
         } else {
-            this.kupTreeDynamicMassExpansion.emit({
-                expandAll: false,
-            });
+            for (const key in KupTreeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupTreeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
         }
-        this.forceUpdate();
+        return props;
+    }
+    /**
+     * Opens the column menu of the given column.
+     * @param {string} column - Name of the column.
+     */
+    @Method()
+    async openColumnMenu(column: string): Promise<void> {
+        this.columnMenuAnchor = column;
+        this.columnMenuCard.setAttribute('data-column', column);
+        this.columnMenuCard.data = this.columnMenuInstance.prepData(
+            this,
+            getColumnByName(this.getVisibleColumns(), column)
+        );
+        this.columnMenuInstance.open(this, column, this.tooltip);
+        this.columnMenuInstance.reposition(this);
+        this.kupTreeColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: true,
+        });
+    }
+    /**
+     * Closes any opened column menu.
+     */
+    @Method()
+    async closeColumnMenu(): Promise<void> {
+        this.columnMenuAnchor = null;
+        this.columnMenuInstance.close(this.columnMenuCard);
+        this.kupTreeColumnMenu.emit({
+            card: this.columnMenuCard,
+            open: false,
+        });
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
-    private setScrollOnHover() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
+    setTreeColumnVisibility(value: boolean) {
+        this.treeColumnVisible = value;
+    }
+
+    isTreeColumnVisible(): boolean {
+        return this.treeColumnVisible;
     }
 
     private checkScrollOnHover() {
-        if (!this.scrollOnHoverInstance) {
+        if (!this.kupManager.scrollOnHover.isRegistered(this.treeWrapperRef)) {
             if (this.scrollOnHover) {
-                this.setScrollOnHover();
+                this.kupManager.scrollOnHover.register(this.treeWrapperRef);
             }
         } else {
             if (!this.scrollOnHover) {
-                this.scrollOnHoverInstance.scrollOnHoverDisable(
-                    this.treeWrapperRef
-                );
-                this.scrollOnHoverInstance = undefined;
+                this.kupManager.scrollOnHover.unregister(this.treeWrapperRef);
             }
         }
     }
@@ -386,7 +606,7 @@ export class KupTree {
     onKupTreeNodeDblClick(treeNodeData: TreeNode, treeNodePath: string) {
         for (let index = 0; index < this.clickTimeout.length; index++) {
             clearTimeout(this.clickTimeout[index]);
-            logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'Cleared hdlTreeNodeClicked timeout(' +
                     this.clickTimeout[index] +
@@ -402,11 +622,39 @@ export class KupTree {
         });
     }
 
+    nodesToRows(): Row[] {
+        function children(TreeNode: TreeNode) {
+            for (let index = 0; index < TreeNode.children.length; index++) {
+                const node: TreeNode = TreeNode.children[index];
+                rows.push({
+                    cells: TreeNode.children[index].cells,
+                });
+                if (node.children) {
+                    children(node);
+                }
+            }
+        }
+        let rows: Row[] = [];
+        for (let index = 0; index < this.data.length; index++) {
+            const node: TreeNode = this.data[index];
+            rows.push({
+                cells: this.data[index].cells,
+            });
+            if (node.children) {
+                children(this.data[index]);
+            }
+        }
+        return rows;
+    }
+
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
+        this.kupManager.theme.register(this);
+
+        this.columnMenuInstance = new KupColumnMenu();
 
         this.refreshStructureState();
 
@@ -432,17 +680,23 @@ export class KupTree {
             }
         }
         this.kupDidLoad.emit();
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
+        if (this.showFooter && this.columns) {
+            this.footer = calcTotals(
+                normalizeRows(this.getColumns(), this.nodesToRows()),
+                this.totals
+            );
+        }
         this.filterNodes();
     }
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-
+        this.totalMenuPosition();
         this.checkScrollOnHover();
 
         if (root) {
@@ -457,26 +711,13 @@ export class KupTree {
         // *** Store
         this.persistState();
         // ***
-        logRender(this, true);
-    }
-
-    componentDidUnload() {
-        this.kupDidUnload.emit();
+        this.kupManager.debug.logRender(this, true);
     }
 
     //-------- Watchers --------
     @Watch('data')
     enrichDataWhenChanged(newData, oldData) {
         if (newData !== oldData) {
-            /*
-            newData.forEach((rootNode) => {
-                this.expandCollapseAllNodes(
-                    rootNode,
-                    this.expanded && !this.useDynamicExpansion
-                );
-            });
-            this.filterNodes();
-            */
             this.refreshStructureState();
         }
     }
@@ -497,38 +738,22 @@ export class KupTree {
 
     //-------- Methods --------
     expandCollapseNode(treeNode: TreeNode, expandNode: boolean = false) {
-        // The node is expandable, which means there are sub trees
-        if (treeNode.expandable) {
-            // If the node does not already have the property to toggle expansion we add it
-            // Notice how, if the property is already set, its first value will be the same value that was provided by the object itself
-            // and only if the node must be expanded automatically then [treeExpandedPropName] is set to true forcibly.
-            // This is done to allow a TreeNode to force its [treeExpandedPropName] to true so that specific nodes can be already set to open.
-            treeNode[treeExpandedPropName] = treeNode.hasOwnProperty(
-                treeExpandedPropName
-            )
-                ? treeNode[treeExpandedPropName] || expandNode
-                : expandNode;
-        }
+        this.filtersTreeItemsInstance.expandCollapseNode(
+            treeNode,
+            expandNode,
+            treeExpandedPropName
+        );
     }
 
     expandCollapseAllNodes(treeNode: TreeNode, expandNode: boolean = false) {
-        // The node is expandable, which means there are sub trees
-        if (treeNode.expandable && !treeNode.disabled) {
-            this.expandCollapseNode(treeNode, expandNode);
-            // Enriches also direct subtrees recursively (if it has children)
-            if (treeNode.children && treeNode.children.length) {
-                // To save some function calls, only child elements which are expandable will be enriched
-                for (let i = 0; i < treeNode.children.length; i++) {
-                    this.expandCollapseAllNodes(
-                        treeNode.children[i],
-                        expandNode
-                    );
-                }
-            }
-        }
+        this.filtersTreeItemsInstance.expandCollapseAllNodes(
+            treeNode,
+            expandNode,
+            treeExpandedPropName
+        );
     }
 
-    private getColumns(): Array<Column> {
+    getColumns(): Array<Column> {
         return this.columns ? this.columns : [{ title: '', name: '' }];
     }
 
@@ -551,10 +776,19 @@ export class KupTree {
         }
     }
 
-    private getVisibleColumns(): Array<Column> {
+    getVisibleColumns(): Array<Column> {
         return this.getColumns().filter((column) =>
             column.hasOwnProperty('visible') ? column.visible : true
         );
+    }
+
+    getHeadingColumns(): Array<Column> {
+        const firstColum: Column = {
+            name: treeMainColumnName,
+            title: '',
+        };
+        const visibleColumns = this.getVisibleColumns();
+        return [firstColum, ...visibleColumns];
     }
 
     /*
@@ -577,26 +811,86 @@ export class KupTree {
         }
     }
 
-    /**
-     * Forces component update with a simple trick.
-     * Should be avoided if possible.
-     * Thinking about a more clean and functional solution.
-     *
-     * A possible idea on where to store the expanded flag could be the following:
-     * 1. generate an unique id for each tree instance and add a common prefix to it (something like 'kupTree${uniqueId}');
-     * 2. store that new string and use it as a key to access the flag for showing if that TreeNode is expanded or not.
-     * However there is a problem with this approach.
-     * When the necessity of recreating the state of the components after browsing another page away will arise,
-     * the fact that each time a new id is generated will make the previously used id invalid and the whole tree will be rendered with its initial state.
-     * The only solution to this is to add a prop which will allow the user of the component to pass an id to be used as
-     * index for storing and retrieving the expanded state of the current node.
-     * Also, when the component will be destroyed, it should emit an event containing the above discussed key to be stored.
-     *
-     * @todo Find a better way to achieve this. And maybe also where to store the expanded flag.
-     * @author Francesco Bonacini f.bonacini@dreamonkey.com
-     */
-    forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
+    private openTotalMenu(column: Column) {
+        this.openedTotalMenu = column.name;
+    }
+
+    private closeMenuAndTooltip() {
+        unsetTooltip(this.tooltip);
+    }
+
+    private onTotalMenuOpen(column: Column) {
+        this.closeMenuAndTooltip();
+        this.closeTotalMenu();
+        this.openTotalMenu(column);
+    }
+
+    private getEventDetails(el: HTMLElement): EventHandlerDetails {
+        const isHeader: boolean = !!el.closest('thead'),
+            isBody: boolean = !!el.closest('tbody'),
+            isFooter: boolean = !!el.closest('tfoot'),
+            td: HTMLTableDataCellElement = el.closest('td'),
+            th: HTMLTableHeaderCellElement = el.closest('th'),
+            tr: HTMLTableRowElement = el.closest('tr'),
+            filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
+        let cell: Cell = null,
+            column: Column = null,
+            row: Row = null;
+        if (isBody) {
+            if (td) {
+                cell = td['data-cell'];
+            }
+            if (tr) {
+                row = tr['data-row'];
+            }
+        }
+        if (isHeader || isBody || isFooter) {
+            const columnName = td
+                ? td.dataset.column
+                : th
+                ? th.dataset.column
+                : null;
+            if (columnName) {
+                column = getColumnByName(this.getColumns(), columnName);
+            }
+        }
+
+        return {
+            area: isHeader
+                ? 'header'
+                : isBody
+                ? 'body'
+                : isFooter
+                ? 'footer'
+                : null,
+            cell: cell ? cell : null,
+            column: column ? column : null,
+            filterRemove: filterRemove ? filterRemove : null,
+            row: row ? row : null,
+            td: td ? td : null,
+            th: th ? th : null,
+            tr: tr ? tr : null,
+        };
+    }
+
+    private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
+        e.preventDefault();
+        const details: EventHandlerDetails = this.getEventDetails(
+            e.target as HTMLElement
+        );
+        if (details.area === 'header') {
+            if (details.th && details.column) {
+                this.openColumnMenu(details.column.name);
+                return details;
+            }
+        } else if (details.area === 'footer') {
+            if (details.td && details.column) {
+                this.totalMenuCoords = { x: e.clientX, y: e.clientY };
+                this.onTotalMenuOpen(details.column);
+                return details;
+            }
+        }
+        return details;
     }
 
     private onJ4btnClicked(
@@ -623,6 +917,7 @@ export class KupTree {
         treeNodePath: string,
         auto: boolean
     ) {
+        unsetTooltip(this.tooltip);
         // If this TreeNode is not disabled, then it can be selected and an event is emitted
         if (treeNodeData && !treeNodeData.disabled) {
             if (this.autoSelectionNodeMode)
@@ -631,6 +926,7 @@ export class KupTree {
                     .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
             this.kupTreeNodeSelected.emit({
+                id: this.rootElement.id,
                 treeNodePath: treeNodePath
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),
@@ -649,6 +945,7 @@ export class KupTree {
         treeNodePath: string,
         ctrlKey: boolean
     ) {
+        unsetTooltip(this.tooltip);
         // If the node is expandable
         if (treeNodeData.expandable) {
             // Always composes the tree node path as an array
@@ -659,16 +956,15 @@ export class KupTree {
             // There are already children set in this TreeNode -> expand or collapse node and emit appropriate event
             if (treeNodeData.children && treeNodeData.children.length) {
                 // Updates expanded state and force rerender
-                treeNodeData[treeExpandedPropName] = !treeNodeData[
-                    treeExpandedPropName
-                ];
+                treeNodeData[treeExpandedPropName] =
+                    !treeNodeData[treeExpandedPropName];
                 if (ctrlKey) {
                     this.handleChildren(
                         treeNodeData,
                         treeNodeData[treeExpandedPropName]
                     );
                 }
-                this.forceUpdate();
+                this.refresh();
                 if (treeNodeData[treeExpandedPropName]) {
                     // TreeNode is now expanded -> Fires expanded event
                     this.kupTreeNodeExpand.emit({
@@ -705,10 +1001,9 @@ export class KupTree {
                         .then((childrenTreeNodes) => {
                             // Children returned successfully
                             treeNodeData.children = childrenTreeNodes;
-                            treeNodeData[treeExpandedPropName] = !treeNodeData[
-                                treeExpandedPropName
-                            ];
-                            this.forceUpdate();
+                            treeNodeData[treeExpandedPropName] =
+                                !treeNodeData[treeExpandedPropName];
+                            this.refresh();
 
                             // TreeNode is now expanded -> Fires expanded event
                             this.kupTreeNodeExpand.emit({
@@ -736,12 +1031,15 @@ export class KupTree {
                         tree: this,
                     });
 
-                    treeNodeData[treeExpandedPropName] = !treeNodeData[
-                        treeExpandedPropName
-                    ];
+                    treeNodeData[treeExpandedPropName] =
+                        !treeNodeData[treeExpandedPropName];
                 }
             }
         }
+    }
+
+    private hasTotals() {
+        return this.totals && Object.keys(this.totals).length > 0;
     }
 
     private handleChildren(TreeNode: TreeNode, expand: boolean) {
@@ -771,6 +1069,19 @@ export class KupTree {
         return strToRet;
     }
 
+    private getFilterValueForTooltip(column: Column): string {
+        return this.filtersColumnMenuInstance.getFilterValueForTooltip(
+            this.filters,
+            column
+        );
+    }
+
+    private onRemoveFilter(column: Column) {
+        const newFilters: GenericFilter = { ...this.filters };
+        this.filtersColumnMenuInstance.removeFilter(newFilters, column.name);
+        this.filters = newFilters;
+    }
+
     onGlobalFilterChange({ detail }) {
         let value = '';
         if (detail && detail.value) {
@@ -779,25 +1090,28 @@ export class KupTree {
         this.globalFilterValue = value;
     }
 
-    private setAllVisible(items: TreeNode[]) {
-        items.forEach((element) => {
-            element.visible = true;
-            this.setAllVisible(element.children);
-        });
+    getColumnValues(column: Column): ValueDisplayedValue[] {
+        return this.filtersTreeItemsInstance.getColumnValues(
+            this,
+            column,
+            this.globalFilterValue,
+            this.filtersColumnMenuInstance
+        );
+    }
+
+    getRows(): Array<TreeNode> {
+        return this.data ? this.data : [];
     }
 
     private filterNodes() {
-        if (this.data == null || this.data.length == 0) {
-            return;
-        }
-        if (this.globalFilterValue.trim() == '') {
-            this.setAllVisible(this.data);
-            return;
-        }
-        for (let i = 0; i < this.data.length; i++) {
-            if (this.setNodeVisibility(this.data[i])) {
-            }
-        }
+        this.filtersTreeItemsInstance.filterRows(
+            this.getRows(),
+            this.filters,
+            this.globalFilterValue,
+            this.getVisibleColumns(),
+            treeExpandedPropName,
+            this.filtersColumnMenuInstance
+        );
     }
 
     private refreshStructureState() {
@@ -810,30 +1124,7 @@ export class KupTree {
                     this.expanded && !this.useDynamicExpansion
                 );
             });
-            this.filterNodes();
         }
-    }
-
-    private setNodeVisibility(node: TreeNode): boolean {
-        let visibility: boolean = isFilterCompliantForValue(
-            node.value,
-            this.globalFilterValue
-        );
-        if (node.disabled != true && node.expandable == true) {
-            /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
-            if (visibility == true) {
-                this.setAllVisible(node.children);
-            } else {
-                for (let i = 0; i < node.children.length; i++) {
-                    if (this.setNodeVisibility(node.children[i])) {
-                        visibility = true;
-                        this.expandCollapseNode(node, true);
-                    }
-                }
-            }
-        }
-        node.visible = visibility;
-        return visibility;
     }
 
     private createIconElement(
@@ -955,11 +1246,13 @@ export class KupTree {
             );
         }
 
-        const _hasTooltip: boolean = hasTooltip(cell.obj);
+        const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+            cell.obj
+        );
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
-            if (document.documentElement.kupDebug) {
+            if (this.kupManager.debug.isDebug()) {
                 title =
                     cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
             }
@@ -982,10 +1275,59 @@ export class KupTree {
                 class={cellClass}
                 onClick={() => (this.selectedColumn = cellData.column.name)}
                 style={tdStyle}
+                {...this.getToolTipEventHandlers(
+                    cellData.treeNode,
+                    cell,
+                    _hasTooltip
+                )}
             >
                 {cellElements}
             </td>
         );
+    }
+
+    /**
+     * Controls if current cell needs a tooltip and eventually adds it.
+     * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
+     */
+    private getToolTipEventHandlers(
+        treeNodeData: TreeNode,
+        cell: Cell,
+        hasTooltip: boolean
+    ) {
+        let eventHandlers = undefined;
+        if (hasTooltip) {
+            if (this.showTooltipOnRightClick) {
+                eventHandlers = {
+                    onContextMenu: (ev) => {
+                        ev.preventDefault();
+                        setTooltip(
+                            ev,
+                            treeNodeData.id,
+                            null,
+                            cell,
+                            this.tooltip
+                        );
+                    },
+                };
+            } else {
+                eventHandlers = {
+                    onMouseEnter: (ev) => {
+                        setTooltip(
+                            ev,
+                            treeNodeData.id,
+                            null,
+                            cell,
+                            this.tooltip
+                        );
+                    },
+                    onMouseLeave: () => {
+                        unsetTooltip(this.tooltip);
+                    },
+                };
+            }
+        }
+        return eventHandlers;
     }
 
     private getIconPath(icon: string) {
@@ -1024,40 +1366,7 @@ export class KupTree {
     // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
     // TODO: more clear conditions when refactoring...
     private getCellType(cell: Cell) {
-        let obj = cell.obj;
-        if (isBar(obj)) {
-            return 'bar';
-        } else if (isButton(obj)) {
-            return 'button';
-        } else if (isChart(obj)) {
-            return 'chart';
-        } else if (isCheckbox(obj)) {
-            return 'checkbox';
-        } else if (isColor(cell, null)) {
-            return 'color-picker';
-        } else if (isGauge(cell, null)) {
-            return 'gauge';
-        } else if (isKnob(cell, null)) {
-            return 'knob';
-        } else if (isIcon(obj) || isVoCodver(obj)) {
-            return 'icon';
-        } else if (isImage(obj)) {
-            return 'image';
-        } else if (isLink(obj)) {
-            return 'link';
-        } else if (isProgressBar(cell, null)) {
-            return 'progress-bar';
-        } else if (isRadio(cell, null)) {
-            return 'radio';
-        } else if (isRating(cell, null)) {
-            return 'rating';
-        } else if (isObjectList(obj)) {
-            return 'chips';
-        } else if (isNumber(obj)) {
-            return 'number';
-        } else {
-            return 'string';
-        }
+        return getCellType(cell);
     }
 
     private setCellSize(cellType: string, props: any, cell: Cell) {
@@ -1181,6 +1490,18 @@ export class KupTree {
                     return <span class="text">{cellValue}</span>;
                 }
                 return content;
+            case 'datetime':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return <span class="text">{cellValue}</span>;
+                }
+                return content;
+            case 'time':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return <span class="text">{cellValue}</span>;
+                }
+                return content;
             case 'string':
             default:
                 return <span class="text">{content}</span>;
@@ -1297,16 +1618,76 @@ export class KupTree {
         return cellStyle;
     }
 
+    renderTooltip() {
+        if (this.tooltipEnabled == false) {
+            return null;
+        }
+        return (
+            <kup-tooltip
+                class="tree-tooltip"
+                owner={this.rootElement.tagName}
+                loadTimeout={
+                    this.showTooltipOnRightClick == true
+                        ? 0
+                        : this.tooltipLoadTimeout
+                }
+                detailTimeout={this.tooltipDetailTimeout}
+                ref={(el: any) => (this.tooltip = el as KupTooltip)}
+            ></kup-tooltip>
+        );
+    }
+
     /**
      * Renders the header of the tree when it must be displayed as a table.
      * @returns An array of table header cells.
      */
     renderHeader(): JSX.Element[] {
-        return this.getVisibleColumns().map((column) => (
-            <th style={this.getCellStyle(column.name, null)}>
-                <span class="column-title">{column.title}</span>
-            </th>
-        ));
+        return this.getHeadingColumns().map((column) => {
+            if (
+                !this.isTreeColumnVisible() &&
+                column.name === treeMainColumnName
+            )
+                return;
+
+            //---- Filter ----
+            let filter = null;
+
+            if (
+                this.filtersColumnMenuInstance.hasFiltersForColumn(
+                    this.filters,
+                    column
+                )
+            ) {
+                const svgLabel =
+                    this.kupManager.language.translate(
+                        KupLanguageGeneric.REMOVE_FILTERS
+                    ) + `: '${this.getFilterValueForTooltip(column)}'`;
+                /**
+                 * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
+                 * Upon click, the filter gets removed.
+                 */
+                filter = (
+                    <span
+                        title={svgLabel}
+                        class="icon-container filter-remove"
+                        onClick={(e: MouseEvent) => {
+                            e.stopPropagation();
+                            this.onRemoveFilter(column);
+                        }}
+                    ></span>
+                );
+            }
+
+            return (
+                <th
+                    data-column={column.name}
+                    style={this.getCellStyle(column.name, null)}
+                >
+                    <span class="column-title">{column.title}</span>
+                    {filter}
+                </th>
+            );
+        });
     }
 
     /**
@@ -1349,7 +1730,16 @@ export class KupTree {
         }
         let treeExpandIcon = (
             <span
-                title="Expand/collapse children (CTRL + Click) "
+                title={
+                    this.kupManager.language.translate(
+                        KupLanguageGeneric.EXPAND
+                    ) +
+                    '/' +
+                    this.kupManager.language.translate(
+                        KupLanguageGeneric.COLLAPSE
+                    ) +
+                    ' (CTRL + Click)'
+                }
                 class={expandClass}
                 onClick={
                     !treeNodeData.disabled
@@ -1431,9 +1821,11 @@ export class KupTree {
             }
         }
 
-        const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
+        const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+            treeNodeData.obj
+        );
         let title: string = undefined;
-        if (_hasTooltip && document.documentElement.kupDebug) {
+        if (_hasTooltip && this.kupManager.debug.isDebug()) {
             title =
                 treeNodeData.obj.t +
                 '; ' +
@@ -1441,6 +1833,41 @@ export class KupTree {
                 '; ' +
                 treeNodeData.obj.k +
                 ';';
+        }
+        const cell: Cell = {
+            obj: treeNodeData.obj,
+            value: treeNodeData.value,
+        };
+
+        let treeNodeCell = null;
+        if (this.isTreeColumnVisible()) {
+            treeNodeCell = (
+                <td
+                    class={{
+                        'first-node': treeNodeDepth === 0 ? true : false,
+                        'mdc-ripple-surface':
+                            !this.showColumns && !treeNodeData.disabled,
+                        'is-obj': this.kupManager.objects.hasTooltip(
+                            treeNodeData.obj
+                        ),
+                    }}
+                    style={treeNodeData.style || null}
+                    title={title}
+                    onDblClick={() => {
+                        this.onKupTreeNodeDblClick(treeNodeData, treeNodePath);
+                    }}
+                    {...this.getToolTipEventHandlers(
+                        treeNodeData,
+                        cell,
+                        _hasTooltip
+                    )}
+                >
+                    {indent}
+                    {treeExpandIcon}
+                    {treeNodeIcon}
+                    <span class="cell-content">{treeNodeData.value}</span>
+                </td>
+            );
         }
 
         return (
@@ -1456,27 +1883,232 @@ export class KupTree {
                 data-tree-path={treeNodePath}
                 {...treeNodeOptions}
             >
-                <td
-                    class={{
-                        'first-node': treeNodeDepth === 0 ? true : false,
-                        'mdc-ripple-surface':
-                            !this.showColumns && !treeNodeData.disabled,
-                        'is-obj': hasTooltip(treeNodeData.obj),
-                    }}
-                    style={treeNodeData.style || null}
-                    title={title}
-                    onDblClick={() => {
-                        this.onKupTreeNodeDblClick(treeNodeData, treeNodePath);
-                    }}
-                >
-                    {indent}
-                    {treeExpandIcon}
-                    {treeNodeIcon}
-                    <span class="cell-content">{treeNodeData.value}</span>
-                </td>
+                {treeNodeCell}
                 {treeNodeCells}
             </tr>
         );
+    }
+
+    private closeTotalMenu() {
+        this.openedTotalMenu = null;
+    }
+
+    private isOpenedTotalMenuForColumn(column: string): boolean {
+        return this.openedTotalMenu === column;
+    }
+
+    onTotalsChange(event, column) {
+        // close menu
+        this.closeTotalMenu();
+        if (column) {
+            // must do this
+            // otherwise does not fire the watcher
+            const totalsCopy = { ...this.totals };
+            const value = event.detail.selected.value;
+            if (value === TotalLabel.CANC) {
+                if (this.totals && this.totals[column.name]) {
+                    delete totalsCopy[column.name];
+                }
+            } else {
+                totalsCopy[column.name] = value;
+            }
+            this.totals = totalsCopy;
+        }
+    }
+
+    renderFooter() {
+        const nodesCell: HTMLTableDataCellElement = <td></td>;
+        const footerCells = this.getVisibleColumns().map((column: Column) => {
+            let totalMenu = undefined;
+            let menuLabel = TotalLabel.CALC;
+            const translation = {
+                [TotalLabel.AVERAGE]: this.kupManager.language.translate(
+                    KupLanguageTotals.AVERAGE
+                ),
+                [TotalLabel.CALC]: this.kupManager.language.translate(
+                    KupLanguageTotals.CALCULATE
+                ),
+                [TotalLabel.CANC]: this.kupManager.language.translate(
+                    KupLanguageTotals.CANCEL
+                ),
+                [TotalLabel.COUNT]: this.kupManager.language.translate(
+                    KupLanguageTotals.COUNT
+                ),
+                [TotalLabel.DISTINCT]: this.kupManager.language.translate(
+                    KupLanguageTotals.DISTINCT
+                ),
+                [TotalLabel.MATH]: this.kupManager.language.translate(
+                    KupLanguageTotals.FORMULA
+                ),
+                [TotalLabel.MAX]: this.kupManager.language.translate(
+                    KupLanguageTotals.MAXIMUM
+                ),
+                [TotalLabel.MIN]: this.kupManager.language.translate(
+                    KupLanguageTotals.MINIMUM
+                ),
+                [TotalLabel.SUM]: this.kupManager.language.translate(
+                    KupLanguageTotals.SUM
+                ),
+            };
+            if (this.totals) {
+                const totalValue = this.totals[column.name];
+                if (totalValue) {
+                    if (totalValue.startsWith(TotalMode.MATH)) {
+                        menuLabel = TotalLabel.MATH;
+                    } else {
+                        switch (totalValue) {
+                            case TotalMode.COUNT:
+                                menuLabel = TotalLabel.COUNT;
+                                break;
+                            case TotalMode.DISTINCT:
+                                menuLabel = TotalLabel.DISTINCT;
+                                break;
+                            case TotalMode.SUM:
+                                menuLabel = TotalLabel.SUM;
+                                break;
+                            case TotalMode.AVERAGE:
+                                menuLabel = TotalLabel.AVERAGE;
+                                break;
+                            case TotalMode.MIN:
+                                menuLabel = TotalLabel.MIN;
+                                break;
+                            case TotalMode.MAX:
+                                menuLabel = TotalLabel.MAX;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            if (this.isOpenedTotalMenuForColumn(column.name)) {
+                let listData: ComponentListElement[] = [
+                    {
+                        text: translation[TotalLabel.COUNT],
+                        value: TotalMode.COUNT,
+                        selected: false,
+                    },
+                    {
+                        text: translation[TotalLabel.DISTINCT],
+                        value: TotalMode.DISTINCT,
+                        selected: false,
+                    },
+                ];
+                if (this.kupManager.objects.isNumber(column.obj)) {
+                    // TODO Move these objects in declarations
+                    listData.push(
+                        {
+                            text: translation[TotalLabel.SUM],
+                            value: TotalMode.SUM,
+                            selected: false,
+                        },
+                        {
+                            text: translation[TotalLabel.AVERAGE],
+                            value: TotalMode.AVERAGE,
+                            selected: false,
+                        },
+                        {
+                            text: translation[TotalLabel.MIN],
+                            value: TotalMode.MIN,
+                            selected: false,
+                        },
+                        {
+                            text: translation[TotalLabel.MAX],
+                            value: TotalMode.MAX,
+                            selected: false,
+                        }
+                    );
+                }
+                // TODO replace this with find which is a better approach
+                // Note that this is not supported in older IE
+                let selectedItem = listData.find(
+                    (item) => item.text === menuLabel
+                );
+                if (selectedItem) {
+                    selectedItem.selected = true;
+                    listData.push(
+                        {
+                            text: null,
+                            value: null,
+                            isSeparator: true,
+                        },
+                        {
+                            text: translation[TotalLabel.CANC],
+                            value: TotalLabel.CANC,
+                            selected: false,
+                        }
+                    );
+                }
+
+                totalMenu = (
+                    <kup-list
+                        class={`kup-menu total-menu`}
+                        data={...listData}
+                        id="totals-menu"
+                        is-menu
+                        menu-visible
+                        onBlur={() => this.closeTotalMenu()}
+                        onKupListClick={(event) =>
+                            this.onTotalsChange(event, column)
+                        }
+                        tabindex={0}
+                    ></kup-list>
+                );
+            }
+
+            let value;
+            if (
+                menuLabel === TotalLabel.COUNT ||
+                menuLabel === TotalLabel.DISTINCT
+            ) {
+                value = this.footer[column.name];
+            } else {
+                value = numberToFormattedStringNumber(
+                    this.footer[column.name],
+                    column.decimals,
+                    column.obj ? column.obj.p : ''
+                );
+            }
+
+            return (
+                <td data-column={column.name}>
+                    {totalMenu}
+                    <span class="totals-value" title={translation[menuLabel]}>
+                        {value}
+                    </span>
+                </td>
+            );
+        });
+
+        return (
+            <tfoot>
+                <tr>
+                    {nodesCell}
+                    {footerCells}
+                </tr>
+            </tfoot>
+        );
+    }
+
+    private totalMenuPosition() {
+        if (this.rootElement.shadowRoot) {
+            let menu: HTMLElement =
+                this.rootElement.shadowRoot.querySelector('#totals-menu');
+            if (menu) {
+                this.kupManager.dynamicPosition.register(
+                    menu as KupDynamicPositionElement,
+                    this.totalMenuCoords,
+                    0,
+                    KupDynamicPositionPlacement.TOP_RIGHT
+                );
+                this.kupManager.dynamicPosition.start(
+                    menu as KupDynamicPositionElement
+                );
+                menu.classList.add('visible');
+                menu.focus();
+            }
+        }
     }
 
     /**
@@ -1524,6 +2156,8 @@ export class KupTree {
     }
 
     render() {
+        const tooltip = this.renderTooltip();
+
         this.sizedColumns = this.getSizedColumns();
         let wrapperClass: string = 'density-medium';
         switch (this.density) {
@@ -1547,7 +2181,11 @@ export class KupTree {
             // There are no TreeNodes, so we print a single cell with a caption
             treeNodes.push(
                 <tr>
-                    <td>Nessun elemento nell'albero</td>
+                    <td>
+                        {this.kupManager.language.translate(
+                            KupLanguageGeneric.EMPTY_DATA
+                        )}
+                    </td>
                 </tr>
             );
         }
@@ -1567,14 +2205,16 @@ export class KupTree {
                     <kup-text-field
                         fullWidth={true}
                         isClearable={true}
-                        label="Search..."
+                        label={this.kupManager.language.translate(
+                            KupLanguageSearch.SEARCH
+                        )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
                         onKupTextFieldInput={(event) => {
                             window.clearTimeout(this.globalFilterTimeout);
                             this.globalFilterTimeout = window.setTimeout(
                                 () => this.onGlobalFilterChange(event),
-                                300
+                                600
                             );
                         }}
                         onKupTextFieldClearIconClick={(event) =>
@@ -1584,18 +2224,31 @@ export class KupTree {
                 </div>
             );
         }
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"
-                        ref={(el) => (this.treeWrapperRef = el as any)}
+                        ref={(el: HTMLElement) =>
+                            (this.treeWrapperRef =
+                                el as KupScrollOnHoverElement)
+                        }
                     >
                         {filterField}
                         <table
                             class="kup-tree"
                             data-show-columns={this.showColumns}
+                            onContextMenu={(e: MouseEvent) =>
+                                this.kupTreeContextMenu.emit({
+                                    details: this.contextMenuHandler(e),
+                                })
+                            }
                         >
                             <thead
                                 class={{
@@ -1603,15 +2256,75 @@ export class KupTree {
                                 }}
                             >
                                 <tr>
-                                    <th />
                                     {visibleHeader ? this.renderHeader() : null}
                                 </tr>
                             </thead>
                             <tbody>{treeNodes}</tbody>
+                            {(this.showFooter || this.hasTotals()) &&
+                            this.columns
+                                ? this.renderFooter()
+                                : null}
                         </table>
                     </div>
+                    {tooltip}
+                    <kup-card
+                        data={
+                            this.columnMenuAnchor
+                                ? this.columnMenuInstance.prepData(
+                                      this,
+                                      getColumnByName(
+                                          this.getVisibleColumns(),
+                                          this.columnMenuAnchor
+                                      ),
+                                      this.columnMenuCard.data
+                                  )
+                                : null
+                        }
+                        id={KupColumnMenuIds.CARD_COLUMN_MENU}
+                        isMenu={true}
+                        layoutNumber={14}
+                        onBlur={() => {
+                            if (
+                                this.kupManager.utilities.lastMouseDownPath.includes(
+                                    this.columnMenuCard
+                                )
+                            ) {
+                                this.columnMenuCard.focus();
+                            } else {
+                                this.closeColumnMenu();
+                            }
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        onKupCardEvent={(e) => {
+                            this.columnMenuInstance.eventHandlers(e, this);
+                        }}
+                        ref={(el: HTMLKupCardElement) =>
+                            (this.columnMenuCard = el)
+                        }
+                        sizeX="auto"
+                        sizeY="auto"
+                        tabIndex={-1}
+                    ></kup-card>
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.language.register(this);
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
+        if (this.scrollOnHover) {
+            this.kupManager.scrollOnHover.unregister(this.treeWrapperRef);
+        }
+        this.kupDidUnload.emit();
     }
 }

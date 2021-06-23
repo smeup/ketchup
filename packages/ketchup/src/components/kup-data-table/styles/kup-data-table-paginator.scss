@@ -1,0 +1,24 @@
+.paginator-wrapper {
+  display: flex;
+  flex-flow: wrap;
+  min-width: max-content;
+}
+
+.paginator-tabs {
+  width: 100%;
+
+  & kup-paginator {
+    display: inline-flex;
+  }
+
+  kup-button {
+    position: relative;
+    height: 100%;
+    margin-left: 0.25em;
+    float: right;
+  }
+
+  .load-more-button {
+    margin: 0.5em 0px 0px;
+  }
+}

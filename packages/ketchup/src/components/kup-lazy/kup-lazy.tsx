@@ -1,7 +1,20 @@
-import { Component, Element, Host, Prop, State, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    forceUpdate,
+    h,
+    Host,
+    Prop,
+    State,
+} from '@stencil/core';
+
 import { Method } from '@stencil/core/internal';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { KupLazyProps } from './kup-lazy-declarations';
 
 @Component({
     tag: 'kup-lazy',
@@ -10,7 +23,6 @@ import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 })
 export class KupLazy {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
     @State() isInViewport: boolean = false;
 
     /**
@@ -20,7 +32,7 @@ export class KupLazy {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Sets the data of the component to be lazy loaded.
      */
@@ -31,12 +43,38 @@ export class KupLazy {
     @Prop() showPlaceholder: boolean = true;
 
     private intObserver: IntersectionObserver = undefined;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     //---- Methods ----
 
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupLazyProps;
+        } else {
+            for (const key in KupLazyProps) {
+                if (Object.prototype.hasOwnProperty.call(KupLazyProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     setObserver() {
@@ -45,7 +83,7 @@ export class KupLazy {
         ) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    logMessage(
+                    this.kupManager.debug.logMessage(
                         this,
                         'kup-lazy entering the viewport, rendering ' +
                             this.componentName +
@@ -65,22 +103,22 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.setObserver();
-        setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
         this.intObserver.observe(this.rootElement);
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -211,20 +249,26 @@ export class KupLazy {
         if (this.isInViewport) {
             let Tag = this.componentName;
             content = <Tag {...this.data}></Tag>;
-            className += ' loaded';
+            className += ' kup-loaded';
         } else if (this.showPlaceholder) {
             content = resource;
-            className += ' to-be-loaded';
+            className += ' kup-to-be-loaded';
         }
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host class={className}>
-                <style>{setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">{content}</div>
             </Host>
         );
     }
 
-    disconnectedCallBack() {
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
         this.intObserver.unobserve(this.rootElement);
     }
 }

@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  font-size: var(--kup-font-size);
+}
+
+.btn-container {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: var(--grid-columns);
+  width: max-content;
+
+  &.show-selection {
+    .selected {
+      --kup-primary-color: var(--kup-secondary-color);
+      --mdc-theme-primary: var(--kup-secondary-color);
+      --kup-text-on-primary-color: var(--kup-text-on-secondary-color);
+      --mdc-theme-on-primary: var(--kup-text-on-secondary-color);
+    }
+  }
+}

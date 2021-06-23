@@ -22,16 +22,8 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupSwitchClick',
-          type: 'click',
-        },
-        {
           name: 'kupSwitchChange',
           type: 'change',
-        },
-        {
-          name: 'kupSwitchInput',
-          type: 'input',
         },
         {
           name: 'kupSwitchFocus',
@@ -55,7 +47,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -84,9 +76,29 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'kup-secondary-color',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };
@@ -96,6 +108,7 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-switch');
   comp.id = 'demo-component';
+  comp.label = 'Demo';
   return comp;
 }
 </script>

@@ -1,4 +1,5 @@
 .standard-layout-5 {
+  background-color: var(--kup-background-color);
   color: var(--kup-text-color);
   box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
   height: 100%;
@@ -6,7 +7,7 @@
   width: 100%;
 
   .section-1 {
-    background-color: var(--color-1);
+    background-color: var(--color-0);
     height: 3%;
   }
 
@@ -23,7 +24,7 @@
   .section-4 {
     display: flex;
     height: 20%;
-    background-color: var(--color-2);
+    background-color: var(--color-1);
   }
 
   .sub-2 {
@@ -38,10 +39,13 @@
       flex: 0 0 10%;
       max-width: 10%;
 
-      kup-image {
+      #image1 {
         box-sizing: border-box;
         margin: auto;
         padding: 0 20%;
+        img {
+          object-fit: contain;
+        }
       }
     }
 
@@ -61,10 +65,13 @@
       padding: 1.5vh 0;
       max-width: 20%;
 
-      kup-image {
+      #image2 {
         box-sizing: border-box;
         margin: auto;
         padding: 0 10%;
+        img {
+          object-fit: contain;
+        }
       }
     }
 
@@ -112,7 +119,7 @@
     }
 
     .alt-text {
-      color: var(--color-1);
+      color: var(--color-0);
       font-size: 1em;
     }
   }

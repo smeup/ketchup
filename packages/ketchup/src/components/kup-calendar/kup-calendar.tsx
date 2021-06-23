@@ -9,9 +9,12 @@ import {
     Column,
 } from '../kup-data-table/kup-data-table-declarations';
 import { formatToMomentDate } from '../../utils/cell-formatter';
-import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 import moment from 'moment';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { getColumnByName } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-calendar',
@@ -90,6 +93,10 @@ export class KupCalendar {
     private calendar: Calendar;
 
     private calendarContainer: HTMLDivElement = null;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     // ---- Private methods ----
     private getColumns(): Column[] {
@@ -178,7 +185,7 @@ export class KupCalendar {
 
     // ---- Lifecycle ----
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
     }
 
     componentDidLoad() {
@@ -269,15 +276,15 @@ export class KupCalendar {
         });
 
         this.calendar.render();
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {

@@ -10,7 +10,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto;"
+          style="width: 50%; margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar value="100"></kup-progress-bar>
         </div>

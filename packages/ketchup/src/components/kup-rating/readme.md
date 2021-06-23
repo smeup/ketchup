@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type      | Default     |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
-| `disabled`    | `disabled`     | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false`     |
-| `maxValue`    | `max-value`    | Max number of stars (default 5)                                                                                 | `number`  | `5`         |
-| `value`       | `value`        | Rated stars                                                                                                     | `number`  | `0`         |
+| Property      | Attribute      | Description                                                                                                     | Type      | Default |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`    |
+| `disabled`    | `disabled`     | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false` |
+| `maxValue`    | `max-value`    | Max number of stars (default 5)                                                                                 | `number`  | `5`     |
+| `value`       | `value`        | Rated stars                                                                                                     | `number`  | `0`     |
 
 
 ## Events
@@ -24,9 +24,19 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
 
 
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
 
 #### Returns
 

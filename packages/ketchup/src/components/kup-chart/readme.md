@@ -13,7 +13,7 @@
 | `axis`        | `axis`         | Sets the axis of the chart.                                                                                                                                                           | `string`                           | `undefined`        |
 | `chartTitle`  | --             | Title of the graph.                                                                                                                                                                   | `ChartTitle`                       | `undefined`        |
 | `colors`      | --             | Colors of the chart.                                                                                                                                                                  | `string[]`                         | `[]`               |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.                                                                      | `string`                           | `undefined`        |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.                                                                      | `string`                           | `''`               |
 | `data`        | --             | The actual data of the chart.                                                                                                                                                         | `DataTable`                        | `undefined`        |
 | `hAxis`       | --             | Customize the hAxis.                                                                                                                                                                  | `ChartAxis`                        | `undefined`        |
 | `legend`      | `legend`       | Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work. | `string`                           | `'right'`          |
@@ -37,9 +37,29 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
 
 
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `resizeCallback() => Promise<void>`
+
+This method is invoked by KupManager whenever the component changes size.
 
 #### Returns
 
@@ -55,6 +75,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
+ - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
 
 ### Graph
@@ -63,6 +84,7 @@ graph TD;
   kup-box --> kup-chart
   kup-card --> kup-chart
   kup-data-table --> kup-chart
+  kup-magic-box --> kup-chart
   kup-tree --> kup-chart
   style kup-chart fill:#f9f,stroke:#333,stroke-width:4px
 ```

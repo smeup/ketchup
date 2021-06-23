@@ -1,14 +1,15 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { dataTableCheckboxFactory } from './mocked-data';
 import { cellsSelector } from './data-table-selectors';
-import { isCheckbox, isRadio } from '../../../src/utils/object-utils';
+import { KupObjects } from '../../../src/utils/kup-objects/kup-objects';
 
 describe.each([
     ['checkbox', 'kup-checkbox'],
     ['radio', 'kup-radio-element'],
 ])('data-table with a %s column', (compType, compElement) => {
+    let objects = new KupObjects();
     const checkObjectTypeFunction =
-        compType === 'checkbox' ? isCheckbox : isRadio;
+        compType === 'checkbox' ? objects.isCheckbox : objects.isRadio;
 
     const { config, data } = dataTableCheckboxFactory(
         compType === 'radio' ? 'rad' : undefined

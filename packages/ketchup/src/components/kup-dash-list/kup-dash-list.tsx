@@ -1,5 +1,5 @@
 import { Component, Prop, Event, h, EventEmitter } from '@stencil/core';
-import { getCellValueForDisplay } from '../kup-data-table/kup-data-table-helper';
+import { getCellValueForDisplay } from '../../utils/cell-utils';
 
 import { getCurrentLocale, getSeparator } from '../../utils/utils';
 
@@ -136,7 +136,6 @@ export class KupDashList {
                 ) {
                     newValue =
                         newValue + getSeparator(getCurrentLocale(), 'decimal');
-                    console.log('Nuovo valore ' + newValue);
                 }
                 valueInt = (
                     <div slot="value-int" style={valueColor}>

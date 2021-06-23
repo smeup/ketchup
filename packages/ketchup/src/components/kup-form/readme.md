@@ -138,40 +138,58 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-text-field
   kup-form --> kup-button
-  kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
+  kup-badge --> kup-badge
   kup-crud --> kup-form
-  kup-autocomplete --> kup-text-field
+  kup-button --> kup-badge
   kup-autocomplete --> kup-list
   kup-search --> kup-text-field
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-date-picker
+  kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-button
   kup-data-table --> kup-tooltip
+  kup-data-table --> kup-list
+  kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
+  kup-data-table --> kup-button
   kup-data-table --> kup-chart
-  kup-data-table --> kup-chip
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
+  kup-card --> kup-chip
+  kup-card --> kup-badge
+  kup-card --> kup-autocomplete
+  kup-card --> kup-button
+  kup-card --> kup-checkbox
+  kup-card --> kup-combobox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
+  kup-card --> kup-data-table
+  kup-card --> kup-list
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
+  kup-card --> kup-spinner
+  kup-card --> kup-tab-bar
+  kup-card --> kup-tree
+  kup-card --> kup-switch
+  kup-chip --> kup-badge
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
-  kup-date-picker --> kup-text-field
-  kup-date-picker --> kup-button
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-tree
   kup-tree --> kup-image
   kup-tree --> kup-button
   kup-tree --> kup-chart
@@ -182,13 +200,18 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-rating
   kup-tree --> kup-radio
+  kup-tree --> kup-tooltip
+  kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-color-picker --> kup-text-field
-  kup-paginator --> kup-button
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-card
+  kup-tooltip --> kup-tree
   kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

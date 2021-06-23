@@ -3,9 +3,9 @@
     <div class="demo-wrapper">
       <p>
         Given the template-driven nature of cards, there aren't styling options
-        besides setting the size. By default cards will fit to 100% of their
-        container, this can be changed by setting a CSS value to
-        <span class="code-word">sizeX</span> and
+        besides setting the size. <br />By default, cards are responsive in
+        relation to their container. This can be changed by setting an arbitrary
+        CSS value to <span class="code-word">sizeX</span> and
         <span class="code-word">sizeY</span> props. <br />For example, the cards
         below should be of the same size, even though they differ for
         configuration. One of them has sizeX and sizeY set to 300px, while the
@@ -43,20 +43,22 @@ export default {
   data() {
     return {
       data1: {
-        button1: { icon: 'favorite', flat: true },
-        image1: {
-          resource: 'images/catz_small.jpg',
-        },
-        text1: 'sizeX and sizeY',
-        text2: "This card' size was set with props",
+        button: [{ icon: 'favorite', flat: true }],
+        image: [
+          {
+            resource: 'images/catz_small.jpg',
+          },
+        ],
+        text: ['sizeX and sizeY', "This card's size was set with props"],
       },
       data2: {
-        button1: { icon: 'favorite', flat: true },
-        image1: {
-          resource: 'images/catz_small_2.jpg',
-        },
-        text1: 'Default behavior',
-        text2: "This card' size fits the container",
+        button: [{ icon: 'favorite', flat: true }],
+        image: [
+          {
+            resource: 'images/catz_small_2.jpg',
+          },
+        ],
+        text: ['Default behavior', "This card' size fits the container"],
       },
       markupSize: '<kup-card sizeX="300px" sizeY="300px"></kup-card>',
     };

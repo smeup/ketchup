@@ -1,0 +1,27 @@
+.dialog-layout-1 {
+  background-color: var(--kup-background-color);
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  color: var(--kup-text-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  .section-1 {
+    display: grid;
+    grid-gap: 0.5em;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(auto-fill, 1.25em);
+    height: 100%;
+    padding: 0.5em;
+    overflow: auto;
+    .text {
+      min-width: max-content;
+      &:not(.label) {
+        font-weight: bold;
+      }
+    }
+  }
+}

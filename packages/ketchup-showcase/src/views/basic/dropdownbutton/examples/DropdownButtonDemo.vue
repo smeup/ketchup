@@ -48,7 +48,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -69,7 +69,7 @@ export default {
         {
           prop: 'displayMode',
           description:
-            'Sets how the show the selected item value. Suported values: "code", "description", "both".',
+            'Sets how to show the selected item value. Suported values: "code", "description", "both".',
           type: 'string',
           default: 'description',
           try: 'field',
@@ -100,7 +100,7 @@ export default {
         {
           prop: 'selectMode',
           description:
-            'Sets how the return the selected item value. Suported values: "code", "description", "both".',
+            'Sets how to return the selected item value. Suported values: "code", "description", "both".',
           type: 'string',
           default: 'description',
           try: 'field',
@@ -124,13 +124,33 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'kup-secondary-color',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
         },
         {
-          class: 'shaped',
+          class: 'kup-shaped',
           description: 'The borders of the button will be shaped.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

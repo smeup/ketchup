@@ -5,31 +5,39 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                     | Type      | Default     |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `checked`      | `checked`       | Defaults at false. When set to true, the component will be set to 'checked'.                                    | `boolean` | `false`     |
-| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false`     |
-| `label`        | `label`         | Defaults at null. When specified, its content will be shown as a label.                                         | `string`  | `null`      |
-| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component.                            | `boolean` | `false`     |
+| Property       | Attribute       | Description                                                                          | Type      | Default |
+| -------------- | --------------- | ------------------------------------------------------------------------------------ | --------- | ------- |
+| `checked`      | `checked`       | Defaults at false. When set to true, the component will be set to 'checked'.         | `boolean` | `false` |
+| `customStyle`  | `custom-style`  | Custom style of the component.                                                       | `string`  | `''`    |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean` | `false` |
+| `label`        | `label`         | Defaults at null. When specified, its content will be shown as a label.              | `string`  | `null`  |
+| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean` | `false` |
 
 
 ## Events
 
-| Event             | Description | Type                              |
-| ----------------- | ----------- | --------------------------------- |
-| `kupSwitchBlur`   |             | `CustomEvent<{ value: string; }>` |
-| `kupSwitchChange` |             | `CustomEvent<{ value: string; }>` |
-| `kupSwitchClick`  |             | `CustomEvent<{ value: string; }>` |
-| `kupSwitchFocus`  |             | `CustomEvent<{ value: string; }>` |
-| `kupSwitchInput`  |             | `CustomEvent<{ value: string; }>` |
+| Event             | Description                                       | Type                                          |
+| ----------------- | ------------------------------------------------- | --------------------------------------------- |
+| `kupSwitchBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ value: string; }>`             |
+| `kupSwitchChange` | Triggered when the input element's value changes. | `CustomEvent<{ id: string; value: string; }>` |
+| `kupSwitchFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ value: string; }>`             |
 
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
 
 
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
 
 #### Returns
 
@@ -37,6 +45,21 @@ Type: `Promise<void>`
 
 
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-card](../kup-card)
+ - [kup-data-table](../kup-data-table)
+
+### Graph
+```mermaid
+graph TD;
+  kup-card --> kup-switch
+  kup-data-table --> kup-switch
+  style kup-switch fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

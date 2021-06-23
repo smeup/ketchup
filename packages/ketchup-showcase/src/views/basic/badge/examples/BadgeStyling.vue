@@ -17,9 +17,9 @@
           <div class="badge-anchor">
             <span>YOUR CONTAINER</span>
             <kup-badge text="TL"></kup-badge>
-            <kup-badge class="top-right" text="TR"></kup-badge>
-            <kup-badge class="bottom-left" text="BL"></kup-badge>
-            <kup-badge class="bottom-right" text="BR"></kup-badge>
+            <kup-badge class="kup-top-right" text="TR"></kup-badge>
+            <kup-badge class="kup-bottom-left" text="BL"></kup-badge>
+            <kup-badge class="kup-bottom-right" text="BR"></kup-badge>
           </div>
         </div>
         <p class="centered">Sample position markup</p>

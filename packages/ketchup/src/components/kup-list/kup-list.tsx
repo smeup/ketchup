@@ -1,26 +1,29 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
     EventEmitter,
-    State,
+    forceUpdate,
     h,
-    Watch,
+    Host,
     Method,
-    getAssetPath,
+    Prop,
+    Watch,
 } from '@stencil/core';
 
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
-import { ComponentListElement } from './kup-list-declarations';
+import { ComponentListElement, KupListProps } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-list',
@@ -29,7 +32,6 @@ import { logLoad, logRender } from '../../utils/debug-manager';
 })
 export class KupList {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
 
     /**
      * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
@@ -39,11 +41,11 @@ export class KupList {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The data of the list.
      */
-    @Prop() data: ComponentListElement[] = [];
+    @Prop({ mutable: true }) data: ComponentListElement[] = [];
     /**
      * Selects how the items must display their label and how they can be filtered for.
      */
@@ -51,7 +53,7 @@ export class KupList {
     /**
      * Keeps string for filtering elements when filter mode is active
      */
-    @Prop() filter: string = '';
+    @Prop({ mutable: true }) filter: string = '';
     /**
      * Hides rows' text, ideally to display a list of icons only.
      */
@@ -67,7 +69,7 @@ export class KupList {
     /**
      * Defines the type of selection. Values accepted: listbox, radiogroup or group.
      */
-    @Prop() roleType?: string = KupList.ROLE_LISTBOX;
+    @Prop({ mutable: true }) roleType?: string = KupList.ROLE_LISTBOX;
     /**
      * Defines whether items are selectable or not.
      */
@@ -89,6 +91,10 @@ export class KupList {
 
     private filteredItems: ComponentListElement[] = [];
     private listComponent: MDCList = null;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     private radios: KupRadio[] = [];
     private checkboxes: KupCheckbox[] = [];
@@ -201,9 +207,31 @@ export class KupList {
 
     //---- Methods ----
 
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupListProps;
+        } else {
+            for (const key in KupListProps) {
+                if (Object.prototype.hasOwnProperty.call(KupListProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
@@ -220,11 +248,14 @@ export class KupList {
         });
     }
 
-    onKupClick(
-        e: CustomEvent & { target: HTMLLIElement },
-        item: ComponentListElement,
-        index: number
-    ) {
+    onKupClick(e: MouseEvent, item: ComponentListElement, index: number) {
+        let el: HTMLLIElement = null;
+        if ((e.target as HTMLElement).tagName === 'LI') {
+            el = e.target as HTMLLIElement;
+        } else {
+            el = (e.target as HTMLElement).closest('li');
+        }
+        el.blur();
         this.onKupClickInternalUse(e.target, item, index);
     }
 
@@ -276,9 +307,6 @@ export class KupList {
 
     @Method()
     async resetFilter(newFilter: string) {
-        /*if (this.filter == newFilter && newFilter != '') {
-            this.filter = '';
-        }*/
         this.filter = newFilter;
     }
 
@@ -304,14 +332,7 @@ export class KupList {
             item.icon != null &&
             item.icon.trim() != ''
         ) {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${item.icon}.svg`
-            )}') no-repeat center`;
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            imageTag = <span style={iconStyle} class="icon-container"></span>;
+            imageTag = this.getIconTag(item.icon);
         }
         let primaryTextTag = [
             getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
@@ -423,8 +444,8 @@ export class KupList {
                 }
                 onClick={
                     !this.selectable
-                        ? (e: any) => e.stopPropagation()
-                        : (e: any) => this.onKupClick(e, item, index)
+                        ? (e: MouseEvent) => e.stopPropagation()
+                        : (e: MouseEvent) => this.onKupClick(e, item, index)
                 }
                 onKeyUp={
                     !this.selectable
@@ -435,6 +456,23 @@ export class KupList {
                 {rippleEl}
                 {innerSpanTag}
             </li>
+        );
+    }
+
+    getIconTag(icon: string) {
+        const large: boolean = this.rootElement.classList.contains('kup-large');
+        const propsFImage = {
+            color: 'var(--kup-primary-color)',
+            sizeX: large ? '32px' : '24px',
+            sizeY: large ? '32px' : '24px',
+        };
+
+        return (
+            <FImage
+                {...propsFImage}
+                resource={icon}
+                wrapperClass={`mdc-icon-button__icon icon-container material-icons`}
+            />
         );
     }
 
@@ -537,9 +575,8 @@ export class KupList {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.watchFilter();
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
@@ -557,15 +594,15 @@ export class KupList {
                 (listItemEl: any) => new MDCRipple(listItemEl)
             );
         }
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -606,9 +643,13 @@ export class KupList {
         this.checkboxes = [];
         let index = 0;
 
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class={wrapperClass}>
                     <ul
                         class={componentClass}
@@ -627,5 +668,9 @@ export class KupList {
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
     }
 }

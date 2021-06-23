@@ -1,0 +1,37 @@
+@import 'kup-card-dialog-1.scss';
+@import 'kup-card-dialog-2.scss';
+@import 'kup-card-dialog-3.scss';
+@import 'kup-card-dialog-4.scss';
+@import 'kup-card-dialog-5.scss';
+
+#drag-handle {
+  &.header-bar {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
+    display: flex;
+    flex-direction: row;
+    height: 2em;
+    position: relative;
+    width: 100%;
+    .dialog-title {
+      font-weight: bold;
+      line-height: 2em;
+      padding-left: 0.5em;
+      padding-right: 2em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #dialog-close {
+      cursor: pointer;
+      margin-right: 0;
+      transition: opacity 0.25s;
+      position: absolute;
+      right: 0;
+      background: var(--kup-title-background-color);
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+}

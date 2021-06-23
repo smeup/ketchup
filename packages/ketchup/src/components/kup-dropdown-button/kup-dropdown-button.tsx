@@ -1,24 +1,34 @@
 import {
     Component,
-    Prop,
     Element,
-    Host,
     Event,
-    getAssetPath,
     EventEmitter,
-    State,
+    forceUpdate,
+    getAssetPath,
     h,
-    Method,
+    Host,
     Listen,
+    Method,
+    Prop,
+    State,
 } from '@stencil/core';
+
 import { MDCRipple } from '@material/ripple';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { positionRecalc } from '../../utils/recalc-position';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import {
     consistencyCheck,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
+import {
+    kupDynamicPositionAttribute,
+    KupDynamicPositionElement,
+} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupDropdownButtonProps } from './kup-dropdown-button-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -27,13 +37,12 @@ import {
 })
 export class KupDropdownButton {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
     @State() value: string = '';
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Props of the sub-components.
      */
@@ -43,7 +52,7 @@ export class KupDropdownButton {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how the show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
@@ -59,17 +68,27 @@ export class KupDropdownButton {
      */
     @Prop() label: string = null;
     /**
-     * Sets how the return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**
-     * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+     * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+     * @default FButtonStyling.RAISED
      */
-    @Prop({ reflect: true }) styling: string = '';
+    @Prop() styling: FButtonStyling = FButtonStyling.RAISED;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
     @Prop() trailingIcon: boolean = false;
+
+    private buttonEl: any;
+    private dropdownButtonEl: any;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+    private listEl: any;
+    private wrapperEl: HTMLElement;
 
     @Event({
         eventName: 'kupDropdownButtonBlur',
@@ -124,17 +143,7 @@ export class KupDropdownButton {
         value: any;
     }>;
 
-    private listEl: any = undefined;
-    private buttonEl: any = undefined;
-    private wrapperEl: HTMLElement = undefined;
-    private dropdownButtonEl: any = undefined;
-
     //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     @Method()
     async getValue(): Promise<string> {
@@ -144,6 +153,37 @@ export class KupDropdownButton {
     @Method()
     async setValue(value: string) {
         this.value = value;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupDropdownButtonProps;
+        } else {
+            for (const key in KupDropdownButtonProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupDropdownButtonProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     @Listen('keyup', { target: 'document' })
@@ -196,6 +236,9 @@ export class KupDropdownButton {
     }
 
     private isListOpened(): boolean {
+        if (this.listEl == null) {
+            return false;
+        }
         return this.listEl.menuVisible == true;
     }
 
@@ -205,7 +248,9 @@ export class KupDropdownButton {
         this.buttonEl.classList.add('toggled');
         this.dropdownButtonEl.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            this.listEl as KupDynamicPositionElement
+        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = buttonWidth + 'px';
@@ -216,7 +261,9 @@ export class KupDropdownButton {
         this.buttonEl.classList.remove('toggled');
         this.dropdownButtonEl.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            this.listEl as KupDynamicPositionElement
+        );
     }
 
     onKupItemClick(e: CustomEvent) {
@@ -236,7 +283,6 @@ export class KupDropdownButton {
         let ret = consistencyCheck(
             valueIn,
             this.data['kup-list'],
-            null,
             this.listEl,
             this.selectMode,
             this.displayMode,
@@ -310,9 +356,9 @@ export class KupDropdownButton {
             componentClass += ' mdc-button--disabled';
         }
 
-        if (this.styling === 'outlined') {
+        if (this.styling === FButtonStyling.OUTLINED) {
             componentClass += ' mdc-button--outlined';
-        } else if (this.styling !== 'flat') {
+        } else if (this.styling !== FButtonStyling.FLAT) {
             componentClass += ' mdc-button--raised';
         }
 
@@ -364,8 +410,8 @@ export class KupDropdownButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -376,11 +422,11 @@ export class KupDropdownButton {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -393,15 +439,18 @@ export class KupDropdownButton {
                 }
             });
         }
-
-        positionRecalc(this.listEl, this.wrapperEl);
-        logRender(this, true);
+        this.kupManager.dynamicPosition.register(this.listEl, this.wrapperEl);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host onBlur={() => this.onKupBlur()}>
-                <style>{setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div
                     id="kup-component"
                     ref={(el) => (this.wrapperEl = el as any)}
@@ -411,5 +460,18 @@ export class KupDropdownButton {
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                '[' + kupDynamicPositionAttribute + ']'
+            );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

@@ -1,11 +1,12 @@
+import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { KupState } from '../kup-state/kup-state';
 
 import {
-    GenericFilter,
     GroupObject,
     SortObject,
     GroupLabelDisplayMode,
     TotalsMap,
+    SelectionMode,
 } from './kup-data-table-declarations';
 
 export class KupDataTableState implements KupState {
@@ -22,9 +23,10 @@ export class KupDataTableState implements KupState {
     headerIsPersistent = true;
     lazyLoadRows = false;
     loadMoreLimit: number = 1000;
-    multiSelection = false;
+    selection = SelectionMode.SINGLE;
     rowsPerPage = 10;
-    showFilters = false; 
+    showFilters = false;
+    showGroups = false;
     showHeader = true;
     showLoadMore: boolean = false;
     sortEnabled = true;
@@ -35,11 +37,12 @@ export class KupDataTableState implements KupState {
     selectRowsById: string;
     dragEnabled: boolean = false;
     dropEnabled: boolean = false;
+    showFooter: boolean = false;
     totals: TotalsMap;
     load: boolean = false;
 
     public toDebugString() {
         // TODO
-        return 'state';
+        return 'dt state';
     }
 }

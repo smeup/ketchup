@@ -1,5 +1,7 @@
 import numeral from 'numeral';
 
+import moment from 'moment';
+
 import {
     Row,
     SortObject,
@@ -9,51 +11,29 @@ import {
     TotalMode,
     TotalsMap,
     Column,
-    GenericFilter,
-    Filter,
     RowGroup,
-    FilterInterval,
     KupDataTableRowDragType,
 } from './kup-data-table-declarations';
-
-import {
-    isNumber,
-    isDate,
-    isTime,
-    isTimeWithSeconds,
-    isTimestamp,
-} from '../../utils/object-utils';
-import {
-    isEmpty,
-    ISO_DEFAULT_DATE_FORMAT,
-    isValidStringDate,
-    getCurrentDateFormatFromBrowserLocale,
-    stringToNumber,
-    changeDateTimeFormat,
-    unformatDateTime,
-    unformattedStringToFormattedStringDate,
-    unformattedStringToFormattedStringTime,
-    unformattedStringToFormattedStringNumber,
-    isValidFormattedStringDate,
-    formattedStringToDefaultUnformattedStringDate,
-    formattedStringToUnformattedStringNumber,
-    isValidFormattedStringNumber,
-    unformattedStringNumberToNumber,
-    isNumber as isNumberThisString,
-    unformattedStringToFormattedStringTimestamp,
-    ISO_DEFAULT_TIME_FORMAT,
-    ISO_DEFAULT_DATE_TIME_FORMAT,
-    isValidFormattedStringTime,
-    formattedStringToDefaultUnformattedStringTime,
-    formattedStringToDefaultUnformattedStringTimestamp,
-    ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
-} from '../../utils/utils';
-import {
-    isFilterCompliantForValue,
-    filterIsNegative,
-} from '../../utils/filters';
-import { logMessage } from '../../utils/debug-manager';
+import { isEmpty, stringToNumber } from '../../utils/utils';
 import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
+import { GenericFilter } from '../../utils/filters/filters-declarations';
+import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
+import {
+    getCellValueForDisplay,
+    getColumnByName,
+    compareCell,
+} from '../../utils/cell-utils';
+import { FiltersRows } from '../../utils/filters/filters-rows';
+import { kupManagerInstance } from '../../utils/kup-manager/kup-manager';
+import { formatToMomentDate } from '../../utils/cell-formatter';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupObjects } from '../../utils/kup-objects/kup-objects';
+import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
+const kupObjects: KupObjects = dom.ketchup
+    ? dom.ketchup.objects
+    : new KupObjects();
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -171,251 +151,6 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
 }
 
 //-------- FILTER FUNCTIONS --------
-export function hasFilters(filters: GenericFilter = {}, columns: Column[]) {
-    if (filters == null) {
-        return false;
-    }
-    let keys = Object.keys(filters);
-    if (keys == null || keys.length < 1) {
-        return false;
-    }
-    for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        const col = getColumnByName(columns, key);
-        if (hasFiltersForColumn(filters, col)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-export function hasFiltersForColumn(
-    filters: GenericFilter = {},
-    column: Column
-): boolean {
-    if (!column) {
-        return false;
-    }
-    let textfield = getTextFieldFilterValue(filters, column.name);
-    if (textfield != null && textfield.trim() != '') {
-        return true;
-    }
-    if (hasIntervalTextFieldFilterValues(filters, column)) {
-        return true;
-    }
-    let checkboxes = getCheckBoxFilterValues(filters, column.name);
-    if (checkboxes == null || checkboxes.length < 1) {
-        return false;
-    }
-    return true;
-}
-
-export function getCheckBoxFilterValues(
-    filters: GenericFilter = {},
-    column: string
-): Array<string> {
-    let values = [];
-    if (filters == null) {
-        return values;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        return values;
-    }
-    if (filter.checkBoxes == null) {
-        return values;
-    }
-    values = filter.checkBoxes;
-    return values;
-}
-
-export function addCheckBoxFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    newFilter: string
-) {
-    if (filters == null) {
-        return;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        filter = { textField: '', checkBoxes: [], interval: null };
-        filters[column] = filter;
-    }
-    if (filter.checkBoxes == null) {
-        filter.checkBoxes = [];
-    }
-    if (newFilter == null) {
-        filter.checkBoxes = [];
-    } else {
-        if (!filter.checkBoxes.includes(newFilter)) {
-            filter.checkBoxes[filter.checkBoxes.length] = newFilter.trim();
-        }
-    }
-}
-
-export function removeCheckBoxFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    remFilter: string
-) {
-    if (filters == null) {
-        return;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        return;
-    }
-    if (filter.checkBoxes == null) {
-        filter.checkBoxes = [];
-    }
-    let index = filter.checkBoxes.indexOf(remFilter.trim());
-    if (index >= 0) {
-        let chs = [];
-        for (let i = 0; i < filter.checkBoxes.length; i++) {
-            if (i != index) {
-                chs[chs.length] = filter.checkBoxes[i];
-            }
-        }
-        filter.checkBoxes = [...chs];
-    }
-}
-
-export function getTextFieldFilterValue(
-    filters: GenericFilter = {},
-    column: string
-): string {
-    let value = '';
-
-    if (filters == null) {
-        return value;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        return value;
-    }
-    value = filter.textField;
-    return value;
-}
-
-export function setTextFieldFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    newFilter: string
-) {
-    if (filters == null) {
-        return;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        filter = { textField: '', checkBoxes: [], interval: null };
-        filters[column] = filter;
-    }
-    filter.textField = newFilter != null ? newFilter.trim() : newFilter;
-}
-
-export function setIntervalTextFieldFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    newFilter: string,
-    index: FilterInterval
-) {
-    if (filters == null) {
-        return;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        filter = { textField: '', checkBoxes: [], interval: null };
-        filters[column] = filter;
-    }
-    if (filter.interval == null) {
-        filter.interval = [];
-        filter.interval.push('', '');
-    }
-    filter.interval[index] = newFilter != null ? newFilter.trim() : newFilter;
-}
-
-export function hasIntervalTextFieldFilterValues(
-    filters: GenericFilter = {},
-    column: Column
-): boolean {
-    if (column == null) {
-        return false;
-    }
-    if (!isColumnFiltrableByInterval(column)) {
-        return false;
-    }
-    let intervalFrom = getIntervalTextFieldFilterValue(
-        filters,
-        column.name,
-        FilterInterval.FROM
-    );
-    if (intervalFrom != null && intervalFrom.trim() != '') {
-        return true;
-    }
-    let intervalTo = getIntervalTextFieldFilterValue(
-        filters,
-        column.name,
-        FilterInterval.TO
-    );
-    if (intervalTo != null && intervalTo.trim() != '') {
-        return true;
-    }
-    return false;
-}
-
-export function getIntervalTextFieldFilterValues(
-    filters: GenericFilter = {},
-    column: string
-): Array<string> {
-    let values = [
-        getIntervalTextFieldFilterValue(filters, column, FilterInterval.FROM),
-        getIntervalTextFieldFilterValue(filters, column, FilterInterval.TO),
-    ];
-    return values;
-}
-
-export function getIntervalTextFieldFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    index: FilterInterval
-): string {
-    let value = '';
-
-    if (filters == null) {
-        return value;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        return value;
-    }
-    if (filter.interval == null) {
-        return value;
-    }
-    value = filter.interval[index];
-    return value;
-}
-
-export function isColumnFiltrableByInterval(column: Column): boolean {
-    return isObjFiltrableByInterval(column.obj);
-}
-
-export function isObjFiltrableByInterval(obj): boolean {
-    if (isDate(obj)) {
-        return true;
-    }
-    if (isTime(obj)) {
-        return true;
-    }
-    if (isTimestamp(obj)) {
-        return true;
-    }
-    if (isNumber(obj)) {
-        return true;
-    }
-    return false;
-}
-
 /**
  * Filters the rows data of a data-table component according to the parameters
  *
@@ -426,288 +161,25 @@ export function isObjFiltrableByInterval(obj): boolean {
  * @todo This function can be improved in its speed by a refactor in which from two different cycles of execution for
  *    single filters and global filter, all controls on a single column are done in a single cycle.
  */
+
 export function filterRows(
     rows: Array<Row> = [],
     filters: GenericFilter = {},
     globalFilter: string = '',
-    columns: Column[] = []
+    columns: Column[] = [],
+    columnFilters?: FiltersColumnMenu,
+    filtersRows?: FiltersRows
 ): Array<Row> {
-    if (!rows || rows == null) {
-        return [];
+    if (filtersRows == null) {
+        filtersRows = new FiltersRows();
     }
 
-    // There are rows to filter
-    let filteredRows: Array<Row> = [];
-    const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
-
-    if (hasFilters(filters, columns) || isUsingGlobalFilter) {
-        for (let i = 0; i < rows.length; i++) {
-            let r: Row = rows[i];
-            if (
-                isRowCompliant(
-                    r,
-                    filters,
-                    globalFilter,
-                    isUsingGlobalFilter,
-                    columns
-                )
-            ) {
-                filteredRows[filteredRows.length] = r;
-            }
-        }
-    } else {
-        filteredRows = [...rows];
-    }
-
-    return filteredRows;
-}
-
-export function isRowCompliant(
-    r: Row,
-    filters: GenericFilter = {},
-    globalFilter: string = '',
-    isUsingGlobalFilter: boolean = false,
-    columns: Column[] = []
-) {
-    if (isUsingGlobalFilter) {
-        let retValue = true;
-        // There are no columns -> display element
-        if (columns && columns != null && columns.length > 0) {
-            retValue = false;
-            let _filterIsNegative = filterIsNegative(globalFilter);
-
-            // Search among all columns for the global filter
-            for (let i = 0; i < columns.length; i++) {
-                const cell = r.cells[columns[i].name];
-                retValue = isFilterCompliantForValue(cell.value, globalFilter);
-                let displayedValue = getCellValueForDisplay(columns[i], cell);
-                if (displayedValue != cell.value) {
-                    retValue =
-                        retValue ||
-                        isFilterCompliantForValue(displayedValue, globalFilter);
-                }
-                if (retValue == true && !_filterIsNegative) {
-                    break;
-                }
-                if (retValue == false && _filterIsNegative) {
-                    break;
-                }
-            }
-        }
-        if (!retValue) {
-            return false;
-        }
-    }
-
-    // There are no filters to check -> the element is valid
-    if (!hasFilters(filters, columns)) {
-        return true;
-    }
-
-    let keys = Object.keys(filters);
-
-    // Filters
-    for (let i = 0; i < keys.length; i++) {
-        let key: string = keys[i];
-
-        const cell = r.cells[key];
-        if (!cell) {
-            return false;
-        }
-
-        let filterValue = getTextFieldFilterValue(filters, key);
-        let interval = getIntervalTextFieldFilterValues(filters, key);
-
-        const _filterIsNegative: boolean = filterIsNegative(filterValue);
-        let b1 = isFilterCompliantForCell(cell, filterValue, interval);
-        let b2 = _filterIsNegative;
-        if (
-            !isNumber(cell.obj) &&
-            !isDate(cell.obj) &&
-            !isTime(cell.obj) &&
-            !isTimestamp(cell.obj)
-        ) {
-            b2 = isFilterCompliantForCellObj(cell, filterValue, interval);
-        }
-        if (_filterIsNegative) {
-            if (!b1 || !b2) {
-                return false;
-            }
-        } else {
-            if (!b1 && !b2) {
-                return false;
-            }
-        }
-
-        let filterValues = getCheckBoxFilterValues(filters, key);
-        if (filterValues.length == 0) {
-            continue;
-        }
-        let retValue = false;
-        for (let i = 0; i < filterValues.length; i++) {
-            let fv = filterValues[i];
-            if (fv == null) {
-                continue;
-            }
-            if (cell.value != null) {
-                if (
-                    cell.value.toLowerCase().trim() == fv.toLowerCase().trim()
-                ) {
-                    retValue = true;
-                    break;
-                }
-            }
-            if (cell.obj != null) {
-                if (
-                    cell.obj.k.toLowerCase().trim() == fv.toLowerCase().trim()
-                ) {
-                    retValue = true;
-                    break;
-                }
-            }
-        }
-        if (!retValue) {
-            return false;
-        }
-    }
-    return true;
-}
-
-export function isFilterCompliantForSimpleValue(
-    valueToCheck: string,
-    obj: any,
-    filterValue: string,
-    interval: string[]
-) {
-    if (valueToCheck == null) {
-        return false;
-    }
-
-    filterValue = normalizeValue(filterValue, obj);
-    let value = valueToCheck;
-
-    let from: string = '';
-    let to: string = '';
-    if (interval != null) {
-        from = interval[FilterInterval.FROM];
-        to = interval[FilterInterval.TO];
-    }
-    let checkByRegularExpression = true;
-    if (isNumber(obj)) {
-        value = unformattedStringNumberToNumber(value, obj ? obj.p : '');
-        let valueNumber: number = stringToNumber(value);
-        if (from != '') {
-            if (isNumberThisString(from)) {
-                checkByRegularExpression = false;
-                let fromNumber: number = stringToNumber(from);
-                if (valueNumber < fromNumber) {
-                    return false;
-                }
-            } else {
-                filterValue = from;
-            }
-        }
-        if (to != '') {
-            if (isNumberThisString(to)) {
-                checkByRegularExpression = false;
-                let toNumber: number = stringToNumber(to);
-                if (valueNumber > toNumber) {
-                    return false;
-                }
-            } else {
-                filterValue = to;
-            }
-        }
-    }
-    if (isDate(obj) || isTime(obj) || isTimestamp(obj)) {
-        let valueDate: Date = null;
-
-        let defaultFormat = ISO_DEFAULT_DATE_FORMAT;
-        if (isDate(obj)) {
-            defaultFormat = ISO_DEFAULT_DATE_FORMAT;
-        } else if (isTime(obj)) {
-            defaultFormat = isTimeWithSeconds(obj)
-                ? ISO_DEFAULT_TIME_FORMAT
-                : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS;
-        } else if (isTimestamp(obj)) {
-            defaultFormat = ISO_DEFAULT_DATE_TIME_FORMAT;
-        }
-
-        if (isValidStringDate(value, defaultFormat)) {
-            valueDate = unformatDateTime(value, defaultFormat);
-        }
-        if (from != '') {
-            if (valueDate != null && isValidStringDate(from, defaultFormat)) {
-                checkByRegularExpression = false;
-                let fromDate: Date = unformatDateTime(from, defaultFormat);
-                if (valueDate < fromDate) {
-                    return false;
-                }
-            } else {
-                filterValue = from;
-            }
-        }
-        if (to != '') {
-            if (valueDate != null && isValidStringDate(to, defaultFormat)) {
-                checkByRegularExpression = false;
-                let toDate: Date = unformatDateTime(to, defaultFormat);
-                if (valueDate > toDate) {
-                    return false;
-                }
-            } else {
-                filterValue = to;
-            }
-        }
-        if (
-            !isValidStringDate(filterValue, defaultFormat) &&
-            !isValidStringDate(filterValue)
-        ) {
-            value = changeDateTimeFormat(
-                value,
-                defaultFormat,
-                getCurrentDateFormatFromBrowserLocale()
-            );
-        }
-    }
-    if (checkByRegularExpression) {
-        return isFilterCompliantForValue(value, filterValue);
-    }
-    return true;
-}
-
-export function isFilterCompliantForCell(
-    cellValue: Cell,
-    filterValue: string,
-    interval: string[]
-) {
-    if (!cellValue) {
-        return false;
-    }
-
-    return isFilterCompliantForSimpleValue(
-        cellValue.value,
-        cellValue.obj,
-        filterValue,
-        interval
-    );
-}
-
-export function isFilterCompliantForCellObj(
-    cellValue: Cell,
-    filterValue: string,
-    interval: string[]
-) {
-    if (!cellValue) {
-        return false;
-    }
-    if (!cellValue.obj) {
-        return false;
-    }
-    return isFilterCompliantForSimpleValue(
-        cellValue.obj.k,
-        cellValue.obj,
-        filterValue,
-        interval
+    return filtersRows.filterRows(
+        rows,
+        filters,
+        globalFilter,
+        columns,
+        columnFilters
     );
 }
 
@@ -737,7 +209,6 @@ export function groupRows(
                 return true;
             }
         }
-
         return false;
     });
 
@@ -749,10 +220,12 @@ export function groupRows(
     // creating root
     const groupRows: Array<Row> = [];
 
+    // obj used to calculate the group distinct value
+    let distinctObj = {};
+
     rows.forEach((row: Row) => {
         // getting column name from first group
         const columnName = validGroups[0].column;
-
         // getting row value
         const cell = row.cells[columnName];
 
@@ -761,7 +234,6 @@ export function groupRows(
             const cellValueForDisplay = getCellValueForDisplay(column, cell);
             const cellValue = cell.value;
             let groupRow: Row = null;
-
             // check in already in groupedRow
             for (let currentGroupRow of groupRows) {
                 if (currentGroupRow.group.label === cellValueForDisplay) {
@@ -769,7 +241,6 @@ export function groupRows(
                     break;
                 }
             }
-
             if (groupRow === null) {
                 // create group row
                 groupRow = {
@@ -786,14 +257,11 @@ export function groupRows(
                     },
                     cells: {},
                 };
-
                 // add group to list
                 groupRows.push(groupRow);
             }
-
             for (let i = 1; i < validGroups.length; i++) {
                 const group = validGroups[i];
-
                 // getting cell value
                 const tempCell = row.cells[group.column];
                 if (tempCell) {
@@ -803,7 +271,6 @@ export function groupRows(
                         tempCell
                     );
                     const tempCellValue = tempCell.value;
-
                     // check if group already exists
                     let tempGroupingRow: Row = null;
                     for (let j = 0; j < groupRow.group.children.length; j++) {
@@ -815,7 +282,6 @@ export function groupRows(
                             break;
                         }
                     }
-
                     if (!tempGroupingRow) {
                         tempGroupingRow = {
                             cells: {},
@@ -837,14 +303,14 @@ export function groupRows(
                     groupRow = tempGroupingRow;
                 }
             }
-
             // adding row
             groupRow.group.children.push(row);
 
-            updateGroupTotal(groupRow, totals, row);
+            updateGroupTotal(groupRow, totals, row, distinctObj);
         }
     });
 
+    adjustGroupsDistinct(groupRows, totals, distinctObj);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
 
@@ -854,7 +320,8 @@ export function groupRows(
 function updateGroupTotal(
     groupRow: Row,
     totals: TotalsMap,
-    addedRow: Row
+    addedRow: Row,
+    distinctObj: Object
 ): void {
     if (!groupRow || !totals) {
         return;
@@ -872,14 +339,13 @@ function updateGroupTotal(
         const cell = addedRow.cells[key];
 
         if (cell) {
-            let _isNumber = isNumber(cell.obj);
+            let _isNumber = kupObjects.isNumber(cell.obj);
 
             const totalMode = totals[key];
 
             switch (totalMode) {
                 case TotalMode.COUNT:
                     groupRow.group.totals[key] = currentTotalValue + 1;
-
                     // updating parents
                     let parent = groupRow.group.parent;
                     while (parent != null) {
@@ -891,7 +357,59 @@ function updateGroupTotal(
                         parent = parent.group.parent;
                     }
                     break;
-
+                case TotalMode.DISTINCT:
+                    let cellValue;
+                    if (_isNumber) {
+                        cellValue = numeral(stringToNumber(cell.value)).value();
+                    } else {
+                        cellValue = cell.value;
+                    }
+                    let distinctGroup = distinctObj[groupRow.group.id];
+                    if (!distinctGroup) {
+                        distinctObj[groupRow.group.id] = {};
+                        distinctObj[groupRow.group.id][key] = [];
+                        distinctObj[groupRow.group.id][key].push(cellValue);
+                    } else {
+                        let distinctList = distinctObj[groupRow.group.id][key];
+                        if (!distinctList) {
+                            // first round
+                            distinctObj[groupRow.group.id][key] = [];
+                            distinctObj[groupRow.group.id][key].push(cellValue);
+                        } else {
+                            // update the list
+                            distinctList.push(cellValue);
+                        }
+                    }
+                    // updating parents
+                    let distinctParent = groupRow.group.parent;
+                    while (distinctParent != null) {
+                        // get parent value
+                        let distinctGroupParent =
+                            distinctObj[distinctParent.group.id];
+                        if (!distinctGroupParent) {
+                            distinctObj[distinctParent.group.id] = {};
+                            distinctObj[distinctParent.group.id][key] = [];
+                            distinctObj[distinctParent.group.id][key].push(
+                                cellValue
+                            );
+                        } else {
+                            let distinctParentList =
+                                distinctObj[distinctParent.group.id][key];
+                            if (!distinctParentList) {
+                                // first round
+                                distinctObj[distinctParent.group.id][key] = [];
+                                distinctObj[distinctParent.group.id][key].push(
+                                    cellValue
+                                );
+                            } else {
+                                // update the list
+                                distinctParentList.push(cellValue);
+                            }
+                        }
+                        // continue
+                        distinctParent = distinctParent.group.parent;
+                    }
+                    break;
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
                     if (_isNumber) {
@@ -900,7 +418,6 @@ function updateGroupTotal(
                         groupRow.group.totals[key] = numeral(cellValue)
                             .add(currentTotalValue)
                             .value();
-
                         // updating parents
                         let parent = groupRow.group.parent;
                         while (parent != null) {
@@ -915,7 +432,150 @@ function updateGroupTotal(
                         }
                     }
                     break;
-
+                // TODO DRY the MIN and MAX functions
+                case TotalMode.MIN:
+                    if (_isNumber) {
+                        const currentTotalValue = groupRow.group.totals[key];
+                        const cellValue = numeral(
+                            stringToNumber(cell.value)
+                        ).value();
+                        if (currentTotalValue) {
+                            groupRow.group.totals[key] = Math.min(
+                                currentTotalValue,
+                                cellValue
+                            );
+                        } else {
+                            // first round
+                            groupRow.group.totals[key] = cellValue;
+                        }
+                        // updating parents
+                        let parent = groupRow.group.parent;
+                        while (parent != null) {
+                            const currentParentMin = parent.group.totals[key];
+                            if (currentParentMin) {
+                                parent.group.totals[key] = Math.min(
+                                    currentParentMin,
+                                    cellValue
+                                );
+                            } else {
+                                // first round
+                                parent.group.totals[key] = cellValue;
+                            }
+                            parent = parent.group.parent;
+                        }
+                    } else if (kupObjects.isDate(cell.obj)) {
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentTotalValue =
+                                groupRow.group.totals[key];
+                            if (currentTotalValue) {
+                                let moments = [];
+                                moments.push(cellValue);
+                                moments.push(
+                                    moment(currentTotalValue, 'DD/MM/YYYY')
+                                );
+                                groupRow.group.totals[key] = moment.min(
+                                    moments
+                                );
+                            } else {
+                                groupRow.group.totals[key] = cellValue;
+                            }
+                            // updating parents
+                            let parent = groupRow.group.parent;
+                            while (parent != null) {
+                                const currentParentMin =
+                                    parent.group.totals[key];
+                                if (currentParentMin) {
+                                    let moments = [];
+                                    moments.push(cellValue);
+                                    moments.push(
+                                        moment(currentParentMin, 'DD/MM/YYYY')
+                                    );
+                                    parent.group.totals[key] = moment.min(
+                                        moments
+                                    );
+                                } else {
+                                    // first round
+                                    parent.group.totals[key] = cellValue;
+                                }
+                                parent = parent.group.parent;
+                            }
+                        }
+                    }
+                    break;
+                // TODO DRY the MIN and MAX functions
+                case TotalMode.MAX:
+                    if (_isNumber) {
+                        const currentTotalValue = groupRow.group.totals[key];
+                        const cellValue = numeral(
+                            stringToNumber(cell.value)
+                        ).value();
+                        if (currentTotalValue) {
+                            groupRow.group.totals[key] = Math.max(
+                                currentTotalValue,
+                                cellValue
+                            );
+                        } else {
+                            // first round
+                            groupRow.group.totals[key] = cellValue;
+                        }
+                        // updating parents
+                        let parent = groupRow.group.parent;
+                        while (parent != null) {
+                            const currentParentMax = parent.group.totals[key];
+                            if (currentParentMax) {
+                                parent.group.totals[key] = Math.max(
+                                    currentParentMax,
+                                    cellValue
+                                );
+                            } else {
+                                // first round
+                                parent.group.totals[key] = cellValue;
+                            }
+                            parent = parent.group.parent;
+                        }
+                    } else if (kupObjects.isDate(cell.obj)) {
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentTotalValue =
+                                groupRow.group.totals[key];
+                            if (currentTotalValue) {
+                                let moments = [];
+                                moments.push(cellValue);
+                                moments.push(
+                                    moment(currentTotalValue, 'DD/MM/YYYY')
+                                );
+                                groupRow.group.totals[key] = moment.max(
+                                    moments
+                                );
+                            } else {
+                                groupRow.group.totals[key] = cellValue;
+                            }
+                            // updating parents
+                            let parent = groupRow.group.parent;
+                            while (parent != null) {
+                                const currentParentMin =
+                                    parent.group.totals[key];
+                                if (currentParentMin) {
+                                    let moments = [];
+                                    moments.push(cellValue);
+                                    moments.push(
+                                        moment(currentParentMin, 'DD/MM/YYYY')
+                                    );
+                                    parent.group.totals[key] = moment.max(
+                                        moments
+                                    );
+                                } else {
+                                    // first round
+                                    parent.group.totals[key] = cellValue;
+                                }
+                                parent = parent.group.parent;
+                            }
+                        }
+                    }
+                    break;
                 default: {
                     if (totalMode.indexOf(TotalMode.MATH) != 0) {
                         console.warn(`invalid total mode: ${totalMode}`);
@@ -925,6 +585,32 @@ function updateGroupTotal(
             }
         }
     });
+}
+
+function adjustGroupsDistinct(
+    groupRows: Array<Row>,
+    totals: TotalsMap,
+    distinctObj: Object
+) {
+    if (!groupRows || !totals) {
+        return;
+    }
+
+    const keys = Object.keys(totals);
+
+    if (groupRows.length === 0 || !groupRows[0].group || keys.length === 0) {
+        return;
+    }
+
+    let toAdjustKeys = keys.filter((key) => TotalMode.DISTINCT === totals[key]);
+
+    if (toAdjustKeys.length > 0) {
+        groupRows
+            .filter((groupRow) => groupRow.group.children.length > 0)
+            .forEach((groupRow) =>
+                adjustGroupDistinct(groupRow, toAdjustKeys, distinctObj)
+            );
+    }
 }
 
 function adjustGroupsAverageOrFormula(
@@ -965,6 +651,29 @@ function adjustGroupsAverageOrFormula(
                 )
             );
     }
+}
+
+function adjustGroupDistinct(
+    groupRow: Row,
+    toAdjustKeys: Array<string>,
+    distinctObj: Object
+) {
+    const children = groupRow.group.children;
+
+    if (children.length === 0) {
+        return;
+    }
+
+    if (children[0].group) {
+        children.forEach((child) => {
+            adjustGroupDistinct(child, toAdjustKeys, distinctObj);
+        });
+    }
+
+    toAdjustKeys.forEach((key) => {
+        const distinctList = distinctObj[groupRow.group.id][key];
+        groupRow.group.totals[key] = new Set(distinctList).size;
+    });
 }
 
 /**
@@ -1017,6 +726,7 @@ export function evaluateFormula(
     formula: string,
     row: { [index: string]: number }
 ): number {
+    const kupManager = kupManagerInstance();
     let formula1: string = formula;
     const keys = Object.keys(row);
     for (let i = 0; i < keys.length; i++) {
@@ -1030,10 +740,10 @@ export function evaluateFormula(
     try {
         return evaluateString(formula1);
     } catch (e) {
-        logMessage(
+        kupManager.debug.logMessage(
             'kup-data-table-helper',
             'Error during evaluate formula [' + formula1 + ']',
-            'error'
+            KupDebugCategory.ERROR
         );
         return NaN;
     }
@@ -1041,34 +751,6 @@ export function evaluateFormula(
 
 export function evaluateString(f: string) {
     return Function('"use strict"; return (' + f + ')')();
-}
-
-export function normalizeValue(value: string, smeupObj: any): string {
-    let newValue = value != null ? value.trim() : value;
-    if (newValue == null || newValue == '' || smeupObj == null) {
-        return newValue;
-    }
-    if (isDate(smeupObj)) {
-        if (isValidFormattedStringDate(value)) {
-            return formattedStringToDefaultUnformattedStringDate(value);
-        }
-    } else if (isTime(smeupObj)) {
-        if (isValidFormattedStringTime(value, isTimeWithSeconds(smeupObj))) {
-            return formattedStringToDefaultUnformattedStringTime(value);
-        }
-    } else if (isTimestamp(smeupObj)) {
-        if (isValidFormattedStringTime(value, true)) {
-            return formattedStringToDefaultUnformattedStringTimestamp(value);
-        }
-    } else if (isNumber(smeupObj)) {
-        if (isValidFormattedStringNumber(value, smeupObj ? smeupObj.p : '')) {
-            return formattedStringToUnformattedStringNumber(
-                value,
-                smeupObj ? smeupObj.p : ''
-            );
-        }
-    }
-    return newValue;
 }
 
 export function normalizeRows(
@@ -1096,37 +778,6 @@ export function normalizeRows(
     }
 }
 
-export function normalizeTotals(
-    columns: Array<Column>,
-    totals: TotalsMap
-): TotalsMap {
-    if (isEmpty(columns) || isEmpty(totals)) {
-        return {};
-    }
-
-    let rettotals: TotalsMap = {};
-    const k = Object.keys(totals);
-
-    k.forEach((key) => {
-        if (key === '*ALL') {
-            columns.forEach((c) => {
-                if (isNumber(c.obj)) {
-                    let colCustomTotal: TotalMode = totals[c.name];
-                    if (colCustomTotal != null) {
-                        rettotals[c.name] = colCustomTotal;
-                    } else {
-                        rettotals[c.name] = totals[key];
-                    }
-                }
-            });
-        } else {
-            rettotals[key] = totals[key];
-        }
-    });
-
-    return rettotals;
-}
-
 export function calcTotals(
     rows: Array<Row> = [],
     totals: { [index: string]: TotalMode } = {}
@@ -1135,155 +786,148 @@ export function calcTotals(
         return {};
     }
     const keys = Object.keys(totals);
-
-    const footerRow: { [index: string]: number } = {};
-
+    const footerRow: { [index: string]: any } = {};
     // if there are only COUNT, no need to loop on rows
     let onlyCount =
         keys.length === 0 &&
         keys.every((key) => totals[key] === TotalMode.COUNT);
-
     if (onlyCount) {
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
     } else {
+        let distinctObj = {};
         rows.forEach((r) => {
             keys.filter(
                 (key) =>
                     TotalMode.COUNT !== totals[key] &&
                     totals[key].indexOf(TotalMode.MATH) != 0
             ).forEach((key) => {
-                // getting column
+                // getting cell
                 const cell = r.cells[key];
-
-                // check if number
-                if (cell && isNumber(cell.obj)) {
-                    const cellValue = numeral(stringToNumber(cell.value));
-
-                    const currentFooterValue = footerRow[key] || 0;
-
-                    footerRow[key] = cellValue.add(currentFooterValue).value();
+                if (cell) {
+                    if (totals[key] === TotalMode.DISTINCT) {
+                        let cellValue;
+                        if (kupObjects.isNumber(cell.obj)) {
+                            cellValue = numeral(
+                                stringToNumber(cell.value)
+                            ).value();
+                        } else {
+                            cellValue = cell.value;
+                        }
+                        let distinctList = distinctObj[key];
+                        if (!distinctList) {
+                            // first round
+                            distinctObj[key] = [];
+                            distinctObj[key].push(cellValue);
+                        } else {
+                            // update the list
+                            distinctList.push(cellValue);
+                            if (distinctList.length === rows.length) {
+                                // last round
+                                footerRow[key] = new Set(distinctList).size;
+                                distinctObj[key] = [];
+                            }
+                        }
+                    } else if (kupObjects.isNumber(cell.obj)) {
+                        const cellValue = numeral(stringToNumber(cell.value));
+                        let currentFooterValue = footerRow[key];
+                        switch (true) {
+                            // TODO DRY the MIN and MAX functions
+                            case totals[key] === TotalMode.MIN:
+                                if (currentFooterValue) {
+                                    footerRow[key] = Math.min(
+                                        currentFooterValue,
+                                        cellValue.value()
+                                    );
+                                } else {
+                                    footerRow[key] = cellValue.value();
+                                }
+                                break;
+                            case totals[key] === TotalMode.MAX:
+                                if (currentFooterValue) {
+                                    footerRow[key] = Math.max(
+                                        currentFooterValue,
+                                        cellValue.value()
+                                    );
+                                } else {
+                                    footerRow[key] = cellValue.value();
+                                }
+                                break;
+                            default:
+                                // SUM
+                                currentFooterValue = footerRow[key] || 0;
+                                footerRow[key] = cellValue
+                                    .add(currentFooterValue)
+                                    .value();
+                        }
+                        // TODO DRY the MIN and MAX functions
+                    } else if (kupObjects.isDate(cell.obj)) {
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentFooterValue = footerRow[key];
+                            switch (true) {
+                                case totals[key] === TotalMode.MIN:
+                                    if (currentFooterValue) {
+                                        let moments = [];
+                                        moments.push(cellValue);
+                                        moments.push(
+                                            moment(
+                                                currentFooterValue,
+                                                'DD/MM/YYYY'
+                                            )
+                                        );
+                                        footerRow[key] = moment.min(moments);
+                                    } else {
+                                        footerRow[key] = cellValue;
+                                    }
+                                    break;
+                                case totals[key] === TotalMode.MAX:
+                                    if (currentFooterValue) {
+                                        let moments = [];
+                                        moments.push(cellValue);
+                                        moments.push(
+                                            moment(
+                                                currentFooterValue,
+                                                'DD/MM/YYYY'
+                                            )
+                                        );
+                                        footerRow[key] = moment.max(moments);
+                                    } else {
+                                        footerRow[key] = cellValue;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
                 }
             });
         });
-
-        // fixing count and avg
+        // fixing MATH, AVERAGE and COUNT
         for (let key of keys) {
-            if (totals[key] === TotalMode.AVERAGE) {
-                const sum: number = footerRow[key];
-
-                if (sum && rows.length > 0) {
-                    footerRow[key] = numeral(sum).divide(rows.length).value();
-                }
-            } else if (totals[key] === TotalMode.COUNT) {
-                footerRow[key] = rows.length;
-            } else if (totals[key].indexOf(TotalMode.MATH) == 0) {
-                let formula = totals[key].substring(TotalMode.MATH.length);
-                footerRow[key] = evaluateFormula(formula, footerRow);
+            switch (true) {
+                case totals[key] === TotalMode.AVERAGE:
+                    const sum: number = footerRow[key];
+                    if (sum && rows.length > 0) {
+                        footerRow[key] = numeral(sum)
+                            .divide(rows.length)
+                            .value();
+                    }
+                    break;
+                case totals[key] === TotalMode.COUNT:
+                    footerRow[key] = rows.length;
+                    break;
+                case totals[key].indexOf(TotalMode.MATH) == 0:
+                    let formula = totals[key].substring(TotalMode.MATH.length);
+                    footerRow[key] = evaluateFormula(formula, footerRow);
+                    break;
+                default:
+                    break;
             }
         }
     }
-
     return footerRow;
-}
-
-function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
-    return compareValues(
-        cell1.obj,
-        cell1.value,
-        cell2.obj,
-        cell2.value,
-        sortMode
-    );
-}
-
-export function compareValues(
-    obj1: any,
-    value1: any,
-    obj2: any,
-    value2: any,
-    sortMode: SortMode
-): number {
-    const sm = sortMode === 'A' ? 1 : -1;
-
-    if (obj1 == null || obj2 == null) {
-        return sm * localCompareAsInJava(value1, value2);
-    }
-
-    // If either the type or the parameter of the current object are not equal.
-    if (!(obj1.t === obj2.t && obj1.p === obj2.p)) {
-        let compare = localCompareAsInJava(obj1.t, obj2.t);
-        if (compare === 0) {
-            compare = localCompareAsInJava(obj1.p, obj2.p);
-        }
-        return compare * sm;
-    }
-
-    let s1: string = value1;
-    let s2: string = value2;
-
-    if (s1 == s2) {
-        return 0;
-    }
-
-    if (s1 == '') {
-        return sm * -1;
-    }
-
-    if (s2 == '') {
-        return sm * 1;
-    }
-
-    let v1: any = s1;
-    let v2: any = s2;
-    if (isNumber(obj1)) {
-        v1 = stringToNumber(s1);
-        v2 = stringToNumber(s2);
-    } else if (isDate(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_FORMAT);
-    } else if (isTime(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_TIME_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_TIME_FORMAT);
-    } else if (isTimestamp(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_TIME_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_TIME_FORMAT);
-    }
-    if (v1 > v2) {
-        return sm * 1;
-    }
-    if (v1 < v2) {
-        return sm * -1;
-    }
-    return 0;
-}
-
-/**
- * Given two strings to compare, the functions decides which string comes before the other or if they are equal.
- * This is meant as a replacement for the JavaScript function localCompare() which produces a slightly different result from
- * the Java version of compareTo().
- *
- * This function has been taken from the link below, but it is slightly improved.
- * @param t1
- * @param t2
- * @see https://stackoverflow.com/questions/60300935/javascript-localecompare-returns-different-result-than-java-compareto
- */
-function localCompareAsInJava(t1: string, t2: string): number {
-    const lim = Math.min(t1.length, t2.length);
-
-    let k = 0;
-    while (k < lim) {
-        const c1 = t1[k];
-        const c2 = t2[k];
-        if (c1 !== c2) {
-            if (c1.charCodeAt(0) === 32) {
-                return c1.charCodeAt(0) + c2.charCodeAt(0);
-            } else {
-                return c1.charCodeAt(0) - c2.charCodeAt(0);
-            }
-        }
-        k++;
-    }
-    return t1.length - t2.length;
 }
 
 function adjustGroupId(row: Row): void {
@@ -1301,19 +945,6 @@ function adjustGroupId(row: Row): void {
     }
 
     row.group.id = groupID;
-}
-
-export function getColumnByName(columns: Column[], name: string): Column {
-    if (columns == null) {
-        return null;
-    }
-    for (let column of columns) {
-        if (column.name === name) {
-            return column;
-        }
-    }
-
-    return null;
 }
 
 export function paginateRows(
@@ -1448,63 +1079,6 @@ export function styleHasWritingMode(cell: Cell): boolean {
         cell &&
         cell.style &&
         (cell.style.writingMode || cell.style['writing-mode'])
-    );
-}
-
-export function getValueForDisplay(value, obj, decimals: number): string {
-    if (value == null || value.trim() == '') {
-        return value;
-    }
-    if (isNumber(obj)) {
-        return unformattedStringToFormattedStringNumber(
-            value,
-            decimals ? decimals : -1,
-            obj ? obj.p : ''
-        );
-    }
-    if (isDate(obj) && isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
-        return unformattedStringToFormattedStringDate(
-            value,
-            null,
-            obj.t + obj.p
-        );
-    }
-    if (isTime(obj)) {
-        return unformattedStringToFormattedStringTime(
-            value,
-            isTimeWithSeconds(obj),
-            null,
-            obj.t + obj.p
-        );
-    }
-    if (isTimestamp(obj)) {
-        return unformattedStringToFormattedStringTimestamp(value);
-    }
-    return value;
-}
-
-export function getCellValueForDisplay(column: Column, cell: Cell): string {
-    if (cell != null) {
-        if (cell.displayedValue != null) {
-            return cell.displayedValue;
-        }
-    }
-    let formattedValue = _getCellValueForDisplay(cell.value, column, cell);
-    if (cell != null) {
-        cell.displayedValue = formattedValue;
-    }
-    return formattedValue;
-}
-
-function _getCellValueForDisplay(value, column: Column, cell: Cell): string {
-    let obj = column != null ? column.obj : null;
-    if (cell != null) {
-        obj = cell.obj ? cell.obj : obj;
-    }
-    return getValueForDisplay(
-        value,
-        obj,
-        column != null ? column.decimals : null
     );
 }
 

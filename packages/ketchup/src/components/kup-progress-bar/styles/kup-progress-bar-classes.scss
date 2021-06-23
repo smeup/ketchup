@@ -1,0 +1,54 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+:host(.kup-animated) {
+  .progress-bar-percentage {
+    animation: running-stripes 2s linear infinite;
+  }
+}
+
+:host(.kup-padded) {
+  .progress-bar {
+    padding: 0.5em;
+    width: calc(100% - 1em);
+  }
+}
+
+:host(.kup-slim) {
+  #kup-component {
+    .progress-bar {
+      border-radius: 9px;
+
+      & .progress-bar-percentage {
+        border-radius: 9px;
+        padding: 0;
+      }
+    }
+    .pie-wrapper {
+      & .pie {
+        & .half-circle {
+          border-width: 0.05em;
+        }
+      }
+      & .shadow {
+        border-width: 0.05em;
+      }
+    }
+  }
+}
+
+:host(.kup-striped) {
+  .progress-bar-percentage {
+    background-image: linear-gradient(
+      -45deg,
+      rgba(var(--kup-text-color-rgb), 0.125) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(var(--kup-text-color-rgb), 0.125) 50%,
+      rgba(var(--kup-text-color-rgb), 0.125) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 3em 3em;
+  }
+}

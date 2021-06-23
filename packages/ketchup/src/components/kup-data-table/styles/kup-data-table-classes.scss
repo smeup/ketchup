@@ -1,0 +1,272 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+:host(.kup-cross-selection) {
+  #kup-component {
+    th.selected {
+      box-shadow: inset 0px 4px 0px 0px var(--kup-secondary-color);
+    }
+
+    td.selected {
+      background-color: rgba(var(--kup-text-color-rgb), 0.075);
+
+      &.fixed-column,
+      &.fixed-row {
+        background-color: var(--kup-background-color);
+        background-image: linear-gradient(
+          to right,
+          rgba(var(--kup-text-color-rgb), 0.075) 0%,
+          rgba(var(--kup-text-color-rgb), 0.075) 0.1%,
+          rgba(var(--kup-text-color-rgb), 0.075)
+        );
+      }
+    }
+
+    tr.selected {
+      td {
+        background-color: rgba(var(--kup-text-color-rgb), 0.075);
+
+        &:first-of-type {
+          box-shadow: inset 4px 0px 0px 0px var(--kup-secondary-color);
+        }
+      }
+
+      td.selected {
+        background-color: rgba(var(--kup-text-color-rgb), 0.15);
+      }
+
+      td.fixed-column,
+      td.fixed-row {
+        background-color: var(--kup-background-color);
+        background-image: linear-gradient(
+          to right,
+          rgba(var(--kup-text-color-rgb), 0.075) 0%,
+          rgba(var(--kup-text-color-rgb), 0.075) 0.1%,
+          rgba(var(--kup-text-color-rgb), 0.075)
+        );
+        &.selected {
+          background-image: linear-gradient(
+            to right,
+            rgba(var(--kup-text-color-rgb), 0.15) 0%,
+            rgba(var(--kup-text-color-rgb), 0.15) 0.1%,
+            rgba(var(--kup-text-color-rgb), 0.15)
+          );
+        }
+      }
+    }
+  }
+}
+
+:host(.kup-layout-fixed) {
+  #kup-component table {
+    table-layout: fixed;
+    width: 100%;
+  }
+}
+/*-------------------------------------------------*/
+/*      J S O N   C l a s s e s   ( r o w s )      */
+/*-------------------------------------------------*/
+tr.clickable {
+  cursor: pointer;
+}
+/*-------------------------------------------------*/
+/*     J S O N   C l a s s e s   ( c e l l s )     */
+/*-------------------------------------------------*/
+// TD styles
+// These styles are applied to the whole cell
+td.clickable {
+  cursor: pointer;
+}
+
+td.display-on-hover {
+  opacity: 0;
+  transition: opacity 0.25s;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+td.shaped {
+  border-radius: 4px;
+}
+
+td.strong-text {
+  font-weight: 600;
+}
+
+td.success-text {
+  color: var(--kup-success-color) !important;
+}
+
+td.warning-text {
+  color: var(--kup-warning-color) !important;
+}
+
+td.danger-text {
+  color: var(--kup-danger-color) !important;
+}
+
+td.purple-text {
+  color: #8e15bf !important;
+}
+
+td.success-bg {
+  background: var(--kup-success-color) !important;
+  color: white !important;
+}
+
+td.warning-bg {
+  background: var(--kup-warning-color) !important;
+}
+
+td.danger-bg {
+  background: var(--kup-danger-color) !important;
+  color: white !important;
+}
+
+td.teal-bg {
+  background: #00b4bc !important;
+  color: white !important;
+}
+
+td.orange-bg {
+  background: #f59729 !important;
+  color: white !important;
+}
+
+td.green-bg {
+  background: #00be67 !important;
+  color: white !important;
+}
+
+td.grey-bg {
+  background: #8d8d8d !important;
+  color: white !important;
+}
+
+td.purple-bg {
+  background: #b88acc !important;
+  color: white !important;
+}
+
+// Content styles
+// These styles are applied to the cell's content
+td.c-vertical-text {
+  & * {
+    text-align: center;
+    writing-mode: vertical-lr;
+  }
+}
+
+td.c-right-aligned {
+  & * {
+    flex-flow: row-reverse;
+  }
+}
+
+td.c-centered {
+  & * {
+    margin: auto;
+    max-width: max-content;
+  }
+}
+
+td.c-fitted {
+  & * {
+    max-width: max-content;
+  }
+}
+
+td.c-shaped {
+  & * {
+    border-radius: 4px;
+  }
+}
+
+td.c-hor-padded {
+  & * {
+    box-sizing: border-box;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+}
+
+td.c-ver-padded {
+  & * {
+    box-sizing: border-box;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+}
+
+td.c-success-bg {
+  & * {
+    background: var(--kup-success-color) !important;
+    color: white !important;
+  }
+}
+
+td.c-warning-bg {
+  & * {
+    background: var(--kup-warning-color) !important;
+  }
+}
+
+td.c-danger-bg {
+  & * {
+    background: var(--kup-danger-color) !important;
+    color: white !important;
+  }
+}
+
+td.c-teal-bg {
+  & * {
+    background: #00b4bc !important;
+    color: white !important;
+  }
+}
+
+td.c-orange-bg {
+  & * {
+    background: #f59729 !important;
+    color: white !important;
+  }
+}
+
+td.c-green-bg {
+  & * {
+    background: #00be67 !important;
+    color: white !important;
+  }
+}
+
+td.c-grey-bg {
+  & * {
+    background: #8d8d8d !important;
+    color: white !important;
+  }
+}
+
+td.c-purple-bg {
+  & * {
+    background: #b88acc !important;
+    color: white !important;
+  }
+}
+
+// Overriden force one line behavior for c-centered
+:host([force-one-line]) tbody tr > td.c-centered * {
+  display: flex;
+  max-width: max-content;
+  width: max-content;
+}
+
+// Overriden force one line behavior for c-fitted
+:host([force-one-line]) tbody tr > td.c-fitted * {
+  max-width: max-content;
+}
+
+// Overriden force one line behavior for c-right-aligned
+:host([force-one-line]) tbody tr > td.c-right-aligned * {
+  text-align: right;
+}

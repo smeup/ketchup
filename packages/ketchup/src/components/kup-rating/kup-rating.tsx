@@ -1,17 +1,23 @@
 import {
     Component,
-    Prop,
     Event,
     Element,
-    Host,
     EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
     State,
     Watch,
-    h,
-    Method,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { KupRatingProps } from './kup-rating-declarations';
 
 @Component({
     tag: 'kup-rating',
@@ -20,13 +26,12 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 })
 export class KupRating {
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
     @State() stars: Array<object> = [];
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
@@ -40,6 +45,11 @@ export class KupRating {
      */
     @Prop() value: number = 0;
 
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+
     @Event() kupRatingClicked: EventEmitter;
 
     @Watch('value')
@@ -50,9 +60,31 @@ export class KupRating {
 
     //---- Methods ----
 
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupRatingProps;
+        } else {
+            for (const key in KupRatingProps) {
+                if (Object.prototype.hasOwnProperty.call(KupRatingProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
 
     onStarClicked(newValue: number) {
@@ -110,31 +142,39 @@ export class KupRating {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.onValueChanged();
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     <div>{this.stars}</div>
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
     }
 }

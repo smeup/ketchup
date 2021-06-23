@@ -84,11 +84,17 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = { debug: { active: true, logLimit: 10000 } };
+        </script>
         <div class="data-examples">
-            <h1>Row actions</h1>
-            <kup-data-table lazy-load-rows="false" id="row-actions" show-filters rows-per-page="20"></kup-data-table>
+            <h1>Text field</h1>
+            <kup-data-table show-footer show-customization lazy-load-rows="false" id="text-field" show-filters rows-per-page="2"></kup-data-table>
 
-            <h1>Radio in cell</h1>
+            <h1>Row actions</h1>
+            <kup-data-table selection="multiple-checkbox" show-footer show-groups lazy-load-rows="false" id="row-actions" show-filters rows-per-page="20"></kup-data-table>
+
+            <h1>Radio in cell</h1> 
             <kup-data-table lazy-load-rows="false" id="temp-data-table-radio"></kup-data-table>
 
             <h1>Order grouped rows</h1>
@@ -101,7 +107,7 @@
             <kup-data-table lazy-load-rows="false" id="temp-data-table-test-data-type" show-filters></kup-data-table>
 
             <h1>temp test data type 2</h1>
-            <kup-data-table lazy-load-rows="false" id="temp-data-table-test-data-type2" rows-per-page="100" show-filters></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="temp-data-table-test-data-type2" scroll-on-hover rows-per-page="100" show-filters></kup-data-table>
 
             <h1>No data</h1>
             <kup-data-table lazy-load-rows="false" density="small" show-load-more></kup-data-table>
@@ -122,17 +128,22 @@
                     enable-sortable-columns
                     drag-enabled
                     lazy-load-rows="false"
-                ></kup-data-table
-            ></div>
-
-            <h1>Columns and rows with removable columns</h1>
-            <div style="width: 800px;">
-                <kup-data-table
-                    id="basic-data-rem-cols"
-                    enable-sortable-columns
-                    lazy-load-rows="false"
-                    removable-columns="true"
-                    drop-enabled
+                    show-footer
+                    show-groups
+                    selection="single"
+                    ></kup-data-table
+                    ></div>
+                    
+                    <h1>Columns and rows with removable columns</h1>
+                    <div style="width: 800px;">
+                        <kup-data-table
+                        id="basic-data-rem-cols"
+                        enable-sortable-columns
+                        lazy-load-rows="false"
+                        removable-columns="true"
+                        drop-enabled
+                        show-footer
+                        show-groups
                 ></kup-data-table
             ></div>
 
@@ -192,7 +203,7 @@
             <kup-data-table lazy-load-rows="false" id="totals-test"></kup-data-table>
 
             <h1>Average test</h1>
-            <kup-data-table lazy-load-rows="false" id="average-test" expand-groups></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="average-test" expand-groups show-groups></kup-data-table>
 
             <h1>Math Formulas test</h1>
             <kup-data-table lazy-load-rows="false" id="math-test" expand-groups></kup-data-table>
@@ -224,6 +235,10 @@
             
         <h1>Gauge</h1>
         <kup-data-table lazy-load-rows="false" id="gauge-test"></kup-data-table>
+
+        <h1>Images</h1>
+        <kup-data-table lazy-load-rows="false" id="image-shape-test"></kup-data-table>      
+ 
         <script src="/assets/data-table.js"></script>
         <!-- <script src="/assets/index.js"></script>-->
         <style>
