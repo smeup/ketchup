@@ -129,6 +129,11 @@ export default {
             'The component will be rendered using the danger color of the app.',
         },
         {
+          class: 'kup-full-width',
+          description:
+            'The button will fill all the available horizontal space.',
+        },
+        {
           class: 'kup-info',
           description:
             'The component will be rendered using the informational color of the app.',

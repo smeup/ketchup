@@ -84,11 +84,13 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-list](../kup-list)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-badge
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge

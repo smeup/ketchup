@@ -62,6 +62,7 @@ graph TD;
   kup-btn --> kup-dropdown-button
   kup-btn --> kup-badge
   kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-badge
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge
