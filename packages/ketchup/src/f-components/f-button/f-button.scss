@@ -35,22 +35,6 @@
       background-color: rgba(var(--kup-primary-color-rgb), 0.125);
     }
 
-    .f-image--wrapper {
-      display: block;
-      margin: auto;
-      position: relative;
-      height: var(--f-image-height, 100%);
-      width: var(--f-image-width, 100%);
-
-      &.button__icon {
-        display: inline-block;
-        font-size: 1.125em;
-        height: 1.125em;
-        vertical-align: top;
-        width: 1.125em;
-      }
-    }
-
     .button__icon {
       margin-left: -4px;
       margin-right: 8px;
@@ -65,7 +49,7 @@
       box-shadow: 0px 3px 1px -2px rgba(var(--kup-text-color-rgb), 0.125),
         0px 2px 2px 0px rgba(var(--kup-text-color-rgb), 0.1),
         0px 1px 5px 0px rgba(var(--kup-text-color-rgb), 0.075);
-      padding: 0 16px 0 16px;
+      padding: 0 16px;
       height: 36px;
       border-radius: 4px;
 
@@ -112,6 +96,15 @@
       &.button--disabled {
         opacity: 0.75;
         border-color: var(--kup-disabled-color);
+      }
+    }
+
+    &.button--no-label {
+      min-width: unset;
+      padding: 0 8px;
+
+      .button__icon {
+        margin: 0;
       }
     }
 

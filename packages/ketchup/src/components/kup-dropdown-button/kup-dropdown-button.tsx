@@ -13,7 +13,6 @@ import {
     State,
 } from '@stencil/core';
 
-import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
     kupManagerInstance,
@@ -29,6 +28,7 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDropdownButtonProps } from './kup-dropdown-button-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { FButton } from '../../f-components/f-button/f-button';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -81,12 +81,12 @@ export class KupDropdownButton {
      */
     @Prop() trailingIcon: boolean = false;
 
-    private buttonEl: any;
-    private dropdownButtonEl: any;
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    private buttonEl: HTMLButtonElement = null;
+    private dropdownEl: HTMLButtonElement = null;
     private listEl: any;
     private wrapperEl: HTMLElement;
 
@@ -242,11 +242,11 @@ export class KupDropdownButton {
         return this.listEl.menuVisible == true;
     }
 
-    private openList(): boolean {
-        let buttonWidth =
-            this.buttonEl.clientWidth + this.dropdownButtonEl.clientWidth;
+    private openList(): void {
+        const buttonWidth: number =
+            this.buttonEl.clientWidth + this.dropdownEl.clientWidth;
         this.buttonEl.classList.add('toggled');
-        this.dropdownButtonEl.classList.add('toggled');
+        this.dropdownEl.classList.add('toggled');
         this.listEl.menuVisible = true;
         this.kupManager.dynamicPosition.start(
             this.listEl as KupDynamicPositionElement
@@ -254,12 +254,11 @@ export class KupDropdownButton {
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = buttonWidth + 'px';
-        return true;
     }
 
     private closeList() {
         this.buttonEl.classList.remove('toggled');
-        this.dropdownButtonEl.classList.remove('toggled');
+        this.dropdownEl.classList.remove('toggled');
         this.listEl.menuVisible = false;
         this.kupManager.dynamicPosition.stop(
             this.listEl as KupDynamicPositionElement
@@ -291,48 +290,6 @@ export class KupDropdownButton {
         this.value = ret.value;
     }
 
-    private createRippleElement() {
-        if (this.disabled) {
-            return undefined;
-        }
-        return <div class="mdc-button__ripple"></div>;
-    }
-
-    private createLabelElement() {
-        if (!this.label) {
-            return undefined;
-        }
-        return <span class="mdc-button__label">{this.label}</span>;
-    }
-
-    private createIconElement(CSSClass: string, icon: string) {
-        if (!icon) {
-            return undefined;
-        }
-
-        if (
-            icon.indexOf('.') > -1 ||
-            icon.indexOf('/') > -1 ||
-            icon.indexOf('\\') > -1
-        ) {
-            return (
-                <span class={CSSClass}>
-                    <img src={icon}></img>
-                </span>
-            );
-        } else {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${icon}.svg`
-            )}') no-repeat center`;
-            CSSClass += ' icon-container material-icons';
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            return <span style={iconStyle} class={CSSClass}></span>;
-        }
-    }
-
     private prepList() {
         return (
             <kup-list
@@ -346,65 +303,61 @@ export class KupDropdownButton {
         );
     }
 
+    /**
+     * Set the events of the component and instantiates Material Design.
+     */
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fPrimary: HTMLElement = root.querySelector(
+                '.dropdown-button__primary-action'
+            );
+            if (fPrimary) {
+                const buttonEl: HTMLButtonElement =
+                    fPrimary.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onblur = () => this.onKupBlur();
+                    buttonEl.onclick = () => this.onKupClick();
+                    buttonEl.onfocus = () => this.onKupFocus();
+                }
+            }
+            const fDropdown: HTMLElement = root.querySelector(
+                '.dropdown-button__dropdown-action'
+            );
+            if (fDropdown) {
+                const buttonEl: HTMLButtonElement =
+                    fDropdown.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = () => this.onDropDownClick();
+                }
+            }
+        }
+    }
+
     private renderButton() {
-        let componentClass: string = 'mdc-button';
-        let leadingEl: HTMLElement = undefined;
-        let trailingEl: HTMLElement = undefined;
-        let dropdownEl: HTMLElement = undefined;
-
-        if (this.disabled) {
-            componentClass += ' mdc-button--disabled';
-        }
-
-        if (this.styling === FButtonStyling.OUTLINED) {
-            componentClass += ' mdc-button--outlined';
-        } else if (this.styling !== FButtonStyling.FLAT) {
-            componentClass += ' mdc-button--raised';
-        }
-
-        let iconEl: HTMLElement = this.createIconElement(
-            'mdc-button__icon',
-            this.icon
+        return (
+            <div class="dropdown-button--wrapper">
+                <FButton
+                    disabled={this.disabled ? true : false}
+                    icon={this.icon ? this.icon : null}
+                    label={this.label ? this.label : ' '}
+                    styling={
+                        this.styling ? this.styling : FButtonStyling.RAISED
+                    }
+                    trailingIcon={this.trailingIcon ? true : false}
+                    wrapperClass="dropdown-button__primary-action"
+                />
+                <FButton
+                    disabled={this.disabled ? true : false}
+                    icon="arrow_drop_down"
+                    label=" "
+                    styling={
+                        this.styling ? this.styling : FButtonStyling.RAISED
+                    }
+                    wrapperClass="dropdown-button__dropdown-action"
+                />
+            </div>
         );
-        let labelEl: HTMLElement = this.createLabelElement();
-
-        if (this.trailingIcon && this.icon) {
-            leadingEl = labelEl;
-            trailingEl = iconEl;
-        } else {
-            leadingEl = iconEl;
-            trailingEl = labelEl;
-        }
-
-        dropdownEl = this.createIconElement(
-            'mdc-button__icon',
-            'arrow_drop_down'
-        );
-        return [
-            <button
-                type="button"
-                class={componentClass + ' action'}
-                disabled={this.disabled}
-                onClick={() => this.onKupClick()}
-                onFocus={() => this.onKupFocus()}
-                ref={(el) => (this.buttonEl = el as any)}
-            >
-                {this.createRippleElement()}
-                {leadingEl}
-                {trailingEl}
-            </button>,
-            <button
-                type="button"
-                class={componentClass + ' dropdown'}
-                disabled={this.disabled}
-                onClick={() => this.onDropDownClick()}
-                onFocus={() => this.onKupFocus()}
-                ref={(el) => (this.dropdownButtonEl = el as any)}
-            >
-                {this.createRippleElement()}
-                {dropdownEl}
-            </button>,
-        ];
     }
 
     //---- Lifecycle hooks ----
@@ -430,15 +383,16 @@ export class KupDropdownButton {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root && !this.disabled) {
-            root.querySelectorAll('button').forEach((element) => {
-                if (element != undefined) {
-                    MDCRipple.attachTo(element);
-                }
-            });
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root && (!this.buttonEl || !this.dropdownEl)) {
+            this.buttonEl = root.querySelector(
+                '.dropdown-button__primary-action'
+            );
+            this.dropdownEl = root.querySelector(
+                '.dropdown-button__dropdown-action'
+            );
         }
+        this.setEvents();
         this.kupManager.dynamicPosition.register(this.listEl, this.wrapperEl);
         this.kupManager.debug.logRender(this, true);
     }

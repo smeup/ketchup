@@ -50,15 +50,15 @@ function renderButton(props: FButtonProps): HTMLButtonElement {
         wrapperClass: 'button__icon icon-container material-icons',
     };
     const classObj: Record<string, boolean> = {
-        ['button']: true,
+        button: true,
         'button--disabled': props.disabled ? true : false,
         'button--outlined': isOutlined ? true : false,
         'button--raised': !isFlat && !isOutlined ? true : false,
+        'button--no-label': props.label === ' ' ? true : false,
     };
 
     return (
         <button type="button" class={classObj} disabled={props.disabled}>
-            {!props.disabled ? <div class="button__ripple"></div> : undefined}
             {props.trailingIcon
                 ? [
                       <span class="button__label">{props.label}</span>,
@@ -94,8 +94,6 @@ function renderIconButton(props: FButtonProps): HTMLButtonElement {
         <button
             type="button"
             class={classObj}
-            // @ts-ignore
-            checked={props.checked}
             disabled={props.disabled}
             value={props.checked ? 'on' : 'off'}
         >
@@ -112,7 +110,7 @@ function renderIconButton(props: FButtonProps): HTMLButtonElement {
                     resource={props.icon}
                     wrapperClass={`icon-button__icon icon-button__icon--on icon-container material-icons`}
                 />
-            ) : undefined}
+            ) : null}
         </button>
     );
 }
