@@ -47,28 +47,26 @@ function renderButton(props: FButtonProps): HTMLButtonElement {
         resource: props.icon,
         sizeX: '18px',
         sizeY: '18px',
-        wrapperClass: 'mdc-button__icon icon-container material-icons',
+        wrapperClass: 'button__icon icon-container material-icons',
     };
     const classObj: Record<string, boolean> = {
-        'mdc-button': true,
-        'mdc-button--disabled': props.disabled ? true : false,
-        'mdc-button--outlined': isOutlined ? true : false,
-        'mdc-button--raised': !isFlat && !isOutlined ? true : false,
+        ['button']: true,
+        'button--disabled': props.disabled ? true : false,
+        'button--outlined': isOutlined ? true : false,
+        'button--raised': !isFlat && !isOutlined ? true : false,
     };
 
     return (
         <button type="button" class={classObj} disabled={props.disabled}>
-            {!props.disabled ? (
-                <div class="mdc-button__ripple"></div>
-            ) : undefined}
+            {!props.disabled ? <div class="button__ripple"></div> : undefined}
             {props.trailingIcon
                 ? [
-                      <span class="mdc-button__label">{props.label}</span>,
+                      <span class="button__label">{props.label}</span>,
                       props.icon ? <FImage {...propsFImage} /> : undefined,
                   ]
                 : [
                       props.icon ? <FImage {...propsFImage} /> : undefined,
-                      <span class="mdc-button__label">{props.label}</span>,
+                      <span class="button__label">{props.label}</span>,
                   ]}
         </button>
     );
@@ -84,9 +82,9 @@ function renderIconButton(props: FButtonProps): HTMLButtonElement {
     };
 
     const classObj: Record<string, boolean> = {
-        'mdc-icon-button': true,
-        'mdc-button--disabled': props.disabled ? true : false,
-        'mdc-icon-button--on': props.toggable && props.checked ? true : false,
+        'icon-button': true,
+        'button--disabled': props.disabled ? true : false,
+        'icon-button--on': props.toggable && props.checked ? true : false,
         toggable: props.toggable ? true : false,
     };
 
@@ -106,13 +104,13 @@ function renderIconButton(props: FButtonProps): HTMLButtonElement {
                 resource={
                     props.toggable && !props.checked ? iconOff : props.icon
                 }
-                wrapperClass={`mdc-icon-button__icon icon-container material-icons`}
+                wrapperClass={`icon-button__icon icon-container material-icons`}
             />
             {props.toggable ? (
                 <FImage
                     {...propsFImage}
                     resource={props.icon}
-                    wrapperClass={`mdc-icon-button__icon mdc-icon-button__icon--on icon-container material-icons`}
+                    wrapperClass={`icon-button__icon icon-button__icon--on icon-container material-icons`}
                 />
             ) : undefined}
         </button>

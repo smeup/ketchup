@@ -16,7 +16,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
-import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import {
     KupLanguagePage,
     KupLanguageRow,
@@ -212,22 +211,18 @@ export class KupPaginator {
                 '.f-button--wrapper.prev-page'
             );
             if (nextButton) {
-                const buttonEl: HTMLButtonElement = nextButton.querySelector(
-                    'button'
-                );
+                const buttonEl: HTMLButtonElement =
+                    nextButton.querySelector('button');
                 if (buttonEl) {
                     buttonEl.onclick = () => this.onNextPage();
                 }
-                FButtonMDC(nextButton);
             }
             if (prevButton) {
-                const buttonEl: HTMLButtonElement = prevButton.querySelector(
-                    'button'
-                );
+                const buttonEl: HTMLButtonElement =
+                    prevButton.querySelector('button');
                 if (buttonEl) {
                     buttonEl.onclick = () => this.onPrevPage();
                 }
-                FButtonMDC(prevButton);
             }
         }
     }
