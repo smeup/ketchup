@@ -2890,6 +2890,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         "onKupBtnClick"?: (event: CustomEvent<{
+        comp: KupBtn;
         id: string;
         subId: string;
         obj: any;
