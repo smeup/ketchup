@@ -7,29 +7,29 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                     | Type                                                                                             | Default                        |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `''`                           |
-| `data`         | --              | Props of the sub-components.                                                                                    | `Object`                                                                                         | `undefined`                    |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                 | `boolean`                                                                                        | `false`                        |
-| `displayMode`  | `display-mode`  | Sets how to show the selected item value. Suported values: "code", "description", "both".                       | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
-| `icon`         | `icon`          | Defaults at null. When set, the button will show this icon.                                                     | `string`                                                                                         | `null`                         |
-| `initialValue` | `initial-value` | Sets the initial value of the component.                                                                        | `string`                                                                                         | `''`                           |
-| `label`        | `label`         | Defaults at null. When set, the button will show this text.                                                     | `string`                                                                                         | `null`                         |
-| `selectMode`   | `select-mode`   | Sets how to return the selected item value. Suported values: "code", "description", "both".                     | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE`        |
-| `styling`      | `styling`       | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.   | `FButtonStyling.FLAT \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED`                        | `FButtonStyling.RAISED`        |
-| `trailingIcon` | `trailing-icon` | Defaults at null. When set, the icon will be shown after the text.                                              | `boolean`                                                                                        | `false`                        |
+| Property       | Attribute       | Description                                                                                                   | Type                                                                                             | Default                        |
+| -------------- | --------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                | `string`                                                                                         | `''`                           |
+| `data`         | --              | Props of the sub-components.                                                                                  | `Object`                                                                                         | `null`                         |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                               | `boolean`                                                                                        | `false`                        |
+| `displayMode`  | `display-mode`  | Sets how to show the selected item value. Suported values: "code", "description", "both".                     | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `icon`         | `icon`          | Defaults at null. When set, the button will show this icon.                                                   | `string`                                                                                         | `null`                         |
+| `initialValue` | `initial-value` | Sets the initial value of the component.                                                                      | `string`                                                                                         | `''`                           |
+| `label`        | `label`         | Defaults at null. When set, the button will show this text.                                                   | `string`                                                                                         | `null`                         |
+| `selectMode`   | `select-mode`   | Sets how to return the selected item value. Suported values: "code", "description", "both".                   | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE`        |
+| `styling`      | `styling`       | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default. | `FButtonStyling.FLAT \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED`                        | `FButtonStyling.RAISED`        |
+| `trailingIcon` | `trailing-icon` | Defaults at null. When set, the icon will be shown after the text.                                            | `boolean`                                                                                        | `false`                        |
 
 
 ## Events
 
-| Event                           | Description | Type                                          |
-| ------------------------------- | ----------- | --------------------------------------------- |
-| `kupDropdownButtonBlur`         |             | `CustomEvent<{ id: string; value: string; }>` |
-| `kupDropdownButtonClick`        |             | `CustomEvent<{ id: string; value: string; }>` |
-| `kupDropdownButtonFocus`        |             | `CustomEvent<{ id: string; value: string; }>` |
-| `kupDropdownSelectionChange`    |             | `CustomEvent<{ value: any; }>`                |
-| `kupDropdownSelectionItemClick` |             | `CustomEvent<{ value: any; }>`                |
+| Event                           | Description                                    | Type                                          |
+| ------------------------------- | ---------------------------------------------- | --------------------------------------------- |
+| `kupDropdownButtonBlur`         | Triggered when the primary button loses focus. | `CustomEvent<{ id: string; value: string; }>` |
+| `kupDropdownButtonClick`        | Triggered when the primary button is clicked.  | `CustomEvent<{ id: string; value: string; }>` |
+| `kupDropdownButtonFocus`        | Triggered when the primary button is focused.  | `CustomEvent<{ id: string; value: string; }>` |
+| `kupDropdownSelectionChange`    | Triggered when a list item changes.            | `CustomEvent<{ value: any; }>`                |
+| `kupDropdownSelectionItemClick` | Triggered when a list item is clicked.         | `CustomEvent<{ value: any; }>`                |
 
 
 ## Methods
@@ -46,7 +46,7 @@ Type: `Promise<GenericObject>`
 
 ### `getValue() => Promise<string>`
 
-
+Returns the component's internal value.
 
 #### Returns
 
@@ -66,7 +66,7 @@ Type: `Promise<void>`
 
 ### `setValue(value: string) => Promise<void>`
 
-
+Sets the internal value of the component.
 
 #### Returns
 

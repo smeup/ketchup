@@ -1014,19 +1014,24 @@ export namespace Components {
     }
     interface KupDropdownButton {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the sub-components.
+          * @default null
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
           * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
         /**
@@ -1035,17 +1040,23 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the component's internal value.
+         */
         "getValue": () => Promise<string>;
         /**
           * Defaults at null. When set, the button will show this icon.
+          * @default icon
          */
         "icon": string;
         /**
           * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue": string;
         /**
           * Defaults at null. When set, the button will show this text.
+          * @default ""
          */
         "label": string;
         /**
@@ -1054,8 +1065,12 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.CODE
          */
         "selectMode": ItemsDisplayMode;
+        /**
+          * Sets the internal value of the component.
+         */
         "setValue": (value: string) => Promise<void>;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
@@ -1064,6 +1079,7 @@ export namespace Components {
         "styling": FButtonStyling;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
+          * @default false
          */
         "trailingIcon": boolean;
     }
@@ -2941,14 +2957,23 @@ declare namespace LocalJSX {
           * @default null
          */
         "label"?: string;
+        /**
+          * Triggered when the button loses focus.
+         */
         "onKupButtonBlur"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the button is clicked.
+         */
         "onKupButtonClick"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the button is focused.
+         */
         "onKupButtonFocus"?: (event: CustomEvent<{
         id: string;
         value: string;
@@ -3802,53 +3827,77 @@ declare namespace LocalJSX {
     }
     interface KupDropdownButton {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the sub-components.
+          * @default null
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
         /**
           * Defaults at null. When set, the button will show this icon.
+          * @default icon
          */
         "icon"?: string;
         /**
           * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue"?: string;
         /**
           * Defaults at null. When set, the button will show this text.
+          * @default ""
          */
         "label"?: string;
+        /**
+          * Triggered when the primary button loses focus.
+         */
         "onKupDropdownButtonBlur"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the primary button is clicked.
+         */
         "onKupDropdownButtonClick"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the primary button is focused.
+         */
         "onKupDropdownButtonFocus"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;
+        /**
+          * Triggered when a list item changes.
+         */
         "onKupDropdownSelectionChange"?: (event: CustomEvent<{
         value: any;
     }>) => void;
+        /**
+          * Triggered when a list item is clicked.
+         */
         "onKupDropdownSelectionItemClick"?: (event: CustomEvent<{
         value: any;
     }>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
         /**
@@ -3858,6 +3907,7 @@ declare namespace LocalJSX {
         "styling"?: FButtonStyling;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
+          * @default false
          */
         "trailingIcon"?: boolean;
     }

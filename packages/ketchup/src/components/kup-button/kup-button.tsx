@@ -108,6 +108,9 @@ export class KupButton {
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
+    /**
+     * Triggered when the button loses focus.
+     */
     @Event({
         eventName: 'kupButtonBlur',
         composed: true,
@@ -118,7 +121,9 @@ export class KupButton {
         id: string;
         value: string;
     }>;
-
+    /**
+     * Triggered when the button is clicked.
+     */
     @Event({
         eventName: 'kupButtonClick',
         composed: true,
@@ -129,7 +134,9 @@ export class KupButton {
         id: string;
         value: string;
     }>;
-
+    /**
+     * Triggered when the button is focused.
+     */
     @Event({
         eventName: 'kupButtonFocus',
         composed: true,
