@@ -1,69 +1,200 @@
-@import '@material/button/mdc-button';
-@import '@material/icon-button/mdc-icon-button';
+.f-button--wrapper {
+  .button {
+    background-color: transparent;
+    border-radius: 4px;
+    color: var(--kup-primary-color);
+    cursor: pointer;
+    font-family: var(--kup-font-family);
+    font-size: 0.875em;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    height: 36px;
+    line-height: 2.25em;
+    font-weight: 500;
+    letter-spacing: 0.0892857143em;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 64px;
+    border: none;
+    outline: none;
+    line-height: inherit;
+    user-select: none;
+    -webkit-appearance: none;
+    overflow: visible;
+    vertical-align: middle;
+    transition: background-color 80ms linear,
+      box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
-#kup-component {
-  .f-button--wrapper {
-    .mdc-button {
-      font-family: var(--kup-font-family);
-      font-size: 0.875em;
+    &:hover,
+    &:focus {
+      background-color: rgba(var(--kup-primary-color-rgb), 0.125);
+    }
 
-      &.mdc-button--outlined:not(:disabled) {
-        border-color: var(--kup-primary-color);
+    .f-image--wrapper {
+      display: block;
+      margin: auto;
+      position: relative;
+      height: var(--f-image-height, 100%);
+      width: var(--f-image-width, 100%);
+
+      &.button__icon {
+        display: inline-block;
+        font-size: 1.125em;
+        height: 1.125em;
+        vertical-align: top;
+        width: 1.125em;
+      }
+    }
+
+    .button__icon {
+      margin-left: -4px;
+      margin-right: 8px;
+    }
+
+    .button__label + .button__icon {
+      margin-left: 8px;
+      margin-right: -4px;
+    }
+
+    &.button--raised {
+      box-shadow: 0px 3px 1px -2px rgba(var(--kup-text-color-rgb), 0.125),
+        0px 2px 2px 0px rgba(var(--kup-text-color-rgb), 0.1),
+        0px 1px 5px 0px rgba(var(--kup-text-color-rgb), 0.075);
+      padding: 0 16px 0 16px;
+      height: 36px;
+      border-radius: 4px;
+
+      &:hover {
+        box-shadow: 0px 5px 5px -3px rgba(var(--kup-text-color-rgb), 0.125),
+          0px 8px 10px 1px rgba(var(--kup-text-color-rgb), 0.1),
+          0px 3px 14px 2px rgba(var(--kup-text-color-rgb), 0.075);
       }
 
-      &.mdc-button--outlined:disabled {
+      &:not(.button--disabled) {
+        background-color: var(--kup-primary-color);
+        color: var(--kup-text-on-primary-color);
+      }
+
+      &:focus,
+      &:hover {
+        background-color: rgba(var(--kup-primary-color-rgb), 0.825);
+      }
+
+      &.button--disabled {
+        background-color: var(--kup-disabled-background-color);
+        box-shadow: none;
+      }
+    }
+
+    &.button--outlined {
+      height: 36px;
+      padding: 0px 15px;
+      border-width: 1px;
+      border-radius: 4px;
+      border-style: solid;
+
+      &:not(.button--disabled) {
+        border-color: var(--kup-primary-color);
+        background-color: transparent;
+        color: var(--kup-primary-color);
+      }
+
+      &:focus,
+      &:hover {
+        background-color: rgba(var(--kup-primary-color-rgb), 0.125);
+      }
+
+      &.button--disabled {
+        opacity: 0.75;
         border-color: var(--kup-disabled-color);
       }
+    }
 
-      &.mdc-button--raised:disabled {
-        background: var(--kup-disabled-background-color);
-      }
+    &.button--disabled {
+      color: var(--kup-disabled-color);
+      cursor: auto;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+  }
 
-      &:disabled {
-        color: var(--kup-disabled-color);
+  .icon-button {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    fill: currentColor;
+    color: inherit;
+    font-size: 24px;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    border-radius: 50%;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(var(--kup-primary-color-rgb), 0.125);
+    }
+
+    .icon-button__icon {
+      display: inline-block;
+
+      &.icon-button__icon--on {
+        display: none;
       }
     }
 
-    .mdc-icon-button {
-      &:after,
-      &:before {
-        background-color: var(--kup-primary-color);
-      }
+    &.button--disabled {
+      opacity: 0.75;
+      pointer-events: none;
     }
+  }
 
-    &.kup-full-height {
+  &.kup-full-height {
+    height: 100%;
+
+    .button {
       height: 100%;
-      .mdc-button {
-        height: 100%;
-      }
     }
+  }
 
-    &.kup-full-width {
+  &.kup-full-width {
+    width: 100%;
+
+    .button {
       width: 100%;
-      .mdc-button {
-        width: 100%;
-      }
+    }
+  }
+
+  &.kup-large {
+    .button {
+      font-size: 1.25em;
+      height: 48px;
     }
 
-    &.kup-large {
-      .mdc-button {
-        font-size: 1.25em;
-        height: 48px;
-      }
-      .mdc-icon-button {
-        width: 60px;
-        height: 60px;
-      }
-      .f-image--wrapper {
-        font-size: 32px;
-      }
+    .icon-button {
+      width: 60px;
+      height: 60px;
     }
 
-    &.kup-shaped {
-      .mdc-button,
-      .mdc-button__ripple {
-        border-radius: 18px;
-      }
+    .f-image--wrapper {
+      font-size: 32px;
+    }
+  }
+
+  &.kup-shaped {
+    .button {
+      border-radius: 18px;
     }
   }
 }

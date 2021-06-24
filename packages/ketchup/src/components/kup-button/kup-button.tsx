@@ -16,7 +16,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
-import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import {
     FButtonProps,
     FButtonStyling,
@@ -223,7 +222,6 @@ export class KupButton {
                     buttonEl.onclick = () => this.onKupClick();
                     buttonEl.onfocus = () => this.onKupFocus();
                 }
-                FButtonMDC(f);
             }
         }
     }
