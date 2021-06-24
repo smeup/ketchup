@@ -1,7 +1,7 @@
 /*-------------------------------------------------*/
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
-:host(.kup-shaped) {
+:host(.#{$kup-class-shaped}) {
   .dropdown-button__primary-action {
     .button {
       border-top-left-radius: 18px;
@@ -17,7 +17,7 @@
   }
 }
 
-:host(.kup-full-width) {
+:host(.#{$kup-class-full-width}) {
   width: 100%;
 
   .dropdown-button__primary-action {

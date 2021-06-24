@@ -131,7 +131,8 @@ export default {
         },
         {
           class: 'kup-large',
-          description: 'The button will have an increased size.',
+          description:
+            'The button will have an increased size (needs a new render to be effective).',
         },
         {
           class: 'kup-secondary',
