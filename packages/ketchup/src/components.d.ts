@@ -1316,6 +1316,30 @@ export namespace Components {
          */
         "singleLine": boolean;
     }
+    interface KupGridNew {
+        /**
+          * The number of columns displayed by the grid, the default behavior is 12.
+         */
+        "columns": number;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * When set to true, forces the content on a single line.
+         */
+        "singleLine": boolean;
+    }
     interface KupIframe {
         /**
           * Props of the button (when isButton is set to true).
@@ -2391,6 +2415,12 @@ declare global {
         prototype: HTMLKupGridElement;
         new (): HTMLKupGridElement;
     };
+    interface HTMLKupGridNewElement extends Components.KupGridNew, HTMLStencilElement {
+    }
+    var HTMLKupGridNewElement: {
+        prototype: HTMLKupGridNewElement;
+        new (): HTMLKupGridNewElement;
+    };
     interface HTMLKupIframeElement extends Components.KupIframe, HTMLStencilElement {
     }
     var HTMLKupIframeElement: {
@@ -2562,6 +2592,7 @@ declare global {
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
+        "kup-grid-new": HTMLKupGridNewElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
@@ -4067,6 +4098,20 @@ declare namespace LocalJSX {
          */
         "singleLine"?: boolean;
     }
+    interface KupGridNew {
+        /**
+          * The number of columns displayed by the grid, the default behavior is 12.
+         */
+        "columns"?: number;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * When set to true, forces the content on a single line.
+         */
+        "singleLine"?: boolean;
+    }
     interface KupIframe {
         /**
           * Props of the button (when isButton is set to true).
@@ -5147,6 +5192,7 @@ declare namespace LocalJSX {
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
+        "kup-grid-new": KupGridNew;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
@@ -5203,6 +5249,7 @@ declare module "@stencil/core" {
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
+            "kup-grid-new": LocalJSX.KupGridNew & JSXBase.HTMLAttributes<HTMLKupGridNewElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;

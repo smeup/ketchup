@@ -113,9 +113,3 @@
   display: flex;
   flex-flow: row nowrap;
 }
-
-.layout-grid__cell--span-1,
-.layout-grid__cell--span-1-desktop {
-  width: auto;
-  grid-column-end: span 1;
-}

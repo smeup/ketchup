@@ -16,11 +16,11 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { KupGridProps } from './kup-grid-declarations';
+import { KupGridProps } from './kup-grid-declarations-new';
 
 @Component({
-    tag: 'kup-grid',
-    styleUrl: 'kup-grid.scss',
+    tag: 'kup-grid-new',
+    styleUrl: 'kup-grid-new.scss',
     shadow: true,
 })
 export class KupGrid {
