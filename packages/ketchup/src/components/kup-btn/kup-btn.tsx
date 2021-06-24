@@ -92,6 +92,7 @@ export class KupBtn {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        comp: KupBtn;
         id: string;
         subId: string;
         obj: any;
@@ -100,6 +101,7 @@ export class KupBtn {
     onKupClick(index: string, subIndex: string) {
         this.selected = index;
         this.kupClick.emit({
+            comp: this,
             id: index,
             subId: subIndex,
             obj: this.getObjForEvent(index, subIndex),
