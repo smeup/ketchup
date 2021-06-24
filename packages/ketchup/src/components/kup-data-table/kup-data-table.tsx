@@ -2905,7 +2905,7 @@ export class KupDataTable {
 
     private onJ4btnClicked(row, column, cell) {
         // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
-        const buttonEvent = arguments[3] as UIEvent;        
+        const buttonEvent = arguments[3] as UIEvent;
         if (buttonEvent) {
             // Prevents double events to be fired.
             buttonEvent.stopPropagation();
@@ -3166,9 +3166,7 @@ export class KupDataTable {
             columnClass.number = true;
         }
 
-        if (
-            this.kupManager.objects.isIcon(column.obj)
-        ) {
+        if (this.kupManager.objects.isIcon(column.obj)) {
             columnClass.icon = true;
         }
         // For fixed cells styles and classes
@@ -4956,7 +4954,7 @@ export class KupDataTable {
                         </div>
                     );
                 }
-            case 'button':            
+            case 'button':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
                 props['onKupButtonClick'] = this.onJ4btnClicked.bind(
@@ -4966,9 +4964,13 @@ export class KupDataTable {
                     cell
                 );
                 return <kup-button {...props}></kup-button>;
-            case 'btn':                
-                classObj['is-centered'] = true;                                
-                props["data-storage"] = {cell: cell, row: row, column: column};                
+            case 'btn':
+                classObj['is-centered'] = true;
+                props['data-storage'] = {
+                    cell: cell,
+                    row: row,
+                    column: column,
+                };
                 return <kup-btn {...props}></kup-btn>;
             case 'chart':
                 classObj['is-centered'] = true;
@@ -5004,7 +5006,7 @@ export class KupDataTable {
                 );
             case 'radio':
                 classObj['is-centered'] = true;
-                props['disabled'] = row.readOnly;                
+                props['disabled'] = row.readOnly;
                 return <kup-radio {...props}></kup-radio>;
             case 'text-field':
                 props['disabled'] = row.readOnly;

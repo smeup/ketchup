@@ -307,7 +307,7 @@ export function isKnob(cell: Cell, boxObject: BoxObject) {
     return 'KNB' === shape;
 }
 
-export function getCellType(cell: Cell) {    
+export function getCellType(cell: Cell) {
     let obj = cell.obj;
     if (kupObjects.isBar(obj)) {
         return 'bar';
@@ -349,8 +349,7 @@ export function getCellType(cell: Cell) {
         return 'text-field';
     } else if (kupObjects.isVoCodver(obj)) {
         return 'btn';
-    }
-    else {
+    } else {
         return 'string';
     }
 }
