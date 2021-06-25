@@ -13,6 +13,12 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     if (!props.styling) {
         props.styling = FButtonStyling.RAISED;
     }
+    const isIconButton: boolean = !!(
+        props.styling.toLowerCase() === FButtonStyling.ICON ||
+        (props.styling.toLowerCase() === FButtonStyling.RAISED &&
+            props.icon &&
+            (props.label === null || props.label === undefined))
+    );
     return (
         <div
             class={`f-button--wrapper ${
@@ -26,11 +32,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
             id={props.id}
             title={props.title}
         >
-            {props.styling.toLowerCase() === FButtonStyling.ICON ||
-            props.label === null ||
-            props.label === undefined
-                ? renderIconButton(props)
-                : renderButton(props)}
+            {isIconButton ? renderIconButton(props) : renderButton(props)}
         </div>
     );
 };

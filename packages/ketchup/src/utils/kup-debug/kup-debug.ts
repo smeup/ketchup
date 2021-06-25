@@ -96,11 +96,13 @@ export class KupDebug {
                     id: 'kup-debug-off',
                     customStyle:
                         ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
+                    styling: 'flat',
                     title: dom.ketchup.language.translate(KupLanguageDebug.OFF),
                 },
                 {
                     icon: 'print',
                     id: 'kup-debug-print',
+                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.PRINT
                     ),
@@ -112,6 +114,7 @@ export class KupDebug {
                     icon: 'speaker_notes',
                     iconOff: 'speaker_notes_off',
                     id: 'kup-debug-autoprint',
+                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.AUTOPRINT
                     ),
@@ -120,6 +123,7 @@ export class KupDebug {
                 {
                     icon: 'broom',
                     id: 'kup-debug-clear',
+                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.CLEAR
                     ),
@@ -127,6 +131,7 @@ export class KupDebug {
                 {
                     icon: 'delete',
                     id: 'kup-debug-delete',
+                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.DUMP
                     ),
@@ -160,6 +165,7 @@ export class KupDebug {
                 {
                     icon: 'auto-fix',
                     id: 'kup-debug-magic-box',
+                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.MAGIC_BOX
                     ),

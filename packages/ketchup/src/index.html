@@ -129,7 +129,7 @@
     <kup-dropdown-button id="ddb8" styling="outlined" icon="document"></kup-dropdown-button>
     <kup-dropdown-button id="ddb9" styling="flat" icon="document"></kup-dropdown-button>
 
-    <kup-fab color-button="#FFC107" style="position: fixed; bottom: 25px; right: 25px; z-index: 100"></kup-fab>
+    <kup-button id="fab-debug" styling="floating" icon="bug" style="position: fixed; bottom: 25px; right: 25px; z-index: 100"></kup-button>
 
     <script>
         let ilb = [{
@@ -356,6 +356,9 @@
             console.log('theme-switch has been CHANGED', e);
             changeTheme();
         });
+        
+        const fab = document.getElementById("fab-debug");
+        fab.addEventListener("kupButtonClick", () => {document.documentElement.ketchup.debug.toggle()});
 
         let eTabbar = document.getElementById('event-tabbar');
         let eTextfield = document.getElementById('event-textfield');
