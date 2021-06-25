@@ -1,6 +1,7 @@
 /*-------------------------------------------------*/
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
+
 :host(.#{$kup-class-left-aligned}) {
   .box-section {
     text-align: left;
@@ -73,7 +74,7 @@
   }
 }
 
-:host(:not(.kup-paddingless)) {
+:host(:not(.#{$kup-class-paddingless})) {
   #box-container {
     .box {
       padding: 3px;
@@ -90,9 +91,11 @@
     }
   }
 }
+
 /*-------------------------------------------------*/
 /*             J S O N   C l a s s e s             */
 /*-------------------------------------------------*/
+
 :host {
   .box-section.left-aligned {
     text-align: left;
