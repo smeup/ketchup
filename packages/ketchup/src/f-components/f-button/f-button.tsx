@@ -1,6 +1,7 @@
-import { FunctionalComponent, h } from '@stencil/core';
+import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
+import { FImageProps } from '../f-image/f-image-declarations';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -25,7 +26,11 @@ export const FButton: FunctionalComponent<FButtonProps> = (
             id={props.id}
             title={props.title}
         >
-            {props.label ? renderButton(props) : renderIconButton(props)}
+            {props.styling.toLowerCase() === FButtonStyling.ICON ||
+            props.label === null ||
+            props.label === undefined
+                ? renderIconButton(props)
+                : renderButton(props)}
         </div>
     );
 };
@@ -34,27 +39,35 @@ export const FButton: FunctionalComponent<FButtonProps> = (
 /*                  M e t h o d s                  */
 /*-------------------------------------------------*/
 
-function renderButton(props: FButtonProps): HTMLButtonElement {
-    const isFlat = props.styling.toLowerCase() === FButtonStyling.FLAT;
-    const isOutlined = props.styling.toLowerCase() === FButtonStyling.OUTLINED;
+function renderButton(props: FButtonProps): VNode {
+    const isFlat: boolean = props.styling.toLowerCase() === FButtonStyling.FLAT;
+    const isFloating: boolean =
+        props.styling.toLowerCase() === FButtonStyling.FLOATING;
+    const isIcon: boolean = props.styling.toLowerCase() === FButtonStyling.ICON;
+    const isOutlined: boolean =
+        props.styling.toLowerCase() === FButtonStyling.OUTLINED;
+    const isRaised: boolean =
+        !isFlat && !isFloating && !isOutlined && !isIcon ? true : false;
 
-    const propsFImage = {
+    const propsFImage: FImageProps = {
         color: props.disabled
             ? 'var(--kup-disabled-color)'
             : isOutlined || isFlat
             ? 'var(--kup-primary-color)'
             : 'var(--kup-text-on-primary-color)',
         resource: props.icon,
-        sizeX: '18px',
-        sizeY: '18px',
+        sizeX: isFloating ? '24px' : '18px',
+        sizeY: isFloating ? '24px' : '18px',
         wrapperClass: 'button__icon icon-container material-icons',
     };
+
     const classObj: Record<string, boolean> = {
         button: true,
         'button--disabled': props.disabled ? true : false,
+        'button--floating': isFloating ? true : false,
         'button--outlined': isOutlined ? true : false,
-        'button--raised': !isFlat && !isOutlined ? true : false,
-        'button--no-label': props.label === ' ' ? true : false,
+        'button--raised': isRaised ? true : false,
+        'button--no-label': !props.label || props.label === ' ' ? true : false,
     };
 
     return (
@@ -72,8 +85,8 @@ function renderButton(props: FButtonProps): HTMLButtonElement {
     );
 }
 
-function renderIconButton(props: FButtonProps): HTMLButtonElement {
-    const propsFImage = {
+function renderIconButton(props: FButtonProps): VNode {
+    const propsFImage: FImageProps = {
         color: props.disabled
             ? 'var(--kup-disabled-color)'
             : 'var(--kup-primary-color)',
@@ -88,7 +101,9 @@ function renderIconButton(props: FButtonProps): HTMLButtonElement {
         toggable: props.toggable ? true : false,
     };
 
-    let iconOff = props.iconOff ? props.iconOff : props.icon + '_border';
+    const iconOff: string = props.iconOff
+        ? props.iconOff
+        : props.icon + '_border';
 
     return (
         <button
