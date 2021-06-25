@@ -86,7 +86,7 @@ export default {
         {
           prop: 'styling',
           description:
-            'Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.',
+            'Defines the style of the button. Styles available: "flat", "outlined", "floating", "icon" and "raised" which is also the default.',
           type: 'FButtonStyling',
           default: 'raised',
           try: 'field',
