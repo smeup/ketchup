@@ -111,17 +111,14 @@ export class KupGrid {
             componentClass = 'flex-layout';
             contentClass = 'flex-layout__inner';
         } else {
-            componentClass = 'mdc-layout-grid';
-            contentClass = 'mdc-layout-grid__inner';
+            componentClass = 'layout-grid';
+            contentClass = 'layout-grid__inner';
         }
 
         this.elStyle = undefined;
-        if (this.columns !== 12) {
-            contentClass += ' custom-grid';
-            this.elStyle = {
-                ['--columns-number']: this.columns,
-            };
-        }
+        this.elStyle = {
+            ['--columns-number']: this.columns,
+        };
 
         let el: JSX.Element[] = [];
 
@@ -132,11 +129,11 @@ export class KupGrid {
                 content = <slot name={`${i}`}></slot>;
             } else {
                 let span: number = 1;
-                let spanClass: string = 'mdc-layout-grid__cell';
+                let spanClass: string = 'layout-grid__cell';
                 if (slots[i]['span']) {
                     span = slots[i]['span'];
                 }
-                spanClass += ' mdc-layout-grid__cell--span-' + span;
+                spanClass += ' layout-grid__cell--span-' + span;
                 content = (
                     <div class={spanClass}>
                         <slot name={`${i}`}></slot>
