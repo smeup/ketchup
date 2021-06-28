@@ -116,12 +116,9 @@ export class KupGrid {
         }
 
         this.elStyle = undefined;
-        if (this.columns !== 12) {
-            contentClass += ' custom-grid';
-            this.elStyle = {
-                ['--columns-number']: this.columns,
-            };
-        }
+        this.elStyle = {
+            ['--columns-number']: this.columns,
+        };
 
         let el: JSX.Element[] = [];
 

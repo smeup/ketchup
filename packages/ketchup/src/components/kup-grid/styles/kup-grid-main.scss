@@ -1,0 +1,85 @@
+:host {
+  font-size: var(--kup-font-size);
+  height: 100%;
+  width: 100%;
+}
+
+#kup-component {
+  height: 100%;
+  width: 100%;
+}
+
+.layout-grid {
+  box-sizing: border-box;
+  margin: 0px auto;
+  padding: 24px;
+
+  .layout-grid__inner {
+    display: grid;
+    margin: 0px;
+    grid-gap: 24px;
+    grid-template-columns: repeat(var(--columns-number, 12), minmax(0px, 1fr));
+
+    .layout-grid__cell {
+      display: flex;
+      margin: 0px;
+      width: auto;
+      box-sizing: border-box;
+
+      @for $span from 1 through 24 {
+        @at-root .layout-grid__cell--span-#{$span} {
+          grid-column-end: span $span;
+        }
+      }
+    }
+  }
+}
+
+.flex-layout,
+.flex-layout__inner {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.flex-layout__inner {
+  width: auto;
+
+  & * {
+    display: block;
+    margin: 0 1.5em;
+  }
+
+  .flex-layout__cell {
+    display: flex;
+
+    & * {
+      justify-content: center;
+      margin: auto;
+    }
+  }
+}
+
+@media (min-width: 600px) and (max-width: 839px) {
+  .layout-grid {
+    .layout-grid__inner {
+      display: grid;
+      margin: 0px;
+      grid-gap: 16px;
+      grid-template-columns: repeat(8, minmax(0px, 1fr));
+    }
+  }
+}
+
+@media (max-width: 599px) {
+  .layout-grid {
+    .layout-grid__inner {
+      display: grid;
+      margin: 0px;
+      grid-gap: 16px;
+      grid-template-columns: repeat(4, minmax(0px, 1fr));
+    }
+  }
+}
