@@ -40,7 +40,6 @@
         "@fullcalendar/interaction": "^4.4.2",
         "@fullcalendar/timegrid": "^4.4.2",
         "@material/form-field": "^11.0.0",
-        "@material/layout-grid": "^11.0.0",
         "@material/list": "^11.0.0",
         "@material/menu": "^11.0.0",
         "@material/ripple": "^11.0.0",
