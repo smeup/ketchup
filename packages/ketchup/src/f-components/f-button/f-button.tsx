@@ -92,8 +92,8 @@ function renderIconButton(props: FButtonProps): VNode {
         color: props.disabled
             ? 'var(--kup-disabled-color)'
             : 'var(--kup-primary-color)',
-        sizeX: props.large ? '32px' : '24px',
-        sizeY: props.large ? '32px' : '24px',
+        sizeX: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
+        sizeY: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
     };
 
     const classObj: Record<string, boolean> = {

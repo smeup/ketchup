@@ -151,21 +151,19 @@
   }
 
   .icon-button {
+    background-color: transparent;
     display: inline-block;
     position: relative;
     box-sizing: border-box;
     border: none;
     outline: none;
-    background-color: transparent;
-    fill: currentColor;
-    color: inherit;
-    font-size: 24px;
+    font-size: var(--kup-font-size);
     text-decoration: none;
     cursor: pointer;
     user-select: none;
-    width: 48px;
-    height: 48px;
-    padding: 12px;
+    width: 3.5em;
+    height: 3.5em;
+    padding: 0.75em;
     border-radius: 50%;
 
     &:hover,
@@ -174,7 +172,8 @@
     }
 
     .icon-button__icon {
-      display: inline-block;
+      display: flex;
+      margin: auto;
 
       &.icon-button__icon--on {
         display: none;
@@ -210,8 +209,8 @@
     }
 
     .icon-button {
-      width: 60px;
-      height: 60px;
+      width: calc(3.5em * 1.5);
+      height: calc(3.5em * 1.5);
     }
 
     .f-image--wrapper {
