@@ -1308,10 +1308,13 @@ export namespace Components {
     interface KupGrid {
         /**
           * The number of columns displayed by the grid, the default behavior is 12.
+          * @default 12
          */
         "columns": number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1326,6 +1329,7 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * When set to true, forces the content on a single line.
+          * @default false
          */
         "singleLine": boolean;
     }
@@ -4097,14 +4101,18 @@ declare namespace LocalJSX {
     interface KupGrid {
         /**
           * The number of columns displayed by the grid, the default behavior is 12.
+          * @default 12
          */
         "columns"?: number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * When set to true, forces the content on a single line.
+          * @default false
          */
         "singleLine"?: boolean;
     }

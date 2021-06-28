@@ -18,7 +18,7 @@
     display: grid;
     margin: 0px;
     grid-gap: 24px;
-    grid-template-columns: repeat(var(--columns-number, 12), minmax(0px, 1fr));
+    grid-template-columns: repeat(var(--columns, 12), minmax(0px, 1fr));
 
     .layout-grid__cell {
       display: flex;
