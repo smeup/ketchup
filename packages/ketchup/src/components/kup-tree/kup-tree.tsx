@@ -1521,7 +1521,7 @@ export class KupTree {
             case 'button':
                 classObj['is-centered'] = true;
                 props['disabled'] = cellData.treeNode.readOnly;
-                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                props['onKup-button-click'] = this.onJ4btnClicked.bind(
                     cellData.treeNode,
                     cellData.treeNodePath,
                     cellData.column,

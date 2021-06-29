@@ -298,7 +298,7 @@ export class KupCrud {
         let updateButtonContent = this.hasRowUpdateAction() ? (
             <kup-button
                 icon="pencil"
-                onKupButtonClick={(e) =>
+                onKup-button-click={(e) =>
                     this.onUpdateRecordClicked(e, record.id)
                 }
             ></kup-button>
@@ -309,7 +309,7 @@ export class KupCrud {
         let deleteButtonContent = this.hasRowDeleteAction() ? (
             <kup-button
                 icon="delete"
-                onKupButtonClick={(e) =>
+                onKup-button-click={(e) =>
                     this.onDeleteRecordClicked(e, record.id)
                 }
             ></kup-button>
@@ -374,7 +374,7 @@ export class KupCrud {
             <kup-button
                 label="Add"
                 icon="plus"
-                onKupButtonClick={(e) => this.onInsertRecordClicked(e)}
+                onKup-button-click={(e) => this.onInsertRecordClicked(e)}
             ></kup-button>
         ) : (
             ''
@@ -405,7 +405,7 @@ export class KupCrud {
             <kup-button
                 id="open-modal"
                 label="Configure"
-                onKupButtonClick={(e) =>
+                onKup-button-click={(e) =>
                     this.onUpdateRecordClicked(
                         e,
                         this.records && this.records[0].id

@@ -20,7 +20,10 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
-import { KupButtonProps } from './kup-button-declarations';
+import {
+    KupButtonClickEventPayload,
+    KupButtonProps,
+} from './kup-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -125,15 +128,12 @@ export class KupButton {
      * Triggered when the button is clicked.
      */
     @Event({
-        eventName: 'kupButtonClick',
+        eventName: 'kup-button-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupClick: EventEmitter<KupButtonClickEventPayload>;
     /**
      * Triggered when the button is focused.
      */
@@ -168,6 +168,7 @@ export class KupButton {
             this.value = 'N/A';
         }
         this.kupClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });

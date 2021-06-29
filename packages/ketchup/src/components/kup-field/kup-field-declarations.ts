@@ -1,4 +1,3 @@
-import { KupPayloadEvent } from '../../types/EventInterfaces';
 /**
  * Props of the kup-field component.
  * Used to export every prop in an object.
@@ -12,6 +11,11 @@ export enum KupFieldProps {
     submitLabel = "Sets the submit button's label.",
     submitPos = "Sets the submit button's position, top right bottom or left.",
     type = 'The type of the FLD',
+}
+export interface KupPayloadEvent<KupPayloadEventData, KupPayloadEventInfo> {
+    value: KupPayloadEventData;
+    oldValue: KupPayloadEventData;
+    info: KupPayloadEventInfo;
 }
 export interface KupFldSubmitEvent extends KupPayloadEvent<any, object> {
     originalEvent: CustomEvent;

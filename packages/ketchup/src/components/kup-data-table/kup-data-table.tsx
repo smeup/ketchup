@@ -4952,7 +4952,7 @@ export class KupDataTable {
             case 'button':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
-                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                props['onKup-button-click'] = this.onJ4btnClicked.bind(
                     this,
                     row,
                     column,
@@ -5086,7 +5086,7 @@ export class KupDataTable {
                 )}
                 icon="plus"
                 slot={isSlotted ? 'more-results' : null}
-                onKupButtonClick={() => {
+                onKup-button-click={() => {
                     this.onLoadMoreClick();
                 }}
             />
@@ -5208,7 +5208,7 @@ export class KupDataTable {
                         ')'
                     }
                     icon="auto-fix"
-                    onKupButtonClick={() => this.kupManager.toggleMagicBox()}
+                    onKup-button-click={() => this.kupManager.toggleMagicBox()}
                 />
                 {totalsMatrix}
             </div>
@@ -5735,7 +5735,7 @@ export class KupDataTable {
                         KupLanguageGeneric.TOTALS_TABLE
                     )}
                     icon="exposure"
-                    onKupButtonClick={() => this.switchToTotalsMatrix()}
+                    onKup-button-click={() => this.switchToTotalsMatrix()}
                 />
             </div>
         );

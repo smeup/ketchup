@@ -193,7 +193,7 @@ export class KupSearch {
                 ></kup-text-field>
                 <kup-button
                     icon="magnify"
-                    onKupButtonClick={(e) => this.onSearchClicked(e)}
+                    onKup-button-click={(e) => this.onSearchClicked(e)}
                 ></kup-button>
                 <kup-modal
                     ref={(el) => (this.modal = el)}
@@ -209,7 +209,7 @@ export class KupSearch {
                             ></kup-text-field>
                             <kup-button
                                 icon="magnify"
-                                onKupButtonClick={(e) =>
+                                onKup-button-click={(e) =>
                                     this.onSearchDialogClicked(e)
                                 }
                             ></kup-button>

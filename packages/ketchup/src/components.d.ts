@@ -12,6 +12,7 @@ import { Cell, Column, DataTable, EventHandlerDetails, GroupLabelDisplayMode, Gr
 import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { EventHandlerDetails as EventHandlerDetails1, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
+import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
@@ -2952,16 +2953,13 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Triggered when the button is clicked.
+         */
+        "onKup-button-click"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
+        /**
           * Triggered when the button loses focus.
          */
         "onKupButtonBlur"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        /**
-          * Triggered when the button is clicked.
-         */
-        "onKupButtonClick"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;

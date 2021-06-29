@@ -336,7 +336,7 @@ export class KupNavBar {
                             customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                             icon={action.icon}
                             title={action.tooltip}
-                            onKupButtonClick={() =>
+                            onKup-button-click={() =>
                                 this.onKupOptionButtonClick(action.value)
                             }
                         ></kup-button>
@@ -361,7 +361,7 @@ export class KupNavBar {
                     title={this.kupManager.language.translate(
                         KupLanguageGeneric.OPTIONS
                     )}
-                    onKupButtonClick={() => this.openList(this.optionsListEl)}
+                    onKup-button-click={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
                     ref={(el) => (this.optionsButtonEl = el as any)}
                 ></kup-button>
@@ -377,7 +377,7 @@ export class KupNavBar {
                     customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                     icon={action.icon}
                     title={action.tooltip}
-                    onKupButtonClick={() =>
+                    onKup-button-click={() =>
                         this.onKupNavbarMenuButtonClick(action.value)
                     }
                 ></kup-button>
@@ -400,7 +400,7 @@ export class KupNavBar {
                         KupLanguageGeneric.OPEN_NAVIGATION_MENU
                     )}
                     disabled={menuButtons.length == 0}
-                    onKupButtonClick={() => this.openList(this.menuListEl)}
+                    onKup-button-click={() => this.openList(this.menuListEl)}
                     onClick={(e) => e.stopPropagation()}
                     ref={(el) => (this.menuButtonEl = el as any)}
                 ></kup-button>

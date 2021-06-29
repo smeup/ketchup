@@ -149,7 +149,7 @@ export class KupIframe {
             <Host is-button>
                 <kup-button
                     {...this.buttonData}
-                    onKupButtonClick={() => this.openInNew()}
+                    onKup-button-click={() => this.openInNew()}
                 />
             </Host>
         );

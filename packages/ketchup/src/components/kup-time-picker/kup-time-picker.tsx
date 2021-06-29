@@ -650,7 +650,7 @@ export class KupTimePicker {
                 {seconds}
                 <div class="actions">
                     <kup-button
-                        onKupButtonClick={(e: any) => {
+                        onKup-button-click={(e: any) => {
                             this.setTimeFromClock(e);
                         }}
                         id="confirm"

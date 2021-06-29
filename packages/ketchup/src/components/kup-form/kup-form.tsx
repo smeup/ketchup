@@ -673,7 +673,7 @@ export class KupForm {
                         actionField.title,
                         actionField.config
                     )}
-                    onKupButtonClick={() =>
+                    onKup-button-click={() =>
                         this.onFormActionSubmitted(actionField)
                     }
                 />

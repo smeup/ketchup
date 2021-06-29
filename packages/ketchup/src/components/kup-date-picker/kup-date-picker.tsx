@@ -575,14 +575,14 @@ export class KupDatePicker {
             <kup-button
                 id="prev-page"
                 icon="chevron_left"
-                onKupButtonClick={(e) => this.prevPage(e)}
+                onKup-button-click={(e) => this.prevPage(e)}
             ></kup-button>
         );
         nextButtonComp = (
             <kup-button
                 id="next-page"
                 icon="chevron_right"
-                onKupButtonClick={(e) => this.nextPage(e)}
+                onKup-button-click={(e) => this.nextPage(e)}
             ></kup-button>
         );
 
@@ -606,7 +606,7 @@ export class KupDatePicker {
                             id="change-view-button"
                             styling={FButtonStyling.FLAT}
                             label={changeViewButtonLabel}
-                            onKupButtonClick={(e) => this.changeView(e)}
+                            onKup-button-click={(e) => this.changeView(e)}
                         ></kup-button>
                         {nextButtonComp}
                     </div>

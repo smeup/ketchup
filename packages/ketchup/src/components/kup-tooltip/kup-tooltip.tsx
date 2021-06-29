@@ -449,13 +449,13 @@ export class KupTooltip {
                 </div>
                 <kup-button
                     icon="open-in-new"
-                    onKupButtonClick={(event) =>
+                    onKup-button-click={(event) =>
                         this.onDefaultActionClicked(event)
                     }
                 ></kup-button>
                 <kup-button
                     icon="search"
-                    onKupButtonClick={(event) =>
+                    onKup-button-click={(event) =>
                         this.onDefaultPreviewClicked(event)
                     }
                 ></kup-button>
@@ -494,7 +494,7 @@ export class KupTooltip {
 
     private onActionCommandClicked(event: Event, action: TooltipAction) {
         //console.log("Emit kupActionCommandClicked: " + JSON.stringify(action));
-        // Blocco la propagazione del onKupButtonClicked per evitare che lo stesso click
+        // Blocco la propagazione del onKup-button-clicked per evitare che lo stesso click
         // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
         this.kupActionCommandClicked.emit({
@@ -658,13 +658,13 @@ export class KupTooltip {
             listMenu = content[`listMenu`];
         }
         if (info || listMenu) {
-            let htmlMarkup = <div innerHTML={info?info.value:''} />;
+            let htmlMarkup = <div innerHTML={info ? info.value : ''} />;
 
             return [
                 <kup-card
                     data={{
                         list: listMenu ? [listMenu] : [],
-                        text: [info? info.label : ''],
+                        text: [info ? info.label : ''],
                     }}
                     id="dialog-card-5"
                     layoutNumber={5}
@@ -782,7 +782,7 @@ export class KupTooltip {
                             <kup-button
                                 title={action.text}
                                 icon={action.icon}
-                                onKupButtonClick={(event) =>
+                                onKup-button-click={(event) =>
                                     this.onActionCommandClicked(event, action)
                                 }
                             ></kup-button>
@@ -824,7 +824,9 @@ export class KupTooltip {
                     <kup-button
                         title={this.getTooltipForShowOptionsButton()}
                         icon={this.getIconForShowOptionsButton()}
-                        onKupButtonClick={() => this.onShowRightClickOptions()}
+                        onKup-button-click={() =>
+                            this.onShowRightClickOptions()
+                        }
                         onClick={(e) => e.stopPropagation()}
                     ></kup-button>
                 </div>,

@@ -220,7 +220,7 @@ export class KupField {
                 <kup-button
                     class={baseClass + '__submit'}
                     label={this.submitLabel}
-                    onKupButtonClick={this.onSubmitInstance}
+                    onKup-button-click={this.onSubmitInstance}
                 />
             );
         }
