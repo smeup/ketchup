@@ -592,4 +592,8 @@ th.obj:hover span:not(.overlay-action) {
   margin: 0;
   position: fixed;
   transition: none;
+
+  &.kup-resizable {
+    border: 3px outset var(--kup-title-background-color);
+  }
 }
