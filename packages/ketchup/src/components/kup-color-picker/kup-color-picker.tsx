@@ -24,6 +24,7 @@ import {
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupColorPickerProps } from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -163,7 +164,7 @@ export class KupColorPicker {
     private prepTextField() {
         let initialValue = undefined;
         let textfieldData = { ...this.data['kup-text-field'] };
-        let customStyle: string = ` #kup-component .icon-container{box-sizing: border-box; border: 3px solid rgba(var(--kup-text-color-rgb),.575); border-radius: 50%; background-color:${this.value}!important;}`;
+        let customStyle: string = ` #kup-component .icon-container{box-sizing: border-box; border: 3px solid rgba(var(${KupThemeColorValues.TEXT}-rgb), .575); border-radius: 50%; background-color:${this.value}!important;}`;
         if (!textfieldData['icon']) {
             textfieldData['icon'] = 'brightness-1';
         }

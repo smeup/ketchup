@@ -560,8 +560,6 @@ export class KupForm {
                     );
                 } else if (isInputTextInForm(cell, field)) {
                     const wrapperStyle = {};
-                    wrapperStyle['--kup-text-field_border-color--selected'] =
-                        '#66D3FA';
 
                     // NB: not updated field value using onInput() event, but using onChange().
                     // The onChange of an input text fires when the element loses focus, not immediately after the modification

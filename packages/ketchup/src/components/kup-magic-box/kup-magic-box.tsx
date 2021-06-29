@@ -33,6 +33,7 @@ import {
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -313,9 +314,8 @@ export class KupMagicBox {
         this.rootElement.addEventListener('kup-drop', (e: CustomEvent) =>
             this.updateData(e)
         );
-        this.dragHandler = this.rootElement.shadowRoot.querySelector(
-            '#drag-handle'
-        );
+        this.dragHandler =
+            this.rootElement.shadowRoot.querySelector('#drag-handle');
         this.kupManager.dialog.register(
             this.rootElement as DialogElement,
             this.dragHandler
@@ -380,7 +380,7 @@ export class KupMagicBox {
                             ></kup-button>
                             <kup-button
                                 id="close-dialog"
-                                customStyle=":host{--kup-primary-color: var(--kup-title-color);}"
+                                customStyle={`:host{${KupThemeColorValues.PRIMARY}: var(${KupThemeColorValues.TITLE});}`}
                                 icon="clear"
                                 onKupButtonClick={() => {
                                     this.kupManager.hideMagicBox();

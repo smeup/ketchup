@@ -21,6 +21,7 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -267,7 +268,7 @@ export class KupTabBar {
                     <span class="tab__content">
                         {data.icon ? (
                             <FImage
-                                color="var(--kup-primary-color)"
+                                color={`var(${KupThemeColorValues.PRIMARY})`}
                                 resource={data.icon}
                                 sizeX="24px"
                                 sizeY="24px"

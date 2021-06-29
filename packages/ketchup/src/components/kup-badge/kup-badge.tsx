@@ -17,6 +17,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { KupBadgeProps } from './kup-badge-declarations';
 
 @Component({
@@ -130,7 +131,9 @@ export class KupBadge {
                 this.imageData['sizeY'] = '1em';
             }
             if (!this.imageData['color']) {
-                this.imageData['color'] = 'var(--kup-text-on-primary-color)';
+                this.imageData[
+                    'color'
+                ] = `var(${KupThemeColorValues.TEXT_ON_PRIMARY})`;
             }
             imageEl = <FImage {...this.imageData}></FImage>;
         }

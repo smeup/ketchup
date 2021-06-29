@@ -28,6 +28,7 @@ import {
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupComboboxProps } from './kup-combobox-declarations';
+import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -442,7 +443,7 @@ export class KupCombobox {
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
-                        icon="--kup-expanded-icon"
+                        icon={KupThemeIconValues.EXPANDED}
                         trailingIcon={true}
                         value={this.displayedValue}
                     />

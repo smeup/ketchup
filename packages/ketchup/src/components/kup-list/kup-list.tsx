@@ -24,6 +24,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-list',
@@ -461,7 +462,7 @@ export class KupList {
     getIconTag(icon: string) {
         const large: boolean = this.rootElement.classList.contains('kup-large');
         const propsFImage = {
-            color: 'var(--kup-primary-color)',
+            color: `var(${KupThemeColorValues.PRIMARY})`,
             sizeX: large ? '32px' : '24px',
             sizeY: large ? '32px' : '24px',
         };

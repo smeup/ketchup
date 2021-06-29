@@ -146,6 +146,7 @@ import {
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1604,7 +1605,6 @@ export class KupDataTable {
                             checkboxes[index]['data-row']
                         );
                 }
-
             }
             //Row textfields
             const textfields: NodeListOf<HTMLElement> = root.querySelectorAll(
@@ -1651,7 +1651,6 @@ export class KupDataTable {
                             multiselectionCheckboxes[index]['data-row']
                         );
                 }
-
             }
             //Row actions: expander
             const expanderRowActions: NodeListOf<HTMLElement> =
@@ -1685,9 +1684,8 @@ export class KupDataTable {
                 const chips: NodeListOf<HTMLElement> =
                     groupChip.querySelectorAll('.chip');
                 for (let index = 0; index < chips.length; index++) {
-                    const cancelIcon: HTMLElement = chips[index].querySelector(
-                        '.chip__icon.clear'
-                    );
+                    const cancelIcon: HTMLElement =
+                        chips[index].querySelector('.chip__icon.clear');
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.removeGroup(index);
                     }
@@ -1891,7 +1889,7 @@ export class KupDataTable {
                     customStyle:
                         '#kup-component .below-wrapper{overflow: visible} #kup-component td[data-column="' +
                         iconColumn.toUpperCase() +
-                        '"]{background-color: rgba(var(--kup-text-color-rgb), 0.15); width: 10px;}',
+                        `"]{background-color: rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.15); width: 10px;}`,
                     data: transposedData,
                     density: 'medium',
                     editableData: true,
@@ -1969,7 +1967,7 @@ export class KupDataTable {
                         k: 'OG_OG_KF',
                     },
                     data: {
-                        color: 'rgba(var(--kup-text-color-rgb), 1)',
+                        color: `var(${KupThemeColorValues.TEXT})`,
                         resource: editable ? 'edit-key' : 'key-variant',
                     },
                     title: editable
@@ -1989,7 +1987,7 @@ export class KupDataTable {
                         k: '000051',
                     },
                     data: {
-                        color: 'rgba(var(--kup-text-color-rgb), 1)',
+                        color: `var(${KupThemeColorValues.TEXT})`,
                         resource: 'pencil',
                     },
                     title: this.kupManager.language.translate(
@@ -4262,7 +4260,7 @@ export class KupDataTable {
                 } else {
                     // adding expander
                     const props: FImageProps = {
-                        color: 'var(--kup-primary-color)',
+                        color: `var(${KupThemeColorValues.PRIMARY})`,
                         dataSet: {
                             'data-row': row,
                         },
@@ -4559,7 +4557,7 @@ export class KupDataTable {
     ): JSX.Element[] {
         return actions.map((action, index) => {
             const props: FImageProps = {
-                color: 'var(--kup-primary-color)',
+                color: `var(${KupThemeColorValues.PRIMARY})`,
                 dataSet: {
                     'data-action': {
                         action,
@@ -4690,7 +4688,7 @@ export class KupDataTable {
         if (cell.info && cell.info.message) {
             const info: KupCellInfo = { ...cell.info };
             if (!info.color) {
-                info.color = 'var(--kup-info-color)';
+                info.color = `var(${KupThemeColorValues.INFO})`;
             }
             if (!info.icon) {
                 info.icon = 'info';
@@ -5264,13 +5262,13 @@ export class KupDataTable {
             >
                 <FImage
                     resource="delete"
-                    color="var(--kup-danger-color)"
+                    color={`var(${KupThemeColorValues.DANGER})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
                 <FImage
                     resource="delete-empty"
-                    color="var(--kup-danger-color)"
+                    color={`var(${KupThemeColorValues.DANGER})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
@@ -5325,13 +5323,13 @@ export class KupDataTable {
             >
                 <FImage
                     resource="bookmark"
-                    color="var(--kup-danger-color)"
+                    color={`var(${KupThemeColorValues.DANGER})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
                 <FImage
                     resource="book"
-                    color="var(--kup-danger-color)"
+                    color={`var(${KupThemeColorValues.DANGER})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
@@ -5570,7 +5568,7 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: ':host{--kup-field-background-color:transparent}',
+            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(
                 KupLanguageFontsize.LABEL
@@ -5641,7 +5639,7 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: ':host{--kup-field-background-color:transparent}',
+            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageDensity.LABEL),
             icon: 'arrow_drop_down',
@@ -5753,7 +5751,7 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: ':host{--kup-field-background-color:transparent}',
+            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageGrid.LABEL),
             icon: 'arrow_drop_down',
@@ -6010,7 +6008,7 @@ export class KupDataTable {
                                       }}
                                   >
                                       <FImage
-                                          color="var(--kup-title-color)"
+                                          color={`var(${KupThemeColorValues.TITLE})`}
                                           resource="settings"
                                           sizeX="10px"
                                       />

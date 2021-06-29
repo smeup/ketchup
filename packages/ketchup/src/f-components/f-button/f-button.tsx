@@ -1,7 +1,11 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
+import type { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
 import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -53,10 +57,10 @@ function renderButton(props: FButtonProps): VNode {
 
     const propsFImage: FImageProps = {
         color: props.disabled
-            ? 'var(--kup-disabled-color)'
+            ? `var(${KupThemeColorValues.DISABLED})`
             : isOutlined || isFlat
-            ? 'var(--kup-primary-color)'
-            : 'var(--kup-text-on-primary-color)',
+            ? `var(${KupThemeColorValues.PRIMARY})`
+            : `var(${KupThemeColorValues.TEXT_ON_PRIMARY})`,
         resource: props.icon,
         sizeX: isFloating ? '24px' : '18px',
         sizeY: isFloating ? '24px' : '18px',
@@ -90,8 +94,8 @@ function renderButton(props: FButtonProps): VNode {
 function renderIconButton(props: FButtonProps): VNode {
     const propsFImage: FImageProps = {
         color: props.disabled
-            ? 'var(--kup-disabled-color)'
-            : 'var(--kup-primary-color)',
+            ? `var(${KupThemeColorValues.DISABLED})`
+            : `var(${KupThemeColorValues.PRIMARY})`,
         sizeX: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
         sizeY: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
     };

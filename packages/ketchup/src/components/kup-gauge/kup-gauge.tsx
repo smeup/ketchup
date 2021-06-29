@@ -18,6 +18,7 @@ import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
 import { KupGaugeProps } from './kup-gauge-declarations';
 
 import { arc } from 'd3-shape';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-gauge',
@@ -37,9 +38,9 @@ export class KupGauge {
      * Array of three elements to specify the color of the arcs.
      */
     @Prop() colors: string[] = [
-        'var(--kup-success-color)',
-        'var(--kup-warning-color)',
-        'var(--kup-danger-color)',
+        `var(${KupThemeColorValues.SUCCESS})`,
+        `var(${KupThemeColorValues.WARNING})`,
+        `var(${KupThemeColorValues.DANGER})`,
     ];
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -349,7 +350,10 @@ export class KupGauge {
                     : this.value < this.secondThreshold
                     ? computedcolors[1]
                     : computedcolors[2];
-            arcsColors = [valuecolor, 'rgba(var(--kup-text-color-rgb), .1)'];
+            arcsColors = [
+                valuecolor,
+                `rgba(var(${KupThemeColorValues.TEXT}-rgb), .1)`,
+            ];
         }
 
         for (let i = 0; i < arcsThresholds.length - 1; i++) {

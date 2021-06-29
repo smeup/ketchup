@@ -28,6 +28,7 @@ import {
     ItemsDisplayMode,
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
+import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -543,7 +544,7 @@ export class KupAutocomplete {
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
-                        icon="--kup-expanded-icon"
+                        icon={KupThemeIconValues.EXPANDED}
                         trailingIcon={true}
                         value={this.displayedValue}
                     />

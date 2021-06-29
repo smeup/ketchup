@@ -4,7 +4,7 @@ import {
     KupThemeCSSVariables,
     KupThemeIcons,
     KupThemeJSON,
-    KupThemeVariables,
+    KupThemeElement,
     masterCustomStyle,
 } from './kup-theme-declarations';
 import { getAssetPath } from '@stencil/core';
@@ -19,7 +19,7 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupTheme
  */
 export class KupTheme {
-    cssVars: Partial<KupThemeVariables> = {};
+    cssVars: Partial<KupThemeCSSVariables> = {};
     list: KupThemeJSON =
         dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.list
             ? dom.ketchupInit.theme.list
@@ -182,7 +182,6 @@ export class KupTheme {
     }
     /**
      * Unregisters a KupComponent, so it won't be handled when the theme changes.
-     *
      * @param {any} comp - The component calling this function.
      */
     unregister(comp: any): void {

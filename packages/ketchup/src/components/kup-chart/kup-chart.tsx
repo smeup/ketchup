@@ -37,6 +37,7 @@ import { identify } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 declare const google: any;
 declare const $: any;
@@ -585,7 +586,8 @@ export class KupChart {
         ) {
             colorArray.push(this.kupManager.theme.cssVars[key + index]);
         }
-        this.themeText = this.kupManager.theme.cssVars['--kup-text-color'];
+        this.themeText =
+            this.kupManager.theme.cssVars[KupThemeColorValues.TEXT];
 
         try {
             for (

@@ -1364,8 +1364,8 @@ export namespace Components {
          */
         "badgeData": KupBadge[];
         /**
-          * The color of the icon, defaults to the CSS variable --kup-icon-color.
-          * @default 'var(--kup-icon-color)'
+          * The color of the icon, defaults to the CSS variable KupThemeColorValues.ICON.
+          * @default KupThemeColorValues.ICON
          */
         "color": string;
         /**
@@ -4139,8 +4139,8 @@ declare namespace LocalJSX {
          */
         "badgeData"?: KupBadge[];
         /**
-          * The color of the icon, defaults to the CSS variable --kup-icon-color.
-          * @default 'var(--kup-icon-color)'
+          * The color of the icon, defaults to the CSS variable KupThemeColorValues.ICON.
+          * @default KupThemeColorValues.ICON
          */
         "color"?: string;
         /**

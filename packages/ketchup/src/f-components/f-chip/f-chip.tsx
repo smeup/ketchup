@@ -9,6 +9,7 @@ import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
 import { FImageProps } from '../f-image/f-image-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -87,8 +88,8 @@ function createChipList(
             const p: FImageProps = {
                 color:
                     isChoice && props.data[i].checked
-                        ? 'var(--kup-primary-color)'
-                        : 'var(--kup-text-color)',
+                        ? `var(${KupThemeColorValues.PRIMARY})`
+                        : `var(${KupThemeColorValues.TEXT})`,
                 resource: props.data[i].icon,
                 sizeX: '18px',
                 sizeY: '18px',
