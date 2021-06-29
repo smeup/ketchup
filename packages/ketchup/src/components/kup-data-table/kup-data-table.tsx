@@ -2736,12 +2736,14 @@ export class KupDataTable {
                 cell.data['checked'] = value === 'on' ? false : true;
             }
         } else {
-            cell.obj.k = value;
+            if (cell.obj) {
+                cell.obj.k = value;
+            }
             cell.value = value;
             cell.displayedValue = null;
             cell.displayedValue = getCellValueForDisplay(column, cell);
-            if (cell.data && cell.data['initialValue'] !== undefined) {
-                cell.data['initialValue'] = value;
+            if (cell.data && cell.data['value'] !== undefined) {
+                cell.data['value'] = value;
             }
         }
         this.refresh();
