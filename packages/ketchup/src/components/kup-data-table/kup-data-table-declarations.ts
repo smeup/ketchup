@@ -1,4 +1,5 @@
 import { Identifiable } from '../../types/GenericTypes';
+import type { KupDataTable } from './kup-data-table';
 /**
  * Props of the kup-data-table component.
  * Used to export every prop in an object.
@@ -235,14 +236,14 @@ export enum ShowGrid {
 // }
 
 export interface KupDataTableCellButtonClick {
-    comp: any;
+    comp: KupDataTable;
     cell: Cell;
     column: Column;
     row: Row;
 }
 
 export interface KupDataTableCellTextFieldInput {
-    comp: any;
+    comp: KupDataTable;
     cell: Cell;
     column: Column;
     row: Row;
