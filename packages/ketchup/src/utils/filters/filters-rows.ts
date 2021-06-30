@@ -106,6 +106,9 @@ export class FiltersRows extends Filters {
 
                 // Search among all columns for the global filter
                 for (let i = 0; i < columns.length; i++) {
+                    if (columns[i].visible != true) {
+                        continue;
+                    }
                     const cell = cells[columns[i].name];
                     if (cell == null) {
                         continue;
