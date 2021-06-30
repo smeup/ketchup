@@ -118,6 +118,20 @@ export class KupDialog {
             });
             kupDialog.setCoords(e.clientX, e.clientY, paths);
         }
+        const rect: DOMRect = kupDialog.activeElement.getBoundingClientRect();
+        // Check whether position respects window's constraints
+        if (rect.left < 0) {
+            kupDialog.activeElement.style.left = '0';
+        } else if (rect.right > window.innerWidth) {
+            kupDialog.activeElement.style.left =
+                window.innerWidth - rect.width + 'px';
+        }
+        if (rect.top < 0) {
+            kupDialog.activeElement.style.top = '0';
+        } else if (rect.bottom > window.innerHeight) {
+            kupDialog.activeElement.style.top =
+                window.innerHeight - rect.height + 'px';
+        }
     };
     #mouseDown: Function = function (e: MouseEvent) {
         const kupDialog: KupDialog = dom.ketchup.dialog;

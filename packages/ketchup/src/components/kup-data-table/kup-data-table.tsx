@@ -2018,8 +2018,6 @@ export class KupDataTable {
             this.detailCard.layoutNumber = 4;
             this.detailCard.sizeX = 'auto';
             this.detailCard.sizeY = 'auto';
-            this.detailCard.style.maxHeight = '100vh';
-            this.detailCard.style.maxWidth = '100vw';
         } else {
             const children: HTMLCollection = Array.prototype.slice.call(
                 this.detailCard.children,
