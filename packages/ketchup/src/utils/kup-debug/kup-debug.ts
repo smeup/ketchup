@@ -90,43 +90,41 @@ export class KupDebug {
                     icon: 'power_settings_new',
                     id: 'kup-debug-off',
                     customStyle:
-                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
-                    styling: 'flat',
+                        ':host {--kup-font-size: 0.875em; border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
                     title: dom.ketchup.language.translate(KupLanguageDebug.OFF),
                 },
                 {
+                    customStyle: ':host {--kup-font-size: 0.875em;}',
                     icon: 'print',
                     id: 'kup-debug-print',
-                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.PRINT
                     ),
                 },
                 {
-                    customStyle:
-                        ':host {border-right: 1px solid var(--kup-border-color);}',
                     checked: this.autoPrint,
+                    customStyle:
+                        ':host {--kup-font-size: 0.875em; border-right: 1px solid var(--kup-border-color);}',
                     icon: 'speaker_notes',
                     iconOff: 'speaker_notes_off',
                     id: 'kup-debug-autoprint',
-                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.AUTOPRINT
                     ),
                     toggable: true,
                 },
                 {
+                    customStyle: ':host {--kup-font-size: 0.875em;}',
                     icon: 'broom',
                     id: 'kup-debug-clear',
-                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.CLEAR
                     ),
                 },
                 {
+                    customStyle: ':host {--kup-font-size: 0.875em;}',
                     icon: 'delete',
                     id: 'kup-debug-delete',
-                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.DUMP
                     ),
@@ -158,9 +156,9 @@ export class KupDebug {
                     ),
                 },
                 {
+                    customStyle: ':host {--kup-font-size: 0.875em;}',
                     icon: 'auto-fix',
                     id: 'kup-debug-magic-box',
-                    styling: 'flat',
                     title: dom.ketchup.language.translate(
                         KupLanguageDebug.MAGIC_BOX
                     ),
