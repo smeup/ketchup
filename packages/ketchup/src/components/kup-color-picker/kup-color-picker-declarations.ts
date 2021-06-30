@@ -9,3 +9,7 @@ export enum KupColorPickerProps {
     initialValue = 'Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).',
     swatchOnly = "When true, the component's text field will be replaced by a swatch.",
 }
+
+export interface KupColorPickerEventPayload {
+    value: any;
+}

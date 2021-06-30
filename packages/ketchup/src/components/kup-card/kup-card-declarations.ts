@@ -91,8 +91,8 @@ export enum KupCardSubEvents {
     AUTOCOMPLETE_BLUR = 'kup-autocomplete-blur',
     AUTOCOMPLETE_ITEMCLICK = 'kup-autocomplete-itemclick',
     BUTTON_CLICK = 'kupButtonClick',
-    CHIP_BLUR = 'kupChipBlur',
-    CHIP_ICONCLICK = 'kupChipIconClick',
+    CHIP_BLUR = 'kup-chip-blur',
+    CHIP_ICONCLICK = 'kup-chip-iconclick',
     TABBAR_CLICK = 'kupTabBarClick',
     TREE_NODESELECTED = 'kupTreeNodeSelected',
 }

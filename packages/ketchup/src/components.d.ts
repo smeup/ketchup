@@ -20,7 +20,8 @@ import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckedEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
-import { KupObj } from "./utils/kup-objects/kup-objects-declarations";
+import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
+import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
@@ -3166,39 +3167,19 @@ declare namespace LocalJSX {
         /**
           * Triggered when a chip loses focus.
          */
-        "onKupChipBlur"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>) => void;
+        "onKup-chip-blur"?: (event: CustomEvent<KupChipEventPayload>) => void;
         /**
           * Triggered when a chip is clicked.
          */
-        "onKupChipClick"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>) => void;
+        "onKup-chip-click"?: (event: CustomEvent<KupChipEventPayload>) => void;
         /**
           * Triggered when a chip gets focused.
          */
-        "onKupChipFocus"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>) => void;
+        "onKup-chip-focus"?: (event: CustomEvent<KupChipEventPayload>) => void;
         /**
           * Triggered when the removal icon on input chips is clicked.
          */
-        "onKupChipIconClick"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>) => void;
+        "onKup-chip-iconclick"?: (event: CustomEvent<KupChipEventPayload>) => void;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
@@ -3222,12 +3203,8 @@ declare namespace LocalJSX {
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
          */
         "initialValue"?: string;
-        "onKupColorPickerChange"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupColorPickerInput"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        "onKup-colorpicker-change"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
+        "onKup-colorpicker-input"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
          */

@@ -22,7 +22,7 @@ import {
     KupDynamicPositionElement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupColorPickerProps } from './kup-color-picker-declarations';
+import { KupColorPickerEventPayload, KupColorPickerProps } from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
@@ -66,24 +66,20 @@ export class KupColorPicker {
     private textfieldEl: KupTextField;
 
     @Event({
-        eventName: 'kupColorPickerChange',
+        eventName: 'kup-colorpicker-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        value: any;
-    }>;
+    kupChange: EventEmitter<KupColorPickerEventPayload>;
 
     @Event({
-        eventName: 'kupColorPickerInput',
+        eventName: 'kup-colorpicker-input',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupInput: EventEmitter<{
-        value: any;
-    }>;
+    kupInput: EventEmitter<KupColorPickerEventPayload>;
 
     //---- Methods ----
 

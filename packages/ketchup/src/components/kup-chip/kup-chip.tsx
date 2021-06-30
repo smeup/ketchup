@@ -21,7 +21,7 @@ import {
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { KupChipProps } from './kup-chip-declarations';
+import { KupChipEventPayload, KupChipProps } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupCardIds } from '../kup-card/kup-card-declarations';
@@ -83,62 +83,42 @@ export class KupChip {
      * Triggered when a chip loses focus.
      */
     @Event({
-        eventName: 'kupChipBlur',
+        eventName: 'kup-chip-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupChipEventPayload>;
     /**
      * Triggered when a chip is clicked.
      */
     @Event({
-        eventName: 'kupChipClick',
+        eventName: 'kup-chip-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>;
+    kupClick: EventEmitter<KupChipEventPayload>;
     /**
      * Triggered when a chip gets focused.
      */
     @Event({
-        eventName: 'kupChipFocus',
+        eventName: 'kup-chip-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupChipEventPayload>;
     /**
      * Triggered when the removal icon on input chips is clicked.
      */
     @Event({
-        eventName: 'kupChipIconClick',
+        eventName: 'kup-chip-iconclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupIconClick: EventEmitter<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>;
+    kupIconClick: EventEmitter<KupChipEventPayload>;
 
     onKupBlur(i: number) {
         let obj: KupObj = null;
@@ -150,7 +130,7 @@ export class KupChip {
         this.kupBlur.emit({
             id: this.rootElement.id,
             index: i,
-            obj: obj,
+            comp: obj,
             value: value,
         });
     }
@@ -183,7 +163,7 @@ export class KupChip {
         this.kupClick.emit({
             id: this.rootElement.id,
             index: i,
-            obj: obj,
+            comp: obj,
             value: value,
         });
     }
@@ -198,7 +178,7 @@ export class KupChip {
         this.kupFocus.emit({
             id: this.rootElement.id,
             index: i,
-            obj: obj,
+            comp: obj,
             value: value,
         });
     }
@@ -216,7 +196,7 @@ export class KupChip {
         this.kupIconClick.emit({
             id: this.rootElement.id,
             index: i,
-            obj: obj,
+            comp: obj,
             value: value,
         });
     }

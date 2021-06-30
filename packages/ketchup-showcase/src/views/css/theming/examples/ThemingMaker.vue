@@ -50,8 +50,8 @@
                   <kup-color-picker
                     id="primary-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -70,8 +70,8 @@
                   <kup-color-picker
                     id="secondary-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -87,8 +87,8 @@
                   <kup-color-picker
                     id="background-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -104,8 +104,8 @@
                   <kup-color-picker
                     id="nav-bar-background-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -121,8 +121,8 @@
                   <kup-color-picker
                     id="drawer-background-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -198,8 +198,8 @@
                   <kup-color-picker
                     id="text-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -218,8 +218,8 @@
                   <kup-color-picker
                     id="text-on-primary-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -238,8 +238,8 @@
                   <kup-color-picker
                     id="text-on-secondary-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -259,8 +259,8 @@
                   <kup-color-picker
                     id="disabled-background-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -276,8 +276,8 @@
                   <kup-color-picker
                     id="disabled-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -293,8 +293,8 @@
                   <kup-color-picker
                     id="hover-background-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -314,8 +314,8 @@
                   <kup-color-picker
                     id="hover-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -334,8 +334,8 @@
                   <kup-color-picker
                     id="title-background-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -351,8 +351,8 @@
                   <kup-color-picker
                     id="title-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -371,8 +371,8 @@
                   <kup-color-picker
                     id="icon-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -388,8 +388,8 @@
                   <kup-color-picker
                     id="border-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -424,8 +424,8 @@
                   <kup-color-picker
                     id="field-background-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -444,8 +444,8 @@
                   <kup-color-picker
                     id="info-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -464,8 +464,8 @@
                   <kup-color-picker
                     id="success-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -484,8 +484,8 @@
                   <kup-color-picker
                     id="warning-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -504,8 +504,8 @@
                   <kup-color-picker
                     id="danger-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -521,8 +521,8 @@
                   <kup-color-picker
                     id="spinner-color"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -542,8 +542,8 @@
                   <kup-color-picker
                     id="chart-color-1"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -563,8 +563,8 @@
                   <kup-color-picker
                     id="chart-color-2"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -583,8 +583,8 @@
                   <kup-color-picker
                     id="chart-color-3"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -604,8 +604,8 @@
                   <kup-color-picker
                     id="chart-color-4"
                     :data.prop="colorPickerData"
-                    @kupColorPickerInput="updateThemeVariable"
-                    @kupColorPickerChange="updateThemeVariable"
+                    @kup-colorpicker-input="updateThemeVariable"
+                    @kup-colorpicker-change="updateThemeVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
