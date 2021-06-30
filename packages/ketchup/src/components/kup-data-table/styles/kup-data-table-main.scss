@@ -408,6 +408,10 @@ tbody {
           &.is-centered {
             display: flex;
           }
+
+          &.number-cell {
+            text-align: right;
+          }
         }
 
         &.is-tooltip {
