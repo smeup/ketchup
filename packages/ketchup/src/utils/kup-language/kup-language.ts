@@ -20,21 +20,13 @@ export class KupLanguage {
     name: string;
     /**
      * Initializes KupLanguage.
+     * @param {KupLanguageJSON} list - Overrides the default languages.json.
+     * @param {string} name - Starting language.
      */
-    constructor() {
-        this.list =
-            dom.ketchupInit &&
-            dom.ketchupInit.language &&
-            dom.ketchupInit.language.list
-                ? dom.ketchupInit.language.list
-                : languagesJson['default'];
+    constructor(list?: KupLanguageJSON, name?: string) {
+        this.list = list ? list : languagesJson['default'];
         this.managedComponents = new Set();
-        this.name =
-            dom.ketchupInit &&
-            dom.ketchupInit.language &&
-            dom.ketchupInit.language.name
-                ? dom.ketchupInit.language.name
-                : KupLanguageDefaults.EN;
+        this.name = name ? name : KupLanguageDefaults.EN;
     }
     /**
      * Translates the string to the given language.

@@ -1,6 +1,12 @@
 import type {
     KupDom,
+    KupManagerDebugSettings,
+    KupManagerDialogSettings,
     KupManagerInitialization,
+    KupManagerLanguageSettings,
+    KupManagerObjectsSettings,
+    KupManagerScrollOnHoverSettings,
+    KupManagerThemeSettings,
     KupManagerUtilities,
 } from './kup-manager-declarations';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
@@ -14,6 +20,9 @@ import { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
 import { KupTheme } from '../kup-theme/kup-theme';
 import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import { ResizeObserver } from 'resize-observer';
+import { KupLanguageJSON } from '../kup-language/kup-language-declarations';
+import { KupObjectsJSON } from '../kup-objects/kup-objects-declarations';
+import { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -37,14 +46,61 @@ export class KupManager {
     /**
      * Initializes KupManager.
      */
-    constructor() {
-        this.debug = new KupDebug();
-        this.dialog = new KupDialog();
+    constructor(overrides?: KupManagerInitialization) {
+        let debugActive: boolean = null,
+            debugAutoprint: boolean = null,
+            debugLogLimit: number = null,
+            dialogZIndex: number = null,
+            languageList: KupLanguageJSON = null,
+            languageName: string = null,
+            objectsList: KupObjectsJSON = null,
+            scrollOnHoverDelay: number = null,
+            scrollOnHoverStep: number = null,
+            themeList: KupThemeJSON = null,
+            themeName: string = null;
+        if (overrides) {
+            const debug: KupManagerDebugSettings = overrides.debug;
+            const dialog: KupManagerDialogSettings = overrides.dialog;
+            const language: KupManagerLanguageSettings = overrides.language;
+            const objects: KupManagerObjectsSettings = overrides.language;
+            const scrollOnHover: KupManagerScrollOnHoverSettings =
+                overrides.scrollOnHover;
+            const theme: KupManagerThemeSettings = overrides.theme;
+            if (debug) {
+                debugActive = debug.active ? debug.active : null;
+                debugAutoprint = debug.autoPrint ? debug.autoPrint : null;
+                debugLogLimit = debug.logLimit ? debug.logLimit : null;
+            }
+            if (dialog) {
+                dialogZIndex = dialog.zIndex ? dialog.zIndex : null;
+            }
+            if (language) {
+                languageList = language.list ? language.list : null;
+                languageName = language.name ? language.name : null;
+            }
+            if (objects) {
+                objectsList = objects.list ? objects.list : null;
+            }
+            if (scrollOnHover) {
+                scrollOnHoverDelay = scrollOnHover.delay
+                    ? scrollOnHover.delay
+                    : null;
+                scrollOnHoverStep = scrollOnHover.step
+                    ? scrollOnHover.step
+                    : null;
+            }
+            if (theme) {
+                themeList = theme.list ? theme.list : null;
+                themeName = theme.name ? theme.name : null;
+            }
+        }
+        this.debug = new KupDebug(debugActive, debugAutoprint, debugLogLimit);
+        this.dialog = new KupDialog(dialogZIndex);
         this.dynamicPosition = new KupDynamicPosition();
-        this.language = new KupLanguage();
+        this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
-        this.objects = new KupObjects();
-        this.overrides = dom.ketchupInit ? dom.ketchupInit : null;
+        this.overrides = overrides ? overrides : null;
+        this.objects = new KupObjects(objectsList);
         this.resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
             entries.forEach((entry) => {
                 if (entry.contentRect.height && entry.contentRect.width) {
@@ -64,9 +120,12 @@ export class KupManager {
                 }
             });
         });
-        this.scrollOnHover = new KupScrollOnHover();
+        this.scrollOnHover = new KupScrollOnHover(
+            scrollOnHoverDelay,
+            scrollOnHoverStep
+        );
         this.utilities = { lastMouseDownPath: null };
-        this.theme = new KupTheme();
+        this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
         document.addEventListener('mousedown', (e) => {
             this.utilities.lastMouseDownPath = e.composedPath();
@@ -113,14 +172,13 @@ export class KupManager {
  */
 export function kupManagerInstance(): KupManager {
     if (!dom.ketchup) {
-        dom.ketchup = new KupManager();
+        const overrides: KupManagerInitialization = dom.ketchupInit
+            ? dom.ketchupInit
+            : null;
+        dom.ketchup = new KupManager(overrides);
         dom.ketchup.theme.set();
-        if (
-            dom.ketchupInit &&
-            dom.ketchupInit.debug &&
-            dom.ketchupInit.debug.active
-        ) {
-            dom.ketchup.debug.toggle(dom.ketchupInit.debug.active);
+        if (dom.ketchup.debug.active) {
+            dom.ketchup.debug.toggle(dom.ketchup.debug.active);
         }
         document.dispatchEvent(new CustomEvent('kupManagerReady'));
     }

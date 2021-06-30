@@ -24,26 +24,14 @@ export class KupDebug {
     #debugWidget: HTMLKupCardElement;
     /**
      * Initializes KupDebug.
+     * @param {boolean} active - When true, the debug is active on initialization.
+     * @param {boolean} autoprint - When true, logs will be automatically printed inside the debug widget.
+     * @param {number} logLimit - Maximum amount of logs stored, when they exceed the number specified in logLimit the cache will be automatically cleared.
      */
-    constructor() {
-        this.active =
-            dom.ketchupInit &&
-            dom.ketchupInit.debug &&
-            dom.ketchupInit.debug.active
-                ? dom.ketchupInit.debug.active
-                : false;
-        this.autoPrint =
-            dom.ketchupInit &&
-            dom.ketchupInit.debug &&
-            dom.ketchupInit.debug.autoPrint
-                ? dom.ketchupInit.debug.autoPrint
-                : false;
-        this.logLimit =
-            dom.ketchupInit &&
-            dom.ketchupInit.debug &&
-            dom.ketchupInit.debug.logLimit
-                ? dom.ketchupInit.debug.logLimit
-                : 250;
+    constructor(active?: boolean, autoprint?: boolean, logLimit?: number) {
+        this.active = active ? true : false;
+        this.autoPrint = autoprint ? true : false;
+        this.logLimit = logLimit ? logLimit : 250;
         this.logs = [];
         this.#debugWidget = null;
         document.addEventListener('kupLanguageChange', () => {

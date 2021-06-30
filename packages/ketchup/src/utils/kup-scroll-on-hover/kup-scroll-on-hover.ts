@@ -24,21 +24,13 @@ export class KupScrollOnHover {
     #timeout: ReturnType<typeof setTimeout>;
     /**
      * Initializes KupScrollOnHover.
+     * @param {number} delay - Sets the time in milliseconds before the scrolling starts when mouse-hovering.
+     * @param {number} step - The amount in pixels for each scroll recursion.
      */
-    constructor() {
-        this.delay =
-            dom.ketchupInit &&
-            dom.ketchupInit.scrollOnHover &&
-            dom.ketchupInit.scrollOnHover.delay
-                ? dom.ketchupInit.scrollOnHover.delay
-                : 500;
+    constructor(delay?: number, step?: number) {
+        this.delay = delay ? delay : 500;
         this.managedElements = new Set();
-        this.step =
-            dom.ketchupInit &&
-            dom.ketchupInit.scrollOnHover &&
-            dom.ketchupInit.scrollOnHover.step
-                ? dom.ketchupInit.scrollOnHover.step
-                : 50;
+        this.step = step ? step : 50;
         this.#arrowsContainer = document.createElement('div');
         this.#leftArrows = [];
         this.#mouseleaveEvent = (event: MouseEvent) =>

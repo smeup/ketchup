@@ -26,21 +26,11 @@ export class KupTheme {
     /**
      * Initializes KupTheme.
      */
-    constructor() {
+    constructor(list?: KupThemeJSON, name?: string) {
         this.cssVars = {};
-        this.list =
-            dom.ketchupInit &&
-            dom.ketchupInit.theme &&
-            dom.ketchupInit.theme.list
-                ? dom.ketchupInit.theme.list
-                : themesJson['default'];
+        this.list = list ? list : themesJson['default'];
         this.managedComponents = new Set();
-        this.name =
-            dom.ketchupInit &&
-            dom.ketchupInit.theme &&
-            dom.ketchupInit.theme.name
-                ? dom.ketchupInit.theme.name
-                : 'ketchup';
+        this.name = name ? name : 'ketchup';
         this.styleTag = dom
             .querySelector('head')
             .appendChild(document.createElement('style'));

@@ -12,12 +12,10 @@ export class KupObjects {
     list: KupObjectsJSON;
     /**
      * Initializes KupObjects.
+     * @param {KupObjectsJSON} list - Overrides the default obj.json.
      */
-    constructor() {
-        this.list =
-            dom.ketchupInit && dom.ketchupInit.obj && dom.ketchupInit.obj.list
-                ? dom.ketchupInit.obj.list
-                : objJson['default'];
+    constructor(list?: KupObjectsJSON) {
+        this.list = list ? list : objJson['default'];
     }
     /**
      * Checks whether the object can automatically derive columns.
