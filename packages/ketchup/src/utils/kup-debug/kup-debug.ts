@@ -1,8 +1,8 @@
+import type { KupDom } from '../kup-manager/kup-manager-declarations';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { CardFamily } from '../../components/kup-card/kup-card-declarations';
 import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupLanguageDebug } from '../kup-language/kup-language-declarations';
-import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDebugCategory,
     KupDebugLog,
@@ -17,28 +17,35 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupDebug
  */
 export class KupDebug {
-    active: boolean =
-        dom.ketchupInit && dom.ketchupInit.debug && dom.ketchupInit.debug.active
-            ? dom.ketchupInit.debug.active
-            : false;
-    autoPrint: boolean =
-        dom.ketchupInit &&
-        dom.ketchupInit.debug &&
-        dom.ketchupInit.debug.autoPrint
-            ? dom.ketchupInit.debug.autoPrint
-            : false;
-    logLimit: number =
-        dom.ketchupInit &&
-        dom.ketchupInit.debug &&
-        dom.ketchupInit.debug.logLimit
-            ? dom.ketchupInit.debug.logLimit
-            : 250;
-    logs: KupDebugLog[] = [];
-    #debugWidget: HTMLKupCardElement = null;
+    active: boolean;
+    autoPrint: boolean;
+    logLimit: number;
+    logs: KupDebugLog[];
+    #debugWidget: HTMLKupCardElement;
     /**
      * Initializes KupDebug.
      */
     constructor() {
+        this.active =
+            dom.ketchupInit &&
+            dom.ketchupInit.debug &&
+            dom.ketchupInit.debug.active
+                ? dom.ketchupInit.debug.active
+                : false;
+        this.autoPrint =
+            dom.ketchupInit &&
+            dom.ketchupInit.debug &&
+            dom.ketchupInit.debug.autoPrint
+                ? dom.ketchupInit.debug.autoPrint
+                : false;
+        this.logLimit =
+            dom.ketchupInit &&
+            dom.ketchupInit.debug &&
+            dom.ketchupInit.debug.logLimit
+                ? dom.ketchupInit.debug.logLimit
+                : 250;
+        this.logs = [];
+        this.#debugWidget = null;
         document.addEventListener('kupLanguageChange', () => {
             if (this.active && this.#debugWidget) {
                 this.hideWidget();

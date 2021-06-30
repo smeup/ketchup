@@ -3,11 +3,11 @@ import type {
     KupManagerInitialization,
     KupManagerUtilities,
 } from './kup-manager-declarations';
-import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
-import { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
+import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { KupDebug } from '../kup-debug/kup-debug';
 import { KupDialog } from '../kup-dialog/kup-dialog';
+import { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
 import { KupLanguage } from '../kup-language/kup-language';
 import { KupObjects } from '../kup-objects/kup-objects';
 import { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
@@ -22,17 +22,30 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupManager
  */
 export class KupManager {
-    debug: KupDebug = new KupDebug();
-    dialog: KupDialog = new KupDialog();
-    dynamicPosition: KupDynamicPosition = new KupDynamicPosition();
-    language: KupLanguage = new KupLanguage();
-    magicBox: HTMLKupMagicBoxElement = null;
-    objects: KupObjects = new KupObjects();
-    overrides?: KupManagerInitialization = dom.ketchupInit
-        ? dom.ketchupInit
-        : null;
-    resize: ResizeObserver = new ResizeObserver(
-        (entries: ResizeObserverEntry[]) => {
+    debug: KupDebug;
+    dialog: KupDialog;
+    dynamicPosition: KupDynamicPosition;
+    language: KupLanguage;
+    magicBox: HTMLKupMagicBoxElement;
+    objects: KupObjects;
+    overrides?: KupManagerInitialization;
+    resize: ResizeObserver;
+    scrollOnHover: KupScrollOnHover;
+    utilities: KupManagerUtilities;
+    theme: KupTheme;
+    toolbar: KupToolbar;
+    /**
+     * Initializes KupManager.
+     */
+    constructor() {
+        this.debug = new KupDebug();
+        this.dialog = new KupDialog();
+        this.dynamicPosition = new KupDynamicPosition();
+        this.language = new KupLanguage();
+        this.magicBox = null;
+        this.objects = new KupObjects();
+        this.overrides = dom.ketchupInit ? dom.ketchupInit : null;
+        this.resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
             entries.forEach((entry) => {
                 if (entry.contentRect.height && entry.contentRect.width) {
                     (entry.target as ResizableKupComponent).resizeCallback();
@@ -50,16 +63,11 @@ export class KupManager {
                     );
                 }
             });
-        }
-    );
-    scrollOnHover: KupScrollOnHover = new KupScrollOnHover();
-    utilities: KupManagerUtilities = { lastMouseDownPath: null };
-    theme: KupTheme = new KupTheme();
-    toolbar: KupToolbar = new KupToolbar();
-    /**
-     * Initializes KupManager.
-     */
-    constructor() {
+        });
+        this.scrollOnHover = new KupScrollOnHover();
+        this.utilities = { lastMouseDownPath: null };
+        this.theme = new KupTheme();
+        this.toolbar = new KupToolbar();
         document.addEventListener('mousedown', (e) => {
             this.utilities.lastMouseDownPath = e.composedPath();
         });

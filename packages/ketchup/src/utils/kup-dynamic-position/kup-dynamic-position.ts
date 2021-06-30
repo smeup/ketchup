@@ -15,7 +15,13 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupDynamicPosition
  */
 export class KupDynamicPosition {
-    managedElements: Set<KupDynamicPositionElement> = new Set();
+    managedElements: Set<KupDynamicPositionElement>;
+    /**
+     * Initializes KupDynamicPosition.
+     */
+    constructor() {
+        this.managedElements = new Set();
+    }
     /**
      * Function used to check whether the anchor point is an HTMLElement or a set of coordinates.
      * @param {KupDynamicPositionAnchor} anchor - Anchor point.

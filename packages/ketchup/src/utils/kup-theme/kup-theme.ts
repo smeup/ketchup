@@ -1,15 +1,14 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { getAssetPath } from '@stencil/core';
+import * as themesJson from './themes.json';
+import * as themeCSS from './kup-theme.css';
 import {
     KupThemeCSSVariables,
     KupThemeIcons,
     KupThemeJSON,
-    KupThemeElement,
     masterCustomStyle,
 } from './kup-theme-declarations';
-import { getAssetPath } from '@stencil/core';
-import * as themesJson from './themes.json';
-import * as themeCSS from './kup-theme.css';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -19,19 +18,33 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupTheme
  */
 export class KupTheme {
-    cssVars: Partial<KupThemeCSSVariables> = {};
-    list: KupThemeJSON =
-        dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.list
-            ? dom.ketchupInit.theme.list
-            : themesJson['default'];
-    managedComponents: Set<KupComponent> = new Set();
-    name: string =
-        dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.name
-            ? dom.ketchupInit.theme.name
-            : 'ketchup';
-    styleTag: HTMLStyleElement = dom
-        .querySelector('head')
-        .appendChild(document.createElement('style'));
+    cssVars: Partial<KupThemeCSSVariables>;
+    list: KupThemeJSON;
+    managedComponents: Set<KupComponent>;
+    name: string;
+    styleTag: HTMLStyleElement;
+    /**
+     * Initializes KupTheme.
+     */
+    constructor() {
+        this.cssVars = {};
+        this.list =
+            dom.ketchupInit &&
+            dom.ketchupInit.theme &&
+            dom.ketchupInit.theme.list
+                ? dom.ketchupInit.theme.list
+                : themesJson['default'];
+        this.managedComponents = new Set();
+        this.name =
+            dom.ketchupInit &&
+            dom.ketchupInit.theme &&
+            dom.ketchupInit.theme.name
+                ? dom.ketchupInit.theme.name
+                : 'ketchup';
+        this.styleTag = dom
+            .querySelector('head')
+            .appendChild(document.createElement('style'));
+    }
     /**
      * Sets the theme using this.name or the function's argument.
      * @param {string} name - When present, this theme will be set.
