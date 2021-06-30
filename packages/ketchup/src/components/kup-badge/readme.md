@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event           | Description | Type                                |
-| --------------- | ----------- | ----------------------------------- |
-| `kupBadgeClick` |             | `CustomEvent<{ el: EventTarget; }>` |
+| Event             | Description | Type                                |
+| ----------------- | ----------- | ----------------------------------- |
+| `kup-badge-click` |             | `CustomEvent<KupBadgeEventPayload>` |
 
 
 ## Methods

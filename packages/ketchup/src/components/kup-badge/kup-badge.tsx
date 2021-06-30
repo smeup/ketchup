@@ -18,7 +18,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
-import { KupBadgeProps } from './kup-badge-declarations';
+import { KupBadgeEventPayload, KupBadgeProps } from './kup-badge-declarations';
 
 @Component({
     tag: 'kup-badge',
@@ -42,14 +42,12 @@ export class KupBadge {
     @Prop() text: string = undefined;
 
     @Event({
-        eventName: 'kupBadgeClick',
+        eventName: 'kup-badge-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        el: EventTarget;
-    }>;
+    kupClick: EventEmitter<KupBadgeEventPayload>;
 
     /**
      * Instance of the KupManager class.
@@ -87,8 +85,10 @@ export class KupBadge {
 
     onKupClick(e: Event) {
         this.kupClick.emit({
-            el: e.target,
-        });
+            comp: this,
+            id: this.rootElement.id,
+            el: e.target
+        })
     }
 
     //---- Lifecycle hooks ----

@@ -233,7 +233,7 @@ export class KupDebug {
         debugWidget.layoutNumber = 3;
         debugWidget.sizeX = 'auto';
         debugWidget.sizeY = 'auto';
-        debugWidget.addEventListener('kupCardEvent', (e: CustomEvent) =>
+        debugWidget.addEventListener('kup-card-event', (e: CustomEvent) =>
             this.handleEvents(e)
         );
         document.body.append(debugWidget);
@@ -419,7 +419,7 @@ export class KupDebug {
     }
     /**
      * Listens the card events and handles the related actions.
-     * @param {CustomEvent} e - kupCardEvent.
+     * @param {CustomEvent} e - kup-card-event.
      */
     handleEvents(e: CustomEvent): void {
         const compEvent: CustomEvent = e.detail.event;

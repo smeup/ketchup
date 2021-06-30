@@ -19,10 +19,10 @@
 
 ## Events
 
-| Event          | Description                                                | Type                                          |
-| -------------- | ---------------------------------------------------------- | --------------------------------------------- |
-| `kupCardClick` | Triggered when the card is clicked.                        | `CustomEvent<{ card: KupCard; id: string; }>` |
-| `kupCardEvent` | Triggered when a sub-component of the card emits an event. | `CustomEvent<{ card: KupCard; event: any; }>` |
+| Event            | Description                                                | Type                               |
+| ---------------- | ---------------------------------------------------------- | ---------------------------------- |
+| `kup-card-click` | Triggered when the card is clicked.                        | `CustomEvent<KupEventPayload>`     |
+| `kup-card-event` | Triggered when a sub-component of the card emits an event. | `CustomEvent<KupCardEventPayload>` |
 
 
 ## Methods

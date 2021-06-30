@@ -23,11 +23,11 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupAutoBoxSelect',
+          name: 'kup-box-autoselect',
           type: 'CustomEvent',
         },
         {
-          name: 'kupBoxClicked',
+          name: 'kup-box-click',
           type: 'CustomEvent',
         },
         {
@@ -43,7 +43,7 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kupBoxSelected',
+          name: 'kup-box-selected',
           type: 'CustomEvent',
         },
         {

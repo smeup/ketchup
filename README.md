@@ -52,7 +52,7 @@ defineCustomElements(window);
 -   Use Ketch.UP components in your pages. About components and their props and events see [Ketch.UP Showcase](https://ketchup.smeup.com/). A simple sample for a Ketch.UP button can be:
 
 ```
-<kup-btn :buttons.prop="btnlist" @kupBtnClick="onKupBtnClicked" />
+<kup-btn :buttons.prop="btnlist" @kup-btn-click="onkup-btn-clicked" />
 ```
 
 ## Contributing

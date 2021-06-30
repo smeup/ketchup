@@ -1,6 +1,6 @@
 import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
 import { KupBadge } from '../kup-badge/kup-badge';
-import { Identifiable } from '../../types/GenericTypes';
+import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
 /**
  * Props of the kup-box component.
  * Used to export every prop in an object.
@@ -88,3 +88,17 @@ export interface BoxKanban {
     labels?: Array<Array<string>>;
     size?: string;
 }
+
+export interface KupBoxClikEventPayload extends KupEventPayload {
+    row: BoxRow;
+    column?: string;
+}
+
+export interface KupBoxSelectedEventPayload extends KupEventPayload {
+    rows: BoxRow[];
+}
+
+export interface KupBoxAutoSelectEventPayload extends KupEventPayload {
+    row: BoxRow;
+}
+

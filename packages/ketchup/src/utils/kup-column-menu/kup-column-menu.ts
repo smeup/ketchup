@@ -660,8 +660,8 @@ export class KupColumnMenu {
         return props;
     }
     /**
-     * Function called by the column menu card when a kupCardEvent is received.
-     * @param {CustomEvent} cardEvent - kupCardEvent emitted by the column menu.
+     * Function called by the column menu card when a kup-card-event is received.
+     * @param {CustomEvent} cardEvent - kup-card-event emitted by the column menu.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {

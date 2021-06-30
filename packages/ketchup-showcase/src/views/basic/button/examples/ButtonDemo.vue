@@ -26,11 +26,11 @@ export default {
           type: 'click',
         },
         {
-          name: 'kupButtonFocus',
+          name: 'kup-button-focus',
           type: 'focus',
         },
         {
-          name: 'kupButtonBlur',
+          name: 'kup-button-blur',
           type: 'blur',
         },
       ],

@@ -115,15 +115,12 @@ export class KupButton {
      * Triggered when the button loses focus.
      */
     @Event({
-        eventName: 'kupButtonBlur',
+        eventName: 'kup-button-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupButtonClickEventPayload>;
     /**
      * Triggered when the button is clicked.
      */
@@ -138,18 +135,16 @@ export class KupButton {
      * Triggered when the button is focused.
      */
     @Event({
-        eventName: 'kupButtonFocus',
+        eventName: 'kup-button-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupButtonClickEventPayload>;
 
     onKupBlur() {
         this.kupBlur.emit({
+            comp:this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -176,6 +171,7 @@ export class KupButton {
 
     onKupFocus() {
         this.kupFocus.emit({
+            comp:this,
             id: this.rootElement.id,
             value: this.value,
         });

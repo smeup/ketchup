@@ -6114,7 +6114,7 @@ export class KupDataTable {
                             }
                         }}
                         onClick={(e) => e.stopPropagation()}
-                        onKupCardEvent={(e) => {
+                        onkup-card-event={(e) => {
                             this.columnMenuInstance.eventHandlers(e, this);
                         }}
                         ref={(el: HTMLKupCardElement) =>

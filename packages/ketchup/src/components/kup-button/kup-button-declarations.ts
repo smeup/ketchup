@@ -19,6 +19,5 @@ export enum KupButtonProps {
  * Generic payload of a kup event.
  */
 export interface KupButtonClickEventPayload extends KupEventPayload {
-    id: string;
     value: string;
 }

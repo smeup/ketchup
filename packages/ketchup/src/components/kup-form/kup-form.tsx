@@ -500,16 +500,16 @@ export class KupForm {
                         <kup-autocomplete
                             data={data}
                             {...field.config}
-                            onKupAutocompleteItemClick={(e) =>
+                            onkup-autocomplete-itemclick={(e) =>
                                 this.onAutocompleteFieldChanged(e, field.key)
                             }
-                            onKupAutocompleteFocus={() =>
+                            onkup-autocomplete-focus={() =>
                                 this.onFieldFocused(field.key)
                             }
-                            onKupAutocompleteBlur={() =>
+                            onkup-autocomplete-blur={() =>
                                 this.onFieldBlurred(field.key)
                             }
-                            onKupAutocompleteFilterChanged={(e) =>
+                            onkup-autocomplete-filterchanged={(e) =>
                                 this.onAutocompleteFieldChanged(e, field.key)
                             }
                             callBackOnFilterUpdate={

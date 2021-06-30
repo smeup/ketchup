@@ -5,7 +5,7 @@
     <kup-box
       :data.prop="btnData"
       :layout.prop="btnLayout"
-      @kupBoxClicked="onBoxClicked"
+      @kup-box-click="onBoxClicked"
       data-code="small"
     ></kup-box>
     <code ref="small" />
@@ -15,7 +15,7 @@
     <kup-box
       :data.prop="largeBtnData"
       :layout.prop="btnLayout"
-      @kupBoxClicked="onBoxClicked"
+      @kup-box-click="onBoxClicked"
       :columns.prop="3"
       data-code="large"
     ></kup-box>

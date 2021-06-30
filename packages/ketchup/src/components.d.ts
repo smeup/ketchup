@@ -6,14 +6,17 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
-import { GenericObject } from "./types/GenericTypes";
+import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
+import { GenericObject, KupEventPayload } from "./types/GenericTypes";
+import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { Cell, Column, DataTable, EventHandlerDetails, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
+import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClikEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
 import { EventHandlerDetails as EventHandlerDetails1, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupBtnClickEventPayload } from "./components/kup-btn/kup-btn-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
-import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
+import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupObj } from "./utils/kup-objects/kup-objects-declarations";
@@ -2641,51 +2644,15 @@ declare namespace LocalJSX {
         /**
           * Event example.
          */
-        "onKupAutocompleteBlur"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteChange"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteClick"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteFilterChanged"?: (event: CustomEvent<{
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteFocus"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteIconClick"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteInput"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteItemClick"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteTextFieldSubmit"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
+        "onKup-autocomplete-blur"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-change"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-click"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-filterchanged"?: (event: CustomEvent<kupAutocompleteFilterChangedEventPayload>) => void;
+        "onKup-autocomplete-focus"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-iconclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-input"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-itemclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-textfieldsubmit"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
@@ -2704,9 +2671,7 @@ declare namespace LocalJSX {
           * The data of the image displayed inside the badge.
          */
         "imageData"?: {};
-        "onKupBadgeClick"?: (event: CustomEvent<{
-        el: EventTarget;
-    }>) => void;
+        "onKup-badge-click"?: (event: CustomEvent<KupBadgeEventPayload>) => void;
         /**
           * The text displayed inside the badge.
          */
@@ -2768,16 +2733,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when a box is auto selected via selectBox prop
          */
-        "onKupAutoBoxSelect"?: (event: CustomEvent<{
-        row: BoxRow;
-    }>) => void;
+        "onKup-box-autoselect"?: (event: CustomEvent<KupBoxAutoSelectEventPayload>) => void;
         /**
           * Triggered when a box is clicked
          */
-        "onKupBoxClicked"?: (event: CustomEvent<{
-        row: BoxRow;
-        column?: string;
-    }>) => void;
+        "onKup-box-click"?: (event: CustomEvent<KupBoxClikEventPayload>) => void;
+        /**
+          * Triggered when the multi selection checkbox changes value
+         */
+        "onKup-box-selected"?: (event: CustomEvent<KupBoxSelectedEventPayload>) => void;
         /**
           * Generic right click event on box.
          */
@@ -2799,12 +2763,6 @@ declare namespace LocalJSX {
         fromId: string;
         fromRow: BoxRow;
         fromSelectedRows?: BoxRow[];
-    }>) => void;
-        /**
-          * Triggered when the multi selection checkbox changes value
-         */
-        "onKupBoxSelected"?: (event: CustomEvent<{
-        rows: BoxRow[];
     }>) => void;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
@@ -2905,12 +2863,7 @@ declare namespace LocalJSX {
           * Default at false. When set to true, the sub-components are disabled.
          */
         "disabled"?: boolean;
-        "onKupBtnClick"?: (event: CustomEvent<{
-        comp: KupBtn;
-        id: string;
-        subId: string;
-        obj: any;
-    }>) => void;
+        "onKup-btn-click"?: (event: CustomEvent<KupBtnClickEventPayload>) => void;
         /**
           * If enabled, highlights the selected button
          */
@@ -2953,23 +2906,17 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Triggered when the button loses focus.
+         */
+        "onKup-button-blur"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
+        /**
           * Triggered when the button is clicked.
          */
         "onKup-button-click"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
         /**
-          * Triggered when the button loses focus.
-         */
-        "onKupButtonBlur"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        /**
           * Triggered when the button is focused.
          */
-        "onKupButtonFocus"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
+        "onKup-button-focus"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -3062,17 +3009,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when the card is clicked.
          */
-        "onKupCardClick"?: (event: CustomEvent<{
-        card: KupCard;
-        id: string;
-    }>) => void;
+        "onKup-card-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Triggered when a sub-component of the card emits an event.
          */
-        "onKupCardEvent"?: (event: CustomEvent<{
-        card: KupCard;
-        event: any;
-    }>) => void;
+        "onKup-card-event"?: (event: CustomEvent<KupCardEventPayload>) => void;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"

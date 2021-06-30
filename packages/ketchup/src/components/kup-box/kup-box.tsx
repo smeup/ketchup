@@ -28,6 +28,9 @@ import {
     BoxObject,
     BoxKanban,
     KupBoxProps,
+    KupBoxClikEventPayload,
+    KupBoxSelectedEventPayload,
+    KupBoxAutoSelectEventPayload,
 } from './kup-box-declarations';
 
 import {
@@ -316,41 +319,34 @@ export class KupBox {
      * Triggered when a box is clicked
      */
     @Event({
-        eventName: 'kupBoxClicked',
+        eventName: 'kup-box-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBoxClicked: EventEmitter<{
-        row: BoxRow;
-        column?: string;
-    }>;
+    KupBoxClicked: EventEmitter<KupBoxClikEventPayload>;
 
     /**
      * Triggered when the multi selection checkbox changes value
      */
     @Event({
-        eventName: 'kupBoxSelected',
+        eventName: 'kup-box-selected',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBoxSelected: EventEmitter<{
-        rows: BoxRow[];
-    }>;
+    kupBoxSelected: EventEmitter<KupBoxSelectedEventPayload>;
 
     /**
      * Triggered when a box is auto selected via selectBox prop
      */
     @Event({
-        eventName: 'kupAutoBoxSelect',
+        eventName: 'kup-box-autoselect',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupAutoBoxSelect: EventEmitter<{
-        row: BoxRow;
-    }>;
+    KupAutoBoxSelect: EventEmitter<KupBoxAutoSelectEventPayload>;
 
     /**
      * When the row menu action icon is clicked
@@ -731,7 +727,9 @@ export class KupBox {
                     break;
                 }
             }
-            this.kupAutoBoxSelect.emit({
+            this.KupAutoBoxSelect.emit({
+                comp: this,
+                id: this.rootElement.id,
                 row: this.selectedRows[0],
             });
         }
@@ -829,7 +827,12 @@ export class KupBox {
             column = element.dataset.column;
         }
 
-        this.kupBoxClicked.emit({ row, column });
+        this.KupBoxClicked.emit({ 
+            row,
+            column,
+            comp: this,
+            id: this.rootElement.id, 
+        });
 
         // selecting box
         if (this.multiSelection) {
@@ -860,6 +863,8 @@ export class KupBox {
         }
 
         this.kupBoxSelected.emit({
+            comp: this,
+            id: this.rootElement.id,
             rows: this.selectedRows,
         });
     }

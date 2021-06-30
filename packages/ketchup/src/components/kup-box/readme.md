@@ -45,12 +45,12 @@
 
 | Event                     | Description                                               | Type                                                                             |
 | ------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `kupAutoBoxSelect`        | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                                                  |
-| `kupBoxClicked`           | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>`                                 |
+| `kup-box-autoselect`      | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<KupBoxAutoSelectEventPayload>`                                      |
+| `kup-box-click`           | Triggered when a box is clicked                           | `CustomEvent<KupBoxClikEventPayload>`                                            |
+| `kup-box-selected`        | Triggered when the multi selection checkbox changes value | `CustomEvent<KupBoxSelectedEventPayload>`                                        |
 | `kupBoxContextMenu`       | Generic right click event on box.                         | `CustomEvent<{ details: GenericObject; }>`                                       |
 | `kupBoxDragEnded`         | Triggered when a box dragging is ended                    | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>` |
 | `kupBoxDragStarted`       | Triggered when a box dragging is started                  | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>` |
-| `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                               |
 | `kupDidLoad`              |                                                           | `CustomEvent<void>`                                                              |
 | `kupDidUnload`            | Triggered when stop propagation event                     | `CustomEvent<void>`                                                              |
 | `kupRowActionClicked`     | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; action: RowAction; index: number; }>`                |

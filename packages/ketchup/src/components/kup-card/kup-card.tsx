@@ -15,7 +15,7 @@ import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent, KupEventPayload } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -24,6 +24,7 @@ import {
     CardData,
     CardFamily,
     KupCardCSSClasses,
+    KupCardEventPayload,
     KupCardIds,
     KupCardProps,
 } from './kup-card-declarations';
@@ -98,7 +99,7 @@ export class KupCard {
     /*-------------------------------------------------*/
 
     /**
-     * kupCardEvent callback.
+     * kup-card-event callback.
      */
     private cardEvent: EventListenerOrEventListenerObject = (
         e: CustomEvent
@@ -131,41 +132,35 @@ export class KupCard {
      * Triggered when the card is clicked.
      */
     @Event({
-        eventName: 'kupCardClick',
+        eventName: 'kup-card-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        card: KupCard;
-        id: string;
-    }>;
+    kupClick: EventEmitter<KupEventPayload>;
     /**
      * Triggered when a sub-component of the card emits an event.
      */
     @Event({
-        eventName: 'kupCardEvent',
+        eventName: 'kup-card-event',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupEvent: EventEmitter<{
-        card: KupCard;
-        event: any;
-    }>;
+    kupEvent: EventEmitter<KupCardEventPayload>;
 
     onKupClick(id: string): void {
         this.kupClick.emit({
-            card: this,
+            comp: this,
             id: id,
         });
     }
 
     onKupEvent(e: CustomEvent): void {
         layoutSpecificEvents(this, e);
-
         this.kupEvent.emit({
-            card: this,
+            comp: this,
+            id: this.rootElement.id,
             event: e,
         });
     }
@@ -377,17 +372,17 @@ export class KupCard {
         }
     }
     /**
-     * Sets the event listeners on the sub-components, in order to properly emit the generic kupCardEvent.
+     * Sets the event listeners on the sub-components, in order to properly emit the generic kup-card-event.
      */
     registerListeners(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         root.addEventListener('kupAddCodeDecodeColumn', this.cardEvent);
         root.addEventListener('kupAddColumn', this.cardEvent);
-        root.addEventListener('kupAutocompleteBlur', this.cardEvent);
-        root.addEventListener('kupAutocompleteChange', this.cardEvent);
-        root.addEventListener('kupAutocompleteInput', this.cardEvent);
-        root.addEventListener('kupAutocompleteItemClick', this.cardEvent);
-        root.addEventListener('kupButtonClick', this.cardEvent);
+        root.addEventListener('kup-autocomplete-blur', this.cardEvent);
+        root.addEventListener('kup-autocomplete-change', this.cardEvent);
+        root.addEventListener('kup-autocomplete-input', this.cardEvent);
+        root.addEventListener('kup-autocomplete-itemclick', this.cardEvent);
+        root.addEventListener('kup-button-click', this.cardEvent);
         root.addEventListener('kupCheckboxChange', this.cardEvent);
         root.addEventListener('kupChipBlur', this.cardEvent);
         root.addEventListener('kupChipClick', this.cardEvent);

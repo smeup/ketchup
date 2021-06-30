@@ -17,7 +17,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
-import { KupBtnProps } from './kup-btn-declarations';
+import { KupBtnClickEventPayload, KupBtnProps } from './kup-btn-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -86,17 +86,12 @@ export class KupBtn {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kupBtnClick',
+        eventName: 'kup-btn-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        comp: KupBtn;
-        id: string;
-        subId: string;
-        obj: any;
-    }>;
+    kupClick: EventEmitter<KupBtnClickEventPayload>;
 
     onKupClick(index: string, subIndex: string) {
         this.selected = index;

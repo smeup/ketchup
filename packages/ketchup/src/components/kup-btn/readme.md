@@ -21,9 +21,9 @@
 
 ## Events
 
-| Event         | Description | Type                                                                  |
-| ------------- | ----------- | --------------------------------------------------------------------- |
-| `kupBtnClick` |             | `CustomEvent<{ comp: KupBtn; id: string; subId: string; obj: any; }>` |
+| Event           | Description | Type                                   |
+| --------------- | ----------- | -------------------------------------- |
+| `kup-btn-click` |             | `CustomEvent<KupBtnClickEventPayload>` |
 
 
 ## Methods

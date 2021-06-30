@@ -411,8 +411,8 @@ export class KupCrud {
                         this.records && this.records[0].id
                     )
                 }
-                onKupButtonBlur={(e) => this.onCrudBlurred(e)}
-                onKupButtonFocus={(e) => this.onCrudFocused(e)}
+                onkup-button-blur={(e) => this.onCrudBlurred(e)}
+                onkup-button-focus={(e) => this.onCrudFocused(e)}
             >
                 Configure
             </kup-button>
