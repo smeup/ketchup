@@ -431,13 +431,13 @@ export class KupForm {
                         <kup-combobox
                             data={data}
                             {...field.config}
-                            onKupComboboxItemClick={(e) =>
+                            onkup-combobox-itemclick={(e) =>
                                 this.onSimpleValueFieldChanged(e, field.key)
                             }
-                            onKupComboboxFocus={() =>
+                            onkup-combobox-focus={() =>
                                 this.onFieldFocused(field.key)
                             }
-                            onKupComboboxBlur={() =>
+                            onkup-combobox-blur={() =>
                                 this.onFieldBlurred(field.key)
                             }
                         ></kup-combobox>

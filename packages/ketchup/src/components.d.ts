@@ -22,6 +22,7 @@ import { KupCheckedEventPayload } from "./components/kup-checkbox/kup-checkbox-d
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
+import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
@@ -3238,32 +3239,14 @@ declare namespace LocalJSX {
         /**
           * Event example.
          */
-        "onKupComboboxBlur"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxChange"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxClick"?: (event: CustomEvent<{
-        id: string;
-        value: any;
-    }>) => void;
-        "onKupComboboxFocus"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxIconClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxInput"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxItemClick"?: (event: CustomEvent<{
-        id: string;
-        value: any;
-    }>) => void;
-        "onKupComboboxTextFieldSubmit"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        "onKup-combobox-blur"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-change"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-click"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-focus"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-iconclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-input"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-itemclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-textfieldsubmit"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
@@ -3316,7 +3299,7 @@ declare namespace LocalJSX {
           * Sets the layout of the component.
          */
         "layout"?: string;
-        "onKetchupDashClicked"?: (event: CustomEvent<{
+        "onKup-dash-clicked"?: (event: CustomEvent<{
         id: number;
     }>) => void;
     }
@@ -3329,7 +3312,7 @@ declare namespace LocalJSX {
         "horizontal"?: boolean;
         "iconColor"?: Array<any>;
         "layout"?: string;
-        "onKetchupDashClicked"?: (event: CustomEvent<{
+        "onKup-dash-clicked"?: (event: CustomEvent<{
         idx: number;
     }>) => void;
         "textColor"?: Array<any>;

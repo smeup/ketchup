@@ -42,7 +42,7 @@ export class KupDashList {
     data: TableData;
 
     @Event({
-        eventName: 'ketchupDashClicked',
+        eventName: 'kup-dash-clicked',
         composed: true,
         cancelable: true,
         bubbles: true,

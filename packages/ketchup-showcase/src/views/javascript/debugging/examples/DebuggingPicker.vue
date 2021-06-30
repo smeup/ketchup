@@ -10,7 +10,7 @@
         :data.prop="comboboxData"
         is-select
         id="debug-changer"
-        @kupComboboxItemClick="createDebugComponent"/>
+        @kup-combobox-itemclick="createDebugComponent"/>
       <kup-text-field
         id="debug-props"
         label="Paste your JSON"

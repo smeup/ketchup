@@ -460,7 +460,7 @@ export class KupDebug {
                         break;
                 }
                 break;
-            case 'kupComboboxItemClick':
+            case 'kup-combobox-itemclick':
                 switch (compID) {
                     case 'kup-debug-language-changer':
                         dom.ketchup.language.set(compEvent.detail.value);

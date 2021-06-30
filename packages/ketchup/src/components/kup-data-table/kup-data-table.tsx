@@ -5595,7 +5595,7 @@ export class KupDataTable {
                     isSelect={true}
                     data={data}
                     initialValue={this.kupManager.language.translate(text)}
-                    onKupComboboxItemClick={(e: CustomEvent) => {
+                    onkup-combobox-itemclick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.fontsize = this.getFontSizeCodeFromDecode(
                             e.detail.value
@@ -5666,7 +5666,7 @@ export class KupDataTable {
                     initialValue={this.kupManager.language.translate(text)}
                     selectMode={ItemsDisplayMode.DESCRIPTION}
                     data={data}
-                    onKupComboboxItemClick={(e: CustomEvent) => {
+                    onkup-combobox-itemclick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.density = this.getDensityCodeFromDecode(
                             e.detail.value
@@ -5779,7 +5779,7 @@ export class KupDataTable {
                     isSelect={true}
                     initialValue={this.kupManager.language.translate(text)}
                     data={data}
-                    onKupComboboxItemClick={(e: CustomEvent) => {
+                    onkup-combobox-itemclick={(e: CustomEvent) => {
                         e.stopPropagation();
                         const grid: any = this.getGridCodeFromDecode(
                             e.detail.value

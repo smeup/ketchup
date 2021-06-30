@@ -263,7 +263,7 @@ export class KupField {
             switch (this.type.toLowerCase()) {
                 case 'cmb':
                     comp = 'kup-combobox';
-                    propList.onkupComboboxChange = this.onChangeInstance;
+                    propList.onKupComboboxChange= this.onChangeInstance;
                     break;
                 case 'fup':
                     comp = 'kup-upload';

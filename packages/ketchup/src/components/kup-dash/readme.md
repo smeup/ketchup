@@ -17,9 +17,9 @@
 
 ## Events
 
-| Event                | Description | Type                           |
-| -------------------- | ----------- | ------------------------------ |
-| `ketchupDashClicked` |             | `CustomEvent<{ id: number; }>` |
+| Event              | Description | Type                           |
+| ------------------ | ----------- | ------------------------------ |
+| `kup-dash-clicked` |             | `CustomEvent<{ id: number; }>` |
 
 
 ## Dependencies

@@ -1914,7 +1914,7 @@ export class KupBox {
                     <kup-combobox
                         data={data}
                         initialValue={this.sortBy}
-                        onKupComboboxItemClick={(e) => this.onSortChange(e)}
+                        onkup-combobox-itemclick={(e) => this.onSortChange(e)}
                     />
                 </div>
             );

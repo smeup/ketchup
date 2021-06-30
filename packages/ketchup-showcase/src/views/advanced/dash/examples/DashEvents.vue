@@ -17,7 +17,7 @@ export default {
   name: 'DashEvents',
   data() {
     return {
-      event: 'ketchupDashClicked',
+      event: 'kup-dash-clicked',
       type: 'CustomEvent<{ id: number; }>',
     };
   },

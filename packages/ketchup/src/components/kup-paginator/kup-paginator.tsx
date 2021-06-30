@@ -309,11 +309,11 @@ export class KupPaginator {
                             class="page-selector"
                             data={dataPageSelector}
                             initialValue={this.currentPage.toString()}
-                            onKupComboboxItemClick={(e) => this.onPageChange(e)}
-                            onKupComboboxTextFieldSubmit={(e) =>
+                            onkup-combobox-itemclick={(e) => this.onPageChange(e)}
+                            onkup-combobox-textfieldsubmit={(e) =>
                                 this.onPageChange(e)
                             }
-                            onKupComboboxBlur={(e) => this.onPageChange(e)}
+                            onkup-combobox-blur={(e) => this.onPageChange(e)}
                             ref={(el) => (this.comboPageSelectorEl = el as any)}
                         />
                         <FButton
@@ -328,13 +328,13 @@ export class KupPaginator {
                             class="rows-selector"
                             data={dataRowsSelector}
                             initialValue={this.perPage.toString()}
-                            onKupComboboxItemClick={(e) =>
+                            onkup-combobox-itemclick={(e) =>
                                 this.onRowsPerPage(e)
                             }
-                            onKupComboboxTextFieldSubmit={(e) =>
+                            onkup-combobox-textfieldsubmit={(e) =>
                                 this.onRowsPerPage(e)
                             }
-                            onKupComboboxBlur={(e) => this.onRowsPerPage(e)}
+                            onkup-combobox-blur={(e) => this.onRowsPerPage(e)}
                             ref={(el) => (this.comboRowsSelectorEl = el as any)}
                         />
                         <slot name="right" />
