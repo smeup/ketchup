@@ -13,7 +13,7 @@ import {
 
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
-import { ComponentListElement, KupListProps } from './kup-list-declarations';
+import { ComponentListElement, KupListEventPayload, KupListProps } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
@@ -107,59 +107,44 @@ export class KupList {
      */
 
     @Event({
-        eventName: 'kupListBlur',
+        eventName: 'kup-list-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>;
+    kupBlur: EventEmitter<KupListEventPayload>;
 
     @Event({
-        eventName: 'kupListChange',
+        eventName: 'kup-list-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>;
+    kupChange: EventEmitter<KupListEventPayload>;
 
     @Event({
-        eventName: 'kupListClick',
+        eventName: 'kup-list-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>;
+    kupClick: EventEmitter<KupListEventPayload>;
 
     @Event({
-        eventName: 'kupListFocus',
+        eventName: 'kup-list-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>;
+    kupFocus: EventEmitter<KupListEventPayload>;
 
     @Event({
-        eventName: 'kupListInput',
+        eventName: 'kup-list-input',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupInput: EventEmitter<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>;
+    kupInput: EventEmitter<KupListEventPayload>;
 
     @Watch('filter')
     watchFilter() {
@@ -239,6 +224,8 @@ export class KupList {
         this.kupBlur.emit({
             selected: item,
             el: e.target,
+            comp: this,
+            id: this.rootElement.id,
         });
     }
 
@@ -246,6 +233,8 @@ export class KupList {
         this.kupChange.emit({
             selected: item,
             el: e.target,
+            comp: this,
+            id: this.rootElement.id,
         });
     }
 
@@ -285,6 +274,8 @@ export class KupList {
         this.kupClick.emit({
             selected: item,
             el: target,
+            comp: this,
+            id: this.rootElement.id,
         });
     }
 
@@ -292,6 +283,8 @@ export class KupList {
         this.kupFocus.emit({
             selected: item,
             el: e.target,
+            comp: this,
+            id: this.rootElement.id,
         });
     }
 
@@ -302,6 +295,8 @@ export class KupList {
             this.kupInput.emit({
                 selected: item,
                 el: e.target,
+                comp: this,
+                id: this.rootElement.id,
             });
         }
     }

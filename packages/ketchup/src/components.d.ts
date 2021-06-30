@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
+import { ComponentListElement, ItemsDisplayMode, KupListEventPayload } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
@@ -33,6 +33,7 @@ import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
+import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
@@ -4015,9 +4016,7 @@ declare namespace LocalJSX {
           * @default false
          */
         "isCanvas"?: boolean;
-        "onkup-image-click"?: (event: CustomEvent<{
-        el: EventTarget;
-    }>) => void;
+        "onKup-image-click"?: (event: CustomEvent<KupImageClickEventPayload>) => void;
         /**
           * The resource used to fetch the image.
           * @default null
@@ -4043,7 +4042,7 @@ declare namespace LocalJSX {
           * urls of the images
          */
         "images"?: any;
-        "onkup-imagebutton-selected"?: (event: CustomEvent<{
+        "onKup-imagebutton-selected"?: (event: CustomEvent<{
         selectedImages: [];
     }>) => void;
         /**
@@ -4128,26 +4127,11 @@ declare namespace LocalJSX {
         /**
           * Events.
          */
-        "onKupListBlur"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
-        "onKupListChange"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
-        "onKupListClick"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
-        "onKupListFocus"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
-        "onKupListInput"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
+        "onKup-list-blur"?: (event: CustomEvent<KupListEventPayload>) => void;
+        "onKup-list-change"?: (event: CustomEvent<KupListEventPayload>) => void;
+        "onKup-list-click"?: (event: CustomEvent<KupListEventPayload>) => void;
+        "onKup-list-focus"?: (event: CustomEvent<KupListEventPayload>) => void;
+        "onKup-list-input"?: (event: CustomEvent<KupListEventPayload>) => void;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
          */

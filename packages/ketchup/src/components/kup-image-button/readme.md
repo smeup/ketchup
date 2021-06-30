@@ -17,8 +17,8 @@
 
 ## Events
 
-| Event                    | Description | Type                                   |
-| ------------------------ | ----------- | -------------------------------------- |
+| Event                      | Description | Type                                   |
+| -------------------------- | ----------- | -------------------------------------- |
 | `kup-imagebutton-selected` |             | `CustomEvent<{ selectedImages: []; }>` |
 
 
