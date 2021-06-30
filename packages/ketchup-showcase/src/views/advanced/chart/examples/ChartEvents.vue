@@ -5,7 +5,7 @@
       :data.prop="baseData"
       :axis.prop="'Col1'"
       :series.prop="series"
-      @kupChartClicked="onBarChartClicked"
+      @kup-chart-clicked="onBarChartClicked"
     />
 
     <div>
@@ -21,7 +21,7 @@
       :types.prop="['Pie']"
       axis="Col1"
       :series.prop="[{ code: 'Col3', decode: 'Col3' }]"
-      @kupChartClicked="onPieChartClicked"
+      @kup-chart-clicked="onPieChartClicked"
     />
 
     <div>
@@ -37,7 +37,7 @@
       :types.prop="['Cal']"
       axis="Col1"
       :series.prop="[{ code: 'Col2', decode: 'Col2' }]"
-      @kupChartClicked="onCalChartClicked"
+      @kup-chart-clicked="onCalChartClicked"
     />
 
     <div>

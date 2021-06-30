@@ -131,7 +131,7 @@ export class KupChart {
      * Triggered when a chart serie is clicked
      */
     @Event({
-        eventName: 'kupChartClicked',
+        eventName: 'kup-chart-clicked',
         composed: true,
         cancelable: false,
         bubbles: true,

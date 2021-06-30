@@ -675,7 +675,7 @@ export class KupColumnMenu {
             .toLowerCase()
             .endsWith('click');
         switch (compEvent.type) {
-            case 'kupCheckboxChange':
+            case 'kup-checkbox-change':
                 this.checkboxChange(
                     comp,
                     compEvent.detail.checked,

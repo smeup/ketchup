@@ -22,11 +22,11 @@
 
 ## Events
 
-| Event               | Description                                       | Type                                                            |
-| ------------------- | ------------------------------------------------- | --------------------------------------------------------------- |
-| `kupCheckboxBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ id: string; checked: boolean; value: string; }>` |
-| `kupCheckboxChange` | Triggered when the input element's value changes. | `CustomEvent<{ id: string; checked: boolean; value: string; }>` |
-| `kupCheckboxFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ id: string; checked: boolean; value: string; }>` |
+| Event                 | Description                                       | Type                                  |
+| --------------------- | ------------------------------------------------- | ------------------------------------- |
+| `kup-checkbox-blur`   | Triggered when the input element loses focus.     | `CustomEvent<KupCheckedEventPayload>` |
+| `kup-checkbox-change` | Triggered when the input element's value changes. | `CustomEvent<KupCheckedEventPayload>` |
+| `kup-checkbox-focus`  | Triggered when the input element gets focused.    | `CustomEvent<KupCheckedEventPayload>` |
 
 
 ## Methods

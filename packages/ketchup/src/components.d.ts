@@ -18,6 +18,7 @@ import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { KupCheckedEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupObj } from "./utils/kup-objects/kup-objects-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
@@ -3065,7 +3066,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a chart serie is clicked
          */
-        "onKupChartClicked"?: (event: CustomEvent<ChartClickedEvent>) => void;
+        "onKup-chart-clicked"?: (event: CustomEvent<ChartClickedEvent>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
          */
@@ -3134,27 +3135,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input element loses focus.
          */
-        "onKupCheckboxBlur"?: (event: CustomEvent<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>) => void;
+        "onKup-checkbox-blur"?: (event: CustomEvent<KupCheckedEventPayload>) => void;
         /**
           * Triggered when the input element's value changes.
          */
-        "onKupCheckboxChange"?: (event: CustomEvent<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>) => void;
+        "onKup-checkbox-change"?: (event: CustomEvent<KupCheckedEventPayload>) => void;
         /**
           * Triggered when the input element gets focused.
          */
-        "onKupCheckboxFocus"?: (event: CustomEvent<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>) => void;
+        "onKup-checkbox-focus"?: (event: CustomEvent<KupCheckedEventPayload>) => void;
     }
     interface KupChip {
         /**

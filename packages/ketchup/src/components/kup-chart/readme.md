@@ -30,9 +30,9 @@
 
 ## Events
 
-| Event             | Description                             | Type                             |
-| ----------------- | --------------------------------------- | -------------------------------- |
-| `kupChartClicked` | Triggered when a chart serie is clicked | `CustomEvent<ChartClickedEvent>` |
+| Event               | Description                             | Type                             |
+| ------------------- | --------------------------------------- | -------------------------------- |
+| `kup-chart-clicked` | Triggered when a chart serie is clicked | `CustomEvent<ChartClickedEvent>` |
 
 
 ## Methods

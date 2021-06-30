@@ -3218,7 +3218,7 @@ export class KupDataTable {
                     style={style}
                 >
                     <kup-checkbox
-                        onKupCheckboxChange={(e) => this.onSelectAll(e)}
+                        onkup-checkbox-change={(e) => this.onSelectAll(e)}
                         title={
                             this.kupManager.language.translate(
                                 KupLanguageRow.SELECTED
@@ -3558,7 +3558,7 @@ export class KupDataTable {
                     style={style}
                 >
                     <kup-checkbox
-                        onKupCheckboxChange={(e) => this.onSelectAll(e)}
+                        onkup-checkbox-change={(e) => this.onSelectAll(e)}
                         title={
                             this.kupManager.language.translate(
                                 KupLanguageRow.SELECTED
