@@ -19,6 +19,7 @@ export const config: Config = {
                 { src: 'btn.html' },
                 { src: 'button.html' },
                 { src: 'card.html' },
+                { src: 'card-performance.html' },
                 { src: 'chart.html' },
                 { src: 'checkbox.html' },
                 { src: 'chip.html' },

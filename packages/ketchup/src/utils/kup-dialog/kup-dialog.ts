@@ -31,8 +31,9 @@ export class KupDialog {
     #mouseUp: (this: Document, e: Event) => void;
     /**
      * Initializes KupDialog.
+     * @param {number} zIndex - The starting z-index assigned to dialogs.
      */
-    constructor() {
+    constructor(zIndex?: number) {
         this.action = null;
         this.activeElement = null;
         this.activeX = 0;
@@ -44,12 +45,7 @@ export class KupDialog {
         this.startingX = 0;
         this.startingY = 0;
         this.threshold = 5;
-        this.zIndex =
-            dom.ketchupInit &&
-            dom.ketchupInit.dialog &&
-            dom.ketchupInit.dialog.zIndex
-                ? dom.ketchupInit.dialog.zIndex
-                : 200;
+        this.zIndex = zIndex ? zIndex : 200;
         this.#elementDrag = function (e: MouseEvent): void {
             const kupDialog: KupDialog = dom.ketchup.dialog;
             const paths: EventTarget[] = e.composedPath();
