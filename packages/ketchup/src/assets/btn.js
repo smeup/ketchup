@@ -132,7 +132,7 @@ const defaultData = [
     {
         data: {            
             title: "Display only dropdown button with icon predefined",
-            dropdownOnly: true,    
+            dropdownOnly: true,               
         },
         icon:"",
         value:"",
