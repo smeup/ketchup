@@ -717,13 +717,13 @@ export class KupColumnMenu {
                 }
                 break;
             case 'kupTextFieldSubmit':
-            case 'kupDatePickerTextFieldSubmit':
+            case 'kup-datepicker-textfieldsubmit':
             case 'kupTimePickerTextFieldSubmit':
                 this.saveTextualFilters(comp, dataStorage['column']);
                 this.close(card);
                 break;
             case 'kupTextFieldClearIconClick':
-            case 'kupDatePickerClearIconClick':
+            case 'kup-datepicker-cleariconclick':
             case 'kupTimePickerClearIconClick':
                 if (dataStorage['isInterval'] == true) {
                     this.intervalChange(
@@ -739,8 +739,8 @@ export class KupColumnMenu {
                 this.saveTextualFilters(comp, dataStorage['column']);
                 break;
             case 'kupTextFieldInput':
-            case 'kupDatePickerInput':
-            case 'kupDatePickerItemClick':
+            case 'kup-datepicker-input':
+            case 'kup-datepicker-itemclick':
             case 'kupTimePickerInput':
             case 'kupTimePickerItemClick':
                 window.clearTimeout(comp.columnFilterTimeout);

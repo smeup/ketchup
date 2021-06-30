@@ -13,7 +13,7 @@ import {
     Watch,
 } from '@stencil/core';
 
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent, KupEventPayload } from '../../types/GenericTypes';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
@@ -34,6 +34,7 @@ import {
     DateTimeFormatOptionsMonth,
 } from '../../utils/utils';
 import {
+    KupDatePickerEventPayload,
     KupDatePickerProps,
     SourceEvent,
 } from './kup-date-picker-declarations';
@@ -87,102 +88,76 @@ export class KupDatePicker {
     //---- Events ----
 
     @Event({
-        eventName: 'kupDatePickerBlur',
+        eventName: 'kup-datepicker-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: any;
-        value: any;
-    }>;
+    kupBlur: EventEmitter<KupDatePickerEventPayload>;
 
     @Event({
-        eventName: 'kupDatePickerChange',
+        eventName: 'kup-datepicker-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        id: any;
-        value: any;
-    }>;
+    kupChange: EventEmitter<KupDatePickerEventPayload>;
 
     @Event({
-        eventName: 'kupDatePickerClick',
+        eventName: 'kup-datepicker-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        id: any;
-        value: any;
-    }>;
+    kupClick: EventEmitter<KupDatePickerEventPayload>;
 
     @Event({
-        eventName: 'kupDatePickerFocus',
+        eventName: 'kup-datepicker-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        id: any;
-        value: any;
-    }>;
+    kupFocus: EventEmitter<KupDatePickerEventPayload>;
 
     @Event({
-        eventName: 'kupDatePickerInput',
+        eventName: 'kup-datepicker-input',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupInput: EventEmitter<{
-        id: any;
-        value: any;
-    }>;
+    kupInput: EventEmitter<KupDatePickerEventPayload>;
 
     @Event({
-        eventName: 'kupDatePickerIconClick',
+        eventName: 'kup-datepicker-iconclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupIconClick: EventEmitter<{
-        id: any;
-        value: any;
-    }>;
+    kupIconClick: EventEmitter<KupDatePickerEventPayload>;
 
     @Event({
-        eventName: 'kupDatePickerItemClick',
+        eventName: 'kup-datepicker-itemclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupItemClick: EventEmitter<{
-        id: any;
-        value: any;
-    }>;
+    kupItemClick: EventEmitter<KupDatePickerEventPayload>;
 
     @Event({
-        eventName: 'kupDatePickerTextFieldSubmit',
+        eventName: 'kup-datepicker-textfieldsubmit',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTextFieldSubmit: EventEmitter<{
-        id: any;
-        value: any;
-    }>;
+    kupTextFieldSubmit: EventEmitter<KupDatePickerEventPayload>;
 
     @Event({
-        eventName: 'kupDatePickerClearIconClick',
+        eventName: 'kup-datepicker-cleariconclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClearIconClick: EventEmitter<{
-        id: any;
-    }>;
+    kupClearIconClick: EventEmitter<KupEventPayload>;
 
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
@@ -204,9 +179,11 @@ export class KupDatePicker {
         this.kupChange.emit({
             id: this.rootElement.id,
             value: this.value,
+            comp: this,
         });
 
         this.kupItemClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -217,12 +194,14 @@ export class KupDatePicker {
         this.setPickerValueSelected('');
 
         this.kupChange.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
 
         this.kupClearIconClick.emit({
             id: this.rootElement.id,
+            comp: this
         });
     }
 
@@ -311,6 +290,7 @@ export class KupDatePicker {
         this.kupBlur.emit({
             id: this.rootElement.id,
             value: this.value,
+            comp: this,
         });
     }
 
@@ -322,6 +302,7 @@ export class KupDatePicker {
     onKupClick(e: UIEvent) {
         e.stopPropagation();
         this.kupClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -330,6 +311,7 @@ export class KupDatePicker {
     onKupFocus(e: UIEvent) {
         e.stopPropagation();
         this.kupFocus.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -353,6 +335,7 @@ export class KupDatePicker {
             this.openPicker();
         }
         this.kupIconClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });

@@ -234,10 +234,10 @@ export class KupBtn {
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}
                 {...data}
-                onKupDropdownButtonClick={() =>
+                onkup-dropdownbutton-click={() =>
                     this.onKupClick(index.toString(), '-1')
                 }
-                onKupDropdownSelectionItemClick={(e) =>
+                onkup-dropdownbutton-itemclick={(e) =>
                     this.onDropDownItemClick(e, index.toString())
                 }
             />

@@ -22,23 +22,23 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupDropdownButtonClick',
+          name: 'kup-dropdownbutton-click',
           type: 'click',
         },
         {
-          name: 'kupDropdownButtonFocus',
+          name: 'kup-dropdownbutton-focus',
           type: 'focus',
         },
         {
-          name: 'kupDropdownButtonBlur',
+          name: 'kup-dropdownbutton-blur',
           type: 'blur',
         },
         {
-          name: 'kupDropdownSelectionChange',
+          name: 'kup-dropdownbutton-change',
           type: 'change',
         },
         {
-          name: 'kupDropdownSelectionItemClick',
+          name: 'kup-dropdownbutton-itemclick',
           type: 'click',
         },
       ],

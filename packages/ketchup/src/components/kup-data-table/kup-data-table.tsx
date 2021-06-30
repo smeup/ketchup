@@ -4868,7 +4868,7 @@ export class KupDataTable {
             case 'date':
                 return (
                     <kup-date-picker
-                        onKupDatePickerChange={(e) =>
+                        onkup-datepicker-change={(e) =>
                             this.cellUpdate(
                                 e,
                                 e.detail.value,

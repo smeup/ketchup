@@ -27,6 +27,8 @@ import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChang
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
 import { GenericFilter } from "./utils/filters/filters-declarations";
+import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
+import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -3659,41 +3661,15 @@ declare namespace LocalJSX {
           * Sets the initial value of the component
          */
         "initialValue"?: string;
-        "onKupDatePickerBlur"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerChange"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerClearIconClick"?: (event: CustomEvent<{
-        id: any;
-    }>) => void;
-        "onKupDatePickerClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerFocus"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerIconClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerInput"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerItemClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
+        "onKup-datepicker-blur"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-change"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-cleariconclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-datepicker-click"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-focus"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-iconclick"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-input"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-itemclick"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-textfieldsubmit"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
     }
     interface KupDrawer {
         /**
@@ -3747,36 +3723,23 @@ declare namespace LocalJSX {
         /**
           * Triggered when the primary button loses focus.
          */
-        "onKupDropdownButtonBlur"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        /**
-          * Triggered when the primary button is clicked.
-         */
-        "onKupDropdownButtonClick"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        /**
-          * Triggered when the primary button is focused.
-         */
-        "onKupDropdownButtonFocus"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
+        "onKup-dropdownbutton-blur"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
         /**
           * Triggered when a list item changes.
          */
-        "onKupDropdownSelectionChange"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        "onKup-dropdownbutton-change"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
+        /**
+          * Triggered when the primary button is clicked.
+         */
+        "onKup-dropdownbutton-click"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
+        /**
+          * Triggered when the primary button is focused.
+         */
+        "onKup-dropdownbutton-focus"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
         /**
           * Triggered when a list item is clicked.
          */
-        "onKupDropdownSelectionItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        "onKup-dropdownbutton-itemclick"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
           * @default ItemsDisplayMode.CODE
