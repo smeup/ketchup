@@ -47,7 +47,7 @@ export class KupIframe {
     //---- Methods ----
 
     @Event({
-        eventName: 'kupIframeError',
+        eventName: 'kup-iframe-error',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -59,7 +59,7 @@ export class KupIframe {
     }
 
     @Event({
-        eventName: 'kupIframeLoad',
+        eventName: 'kup-iframe-load',
         composed: true,
         cancelable: false,
         bubbles: true,

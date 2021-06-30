@@ -22,7 +22,7 @@
 
 | Event           | Description | Type                                |
 | --------------- | ----------- | ----------------------------------- |
-| `kupImageClick` |             | `CustomEvent<{ el: EventTarget; }>` |
+| `kup-image-click` |             | `CustomEvent<{ el: EventTarget; }>` |
 
 
 ## Methods

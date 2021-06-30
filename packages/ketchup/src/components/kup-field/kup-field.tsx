@@ -81,7 +81,7 @@ export class KupField {
      * Launched when the value of the current FLD changes.
      */
     @Event({
-        eventName: 'kupFldChange',
+        eventName: 'kup-fld-change',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -92,7 +92,7 @@ export class KupField {
      * Launched when the FLD values are confirmed and a submit event is triggered.
      */
     @Event({
-        eventName: 'kupFldSubmit',
+        eventName: 'kup-fld-submit',
         composed: true,
         cancelable: false,
         bubbles: true,

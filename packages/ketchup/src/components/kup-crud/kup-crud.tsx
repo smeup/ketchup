@@ -447,7 +447,7 @@ export class KupCrud {
                             sections={this.sections}
                             extraMessages={this.extraMessages}
                             actions={this.actions}
-                            onKupFormActionSubmitted={(e) =>
+                            onkup-form-actionsubmitted={(e) =>
                                 this.onFormActionSubmitted(e)
                             }
                             onKupFormFieldChanged={(e) =>

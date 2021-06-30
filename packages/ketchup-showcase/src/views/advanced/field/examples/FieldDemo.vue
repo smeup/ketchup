@@ -22,11 +22,11 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupFldChange',
+          name: 'kup-fld-change',
           type: 'CustomEvent',
         },
         {
-          name: 'kupFldSubmit',
+          name: 'kup-fld-submit',
           type: 'CustomEvent',
         },
       ],

@@ -107,7 +107,7 @@ export class KupForm {
     // -------------------------------------------------------------------------
 
     @Event({
-        eventName: 'kupFormActionSubmitted',
+        eventName: 'kup-form-actionsubmitted',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -115,7 +115,7 @@ export class KupForm {
     kupFormActionSubmitted: EventEmitter<FormActionEventDetail>;
 
     @Event({
-        eventName: 'kupFormFieldFocused',
+        eventName: 'kup-form-fieldfocused',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -123,7 +123,7 @@ export class KupForm {
     kupFormFieldFocused: EventEmitter<FormFieldEventDetail>;
 
     @Event({
-        eventName: 'kupFormFieldBlurred',
+        eventName: 'kup-form-fieldblurred',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -131,7 +131,7 @@ export class KupForm {
     kupFormFieldBlurred: EventEmitter<FormFieldEventDetail>;
 
     @Event({
-        eventName: 'kupFormFieldChanged',
+        eventName: 'kup-form-fieldchanged',
         composed: true,
         cancelable: false,
         bubbles: true,

@@ -19,10 +19,10 @@
 
 ## Events
 
-| Event          | Description                                                                 | Type                             |
-| -------------- | --------------------------------------------------------------------------- | -------------------------------- |
-| `kupFldChange` | Launched when the value of the current FLD changes.                         | `CustomEvent<KupFldChangeEvent>` |
-| `kupFldSubmit` | Launched when the FLD values are confirmed and a submit event is triggered. | `CustomEvent<KupFldSubmitEvent>` |
+| Event            | Description                                                                 | Type                             |
+| ---------------- | --------------------------------------------------------------------------- | -------------------------------- |
+| `kup-fld-change` | Launched when the value of the current FLD changes.                         | `CustomEvent<KupFldChangeEvent>` |
+| `kup-fld-submit` | Launched when the FLD values are confirmed and a submit event is triggered. | `CustomEvent<KupFldSubmitEvent>` |
 
 
 ## Methods

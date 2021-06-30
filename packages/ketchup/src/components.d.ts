@@ -3817,11 +3817,11 @@ declare namespace LocalJSX {
         /**
           * Launched when the value of the current FLD changes.
          */
-        "onKupFldChange"?: (event: CustomEvent<KupFldChangeEvent>) => void;
+        "onKup-fld-change"?: (event: CustomEvent<KupFldChangeEvent>) => void;
         /**
           * Launched when the FLD values are confirmed and a submit event is triggered.
          */
-        "onKupFldSubmit"?: (event: CustomEvent<KupFldSubmitEvent>) => void;
+        "onKup-fld-submit"?: (event: CustomEvent<KupFldSubmitEvent>) => void;
         /**
           * Sets whether the submit button must be displayed or not.
          */
@@ -3857,10 +3857,10 @@ declare namespace LocalJSX {
         "extra"?: any;
         "extraMessages"?: FormMessage[];
         "fields"?: FormFields;
-        "onKupFormActionSubmitted"?: (event: CustomEvent<FormActionEventDetail>) => void;
-        "onKupFormFieldBlurred"?: (event: CustomEvent<FormFieldEventDetail>) => void;
-        "onKupFormFieldChanged"?: (event: CustomEvent<FormFieldEventDetail>) => void;
-        "onKupFormFieldFocused"?: (event: CustomEvent<FormFieldEventDetail>) => void;
+        "onKup-form-actionsubmitted"?: (event: CustomEvent<FormActionEventDetail>) => void;
+        "onKup-form-fieldblurred"?: (event: CustomEvent<FormFieldEventDetail>) => void;
+        "onKup-form-fieldchanged"?: (event: CustomEvent<FormFieldEventDetail>) => void;
+        "onKup-form-fieldfocused"?: (event: CustomEvent<FormFieldEventDetail>) => void;
         "refid"?: string;
         "searchCallBackOnFilterSubmitted"?: (
         detail: SearchFilterSubmittedEventDetail
@@ -3976,8 +3976,8 @@ declare namespace LocalJSX {
           * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
         "isButton"?: boolean;
-        "onKupIframeError"?: (event: CustomEvent<any>) => void;
-        "onKupIframeLoad"?: (event: CustomEvent<any>) => void;
+        "onKup-iframe-error"?: (event: CustomEvent<any>) => void;
+        "onKup-iframe-load"?: (event: CustomEvent<any>) => void;
         /**
           * The address the iframe should be referencing to.
          */
@@ -4015,7 +4015,7 @@ declare namespace LocalJSX {
           * @default false
          */
         "isCanvas"?: boolean;
-        "onKupImageClick"?: (event: CustomEvent<{
+        "onkup-image-click"?: (event: CustomEvent<{
         el: EventTarget;
     }>) => void;
         /**
@@ -4043,7 +4043,7 @@ declare namespace LocalJSX {
           * urls of the images
          */
         "images"?: any;
-        "onKupImageButtonSelected"?: (event: CustomEvent<{
+        "onkup-imagebutton-selected"?: (event: CustomEvent<{
         selectedImages: [];
     }>) => void;
         /**
