@@ -17,6 +17,13 @@
   }
 }
 
+.f-button--wrapper.dropdown-button__dropdown-action.dropdown-only {
+  .button {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+}
+
 .f-button--wrapper.dropdown-button__dropdown-action {
   .button {
     border-top-left-radius: 0;
