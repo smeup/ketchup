@@ -16,7 +16,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
-import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import {
     FButtonProps,
     FButtonStyling,
@@ -109,6 +108,9 @@ export class KupButton {
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
+    /**
+     * Triggered when the button loses focus.
+     */
     @Event({
         eventName: 'kupButtonBlur',
         composed: true,
@@ -119,7 +121,9 @@ export class KupButton {
         id: string;
         value: string;
     }>;
-
+    /**
+     * Triggered when the button is clicked.
+     */
     @Event({
         eventName: 'kupButtonClick',
         composed: true,
@@ -130,7 +134,9 @@ export class KupButton {
         id: string;
         value: string;
     }>;
-
+    /**
+     * Triggered when the button is focused.
+     */
     @Event({
         eventName: 'kupButtonFocus',
         composed: true,
@@ -223,7 +229,6 @@ export class KupButton {
                     buttonEl.onclick = () => this.onKupClick();
                     buttonEl.onfocus = () => this.onKupFocus();
                 }
-                FButtonMDC(f);
             }
         }
     }

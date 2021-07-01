@@ -53,11 +53,12 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
- - [kup-fab](../kup-fab)
+ - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-image](../kup-image)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
  - [kup-paginator](../kup-paginator)
+ - [kup-tab-bar](../kup-tab-bar)
 
 ### Depends on
 
@@ -73,11 +74,12 @@ graph TD;
   kup-card --> kup-badge
   kup-chip --> kup-badge
   kup-data-table --> kup-badge
-  kup-fab --> kup-badge
+  kup-dropdown-button --> kup-badge
   kup-image --> kup-badge
   kup-list --> kup-badge
   kup-magic-box --> kup-badge
   kup-paginator --> kup-badge
+  kup-tab-bar --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

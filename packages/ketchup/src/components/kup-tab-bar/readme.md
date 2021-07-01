@@ -5,19 +5,19 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type                       | Default |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                   | `''`    |
-| `data`        | --             | List of elements.                                                                                               | `ComponentTabBarElement[]` | `[]`    |
+| Property      | Attribute      | Description                    | Type              | Default |
+| ------------- | -------------- | ------------------------------ | ----------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string`          | `''`    |
+| `data`        | --             | List of elements.              | `KupTabBarData[]` | `null`  |
 
 
 ## Events
 
-| Event            | Description | Type                                                                          |
-| ---------------- | ----------- | ----------------------------------------------------------------------------- |
-| `kupTabBarBlur`  |             | `CustomEvent<{ index: number; el: EventTarget; }>`                            |
-| `kupTabBarClick` |             | `CustomEvent<{ id: string; index: number; el: EventTarget; value: string; }>` |
-| `kupTabBarFocus` |             | `CustomEvent<{ index: number; el: EventTarget; }>`                            |
+| Event            | Description                         | Type                                                                                           |
+| ---------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `kupTabBarBlur`  | Triggered when the tab loses focus. | `CustomEvent<{ comp: KupTabBar; index: number; el: EventTarget; }>`                            |
+| `kupTabBarClick` | Triggered when the tab is clicked.  | `CustomEvent<{ comp: KupTabBar; id: string; index: number; el: EventTarget; value: string; }>` |
+| `kupTabBarFocus` | Triggered when the tab is focused.  | `CustomEvent<{ comp: KupTabBar; index: number; el: EventTarget; }>`                            |
 
 
 ## Methods
@@ -49,9 +49,15 @@ Type: `Promise<void>`
 
  - [kup-card](../kup-card)
 
+### Depends on
+
+- [kup-badge](../kup-badge)
+
 ### Graph
 ```mermaid
 graph TD;
+  kup-tab-bar --> kup-badge
+  kup-badge --> kup-badge
   kup-card --> kup-tab-bar
   style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```

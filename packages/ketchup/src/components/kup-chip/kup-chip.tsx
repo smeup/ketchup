@@ -16,7 +16,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
-import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 import {
     FChipData,
     FChipsProps,
@@ -266,24 +265,22 @@ export class KupChip {
             const f: HTMLElement = root.querySelector('.f-chip--wrapper');
             if (f) {
                 const chips: NodeListOf<HTMLElement> =
-                    f.querySelectorAll('.mdc-chip');
+                    f.querySelectorAll('.chip');
                 for (let j = 0; j < chips.length; j++) {
                     const primaryEl: HTMLElement = chips[j].querySelector(
-                        '.mdc-chip__primary-action'
+                        '.chip__primary-action'
                     );
                     primaryEl.onblur = () => this.onKupBlur(j);
                     primaryEl.onfocus = () => this.onKupFocus(j);
 
-                    const cancelIcon: HTMLElement = chips[j].querySelector(
-                        '.mdc-chip__icon.clear'
-                    );
+                    const cancelIcon: HTMLElement =
+                        chips[j].querySelector('.chip__icon.clear');
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.onKupIconClick(j);
                     }
 
                     chips[j].onclick = () => this.onKupClick(j);
                 }
-                FChipMDC(f);
             }
         }
     }

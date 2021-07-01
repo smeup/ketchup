@@ -213,29 +213,32 @@ export default {
       }
     },
     initTabs() {
-      let demoComponent = document.querySelector('#demo-component');
       let tabBar = document.querySelector('#demo-tab-bar');
       let data = [];
 
       if (this.demoProps) {
         data.push({
+          value: 'Props',
           text: 'Props',
           title: 'List of props available to the component.',
         });
       }
       if (this.demoClasses) {
         data.push({
+          value: 'Classes',
           text: 'Classes',
           title: 'List of classes available to the component.',
         });
       }
       if (this.demoEvents) {
         data.push({
+          value: 'Events',
           text: 'Events',
           title: 'List of events available to the component.',
         });
       }
       data.push({
+        value: 'json',
         text: 'JSON',
         icon: 'json',
         title: 'Here you can change props values manually.',
@@ -244,6 +247,7 @@ export default {
         for (let i = 0; i < this.demoProps.length; i++) {
           if (this.demoProps[i].prop === 'customStyle') {
             data.push({
+              value: 'CSS',
               text: 'CSS',
               icon: 'style',
               title:
@@ -257,7 +261,7 @@ export default {
       } else {
         tabBar.data = data;
         data[0]['active'] = true;
-        this.handleTab(demoComponent, 0);
+        this.handleTab(0);
       }
     },
 
@@ -445,12 +449,11 @@ export default {
     },
 
     tabSelection(e) {
-      let demoComponent = document.querySelector('#demo-component');
       let i = e.detail.index;
-      this.handleTab(demoComponent, i);
+      this.handleTab(i);
     },
 
-    handleTab(demoComponent, i) {
+    handleTab(i) {
       let tabBar = document.querySelector('#demo-tab-bar');
       let propsTab = document.querySelector('#props-tab');
       let classesTab = document.querySelector('#classes-tab');
@@ -527,7 +530,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentJSONprop;
@@ -556,7 +559,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         demoComponent['customStyle'] = cssTextarea.value;

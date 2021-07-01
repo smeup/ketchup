@@ -22,16 +22,8 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupRadioClick',
-          type: 'click',
-        },
-        {
           name: 'kupRadioChange',
           type: 'change',
-        },
-        {
-          name: 'kupRadioInput',
-          type: 'input',
         },
         {
           name: 'kupRadioFocus',
@@ -48,7 +40,7 @@ export default {
           description:
             'Number of columns. When undefined, radio fields will be displayed inline.',
           type: 'number',
-          default: 'undefined',
+          default: 'null',
           try: 'field',
         },
         {
@@ -63,8 +55,8 @@ export default {
           prop: 'data',
           description:
             'Object array containing the data of the radio list: value, label to be shown and status (if checked or not).',
-          type: 'ComponentRadioElement[]',
-          default: '[]',
+          type: 'KupRadioData[]',
+          default: 'null',
           try: 'json',
         },
         {
@@ -82,13 +74,6 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-        {
-          prop: 'name',
-          description: "It's the name that binds the radio buttons together.",
-          type: 'string',
-          default: 'radio-list',
-          try: 'field',
         },
       ],
       demoClasses: [
@@ -137,7 +122,6 @@ function createComp() {
     },
   ];
   comp.id = 'demo-component';
-  comp.name = 'radio-list';
   return comp;
 }
 </script>

@@ -217,7 +217,6 @@ code.flat {
 
 .sample-section .code-word {
   text-align: center;
-  top: calc(50% - 18px);
   position: relative;
 }
 

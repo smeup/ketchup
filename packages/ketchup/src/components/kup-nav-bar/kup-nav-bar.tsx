@@ -31,6 +31,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -275,7 +276,9 @@ export class KupNavBar {
 
     private fetchThemeColors() {
         let color =
-            this.kupManager.theme.cssVars['--kup-nav-bar-background-color'];
+            this.kupManager.theme.cssVars[
+                KupThemeColorValues.NAV_BAR_BACKGROUND
+            ];
         this.textColor = this.kupManager.theme.colorContrast(color);
     }
 
@@ -330,7 +333,7 @@ export class KupNavBar {
                 if (action.visible == true) {
                     let button = (
                         <kup-button
-                            customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
+                            customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                             icon={action.icon}
                             title={action.tooltip}
                             onKupButtonClick={() =>
@@ -353,7 +356,7 @@ export class KupNavBar {
         if (optionsButtons.length > 0) {
             let button = (
                 <kup-button
-                    customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
+                    customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                     icon="more_vert"
                     title={this.kupManager.language.translate(
                         KupLanguageGeneric.OPTIONS
@@ -371,7 +374,7 @@ export class KupNavBar {
             let action = this.data.menuAction;
             menuButton = (
                 <kup-button
-                    customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
+                    customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                     icon={action.icon}
                     title={action.tooltip}
                     onKupButtonClick={() =>
@@ -391,7 +394,7 @@ export class KupNavBar {
             }
             menuButton = (
                 <kup-button
-                    customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
+                    customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                     icon="menu"
                     title={this.kupManager.language.translate(
                         KupLanguageGeneric.OPEN_NAVIGATION_MENU

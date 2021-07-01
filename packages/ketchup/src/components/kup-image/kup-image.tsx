@@ -24,6 +24,7 @@ import {
 } from '../../f-components/f-image/f-image-declarations';
 import { KupImageProps } from './kup-image-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-image',
@@ -47,10 +48,10 @@ export class KupImage {
      */
     @Prop() badgeData: KupBadge[] = null;
     /**
-     * The color of the icon, defaults to the CSS variable --kup-icon-color.
-     * @default 'var(--kup-icon-color)'
+     * The color of the icon, defaults to the CSS variable KupThemeColorValues.ICON.
+     * @default KupThemeColorValues.ICON
      */
-    @Prop() color: string = 'var(--kup-icon-color)';
+    @Prop() color: string = `var(${KupThemeColorValues.ICON})`;
     /**
      * Custom style of the component.
      * @default ""

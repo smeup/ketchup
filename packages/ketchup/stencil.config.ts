@@ -18,6 +18,7 @@ export const config: Config = {
                 { src: 'box-performance.html' },
                 { src: 'btn.html' },
                 { src: 'card.html' },
+                { src: 'card-performance.html' },
                 { src: 'chart.html' },
                 { src: 'color-picker.html' },
                 { src: 'dash.html' },

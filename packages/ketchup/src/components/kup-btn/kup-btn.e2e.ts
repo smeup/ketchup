@@ -52,11 +52,11 @@ describe('kup-btn', () => {
             expect(button).not.toBeNull();
 
             // testint text
-            const text = await button.find('.mdc-button__label');
+            const text = await button.find('.button__label');
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            expect(button).toHaveClasses(['mdc-button']);
+            expect(button).toHaveClasses(['button']);
             // no title
             expect(button.getAttribute('title')).toBeNull();
         }
@@ -97,11 +97,11 @@ describe('kup-btn', () => {
             expect(button).not.toBeNull();
 
             // testint text
-            const text = await button.find('.mdc-button__label');
+            const text = await button.find('.button__label');
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            expect(button).toHaveClasses(['mdc-button']);
+            expect(button).toHaveClasses(['button']);
             // no title
             expect(button.getAttribute('title')).toBeNull();
         }

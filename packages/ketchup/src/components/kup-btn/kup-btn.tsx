@@ -16,7 +16,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
-import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
 import { KupBtnProps } from './kup-btn-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
@@ -165,7 +164,6 @@ export class KupBtn {
                     if (buttonEl) {
                         buttonEl.onclick = () => this.onKupClick(f.id, '-1');
                     }
-                    FButtonMDC(f);
                 }
             }
         }

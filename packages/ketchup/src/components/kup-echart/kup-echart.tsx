@@ -20,6 +20,7 @@ import {
 import echarts, { EChartOption, ECharts } from 'echarts';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -460,9 +461,11 @@ export class KupEchart {
         ) {
             colorArray.push(this.kupManager.theme.cssVars[key + index]);
         }
-        this.themeBorder = this.kupManager.theme.cssVars['--kup-border-color'];
+        this.themeBorder =
+            this.kupManager.theme.cssVars[KupThemeColorValues.BORDER];
         this.themeFont = this.kupManager.theme.cssVars['--kup-font-family'];
-        this.themeText = this.kupManager.theme.cssVars['--kup-text-color'];
+        this.themeText =
+            this.kupManager.theme.cssVars[KupThemeColorValues.TEXT];
 
         this.themeColors = colorArray;
     }

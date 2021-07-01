@@ -107,10 +107,9 @@ import {
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
-import { FChip } from '../../f-components/f-chip/f-chip';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
-import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
+import { FChip } from '../../f-components/f-chip/f-chip';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import {
     FChipData,
@@ -118,7 +117,6 @@ import {
 } from '../../f-components/f-chip/f-chip-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
-import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import {
     GenericFilter,
@@ -148,6 +146,7 @@ import {
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1606,7 +1605,6 @@ export class KupDataTable {
                             checkboxes[index]['data-row']
                         );
                 }
-                FCheckboxMDC(checkboxes[index]);
             }
             //Row textfields
             const textfields: NodeListOf<HTMLElement> = root.querySelectorAll(
@@ -1653,7 +1651,6 @@ export class KupDataTable {
                             multiselectionCheckboxes[index]['data-row']
                         );
                 }
-                FCheckboxMDC(multiselectionCheckboxes[index] as HTMLElement);
             }
             //Row actions: expander
             const expanderRowActions: NodeListOf<HTMLElement> =
@@ -1685,16 +1682,14 @@ export class KupDataTable {
             );
             if (groupChip) {
                 const chips: NodeListOf<HTMLElement> =
-                    groupChip.querySelectorAll('.mdc-chip');
+                    groupChip.querySelectorAll('.chip');
                 for (let index = 0; index < chips.length; index++) {
-                    const cancelIcon: HTMLElement = chips[index].querySelector(
-                        '.mdc-chip__icon.clear'
-                    );
+                    const cancelIcon: HTMLElement =
+                        chips[index].querySelector('.chip__icon.clear');
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.removeGroup(index);
                     }
                 }
-                FChipMDC(groupChip);
             }
             //Global filter text field
             const globalFilter: HTMLElement = root.querySelector(
@@ -1894,7 +1889,7 @@ export class KupDataTable {
                     customStyle:
                         '#kup-component .below-wrapper{overflow: visible} #kup-component td[data-column="' +
                         iconColumn.toUpperCase() +
-                        '"]{background-color: rgba(var(--kup-text-color-rgb), 0.15); width: 10px;}',
+                        `"]{background-color: rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.15); width: 10px;}`,
                     data: transposedData,
                     density: 'medium',
                     editableData: true,
@@ -1972,7 +1967,7 @@ export class KupDataTable {
                         k: 'OG_OG_KF',
                     },
                     data: {
-                        color: 'rgba(var(--kup-text-color-rgb), 1)',
+                        color: `var(${KupThemeColorValues.TEXT})`,
                         resource: editable ? 'edit-key' : 'key-variant',
                     },
                     title: editable
@@ -1992,7 +1987,7 @@ export class KupDataTable {
                         k: '000051',
                     },
                     data: {
-                        color: 'rgba(var(--kup-text-color-rgb), 1)',
+                        color: `var(${KupThemeColorValues.TEXT})`,
                         resource: 'pencil',
                     },
                     title: this.kupManager.language.translate(
@@ -2023,8 +2018,6 @@ export class KupDataTable {
             this.detailCard.layoutNumber = 4;
             this.detailCard.sizeX = 'auto';
             this.detailCard.sizeY = 'auto';
-            this.detailCard.style.maxHeight = '100vh';
-            this.detailCard.style.maxWidth = '100vw';
         } else {
             const children: HTMLCollection = Array.prototype.slice.call(
                 this.detailCard.children,
@@ -2741,12 +2734,14 @@ export class KupDataTable {
                 cell.data['checked'] = value === 'on' ? false : true;
             }
         } else {
-            cell.obj.k = value;
+            if (cell.obj) {
+                cell.obj.k = value;
+            }
             cell.value = value;
             cell.displayedValue = null;
             cell.displayedValue = getCellValueForDisplay(column, cell);
-            if (cell.data && cell.data['initialValue'] !== undefined) {
-                cell.data['initialValue'] = value;
+            if (cell.data && cell.data['value'] !== undefined) {
+                cell.data['value'] = value;
             }
         }
         this.refresh();
@@ -4265,7 +4260,7 @@ export class KupDataTable {
                 } else {
                     // adding expander
                     const props: FImageProps = {
-                        color: 'var(--kup-primary-color)',
+                        color: `var(${KupThemeColorValues.PRIMARY})`,
                         dataSet: {
                             'data-row': row,
                         },
@@ -4562,7 +4557,7 @@ export class KupDataTable {
     ): JSX.Element[] {
         return actions.map((action, index) => {
             const props: FImageProps = {
-                color: 'var(--kup-primary-color)',
+                color: `var(${KupThemeColorValues.PRIMARY})`,
                 dataSet: {
                     'data-action': {
                         action,
@@ -4693,7 +4688,7 @@ export class KupDataTable {
         if (cell.info && cell.info.message) {
             const info: KupCellInfo = { ...cell.info };
             if (!info.color) {
-                info.color = 'var(--kup-info-color)';
+                info.color = `var(${KupThemeColorValues.INFO})`;
             }
             if (!info.icon) {
                 info.icon = 'info';
@@ -5267,13 +5262,13 @@ export class KupDataTable {
             >
                 <FImage
                     resource="delete"
-                    color="var(--kup-danger-color)"
+                    color={`var(${KupThemeColorValues.DANGER})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
                 <FImage
                     resource="delete-empty"
-                    color="var(--kup-danger-color)"
+                    color={`var(${KupThemeColorValues.DANGER})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
@@ -5328,13 +5323,13 @@ export class KupDataTable {
             >
                 <FImage
                     resource="bookmark"
-                    color="var(--kup-danger-color)"
+                    color={`var(${KupThemeColorValues.DANGER})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
                 <FImage
                     resource="book"
-                    color="var(--kup-danger-color)"
+                    color={`var(${KupThemeColorValues.DANGER})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
@@ -5573,7 +5568,7 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: ':host{--kup-field-background-color:transparent}',
+            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(
                 KupLanguageFontsize.LABEL
@@ -5644,7 +5639,7 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: ':host{--kup-field-background-color:transparent}',
+            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageDensity.LABEL),
             icon: 'arrow_drop_down',
@@ -5756,7 +5751,7 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: ':host{--kup-field-background-color:transparent}',
+            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageGrid.LABEL),
             icon: 'arrow_drop_down',
@@ -6013,7 +6008,7 @@ export class KupDataTable {
                                       }}
                                   >
                                       <FImage
-                                          color="var(--kup-title-color)"
+                                          color={`var(${KupThemeColorValues.TITLE})`}
                                           resource="settings"
                                           sizeX="10px"
                                       />
