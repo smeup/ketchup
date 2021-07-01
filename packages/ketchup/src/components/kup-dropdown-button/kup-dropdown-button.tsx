@@ -10,6 +10,7 @@ import {
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
 
 import {
@@ -444,7 +445,7 @@ export class KupDropdownButton {
     }
 
     private renderButtons() {
-        let buttons = [];
+        const buttons: VNode[] = [];
         if (!this.dropdownOnly) {
             buttons.push(
                 <FButton
