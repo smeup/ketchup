@@ -42,7 +42,7 @@
               <td class="switch-cell" v-if="propList.try === 'switch'">
                 <kup-switch
                   v-bind:id="propList.prop"
-                  @kupSwitchChange="updateDemoSwitch"
+                  @kup-switch-change="updateDemoSwitch"
                 ></kup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
@@ -86,7 +86,7 @@
               <td class="switch-cell">
                 <kup-switch
                   v-bind:id="classList.class"
-                  @kupSwitchChange="updateDemoClass"
+                  @kup-switch-change="updateDemoClass"
                 ></kup-switch>
               </td>
             </tr>

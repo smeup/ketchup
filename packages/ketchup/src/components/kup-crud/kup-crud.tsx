@@ -450,7 +450,7 @@ export class KupCrud {
                             onkup-form-actionsubmitted={(e) =>
                                 this.onFormActionSubmitted(e)
                             }
-                            onKupFormFieldChanged={(e) =>
+                            onKup-form-fieldchanged={(e) =>
                                 this.onFormFieldChanged(e)
                             }
                             autocompleteCallBackOnFilterUpdate={

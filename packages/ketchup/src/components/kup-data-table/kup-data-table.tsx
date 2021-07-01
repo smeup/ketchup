@@ -5181,7 +5181,7 @@ export class KupDataTable {
                         KupLanguageGeneric.DRAG_AND_DROP
                     )}
                     leadingLabel={true}
-                    onKupSwitchChange={() =>
+                    onkup-switch-change={() =>
                         (this.dragEnabled = !this.dragEnabled)
                     }
                 ></kup-switch>
@@ -5192,7 +5192,7 @@ export class KupDataTable {
                         KupLanguageGeneric.EDITABLE
                     )}
                     leadingLabel={true}
-                    onKupSwitchChange={() =>
+                    onkup-switch-change={() =>
                         (this.editableData = !this.editableData)
                     }
                 ></kup-switch>
@@ -5705,7 +5705,7 @@ export class KupDataTable {
                         KupLanguageGeneric.TRANSPOSE_DATA
                     )}
                     leadingLabel={true}
-                    onKupSwitchChange={(e: CustomEvent) => {
+                    onkup-switch-change={(e: CustomEvent) => {
                         e.stopPropagation();
                         if (e.detail.value === 'on') {
                             this.transpose = true;

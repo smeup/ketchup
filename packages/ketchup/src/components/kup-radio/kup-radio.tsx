@@ -12,12 +12,12 @@ import {
     VNode,
 } from '@stencil/core';
 
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent, KupEventPayload } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { KupRadioData, KupRadioProps } from './kup-radio-declarations';
+import { KupRadioChangeEventPayload, KupRadioData, KupRadioProps } from './kup-radio-declarations';
 
 @Component({
     tag: 'kup-radio',
@@ -88,43 +88,37 @@ export class KupRadio {
      * Triggered when the input element loses focus.
      */
     @Event({
-        eventName: 'kupRadioBlur',
+        eventName: 'kup-radio-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        comp: KupRadio;
-    }>;
+    kupBlur: EventEmitter<KupEventPayload>;
     /**
      * Triggered when the input element's value changes.
      */
     @Event({
-        eventName: 'kupRadioChange',
+        eventName: 'kup-radio-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        comp: KupRadio;
-        value: string;
-    }>;
+    kupChange: EventEmitter<KupRadioChangeEventPayload>;
     /**
      * Triggered when the input element gets focused.
      */
     @Event({
-        eventName: 'kupRadioFocus',
+        eventName: 'kup-radio-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        comp: KupRadio;
-    }>;
+    kupFocus: EventEmitter<KupEventPayload>;
 
     onKupBlur() {
         this.kupBlur.emit({
             comp: this,
+            id: this.rootElement.id,
         });
     }
 
@@ -141,12 +135,14 @@ export class KupRadio {
         this.kupChange.emit({
             comp: this,
             value: this.value,
+            id: this.rootElement.id,
         });
     }
 
     onKupFocus() {
         this.kupFocus.emit({
             comp: this,
+            id: this.rootElement.id,
         });
     }
 

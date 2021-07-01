@@ -699,7 +699,7 @@ export class KupColumnMenu {
                         break;
                 }
                 break;
-            case 'kupSwitchChange':
+            case 'kup-switch-change':
                 switch (compID) {
                     case KupColumnMenuIds.SWITCH_GROUP:
                         this.toggleGroup(

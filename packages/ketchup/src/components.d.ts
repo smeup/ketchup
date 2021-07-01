@@ -38,7 +38,8 @@ import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarati
 import { ComponentNavBarData, ComponentNavBarMode, KupNavbarEventPayload } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-import { KupRadioData } from "./components/kup-radio/kup-radio-declarations";
+import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
+import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarData } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { KupTree } from "./components/kup-tree/kup-tree";
@@ -4318,22 +4319,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input element loses focus.
          */
-        "onKupRadioBlur"?: (event: CustomEvent<{
-        comp: KupRadio;
-    }>) => void;
+        "onKup-radio-blur"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Triggered when the input element's value changes.
          */
-        "onKupRadioChange"?: (event: CustomEvent<{
-        comp: KupRadio;
-        value: string;
-    }>) => void;
+        "onKup-radio-change"?: (event: CustomEvent<KupRadioChangeEventPayload>) => void;
         /**
           * Triggered when the input element gets focused.
          */
-        "onKupRadioFocus"?: (event: CustomEvent<{
-        comp: KupRadio;
-    }>) => void;
+        "onKup-radio-focus"?: (event: CustomEvent<KupEventPayload>) => void;
     }
     interface KupRating {
         /**
@@ -4443,22 +4437,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input element loses focus.
          */
-        "onKupSwitchBlur"?: (event: CustomEvent<{
-        value: string;
-    }>) => void;
+        "onKup-switch-blur"?: (event: CustomEvent<KupSwitchEventPayload>) => void;
         /**
           * Triggered when the input element's value changes.
          */
-        "onKupSwitchChange"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
+        "onKup-switch-change"?: (event: CustomEvent<KupSwitchEventPayload>) => void;
         /**
           * Triggered when the input element gets focused.
          */
-        "onKupSwitchFocus"?: (event: CustomEvent<{
-        value: string;
-    }>) => void;
+        "onKup-switch-focus"?: (event: CustomEvent<KupSwitchEventPayload>) => void;
     }
     interface KupTabBar {
         /**
