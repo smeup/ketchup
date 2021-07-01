@@ -71,7 +71,37 @@
                 z-index: 100;
             }
         </style>
-
+    </head>
+    <body>
+        <h4>Material ListBox (widget)</h4>
+        <kup-list
+            is-filterable="false"
+            selectable="false"
+            field-id="pippo1"
+        ></kup-list>
+        <kup-list
+            is-filterable="false"
+            selectable="true"
+            field-id="pippo2"
+        ></kup-list>
+        <kup-list
+            is-filterable="false"
+            selectable="true"
+            role-type="radiogroup"
+            field-id="pippo3"
+        ></kup-list>
+        <kup-list
+            is-filterable="false"
+            selectable="true"
+            role-type="group"
+            field-id="pippo4"
+        ></kup-list>
+        <kup-list
+            is-filterable="false"
+            selectable="true"
+            field-id="pippo5"
+            show-icon="true"
+        ></kup-list>
         <script>
             let listBox1 = document.getElementsByTagName('kup-list')[0];
             let listBox2 = document.getElementsByTagName('kup-list')[1];
@@ -158,37 +188,6 @@
                 'kup-list': JSON.parse(JSON.stringify(listData)),
             };
             selectBox2.initialValue = 'Text 4';
-        </script>
-    </head>
-    <body>
-        <h4>Material ListBox (widget)</h4>
-        <kup-list
-            is-filterable="false"
-            selectable="false"
-            field-id="pippo1"
-        ></kup-list>
-        <kup-list
-            is-filterable="false"
-            selectable="true"
-            field-id="pippo2"
-        ></kup-list>
-        <kup-list
-            is-filterable="false"
-            selectable="true"
-            role-type="radiogroup"
-            field-id="pippo3"
-        ></kup-list>
-        <kup-list
-            is-filterable="false"
-            selectable="true"
-            role-type="group"
-            field-id="pippo4"
-        ></kup-list>
-        <kup-list
-            is-filterable="false"
-            selectable="true"
-            field-id="pippo5"
-            show-icon="true"
-        ></kup-list
-    ></body>
+        </script></body
+    >
 </html>

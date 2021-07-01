@@ -150,6 +150,21 @@
             label="I'm a numeric text field"
             initial-value="22"
             step="0.01"
-        ></kup-text-field
-    ></body>
+        ></kup-text-field>
+        <script>
+            // For the password field
+            const inPassword = document.querySelector(
+                'kup-text-field[input-type="password"]'
+            );
+            inPassword.addEventListener('ketchupTextInputFocused', (e) => {
+                console.log('Password has been FOCUSED', e);
+            });
+            inPassword.addEventListener('ketchupTextInputBlurred', (e) => {
+                console.log('#Password has been BLURRED', e);
+            });
+            inPassword.addEventListener('ketchupTextInputUpdated', (e) => {
+                console.log('Password has been UPDATED', e);
+            });
+        </script></body
+    >
 </html>
