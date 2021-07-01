@@ -1,788 +1,98 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+        <title>Stencil Component Starter</title>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    </link>
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
 
-    <script type="module" src="/build/ketchup.esm.js"></script>
-    <script nomodule src="/build/ketchup.js"></script>
-
-    <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
-
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            transition: all .125s ease;
-        }
-        
-         :focus {
-            outline: none;
-        }
-        
-        html {
-            background-color: var(--kup-background-color);
-            color: var(--kup-text-color);
-            font-family: var(--kup-font-family);
-            font-size: var(--kup-font-size);
-            padding: 1rem;
-        }
-        
-        .options {
-            margin-bottom: 1rem;
-        }
-        
-        hr {
-            margin: 2rem 0;
-        }
-        
-        .btn-options {
-            margin-bottom: 1rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 0.5rem;
-        }
-        
-        .BTN {
-            display: block;
-        }
-        
-        #theme-tester {
-            position: fixed;
-            right: 0;
-            top: 0;
-            margin: 5px;
-            padding: 20px 10px 20px 10px;
-            box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
-            z-index: 100;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <div id="theme-tester">
-        <kup-switch leading-label label="Theme tester" id="theme-switch"></kup-switch>
-    </div>
-    <br />
-    <a href="debug.html">Debug page</a>
-    <br />
-    <a href="probe.html">Probe page</a>
-    <br />
-    <br />
-    <a href="box-performance.html">[Performance] kup-box</a>
-    <br />
-    <a href="card-performance.html">[Performance] kup-card</a>
-    <br />
-    <a href="data-table-performance.html">[Performance] kup-data-table</a>
-    <br />
-    <br />
-    <a href="autocomplete.html">kup-autocomplete</a>
-    <br />
-    <a href="box.html">kup-box</a>
-    <br />
-    <a href="btn.html">kup-btn</a>
-    <br />
-    <a href="button.html">kup-button</a>
-    <br />
-    <a href="card.html">kup-card</a>
-    <br />
-    <a href="chart.html">kup-chart</a>
-    <br />
-    <a href="checkbox.html">kup-checkbox</a>
-    <br />
-    <a href="chip.html">kup-chip</a>
-    <br />
-    <a href="color-picker.html">kup-color-picker</a>
-    <br />
-    <a href="combobox.html">kup-combox</a>
-    <br />
-    <a href="dash-list.html">kup-dash-list</a>
-    <br />
-    <a href="data-table.html">kup-data-table</a>
-    <br />
-    <a href="date-picker.html">kup-date-picker</a>
-    <br />
-    <a href="drawer.html">kup-drawer</a>
-    <br />
-    <a href="dropdown.html">kup-dropdown-button</a>
-    <br />
-    <a href="echart.html">kup-echart</a>
-    <br />
-    <a href="gauge.html">kup-gauge</a>
-    <br />
-    <a href="layout-component.html">kup-layout</a>
-    <br />
-    <a href="list-box.html">kup-list</a>
-    <br />
-    <a href="magic-box.html">kup-magic-box</a>
-    <br />
-    <a href="nav-bar.html">kup-nav-bar</a>
-    <br />
-    <a href="radio.html">kup-radio</a>
-    <br />
-    <a href="rating.html">kup-rating</a>
-    <br />
-    <a href="switch.html">kup-switch</a>
-    <br />
-    <a href="tab-bar.html">kup-tab-bar</a>
-    <br />
-    <a href="time-picker.html">kup-time-picker</a>
-    <br />
-    <a href="text-field.html">kup-text-field</a>
-    <br />
-    <a href="tooltip.html">kup-tooltip</a>
-    <br />
-    <a href="tree.html">kup-tree</a>
-    <br />
-
-
-
-<script>
-        const fab = document.getElementById("fab-debug");
-        fab.addEventListener("kupButtonClick", () => {document.documentElement.ketchup.debug.toggle()});
-
-        let eTabbar = document.getElementById('event-tabbar');
-        let eTextfield = document.getElementById('event-textfield');
-        let eTextfieldIcon = document.getElementById('event-textfield-icon');
-        let eCheckbox = document.getElementById('event-checkbox');
-        let eButton = document.getElementById('event-button');
-        let eRadio = document.getElementById('event-radio');
-        let eSwitch = document.getElementById('event-switch');
-        eTabbar.addEventListener('kupTabBarBlur', (e) => {
-            console.log('event-tabbar has been BLURRED', e);
-        });
-        eTabbar.addEventListener('kupTabBarChange', (e) => {
-            console.log('event-tabbar has been CHANGED', e);
-        });
-        eTabbar.addEventListener('kupTabBarClick', (e) => {
-            console.log('event-tabbar has been CLICKED', e);
-        });
-        eTabbar.addEventListener('kupTabBarFocus', (e) => {
-            console.log('event-tabbar has been FOCUSED', e);
-        });
-        eTabbar.addEventListener('kupTabBarInput', (e) => {
-            console.log('event-tabbar has been INPUTTED, KEK', e);
-        });
-
-        eTextfield.addEventListener('kupTextFieldBlur', (e) => {
-            console.log('event-textfield has been BLURRED', e);
-        });
-        eTextfield.addEventListener('kupTextFieldChange', (e) => {
-            console.log('event-textfield has been CHANGED', e);
-        });
-        eTextfield.addEventListener('kupTextFieldClick', (e) => {
-            console.log('event-textfield has been CLICKED', e);
-        });
-        eTextfield.addEventListener('kupTextFieldFocus', (e) => {
-            console.log('event-textfield has been FOCUSED', e);
-        });
-        eTextfield.addEventListener('kupTextFieldInput', (e) => {
-            console.log('event-textfield has been INPUTTED, KEK', e);
-        });
-
-        eTextfieldIcon.addEventListener('kupTextFieldIconClick', (e) => {
-            console.log('event-textfield-icon has been CLICKED', e);
-        });
-
-        eCheckbox.addEventListener('kupCheckboxBlur', (e) => {
-            console.log('event-checkbox has been BLURRED', e);
-        });
-        eCheckbox.addEventListener('kupCheckboxChange', (e) => {
-            console.log('event-checkbox has been CHANGED', e);
-        });
-        eCheckbox.addEventListener('kupCheckboxFocus', (e) => {
-            console.log('event-checkbox has been FOCUSED', e);
-        });
-        eCheckbox.addEventListener('kupCheckboxInput', (e) => {
-            console.log('event-checkbox has been INPUTTED, KEK', e);
-        });
-
-        eButton.addEventListener('kupButtonBlur', (e) => {
-            console.log('event-button has been BLURRED', e);
-        });
-        eButton.addEventListener('kupButtonChange', (e) => {
-            console.log('event-button has been CHANGED', e);
-        });
-        eButton.addEventListener('kupButtonClick', (e) => {
-            console.log('event-button has been CLICKED', e);
-        });
-        eButton.addEventListener('kupButtonFocus', (e) => {
-            console.log('event-button has been FOCUSED', e);
-        });
-        eButton.addEventListener('kupButtonInput', (e) => {
-            console.log('event-button has been INPUTTED, KEK', e);
-        });
-
-        eRadio.addEventListener('kupRadioBlur', (e) => {
-            console.log('event-radio has been BLURRED', e);
-        });
-        eRadio.addEventListener('kupRadioChange', (e) => {
-            console.log('event-radio has been CHANGED', e);
-        });
-        eRadio.addEventListener('kupRadioClick', (e) => {
-            console.log('event-radio has been CLICKED', e);
-        });
-        eRadio.addEventListener('kupRadioFocus', (e) => {
-            console.log('event-radio has been FOCUSED', e);
-        });
-        eRadio.addEventListener('kupRadioInput', (e) => {
-            console.log('event-radio has been INPUTTED, KEK', e);
-        });
-
-        eSwitch.addEventListener('kupSwitchBlur', (e) => {
-            console.log('event-switch has been BLURRED', e);
-        });
-        eSwitch.addEventListener('kupSwitchChange', (e) => {
-            console.log('event-switch has been CHANGED', e);
-        });
-        eSwitch.addEventListener('kupSwitchClick', (e) => {
-            console.log('event-switch has been CLICKED', e);
-        });
-        eSwitch.addEventListener('kupSwitchFocus', (e) => {
-            console.log('event-switch has been FOCUSED', e);
-        });
-        eSwitch.addEventListener('kupSwtichInput', (e) => {
-            console.log('event-switch has been INPUTTED, KEK', e);
-        });
-
-        let gaucolor = document.getElementById('gaucolor');
-        if (gaucolor != null) {
-            gaucolor.colors = ['red', 'yellow', 'green'];
-        }
-
-        let tabBar = document.getElementsByTagName('kup-tab-bar')[0];
-        tabBar.data = [{
-            value: "1",
-            text: 'Favorites',
-            icon: 'favorite',
-            active: true
-        }, {
-            value: "2",
-            text: 'Set alarm clock',
-            icon: 'alarm_on',
-            active: false
-        }, {
-            value: "3",
-            text: 'Settings',
-            icon: 'build',
-            active: false
-        }, {
-            value: "4",
-            text: 'Iconless',
-            icon: '',
-            active: false
-        }, ];
-
-        let radioList = document.getElementsByTagName('kup-radio')[0];
-        radioList.data = [
-            {
-                value: 'Favorites',
-                label: "label 1",
-                checked: false
-            },
-            {
-                value: 'Set alarm clock',
-                label: "label 2",
-                checked: true
-            },
-            {
-                value: 'Settings',
-                label: "label 3",
-                checked: false
-            },
-        ];
-
-        let chipList = document.getElementsByTagName('kup-chip')[0];
-        chipList.data = [{
-            value: 'favorites',
-            icon: 'favorite',
-            label: "Favorites",
-            checked: false
-        }, {
-            value: 'Set alarm clock',
-            label: "Label 2",
-            icon: 'filter_2',
-            checked: true
-        }, ];
-
-        let listBox1 = document.getElementsByTagName('kup-list')[0];
-        let listBox2 = document.getElementsByTagName('kup-list')[1];
-        let listBox3 = document.getElementsByTagName('kup-list')[2];
-        let listBox4 = document.getElementsByTagName('kup-list')[3];
-        let listBox5 = document.getElementsByTagName('kup-list')[4];
-
-        let itemsForListBox = [{
-            text: 'Text 1',
-            secondaryText: 'Secondary text 1',
-            value: 'txt1',
-            icon: '3d_rotation'
-        }, {
-            text: 'Text 2',
-            value: 'txt2',
-            icon: 'ac_unit'
-        }, {
-            text: 'Text 3',
-            value: 'txt3',
-            icon: 'accessibility'
-        }, {
-            text: null,
-            value: null,
-            isSeparator: true,
-        }, {
-            text: 'Text 4',
-            value: 'txt4',
-            icon: 'account_box'
-        }, {
-            text: 'Text 5',
-            value: 'txt5',
-            /*selected: true,*/
-            /*icon: 'add_alert'*/
-        }, ];
-
-        listBox1.data = JSON.parse(JSON.stringify(itemsForListBox));
-        listBox1.data[0].selected = true;
-        listBox2.data = JSON.parse(JSON.stringify(itemsForListBox));
-        listBox2.data[1].selected = true;
-        listBox3.data = JSON.parse(JSON.stringify(itemsForListBox));
-        listBox3.data[2].selected = true;
-        listBox4.data = JSON.parse(JSON.stringify(itemsForListBox));
-        listBox4.data[0].selected = true;
-        listBox5.data = JSON.parse(JSON.stringify(itemsForListBox));
-        listBox5.data[2].selected = true;
-
-        let listBoxData = {
-            data: {
-                'kup-list': {
-                    data: {}
-                }
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
             }
-        };
-        listBoxData.data['kup-list'].data = itemsForListBox;
+        </style>
+    </head>
 
-        let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
-        let textfieldData = {
-            trailingIcon: true,
-            icon: "arrow_drop_down",
-        };
-        let listData = {
-            data: [...itemsForListBox],
-            selectable: true,
-        };
-        selectBox1.data = {
-            'kup-text-field': {...textfieldData
-            },
-            'kup-list': JSON.parse(JSON.stringify(listData))
-        };
-        selectBox1.initialValue = "Text 5";
-        //Object.getOwnPropertyNames(String.prototype).filter(item => typeof String.prototype[item] === 'function')
-
-        let selectBox2 = document.getElementsByTagName('kup-combobox')[1];
-        //selectBox2.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
-        //selectBox2.listData = {data: [...itemsForListBox], selectable: true,};
-        selectBox2.data = {
-            'text-field': {...textfieldData
-            },
-            'kup-list': JSON.parse(JSON.stringify(listData))
-        };
-        selectBox2.initialValue = "Text 4";
-
-        let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
-        //autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
-        //autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
-        autocompleteBox1.data = {
-            'kup-list': JSON.parse(JSON.stringify(listData))
-        };
-        autocompleteBox1.initialValue = "txt1";
-        autocompleteBox1.selectMode = 'code';
-
-        let once = true;
-        // This is a script for testing these elements
-        // This is mandatory for testing the passage of complex parameters inside web components
-        setInterval(function() {
-            // Radio develop test
-            /*
-            const radio = document.querySelector('#krg1');
-            radio.radioName = 'finalFantasy';
-            radio.items = [
-                {
-                    label: 'Auron',
-                    value: 'Auron',
-                },
-                {
-                    label: 'Braska the summoner',
-                    value: 'Braska',
-                },
-                {
-                    label: 'Jecth the catcher',
-                    value: 'Jetch',
-                },
-            ];
-                */
-            // Test input text
-            const inText = document.querySelector('#int1');
-
-            // Things which need to be done once
-            if (once) {
-                /*
-                radio.addEventListener(
-                    'ketchupRadioChanged',
-                    (event) => {}
-                );
-                */
-
-                inText.addEventListener('ketchupTextInputFocused', (e) => {
-                    console.log('#int1 has been FOCUSED', e);
-                });
-                inText.addEventListener('ketchupTextInputBlurred', (e) => {
-                    console.log('#int1 has been BLURRED', e);
-                });
-                inText.addEventListener('ketchupTextInputUpdated', (e) => {
-                    console.log('#int1 has been UPDATED', e);
-                });
-
-                // Never triggers again these part of the code
-                once = false;
-
-                const fld_1 = document.querySelector('#kfld-1');
-                if (fld_1 != null) {
-                    fld_1.config = {
-                        type: 'cmb',
-                        showSubmit: true,
-                        submitLabel: 'Invia',
-                        submitPos: 'right',
-                        label: 'Seleziona pagina',
-                        labelPos: 'top',
-                        initialValue: {
-                            value: 'label bottone #2',
-                            options: true,
-                            obj: 'J2KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        extensions: {
-                            minQueryLength: 4,
-                            forceSelection: true,
-                        },
-                    };
-                    fld_1.data = [{
-                        value: 'label bottone #1',
-                        options: true,
-                        obj: 'J1KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #2',
-                        options: true,
-                        obj: 'J2KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #3',
-                        options: true,
-                        obj: 'J3KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #4',
-                        options: true,
-                        obj: 'J4KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, ];
-                    fld_1.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    fld_1.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('ketchupFldSubmit', payload);
-                    });
-                }
-
-                // Radio version
-                const fld_2 = document.querySelector('#kfld-2');
-                if (fld_2 != null) {
-                    fld_2.config = {
-                        type: 'rad',
-                        displayedField: 'obj',
-                        initialValue: {
-                            value: 'label bottone #4',
-                            options: true,
-                            obj: 'J4KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        showSubmit: true,
-                        submitLabel: 'Conferma 1',
-                        valueField: 'obj',
-                    };
-                    fld_2.data = [{
-                        value: 'label bottone #1',
-                        options: true,
-                        obj: 'J1KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #2',
-                        options: true,
-                        obj: 'J2KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #3',
-                        options: true,
-                        obj: 'J3KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, {
-                        value: 'label bottone #4',
-                        options: true,
-                        obj: 'J4KEY',
-                        icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                        children: [],
-                    }, ];
-                    fld_2.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    fld_2.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('ketchupFldSubmit', payload);
-                    });
-                }
-
-                // Text version
-                const fld_3 = document.querySelector('#kfld-3');
-                if (fld_3 != null) {
-                    fld_3.config = {
-                        type: 'Itx',
-                        initialValue: 'PRVSHO',
-                        showSubmit: true,
-                        submitLabel: 'Submit',
-                    };
-                    fld_3.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    fld_3.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('Text FLD submit', payload);
-                    });
-                }
-
-                // Example 4
-                const fld_4 = document.querySelector('#kfld-4');
-                if (fld_4 != null) {
-                    fld_4.config = {
-                        type: 'cmb',
-                        displayedField: 'value',
-                        isClearable: true,
-                        initialValue: {
-                            value: 'PRVSHO'
-                        },
-                        showSubmit: true,
-                        submitLabel: 'Conferma',
-                    };
-                    fld_4.data = [{
-                        value: 'PRVSHO'
-                    }, {
-                        value: 'PRV123'
-                    }, {
-                        value: 'PRV456'
-                    }, ];
-                    fld_4.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    fld_4.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('Text FLD submit', payload);
-                    });
-                }
-
-                // Radio FLD
-                const fldRadioInitial = document.querySelector(
-                    '#fld-radio-initialValue'
-                );
-                if (fldRadioInitial != null) {
-                    fldRadioInitial.addEventListener(
-                        'ketchupFldChanged',
-                        (payload) => {
-                            console.log('Radio FLD change', payload);
-                        }
-                    );
-                    fldRadioInitial.config = {
-                        type: 'rad',
-                        showSubmit: false,
-                        valueField: 'value',
-                        displayedField: 'value',
-                        extensions: {
-                            minQueryLength: 4,
-                            forceSelection: true,
-                        },
-                        initialValue: {
-                            value: 'PRVSHO',
-                        },
-                    };
-                    fldRadioInitial.data = [{
-                        value: 'PRVSHO'
-                    }, {
-                        value: 'PRV123'
-                    }, {
-                        value: 'PRV456'
-                    }, ];
-                }
-
-                // Text FLD
-                const textFld = document.querySelector('#fld-5-text');
-                if (textFld != null) {
-                    textFld.config = {
-                        type: 'itx',
-                        showSubmit: true,
-                        valueField: 'value',
-                        displayedField: 'value',
-                        extensions: {
-                            minQueryLength: 4,
-                            forceSelection: true,
-                        },
-                        submitLabel: 'Prova submit',
-                    };
-                    textFld.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    textFld.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('Text FLD submit', payload);
-                    });
-                }
-                /**/
-                const textFld_6_upload = document.querySelector(
-                    '#fld-6-upload'
-                );
-                if (textFld_6_upload != null) {
-                    textFld_6_upload.config = {
-                        type: 'fup',
-                    };
-                }
-                /**/
-
-                // For the password field
-                const inPassword = document.querySelector(
-                    'kup-text-field[input-type="password"]'
-                );
-                inPassword.addEventListener(
-                    'ketchupTextInputFocused',
-                    (e) => {
-                        console.log('Password has been FOCUSED', e);
-                    }
-                );
-                inPassword.addEventListener(
-                    'ketchupTextInputBlurred',
-                    (e) => {
-                        console.log('#Password has been BLURRED', e);
-                    }
-                );
-                inPassword.addEventListener(
-                    'ketchupTextInputUpdated',
-                    (e) => {
-                        console.log('Password has been UPDATED', e);
-                    }
-                );
-            }
-        }, 5000);
-    </script>
-
-
-    <script src="/assets/index.js"></script>
-    <style>
-         :root {
-            --kup-background-color: #ffffff;
-            --kup-nav-bar-background-color: #2e2e2e;
-            --kup-drawer-background-color: #ffffff;
-            --kup-primary-color: #d64325;
-            --kup-font-family: 'Oswald', sans-serif;
-            --kup-font-size: 16px;
-            --kup-text-on-primary-color: #ffffff;
-            --kup-text-color: #2e2e2e;
-            --kup-icon-color: #505050;
-            --kup-hover-background-color: #f0f0f0;
-            --kup-hover-color: #545454;
-            --kup-border-color: #e0e0e0;
-            --kup-disabled-color: #5c5c5c;
-            --kup-disabled-background-color: #eaeaea;
-            --kup-field-background-color: #fafafa;
-            --kup-chip-background-color: #eaeaea;
-            --kup-spinner-color: #eaa710;
-            --kup-title-background-color: #f1f3f4;
-        }
-    </style>
-
-    <!--
-        <kup-qlik id="qlik-obj" appid = "c9f6a87b-0027-40dc-b439-8171b7457031" doconnection = "true" bordered = "true" fluid = "true"></kup-qlik>
-        <kup-qlik id="qlik-obj2" appid = "52cb8ec5-f27c-4125-830a-3cb8c1c3b376" bordered = "true" fluid = "true"></kup-qlik>
-        
-        <script type="text/javascript">
-        let sel
-        sel = new Array
-            let ele = document.getElementById('qlik-obj')
-            let ele2 = document.getElementById('qlik-obj2')
-            ele.config = { host:'itcldsrv017', port:'80', prefix:'hdr', isSecure:false }
-            ele2.config = { host:'itcldsrv017', port:'80', prefix:'hdr', isSecure:false }
-            let j = {                
-                  "field":"Anno",
-                  "values": [2020]
-              }
-              sel.push(j)
-            
-            ele.grid = {
-                selections:sel,
-                rows:[
-                    {
-                        columns:[
-                            {
-                                obj:'KvqdmD', colDim:6, size:'M'
-                            },
-                            {
-                                obj:'JjSaVm', colDim:6, size:'S'
-                            }
-                        ]
-                    },
-                    {
-                        columns:[                            
-                            {
-                                obj:'Hmmt', colDim:5, size:'S'
-                            },
-                            {
-                                obj:'', colDim:2, size:'S'
-                            },
-                            {
-                                obj:'KePGxSd', colDim:5, size:'S'
-                            }
-                        ]
-                    }
-                ]
-            }
-            ele2.grid = {
-                selections:[
-                    {
-                        field: 'Anno',
-                        values:[2019]
-                    }
-                ],
-                rows:[
-                    {
-                        columns:[
-                            {
-                                obj:'ctyCCb', colDim:6, size:'M'
-                            },
-                            {
-                                obj:'mXMdMVJ', colDim:6, size:'M'
-                            }
-                        ]
-                    }
-                ]
-            }
-        </script>-->
-</body>
-
+    <body>
+        <br />
+        <a href="debug.html">Debug page</a>
+        <br />
+        <a href="probe.html">Probe page</a>
+        <br />
+        <br />
+        <a href="box-performance.html">[Performance] kup-box</a>
+        <br />
+        <a href="card-performance.html">[Performance] kup-card</a>
+        <br />
+        <a href="data-table-performance.html">[Performance] kup-data-table</a>
+        <br />
+        <br />
+        <a href="autocomplete.html">kup-autocomplete</a>
+        <br />
+        <a href="box.html">kup-box</a>
+        <br />
+        <a href="btn.html">kup-btn</a>
+        <br />
+        <a href="button.html">kup-button</a>
+        <br />
+        <a href="card.html">kup-card</a>
+        <br />
+        <a href="chart.html">kup-chart</a>
+        <br />
+        <a href="checkbox.html">kup-checkbox</a>
+        <br />
+        <a href="chip.html">kup-chip</a>
+        <br />
+        <a href="color-picker.html">kup-color-picker</a>
+        <br />
+        <a href="combobox.html">kup-combox</a>
+        <br />
+        <a href="dash-list.html">kup-dash-list</a>
+        <br />
+        <a href="data-table.html">kup-data-table</a>
+        <br />
+        <a href="date-picker.html">kup-date-picker</a>
+        <br />
+        <a href="drawer.html">kup-drawer</a>
+        <br />
+        <a href="dropdown.html">kup-dropdown-button</a>
+        <br />
+        <a href="echart.html">kup-echart</a>
+        <br />
+        <a href="gauge.html">kup-gauge</a>
+        <br />
+        <a href="layout-component.html">kup-layout</a>
+        <br />
+        <a href="list-box.html">kup-list</a>
+        <br />
+        <a href="magic-box.html">kup-magic-box</a>
+        <br />
+        <a href="nav-bar.html">kup-nav-bar</a>
+        <br />
+        <a href="radio.html">kup-radio</a>
+        <br />
+        <a href="rating.html">kup-rating</a>
+        <br />
+        <a href="switch.html">kup-switch</a>
+        <br />
+        <a href="tab-bar.html">kup-tab-bar</a>
+        <br />
+        <a href="time-picker.html">kup-time-picker</a>
+        <br />
+        <a href="text-field.html">kup-text-field</a>
+        <br />
+        <a href="tooltip.html">kup-tooltip</a>
+        <br />
+        <a href="tree.html">kup-tree</a>
+        <br />
+    </body>
 </html>
