@@ -610,7 +610,7 @@ export class KupList {
         let wrapperClass = undefined;
 
         if (this.isMenu) {
-            wrapperClass = 'mdc-menu mdc-menu-surface';
+            wrapperClass = 'kup-menu';
 
             if (this.menuVisible) {
                 wrapperClass += ' visible';
