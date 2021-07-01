@@ -1035,6 +1035,11 @@ export namespace Components {
          */
         "displayMode": ItemsDisplayMode;
         /**
+          * Default value is false. When set to true, the arrow dropdown button is the only button displayed.
+          * @default false
+         */
+        "dropdownOnly": boolean;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -3841,6 +3846,11 @@ declare namespace LocalJSX {
           * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
+        /**
+          * Default value is false. When set to true, the arrow dropdown button is the only button displayed.
+          * @default false
+         */
+        "dropdownOnly"?: boolean;
         /**
           * Defaults at null. When set, the button will show this icon.
           * @default icon
