@@ -338,7 +338,7 @@ export class KupCombobox {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 is-menu
-                onKupListClick={(e) => this.onKupItemClick(e)}
+                onKup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );

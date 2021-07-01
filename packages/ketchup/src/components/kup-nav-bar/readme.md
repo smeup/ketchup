@@ -14,10 +14,10 @@
 
 ## Events
 
-| Event                      | Description | Type                           |
-| -------------------------- | ----------- | ------------------------------ |
-| `kupNavbarMenuItemClick`   |             | `CustomEvent<{ value: any; }>` |
-| `kupNavbarOptionItemClick` |             | `CustomEvent<{ value: any; }>` |
+| Event                        | Description | Type                                 |
+| ---------------------------- | ----------- | ------------------------------------ |
+| `kup-navbar-menuitemclick`   |             | `CustomEvent<KupNavbarEventPayload>` |
+| `kup-navbar-optionitemclick` |             | `CustomEvent<KupNavbarEventPayload>` |
 
 
 ## Methods

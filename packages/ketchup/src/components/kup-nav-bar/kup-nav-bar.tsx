@@ -18,6 +18,7 @@ import {
     getClassNameByComponentMode,
     ComponentNavBarMode,
     KupNavBarProps,
+    KupNavbarEventPayload,
 } from './kup-nav-bar-declarations';
 import { MDCTopAppBar } from '@material/top-app-bar';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -93,24 +94,20 @@ export class KupNavBar {
     }
 
     @Event({
-        eventName: 'kupNavbarMenuItemClick',
+        eventName: 'kup-navbar-menuitemclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupNavbarMenuItemClick: EventEmitter<{
-        value: any;
-    }>;
+    kupNavbarMenuItemClick: EventEmitter<KupNavbarEventPayload>;
 
     @Event({
-        eventName: 'kupNavbarOptionItemClick',
+        eventName: 'kup-navbar-optionitemclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupNavbarOptionItemClick: EventEmitter<{
-        value: any;
-    }>;
+    kupNavbarOptionItemClick: EventEmitter<KupNavbarEventPayload>;
 
     //---- Methods ----
 
@@ -146,6 +143,8 @@ export class KupNavBar {
         this.closeList();
         this.kupNavbarMenuItemClick.emit({
             value: selectedValue,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -153,6 +152,8 @@ export class KupNavBar {
         let selectedValue: string = value;
         this.kupNavbarMenuItemClick.emit({
             value: selectedValue,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -161,6 +162,8 @@ export class KupNavBar {
         this.closeList();
         this.kupNavbarOptionItemClick.emit({
             value: selectedValue,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -168,6 +171,8 @@ export class KupNavBar {
         let selectedValue: string = value;
         this.kupNavbarOptionItemClick.emit({
             value: selectedValue,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -246,7 +251,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
-                onKupListClick={(e) => this.onKupNavbarMenuItemClick(e)}
+                onKup-list-click={(e) => this.onKupNavbarMenuItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.menuListEl = el as any)}
             ></kup-list>
@@ -265,7 +270,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
-                onKupListClick={(e) => this.onKupNavbarOptionItemClick(e)}
+                onKup-list-click={(e) => this.onKupNavbarOptionItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.optionsListEl = el as any)}
             ></kup-list>

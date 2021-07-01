@@ -3914,7 +3914,8 @@ export class KupDataTable {
                             is-menu
                             menu-visible
                             onBlur={() => this.closeTotalMenu()}
-                            onKupListClick={(event) =>
+                            
+                            onKup-list-click={(event) =>
                                 this.onTotalsChange(event, column)
                             }
                             tabindex={0}
@@ -4121,7 +4122,7 @@ export class KupDataTable {
                                 is-menu
                                 menu-visible
                                 onBlur={() => this.closeGroupMenu()}
-                                onKupListClick={(event) => console.log(event)}
+                                onKup-list-click={(event) => console.log(event)}
                                 tabindex={0}
                             ></kup-list>
                         );
@@ -5134,8 +5135,8 @@ export class KupDataTable {
                             perPage={this.rowsPerPage}
                             selectedPerPage={this.currentRowsPerPage}
                             currentPage={this.currentPage}
-                            onKupPageChanged={(e) => this.handlePageChanged(e)}
-                            onKupRowsPerPageChanged={(e) =>
+                            onkup-paginator-pagechanged={(e) => this.handlePageChanged(e)}
+                            onkup-paginator-rowsperpagechanged={(e) =>
                                 this.handleRowsPerPageChanged(e)
                             }
                         />

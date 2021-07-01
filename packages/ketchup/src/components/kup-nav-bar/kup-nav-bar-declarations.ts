@@ -1,3 +1,5 @@
+import { KupEventPayload } from "../../types/GenericTypes";
+
 /**
  * Props of the kup-nav-bar component.
  * Used to export every prop in an object.
@@ -48,4 +50,8 @@ export function getClassNameByComponentMode(mode: string) {
         }
     }
     return value;
+}
+
+export interface KupNavbarEventPayload extends KupEventPayload {
+    value: any;
 }

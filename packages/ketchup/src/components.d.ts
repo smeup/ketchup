@@ -35,8 +35,8 @@ import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
-import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
-import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
+import { ComponentNavBarData, ComponentNavBarMode, KupNavbarEventPayload } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupTabBarData } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -4180,12 +4180,8 @@ declare namespace LocalJSX {
           * Defines how the bar will be displayed.
          */
         "mode"?: ComponentNavBarMode;
-        "onKupNavbarMenuItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupNavbarOptionItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        "onKup-navbar-menuitemclick"?: (event: CustomEvent<KupNavbarEventPayload>) => void;
+        "onKup-navbar-optionitemclick"?: (event: CustomEvent<KupNavbarEventPayload>) => void;
     }
     interface KupPaginator {
         "currentPage"?: number;
@@ -4194,11 +4190,11 @@ declare namespace LocalJSX {
         /**
           * When the current page change
          */
-        "onKupPageChanged"?: (event: CustomEvent<{ newPage: number }>) => void;
+        "onKup-paginator-pagechanged"?: (event: CustomEvent<KupPaginatorPageChangedEventPayload>) => void;
         /**
           * When the rows per page change
          */
-        "onKupRowsPerPageChanged"?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
+        "onKup-paginator-rowsperpagechanged"?: (event: CustomEvent<KupPaginatorRowsPerPageChangedEventPayload>) => void;
         "perPage"?: number;
         "selectedPerPage"?: number;
     }

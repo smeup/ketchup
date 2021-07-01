@@ -2049,7 +2049,7 @@ export class KupTree {
                         is-menu
                         menu-visible
                         onBlur={() => this.closeTotalMenu()}
-                        onKupListClick={(event) =>
+                        onKup-list-click={(event) =>
                             this.onTotalsChange(event, column)
                         }
                         tabindex={0}

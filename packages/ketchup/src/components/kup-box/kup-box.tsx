@@ -1955,8 +1955,8 @@ export class KupBox {
                     perPage={this.pageSize}
                     currentPage={this.currentPage}
                     selectedPerPage={this.currentRowsPerPage}
-                    onKupPageChanged={(e) => this.handlePageChanged(e)}
-                    onKupRowsPerPageChanged={(e) =>
+                    onkup-paginator-pagechanged={(e) => this.handlePageChanged(e)}
+                    onkup-paginator-rowsperpagechanged={(e) =>
                         this.handleRowsPerPageChanged(e)
                     }
                     mode={PaginatorMode.SIMPLE}

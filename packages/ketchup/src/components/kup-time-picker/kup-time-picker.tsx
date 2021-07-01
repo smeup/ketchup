@@ -804,7 +804,7 @@ export class KupTimePicker {
                     data={this.createTimeListData(this.value)}
                     is-menu
                     menu-visible
-                    onKupListClick={(e) =>
+                    onKup-list-click={(e) =>
                         this.onKupTimePickerItemClick(
                             e,
                             e.detail.selected.value

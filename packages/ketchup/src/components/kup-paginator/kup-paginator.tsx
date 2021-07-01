@@ -9,7 +9,7 @@ import {
     Prop,
 } from '@stencil/core';
 
-import { PaginatorMode } from './kup-paginator-declarations';
+import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
 import {
     KupManager,
@@ -50,23 +50,23 @@ export class KupPaginator {
      * When the current page change
      */
     @Event({
-        eventName: 'kupPageChanged',
+        eventName: 'kup-paginator-pagechanged',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupPageChanged: EventEmitter<{ newPage: number }>;
+    kupPaginatorPageChanged: EventEmitter<KupPaginatorPageChangedEventPayload>;
 
     /**
      * When the rows per page change
      */
     @Event({
-        eventName: 'kupRowsPerPageChanged',
+        eventName: 'kup-paginator-rowsperpagechanged',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupRowsPerPageChanged: EventEmitter<{ newRowsPerPage: number }>;
+    kupRowsPerPageChanged: EventEmitter<KupPaginatorRowsPerPageChangedEventPayload>;
 
     /**
      * This method is used to trigger a new render of the component.
@@ -98,8 +98,10 @@ export class KupPaginator {
                 if (tmpNewPage < 1) {
                     tmpNewPage = 1;
                 }
-                this.kupPageChanged.emit({
+                this.kupPaginatorPageChanged.emit({
                     newPage: tmpNewPage,
+                    id: this.rootElement.id,
+                    comp: this,
                 });
             }
         }
@@ -111,8 +113,10 @@ export class KupPaginator {
         }
 
         // fire next page event
-        this.kupPageChanged.emit({
+        this.kupPaginatorPageChanged.emit({
             newPage: this.currentPage - 1,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -122,8 +126,10 @@ export class KupPaginator {
         }
 
         // fire next page event
-        this.kupPageChanged.emit({
+        this.kupPaginatorPageChanged.emit({
             newPage: this.currentPage + 1,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -141,6 +147,8 @@ export class KupPaginator {
                 }
                 this.kupRowsPerPageChanged.emit({
                     newRowsPerPage: tmpRowsPerPage,
+                    id: this.rootElement.id,
+                    comp: this,
                 });
             }
         }
