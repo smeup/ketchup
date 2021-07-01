@@ -13,11 +13,11 @@
 
 ## Events
 
-| Event            | Description                         | Type                                                                                           |
-| ---------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `kupTabBarBlur`  | Triggered when the tab loses focus. | `CustomEvent<{ comp: KupTabBar; index: number; el: EventTarget; }>`                            |
-| `kupTabBarClick` | Triggered when the tab is clicked.  | `CustomEvent<{ comp: KupTabBar; id: string; index: number; el: EventTarget; value: string; }>` |
-| `kupTabBarFocus` | Triggered when the tab is focused.  | `CustomEvent<{ comp: KupTabBar; index: number; el: EventTarget; }>`                            |
+| Event              | Description                         | Type                                      |
+| ------------------ | ----------------------------------- | ----------------------------------------- |
+| `kup-tabbar-blur`  | Triggered when the tab loses focus. | `CustomEvent<KupTabBarEventPayload>`      |
+| `kup-tabbar-click` | Triggered when the tab is clicked.  | `CustomEvent<KupTabBarClickEventPayload>` |
+| `kup-tabbar-focus` | Triggered when the tab is focused.  | `CustomEvent<KupTabBarEventPayload>`      |
 
 
 ## Methods

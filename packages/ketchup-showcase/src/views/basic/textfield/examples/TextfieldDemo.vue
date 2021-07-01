@@ -22,11 +22,11 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupTextFieldClick',
+          name: 'kup-textfield-click',
           type: 'click',
         },
         {
-          name: 'kupTextFieldChange',
+          name: 'kup-textfield-change',
           type: 'change',
         },
         {
@@ -38,7 +38,7 @@ export default {
           type: 'focus',
         },
         {
-          name: 'kupTextFieldBlur',
+          name: 'kup-textfield-blur',
           type: 'blur',
         },
         {

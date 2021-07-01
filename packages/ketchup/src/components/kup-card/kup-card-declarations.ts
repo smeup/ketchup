@@ -93,7 +93,7 @@ export enum KupCardSubEvents {
     BUTTON_CLICK = 'kupButtonClick',
     CHIP_BLUR = 'kup-chip-blur',
     CHIP_ICONCLICK = 'kup-chip-iconclick',
-    TABBAR_CLICK = 'kupTabBarClick',
+    TABBAR_CLICK = 'kup-tabbar-click',
     TREE_NODESELECTED = 'kupTreeNodeSelected',
 }
 

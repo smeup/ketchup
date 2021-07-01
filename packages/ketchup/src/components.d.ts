@@ -40,7 +40,8 @@ import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEven
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
-import { KupTabBarData } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { KupTree } from "./components/kup-tree/kup-tree";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
@@ -4462,29 +4463,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the tab loses focus.
          */
-        "onKupTabBarBlur"?: (event: CustomEvent<{
-        comp: KupTabBar;
-        index: number;
-        el: EventTarget;
-    }>) => void;
+        "onKup-tabbar-blur"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
         /**
           * Triggered when the tab is clicked.
          */
-        "onKupTabBarClick"?: (event: CustomEvent<{
-        comp: KupTabBar;
-        id: string;
-        index: number;
-        el: EventTarget;
-        value: string;
-    }>) => void;
+        "onKup-tabbar-click"?: (event: CustomEvent<KupTabBarClickEventPayload>) => void;
         /**
           * Triggered when the tab is focused.
          */
-        "onKupTabBarFocus"?: (event: CustomEvent<{
-        comp: KupTabBar;
-        index: number;
-        el: EventTarget;
-    }>) => void;
+        "onKup-tabbar-focus"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
     }
     interface KupTextField {
         /**
@@ -4566,29 +4553,20 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input element loses focus.
          */
-        "onKupTextFieldBlur"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-blur"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the input element changes.
          */
-        "onKupTextFieldChange"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-change"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
+        /**
+          * Triggered when the input element is clicked.
+         */
+        "onKup-textfield-click"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the text field's clear icon is clicked.
          */
         "onKupTextFieldClearIconClick"?: (event: CustomEvent<{
         id: any;
-    }>) => void;
-        /**
-          * Triggered when the input element is clicked.
-         */
-        "onKupTextFieldClick"?: (event: CustomEvent<{
-        id: any;
-        value: string;
     }>) => void;
         /**
           * Triggered when the input element gets focused.

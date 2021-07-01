@@ -19,7 +19,7 @@ import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupTextFieldProps } from './kup-text-field-declarations';
+import { KupTextFieldEventPayload, KupTextFieldProps } from './kup-text-field-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -177,41 +177,32 @@ export class KupTextField {
      * Triggered when the input element loses focus.
      */
     @Event({
-        eventName: 'kupTextFieldBlur',
+        eventName: 'kup-textfield-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: any;
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupTextFieldEventPayload>;
     /**
      * Triggered when the input element changes.
      */
     @Event({
-        eventName: 'kupTextFieldChange',
+        eventName: 'kup-textfield-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        id: any;
-        value: string;
-    }>;
+    kupChange: EventEmitter<KupTextFieldEventPayload>;
     /**
      * Triggered when the input element is clicked.
      */
     @Event({
-        eventName: 'kupTextFieldClick',
+        eventName: 'kup-textfield-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        id: any;
-        value: string;
-    }>;
+    kupClick: EventEmitter<KupTextFieldEventPayload>;
     /**
      * Triggered when the input element gets focused.
      */
@@ -282,6 +273,7 @@ export class KupTextField {
         this.kupBlur.emit({
             id: this.rootElement.id,
             value: target.value,
+            comp: this,
         });
     }
 
@@ -291,6 +283,7 @@ export class KupTextField {
         this.kupChange.emit({
             id: this.rootElement.id,
             value: target.value,
+            comp: this,
         });
     }
 
@@ -299,6 +292,7 @@ export class KupTextField {
         this.kupClick.emit({
             id: this.rootElement.id,
             value: target.value,
+            comp: this,
         });
     }
 

@@ -16,7 +16,7 @@
         label="Paste your JSON"
         full-width
         text-area
-        @kupTextFieldChange="createDebugComponent"/>
+        @kup-textfield-change="createDebugComponent"/>
       <div
         id="debug-wrapper"
         title="Your component will be displayed here."

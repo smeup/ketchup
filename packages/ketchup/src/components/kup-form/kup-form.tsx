@@ -569,13 +569,13 @@ export class KupForm {
                             input-type="text"
                             initialValue={cell && cell.value}
                             disabled={field.readonly}
-                            onKupTextFieldChange={(e) =>
+                            onkup-textfield-change={(e) =>
                                 this.onSimpleValueFieldChanged(e, field.key)
                             }
                             onKupTextFieldFocus={() =>
                                 this.onFieldFocused(field.key)
                             }
-                            onKupTextFieldBlur={() =>
+                            onkup-textfield-blur={() =>
                                 this.onFieldBlurred(field.key)
                             }
                         ></kup-text-field>

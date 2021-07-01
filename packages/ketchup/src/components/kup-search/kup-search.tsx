@@ -189,7 +189,7 @@ export class KupSearch {
                 <kup-text-field
                     initialValue={this.value}
                     disabled={this.disabled}
-                    onKupTextFieldChange={(e) => this.onSearchInputChanged(e)}
+                    onkup-textfield-change={(e) => this.onSearchInputChanged(e)}
                 ></kup-text-field>
                 <kup-button
                     icon="magnify"
@@ -203,7 +203,7 @@ export class KupSearch {
                         <div>
                             <kup-text-field
                                 initialValue={this.value}
-                                onKupTextFieldChange={(e) =>
+                                onkup-textfield-change={(e) =>
                                     this.onSearchInputChanged(e)
                                 }
                             ></kup-text-field>

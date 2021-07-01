@@ -4,7 +4,7 @@
     <div id="sample-specs">
       <kup-tab-bar
         id="demo-tab-bar"
-        @kupTabBarClick="tabSelection"
+        @kup-tabbar-click="tabSelection"
       ></kup-tab-bar>
       <div id="sample-specs-container">
         <table
@@ -58,7 +58,7 @@
                   trailing-icon
                   icon="add"
                   v-bind:id="propList.prop"
-                  @kupTextFieldChange="updateDemoFieldArray"
+                  @kup-textfield-change="updateDemoFieldArray"
                   @kupTextFieldIconClick="updateDemoFieldArray"
                 ></kup-text-field>
               </td>

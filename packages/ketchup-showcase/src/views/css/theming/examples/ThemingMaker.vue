@@ -22,7 +22,7 @@
         <kup-tab-bar
           id="demo-tab-bar"
           :data.prop="tabs"
-          @kupTabBarClick="handleTab"
+          @kup-tabbar-click="handleTab"
         ></kup-tab-bar>
         <div id="sample-comp" class="full">
           <table class="instruction-table" id="css-variables-tab">
