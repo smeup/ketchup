@@ -33,7 +33,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { identify } from '../../utils/utils';
+import { getProps, identify, setProps } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -163,17 +163,15 @@ export class KupChart {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupChartProps;
-        } else {
-            for (const key in KupChartProps) {
-                if (Object.prototype.hasOwnProperty.call(KupChartProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupChartProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupChartProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

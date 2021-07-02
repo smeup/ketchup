@@ -27,6 +27,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupCardIds } from '../kup-card/kup-card-declarations';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-chip',
@@ -232,17 +233,15 @@ export class KupChip {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupChipProps;
-        } else {
-            for (const key in KupChipProps) {
-                if (Object.prototype.hasOwnProperty.call(KupChipProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupChipProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupChipProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

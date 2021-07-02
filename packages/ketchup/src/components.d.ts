@@ -87,6 +87,11 @@ export namespace Components {
          */
         "serverHandledFilter": boolean;
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         "setValue": (value: string) => Promise<void>;
     }
     interface KupBadge {
@@ -108,6 +113,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The text displayed inside the badge.
          */
@@ -205,6 +215,11 @@ export namespace Components {
           * Multiple selection
          */
         "selectedRowsState": string;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * If enabled, highlights the selected box/boxes
          */
@@ -319,6 +334,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
@@ -394,6 +414,11 @@ export namespace Components {
          */
         "resizeCallback": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -459,6 +484,11 @@ export namespace Components {
           * The data series to be displayed. They must be of the same type.
          */
         "series": ChartSerie[];
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Displays the numerical values.
          */
@@ -530,6 +560,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupChip {
         /**
@@ -559,6 +594,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
@@ -594,6 +634,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         "setValue": (value: string) => Promise<void>;
         /**
           * When true, the component's text field will be replaced by a swatch.
@@ -641,6 +686,11 @@ export namespace Components {
          */
         "selectMode": ItemsDisplayMode;
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         "setValue": (value: string) => Promise<void>;
     }
     interface KupCrud {
