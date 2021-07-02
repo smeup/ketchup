@@ -3,7 +3,7 @@
     <h3>Box with tooltip</h3>
     <kup-box
       :data.prop="basicData"
-      @kupOptionClicked="handleKupOptionClicked"
+      @kup-datatable-optionclicked="handleKupOptionClicked"
       @kup-tooltip-loaddata="onLoadData"
       @kup-tooltip-loaddetail="loadBornToDie"
       @kup-tooltip-loadcelloptions="loadCellOptions"

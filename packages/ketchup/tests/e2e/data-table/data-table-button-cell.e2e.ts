@@ -50,9 +50,9 @@ describe.skip('data-table with a button column', () => {
         );
     });
 
-    it('fires kupCellButtonClicked event when button inside the cell is clicked with correct payload', async () => {
+    it('fires kup-datatable-cellbuttonclicked event when button inside the cell is clicked with correct payload', async () => {
         const dataTableButtonClicked = await page.spyOnEvent(
-            'kupCellButtonClicked'
+            'kup-datatable-cellbuttonclicked'
         );
         const firstButton = await tableButtonCells[0].find('kup-button');
         await firstButton.click();

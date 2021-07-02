@@ -10,7 +10,7 @@ import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload }
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, DataTable, EventHandlerDetails, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAddColumnEventPayload, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickedEventPayload, KupDatatableOptionClickedEventPayload, KupDatatableRowActionClickedEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClikEventPayload, KupBoxContextMenuEventPayload, KupBoxDragEventPayload, KupBoxRowActionClickedEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
 import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickedEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupBtnClickEventPayload } from "./components/kup-btn/kup-btn-declarations";
@@ -3416,62 +3416,54 @@ declare namespace LocalJSX {
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
-        "onKup-addcodedecodecolumn"?: (event: CustomEvent<{
-        column: string;
-    }>) => void;
+        "onKup-addcodedecodecolumn"?: (event: CustomEvent<KupDatatableAddColumnEventPayload>) => void;
         /**
           * When 'add column' menu item is clicked
          */
-        "onKupAddColumn"?: (event: CustomEvent<{ column: string; comp: KupDataTable }>) => void;
+        "onKup-datatable-addcolumn"?: (event: CustomEvent<KupDatatableAddColumnEventPayload>) => void;
         /**
           * When a row is auto selected via selectRow prop
          */
-        "onKupAutoRowSelect"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        selectedRow: Row;
-    }>) => void;
-        "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
-        "onKupCellTextFieldInput"?: (event: CustomEvent<KupDataTableCellTextFieldInput>) => void;
+        "onKup-datatable-autorowselect"?: (event: CustomEvent<KupDatatableAutoRowSelectEventPayload>) => void;
+        "onKup-datatable-cellbuttonclicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
         /**
           * Emitted when a cell's data has been updated.
          */
-        "onKupDataTableCellUpdate"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        cell: Cell;
-        column: Column;
-        id: string;
-        row: Row;
-        event: any;
-    }>) => void;
+        "onKup-datatable-cellupdate"?: (event: CustomEvent<KupDatatableCellUpdateEventPayload>) => void;
         /**
           * Generic click event on data table.
          */
-        "onKupDataTableClick"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>) => void;
+        "onKup-datatable-click"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
         /**
           * When the column menu is being opened/closed.
          */
-        "onKupDataTableColumnMenu"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        card: HTMLKupCardElement;
-        open: boolean;
-    }>) => void;
+        "onKup-datatable-columnmenu"?: (event: CustomEvent<KupDatatableColumnMenuEventPayload>) => void;
         /**
           * Generic right click event on data table.
          */
-        "onKupDataTableContextMenu"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>) => void;
+        "onKup-datatable-contextmenu"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
         /**
           * Generic double click event on data table.
          */
-        "onKupDataTableDblClick"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>) => void;
+        "onKup-datatable-dblclick"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
+        "onKup-datatable-loadmoreclicked"?: (event: CustomEvent<KupDatatableLoadMoreClickedEventPayload>) => void;
+        /**
+          * When cell option is clicked
+         */
+        "onKup-datatable-optionclicked"?: (event: CustomEvent<KupDatatableOptionClickedEventPayload>) => void;
+        /**
+          * When rows selections reset
+         */
+        "onKup-datatable-resetselectedrows"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * When a row action is clicked
+         */
+        "onKup-datatable-rowactionclicked"?: (event: CustomEvent<KupDatatableRowActionClickedEventPayload>) => void;
+        /**
+          * When a row is selected
+         */
+        "onKup-datatable-rowselected"?: (event: CustomEvent<KupDatatableRowSelectedEventPayload>) => void;
+        "onKup-datatable-textfieldinput"?: (event: CustomEvent<KupDataTableCellTextFieldInput>) => void;
         /**
           * When component load is complete
          */
@@ -3480,41 +3472,6 @@ declare namespace LocalJSX {
           * When component unload is complete
          */
         "onKupDidUnload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
-        "onKupLoadMoreClicked"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        loadItems: number;
-    }>) => void;
-        /**
-          * When cell option is clicked
-         */
-        "onKupOptionClicked"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        column: string;
-        row: Row;
-    }>) => void;
-        /**
-          * When rows selections reset
-         */
-        "onKupResetSelectedRows"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
-        /**
-          * When a row action is clicked
-         */
-        "onKupRowActionClicked"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        type: 'default' | 'variable' | 'expander';
-        row: Row;
-        action?: RowAction;
-        index?: number;
-    }>) => void;
-        /**
-          * When a row is selected
-         */
-        "onKupRowSelected"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        selectedRows: Array<Row>;
-        clickedRow: Row;
-        clickedColumn: string;
-    }>) => void;
         /**
           * Current selected page set on component load
          */

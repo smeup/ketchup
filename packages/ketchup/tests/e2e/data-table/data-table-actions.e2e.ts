@@ -103,7 +103,7 @@ describe('renders actions', () => {
         expect(actions).toHaveLength(3);
 
         const kupRowActionClicked = await page.spyOnEvent(
-            'kupRowActionClicked'
+            'kup-datatable-rowactionclicked'
         );
 
         // testing default action

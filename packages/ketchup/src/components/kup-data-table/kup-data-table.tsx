@@ -48,6 +48,15 @@ import {
     SelectionMode,
     KupCellInfo,
     KupDataTableColumnDragGroupType,
+    KupDatatableAutoRowSelectEventPayload,
+    KupDatatableRowSelectedEventPayload,
+    KupDatatableCellUpdateEventPayload,
+    KupDatatableClickEventPayload,
+    KupDatatableColumnMenuEventPayload,
+    KupDatatableOptionClickedEventPayload,
+    KupDatatableAddColumnEventPayload,
+    KupDatatableRowActionClickedEventPayload,
+    KupDatatableLoadMoreClickedEventPayload,
 } from './kup-data-table-declarations';
 
 import {
@@ -71,7 +80,7 @@ import {
     dropHandlersCell,
 } from './kup-data-table-helper';
 
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { GenericObject, KupComponent, KupEventPayload } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
@@ -865,137 +874,105 @@ export class KupDataTable {
      * When rows selections reset
      */
     @Event({
-        eventName: 'kupResetSelectedRows',
+        eventName: 'kup-datatable-resetselectedrows',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupResetSelectedRows: EventEmitter<{ comp: KupDataTable }>;
+    kupResetSelectedRows: EventEmitter<KupEventPayload>;
 
     /**
      * When a row is auto selected via selectRow prop
      */
     @Event({
-        eventName: 'kupAutoRowSelect',
+        eventName: 'kup-datatable-autorowselect',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupAutoRowSelect: EventEmitter<{
-        comp: KupDataTable;
-        selectedRow: Row;
-    }>;
+    kupAutoRowSelect: EventEmitter<KupDatatableAutoRowSelectEventPayload>;
 
     /**
      * When a row is selected
      */
     @Event({
-        eventName: 'kupRowSelected',
+        eventName: 'kup-datatable-rowselected',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupRowSelected: EventEmitter<{
-        comp: KupDataTable;
-        selectedRows: Array<Row>;
-        clickedRow: Row;
-        clickedColumn: string;
-    }>;
+    kupRowSelected: EventEmitter<KupDatatableRowSelectedEventPayload>;
     /**
      * Emitted when a cell's data has been updated.
      */
     @Event({
-        eventName: 'kupDataTableCellUpdate',
+        eventName: 'kup-datatable-cellupdate',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupDataTableCellUpdate: EventEmitter<{
-        comp: KupDataTable;
-        cell: Cell;
-        column: Column;
-        id: string;
-        row: Row;
-        event: any;
-    }>;
+    kupDataTableCellUpdate: EventEmitter<KupDatatableCellUpdateEventPayload>;
     /**
      * Generic click event on data table.
      */
     @Event({
-        eventName: 'kupDataTableClick',
+        eventName: 'kup-datatable-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupDataTableClick: EventEmitter<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>;
+    kupDataTableClick: EventEmitter<KupDatatableClickEventPayload>;
     /**
      * Generic right click event on data table.
      */
     @Event({
-        eventName: 'kupDataTableContextMenu',
+        eventName: 'kup-datatable-contextmenu',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupDataTableContextMenu: EventEmitter<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>;
+    kupDataTableContextMenu: EventEmitter<KupDatatableClickEventPayload>;
     /**
      * Generic double click event on data table.
      */
     @Event({
-        eventName: 'kupDataTableDblClick',
+        eventName: 'kup-datatable-dblclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupDataTableDblClick: EventEmitter<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>;
+    kupDataTableDblClick: EventEmitter<KupDatatableClickEventPayload>;
     /**
      * When the column menu is being opened/closed.
      */
     @Event({
-        eventName: 'kupDataTableColumnMenu',
+        eventName: 'kup-datatable-columnmenu',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupDataTableColumnMenu: EventEmitter<{
-        comp: KupDataTable;
-        card: HTMLKupCardElement;
-        open: boolean;
-    }>;
+    kupDataTableColumnMenu: EventEmitter<KupDatatableColumnMenuEventPayload>;
     /**
      * When cell option is clicked
      */
     @Event({
-        eventName: 'kupOptionClicked',
+        eventName: 'kup-datatable-optionclicked',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupOptionClicked: EventEmitter<{
-        comp: KupDataTable;
-        column: string;
-        row: Row;
-    }>;
+    kupOptionClicked: EventEmitter<KupDatatableOptionClickedEventPayload>;
 
     /**
      * When 'add column' menu item is clicked
      */
     @Event({
-        eventName: 'kupAddColumn',
+        eventName: 'kup-datatable-addcolumn',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupAddColumn: EventEmitter<{ column: string; comp: KupDataTable }>;
+    KupDatatableAddColumn: EventEmitter<KupDatatableAddColumnEventPayload>;
 
     @Event({
         eventName: 'kup-addcodedecodecolumn',
@@ -1003,40 +980,29 @@ export class KupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupAddCodeDecodeColumn: EventEmitter<{
-        column: string;
-    }>;
+    kupAddCodeDecodeColumn: EventEmitter<KupDatatableAddColumnEventPayload>;
 
     /**
      * When a row action is clicked
      */
     @Event({
-        eventName: 'kupRowActionClicked',
+        eventName: 'kup-datatable-rowactionclicked',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupRowActionClicked: EventEmitter<{
-        comp: KupDataTable;
-        type: 'default' | 'variable' | 'expander';
-        row: Row;
-        action?: RowAction;
-        index?: number;
-    }>;
+    kupRowActionClicked: EventEmitter<KupDatatableRowActionClickedEventPayload>;
 
     @Event({
-        eventName: 'kupLoadMoreClicked',
+        eventName: 'kup-datatable-loadmoreclicked',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupLoadMoreClicked: EventEmitter<{
-        comp: KupDataTable;
-        loadItems: number;
-    }>;
+    kupLoadMoreClicked: EventEmitter<KupDatatableLoadMoreClickedEventPayload>;
 
     @Event({
-        eventName: 'kupCellButtonClicked',
+        eventName: 'kup-datatable-cellbuttonclicked',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -1044,7 +1010,7 @@ export class KupDataTable {
     kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
 
     @Event({
-        eventName: 'kupCellTextFieldInput',
+        eventName: 'kup-datatable-textfieldinput',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -1099,6 +1065,7 @@ export class KupDataTable {
             comp: this,
             card: this.columnMenuCard,
             open: true,
+            id: this.rootElement.id,
         });
     }
     /**
@@ -1112,6 +1079,7 @@ export class KupDataTable {
             comp: this,
             card: this.columnMenuCard,
             open: false,
+            id: this.rootElement.id,
         });
     }
     /**
@@ -1144,6 +1112,7 @@ export class KupDataTable {
                 selectedRows: this.selectedRows,
                 clickedColumn: null,
                 clickedRow: null,
+                id: this.rootElement.id,
             });
         }
     }
@@ -1813,6 +1782,7 @@ export class KupDataTable {
                 this.kupAutoRowSelect.emit({
                     comp: this,
                     selectedRow: this.selectedRows[0],
+                    id: this.rootElement.id,
                 });
             }
         }
@@ -2669,6 +2639,7 @@ export class KupDataTable {
                     selectedRows: this.selectedRows,
                     clickedRow: row,
                     clickedColumn,
+                    id: this.rootElement.id,
                 });
             }
         }
@@ -2711,6 +2682,7 @@ export class KupDataTable {
             index,
             row,
             type,
+            id: this.rootElement.id,
         });
     }
 
@@ -2721,6 +2693,7 @@ export class KupDataTable {
             comp: this,
             row,
             type: 'expander',
+            id: this.rootElement.id,
         });
     }
 
@@ -2772,6 +2745,7 @@ export class KupDataTable {
             selectedRows: this.selectedRows,
             clickedRow: null,
             clickedColumn: null,
+            id: this.rootElement.id,
         });
     }
 
@@ -2796,6 +2770,7 @@ export class KupDataTable {
                 selectedRows: this.selectedRows,
                 clickedColumn: null,
                 clickedRow: null,
+                id: this.rootElement.id,
             });
         } else {
             // deselect all rows
@@ -2968,6 +2943,7 @@ export class KupDataTable {
         this.kupLoadMoreClicked.emit({
             comp: this,
             loadItems: loadItems,
+            id: this.rootElement.id,
         });
 
         this.loadMoreEventPreviousQuantity = loadItems;
@@ -6038,6 +6014,7 @@ export class KupDataTable {
                                             details: this.clickHandler(
                                                 clone as MouseEvent
                                             ),
+                                            id: this.rootElement.id,
                                         });
                                     }, 300)
                                 );
@@ -6046,6 +6023,7 @@ export class KupDataTable {
                                 this.kupDataTableContextMenu.emit({
                                     comp: this,
                                     details: this.contextMenuHandler(e),
+                                    id: this.rootElement.id,
                                 });
                             }}
                             onDblClick={(e: MouseEvent) => {
@@ -6066,6 +6044,7 @@ export class KupDataTable {
                                 this.kupDataTableDblClick.emit({
                                     comp: this,
                                     details: this.dblClickHandler(e),
+                                    id: this.rootElement.id,
                                 });
                             }}
                             onMouseMove={(e: MouseEvent) =>

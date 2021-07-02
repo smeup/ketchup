@@ -390,7 +390,7 @@ export class KupCard {
         root.addEventListener('kup-chip-click', this.cardEvent);
         root.addEventListener('kup-chip-iconclick', this.cardEvent);
         root.addEventListener('kup-combobox-itemclick', this.cardEvent);
-        root.addEventListener('kupDataTableCellUpdate', this.cardEvent);
+        root.addEventListener('kup-datatable-cellupdate', this.cardEvent);
         root.addEventListener('kup-datepicker-cleariconclick', this.cardEvent);
         root.addEventListener('kup-datepicker-input', this.cardEvent);
         root.addEventListener('kup-datepicker-itemclick', this.cardEvent);

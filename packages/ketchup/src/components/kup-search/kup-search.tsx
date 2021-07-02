@@ -137,7 +137,7 @@ export class KupSearch {
         }
     }
 
-    //TODO: manage all datatable events, like kupLoadMoreClicked, kupAddColumn...
+    //TODO: manage all datatable events, like kup-datatable-loadmoreclicked, KupDatatableAddColumn...
 
     private onSearchCancelled(event) {
         event.stopPropagation();
@@ -223,7 +223,7 @@ export class KupSearch {
                         }
                         data={this.data}
                         showFilters={true}
-                        onKupRowSelected={(e) => this.onRowSelected(e)}
+                        onkup-datatable-rowselected={(e) => this.onRowSelected(e)}
                     ></kup-data-table>
                 </kup-modal>
             </div>
