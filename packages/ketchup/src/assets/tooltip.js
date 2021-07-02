@@ -54,4 +54,4 @@ blu.addEventListener('mouseover', onMouseOver);
 rosso.addEventListener('mouseleave', onMouseLeave);
 verde.addEventListener('mouseleave', onMouseLeave);
 blu.addEventListener('mouseleave', onMouseLeave);
-t.addEventListener('kupTooltipLoadData', loadData);
+t.addEventListener('kup-tooltip-loaddata', loadData);

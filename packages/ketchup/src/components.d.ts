@@ -43,8 +43,7 @@ import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declar
 import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
-import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
-import { KupTree } from "./components/kup-tree/kup-tree";
+import { KupTooltipActionCommandClickedEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickedEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
     interface KupAutocomplete {
@@ -4678,65 +4677,21 @@ declare namespace LocalJSX {
           * Timeout for tooltip
          */
         "loadTimeout"?: number;
-        "onKupActionCommandClicked"?: (event: CustomEvent<{
-        actionCommand: TooltipAction;
-        relatedObject: TooltipRelatedObject;
-    }>) => void;
-        "onKupDefaultActionClicked"?: (event: CustomEvent<{
-        obj: TooltipObject;
-    }>) => void;
-        "onKupDefaultOptionClicked"?: (event: CustomEvent<{
-        obj: TooltipObject;
-    }>) => void;
-        "onKupDefaultPreviewClicked"?: (event: CustomEvent<{
-        obj: TooltipObject;
-    }>) => void;
-        "onKupTooltipLoadCellOptions"?: (event: CustomEvent<{
-        relatedObject: TooltipRelatedObject;
-        tooltip: KupTooltip;
-    }>) => void;
-        "onKupTooltipLoadData"?: (event: CustomEvent<{
-        relatedObject: TooltipRelatedObject;
-        tooltip: KupTooltip;
-    }>) => void;
-        "onKupTooltipLoadDetail"?: (event: CustomEvent<{
-        relatedObject: TooltipRelatedObject;
-        tooltip: KupTooltip;
-    }>) => void;
-        "onKupTooltipTreeDynamicMassExpansion"?: (event: CustomEvent<{
-        treeNodePath?: TreeNodePath;
-        treeNode?: TreeNode;
-        expandAll?: boolean;
-    }>) => void;
-        "onKupTooltipTreeNodeButtonClicked"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        column: Column;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>) => void;
-        "onKupTooltipTreeNodeDblClick"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-    }>) => void;
-        "onKupTooltipTreeNodeExpand"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        usesDynamicExpansion?: boolean;
-        dynamicExpansionRequireChildren?: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tooltip-actioncommandclicked"?: (event: CustomEvent<KupTooltipActionCommandClickedEventPayload>) => void;
+        "onKup-tooltip-defaultactionclicked"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-defaultoptionclicked"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-defaultpreviewclicked"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-loadcelloptions"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
+        "onKup-tooltip-loaddata"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
+        "onKup-tooltip-loaddetail"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
+        "onKup-tooltip-treedynamicmassexpansion"?: (event: CustomEvent<KupTooltipTreeDynamicMassExpansionEventPayload>) => void;
+        "onKup-tooltip-treenodebuttonclicked"?: (event: CustomEvent<KupTooltipTreeNodeButtonClickedEventPayload>) => void;
+        "onKup-tooltip-treenodedblclick"?: (event: CustomEvent<KupTooltipTreeNodeDblClickEventPayload>) => void;
+        "onKup-tooltip-treenodeexpand"?: (event: CustomEvent<KupTooltipTreeNodeExpandEventPayload>) => void;
         /**
           * Fired when a node of the tree has been selected
          */
-        "onKupTooltipTreeNodeSelected"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tooltip-treenodeselected"?: (event: CustomEvent<KupTooltipTreeNodeSelectedEventPayload>) => void;
         /**
           * Owner of this tooltip
          */

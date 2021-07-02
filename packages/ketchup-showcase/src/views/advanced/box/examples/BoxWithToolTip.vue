@@ -4,9 +4,9 @@
     <kup-box
       :data.prop="basicData"
       @kupOptionClicked="handleKupOptionClicked"
-      @kupTooltipLoadData="onLoadData"
-      @kupTooltipLoadDetail="loadBornToDie"
-      @kupTooltipLoadCellOptions="loadCellOptions"
+      @kup-tooltip-loaddata="onLoadData"
+      @kup-tooltip-loaddetail="loadBornToDie"
+      @kup-tooltip-loadcelloptions="loadCellOptions"
       @kupTreeNodeExpand="expandNode"
       @kupTreeNodeSelected="selectNode"
     ></kup-box>
