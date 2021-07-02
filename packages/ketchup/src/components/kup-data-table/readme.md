@@ -110,8 +110,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kup-datatable-rowactionclicked`  | When a row action is clicked                   | `CustomEvent<KupDatatableRowActionClickedEventPayload>` |
 | `kup-datatable-rowselected`       | When a row is selected                         | `CustomEvent<KupDatatableRowSelectedEventPayload>`      |
 | `kup-datatable-textfieldinput`    |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`           |
-| `kupDidLoad`                      | When component load is complete                | `CustomEvent<{ comp: KupDataTable; }>`                  |
-| `kupDidUnload`                    | When component unload is complete              | `CustomEvent<{ comp: KupDataTable; }>`                  |
+| `kup-datatable-didload`                      | When component load is complete                | `CustomEvent<{ comp: KupDataTable; }>`                  |
+| `kup-datatable-didunload`                    | When component unload is complete              | `CustomEvent<{ comp: KupDataTable; }>`                  |
 
 
 ## Methods

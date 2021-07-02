@@ -3467,11 +3467,11 @@ declare namespace LocalJSX {
         /**
           * When component load is complete
          */
-        "onKupDidLoad"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
+        "onkup-datatable-didload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
         /**
           * When component unload is complete
          */
-        "onKupDidUnload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
+        "onkup-datatable-didunload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
         /**
           * Current selected page set on component load
          */

@@ -852,7 +852,7 @@ export class KupDataTable {
      * When component unload is complete
      */
     @Event({
-        eventName: 'kupDidUnload',
+        eventName: 'kup-datatable-didunload',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -863,7 +863,7 @@ export class KupDataTable {
      * When component load is complete
      */
     @Event({
-        eventName: 'kupDidLoad',
+        eventName: 'kup-datatable-didload',
         composed: true,
         cancelable: false,
         bubbles: true,
