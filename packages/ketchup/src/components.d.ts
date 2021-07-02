@@ -1350,6 +1350,11 @@ export namespace Components {
          */
         "secondThreshold"?: number;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * If set to false, threshold values of the gauge are not displayed.
          */
         "showLabels": boolean;
@@ -1403,6 +1408,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * When set to true, forces the content on a single line.
           * @default false
          */
@@ -1427,6 +1437,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The address the iframe should be referencing to.
          */
@@ -1479,6 +1494,11 @@ export namespace Components {
           * @default null
          */
         "resource": string;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
           * @default '100%'
@@ -1550,6 +1570,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Displays an animated SVG placeholder until the component is loaded.
          */
         "showPlaceholder": boolean;
@@ -1608,6 +1633,11 @@ export namespace Components {
          */
         "selectable": boolean;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Displays the icons associated to each row when set to true.
          */
         "showIcons": boolean;
@@ -1638,6 +1668,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupModal {
         "header": string;
@@ -1670,6 +1705,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupPaginator {
         "currentPage": number;
@@ -1747,6 +1787,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The current value the progress bar must display.
          */
@@ -1827,6 +1872,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupRating {
         /**
@@ -1851,6 +1901,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Rated stars
          */
@@ -1919,6 +1974,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupSwitch {
         /**
@@ -1957,6 +2017,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupTabBar {
         /**
@@ -1980,6 +2045,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupTextField {
         /**
@@ -2087,6 +2157,11 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
@@ -2148,6 +2223,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         "setValue": (value: string) => Promise<void>;
         /**
           * Minutes step
@@ -2197,6 +2277,11 @@ export namespace Components {
           * Container element for tooltip
          */
         "relatedObject": TooltipRelatedObject;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         "setTooltipInfo": (relatedObject: TooltipRelatedObject) => Promise<void>;
         "unsetTooltipInfo": () => Promise<void>;
     }
@@ -2282,6 +2367,11 @@ export namespace Components {
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
         "selectedNode": TreeNodePath;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Shows the tree data as a table.
          */
