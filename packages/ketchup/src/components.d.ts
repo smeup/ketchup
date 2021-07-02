@@ -923,6 +923,11 @@ export namespace Components {
          */
         "selection": SelectionMode;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * This method will set the selected rows of the component.
           * @param rowsById - String containing the ids separated by ";".
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
@@ -1060,6 +1065,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         "toggle": () => Promise<void>;
     }
     interface KupDropdownButton {
@@ -1124,6 +1134,11 @@ export namespace Components {
          */
         "selectMode": ItemsDisplayMode;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
@@ -1181,6 +1196,11 @@ export namespace Components {
           * The data series to be displayed. They must be of the same type.
          */
         "series": string[];
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */

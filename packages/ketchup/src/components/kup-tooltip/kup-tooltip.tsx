@@ -36,6 +36,7 @@ import {
 import { GenericObject } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { CardFamily } from '../kup-card/kup-card-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-tooltip',
@@ -312,19 +313,15 @@ export class KupTooltip {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupTooltipProps;
-        } else {
-            for (const key in KupTooltipProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(KupTooltipProps, key)
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupTooltipProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupTooltipProps, props);
     }
 
     // ---- Private methods ----
@@ -658,13 +655,13 @@ export class KupTooltip {
             listMenu = content[`listMenu`];
         }
         if (info || listMenu) {
-            let htmlMarkup = <div innerHTML={info?info.value:''} />;
+            let htmlMarkup = <div innerHTML={info ? info.value : ''} />;
 
             return [
                 <kup-card
                     data={{
                         list: listMenu ? [listMenu] : [],
-                        text: [info? info.label : ''],
+                        text: [info ? info.label : ''],
                     }}
                     id="dialog-card-5"
                     layoutNumber={5}

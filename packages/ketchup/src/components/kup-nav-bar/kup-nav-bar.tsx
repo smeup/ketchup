@@ -30,6 +30,7 @@ import {
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -171,17 +172,15 @@ export class KupNavBar {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupNavBarProps;
-        } else {
-            for (const key in KupNavBarProps) {
-                if (Object.prototype.hasOwnProperty.call(KupNavBarProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupNavBarProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupNavBarProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.
