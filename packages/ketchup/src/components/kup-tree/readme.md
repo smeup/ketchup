@@ -99,13 +99,13 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `kup-tree-buttonclicked`        |                                                                                                                                   | `CustomEvent<KupTreeNodeButtonClickedEventPayload>`    |
 | `kup-tree-columnmenu`           | When the column menu is being opened/closed.                                                                                      | `CustomEvent<KupTreeColumnMenuEventPayload>`           |
 | `kup-tree-contextmenu`          | Generic right click event on tree.                                                                                                | `CustomEvent<KupTreeContextMenuEventPayload>`          |
+| `kup-tree-didload`              |                                                                                                                                   | `CustomEvent<void>`                                    |
+| `kup-tree-didunload`            | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                    |
 | `kup-tree-dynamicmassexpansion` |                                                                                                                                   | `CustomEvent<KupTreeDynamicMassExpansionEventPayload>` |
 | `kup-tree-nodecollapse`         | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<KupTreeNodeCollapseEventPayload>`         |
 | `kup-tree-nodedblclick`         |                                                                                                                                   | `CustomEvent<KupTreeNodeCollapseEventPayload>`         |
 | `kup-tree-nodeexpand`           | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<KupTreeNodeExpandEventPayload>`           |
 | `kup-tree-nodeselected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<KupTreeNodeSelectedEventPayload>`         |
-| `kupDidLoad`                    |                                                                                                                                   | `CustomEvent<void>`                                    |
-| `kupDidUnload`                  | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                    |
 
 
 ## Methods

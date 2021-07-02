@@ -2750,6 +2750,11 @@ declare namespace LocalJSX {
           * Generic right click event on box.
          */
         "onKup-box-contextmenu"?: (event: CustomEvent<KupBoxContextMenuEventPayload>) => void;
+        "onKup-box-didload"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when stop propagation event
+         */
+        "onKup-box-didunload"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when a box dragging is ended
          */
@@ -2770,11 +2775,6 @@ declare namespace LocalJSX {
           * Triggered when the multi selection checkbox changes value
          */
         "onKup-box-selected"?: (event: CustomEvent<KupBoxSelectedEventPayload>) => void;
-        "onkup-box-didload"?: (event: CustomEvent<void>) => void;
-        /**
-          * Triggered when stop propagation event
-         */
-        "onkup-box-didunload"?: (event: CustomEvent<void>) => void;
         /**
           * Current page number
          */
@@ -3446,6 +3446,14 @@ declare namespace LocalJSX {
           * Generic double click event on data table.
          */
         "onKup-datatable-dblclick"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
+        /**
+          * When component load is complete
+         */
+        "onKup-datatable-didload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
+        /**
+          * When component unload is complete
+         */
+        "onKup-datatable-didunload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
         "onKup-datatable-loadmoreclicked"?: (event: CustomEvent<KupDatatableLoadMoreClickedEventPayload>) => void;
         /**
           * When cell option is clicked
@@ -3464,14 +3472,6 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-rowselected"?: (event: CustomEvent<KupDatatableRowSelectedEventPayload>) => void;
         "onKup-datatable-textfieldinput"?: (event: CustomEvent<KupDataTableCellTextFieldInput>) => void;
-        /**
-          * When component load is complete
-         */
-        "onkup-datatable-didload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
-        /**
-          * When component unload is complete
-         */
-        "onkup-datatable-didunload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
         /**
           * Current selected page set on component load
          */
@@ -4705,6 +4705,11 @@ declare namespace LocalJSX {
           * Generic right click event on tree.
          */
         "onKup-tree-contextmenu"?: (event: CustomEvent<KupTreeContextMenuEventPayload>) => void;
+        "onKup-tree-didload"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when stop propagation event
+         */
+        "onKup-tree-didunload"?: (event: CustomEvent<void>) => void;
         "onKup-tree-dynamicmassexpansion"?: (event: CustomEvent<KupTreeDynamicMassExpansionEventPayload>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).
@@ -4728,11 +4733,6 @@ declare namespace LocalJSX {
           * Fired when a node of the tree has been selected
          */
         "onKup-tree-nodeselected"?: (event: CustomEvent<KupTreeNodeSelectedEventPayload>) => void;
-        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
-        /**
-          * Triggered when stop propagation event
-         */
-        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
         /**
           * Sets the possibility to remove the selected column.
          */

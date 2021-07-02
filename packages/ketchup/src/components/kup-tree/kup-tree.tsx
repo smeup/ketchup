@@ -433,7 +433,7 @@ export class KupTree {
     kupAddCodeDecodeColumn: EventEmitter<KupTreeAddColumnEventPayload>;
 
     @Event({
-        eventName: 'kupDidLoad',
+        eventName: 'kup-tree-didload',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -445,7 +445,7 @@ export class KupTree {
      */
 
     @Event({
-        eventName: 'kupDidUnload',
+        eventName: 'kup-tree-didunload',
         composed: true,
         cancelable: false,
         bubbles: true,

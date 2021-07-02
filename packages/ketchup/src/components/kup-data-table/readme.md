@@ -104,14 +104,14 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kup-datatable-columnmenu`        | When the column menu is being opened/closed.   | `CustomEvent<KupDatatableColumnMenuEventPayload>`       |
 | `kup-datatable-contextmenu`       | Generic right click event on data table.       | `CustomEvent<KupDatatableClickEventPayload>`            |
 | `kup-datatable-dblclick`          | Generic double click event on data table.      | `CustomEvent<KupDatatableClickEventPayload>`            |
+| `kup-datatable-didload`           | When component load is complete                | `CustomEvent<{ comp: KupDataTable; }>`                  |
+| `kup-datatable-didunload`         | When component unload is complete              | `CustomEvent<{ comp: KupDataTable; }>`                  |
 | `kup-datatable-loadmoreclicked`   |                                                | `CustomEvent<KupDatatableLoadMoreClickedEventPayload>`  |
 | `kup-datatable-optionclicked`     | When cell option is clicked                    | `CustomEvent<KupDatatableOptionClickedEventPayload>`    |
 | `kup-datatable-resetselectedrows` | When rows selections reset                     | `CustomEvent<KupEventPayload>`                          |
 | `kup-datatable-rowactionclicked`  | When a row action is clicked                   | `CustomEvent<KupDatatableRowActionClickedEventPayload>` |
 | `kup-datatable-rowselected`       | When a row is selected                         | `CustomEvent<KupDatatableRowSelectedEventPayload>`      |
 | `kup-datatable-textfieldinput`    |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`           |
-| `kup-datatable-didload`                      | When component load is complete                | `CustomEvent<{ comp: KupDataTable; }>`                  |
-| `kup-datatable-didunload`                    | When component unload is complete              | `CustomEvent<{ comp: KupDataTable; }>`                  |
 
 
 ## Methods

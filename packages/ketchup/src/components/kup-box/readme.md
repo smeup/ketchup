@@ -48,13 +48,13 @@
 | `kup-box-autoselect`           | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<KupBoxAutoSelectEventPayload>`       |
 | `kup-box-click`                | Triggered when a box is clicked                           | `CustomEvent<KupBoxClikEventPayload>`             |
 | `kup-box-contextmenu`          | Generic right click event on box.                         | `CustomEvent<KupBoxContextMenuEventPayload>`      |
+| `kup-box-didload`              |                                                           | `CustomEvent<void>`                               |
+| `kup-box-didunload`            | Triggered when stop propagation event                     | `CustomEvent<void>`                               |
 | `kup-box-dragended`            | Triggered when a box dragging is ended                    | `CustomEvent<KupBoxDragEventPayload>`             |
 | `kup-box-dragstarted`          | Triggered when a box dragging is started                  | `CustomEvent<KupBoxDragEventPayload>`             |
 | `kup-box-rowactionclicked`     | When the row menu action icon is clicked                  | `CustomEvent<KupBoxRowActionClickedEventPayload>` |
 | `kup-box-rowactionmenuclicked` | When the row menu action icon is clicked                  | `CustomEvent<KupBoxAutoSelectEventPayload>`       |
 | `kup-box-selected`             | Triggered when the multi selection checkbox changes value | `CustomEvent<KupBoxSelectedEventPayload>`         |
-| `kup-box-didload`                   |                                                           | `CustomEvent<void>`                               |
-| `kup-box-didunload`                 | Triggered when stop propagation event                     | `CustomEvent<void>`                               |
 
 
 ## Methods
