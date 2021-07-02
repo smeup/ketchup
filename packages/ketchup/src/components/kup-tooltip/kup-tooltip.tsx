@@ -795,8 +795,8 @@ export class KupTooltip {
                     onkup-tree-buttonclicked={(e) =>
                         this.onKupTreeNodeButtonClicked(e)
                     }
-                    onKupDidLoad={(e) => e.stopPropagation()}
-                    onKupDidUnload={(e) => e.stopPropagation()}
+                    onkup-tree-didload={(e) => e.stopPropagation()}
+                    onkup-tree-didunload={(e) => e.stopPropagation()}
                     onkup-tree-nodedblclick={(e) => this.onKupTreeNodeDblClick(e)}
                     onkup-tree-dynamicmassexpansion={(e) =>
                         this.onKupTreeDynamicMassExpansion(e)
