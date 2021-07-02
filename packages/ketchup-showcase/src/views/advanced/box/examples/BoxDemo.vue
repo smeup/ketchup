@@ -31,11 +31,11 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kupBoxDragEnded',
+          name: 'kup-box-dragended',
           type: 'CustomEvent',
         },
         {
-          name: 'kupBoxDragStarted',
+          name: 'kup-box-dragstarted',
           type: 'CustomEvent',
         },
         {
@@ -47,11 +47,11 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kupRowActionClicked',
+          name: 'kup-box-rowactionclicked',
           type: 'CustomEvent',
         },
         {
-          name: 'kupRowActionMenuClicked',
+          name: 'kup-box-rowactionmenuclicked',
           type: 'CustomEvent',
         },
       ],

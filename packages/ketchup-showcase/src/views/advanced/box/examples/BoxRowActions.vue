@@ -5,8 +5,8 @@
       ref="box"
       :data.prop="basicData"
       :enableRowActions.prop="true"
-      @kupRowActionMenuClicked="onRowActionMenu"
-      @kupRowActionClicked="onRowAction"
+      @kup-box-rowactionmenuclicked="onRowActionMenu"
+      @kup-box-rowactionclicked="onRowAction"
     ></kup-box>
 
     <ul>

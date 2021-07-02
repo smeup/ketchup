@@ -49,7 +49,7 @@ describe('row actions', () => {
         expect(boxes).toHaveLength(4);
 
         const kupRowActionMenuClicked = await page.spyOnEvent(
-            'kupRowActionMenuClicked'
+            'kup-box-rowactionmenuclicked'
         );
 
         for (let i = 0; i < boxes.length; i++) {
@@ -64,6 +64,6 @@ describe('row actions', () => {
             await page.waitForChanges();
         }
 
-        // expect(kupRowActionMenuClicked).toHaveLength(4);
+        // expect(kup-box-rowactionmenuclicked).toHaveLength(4);
     });
 });

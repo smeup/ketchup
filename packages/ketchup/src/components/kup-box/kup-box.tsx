@@ -31,6 +31,9 @@ import {
     KupBoxClikEventPayload,
     KupBoxSelectedEventPayload,
     KupBoxAutoSelectEventPayload,
+    KupBoxRowActionClickedEventPayload,
+    KupBoxDragEventPayload,
+    KupBoxContextMenuEventPayload,
 } from './kup-box-declarations';
 
 import {
@@ -352,59 +355,45 @@ export class KupBox {
      * When the row menu action icon is clicked
      */
     @Event({
-        eventName: 'kupRowActionMenuClicked',
+        eventName: 'kup-box-rowactionmenuclicked',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupRowActionMenuClicked: EventEmitter<{
-        row: BoxRow;
-    }>;
+    kupRowActionMenuClicked: EventEmitter<KupBoxAutoSelectEventPayload>;
 
     /**
      * When the row menu action icon is clicked
      */
     @Event({
-        eventName: 'kupRowActionClicked',
+        eventName: 'kup-box-rowactionclicked',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupRowActionClicked: EventEmitter<{
-        row: BoxRow;
-        action: RowAction;
-        index: number;
-    }>;
+    kupRowActionClicked: EventEmitter<KupBoxRowActionClickedEventPayload>;
 
     /**
      * Triggered when a box dragging is started
      */
     @Event({
-        eventName: 'kupBoxDragStarted',
+        eventName: 'kup-box-dragstarted',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBoxDragStarted: EventEmitter<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-    }>;
+    kupBoxDragStarted: EventEmitter<KupBoxDragEventPayload>;
 
     /**
      * Triggered when a box dragging is ended
      */
     @Event({
-        eventName: 'kupBoxDragEnded',
+        eventName: 'kup-box-dragended',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBoxDragEnded: EventEmitter<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-    }>;
+    kupBoxDragEnded: EventEmitter<KupBoxDragEventPayload>;
 
     @Event({
         eventName: 'kupDidLoad',
@@ -428,14 +417,12 @@ export class KupBox {
      * Generic right click event on box.
      */
     @Event({
-        eventName: 'kupBoxContextMenu',
+        eventName: 'kup-box-contextmenu',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBoxContextMenu: EventEmitter<{
-        details: GenericObject;
-    }>;
+    kupBoxContextMenu: EventEmitter<KupBoxContextMenuEventPayload>;
 
     private boxLayout: Layout;
 
@@ -768,6 +755,8 @@ export class KupBox {
         } = this.getEventDetails(e.target as HTMLElement);
         this.kupBoxContextMenu.emit({
             details: details,
+            id: this.rootElement.id,
+            comp: this,
         });
         if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
             e.preventDefault();
@@ -922,6 +911,8 @@ export class KupBox {
             // no actions -> triggering event
             this.kupRowActionMenuClicked.emit({
                 row,
+                id: this.rootElement.id,
+                comp: this,
             });
         }
     }
@@ -931,6 +922,8 @@ export class KupBox {
             row,
             action,
             index,
+            comp: this,
+            id: this.rootElement.id,
         });
     }
 

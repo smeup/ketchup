@@ -11,7 +11,7 @@ import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { Cell, Column, DataTable, EventHandlerDetails, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClikEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
+import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClikEventPayload, KupBoxContextMenuEventPayload, KupBoxDragEventPayload, KupBoxRowActionClickedEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
 import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickedEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupBtnClickEventPayload } from "./components/kup-btn/kup-btn-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
@@ -2747,50 +2747,34 @@ declare namespace LocalJSX {
          */
         "onKup-box-click"?: (event: CustomEvent<KupBoxClikEventPayload>) => void;
         /**
-          * Triggered when the multi selection checkbox changes value
-         */
-        "onKup-box-selected"?: (event: CustomEvent<KupBoxSelectedEventPayload>) => void;
-        /**
           * Generic right click event on box.
          */
-        "onKupBoxContextMenu"?: (event: CustomEvent<{
-        details: GenericObject;
-    }>) => void;
+        "onKup-box-contextmenu"?: (event: CustomEvent<KupBoxContextMenuEventPayload>) => void;
         /**
           * Triggered when a box dragging is ended
          */
-        "onKupBoxDragEnded"?: (event: CustomEvent<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-    }>) => void;
+        "onKup-box-dragended"?: (event: CustomEvent<KupBoxDragEventPayload>) => void;
         /**
           * Triggered when a box dragging is started
          */
-        "onKupBoxDragStarted"?: (event: CustomEvent<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-    }>) => void;
+        "onKup-box-dragstarted"?: (event: CustomEvent<KupBoxDragEventPayload>) => void;
+        /**
+          * When the row menu action icon is clicked
+         */
+        "onKup-box-rowactionclicked"?: (event: CustomEvent<KupBoxRowActionClickedEventPayload>) => void;
+        /**
+          * When the row menu action icon is clicked
+         */
+        "onKup-box-rowactionmenuclicked"?: (event: CustomEvent<KupBoxAutoSelectEventPayload>) => void;
+        /**
+          * Triggered when the multi selection checkbox changes value
+         */
+        "onKup-box-selected"?: (event: CustomEvent<KupBoxSelectedEventPayload>) => void;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
-        /**
-          * When the row menu action icon is clicked
-         */
-        "onKupRowActionClicked"?: (event: CustomEvent<{
-        row: BoxRow;
-        action: RowAction;
-        index: number;
-    }>) => void;
-        /**
-          * When the row menu action icon is clicked
-         */
-        "onKupRowActionMenuClicked"?: (event: CustomEvent<{
-        row: BoxRow;
-    }>) => void;
         /**
           * Current page number
          */
