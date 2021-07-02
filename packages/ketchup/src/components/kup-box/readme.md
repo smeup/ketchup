@@ -53,8 +53,8 @@
 | `kup-box-rowactionclicked`     | When the row menu action icon is clicked                  | `CustomEvent<KupBoxRowActionClickedEventPayload>` |
 | `kup-box-rowactionmenuclicked` | When the row menu action icon is clicked                  | `CustomEvent<KupBoxAutoSelectEventPayload>`       |
 | `kup-box-selected`             | Triggered when the multi selection checkbox changes value | `CustomEvent<KupBoxSelectedEventPayload>`         |
-| `kupDidLoad`                   |                                                           | `CustomEvent<void>`                               |
-| `kupDidUnload`                 | Triggered when stop propagation event                     | `CustomEvent<void>`                               |
+| `kup-box-didload`                   |                                                           | `CustomEvent<void>`                               |
+| `kup-box-didunload`                 | Triggered when stop propagation event                     | `CustomEvent<void>`                               |
 
 
 ## Methods

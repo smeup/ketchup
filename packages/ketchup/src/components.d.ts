@@ -2770,11 +2770,11 @@ declare namespace LocalJSX {
           * Triggered when the multi selection checkbox changes value
          */
         "onKup-box-selected"?: (event: CustomEvent<KupBoxSelectedEventPayload>) => void;
-        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
+        "onkup-box-didload"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
          */
-        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        "onkup-box-didunload"?: (event: CustomEvent<void>) => void;
         /**
           * Current page number
          */

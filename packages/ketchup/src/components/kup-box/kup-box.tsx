@@ -396,7 +396,7 @@ export class KupBox {
     kupBoxDragEnded: EventEmitter<KupBoxDragEventPayload>;
 
     @Event({
-        eventName: 'kupDidLoad',
+        eventName: 'kup-box-didload',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -407,7 +407,7 @@ export class KupBox {
      * Triggered when stop propagation event
      */
     @Event({
-        eventName: 'kupDidUnload',
+        eventName: 'kup-box-didunload',
         composed: true,
         cancelable: false,
         bubbles: true,
