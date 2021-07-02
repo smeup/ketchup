@@ -716,15 +716,15 @@ export class KupColumnMenu {
                         break;
                 }
                 break;
-            case 'kupTextFieldSubmit':
+            case 'kup-textfield-submit':
             case 'kup-datepicker-textfieldsubmit':
-            case 'kupTimePickerTextFieldSubmit':
+            case 'kup-timepicker-textfieldsubmit':
                 this.saveTextualFilters(comp, dataStorage['column']);
                 this.close(card);
                 break;
-            case 'kupTextFieldClearIconClick':
+            case 'kup-textfield-cleariconclick':
             case 'kup-datepicker-cleariconclick':
-            case 'kupTimePickerClearIconClick':
+            case 'kup-timepicker-cleariconclick':
                 if (dataStorage['isInterval'] == true) {
                     this.intervalChange(
                         comp,
@@ -738,11 +738,11 @@ export class KupColumnMenu {
                 }
                 this.saveTextualFilters(comp, dataStorage['column']);
                 break;
-            case 'kupTextFieldInput':
+            case 'kup-textfield-input':
             case 'kup-datepicker-input':
             case 'kup-datepicker-itemclick':
-            case 'kupTimePickerInput':
-            case 'kupTimePickerItemClick':
+            case 'kup-timepicker-input':
+            case 'kup-timepicker-itemclick':
                 window.clearTimeout(comp.columnFilterTimeout);
                 comp.columnFilterTimeout = window.setTimeout(() => {
                     if (dataStorage['isInterval'] == true) {

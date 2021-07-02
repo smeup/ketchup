@@ -2210,14 +2210,14 @@ export class KupTree {
                         )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        onKupTextFieldInput={(event) => {
+                        onkup-textfield-input={(event) => {
                             window.clearTimeout(this.globalFilterTimeout);
                             this.globalFilterTimeout = window.setTimeout(
                                 () => this.onGlobalFilterChange(event),
                                 600
                             );
                         }}
-                        onKupTextFieldClearIconClick={(event) =>
+                        onkup-textfield-cleariconclick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
                     ></kup-text-field>

@@ -572,7 +572,7 @@ export class KupForm {
                             onkup-textfield-change={(e) =>
                                 this.onSimpleValueFieldChanged(e, field.key)
                             }
-                            onKupTextFieldFocus={() =>
+                            onkup-textfield-focus={() =>
                                 this.onFieldFocused(field.key)
                             }
                             onkup-textfield-blur={() =>

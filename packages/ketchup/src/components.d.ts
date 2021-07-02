@@ -42,6 +42,7 @@ import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
+import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { KupTree } from "./components/kup-tree/kup-tree";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
@@ -4559,43 +4560,29 @@ declare namespace LocalJSX {
          */
         "onKup-textfield-change"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
+          * Triggered when the text field's clear icon is clicked.
+         */
+        "onKup-textfield-cleariconclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
           * Triggered when the input element is clicked.
          */
         "onKup-textfield-click"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
-          * Triggered when the text field's clear icon is clicked.
-         */
-        "onKupTextFieldClearIconClick"?: (event: CustomEvent<{
-        id: any;
-    }>) => void;
-        /**
           * Triggered when the input element gets focused.
          */
-        "onKupTextFieldFocus"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-focus"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the text field's icon is clicked.
          */
-        "onKupTextFieldIconClick"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-iconclick"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the input element receives an input.
          */
-        "onKupTextFieldInput"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-input"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the Enter key is pressed.
          */
-        "onKupTextFieldSubmit"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-submit"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * When set to true, the component will be rendered as an outlined field.
           * @default false
@@ -4652,41 +4639,15 @@ declare namespace LocalJSX {
           * Manage seconds
          */
         "manageSeconds"?: boolean;
-        "onKupTimePickerBlur"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerChange"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerClearIconClick"?: (event: CustomEvent<{
-        id: any;
-    }>) => void;
-        "onKupTimePickerClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerFocus"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerIconClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerInput"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerItemClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
+        "onKup-timepicker-blur"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-change"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-cleariconclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-timepicker-click"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-focus"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-iconclick"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-input"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-itemclick"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-textfieldsubmit"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
         /**
           * Minutes step
          */

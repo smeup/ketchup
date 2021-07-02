@@ -469,7 +469,7 @@ export class KupDebug {
                         dom.ketchup.theme.set(compEvent.detail.value);
                         break;
                 }
-            case 'kupTextFieldInput':
+            case 'kup-textfield-input':
                 switch (compID) {
                     case 'kup-debug-log-limit':
                         if (

@@ -49,7 +49,7 @@
                 <kup-text-field
                   full-width
                   v-bind:id="propList.prop"
-                  @kupTextFieldInput="updateDemoField"
+                  @kup-textfield-input="updateDemoField"
                 ></kup-text-field>
               </td>
               <td class="text-cell" v-if="propList.try === 'array'">
@@ -59,7 +59,7 @@
                   icon="add"
                   v-bind:id="propList.prop"
                   @kup-textfield-change="updateDemoFieldArray"
-                  @kupTextFieldIconClick="updateDemoFieldArray"
+                  @kup-textfield-iconclick="updateDemoFieldArray"
                 ></kup-text-field>
               </td>
             </tr>
@@ -130,8 +130,8 @@
             icon="arrow-collapse"
             trailing-icon
             helper-when-focused
-            @kupTextFieldIconClick="jsonSetSwitch"
-            @kupTextFieldInput="jsonSet"
+            @kup-textfield-iconclick="jsonSetSwitch"
+            @kup-textfield-input="jsonSet"
           ></kup-text-field>
           <kup-button
             @kupButtonClick="jsonSetSwitch"

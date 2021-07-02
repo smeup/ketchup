@@ -322,7 +322,7 @@ export class KupDatePicker {
         this.refreshPickerValue(e.detail.value, this.kupInput, true);
     }
 
-    onKupTextFieldSubmit(e: CustomEvent) {
+    onkupTextFieldSubmit(e: CustomEvent) {
         e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupTextFieldSubmit);
     }
@@ -488,11 +488,11 @@ export class KupDatePicker {
                 initialValue={initialValue}
                 onkup-textfield-change={(e: any) => this.onKupChange(e)}
                 onkup-textfield-click={(e: any) => this.onKupClick(e)}
-                onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
-                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
-                onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
-                onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
-                onKupTextFieldClearIconClick={(e: any) =>
+                onkup-textfield-focus={(e: any) => this.onKupFocus(e)}
+                onkup-textfield-input={(e: any) => this.onKupInput(e)}
+                onkup-textfield-iconclick={(e: any) => this.onKupIconClick(e)}
+                onkup-textfield-submit={(e: any) => this.onkupTextFieldSubmit(e)}
+                onkup-textfield-cleariconclick={(e: any) =>
                     this.onKupClearIconClick(e)
                 }
                 ref={(el) => (this.textfieldEl = el as any)}

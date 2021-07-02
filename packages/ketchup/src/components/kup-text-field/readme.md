@@ -32,16 +32,16 @@
 
 ## Events
 
-| Event                        | Description                                            | Type                                       |
-| ---------------------------- | ------------------------------------------------------ | ------------------------------------------ |
-| `kup-textfield-blur`         | Triggered when the input element loses focus.          | `CustomEvent<KupTextFieldEventPayload>`    |
-| `kup-textfield-change`       | Triggered when the input element changes.              | `CustomEvent<KupTextFieldEventPayload>`    |
-| `kup-textfield-click`        | Triggered when the input element is clicked.           | `CustomEvent<KupTextFieldEventPayload>`    |
-| `kupTextFieldClearIconClick` | Triggered when the text field's clear icon is clicked. | `CustomEvent<{ id: any; }>`                |
-| `kupTextFieldFocus`          | Triggered when the input element gets focused.         | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldIconClick`      | Triggered when the text field's icon is clicked.       | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldInput`          | Triggered when the input element receives an input.    | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldSubmit`         | Triggered when the Enter key is pressed.               | `CustomEvent<{ id: any; value: string; }>` |
+| Event                          | Description                                            | Type                                    |
+| ------------------------------ | ------------------------------------------------------ | --------------------------------------- |
+| `kup-textfield-blur`           | Triggered when the input element loses focus.          | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-change`         | Triggered when the input element changes.              | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-cleariconclick` | Triggered when the text field's clear icon is clicked. | `CustomEvent<KupEventPayload>`          |
+| `kup-textfield-click`          | Triggered when the input element is clicked.           | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-focus`          | Triggered when the input element gets focused.         | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-iconclick`      | Triggered when the text field's icon is clicked.       | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-input`          | Triggered when the input element receives an input.    | `CustomEvent<KupTextFieldEventPayload>` |
+| `kup-textfield-submit`         | Triggered when the Enter key is pressed.               | `CustomEvent<KupTextFieldEventPayload>` |
 
 
 ## Methods

@@ -143,7 +143,7 @@
                   <kup-text-field
                     full-width
                     id="font-family"
-                    @kupTextFieldInput="updateThemeVariable"
+                    @kup-textfield-input="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -162,7 +162,7 @@
                   <kup-text-field
                     full-width
                     id="font-family-monospace"
-                    @kupTextFieldInput="updateThemeVariable"
+                    @kup-textfield-input="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -182,7 +182,7 @@
                   <kup-text-field
                     full-width
                     id="font-size"
-                    @kupTextFieldInput="updateThemeVariable"
+                    @kup-textfield-input="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -408,7 +408,7 @@
                   <kup-text-field
                     full-width
                     id="box-shadow"
-                    @kupTextFieldInput="updateThemeVariable"
+                    @kup-textfield-input="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -624,7 +624,7 @@
                   <kup-text-field
                     full-width
                     id="obj-cursor"
-                    @kupTextFieldInput="updateThemeVariable"
+                    @kup-textfield-input="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -647,7 +647,7 @@
                     text-area
                     full-width
                     id="master"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -660,7 +660,7 @@
                     text-area
                     full-width
                     id="kup-autocomplete"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -673,7 +673,7 @@
                     text-area
                     full-width
                     id="kup-badge"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -686,7 +686,7 @@
                     text-area
                     full-width
                     id="kup-button"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -699,7 +699,7 @@
                     text-area
                     full-width
                     id="kup-box"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -712,7 +712,7 @@
                     text-area
                     full-width
                     id="kup-card"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -725,7 +725,7 @@
                     text-area
                     full-width
                     id="kup-checkbox"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -738,7 +738,7 @@
                     text-area
                     full-width
                     id="kup-chip"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -751,7 +751,7 @@
                     text-area
                     full-width
                     id="kup-color-picker"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -764,7 +764,7 @@
                     text-area
                     full-width
                     id="kup-combobox"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -777,7 +777,7 @@
                     text-area
                     full-width
                     id="kup-data-table"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -790,7 +790,7 @@
                     text-area
                     full-width
                     id="kup-date-picker"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -803,7 +803,7 @@
                     text-area
                     full-width
                     id="kup-drawer"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -816,7 +816,7 @@
                     text-area
                     full-width
                     id="kup-echart"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -829,7 +829,7 @@
                     text-area
                     full-width
                     id="kup-field"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -842,7 +842,7 @@
                     text-area
                     full-width
                     id="kup-gauge"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -855,7 +855,7 @@
                     text-area
                     full-width
                     id="kup-grid"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -868,7 +868,7 @@
                     text-area
                     full-width
                     id="kup-image"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -881,7 +881,7 @@
                     text-area
                     full-width
                     id="kup-lazy"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -894,7 +894,7 @@
                     text-area
                     full-width
                     id="kup-list"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -907,7 +907,7 @@
                     text-area
                     full-width
                     id="kup-nav-bar"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -920,7 +920,7 @@
                     text-area
                     full-width
                     id="kup-progress-bar"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -933,7 +933,7 @@
                     text-area
                     full-width
                     id="kup-radio"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -946,7 +946,7 @@
                     text-area
                     full-width
                     id="kup-rating"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -959,7 +959,7 @@
                     text-area
                     full-width
                     id="kup-spinner"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -972,7 +972,7 @@
                     text-area
                     full-width
                     id="kup-switch"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -985,7 +985,7 @@
                     text-area
                     full-width
                     id="kup-tab-bar"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -998,7 +998,7 @@
                     text-area
                     full-width
                     id="kup-text-field"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -1011,7 +1011,7 @@
                     text-area
                     full-width
                     id="kup-time-picker"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -1024,7 +1024,7 @@
                     text-area
                     full-width
                     id="kup-tree"
-                    @kupTextFieldInput="updateThemeCustomStyles"
+                    @kup-textfield-input="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td> </tr></tbody
           ></table>
@@ -1045,7 +1045,7 @@
                   <kup-text-field
                     full-width
                     id="ascending-icon"
-                    @kupTextFieldInput="updateThemeIcons"
+                    @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1058,7 +1058,7 @@
                   <kup-text-field
                     full-width
                     id="descending-icon"
-                    @kupTextFieldInput="updateThemeIcons"
+                    @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1071,7 +1071,7 @@
                   <kup-text-field
                     full-width
                     id="expanded-icon"
-                    @kupTextFieldInput="updateThemeIcons"
+                    @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1084,7 +1084,7 @@
                   <kup-text-field
                     full-width
                     id="collapsed-icon"
-                    @kupTextFieldInput="updateThemeIcons"
+                    @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1097,7 +1097,7 @@
                   <kup-text-field
                     full-width
                     id="clear-icon"
-                    @kupTextFieldInput="updateThemeIcons"
+                    @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1110,7 +1110,7 @@
                   <kup-text-field
                     full-width
                     id="filter-remove-icon"
-                    @kupTextFieldInput="updateThemeIcons"
+                    @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1123,7 +1123,7 @@
                   <kup-text-field
                     full-width
                     id="key-icon"
-                    @kupTextFieldInput="updateThemeIcons"
+                    @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td> </tr
             ></tbody>

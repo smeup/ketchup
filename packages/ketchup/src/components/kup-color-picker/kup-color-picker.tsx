@@ -197,7 +197,7 @@ export class KupColorPicker {
                 {...textfieldData}
                 disabled={this.disabled}
                 initialValue={initialValue}
-                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
+                onkup-textfield-input={(e: any) => this.onKupInput(e)}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );

@@ -30,11 +30,11 @@ export default {
           type: 'change',
         },
         {
-          name: 'kupTextFieldInput',
+          name: 'kup-textfield-input',
           type: 'input',
         },
         {
-          name: 'kupTextFieldFocus',
+          name: 'kup-textfield-focus',
           type: 'focus',
         },
         {
@@ -42,15 +42,15 @@ export default {
           type: 'blur',
         },
         {
-          name: 'kupTextFieldIconClick',
+          name: 'kup-textfield-iconclick',
           type: 'click',
         },
         {
-          name: 'kupTextFieldClearIconClick',
+          name: 'kup-textfield-cleariconclick',
           type: 'click',
         },
         {
-          name: 'kupTextFieldSubmit',
+          name: 'kup-textfield-submit',
           type: 'click',
         },
       ],
