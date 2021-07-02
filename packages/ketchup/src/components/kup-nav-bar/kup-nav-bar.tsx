@@ -9,17 +9,15 @@ import {
     Listen,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 
 import {
-    ComponentNavBarData,
-    ComponentNavBarElement,
-    getClassNameByComponentMode,
-    ComponentNavBarMode,
+    KupNavBarData,
+    KupNavBarElement,
+    KupNavBarMode,
     KupNavBarProps,
 } from './kup-nav-bar-declarations';
-import { MDCTopAppBar } from '@material/top-app-bar';
+
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     kupDynamicPositionAttribute,
@@ -39,35 +37,50 @@ import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declaration
     shadow: true,
 })
 export class KupNavBar {
+    /**
+     * References the root HTML element of the component (<kup-button>).
+     */
     @Element() rootElement: HTMLElement;
 
-    @State() customStyleTheme: string = undefined;
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The actual data of the nav bar.
+     * @default null
      */
-    @Prop() data: ComponentNavBarData = {
-        title: 'default title',
-    };
+    @Prop() data: KupNavBarData = null;
     /**
      * Defines how the bar will be displayed.
+     * @default KupNavBarMode.DEFAULT
      */
-    @Prop({ reflect: true }) mode: ComponentNavBarMode =
-        ComponentNavBarMode.DEFAULT;
+    @Prop({ reflect: true }) mode: KupNavBarMode = KupNavBarMode.DEFAULT;
 
-    private optionsButtonEl: any = undefined;
-    private optionsListEl: any = undefined;
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+
+    private optionsButtonEl: any = undefined;
+    private optionsListEl: any = undefined;
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
     private textColor: string = 'white';
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Listen('click', { target: 'document' })
     listenClick() {
@@ -92,6 +105,9 @@ export class KupNavBar {
         }
     }
 
+    /**
+     * Triggered when a button's list item is clicked.
+     */
     @Event({
         eventName: 'kupNavbarMenuItemClick',
         composed: true,
@@ -101,7 +117,9 @@ export class KupNavBar {
     kupNavbarMenuItemClick: EventEmitter<{
         value: any;
     }>;
-
+    /**
+     * Triggered when a button is clicked.
+     */
     @Event({
         eventName: 'kupNavbarOptionItemClick',
         composed: true,
@@ -111,35 +129,6 @@ export class KupNavBar {
     kupNavbarOptionItemClick: EventEmitter<{
         value: any;
     }>;
-
-    //---- Methods ----
-
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupNavBarProps;
-        } else {
-            for (const key in KupNavBarProps) {
-                if (Object.prototype.hasOwnProperty.call(KupNavBarProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {
         let selectedValue: string = e.detail.selected.value;
@@ -170,6 +159,41 @@ export class KupNavBar {
             value: selectedValue,
         });
     }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupNavBarProps;
+        } else {
+            for (const key in KupNavBarProps) {
+                if (Object.prototype.hasOwnProperty.call(KupNavBarProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     arrowDownList() {
         if (this.isThisListOpened(this.optionsListEl)) {
@@ -255,6 +279,25 @@ export class KupNavBar {
         return comp;
     }
 
+    getClassNameByComponentMode(mode: string) {
+        let value: string = '';
+
+        switch (mode) {
+            case KupNavBarMode.DEFAULT: {
+                break;
+            }
+            case KupNavBarMode.SHORT_COLLAPSED: {
+                value = 'top-app-bar--short top-app-bar--short-collapsed';
+                break;
+            }
+            default: {
+                value = 'top-app-bar--' + mode;
+                break;
+            }
+        }
+        return value;
+    }
+
     prepOptionsList(listData: ComponentListElement[]): HTMLElement {
         this.optionsListEl = null;
         if (listData.length == 0) {
@@ -282,12 +325,19 @@ export class KupNavBar {
         this.textColor = this.kupManager.theme.colorContrast(color);
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
+        if (!this.data) {
+            this.data = {
+                title: 'Default title',
+            };
+        }
     }
 
     componentDidLoad() {
@@ -300,11 +350,6 @@ export class KupNavBar {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-        if (root != null) {
-            const topAppBarElement = root.querySelector('.mdc-top-app-bar');
-            new MDCTopAppBar(topAppBarElement);
-        }
         if (this.menuListEl != null) {
             this.kupManager.dynamicPosition.register(
                 this.menuListEl,
@@ -329,7 +374,7 @@ export class KupNavBar {
 
         if (this.data.optionActions != null) {
             for (let i = 0; i < this.data.optionActions.length; i++) {
-                let action: ComponentNavBarElement = this.data.optionActions[i];
+                let action: KupNavBarElement = this.data.optionActions[i];
                 if (action.visible == true) {
                     let button = (
                         <kup-button
@@ -384,7 +429,7 @@ export class KupNavBar {
             );
         } else if (this.data.menuActions != null) {
             for (let i = 0; i < this.data.menuActions.length; i++) {
-                let action: ComponentNavBarElement = this.data.menuActions[i];
+                let action: KupNavBarElement = this.data.menuActions[i];
                 let listItem: ComponentListElement = {
                     text: action.text,
                     value: action.value,
@@ -408,7 +453,7 @@ export class KupNavBar {
         }
 
         let headerClassName =
-            'mdc-top-app-bar ' + getClassNameByComponentMode(this.mode);
+            'top-app-bar ' + this.getClassNameByComponentMode(this.mode);
         let titleStyle = { color: this.textColor };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(
@@ -420,19 +465,19 @@ export class KupNavBar {
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component" class={wrapperClass}>
                     <header class={headerClassName}>
-                        <div class="mdc-top-app-bar__row">
-                            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                        <div class="top-app-bar__row">
+                            <section class="top-app-bar__section top-app-bar__section--align-start">
                                 {menuButton}
                                 {this.prepMenuList(menuButtons)}
                                 <span
-                                    class="mdc-top-app-bar__title"
+                                    class="top-app-bar__title"
                                     style={titleStyle}
                                 >
                                     {this.data.title}
                                 </span>
                             </section>
                             <section
-                                class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"
+                                class="top-app-bar__section top-app-bar__section--align-end"
                                 role="toolbar"
                             >
                                 {visibleButtons}

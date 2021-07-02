@@ -25,7 +25,7 @@ import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
-import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { KupNavBarData, KupNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -1575,13 +1575,16 @@ export namespace Components {
     }
     interface KupNavBar {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * The actual data of the nav bar.
+          * @default null
          */
-        "data": ComponentNavBarData;
+        "data": KupNavBarData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1590,8 +1593,9 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Defines how the bar will be displayed.
+          * @default KupNavBarMode.DEFAULT
          */
-        "mode": ComponentNavBarMode;
+        "mode": KupNavBarMode;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4344,20 +4348,30 @@ declare namespace LocalJSX {
     }
     interface KupNavBar {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The actual data of the nav bar.
+          * @default null
          */
-        "data"?: ComponentNavBarData;
+        "data"?: KupNavBarData;
         /**
           * Defines how the bar will be displayed.
+          * @default KupNavBarMode.DEFAULT
          */
-        "mode"?: ComponentNavBarMode;
+        "mode"?: KupNavBarMode;
+        /**
+          * Triggered when a button's list item is clicked.
+         */
         "onKupNavbarMenuItemClick"?: (event: CustomEvent<{
         value: any;
     }>) => void;
+        /**
+          * Triggered when a button is clicked.
+         */
         "onKupNavbarOptionItemClick"?: (event: CustomEvent<{
         value: any;
     }>) => void;
