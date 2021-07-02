@@ -376,8 +376,10 @@ export class KupCard {
      */
     registerListeners(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        root.addEventListener('kupAddCodeDecodeColumn', this.cardEvent);
-        root.addEventListener('kupAddColumn', this.cardEvent);
+        root.addEventListener('kup-addcodedecodecolumn', this.cardEvent);
+        root.addEventListener('kup-datatable-addcodedecode', this.cardEvent);
+        root.addEventListener('kup-datatable-addcolumn', this.cardEvent);
+        root.addEventListener('kup-tree-addcolumn', this.cardEvent);
         root.addEventListener('kup-autocomplete-blur', this.cardEvent);
         root.addEventListener('kup-autocomplete-change', this.cardEvent);
         root.addEventListener('kup-autocomplete-input', this.cardEvent);
@@ -403,12 +405,12 @@ export class KupCard {
         root.addEventListener('kup-timepicker-input', this.cardEvent);
         root.addEventListener('kup-timepicker-itemclick', this.cardEvent);
         root.addEventListener('kup-timepicker-textfieldsubmit', this.cardEvent);
-        root.addEventListener('kupTreeDynamicMassExpansion', this.cardEvent);
-        root.addEventListener('kupTreeNodeButtonClicked', this.cardEvent);
-        root.addEventListener('kupTreeNodeCollapse', this.cardEvent);
-        root.addEventListener('kupTreeNodeDblClick', this.cardEvent);
-        root.addEventListener('kupTreeNodeExpand', this.cardEvent);
-        root.addEventListener('kupTreeNodeSelected', this.cardEvent);
+        root.addEventListener('kup-tree-dynamicmassexpansion', this.cardEvent);
+        root.addEventListener('kup-tree-buttonclicked', this.cardEvent);
+        root.addEventListener('kup-tree-nodecollapse', this.cardEvent);
+        root.addEventListener('kup-tree-nodedblclick', this.cardEvent);
+        root.addEventListener('kup-tree-nodeexpand', this.cardEvent);
+        root.addEventListener('kup-tree-nodeselected', this.cardEvent);
     }
     /**
      * This method is invoked by the layout manager when the layout family is scalable.

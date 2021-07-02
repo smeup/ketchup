@@ -12,7 +12,7 @@ import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarati
 import { KupStore } from "./components/kup-state/kup-store";
 import { Cell, Column, DataTable, EventHandlerDetails, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClikEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
-import { EventHandlerDetails as EventHandlerDetails1, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickedEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupBtnClickEventPayload } from "./components/kup-btn/kup-btn-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
@@ -3432,7 +3432,7 @@ declare namespace LocalJSX {
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
-        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{
+        "onKup-addcodedecodecolumn"?: (event: CustomEvent<{
         column: string;
     }>) => void;
         /**
@@ -4750,57 +4750,29 @@ declare namespace LocalJSX {
           * The value of the global filter.
          */
         "globalFilterValue"?: string;
-        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{ column: string }>) => void;
+        "onKup-addcodedecodecolumn"?: (event: CustomEvent<KupTreeAddColumnEventPayload>) => void;
         /**
           * When 'add column' menu item is clicked
          */
-        "onKupAddColumn"?: (event: CustomEvent<{ column: string }>) => void;
-        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
-        /**
-          * Triggered when stop propagation event
-         */
-        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        "onKup-tree-addcolumn"?: (event: CustomEvent<KupTreeAddColumnEventPayload>) => void;
+        "onKup-tree-buttonclicked"?: (event: CustomEvent<KupTreeNodeButtonClickedEventPayload>) => void;
         /**
           * When the column menu is being opened/closed.
          */
-        "onKupTreeColumnMenu"?: (event: CustomEvent<{
-        card: HTMLKupCardElement;
-        open: boolean;
-    }>) => void;
+        "onKup-tree-columnmenu"?: (event: CustomEvent<KupTreeColumnMenuEventPayload>) => void;
         /**
           * Generic right click event on tree.
          */
-        "onKupTreeContextMenu"?: (event: CustomEvent<{
-        details: EventHandlerDetails;
-    }>) => void;
-        "onKupTreeDynamicMassExpansion"?: (event: CustomEvent<{
-        treeNodePath?: TreeNodePath;
-        treeNode?: TreeNode;
-        expandAll?: boolean;
-    }>) => void;
-        "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        column: Column;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tree-contextmenu"?: (event: CustomEvent<KupTreeContextMenuEventPayload>) => void;
+        "onKup-tree-dynamicmassexpansion"?: (event: CustomEvent<KupTreeDynamicMassExpansionEventPayload>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).
          */
-        "onKupTreeNodeCollapse"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        tree: KupTree;
-    }>) => void;
-        "onKupTreeNodeDblClick"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-    }>) => void;
+        "onKup-tree-nodecollapse"?: (event: CustomEvent<KupTreeNodeCollapseEventPayload>) => void;
+        "onKup-tree-nodedblclick"?: (event: CustomEvent<KupTreeNodeCollapseEventPayload>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
-          * @event kupTreeNodeExpand
+          * @event kup-tree-nodeexpand
           * @type {object}
           * @property {TreeNodePath} treeNodePath - The array of indexes to retrieve the current treeNode inside the data prop.
           * @property {TreeNode} treeNode - Reference to the TreeNode data object which is being expanded (passed through the data prop).
@@ -4810,24 +4782,16 @@ declare namespace LocalJSX {
           * @see dynamicExpansionCallback *
           * @since 1.0.0
          */
-        "onKupTreeNodeExpand"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        usesDynamicExpansion?: boolean;
-        dynamicExpansionRequireChildren?: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tree-nodeexpand"?: (event: CustomEvent<KupTreeNodeExpandEventPayload>) => void;
         /**
           * Fired when a node of the tree has been selected
          */
-        "onKupTreeNodeSelected"?: (event: CustomEvent<{
-        id: string;
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tree-nodeselected"?: (event: CustomEvent<KupTreeNodeSelectedEventPayload>) => void;
+        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when stop propagation event
+         */
+        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
         /**
           * Sets the possibility to remove the selected column.
          */

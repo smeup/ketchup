@@ -998,7 +998,7 @@ export class KupDataTable {
     kupAddColumn: EventEmitter<{ column: string; comp: KupDataTable }>;
 
     @Event({
-        eventName: 'kupAddCodeDecodeColumn',
+        eventName: 'kup-addcodedecodecolumn',
         composed: true,
         cancelable: false,
         bubbles: true,

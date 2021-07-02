@@ -31,6 +31,14 @@ import {
     TreeNodePath,
     treeMainColumnName,
     EventHandlerDetails,
+    KupTreeNodeCollapseEventPayload,
+    KupTreeNodeExpandEventPayload,
+    KupTreeNodeSelectedEventPayload,
+    KupTreeNodeButtonClickedEventPayload,
+    KupTreeContextMenuEventPayload,
+    KupTreeColumnMenuEventPayload,
+    KupTreeAddColumnEventPayload,
+    KupTreeDynamicMassExpansionEventPayload,
 } from './kup-tree-declarations';
 
 import { MDCRipple } from '@material/ripple';
@@ -337,21 +345,17 @@ export class KupTree {
      * Fired when a TreeNode gets collapsed (closed).
      */
     @Event({
-        eventName: 'kupTreeNodeCollapse',
+        eventName: 'kup-tree-nodecollapse',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeNodeCollapse: EventEmitter<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        tree: KupTree;
-    }>;
+    kupTreeNodeCollapse: EventEmitter<KupTreeNodeCollapseEventPayload>;
 
     /**
      * Fired when a node expansion ion has been triggered.
      * Contains additional data when the tree is using the dynamicExpansion feature.
-     * @event kupTreeNodeExpand
+     * @event kup-tree-nodeexpand
      * @type {object}
      * @property {TreeNodePath} treeNodePath - The array of indexes to retrieve the current treeNode inside the data prop.
      * @property {TreeNode} treeNode - Reference to the TreeNode data object which is being expanded (passed through the data prop).
@@ -363,94 +367,70 @@ export class KupTree {
      * @since 1.0.0
      */
     @Event({
-        eventName: 'kupTreeNodeExpand',
+        eventName: 'kup-tree-nodeexpand',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeNodeExpand: EventEmitter<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        usesDynamicExpansion?: boolean;
-        dynamicExpansionRequireChildren?: boolean;
-        tree: KupTree;
-    }>;
+    kupTreeNodeExpand: EventEmitter<KupTreeNodeExpandEventPayload>;
 
     /**
      * Fired when a node of the tree has been selected
      */
     @Event({
-        eventName: 'kupTreeNodeSelected',
+        eventName: 'kup-tree-nodeselected',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeNodeSelected: EventEmitter<{
-        id: string;
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>;
+    kupTreeNodeSelected: EventEmitter<KupTreeNodeSelectedEventPayload>;
 
     @Event({
-        eventName: 'kupTreeNodeButtonClicked',
+        eventName: 'kup-tree-buttonclicked',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeNodeButtonClicked: EventEmitter<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        column: Column;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>;
+    kupTreeNodeButtonClicked: EventEmitter<KupTreeNodeButtonClickedEventPayload>;
 
     /**
      * When 'add column' menu item is clicked
      */
     @Event({
-        eventName: 'kupAddColumn',
+        eventName: 'kup-tree-addcolumn',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupAddColumn: EventEmitter<{ column: string }>;
+    kupTreeAddColumn: EventEmitter<KupTreeAddColumnEventPayload>;
     /**
      * Generic right click event on tree.
      */
     @Event({
-        eventName: 'kupTreeContextMenu',
+        eventName: 'kup-tree-contextmenu',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeContextMenu: EventEmitter<{
-        details: EventHandlerDetails;
-    }>;
+    kupTreeContextMenu: EventEmitter<KupTreeContextMenuEventPayload>;
     /**
      * When the column menu is being opened/closed.
      */
     @Event({
-        eventName: 'kupTreeColumnMenu',
+        eventName: 'kup-tree-columnmenu',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeColumnMenu: EventEmitter<{
-        card: HTMLKupCardElement;
-        open: boolean;
-    }>;
+    kupTreeColumnMenu: EventEmitter<KupTreeColumnMenuEventPayload>;
+    
     @Event({
-        eventName: 'kupAddCodeDecodeColumn',
+        eventName: 'kup-addcodedecodecolumn',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupAddCodeDecodeColumn: EventEmitter<{ column: string }>;
+    kupAddCodeDecodeColumn: EventEmitter<KupTreeAddColumnEventPayload>;
 
     @Event({
         eventName: 'kupDidLoad',
@@ -473,27 +453,20 @@ export class KupTree {
     kupDidUnload: EventEmitter<void>;
 
     @Event({
-        eventName: 'kupTreeNodeDblClick',
+        eventName: 'kup-tree-nodedblclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeNodeDblClick: EventEmitter<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-    }>;
+    kupTreeNodeDblClick: EventEmitter<KupTreeNodeCollapseEventPayload>;
 
     @Event({
-        eventName: 'kupTreeDynamicMassExpansion',
+        eventName: 'kup-tree-dynamicmassexpansion',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeDynamicMassExpansion: EventEmitter<{
-        treeNodePath?: TreeNodePath;
-        treeNode?: TreeNode;
-        expandAll?: boolean;
-    }>;
+    kupTreeDynamicMassExpansion: EventEmitter<KupTreeDynamicMassExpansionEventPayload>;
 
     //---- Methods ----
 
@@ -507,6 +480,8 @@ export class KupTree {
         } else {
             this.kupTreeDynamicMassExpansion.emit({
                 expandAll: false,
+                id: this.rootElement.id,
+                comp: this,
             });
         }
         this.refresh();
@@ -521,6 +496,8 @@ export class KupTree {
         } else {
             this.kupTreeDynamicMassExpansion.emit({
                 expandAll: true,
+                id: this.rootElement.id,
+                comp: this,
             });
         }
         this.refresh();
@@ -561,6 +538,8 @@ export class KupTree {
         this.kupTreeColumnMenu.emit({
             card: this.columnMenuCard,
             open: true,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
     /**
@@ -573,6 +552,8 @@ export class KupTree {
         this.kupTreeColumnMenu.emit({
             card: this.columnMenuCard,
             open: false,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
     /**
@@ -619,6 +600,8 @@ export class KupTree {
                 .split(',')
                 .map((treeNodeIndex) => parseInt(treeNodeIndex)),
             treeNode: treeNodeData,
+            id: this.rootElement.id,
+            comp: this,
         });
     }
 
@@ -907,7 +890,8 @@ export class KupTree {
             column: column,
             columnName: column.name,
             auto: auto,
-            tree: this,
+            comp: this,
+            id: this.rootElement.id,
         });
     }
 
@@ -933,7 +917,7 @@ export class KupTree {
                 treeNode: treeNodeData,
                 columnName: this.selectedColumn,
                 auto: auto,
-                tree: this,
+                comp: this,
             });
         }
         this.selectedColumn = '';
@@ -971,14 +955,16 @@ export class KupTree {
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
                         usesDynamicExpansion: this.useDynamicExpansion,
-                        tree: this,
+                        comp: this,
+                        id: this.rootElement.id
                     });
                 } else {
                     // TreeNode is now collapsed -> Fires collapsed event
                     this.kupTreeNodeCollapse.emit({
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
-                        tree: this,
+                        comp: this,
+                        id: this.rootElement.id,
                     });
                 }
             } else if (this.useDynamicExpansion) {
@@ -986,6 +972,8 @@ export class KupTree {
                     this.kupTreeDynamicMassExpansion.emit({
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
+                        id: this.rootElement.id,
+                        comp: this,
                     });
                 }
                 // When the component must use the dynamic expansion feature
@@ -1010,7 +998,8 @@ export class KupTree {
                                 treeNodePath: arrayTreeNodePath,
                                 treeNode: treeNodeData,
                                 usesDynamicExpansion: true,
-                                tree: this,
+                                comp: this,
+                                id: this.rootElement.id
                             });
                         })
                         .catch((err) => {
@@ -1028,7 +1017,8 @@ export class KupTree {
                         treeNodePath: arrayTreeNodePath,
                         usesDynamicExpansion: true,
                         dynamicExpansionRequireChildren: true,
-                        tree: this,
+                        comp: this,
+                        id: this.rootElement.id
                     });
 
                     treeNodeData[treeExpandedPropName] =
@@ -2247,6 +2237,8 @@ export class KupTree {
                             onContextMenu={(e: MouseEvent) =>
                                 this.kupTreeContextMenu.emit({
                                     details: this.contextMenuHandler(e),
+                                    id: this.rootElement.id,
+                                    comp: this,
                                 })
                             }
                         >

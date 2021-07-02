@@ -789,16 +789,16 @@ export class KupTooltip {
                     {...this.cellOptions.config}
                     {...this.cellOptions}
                     tooltipEnabled={false}
-                    onKupTreeNodeCollapse={(e) => e.stopPropagation()}
-                    onKupTreeNodeExpand={(e) => this.onKupTreeNodeExpand(e)}
-                    onKupTreeNodeSelected={(e) => this.onKupTreeNodeSelected(e)}
-                    onKupTreeNodeButtonClicked={(e) =>
+                    onkup-tree-nodecollapse={(e) => e.stopPropagation()}
+                    onkup-tree-nodeexpand={(e) => this.onKupTreeNodeExpand(e)}
+                    onkup-tree-nodeselected={(e) => this.onKupTreeNodeSelected(e)}
+                    onkup-tree-buttonclicked={(e) =>
                         this.onKupTreeNodeButtonClicked(e)
                     }
                     onKupDidLoad={(e) => e.stopPropagation()}
                     onKupDidUnload={(e) => e.stopPropagation()}
-                    onKupTreeNodeDblClick={(e) => this.onKupTreeNodeDblClick(e)}
-                    onKupTreeDynamicMassExpansion={(e) =>
+                    onkup-tree-nodedblclick={(e) => this.onKupTreeNodeDblClick(e)}
+                    onkup-tree-dynamicmassexpansion={(e) =>
                         this.onKupTreeDynamicMassExpansion(e)
                     }
                 ></kup-tree>,

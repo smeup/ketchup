@@ -7,8 +7,8 @@
       @kup-tooltip-loaddata="onLoadData"
       @kup-tooltip-loaddetail="loadBornToDie"
       @kup-tooltip-loadcelloptions="loadCellOptions"
-      @kupTreeNodeExpand="expandNode"
-      @kupTreeNodeSelected="selectNode"
+      @kup-tree-nodeexpand="expandNode"
+      @kup-tree-nodeselected="selectNode"
     ></kup-box>
   </div>
 </template>

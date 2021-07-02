@@ -94,7 +94,7 @@ export enum KupCardSubEvents {
     CHIP_BLUR = 'kup-chip-blur',
     CHIP_ICONCLICK = 'kup-chip-iconclick',
     TABBAR_CLICK = 'kup-tabbar-click',
-    TREE_NODESELECTED = 'kupTreeNodeSelected',
+    TREE_NODESELECTED = 'kup-tree-nodeselected',
 }
 
 export interface KupCardEventPayload extends KupEventPayload {
