@@ -78,13 +78,10 @@ export default {
     },
 
     loadBornToDie(event) {
-      setTimeout(() => (event.detail.tooltip.detailData = bornToDie), 400);
+      setTimeout(() => (event.detail.comp.detailData = bornToDie), 400);
     },
     loadCellOptions(event) {
-      setTimeout(
-        () => (event.detail.tooltip.cellOptions = cellOptionsTree),
-        400
-      );
+      setTimeout(() => (event.detail.comp.cellOptions = cellOptionsTree), 400);
     },
 
     onLoadData(event, index) {
@@ -159,7 +156,7 @@ export default {
           break;
       }
       console.log(event);
-      event.detail.tooltip.data = data;
+      event.detail.comp.data = data;
     },
   },
 };

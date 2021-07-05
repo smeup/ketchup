@@ -39,7 +39,7 @@ export default {
       console.log('detail', detail);
     },
     loadCellOptions({ detail }) {
-      setTimeout(() => (detail.tooltip.cellOptions = cellOptionsTree), 400);
+      setTimeout(() => (detail.comp.cellOptions = cellOptionsTree), 400);
     },
     onLoadData(event) {
       let data = {
@@ -56,11 +56,11 @@ export default {
           },
         },
       };
-      event.detail.tooltip.data = data;
+      event.detail.comp.data = data;
     },
     loadBornToDie(event) {
       //console.log(event);
-      setTimeout(() => (event.detail.tooltip.detailData = bornToDie), 400);
+      setTimeout(() => (event.detail.comp.detailData = bornToDie), 400);
     },
     expandNode(e) {
       const { detail } = e;
