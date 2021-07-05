@@ -17,6 +17,7 @@ export const config: Config = {
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
                 { src: 'btn.html' },
+                { src: 'bpmn.html' },
                 { src: 'card.html' },
                 { src: 'card-performance.html' },
                 { src: 'chart.html' },

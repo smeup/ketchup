@@ -240,6 +240,8 @@ export namespace Components {
          */
         "tooltipLoadTimeout": number;
     }
+    interface KupBpmn {
+    }
     interface KupBtn {
         /**
           * Number of columns for draw sub-components.
@@ -2280,6 +2282,12 @@ declare global {
         prototype: HTMLKupBoxElement;
         new (): HTMLKupBoxElement;
     };
+    interface HTMLKupBpmnElement extends Components.KupBpmn, HTMLStencilElement {
+    }
+    var HTMLKupBpmnElement: {
+        prototype: HTMLKupBpmnElement;
+        new (): HTMLKupBpmnElement;
+    };
     interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {
     }
     var HTMLKupBtnElement: {
@@ -2560,6 +2568,7 @@ declare global {
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
         "kup-box": HTMLKupBoxElement;
+        "kup-bpmn": HTMLKupBpmnElement;
         "kup-btn": HTMLKupBtnElement;
         "kup-button": HTMLKupButtonElement;
         "kup-calendar": HTMLKupCalendarElement;
@@ -2891,6 +2900,8 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout"?: number;
+    }
+    interface KupBpmn {
     }
     interface KupBtn {
         /**
@@ -5199,6 +5210,7 @@ declare namespace LocalJSX {
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
         "kup-box": KupBox;
+        "kup-bpmn": KupBpmn;
         "kup-btn": KupBtn;
         "kup-button": KupButton;
         "kup-calendar": KupCalendar;
@@ -5254,6 +5266,7 @@ declare module "@stencil/core" {
             "kup-autocomplete": LocalJSX.KupAutocomplete & JSXBase.HTMLAttributes<HTMLKupAutocompleteElement>;
             "kup-badge": LocalJSX.KupBadge & JSXBase.HTMLAttributes<HTMLKupBadgeElement>;
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;
+            "kup-bpmn": LocalJSX.KupBpmn & JSXBase.HTMLAttributes<HTMLKupBpmnElement>;
             "kup-btn": LocalJSX.KupBtn & JSXBase.HTMLAttributes<HTMLKupBtnElement>;
             "kup-button": LocalJSX.KupButton & JSXBase.HTMLAttributes<HTMLKupButtonElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
