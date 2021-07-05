@@ -503,7 +503,10 @@ export class KupCard {
         if (this.isMenu && this.menuVisible) {
             const dynCard: KupDynamicPositionElement = this
                 .rootElement as KupDynamicPositionElement;
-            if (dynCard.dynamicPosition && dynCard.dynamicPosition.detached) {
+            if (
+                dynCard.kupDynamicPosition &&
+                dynCard.kupDynamicPosition.detached
+            ) {
                 this.kupManager.dynamicPosition.run(dynCard);
             }
         }
