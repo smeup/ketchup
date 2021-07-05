@@ -10,15 +10,15 @@ import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload }
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAddColumnEventPayload, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickedEventPayload, KupDatatableOptionClickedEventPayload, KupDatatableRowActionClickedEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClikEventPayload, KupBoxContextMenuEventPayload, KupBoxDragEventPayload, KupBoxRowActionClickedEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAddColumnEventPayload, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
-import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickedEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
-import { KupCheckedEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
+import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent } from "./components/kup-chart/kup-chart-declarations";
+import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
@@ -30,7 +30,7 @@ import { GenericFilter } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
-import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
+import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
@@ -39,11 +39,12 @@ import { KupNavBarData, KupNavbarEventPayload, KupNavBarMode } from "./component
 import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
+import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
 import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
 import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
-import { KupTooltipActionCommandClickedEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickedEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
+import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
     interface KupAutocomplete {
@@ -2914,32 +2915,24 @@ declare namespace LocalJSX {
         /**
           * Triggered when a box is clicked
          */
-        "onKup-box-click"?: (event: CustomEvent<KupBoxClikEventPayload>) => void;
+        "onKup-box-click"?: (event: CustomEvent<KupBoxClickEventPayload>) => void;
         /**
           * Generic right click event on box.
          */
         "onKup-box-contextmenu"?: (event: CustomEvent<KupBoxContextMenuEventPayload>) => void;
-        "onKup-box-didload"?: (event: CustomEvent<void>) => void;
+        "onKup-box-didload"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Triggered when stop propagation event
          */
-        "onKup-box-didunload"?: (event: CustomEvent<void>) => void;
+        "onKup-box-didunload"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * Triggered when a box dragging is ended
+          * When the row menu action icon is click
          */
-        "onKup-box-dragended"?: (event: CustomEvent<KupBoxDragEventPayload>) => void;
+        "onKup-box-rowactionclick"?: (event: CustomEvent<KupBoxRowActionClickEventPayload>) => void;
         /**
-          * Triggered when a box dragging is started
+          * When the row menu action icon is click
          */
-        "onKup-box-dragstarted"?: (event: CustomEvent<KupBoxDragEventPayload>) => void;
-        /**
-          * When the row menu action icon is clicked
-         */
-        "onKup-box-rowactionclicked"?: (event: CustomEvent<KupBoxRowActionClickedEventPayload>) => void;
-        /**
-          * When the row menu action icon is clicked
-         */
-        "onKup-box-rowactionmenuclicked"?: (event: CustomEvent<KupBoxAutoSelectEventPayload>) => void;
+        "onKup-box-rowactionmenuclick"?: (event: CustomEvent<KupBoxAutoSelectEventPayload>) => void;
         /**
           * Triggered when the multi selection checkbox changes value
          */
@@ -3226,7 +3219,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a chart serie is clicked
          */
-        "onKup-chart-clicked"?: (event: CustomEvent<ChartClickedEvent>) => void;
+        "onKup-chart-click"?: (event: CustomEvent<KupChartClickEvent>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
          */
@@ -3295,15 +3288,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input element loses focus.
          */
-        "onKup-checkbox-blur"?: (event: CustomEvent<KupCheckedEventPayload>) => void;
+        "onKup-checkbox-blur"?: (event: CustomEvent<KupCheckboxEventPayload>) => void;
         /**
           * Triggered when the input element's value changes.
          */
-        "onKup-checkbox-change"?: (event: CustomEvent<KupCheckedEventPayload>) => void;
+        "onKup-checkbox-change"?: (event: CustomEvent<KupCheckboxEventPayload>) => void;
         /**
           * Triggered when the input element gets focused.
          */
-        "onKup-checkbox-focus"?: (event: CustomEvent<KupCheckedEventPayload>) => void;
+        "onKup-checkbox-focus"?: (event: CustomEvent<KupCheckboxEventPayload>) => void;
     }
     interface KupChip {
         /**
@@ -3593,7 +3586,7 @@ declare namespace LocalJSX {
           * When a row is auto selected via selectRow prop
          */
         "onKup-datatable-autorowselect"?: (event: CustomEvent<KupDatatableAutoRowSelectEventPayload>) => void;
-        "onKup-datatable-cellbuttonclicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+        "onKup-datatable-cellbuttonclick"?: (event: CustomEvent<KupDataTableCellButtonClickEventPayload>) => void;
         /**
           * Emitted when a cell's data has been updated.
          */
@@ -3617,16 +3610,12 @@ declare namespace LocalJSX {
         /**
           * When component load is complete
          */
-        "onKup-datatable-didload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
+        "onKup-datatable-didload"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * When component unload is complete
          */
-        "onKup-datatable-didunload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
-        "onKup-datatable-loadmoreclicked"?: (event: CustomEvent<KupDatatableLoadMoreClickedEventPayload>) => void;
-        /**
-          * When cell option is clicked
-         */
-        "onKup-datatable-optionclicked"?: (event: CustomEvent<KupDatatableOptionClickedEventPayload>) => void;
+        "onKup-datatable-didunload"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-datatable-loadmoreclick"?: (event: CustomEvent<KupDatatableLoadMoreClickEventPayload>) => void;
         /**
           * When rows selections reset
          */
@@ -3634,12 +3623,12 @@ declare namespace LocalJSX {
         /**
           * When a row action is clicked
          */
-        "onKup-datatable-rowactionclicked"?: (event: CustomEvent<KupDatatableRowActionClickedEventPayload>) => void;
+        "onKup-datatable-rowactionclick"?: (event: CustomEvent<KupDatatableRowActionClickEventPayload>) => void;
         /**
           * When a row is selected
          */
         "onKup-datatable-rowselected"?: (event: CustomEvent<KupDatatableRowSelectedEventPayload>) => void;
-        "onKup-datatable-textfieldinput"?: (event: CustomEvent<KupDataTableCellTextFieldInput>) => void;
+        "onKup-datatable-textfieldinput"?: (event: CustomEvent<KupDataTableCellTextFieldInputEventPayload>) => void;
         /**
           * Current selected page set on component load
          */
@@ -3788,8 +3777,8 @@ declare namespace LocalJSX {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
-        "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
-        "onKupDrawerOpen"?: (event: CustomEvent<any>) => void;
+        "onKupDrawerClose"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKupDrawerOpen"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Defaults at false. When set to true, the drawer appears.
          */
@@ -3898,7 +3887,7 @@ declare namespace LocalJSX {
           * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
          */
         "mapType"?: any;
-        "onKupEchartClicked"?: (event: CustomEvent<any>) => void;
+        "onKupEchartClick"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
          */
@@ -3934,11 +3923,11 @@ declare namespace LocalJSX {
         /**
           * Launched when the value of the current FLD changes.
          */
-        "onKup-fld-change"?: (event: CustomEvent<KupFldChangeEvent>) => void;
+        "onKup-field-change"?: (event: CustomEvent<KupFieldChangeEvent>) => void;
         /**
           * Launched when the FLD values are confirmed and a submit event is triggered.
          */
-        "onKup-fld-submit"?: (event: CustomEvent<KupFldSubmitEvent>) => void;
+        "onKup-field-submit"?: (event: CustomEvent<KupFieldSubmitEvent>) => void;
         /**
           * Sets whether the submit button must be displayed or not.
          */
@@ -4093,8 +4082,8 @@ declare namespace LocalJSX {
           * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
         "isButton"?: boolean;
-        "onKup-iframe-error"?: (event: CustomEvent<any>) => void;
-        "onKup-iframe-load"?: (event: CustomEvent<any>) => void;
+        "onKup-iframe-error"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-iframe-load"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The address the iframe should be referencing to.
          */
@@ -4467,7 +4456,7 @@ declare namespace LocalJSX {
           * Max number of stars (default 5)
          */
         "maxValue"?: number;
-        "onKupRatingClicked"?: (event: CustomEvent<any>) => void;
+        "onKupRatingClick"?: (event: CustomEvent<KupRatingClickEventPayload>) => void;
         /**
           * Rated stars
          */
@@ -4801,15 +4790,15 @@ declare namespace LocalJSX {
           * Timeout for tooltip
          */
         "loadTimeout"?: number;
-        "onKup-tooltip-actioncommandclicked"?: (event: CustomEvent<KupTooltipActionCommandClickedEventPayload>) => void;
-        "onKup-tooltip-defaultactionclicked"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
-        "onKup-tooltip-defaultoptionclicked"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
-        "onKup-tooltip-defaultpreviewclicked"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-actioncommandclick"?: (event: CustomEvent<KupTooltipActionCommandClickEventPayload>) => void;
+        "onKup-tooltip-defaultactionclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-defaultoptionclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-defaultpreviewclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
         "onKup-tooltip-loadcelloptions"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
         "onKup-tooltip-loaddata"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
         "onKup-tooltip-loaddetail"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
         "onKup-tooltip-treedynamicmassexpansion"?: (event: CustomEvent<KupTooltipTreeDynamicMassExpansionEventPayload>) => void;
-        "onKup-tooltip-treenodebuttonclicked"?: (event: CustomEvent<KupTooltipTreeNodeButtonClickedEventPayload>) => void;
+        "onKup-tooltip-treenodebuttonclick"?: (event: CustomEvent<KupTooltipTreeNodeButtonClickEventPayload>) => void;
         "onKup-tooltip-treenodedblclick"?: (event: CustomEvent<KupTooltipTreeNodeDblClickEventPayload>) => void;
         "onKup-tooltip-treenodeexpand"?: (event: CustomEvent<KupTooltipTreeNodeExpandEventPayload>) => void;
         /**
@@ -4878,7 +4867,7 @@ declare namespace LocalJSX {
           * When 'add column' menu item is clicked
          */
         "onKup-tree-addcolumn"?: (event: CustomEvent<KupTreeAddColumnEventPayload>) => void;
-        "onKup-tree-buttonclicked"?: (event: CustomEvent<KupTreeNodeButtonClickedEventPayload>) => void;
+        "onKup-tree-buttonclick"?: (event: CustomEvent<KupTreeNodeButtonClickEventPayload>) => void;
         /**
           * When the column menu is being opened/closed.
          */
@@ -4887,11 +4876,11 @@ declare namespace LocalJSX {
           * Generic right click event on tree.
          */
         "onKup-tree-contextmenu"?: (event: CustomEvent<KupTreeContextMenuEventPayload>) => void;
-        "onKup-tree-didload"?: (event: CustomEvent<void>) => void;
+        "onKup-tree-didload"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Triggered when stop propagation event
          */
-        "onKup-tree-didunload"?: (event: CustomEvent<void>) => void;
+        "onKup-tree-didunload"?: (event: CustomEvent<KupEventPayload>) => void;
         "onKup-tree-dynamicmassexpansion"?: (event: CustomEvent<KupTreeDynamicMassExpansionEventPayload>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).

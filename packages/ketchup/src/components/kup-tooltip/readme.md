@@ -21,15 +21,15 @@
 
 | Event                                  | Description                                     | Type                                                          |
 | -------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------- |
-| `kup-tooltip-actioncommandclicked`     |                                                 | `CustomEvent<KupTooltipActionCommandClickedEventPayload>`     |
-| `kup-tooltip-defaultactionclicked`     |                                                 | `CustomEvent<KupTooltipDefaultEventPayload>`                  |
-| `kup-tooltip-defaultoptionclicked`     |                                                 | `CustomEvent<KupTooltipDefaultEventPayload>`                  |
-| `kup-tooltip-defaultpreviewclicked`    |                                                 | `CustomEvent<KupTooltipDefaultEventPayload>`                  |
+| `kup-tooltip-actioncommandclick`       |                                                 | `CustomEvent<KupTooltipActionCommandClickEventPayload>`       |
+| `kup-tooltip-defaultactionclick`       |                                                 | `CustomEvent<KupTooltipDefaultEventPayload>`                  |
+| `kup-tooltip-defaultoptionclick`       |                                                 | `CustomEvent<KupTooltipDefaultEventPayload>`                  |
+| `kup-tooltip-defaultpreviewclick`      |                                                 | `CustomEvent<KupTooltipDefaultEventPayload>`                  |
 | `kup-tooltip-loadcelloptions`          |                                                 | `CustomEvent<KupTooltipLoadEventPayload>`                     |
 | `kup-tooltip-loaddata`                 |                                                 | `CustomEvent<KupTooltipLoadEventPayload>`                     |
 | `kup-tooltip-loaddetail`               |                                                 | `CustomEvent<KupTooltipLoadEventPayload>`                     |
 | `kup-tooltip-treedynamicmassexpansion` |                                                 | `CustomEvent<KupTooltipTreeDynamicMassExpansionEventPayload>` |
-| `kup-tooltip-treenodebuttonclicked`    |                                                 | `CustomEvent<KupTooltipTreeNodeButtonClickedEventPayload>`    |
+| `kup-tooltip-treenodebuttonclick`      |                                                 | `CustomEvent<KupTooltipTreeNodeButtonClickEventPayload>`      |
 | `kup-tooltip-treenodedblclick`         |                                                 | `CustomEvent<KupTooltipTreeNodeDblClickEventPayload>`         |
 | `kup-tooltip-treenodeexpand`           |                                                 | `CustomEvent<KupTooltipTreeNodeExpandEventPayload>`           |
 | `kup-tooltip-treenodeselected`         | Fired when a node of the tree has been selected | `CustomEvent<KupTooltipTreeNodeSelectedEventPayload>`         |

@@ -93,24 +93,23 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 ## Events
 
-| Event                             | Description                                    | Type                                                    |
-| --------------------------------- | ---------------------------------------------- | ------------------------------------------------------- |
-| `kup-datatable-addcolumn`         | When 'add column' menu item is clicked         | `CustomEvent<KupDatatableAddColumnEventPayload>`        |
-| `kup-datatable-autorowselect`     | When a row is auto selected via selectRow prop | `CustomEvent<KupDatatableAutoRowSelectEventPayload>`    |
-| `kup-datatable-cellbuttonclicked` |                                                | `CustomEvent<KupDataTableCellButtonClick>`              |
-| `kup-datatable-cellupdate`        | Emitted when a cell's data has been updated.   | `CustomEvent<KupDatatableCellUpdateEventPayload>`       |
-| `kup-datatable-click`             | Generic click event on data table.             | `CustomEvent<KupDatatableClickEventPayload>`            |
-| `kup-datatable-columnmenu`        | When the column menu is being opened/closed.   | `CustomEvent<KupDatatableColumnMenuEventPayload>`       |
-| `kup-datatable-contextmenu`       | Generic right click event on data table.       | `CustomEvent<KupDatatableClickEventPayload>`            |
-| `kup-datatable-dblclick`          | Generic double click event on data table.      | `CustomEvent<KupDatatableClickEventPayload>`            |
-| `kup-datatable-didload`           | When component load is complete                | `CustomEvent<{ comp: KupDataTable; }>`                  |
-| `kup-datatable-didunload`         | When component unload is complete              | `CustomEvent<{ comp: KupDataTable; }>`                  |
-| `kup-datatable-loadmoreclicked`   |                                                | `CustomEvent<KupDatatableLoadMoreClickedEventPayload>`  |
-| `kup-datatable-optionclicked`     | When cell option is clicked                    | `CustomEvent<KupDatatableOptionClickedEventPayload>`    |
-| `kup-datatable-resetselectedrows` | When rows selections reset                     | `CustomEvent<KupEventPayload>`                          |
-| `kup-datatable-rowactionclicked`  | When a row action is clicked                   | `CustomEvent<KupDatatableRowActionClickedEventPayload>` |
-| `kup-datatable-rowselected`       | When a row is selected                         | `CustomEvent<KupDatatableRowSelectedEventPayload>`      |
-| `kup-datatable-textfieldinput`    |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`           |
+| Event                             | Description                                    | Type                                                      |
+| --------------------------------- | ---------------------------------------------- | --------------------------------------------------------- |
+| `kup-datatable-addcolumn`         | When 'add column' menu item is clicked         | `CustomEvent<KupDatatableAddColumnEventPayload>`          |
+| `kup-datatable-autorowselect`     | When a row is auto selected via selectRow prop | `CustomEvent<KupDatatableAutoRowSelectEventPayload>`      |
+| `kup-datatable-cellbuttonclick`   |                                                | `CustomEvent<KupDataTableCellButtonClickEventPayload>`    |
+| `kup-datatable-cellupdate`        | Emitted when a cell's data has been updated.   | `CustomEvent<KupDatatableCellUpdateEventPayload>`         |
+| `kup-datatable-click`             | Generic click event on data table.             | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-columnmenu`        | When the column menu is being opened/closed.   | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
+| `kup-datatable-contextmenu`       | Generic right click event on data table.       | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-dblclick`          | Generic double click event on data table.      | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-didload`           | When component load is complete                | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-didunload`         | When component unload is complete              | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-loadmoreclick`     |                                                | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`      |
+| `kup-datatable-resetselectedrows` | When rows selections reset                     | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-rowactionclick`    | When a row action is clicked                   | `CustomEvent<KupDatatableRowActionClickEventPayload>`     |
+| `kup-datatable-rowselected`       | When a row is selected                         | `CustomEvent<KupDatatableRowSelectedEventPayload>`        |
+| `kup-datatable-textfieldinput`    |                                                | `CustomEvent<KupDataTableCellTextFieldInputEventPayload>` |
 
 
 ## Methods
