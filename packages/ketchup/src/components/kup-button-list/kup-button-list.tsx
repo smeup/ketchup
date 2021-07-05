@@ -17,7 +17,10 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
-import { KupButtonListClickEventPayload, KupButtonListProps } from './kup-button-list-declarations';
+import {
+    KupButtonListClickEventPayload,
+    KupButtonListProps,
+} from './kup-button-list-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -124,7 +127,12 @@ export class KupButtonList {
             props = KupButtonListProps;
         } else {
             for (const key in KupButtonListProps) {
-                if (Object.prototype.hasOwnProperty.call(KupButtonListProps, key)) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupButtonListProps,
+                        key
+                    )
+                ) {
                     props[key] = this[key];
                 }
             }
@@ -316,12 +324,6 @@ export class KupButtonList {
 
     private renderButtons() {
         if (this.data == null || this.data.length < 1) {
-            let message = 'Empty data btn.';
-            this.kupManager.debug.logMessage(
-                this,
-                message,
-                KupDebugCategory.WARNING
-            );
             return null;
         }
         let columns = [];
@@ -379,7 +381,7 @@ export class KupButtonList {
         );
 
         const classObj: Record<string, boolean> = {
-            'btn-container': true,
+            'button-list--container': true,
             'show-selection':
                 this.showSelection && this.selected ? true : false,
         };

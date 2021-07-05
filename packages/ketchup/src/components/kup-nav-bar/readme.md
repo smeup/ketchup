@@ -14,10 +14,10 @@
 
 ## Events
 
-| Event                      | Description                                     | Type                           |
-| -------------------------- | ----------------------------------------------- | ------------------------------ |
-| `kupNavbarMenuItemClick`   | Triggered when a button's list item is clicked. | `CustomEvent<{ value: any; }>` |
-| `kupNavbarOptionItemClick` | Triggered when a button is clicked.             | `CustomEvent<{ value: any; }>` |
+| Event                        | Description                                     | Type                                 |
+| ---------------------------- | ----------------------------------------------- | ------------------------------------ |
+| `kup-navbar-menuitemclick`   | Triggered when a button's list item is clicked. | `CustomEvent<KupNavbarEventPayload>` |
+| `kup-navbar-optionitemclick` | Triggered when a button is clicked.             | `CustomEvent<KupNavbarEventPayload>` |
 
 
 ## Methods
