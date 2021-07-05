@@ -66,7 +66,7 @@ export class KupCard {
      * Works together with menuVisible.
      * @default false
      */
-    @Prop() isMenu: boolean = false;
+    @Prop({ reflect: true }) isMenu: boolean = false;
     /**
      * Sets the type of the card.
      * @default CardFamily.STANDARD
@@ -82,7 +82,7 @@ export class KupCard {
      * Works together with isMenu.
      * @default false
      */
-    @Prop({ mutable: true }) menuVisible: boolean = false;
+    @Prop({ mutable: true, reflect: true }) menuVisible: boolean = false;
     /**
      * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      * @default "100%"
@@ -526,13 +526,7 @@ export class KupCard {
         return (
             <Host style={style}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div
-                    id="kup-component"
-                    class={`${this.isMenu ? 'mdc-menu mdc-menu-surface' : ''} ${
-                        this.menuVisible ? 'visible' : ''
-                    }`}
-                    onClick={() => this.onKupClick(null)}
-                >
+                <div id="kup-component" onClick={() => this.onKupClick(null)}>
                     {this.getLayout()}
                 </div>
             </Host>

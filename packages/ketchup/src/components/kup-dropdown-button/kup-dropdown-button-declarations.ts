@@ -15,6 +15,7 @@ export enum KupDropdownButtonProps {
     selectMode = 'Sets to the return the selected item value. Suported values: "code", "description", "both".',
     styling = 'Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.',
     trailingIcon = 'Defaults at null. When set, the icon will be shown after the text.',
+    dropdownOnly = 'Default value is false. When set to true, the arrow dropdown button is the only button displayed.',
 }
 
 export interface KupDropdownButtonEventPayload extends KupEventPayload {

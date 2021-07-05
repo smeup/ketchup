@@ -1988,8 +1988,6 @@ export class KupDataTable {
             this.detailCard.layoutNumber = 4;
             this.detailCard.sizeX = 'auto';
             this.detailCard.sizeY = 'auto';
-            this.detailCard.style.maxHeight = '100vh';
-            this.detailCard.style.maxWidth = '100vw';
         } else {
             const children: HTMLCollection = Array.prototype.slice.call(
                 this.detailCard.children,
@@ -2287,7 +2285,7 @@ export class KupDataTable {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getVisibleColumns()
+            this.getColumns()
         );
         this.rowsLength = this.rowsPointLength();
     }
@@ -2709,12 +2707,14 @@ export class KupDataTable {
                 cell.data['checked'] = value === 'on' ? false : true;
             }
         } else {
-            cell.obj.k = value;
+            if (cell.obj) {
+                cell.obj.k = value;
+            }
             cell.value = value;
             cell.displayedValue = null;
             cell.displayedValue = getCellValueForDisplay(column, cell);
-            if (cell.data && cell.data['initialValue'] !== undefined) {
-                cell.data['initialValue'] = value;
+            if (cell.data && cell.data['value'] !== undefined) {
+                cell.data['value'] = value;
             }
         }
         this.refresh();

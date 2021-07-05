@@ -10,6 +10,7 @@ import {
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
 
 import {
@@ -71,6 +72,11 @@ export class KupDropdownButton {
      * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    /**
+     * Default value is false. When set to true, the arrow dropdown button is the only button displayed.
+     * @default false
+     */
+    @Prop() dropdownOnly: boolean = false;
     /**
      * Defaults at null. When set, the button will show this icon.
      * @default icon
@@ -322,8 +328,9 @@ export class KupDropdownButton {
      */
     private openList(): void {
         const buttonWidth: number =
-            this.buttonEl.clientWidth + this.dropdownEl.clientWidth;
-        this.buttonEl.classList.add('toggled');
+            (this.buttonEl ? this.buttonEl.clientWidth : 0) +
+            this.dropdownEl.clientWidth;
+        this.buttonEl?.classList.add('toggled');
         this.dropdownEl.classList.add('toggled');
         this.listEl.menuVisible = true;
         this.kupManager.dynamicPosition.start(
@@ -337,7 +344,7 @@ export class KupDropdownButton {
      * Closes the dropdown menu.
      */
     private closeList(): void {
-        this.buttonEl.classList.remove('toggled');
+        this.buttonEl?.classList.remove('toggled');
         this.dropdownEl.classList.remove('toggled');
         this.listEl.menuVisible = false;
         this.kupManager.dynamicPosition.stop(
@@ -431,6 +438,41 @@ export class KupDropdownButton {
         this.kupManager.debug.logRender(this, true);
     }
 
+    private renderButtons() {
+        const buttons: VNode[] = [];
+        if (!this.dropdownOnly) {
+            buttons.push(
+                <FButton
+                    disabled={this.disabled ? true : false}
+                    icon={this.icon ? this.icon : null}
+                    label={this.label ? this.label : ' '}
+                    styling={
+                        this.styling ? this.styling : FButtonStyling.RAISED
+                    }
+                    trailingIcon={this.trailingIcon ? true : false}
+                    wrapperClass="dropdown-button__primary-action"
+                />
+            );
+        }
+        buttons.push(
+            <FButton
+                disabled={this.disabled ? true : false}
+                icon={
+                    this.dropdownOnly && this.icon && this.icon !== ''
+                        ? this.icon
+                        : 'arrow_drop_down'
+                }
+                label=" "
+                styling={this.styling ? this.styling : FButtonStyling.RAISED}
+                wrapperClass={
+                    'dropdown-button__dropdown-action' +
+                    (this.dropdownOnly ? ' dropdown-only' : '')
+                }
+            />
+        );
+        return buttons;
+    }
+
     render() {
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
@@ -444,29 +486,7 @@ export class KupDropdownButton {
                     ref={(el) => (this.wrapperEl = el as any)}
                 >
                     <div class="dropdown-button--wrapper">
-                        <FButton
-                            disabled={this.disabled ? true : false}
-                            icon={this.icon ? this.icon : null}
-                            label={this.label ? this.label : ' '}
-                            styling={
-                                this.styling
-                                    ? this.styling
-                                    : FButtonStyling.RAISED
-                            }
-                            trailingIcon={this.trailingIcon ? true : false}
-                            wrapperClass="dropdown-button__primary-action"
-                        />
-                        <FButton
-                            disabled={this.disabled ? true : false}
-                            icon="arrow_drop_down"
-                            label=" "
-                            styling={
-                                this.styling
-                                    ? this.styling
-                                    : FButtonStyling.RAISED
-                            }
-                            wrapperClass="dropdown-button__dropdown-action"
-                        />
+                        {this.renderButtons()}
                     </div>
                     <kup-list
                         {...this.data['kup-list']}

@@ -215,7 +215,7 @@ export class KupButtonList {
             return null;
         }
         let data: GenericObject = this.prepareDataFromTreeNode(node, index);
-        if (!data.label && !data.icon) {
+        if (!data.label && !data.icon && !node?.data.dropdownOnly) {
             let message = 'Empty dropdown button.';
             this.kupManager.debug.logMessage(
                 this,

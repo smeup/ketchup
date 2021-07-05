@@ -75,6 +75,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'dropdownOnly',
+          description:
+            'Default value is false. When set to true, the arrow dropdown button is the only button displayed.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'icon',
           description:
             'The button will be rendered with the specified Material Design icon.',

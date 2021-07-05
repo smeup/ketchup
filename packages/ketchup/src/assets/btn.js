@@ -52,10 +52,90 @@ const defaultData = [
     {
         data: {
             trailingIcon: true,
-            title: "button dropdown tooltip",
+            title: "button dropdown tooltip",                
         },
         icon:"favorite",
-        value:"Raised trailing favorite dropdown",
+        value:"Raised trailing favorite dropdown",        
+        obj: {
+            t:'',
+            p:'',
+            k:'bddb',
+        },
+        children: [
+            { 
+                value: 'first child', 
+                obj: {
+                    t:'',
+                    p:'',
+                    k:'child1',
+                },
+                icon: "favorite",
+            },
+            {
+                value: 'second child', 
+                obj: {
+                    t:'',
+                    p:'',
+                    k:'child2',
+                } 
+            },
+            {
+                value: 'third child', 
+                obj: {
+                    t:'',
+                    p:'',
+                    k:'child3',
+                } 
+            }
+        ],
+    },
+    {
+        data: {            
+            title: "Display only dropdown button with icon settings",
+            dropdownOnly: true,    
+        },
+        icon:"settings",
+        value:"",
+        obj: {
+            t:'',
+            p:'',
+            k:'bddb',
+        },
+        children: [
+            { 
+                value: 'first child', 
+                obj: {
+                    t:'',
+                    p:'',
+                    k:'child1',
+                },
+                icon: "favorite",
+            },
+            {
+                value: 'second child', 
+                obj: {
+                    t:'',
+                    p:'',
+                    k:'child2',
+                } 
+            },
+            {
+                value: 'third child', 
+                obj: {
+                    t:'',
+                    p:'',
+                    k:'child3',
+                } 
+            }
+        ],
+    },
+    {
+        data: {            
+            title: "Display only dropdown button with icon predefined",
+            dropdownOnly: true,               
+        },
+        icon:"",
+        value:"",
         obj: {
             t:'',
             p:'',
