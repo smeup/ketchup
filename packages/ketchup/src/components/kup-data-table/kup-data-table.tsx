@@ -5927,7 +5927,7 @@ export class KupDataTable {
                         ) : null}
                         {paginatorTop}
                     </div>
-                    {groupChips}
+                    <div class="group-wrapper">{groupChips}</div>
                     <div
                         style={elStyle}
                         class={belowClass}
