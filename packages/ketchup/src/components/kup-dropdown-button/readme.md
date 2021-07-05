@@ -79,7 +79,7 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-btn](../kup-btn)
+ - [kup-button-list](../kup-button-list)
 
 ### Depends on
 
@@ -95,7 +95,7 @@ graph TD;
   kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
-  kup-btn --> kup-dropdown-button
+  kup-button-list --> kup-dropdown-button
   style kup-dropdown-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

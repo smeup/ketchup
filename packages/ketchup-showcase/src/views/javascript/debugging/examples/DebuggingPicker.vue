@@ -67,8 +67,8 @@ export default {
               value: 'kup-box',
             },
             {
-              text: 'kup-btn',
-              value: 'kup-btn',
+              text: 'kup-button-list',
+              value: 'kup-button-list',
             },
             {
               text: 'kup-button',

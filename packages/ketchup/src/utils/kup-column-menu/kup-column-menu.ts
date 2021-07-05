@@ -939,6 +939,8 @@ export class KupColumnMenu {
     addDescriptionColumn(comp: KupDataTable | KupTree, column: string): void {
         comp.kupAddCodeDecodeColumn.emit({
             column: column,
+            comp,
+            id: comp.rootElement.id,
         });
         comp.closeColumnMenu();
     }

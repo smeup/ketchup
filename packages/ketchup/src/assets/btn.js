@@ -92,7 +92,7 @@ const defaultData = [
 ];
 const bottoniera1 = document.getElementById('btn-orizzontale');
 bottoniera1.data = defaultData;
-bottoniera1.addEventListener("kup-btn-click", (e) => {
+bottoniera1.addEventListener("kup-button-list-click", (e) => {
     alert("Clicked button with index: [" + e.detail.id + "] smeupObject selected [" + JSON.stringify(e.detail.obj) + "]");
 });
 

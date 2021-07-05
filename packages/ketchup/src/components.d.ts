@@ -12,10 +12,10 @@ import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarati
 import { KupStore } from "./components/kup-state/kup-store";
 import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAddColumnEventPayload, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickedEventPayload, KupDatatableOptionClickedEventPayload, KupDatatableRowActionClickedEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClikEventPayload, KupBoxContextMenuEventPayload, KupBoxDragEventPayload, KupBoxRowActionClickedEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
-import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickedEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-import { KupBtnClickEventPayload } from "./components/kup-btn/kup-btn-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
+import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickedEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckedEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -252,42 +252,6 @@ export namespace Components {
          */
         "tooltipLoadTimeout": number;
     }
-    interface KupBtn {
-        /**
-          * Number of columns for draw sub-components.
-         */
-        "columns": number;
-        /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
-          * Props of the sub-components.
-         */
-        "data": TreeNode[];
-        /**
-          * Default at false. When set to true, the sub-components are disabled.
-         */
-        "disabled": boolean;
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * If enabled, highlights the selected button
-         */
-        "showSelection": boolean;
-        /**
-          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
-         */
-        "styling": string;
-    }
     interface KupButton {
         /**
           * When set to true, the icon button state will be on.
@@ -345,6 +309,42 @@ export namespace Components {
           * @default false
          */
         "trailingIcon": boolean;
+    }
+    interface KupButtonList {
+        /**
+          * Number of columns for draw sub-components.
+         */
+        "columns": number;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+         */
+        "data": TreeNode[];
+        /**
+          * Default at false. When set to true, the sub-components are disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * If enabled, highlights the selected button
+         */
+        "showSelection": boolean;
+        /**
+          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
+         */
+        "styling": string;
     }
     interface KupCalendar {
         "data": DataTable;
@@ -2287,17 +2287,17 @@ declare global {
         prototype: HTMLKupBoxElement;
         new (): HTMLKupBoxElement;
     };
-    interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {
-    }
-    var HTMLKupBtnElement: {
-        prototype: HTMLKupBtnElement;
-        new (): HTMLKupBtnElement;
-    };
     interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {
     }
     var HTMLKupButtonElement: {
         prototype: HTMLKupButtonElement;
         new (): HTMLKupButtonElement;
+    };
+    interface HTMLKupButtonListElement extends Components.KupButtonList, HTMLStencilElement {
+    }
+    var HTMLKupButtonListElement: {
+        prototype: HTMLKupButtonListElement;
+        new (): HTMLKupButtonListElement;
     };
     interface HTMLKupCalendarElement extends Components.KupCalendar, HTMLStencilElement {
     }
@@ -2567,8 +2567,8 @@ declare global {
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
         "kup-box": HTMLKupBoxElement;
-        "kup-btn": HTMLKupBtnElement;
         "kup-button": HTMLKupButtonElement;
+        "kup-button-list": HTMLKupButtonListElement;
         "kup-calendar": HTMLKupCalendarElement;
         "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
@@ -2838,33 +2838,6 @@ declare namespace LocalJSX {
          */
         "tooltipLoadTimeout"?: number;
     }
-    interface KupBtn {
-        /**
-          * Number of columns for draw sub-components.
-         */
-        "columns"?: number;
-        /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * Props of the sub-components.
-         */
-        "data"?: TreeNode[];
-        /**
-          * Default at false. When set to true, the sub-components are disabled.
-         */
-        "disabled"?: boolean;
-        "onKup-btn-click"?: (event: CustomEvent<KupBtnClickEventPayload>) => void;
-        /**
-          * If enabled, highlights the selected button
-         */
-        "showSelection"?: boolean;
-        /**
-          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
-         */
-        "styling"?: string;
-    }
     interface KupButton {
         /**
           * When set to true, the icon button state will be on.
@@ -2924,6 +2897,33 @@ declare namespace LocalJSX {
           * @default false
          */
         "trailingIcon"?: boolean;
+    }
+    interface KupButtonList {
+        /**
+          * Number of columns for draw sub-components.
+         */
+        "columns"?: number;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+         */
+        "data"?: TreeNode[];
+        /**
+          * Default at false. When set to true, the sub-components are disabled.
+         */
+        "disabled"?: boolean;
+        "onKup-button-list-click"?: (event: CustomEvent<KupButtonListClickEventPayload>) => void;
+        /**
+          * If enabled, highlights the selected button
+         */
+        "showSelection"?: boolean;
+        /**
+          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
+         */
+        "styling"?: string;
     }
     interface KupCalendar {
         "data"?: DataTable;
@@ -4806,8 +4806,8 @@ declare namespace LocalJSX {
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
         "kup-box": KupBox;
-        "kup-btn": KupBtn;
         "kup-button": KupButton;
+        "kup-button-list": KupButtonList;
         "kup-calendar": KupCalendar;
         "kup-card": KupCard;
         "kup-chart": KupChart;
@@ -4861,8 +4861,8 @@ declare module "@stencil/core" {
             "kup-autocomplete": LocalJSX.KupAutocomplete & JSXBase.HTMLAttributes<HTMLKupAutocompleteElement>;
             "kup-badge": LocalJSX.KupBadge & JSXBase.HTMLAttributes<HTMLKupBadgeElement>;
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;
-            "kup-btn": LocalJSX.KupBtn & JSXBase.HTMLAttributes<HTMLKupBtnElement>;
             "kup-button": LocalJSX.KupButton & JSXBase.HTMLAttributes<HTMLKupButtonElement>;
+            "kup-button-list": LocalJSX.KupButtonList & JSXBase.HTMLAttributes<HTMLKupButtonListElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;

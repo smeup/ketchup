@@ -4943,7 +4943,7 @@ export class KupDataTable {
                     row: row,
                     column: column,
                 };
-                return <kup-btn {...props}></kup-btn>;
+                return <kup-button-list {...props}></kup-button-list>;
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;

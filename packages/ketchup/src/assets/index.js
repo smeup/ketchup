@@ -80,11 +80,11 @@ const btnlist = JSON.parse(`{
       "dynamisms": []
     }`);
 
-if (document.querySelector('kup-btn')) {
-    document.querySelector('kup-btn').buttons = btnlist.data;
+if (document.querySelector('kup-button-list')) {
+    document.querySelector('kup-button-list').buttons = btnlist.data;
 
     document
-        .querySelector('kup-btn')
+        .querySelector('kup-button-list')
         .addEventListener('kupButtonClicked', (event) => {
             console.log(event);
 
@@ -99,12 +99,12 @@ if (document.querySelector('kup-btn')) {
 }
 
 function toggleBtnFillspace(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = { ...btn.config, fillspace: event.target.checked };
 }
 
 function toggleBtnShowtext(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         showtext: event.target.checked,
@@ -112,7 +112,7 @@ function toggleBtnShowtext(event) {
 }
 
 function toggleBtnHorizontal(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         horizontal: event.target.checked,
@@ -120,7 +120,7 @@ function toggleBtnHorizontal(event) {
 }
 
 function toggleBtnShowicon(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         showicon: event.target.checked,
@@ -128,7 +128,7 @@ function toggleBtnShowicon(event) {
 }
 
 function toggleBtnRounded(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         rounded: event.target.checked,
@@ -136,7 +136,7 @@ function toggleBtnRounded(event) {
 }
 
 function toggleBtnTextModeHint(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         textmode: event.target.checked ? 'Hint' : '',
@@ -144,7 +144,7 @@ function toggleBtnTextModeHint(event) {
 }
 
 function toggleBtnTransparent(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         transparent: event.target.checked,
@@ -152,7 +152,7 @@ function toggleBtnTransparent(event) {
 }
 
 function onBorderColorChange(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         borderColor: event.target.value,
@@ -160,7 +160,7 @@ function onBorderColorChange(event) {
 }
 
 function onBorderButtonClassChange(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         buttonClass: event.target.value,
@@ -168,7 +168,7 @@ function onBorderButtonClassChange(event) {
 }
 
 function toggleBtnFlat(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         flat: event.target.checked,
@@ -176,7 +176,7 @@ function toggleBtnFlat(event) {
 }
 
 function toggleBtnShowSelection(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         showSelection: event.target.checked,
@@ -184,7 +184,7 @@ function toggleBtnShowSelection(event) {
 }
 
 function toggleBtnColumns(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         columns: event.target.value,
@@ -192,7 +192,7 @@ function toggleBtnColumns(event) {
 }
 
 function onBtnAlignChange(event) {
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         align: event.target.value,
@@ -230,7 +230,7 @@ function toggleBtnStyle() {
         btnStyle.fontSize = '' + fontsize + 'px';
     }
 
-    const btn = document.querySelector('kup-btn');
+    const btn = document.querySelector('kup-button-list');
     btn.config = {
         ...btn.config,
         btnStyle,
