@@ -3585,7 +3585,6 @@ declare namespace LocalJSX {
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
-        "onKup-addcodedecodecolumn"?: (event: CustomEvent<KupDatatableAddColumnEventPayload>) => void;
         /**
           * When 'add column' menu item is clicked
          */
@@ -4875,7 +4874,6 @@ declare namespace LocalJSX {
           * The value of the global filter.
          */
         "globalFilterValue"?: string;
-        "onKup-addcodedecodecolumn"?: (event: CustomEvent<KupTreeAddColumnEventPayload>) => void;
         /**
           * When 'add column' menu item is clicked
          */

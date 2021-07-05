@@ -15,7 +15,11 @@ import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
-import type { GenericObject, KupComponent, KupEventPayload } from '../../types/GenericTypes';
+import type {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -375,8 +379,6 @@ export class KupCard {
      */
     registerListeners(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        root.addEventListener('kup-addcodedecodecolumn', this.cardEvent);
-        root.addEventListener('kup-datatable-addcodedecode', this.cardEvent);
         root.addEventListener('kup-datatable-addcolumn', this.cardEvent);
         root.addEventListener('kup-tree-addcolumn', this.cardEvent);
         root.addEventListener('kup-autocomplete-blur', this.cardEvent);

@@ -162,7 +162,7 @@
         id="theme-switch"
       ></kup-switch>
       <kup-button
-        @kupButtonClick="
+        @kup-button-click="
           () => {
             this.toggleDebug();
           }

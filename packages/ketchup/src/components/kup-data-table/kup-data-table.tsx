@@ -80,7 +80,11 @@ import {
     dropHandlersCell,
 } from './kup-data-table-helper';
 
-import { GenericObject, KupComponent, KupEventPayload } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 
 import {
     stringToNumber,
@@ -975,14 +979,6 @@ export class KupDataTable {
         bubbles: true,
     })
     KupDatatableAddColumn: EventEmitter<KupDatatableAddColumnEventPayload>;
-
-    @Event({
-        eventName: 'kup-addcodedecodecolumn',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupAddCodeDecodeColumn: EventEmitter<KupDatatableAddColumnEventPayload>;
 
     /**
      * When a row action is clicked
@@ -3250,31 +3246,8 @@ export class KupDataTable {
                         column
                     );
 
-                //---- AddCodeDecodeColumn ----
                 const overlay = null;
-                /** disabled on release, for now... */
-                /*
-                if (this.hasOverlayActions(column)) {
-                    columnClass['obj'] = true;
-                    const svgLabel = 'Add code/decode column';
-                    const svg = this.getIconPath('table-column-plus-after');
-                    const iconStyle = {
-                        mask: svg,
-                        webkitMask: svg,
-                    };
-                    overlay = (
-                        <span
-                            title={svgLabel}
-                            style={iconStyle}
-                            class="icon-container overlay-action"
-                            onClick={(e) => {
-                                this.onAddCodeDecodeColumnClick(e, column);
-                            }}
-                            onMouseUp={(e) => e.stopPropagation()}
-                        ></span>
-                    );
-                }
-                */
+
                 //---- Filter ----
                 let filter = null;
 
@@ -3888,7 +3861,6 @@ export class KupDataTable {
                             is-menu
                             menu-visible
                             onBlur={() => this.closeTotalMenu()}
-                            
                             onKup-list-click={(event) =>
                                 this.onTotalsChange(event, column)
                             }
@@ -5109,7 +5081,9 @@ export class KupDataTable {
                             perPage={this.rowsPerPage}
                             selectedPerPage={this.currentRowsPerPage}
                             currentPage={this.currentPage}
-                            onkup-paginator-pagechanged={(e) => this.handlePageChanged(e)}
+                            onkup-paginator-pagechanged={(e) =>
+                                this.handlePageChanged(e)
+                            }
                             onkup-paginator-rowsperpagechanged={(e) =>
                                 this.handleRowsPerPageChanged(e)
                             }

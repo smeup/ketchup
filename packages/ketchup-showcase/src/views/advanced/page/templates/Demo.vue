@@ -134,7 +134,7 @@
             @kup-textfield-input="jsonSet"
           ></kup-text-field>
           <kup-button
-            @kupButtonClick="jsonSetSwitch"
+            @kup-button-click="jsonSetSwitch"
             id="json-setter-opener"
             icon="settings"
             title="Show prop field"
@@ -156,7 +156,7 @@
       </div>
       <div id="split-container">
         <kup-button
-          @kupButtonClick="menuTrigger"
+          @kup-button-click="menuTrigger"
           id="menu-trigger"
           toggable
           style="--kup-primary-color: var(--kup-text-on-primary-color)"
@@ -165,7 +165,7 @@
           title="Open/close side panel"
         ></kup-button>
         <kup-button
-          @kupButtonClick="swapView"
+          @kup-button-click="swapView"
           id="view-swapper"
           toggable
           style="--kup-primary-color: var(--kup-text-on-primary-color)"
@@ -174,7 +174,7 @@
           title="Toggle/disable full screen"
         ></kup-button>
         <kup-button
-          @kupButtonClick="splitView"
+          @kup-button-click="splitView"
           id="view-splitter"
           toggable
           style="
@@ -315,7 +315,7 @@ export default {
                   .insertAdjacentHTML('beforebegin', newEntry);
                 document
                   .querySelector('#' + newEntryId)
-                  .addEventListener('kupButtonClick', (e) => {
+                  .addEventListener('kup-button-click', (e) => {
                     this.updateDemoFieldArrayRemove(e);
                   });
                 document.querySelector('#' + newEntryId).styling = 'flat';
@@ -429,7 +429,7 @@ export default {
       e.target.value = '';
       document
         .querySelector('#' + newEntryId)
-        .addEventListener('kupButtonClick', (e) => {
+        .addEventListener('kup-button-click', (e) => {
           this.updateDemoFieldArrayRemove(e);
         });
     },

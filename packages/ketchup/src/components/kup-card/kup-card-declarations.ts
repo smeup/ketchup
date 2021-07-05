@@ -90,7 +90,7 @@ export enum KupCardCSSClasses {
 export enum KupCardSubEvents {
     AUTOCOMPLETE_BLUR = 'kup-autocomplete-blur',
     AUTOCOMPLETE_ITEMCLICK = 'kup-autocomplete-itemclick',
-    BUTTON_CLICK = 'kupButtonClick',
+    BUTTON_CLICK = 'kup-button-click',
     CHIP_BLUR = 'kup-chip-blur',
     CHIP_ICONCLICK = 'kup-chip-iconclick',
     TABBAR_CLICK = 'kup-tabbar-click',

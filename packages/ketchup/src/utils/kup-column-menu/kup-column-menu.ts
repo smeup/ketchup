@@ -186,19 +186,6 @@ export class KupColumnMenu {
             comp.enableExtraColumns &&
             dom.ketchup.objects.canHaveExtraColumns(column.obj)
         ) {
-            if (dom.ketchup.objects.canHaveAutomaticDerivedColumn(column.obj)) {
-                props.push({
-                    className: 'printable',
-                    'data-storage': {
-                        columnName: column.name,
-                    },
-                    icon: 'label',
-                    id: KupColumnMenuIds.BUTTON_DESCRIPTION,
-                    title: dom.ketchup.language.translate(
-                        KupLanguageColumn.ADD_DESCRIPTION
-                    ),
-                });
-            }
             props.push({
                 className: 'printable',
                 label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
@@ -686,14 +673,8 @@ export class KupColumnMenu {
                     }
                 );
                 break;
-            case 'kupButtonClick':
+            case 'kup-button-click':
                 switch (compID) {
-                    case KupColumnMenuIds.BUTTON_DESCRIPTION:
-                        this.addDescriptionColumn(
-                            comp,
-                            dataStorage['columnName']
-                        );
-                        break;
                     case KupColumnMenuIds.BUTTON_REMOVE:
                         this.removeColumn(comp, dataStorage['column']);
                         break;
@@ -929,19 +910,6 @@ export class KupColumnMenu {
         } else {
             column.visible = false;
         }
-        comp.closeColumnMenu();
-    }
-    /**
-     * Adds the description column (or code column, if it is a description).
-     * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {string} column - Name of the column.
-     */
-    addDescriptionColumn(comp: KupDataTable | KupTree, column: string): void {
-        comp.kupAddCodeDecodeColumn.emit({
-            column: column,
-            comp,
-            id: comp.rootElement.id,
-        });
         comp.closeColumnMenu();
     }
 }

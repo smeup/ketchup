@@ -418,7 +418,7 @@ export class KupDebug {
         const compEvent: CustomEvent = e.detail.event;
         const compID: string = compEvent.detail.id;
         switch (compEvent.type) {
-            case 'kupButtonClick':
+            case 'kup-button-click':
                 switch (compID) {
                     case 'kup-debug-autoprint':
                         this.autoPrint = !this.autoPrint;

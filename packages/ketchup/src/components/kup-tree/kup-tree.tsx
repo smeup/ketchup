@@ -425,14 +425,6 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeColumnMenu: EventEmitter<KupTreeColumnMenuEventPayload>;
-    
-    @Event({
-        eventName: 'kup-addcodedecodecolumn',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupAddCodeDecodeColumn: EventEmitter<KupTreeAddColumnEventPayload>;
 
     @Event({
         eventName: 'kup-tree-didload',
@@ -956,7 +948,7 @@ export class KupTree {
                         treeNode: treeNodeData,
                         usesDynamicExpansion: this.useDynamicExpansion,
                         comp: this,
-                        id: this.rootElement.id
+                        id: this.rootElement.id,
                     });
                 } else {
                     // TreeNode is now collapsed -> Fires collapsed event
@@ -999,7 +991,7 @@ export class KupTree {
                                 treeNode: treeNodeData,
                                 usesDynamicExpansion: true,
                                 comp: this,
-                                id: this.rootElement.id
+                                id: this.rootElement.id,
                             });
                         })
                         .catch((err) => {
@@ -1018,7 +1010,7 @@ export class KupTree {
                         usesDynamicExpansion: true,
                         dynamicExpansionRequireChildren: true,
                         comp: this,
-                        id: this.rootElement.id
+                        id: this.rootElement.id,
                     });
 
                     treeNodeData[treeExpandedPropName] =
