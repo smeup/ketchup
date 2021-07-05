@@ -145,7 +145,7 @@ export class KupButton {
 
     onKupBlur() {
         this.kupBlur.emit({
-            comp:this,
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -172,7 +172,7 @@ export class KupButton {
 
     onKupFocus() {
         this.kupFocus.emit({
-            comp:this,
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });

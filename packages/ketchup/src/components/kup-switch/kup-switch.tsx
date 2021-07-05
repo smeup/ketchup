@@ -122,9 +122,9 @@ export class KupSwitch {
 
     onKupBlur() {
         this.kupBlur.emit({
-            value: this.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 
@@ -145,9 +145,9 @@ export class KupSwitch {
 
     onKupFocus() {
         this.kupFocus.emit({
-            value: this.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 

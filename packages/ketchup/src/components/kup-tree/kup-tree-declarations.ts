@@ -113,17 +113,20 @@ export interface KupTreeNodeCollapseEventPayload extends KupEventPayload {
     treeNode: TreeNode;
 }
 
-export interface KupTreeNodeExpandEventPayload extends KupTreeNodeCollapseEventPayload {
+export interface KupTreeNodeExpandEventPayload
+    extends KupTreeNodeCollapseEventPayload {
     usesDynamicExpansion?: boolean;
     dynamicExpansionRequireChildren?: boolean;
 }
 
-export interface KupTreeNodeSelectedEventPayload extends KupTreeNodeCollapseEventPayload {
+export interface KupTreeNodeSelectedEventPayload
+    extends KupTreeNodeCollapseEventPayload {
     columnName: string;
     auto: boolean;
 }
 
-export interface KupTreeNodeButtonClickedEventPayload extends KupTreeNodeCollapseEventPayload {
+export interface KupTreeNodeButtonClickEventPayload
+    extends KupTreeNodeCollapseEventPayload {
     column: Column;
     columnName: string;
     auto: boolean;
@@ -139,10 +142,11 @@ export interface KupTreeColumnMenuEventPayload extends KupEventPayload {
 }
 
 export interface KupTreeAddColumnEventPayload extends KupEventPayload {
-    column: string
+    column: string;
 }
 
-export interface KupTreeDynamicMassExpansionEventPayload extends KupEventPayload {
+export interface KupTreeDynamicMassExpansionEventPayload
+    extends KupEventPayload {
     treeNodePath?: TreeNodePath;
     treeNode?: TreeNode;
     expandAll?: boolean;

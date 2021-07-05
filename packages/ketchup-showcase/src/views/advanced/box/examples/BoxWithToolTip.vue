@@ -3,7 +3,7 @@
     <h3>Box with tooltip</h3>
     <kup-box
       :data.prop="basicData"
-      @kup-datatable-optionclicked="handleKupOptionClicked"
+      @kup-datatable-optionclick="handleKupOptionClick"
       @kup-tooltip-loaddata="onLoadData"
       @kup-tooltip-loaddetail="loadBornToDie"
       @kup-tooltip-loadcelloptions="loadCellOptions"
@@ -35,7 +35,7 @@ export default {
     simpleEventHandler() {
       console.log('simpleEventHandler');
     },
-    handleKupOptionClicked({ detail }) {
+    handleKupOptionClick({ detail }) {
       console.log('detail', detail);
     },
     loadCellOptions({ detail }) {

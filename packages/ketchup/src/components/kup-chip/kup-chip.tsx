@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    Watch,
 } from '@stencil/core';
 
 import {
@@ -24,7 +23,6 @@ import {
 import { KupChipEventPayload, KupChipProps } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupCardIds } from '../kup-card/kup-card-declarations';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -129,9 +127,9 @@ export class KupChip {
             value = this.data[i].value;
         }
         this.kupBlur.emit({
+            comp: this,
             id: this.rootElement.id,
             index: i,
-            comp: obj,
             value: value,
         });
     }
@@ -162,9 +160,9 @@ export class KupChip {
             this.data = newData;
         }
         this.kupClick.emit({
+            comp: this,
             id: this.rootElement.id,
             index: i,
-            comp: obj,
             value: value,
         });
     }
@@ -177,9 +175,9 @@ export class KupChip {
             value = this.data[i].value;
         }
         this.kupFocus.emit({
+            comp: this,
             id: this.rootElement.id,
             index: i,
-            comp: obj,
             value: value,
         });
     }
@@ -195,9 +193,9 @@ export class KupChip {
         let newData = [...this.data];
         this.data = newData;
         this.kupIconClick.emit({
+            comp: this,
             id: this.rootElement.id,
             index: i,
-            comp: obj,
             value: value,
         });
     }

@@ -22,7 +22,10 @@ import {
     KupDynamicPositionElement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupColorPickerEventPayload, KupColorPickerProps } from './kup-color-picker-declarations';
+import {
+    KupColorPickerEventPayload,
+    KupColorPickerProps,
+} from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -129,6 +132,8 @@ export class KupColorPicker {
         this.setHexValue();
 
         this.kupInput.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -229,6 +234,8 @@ export class KupColorPicker {
                     colorPicker.dropdownEl as KupDynamicPositionElement
                 );
                 colorPicker.kupChange.emit({
+                    comp: colorPicker,
+                    id: colorPicker.rootElement.id,
                     value: colorPicker.value,
                 });
             };

@@ -47,11 +47,11 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-box-rowactionclicked',
+          name: 'kup-box-rowactionclick',
           type: 'CustomEvent',
         },
         {
-          name: 'kup-box-rowactionmenuclicked',
+          name: 'kup-box-rowactionmenuclick',
           type: 'CustomEvent',
         },
       ],

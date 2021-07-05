@@ -55,7 +55,7 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-datatable-optionclicked',
+          name: 'kup-datatable-optionclick',
           type: 'click',
         },
         {
@@ -63,15 +63,15 @@ export default {
           type: 'click',
         },
         {
-          name: 'kup-datatable-rowactionclicked',
+          name: 'kup-datatable-rowactionclick',
           type: 'click',
         },
         {
-          name: 'kup-datatable-loadmoreclicked',
+          name: 'kup-datatable-loadmoreclick',
           type: 'click',
         },
         {
-          name: 'kup-datatable-cellbuttonclicked',
+          name: 'kup-datatable-cellbuttonclick',
           type: 'click',
         },
         {

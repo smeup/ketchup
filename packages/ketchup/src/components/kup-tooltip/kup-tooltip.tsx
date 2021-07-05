@@ -21,10 +21,10 @@ import {
     TooltipCellOptions,
     KupTooltipProps,
     KupTooltipLoadEventPayload,
-    KupTooltipActionCommandClickedEventPayload,
+    KupTooltipActionCommandClickEventPayload,
     KupTooltipDefaultEventPayload,
     KupTooltipTreeNodeExpandEventPayload,
-    KupTooltipTreeNodeButtonClickedEventPayload,
+    KupTooltipTreeNodeButtonClickEventPayload,
     KupTooltipTreeNodeSelectedEventPayload,
     KupTooltipTreeNodeDblClickEventPayload,
     KupTooltipTreeDynamicMassExpansionEventPayload,
@@ -33,9 +33,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
-import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
-import { KupTree } from '../kup-tree/kup-tree';
+import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
@@ -118,36 +116,36 @@ export class KupTooltip {
     kupTooltipLoadCellOptions: EventEmitter<KupTooltipLoadEventPayload>;
 
     @Event({
-        eventName: 'kup-tooltip-actioncommandclicked',
+        eventName: 'kup-tooltip-actioncommandclick',
         composed: true,
         cancelable: true,
         bubbles: true,
     })
-    kupActionCommandClicked: EventEmitter<KupTooltipActionCommandClickedEventPayload>;
+    kupActionCommandClick: EventEmitter<KupTooltipActionCommandClickEventPayload>;
 
     @Event({
-        eventName: 'kup-tooltip-defaultactionclicked',
+        eventName: 'kup-tooltip-defaultactionclick',
         composed: true,
         cancelable: true,
         bubbles: true,
     })
-    kupDefaultActionClicked: EventEmitter<KupTooltipDefaultEventPayload>;
+    kupDefaultActionClick: EventEmitter<KupTooltipDefaultEventPayload>;
 
     @Event({
-        eventName: 'kup-tooltip-defaultpreviewclicked',
+        eventName: 'kup-tooltip-defaultpreviewclick',
         composed: true,
         cancelable: true,
         bubbles: true,
     })
-    kupDefaultPreviewClickeded: EventEmitter<KupTooltipDefaultEventPayload>;
+    kupDefaultPreviewClick: EventEmitter<KupTooltipDefaultEventPayload>;
 
     @Event({
-        eventName: 'kup-tooltip-defaultoptionclicked',
+        eventName: 'kup-tooltip-defaultoptionclick',
         composed: true,
         cancelable: true,
         bubbles: true,
     })
-    kupDefaultOptionClicked: EventEmitter<KupTooltipDefaultEventPayload>;
+    kupDefaultOptionClick: EventEmitter<KupTooltipDefaultEventPayload>;
 
     @Event({
         eventName: 'kup-tooltip-treenodeexpand',
@@ -158,12 +156,12 @@ export class KupTooltip {
     kupTreeNodeExpand: EventEmitter<KupTooltipTreeNodeExpandEventPayload>;
 
     @Event({
-        eventName: 'kup-tooltip-treenodebuttonclicked',
+        eventName: 'kup-tooltip-treenodebuttonclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeNodeButtonClicked: EventEmitter<KupTooltipTreeNodeButtonClickedEventPayload>;
+    kupTreeNodeButtonClick: EventEmitter<KupTooltipTreeNodeButtonClickEventPayload>;
 
     /**
      * Fired when a node of the tree has been selected
@@ -371,16 +369,16 @@ export class KupTooltip {
         if (this.isViewModeTooltip()) {
             this.cellOptions = null;
             this.kupTooltipLoadDetail.emit({
-                relatedObject: this.relatedObject,
                 comp: this,
                 id: this.rootElement.id,
+                relatedObject: this.relatedObject,
             });
         } else if (this.isViewModeCellOptions()) {
             this.detailData = null;
             this.kupTooltipLoadCellOptions.emit({
-                relatedObject: this.relatedObject,
                 comp: this,
                 id: this.rootElement.id,
+                relatedObject: this.relatedObject,
             });
         }
     }
@@ -406,20 +404,20 @@ export class KupTooltip {
             <div>
                 <div
                     class="title ellipsis"
-                    onClick={(event) => this.onDefaultOptionClicked(event)}
+                    onClick={(event) => this.onDefaultOptionClick(event)}
                 >
                     {datatitle}
                 </div>
                 <kup-button
                     icon="open-in-new"
                     onKup-button-click={(event) =>
-                        this.onDefaultActionClicked(event)
+                        this.onDefaultActionClick(event)
                     }
                 ></kup-button>
                 <kup-button
                     icon="search"
                     onKup-button-click={(event) =>
-                        this.onDefaultPreviewClicked(event)
+                        this.onDefaultPreviewClick(event)
                     }
                 ></kup-button>
             </div>
@@ -449,53 +447,53 @@ export class KupTooltip {
                 return;
             }
             this.kupTooltipLoadData.emit({
-                relatedObject: this.relatedObject,
                 comp: this,
                 id: this.rootElement.id,
+                relatedObject: this.relatedObject,
             });
         }, this.loadTimeout);
     }
 
-    private onActionCommandClicked(event: Event, action: TooltipAction) {
-        //console.log("Emit kup-tooltip-actioncommandclicked: " + JSON.stringify(action));
-        // Blocco la propagazione del onKup-button-clicked per evitare che lo stesso click
+    private onActionCommandClick(event: Event, action: TooltipAction) {
+        //console.log("Emit kup-tooltip-actioncommandclick: " + JSON.stringify(action));
+        // Blocco la propagazione del onKup-button-click per evitare che lo stesso click
         // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
-        this.kupActionCommandClicked.emit({
+        this.kupActionCommandClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             actionCommand: action,
             relatedObject: this.relatedObject,
-            comp: this,
-            id: this.rootElement.id,
         });
     }
 
-    private onDefaultActionClicked(event: Event) {
+    private onDefaultActionClick(event: Event) {
         //Evento di default al click
         event.stopPropagation();
-        this.kupDefaultActionClicked.emit({ 
-            obj: this.getObj(),
+        this.kupDefaultActionClick.emit({
             comp: this,
             id: this.rootElement.id,
+            obj: this.getObj(),
         });
     }
 
-    private onDefaultPreviewClicked(event: Event) {
+    private onDefaultPreviewClick(event: Event) {
         //Evento di default al click
         event.stopPropagation();
-        this.kupDefaultPreviewClickeded.emit({ 
-            obj: this.getObj(),
+        this.kupDefaultPreviewClick.emit({
             comp: this,
             id: this.rootElement.id,
+            obj: this.getObj(),
         });
     }
 
-    private onDefaultOptionClicked(event: Event) {
+    private onDefaultOptionClick(event: Event) {
         //Evento di default al click
         event.stopPropagation();
-        this.kupDefaultOptionClicked.emit({ 
-            obj: this.getObj(),
-            id: this.rootElement.id,
+        this.kupDefaultOptionClick.emit({
             comp: this,
+            id: this.rootElement.id,
+            obj: this.getObj(),
         });
     }
 
@@ -529,14 +527,14 @@ export class KupTooltip {
         }
         // TreeNode is now expanded -> Fires expanded event
         this.kupTreeNodeExpand.emit({
+            comp: this,
+            id: this.rootElement.id,
             treeNodePath: e.detail.treeNodePath,
             treeNode: e.detail.treeNode,
             usesDynamicExpansion: e.detail.usesDynamicExpansion,
             dynamicExpansionRequireChildren:
                 e.detail.dynamicExpansionRequireChildren,
             tree: e.detail.tree,
-            id: this.rootElement.id,
-            comp: this,
         });
     }
 
@@ -544,28 +542,28 @@ export class KupTooltip {
         e.stopPropagation();
 
         this.kupTreeNodeSelected.emit({
+            comp: this,
+            id: this.rootElement.id,
             treeNodePath: e.detail.treeNodePath,
             treeNode: e.detail.treeNode,
             columnName: e.detail.columnName,
             auto: e.detail.auto,
             tree: e.detail.tree,
-            comp: this,
-            id: this.rootElement.id,
         });
     }
 
-    private onKupTreeNodeButtonClicked(e: CustomEvent) {
+    private onKupTreeNodeButtonClick(e: CustomEvent) {
         e.stopPropagation();
 
-        this.kupTreeNodeButtonClicked.emit({
+        this.kupTreeNodeButtonClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             treeNodePath: e.detail.treeNodePath,
             treeNode: e.detail.treeNode,
             column: e.detail.column,
             columnName: e.detail.columnName,
             auto: e.detail.auto,
             tree: e.detail.tree,
-            comp: this,
-            id: this.rootElement.id
         });
     }
 
@@ -573,10 +571,10 @@ export class KupTooltip {
         e.stopPropagation();
 
         this.kupTreeNodeDblClick.emit({
-            treeNodePath: e.detail.treeNodePath,
-            treeNode: e.detail.treeNode,
             comp: this,
             id: this.rootElement.id,
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
         });
     }
 
@@ -584,11 +582,11 @@ export class KupTooltip {
         e.stopPropagation();
 
         this.kupTreeDynamicMassExpansion.emit({
+            comp: this,
+            id: this.rootElement.id,
             treeNodePath: e.detail.treeNodePath,
             treeNode: e.detail.treeNode,
             expandAll: e.detail.expandAll,
-            comp: this,
-            id: this.rootElement.id
         });
     }
 
@@ -771,7 +769,7 @@ export class KupTooltip {
                                 title={action.text}
                                 icon={action.icon}
                                 onKup-button-click={(event) =>
-                                    this.onActionCommandClicked(event, action)
+                                    this.onActionCommandClick(event, action)
                                 }
                             ></kup-button>
                         </div>
@@ -788,13 +786,17 @@ export class KupTooltip {
                     tooltipEnabled={false}
                     onkup-tree-nodecollapse={(e) => e.stopPropagation()}
                     onkup-tree-nodeexpand={(e) => this.onKupTreeNodeExpand(e)}
-                    onkup-tree-nodeselected={(e) => this.onKupTreeNodeSelected(e)}
-                    onkup-tree-buttonclicked={(e) =>
-                        this.onKupTreeNodeButtonClicked(e)
+                    onkup-tree-nodeselected={(e) =>
+                        this.onKupTreeNodeSelected(e)
+                    }
+                    onkup-tree-buttonclick={(e) =>
+                        this.onKupTreeNodeButtonClick(e)
                     }
                     onkup-tree-didload={(e) => e.stopPropagation()}
                     onkup-tree-didunload={(e) => e.stopPropagation()}
-                    onkup-tree-nodedblclick={(e) => this.onKupTreeNodeDblClick(e)}
+                    onkup-tree-nodedblclick={(e) =>
+                        this.onKupTreeNodeDblClick(e)
+                    }
                     onkup-tree-dynamicmassexpansion={(e) =>
                         this.onKupTreeDynamicMassExpansion(e)
                     }

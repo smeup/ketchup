@@ -12,7 +12,12 @@ import {
     VNode,
 } from '@stencil/core';
 
-import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload, KupTabBarProps } from './kup-tab-bar-declarations';
+import {
+    KupTabBarClickEventPayload,
+    KupTabBarData,
+    KupTabBarEventPayload,
+    KupTabBarProps,
+} from './kup-tab-bar-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -108,9 +113,9 @@ export class KupTabBar {
     onKupBlur(i: number, e: Event) {
         this.kupBlur.emit({
             comp: this,
+            id: this.rootElement.id,
             index: i,
             el: e.target,
-            id: this.rootElement.id,
         });
     }
 
@@ -133,9 +138,9 @@ export class KupTabBar {
     onKupFocus(i: number, e: Event) {
         this.kupFocus.emit({
             comp: this,
+            id: this.rootElement.id,
             index: i,
             el: e.target,
-            id: this.rootElement.id,
         });
     }
 

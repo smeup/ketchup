@@ -17,10 +17,10 @@ export interface KupPayloadEvent<KupPayloadEventData, KupPayloadEventInfo> {
     oldValue: KupPayloadEventData;
     info: KupPayloadEventInfo;
 }
-export interface KupFldSubmitEvent extends KupPayloadEvent<any, object> {
+export interface KupFieldSubmitEvent extends KupPayloadEvent<any, object> {
     originalEvent: CustomEvent;
 }
 
-export interface KupFldChangeEvent extends KupPayloadEvent<any, object> {
+export interface KupFieldChangeEvent extends KupPayloadEvent<any, object> {
     originalEvent: CustomEvent<any>;
 }

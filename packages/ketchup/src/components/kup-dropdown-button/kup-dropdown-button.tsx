@@ -26,7 +26,10 @@ import {
     KupDynamicPositionElement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupDropdownButtonEventPayload, KupDropdownButtonProps } from './kup-dropdown-button-declarations';
+import {
+    KupDropdownButtonEventPayload,
+    KupDropdownButtonProps,
+} from './kup-dropdown-button-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
@@ -212,9 +215,9 @@ export class KupDropdownButton {
     onKupBlur() {
         this.closeList();
         this.kupBlur.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this,
         });
     }
 
@@ -248,15 +251,15 @@ export class KupDropdownButton {
         this.closeList();
 
         this.kupChange.emit({
-            value: this.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: this.value,
         });
 
         this.kupItemClick.emit({
-            value: this.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 

@@ -143,8 +143,8 @@ export class KupRadio {
         }
         this.kupChange.emit({
             comp: this,
-            value: this.value,
             id: this.rootElement.id,
+            value: this.value,
         });
     }
 

@@ -13,7 +13,11 @@ import {
 
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
-import { ComponentListElement, KupListEventPayload, KupListProps } from './kup-list-declarations';
+import {
+    ComponentListElement,
+    KupListEventPayload,
+    KupListProps,
+} from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
@@ -221,19 +225,19 @@ export class KupList {
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
         this.kupBlur.emit({
-            selected: item,
-            el: e.target,
             comp: this,
             id: this.rootElement.id,
+            selected: item,
+            el: e.target,
         });
     }
 
     onKupChange(e: CustomEvent, item: ComponentListElement) {
         this.kupChange.emit({
-            selected: item,
-            el: e.target,
             comp: this,
             id: this.rootElement.id,
+            selected: item,
+            el: e.target,
         });
     }
 
@@ -271,19 +275,19 @@ export class KupList {
         }
 
         this.kupClick.emit({
-            selected: item,
-            el: target,
             comp: this,
             id: this.rootElement.id,
+            selected: item,
+            el: target,
         });
     }
 
     onKupFocus(e: CustomEvent, item: ComponentListElement) {
         this.kupFocus.emit({
-            selected: item,
-            el: e.target,
             comp: this,
             id: this.rootElement.id,
+            selected: item,
+            el: e.target,
         });
     }
 
@@ -292,10 +296,10 @@ export class KupList {
             this.onKupClickInternalUse(e.target, item, index);
         } else {
             this.kupInput.emit({
-                selected: item,
-                el: e.target,
                 comp: this,
                 id: this.rootElement.id,
+                selected: item,
+                el: e.target,
             });
         }
     }

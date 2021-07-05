@@ -13,7 +13,11 @@ import {
     Watch,
 } from '@stencil/core';
 
-import type { GenericObject, KupComponent, KupEventPayload } from '../../types/GenericTypes';
+import type {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
@@ -177,9 +181,9 @@ export class KupDatePicker {
         this.setPickerValueSelected(value);
 
         this.kupChange.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this,
         });
 
         this.kupItemClick.emit({
@@ -200,8 +204,8 @@ export class KupDatePicker {
         });
 
         this.kupClearIconClick.emit({
+            comp: this,
             id: this.rootElement.id,
-            comp: this
         });
     }
 
@@ -491,7 +495,9 @@ export class KupDatePicker {
                 onkup-textfield-focus={(e: any) => this.onKupFocus(e)}
                 onkup-textfield-input={(e: any) => this.onKupInput(e)}
                 onkup-textfield-iconclick={(e: any) => this.onKupIconClick(e)}
-                onkup-textfield-submit={(e: any) => this.onkupTextFieldSubmit(e)}
+                onkup-textfield-submit={(e: any) =>
+                    this.onkupTextFieldSubmit(e)
+                }
                 onkup-textfield-cleariconclick={(e: any) =>
                     this.onKupClearIconClick(e)
                 }

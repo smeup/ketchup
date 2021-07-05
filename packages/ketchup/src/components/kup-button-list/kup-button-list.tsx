@@ -100,7 +100,7 @@ export class KupButtonList {
         this.selected = index;
         this.kupClick.emit({
             comp: this,
-            id: index,
+            id: this.rootElement.id,
             subId: subIndex,
             obj: this.getObjForEvent(index, subIndex),
         });

@@ -20,7 +20,7 @@ import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declara
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupCheckboxProps,
-    KupCheckedEventPayload,
+    KupCheckboxEventPayload,
 } from './kup-checkbox-declarations';
 import { getProps, setProps } from '../../utils/utils';
 
@@ -103,7 +103,7 @@ export class KupCheckbox {
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<KupCheckedEventPayload>;
+    kupBlur: EventEmitter<KupCheckboxEventPayload>;
     /**
      * Triggered when the input element's value changes.
      */
@@ -113,7 +113,7 @@ export class KupCheckbox {
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<KupCheckedEventPayload>;
+    kupChange: EventEmitter<KupCheckboxEventPayload>;
     /**
      * Triggered when the input element gets focused.
      */
@@ -123,14 +123,14 @@ export class KupCheckbox {
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<KupCheckedEventPayload>;
+    kupFocus: EventEmitter<KupCheckboxEventPayload>;
 
     onKupBlur() {
         this.kupBlur.emit({
-            checked: this.checked == true ? true : false,
-            id: this.rootElement.id,
-            value: this.value,
             comp: this,
+            id: this.rootElement.id,
+            checked: this.checked == true ? true : false,
+            value: this.value,
         });
     }
 
@@ -147,19 +147,19 @@ export class KupCheckbox {
             this.value = 'on';
         }
         this.kupChange.emit({
-            checked: this.checked,
-            id: this.rootElement.id,
-            value: this.value,
             comp: this,
+            id: this.rootElement.id,
+            checked: this.checked,
+            value: this.value,
         });
     }
 
     onKupFocus() {
         this.kupFocus.emit({
-            checked: this.checked == true ? true : false,
-            id: this.rootElement.id,
-            value: this.value,
             comp: this,
+            id: this.rootElement.id,
+            checked: this.checked == true ? true : false,
+            value: this.value,
         });
     }
 

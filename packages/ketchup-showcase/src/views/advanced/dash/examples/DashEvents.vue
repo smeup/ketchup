@@ -5,7 +5,7 @@
       <ul>
         <li
           ><span class="code-word">{{ event }}</span
-          >: it is launched every time the drawer is cliked.</li
+          >: it is launched every time the drawer is clicked.</li
         >
       </ul>
     </div>

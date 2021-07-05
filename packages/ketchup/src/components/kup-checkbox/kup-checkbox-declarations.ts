@@ -1,4 +1,4 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-checkbox component.
@@ -13,7 +13,7 @@ export enum KupCheckboxProps {
     leadingLabel = 'When set to true, the label will be on the left of the component.',
 }
 
-export interface KupCheckedEventPayload extends KupEventPayload {
+export interface KupCheckboxEventPayload extends KupEventPayload {
     checked: boolean;
     value: string;
 }

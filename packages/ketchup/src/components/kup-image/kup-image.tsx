@@ -22,7 +22,10 @@ import {
     FImageProps,
     FImageData,
 } from '../../f-components/f-image/f-image-declarations';
-import { KupImageClickEventPayload, KupImageProps } from './kup-image-declarations';
+import {
+    KupImageClickEventPayload,
+    KupImageProps,
+} from './kup-image-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -125,9 +128,9 @@ export class KupImage {
 
     onKupClick(e: Event) {
         this.kupClick.emit({
-            el: e.target,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            el: e.target,
         });
     }
 

@@ -22,7 +22,6 @@ import {
     FixedCellsCSSVarsBase,
     GroupLabelDisplayMode,
     GroupObject,
-    KupDataTableCellButtonClick,
     KupDataTableColumnDragType,
     KupDataTableRowDragType,
     KupDataTableColumnDragRemoveType,
@@ -36,7 +35,6 @@ import {
     TableData,
     TotalsMap,
     TotalMode,
-    KupDataTableCellTextFieldInput,
     totalMenuOpenID,
     TotalLabel,
     EventHandlerDetails,
@@ -53,10 +51,12 @@ import {
     KupDatatableCellUpdateEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
-    KupDatatableOptionClickedEventPayload,
+    KupDatatableOptionClickEventPayload,
     KupDatatableAddColumnEventPayload,
-    KupDatatableRowActionClickedEventPayload,
-    KupDatatableLoadMoreClickedEventPayload,
+    KupDatatableRowActionClickEventPayload,
+    KupDatatableLoadMoreClickEventPayload,
+    KupDataTableCellButtonClickEventPayload,
+    KupDataTableCellTextFieldInputEventPayload,
 } from './kup-data-table-declarations';
 
 import {
@@ -863,7 +863,7 @@ export class KupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupDidUnload: EventEmitter<{ comp: KupDataTable }>;
+    kupDidUnload: EventEmitter<KupEventPayload>;
 
     /**
      * When component load is complete
@@ -874,7 +874,7 @@ export class KupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupDidLoad: EventEmitter<{ comp: KupDataTable }>;
+    kupDidLoad: EventEmitter<KupEventPayload>;
 
     /**
      * When rows selections reset
@@ -958,16 +958,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableColumnMenu: EventEmitter<KupDatatableColumnMenuEventPayload>;
-    /**
-     * When cell option is clicked
-     */
-    @Event({
-        eventName: 'kup-datatable-optionclicked',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupOptionClicked: EventEmitter<KupDatatableOptionClickedEventPayload>;
 
     /**
      * When 'add column' menu item is clicked
@@ -984,28 +974,28 @@ export class KupDataTable {
      * When a row action is clicked
      */
     @Event({
-        eventName: 'kup-datatable-rowactionclicked',
+        eventName: 'kup-datatable-rowactionclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupRowActionClicked: EventEmitter<KupDatatableRowActionClickedEventPayload>;
+    kupRowActionClick: EventEmitter<KupDatatableRowActionClickEventPayload>;
 
     @Event({
-        eventName: 'kup-datatable-loadmoreclicked',
+        eventName: 'kup-datatable-loadmoreclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupLoadMoreClicked: EventEmitter<KupDatatableLoadMoreClickedEventPayload>;
+    kupLoadMoreClick: EventEmitter<KupDatatableLoadMoreClickEventPayload>;
 
     @Event({
-        eventName: 'kup-datatable-cellbuttonclicked',
+        eventName: 'kup-datatable-cellbuttonclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
+    kupCellButtonClick: EventEmitter<KupDataTableCellButtonClickEventPayload>;
 
     @Event({
         eventName: 'kup-datatable-textfieldinput',
@@ -1013,7 +1003,7 @@ export class KupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInput>;
+    kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInputEventPayload>;
     /**
      * This method is invoked by KupManager whenever the component changes size.
      */
@@ -1057,9 +1047,9 @@ export class KupDataTable {
         this.columnMenuInstance.reposition(this);
         this.kupDataTableColumnMenu.emit({
             comp: this,
+            id: this.rootElement.id,
             card: this.columnMenuCard,
             open: true,
-            id: this.rootElement.id,
         });
     }
     /**
@@ -1071,9 +1061,9 @@ export class KupDataTable {
         this.columnMenuInstance.close(this.columnMenuCard);
         this.kupDataTableColumnMenu.emit({
             comp: this,
+            id: this.rootElement.id,
             card: this.columnMenuCard,
             open: false,
-            id: this.rootElement.id,
         });
     }
     /**
@@ -1103,10 +1093,10 @@ export class KupDataTable {
         if (emitEvent !== false) {
             this.kupRowSelected.emit({
                 comp: this,
+                id: this.rootElement.id,
                 selectedRows: this.selectedRows,
                 clickedColumn: null,
                 clickedRow: null,
-                id: this.rootElement.id,
             });
         }
     }
@@ -1775,14 +1765,14 @@ export class KupDataTable {
                 this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
                 this.kupAutoRowSelect.emit({
                     comp: this,
-                    selectedRow: this.selectedRows[0],
                     id: this.rootElement.id,
+                    selectedRow: this.selectedRows[0],
                 });
             }
         }
 
         this.lazyLoadCells = true;
-        this.kupDidLoad.emit();
+        this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
@@ -1792,7 +1782,7 @@ export class KupDataTable {
         if (!this.data || !this.data.rows || this.data.rows.length === 0)
             return;
         this.selectedRows = [];
-        this.kupResetSelectedRows.emit();
+        this.kupResetSelectedRows.emit({ comp: this, id: this.rootElement.id });
     }
 
     resetCurrentPage() {
@@ -2628,10 +2618,10 @@ export class KupDataTable {
                 // emit event
                 this.kupRowSelected.emit({
                     comp: this,
+                    id: this.rootElement.id,
                     selectedRows: this.selectedRows,
                     clickedRow: row,
                     clickedColumn,
-                    id: this.rootElement.id,
                 });
             }
         }
@@ -2668,24 +2658,24 @@ export class KupDataTable {
     }
 
     private onDefaultRowActionClick({ action, row, type, index }) {
-        this.kupRowActionClicked.emit({
+        this.kupRowActionClick.emit({
             comp: this,
+            id: this.rootElement.id,
             action,
             index,
             row,
             type,
-            id: this.rootElement.id,
         });
     }
 
     private onRowActionExpanderClick(e: MouseEvent, row: Row) {
         e.stopPropagation();
 
-        this.kupRowActionClicked.emit({
+        this.kupRowActionClick.emit({
             comp: this,
+            id: this.rootElement.id,
             row,
             type: 'expander',
-            id: this.rootElement.id,
         });
     }
 
@@ -2714,9 +2704,9 @@ export class KupDataTable {
         this.refresh();
         this.kupDataTableCellUpdate.emit({
             comp: this,
+            id: this.rootElement.id,
             cell: cell,
             column: column,
-            id: this.rootElement.id,
             row: row,
             event: e,
         });
@@ -2736,10 +2726,10 @@ export class KupDataTable {
 
         this.kupRowSelected.emit({
             comp: this,
+            id: this.rootElement.id,
             selectedRows: this.selectedRows,
             clickedRow: null,
             clickedColumn: null,
-            id: this.rootElement.id,
         });
     }
 
@@ -2761,10 +2751,10 @@ export class KupDataTable {
             // triggering event
             this.kupRowSelected.emit({
                 comp: this,
+                id: this.rootElement.id,
                 selectedRows: this.selectedRows,
                 clickedColumn: null,
                 clickedRow: null,
-                id: this.rootElement.id,
             });
         } else {
             // deselect all rows
@@ -2876,8 +2866,9 @@ export class KupDataTable {
         } else {
             throw 'kup-data-table error: missing event';
         }
-        this.kupCellButtonClicked.emit({
+        this.kupCellButtonClick.emit({
             comp: this,
+            id: this.rootElement.id,
             cell: cell,
             column: column,
             row: row,
@@ -2934,10 +2925,10 @@ export class KupDataTable {
             loadItems = this.loadMoreLimit;
         }
 
-        this.kupLoadMoreClicked.emit({
+        this.kupLoadMoreClick.emit({
             comp: this,
-            loadItems: loadItems,
             id: this.rootElement.id,
+            loadItems: loadItems,
         });
 
         this.loadMoreEventPreviousQuantity = loadItems;
@@ -5983,10 +5974,10 @@ export class KupDataTable {
                                     setTimeout(() => {
                                         this.kupDataTableClick.emit({
                                             comp: this,
+                                            id: this.rootElement.id,
                                             details: this.clickHandler(
                                                 clone as MouseEvent
                                             ),
-                                            id: this.rootElement.id,
                                         });
                                     }, 300)
                                 );
@@ -5994,8 +5985,8 @@ export class KupDataTable {
                             onContextMenu={(e: MouseEvent) => {
                                 this.kupDataTableContextMenu.emit({
                                     comp: this,
-                                    details: this.contextMenuHandler(e),
                                     id: this.rootElement.id,
+                                    details: this.contextMenuHandler(e),
                                 });
                             }}
                             onDblClick={(e: MouseEvent) => {
@@ -6015,8 +6006,8 @@ export class KupDataTable {
                                 this.clickTimeout = [];
                                 this.kupDataTableDblClick.emit({
                                     comp: this,
-                                    details: this.dblClickHandler(e),
                                     id: this.rootElement.id,
+                                    details: this.dblClickHandler(e),
                                 });
                             }}
                             onMouseMove={(e: MouseEvent) =>
@@ -6101,6 +6092,6 @@ export class KupDataTable {
             this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
         }
         this.kupManager.resize.unobserve(this.rootElement);
-        this.kupDidUnload.emit();
+        this.kupDidUnload.emit({ comp: this, id: this.rootElement.id });
     }
 }

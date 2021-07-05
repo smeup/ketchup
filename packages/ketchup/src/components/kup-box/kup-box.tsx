@@ -28,11 +28,10 @@ import {
     BoxObject,
     BoxKanban,
     KupBoxProps,
-    KupBoxClikEventPayload,
+    KupBoxClickEventPayload,
     KupBoxSelectedEventPayload,
     KupBoxAutoSelectEventPayload,
-    KupBoxRowActionClickedEventPayload,
-    KupBoxDragEventPayload,
+    KupBoxRowActionClickEventPayload,
     KupBoxContextMenuEventPayload,
 } from './kup-box-declarations';
 
@@ -82,7 +81,11 @@ import {
     setProps,
     stringToNumber,
 } from '../../utils/utils';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FChip } from '../../f-components/f-chip/f-chip';
@@ -333,7 +336,7 @@ export class KupBox {
         cancelable: false,
         bubbles: true,
     })
-    KupBoxClicked: EventEmitter<KupBoxClikEventPayload>;
+    KupBoxClick: EventEmitter<KupBoxClickEventPayload>;
 
     /**
      * Triggered when the multi selection checkbox changes value
@@ -358,48 +361,26 @@ export class KupBox {
     KupAutoBoxSelect: EventEmitter<KupBoxAutoSelectEventPayload>;
 
     /**
-     * When the row menu action icon is clicked
+     * When the row menu action icon is click
      */
     @Event({
-        eventName: 'kup-box-rowactionmenuclicked',
+        eventName: 'kup-box-rowactionmenuclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupRowActionMenuClicked: EventEmitter<KupBoxAutoSelectEventPayload>;
+    kupRowActionMenuClick: EventEmitter<KupBoxAutoSelectEventPayload>;
 
     /**
-     * When the row menu action icon is clicked
+     * When the row menu action icon is click
      */
     @Event({
-        eventName: 'kup-box-rowactionclicked',
+        eventName: 'kup-box-rowactionclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupRowActionClicked: EventEmitter<KupBoxRowActionClickedEventPayload>;
-
-    /**
-     * Triggered when a box dragging is started
-     */
-    @Event({
-        eventName: 'kup-box-dragstarted',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupBoxDragStarted: EventEmitter<KupBoxDragEventPayload>;
-
-    /**
-     * Triggered when a box dragging is ended
-     */
-    @Event({
-        eventName: 'kup-box-dragended',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupBoxDragEnded: EventEmitter<KupBoxDragEventPayload>;
+    kupRowActionClick: EventEmitter<KupBoxRowActionClickEventPayload>;
 
     @Event({
         eventName: 'kup-box-didload',
@@ -407,7 +388,7 @@ export class KupBox {
         cancelable: false,
         bubbles: true,
     })
-    kupDidLoad: EventEmitter<void>;
+    kupDidLoad: EventEmitter<KupEventPayload>;
 
     /**
      * Triggered when stop propagation event
@@ -418,7 +399,7 @@ export class KupBox {
         cancelable: false,
         bubbles: true,
     })
-    kupDidUnload: EventEmitter<void>;
+    kupDidUnload: EventEmitter<KupEventPayload>;
     /**
      * Generic right click event on box.
      */
@@ -537,7 +518,7 @@ export class KupBox {
                 return selectedIds.indexOf(r.id) >= 0;
             });
         }
-        this.kupDidLoad.emit();
+        this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -758,9 +739,9 @@ export class KupBox {
             cell: Cell;
         } = this.getEventDetails(e.target as HTMLElement);
         this.kupBoxContextMenu.emit({
-            details: details,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            details: details,
         });
         if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
             e.preventDefault();
@@ -820,11 +801,11 @@ export class KupBox {
             column = element.dataset.column;
         }
 
-        this.KupBoxClicked.emit({ 
+        this.KupBoxClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             row,
             column,
-            comp: this,
-            id: this.rootElement.id, 
         });
 
         // selecting box
@@ -913,21 +894,21 @@ export class KupBox {
             this.rowActionMenuOpened = row;
         } else {
             // no actions -> triggering event
-            this.kupRowActionMenuClicked.emit({
-                row,
-                id: this.rootElement.id,
+            this.kupRowActionMenuClick.emit({
                 comp: this,
+                id: this.rootElement.id,
+                row,
             });
         }
     }
 
-    private onRowActionClicked(row: BoxRow, action: RowAction, index: number) {
-        this.kupRowActionClicked.emit({
+    private onRowActionClick(row: BoxRow, action: RowAction, index: number) {
+        this.kupRowActionClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             row,
             action,
             index,
-            comp: this,
-            id: this.rootElement.id,
         });
     }
 
@@ -1244,7 +1225,7 @@ export class KupBox {
                         <li
                             tabindex="0"
                             onClick={() =>
-                                this.onRowActionClicked(row, item, index)
+                                this.onRowActionClick(row, item, index)
                             }
                         >
                             <div class={iconClass} />
@@ -1952,7 +1933,9 @@ export class KupBox {
                     perPage={this.pageSize}
                     currentPage={this.currentPage}
                     selectedPerPage={this.currentRowsPerPage}
-                    onkup-paginator-pagechanged={(e) => this.handlePageChanged(e)}
+                    onkup-paginator-pagechanged={(e) =>
+                        this.handlePageChanged(e)
+                    }
                     onkup-paginator-rowsperpagechanged={(e) =>
                         this.handleRowsPerPageChanged(e)
                     }
@@ -2076,6 +2059,6 @@ export class KupBox {
         }
         // When component is destroyed, then the listener is removed. @See clickFunction for more details
         document.removeEventListener('click', this.clickFunction.bind(this));
-        this.kupDidUnload.emit();
+        this.kupDidUnload.emit({ comp: this, id: this.rootElement.id });
     }
 }

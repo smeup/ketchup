@@ -35,8 +35,15 @@ import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import { KupTimePickerEventPayload, KupTimePickerProps } from './kup-time-picker-declarations';
-import { GenericObject, KupComponent, KupEventPayload } from '../../types/GenericTypes';
+import {
+    KupTimePickerEventPayload,
+    KupTimePickerProps,
+} from './kup-time-picker-declarations';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -191,15 +198,15 @@ export class KupTimePicker {
         this.setPickerValueSelected(value);
 
         this.kupChange.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this,
         });
 
         this.kupItemClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this,
         });
     }
 
@@ -208,14 +215,14 @@ export class KupTimePicker {
         this.setPickerValueSelected('');
 
         this.kupChange.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this
         });
 
         this.kupClearIconClick.emit({
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
         });
     }
 
@@ -299,9 +306,9 @@ export class KupTimePicker {
         e.stopPropagation();
         this.closePicker();
         this.kupBlur.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this,
         });
     }
 
@@ -313,18 +320,18 @@ export class KupTimePicker {
     onKupClick(e: UIEvent) {
         e.stopPropagation();
         this.kupClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this,
         });
     }
 
     onKupFocus(e: UIEvent) {
         e.stopPropagation();
         this.kupFocus.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this,
         });
     }
 
@@ -346,9 +353,9 @@ export class KupTimePicker {
             this.openPicker();
         }
         this.kupIconClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
-            comp: this,
         });
     }
 
@@ -368,6 +375,7 @@ export class KupTimePicker {
 
         if (newValue != null) {
             eventToRaise.emit({
+                comp: this,
                 id: this.rootElement.id,
                 value: newValue,
             });
@@ -489,7 +497,9 @@ export class KupTimePicker {
                 onkup-textfield-focus={(e: any) => this.onKupFocus(e)}
                 onkup-textfield-input={(e: any) => this.onKupInput(e)}
                 onkup-textfield-iconclick={(e: any) => this.onKupIconClick(e)}
-                onkup-textfield-submit={(e: any) => this.onkupTextFieldSubmit(e)}
+                onkup-textfield-submit={(e: any) =>
+                    this.onkupTextFieldSubmit(e)
+                }
                 onkup-textfield-cleariconclick={(e: any) =>
                     this.onKupClearIconClick(e)
                 }

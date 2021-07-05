@@ -10,7 +10,7 @@ import {
     Prop,
 } from '@stencil/core';
 
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
@@ -53,10 +53,10 @@ export class KupIframe {
         cancelable: false,
         bubbles: true,
     })
-    kupIframeError: EventEmitter;
+    kupIframeError: EventEmitter<KupEventPayload>;
 
     onKupIframeError() {
-        this.kupIframeError.emit();
+        this.kupIframeError.emit({ comp: this, id: this.rootElement.id });
     }
 
     @Event({
@@ -65,10 +65,10 @@ export class KupIframe {
         cancelable: false,
         bubbles: true,
     })
-    kupIframeLoad: EventEmitter;
+    kupIframeLoad: EventEmitter<KupEventPayload>;
 
     onKupIframeLoad() {
-        this.kupIframeLoad.emit();
+        this.kupIframeLoad.emit({ comp: this, id: this.rootElement.id });
     }
 
     openInNew() {

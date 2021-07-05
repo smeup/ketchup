@@ -151,7 +151,7 @@ export class KupAutocomplete {
         bubbles: true,
     })
     kupFilterChanged: EventEmitter<kupAutocompleteFilterChangedEventPayload>;
-    
+
     @Event({
         eventName: 'kup-autocomplete-textfieldsubmit',
         composed: true,
@@ -240,9 +240,9 @@ export class KupAutocomplete {
         this.closeList();
         const { target } = e;
         this.kupBlur.emit({
-            value: target.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: target.value,
         });
     }
 
@@ -250,27 +250,27 @@ export class KupAutocomplete {
         this.doConsistencyCheck = true;
         this.consistencyCheck(undefined, e.target.value);
         this.kupChange.emit({
-            value: this.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {
         const { target } = e;
         this.kupClick.emit({
-            value: target.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: target.value,
         });
     }
 
     onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
         const { target } = e;
         this.kupFocus.emit({
-            value: target.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: target.value,
         });
     }
 
@@ -281,9 +281,9 @@ export class KupAutocomplete {
             this.handleFilterChange(this.displayedValue, e.target);
         }
         this.kupInput.emit({
-            value: this.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 
@@ -296,9 +296,9 @@ export class KupAutocomplete {
             this.openList(true);
         }
         this.kupIconClick.emit({
-            value: target.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: target.value,
         });
     }
 
@@ -307,26 +307,26 @@ export class KupAutocomplete {
         this.consistencyCheck(e);
         this.closeList();
         this.kupChange.emit({
-            value: this.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: this.value,
         });
 
         this.kupItemClick.emit({
-            value: this.value,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 
     private handleFilterChange(newFilter: string, eventTarget: EventTarget) {
         let detail = {
+            comp: this,
+            id: this.rootElement.id,
             filter: newFilter,
             matchesMinimumCharsRequired:
                 newFilter && newFilter.length >= this.minimumChars,
             el: eventTarget,
-            comp: this,
-            id: this.rootElement.id,
         };
         if (this.serverHandledFilter && this.callBackOnFilterUpdate) {
             this.callBackOnFilterUpdate(detail)

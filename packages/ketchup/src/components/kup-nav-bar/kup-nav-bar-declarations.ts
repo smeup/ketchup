@@ -40,5 +40,5 @@ export enum KupNavBarMode {
     DENSE = 'dense',
 }
 export interface KupNavbarEventPayload extends KupEventPayload {
-    value: any;
+    value: string;
 }

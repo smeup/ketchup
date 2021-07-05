@@ -407,7 +407,7 @@ export class KupCard {
         root.addEventListener('kup-timepicker-itemclick', this.cardEvent);
         root.addEventListener('kup-timepicker-textfieldsubmit', this.cardEvent);
         root.addEventListener('kup-tree-dynamicmassexpansion', this.cardEvent);
-        root.addEventListener('kup-tree-buttonclicked', this.cardEvent);
+        root.addEventListener('kup-tree-buttonclick', this.cardEvent);
         root.addEventListener('kup-tree-nodecollapse', this.cardEvent);
         root.addEventListener('kup-tree-nodedblclick', this.cardEvent);
         root.addEventListener('kup-tree-nodeexpand', this.cardEvent);

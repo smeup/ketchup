@@ -132,18 +132,18 @@ export class KupNavBar {
         let selectedValue: string = e.detail.selected.value;
         this.closeList();
         this.kupNavbarMenuItemClick.emit({
-            value: selectedValue,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: selectedValue,
         });
     }
 
     onKupNavbarMenuButtonClick(value: string) {
         let selectedValue: string = value;
         this.kupNavbarMenuItemClick.emit({
-            value: selectedValue,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: selectedValue,
         });
     }
 
@@ -151,18 +151,18 @@ export class KupNavBar {
         let selectedValue: string = e.detail.selected.value;
         this.closeList();
         this.kupNavbarOptionItemClick.emit({
-            value: selectedValue,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: selectedValue,
         });
     }
 
     onKupOptionButtonClick(value: string) {
         let selectedValue: string = value;
         this.kupNavbarOptionItemClick.emit({
-            value: selectedValue,
-            id: this.rootElement.id,
             comp: this,
+            id: this.rootElement.id,
+            value: selectedValue,
         });
     }
 

@@ -235,20 +235,6 @@ export enum ShowGrid {
 //     VARIABLE = 'Variable',
 // }
 
-export interface KupDataTableCellButtonClick {
-    comp: KupDataTable;
-    cell: Cell;
-    column: Column;
-    row: Row;
-}
-
-export interface KupDataTableCellTextFieldInput {
-    comp: KupDataTable;
-    cell: Cell;
-    column: Column;
-    row: Row;
-}
-
 //---- *NEXT functionality AKA load more ----
 export enum LoadMoreMode {
     CONSTANT = 'constant',
@@ -352,7 +338,7 @@ export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
     open: boolean;
 }
 
-export interface KupDatatableOptionClickedEventPayload extends KupEventPayload {
+export interface KupDatatableOptionClickEventPayload extends KupEventPayload {
     column: string;
     row: Row;
 }
@@ -361,13 +347,26 @@ export interface KupDatatableAddColumnEventPayload extends KupEventPayload {
     column: string;
 }
 
-export interface KupDatatableRowActionClickedEventPayload extends KupEventPayload {
+export interface KupDatatableRowActionClickEventPayload
+    extends KupEventPayload {
     type: 'default' | 'variable' | 'expander';
     row: Row;
     action?: RowAction;
     index?: number;
 }
+export interface KupDataTableCellButtonClickEventPayload
+    extends KupEventPayload {
+    cell: Cell;
+    column: Column;
+    row: Row;
+}
 
-export interface KupDatatableLoadMoreClickedEventPayload extends KupEventPayload {
+export interface KupDataTableCellTextFieldInputEventPayload
+    extends KupEventPayload {
+    cell: Cell;
+    column: Column;
+    row: Row;
+}
+export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {
     loadItems: number;
 }

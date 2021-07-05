@@ -1,5 +1,8 @@
 import { KupEventPayload } from '../../types/GenericTypes';
-import { Column, DataTable } from '../kup-data-table/kup-data-table-declarations';
+import {
+    Column,
+    DataTable,
+} from '../kup-data-table/kup-data-table-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 /**
@@ -67,7 +70,8 @@ export interface KupTooltipLoadEventPayload extends KupEventPayload {
     relatedObject: TooltipRelatedObject;
 }
 
-export interface KupTooltipActionCommandClickedEventPayload extends KupEventPayload {
+export interface KupTooltipActionCommandClickEventPayload
+    extends KupEventPayload {
     actionCommand: TooltipAction;
     relatedObject: TooltipRelatedObject;
 }
@@ -84,7 +88,8 @@ export interface KupTooltipTreeNodeExpandEventPayload extends KupEventPayload {
     tree: KupTree;
 }
 
-export interface KupTooltipTreeNodeSelectedEventPayload extends KupEventPayload {
+export interface KupTooltipTreeNodeSelectedEventPayload
+    extends KupEventPayload {
     treeNodePath: TreeNodePath;
     treeNode: TreeNode;
     columnName: string;
@@ -92,16 +97,19 @@ export interface KupTooltipTreeNodeSelectedEventPayload extends KupEventPayload 
     tree: KupTree;
 }
 
-export interface KupTooltipTreeNodeButtonClickedEventPayload extends KupTooltipTreeNodeSelectedEventPayload {
+export interface KupTooltipTreeNodeButtonClickEventPayload
+    extends KupTooltipTreeNodeSelectedEventPayload {
     column: Column;
 }
 
-export interface KupTooltipTreeNodeDblClickEventPayload extends KupEventPayload {
+export interface KupTooltipTreeNodeDblClickEventPayload
+    extends KupEventPayload {
     treeNodePath: TreeNodePath;
     treeNode: TreeNode;
 }
 
-export interface KupTooltipTreeDynamicMassExpansionEventPayload extends KupEventPayload {
+export interface KupTooltipTreeDynamicMassExpansionEventPayload
+    extends KupEventPayload {
     treeNodePath?: TreeNodePath;
     treeNode?: TreeNode;
     expandAll?: boolean;

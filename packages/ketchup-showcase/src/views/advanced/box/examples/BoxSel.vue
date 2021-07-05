@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Dynamism</h3>
-    <kup-box :data.prop="basicData" @kup-box-click="onBoxClicked"></kup-box>
+    <kup-box :data.prop="basicData" @kup-box-click="onBoxClick"></kup-box>
 
     <p v-if="clickedRow">Selected row: {{ clickedRow }}</p>
     <p v-if="clickedColumn">Selected column: {{ clickedColumn }}</p>
@@ -64,7 +64,7 @@ export default {
   },
 
   methods: {
-    onBoxClicked({ detail }) {
+    onBoxClick({ detail }) {
       this.clickedRow = detail.row;
       this.clickedColumn = detail.column;
     },

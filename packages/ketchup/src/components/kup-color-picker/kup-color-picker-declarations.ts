@@ -1,3 +1,5 @@
+import { KupEventPayload } from '../../types/GenericTypes';
+
 /**
  * Props of the kup-color-picker component.
  * Used to export every prop in an object.
@@ -10,6 +12,6 @@ export enum KupColorPickerProps {
     swatchOnly = "When true, the component's text field will be replaced by a swatch.",
 }
 
-export interface KupColorPickerEventPayload {
-    value: any;
+export interface KupColorPickerEventPayload extends KupEventPayload {
+    value: string;
 }
