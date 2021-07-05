@@ -17,6 +17,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { getProps, setProps } from '../../utils/utils';
 import { KupRatingProps } from './kup-rating-declarations';
 
 @Component({
@@ -67,17 +68,15 @@ export class KupRating {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupRatingProps;
-        } else {
-            for (const key in KupRatingProps) {
-                if (Object.prototype.hasOwnProperty.call(KupRatingProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupRatingProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupRatingProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

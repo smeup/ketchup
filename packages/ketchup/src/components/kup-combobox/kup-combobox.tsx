@@ -29,6 +29,7 @@ import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupComboboxProps } from './kup-combobox-declarations';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-combobox',
@@ -220,19 +221,15 @@ export class KupCombobox {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupComboboxProps;
-        } else {
-            for (const key in KupComboboxProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(KupComboboxProps, key)
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupComboboxProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupComboboxProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

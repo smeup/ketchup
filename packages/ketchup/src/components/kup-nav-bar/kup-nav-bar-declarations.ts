@@ -7,45 +7,33 @@ export enum KupNavBarProps {
     data = 'The actual data of the nav bar.',
     mode = 'Defines how the bar will be displayed.',
 }
-export interface ComponentNavBarData {
+/**
+ * Data of the nav bar.
+ */
+export interface KupNavBarData {
     title: string;
-    menuAction?: ComponentNavBarElement;
-    menuActions?: ComponentNavBarElement[];
-    optionActions?: ComponentNavBarElement[];
+    menuAction?: KupNavBarElement;
+    menuActions?: KupNavBarElement[];
+    optionActions?: KupNavBarElement[];
 }
-
-export interface ComponentNavBarElement {
+/**
+ * Identifies a single nav bar element.
+ */
+export interface KupNavBarElement {
     icon: string;
     tooltip?: string;
     text?: string;
     value: string;
     visible?: boolean;
 }
-
-export enum ComponentNavBarMode {
+/**
+ * Styling modes of the nav bar.
+ */
+export enum KupNavBarMode {
     DEFAULT = '',
     SHORT = 'short',
     SHORT_COLLAPSED = 'short-collapsed',
     FIXED = 'fixed',
     PROMINENT = 'prominent',
     DENSE = 'dense',
-}
-
-export function getClassNameByComponentMode(mode: string) {
-    let value: string = '';
-
-    switch (mode) {
-        case ComponentNavBarMode.DEFAULT: {
-            break;
-        }
-        case ComponentNavBarMode.SHORT_COLLAPSED: {
-            value = 'mdc-top-app-bar--short mdc-top-app-bar--short-collapsed';
-            break;
-        }
-        default: {
-            value = 'mdc-top-app-bar--' + mode;
-            break;
-        }
-    }
-    return value;
 }

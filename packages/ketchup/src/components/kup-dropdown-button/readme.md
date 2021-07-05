@@ -65,6 +65,16 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setValue(value: string) => Promise<void>`
 
 Sets the internal value of the component.

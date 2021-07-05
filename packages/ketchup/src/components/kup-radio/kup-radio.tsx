@@ -17,6 +17,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { getProps, setProps } from '../../utils/utils';
 import { KupRadioData, KupRadioProps } from './kup-radio-declarations';
 
 @Component({
@@ -161,17 +162,15 @@ export class KupRadio {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupRadioProps;
-        } else {
-            for (const key in KupRadioProps) {
-                if (Object.prototype.hasOwnProperty.call(KupRadioProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupRadioProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupRadioProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

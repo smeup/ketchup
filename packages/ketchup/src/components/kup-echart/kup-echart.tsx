@@ -21,6 +21,7 @@ import echarts, { EChartOption, ECharts } from 'echarts';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-echart',
@@ -94,17 +95,15 @@ export class KupEchart {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupEchartProps;
-        } else {
-            for (const key in KupEchartProps) {
-                if (Object.prototype.hasOwnProperty.call(KupEchartProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupEchartProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupEchartProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

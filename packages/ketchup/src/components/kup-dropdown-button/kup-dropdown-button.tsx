@@ -29,6 +29,7 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDropdownButtonProps } from './kup-dropdown-button-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -290,22 +291,15 @@ export class KupDropdownButton {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupDropdownButtonProps;
-        } else {
-            for (const key in KupDropdownButtonProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupDropdownButtonProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupDropdownButtonProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupDropdownButtonProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

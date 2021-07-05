@@ -63,6 +63,16 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `toggle() => Promise<void>`
 
 
