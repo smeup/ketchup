@@ -94,7 +94,6 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 | Event                           | Description                                                                                                                       | Type                                                   |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| `kup-addcodedecodecolumn`       |                                                                                                                                   | `CustomEvent<KupTreeAddColumnEventPayload>`            |
 | `kup-tree-addcolumn`            | When 'add column' menu item is clicked                                                                                            | `CustomEvent<KupTreeAddColumnEventPayload>`            |
 | `kup-tree-buttonclicked`        |                                                                                                                                   | `CustomEvent<KupTreeNodeButtonClickedEventPayload>`    |
 | `kup-tree-columnmenu`           | When the column menu is being opened/closed.                                                                                      | `CustomEvent<KupTreeColumnMenuEventPayload>`           |
