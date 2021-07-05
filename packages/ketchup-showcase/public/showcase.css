@@ -192,6 +192,11 @@ i.v-icon.material-icons {
   margin-bottom: 60px;
 }
 
+.demo-wrapper kup-button {
+  margin: auto;
+  padding: 0.5em;
+}
+
 code.flat {
   background: none;
   border-radius: 0;

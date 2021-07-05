@@ -43,7 +43,7 @@ export class KupDash {
     private kupManager: KupManager = kupManagerInstance();
 
     @Event({
-        eventName: 'ketchupDashClicked',
+        eventName: 'kup-dash-clicked',
         composed: true,
         cancelable: false,
         bubbles: true,

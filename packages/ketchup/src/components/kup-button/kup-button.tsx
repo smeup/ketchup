@@ -20,8 +20,12 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
-import { KupButtonProps } from './kup-button-declarations';
+import {
+    KupButtonClickEventPayload,
+    KupButtonProps,
+} from './kup-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-button',
@@ -112,44 +116,36 @@ export class KupButton {
      * Triggered when the button loses focus.
      */
     @Event({
-        eventName: 'kupButtonBlur',
+        eventName: 'kup-button-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupButtonClickEventPayload>;
     /**
      * Triggered when the button is clicked.
      */
     @Event({
-        eventName: 'kupButtonClick',
+        eventName: 'kup-button-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupClick: EventEmitter<KupButtonClickEventPayload>;
     /**
      * Triggered when the button is focused.
      */
     @Event({
-        eventName: 'kupButtonFocus',
+        eventName: 'kup-button-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupButtonClickEventPayload>;
 
     onKupBlur() {
         this.kupBlur.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -168,6 +164,7 @@ export class KupButton {
             this.value = 'N/A';
         }
         this.kupClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -175,6 +172,7 @@ export class KupButton {
 
     onKupFocus() {
         this.kupFocus.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -191,17 +189,15 @@ export class KupButton {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupButtonProps;
-        } else {
-            for (const key in KupButtonProps) {
-                if (Object.prototype.hasOwnProperty.call(KupButtonProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupButtonProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupButtonProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

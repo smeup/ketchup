@@ -22,15 +22,15 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupRadioChange',
+          name: 'kup-radio-change',
           type: 'change',
         },
         {
-          name: 'kupRadioFocus',
+          name: 'kup-radio-focus',
           type: 'focus',
         },
         {
-          name: 'kupRadioBlur',
+          name: 'kup-radio-blur',
           type: 'blur',
         },
       ],

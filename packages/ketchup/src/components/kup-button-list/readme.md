@@ -21,9 +21,9 @@
 
 ## Events
 
-| Event         | Description | Type                                                                  |
-| ------------- | ----------- | --------------------------------------------------------------------- |
-| `kupBtnClick` |             | `CustomEvent<{ comp: KupBtn; id: string; subId: string; obj: any; }>` |
+| Event                   | Description | Type                                          |
+| ----------------------- | ----------- | --------------------------------------------- |
+| `kup-button-list-click` |             | `CustomEvent<KupButtonListClickEventPayload>` |
 
 
 ## Methods
@@ -63,16 +63,16 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-btn --> kup-dropdown-button
-  kup-btn --> kup-badge
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
-  kup-data-table --> kup-btn
-  style kup-btn fill:#f9f,stroke:#333,stroke-width:4px
+  kup-data-table --> kup-button-list
+  style kup-button-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

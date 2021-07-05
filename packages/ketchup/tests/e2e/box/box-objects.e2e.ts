@@ -20,7 +20,7 @@ describe('renders different kind of objects', () => {
 
         expect(boxes).toHaveLength(4);
 
-        const kupBoxClicked = await page.spyOnEvent('kupBoxClicked');
+        const kup-box-click = await page.spyOnEvent('kup-box-click');
 
         const boxObjects = await boxes[0].findAll('.box-object');
 
@@ -32,9 +32,9 @@ describe('renders different kind of objects', () => {
 
         await page.waitForChanges();
 
-        expect(kupBoxClicked).toHaveLength(1);
+        expect(kup-box-click).toHaveLength(1);
 
-        const detail = kupBoxClicked.events[0].detail;
+        const detail = kup-box-click.events[0].detail;
 
         expect(detail.column).toBe('FLD4');
 

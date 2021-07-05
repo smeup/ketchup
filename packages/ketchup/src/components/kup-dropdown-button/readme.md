@@ -24,13 +24,13 @@
 
 ## Events
 
-| Event                           | Description                                    | Type                                          |
-| ------------------------------- | ---------------------------------------------- | --------------------------------------------- |
-| `kupDropdownButtonBlur`         | Triggered when the primary button loses focus. | `CustomEvent<{ id: string; value: string; }>` |
-| `kupDropdownButtonClick`        | Triggered when the primary button is clicked.  | `CustomEvent<{ id: string; value: string; }>` |
-| `kupDropdownButtonFocus`        | Triggered when the primary button is focused.  | `CustomEvent<{ id: string; value: string; }>` |
-| `kupDropdownSelectionChange`    | Triggered when a list item changes.            | `CustomEvent<{ value: any; }>`                |
-| `kupDropdownSelectionItemClick` | Triggered when a list item is clicked.         | `CustomEvent<{ value: any; }>`                |
+| Event                          | Description                                    | Type                                         |
+| ------------------------------ | ---------------------------------------------- | -------------------------------------------- |
+| `kup-dropdownbutton-blur`      | Triggered when the primary button loses focus. | `CustomEvent<KupDropdownButtonEventPayload>` |
+| `kup-dropdownbutton-change`    | Triggered when a list item changes.            | `CustomEvent<KupDropdownButtonEventPayload>` |
+| `kup-dropdownbutton-click`     | Triggered when the primary button is clicked.  | `CustomEvent<KupDropdownButtonEventPayload>` |
+| `kup-dropdownbutton-focus`     | Triggered when the primary button is focused.  | `CustomEvent<KupDropdownButtonEventPayload>` |
+| `kup-dropdownbutton-itemclick` | Triggered when a list item is clicked.         | `CustomEvent<KupDropdownButtonEventPayload>` |
 
 
 ## Methods
@@ -65,6 +65,16 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setValue(value: string) => Promise<void>`
 
 Sets the internal value of the component.
@@ -80,7 +90,7 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-btn](../kup-btn)
+ - [kup-button-list](../kup-button-list)
 
 ### Depends on
 
@@ -96,7 +106,7 @@ graph TD;
   kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
-  kup-btn --> kup-dropdown-button
+  kup-button-list --> kup-dropdown-button
   style kup-dropdown-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

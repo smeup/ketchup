@@ -1,3 +1,5 @@
+import { KupEventPayload } from "../../types/GenericTypes";
+
 /**
  * Props of the kup-dropdown-button component.
  * Used to export every prop in an object.
@@ -14,4 +16,8 @@ export enum KupDropdownButtonProps {
     styling = 'Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.',
     trailingIcon = 'Defaults at null. When set, the icon will be shown after the text.',
     dropdownOnly = 'Default value is false. When set to true, the arrow dropdown button is the only button displayed.',
+}
+
+export interface KupDropdownButtonEventPayload extends KupEventPayload {
+    value: any;
 }

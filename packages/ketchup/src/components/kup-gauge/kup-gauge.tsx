@@ -14,7 +14,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
+import { getProps, setProps, unformattedStringToFormattedStringNumber } from '../../utils/utils';
 import { KupGaugeProps } from './kup-gauge-declarations';
 
 import { arc } from 'd3-shape';
@@ -143,17 +143,15 @@ export class KupGauge {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupGaugeProps;
-        } else {
-            for (const key in KupGaugeProps) {
-                if (Object.prototype.hasOwnProperty.call(KupGaugeProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupGaugeProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupGaugeProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

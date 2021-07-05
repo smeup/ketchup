@@ -16,11 +16,11 @@
 
 ## Events
 
-| Event            | Description                                       | Type                                              |
-| ---------------- | ------------------------------------------------- | ------------------------------------------------- |
-| `kupRadioBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ comp: KupRadio; }>`                |
-| `kupRadioChange` | Triggered when the input element's value changes. | `CustomEvent<{ comp: KupRadio; value: string; }>` |
-| `kupRadioFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ comp: KupRadio; }>`                |
+| Event              | Description                                       | Type                                      |
+| ------------------ | ------------------------------------------------- | ----------------------------------------- |
+| `kup-radio-blur`   | Triggered when the input element loses focus.     | `CustomEvent<KupEventPayload>`            |
+| `kup-radio-change` | Triggered when the input element's value changes. | `CustomEvent<KupRadioChangeEventPayload>` |
+| `kup-radio-focus`  | Triggered when the input element gets focused.    | `CustomEvent<KupEventPayload>`            |
 
 
 ## Methods
@@ -38,6 +38,16 @@ Type: `Promise<GenericObject>`
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
 
 #### Returns
 

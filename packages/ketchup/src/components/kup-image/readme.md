@@ -20,9 +20,9 @@
 
 ## Events
 
-| Event           | Description | Type                                |
-| --------------- | ----------- | ----------------------------------- |
-| `kupImageClick` |             | `CustomEvent<{ el: EventTarget; }>` |
+| Event             | Description | Type                                     |
+| ----------------- | ----------- | ---------------------------------------- |
+| `kup-image-click` |             | `CustomEvent<KupImageClickEventPayload>` |
 
 
 ## Methods
@@ -40,6 +40,16 @@ Type: `Promise<GenericObject>`
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
 
 #### Returns
 

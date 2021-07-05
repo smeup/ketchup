@@ -14,6 +14,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { getProps, setProps } from '../../utils/utils';
 import { KupLazyProps } from './kup-lazy-declarations';
 
 @Component({
@@ -57,17 +58,15 @@ export class KupLazy {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupLazyProps;
-        } else {
-            for (const key in KupLazyProps) {
-                if (Object.prototype.hasOwnProperty.call(KupLazyProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupLazyProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupLazyProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

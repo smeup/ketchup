@@ -12,7 +12,12 @@ import {
     VNode,
 } from '@stencil/core';
 
-import { KupTabBarData, KupTabBarProps } from './kup-tab-bar-declarations';
+import {
+    KupTabBarClickEventPayload,
+    KupTabBarData,
+    KupTabBarEventPayload,
+    KupTabBarProps,
+} from './kup-tab-bar-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -22,6 +27,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -77,50 +83,37 @@ export class KupTabBar {
      * Triggered when the tab loses focus.
      */
     @Event({
-        eventName: 'kupTabBarBlur',
+        eventName: 'kup-tabbar-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        comp: KupTabBar;
-        index: number;
-        el: EventTarget;
-    }>;
+    kupBlur: EventEmitter<KupTabBarEventPayload>;
     /**
      * Triggered when the tab is clicked.
      */
     @Event({
-        eventName: 'kupTabBarClick',
+        eventName: 'kup-tabbar-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        comp: KupTabBar;
-        id: string;
-        index: number;
-        el: EventTarget;
-        value: string;
-    }>;
+    kupClick: EventEmitter<KupTabBarClickEventPayload>;
     /**
      * Triggered when the tab is focused.
      */
     @Event({
-        eventName: 'kupTabBarFocus',
+        eventName: 'kup-tabbar-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        comp: KupTabBar;
-        index: number;
-        el: EventTarget;
-    }>;
+    kupFocus: EventEmitter<KupTabBarEventPayload>;
 
     onKupBlur(i: number, e: Event) {
         this.kupBlur.emit({
             comp: this,
+            id: this.rootElement.id,
             index: i,
             el: e.target,
         });
@@ -145,6 +138,7 @@ export class KupTabBar {
     onKupFocus(i: number, e: Event) {
         this.kupFocus.emit({
             comp: this,
+            id: this.rootElement.id,
             index: i,
             el: e.target,
         });
@@ -161,17 +155,15 @@ export class KupTabBar {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupTabBarProps;
-        } else {
-            for (const key in KupTabBarProps) {
-                if (Object.prototype.hasOwnProperty.call(KupTabBarProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupTabBarProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupTabBarProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

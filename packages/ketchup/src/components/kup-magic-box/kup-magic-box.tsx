@@ -34,6 +34,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-magic-box',
@@ -96,19 +97,15 @@ export class KupMagicBox {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupMagicBoxProps;
-        } else {
-            for (const key in KupMagicBoxProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(KupMagicBoxProps, key)
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupMagicBoxProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupMagicBoxProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -374,7 +371,7 @@ export class KupMagicBox {
                                 styling={FButtonStyling.FLAT}
                                 icon="delete"
                                 label="Reset"
-                                onKupButtonClick={() => {
+                                onKup-button-click={() => {
                                     this.data = null;
                                 }}
                             ></kup-button>
@@ -382,7 +379,7 @@ export class KupMagicBox {
                                 id="close-dialog"
                                 customStyle={`:host{${KupThemeColorValues.PRIMARY}: var(${KupThemeColorValues.TITLE});}`}
                                 icon="clear"
-                                onKupButtonClick={() => {
+                                onKup-button-click={() => {
                                     this.kupManager.hideMagicBox();
                                 }}
                             ></kup-button>

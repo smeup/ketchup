@@ -226,7 +226,7 @@ export class KupDebug {
         debugWidget.layoutNumber = 3;
         debugWidget.sizeX = 'auto';
         debugWidget.sizeY = 'auto';
-        debugWidget.addEventListener('kupCardEvent', (e: CustomEvent) =>
+        debugWidget.addEventListener('kup-card-event', (e: CustomEvent) =>
             this.handleEvents(e)
         );
         document.body.append(debugWidget);
@@ -412,13 +412,13 @@ export class KupDebug {
     }
     /**
      * Listens the card events and handles the related actions.
-     * @param {CustomEvent} e - kupCardEvent.
+     * @param {CustomEvent} e - kup-card-event.
      */
     handleEvents(e: CustomEvent): void {
         const compEvent: CustomEvent = e.detail.event;
         const compID: string = compEvent.detail.id;
         switch (compEvent.type) {
-            case 'kupButtonClick':
+            case 'kup-button-click':
                 switch (compID) {
                     case 'kup-debug-autoprint':
                         this.autoPrint = !this.autoPrint;
@@ -453,7 +453,7 @@ export class KupDebug {
                         break;
                 }
                 break;
-            case 'kupComboboxItemClick':
+            case 'kup-combobox-itemclick':
                 switch (compID) {
                     case 'kup-debug-language-changer':
                         dom.ketchup.language.set(compEvent.detail.value);
@@ -462,7 +462,7 @@ export class KupDebug {
                         dom.ketchup.theme.set(compEvent.detail.value);
                         break;
                 }
-            case 'kupTextFieldInput':
+            case 'kup-textfield-input':
                 switch (compID) {
                     case 'kup-debug-log-limit':
                         if (

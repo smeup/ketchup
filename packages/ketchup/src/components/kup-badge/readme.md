@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event           | Description | Type                                |
-| --------------- | ----------- | ----------------------------------- |
-| `kupBadgeClick` |             | `CustomEvent<{ el: EventTarget; }>` |
+| Event             | Description | Type                                |
+| ----------------- | ----------- | ----------------------------------- |
+| `kup-badge-click` |             | `CustomEvent<KupBadgeEventPayload>` |
 
 
 ## Methods
@@ -41,6 +41,16 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -48,8 +58,8 @@ Type: `Promise<void>`
 
  - [kup-badge](.)
  - [kup-box](../kup-box)
- - [kup-btn](../kup-btn)
  - [kup-button](../kup-button)
+ - [kup-button-list](../kup-button-list)
  - [kup-card](../kup-card)
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
@@ -69,8 +79,8 @@ Type: `Promise<void>`
 graph TD;
   kup-badge --> kup-badge
   kup-box --> kup-badge
-  kup-btn --> kup-badge
   kup-button --> kup-badge
+  kup-button-list --> kup-badge
   kup-card --> kup-badge
   kup-chip --> kup-badge
   kup-data-table --> kup-badge

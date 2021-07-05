@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    Watch,
 } from '@stencil/core';
 
 import {
@@ -21,12 +20,12 @@ import {
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { KupChipProps } from './kup-chip-declarations';
+import { KupChipEventPayload, KupChipProps } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupCardIds } from '../kup-card/kup-card-declarations';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-chip',
@@ -83,62 +82,42 @@ export class KupChip {
      * Triggered when a chip loses focus.
      */
     @Event({
-        eventName: 'kupChipBlur',
+        eventName: 'kup-chip-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupChipEventPayload>;
     /**
      * Triggered when a chip is clicked.
      */
     @Event({
-        eventName: 'kupChipClick',
+        eventName: 'kup-chip-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>;
+    kupClick: EventEmitter<KupChipEventPayload>;
     /**
      * Triggered when a chip gets focused.
      */
     @Event({
-        eventName: 'kupChipFocus',
+        eventName: 'kup-chip-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupChipEventPayload>;
     /**
      * Triggered when the removal icon on input chips is clicked.
      */
     @Event({
-        eventName: 'kupChipIconClick',
+        eventName: 'kup-chip-iconclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupIconClick: EventEmitter<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>;
+    kupIconClick: EventEmitter<KupChipEventPayload>;
 
     onKupBlur(i: number) {
         let obj: KupObj = null;
@@ -148,9 +127,9 @@ export class KupChip {
             value = this.data[i].value;
         }
         this.kupBlur.emit({
+            comp: this,
             id: this.rootElement.id,
             index: i,
-            obj: obj,
             value: value,
         });
     }
@@ -181,9 +160,9 @@ export class KupChip {
             this.data = newData;
         }
         this.kupClick.emit({
+            comp: this,
             id: this.rootElement.id,
             index: i,
-            obj: obj,
             value: value,
         });
     }
@@ -196,9 +175,9 @@ export class KupChip {
             value = this.data[i].value;
         }
         this.kupFocus.emit({
+            comp: this,
             id: this.rootElement.id,
             index: i,
-            obj: obj,
             value: value,
         });
     }
@@ -214,9 +193,9 @@ export class KupChip {
         let newData = [...this.data];
         this.data = newData;
         this.kupIconClick.emit({
+            comp: this,
             id: this.rootElement.id,
             index: i,
-            obj: obj,
             value: value,
         });
     }
@@ -232,17 +211,15 @@ export class KupChip {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupChipProps;
-        } else {
-            for (const key in KupChipProps) {
-                if (Object.prototype.hasOwnProperty.call(KupChipProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupChipProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupChipProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

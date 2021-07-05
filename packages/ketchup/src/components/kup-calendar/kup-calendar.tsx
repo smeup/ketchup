@@ -294,15 +294,15 @@ export class KupCalendar {
                     <div id="kup-calendar__menu">
                         <kup-button
                             icon="chevron_left"
-                            onKupButtonClick={() => this.onPrev()}
+                            onKup-button-click={() => this.onPrev()}
                         ></kup-button>
                         <kup-button
                             icon="calendar"
-                            onKupButtonClick={() => this.onToday()}
+                            onKup-button-click={() => this.onToday()}
                         ></kup-button>
                         <kup-button
                             icon="chevron_right"
-                            onKupButtonClick={() => this.onNext()}
+                            onKup-button-click={() => this.onNext()}
                         ></kup-button>
                     </div>
                 )}

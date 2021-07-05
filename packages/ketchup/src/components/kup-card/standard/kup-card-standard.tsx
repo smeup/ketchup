@@ -1142,17 +1142,6 @@ export function create14(component: KupCard): VNode {
                                     )}
                                 />
                             ) : null}
-                            {buttonsIds.includes(
-                                KupColumnMenuIds.BUTTON_DESCRIPTION
-                            ) ? (
-                                <kup-button
-                                    {...buttonArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.BUTTON_DESCRIPTION
-                                    )}
-                                />
-                            ) : null}
                         </div>
                         <div class="sub-chip">
                             {chipArray[0] ? (

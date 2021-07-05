@@ -17,19 +17,22 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
-import { KupBtnProps } from './kup-btn-declarations';
+import {
+    KupButtonListClickEventPayload,
+    KupButtonListProps,
+} from './kup-button-list-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
-    tag: 'kup-btn',
-    styleUrl: 'kup-btn.scss',
+    tag: 'kup-button-list',
+    styleUrl: 'kup-button-list.scss',
     shadow: true,
 })
-export class KupBtn {
+export class KupButtonList {
     /**
-     * References the root HTML element of the component (<kup-btn>).
+     * References the root HTML element of the component (<kup-button-list>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -86,23 +89,18 @@ export class KupBtn {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kupBtnClick',
+        eventName: 'kup-button-list-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        comp: KupBtn;
-        id: string;
-        subId: string;
-        obj: any;
-    }>;
+    kupClick: EventEmitter<KupButtonListClickEventPayload>;
 
     onKupClick(index: string, subIndex: string) {
         this.selected = index;
         this.kupClick.emit({
             comp: this,
-            id: index,
+            id: this.rootElement.id,
             subId: subIndex,
             obj: this.getObjForEvent(index, subIndex),
         });
@@ -126,10 +124,15 @@ export class KupBtn {
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         let props: GenericObject = {};
         if (descriptions) {
-            props = KupBtnProps;
+            props = KupButtonListProps;
         } else {
-            for (const key in KupBtnProps) {
-                if (Object.prototype.hasOwnProperty.call(KupBtnProps, key)) {
+            for (const key in KupButtonListProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupButtonListProps,
+                        key
+                    )
+                ) {
                     props[key] = this[key];
                 }
             }
@@ -239,10 +242,10 @@ export class KupBtn {
             <kup-dropdown-button
                 class={this.rootElement.className + ' ' + data.wrapperClass}
                 {...data}
-                onKupDropdownButtonClick={() =>
+                onkup-dropdownbutton-click={() =>
                     this.onKupClick(index.toString(), '-1')
                 }
-                onKupDropdownSelectionItemClick={(e) =>
+                onkup-dropdownbutton-itemclick={(e) =>
                     this.onDropDownItemClick(e, index.toString())
                 }
             />
@@ -321,12 +324,6 @@ export class KupBtn {
 
     private renderButtons() {
         if (this.data == null || this.data.length < 1) {
-            let message = 'Empty data btn.';
-            this.kupManager.debug.logMessage(
-                this,
-                message,
-                KupDebugCategory.WARNING
-            );
             return null;
         }
         let columns = [];
@@ -384,7 +381,7 @@ export class KupBtn {
         );
 
         const classObj: Record<string, boolean> = {
-            'btn-container': true,
+            'button-list--container': true,
             'show-selection':
                 this.showSelection && this.selected ? true : false,
         };

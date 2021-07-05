@@ -4,7 +4,7 @@
     <div id="sample-specs">
       <kup-tab-bar
         id="demo-tab-bar"
-        @kupTabBarClick="tabSelection"
+        @kup-tabbar-click="tabSelection"
       ></kup-tab-bar>
       <div id="sample-specs-container">
         <table
@@ -42,14 +42,14 @@
               <td class="switch-cell" v-if="propList.try === 'switch'">
                 <kup-switch
                   v-bind:id="propList.prop"
-                  @kupSwitchChange="updateDemoSwitch"
+                  @kup-switch-change="updateDemoSwitch"
                 ></kup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
                 <kup-text-field
                   full-width
                   v-bind:id="propList.prop"
-                  @kupTextFieldInput="updateDemoField"
+                  @kup-textfield-input="updateDemoField"
                 ></kup-text-field>
               </td>
               <td class="text-cell" v-if="propList.try === 'array'">
@@ -58,8 +58,8 @@
                   trailing-icon
                   icon="add"
                   v-bind:id="propList.prop"
-                  @kupTextFieldChange="updateDemoFieldArray"
-                  @kupTextFieldIconClick="updateDemoFieldArray"
+                  @kup-textfield-change="updateDemoFieldArray"
+                  @kup-textfield-iconclick="updateDemoFieldArray"
                 ></kup-text-field>
               </td>
             </tr>
@@ -86,7 +86,7 @@
               <td class="switch-cell">
                 <kup-switch
                   v-bind:id="classList.class"
-                  @kupSwitchChange="updateDemoClass"
+                  @kup-switch-change="updateDemoClass"
                 ></kup-switch>
               </td>
             </tr>
@@ -130,11 +130,11 @@
             icon="arrow-collapse"
             trailing-icon
             helper-when-focused
-            @kupTextFieldIconClick="jsonSetSwitch"
-            @kupTextFieldInput="jsonSet"
+            @kup-textfield-iconclick="jsonSetSwitch"
+            @kup-textfield-input="jsonSet"
           ></kup-text-field>
           <kup-button
-            @kupButtonClick="jsonSetSwitch"
+            @kup-button-click="jsonSetSwitch"
             id="json-setter-opener"
             icon="settings"
             title="Show prop field"
@@ -156,7 +156,7 @@
       </div>
       <div id="split-container">
         <kup-button
-          @kupButtonClick="menuTrigger"
+          @kup-button-click="menuTrigger"
           id="menu-trigger"
           toggable
           style="--kup-primary-color: var(--kup-text-on-primary-color)"
@@ -165,7 +165,7 @@
           title="Open/close side panel"
         ></kup-button>
         <kup-button
-          @kupButtonClick="swapView"
+          @kup-button-click="swapView"
           id="view-swapper"
           toggable
           style="--kup-primary-color: var(--kup-text-on-primary-color)"
@@ -174,7 +174,7 @@
           title="Toggle/disable full screen"
         ></kup-button>
         <kup-button
-          @kupButtonClick="splitView"
+          @kup-button-click="splitView"
           id="view-splitter"
           toggable
           style="
@@ -315,7 +315,7 @@ export default {
                   .insertAdjacentHTML('beforebegin', newEntry);
                 document
                   .querySelector('#' + newEntryId)
-                  .addEventListener('kupButtonClick', (e) => {
+                  .addEventListener('kup-button-click', (e) => {
                     this.updateDemoFieldArrayRemove(e);
                   });
                 document.querySelector('#' + newEntryId).styling = 'flat';
@@ -429,7 +429,7 @@ export default {
       e.target.value = '';
       document
         .querySelector('#' + newEntryId)
-        .addEventListener('kupButtonClick', (e) => {
+        .addEventListener('kup-button-click', (e) => {
           this.updateDemoFieldArrayRemove(e);
         });
     },
