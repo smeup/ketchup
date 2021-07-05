@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 import { FImage } from '../../f-components/f-image/f-image';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -19,6 +18,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { KupBadgeEventPayload, KupBadgeProps } from './kup-badge-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-badge',
@@ -63,17 +63,15 @@ export class KupBadge {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupBadgeProps;
-        } else {
-            for (const key in KupBadgeProps) {
-                if (Object.prototype.hasOwnProperty.call(KupBadgeProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupBadgeProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupBadgeProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -87,8 +85,8 @@ export class KupBadge {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            el: e.target
-        })
+            el: e.target,
+        });
     }
 
     //---- Lifecycle hooks ----

@@ -1,124 +1,425 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
 
-<head>
-    <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+        <title>Ketchup bottoniera</title>
+        <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        ></link>
+       
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
 
-    <title>Ketchup bottoniera</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    </link>
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
 
-    <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet"
-        type="text/css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato"
+            rel="stylesheet"
+        />
+        
+        <style>
+            * {
+                box-sizing: border-box;
+                transition: all .125s ease;
+            }
 
-    <script type="module" src="/build/ketchup.esm.js"></script>
-    <script nomodule src="/build/ketchup.js"></script>
+            :focus {
+                outline: none;
+            }
 
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
 
-    <style>
-        * {
-            box-sizing: border-box;
-            transition: all .125s ease;
-        }
+            .options {
+                margin-bottom: 1rem;
+            }
 
-        :focus {
-            outline: none;
-        }
+            hr {
+                margin: 2rem 0;
+            }
 
-        html {
-            background-color: var(--kup-background-color);
-            color: var(--kup-text-color);
-            font-family: var(--kup-font-family);
-            font-size: var(--kup-font-size);
-            padding: 1rem;
-        }
+            .btn-options {
+                margin-bottom: 1rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-gap: 0.5rem;
+            }
 
-        .options {
-            margin-bottom: 1rem;
-        }
+            .BTN {
+                display: block;
+            }
 
-        hr {
-            margin: 2rem 0;
-        }
+            #theme-tester {
+                position: fixed;
+                right: 0;
+                top: 0;
+                margin: 5px;
+                padding: 20px 10px 20px 10px;
+                box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+                z-index: 100;
+            }
+        </style>
+    </head>
 
-        .btn-options {
-            margin-bottom: 1rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 0.5rem;
-        }
+    <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true, logLimit: 10000 },
+            };
+        </script>
+        <div class="data-examples">
+            <h1>Bottoniera orizzontale flat</h1>
+            <kup-btn id="btn-orizzontale" styling="flat" class="kup-full-width"></kup-btn>
 
-        .BTN {
-            display: block;
-        }
+            <h1>Bottoniera verticale outlined</h1>
+            <kup-btn id="btn-verticale" styling="outlined" class="kup-full-width"></kup-btn>
 
-        #theme-tester {
-            position: fixed;
-            right: 0;
-            top: 0;
-            margin: 5px;
-            padding: 20px 10px 20px 10px;
-            box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
-            z-index: 100;
-        }
-    </style>
-</head>
+            <h1>Bottoniera 3 colonne raised</h1>
+            <kup-btn id="btn-3-col" styling="raised" class="kup-shaped"></kup-btn>
 
-<body>
-    <script>
-        document.documentElement['ketchupInit'] = {
-            debug: { active: true, logLimit: 10000 },
-        };
-    </script>
-    <div class="data-examples">
-        <h1>Bottoniera orizzontale flat</h1>
-        <kup-button-list id="btn-orizzontale" styling="flat" class="kup-full-width"></kup-button-list>
+            <h1>Bottoniera collapsed</h1>
+            <kup-btn id="btn-collapsed"></kup-btn>
+            <h4>Playground bottoniera</h4>
+            <div class="BTN">
+                <div class="btn-options">
+                    <div>
+                        <kup-checkbox
+                            label="Show text"
+                            leading-label
+                            checked
+                            name="btn-showtext"
+                            id="btn-showtext"
+                        />
+                    </div>
+                    <script>
+                        const checkField1 = document.querySelector('#btn-showtext');
+                        checkField1.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnShowtext(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Fillspace"
+                            leading-label
+                            name="btn-fillspace"
+                            id="btn-fillspace"
+                        />
+                    </div>
+                    <script>
+                        const checkField2 =
+                            document.querySelector('#btn-fillspace');
+                        checkField2.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnFillspace(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Horizontal"
+                            leading-label
+                            name="btn-horizontal"
+                            id="btn-horizontal"
+                        />
+                    </div>
+                    <script>
+                        const checkField3 =
+                            document.querySelector('#btn-horizontal');
+                        checkField3.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnHorizontal(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Show icon"
+                            leading-label
+                            checked
+                            name="btn-showicon"
+                            id="btn-showicon"
+                        />
+                    </div>
+                    <script>
+                        const checkField4 = document.querySelector('#btn-showicon');
+                        checkField4.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnShowicon(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Rounded"
+                            leading-label
+                            name="btn-rounded"
+                            id="btn-rounded"
+                        />
+                    </div>
+                    <script>
+                        const checkField5 = document.querySelector('#btn-rounded');
+                        checkField5.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnRounded(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="TextMode='Hint'"
+                            leading-label
+                            name="btn-hinttextmode"
+                            id="btn-hinttextmode"
+                        />
+                    </div>
+                    <script>
+                        const checkField6 =
+                            document.querySelector('#btn-hinttextmode');
+                        checkField6.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnTextModeHint(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Transparent"
+                            leading-label
+                            name="btn-transparent"
+                            id="btn-transparent"
+                        />
+                    </div>
+                    <script>
+                        const checkField7 =
+                            document.querySelector('#btn-transparent');
+                        checkField7.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnTransparent(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <label for="btn-bordercolor">Border color</label>
+                        <input
+                            type="color"
+                            name="btn-bordercolor"
+                            id="btn-bordercolor"
+                            onchange="onBorderColorChange(event)"
+                        />
+                    </div>
+    
+                    <div>
+                        <label for="btn-buttonclass">Button class</label>
+                        <select
+                            name="btn-buttonclass"
+                            id="btn-buttonclass"
+                            onchange="onBorderButtonClassChange(event)"
+                        >
+                            <option value=""></option>
+                            <option value="btn-info">btn-info</option>
+                            <option value="btn-danger">btn-danger</option>
+                            <option value="btn-warning">btn-warning</option>
+                            <option value="btn-selected">btn-selected</option>
+                        </select>
+                    </div>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Flat"
+                            leading-label
+                            name="btn-flat"
+                            id="btn-flat"
+                        />
+                    </div>
+                    <script>
+                        const checkField8 = document.querySelector('#btn-flat');
+                        checkField8.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnFlat(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Show Selection"
+                            leading-label
+                            name="btn-showselection"
+                            id="btn-showselection"
+                        />
+                    </div>
+                    <script>
+                        const checkField9 =
+                            document.querySelector('#btn-showselection');
+                        checkField9.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnShowSelection(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <label for="btn-columns">Columns</label>
+                        <input
+                            type="number"
+                            name="btn-columns"
+                            id="btn-columns"
+                            onchange="toggleBtnColumns(event)"
+                        />
+                    </div>
+    
+                    <div>
+                        <label for="btn-align">Align</label>
+                        <select
+                            name="btn-align"
+                            id="btn-align"
+                            onchange="onBtnAlignChange(event)"
+                        >
+                            <option value=""></option>
+                            <option value="left">left</option>
+                            <option value="right">right</option>
+                        </select>
+                    </div>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Bold font"
+                            leading-label
+                            name="btn-fontbold"
+                            id="btn-fontbold"
+                        />
+                    </div>
+                    <script>
+                        const checkField10 =
+                            document.querySelector('#btn-fontbold');
+                        checkField10.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnStyle(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Italic font"
+                            leading-label
+                            name="btn-fontitalic"
+                            id="btn-fontitalic"
+                        />
+                    </div>
+                    <script>
+                        const checkField11 =
+                            document.querySelector('#btn-fontitalic');
+                        checkField11.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnStyle(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <kup-checkbox
+                            label="Underline font"
+                            leading-label
+                            name="btn-fontunderline"
+                            id="btn-fontunderline"
+                        />
+                    </div>
+                    <script>
+                        const checkField12 =
+                            document.querySelector('#btn-fontunderline');
+                        checkField12.addEventListener('kupCheckboxChange', (e) => {
+                            toggleBtnStyle(e);
+                        });
+                    </script>
+    
+                    <div>
+                        <label for="btn-fontcolor">Font color</label>
+                        <input
+                            type="color"
+                            value="#FFFFFF"
+                            name="btn-fontcolor"
+                            id="btn-fontcolor"
+                            onchange="toggleBtnStyle()"
+                        />
+                    </div>
+    
+                    <div>
+                        <label for="btn-bckcolor">Background color</label>
+                        <input
+                            type="color"
+                            value="#4e908f"
+                            name="btn-bckcolor"
+                            id="btn-bckcolor"
+                            onchange="toggleBtnStyle()"
+                        />
+                    </div>
+    
+                    <div>
+                        <label for="btn-font">Font</label>
+                        <select
+                            name="btn-font"
+                            id="btn-font"
+                            onchange="toggleBtnStyle()"
+                        >
+                            <option value=""></option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="Courier">Courier</option>
+                        </select>
+                    </div>
+    
+                    <div>
+                        <label for="btn-fontsize">Font size</label>
+                        <input
+                            id="btn-fontsize"
+                            type="number"
+                            onchange="toggleBtnStyle()"
+                            value="14"
+                        />
+                    </div>
+                </div>
+    
+                <kup-btn></kup-btn>
+    
+                <p id="btn-label"></p> </div>
+        </div>
 
-        <h1>Bottoniera verticale outlined</h1>
-        <kup-button-list id="btn-verticale" styling="outlined" class="kup-full-width"></kup-button-list>
+        
+        
+        <script src="/assets/btn.js"></script>
+        <style>
+            :root {
+                --kup-background-color: #ffffff;
+                --kup-nav-bar-background-color: #2e2e2e;
+                --kup-drawer-background-color: #ffffff;
+                --kup-primary-color: #d64325;
+                --kup-font-family: 'Oswald', sans-serif;
+                --kup-font-size: 16px;
+                --kup-text-on-primary-color: #ffffff;
+                --kup-text-color: #2e2e2e;
+                --kup-icon-color: #505050;
+                --kup-hover-background-color: #f0f0f0;
+                --kup-hover-color: #545454;
+                --kup-border-color: #e0e0e0;
+                --kup-disabled-color: #5c5c5c;
+                --kup-disabled-background-color: #eaeaea;
+                --kup-field-background-color: #fafafa;
+                --kup-chip-background-color: #eaeaea;
+                --kup-spinner-color: #eaa710;
+                --kup-title-background-color: #f1f3f4;
 
-        <h1>Bottoniera 3 colonne raised</h1>
-        <kup-button-list id="btn-3-col" styling="raised" class="kup-shaped"></kup-button-list>
-
-        <h1>Bottoniera collapsed</h1>
-        <kup-button-list id="btn-collapsed"></kup-button-list>
-    </div>
-
-    <script src="/assets/btn.js"></script>
-    <style>
-        :root {
-            --kup-background-color: #ffffff;
-            --kup-nav-bar-background-color: #2e2e2e;
-            --kup-drawer-background-color: #ffffff;
-            --kup-primary-color: #d64325;
-            --kup-font-family: 'Oswald', sans-serif;
-            --kup-font-size: 16px;
-            --kup-text-on-primary-color: #ffffff;
-            --kup-text-color: #2e2e2e;
-            --kup-icon-color: #505050;
-            --kup-hover-background-color: #f0f0f0;
-            --kup-hover-color: #545454;
-            --kup-border-color: #e0e0e0;
-            --kup-disabled-color: #5c5c5c;
-            --kup-disabled-background-color: #eaeaea;
-            --kup-field-background-color: #fafafa;
-            --kup-chip-background-color: #eaeaea;
-            --kup-spinner-color: #eaa710;
-            --kup-title-background-color: #f1f3f4;
-
-            --mdc-theme-primary: var(--kup-primary-color);
-            --mdc-theme-on-primary: var(--kup-text-on-primary-color);
-            --mdc-theme-secondary: var(--kup-primary-color);
-            --mdc-theme-on-secondary: var(--kup-text-on-primary-color);
-            --mdc-theme-surface: var(--kup-background-color);
-            --mdc-theme-on-surface: var(--kup-text-color);
-            --mdc-theme-background: var(--kup-background-color);
-            --mdc-theme-text-primary-on-background: var(--kup-text-color);
-        }
-    </style>
-</body>
-
+                --mdc-theme-primary: var(--kup-primary-color);
+                --mdc-theme-on-primary: var(--kup-text-on-primary-color);
+                --mdc-theme-secondary: var(--kup-primary-color);
+                --mdc-theme-on-secondary: var(--kup-text-on-primary-color);
+                --mdc-theme-surface: var(--kup-background-color);
+                --mdc-theme-on-surface: var(--kup-text-color);
+                --mdc-theme-background: var(--kup-background-color);
+                --mdc-theme-text-primary-on-background: var(--kup-text-color);
+            }
+        </style>
+    </body>
 </html>

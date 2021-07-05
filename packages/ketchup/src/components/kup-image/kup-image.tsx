@@ -25,6 +25,7 @@ import {
 import { KupImageClickEventPayload, KupImageProps } from './kup-image-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-image',
@@ -141,17 +142,15 @@ export class KupImage {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupImageProps;
-        } else {
-            for (const key in KupImageProps) {
-                if (Object.prototype.hasOwnProperty.call(KupImageProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupImageProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupImageProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

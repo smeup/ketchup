@@ -75,7 +75,13 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { deepEqual, identify, stringToNumber } from '../../utils/utils';
+import {
+    deepEqual,
+    getProps,
+    identify,
+    setProps,
+    stringToNumber,
+} from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
@@ -481,17 +487,15 @@ export class KupBox {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupBoxProps;
-        } else {
-            for (const key in KupBoxProps) {
-                if (Object.prototype.hasOwnProperty.call(KupBoxProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupBoxProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupBoxProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

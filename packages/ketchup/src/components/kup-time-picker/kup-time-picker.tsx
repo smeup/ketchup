@@ -27,6 +27,8 @@ import {
     unformattedStringToFormattedStringTime,
     unformatDateTime,
     formatTime,
+    getProps,
+    setProps,
 } from '../../utils/utils';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import {
@@ -257,22 +259,15 @@ export class KupTimePicker {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupTimePickerProps;
-        } else {
-            for (const key in KupTimePickerProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupTimePickerProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupTimePickerProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupTimePickerProps, props);
     }
 
     @Method()

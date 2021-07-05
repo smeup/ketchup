@@ -18,7 +18,11 @@ import {
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupSwitchEventPayload, KupSwitchProps } from './kup-switch-declarations';
+import {
+    KupSwitchEventPayload,
+    KupSwitchProps,
+} from './kup-switch-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-switch',
@@ -158,17 +162,15 @@ export class KupSwitch {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupSwitchProps;
-        } else {
-            for (const key in KupSwitchProps) {
-                if (Object.prototype.hasOwnProperty.call(KupSwitchProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupSwitchProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupSwitchProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

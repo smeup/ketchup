@@ -33,6 +33,7 @@ import {
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -224,22 +225,15 @@ export class KupAutocomplete {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupAutocompleteProps;
-        } else {
-            for (const key in KupAutocompleteProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupAutocompleteProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupAutocompleteProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupAutocompleteProps, props);
     }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {

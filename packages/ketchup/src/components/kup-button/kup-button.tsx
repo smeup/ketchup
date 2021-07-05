@@ -25,6 +25,7 @@ import {
     KupButtonProps,
 } from './kup-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { getProps, setProps } from '../../utils/utils';
 
 @Component({
     tag: 'kup-button',
@@ -188,17 +189,15 @@ export class KupButton {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupButtonProps;
-        } else {
-            for (const key in KupButtonProps) {
-                if (Object.prototype.hasOwnProperty.call(KupButtonProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupButtonProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupButtonProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.

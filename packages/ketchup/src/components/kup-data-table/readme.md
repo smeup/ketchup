@@ -206,6 +206,16 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setSelectedRows(rowsById: string, emitEvent?: boolean) => Promise<void>`
 
 This method will set the selected rows of the component.

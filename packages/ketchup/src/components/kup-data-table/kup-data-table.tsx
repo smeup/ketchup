@@ -90,6 +90,8 @@ import {
     unformattedStringToFormattedStringDate,
     isValidStringDate,
     ISO_DEFAULT_DATE_FORMAT,
+    getProps,
+    setProps,
 } from '../../utils/utils';
 
 import {
@@ -1033,19 +1035,15 @@ export class KupDataTable {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupDataTableProps;
-        } else {
-            for (const key in KupDataTableProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(KupDataTableProps, key)
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupDataTableProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupDataTableProps, props);
     }
     /**
      * Opens the column menu of the given column.

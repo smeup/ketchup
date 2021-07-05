@@ -65,7 +65,9 @@ import {
 } from '../../utils/cell-utils';
 import {
     deepEqual,
+    getProps,
     numberToFormattedStringNumber,
+    setProps,
     stringToNumber,
 } from '../../utils/utils';
 import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
@@ -509,17 +511,15 @@ export class KupTree {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupTreeProps;
-        } else {
-            for (const key in KupTreeProps) {
-                if (Object.prototype.hasOwnProperty.call(KupTreeProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupTreeProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupTreeProps, props);
     }
     /**
      * Opens the column menu of the given column.
