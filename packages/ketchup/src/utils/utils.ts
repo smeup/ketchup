@@ -972,7 +972,6 @@ export function setProps(
     props: GenericObject
 ): void {
     for (const key in props) {
-        console.log(key);
         // If key is a custom prop it will be set on the component (i.e.: "data", "customStyle", ecc.)
         if (list[key]) {
             comp[key] = props[key];
