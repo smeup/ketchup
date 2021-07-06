@@ -76,7 +76,7 @@ export class KupBpmn {
                             rel="stylesheet"
                             href="vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css"
                         />
-                        <link rel="stylesheet" href="css/app.css" />
+                        {/* <link rel="stylesheet" href="kup-bpmn.scss" /> */}
                     </head>
                     <div>
                         <div class="content" id="js-drop-zone">
