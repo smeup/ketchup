@@ -53,7 +53,7 @@ export class KupBpmn {
 
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        console.log('er');
+        console.log('root', root);
         if (root) {
             const j: HTMLElement = root.querySelector('#js-create-diagram');
             j.onclick = () => console.log('frtgyut');
@@ -83,7 +83,6 @@ export class KupBpmn {
                             <button id="js-create-diagram" value="crea">
                                 crea
                             </button>
-
                             <div class="message error">
                                 <div class="note">
                                     <p>Ooops, errore.</p>
