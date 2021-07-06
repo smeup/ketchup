@@ -22,7 +22,7 @@ describe('box selection', () => {
 
         expect(objects).toHaveLength(4);
 
-        const kup-box-click = await page.spyOnEvent('kup-box-click');
+        const kupBoxClick = await page.spyOnEvent('kup-box-click');
 
         // testing first object (patch with document.querySelector to avoid Node is either not visible or not an HTMLElement)
         await page.evaluate(() => {
@@ -34,7 +34,7 @@ describe('box selection', () => {
                 .click();
         });
 
-        let event = kup-box-click.events[kup-box-click.events.length - 1];
+        let event = kupBoxClick.events[kupBoxClick.events.length - 1];
 
         for (let i = 0; i < event.detail.row.cells.length; i++) {
             let cellFromEvent = event.detail.row.cells[i];
@@ -51,7 +51,7 @@ describe('box selection', () => {
 
         await obj.click();
 
-        event = kup-box-click.events[kup-box-click.events.length - 1];
+        event = kupBoxClick.events[kupBoxClick.events.length - 1];
 
         for (let i = 0; i < event.detail.row.cells.length; i++) {
             let cellFromEvent = event.detail.row.cells[i];
@@ -82,7 +82,7 @@ describe('box selection', () => {
 
         let boxes = await page.findAll(boxSelector);
 
-        const kup-box-selected = await page.spyOnEvent('kup-box-selected');
+        const kupBoxSelected = await page.spyOnEvent('kup-box-selected');
 
         //const checkboxSelector = '.box-selection input[type="checkbox"]';
         const checkboxSelector = 'div > div > kup-checkbox';
@@ -97,9 +97,9 @@ describe('box selection', () => {
 
         await chk.click();
 
-        expect(kup-box-selected).toHaveLength(2);
+        expect(kupBoxSelected).toHaveLength(2);
 
-        let detail = kup-box-selected.lastEvent.detail;
+        let detail = kupBoxSelected.lastEvent.detail;
 
         expect(detail.rows).toHaveLength(2);
 
@@ -129,9 +129,9 @@ describe('box selection', () => {
 
         await chk.click();
 
-        expect(kup-box-selected).toHaveLength(3);
+        expect(kupBoxSelected).toHaveLength(3);
 
-        detail = kup-box-selected.lastEvent.detail;
+        detail = kupBoxSelected.lastEvent.detail;
 
         expect(detail.rows).toHaveLength(1);
 
@@ -156,7 +156,7 @@ describe('box selection', () => {
 
         const elm = await page.find('kup-box');
 
-        const kup-box-autoselect = await page.spyOnEvent('kup-box-autoselect');
+        const kupBoxAutoselect = await page.spyOnEvent('kup-box-autoselect');
 
         elm.setProperty('data', defaultData);
 
@@ -164,9 +164,9 @@ describe('box selection', () => {
 
         await page.waitForChanges();
 
-        expect(kup-box-autoselect).toHaveLength(1);
+        expect(kupBoxAutoselect).toHaveLength(1);
 
-        const row = kup-box-autoselect.firstEvent.detail.row;
+        const row = kupBoxAutoselect.firstEvent.detail.row;
 
         expect(row).toEqual(defaultData.rows[1]);
     });

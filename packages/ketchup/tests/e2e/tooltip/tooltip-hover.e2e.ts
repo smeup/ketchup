@@ -32,9 +32,11 @@ xdescribe('kup-tooltip', () => {
           </kup-tooltip>
         `);
 
-        const kup-tooltip-loaddata = await page.spyOnEvent('kup-tooltip-loaddata');
+        const kupTooltipLoaddata = await page.spyOnEvent(
+            'kup-tooltip-loaddata'
+        );
 
-        const kup-tooltip-loaddetail = await page.spyOnEvent(
+        const kupTooltipLoaddetail = await page.spyOnEvent(
             'kup-tooltip-loaddetail'
         );
 
@@ -43,7 +45,7 @@ xdescribe('kup-tooltip', () => {
         // waiting for settimeout to be done
         await page.waitFor(250);
 
-        expect(kup-tooltip-loaddata).toHaveLength(1);
+        expect(kupTooltipLoaddata).toHaveLength(1);
 
         // setting data
         await page.$eval('kup-tooltip', (el: any) => {
@@ -76,7 +78,7 @@ xdescribe('kup-tooltip', () => {
         // waiting for event
         await page.waitFor(250);
 
-        expect(kup-tooltip-loaddetail).toHaveLength(1);
+        expect(kupTooltipLoaddetail).toHaveLength(1);
 
         // setting detail data
         await page.$eval('kup-tooltip', (el: any) => {
