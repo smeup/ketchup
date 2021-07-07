@@ -268,6 +268,7 @@
         wrapper.style.gridTemplateColumns = '';
         wrapper.style.gridTemplateRows = '';
         wrapper.style.gridAutoFlow = '';
+        wrapper.style.gridTemplateAreas = "";
         const textarea = document.createElement('textarea');
         textarea.onchange = (e) => {
             gridFromJson(e);
@@ -281,6 +282,7 @@
         wrapper.style.gridTemplateColumns = '';
         wrapper.style.gridTemplateRows = '';
         wrapper.style.gridAutoFlow = '';
+        wrapper.style.gridTemplateAreas = "";
         const textarea = document.createElement('textarea');
         textarea.onchange = (e) => {
             gridFromJson(e);
@@ -294,6 +296,7 @@
         wrapper.style.gridTemplateColumns = '';
         wrapper.style.gridTemplateRows = '';
         wrapper.style.gridAutoFlow = '';
+        wrapper.style.gridTemplateAreas = "";
         const textarea = document.createElement('textarea');
         textarea.onchange = (e) => {
             gridFromJson(e);
@@ -307,6 +310,7 @@
         wrapper.style.gridTemplateColumns = '';
         wrapper.style.gridTemplateRows = '';
         wrapper.style.gridAutoFlow = '';
+        wrapper.style.gridTemplateAreas = "";
         const textarea = document.createElement('textarea');
         textarea.onchange = (e) => {
             gridFromJson(e);
@@ -482,9 +486,15 @@
                     div.style.display = 'grid';
                     createGrid(div, sub, nestingIndex + '_SECTION-');
                 } else {
+                    const randomColor =
+                        document.documentElement.ketchup.theme.randomColor(128);
                     switch (jsonMode) {
                         case 'cards':
                             const card = document.createElement('kup-card');
+                            card.customStyle =
+                                '#kup-component { background-color: ' +
+                                randomColor +
+                                ' }';
                             card.layoutFamily = 'scalable';
                             card.layoutNumber = 1;
                             card.data = { ...cardData };
@@ -504,10 +514,7 @@
                             break;
                         default:
                         case 'tiles':
-                            div.style.backgroundColor =
-                                document.documentElement.ketchup.theme.randomColor(
-                                    128
-                                );
+                            div.style.backgroundColor = randomColor;
                             div.innerText = nestingIndex;
                             break;
                     }
