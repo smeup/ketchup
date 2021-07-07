@@ -132,6 +132,13 @@
             style="position: fixed; bottom: 150px; right: 5px; z-index: 1000"
             styling="floating"
         ></kup-button>
+        <kup-button
+            icon="json"
+            id="json-charts"
+            label="Charts"
+            style="position: fixed; bottom: 220px; right: 5px; z-index: 1000"
+            styling="floating"
+        ></kup-button>
     </body>
 </html>
 
@@ -146,6 +153,7 @@
     const buttonJsonTiles = document.querySelector('#json-tiles');
     const buttonJsonCards = document.querySelector('#json-cards');
     const buttonJsonTables = document.querySelector('#json-tables');
+    const buttonJsonCharts = document.querySelector('#json-charts');
 
     var jsonMode = null;
 
@@ -257,6 +265,9 @@
 
     buttonJsonTiles.onclick = () => {
         wrapper.innerHTML = '';
+        wrapper.style.gridTemplateColumns = '';
+        wrapper.style.gridTemplateRows = '';
+        wrapper.style.gridAutoFlow = '';
         const textarea = document.createElement('textarea');
         textarea.onchange = (e) => {
             gridFromJson(e);
@@ -267,6 +278,9 @@
 
     buttonJsonCards.onclick = () => {
         wrapper.innerHTML = '';
+        wrapper.style.gridTemplateColumns = '';
+        wrapper.style.gridTemplateRows = '';
+        wrapper.style.gridAutoFlow = '';
         const textarea = document.createElement('textarea');
         textarea.onchange = (e) => {
             gridFromJson(e);
@@ -277,12 +291,28 @@
 
     buttonJsonTables.onclick = () => {
         wrapper.innerHTML = '';
+        wrapper.style.gridTemplateColumns = '';
+        wrapper.style.gridTemplateRows = '';
+        wrapper.style.gridAutoFlow = '';
         const textarea = document.createElement('textarea');
         textarea.onchange = (e) => {
             gridFromJson(e);
         };
         wrapper.appendChild(textarea);
         jsonMode = 'tables';
+    };
+
+    buttonJsonCharts.onclick = () => {
+        wrapper.innerHTML = '';
+        wrapper.style.gridTemplateColumns = '';
+        wrapper.style.gridTemplateRows = '';
+        wrapper.style.gridAutoFlow = '';
+        const textarea = document.createElement('textarea');
+        textarea.onchange = (e) => {
+            gridFromJson(e);
+        };
+        wrapper.appendChild(textarea);
+        jsonMode = 'charts';
     };
 
     function appendEl(grid, child) {
@@ -433,7 +463,10 @@
             const subs = section.sections ? section.sections : [];
             for (let index = 0; index < subs.length; index++) {
                 const sub = subs[index];
-                const dim = sub.dim ? sub.dim : '1fr';
+                let dim = sub.dim ? sub.dim : '1fr';
+                if (dim !== '1fr' && dim.indexOf('%') < 0) {
+                    dim += 'px';
+                }
                 const nestingIndex = nesting + index;
                 if (section.layout !== 'column') {
                     grid.style.gridTemplateColumns += ' ' + dim;
@@ -457,6 +490,11 @@
                             card.data = { ...cardData };
                             card.data.text = [nestingIndex];
                             div.appendChild(card);
+                            break;
+                        case 'charts':
+                            const chart = document.createElement('kup-chart');
+                            chart.setProps(chartProps);
+                            div.appendChild(chart);
                             break;
                         case 'tables':
                             const table =
@@ -486,9 +524,6 @@
             return;
         }
         e.target.remove();
-        wrapper.style.gridTemplateColumns = '';
-        wrapper.style.gridTemplateRows = '';
-        wrapper.style.gridAutoFlow = '';
         createGrid(wrapper, json, 'GRID-');
     }
 
