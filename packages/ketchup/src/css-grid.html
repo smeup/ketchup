@@ -62,6 +62,17 @@
                 display: flex;
                 overflow: auto;
             }
+            .grid-cell--auto-columns {
+                grid-auto-flow: column;
+            }
+            .grid-cell--auto-rows {
+                grid-auto-flow: row;
+            }
+            textarea {
+                height: 75%;
+                width: 75%;
+                margin: auto;
+            }
         </style>
     </head>
 
@@ -100,6 +111,27 @@
             style="position: fixed; bottom: 10px; left: 565px; z-index: 1000"
             styling="floating"
         ></kup-button>
+        <kup-button
+            icon="json"
+            id="json-tiles"
+            label="Tiles"
+            style="position: fixed; bottom: 10px; right: 5px; z-index: 1000"
+            styling="floating"
+        ></kup-button>
+        <kup-button
+            icon="json"
+            id="json-cards"
+            label="Cards"
+            style="position: fixed; bottom: 80px; right: 5px; z-index: 1000"
+            styling="floating"
+        ></kup-button>
+        <kup-button
+            icon="json"
+            id="json-tables"
+            label="Tables"
+            style="position: fixed; bottom: 150px; right: 5px; z-index: 1000"
+            styling="floating"
+        ></kup-button>
     </body>
 </html>
 
@@ -111,6 +143,11 @@
     const buttonCards = document.querySelector('#cards');
     const buttonTables = document.querySelector('#tables');
     const buttonMix = document.querySelector('#mix');
+    const buttonJsonTiles = document.querySelector('#json-tiles');
+    const buttonJsonCards = document.querySelector('#json-cards');
+    const buttonJsonTables = document.querySelector('#json-tables');
+
+    var jsonMode = null;
 
     buttonTiles.onclick = () => {
         wrapper.innerHTML = '';
@@ -216,6 +253,36 @@
         wrapper.style.gridTemplateAreas = "'nav-bar' 'content'";
         wrapper.style.gridTemplateColumns = 'minmax(0, 1fr)';
         wrapper.style.gridTemplateRows = '64px minmax(0, 1fr)';
+    };
+
+    buttonJsonTiles.onclick = () => {
+        wrapper.innerHTML = '';
+        const textarea = document.createElement('textarea');
+        textarea.onchange = (e) => {
+            gridFromJson(e);
+        };
+        wrapper.appendChild(textarea);
+        jsonMode = 'tiles';
+    };
+
+    buttonJsonCards.onclick = () => {
+        wrapper.innerHTML = '';
+        const textarea = document.createElement('textarea');
+        textarea.onchange = (e) => {
+            gridFromJson(e);
+        };
+        wrapper.appendChild(textarea);
+        jsonMode = 'cards';
+    };
+
+    buttonJsonTables.onclick = () => {
+        wrapper.innerHTML = '';
+        const textarea = document.createElement('textarea');
+        textarea.onchange = (e) => {
+            gridFromJson(e);
+        };
+        wrapper.appendChild(textarea);
+        jsonMode = 'tables';
     };
 
     function appendEl(grid, child) {
@@ -358,6 +425,71 @@
             s2b: s2b,
             s3a: s3a,
         };
+    }
+
+    function gridFromJson(e) {
+        function createGrid(grid, section, nesting) {
+            console.log('Creating additional grid...');
+            const subs = section.sections ? section.sections : [];
+            for (let index = 0; index < subs.length; index++) {
+                const sub = subs[index];
+                const dim = sub.dim ? sub.dim : '1fr';
+                const nestingIndex = nesting + index;
+                if (section.layout !== 'column') {
+                    grid.style.gridTemplateColumns += ' ' + dim;
+                    grid.classList.add('grid-cell--auto-columns');
+                } else {
+                    grid.style.gridTemplateRows += ' ' + dim;
+                    grid.classList.add('grid-cell--auto-rows');
+                }
+                const div = document.createElement('div');
+                div.classList.add('tile');
+                div.classList.add('grid-cell');
+                if (sub.sections && sub.sections.length > 0) {
+                    div.style.display = 'grid';
+                    createGrid(div, sub, nestingIndex + '_SECTION-');
+                } else {
+                    switch (jsonMode) {
+                        case 'cards':
+                            const card = document.createElement('kup-card');
+                            card.layoutFamily = 'scalable';
+                            card.layoutNumber = 1;
+                            card.data = { ...cardData };
+                            card.data.text = [nestingIndex];
+                            div.appendChild(card);
+                            break;
+                        case 'tables':
+                            const table =
+                                document.createElement('kup-data-table');
+                            table.data = { ...datatableData };
+                            div.appendChild(table);
+                            break;
+                        default:
+                        case 'tiles':
+                            div.style.backgroundColor =
+                                document.documentElement.ketchup.theme.randomColor(
+                                    128
+                                );
+                            div.innerText = nestingIndex;
+                            break;
+                    }
+                }
+                grid.appendChild(div);
+            }
+        }
+
+        let json = null;
+        try {
+            json = JSON.parse(e.target.value);
+        } catch (error) {
+            console.log('Invalid JSON.');
+            return;
+        }
+        e.target.remove();
+        wrapper.style.gridTemplateColumns = '';
+        wrapper.style.gridTemplateRows = '';
+        wrapper.style.gridAutoFlow = '';
+        createGrid(wrapper, json, 'GRID-');
     }
 
     const cardData = {
