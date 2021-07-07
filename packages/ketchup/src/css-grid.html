@@ -51,10 +51,16 @@
                 display: grid;
             }
             .tile {
+                height: 100%;
+                width: 100%;
                 text-align: center;
                 font-size: large;
                 font-weight: bold;
                 color: black;
+            }
+            .grid-cell {
+                display: flex;
+                overflow: auto;
             }
         </style>
     </head>
@@ -127,7 +133,7 @@
         const content = document.createElement('div');
         for (const key in tiles) {
             const tile = tiles[key];
-            content.appendChild(tile);
+            appendEl(content, tile);
         }
         content.style.display = 'grid';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
@@ -151,7 +157,7 @@
         const content = document.createElement('div');
         for (const key in cards) {
             const card = cards[key];
-            content.appendChild(card);
+            appendEl(content, card);
         }
         content.style.display = 'grid';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
@@ -175,7 +181,7 @@
         const content = document.createElement('div');
         for (const key in tables) {
             const table = tables[key];
-            content.appendChild(table);
+            appendEl(content, table);
         }
         content.style.display = 'grid';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
@@ -198,7 +204,7 @@
         const content = document.createElement('div');
         for (const key in mixedComps) {
             const comp = mixedComps[key];
-            content.appendChild(comp);
+            appendEl(content, comp);
         }
         content.style.display = 'grid';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-1a s-2b' 's-3a s-3a'";
@@ -211,6 +217,15 @@
         wrapper.style.gridTemplateColumns = 'minmax(0, 1fr)';
         wrapper.style.gridTemplateRows = '64px minmax(0, 1fr)';
     };
+
+    function appendEl(grid, child) {
+        const elWrapper = document.createElement('div');
+        elWrapper.classList.add('grid-cell');
+        elWrapper.style.gridArea = child.style.gridArea;
+        child.style.gridArea = '';
+        elWrapper.appendChild(child);
+        grid.appendChild(elWrapper);
+    }
 
     function createDrawer() {
         const drawer = document.createElement('kup-drawer');
@@ -304,10 +319,6 @@
         s1b.style.gridArea = 's-1b';
         s2a.style.gridArea = 's-2a';
         s2b.style.gridArea = 's-2b';
-        s1a.style.overflow = 'auto';
-        s1b.style.overflow = 'auto';
-        s2a.style.overflow = 'auto';
-        s2b.style.overflow = 'auto';
         s1a.data = { ...datatableData };
         s1b.data = { ...datatableData };
         s2a.data = { ...datatableData };
@@ -335,10 +346,6 @@
         s1b.style.gridArea = 's-1b';
         s2b.style.gridArea = 's-2b';
         s3a.style.gridArea = 's-3a';
-        s1a.style.overflow = 'auto';
-        s1b.style.overflow = 'auto';
-        s2b.style.overflow = 'auto';
-        s3a.style.overflow = 'auto';
         s1a.classList.add('kup-full-width');
         s1a.setProps(treeProps);
         s1b.setProps(chartProps);
