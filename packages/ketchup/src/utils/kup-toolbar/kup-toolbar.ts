@@ -74,7 +74,6 @@ export class KupToolbar {
     /**
      * Watches the element eligible to move when dragging.
      * @param {HTMLElement} el - Toolbar-supporting element.
-     * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger the movement. When not provided, dragging anywhere on "el" will trigger the movement.
      */
     register(el: HTMLElement): void {
         this.managedElements.add(el);
