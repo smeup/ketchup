@@ -131,8 +131,8 @@
         }
         content.style.display = 'grid';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
-        content.style.gridTemplateColumns = '1fr 1fr';
-        content.style.gridTemplateRows = '1fr 1fr';
+        content.style.gridTemplateColumns = '1fr 1fr'; // same as repeat(2, 1fr)
+        content.style.gridTemplateRows = '1fr 1fr'; // same as repeat(2, 1fr)
         // Wrapper
         wrapper.appendChild(navBar);
         wrapper.appendChild(drawer);
@@ -155,8 +155,8 @@
         }
         content.style.display = 'grid';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
-        content.style.gridTemplateColumns = '1fr 1fr';
-        content.style.gridTemplateRows = '1fr 1fr';
+        content.style.gridTemplateColumns = '1fr 1fr'; // same as repeat(2, 1fr)
+        content.style.gridTemplateRows = '1fr 1fr'; // same as repeat(2, 1fr)
         // Wrapper
         wrapper.appendChild(navBar);
         wrapper.appendChild(drawer);
@@ -179,8 +179,8 @@
         }
         content.style.display = 'grid';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
-        content.style.gridTemplateColumns = '1fr 1fr';
-        content.style.gridTemplateRows = '1fr 1fr';
+        content.style.gridTemplateColumns = '1fr 1fr'; // same as repeat(2, 1fr)
+        content.style.gridTemplateRows = '1fr 1fr'; // same as repeat(2, 1fr)
         // Wrapper
         wrapper.appendChild(navBar);
         wrapper.appendChild(drawer);
@@ -201,9 +201,9 @@
             content.appendChild(comp);
         }
         content.style.display = 'grid';
-        content.style.gridTemplateAreas = "'s-1a s-1b' 's-1a s-2b'";
+        content.style.gridTemplateAreas = "'s-1a s-1b' 's-1a s-2b' 's-3a s-3a'";
         content.style.gridTemplateColumns = '30% 1fr';
-        content.style.gridTemplateRows = '30% 1fr';
+        content.style.gridTemplateRows = '1fr 1fr 1fr'; // same as repeat(3, 1fr)
         // Wrapper
         wrapper.appendChild(navBar);
         wrapper.appendChild(content);
@@ -330,21 +330,26 @@
         const s1a = document.createElement('kup-tree');
         const s1b = document.createElement('kup-chart');
         const s2b = document.createElement('kup-data-table');
+        const s3a = document.createElement('kup-box');
         s1a.style.gridArea = 's-1a';
         s1b.style.gridArea = 's-1b';
         s2b.style.gridArea = 's-2b';
+        s3a.style.gridArea = 's-3a';
         s1a.style.overflow = 'auto';
         s1b.style.overflow = 'auto';
         s2b.style.overflow = 'auto';
+        s3a.style.overflow = 'auto';
         s1a.classList.add('kup-full-width');
         s1a.setProps(treeProps);
         s1b.setProps(chartProps);
+        s3a.setProps(boxProps);
         s2b.data = { ...datatableData };
         s2b.scrollOnHover = true;
         return {
             s1a: s1a,
             s1b: s1b,
             s2b: s2b,
+            s3a: s3a,
         };
     }
 
@@ -33769,5 +33774,1146 @@
         showTooltipOnRightClick: true,
         tooltipEnabled: true,
         useDynamicExpansion: true,
+    };
+
+    const boxProps = {
+        stateId: 'i816',
+        store: {},
+        columns: 6,
+        customStyle: '',
+        data: {
+            columns: [
+                {
+                    isKey: false,
+                    name: 'XXIC',
+                    obj: {
+                        k: '',
+                        p: 'ICO',
+                        t: 'J4',
+                    },
+                    title: 'Icona',
+                },
+                {
+                    decimals: 0,
+                    isKey: false,
+                    name: 'XXNU',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'NR',
+                    },
+                    title: 'Numero',
+                },
+                {
+                    isKey: false,
+                    name: 'XXDE',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    title: 'Descrizione',
+                },
+                {
+                    isKey: false,
+                    name: 'XXST',
+                    obj: {
+                        k: '',
+                        p: 'B£WTN',
+                        t: 'TA',
+                    },
+                    title: 'Stato',
+                    visible: false,
+                },
+                {
+                    isKey: false,
+                    name: 'XXTS',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'OG',
+                    },
+                    title: 'Tipo\nSottostato',
+                    visible: false,
+                },
+                {
+                    isKey: false,
+                    name: 'XXSS',
+                    title: 'Sottostato',
+                    visible: false,
+                },
+                {
+                    isKey: false,
+                    name: 'XXTD',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'OG',
+                    },
+                    title: 'Tipo\nDescrizione',
+                    visible: false,
+                },
+                {
+                    isKey: false,
+                    name: 'XXKD',
+                    title: 'Codice\nDescrizione',
+                    visible: false,
+                },
+                {
+                    isKey: false,
+                    name: 'XXWB',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    title: 'Where',
+                    visible: false,
+                },
+            ],
+            rows: [
+                {
+                    cells: {
+                        XXKD: {
+                            isEditable: false,
+                            obj: {
+                                k: '05',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '05',
+                        },
+                        XXWB: {
+                            isEditable: false,
+                            obj: {
+                                k: "Z§AA01='05'",
+                                p: '',
+                                t: '',
+                            },
+                            value: "Z§AA01='05'",
+                        },
+                        XXIC: {
+                            data: {
+                                sizeX: '18px',
+                                color: '#8AF260',
+                                resource: 'brightness-1',
+                                sizeY: '18px',
+                            },
+                            isEditable: false,
+                            obj: {
+                                k: 'VO;COD_AGG;000113',
+                                p: 'ICO',
+                                t: 'J4',
+                            },
+                            value: 'brightness-1',
+                        },
+                        XXTS: {
+                            isEditable: false,
+                            obj: {
+                                k: '',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: '',
+                        },
+                        XXDE: {
+                            isEditable: false,
+                            obj: {
+                                k: '05',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: 'Aperto',
+                            displayedValue: 'Aperto',
+                        },
+                        XXST: {
+                            isEditable: false,
+                            obj: {
+                                k: '05',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '05',
+                        },
+                        XXSS: {
+                            isEditable: false,
+                            obj: {
+                                k: '',
+                                p: '',
+                                t: '',
+                            },
+                            value: '',
+                        },
+                        XXTD: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAB£WTN',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAB£WTN',
+                        },
+                        XXNU: {
+                            isEditable: false,
+                            obj: {
+                                k: '1',
+                                p: '',
+                                t: 'NR',
+                            },
+                            value: '1',
+                            displayedValue: '1',
+                        },
+                    },
+                    cssClass: 'clickable',
+                    id: '0',
+                    layout: {
+                        horizontal: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        column: 'XXIC',
+                                    },
+                                ],
+                                dim: '10%',
+                                horizontal: false,
+                            },
+                            {
+                                horizontal: false,
+                                sections: [
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXNU',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(068, 068, 068)',
+                                            'font-weight': 'bold',
+                                            'font-size': '14pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXDE',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(128, 128, 128)',
+                                            'font-weight': 'normal',
+                                            'font-size': '10pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    object: '',
+                    readOnly: true,
+                },
+                {
+                    cells: {
+                        XXKD: {
+                            isEditable: false,
+                            obj: {
+                                k: '10',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '10',
+                        },
+                        XXWB: {
+                            isEditable: false,
+                            obj: {
+                                k: "Z§AA01='10'",
+                                p: '',
+                                t: '',
+                            },
+                            value: "Z§AA01='10'",
+                        },
+                        XXIC: {
+                            data: {
+                                sizeX: '18px',
+                                color: '#F9D500',
+                                resource: 'brightness-1',
+                                sizeY: '18px',
+                            },
+                            isEditable: false,
+                            obj: {
+                                k: 'VO;COD_AGG;000102',
+                                p: 'ICO',
+                                t: 'J4',
+                            },
+                            value: 'brightness-1',
+                        },
+                        XXTS: {
+                            isEditable: false,
+                            obj: {
+                                k: '',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: '',
+                        },
+                        XXDE: {
+                            isEditable: false,
+                            obj: {
+                                k: '10',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: 'Assegnato',
+                            displayedValue: 'Assegnato',
+                        },
+                        XXST: {
+                            isEditable: false,
+                            obj: {
+                                k: '10',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '10',
+                        },
+                        XXSS: {
+                            isEditable: false,
+                            obj: {
+                                k: '',
+                                p: '',
+                                t: '',
+                            },
+                            value: '',
+                        },
+                        XXTD: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAB£WTN',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAB£WTN',
+                        },
+                        XXNU: {
+                            isEditable: false,
+                            obj: {
+                                k: '322',
+                                p: '',
+                                t: 'NR',
+                            },
+                            value: '322',
+                            displayedValue: '322',
+                        },
+                    },
+                    cssClass: 'clickable',
+                    id: '1',
+                    layout: {
+                        horizontal: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        column: 'XXIC',
+                                    },
+                                ],
+                                dim: '10%',
+                                horizontal: false,
+                            },
+                            {
+                                horizontal: false,
+                                sections: [
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXNU',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(068, 068, 068)',
+                                            'font-weight': 'bold',
+                                            'font-size': '14pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXDE',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(128, 128, 128)',
+                                            'font-weight': 'normal',
+                                            'font-size': '10pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    object: '',
+                    readOnly: true,
+                },
+                {
+                    cells: {
+                        XXKD: {
+                            isEditable: false,
+                            obj: {
+                                k: '20',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: '20',
+                        },
+                        XXWB: {
+                            isEditable: false,
+                            obj: {
+                                k: "Z§AA01='20' AND Z§AA02='20'",
+                                p: '',
+                                t: '',
+                            },
+                            value: "Z§AA01='20' AND Z§AA02='20'",
+                        },
+                        XXIC: {
+                            data: {
+                                sizeX: '18px',
+                                color: '#2A702A',
+                                resource: 'brightness-1',
+                                sizeY: '18px',
+                            },
+                            isEditable: false,
+                            obj: {
+                                k: 'VO;COD_AGG;000114',
+                                p: 'ICO',
+                                t: 'J4',
+                            },
+                            value: 'brightness-1',
+                        },
+                        XXTS: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAXS*L1     ',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAXS*L1     ',
+                        },
+                        XXDE: {
+                            isEditable: false,
+                            obj: {
+                                k: '20',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: 'In corso',
+                            displayedValue: 'In corso',
+                        },
+                        XXST: {
+                            isEditable: false,
+                            obj: {
+                                k: '20',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '20',
+                        },
+                        XXSS: {
+                            isEditable: false,
+                            obj: {
+                                k: '20',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: '20',
+                        },
+                        XXTD: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAXS*L1     ',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAXS*L1     ',
+                        },
+                        XXNU: {
+                            isEditable: false,
+                            obj: {
+                                k: '31',
+                                p: '',
+                                t: 'NR',
+                            },
+                            value: '31',
+                            displayedValue: '31',
+                        },
+                    },
+                    cssClass: 'clickable',
+                    id: '2',
+                    layout: {
+                        horizontal: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        column: 'XXIC',
+                                    },
+                                ],
+                                dim: '10%',
+                                horizontal: false,
+                            },
+                            {
+                                horizontal: false,
+                                sections: [
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXNU',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(068, 068, 068)',
+                                            'font-weight': 'bold',
+                                            'font-size': '14pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXDE',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(128, 128, 128)',
+                                            'font-weight': 'normal',
+                                            'font-size': '10pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    object: '',
+                    readOnly: true,
+                },
+                {
+                    cells: {
+                        XXKD: {
+                            isEditable: false,
+                            obj: {
+                                k: '30',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: '30',
+                        },
+                        XXWB: {
+                            isEditable: false,
+                            obj: {
+                                k: "Z§AA01='20' AND Z§AA02='30'",
+                                p: '',
+                                t: '',
+                            },
+                            value: "Z§AA01='20' AND Z§AA02='30'",
+                        },
+                        XXIC: {
+                            data: {
+                                sizeX: '18px',
+                                color: '#AB82F9',
+                                resource: 'brightness-1',
+                                sizeY: '18px',
+                            },
+                            isEditable: false,
+                            obj: {
+                                k: 'VO;COD_AGG;000119',
+                                p: 'ICO',
+                                t: 'J4',
+                            },
+                            value: 'brightness-1',
+                        },
+                        XXTS: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAXS*L1     ',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAXS*L1     ',
+                        },
+                        XXDE: {
+                            isEditable: false,
+                            obj: {
+                                k: '30',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: 'Attesa risposta cliente',
+                            displayedValue: 'Attesa risposta cliente',
+                        },
+                        XXST: {
+                            isEditable: false,
+                            obj: {
+                                k: '20',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '20',
+                        },
+                        XXSS: {
+                            isEditable: false,
+                            obj: {
+                                k: '30',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: '30',
+                        },
+                        XXTD: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAXS*L1     ',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAXS*L1     ',
+                        },
+                        XXNU: {
+                            isEditable: false,
+                            obj: {
+                                k: '50',
+                                p: '',
+                                t: 'NR',
+                            },
+                            value: '50',
+                            displayedValue: '50',
+                        },
+                    },
+                    cssClass: 'clickable',
+                    id: '3',
+                    layout: {
+                        horizontal: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        column: 'XXIC',
+                                    },
+                                ],
+                                dim: '10%',
+                                horizontal: false,
+                            },
+                            {
+                                horizontal: false,
+                                sections: [
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXNU',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(068, 068, 068)',
+                                            'font-weight': 'bold',
+                                            'font-size': '14pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXDE',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(128, 128, 128)',
+                                            'font-weight': 'normal',
+                                            'font-size': '10pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    object: '',
+                    readOnly: true,
+                },
+                {
+                    cells: {
+                        XXKD: {
+                            isEditable: false,
+                            obj: {
+                                k: '40',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: '40',
+                        },
+                        XXWB: {
+                            isEditable: false,
+                            obj: {
+                                k: "Z§AA01='20' AND Z§AA02='40'",
+                                p: '',
+                                t: '',
+                            },
+                            value: "Z§AA01='20' AND Z§AA02='40'",
+                        },
+                        XXIC: {
+                            data: {
+                                sizeX: '18px',
+                                color: '#D383B7',
+                                resource: 'brightness-1',
+                                sizeY: '18px',
+                            },
+                            isEditable: false,
+                            obj: {
+                                k: 'VO;COD_AGG;000121',
+                                p: 'ICO',
+                                t: 'J4',
+                            },
+                            value: 'brightness-1',
+                        },
+                        XXTS: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAXS*L1     ',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAXS*L1     ',
+                        },
+                        XXDE: {
+                            isEditable: false,
+                            obj: {
+                                k: '40',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: 'Risposta cliente',
+                            displayedValue: 'Risposta cliente',
+                        },
+                        XXST: {
+                            isEditable: false,
+                            obj: {
+                                k: '20',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '20',
+                        },
+                        XXSS: {
+                            isEditable: false,
+                            obj: {
+                                k: '40',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: '40',
+                        },
+                        XXTD: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAXS*L1     ',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAXS*L1     ',
+                        },
+                        XXNU: {
+                            isEditable: false,
+                            obj: {
+                                k: '170',
+                                p: '',
+                                t: 'NR',
+                            },
+                            value: '170',
+                            displayedValue: '170',
+                        },
+                    },
+                    cssClass: 'clickable',
+                    id: '4',
+                    layout: {
+                        horizontal: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        column: 'XXIC',
+                                    },
+                                ],
+                                dim: '10%',
+                                horizontal: false,
+                            },
+                            {
+                                horizontal: false,
+                                sections: [
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXNU',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(068, 068, 068)',
+                                            'font-weight': 'bold',
+                                            'font-size': '14pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXDE',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(128, 128, 128)',
+                                            'font-weight': 'normal',
+                                            'font-size': '10pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    object: '',
+                    readOnly: true,
+                },
+                {
+                    cells: {
+                        XXKD: {
+                            isEditable: false,
+                            obj: {
+                                k: '80',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: '80',
+                        },
+                        XXWB: {
+                            isEditable: false,
+                            obj: {
+                                k: "Z§AA01='20' AND Z§AA02='80'",
+                                p: '',
+                                t: '',
+                            },
+                            value: "Z§AA01='20' AND Z§AA02='80'",
+                        },
+                        XXIC: {
+                            data: {
+                                sizeX: '18px',
+                                color: '#FF834F',
+                                resource: 'brightness-1',
+                                sizeY: '18px',
+                            },
+                            isEditable: false,
+                            obj: {
+                                k: 'VO;COD_AGG;000013',
+                                p: 'ICO',
+                                t: 'J4',
+                            },
+                            value: 'brightness-1',
+                        },
+                        XXTS: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAXS*L1     ',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAXS*L1     ',
+                        },
+                        XXDE: {
+                            isEditable: false,
+                            obj: {
+                                k: '80',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: 'In sospeso',
+                            displayedValue: 'In sospeso',
+                        },
+                        XXST: {
+                            isEditable: false,
+                            obj: {
+                                k: '20',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '20',
+                        },
+                        XXSS: {
+                            isEditable: false,
+                            obj: {
+                                k: '80',
+                                p: 'XS*L1     ',
+                                t: 'TA',
+                            },
+                            value: '80',
+                        },
+                        XXTD: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAXS*L1     ',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAXS*L1     ',
+                        },
+                        XXNU: {
+                            isEditable: false,
+                            obj: {
+                                k: '11',
+                                p: '',
+                                t: 'NR',
+                            },
+                            value: '11',
+                            displayedValue: '11',
+                        },
+                    },
+                    cssClass: 'clickable',
+                    id: '5',
+                    layout: {
+                        horizontal: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        column: 'XXIC',
+                                    },
+                                ],
+                                dim: '10%',
+                                horizontal: false,
+                            },
+                            {
+                                horizontal: false,
+                                sections: [
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXNU',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(068, 068, 068)',
+                                            'font-weight': 'bold',
+                                            'font-size': '14pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXDE',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(128, 128, 128)',
+                                            'font-weight': 'normal',
+                                            'font-size': '10pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    object: '',
+                    readOnly: true,
+                },
+                {
+                    cells: {
+                        XXKD: {
+                            isEditable: false,
+                            obj: {
+                                k: '**',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '**',
+                        },
+                        XXWB: {
+                            isEditable: false,
+                            obj: {
+                                k: '',
+                                p: '',
+                                t: '',
+                            },
+                            value: '',
+                        },
+                        XXIC: {
+                            data: {
+                                sizeX: '18px',
+                                color: '#9E9797',
+                                resource: 'brightness-1',
+                                sizeY: '18px',
+                            },
+                            isEditable: false,
+                            obj: {
+                                k: 'VO;COD_AGG;000046',
+                                p: 'ICO',
+                                t: 'J4',
+                            },
+                            value: 'brightness-1',
+                        },
+                        XXTS: {
+                            isEditable: false,
+                            obj: {
+                                k: '**',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: '**',
+                        },
+                        XXDE: {
+                            isEditable: false,
+                            obj: {
+                                k: '**',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: 'Tutti',
+                            displayedValue: 'Tutti',
+                        },
+                        XXST: {
+                            isEditable: false,
+                            obj: {
+                                k: '**',
+                                p: 'B£WTN',
+                                t: 'TA',
+                            },
+                            value: '**',
+                        },
+                        XXSS: {
+                            isEditable: false,
+                            obj: {
+                                k: '**',
+                                p: '',
+                                t: '**',
+                            },
+                            value: '**',
+                        },
+                        XXTD: {
+                            isEditable: false,
+                            obj: {
+                                k: 'TAB£WTN',
+                                p: '',
+                                t: 'OG',
+                            },
+                            value: 'TAB£WTN',
+                        },
+                        XXNU: {
+                            isEditable: false,
+                            obj: {
+                                k: '585',
+                                p: '',
+                                t: 'NR',
+                            },
+                            value: '585',
+                            displayedValue: '585',
+                        },
+                    },
+                    cssClass: 'clickable',
+                    id: '6',
+                    layout: {
+                        horizontal: true,
+                        sections: [
+                            {
+                                content: [
+                                    {
+                                        column: 'XXIC',
+                                    },
+                                ],
+                                dim: '10%',
+                                horizontal: false,
+                            },
+                            {
+                                horizontal: false,
+                                sections: [
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXNU',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(068, 068, 068)',
+                                            'font-weight': 'bold',
+                                            'font-size': '14pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                    {
+                                        content: [
+                                            {
+                                                column: 'XXDE',
+                                            },
+                                        ],
+                                        cssClass: 'kup-center-aligned',
+                                        horizontal: false,
+                                        style: {
+                                            color: 'rgb(128, 128, 128)',
+                                            'font-weight': 'normal',
+                                            'font-size': '10pt',
+                                            'text-align': 'center',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    object: '',
+                    readOnly: true,
+                },
+            ],
+        },
+        dragEnabled: false,
+        dropEnabled: false,
+        dropOnSection: false,
+        enableRowActions: false,
+        globalFilter: false,
+        globalFilterValue: '',
+        kanban: null,
+        multiSelection: false,
+        pageSelected: 1,
+        pageSize: 0,
+        pagination: false,
+        rowsPerPage: 0,
+        scrollOnHover: true,
+        showSelection: false,
+        showTooltipOnRightClick: true,
+        sortBy: '',
+        sortEnabled: false,
+        swipeDisabled: false,
+        tooltipEnabled: true,
     };
 </script>
