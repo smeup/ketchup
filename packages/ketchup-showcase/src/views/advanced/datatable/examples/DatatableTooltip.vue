@@ -24,28 +24,28 @@ export default {
       data: {
         data: defaultDataTable,
 
-        ['onKup-datatable-optionclick']: (e) => {
+        ['onkup-datatable-optionclick']: (e) => {
           this.handleKupOptionClicked(e.detail);
         },
-        ['onKup-tooltip-loaddata']: (e) => {
+        ['onkup-tooltip-loaddata']: (e) => {
           this.onLoadData(e, 1);
         },
-        ['onKup-tooltip-loaddetail']: (e) => {
+        ['onkup-tooltip-loaddetail']: (e) => {
           this.loadBornToDie(e);
         },
-        ['onKup-tooltip-loadcelloptions']: (e) => {
+        ['onkup-tooltip-loadcelloptions']: (e) => {
           this.loadCellOptions(e);
         },
-        ['onKup-tree-treenodebuttonclick']: (e) => {
+        ['onkup-tree-treenodebuttonclick']: (e) => {
           this.treeNodeButtonClicked(e);
         },
-        ['onKup-tree-treenodeselected']: (e) => {
+        ['onkup-tree-treenodeselected']: (e) => {
           this.treeNodeSelected(e);
         },
-        ['onKup-tree-treenodeexpand']: (e) => {
+        ['onkup-tree-treenodeexpand']: (e) => {
           this.treeNodeExpand(e);
         },
-        ['onKup-tree-treenodecollapse']: (e) => {
+        ['onkup-tree-treenodecollapse']: (e) => {
           this.treeNodeCollapse(e);
         },
       },

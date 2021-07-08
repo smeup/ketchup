@@ -51,7 +51,6 @@ import {
     KupDatatableCellUpdateEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
-    KupDatatableOptionClickEventPayload,
     KupDatatableAddColumnEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
@@ -3852,7 +3851,7 @@ export class KupDataTable {
                             is-menu
                             menu-visible
                             onBlur={() => this.closeTotalMenu()}
-                            onKup-list-click={(event) =>
+                            onkup-list-click={(event) =>
                                 this.onTotalsChange(event, column)
                             }
                             tabindex={0}
@@ -4059,7 +4058,7 @@ export class KupDataTable {
                                 is-menu
                                 menu-visible
                                 onBlur={() => this.closeGroupMenu()}
-                                onKup-list-click={(event) => console.log(event)}
+                                onkup-list-click={(event) => console.log(event)}
                                 tabindex={0}
                             ></kup-list>
                         );
@@ -4890,7 +4889,7 @@ export class KupDataTable {
             case 'button':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
-                props['onKup-button-click'] = this.onJ4btnClicked.bind(
+                props['onkup-button-click'] = this.onJ4btnClicked.bind(
                     this,
                     row,
                     column,
@@ -5024,7 +5023,7 @@ export class KupDataTable {
                 )}
                 icon="plus"
                 slot={isSlotted ? 'more-results' : null}
-                onKup-button-click={() => {
+                onkup-button-click={() => {
                     this.onLoadMoreClick();
                 }}
             />
@@ -5148,7 +5147,7 @@ export class KupDataTable {
                         ')'
                     }
                     icon="auto-fix"
-                    onKup-button-click={() => this.kupManager.toggleMagicBox()}
+                    onkup-button-click={() => this.kupManager.toggleMagicBox()}
                 />
                 {totalsMatrix}
             </div>
@@ -5675,7 +5674,7 @@ export class KupDataTable {
                         KupLanguageGeneric.TOTALS_TABLE
                     )}
                     icon="exposure"
-                    onKup-button-click={() => this.switchToTotalsMatrix()}
+                    onkup-button-click={() => this.switchToTotalsMatrix()}
                 />
             </div>
         );

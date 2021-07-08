@@ -340,7 +340,7 @@ export class KupTimePicker {
         this.refreshPickerValue(e.detail.value, this.kupInput);
     }
 
-    onkupTextFieldSubmit(e: CustomEvent) {
+    onKupTextFieldSubmit(e: CustomEvent) {
         e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupTextFieldSubmit);
     }
@@ -498,7 +498,7 @@ export class KupTimePicker {
                 onkup-textfield-input={(e: any) => this.onKupInput(e)}
                 onkup-textfield-iconclick={(e: any) => this.onKupIconClick(e)}
                 onkup-textfield-submit={(e: any) =>
-                    this.onkupTextFieldSubmit(e)
+                    this.onKupTextFieldSubmit(e)
                 }
                 onkup-textfield-cleariconclick={(e: any) =>
                     this.onKupClearIconClick(e)
@@ -637,7 +637,7 @@ export class KupTimePicker {
                 {seconds}
                 <div class="actions">
                     <kup-button
-                        onKup-button-click={(e: any) => {
+                        onkup-button-click={(e: any) => {
                             this.setTimeFromClock(e);
                         }}
                         id="confirm"
@@ -791,7 +791,7 @@ export class KupTimePicker {
                     data={this.createTimeListData(this.value)}
                     is-menu
                     menu-visible
-                    onKup-list-click={(e) =>
+                    onkup-list-click={(e) =>
                         this.onKupTimePickerItemClick(
                             e,
                             e.detail.selected.value

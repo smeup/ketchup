@@ -489,7 +489,7 @@ export class KupDropdownButton {
                         {...this.data['kup-list']}
                         displayMode={this.displayMode}
                         isMenu={true}
-                        onKup-list-click={(e) => this.onKupItemClick(e)}
+                        onkup-list-click={(e) => this.onKupItemClick(e)}
                         id={this.rootElement.id + '_list'}
                         ref={(el) => (this.listEl = el as any)}
                     ></kup-list>
