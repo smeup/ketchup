@@ -652,7 +652,9 @@ export class KupColumnMenu {
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
-        const card: HTMLKupCardElement = cardEvent.detail.card;
+        const card: HTMLKupCardElement = cardEvent.detail.card
+            ? cardEvent.detail.card
+            : cardEvent.detail.comp;
         const compEvent: CustomEvent = cardEvent.detail.event;
         const compID: string = compEvent.detail.id;
         const subcomp: HTMLElement = compEvent.target as HTMLElement;
