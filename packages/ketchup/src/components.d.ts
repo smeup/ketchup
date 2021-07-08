@@ -3450,7 +3450,7 @@ declare namespace LocalJSX {
           * Sets the layout of the component.
          */
         "layout"?: string;
-        "onKup-dash-clicked"?: (event: CustomEvent<{
+        "onKup-dash-click"?: (event: CustomEvent<{
         id: number;
     }>) => void;
     }
@@ -3463,7 +3463,7 @@ declare namespace LocalJSX {
         "horizontal"?: boolean;
         "iconColor"?: Array<any>;
         "layout"?: string;
-        "onKup-dash-clicked"?: (event: CustomEvent<{
+        "onKup-dash-click"?: (event: CustomEvent<{
         idx: number;
     }>) => void;
         "textColor"?: Array<any>;
