@@ -534,7 +534,7 @@ export class KupTooltip {
             usesDynamicExpansion: e.detail.usesDynamicExpansion,
             dynamicExpansionRequireChildren:
                 e.detail.dynamicExpansionRequireChildren,
-            tree: e.detail.tree,
+            tree: e.detail.comp,
         });
     }
 
@@ -548,7 +548,7 @@ export class KupTooltip {
             treeNode: e.detail.treeNode,
             columnName: e.detail.columnName,
             auto: e.detail.auto,
-            tree: e.detail.tree,
+            tree: e.detail.comp,
         });
     }
 
@@ -563,7 +563,7 @@ export class KupTooltip {
             column: e.detail.column,
             columnName: e.detail.columnName,
             auto: e.detail.auto,
-            tree: e.detail.tree,
+            tree: e.detail.comp,
         });
     }
 
