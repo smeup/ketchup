@@ -1,7 +1,6 @@
 import { h, VNode } from '@stencil/core';
 import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
-import type { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList } from '../kup-card-helper';
 import { KupTabBarData } from '../../kup-tab-bar/kup-tab-bar-declarations';
@@ -13,8 +12,6 @@ import { FChipType } from '../../../f-components/f-chip/f-chip-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupThemeColorValues } from '../../../utils/kup-theme/kup-theme-declarations';
-
-const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * 1st standard card layout, inspired by Material Design.

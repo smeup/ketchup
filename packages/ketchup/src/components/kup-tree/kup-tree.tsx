@@ -1507,7 +1507,7 @@ export class KupTree {
             case 'button':
                 classObj['is-centered'] = true;
                 props['disabled'] = cellData.treeNode.readOnly;
-                props['onKup-button-click'] = this.onJ4btnClicked.bind(
+                props['onkup-button-click'] = this.onJ4btnClicked.bind(
                     cellData.treeNode,
                     cellData.treeNodePath,
                     cellData.column,
@@ -2035,7 +2035,7 @@ export class KupTree {
                         is-menu
                         menu-visible
                         onBlur={() => this.closeTotalMenu()}
-                        onKup-list-click={(event) =>
+                        onkup-list-click={(event) =>
                             this.onTotalsChange(event, column)
                         }
                         tabindex={0}
