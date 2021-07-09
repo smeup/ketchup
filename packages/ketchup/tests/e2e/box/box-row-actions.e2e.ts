@@ -48,9 +48,9 @@ describe('row actions', () => {
 
         expect(boxes).toHaveLength(4);
 
-        const kupRowActionMenuClick = await page.spyOnEvent(
-            'kup-box-rowactionmenuclick'
-        );
+        //const kupRowActionMenuClick = await page.spyOnEvent(
+        //    'kup-box-rowactionmenuclick'
+        //);
 
         for (let i = 0; i < boxes.length; i++) {
             const actionMenu = await boxes[i].findAll('.row-actions-wrapper');
