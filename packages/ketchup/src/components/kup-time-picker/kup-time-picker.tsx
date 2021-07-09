@@ -302,8 +302,7 @@ export class KupTimePicker {
         this.setTextFieldInitalValue(this.getTimeForOutput());
     }
 
-    onKupBlur(e: UIEvent) {
-        e.stopPropagation();
+    onKupBlur() {
         this.closePicker();
         this.kupBlur.emit({
             comp: this,
@@ -809,9 +808,8 @@ export class KupTimePicker {
                 id="time-picker-div"
                 ref={(el) => (this.pickerContainerEl = el as any)}
                 onBlur={(e: any) => {
-                    e.stopPropagation();
                     if (!this.isRelatedTargetInThisComponent(e)) {
-                        this.onKupBlur(e);
+                        this.onKupBlur();
                     }
                 }}
             >
@@ -952,7 +950,7 @@ export class KupTimePicker {
         );
 
         return (
-            <Host class={hostClass} onBlur={(e) => this.onKupBlur(e)}>
+            <Host class={hostClass} onBlur={() => this.onKupBlur()}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     {this.prepTimeTextfield()}
