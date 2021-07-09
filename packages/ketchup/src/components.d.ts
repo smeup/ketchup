@@ -34,6 +34,7 @@ import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
+import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
 import { KupNavBarData, KupNavbarEventPayload, KupNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
@@ -1562,16 +1563,20 @@ export namespace Components {
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
+          * @default null
          */
         "componentName": string;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Sets the data of the component to be lazy loaded.
+          * @default null
          */
-        "data": {};
+        "data": GenericObject;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1583,12 +1588,18 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport.
+          * @default KupLazyRender.BOTH
+         */
+        "renderMode": KupLazyRender;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Displays an animated SVG placeholder until the component is loaded.
+          * @default true
          */
         "showPlaceholder": boolean;
     }
@@ -4180,18 +4191,28 @@ declare namespace LocalJSX {
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
+          * @default null
          */
         "componentName"?: string;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Sets the data of the component to be lazy loaded.
+          * @default null
          */
-        "data"?: {};
+        "data"?: GenericObject;
+        /**
+          * Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport.
+          * @default KupLazyRender.BOTH
+         */
+        "renderMode"?: KupLazyRender;
         /**
           * Displays an animated SVG placeholder until the component is loaded.
+          * @default true
          */
         "showPlaceholder"?: boolean;
     }
