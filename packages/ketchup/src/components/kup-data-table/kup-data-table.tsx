@@ -145,7 +145,7 @@ import {
     KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
-import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
+import { CardData, CardFamily, KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupLanguageDensity,
@@ -161,6 +161,7 @@ import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupToolbarElement } from '../../utils/kup-toolbar/kup-toolbar-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1466,6 +1467,18 @@ export class KupDataTable {
         this.tableAreaRef.addEventListener('scroll', () =>
             this.scrollStickyHeader()
         );
+
+        if (this.kupManager.toolbar.spikeUnified) {
+            this.rootElement.addEventListener('kup-card-event', (e: CustomEvent<KupCardEventPayload>) => {
+                if ("kup-button-click" === e.detail.event.type) {
+                    if ("transpose" === e.detail.event.detail.id) {
+                        this.transpose = true;
+                    }
+                }
+            }
+            );
+        }
+
     }
 
     private scrollStickyHeader() {
@@ -1676,7 +1689,22 @@ export class KupDataTable {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
-        this.kupManager.toolbar.register(this.rootElement);
+
+        this.kupManager.toolbar.register(this.rootElement as KupToolbarElement);
+
+        if (this.kupManager.toolbar.spikeUnified) {
+            let toolbar: HTMLKupCardElement = this.kupManager.toolbar.getToolbar(this.rootElement as KupToolbarElement);
+            const cardData: CardData = {
+                button: [
+                    {
+                        icon: 'rotate_90_degrees_ccw',
+                        id: 'transpose'
+                    }
+                ]
+            }
+            toolbar.data = cardData;
+        }
+
         if (!this.emptyDataLabel) {
             this.emptyDataLabel = this.kupManager.language.translate(
                 KupLanguageGeneric.EMPTY_DATA
@@ -1882,8 +1910,8 @@ export class KupDataTable {
             this.kupManager.debug.logMessage(
                 this,
                 'Invalid column name on row ID (' +
-                    row.id +
-                    "), couldn't set current record!",
+                row.id +
+                "), couldn't set current record!",
                 KupDebugCategory.WARNING
             );
         }
@@ -1925,11 +1953,11 @@ export class KupDataTable {
                     },
                     title: editable
                         ? this.kupManager.language.translate(
-                              KupLanguageRow.EDITABLE_KEY
-                          )
+                            KupLanguageRow.EDITABLE_KEY
+                        )
                         : this.kupManager.language.translate(
-                              KupLanguageRow.KEY
-                          ),
+                            KupLanguageRow.KEY
+                        ),
                     value: editable ? 'edit-key' : 'key-variant',
                 };
             } else if (editable) {
@@ -2022,8 +2050,8 @@ export class KupDataTable {
             const columnName = td
                 ? td.dataset.column
                 : th
-                ? th.dataset.column
-                : null;
+                    ? th.dataset.column
+                    : null;
             if (columnName) {
                 column = getColumnByName(this.getColumns(), columnName);
             }
@@ -2033,10 +2061,10 @@ export class KupDataTable {
             area: isHeader
                 ? 'header'
                 : isBody
-                ? 'body'
-                : isFooter
-                ? 'footer'
-                : null,
+                    ? 'body'
+                    : isFooter
+                        ? 'footer'
+                        : null,
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
@@ -2379,9 +2407,9 @@ export class KupDataTable {
     ):
         | undefined
         | {
-              fixedCellClasses: GenericObject;
-              fixedCellStyle: GenericObject;
-          } {
+            fixedCellClasses: GenericObject;
+            fixedCellStyle: GenericObject;
+        } {
         if (this.isGrouping()) {
             return undefined;
         }
@@ -2443,10 +2471,10 @@ export class KupDataTable {
             // and not on the table with a specified position of sticky. There fore in that case we must set initial height to 0.
             let previousHeight: number = !this.isSafariBrowser
                 ? (
-                      this.tableRef.querySelector(
-                          'thead > tr:first-of-type > th:first-of-type'
-                      ) as HTMLTableCellElement
-                  ).getBoundingClientRect().height // [ffbf]
+                    this.tableRef.querySelector(
+                        'thead > tr:first-of-type > th:first-of-type'
+                    ) as HTMLTableCellElement
+                ).getBoundingClientRect().height // [ffbf]
                 : 0;
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
@@ -3192,7 +3220,7 @@ export class KupDataTable {
                         checked={
                             this.selectedRows.length > 0 &&
                             this.selectedRows.length ===
-                                this.renderedRows.length
+                            this.renderedRows.length
                         }
                     />
                 </th>
@@ -3431,23 +3459,23 @@ export class KupDataTable {
                         style={thStyle}
                         {...(this.enableSortableColumns
                             ? setKetchupDraggable(dragHandlers, {
-                                  [KupDataTableColumnDragType]: column,
-                                  'kup-drag-source-element': {
-                                      column: column,
-                                      id: this.rootElement.id,
-                                  },
-                              })
+                                [KupDataTableColumnDragType]: column,
+                                'kup-drag-source-element': {
+                                    column: column,
+                                    id: this.rootElement.id,
+                                },
+                            })
                             : {})}
                         {...(this.enableSortableColumns
                             ? setKetchupDroppable(
-                                  dropHandlers,
-                                  [KupDataTableColumnDragType],
-                                  this.rootElement,
-                                  {
-                                      column: column,
-                                      id: this.rootElement.id,
-                                  }
-                              )
+                                dropHandlers,
+                                [KupDataTableColumnDragType],
+                                this.rootElement,
+                                {
+                                    column: column,
+                                    id: this.rootElement.id,
+                                }
+                            )
                             : {})}
                     >
                         <span class="column-title">
@@ -3509,7 +3537,7 @@ export class KupDataTable {
                         checked={
                             this.selectedRows.length > 0 &&
                             this.selectedRows.length ===
-                                this.renderedRows.length
+                            this.renderedRows.length
                         }
                     />
                 </th-sticky>
@@ -4360,16 +4388,16 @@ export class KupDataTable {
                     <td
                         {...(this.dropEnabled
                             ? setKetchupDroppable(
-                                  dropHandlersCell,
-                                  [KupDataTableRowDragType],
-                                  this.rootElement,
-                                  {
-                                      row: row,
-                                      cell: cell,
-                                      column: currentColumn,
-                                      id: this.rootElement.id,
-                                  }
-                              )
+                                dropHandlersCell,
+                                [KupDataTableRowDragType],
+                                this.rootElement,
+                                {
+                                    row: row,
+                                    cell: cell,
+                                    column: currentColumn,
+                                    id: this.rootElement.id,
+                                }
+                            )
                             : {})}
                         title={title}
                         data-cell={cell}
@@ -4474,9 +4502,9 @@ export class KupDataTable {
                     style={style}
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlersRow, {
-                              [KupDataTableRowDragType]: row,
-                              'kup-drag-source-element': {}, // I put nothing in there because I overwrite the content inside the onDragStart method
-                          })
+                            [KupDataTableRowDragType]: row,
+                            'kup-drag-source-element': {}, // I put nothing in there because I overwrite the content inside the onDragStart method
+                        })
                         : {})}
                 >
                     {selectRowCell}
@@ -4834,8 +4862,8 @@ export class KupDataTable {
                             cell.icon
                                 ? cell.icon
                                 : column.icon
-                                ? column.icon
-                                : null
+                                    ? column.icon
+                                    : null
                         }
                         fullWidth={true}
                         inputType="number"
@@ -4854,8 +4882,8 @@ export class KupDataTable {
                             cell.icon
                                 ? cell.icon
                                 : column.icon
-                                ? column.icon
-                                : null
+                                    ? column.icon
+                                    : null
                         }
                         fullWidth={true}
                         value={cell.value}
@@ -5064,7 +5092,7 @@ export class KupDataTable {
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
                     {!this.lazyLoadRows &&
-                    this.rowsLength > this.rowsPerPage ? (
+                        this.rowsLength > this.rowsPerPage ? (
                         <kup-paginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
                             max={this.rowsLength}
@@ -5742,16 +5770,16 @@ export class KupDataTable {
                     <td
                         {...(this.dropEnabled
                             ? setKetchupDroppable(
-                                  dropHandlersCell,
-                                  [KupDataTableRowDragType],
-                                  this.rootElement,
-                                  {
-                                      row: null,
-                                      cell: null,
-                                      column: null,
-                                      id: this.rootElement.id,
-                                  }
-                              )
+                                dropHandlersCell,
+                                [KupDataTableRowDragType],
+                                this.rootElement,
+                                {
+                                    row: null,
+                                    cell: null,
+                                    column: null,
+                                    id: this.rootElement.id,
+                                }
+                            )
                             : {})}
                         colSpan={this.calculateColspan()}
                     >
@@ -5936,24 +5964,24 @@ export class KupDataTable {
                     >
                         {this.showCustomization
                             ? [
-                                  <div
-                                      class="settings-trigger"
-                                      onClick={() => {
-                                          this.onCustomSettingsClick();
-                                      }}
-                                      ref={(el) => {
-                                          this.customizeTopButtonRef =
-                                              el as any;
-                                      }}
-                                  >
-                                      <FImage
-                                          color={`var(${KupThemeColorValues.TITLE})`}
-                                          resource="settings"
-                                          sizeX="10px"
-                                      />
-                                  </div>,
-                                  this.renderCustomizePanel(),
-                              ]
+                                <div
+                                    class="settings-trigger"
+                                    onClick={() => {
+                                        this.onCustomSettingsClick();
+                                    }}
+                                    ref={(el) => {
+                                        this.customizeTopButtonRef =
+                                            el as any;
+                                    }}
+                                >
+                                    <FImage
+                                        color={`var(${KupThemeColorValues.TITLE})`}
+                                        resource="settings"
+                                        sizeX="10px"
+                                    />
+                                </div>,
+                                this.renderCustomizePanel(),
+                            ]
                             : null}
                         <table
                             class={tableClass}
@@ -5998,8 +6026,8 @@ export class KupDataTable {
                                     this.kupManager.debug.logMessage(
                                         this,
                                         'Cleared clickHandler timeout(' +
-                                            this.clickTimeout[index] +
-                                            ').'
+                                        this.clickTimeout[index] +
+                                        ').'
                                     );
                                 }
                                 this.clickTimeout = [];
@@ -6032,13 +6060,13 @@ export class KupDataTable {
                         data={
                             this.columnMenuAnchor
                                 ? this.columnMenuInstance.prepData(
-                                      this,
-                                      getColumnByName(
-                                          this.getVisibleColumns(),
-                                          this.columnMenuAnchor
-                                      ),
-                                      this.columnMenuCard.data
-                                  )
+                                    this,
+                                    getColumnByName(
+                                        this.getVisibleColumns(),
+                                        this.columnMenuAnchor
+                                    ),
+                                    this.columnMenuCard.data
+                                )
                                 : null
                         }
                         id={KupColumnMenuIds.CARD_COLUMN_MENU}

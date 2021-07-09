@@ -47,6 +47,7 @@ export const config: Config = {
                 { src: 'tab-bar.html' },
                 { src: 'time-picker.html' },
                 { src: 'text-field.html' },
+                { src: 'toolbar.html' },
                 { src: 'tooltip.html' },
                 { src: 'tree.html' },
             ],

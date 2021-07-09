@@ -6,3 +6,9 @@ export enum KupToolbarModifierKeys {
     CTRL = 'ctrlKey', // Automatically tests for metaKey as well (iOS compatibility)
     SHIFT = 'shiftKey',
 }
+
+export interface KupToolbarElement extends HTMLElement {
+    kupToolbar: {
+        toolbar: HTMLKupCardElement;
+    };
+}
