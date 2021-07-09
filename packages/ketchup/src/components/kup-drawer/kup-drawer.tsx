@@ -11,7 +11,11 @@ import {
     Watch,
 } from '@stencil/core';
 
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -46,16 +50,16 @@ export class KupDrawer {
     @Watch('opened')
     onOpenedChange(newValue: boolean) {
         if (newValue) {
-            this.kupDrawerOpen.emit();
+            this.kupDrawerOpen.emit({ comp: this, id: this.rootElement.id });
         } else {
-            this.kupDrawerClose.emit();
+            this.kupDrawerClose.emit({ comp: this, id: this.rootElement.id });
         }
     }
 
     //---- Events ----
 
-    @Event() kupDrawerClose: EventEmitter;
-    @Event() kupDrawerOpen: EventEmitter;
+    @Event() kupDrawerClose: EventEmitter<KupEventPayload>;
+    @Event() kupDrawerOpen: EventEmitter<KupEventPayload>;
 
     //---- Methods ----
 

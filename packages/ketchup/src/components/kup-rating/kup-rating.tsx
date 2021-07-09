@@ -18,7 +18,10 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
-import { KupRatingProps } from './kup-rating-declarations';
+import {
+    KupRatingClickEventPayload,
+    KupRatingProps,
+} from './kup-rating-declarations';
 
 @Component({
     tag: 'kup-rating',
@@ -51,7 +54,7 @@ export class KupRating {
      */
     private kupManager: KupManager = kupManagerInstance();
 
-    @Event() kupRatingClicked: EventEmitter;
+    @Event() kupRatingClick: EventEmitter<KupRatingClickEventPayload>;
 
     @Watch('value')
     @Watch('maxValue')
@@ -86,11 +89,15 @@ export class KupRating {
         forceUpdate(this);
     }
 
-    onStarClicked(newValue: number) {
+    onStarClick(newValue: number) {
         if (!this.disabled) {
             this.value = newValue;
             this.buildStars(this.value);
-            this.kupRatingClicked.emit({ value: this.value });
+            this.kupRatingClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+            });
         }
     }
 
@@ -116,7 +123,7 @@ export class KupRating {
                         class="rating"
                         onMouseOver={() => this.onMouseOver(i)}
                         onMouseOut={() => this.onMouseOut()}
-                        onClick={() => this.onStarClicked(i)}
+                        onClick={() => this.onStarClick(i)}
                     >
                         &#x2605;
                     </span>
@@ -127,7 +134,7 @@ export class KupRating {
                         class="rating"
                         onMouseOver={() => this.onMouseOver(i)}
                         onMouseOut={() => this.onMouseOut()}
-                        onClick={() => this.onStarClicked(i)}
+                        onClick={() => this.onStarClick(i)}
                     >
                         &#x2606;
                     </span>

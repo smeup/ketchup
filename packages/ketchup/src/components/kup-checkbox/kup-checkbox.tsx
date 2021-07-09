@@ -18,7 +18,10 @@ import {
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupCheckboxProps } from './kup-checkbox-declarations';
+import {
+    KupCheckboxProps,
+    KupCheckboxEventPayload,
+} from './kup-checkbox-declarations';
 import { getProps, setProps } from '../../utils/utils';
 
 @Component({
@@ -95,49 +98,38 @@ export class KupCheckbox {
      * Triggered when the input element loses focus.
      */
     @Event({
-        eventName: 'kupCheckboxBlur',
+        eventName: 'kup-checkbox-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupCheckboxEventPayload>;
     /**
      * Triggered when the input element's value changes.
      */
     @Event({
-        eventName: 'kupCheckboxChange',
+        eventName: 'kup-checkbox-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>;
+    kupChange: EventEmitter<KupCheckboxEventPayload>;
     /**
      * Triggered when the input element gets focused.
      */
     @Event({
-        eventName: 'kupCheckboxFocus',
+        eventName: 'kup-checkbox-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupCheckboxEventPayload>;
 
     onKupBlur() {
         this.kupBlur.emit({
-            checked: this.checked == true ? true : false,
+            comp: this,
             id: this.rootElement.id,
+            checked: this.checked == true ? true : false,
             value: this.value,
         });
     }
@@ -155,16 +147,18 @@ export class KupCheckbox {
             this.value = 'on';
         }
         this.kupChange.emit({
-            checked: this.checked,
+            comp: this,
             id: this.rootElement.id,
+            checked: this.checked,
             value: this.value,
         });
     }
 
     onKupFocus() {
         this.kupFocus.emit({
-            checked: this.checked == true ? true : false,
+            comp: this,
             id: this.rootElement.id,
+            checked: this.checked == true ? true : false,
             value: this.value,
         });
     }

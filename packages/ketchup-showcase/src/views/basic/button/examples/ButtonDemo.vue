@@ -22,15 +22,15 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupButtonClick',
+          name: 'kup-button-click',
           type: 'click',
         },
         {
-          name: 'kupButtonFocus',
+          name: 'kup-button-focus',
           type: 'focus',
         },
         {
-          name: 'kupButtonBlur',
+          name: 'kup-button-blur',
           type: 'blur',
         },
       ],

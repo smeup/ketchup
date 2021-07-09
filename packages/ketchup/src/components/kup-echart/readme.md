@@ -21,9 +21,9 @@
 
 ## Events
 
-| Event              | Description | Type               |
-| ------------------ | ----------- | ------------------ |
-| `kupEchartClicked` |             | `CustomEvent<any>` |
+| Event            | Description | Type                           |
+| ---------------- | ----------- | ------------------------------ |
+| `kupEchartClick` |             | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods

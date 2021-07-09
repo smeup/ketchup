@@ -1,3 +1,5 @@
+import { KupEventPayload } from "../../types/GenericTypes";
+
 /**
  * Props of the kup-radio component.
  * Used to export every prop in an object.
@@ -17,3 +19,8 @@ export interface KupRadioData {
     label: string;
     checked: boolean;
 }
+
+export interface KupRadioChangeEventPayload extends KupEventPayload {
+    value: string;
+}
+

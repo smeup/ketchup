@@ -26,7 +26,10 @@ import {
     KupDynamicPositionElement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupDropdownButtonProps } from './kup-dropdown-button-declarations';
+import {
+    KupDropdownButtonEventPayload,
+    KupDropdownButtonProps,
+} from './kup-dropdown-button-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
@@ -142,65 +145,52 @@ export class KupDropdownButton {
      * Triggered when the primary button loses focus.
      */
     @Event({
-        eventName: 'kupDropdownButtonBlur',
+        eventName: 'kup-dropdownbutton-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupDropdownButtonEventPayload>;
     /**
      * Triggered when the primary button is clicked.
      */
     @Event({
-        eventName: 'kupDropdownButtonClick',
+        eventName: 'kup-dropdownbutton-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupClick: EventEmitter<KupDropdownButtonEventPayload>;
     /**
      * Triggered when the primary button is focused.
      */
     @Event({
-        eventName: 'kupDropdownButtonFocus',
+        eventName: 'kup-dropdownbutton-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupDropdownButtonEventPayload>;
     /**
      * Triggered when a list item changes.
      */
     @Event({
-        eventName: 'kupDropdownSelectionChange',
+        eventName: 'kup-dropdownbutton-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        value: any;
-    }>;
+    kupChange: EventEmitter<KupDropdownButtonEventPayload>;
     /**
      * Triggered when a list item is clicked.
      */
     @Event({
-        eventName: 'kupDropdownSelectionItemClick',
+        eventName: 'kup-dropdownbutton-itemclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupItemClick: EventEmitter<{
-        value: any;
-    }>;
+    kupItemClick: EventEmitter<KupDropdownButtonEventPayload>;
     /**
      * Handles the navigation of the dropdown menu with the keyboard.
      */
@@ -225,6 +215,7 @@ export class KupDropdownButton {
     onKupBlur() {
         this.closeList();
         this.kupBlur.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -233,6 +224,7 @@ export class KupDropdownButton {
     onKupClick() {
         this.closeList();
         this.kupClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -240,6 +232,7 @@ export class KupDropdownButton {
 
     onKupFocus() {
         this.kupFocus.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -258,10 +251,14 @@ export class KupDropdownButton {
         this.closeList();
 
         this.kupChange.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: this.value,
         });
 
         this.kupItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -492,7 +489,7 @@ export class KupDropdownButton {
                         {...this.data['kup-list']}
                         displayMode={this.displayMode}
                         isMenu={true}
-                        onKupListClick={(e) => this.onKupItemClick(e)}
+                        onkup-list-click={(e) => this.onKupItemClick(e)}
                         id={this.rootElement.id + '_list'}
                         ref={(el) => (this.listEl = el as any)}
                     ></kup-list>

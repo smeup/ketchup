@@ -20,11 +20,11 @@
 
 ## Events
 
-| Event            | Description                            | Type                                          |
-| ---------------- | -------------------------------------- | --------------------------------------------- |
-| `kupButtonBlur`  | Triggered when the button loses focus. | `CustomEvent<{ id: string; value: string; }>` |
-| `kupButtonClick` | Triggered when the button is clicked.  | `CustomEvent<{ id: string; value: string; }>` |
-| `kupButtonFocus` | Triggered when the button is focused.  | `CustomEvent<{ id: string; value: string; }>` |
+| Event              | Description                            | Type                                      |
+| ------------------ | -------------------------------------- | ----------------------------------------- |
+| `kup-button-blur`  | Triggered when the button loses focus. | `CustomEvent<KupButtonClickEventPayload>` |
+| `kup-button-click` | Triggered when the button is clicked.  | `CustomEvent<KupButtonClickEventPayload>` |
+| `kup-button-focus` | Triggered when the button is focused.  | `CustomEvent<KupButtonClickEventPayload>` |
 
 
 ## Methods

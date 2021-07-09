@@ -186,19 +186,6 @@ export class KupColumnMenu {
             comp.enableExtraColumns &&
             dom.ketchup.objects.canHaveExtraColumns(column.obj)
         ) {
-            if (dom.ketchup.objects.canHaveAutomaticDerivedColumn(column.obj)) {
-                props.push({
-                    className: 'printable',
-                    'data-storage': {
-                        columnName: column.name,
-                    },
-                    icon: 'label',
-                    id: KupColumnMenuIds.BUTTON_DESCRIPTION,
-                    title: dom.ketchup.language.translate(
-                        KupLanguageColumn.ADD_DESCRIPTION
-                    ),
-                });
-            }
             props.push({
                 className: 'printable',
                 label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
@@ -660,12 +647,14 @@ export class KupColumnMenu {
         return props;
     }
     /**
-     * Function called by the column menu card when a kupCardEvent is received.
-     * @param {CustomEvent} cardEvent - kupCardEvent emitted by the column menu.
+     * Function called by the column menu card when a kup-card-event is received.
+     * @param {CustomEvent} cardEvent - kup-card-event emitted by the column menu.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
-        const card: HTMLKupCardElement = cardEvent.detail.card;
+        const card: HTMLKupCardElement = cardEvent.detail.card
+            ? cardEvent.detail.card
+            : cardEvent.detail.comp;
         const compEvent: CustomEvent = cardEvent.detail.event;
         const compID: string = compEvent.detail.id;
         const subcomp: HTMLElement = compEvent.target as HTMLElement;
@@ -675,7 +664,7 @@ export class KupColumnMenu {
             .toLowerCase()
             .endsWith('click');
         switch (compEvent.type) {
-            case 'kupCheckboxChange':
+            case 'kup-checkbox-change':
                 this.checkboxChange(
                     comp,
                     compEvent.detail.checked,
@@ -686,20 +675,14 @@ export class KupColumnMenu {
                     }
                 );
                 break;
-            case 'kupButtonClick':
+            case 'kup-button-click':
                 switch (compID) {
-                    case KupColumnMenuIds.BUTTON_DESCRIPTION:
-                        this.addDescriptionColumn(
-                            comp,
-                            dataStorage['columnName']
-                        );
-                        break;
                     case KupColumnMenuIds.BUTTON_REMOVE:
                         this.removeColumn(comp, dataStorage['column']);
                         break;
                 }
                 break;
-            case 'kupSwitchChange':
+            case 'kup-switch-change':
                 switch (compID) {
                     case KupColumnMenuIds.SWITCH_GROUP:
                         this.toggleGroup(
@@ -716,15 +699,15 @@ export class KupColumnMenu {
                         break;
                 }
                 break;
-            case 'kupTextFieldSubmit':
-            case 'kupDatePickerTextFieldSubmit':
-            case 'kupTimePickerTextFieldSubmit':
+            case 'kup-textfield-submit':
+            case 'kup-datepicker-textfieldsubmit':
+            case 'kup-timepicker-textfieldsubmit':
                 this.saveTextualFilters(comp, dataStorage['column']);
                 this.close(card);
                 break;
-            case 'kupTextFieldClearIconClick':
-            case 'kupDatePickerClearIconClick':
-            case 'kupTimePickerClearIconClick':
+            case 'kup-textfield-cleariconclick':
+            case 'kup-datepicker-cleariconclick':
+            case 'kup-timepicker-cleariconclick':
                 if (dataStorage['isInterval'] == true) {
                     this.intervalChange(
                         comp,
@@ -738,11 +721,11 @@ export class KupColumnMenu {
                 }
                 this.saveTextualFilters(comp, dataStorage['column']);
                 break;
-            case 'kupTextFieldInput':
-            case 'kupDatePickerInput':
-            case 'kupDatePickerItemClick':
-            case 'kupTimePickerInput':
-            case 'kupTimePickerItemClick':
+            case 'kup-textfield-input':
+            case 'kup-datepicker-input':
+            case 'kup-datepicker-itemclick':
+            case 'kup-timepicker-input':
+            case 'kup-timepicker-itemclick':
                 window.clearTimeout(comp.columnFilterTimeout);
                 comp.columnFilterTimeout = window.setTimeout(() => {
                     if (dataStorage['isInterval'] == true) {
@@ -929,17 +912,6 @@ export class KupColumnMenu {
         } else {
             column.visible = false;
         }
-        comp.closeColumnMenu();
-    }
-    /**
-     * Adds the description column (or code column, if it is a description).
-     * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {string} column - Name of the column.
-     */
-    addDescriptionColumn(comp: KupDataTable | KupTree, column: string): void {
-        comp.kupAddCodeDecodeColumn.emit({
-            column: column,
-        });
         comp.closeColumnMenu();
     }
 }

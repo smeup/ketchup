@@ -18,7 +18,10 @@ import {
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupSwitchProps } from './kup-switch-declarations';
+import {
+    KupSwitchEventPayload,
+    KupSwitchProps,
+} from './kup-switch-declarations';
 import { getProps, setProps } from '../../utils/utils';
 
 @Component({
@@ -90,42 +93,37 @@ export class KupSwitch {
      * Triggered when the input element loses focus.
      */
     @Event({
-        eventName: 'kupSwitchBlur',
+        eventName: 'kup-switch-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupSwitchEventPayload>;
     /**
      * Triggered when the input element's value changes.
      */
     @Event({
-        eventName: 'kupSwitchChange',
+        eventName: 'kup-switch-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupChange: EventEmitter<KupSwitchEventPayload>;
     /**
      * Triggered when the input element gets focused.
      */
     @Event({
-        eventName: 'kupSwitchFocus',
+        eventName: 'kup-switch-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupSwitchEventPayload>;
 
     onKupBlur() {
         this.kupBlur.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -139,6 +137,7 @@ export class KupSwitch {
             this.value = 'on';
         }
         this.kupChange.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -146,6 +145,8 @@ export class KupSwitch {
 
     onKupFocus() {
         this.kupFocus.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: this.value,
         });
     }

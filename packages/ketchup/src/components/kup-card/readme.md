@@ -19,10 +19,10 @@
 
 ## Events
 
-| Event          | Description                                                | Type                                          |
-| -------------- | ---------------------------------------------------------- | --------------------------------------------- |
-| `kupCardClick` | Triggered when the card is clicked.                        | `CustomEvent<{ card: KupCard; id: string; }>` |
-| `kupCardEvent` | Triggered when a sub-component of the card emits an event. | `CustomEvent<{ card: KupCard; event: any; }>` |
+| Event            | Description                                                | Type                               |
+| ---------------- | ---------------------------------------------------------- | ---------------------------------- |
+| `kup-card-click` | Triggered when the card is clicked.                        | `CustomEvent<KupEventPayload>`     |
+| `kup-card-event` | Triggered when a sub-component of the card emits an event. | `CustomEvent<KupCardEventPayload>` |
 
 
 ## Methods
@@ -136,8 +136,8 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-color-picker --> kup-text-field
-  kup-btn --> kup-dropdown-button
-  kup-btn --> kup-badge
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
   kup-paginator --> kup-combobox

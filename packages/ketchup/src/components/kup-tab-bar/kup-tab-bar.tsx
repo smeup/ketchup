@@ -12,7 +12,12 @@ import {
     VNode,
 } from '@stencil/core';
 
-import { KupTabBarData, KupTabBarProps } from './kup-tab-bar-declarations';
+import {
+    KupTabBarClickEventPayload,
+    KupTabBarData,
+    KupTabBarEventPayload,
+    KupTabBarProps,
+} from './kup-tab-bar-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -78,50 +83,37 @@ export class KupTabBar {
      * Triggered when the tab loses focus.
      */
     @Event({
-        eventName: 'kupTabBarBlur',
+        eventName: 'kup-tabbar-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        comp: KupTabBar;
-        index: number;
-        el: EventTarget;
-    }>;
+    kupBlur: EventEmitter<KupTabBarEventPayload>;
     /**
      * Triggered when the tab is clicked.
      */
     @Event({
-        eventName: 'kupTabBarClick',
+        eventName: 'kup-tabbar-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        comp: KupTabBar;
-        id: string;
-        index: number;
-        el: EventTarget;
-        value: string;
-    }>;
+    kupClick: EventEmitter<KupTabBarClickEventPayload>;
     /**
      * Triggered when the tab is focused.
      */
     @Event({
-        eventName: 'kupTabBarFocus',
+        eventName: 'kup-tabbar-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        comp: KupTabBar;
-        index: number;
-        el: EventTarget;
-    }>;
+    kupFocus: EventEmitter<KupTabBarEventPayload>;
 
     onKupBlur(i: number, e: Event) {
         this.kupBlur.emit({
             comp: this,
+            id: this.rootElement.id,
             index: i,
             el: e.target,
         });
@@ -146,6 +138,7 @@ export class KupTabBar {
     onKupFocus(i: number, e: Event) {
         this.kupFocus.emit({
             comp: this,
+            id: this.rootElement.id,
             index: i,
             el: e.target,
         });

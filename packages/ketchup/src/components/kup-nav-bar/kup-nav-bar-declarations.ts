@@ -1,3 +1,5 @@
+import { KupEventPayload } from '../../types/GenericTypes';
+
 /**
  * Props of the kup-nav-bar component.
  * Used to export every prop in an object.
@@ -36,4 +38,7 @@ export enum KupNavBarMode {
     FIXED = 'fixed',
     PROMINENT = 'prominent',
     DENSE = 'dense',
+}
+export interface KupNavbarEventPayload extends KupEventPayload {
+    value: string;
 }

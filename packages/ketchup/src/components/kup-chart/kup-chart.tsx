@@ -16,12 +16,12 @@ import {
     ChartType,
     ChartAspect,
     ChartOptions,
-    ChartClickedEvent,
     ChartAxis,
     ChartOfflineMode,
     ChartSerie,
     ChartTitle,
     KupChartProps,
+    KupChartClickEvent,
 } from './kup-chart-declarations';
 import {
     convertColumns,
@@ -131,12 +131,12 @@ export class KupChart {
      * Triggered when a chart serie is clicked
      */
     @Event({
-        eventName: 'kupChartClicked',
+        eventName: 'kup-chart-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChartClicked: EventEmitter<ChartClickedEvent>;
+    kupChartClick: EventEmitter<KupChartClickEvent>;
 
     private chartContainer?: HTMLDivElement;
 
@@ -423,7 +423,10 @@ export class KupChart {
         const selectedItem = this.gChart.getSelection()[0];
 
         if (selectedItem) {
-            const event: ChartClickedEvent = {};
+            const event: KupChartClickEvent = {
+                comp: this,
+                id: this.rootElement.id,
+            };
 
             if (selectedItem.date) {
                 // calendar chart
@@ -480,8 +483,7 @@ export class KupChart {
                     event.colindex = 0;
                 }
             }
-
-            this.kupChartClicked.emit(event);
+            this.kupChartClick.emit(event);
         }
     }
 
@@ -618,6 +620,7 @@ export class KupChart {
     }
 
     componentDidLoad() {
+        this.kupManager.resize.observe(this.rootElement);
         if (!this.offlineMode && (!this.axis || !this.series)) {
             return;
         }
@@ -645,7 +648,6 @@ export class KupChart {
                 console.error(err);
             }
         }
-        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 

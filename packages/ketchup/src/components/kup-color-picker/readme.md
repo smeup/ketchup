@@ -18,10 +18,10 @@
 
 ## Events
 
-| Event                  | Description | Type                           |
-| ---------------------- | ----------- | ------------------------------ |
-| `kupColorPickerChange` |             | `CustomEvent<{ value: any; }>` |
-| `kupColorPickerInput`  |             | `CustomEvent<{ value: any; }>` |
+| Event                    | Description | Type                                      |
+| ------------------------ | ----------- | ----------------------------------------- |
+| `kup-colorpicker-change` |             | `CustomEvent<KupColorPickerEventPayload>` |
+| `kup-colorpicker-input`  |             | `CustomEvent<KupColorPickerEventPayload>` |
 
 
 ## Methods

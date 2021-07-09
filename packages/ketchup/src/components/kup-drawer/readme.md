@@ -15,10 +15,10 @@
 
 ## Events
 
-| Event            | Description | Type               |
-| ---------------- | ----------- | ------------------ |
-| `kupDrawerClose` |             | `CustomEvent<any>` |
-| `kupDrawerOpen`  |             | `CustomEvent<any>` |
+| Event            | Description | Type                           |
+| ---------------- | ----------- | ------------------------------ |
+| `kupDrawerClose` |             | `CustomEvent<KupEventPayload>` |
+| `kupDrawerOpen`  |             | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods

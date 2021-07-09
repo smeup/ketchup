@@ -22,7 +22,10 @@ import {
     KupDynamicPositionElement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupColorPickerProps } from './kup-color-picker-declarations';
+import {
+    KupColorPickerEventPayload,
+    KupColorPickerProps,
+} from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -67,24 +70,20 @@ export class KupColorPicker {
     private textfieldEl: KupTextField;
 
     @Event({
-        eventName: 'kupColorPickerChange',
+        eventName: 'kup-colorpicker-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        value: any;
-    }>;
+    kupChange: EventEmitter<KupColorPickerEventPayload>;
 
     @Event({
-        eventName: 'kupColorPickerInput',
+        eventName: 'kup-colorpicker-input',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupInput: EventEmitter<{
-        value: any;
-    }>;
+    kupInput: EventEmitter<KupColorPickerEventPayload>;
 
     //---- Methods ----
 
@@ -133,6 +132,8 @@ export class KupColorPicker {
         this.setHexValue();
 
         this.kupInput.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -195,7 +196,7 @@ export class KupColorPicker {
                 {...textfieldData}
                 disabled={this.disabled}
                 initialValue={initialValue}
-                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
+                onkup-textfield-input={(e: any) => this.onKupInput(e)}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
@@ -233,6 +234,8 @@ export class KupColorPicker {
                     colorPicker.dropdownEl as KupDynamicPositionElement
                 );
                 colorPicker.kupChange.emit({
+                    comp: colorPicker,
+                    id: colorPicker.rootElement.id,
                     value: colorPicker.value,
                 });
             };

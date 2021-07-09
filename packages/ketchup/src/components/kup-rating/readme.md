@@ -17,9 +17,9 @@
 
 ## Events
 
-| Event              | Description | Type               |
-| ------------------ | ----------- | ------------------ |
-| `kupRatingClicked` |             | `CustomEvent<any>` |
+| Event            | Description | Type                                      |
+| ---------------- | ----------- | ----------------------------------------- |
+| `kupRatingClick` |             | `CustomEvent<KupRatingClickEventPayload>` |
 
 
 ## Methods

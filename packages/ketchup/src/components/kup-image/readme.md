@@ -20,9 +20,9 @@
 
 ## Events
 
-| Event           | Description | Type                                |
-| --------------- | ----------- | ----------------------------------- |
-| `kupImageClick` |             | `CustomEvent<{ el: EventTarget; }>` |
+| Event             | Description | Type                                     |
+| ----------------- | ----------- | ---------------------------------------- |
+| `kup-image-click` |             | `CustomEvent<KupImageClickEventPayload>` |
 
 
 ## Methods

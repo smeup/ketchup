@@ -18,7 +18,11 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import echarts, { EChartOption, ECharts } from 'echarts';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -84,7 +88,7 @@ export class KupEchart {
     private nameMap: any;
     private jsonMap: any;
 
-    @Event() kupEchartClicked: EventEmitter;
+    @Event() kupEchartClick: EventEmitter<KupEventPayload>;
 
     //---- Methods ----
 
@@ -122,7 +126,7 @@ export class KupEchart {
     }
 
     private onKupClick() {
-        this.kupEchartClicked.emit();
+        this.kupEchartClick.emit({ comp: this, id: this.rootElement.id });
     }
 
     private initChart() {

@@ -16,10 +16,10 @@
 
 ## Events
 
-| Event            | Description | Type               |
-| ---------------- | ----------- | ------------------ |
-| `kupIframeError` |             | `CustomEvent<any>` |
-| `kupIframeLoad`  |             | `CustomEvent<any>` |
+| Event              | Description | Type                           |
+| ------------------ | ----------- | ------------------------------ |
+| `kup-iframe-error` |             | `CustomEvent<KupEventPayload>` |
+| `kup-iframe-load`  |             | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods

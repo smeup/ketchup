@@ -92,20 +92,19 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 ## Events
 
-| Event                         | Description                                                                                                                       | Type                                                                                                                                                         |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `kupAddCodeDecodeColumn`      |                                                                                                                                   | `CustomEvent<{ column: string; }>`                                                                                                                           |
-| `kupAddColumn`                | When 'add column' menu item is clicked                                                                                            | `CustomEvent<{ column: string; }>`                                                                                                                           |
-| `kupDidLoad`                  |                                                                                                                                   | `CustomEvent<void>`                                                                                                                                          |
-| `kupDidUnload`                | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
-| `kupTreeColumnMenu`           | When the column menu is being opened/closed.                                                                                      | `CustomEvent<{ card: HTMLKupCardElement; open: boolean; }>`                                                                                                  |
-| `kupTreeContextMenu`          | Generic right click event on tree.                                                                                                | `CustomEvent<{ details: EventHandlerDetails; }>`                                                                                                             |
-| `kupTreeDynamicMassExpansion` |                                                                                                                                   | `CustomEvent<{ treeNodePath?: TreeNodePath; treeNode?: TreeNode; expandAll?: boolean; }>`                                                                    |
-| `kupTreeNodeButtonClicked`    |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
-| `kupTreeNodeCollapse`         | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
-| `kupTreeNodeDblClick`         |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
-| `kupTreeNodeExpand`           | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
-| `kupTreeNodeSelected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ id: string; treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                             |
+| Event                           | Description                                                                                                                       | Type                                                   |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `kup-tree-addcolumn`            | When 'add column' menu item is clicked                                                                                            | `CustomEvent<KupTreeAddColumnEventPayload>`            |
+| `kup-tree-buttonclick`          |                                                                                                                                   | `CustomEvent<KupTreeNodeButtonClickEventPayload>`      |
+| `kup-tree-columnmenu`           | When the column menu is being opened/closed.                                                                                      | `CustomEvent<KupTreeColumnMenuEventPayload>`           |
+| `kup-tree-contextmenu`          | Generic right click event on tree.                                                                                                | `CustomEvent<KupTreeContextMenuEventPayload>`          |
+| `kup-tree-didload`              |                                                                                                                                   | `CustomEvent<KupEventPayload>`                         |
+| `kup-tree-didunload`            | Triggered when stop propagation event                                                                                             | `CustomEvent<KupEventPayload>`                         |
+| `kup-tree-dynamicmassexpansion` |                                                                                                                                   | `CustomEvent<KupTreeDynamicMassExpansionEventPayload>` |
+| `kup-tree-nodecollapse`         | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<KupTreeNodeCollapseEventPayload>`         |
+| `kup-tree-nodedblclick`         |                                                                                                                                   | `CustomEvent<KupTreeNodeCollapseEventPayload>`         |
+| `kup-tree-nodeexpand`           | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<KupTreeNodeExpandEventPayload>`           |
+| `kup-tree-nodeselected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<KupTreeNodeSelectedEventPayload>`         |
 
 
 ## Methods
@@ -247,7 +246,7 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
   kup-data-table --> kup-button
-  kup-data-table --> kup-btn
+  kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
@@ -258,8 +257,8 @@ graph TD;
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
-  kup-btn --> kup-dropdown-button
-  kup-btn --> kup-badge
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
   kup-paginator --> kup-combobox

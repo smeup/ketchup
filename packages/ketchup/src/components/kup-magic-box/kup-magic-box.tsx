@@ -371,7 +371,7 @@ export class KupMagicBox {
                                 styling={FButtonStyling.FLAT}
                                 icon="delete"
                                 label="Reset"
-                                onKupButtonClick={() => {
+                                onkup-button-click={() => {
                                     this.data = null;
                                 }}
                             ></kup-button>
@@ -379,7 +379,7 @@ export class KupMagicBox {
                                 id="close-dialog"
                                 customStyle={`:host{${KupThemeColorValues.PRIMARY}: var(${KupThemeColorValues.TITLE});}`}
                                 icon="clear"
-                                onKupButtonClick={() => {
+                                onkup-button-click={() => {
                                     this.kupManager.hideMagicBox();
                                 }}
                             ></kup-button>

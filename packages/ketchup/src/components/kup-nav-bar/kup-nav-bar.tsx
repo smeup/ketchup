@@ -16,6 +16,7 @@ import {
     KupNavBarElement,
     KupNavBarMode,
     KupNavBarProps,
+    KupNavbarEventPayload,
 } from './kup-nav-bar-declarations';
 
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -110,31 +111,29 @@ export class KupNavBar {
      * Triggered when a button's list item is clicked.
      */
     @Event({
-        eventName: 'kupNavbarMenuItemClick',
+        eventName: 'kup-navbar-menuitemclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupNavbarMenuItemClick: EventEmitter<{
-        value: any;
-    }>;
+    kupNavbarMenuItemClick: EventEmitter<KupNavbarEventPayload>;
     /**
      * Triggered when a button is clicked.
      */
     @Event({
-        eventName: 'kupNavbarOptionItemClick',
+        eventName: 'kup-navbar-optionitemclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupNavbarOptionItemClick: EventEmitter<{
-        value: any;
-    }>;
+    kupNavbarOptionItemClick: EventEmitter<KupNavbarEventPayload>;
 
     onKupNavbarMenuItemClick(e: CustomEvent) {
         let selectedValue: string = e.detail.selected.value;
         this.closeList();
         this.kupNavbarMenuItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: selectedValue,
         });
     }
@@ -142,6 +141,8 @@ export class KupNavBar {
     onKupNavbarMenuButtonClick(value: string) {
         let selectedValue: string = value;
         this.kupNavbarMenuItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: selectedValue,
         });
     }
@@ -150,6 +151,8 @@ export class KupNavBar {
         let selectedValue: string = e.detail.selected.value;
         this.closeList();
         this.kupNavbarOptionItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: selectedValue,
         });
     }
@@ -157,6 +160,8 @@ export class KupNavBar {
     onKupOptionButtonClick(value: string) {
         let selectedValue: string = value;
         this.kupNavbarOptionItemClick.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: selectedValue,
         });
     }
@@ -269,7 +274,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
-                onKupListClick={(e) => this.onKupNavbarMenuItemClick(e)}
+                onkup-list-click={(e) => this.onKupNavbarMenuItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.menuListEl = el as any)}
             ></kup-list>
@@ -307,7 +312,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
-                onKupListClick={(e) => this.onKupNavbarOptionItemClick(e)}
+                onkup-list-click={(e) => this.onKupNavbarOptionItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.optionsListEl = el as any)}
             ></kup-list>
@@ -380,7 +385,7 @@ export class KupNavBar {
                             customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                             icon={action.icon}
                             title={action.tooltip}
-                            onKupButtonClick={() =>
+                            onkup-button-click={() =>
                                 this.onKupOptionButtonClick(action.value)
                             }
                         ></kup-button>
@@ -405,7 +410,7 @@ export class KupNavBar {
                     title={this.kupManager.language.translate(
                         KupLanguageGeneric.OPTIONS
                     )}
-                    onKupButtonClick={() => this.openList(this.optionsListEl)}
+                    onkup-button-click={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
                     ref={(el) => (this.optionsButtonEl = el as any)}
                 ></kup-button>
@@ -421,7 +426,7 @@ export class KupNavBar {
                     customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                     icon={action.icon}
                     title={action.tooltip}
-                    onKupButtonClick={() =>
+                    onkup-button-click={() =>
                         this.onKupNavbarMenuButtonClick(action.value)
                     }
                 ></kup-button>
@@ -444,7 +449,7 @@ export class KupNavBar {
                         KupLanguageGeneric.OPEN_NAVIGATION_MENU
                     )}
                     disabled={menuButtons.length == 0}
-                    onKupButtonClick={() => this.openList(this.menuListEl)}
+                    onkup-button-click={() => this.openList(this.menuListEl)}
                     onClick={(e) => e.stopPropagation()}
                     ref={(el) => (this.menuButtonEl = el as any)}
                 ></kup-button>

@@ -22,15 +22,15 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupTabBarClick',
+          name: 'kup-tabbar-click',
           type: 'click',
         },
         {
-          name: 'kupTabBarFocus',
+          name: 'kup-tabbar-focus',
           type: 'focus',
         },
         {
-          name: 'kupTabBarBlur',
+          name: 'kup-tabbar-blur',
           type: 'blur',
         },
       ],
