@@ -10,11 +10,11 @@ import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload }
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAddColumnEventPayload, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
-import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent } from "./components/kup-chart/kup-chart-declarations";
@@ -3590,10 +3590,6 @@ declare namespace LocalJSX {
          */
         "loadMoreStep"?: number;
         /**
-          * When 'add column' menu item is clicked
-         */
-        "onKup-datatable-addcolumn"?: (event: CustomEvent<KupDatatableAddColumnEventPayload>) => void;
-        /**
           * When a row is auto selected via selectRow prop
          */
         "onKup-datatable-autorowselect"?: (event: CustomEvent<KupDatatableAutoRowSelectEventPayload>) => void;
@@ -4884,10 +4880,6 @@ declare namespace LocalJSX {
           * The value of the global filter.
          */
         "globalFilterValue"?: string;
-        /**
-          * When 'add column' menu item is clicked
-         */
-        "onKup-tree-addcolumn"?: (event: CustomEvent<KupTreeAddColumnEventPayload>) => void;
         "onKup-tree-buttonclick"?: (event: CustomEvent<KupTreeNodeButtonClickEventPayload>) => void;
         /**
           * When the column menu is being opened/closed.

@@ -379,8 +379,6 @@ export class KupCard {
      */
     registerListeners(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        root.addEventListener('kup-datatable-addcolumn', this.cardEvent);
-        root.addEventListener('kup-tree-addcolumn', this.cardEvent);
         root.addEventListener('kup-autocomplete-blur', this.cardEvent);
         root.addEventListener('kup-autocomplete-change', this.cardEvent);
         root.addEventListener('kup-autocomplete-input', this.cardEvent);

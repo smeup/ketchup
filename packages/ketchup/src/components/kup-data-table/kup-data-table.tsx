@@ -51,7 +51,6 @@ import {
     KupDatatableCellUpdateEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
-    KupDatatableAddColumnEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
     KupDataTableCellButtonClickEventPayload,
@@ -957,17 +956,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableColumnMenu: EventEmitter<KupDatatableColumnMenuEventPayload>;
-
-    /**
-     * When 'add column' menu item is clicked
-     */
-    @Event({
-        eventName: 'kup-datatable-addcolumn',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    KupDatatableAddColumn: EventEmitter<KupDatatableAddColumnEventPayload>;
 
     /**
      * When a row action is clicked

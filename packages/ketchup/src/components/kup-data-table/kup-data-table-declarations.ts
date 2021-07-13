@@ -343,10 +343,6 @@ export interface KupDatatableOptionClickEventPayload extends KupEventPayload {
     row: Row;
 }
 
-export interface KupDatatableAddColumnEventPayload extends KupEventPayload {
-    column: string;
-}
-
 export interface KupDatatableRowActionClickEventPayload
     extends KupEventPayload {
     type: 'default' | 'variable' | 'expander';
