@@ -592,7 +592,6 @@ export class KupDatePicker {
                 id="date-picker-div"
                 ref={(el) => (this.pickerContainerEl = el as any)}
                 onBlur={(e: any) => {
-                    e.stopPropagation();
                     if (!this.isRelatedTargetInThisComponent(e)) {
                         this.onKupBlur();
                     }

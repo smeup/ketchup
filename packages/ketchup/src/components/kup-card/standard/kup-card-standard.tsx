@@ -837,13 +837,44 @@ export function create12(component: KupCard): VNode {
     const timepickerArray: GenericObject[] = component.data['timepicker']
         ? component.data['timepicker']
         : [];
+    // Setting up buttons.
+    const buttonsIds: string[] = [];
+    for (let index = 0; index < buttonArray.length; index++) {
+        const button: GenericObject = buttonArray[index];
+        if (button['id']) {
+            buttonsIds.push(button['id']);
+        }
+    }
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
-            {buttonArray.length > 0 ? (
+            {buttonsIds.includes(KupColumnMenuIds.BUTTON_REMOVE) ||
+            buttonsIds.includes(KupColumnMenuIds.BUTTON_GROUP) ||
+            buttonsIds.includes(KupColumnMenuIds.BUTTON_ADD_COLUMNS) ? (
                 <div class="section-1">
-                    {buttonArray.length > 0
-                        ? compList(buttonArray, 'button')
-                        : null}
+                    {buttonsIds.includes(KupColumnMenuIds.BUTTON_REMOVE) ? (
+                        <kup-button
+                            {...buttonArray.find(
+                                (x) => x.id === KupColumnMenuIds.BUTTON_REMOVE
+                            )}
+                        />
+                    ) : null}
+                    {buttonsIds.includes(KupColumnMenuIds.BUTTON_GROUP) ? (
+                        <kup-button
+                            {...buttonArray.find(
+                                (x) => x.id === KupColumnMenuIds.BUTTON_GROUP
+                            )}
+                        />
+                    ) : null}
+                    {buttonsIds.includes(
+                        KupColumnMenuIds.BUTTON_ADD_COLUMNS
+                    ) ? (
+                        <kup-button
+                            {...buttonArray.find(
+                                (x) =>
+                                    x.id === KupColumnMenuIds.BUTTON_ADD_COLUMNS
+                            )}
+                        />
+                    ) : null}
                 </div>
             ) : null}
             <div
