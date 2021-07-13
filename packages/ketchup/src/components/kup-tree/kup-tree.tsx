@@ -37,7 +37,6 @@ import {
     KupTreeNodeButtonClickEventPayload,
     KupTreeContextMenuEventPayload,
     KupTreeColumnMenuEventPayload,
-    KupTreeAddColumnEventPayload,
     KupTreeDynamicMassExpansionEventPayload,
 } from './kup-tree-declarations';
 
@@ -399,16 +398,6 @@ export class KupTree {
     })
     kupTreeNodeButtonClick: EventEmitter<KupTreeNodeButtonClickEventPayload>;
 
-    /**
-     * When 'add column' menu item is clicked
-     */
-    @Event({
-        eventName: 'kup-tree-addcolumn',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupTreeAddColumn: EventEmitter<KupTreeAddColumnEventPayload>;
     /**
      * Generic right click event on tree.
      */
