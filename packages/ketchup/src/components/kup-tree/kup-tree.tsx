@@ -2270,7 +2270,7 @@ export class KupTree {
                         }
                         id={KupColumnMenuIds.CARD_COLUMN_MENU}
                         isMenu={true}
-                        layoutNumber={14}
+                        layoutNumber={12}
                         onBlur={() => {
                             if (
                                 this.kupManager.utilities.lastMouseDownPath.includes(

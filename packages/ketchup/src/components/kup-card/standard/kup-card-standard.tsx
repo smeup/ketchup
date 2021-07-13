@@ -848,13 +848,34 @@ export function create12(component: KupCard): VNode {
     }
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
-            {buttonsIds.includes(KupColumnMenuIds.BUTTON_REMOVE) ? (
+            {buttonsIds.includes(KupColumnMenuIds.BUTTON_REMOVE) ||
+            buttonsIds.includes(KupColumnMenuIds.BUTTON_GROUP) ||
+            buttonsIds.includes(KupColumnMenuIds.BUTTON_ADD_COLUMNS) ? (
                 <div class="section-1">
-                    <kup-button
-                        {...buttonArray.find(
-                            (x) => x.id === KupColumnMenuIds.BUTTON_REMOVE
-                        )}
-                    />
+                    {buttonsIds.includes(KupColumnMenuIds.BUTTON_REMOVE) ? (
+                        <kup-button
+                            {...buttonArray.find(
+                                (x) => x.id === KupColumnMenuIds.BUTTON_REMOVE
+                            )}
+                        />
+                    ) : null}
+                    {buttonsIds.includes(KupColumnMenuIds.BUTTON_GROUP) ? (
+                        <kup-button
+                            {...buttonArray.find(
+                                (x) => x.id === KupColumnMenuIds.BUTTON_GROUP
+                            )}
+                        />
+                    ) : null}
+                    {buttonsIds.includes(
+                        KupColumnMenuIds.BUTTON_ADD_COLUMNS
+                    ) ? (
+                        <kup-button
+                            {...buttonArray.find(
+                                (x) =>
+                                    x.id === KupColumnMenuIds.BUTTON_ADD_COLUMNS
+                            )}
+                        />
+                    ) : null}
                 </div>
             ) : null}
             <div
