@@ -45,7 +45,7 @@ npm install @sme.up/ketchup --save
 -   Define Ketch.UP custom elements in your pages:
 
 ```
-import { defineCustomElements } from 'ketchup/dist/loader';
+import { defineCustomElements } from '@sme.up/ketchup/dist/loader';
 defineCustomElements(window);
 ```
 
