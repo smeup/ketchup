@@ -71,9 +71,11 @@ a:link {
 .content.with-diagram .canvas {
   visibility: visible;
 }
-
+.style-button {
+  display: flex;
+  width: 100%;
+}
 .buttons {
-  position: fixed;
   bottom: 20px;
   left: 20px;
 
