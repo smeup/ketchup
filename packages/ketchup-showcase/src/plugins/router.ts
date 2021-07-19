@@ -148,6 +148,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/box/Box.vue`),
   },
   {
+    path: `/bpmn.io`,
+    name: 'bpmn.io',
+    component: () => import(`@/views/advanced/bpmn.io/Bpmn.vue`),
+  },
+  {
     path: `/calendar`,
     name: 'calendar',
     component: () => import(`@/views/advanced/calendar/Calendar.vue`),
