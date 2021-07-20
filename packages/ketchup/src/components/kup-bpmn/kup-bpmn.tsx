@@ -66,30 +66,6 @@ export class KupBpmn {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    createNewDiagram() {
-        this.openDiagram();
-    }
-
-    /*-------------------------------------------------*/
-    /*          L i f e c y c l e   H o o k s          */
-    /*-------------------------------------------------*/
-
-    componentDidRender() {
-        this.modeler = new BpmnModeler({
-            container: '#js-canvas',
-        });
-        this.createNewDiagram();
-    }
-
-    // setEncoded(link, name, data) {
-    //     var encodedData = encodeURIComponent(data);
-
-    //     link.attr({
-    //         href: 'data:application/bpmn20-xml;charset=UTF-8,' + encodedData,
-    //         download: name,
-    //     });
-    // }
-
     createDownloadLink(filename: string, data: string) {
         var dataUri =
             'data:application/bpmn20-xml;charset=UTF-8,' +
@@ -102,6 +78,21 @@ export class KupBpmn {
             document.createTextNode('Click to download your file.')
         );
         return anchor;
+    }
+
+    createNewDiagram() {
+        this.openDiagram();
+    }
+
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
+
+    componentDidLoad() {
+        this.modeler = new BpmnModeler({
+            container: '#js-canvas',
+        });
+        this.createNewDiagram();
     }
 
     render() {
