@@ -17,6 +17,9 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     if (!props.styling) {
         props.styling = FButtonStyling.RAISED;
     }
+    if (!props.label && !props.icon) {
+        return;
+    }
     const isIconButton: boolean = !!(
         props.styling.toLowerCase() === FButtonStyling.ICON ||
         (props.styling.toLowerCase() === FButtonStyling.RAISED &&
