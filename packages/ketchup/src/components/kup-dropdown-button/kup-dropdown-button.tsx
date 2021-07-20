@@ -442,7 +442,7 @@ export class KupDropdownButton {
                 <FButton
                     disabled={this.disabled ? true : false}
                     icon={this.icon ? this.icon : null}
-                    label={this.label ? this.label : ' '}
+                    label={this.label ? this.label : null}
                     styling={
                         this.styling ? this.styling : FButtonStyling.RAISED
                     }
