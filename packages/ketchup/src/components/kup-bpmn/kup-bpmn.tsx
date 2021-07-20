@@ -1,6 +1,10 @@
 import { Component, Element, h, Host, Method } from '@stencil/core';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import { debounce, DebouncedFunc } from 'lodash';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 // TODO:
 // * clean kup-bupn.scss
@@ -22,6 +26,11 @@ export class KupBpmn {
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
+
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     modeler: BpmnModeler;
     exportSVG: DebouncedFunc<() => Promise<void>> = debounce(async function () {
@@ -83,11 +92,25 @@ export class KupBpmn {
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
+    componentWillLoad() {
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
+    }
+
+    componentWillRender() {
+        this.kupManager.debug.logRender(this, false);
+    }
+
+    componentDidRender() {
+        this.kupManager.debug.logRender(this, true);
+    }
+
     componentDidLoad() {
         this.modeler = new BpmnModeler({
             container: '#js-canvas',
         });
         this.openDiagram();
+        this.kupManager.debug.logLoad(this, true);
     }
 
     render() {
