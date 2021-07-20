@@ -66,22 +66,17 @@ export class KupBpmn {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    createDownloadLink(filename: string, data: string) {
-        var dataUri =
+    createDownloadLink(filename: string, data: string): HTMLAnchorElement {
+        const dataUri: string =
             'data:application/bpmn20-xml;charset=UTF-8,' +
             encodeURIComponent(data);
-        var anchor = document.createElement('a');
-
+        const anchor: HTMLAnchorElement = document.createElement('a');
         anchor.setAttribute('href', dataUri);
         anchor.setAttribute('download', filename);
         anchor.appendChild(
             document.createTextNode('Click to download your file.')
         );
         return anchor;
-    }
-
-    createNewDiagram() {
-        this.openDiagram();
     }
 
     /*-------------------------------------------------*/
@@ -92,48 +87,44 @@ export class KupBpmn {
         this.modeler = new BpmnModeler({
             container: '#js-canvas',
         });
-        this.createNewDiagram();
+        this.openDiagram();
     }
 
     render() {
         return (
             <Host>
-                <div>
-                    <head>
-                        <link
-                            rel="stylesheet"
-                            href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/diagram-js.css"
-                        />
-                        <link
-                            rel="stylesheet"
-                            href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/bpmn-font/css/bpmn.css"
-                        />
-                    </head>
-                    <div>
-                        <div class="content with-diagram" id="js-drop-zone">
-                            <div class="message error">
-                                <div class="note">
-                                    <p>Error!</p>
+                <link
+                    rel="stylesheet"
+                    href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/diagram-js.css"
+                />
+                <link
+                    rel="stylesheet"
+                    href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/bpmn-font/css/bpmn.css"
+                />
+                <div class="bpmn--wrapper">
+                    <div class="content with-diagram" id="js-drop-zone">
+                        <div class="message error">
+                            <div class="note">
+                                <p>Error!</p>
 
-                                    <div class="details">
-                                        <span>Cause: </span>
-                                        <pre></pre>
-                                    </div>
+                                <div class="details">
+                                    <span>Cause: </span>
+                                    <pre></pre>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="canvas" id="js-canvas"></div>
                     </div>
-                    <div class="style-button">
-                        <button>
-                            <a onClick={() => this.exportSVG()}>Download SVG</a>
-                        </button>
 
-                        <button>
-                            <a onClick={() => this.exportXML()}>Download XML</a>
-                        </button>
-                    </div>
+                    <div class="canvas" id="js-canvas"></div>
+                </div>
+                <div class="style-button">
+                    <button>
+                        <a onClick={() => this.exportSVG()}>Download SVG</a>
+                    </button>
+
+                    <button>
+                        <a onClick={() => this.exportXML()}>Download XML</a>
+                    </button>
                 </div>
             </Host>
         );
