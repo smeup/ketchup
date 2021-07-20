@@ -1,8 +1,6 @@
-import { Component, Element, h, Host, Listen } from '@stencil/core';
-
+import { Component, Element, h, Host } from '@stencil/core';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import { debounce } from 'lodash';
-import { createPublicKey } from 'node:crypto';
 
 // TODO:
 // * clean kup-bupn.scss
@@ -92,7 +90,7 @@ export class KupBpmn {
 
     render() {
         return (
-            <div>
+            <Host>
                 <head>
                     <link
                         rel="stylesheet"
@@ -102,7 +100,6 @@ export class KupBpmn {
                         rel="stylesheet"
                         href="vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css"
                     />
-                    <link rel="stylesheet" href="kup-bpmn.scss" />
                 </head>
                 <div>
                     <head>
@@ -141,9 +138,7 @@ export class KupBpmn {
                         </button>
                     </div>
                 </div>
-
-                <script src="kup-bpmn.tsx"></script>
-            </div>
+            </Host>
         );
     }
 }
