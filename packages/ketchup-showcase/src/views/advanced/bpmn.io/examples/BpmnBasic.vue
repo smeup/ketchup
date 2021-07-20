@@ -1,46 +1,16 @@
 <template>
   <div>
-    <p>Example of Bpmn.io</p>
+    <p
+      >Currently, only 1 instance of kup-bpmn can be declared document-wide. You
+      can check the playground to to see a working example.</p
+    >
   </div>
 </template>
 
 <script>
-import { defaultData } from '@/mock/box';
-
 export default {
   data() {
-    return {
-      basicData: defaultData,
-      collapseLay: {
-        sections: [
-          {
-            sections: [
-              {
-                style: {
-                  textAlign: 'center',
-                },
-              },
-              {
-                collapsible: true,
-                id: '1',
-                style: {
-                  textAlign: 'center',
-                },
-                sections: [
-                  {
-                    style: {
-                      fontWeight: 'bold',
-                    },
-                  },
-                  {},
-                  {},
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    };
+    return {};
   },
 };
 </script>
