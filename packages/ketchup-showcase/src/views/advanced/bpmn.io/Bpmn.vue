@@ -23,8 +23,8 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/',
-      headtitle: 'Box',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-bpmn',
+      headtitle: 'Bpmn',
       titles: ['Playground', 'Basic usage'],
     };
   },

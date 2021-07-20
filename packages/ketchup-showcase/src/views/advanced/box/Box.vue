@@ -83,7 +83,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-box',
       headtitle: 'Box',
       titles: [
         'Playground',
