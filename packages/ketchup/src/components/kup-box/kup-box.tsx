@@ -336,7 +336,7 @@ export class KupBox {
         cancelable: false,
         bubbles: true,
     })
-    KupBoxClick: EventEmitter<KupBoxClickEventPayload>;
+    kupBoxClick: EventEmitter<KupBoxClickEventPayload>;
 
     /**
      * Triggered when the multi selection checkbox changes value
@@ -358,7 +358,7 @@ export class KupBox {
         cancelable: false,
         bubbles: true,
     })
-    KupAutoBoxSelect: EventEmitter<KupBoxAutoSelectEventPayload>;
+    kupAutoBoxSelect: EventEmitter<KupBoxAutoSelectEventPayload>;
 
     /**
      * When the row menu action icon is click
@@ -699,7 +699,7 @@ export class KupBox {
                     break;
                 }
             }
-            this.KupAutoBoxSelect.emit({
+            this.kupAutoBoxSelect.emit({
                 comp: this,
                 id: this.rootElement.id,
                 row: this.selectedRows[0],
@@ -801,7 +801,7 @@ export class KupBox {
             column = element.dataset.column;
         }
 
-        this.KupBoxClick.emit({
+        this.kupBoxClick.emit({
             comp: this,
             id: this.rootElement.id,
             row,

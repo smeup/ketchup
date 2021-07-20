@@ -406,7 +406,7 @@ export class KupAutocomplete {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 isMenu={true}
-                onKup-list-click={(e) => this.onKupItemClick(e)}
+                onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );

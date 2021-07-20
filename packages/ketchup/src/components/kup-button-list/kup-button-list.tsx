@@ -101,7 +101,8 @@ export class KupButtonList {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            subId: subIndex,
+            index: index,
+            subIndex: subIndex,
             obj: this.getObjForEvent(index, subIndex),
         });
     }

@@ -10,11 +10,11 @@ import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload }
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAddColumnEventPayload, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
-import { KupTreeAddColumnEventPayload, KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent } from "./components/kup-chart/kup-chart-declarations";
@@ -34,6 +34,7 @@ import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
+import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
 import { KupNavBarData, KupNavbarEventPayload, KupNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
@@ -1564,16 +1565,20 @@ export namespace Components {
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
+          * @default null
          */
         "componentName": string;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Sets the data of the component to be lazy loaded.
+          * @default null
          */
-        "data": {};
+        "data": GenericObject;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1585,12 +1590,18 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport.
+          * @default KupLazyRender.BOTH
+         */
+        "renderMode": KupLazyRender;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Displays an animated SVG placeholder until the component is loaded.
+          * @default true
          */
         "showPlaceholder": boolean;
     }
@@ -3461,7 +3472,7 @@ declare namespace LocalJSX {
           * Sets the layout of the component.
          */
         "layout"?: string;
-        "onKup-dash-clicked"?: (event: CustomEvent<{
+        "onKup-dash-click"?: (event: CustomEvent<{
         id: number;
     }>) => void;
     }
@@ -3474,7 +3485,7 @@ declare namespace LocalJSX {
         "horizontal"?: boolean;
         "iconColor"?: Array<any>;
         "layout"?: string;
-        "onKup-dash-clicked"?: (event: CustomEvent<{
+        "onKup-dash-click"?: (event: CustomEvent<{
         idx: number;
     }>) => void;
         "textColor"?: Array<any>;
@@ -3589,10 +3600,6 @@ declare namespace LocalJSX {
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
-        /**
-          * When 'add column' menu item is clicked
-         */
-        "onKup-datatable-addcolumn"?: (event: CustomEvent<KupDatatableAddColumnEventPayload>) => void;
         /**
           * When a row is auto selected via selectRow prop
          */
@@ -4191,18 +4198,28 @@ declare namespace LocalJSX {
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
+          * @default null
          */
         "componentName"?: string;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Sets the data of the component to be lazy loaded.
+          * @default null
          */
-        "data"?: {};
+        "data"?: GenericObject;
+        /**
+          * Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport.
+          * @default KupLazyRender.BOTH
+         */
+        "renderMode"?: KupLazyRender;
         /**
           * Displays an animated SVG placeholder until the component is loaded.
+          * @default true
          */
         "showPlaceholder"?: boolean;
     }
@@ -4874,10 +4891,6 @@ declare namespace LocalJSX {
           * The value of the global filter.
          */
         "globalFilterValue"?: string;
-        /**
-          * When 'add column' menu item is clicked
-         */
-        "onKup-tree-addcolumn"?: (event: CustomEvent<KupTreeAddColumnEventPayload>) => void;
         "onKup-tree-buttonclick"?: (event: CustomEvent<KupTreeNodeButtonClickEventPayload>) => void;
         /**
           * When the column menu is being opened/closed.

@@ -141,10 +141,6 @@ export interface KupTreeColumnMenuEventPayload extends KupEventPayload {
     open: boolean;
 }
 
-export interface KupTreeAddColumnEventPayload extends KupEventPayload {
-    column: string;
-}
-
 export interface KupTreeDynamicMassExpansionEventPayload
     extends KupEventPayload {
     treeNodePath?: TreeNodePath;

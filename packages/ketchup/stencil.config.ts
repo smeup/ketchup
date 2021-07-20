@@ -26,6 +26,7 @@ export const config: Config = {
                 { src: 'chip.html' },
                 { src: 'color-picker.html' },
                 { src: 'combobox.html' },
+                { src: 'css-grid.html' },
                 { src: 'dash.html' },
                 { src: 'dash-list.html' },
                 { src: 'data-table.html' },

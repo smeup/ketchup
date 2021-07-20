@@ -193,7 +193,7 @@ export class KupSearch {
                 ></kup-text-field>
                 <kup-button
                     icon="magnify"
-                    onKup-button-click={(e) => this.onSearchClicked(e)}
+                    onkup-button-click={(e) => this.onSearchClicked(e)}
                 ></kup-button>
                 <kup-modal
                     ref={(el) => (this.modal = el)}
@@ -209,7 +209,7 @@ export class KupSearch {
                             ></kup-text-field>
                             <kup-button
                                 icon="magnify"
-                                onKup-button-click={(e) =>
+                                onkup-button-click={(e) =>
                                     this.onSearchDialogClicked(e)
                                 }
                             ></kup-button>
@@ -223,7 +223,9 @@ export class KupSearch {
                         }
                         data={this.data}
                         showFilters={true}
-                        onkup-datatable-rowselected={(e) => this.onRowSelected(e)}
+                        onkup-datatable-rowselected={(e) =>
+                            this.onRowSelected(e)
+                        }
                     ></kup-data-table>
                 </kup-modal>
             </div>

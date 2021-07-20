@@ -410,13 +410,13 @@ export class KupTooltip {
                 </div>
                 <kup-button
                     icon="open-in-new"
-                    onKup-button-click={(event) =>
+                    onkup-button-click={(event) =>
                         this.onDefaultActionClick(event)
                     }
                 ></kup-button>
                 <kup-button
                     icon="search"
-                    onKup-button-click={(event) =>
+                    onkup-button-click={(event) =>
                         this.onDefaultPreviewClick(event)
                     }
                 ></kup-button>
@@ -456,7 +456,7 @@ export class KupTooltip {
 
     private onActionCommandClick(event: Event, action: TooltipAction) {
         //console.log("Emit kup-tooltip-actioncommandclick: " + JSON.stringify(action));
-        // Blocco la propagazione del onKup-button-click per evitare che lo stesso click
+        // Blocco la propagazione del onkup-button-click per evitare che lo stesso click
         // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
         this.kupActionCommandClick.emit({
@@ -534,7 +534,7 @@ export class KupTooltip {
             usesDynamicExpansion: e.detail.usesDynamicExpansion,
             dynamicExpansionRequireChildren:
                 e.detail.dynamicExpansionRequireChildren,
-            tree: e.detail.tree,
+            tree: e.detail.comp,
         });
     }
 
@@ -548,7 +548,7 @@ export class KupTooltip {
             treeNode: e.detail.treeNode,
             columnName: e.detail.columnName,
             auto: e.detail.auto,
-            tree: e.detail.tree,
+            tree: e.detail.comp,
         });
     }
 
@@ -563,7 +563,7 @@ export class KupTooltip {
             column: e.detail.column,
             columnName: e.detail.columnName,
             auto: e.detail.auto,
-            tree: e.detail.tree,
+            tree: e.detail.comp,
         });
     }
 
@@ -768,7 +768,7 @@ export class KupTooltip {
                             <kup-button
                                 title={action.text}
                                 icon={action.icon}
-                                onKup-button-click={(event) =>
+                                onkup-button-click={(event) =>
                                     this.onActionCommandClick(event, action)
                                 }
                             ></kup-button>
@@ -814,7 +814,7 @@ export class KupTooltip {
                     <kup-button
                         title={this.getTooltipForShowOptionsButton()}
                         icon={this.getIconForShowOptionsButton()}
-                        onKup-button-click={() =>
+                        onkup-button-click={() =>
                             this.onShowRightClickOptions()
                         }
                         onClick={(e) => e.stopPropagation()}

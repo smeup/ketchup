@@ -274,7 +274,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
-                onKup-list-click={(e) => this.onKupNavbarMenuItemClick(e)}
+                onkup-list-click={(e) => this.onKupNavbarMenuItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.menuListEl = el as any)}
             ></kup-list>
@@ -312,7 +312,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
-                onKup-list-click={(e) => this.onKupNavbarOptionItemClick(e)}
+                onkup-list-click={(e) => this.onKupNavbarOptionItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.optionsListEl = el as any)}
             ></kup-list>
@@ -385,7 +385,7 @@ export class KupNavBar {
                             customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                             icon={action.icon}
                             title={action.tooltip}
-                            onKup-button-click={() =>
+                            onkup-button-click={() =>
                                 this.onKupOptionButtonClick(action.value)
                             }
                         ></kup-button>
@@ -410,7 +410,7 @@ export class KupNavBar {
                     title={this.kupManager.language.translate(
                         KupLanguageGeneric.OPTIONS
                     )}
-                    onKup-button-click={() => this.openList(this.optionsListEl)}
+                    onkup-button-click={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
                     ref={(el) => (this.optionsButtonEl = el as any)}
                 ></kup-button>
@@ -426,7 +426,7 @@ export class KupNavBar {
                     customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
                     icon={action.icon}
                     title={action.tooltip}
-                    onKup-button-click={() =>
+                    onkup-button-click={() =>
                         this.onKupNavbarMenuButtonClick(action.value)
                     }
                 ></kup-button>
@@ -449,7 +449,7 @@ export class KupNavBar {
                         KupLanguageGeneric.OPEN_NAVIGATION_MENU
                     )}
                     disabled={menuButtons.length == 0}
-                    onKup-button-click={() => this.openList(this.menuListEl)}
+                    onkup-button-click={() => this.openList(this.menuListEl)}
                     onClick={(e) => e.stopPropagation()}
                     ref={(el) => (this.menuButtonEl = el as any)}
                 ></kup-button>

@@ -620,6 +620,7 @@ export class KupChart {
     }
 
     componentDidLoad() {
+        this.kupManager.resize.observe(this.rootElement);
         if (!this.offlineMode && (!this.axis || !this.series)) {
             return;
         }
@@ -647,7 +648,6 @@ export class KupChart {
                 console.error(err);
             }
         }
-        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 

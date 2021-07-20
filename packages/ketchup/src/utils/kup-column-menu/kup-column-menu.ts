@@ -153,6 +153,27 @@ export class KupColumnMenu {
      */
     prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [];
+        if (
+            !FiltersColumnMenu.isTree(comp) &&
+            (comp as KupDataTable).showGroups
+        ) {
+            props.push({
+                className: 'printable',
+                'data-storage': {
+                    columnName: column.name,
+                },
+                icon: 'book',
+                id: KupColumnMenuIds.BUTTON_GROUP,
+                title:
+                    comp.getGroupByName(column.name) != null
+                        ? dom.ketchup.language.translate(
+                              KupLanguageGrouping.DISABLE
+                          )
+                        : dom.ketchup.language.translate(
+                              KupLanguageGrouping.ENABLE
+                          ),
+            });
+        }
         props.push({
             className: 'printable',
             customStyle: ':host {--kup-font-size: 0.75em;}',
@@ -186,6 +207,15 @@ export class KupColumnMenu {
             comp.enableExtraColumns &&
             dom.ketchup.objects.canHaveExtraColumns(column.obj)
         ) {
+            props.push({
+                className: 'printable',
+                'data-storage': {
+                    columnName: column.name,
+                },
+                icon: 'table-column-plus-after',
+                id: KupColumnMenuIds.BUTTON_ADD_COLUMNS,
+                title: dom.ketchup.language.translate(KupLanguageColumn.ADD),
+            });
             props.push({
                 className: 'printable',
                 label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
@@ -652,7 +682,9 @@ export class KupColumnMenu {
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
-        const card: HTMLKupCardElement = cardEvent.detail.card;
+        const card: HTMLKupCardElement = cardEvent.detail.card
+            ? cardEvent.detail.card
+            : cardEvent.detail.comp;
         const compEvent: CustomEvent = cardEvent.detail.event;
         const compID: string = compEvent.detail.id;
         const subcomp: HTMLElement = compEvent.target as HTMLElement;
@@ -675,6 +707,12 @@ export class KupColumnMenu {
                 break;
             case 'kup-button-click':
                 switch (compID) {
+                    case KupColumnMenuIds.BUTTON_GROUP:
+                        this.toggleGroup(
+                            comp as KupDataTable,
+                            dataStorage['columnName']
+                        );
+                        break;
                     case KupColumnMenuIds.BUTTON_REMOVE:
                         this.removeColumn(comp, dataStorage['column']);
                         break;

@@ -168,10 +168,8 @@ export class KupChip {
     }
 
     onKupFocus(i: number) {
-        let obj: KupObj = null;
         let value: string = null;
         if (this.data[i]) {
-            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         this.kupFocus.emit({
@@ -183,10 +181,8 @@ export class KupChip {
     }
 
     onKupIconClick(i: number) {
-        let obj: KupObj = null;
         let value: string = null;
         if (this.data[i]) {
-            obj = this.data[i].obj;
             value = this.data[i].value;
         }
         this.data.splice(i, 1);

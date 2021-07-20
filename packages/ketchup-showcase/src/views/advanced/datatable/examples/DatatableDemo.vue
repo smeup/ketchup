@@ -59,10 +59,6 @@ export default {
           type: 'click',
         },
         {
-          name: 'kup-datatable-addcolumn',
-          type: 'click',
-        },
-        {
           name: 'kup-datatable-rowactionclick',
           type: 'click',
         },

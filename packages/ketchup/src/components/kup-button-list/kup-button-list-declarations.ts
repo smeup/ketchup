@@ -1,4 +1,4 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-button-list component.
@@ -14,6 +14,7 @@ export enum KupButtonListProps {
 }
 
 export interface KupButtonListClickEventPayload extends KupEventPayload {
-    subId: string;
+    index: string;
+    subIndex: string;
     obj: any;
 }

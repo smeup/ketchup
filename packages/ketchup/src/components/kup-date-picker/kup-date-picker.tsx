@@ -564,14 +564,14 @@ export class KupDatePicker {
             <kup-button
                 id="prev-page"
                 icon="chevron_left"
-                onKup-button-click={(e) => this.prevPage(e)}
+                onkup-button-click={(e) => this.prevPage(e)}
             ></kup-button>
         );
         nextButtonComp = (
             <kup-button
                 id="next-page"
                 icon="chevron_right"
-                onKup-button-click={(e) => this.nextPage(e)}
+                onkup-button-click={(e) => this.nextPage(e)}
             ></kup-button>
         );
 
@@ -581,7 +581,6 @@ export class KupDatePicker {
                 id="date-picker-div"
                 ref={(el) => (this.pickerContainerEl = el as any)}
                 onBlur={(e: any) => {
-                    e.stopPropagation();
                     if (!this.isRelatedTargetInThisComponent(e)) {
                         this.onKupBlur();
                     }
@@ -595,7 +594,7 @@ export class KupDatePicker {
                             id="change-view-button"
                             styling={FButtonStyling.FLAT}
                             label={changeViewButtonLabel}
-                            onKup-button-click={(e) => this.changeView(e)}
+                            onkup-button-click={(e) => this.changeView(e)}
                         ></kup-button>
                         {nextButtonComp}
                     </div>
