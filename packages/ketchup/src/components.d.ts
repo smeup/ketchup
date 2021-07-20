@@ -270,6 +270,7 @@ export namespace Components {
         "tooltipLoadTimeout": number;
     }
     interface KupBpmn {
+        "openDiagram": () => Promise<void>;
     }
     interface KupButton {
         /**
