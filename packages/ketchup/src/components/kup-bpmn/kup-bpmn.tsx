@@ -1,10 +1,22 @@
-import { Component, Element, h, Host, Method } from '@stencil/core';
+import {
+    Component,
+    Element,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
+} from '@stencil/core';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import { debounce, DebouncedFunc } from 'lodash';
+import { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { getProps, setProps } from '../../utils/utils';
+import { KupBpmnProps } from './kup-bpmn-declarations';
+import Diagram from './resources/diagram.svg';
 
 // TODO:
 // * clean kup-bupn.scss
@@ -22,6 +34,8 @@ export class KupBpmn {
      * References the root HTML element of the component (<kup-button>).
      */
     @Element() rootElement: HTMLElement;
+
+    @Prop({ mutable: true }) asImage: boolean;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -71,6 +85,31 @@ export class KupBpmn {
         }
     }
 
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupBpmnProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupBpmnProps, props);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
@@ -114,42 +153,50 @@ export class KupBpmn {
     }
 
     render() {
-        return (
-            <Host>
-                <link
-                    rel="stylesheet"
-                    href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/diagram-js.css"
-                />
-                <link
-                    rel="stylesheet"
-                    href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/bpmn-font/css/bpmn.css"
-                />
-                <div class="bpmn--wrapper">
-                    <div class="content with-diagram" id="js-drop-zone">
-                        <div class="message error">
-                            <div class="note">
-                                <p>Error!</p>
+        if (this.asImage == false) {
+            return (
+                <Host>
+                    <link
+                        rel="stylesheet"
+                        href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/diagram-js.css"
+                    />
+                    <link
+                        rel="stylesheet"
+                        href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/bpmn-font/css/bpmn.css"
+                    />
+                    <div class="bpmn--wrapper">
+                        <div class="content with-diagram" id="js-drop-zone">
+                            <div class="message error">
+                                <div class="note">
+                                    <p>Error!</p>
 
-                                <div class="details">
-                                    <span>Cause: </span>
-                                    <pre></pre>
+                                    <div class="details">
+                                        <span>Cause: </span>
+                                        <pre></pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="canvas" id="js-canvas"></div>
                     </div>
+                    <div class="style-button">
+                        <button>
+                            <a onClick={() => this.exportSVG()}>Download SVG</a>
+                        </button>
 
-                    <div class="canvas" id="js-canvas"></div>
+                        <button>
+                            <a onClick={() => this.exportXML()}>Download XML</a>
+                        </button>
+                    </div>
+                </Host>
+            );
+        } else if (this.asImage == true) {
+            return (
+                <div>
+                    <img src={Diagram} />
                 </div>
-                <div class="style-button">
-                    <button>
-                        <a onClick={() => this.exportSVG()}>Download SVG</a>
-                    </button>
-
-                    <button>
-                        <a onClick={() => this.exportXML()}>Download XML</a>
-                    </button>
-                </div>
-            </Host>
-        );
+            );
+        }
     }
 }

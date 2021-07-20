@@ -270,7 +270,23 @@ export namespace Components {
         "tooltipLoadTimeout": number;
     }
     interface KupBpmn {
+        "asImage": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "openDiagram": () => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupButton {
         /**
@@ -3022,6 +3038,7 @@ declare namespace LocalJSX {
         "tooltipLoadTimeout"?: number;
     }
     interface KupBpmn {
+        "asImage"?: boolean;
     }
     interface KupButton {
         /**
