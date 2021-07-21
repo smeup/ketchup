@@ -421,6 +421,12 @@ export default {
                 },
               },
               {
+                title: 'Bpmn.io',
+                to: {
+                  name: 'bpmn.io',
+                },
+              },
+              {
                 title: `Calendar`,
                 to: {
                   name: 'calendar',

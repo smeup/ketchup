@@ -269,6 +269,29 @@ export namespace Components {
          */
         "tooltipLoadTimeout": number;
     }
+    interface KupBpmn {
+        /**
+          * When set to true, the diagram won't be interactive but it will displayed as an image.
+          * @default false
+         */
+        "asImage": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "openDiagram": () => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupButton {
         /**
           * When set to true, the icon button state will be on.
@@ -2468,6 +2491,12 @@ declare global {
         prototype: HTMLKupBoxElement;
         new (): HTMLKupBoxElement;
     };
+    interface HTMLKupBpmnElement extends Components.KupBpmn, HTMLStencilElement {
+    }
+    var HTMLKupBpmnElement: {
+        prototype: HTMLKupBpmnElement;
+        new (): HTMLKupBpmnElement;
+    };
     interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {
     }
     var HTMLKupButtonElement: {
@@ -2748,6 +2777,7 @@ declare global {
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
         "kup-box": HTMLKupBoxElement;
+        "kup-bpmn": HTMLKupBpmnElement;
         "kup-button": HTMLKupButtonElement;
         "kup-button-list": HTMLKupButtonListElement;
         "kup-calendar": HTMLKupCalendarElement;
@@ -3010,6 +3040,13 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout"?: number;
+    }
+    interface KupBpmn {
+        /**
+          * When set to true, the diagram won't be interactive but it will displayed as an image.
+          * @default false
+         */
+        "asImage"?: boolean;
     }
     interface KupButton {
         /**
@@ -4990,6 +5027,7 @@ declare namespace LocalJSX {
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
         "kup-box": KupBox;
+        "kup-bpmn": KupBpmn;
         "kup-button": KupButton;
         "kup-button-list": KupButtonList;
         "kup-calendar": KupCalendar;
@@ -5045,6 +5083,7 @@ declare module "@stencil/core" {
             "kup-autocomplete": LocalJSX.KupAutocomplete & JSXBase.HTMLAttributes<HTMLKupAutocompleteElement>;
             "kup-badge": LocalJSX.KupBadge & JSXBase.HTMLAttributes<HTMLKupBadgeElement>;
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;
+            "kup-bpmn": LocalJSX.KupBpmn & JSXBase.HTMLAttributes<HTMLKupBpmnElement>;
             "kup-button": LocalJSX.KupButton & JSXBase.HTMLAttributes<HTMLKupButtonElement>;
             "kup-button-list": LocalJSX.KupButtonList & JSXBase.HTMLAttributes<HTMLKupButtonListElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;

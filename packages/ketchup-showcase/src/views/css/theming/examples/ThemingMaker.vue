@@ -14,7 +14,7 @@
       <kup-button
         title="Download"
         icon="download"
-        @kup-button-click="downloadTheme" />
+        @kup-button-click="downloadTheme"/>
       <kup-button title="Delete" icon="delete" @kup-button-click="deleteTheme"
     /></div>
     <div id="sample-wrapper" class="theming">
@@ -1332,7 +1332,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function (cm) {
+      }).on('change', function(cm) {
         cm.save();
         try {
           let jsonifiedData = JSON.parse(jsonTextarea.value);
@@ -1426,7 +1426,7 @@ function createTile() {
   themeWrapper.classList.add('icon-wrapper');
   themeWrapper.classList.add('theme-wrapper');
   themeWrapper.id = 'showcaseDemo';
-  themeWrapper.onclick = function () {
+  themeWrapper.onclick = function() {
     setDemoTheme();
   };
   themeWrapper.title = 'Toggle your theme';

@@ -56,7 +56,7 @@ export default {
         {
           name: 'kup-autocomplete-textfieldsubmit',
           type: 'click',
-        }
+        },
       ],
       demoProps: [
         {

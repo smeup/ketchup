@@ -16,6 +16,7 @@ export const config: Config = {
                 { src: 'autocomplete.html' },
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
+                { src: 'bpmn.html' },
                 { src: 'button.html' },
                 { src: 'button-list.html' },
                 { src: 'card.html' },
