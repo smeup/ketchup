@@ -15,11 +15,13 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupDynamicPosition
  */
 export class KupDynamicPosition {
+    container: string;
     managedElements: Set<KupDynamicPositionElement>;
     /**
      * Initializes KupDynamicPosition.
      */
     constructor() {
+        this.container = 'body';
         this.managedElements = new Set();
     }
     /**
@@ -39,19 +41,25 @@ export class KupDynamicPosition {
      * @param {number} margin - "el" distance from its parent in pixels.
      * @param {KupDynamicPositionPlacement} position - "el" placement.
      * @param {boolean} detached - When true, the function won't be recursive but it will be executed only once, causing "el" to be detached from its anchor when scrolling.
+     * @param {boolean} portal - When true, "el" will be positioned absolutely relative to document.querySelector(this.container).
      */
     register(
         el: KupDynamicPositionElement,
         anchorEl: KupDynamicPositionAnchor,
         margin?: number,
         position?: KupDynamicPositionPlacement,
-        detached?: boolean
+        detached?: boolean,
+        portal?: boolean
     ): void {
         el.setAttribute(kupDynamicPositionAttribute, '');
         if (this.anchorIsHTMLElement(anchorEl)) {
             anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
         }
-        el.style.position = 'fixed';
+        if (portal) {
+            el.style.position = 'absolute';
+        } else {
+            el.style.position = 'fixed';
+        }
         el.style.zIndex = '1000';
         el.kupDynamicPosition = {
             anchor: anchorEl,
@@ -80,6 +88,9 @@ export class KupDynamicPosition {
             attributeFilter: ['class'],
         });
         this.managedElements.add(el);
+        if (portal) {
+            document.querySelector(this.container).appendChild(el);
+        }
     }
     /**
      * Changes the anchor point of the given element.

@@ -84,12 +84,9 @@ export class KupColumnMenu {
      * Note that focus() is mandatory in order to properly close the card on blur (along with the tab-index="-1" attribute on the element).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
-    reposition(comp: KupDataTable | KupTree): void {
+    reposition(comp: KupDataTable | KupTree, card: HTMLKupCardElement): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: HTMLKupCardElement = root.querySelector(
-                '#' + KupColumnMenuIds.CARD_COLUMN_MENU
-            );
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
@@ -105,7 +102,8 @@ export class KupColumnMenu {
                         card as any,
                         wrapper,
                         0,
-                        KupDynamicPositionPlacement.AUTO,
+                        KupDynamicPositionPlacement.BOTTOM,
+                        true,
                         true
                     );
                 }

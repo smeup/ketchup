@@ -513,13 +513,39 @@ export class KupTree {
     @Method()
     async openColumnMenu(column: string): Promise<void> {
         this.columnMenuAnchor = column;
+        if (!this.columnMenuCard) {
+            this.columnMenuCard = document.createElement('kup-card');
+            this.columnMenuCard.isMenu = true;
+            this.columnMenuCard.layoutNumber = 12;
+            this.columnMenuCard.sizeX = 'auto';
+            this.columnMenuCard.sizeY = 'auto';
+            this.columnMenuCard.tabIndex = -1;
+            this.columnMenuCard.onblur = () => {
+                if (
+                    this.kupManager.utilities.lastMouseDownPath.includes(
+                        this.columnMenuCard
+                    )
+                ) {
+                    this.columnMenuCard.focus();
+                } else {
+                    this.closeColumnMenu();
+                }
+            };
+            this.columnMenuCard.onclick = (e) => e.stopPropagation();
+            this.columnMenuCard.addEventListener(
+                'kup-card-event',
+                (e: CustomEvent) => {
+                    this.columnMenuInstance.eventHandlers(e, this);
+                }
+            );
+        }
         this.columnMenuCard.setAttribute('data-column', column);
         this.columnMenuCard.data = this.columnMenuInstance.prepData(
             this,
             getColumnByName(this.getVisibleColumns(), column)
         );
         this.columnMenuInstance.open(this, column, this.tooltip);
-        this.columnMenuInstance.reposition(this);
+        this.columnMenuInstance.reposition(this, this.columnMenuCard);
         this.kupTreeColumnMenu.emit({
             comp: this,
             id: this.rootElement.id,
@@ -533,6 +559,9 @@ export class KupTree {
     @Method()
     async closeColumnMenu(): Promise<void> {
         this.columnMenuAnchor = null;
+        if (this.columnMenuCard) {
+            this.columnMenuCard.data = null;
+        }
         this.columnMenuInstance.close(this.columnMenuCard);
         this.kupTreeColumnMenu.emit({
             comp: this,
@@ -2244,44 +2273,6 @@ export class KupTree {
                         </table>
                     </div>
                     {tooltip}
-                    <kup-card
-                        data={
-                            this.columnMenuAnchor
-                                ? this.columnMenuInstance.prepData(
-                                      this,
-                                      getColumnByName(
-                                          this.getVisibleColumns(),
-                                          this.columnMenuAnchor
-                                      ),
-                                      this.columnMenuCard.data
-                                  )
-                                : null
-                        }
-                        id={KupColumnMenuIds.CARD_COLUMN_MENU}
-                        isMenu={true}
-                        layoutNumber={12}
-                        onBlur={() => {
-                            if (
-                                this.kupManager.utilities.lastMouseDownPath.includes(
-                                    this.columnMenuCard
-                                )
-                            ) {
-                                this.columnMenuCard.focus();
-                            } else {
-                                this.closeColumnMenu();
-                            }
-                        }}
-                        onClick={(e) => e.stopPropagation()}
-                        onkup-card-event={(e) => {
-                            this.columnMenuInstance.eventHandlers(e, this);
-                        }}
-                        ref={(el: HTMLKupCardElement) =>
-                            (this.columnMenuCard = el)
-                        }
-                        sizeX="auto"
-                        sizeY="auto"
-                        tabIndex={-1}
-                    ></kup-card>
                 </div>
             </Host>
         );
