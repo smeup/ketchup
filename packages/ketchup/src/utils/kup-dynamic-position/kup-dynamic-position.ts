@@ -41,7 +41,7 @@ export class KupDynamicPosition {
      * @param {number} margin - "el" distance from its parent in pixels.
      * @param {KupDynamicPositionPlacement} position - "el" placement.
      * @param {boolean} detached - When true, the function won't be recursive but it will be executed only once, causing "el" to be detached from its anchor when scrolling.
-     * @param {boolean} portal - When true, "el" will be positioned absolutely relative to document.querySelector(this.container).
+     * @param {boolean} portal - When true, "el" will have position absolute relative to document.querySelector(this.container).
      */
     register(
         el: KupDynamicPositionElement,
@@ -66,6 +66,7 @@ export class KupDynamicPosition {
             margin: margin ? margin : 0,
             position: position ? position : KupDynamicPositionPlacement.AUTO,
             detached: detached ? true : false,
+            portal: portal ? true : false,
             rAF: null,
         };
 
@@ -177,9 +178,12 @@ export class KupDynamicPosition {
         }
         const offsetH: number = el.clientHeight;
         const offsetW: number = el.clientWidth;
-        const rect: DOMRect = (
-            el.kupDynamicPosition.anchor as HTMLElement
-        ).getBoundingClientRect();
+        const rect: Partial<DOMRect> = el.kupDynamicPosition.portal
+            ? this.calcCumulativeOffset(el.kupDynamicPosition.anchor)
+            : (
+                  el.kupDynamicPosition.anchor as HTMLElement
+              ).getBoundingClientRect();
+        console.log(el, rect);
         // Vertical position
         if (
             el.kupDynamicPosition.position ===
@@ -253,10 +257,38 @@ export class KupDynamicPosition {
             }
         }
         // Recursive
-        if (!el.kupDynamicPosition.detached) {
+        if (!el.kupDynamicPosition.detached && !el.kupDynamicPosition.portal) {
             el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
                 dom.ketchup.dynamicPosition.run(el);
             });
+        } else {
+            cancelAnimationFrame(el.kupDynamicPosition.rAF);
+            return;
         }
+    }
+    /**
+     * Calculates the cumulative offset of anchor element and its parents.
+     * @param {KupDynamicPositionAnchor} anchorEl - Anchor element.
+     */
+    calcCumulativeOffset(anchorEl: KupDynamicPositionAnchor): {
+        bottom: number;
+        left: number;
+        right: number;
+        top: number;
+    } {
+        let top: number = 0,
+            left: number = 0;
+        let el: HTMLElement = anchorEl as HTMLElement;
+        do {
+            top += el.offsetTop || 0;
+            left += el.offsetLeft || 0;
+            el = el.offsetParent as HTMLElement;
+        } while (el);
+        return {
+            bottom: top + (anchorEl as HTMLElement).clientHeight,
+            left: left,
+            right: left + (anchorEl as HTMLElement).clientWidth,
+            top: top,
+        };
     }
 }

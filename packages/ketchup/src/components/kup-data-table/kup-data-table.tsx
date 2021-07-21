@@ -1032,7 +1032,8 @@ export class KupDataTable {
             this.columnMenuCard.sizeX = 'auto';
             this.columnMenuCard.sizeY = 'auto';
             this.columnMenuCard.tabIndex = -1;
-            this.columnMenuCard.onblur = () => {
+            this.columnMenuCard.onclick = (e) => e.stopPropagation();
+            this.columnMenuCard.addEventListener('blur', () => {
                 if (
                     this.kupManager.utilities.lastMouseDownPath.includes(
                         this.columnMenuCard
@@ -1042,8 +1043,7 @@ export class KupDataTable {
                 } else {
                     this.closeColumnMenu();
                 }
-            };
-            this.columnMenuCard.onclick = (e) => e.stopPropagation();
+            });
             this.columnMenuCard.addEventListener(
                 'kup-card-event',
                 (e: CustomEvent) => {
