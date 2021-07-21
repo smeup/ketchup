@@ -18,12 +18,15 @@ import { getProps, setProps } from '../../utils/utils';
 import { KupBpmnProps } from './kup-bpmn-declarations';
 import Diagram from './resources/diagram.svg';
 
-// TODO:
-// * clean kup-bupn.scss
-// * stylesheets from dist and not from web
-// * add url diagram prop and read url to obtain xml
-// * manage errors and class message error
-// * add download button and download function
+/**
+ * @todo clean kup-bupn.scss
+ * @todo stylesheets from dist and not from web
+ * @todo add url diagram prop and read url to obtain xml
+ * @todo manage errors and class message error
+ * @todo add download button and download function
+ * @todo BpmnModeler shouldn't be instanced using an ID (otherwise only 1 kup-bpmn can be embedded in a page)
+ * @todo asImage prop shouldn't display a static image
+ */
 
 @Component({
     tag: 'kup-bpmn',
@@ -35,7 +38,15 @@ export class KupBpmn {
      */
     @Element() rootElement: HTMLElement;
 
-    @Prop({ mutable: true }) asImage: boolean;
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
+    /**
+     * When set to true, the diagram won't be interactive but it will displayed as an image.
+     * @default false
+     */
+    @Prop({ mutable: true }) asImage: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -84,7 +95,6 @@ export class KupBpmn {
             console.error(err);
         }
     }
-
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.

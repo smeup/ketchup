@@ -1,14 +1,6 @@
-import { KupEventPayload } from '../../types/GenericTypes';
-
 /**
  * Props of the kup-bpmn component.
  */
 export enum KupBpmnProps {
-    asImage = '',
-}
-/**
- * Generic payload of a kup event.
- */
-export interface KupBpmnClickEventPayload extends KupEventPayload {
-    value: string;
+    asImage = "When set to true, the diagram won't be interactive but it will displayed as an image.",
 }
