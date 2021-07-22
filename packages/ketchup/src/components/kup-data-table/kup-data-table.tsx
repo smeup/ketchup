@@ -144,7 +144,11 @@ import {
     KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
-import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
+import {
+    CardData,
+    CardFamily,
+    KupCardEventPayload,
+} from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupLanguageDensity,
@@ -947,7 +951,7 @@ export class KupDataTable {
     })
     kupDataTableDblClick: EventEmitter<KupDatatableClickEventPayload>;
     /**
-     * When the column menu is being opened/closed.
+     * Emitted by the column menu card when opened/closed or when a kup-card-event is fired.
      */
     @Event({
         eventName: 'kup-datatable-columnmenu',
@@ -1046,8 +1050,15 @@ export class KupDataTable {
             });
             this.columnMenuCard.addEventListener(
                 'kup-card-event',
-                (e: CustomEvent) => {
+                (e: CustomEvent<KupCardEventPayload>) => {
                     this.columnMenuInstance.eventHandlers(e, this);
+                    this.kupDataTableColumnMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        card: this.columnMenuCard,
+                        event: e,
+                        open: this.columnMenuCard.menuVisible,
+                    });
                 }
             );
         }
@@ -1062,6 +1073,7 @@ export class KupDataTable {
             comp: this,
             id: this.rootElement.id,
             card: this.columnMenuCard,
+            event: null,
             open: true,
         });
     }
@@ -1079,6 +1091,7 @@ export class KupDataTable {
             comp: this,
             id: this.rootElement.id,
             card: this.columnMenuCard,
+            event: null,
             open: false,
         });
     }

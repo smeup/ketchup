@@ -1,4 +1,5 @@
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import type { KupDataTable } from './kup-data-table';
 /**
  * Props of the kup-data-table component.
@@ -335,6 +336,7 @@ export interface KupDatatableClickEventPayload extends KupEventPayload {
 
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
     card: HTMLKupCardElement;
+    event: CustomEvent<KupCardEventPayload>;
     open: boolean;
 }
 
