@@ -188,6 +188,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-card](../kup-card)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
 - [kup-chart](../kup-chart)
@@ -201,11 +202,11 @@ Type: `Promise<void>`
 - [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
 - [kup-text-field](../kup-text-field)
-- [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-tree --> kup-card
   kup-tree --> kup-image
   kup-tree --> kup-button
   kup-tree --> kup-chart
@@ -219,19 +220,14 @@ graph TD;
   kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
-  kup-tree --> kup-card
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-badge
-  kup-button --> kup-badge
-  kup-chip --> kup-badge
-  kup-color-picker --> kup-text-field
-  kup-tooltip --> kup-tree
   kup-card --> kup-tree
+  kup-chip --> kup-badge
+  kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-list --> kup-badge
+  kup-button --> kup-badge
   kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
@@ -256,10 +252,14 @@ graph TD;
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
+  kup-tooltip --> kup-tree
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
+  kup-color-picker --> kup-text-field
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
