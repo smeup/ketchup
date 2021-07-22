@@ -109,9 +109,6 @@ export class KupColumnMenu {
                 }
                 dom.ketchup.dynamicPosition.start(card as any);
                 card.menuVisible = true;
-                setTimeout(() => {
-                    card.focus();
-                }, 100);
             }
         }
     }

@@ -37,7 +37,6 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { layoutSpecificEvents } from './kup-card-helper';
-import { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { getProps, setProps } from '../../utils/utils';
 
 @Component({
@@ -499,14 +498,9 @@ export class KupCard {
         this.setEvents();
         this.layoutManager();
         if (this.isMenu && this.menuVisible) {
-            const dynCard: KupDynamicPositionElement = this
-                .rootElement as KupDynamicPositionElement;
-            if (
-                dynCard.kupDynamicPosition &&
-                dynCard.kupDynamicPosition.detached
-            ) {
-                this.kupManager.dynamicPosition.run(dynCard);
-            }
+            setTimeout(() => {
+                this.rootElement.focus();
+            }, 0);
         }
         this.kupManager.debug.logRender(this, true);
     }
