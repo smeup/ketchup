@@ -497,7 +497,12 @@ export class KupCard {
     componentDidRender() {
         this.setEvents();
         this.layoutManager();
-        if (this.isMenu && this.menuVisible) {
+        if (
+            this.isMenu &&
+            this.menuVisible &&
+            (!document.activeElement ||
+                document.activeElement.tagName === 'BODY')
+        ) {
             setTimeout(() => {
                 this.rootElement.focus();
             }, 0);
