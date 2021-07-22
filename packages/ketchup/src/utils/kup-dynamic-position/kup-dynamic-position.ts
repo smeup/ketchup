@@ -176,14 +176,22 @@ export class KupDynamicPosition {
             }
             return;
         }
+        const isPortal: boolean = !!el.kupDynamicPosition.portal;
         const offsetH: number = el.clientHeight;
         const offsetW: number = el.clientWidth;
-        const rect: Partial<DOMRect> = el.kupDynamicPosition.portal
-            ? this.calcCumulativeOffset(el.kupDynamicPosition.anchor)
-            : (
-                  el.kupDynamicPosition.anchor as HTMLElement
-              ).getBoundingClientRect();
-        console.log(el, rect);
+        const rect: DOMRect = (
+            el.kupDynamicPosition.anchor as HTMLElement
+        ).getBoundingClientRect();
+        const top: number = isPortal ? window.pageYOffset + rect.top : rect.top,
+            left: number = isPortal
+                ? window.pageXOffset + rect.left
+                : rect.left,
+            bottom: number = isPortal
+                ? window.pageYOffset + rect.bottom
+                : rect.bottom,
+            right: number = isPortal
+                ? window.pageXOffset + rect.right
+                : rect.right;
         // Vertical position
         if (
             el.kupDynamicPosition.position ===
@@ -194,7 +202,7 @@ export class KupDynamicPosition {
                 KupDynamicPositionPlacement.TOP_RIGHT
         ) {
             el.style.bottom = `${
-                window.innerHeight - rect.top + el.kupDynamicPosition.margin
+                window.innerHeight - top + el.kupDynamicPosition.margin
             }px`;
         } else if (
             el.kupDynamicPosition.position ===
@@ -204,16 +212,14 @@ export class KupDynamicPosition {
             el.kupDynamicPosition.position ===
                 KupDynamicPositionPlacement.BOTTOM_RIGHT
         ) {
-            el.style.top = `${rect.bottom + el.kupDynamicPosition.margin}px`;
+            el.style.top = `${bottom + el.kupDynamicPosition.margin}px`;
         } else {
-            if (window.innerHeight - rect.bottom < offsetH) {
+            if (window.innerHeight - bottom < offsetH) {
                 el.style.bottom = `${
-                    window.innerHeight - rect.top + el.kupDynamicPosition.margin
+                    window.innerHeight - top + el.kupDynamicPosition.margin
                 }px`;
             } else {
-                el.style.top = `${
-                    rect.bottom + el.kupDynamicPosition.margin
-                }px`;
+                el.style.top = `${bottom + el.kupDynamicPosition.margin}px`;
             }
         }
         // Horizontal position
@@ -225,7 +231,7 @@ export class KupDynamicPosition {
             el.kupDynamicPosition.position ===
                 KupDynamicPositionPlacement.TOP_LEFT
         ) {
-            el.style.left = `${rect.left}px`;
+            el.style.left = `${left}px`;
         } else if (
             el.kupDynamicPosition.position ===
                 KupDynamicPositionPlacement.RIGHT ||
@@ -239,21 +245,19 @@ export class KupDynamicPosition {
             if (scrollbarWidth > 30) {
                 scrollbarWidth = 0;
             }
-            el.style.right = `${
-                window.innerWidth - scrollbarWidth - rect.right
-            }px`;
+            el.style.right = `${window.innerWidth - scrollbarWidth - right}px`;
         } else {
-            if (window.innerWidth - rect.left < offsetW) {
+            if (window.innerWidth - left < offsetW) {
                 let scrollbarWidth: number =
                     window.innerWidth - document.documentElement.offsetWidth;
                 if (scrollbarWidth > 30) {
                     scrollbarWidth = 0;
                 }
                 el.style.right = `${
-                    window.innerWidth - scrollbarWidth - rect.right
+                    window.innerWidth - scrollbarWidth - right
                 }px`;
             } else {
-                el.style.left = `${rect.left}px`;
+                el.style.left = `${left}px`;
             }
         }
         // Recursive
@@ -265,30 +269,5 @@ export class KupDynamicPosition {
             cancelAnimationFrame(el.kupDynamicPosition.rAF);
             return;
         }
-    }
-    /**
-     * Calculates the cumulative offset of anchor element and its parents.
-     * @param {KupDynamicPositionAnchor} anchorEl - Anchor element.
-     */
-    calcCumulativeOffset(anchorEl: KupDynamicPositionAnchor): {
-        bottom: number;
-        left: number;
-        right: number;
-        top: number;
-    } {
-        let top: number = 0,
-            left: number = 0;
-        let el: HTMLElement = anchorEl as HTMLElement;
-        do {
-            top += el.offsetTop || 0;
-            left += el.offsetLeft || 0;
-            el = el.offsetParent as HTMLElement;
-        } while (el);
-        return {
-            bottom: top + (anchorEl as HTMLElement).clientHeight,
-            left: left,
-            right: left + (anchorEl as HTMLElement).clientWidth,
-            top: top,
-        };
     }
 }
