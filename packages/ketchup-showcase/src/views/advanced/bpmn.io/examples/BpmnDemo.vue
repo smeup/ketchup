@@ -6,7 +6,6 @@
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
-
 export default {
   components: {
     Demo,
@@ -28,7 +27,6 @@ export default {
     };
   },
 };
-
 function createComp() {
   let comp = document.createElement('kup-bpmn');
   comp.id = 'demo-component';
