@@ -2327,6 +2327,9 @@ export class KupTree {
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }
+        if (this.columnMenuCard) {
+            this.columnMenuCard.remove();
+        }
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.treeWrapperRef);
         }
