@@ -39,34 +39,32 @@ export class KupDynamicPosition {
      * @param {KupDynamicPositionElement} el - Element to reposition.
      * @param {KupDynamicPositionAnchor} anchorEl - "el" position will be anchored to this element or to these coordinates.
      * @param {number} margin - "el" distance from its parent in pixels.
-     * @param {KupDynamicPositionPlacement} position - "el" placement.
-     * @param {boolean} detached - When true, the function won't be recursive but it will be executed only once, causing "el" to be detached from its anchor when scrolling.
-     * @param {boolean} absolutePosition - When true, "el" will have position absolute relative to document.querySelector(this.container).
+     * @param {KupDynamicPositionPlacement} placement - "el" placement.
+     * @param {boolean} detach - When true, the function won't be recursive but it will be executed only once. "el" will be detached from its original parent and it will be appended to this.container.
      */
     register(
         el: KupDynamicPositionElement,
         anchorEl: KupDynamicPositionAnchor,
         margin?: number,
-        position?: KupDynamicPositionPlacement,
-        detached?: boolean,
-        absolutePosition?: boolean
+        placement?: KupDynamicPositionPlacement,
+        detach?: boolean
     ): void {
         el.setAttribute(kupDynamicPositionAttribute, '');
         if (this.anchorIsHTMLElement(anchorEl)) {
             anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
         }
-        if (absolutePosition) {
+        if (detach) {
             el.style.position = 'absolute';
+            document.querySelector(this.container).appendChild(el);
         } else {
             el.style.position = 'fixed';
         }
         el.style.zIndex = '1000';
         el.kupDynamicPosition = {
-            absolutePosition: absolutePosition ? true : false,
             anchor: anchorEl,
+            detach: detach ? true : false,
             margin: margin ? margin : 0,
-            position: position ? position : KupDynamicPositionPlacement.AUTO,
-            detached: detached ? true : false,
+            placement: placement ? placement : KupDynamicPositionPlacement.AUTO,
             rAF: null,
         };
 
@@ -89,9 +87,6 @@ export class KupDynamicPosition {
             attributeFilter: ['class'],
         });
         this.managedElements.add(el);
-        if (absolutePosition) {
-            document.querySelector(this.container).appendChild(el);
-        }
     }
     /**
      * Changes the anchor point of the given element.
@@ -176,43 +171,40 @@ export class KupDynamicPosition {
             }
             return;
         }
-        const absolutePositioned: boolean =
-            !!el.kupDynamicPosition.absolutePosition;
+        const detached: boolean = !!el.kupDynamicPosition.detach;
         const offsetH: number = el.clientHeight;
         const offsetW: number = el.clientWidth;
         const rect: DOMRect = (
             el.kupDynamicPosition.anchor as HTMLElement
         ).getBoundingClientRect();
-        const top: number = absolutePositioned
-                ? window.pageYOffset + rect.top
-                : rect.top,
-            left: number = absolutePositioned
+        const top: number = detached ? window.pageYOffset + rect.top : rect.top,
+            left: number = detached
                 ? window.pageXOffset + rect.left
                 : rect.left,
-            bottom: number = absolutePositioned
+            bottom: number = detached
                 ? window.pageYOffset + rect.bottom
                 : rect.bottom,
-            right: number = absolutePositioned
+            right: number = detached
                 ? window.pageXOffset + rect.right
                 : rect.right;
         // Vertical position
         if (
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.TOP ||
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.TOP_LEFT ||
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.TOP_RIGHT
         ) {
             el.style.bottom = `${
                 window.innerHeight - top + el.kupDynamicPosition.margin
             }px`;
         } else if (
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.BOTTOM ||
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.BOTTOM_LEFT ||
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.BOTTOM_RIGHT
         ) {
             el.style.top = `${bottom + el.kupDynamicPosition.margin}px`;
@@ -227,20 +219,20 @@ export class KupDynamicPosition {
         }
         // Horizontal position
         if (
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.LEFT ||
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.BOTTOM_LEFT ||
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.TOP_LEFT
         ) {
             el.style.left = `${left}px`;
         } else if (
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.RIGHT ||
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.BOTTOM_RIGHT ||
-            el.kupDynamicPosition.position ===
+            el.kupDynamicPosition.placement ===
                 KupDynamicPositionPlacement.TOP_RIGHT
         ) {
             let scrollbarWidth: number =
@@ -264,10 +256,7 @@ export class KupDynamicPosition {
             }
         }
         // Recursive
-        if (
-            !el.kupDynamicPosition.detached &&
-            !el.kupDynamicPosition.absolutePosition
-        ) {
+        if (!el.kupDynamicPosition.detach) {
             el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
                 dom.ketchup.dynamicPosition.run(el);
             });

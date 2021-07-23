@@ -103,7 +103,6 @@ export class KupColumnMenu {
                         wrapper,
                         0,
                         KupDynamicPositionPlacement.BOTTOM,
-                        true,
                         true
                     );
                 }
