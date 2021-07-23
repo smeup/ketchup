@@ -52,7 +52,7 @@ export interface KupManagerInitialization {
     dialog?: KupManagerDialogSettings;
     dynamicPosition?: KupManagerDynamicPositionSettings;
     language?: KupManagerLanguageSettings;
-    obj?: KupManagerObjectsSettings;
+    objects?: KupManagerObjectsSettings;
     scrollOnHover?: KupManagerScrollOnHoverSettings;
     theme?: KupManagerThemeSettings;
 }

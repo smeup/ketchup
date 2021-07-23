@@ -66,7 +66,7 @@ export class KupManager {
             const dynamicPosition: KupManagerDynamicPositionSettings =
                 overrides.dynamicPosition;
             const language: KupManagerLanguageSettings = overrides.language;
-            const objects: KupManagerObjectsSettings = overrides.language;
+            const objects: KupManagerObjectsSettings = overrides.objects;
             const scrollOnHover: KupManagerScrollOnHoverSettings =
                 overrides.scrollOnHover;
             const theme: KupManagerThemeSettings = overrides.theme;
