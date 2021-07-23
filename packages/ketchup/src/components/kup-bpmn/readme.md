@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property  | Attribute  | Description | Type      | Default     |
-| --------- | ---------- | ----------- | --------- | ----------- |
-| `asImage` | `as-image` |             | `boolean` | `undefined` |
+| Property  | Attribute  | Description                                                                           | Type      | Default |
+| --------- | ---------- | ------------------------------------------------------------------------------------- | --------- | ------- |
+| `asImage` | `as-image` | When set to true, the diagram won't be interactive but it will displayed as an image. | `boolean` | `false` |
 
 
 ## Methods

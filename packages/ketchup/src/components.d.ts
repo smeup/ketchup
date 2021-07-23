@@ -270,6 +270,10 @@ export namespace Components {
         "tooltipLoadTimeout": number;
     }
     interface KupBpmn {
+        /**
+          * When set to true, the diagram won't be interactive but it will displayed as an image.
+          * @default false
+         */
         "asImage": boolean;
         /**
           * Used to retrieve component's props values.
@@ -3038,6 +3042,10 @@ declare namespace LocalJSX {
         "tooltipLoadTimeout"?: number;
     }
     interface KupBpmn {
+        /**
+          * When set to true, the diagram won't be interactive but it will displayed as an image.
+          * @default false
+         */
         "asImage"?: boolean;
     }
     interface KupButton {

@@ -6,7 +6,6 @@
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
-
 export default {
   components: {
     Demo,
@@ -18,7 +17,8 @@ export default {
       demoProps: [
         {
           prop: 'asImage',
-          description: 'set true to view the image of xml diagram',
+          description:
+            "When set to true, the diagram won't be interactive but it will displayed as an image.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -27,7 +27,6 @@ export default {
     };
   },
 };
-
 function createComp() {
   let comp = document.createElement('kup-bpmn');
   comp.id = 'demo-component';
