@@ -336,7 +336,7 @@ export interface KupDatatableClickEventPayload extends KupEventPayload {
 
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
     card: HTMLKupCardElement;
-    event: CustomEvent<KupCardEventPayload>;
+    event: CustomEvent<KupCardEventPayload | KupEventPayload>;
     open: boolean;
 }
 

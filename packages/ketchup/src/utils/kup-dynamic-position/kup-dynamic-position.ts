@@ -20,8 +20,8 @@ export class KupDynamicPosition {
     /**
      * Initializes KupDynamicPosition.
      */
-    constructor() {
-        this.container = 'body';
+    constructor(container?: string) {
+        this.container = container ? container : 'body';
         this.managedElements = new Set();
     }
     /**

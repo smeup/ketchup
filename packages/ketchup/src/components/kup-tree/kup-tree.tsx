@@ -95,6 +95,7 @@ import {
     KupLanguageTotals,
 } from '../../utils/kup-language/kup-language-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -533,9 +534,28 @@ export class KupTree {
             };
             this.columnMenuCard.onclick = (e) => e.stopPropagation();
             this.columnMenuCard.addEventListener(
+                'kup-card-click',
+                (e: CustomEvent<KupEventPayload>) => {
+                    this.kupTreeColumnMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        card: this.columnMenuCard,
+                        event: e,
+                        open: this.columnMenuCard.menuVisible,
+                    });
+                }
+            );
+            this.columnMenuCard.addEventListener(
                 'kup-card-event',
-                (e: CustomEvent) => {
+                (e: CustomEvent<KupCardEventPayload>) => {
                     this.columnMenuInstance.eventHandlers(e, this);
+                    this.kupTreeColumnMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        card: this.columnMenuCard,
+                        event: e,
+                        open: this.columnMenuCard.menuVisible,
+                    });
                 }
             );
         }
@@ -550,6 +570,7 @@ export class KupTree {
             comp: this,
             id: this.rootElement.id,
             card: this.columnMenuCard,
+            event: null,
             open: true,
         });
     }
@@ -567,6 +588,7 @@ export class KupTree {
             comp: this,
             id: this.rootElement.id,
             card: this.columnMenuCard,
+            event: null,
             open: false,
         });
     }

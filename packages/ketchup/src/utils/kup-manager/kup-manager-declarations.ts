@@ -50,6 +50,7 @@ export interface KupManagerUtilities {
 export interface KupManagerInitialization {
     debug?: KupManagerDebugSettings;
     dialog?: KupManagerDialogSettings;
+    dynamicPosition?: KupManagerDynamicPositionSettings;
     language?: KupManagerLanguageSettings;
     obj?: KupManagerObjectsSettings;
     scrollOnHover?: KupManagerScrollOnHoverSettings;
@@ -68,6 +69,12 @@ export interface KupManagerDebugSettings {
  */
 export interface KupManagerDialogSettings {
     zIndex?: number;
+}
+/**
+ * KupManagerDynamicPositionSettings initialization settings.
+ */
+export interface KupManagerDynamicPositionSettings {
+    container?: string;
 }
 /**
  * KupLanguage initialization settings.

@@ -1049,6 +1049,18 @@ export class KupDataTable {
                 }
             });
             this.columnMenuCard.addEventListener(
+                'kup-card-click',
+                (e: CustomEvent<KupEventPayload>) => {
+                    this.kupDataTableColumnMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        card: this.columnMenuCard,
+                        event: e,
+                        open: this.columnMenuCard.menuVisible,
+                    });
+                }
+            );
+            this.columnMenuCard.addEventListener(
                 'kup-card-event',
                 (e: CustomEvent<KupCardEventPayload>) => {
                     this.columnMenuInstance.eventHandlers(e, this);
