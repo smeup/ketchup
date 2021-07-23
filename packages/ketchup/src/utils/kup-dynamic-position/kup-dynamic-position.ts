@@ -41,7 +41,7 @@ export class KupDynamicPosition {
      * @param {number} margin - "el" distance from its parent in pixels.
      * @param {KupDynamicPositionPlacement} position - "el" placement.
      * @param {boolean} detached - When true, the function won't be recursive but it will be executed only once, causing "el" to be detached from its anchor when scrolling.
-     * @param {boolean} portal - When true, "el" will have position absolute relative to document.querySelector(this.container).
+     * @param {boolean} absolutePosition - When true, "el" will have position absolute relative to document.querySelector(this.container).
      */
     register(
         el: KupDynamicPositionElement,
@@ -49,24 +49,24 @@ export class KupDynamicPosition {
         margin?: number,
         position?: KupDynamicPositionPlacement,
         detached?: boolean,
-        portal?: boolean
+        absolutePosition?: boolean
     ): void {
         el.setAttribute(kupDynamicPositionAttribute, '');
         if (this.anchorIsHTMLElement(anchorEl)) {
             anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
         }
-        if (portal) {
+        if (absolutePosition) {
             el.style.position = 'absolute';
         } else {
             el.style.position = 'fixed';
         }
         el.style.zIndex = '1000';
         el.kupDynamicPosition = {
+            absolutePosition: absolutePosition ? true : false,
             anchor: anchorEl,
             margin: margin ? margin : 0,
             position: position ? position : KupDynamicPositionPlacement.AUTO,
             detached: detached ? true : false,
-            portal: portal ? true : false,
             rAF: null,
         };
 
@@ -89,7 +89,7 @@ export class KupDynamicPosition {
             attributeFilter: ['class'],
         });
         this.managedElements.add(el);
-        if (portal) {
+        if (absolutePosition) {
             document.querySelector(this.container).appendChild(el);
         }
     }
@@ -176,20 +176,23 @@ export class KupDynamicPosition {
             }
             return;
         }
-        const isPortal: boolean = !!el.kupDynamicPosition.portal;
+        const absolutePositioned: boolean =
+            !!el.kupDynamicPosition.absolutePosition;
         const offsetH: number = el.clientHeight;
         const offsetW: number = el.clientWidth;
         const rect: DOMRect = (
             el.kupDynamicPosition.anchor as HTMLElement
         ).getBoundingClientRect();
-        const top: number = isPortal ? window.pageYOffset + rect.top : rect.top,
-            left: number = isPortal
+        const top: number = absolutePositioned
+                ? window.pageYOffset + rect.top
+                : rect.top,
+            left: number = absolutePositioned
                 ? window.pageXOffset + rect.left
                 : rect.left,
-            bottom: number = isPortal
+            bottom: number = absolutePositioned
                 ? window.pageYOffset + rect.bottom
                 : rect.bottom,
-            right: number = isPortal
+            right: number = absolutePositioned
                 ? window.pageXOffset + rect.right
                 : rect.right;
         // Vertical position
@@ -261,7 +264,10 @@ export class KupDynamicPosition {
             }
         }
         // Recursive
-        if (!el.kupDynamicPosition.detached && !el.kupDynamicPosition.portal) {
+        if (
+            !el.kupDynamicPosition.detached &&
+            !el.kupDynamicPosition.absolutePosition
+        ) {
             el.kupDynamicPosition.rAF = requestAnimationFrame(function () {
                 dom.ketchup.dynamicPosition.run(el);
             });

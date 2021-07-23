@@ -644,6 +644,20 @@ export class KupTree {
         return rows;
     }
 
+    private setDynPosElements() {
+        // Column menu
+        if (this.columnMenuCard && this.columnMenuCard.data) {
+            this.columnMenuCard.data = this.columnMenuInstance.prepData(
+                this,
+                getColumnByName(
+                    this.getVisibleColumns(),
+                    this.columnMenuAnchor
+                ),
+                this.columnMenuCard.data
+            );
+        }
+    }
+
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
@@ -695,6 +709,7 @@ export class KupTree {
         const root = this.rootElement.shadowRoot;
         this.totalMenuPosition();
         this.checkScrollOnHover();
+        this.setDynPosElements();
 
         if (root) {
             let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');

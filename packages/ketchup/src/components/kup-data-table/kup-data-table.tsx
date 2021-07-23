@@ -1700,6 +1700,20 @@ export class KupDataTable {
         }
     }
 
+    private setDynPosElements() {
+        // Column menu
+        if (this.columnMenuCard && this.columnMenuCard.data) {
+            this.columnMenuCard.data = this.columnMenuInstance.prepData(
+                this,
+                getColumnByName(
+                    this.getVisibleColumns(),
+                    this.columnMenuAnchor
+                ),
+                this.columnMenuCard.data
+            );
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -1763,6 +1777,7 @@ export class KupDataTable {
         this.didRenderObservers();
         this.hideShowColumnDropArea(false);
         this.setEvents();
+        this.setDynPosElements();
 
         if (
             this.headerIsPersistent &&
