@@ -1,5 +1,6 @@
 import type {
     KupDom,
+    KupManagerDatesSettings,
     KupManagerDebugSettings,
     KupManagerDialogSettings,
     KupManagerInitialization,
@@ -23,6 +24,7 @@ import { ResizeObserver } from 'resize-observer';
 import { KupLanguageJSON } from '../kup-language/kup-language-declarations';
 import { KupObjectsJSON } from '../kup-objects/kup-objects-declarations';
 import { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
+import { KupDates } from '../kup-dates/kup-dates';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -31,6 +33,7 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupManager
  */
 export class KupManager {
+    dates: KupDates;
     debug: KupDebug;
     dialog: KupDialog;
     dynamicPosition: KupDynamicPosition;
@@ -47,7 +50,8 @@ export class KupManager {
      * Initializes KupManager.
      */
     constructor(overrides?: KupManagerInitialization) {
-        let debugActive: boolean = null,
+        let datesLocale: string = null,
+            debugActive: boolean = null,
             debugAutoprint: boolean = null,
             debugLogLimit: number = null,
             dialogZIndex: number = null,
@@ -59,6 +63,7 @@ export class KupManager {
             themeList: KupThemeJSON = null,
             themeName: string = null;
         if (overrides) {
+            const dates: KupManagerDatesSettings = overrides.dates;
             const debug: KupManagerDebugSettings = overrides.debug;
             const dialog: KupManagerDialogSettings = overrides.dialog;
             const language: KupManagerLanguageSettings = overrides.language;
@@ -66,6 +71,9 @@ export class KupManager {
             const scrollOnHover: KupManagerScrollOnHoverSettings =
                 overrides.scrollOnHover;
             const theme: KupManagerThemeSettings = overrides.theme;
+            if (dates) {
+                datesLocale = dates.locale ? dates.locale : null;
+            }
             if (debug) {
                 debugActive = debug.active ? debug.active : null;
                 debugAutoprint = debug.autoPrint ? debug.autoPrint : null;
@@ -94,6 +102,7 @@ export class KupManager {
                 themeName = theme.name ? theme.name : null;
             }
         }
+        this.dates = new KupDates(datesLocale);
         this.debug = new KupDebug(debugActive, debugAutoprint, debugLogLimit);
         this.dialog = new KupDialog(dialogZIndex);
         this.dynamicPosition = new KupDynamicPosition();
