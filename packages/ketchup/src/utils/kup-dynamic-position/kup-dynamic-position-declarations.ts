@@ -22,9 +22,9 @@ export type KupDynamicPositionAnchor =
 export interface KupDynamicPositionElement extends HTMLElement {
     kupDynamicPosition: {
         anchor: KupDynamicPositionAnchor;
-        detached: boolean;
+        detach: boolean;
         margin: number;
-        position: KupDynamicPositionPlacement;
+        placement: KupDynamicPositionPlacement;
         rAF: number;
     };
 }

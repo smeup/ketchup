@@ -3640,7 +3640,7 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-click"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
         /**
-          * When the column menu is being opened/closed.
+          * Emitted by the column menu card when opened/closed or when a kup-card-event is fired.
          */
         "onKup-datatable-columnmenu"?: (event: CustomEvent<KupDatatableColumnMenuEventPayload>) => void;
         /**
