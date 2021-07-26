@@ -35,6 +35,7 @@ import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -152,7 +153,9 @@ export class KupMagicBox {
             id: 'comp-switcher',
             initialValue: this.display,
             isSelect: true,
-            onKupComboboxItemClick: (e: CustomEvent) => {
+            ['onKup-combobox-itemclick']: (
+                e: CustomEvent<KupComboboxEventPayload>
+            ) => {
                 this.display = e.detail.value;
             },
         };
