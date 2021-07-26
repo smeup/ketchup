@@ -401,10 +401,13 @@ export class KupColumnMenu {
                 value: KupLanguageColumn.COLUMNS,
             });
         }
-        data.push({
-            icon: 'settings',
-            value: KupLanguageGeneric.SETTINGS,
-        });
+        if (!FiltersColumnMenu.isTree(comp)) {
+            data.push({
+                icon: 'settings',
+                value: KupLanguageGeneric.SETTINGS,
+            });
+        }
+
         if (data.length > 0) {
             data[0].active = true;
         }
