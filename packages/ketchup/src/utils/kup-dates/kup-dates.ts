@@ -1,5 +1,6 @@
 import type { KupComponent } from '../../types/GenericTypes';
 import dayjs from 'dayjs';
+import minMax from 'dayjs/plugin/minMax';
 
 /**
  * Handles operations and formatting of dates.
@@ -15,6 +16,7 @@ export class KupDates {
         if (locale) {
             this.setLocale(locale);
         }
+        dayjs.extend(minMax);
         this.managedComponents = new Set();
     }
     /**
@@ -41,8 +43,61 @@ export class KupDates {
      * @param {dayjs.ConfigType} input - Date to be formatted.
      * @param {string} format - Output format.
      */
-    formatDate(input: dayjs.ConfigType, format: string): dayjs.ConfigType {
+    format(input: dayjs.ConfigType, format?: string): string {
+        if (!format) {
+            format = 'DD/MM/YYYY'; // Should default to locale's
+        }
         return dayjs(input).format(format);
+    }
+    /**
+     * Validates the given date.
+     * @param {dayjs.ConfigType} date - Date to be validated.
+     * @returns {boolean} Returns whether the argument is a valid date or not.
+     */
+    isValid(date: dayjs.ConfigType): boolean {
+        return dayjs(date).isValid();
+    }
+    /**
+     * Converts the input in Date objects.
+     * @param {dayjs.ConfigType[]} input - Array of dates.
+     * @returns {Date[]} Array of Date objects.
+     */
+    toDate(input: dayjs.ConfigType[]): Date[] {
+        const output: Date[] = [];
+        for (let index = 0; index < input.length; index++) {
+            const date: dayjs.ConfigType = input[index];
+            output.push(dayjs(date).toDate());
+        }
+        return output;
+    }
+    /**
+     * Converts the input in Dayjs objects.
+     * @param {dayjs.ConfigType[]} input - Array of dates.
+     * @returns {dayjs.Dayjs[]} Array of Dayjs objects.
+     */
+    toDayjs(input: dayjs.ConfigType[]): dayjs.Dayjs[] {
+        const output: dayjs.Dayjs[] = [];
+        for (let index = 0; index < input.length; index++) {
+            const date: dayjs.ConfigType = input[index];
+            output.push(dayjs(date));
+        }
+        return output;
+    }
+    /**
+     * Returns the minimum date from an array of dates.
+     * @param {dayjs.ConfigType[]} dates - Array of dates.
+     * @returns {dayjs.Dayjs} Minimum date.
+     */
+    min(dates: dayjs.ConfigType[]): dayjs.Dayjs {
+        return dayjs.min(this.toDayjs(dates));
+    }
+    /**
+     * Returns the maximum date from an array of dates.
+     * @param {dayjs.ConfigType[]} dates - Array of dates.
+     * @returns {dayjs.Dayjs} Maximum date.
+     */
+    max(dates: dayjs.ConfigType[]): dayjs.Dayjs {
+        return dayjs.max(this.toDayjs(dates));
     }
     /**
      * Registers a KupComponent in KupDates.

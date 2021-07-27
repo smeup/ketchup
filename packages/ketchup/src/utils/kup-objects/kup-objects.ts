@@ -282,14 +282,24 @@ export class KupObjects {
         if (!obj) return false;
         return 'VO' === obj.t && 'COD_VER' === obj.p;
     }
-
     /**
      * Checks whether the object is null or empty
-     * @param obj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is null or empty.
      */
     isEmptySmeupObject(obj: KupObj): boolean {
         if (!obj) return true;
         return obj.t.trim() == '' && obj.p.trim() == '' && obj.k.trim() == '';
+    }
+    /**
+     * Formats a date depending on the object's type.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object is null or empty.
+     */
+    formatDate(obj: KupObj): string {
+        if (obj.t === 'D8' && obj.p === '*DMYY') {
+            return dom.ketchup.dates.format(obj.k, 'DDMMYYYY');
+        }
+        return dom.ketchup.dates.format(obj.k, 'DD/MM/YYYY');
     }
 }
