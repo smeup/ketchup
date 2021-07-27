@@ -58,30 +58,20 @@ export class KupDates {
         return dayjs(date).isValid();
     }
     /**
-     * Converts the input in Date objects.
-     * @param {dayjs.ConfigType[]} input - Array of dates.
-     * @returns {Date[]} Array of Date objects.
+     * Converts the input in a Date object.
+     * @param {dayjs.ConfigType} input - Input date.
+     * @returns {Date} Date object.
      */
-    toDate(input: dayjs.ConfigType[]): Date[] {
-        const output: Date[] = [];
-        for (let index = 0; index < input.length; index++) {
-            const date: dayjs.ConfigType = input[index];
-            output.push(dayjs(date).toDate());
-        }
-        return output;
+    toDate(input: dayjs.ConfigType): Date {
+        return dayjs(input).toDate();
     }
     /**
-     * Converts the input in Dayjs objects.
-     * @param {dayjs.ConfigType[]} input - Array of dates.
-     * @returns {dayjs.Dayjs[]} Array of Dayjs objects.
+     * Converts the input in a Dayjs object.
+     * @param {dayjs.ConfigType} input - Input date.
+     * @returns {dayjs.Dayjs} Dayjs object.
      */
-    toDayjs(input: dayjs.ConfigType[]): dayjs.Dayjs[] {
-        const output: dayjs.Dayjs[] = [];
-        for (let index = 0; index < input.length; index++) {
-            const date: dayjs.ConfigType = input[index];
-            output.push(dayjs(date));
-        }
-        return output;
+    toDayjs(input: dayjs.ConfigType): dayjs.Dayjs {
+        return dayjs(input);
     }
     /**
      * Returns the minimum date from an array of dates.
@@ -89,7 +79,12 @@ export class KupDates {
      * @returns {dayjs.Dayjs} Minimum date.
      */
     min(dates: dayjs.ConfigType[]): dayjs.Dayjs {
-        return dayjs.min(this.toDayjs(dates));
+        const dayjsDates: dayjs.Dayjs[] = [];
+        for (let index = 0; index < dates.length; index++) {
+            const date: dayjs.ConfigType = dates[index];
+            dayjsDates.push(dayjs(date));
+        }
+        return dayjs.min(dayjsDates);
     }
     /**
      * Returns the maximum date from an array of dates.
@@ -97,7 +92,12 @@ export class KupDates {
      * @returns {dayjs.Dayjs} Maximum date.
      */
     max(dates: dayjs.ConfigType[]): dayjs.Dayjs {
-        return dayjs.max(this.toDayjs(dates));
+        const dayjsDates: dayjs.Dayjs[] = [];
+        for (let index = 0; index < dates.length; index++) {
+            const date: dayjs.ConfigType = dates[index];
+            dayjsDates.push(dayjs(date));
+        }
+        return dayjs.max(dayjsDates);
     }
     /**
      * Registers a KupComponent in KupDates.

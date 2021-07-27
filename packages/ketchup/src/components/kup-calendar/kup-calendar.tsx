@@ -8,7 +8,6 @@ import {
     Row,
     Column,
 } from '../kup-data-table/kup-data-table-declarations';
-import { formatToMomentDate } from '../../utils/cell-formatter';
 import moment from 'moment';
 import {
     KupManager,
@@ -123,24 +122,44 @@ export class KupCalendar {
             getColumnByName(this.getColumns(), this.endCol);
 
         return this.getRows().map((row) => {
-            const startDate = formatToMomentDate(row.cells[this.dateCol]);
-            const endDate = formatToMomentDate(row.cells[this.dateCol]);
+            const cell = row.cells[this.dateCol];
+            const startDate = cell.obj
+                ? this.kupManager.dates.toDayjs(
+                      this.kupManager.objects.formatDate(cell.obj)
+                  )
+                : this.kupManager.dates.toDayjs(
+                      this.kupManager.dates.format(cell.value)
+                  );
+            const endDate = cell.obj
+                ? this.kupManager.dates.toDayjs(
+                      this.kupManager.objects.formatDate(cell.obj)
+                  )
+                : this.kupManager.dates.toDayjs(
+                      this.kupManager.dates.format(cell.value)
+                  );
 
             if (isHourRange) {
                 const startCell = row.cells[this.startCol];
                 const endCell = row.cells[this.endCol];
 
                 if (startCell && endCell) {
-                    const momentStart = moment(startCell.value, 'HH:mm:ss');
-                    const momentEnd = moment(endCell.value, 'HH:mm:ss');
+                    const momentStart = this.kupManager.dates.toDayjs(
+                        this.kupManager.dates.format(
+                            startCell.value,
+                            'HH:mm:ss'
+                        )
+                    );
+                    const momentEnd = this.kupManager.dates.toDayjs(
+                        this.kupManager.dates.format(endCell.value, 'HH:mm:ss')
+                    );
 
-                    startDate.hours(momentStart.hours());
-                    startDate.minutes(momentStart.minutes());
-                    startDate.seconds(momentStart.seconds());
+                    startDate.hour(momentStart.hour());
+                    startDate.minute(momentStart.minute());
+                    startDate.second(momentStart.second());
 
-                    endDate.hours(momentEnd.hours());
-                    endDate.minutes(momentEnd.minutes());
-                    endDate.seconds(momentEnd.seconds());
+                    endDate.hour(momentEnd.hour());
+                    endDate.minute(momentEnd.minute());
+                    endDate.second(momentEnd.second());
                 }
             }
 

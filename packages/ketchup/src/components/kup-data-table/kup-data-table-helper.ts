@@ -25,7 +25,6 @@ import {
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { kupManagerInstance } from '../../utils/kup-manager/kup-manager';
-import { formatToMomentDate } from '../../utils/cell-formatter';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupObjects } from '../../utils/kup-objects/kup-objects';
 import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
@@ -470,7 +469,7 @@ function updateGroupTotal(
                             ? kupObjects.formatDate(cell.obj)
                             : kupDates.format(cell.value);
                         if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate([momentValue])[0];
+                            const cellValue = kupDates.toDate(momentValue);
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
@@ -544,7 +543,7 @@ function updateGroupTotal(
                             ? kupObjects.formatDate(cell.obj)
                             : kupDates.format(cell.value);
                         if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate([momentValue])[0];
+                            const cellValue = kupDates.toDate(momentValue);
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
@@ -867,9 +866,11 @@ export function calcTotals(
                         }
                         // TODO DRY the MIN and MAX functions
                     } else if (kupObjects.isDate(cell.obj)) {
-                        const momentValue = formatToMomentDate(cell);
-                        if (momentValue.isValid()) {
-                            const cellValue = momentValue.toDate();
+                        const momentValue = cell.obj
+                            ? kupObjects.formatDate(cell.obj)
+                            : kupDates.format(cell.value);
+                        if (kupDates.isValid(momentValue)) {
+                            const cellValue = kupDates.toDate(momentValue);
                             const currentFooterValue = footerRow[key];
                             switch (true) {
                                 case totals[key] === TotalMode.MIN:
@@ -877,12 +878,11 @@ export function calcTotals(
                                         let moments = [];
                                         moments.push(cellValue);
                                         moments.push(
-                                            moment(
-                                                currentFooterValue,
-                                                'DD/MM/YYYY'
-                                            )
+                                            kupDates.format(currentFooterValue)
                                         );
-                                        footerRow[key] = moment.min(moments);
+                                        footerRow[key] = kupDates.format(
+                                            kupDates.min(moments)
+                                        );
                                     } else {
                                         footerRow[key] = cellValue;
                                     }
@@ -892,12 +892,11 @@ export function calcTotals(
                                         let moments = [];
                                         moments.push(cellValue);
                                         moments.push(
-                                            moment(
-                                                currentFooterValue,
-                                                'DD/MM/YYYY'
-                                            )
+                                            kupDates.format(currentFooterValue)
                                         );
-                                        footerRow[key] = moment.max(moments);
+                                        footerRow[key] = kupDates.format(
+                                            kupDates.max(moments)
+                                        );
                                     } else {
                                         footerRow[key] = cellValue;
                                     }
