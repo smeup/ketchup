@@ -29,8 +29,10 @@ import { formatToMomentDate } from '../../utils/cell-formatter';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupObjects } from '../../utils/kup-objects/kup-objects';
 import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupDates } from '../../utils/kup-dates/kup-dates';
 
 const dom: KupDom = document.documentElement as KupDom;
+const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 const kupObjects: KupObjects = dom.ketchup
     ? dom.ketchup.objects
     : new KupObjects();
@@ -464,19 +466,21 @@ function updateGroupTotal(
                             parent = parent.group.parent;
                         }
                     } else if (kupObjects.isDate(cell.obj)) {
-                        const momentValue = formatToMomentDate(cell);
-                        if (momentValue.isValid()) {
-                            const cellValue = momentValue.toDate();
+                        const momentValue = cell.obj
+                            ? kupObjects.formatDate(cell.obj)
+                            : kupDates.format(cell.value);
+                        if (kupDates.isValid(momentValue)) {
+                            const cellValue = kupDates.toDate([momentValue])[0];
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
                                 let moments = [];
                                 moments.push(cellValue);
                                 moments.push(
-                                    moment(currentTotalValue, 'DD/MM/YYYY')
+                                    kupDates.format(currentTotalValue)
                                 );
-                                groupRow.group.totals[key] = moment.min(
-                                    moments
+                                groupRow.group.totals[key] = kupDates.format(
+                                    kupDates.min(moments)
                                 );
                             } else {
                                 groupRow.group.totals[key] = cellValue;
@@ -490,10 +494,10 @@ function updateGroupTotal(
                                     let moments = [];
                                     moments.push(cellValue);
                                     moments.push(
-                                        moment(currentParentMin, 'DD/MM/YYYY')
+                                        kupDates.format(currentParentMin)
                                     );
-                                    parent.group.totals[key] = moment.min(
-                                        moments
+                                    parent.group.totals[key] = kupDates.format(
+                                        kupDates.min(moments)
                                     );
                                 } else {
                                     // first round
@@ -536,19 +540,21 @@ function updateGroupTotal(
                             parent = parent.group.parent;
                         }
                     } else if (kupObjects.isDate(cell.obj)) {
-                        const momentValue = formatToMomentDate(cell);
-                        if (momentValue.isValid()) {
-                            const cellValue = momentValue.toDate();
+                        const momentValue = cell.obj
+                            ? kupObjects.formatDate(cell.obj)
+                            : kupDates.format(cell.value);
+                        if (kupDates.isValid(momentValue)) {
+                            const cellValue = kupDates.toDate([momentValue])[0];
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
                                 let moments = [];
                                 moments.push(cellValue);
                                 moments.push(
-                                    moment(currentTotalValue, 'DD/MM/YYYY')
+                                    kupDates.format(currentTotalValue)
                                 );
-                                groupRow.group.totals[key] = moment.max(
-                                    moments
+                                groupRow.group.totals[key] = kupDates.format(
+                                    kupDates.max(moments)
                                 );
                             } else {
                                 groupRow.group.totals[key] = cellValue;
@@ -562,10 +568,10 @@ function updateGroupTotal(
                                     let moments = [];
                                     moments.push(cellValue);
                                     moments.push(
-                                        moment(currentParentMin, 'DD/MM/YYYY')
+                                        kupDates.format(currentParentMin)
                                     );
-                                    parent.group.totals[key] = moment.max(
-                                        moments
+                                    parent.group.totals[key] = kupDates.format(
+                                        kupDates.max(moments)
                                     );
                                 } else {
                                     // first round
