@@ -5,9 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ComponentListElement, ItemsDisplayMode, KupListEventPayload } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
-import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
@@ -48,6 +48,29 @@ import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time
 import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
+    interface KupAccordion {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupAutocomplete {
         /**
           * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
@@ -2473,6 +2496,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLKupAccordionElement extends Components.KupAccordion, HTMLStencilElement {
+    }
+    var HTMLKupAccordionElement: {
+        prototype: HTMLKupAccordionElement;
+        new (): HTMLKupAccordionElement;
+    };
     interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {
     }
     var HTMLKupAutocompleteElement: {
@@ -2774,6 +2803,7 @@ declare global {
         new (): HTMLKupUploadElement;
     };
     interface HTMLElementTagNameMap {
+        "kup-accordion": HTMLKupAccordionElement;
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
         "kup-box": HTMLKupBoxElement;
@@ -2827,6 +2857,14 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface KupAccordion {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+    }
     interface KupAutocomplete {
         /**
           * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
@@ -5024,6 +5062,7 @@ declare namespace LocalJSX {
         "typeOptions"?: UploadProps;
     }
     interface IntrinsicElements {
+        "kup-accordion": KupAccordion;
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
         "kup-box": KupBox;
@@ -5080,6 +5119,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "kup-accordion": LocalJSX.KupAccordion & JSXBase.HTMLAttributes<HTMLKupAccordionElement>;
             "kup-autocomplete": LocalJSX.KupAutocomplete & JSXBase.HTMLAttributes<HTMLKupAutocompleteElement>;
             "kup-badge": LocalJSX.KupBadge & JSXBase.HTMLAttributes<HTMLKupBadgeElement>;
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;
