@@ -95,6 +95,7 @@ import {
     KupLanguageTotals,
 } from '../../utils/kup-language/kup-language-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -513,17 +514,63 @@ export class KupTree {
     @Method()
     async openColumnMenu(column: string): Promise<void> {
         this.columnMenuAnchor = column;
+        if (!this.columnMenuCard) {
+            this.columnMenuCard = document.createElement('kup-card');
+            this.columnMenuCard.isMenu = true;
+            this.columnMenuCard.layoutNumber = 12;
+            this.columnMenuCard.sizeX = 'auto';
+            this.columnMenuCard.sizeY = 'auto';
+            this.columnMenuCard.tabIndex = -1;
+            this.columnMenuCard.onblur = () => {
+                if (
+                    this.kupManager.utilities.lastMouseDownPath.includes(
+                        this.columnMenuCard
+                    )
+                ) {
+                    this.columnMenuCard.focus();
+                } else {
+                    this.closeColumnMenu();
+                }
+            };
+            this.columnMenuCard.onclick = (e) => e.stopPropagation();
+            this.columnMenuCard.addEventListener(
+                'kup-card-click',
+                (e: CustomEvent<KupEventPayload>) => {
+                    this.kupTreeColumnMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        card: this.columnMenuCard,
+                        event: e,
+                        open: this.columnMenuCard.menuVisible,
+                    });
+                }
+            );
+            this.columnMenuCard.addEventListener(
+                'kup-card-event',
+                (e: CustomEvent<KupCardEventPayload>) => {
+                    this.columnMenuInstance.eventHandlers(e, this);
+                    this.kupTreeColumnMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        card: this.columnMenuCard,
+                        event: e,
+                        open: this.columnMenuCard.menuVisible,
+                    });
+                }
+            );
+        }
         this.columnMenuCard.setAttribute('data-column', column);
         this.columnMenuCard.data = this.columnMenuInstance.prepData(
             this,
             getColumnByName(this.getVisibleColumns(), column)
         );
         this.columnMenuInstance.open(this, column, this.tooltip);
-        this.columnMenuInstance.reposition(this);
+        this.columnMenuInstance.reposition(this, this.columnMenuCard);
         this.kupTreeColumnMenu.emit({
             comp: this,
             id: this.rootElement.id,
             card: this.columnMenuCard,
+            event: null,
             open: true,
         });
     }
@@ -533,11 +580,15 @@ export class KupTree {
     @Method()
     async closeColumnMenu(): Promise<void> {
         this.columnMenuAnchor = null;
+        if (this.columnMenuCard) {
+            this.columnMenuCard.data = null;
+        }
         this.columnMenuInstance.close(this.columnMenuCard);
         this.kupTreeColumnMenu.emit({
             comp: this,
             id: this.rootElement.id,
             card: this.columnMenuCard,
+            event: null,
             open: false,
         });
     }
@@ -615,6 +666,20 @@ export class KupTree {
         return rows;
     }
 
+    private setDynPosElements() {
+        // Column menu
+        if (this.columnMenuCard && this.columnMenuCard.data) {
+            this.columnMenuCard.data = this.columnMenuInstance.prepData(
+                this,
+                getColumnByName(
+                    this.getVisibleColumns(),
+                    this.columnMenuAnchor
+                ),
+                this.columnMenuCard.data
+            );
+        }
+    }
+
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
@@ -666,6 +731,7 @@ export class KupTree {
         const root = this.rootElement.shadowRoot;
         this.totalMenuPosition();
         this.checkScrollOnHover();
+        this.setDynPosElements();
 
         if (root) {
             let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
@@ -2244,44 +2310,6 @@ export class KupTree {
                         </table>
                     </div>
                     {tooltip}
-                    <kup-card
-                        data={
-                            this.columnMenuAnchor
-                                ? this.columnMenuInstance.prepData(
-                                      this,
-                                      getColumnByName(
-                                          this.getVisibleColumns(),
-                                          this.columnMenuAnchor
-                                      ),
-                                      this.columnMenuCard.data
-                                  )
-                                : null
-                        }
-                        id={KupColumnMenuIds.CARD_COLUMN_MENU}
-                        isMenu={true}
-                        layoutNumber={12}
-                        onBlur={() => {
-                            if (
-                                this.kupManager.utilities.lastMouseDownPath.includes(
-                                    this.columnMenuCard
-                                )
-                            ) {
-                                this.columnMenuCard.focus();
-                            } else {
-                                this.closeColumnMenu();
-                            }
-                        }}
-                        onClick={(e) => e.stopPropagation()}
-                        onkup-card-event={(e) => {
-                            this.columnMenuInstance.eventHandlers(e, this);
-                        }}
-                        ref={(el: HTMLKupCardElement) =>
-                            (this.columnMenuCard = el)
-                        }
-                        sizeX="auto"
-                        sizeY="auto"
-                        tabIndex={-1}
-                    ></kup-card>
                 </div>
             </Host>
         );
@@ -2298,6 +2326,9 @@ export class KupTree {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
+        }
+        if (this.columnMenuCard) {
+            this.columnMenuCard.remove();
         }
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.treeWrapperRef);

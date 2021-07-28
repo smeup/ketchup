@@ -1,4 +1,5 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
     Cell,
     CellsHolder,
@@ -138,6 +139,7 @@ export interface KupTreeContextMenuEventPayload extends KupEventPayload {
 
 export interface KupTreeColumnMenuEventPayload extends KupEventPayload {
     card: HTMLKupCardElement;
+    event: CustomEvent<KupCardEventPayload | KupEventPayload>;
     open: boolean;
 }
 
