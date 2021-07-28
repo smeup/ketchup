@@ -13,8 +13,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-
-import moment from 'moment';
 import {
     Cell,
     Column,
@@ -1230,9 +1228,7 @@ export class KupDataTable {
                     totalValue = row.group.id;
                 }
                 if (isValidStringDate(totalValue, ISO_DEFAULT_DATE_FORMAT)) {
-                    totalValue = moment(totalValue).format(
-                        ISO_DEFAULT_DATE_FORMAT
-                    );
+                    totalValue = this.kupManager.dates.format(totalValue);
                 }
                 cells[id] = {
                     value: String(totalValue),
