@@ -1,6 +1,6 @@
-import type { KupComponent } from '../../types/GenericTypes';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import minMax from 'dayjs/plugin/minMax';
 import 'dayjs/locale/es';
 import 'dayjs/locale/fr';
@@ -15,7 +15,6 @@ import 'dayjs/locale/zh';
  */
 export class KupDates {
     dayjs: Function;
-    defaultOutputFormat: string;
     locale: string;
     /**
      * Initializes KupDates.
@@ -24,16 +23,17 @@ export class KupDates {
         this.dayjs = dayjs;
         // this.locale = locale ? locale : this.setLocale(); -- TODO: find better approach to set locale from the browser
         this.locale = locale ? locale : 'it';
-        this.defaultOutputFormat = 'DD/MM/YYYY';
         dayjs.extend(customParseFormat);
+        dayjs.extend(localizedFormat);
         dayjs.extend(minMax);
-        if (this.locale && this.locale !== 'en' && this.locale !== 'en-us') {
+        if (this.locale && this.locale !== 'en') {
             dayjs.locale(this.locale);
         }
     }
     /**
      * Sets the locale from the browser.
      * @returns {string} Locale string.
+     * @see https://github.com/iamkun/dayjs/issues/732
      */
     setLocale(): string {
         const navLangs: false | readonly string[] =
@@ -42,16 +42,17 @@ export class KupDates {
         if (!navLangs || !navLangs.length) {
             return 'en';
         }
-        return navLangs[0].split('-')[0];
+        return navLangs[0].split('-')[0].toLowerCase();
     }
     /**
      * Formats the given date.
      * @param {dayjs.ConfigType} input - Date to be formatted.
      * @param {string} format - Output format.
+     * @see https://day.js.org/docs/en/display/format
      */
     format(input: dayjs.ConfigType, format?: string): string {
         if (!format) {
-            format = this.defaultOutputFormat;
+            format = 'L'; // MM/DD/YYYY, DD/MM/YYYY depending on locale
         }
         return dayjs(input).format(format);
     }

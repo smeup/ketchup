@@ -125,13 +125,12 @@ export class KupCalendar {
             const cell = row.cells[this.dateCol];
             const startDate = cell.obj
                 ? this.kupManager.dates.toDayjs(
-                      this.kupManager.objects.formatDate(cell.obj),
-                      'YYYY/MM/DD'
+                      this.kupManager.objects.parseDate(cell.obj)
                   )
                 : this.kupManager.dates.toDayjs(cell.value, 'YYYY/MM/DD');
             const endDate = cell.obj
                 ? this.kupManager.dates.toDayjs(
-                      this.kupManager.objects.formatDate(cell.obj),
+                      this.kupManager.objects.parseDate(cell.obj),
                       'YYYY/MM/DD'
                   )
                 : this.kupManager.dates.toDayjs(cell.value, 'YYYY/MM/DD');

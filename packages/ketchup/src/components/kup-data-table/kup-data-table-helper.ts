@@ -466,13 +466,10 @@ function updateGroupTotal(
                         }
                     } else if (kupObjects.isDate(cell.obj)) {
                         const momentValue = cell.obj
-                            ? kupObjects.formatDate(cell.obj)
-                            : kupDates.format(cell.value);
+                            ? kupObjects.parseDate(cell.obj)
+                            : kupDates.toDayjs(cell.value);
                         if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(
-                                momentValue,
-                                'DD/MM/YYYY'
-                            );
+                            const cellValue = kupDates.toDate(momentValue);
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
@@ -543,13 +540,10 @@ function updateGroupTotal(
                         }
                     } else if (kupObjects.isDate(cell.obj)) {
                         const momentValue = cell.obj
-                            ? kupObjects.formatDate(cell.obj)
-                            : kupDates.format(cell.value);
+                            ? kupObjects.parseDate(cell.obj)
+                            : kupDates.toDayjs(cell.value);
                         if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(
-                                momentValue,
-                                'DD/MM/YYYY'
-                            );
+                            const cellValue = kupDates.toDate(momentValue);
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
@@ -873,13 +867,10 @@ export function calcTotals(
                         // TODO DRY the MIN and MAX functions
                     } else if (kupObjects.isDate(cell.obj)) {
                         const momentValue = cell.obj
-                            ? kupObjects.formatDate(cell.obj)
-                            : kupDates.format(cell.value);
+                            ? kupObjects.parseDate(cell.obj)
+                            : kupDates.toDayjs(cell.value);
                         if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(
-                                momentValue,
-                                'DD/MM/YYYY'
-                            );
+                            const cellValue = kupDates.toDate(momentValue);
                             const currentFooterValue = footerRow[key];
                             switch (true) {
                                 case totals[key] === TotalMode.MIN:

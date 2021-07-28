@@ -84,8 +84,7 @@ export const convertRows = (
                         }
                     } else if (kupObjects.isDate(cell.obj)) {
                         const value = kupDates.toDate(
-                            kupObjects.formatDate(cell.obj),
-                            'YYYY/MM/DD'
+                            kupObjects.parseDate(cell.obj)
                         );
                         currentRow.push(value);
                         if (addMark) {
