@@ -125,18 +125,16 @@ export class KupCalendar {
             const cell = row.cells[this.dateCol];
             const startDate = cell.obj
                 ? this.kupManager.dates.toDayjs(
-                      this.kupManager.objects.formatDate(cell.obj)
+                      this.kupManager.objects.formatDate(cell.obj),
+                      'YYYY/MM/DD'
                   )
-                : this.kupManager.dates.toDayjs(
-                      this.kupManager.dates.format(cell.value)
-                  );
+                : this.kupManager.dates.toDayjs(cell.value, 'YYYY/MM/DD');
             const endDate = cell.obj
                 ? this.kupManager.dates.toDayjs(
-                      this.kupManager.objects.formatDate(cell.obj)
+                      this.kupManager.objects.formatDate(cell.obj),
+                      'YYYY/MM/DD'
                   )
-                : this.kupManager.dates.toDayjs(
-                      this.kupManager.dates.format(cell.value)
-                  );
+                : this.kupManager.dates.toDayjs(cell.value, 'YYYY/MM/DD');
 
             if (isHourRange) {
                 const startCell = row.cells[this.startCol];
@@ -144,13 +142,12 @@ export class KupCalendar {
 
                 if (startCell && endCell) {
                     const momentStart = this.kupManager.dates.toDayjs(
-                        this.kupManager.dates.format(
-                            startCell.value,
-                            'HH:mm:ss'
-                        )
+                        startCell.value,
+                        'HH:mm:ss'
                     );
                     const momentEnd = this.kupManager.dates.toDayjs(
-                        this.kupManager.dates.format(endCell.value, 'HH:mm:ss')
+                        endCell.value,
+                        'HH:mm:ss'
                     );
 
                     startDate.hour(momentStart.hour());

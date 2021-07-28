@@ -1,42 +1,48 @@
 import type { KupComponent } from '../../types/GenericTypes';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import minMax from 'dayjs/plugin/minMax';
+import 'dayjs/locale/es';
+import 'dayjs/locale/fr';
+import 'dayjs/locale/it';
+import 'dayjs/locale/pl';
+import 'dayjs/locale/ru';
+import 'dayjs/locale/zh';
 
 /**
  * Handles operations and formatting of dates.
  * @module KupDates
  */
 export class KupDates {
-    locale: HTMLScriptElement;
+    dayjs: Function;
+    locale: string;
     managedComponents: Set<KupComponent>;
     /**
      * Initializes KupDates.
      */
     constructor(locale?: string) {
-        if (locale) {
-            this.setLocale(locale);
-        }
+        this.dayjs = dayjs;
+        // this.locale = locale ? locale : this.setLocale(); -- TODO: find better approach to set locale from the browser
+        this.locale = locale ? locale : 'it';
+        dayjs.extend(customParseFormat);
         dayjs.extend(minMax);
+        if (this.locale && this.locale !== 'en' && this.locale !== 'en-us') {
+            dayjs.locale(this.locale);
+        }
         this.managedComponents = new Set();
     }
     /**
-     * Sets the locale.
-     * @todo this method is a draft/mockup - find a way to handle locales correctly.
-     * @param {any} component - The component calling this function.
+     * Sets the locale from the browser.
+     * @returns {string} Locale string.
      */
-    setLocale(locale: string): void {
-        if (!this.locale) {
-            this.locale = document.createElement('script');
-            document.head.appendChild(this.locale);
-            //const localizedFormat = require('dayjs/plugin/localizedFormat');
-            //dayjs.extend(localizedFormat);
+    setLocale(): string {
+        const navLangs: false | readonly string[] =
+            navigator.languages ||
+            (navigator.language ? [navigator.language] : false);
+        if (!navLangs || !navLangs.length) {
+            return 'en';
         }
-        this.locale.src = locale; // i.e.: https://unpkg.com/dayjs@1.8.21/locale/zh-cn.js (this should be improved, dayjs by default ships english only)
-        //const lang: string = locale.substr(
-        //    locale.indexOf('locale/'),
-        //    locale.indexOf('.js')
-        //);
-        // dayjs.locale(lang);
+        return navLangs[0].split('-')[0];
     }
     /**
      * Formats the given date.
@@ -60,18 +66,20 @@ export class KupDates {
     /**
      * Converts the input in a Date object.
      * @param {dayjs.ConfigType} input - Input date.
+     * @param {string} format - Format of the input date.
      * @returns {Date} Date object.
      */
-    toDate(input: dayjs.ConfigType): Date {
-        return dayjs(input).toDate();
+    toDate(input: dayjs.ConfigType, format: string): Date {
+        return dayjs(input, format, this.locale).toDate();
     }
     /**
      * Converts the input in a Dayjs object.
      * @param {dayjs.ConfigType} input - Input date.
+     * @param {string} format - Format of the input date.
      * @returns {dayjs.Dayjs} Dayjs object.
      */
-    toDayjs(input: dayjs.ConfigType): dayjs.Dayjs {
-        return dayjs(input);
+    toDayjs(input: dayjs.ConfigType, format: string): dayjs.Dayjs {
+        return dayjs(input, format, this.locale);
     }
     /**
      * Returns the minimum date from an array of dates.

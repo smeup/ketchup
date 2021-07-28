@@ -469,7 +469,10 @@ function updateGroupTotal(
                             ? kupObjects.formatDate(cell.obj)
                             : kupDates.format(cell.value);
                         if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(momentValue);
+                            const cellValue = kupDates.toDate(
+                                momentValue,
+                                'DD/MM/YYYY'
+                            );
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
@@ -543,7 +546,10 @@ function updateGroupTotal(
                             ? kupObjects.formatDate(cell.obj)
                             : kupDates.format(cell.value);
                         if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(momentValue);
+                            const cellValue = kupDates.toDate(
+                                momentValue,
+                                'DD/MM/YYYY'
+                            );
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
@@ -869,8 +875,12 @@ export function calcTotals(
                         const momentValue = cell.obj
                             ? kupObjects.formatDate(cell.obj)
                             : kupDates.format(cell.value);
+                        console.log('here');
                         if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(momentValue);
+                            const cellValue = kupDates.toDate(
+                                momentValue,
+                                'DD/MM/YYYY'
+                            );
                             const currentFooterValue = footerRow[key];
                             switch (true) {
                                 case totals[key] === TotalMode.MIN:

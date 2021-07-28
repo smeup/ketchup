@@ -3861,20 +3861,7 @@ export class KupDataTable {
                     this.kupManager.objects.isDate(column.obj)
                 ) {
                     if (footerValue) {
-                        if (
-                            isValidStringDate(
-                                footerValue,
-                                ISO_DEFAULT_DATE_FORMAT
-                            )
-                        ) {
-                            value = unformattedStringToFormattedStringDate(
-                                footerValue,
-                                null,
-                                column.obj.t + column.obj.p
-                            );
-                        } else {
-                            console.warn(`invalid date: ${footerValue}`);
-                        }
+                        value = footerValue;
                     }
                 } else {
                     value = numberToFormattedStringNumber(
