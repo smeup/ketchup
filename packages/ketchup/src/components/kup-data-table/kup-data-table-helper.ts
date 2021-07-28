@@ -875,7 +875,6 @@ export function calcTotals(
                         const momentValue = cell.obj
                             ? kupObjects.formatDate(cell.obj)
                             : kupDates.format(cell.value);
-                        console.log('here');
                         if (kupDates.isValid(momentValue)) {
                             const cellValue = kupDates.toDate(
                                 momentValue,

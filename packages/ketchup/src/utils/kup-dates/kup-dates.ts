@@ -15,8 +15,8 @@ import 'dayjs/locale/zh';
  */
 export class KupDates {
     dayjs: Function;
+    defaultOutputFormat: string;
     locale: string;
-    managedComponents: Set<KupComponent>;
     /**
      * Initializes KupDates.
      */
@@ -24,12 +24,12 @@ export class KupDates {
         this.dayjs = dayjs;
         // this.locale = locale ? locale : this.setLocale(); -- TODO: find better approach to set locale from the browser
         this.locale = locale ? locale : 'it';
+        this.defaultOutputFormat = 'DD/MM/YYYY';
         dayjs.extend(customParseFormat);
         dayjs.extend(minMax);
         if (this.locale && this.locale !== 'en' && this.locale !== 'en-us') {
             dayjs.locale(this.locale);
         }
-        this.managedComponents = new Set();
     }
     /**
      * Sets the locale from the browser.
@@ -51,7 +51,7 @@ export class KupDates {
      */
     format(input: dayjs.ConfigType, format?: string): string {
         if (!format) {
-            format = 'DD/MM/YYYY'; // Should default to locale's
+            format = this.defaultOutputFormat;
         }
         return dayjs(input).format(format);
     }
@@ -69,8 +69,12 @@ export class KupDates {
      * @param {string} format - Format of the input date.
      * @returns {Date} Date object.
      */
-    toDate(input: dayjs.ConfigType, format: string): Date {
-        return dayjs(input, format, this.locale).toDate();
+    toDate(input: dayjs.ConfigType, format?: string): Date {
+        if (format) {
+            return dayjs(input, format).toDate();
+        } else {
+            return dayjs(input).toDate();
+        }
     }
     /**
      * Converts the input in a Dayjs object.
@@ -78,8 +82,12 @@ export class KupDates {
      * @param {string} format - Format of the input date.
      * @returns {dayjs.Dayjs} Dayjs object.
      */
-    toDayjs(input: dayjs.ConfigType, format: string): dayjs.Dayjs {
-        return dayjs(input, format, this.locale);
+    toDayjs(input: dayjs.ConfigType, format?: string): dayjs.Dayjs {
+        if (format) {
+            return dayjs(input, format);
+        } else {
+            return dayjs(input);
+        }
     }
     /**
      * Returns the minimum date from an array of dates.
@@ -106,22 +114,5 @@ export class KupDates {
             dayjsDates.push(dayjs(date));
         }
         return dayjs.max(dayjsDates);
-    }
-    /**
-     * Registers a KupComponent in KupDates.
-     * @param {any} component - The component calling this function.
-     */
-    register(component: any): void {
-        this.managedComponents.add(component.rootElement);
-    }
-    /**
-     * Unregisters a KupComponent.
-     *
-     * @param {any} component - The component calling this function.
-     */
-    unregister(component: any): void {
-        if (this.managedComponents) {
-            this.managedComponents.delete(component.rootElement);
-        }
     }
 }
