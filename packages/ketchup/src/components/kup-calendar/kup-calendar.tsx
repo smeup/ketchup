@@ -8,7 +8,6 @@ import {
     Row,
     Column,
 } from '../kup-data-table/kup-data-table-declarations';
-import moment from 'moment';
 import {
     KupManager,
     kupManagerInstance,
@@ -184,8 +183,8 @@ export class KupCalendar {
 
     private emitNavEvent() {
         // see https://fullcalendar.io/docs/view-object
-        const to: Date = moment(this.calendar.view.currentEnd)
-            .subtract(1, 'day')
+        const to: Date = this.kupManager.dates
+            .subtract(this.calendar.view.currentEnd, 1, 'day')
             .toDate();
 
         this.kupCalendarViewChanged.emit({

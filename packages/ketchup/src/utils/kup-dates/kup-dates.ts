@@ -116,4 +116,19 @@ export class KupDates {
         }
         return dayjs.max(dayjsDates);
     }
+    /**
+     * Subtracts the given amount of time from the input date.
+     * @param {dayjs.ConfigType} input - Input date.
+     * @param {number} value - The value of the subtraction (i.e.: 7).
+     * @param {dayjs.OpUnitType} unit - The unit of the subtraction (i.e.: "year").
+     * @returns {dayjs.Dayjs} Computed date.
+     * @see https://day.js.org/docs/en/manipulate/subtract
+     */
+    subtract(
+        input: dayjs.ConfigType,
+        value: number,
+        unit?: dayjs.OpUnitType
+    ): dayjs.Dayjs {
+        return dayjs(input).subtract(value, unit);
+    }
 }
