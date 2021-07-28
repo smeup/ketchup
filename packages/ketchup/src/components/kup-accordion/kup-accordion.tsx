@@ -15,7 +15,10 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
-import { KupAccordionProps } from './kup-accordion-declarations';
+import {
+    KupAccordionData,
+    KupAccordionProps,
+} from './kup-accordion-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -42,6 +45,11 @@ export class KupAccordion {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
+    /**
+     * Data of the accordion.
+     * @default null
+     */
+    @Prop() data: KupAccordionData = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -89,6 +97,13 @@ export class KupAccordion {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    private renderAccordion(): VNode[] {
+        return [];
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -111,6 +126,7 @@ export class KupAccordion {
     }
 
     render() {
+        const content: VNode[] = this.renderAccordion();
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
@@ -118,7 +134,7 @@ export class KupAccordion {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component"></div>
+                <div id="kup-component">{content}</div>
             </Host>
         );
     }

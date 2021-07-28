@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { KupAccordionData } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ComponentListElement, ItemsDisplayMode, KupListEventPayload } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -55,6 +56,11 @@ export namespace Components {
           * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
+        /**
+          * Data of the accordion.
+          * @default null
+         */
+        "data": KupAccordionData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2864,6 +2870,11 @@ declare namespace LocalJSX {
           * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Data of the accordion.
+          * @default null
+         */
+        "data"?: KupAccordionData;
     }
     interface KupAutocomplete {
         /**
