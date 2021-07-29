@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>List</title>
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <kup-list id="list-1" two-line role-type="listbox"></kup-list>
+        <kup-list
+            id="list-2"
+            two-line
+            show-icons
+            role-type="listbox"
+        ></kup-list>
+        <kup-list
+            id="list-3"
+            hide-text
+            show-icons
+            role-type="listbox"
+            selectable="false"
+        ></kup-list>
+        <kup-list id="list-4" role-type="radiogroup"></kup-list>
+        <kup-list id="list-5" role-type="group"></kup-list
+    ></body>
+    <script src="/assets/list.js"></script>
+</html>

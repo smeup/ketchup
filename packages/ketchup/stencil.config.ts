@@ -38,7 +38,7 @@ export const config: Config = {
                 { src: 'echart.html' },
                 { src: 'gauge.html' },
                 { src: 'layout-component.html' },
-                { src: 'list-box.html' },
+                { src: 'list.html' },
                 { src: 'magic-box.html' },
                 { src: 'nav-bar.html' },
                 { src: 'probe.html' },

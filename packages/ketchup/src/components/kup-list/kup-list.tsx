@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    State,
     Watch,
 } from '@stencil/core';
 import { MDCList } from '@material/list';
@@ -36,6 +37,16 @@ import { getProps, setProps } from '../../utils/utils';
 })
 export class KupList {
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * The value of the component.
+     * @default []
+     */
+    @State() selected: string[] = [];
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -157,82 +168,6 @@ export class KupList {
     })
     kupInput: EventEmitter<KupListEventPayload>;
 
-    /*-------------------------------------------------*/
-    /*                  W a t c h e r s                */
-    /*-------------------------------------------------*/
-
-    @Watch('filter')
-    watchFilter() {
-        this.focIndex = -1;
-
-        this.filteredItems = [];
-        let index = 0;
-        this.data.map((item) => {
-            this.setUnselected(item, index++);
-        });
-        this.data = [...this.data];
-    }
-
-    @Watch('arrowDown')
-    watchArrowDown() {
-        if (this.arrowDown == true) {
-            if (this.focIndex < this.listComponent.listElements.length - 1) {
-                if (this.focIndex == -1) {
-                    let idx = this.listComponent
-                        .getDefaultFoundation()
-                        .focusFirstElement();
-                    this.focIndex = idx;
-                } else {
-                    let idx = this.listComponent
-                        .getDefaultFoundation()
-                        .focusNextElement(this.focIndex);
-                    this.focIndex = idx;
-                }
-                //this.focIndex++;
-            }
-            this.arrowDown = false;
-        }
-    }
-
-    @Watch('arrowUp')
-    watchArrowUp() {
-        if (this.arrowUp == true) {
-            if (this.focIndex > 0) {
-                this.listComponent
-                    .getDefaultFoundation()
-                    .focusPrevElement(this.focIndex--);
-            }
-            this.arrowUp = false;
-        }
-    }
-
-    //---- Methods ----
-
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupListProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupListProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
-
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
         this.kupBlur.emit({
             comp: this,
@@ -257,6 +192,19 @@ export class KupList {
             el = e.target as HTMLLIElement;
         } else {
             el = (e.target as HTMLElement).closest('li');
+        }
+        switch (this.roleType) {
+            case KupList.ROLE_CHECKBOX:
+                if (this.selected.includes(item.value)) {
+                    this.selected.splice(this.selected.indexOf(item.value));
+                } else {
+                    this.selected.push(item.value);
+                }
+                this.selected = [...this.selected];
+                break;
+            default:
+                this.selected = [item.value];
+                break;
         }
         el.blur();
         this.onKupClickInternalUse(e.target, item, index);
@@ -314,10 +262,92 @@ export class KupList {
         }
     }
 
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('filter')
+    watchFilter() {
+        this.focIndex = -1;
+
+        this.filteredItems = [];
+        let index = 0;
+        this.data.map((item) => {
+            this.setUnselected(item, index++);
+        });
+        this.data = [...this.data];
+    }
+
+    @Watch('arrowDown')
+    watchArrowDown() {
+        if (this.arrowDown == true) {
+            if (this.focIndex < this.listComponent.listElements.length - 1) {
+                if (this.focIndex == -1) {
+                    let idx = this.listComponent
+                        .getDefaultFoundation()
+                        .focusFirstElement();
+                    this.focIndex = idx;
+                } else {
+                    let idx = this.listComponent
+                        .getDefaultFoundation()
+                        .focusNextElement(this.focIndex);
+                    this.focIndex = idx;
+                }
+                //this.focIndex++;
+            }
+            this.arrowDown = false;
+        }
+    }
+
+    @Watch('arrowUp')
+    watchArrowUp() {
+        if (this.arrowUp == true) {
+            if (this.focIndex > 0) {
+                this.listComponent
+                    .getDefaultFoundation()
+                    .focusPrevElement(this.focIndex--);
+            }
+            this.arrowUp = false;
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupListProps, descriptions);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupListProps, props);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+
     @Method()
     async resetFilter(newFilter: string) {
         this.filter = newFilter;
     }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     renderSeparator() {
         return <li role="separator" class="list-divider"></li>;
@@ -574,11 +604,19 @@ export class KupList {
         );
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
+        for (let index = 0; index < this.data.length; index++) {
+            const el: ComponentListElement = this.data[index];
+            if (el.selected) {
+                this.selected.push(el.value);
+            }
+        }
     }
 
     componentDidLoad() {
