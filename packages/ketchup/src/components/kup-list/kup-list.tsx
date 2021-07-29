@@ -10,9 +10,7 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
-
 import { MDCList } from '@material/list';
-import { MDCRipple } from '@material/ripple';
 import {
     ComponentListElement,
     KupListEventPayload,
@@ -39,13 +37,19 @@ import { getProps, setProps } from '../../utils/utils';
 export class KupList {
     @Element() rootElement: HTMLElement;
 
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
      * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
      */
     @Prop({ mutable: true }) arrowDown: boolean = false;
     @Prop({ mutable: true }) arrowUp: boolean = false;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -89,7 +93,9 @@ export class KupList {
      */
     @Prop() twoLine: boolean = false;
 
-    //---- Internal state ----
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     static ROLE_LISTBOX: string = 'listbox';
     static ROLE_RADIOGROUP: string = 'radiogroup';
@@ -107,9 +113,9 @@ export class KupList {
 
     private focIndex: number = -1;
 
-    /**
-     * Events.
-     */
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kup-list-blur',
@@ -150,6 +156,10 @@ export class KupList {
         bubbles: true,
     })
     kupInput: EventEmitter<KupListEventPayload>;
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
 
     @Watch('filter')
     watchFilter() {
@@ -310,16 +320,11 @@ export class KupList {
     }
 
     renderSeparator() {
-        return <li role="separator" class="mdc-list-divider"></li>;
+        return <li role="separator" class="list-divider"></li>;
     }
 
     renderListItem(item: ComponentListElement, index: number) {
-        let rippleEl: HTMLElement = undefined;
         this.filteredItems[index] = item;
-
-        if (this.selectable) {
-            rippleEl = <span class="mdc-list-item__ripple"></span>;
-        }
 
         if (item.selected != true) {
             item.selected = false;
@@ -340,18 +345,18 @@ export class KupList {
         let secTextTag = [];
         if (item.secondaryText && item.secondaryText != '') {
             primaryTextTag = [
-                <span class="mdc-list-item__primary-text">{item.text}</span>,
+                <span class="list-item__primary-text">{item.text}</span>,
             ];
             secTextTag = [
-                <span class="mdc-list-item__secondary-text">
+                <span class="list-item__secondary-text">
                     {item.secondaryText}
                 </span>,
             ];
         }
-        let classAttr = 'mdc-list-item';
+        let classAttr = 'list-item';
         let tabIndexAttr = item.selected == true ? '0' : '-1';
         if (item.selected == true && this.isListBoxRule()) {
-            classAttr += ' mdc-list-item--selected';
+            classAttr += ' list-item--selected';
         }
         let roleAttr = 'option';
 
@@ -362,7 +367,7 @@ export class KupList {
         }
         let innerSpanTag = [
             imageTag,
-            <span class="mdc-list-item__text">
+            <span class="list-item__text">
                 {primaryTextTag}
                 {secTextTag}
             </span>,
@@ -381,7 +386,7 @@ export class KupList {
                 display: 'none',
             };
             innerSpanTag = [
-                <span class="mdc-list-item__graphic">
+                <span class="list-item__graphic">
                     <input type="radio" style={trickForMDC} />
                     <kup-radio
                         data={dataTmp}
@@ -391,7 +396,7 @@ export class KupList {
                 </span>,
                 imageTag,
                 <label
-                    class="mdc-list-item__text"
+                    class="list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
                 >
                     {primaryTextTag}
@@ -408,10 +413,10 @@ export class KupList {
             };
 
             innerSpanTag = [
-                <span class="mdc-list-item__graphic">
+                <span class="list-item__graphic">
                     <input type="checkbox" style={trickForMDC} />
                     <kup-checkbox
-                        class="mdc-checkbox"
+                        class="checkbox"
                         id={this.rootElement.id + '_' + index}
                         checked={checkedAttr}
                         ref={(el) => (this.checkboxes[index] = el as any)}
@@ -419,7 +424,7 @@ export class KupList {
                 </span>,
                 imageTag,
                 <label
-                    class="mdc-list-item__text"
+                    class="list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
                 >
                     {primaryTextTag}
@@ -451,7 +456,6 @@ export class KupList {
                         : (e: any) => this.onKupInput(e, item, index)
                 }
             >
-                {rippleEl}
                 {innerSpanTag}
             </li>
         );
@@ -469,7 +473,7 @@ export class KupList {
             <FImage
                 {...propsFImage}
                 resource={icon}
-                wrapperClass={`mdc-icon-button__icon icon-container material-icons`}
+                wrapperClass={`icon-button__icon icon-container material-icons`}
             />
         );
     }
@@ -582,15 +586,8 @@ export class KupList {
         // Called once just after the component fully loaded and the first render() occurs.
         const root = this.rootElement.shadowRoot;
         if (root) {
-            this.listComponent = MDCList.attachTo(
-                root.querySelector('.mdc-list')
-            );
-
-            this.listComponent.singleSelection = this.isSingleSelection();
-
-            this.listComponent.listElements.map(
-                (listItemEl: any) => new MDCRipple(listItemEl)
-            );
+            //this.listComponent = MDCList.attachTo(root.querySelector('.list'));
+            //this.listComponent.singleSelection = this.isSingleSelection();
         }
         this.kupManager.debug.logLoad(this, true);
     }
@@ -604,7 +601,7 @@ export class KupList {
     }
 
     render() {
-        let componentClass: string = 'mdc-list';
+        let componentClass: string = 'list';
         let wrapperClass = undefined;
 
         if (this.isMenu) {
@@ -618,11 +615,11 @@ export class KupList {
         this.checkRoleType();
 
         if (this.selectable != true) {
-            componentClass += ' mdc-list--non-interactive';
+            componentClass += ' list--non-interactive';
         }
 
         if (this.twoLine) {
-            componentClass += ' mdc-list--two-line';
+            componentClass += ' list--two-line';
         }
 
         if (this.hideText) {

@@ -1633,7 +1633,9 @@ export namespace Components {
         "arrowDown": boolean;
         "arrowUp": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -4256,7 +4258,9 @@ declare namespace LocalJSX {
         "arrowDown"?: boolean;
         "arrowUp"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4283,9 +4287,6 @@ declare namespace LocalJSX {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible"?: boolean;
-        /**
-          * Events.
-         */
         "onKup-list-blur"?: (event: CustomEvent<KupListEventPayload>) => void;
         "onKup-list-change"?: (event: CustomEvent<KupListEventPayload>) => void;
         "onKup-list-click"?: (event: CustomEvent<KupListEventPayload>) => void;

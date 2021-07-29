@@ -37,6 +37,7 @@
     <body>
         <h4>Material ListBox (widget)</h4>
         <kup-list
+            two-line
             is-filterable="false"
             selectable="false"
             field-id="pippo1"
@@ -135,21 +136,6 @@
                 data: [...itemsForListBox],
                 selectable: true,
             };
-            selectBox1.data = {
-                'kup-text-field': { ...textfieldData },
-                'kup-list': JSON.parse(JSON.stringify(listData)),
-            };
-            selectBox1.initialValue = 'Text 5';
-            //Object.getOwnPropertyNames(String.prototype).filter(item => typeof String.prototype[item] === 'function')
-
-            let selectBox2 = document.getElementsByTagName('kup-combobox')[1];
-            //selectBox2.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
-            //selectBox2.listData = {data: [...itemsForListBox], selectable: true,};
-            selectBox2.data = {
-                'text-field': { ...textfieldData },
-                'kup-list': JSON.parse(JSON.stringify(listData)),
-            };
-            selectBox2.initialValue = 'Text 4';
         </script></body
     >
 </html>
