@@ -15,10 +15,16 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
+import { Cell, CellData } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupAccordionData,
     KupAccordionProps,
 } from './kup-accordion-declarations';
+
+import {
+    TreeNode,
+} from './../kup-tree/kup-tree-declarations';
+import { getTreeNodeFromPath } from '../kup-tree/kup-tree-faker';
 
 @Component({
     tag: 'kup-accordion',
@@ -98,10 +104,60 @@ export class KupAccordion {
     /*-------------------------------------------------*/
 
     /**
+     * This method is used to build TreeNode structure and create kup-tree component
+     * @param cellData
+     * @returns VNode[]
+     */
+    private renderKupTree(cellData: CellData): VNode[]{
+        const kupTree: VNode[] = [];
+        const tree: TreeNode[] = [];
+        
+
+        for(var i=0; i<cellData.data.length; i++){
+            const treeNode: TreeNode = cellData.data[i];
+            tree.push(treeNode);
+        }
+
+        kupTree.push(
+            <kup-tree data={tree}></kup-tree>
+        );
+
+        return kupTree;
+    }
+
+    /**
+     * This method is used to create the sub component structure
+     * @param cell 
+     * @returns VNode[]
+     */
+    private renderSubComponent(cell:Cell): VNode[] {
+        const shape = cell.shape;
+
+        switch(shape){
+            case "TRE":{
+                return this.renderKupTree(cell.data);
+            }
+            default: return
+        }
+    }
+
+    /**
      * This method is used to trigger a new render of the component.
+     * @returns VNode[]
      */
     private renderAccordion(): VNode[] {
-        return [];
+       const categories: VNode[] = [];
+
+        for(var i=0; i<this.data.columns.length; i++) {
+            const subComponent: VNode[] = this.renderSubComponent(this.data.rows[0].cells[this.data.columns[i].name]);
+            categories.push(
+                <div>
+                    <button>{this.data.columns[i].title}</button>
+                    <div>{subComponent}</div>
+                </div>
+            );
+        }
+        return categories;
     }
 
     /*-------------------------------------------------*/
