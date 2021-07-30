@@ -175,20 +175,48 @@ export class KupAutocomplete {
      */
     @Prop({ reflect: true }) serverHandledFilter: boolean = false;
 
-    @Listen('keyup', { target: 'document' })
-    listenKeyup(e: KeyboardEvent) {
+    @Listen('keydown')
+    listenKeydown(e: KeyboardEvent) {
         if (this.isListOpened()) {
-            if (e.key === 'Escape') {
-                this.closeList();
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.select().then(() => {
+                        this.closeList();
+                        this.textfieldEl.focus();
+                    });
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.closeList();
+                    break;
             }
-            if (e.key === 'Enter') {
-                this.closeList();
-            }
-            if (e.key === 'ArrowDown') {
-                this.listEl.arrowDown = true;
-            }
-            if (e.key === 'ArrowUp') {
-                this.listEl.arrowUp = true;
+        } else {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.openList(false);
+                    this.listEl.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.openList(false);
+                    this.listEl.focusPrevious();
+                    break;
             }
         }
     }
@@ -408,6 +436,7 @@ export class KupAutocomplete {
                 isMenu={true}
                 onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
+                tabindex={-1}
             ></kup-list>
         );
     }

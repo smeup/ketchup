@@ -12,7 +12,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { MDCList } from '@material/list';
 import {
     ComponentListElement,
     KupListEventPayload,
@@ -62,11 +61,6 @@ export class KupList {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
-    /**
-     * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
-     */
-    @Prop({ mutable: true }) arrowDown: boolean = false;
-    @Prop({ mutable: true }) arrowUp: boolean = false;
     /**
      * Custom style of the component.
      * @default ""
@@ -123,7 +117,6 @@ export class KupList {
     static ROLE_CHECKBOX: string = 'group';
 
     private filteredItems: ComponentListElement[] = [];
-    private listComponent: MDCList = null;
     /**
      * Instance of the KupManager class.
      */
@@ -131,8 +124,6 @@ export class KupList {
 
     private radios: KupRadio[] = [];
     private checkboxes: KupCheckbox[] = [];
-
-    private focIndex: number = -1;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -189,23 +180,25 @@ export class KupList {
     /*-------------------------------------------------*/
 
     @Listen('keydown')
-    listenKeyup(e: KeyboardEvent) {
-        switch (e.key) {
-            case 'ArrowDown':
-                e.preventDefault();
-                e.stopPropagation();
-                this.focusNext();
-                break;
-            case 'ArrowUp':
-                e.preventDefault();
-                e.stopPropagation();
-                this.focusPrevious();
-                break;
-            case 'Enter':
-                e.preventDefault();
-                e.stopPropagation();
-                this.select(this.focused);
-                break;
+    listenKeydown(e: KeyboardEvent) {
+        if (!this.isMenu) {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.select(this.focused);
+                    break;
+            }
         }
     }
 
@@ -215,47 +208,12 @@ export class KupList {
 
     @Watch('filter')
     watchFilter() {
-        this.focIndex = -1;
-
         this.filteredItems = [];
         let index = 0;
         this.data.map((item) => {
             this.setUnselected(item, index++);
         });
         this.data = [...this.data];
-    }
-
-    @Watch('arrowDown')
-    watchArrowDown() {
-        if (this.arrowDown == true) {
-            if (this.focIndex < this.listComponent.listElements.length - 1) {
-                if (this.focIndex == -1) {
-                    let idx = this.listComponent
-                        .getDefaultFoundation()
-                        .focusFirstElement();
-                    this.focIndex = idx;
-                } else {
-                    let idx = this.listComponent
-                        .getDefaultFoundation()
-                        .focusNextElement(this.focIndex);
-                    this.focIndex = idx;
-                }
-                //this.focIndex++;
-            }
-            this.arrowDown = false;
-        }
-    }
-
-    @Watch('arrowUp')
-    watchArrowUp() {
-        if (this.arrowUp == true) {
-            if (this.focIndex > 0) {
-                this.listComponent
-                    .getDefaultFoundation()
-                    .focusPrevElement(this.focIndex--);
-            }
-            this.arrowUp = false;
-        }
     }
 
     /*-------------------------------------------------*/
@@ -293,8 +251,19 @@ export class KupList {
     async focusPrevious(): Promise<void> {
         const listItems: NodeListOf<HTMLElement> =
             this.rootElement.shadowRoot.querySelectorAll('.list-item');
-        if (isNaN(this.focused)) {
-            this.focused = 0;
+        if (
+            isNaN(this.focused) ||
+            this.focused === null ||
+            this.focused === undefined
+        ) {
+            if (this.selected.length === 1) {
+                const selectedItem: ComponentListElement = this.data.find(
+                    (x: ComponentListElement) => x.value === this.selected[0]
+                );
+                this.focused = this.data.indexOf(selectedItem) - 1;
+            } else {
+                this.focused = 0;
+            }
         } else {
             this.focused--;
         }
@@ -310,8 +279,19 @@ export class KupList {
     async focusNext(): Promise<void> {
         const listItems: NodeListOf<HTMLElement> =
             this.rootElement.shadowRoot.querySelectorAll('.list-item');
-        if (isNaN(this.focused)) {
-            this.focused = 0;
+        if (
+            isNaN(this.focused) ||
+            this.focused === null ||
+            this.focused === undefined
+        ) {
+            if (this.selected.length === 1) {
+                const selectedItem: ComponentListElement = this.data.find(
+                    (x: ComponentListElement) => x.value === this.selected[0]
+                );
+                this.focused = this.data.indexOf(selectedItem) + 1;
+            } else {
+                this.focused = 0;
+            }
         } else {
             this.focused++;
         }
@@ -322,37 +302,42 @@ export class KupList {
     }
     /**
      * Selects the specified item.
-     * @param {number} index - Based zero index of the item that must be selected.
+     * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
      */
     @Method()
-    async select(index: number): Promise<void> {
-        const value: string = this.data[index].value;
-        switch (this.roleType) {
-            case KupList.ROLE_CHECKBOX:
-                if (this.selected.includes(value)) {
-                    this.selected.splice(this.selected.indexOf(value));
-                } else {
-                    this.selected.push(value);
-                }
-                this.selected = new Array(...this.selected);
-                break;
-            default:
-                this.selected = new Array(value);
-                break;
+    async select(index?: number): Promise<void> {
+        if (index === undefined) {
+            index = this.focused;
         }
-        for (let index = 0; index < this.data.length; index++) {
-            const item: ComponentListElement = this.data[index];
-            if (this.selected.includes(item.value)) {
-                item.selected = true;
-            } else {
-                item.selected = false;
+        if (index !== null && index !== undefined && !isNaN(index)) {
+            const value: string = this.data[index].value;
+            switch (this.roleType) {
+                case KupList.ROLE_CHECKBOX:
+                    if (this.selected.includes(value)) {
+                        this.selected.splice(this.selected.indexOf(value));
+                    } else {
+                        this.selected.push(value);
+                    }
+                    this.selected = new Array(...this.selected);
+                    break;
+                default:
+                    this.selected = new Array(value);
+                    break;
             }
+            for (let index = 0; index < this.data.length; index++) {
+                const item: ComponentListElement = this.data[index];
+                if (this.selected.includes(item.value)) {
+                    item.selected = true;
+                } else {
+                    item.selected = false;
+                }
+            }
+            this.kupClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                selected: this.data[index],
+            });
         }
-        this.kupClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            selected: this.data[index],
-        });
     }
     /**
      * Resets filter.
@@ -641,13 +626,6 @@ export class KupList {
     }
 
     componentDidLoad() {
-        this.listComponent = null;
-        // Called once just after the component fully loaded and the first render() occurs.
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            //this.listComponent = MDCList.attachTo(root.querySelector('.list'));
-            //this.listComponent.singleSelection = this.isSingleSelection();
-        }
         this.kupManager.debug.logLoad(this, true);
     }
 

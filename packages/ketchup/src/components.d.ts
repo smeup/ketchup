@@ -1628,11 +1628,6 @@ export namespace Components {
     }
     interface KupList {
         /**
-          * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
-         */
-        "arrowDown": boolean;
-        "arrowUp": boolean;
-        /**
           * Custom style of the component.
           * @default ""
           * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1690,9 +1685,9 @@ export namespace Components {
         "roleType"?: string;
         /**
           * Selects the specified item.
-          * @param index - Based zero index of the item that must be selected.
+          * @param index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
          */
-        "select": (index: number) => Promise<void>;
+        "select": (index?: number) => Promise<void>;
         /**
           * Defines whether items are selectable or not.
          */
@@ -4268,11 +4263,6 @@ declare namespace LocalJSX {
         "showPlaceholder"?: boolean;
     }
     interface KupList {
-        /**
-          * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
-         */
-        "arrowDown"?: boolean;
-        "arrowUp"?: boolean;
         /**
           * Custom style of the component.
           * @default ""
