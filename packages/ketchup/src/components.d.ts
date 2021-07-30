@@ -1651,6 +1651,14 @@ export namespace Components {
          */
         "filter": string;
         /**
+          * Focuses the next element of the list.
+         */
+        "focusNext": () => Promise<void>;
+        /**
+          * Focuses the previous element of the list.
+         */
+        "focusPrevious": () => Promise<void>;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
@@ -1672,11 +1680,19 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Resets filter. memo - FOSLUC to PASCAR: why isn't it enough to change only the prop?
+         */
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
          */
         "roleType"?: string;
+        /**
+          * Selects the specified item.
+          * @param index - Based zero index of the item that must be selected.
+         */
+        "select": (index: number) => Promise<void>;
         /**
           * Defines whether items are selectable or not.
          */
@@ -4287,11 +4303,9 @@ declare namespace LocalJSX {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible"?: boolean;
-        "onKup-list-blur"?: (event: CustomEvent<KupListEventPayload>) => void;
-        "onKup-list-change"?: (event: CustomEvent<KupListEventPayload>) => void;
+        "onKup-list-blur"?: (event: CustomEvent<KupEventPayload>) => void;
         "onKup-list-click"?: (event: CustomEvent<KupListEventPayload>) => void;
-        "onKup-list-focus"?: (event: CustomEvent<KupListEventPayload>) => void;
-        "onKup-list-input"?: (event: CustomEvent<KupListEventPayload>) => void;
+        "onKup-list-focus"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
          */

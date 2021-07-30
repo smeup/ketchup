@@ -31,6 +31,7 @@
     justify-content: flex-start;
     padding: 0 0.75em;
     overflow: hidden;
+    outline: none;
     transition: background-color 120ms, color 120ms;
 
     &.list-item--activated,
@@ -124,7 +125,7 @@
     .list-item {
       &:not(.list-item--selected) {
         &:hover,
-        &:focus {
+        &.list-item--focused {
           background-color: var(--kup-hover-background-color);
           color: var(--kup-hover-color);
         }

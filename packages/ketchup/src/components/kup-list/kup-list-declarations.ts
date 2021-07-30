@@ -196,5 +196,4 @@ export function getItemByDisplayMode(
 
 export interface KupListEventPayload extends KupEventPayload {
     selected: ComponentListElement;
-    el: EventTarget;
 }
