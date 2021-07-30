@@ -1,2 +1,56 @@
 @import 'styles/kup-accordion-main.scss';
 @import 'styles/kup-accordion-classes.scss';
+
+:host {
+    font-size: var(--kup-font-size);
+    height: 100%;
+    width: 100%;
+    border: 5px solid black;
+}
+
+.kup-component{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.accordion{
+    /*&-category-wrapper{
+
+    }*/
+
+    &-button{
+        width: 100%;
+        padding: 16px 24px;
+        outline: none;
+        border: 0;
+        cursor: pointer;
+        text-align: left;
+
+        &:hover{
+            background-color: lightgrey;
+            transition: max-height 0.2s ease-out;
+            /*background-color: var(--kup-hover);*/
+        }
+
+        &--active{
+            width: 100%;
+            padding: 16px 24px;
+            outline: none;
+            border: 0;
+            cursor: pointer;
+            text-align: left;
+            background-color: lightgrey;
+        }
+    }
+
+    &-subcomponent{
+        display: none;
+        overflow: hidden;
+
+        &--active{
+            display: block;
+        }
+    }
+}

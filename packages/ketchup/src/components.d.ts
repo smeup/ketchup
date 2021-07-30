@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData } from "./components/kup-accordion/kup-accordion-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ComponentListElement, ItemsDisplayMode, KupListEventPayload } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -15,7 +16,6 @@ import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAuto
 import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
-import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent } from "./components/kup-chart/kup-chart-declarations";
@@ -2875,6 +2875,10 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupAccordionData;
+        /**
+          * Fired when a TreeNode is selected
+         */
+        "onKup-accordion-selectedNode"?: (event: CustomEvent<KupTreeNodeSelectedEventPayload>) => void;
     }
     interface KupAutocomplete {
         /**

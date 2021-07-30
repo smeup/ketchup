@@ -2,4 +2,36 @@
   font-size: var(--kup-font-size);
   height: 100%;
   width: 100%;
+  border: 5px solid black;
+}
+
+.kup-component{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.kup-acc-category{
+
+}
+
+.kup-acc-category-button{
+  outline: none;
+  border: 1px solid;
+  cursor: pointer;
+  text-align: left;
+}
+
+.kup-acc-category-button:hover{
+  background-color: lightgrey;
+}
+
+.kup-acc-category-sub-component{
+  display: none;
+  overflow: hidden;
+}
+
+.kup-acc-category-sub-component:active{
+
 }

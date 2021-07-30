@@ -7,6 +7,10 @@ import {
     Method,
     Prop,
     VNode,
+    State,
+    Listen,
+    Event,
+    EventEmitter
 } from '@stencil/core';
 
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -18,13 +22,13 @@ import { getProps, setProps } from '../../utils/utils';
 import { Cell, CellData } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupAccordionData,
-    KupAccordionProps,
+    KupAccordionProps
 } from './kup-accordion-declarations';
 
 import {
     TreeNode,
+    KupTreeNodeSelectedEventPayload
 } from './../kup-tree/kup-tree-declarations';
-import { getTreeNodeFromPath } from '../kup-tree/kup-tree-faker';
 
 @Component({
     tag: 'kup-accordion',
@@ -40,6 +44,9 @@ export class KupAccordion {
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
+
+    // flag of the expanded categories
+    @State() expandedCategoryIds: string[] = [];
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -70,6 +77,29 @@ export class KupAccordion {
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
+    /**
+     * Fired when a TreeNode is selected
+     */
+    @Event({
+        eventName: 'kup-accordion-selectedNode',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAccordionSelectedNode: EventEmitter<KupTreeNodeSelectedEventPayload>;
+
+    /**
+     * Catch kup-tree-nodeselected event and emits a new kup-accordion-selectedNode event
+     * @Param event
+     */
+    @Listen('kup-tree-nodeselected', {target: 'body'})
+    kupTreeNodeSelectedHandler(event: CustomEvent){
+        var selectedNodeEvent: KupTreeNodeSelectedEventPayload = {} as KupTreeNodeSelectedEventPayload;
+        selectedNodeEvent.treeNode = event.detail.treeNode;
+        selectedNodeEvent.treeNodePath = event.detail.treeNodePath;
+        this.kupAccordionSelectedNode.emit(selectedNodeEvent);
+    }
+
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
@@ -99,6 +129,31 @@ export class KupAccordion {
         forceUpdate(this);
     }
 
+    /**
+     * This method is called by button and set or unset the expanded category id
+     * @param e event
+     * @param columnId name of category
+     */
+    expandCategory(e: MouseEvent, columnId: string){
+        let el: HTMLButtonElement = null;
+
+        if ((e.target as HTMLElement).tagName === 'BUTTON') {
+            el = e.target as HTMLButtonElement;
+        } else {
+            el = (e.target as HTMLElement).closest('button');
+        }
+
+        if(el.className == "accordion-button--active"){
+            const index = this.expandedCategoryIds.indexOf(columnId, 0);
+            if (index > -1) {
+                this.expandedCategoryIds.splice(index, 1);
+            }
+        }else{
+            this.expandedCategoryIds.push(columnId);
+        }
+        this.refresh();
+    }
+
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
@@ -106,12 +161,12 @@ export class KupAccordion {
     /**
      * This method is used to build TreeNode structure and create kup-tree component
      * @param cellData
+     * @param columnName category id
      * @returns VNode[]
      */
     private renderKupTree(cellData: CellData): VNode[]{
         const kupTree: VNode[] = [];
         const tree: TreeNode[] = [];
-        
 
         for(var i=0; i<cellData.data.length; i++){
             const treeNode: TreeNode = cellData.data[i];
@@ -128,6 +183,7 @@ export class KupAccordion {
     /**
      * This method is used to create the sub component structure
      * @param cell 
+     * @param columnName category id
      * @returns VNode[]
      */
     private renderSubComponent(cell:Cell): VNode[] {
@@ -149,11 +205,35 @@ export class KupAccordion {
        const categories: VNode[] = [];
 
         for(var i=0; i<this.data.columns.length; i++) {
-            const subComponent: VNode[] = this.renderSubComponent(this.data.rows[0].cells[this.data.columns[i].name]);
+            const columnName = this.data.columns[i].name;
+            const cell = this.data.rows[0].cells[columnName];
+
+            var subComponent: VNode[] = [];
+            if(cell != null){
+                subComponent = this.renderSubComponent(cell);
+            }
+
+            var buttonCssClass;
+            var divCssClass;
+            const index = this.expandedCategoryIds.indexOf(columnName, 0);
+            if(index > -1){
+                buttonCssClass = "accordion-button--active";
+                divCssClass = "accordion-subcomponent--active";
+            }else{
+                buttonCssClass = "accordion-button";
+                divCssClass = "accordion-subcomponent";
+            }
+
             categories.push(
-                <div>
-                    <button>{this.data.columns[i].title}</button>
-                    <div>{subComponent}</div>
+                <div class="accordion-category-wrapper">
+                    <button class={buttonCssClass}
+
+                    onClick={
+                        (e: MouseEvent) => this.expandCategory(e, columnName)
+                    }
+
+                    >{this.data.columns[i].title}</button>
+                    <div class={divCssClass}>{subComponent}</div>
                 </div>
             );
         }

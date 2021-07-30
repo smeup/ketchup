@@ -21,6 +21,35 @@ const data = {
                         data:{
                             data:[
                                 {
+                                    children:[
+                                        {
+                                            disabled:false,
+                                            expandable:true,
+                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
+                                            id:'',
+                                            isExpanded:false,
+                                            options:false,
+                                            value:'Principale'
+                                        },
+                                        {
+                                            disabled:false,
+                                            expandable:true,
+                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
+                                            id:'',
+                                            isExpanded:false,
+                                            options:false,
+                                            value:'Secondaria'
+                                        },
+                                        {
+                                            disabled:false,
+                                            expandable:true,
+                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
+                                            id:'',
+                                            isExpanded:false,
+                                            options:false,
+                                            value:'Terziaria'
+                                        }
+                                    ],
                                     disabled:false,
                                     expandable:true,
                                     icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
@@ -55,13 +84,33 @@ const data = {
                         data:{
                             data:[
                                 {
+                                    children:[
+                                        {
+                                            disabled:false,
+                                            expandable:true,
+                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
+                                            id:'',
+                                            isExpanded:false,
+                                            options:false,
+                                            value:'Per provincia'
+                                        },
+                                        {
+                                            disabled:false,
+                                            expandable:true,
+                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
+                                            id:'',
+                                            isExpanded:false,
+                                            options:false,
+                                            value:'Per regione'
+                                        }
+                                    ],
                                     disabled:false,
                                     expandable:true,
                                     icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
                                     id:'',
                                     isExpanded:false,
                                     options:false,
-                                    value:'Dashboard'
+                                    value:'Clienti'
                                 },
                                 {
                                     disabled:false,
@@ -70,7 +119,7 @@ const data = {
                                     id:'',
                                     isExpanded:false,
                                     options:false,
-                                    value:'Contabilità'
+                                    value:'Collaboratori'
                                 },
                                 {
                                     disabled:false,
@@ -79,8 +128,8 @@ const data = {
                                     id:'',
                                     isExpanded:false,
                                     options:false,
-                                    value:'Cronologia'
-                                },
+                                    value:'Fornitori'
+                                }
                             ]
                         },
                         shape:'TRE'
@@ -95,7 +144,7 @@ const data = {
                                     id:'',
                                     isExpanded:false,
                                     options:false,
-                                    value:'Dashboard'
+                                    value:'Sedi'
                                 },
                                 {
                                     disabled:false,
@@ -104,16 +153,7 @@ const data = {
                                     id:'',
                                     isExpanded:false,
                                     options:false,
-                                    value:'Contabilità'
-                                },
-                                {
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Cronologia'
+                                    value:'Sedi clienti'
                                 }
                             ]
                         },

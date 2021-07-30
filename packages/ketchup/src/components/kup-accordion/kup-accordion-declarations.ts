@@ -1,5 +1,7 @@
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 
+import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
+
 /**
  * Props of the kup-accordion component.
  * Used to export every prop in an object.
