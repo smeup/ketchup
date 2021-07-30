@@ -2068,18 +2068,12 @@ export class KupTree {
                 );
                 if (selectedItem) {
                     selectedItem.selected = true;
-                    listData.push(
-                        {
-                            text: null,
-                            value: null,
-                            isSeparator: true,
-                        },
-                        {
-                            text: translation[TotalLabel.CANC],
-                            value: TotalLabel.CANC,
-                            selected: false,
-                        }
-                    );
+                    listData.push({
+                        text: translation[TotalLabel.CANC],
+                        value: TotalLabel.CANC,
+                        selected: false,
+                        separator: true,
+                    });
                 }
 
                 totalMenu = (
@@ -2088,6 +2082,7 @@ export class KupTree {
                         data={...listData}
                         id="totals-menu"
                         is-menu
+                        keyboardNavigation={true}
                         menu-visible
                         onBlur={() => this.closeTotalMenu()}
                         onkup-list-click={(event) =>
@@ -2147,7 +2142,7 @@ export class KupTree {
                     menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
-                menu.focus();
+                setTimeout(() => menu.focus(), 0);
             }
         }
     }

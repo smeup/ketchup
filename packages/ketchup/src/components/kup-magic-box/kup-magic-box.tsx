@@ -132,7 +132,6 @@ export class KupMagicBox {
                     text: MagicBoxDisplay[key],
                     value: MagicBoxDisplay[key],
                     selected: false,
-                    isSeparator: false,
                 });
             }
         }

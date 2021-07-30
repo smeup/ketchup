@@ -1,17 +1,51 @@
 // Replace the object below with yours.
-const compName = 'kup-button';
+const compName = 'kup-list';
 
 // Replace the props below with yours.
 const props = {
-    checked: true,
     customStyle: '',
-    disabled: false,
-    icon: 'favorite',
-    iconOff: null,
-    label: null,
-    styling: 'raised',
-    toggable: false,
-    trailingIcon: false,
+    data: [
+        {
+            text: 'Count',
+            value: 'Count',
+            selected: false,
+        },
+        {
+            text: 'Distinct',
+            value: 'Distinct',
+            selected: false,
+        },
+        {
+            text: 'Sum',
+            value: 'Sum',
+            selected: false,
+            separator: true,
+        },
+        {
+            text: 'Average',
+            value: 'Average',
+            selected: false,
+        },
+        {
+            text: 'Minimum',
+            value: 'Min',
+            selected: false,
+        },
+        {
+            text: 'Maximum',
+            value: 'Max',
+            selected: false,
+        },
+    ],
+    displayMode: 'description',
+    filter: '',
+    hideText: false,
+    isMenu: true,
+    menuVisible: true,
+    roleType: 'listbox',
+    selectable: true,
+    showIcons: false,
+    twoLine: false,
 };
 
 const wrapper = document.querySelector('#debug-wrapper');

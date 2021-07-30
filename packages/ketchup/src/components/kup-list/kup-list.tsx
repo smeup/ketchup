@@ -10,6 +10,7 @@ import {
     Method,
     Prop,
     State,
+    VNode,
     Watch,
 } from '@stencil/core';
 import {
@@ -33,6 +34,7 @@ import {
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 
 @Component({
     tag: 'kup-list',
@@ -88,6 +90,11 @@ export class KupList {
      */
     @Prop() isMenu: boolean = false;
     /**
+     * When true, enables items' navigation through keys.
+     * Defaults to false when the component's isMenu prop is set to true.
+     */
+    @Prop({ mutable: true }) keyboardNavigation: boolean = undefined;
+    /**
      * Sets the status of the menu, when false it's hidden otherwise it's visible.
      */
     @Prop() menuVisible: boolean = false;
@@ -123,7 +130,7 @@ export class KupList {
     private kupManager: KupManager = kupManagerInstance();
 
     private radios: KupRadio[] = [];
-    private checkboxes: KupCheckbox[] = [];
+    private listItems: HTMLElement[] = [];
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -153,18 +160,14 @@ export class KupList {
     })
     kupClick: EventEmitter<KupListEventPayload>;
 
-    onKupBlur(index: number) {
-        if (this.focused === index) {
-            this.focused = null;
-        }
+    onKupBlur(_index: number) {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
         });
     }
 
-    onKupFocus(index: number) {
-        this.focused = index;
+    onKupFocus(_index: number) {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
@@ -172,7 +175,7 @@ export class KupList {
     }
 
     onKupClick(index: number) {
-        this.select(index);
+        this.handleSelection(index);
     }
 
     /*-------------------------------------------------*/
@@ -181,7 +184,7 @@ export class KupList {
 
     @Listen('keydown')
     listenKeydown(e: KeyboardEvent) {
-        if (!this.isMenu) {
+        if (this.keyboardNavigation) {
             switch (e.key) {
                 case 'ArrowDown':
                     e.preventDefault();
@@ -196,7 +199,7 @@ export class KupList {
                 case 'Enter':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.select(this.focused);
+                    this.handleSelection(this.focused);
                     break;
             }
         }
@@ -249,8 +252,6 @@ export class KupList {
      */
     @Method()
     async focusPrevious(): Promise<void> {
-        const listItems: NodeListOf<HTMLElement> =
-            this.rootElement.shadowRoot.querySelectorAll('.list-item');
         if (
             isNaN(this.focused) ||
             this.focused === null ||
@@ -268,17 +269,15 @@ export class KupList {
             this.focused--;
         }
         if (this.focused < 0) {
-            this.focused = listItems.length - 1;
+            this.focused = this.listItems.length - 1;
         }
-        listItems[this.focused].focus();
+        this.listItems[this.focused].focus();
     }
     /**
      * Focuses the next element of the list.
      */
     @Method()
     async focusNext(): Promise<void> {
-        const listItems: NodeListOf<HTMLElement> =
-            this.rootElement.shadowRoot.querySelectorAll('.list-item');
         if (
             isNaN(this.focused) ||
             this.focused === null ||
@@ -295,13 +294,13 @@ export class KupList {
         } else {
             this.focused++;
         }
-        if (this.focused > listItems.length - 1) {
+        if (this.focused > this.listItems.length - 1) {
             this.focused = 0;
         }
-        listItems[this.focused].focus();
+        this.listItems[this.focused].focus();
     }
     /**
-     * Selects the specified item.
+     * Calls handleSelection internal method to select the given item.
      * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
      */
     @Method()
@@ -309,12 +308,33 @@ export class KupList {
         if (index === undefined) {
             index = this.focused;
         }
+        this.handleSelection(index);
+    }
+    /**
+     * Resets filter.
+     * memo - FOSLUC to PASCAR: why isn't it enough to change only the prop?
+     */
+    @Method()
+    async resetFilter(newFilter: string) {
+        this.filter = newFilter;
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    /**
+     * Selects the specified item.
+     * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
+     */
+    private handleSelection(index: number): void {
         if (index !== null && index !== undefined && !isNaN(index)) {
             const value: string = this.data[index].value;
             switch (this.roleType) {
                 case KupList.ROLE_CHECKBOX:
+                    console.log('wat');
                     if (this.selected.includes(value)) {
-                        this.selected.splice(this.selected.indexOf(value));
+                        this.selected.splice(this.selected.indexOf(value), 1);
                     } else {
                         this.selected.push(value);
                     }
@@ -339,18 +359,6 @@ export class KupList {
             });
         }
     }
-    /**
-     * Resets filter.
-     * memo - FOSLUC to PASCAR: why isn't it enough to change only the prop?
-     */
-    @Method()
-    async resetFilter(newFilter: string) {
-        this.filter = newFilter;
-    }
-
-    /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
 
     renderSeparator() {
         return <li role="separator" class="list-divider"></li>;
@@ -451,12 +459,7 @@ export class KupList {
             innerSpanTag = [
                 <span class="list-item__graphic">
                     <input type="checkbox" style={trickForMDC} />
-                    <kup-checkbox
-                        class="checkbox"
-                        id={this.rootElement.id + '_' + index}
-                        checked={checkedAttr}
-                        ref={(el) => (this.checkboxes[index] = el as any)}
-                    ></kup-checkbox>
+                    <FCheckbox checked={checkedAttr} />
                 </span>,
                 imageTag,
                 <label
@@ -468,8 +471,15 @@ export class KupList {
                 </label>,
             ];
         }
-        return (
+        const vNodes: VNode[] = [];
+        if (item.separator) {
+            vNodes.push(<li role="separator" class="list-divider"></li>);
+        }
+        vNodes.push(
             <li
+                ref={(el: HTMLLIElement) => {
+                    this.listItems.push(el);
+                }}
                 class={classAttr}
                 role={roleAttr}
                 tabindex={tabIndexAttr}
@@ -495,6 +505,7 @@ export class KupList {
                 {innerSpanTag}
             </li>
         );
+        return vNodes;
     }
 
     getIconTag(icon: string) {
@@ -537,21 +548,14 @@ export class KupList {
                 this.radios[index].data = dataTmp;
             }
         }
-        if (this.isCheckBoxRule()) {
-            if (this.checkboxes[index]) {
-                this.checkboxes[index].checked = item.selected;
-            }
-        }
     }
 
     getLiIndexElementForValue(key: string): number {
         let index = -1;
         let i = 0;
         this.filteredItems.forEach((item) => {
-            if (item.isSeparator != true) {
-                if (item.value == key) {
-                    index = i;
-                }
+            if (item.value == key) {
+                index = i;
             }
             i++;
         });
@@ -586,9 +590,6 @@ export class KupList {
     }
 
     itemCompliant(item: ComponentListElement): boolean {
-        if (item.isSeparator) {
-            return true;
-        }
         if (!this.filter) {
             return true;
         }
@@ -617,6 +618,13 @@ export class KupList {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
+        if (this.keyboardNavigation === undefined) {
+            if (this.isMenu) {
+                this.keyboardNavigation = false;
+            } else {
+                this.keyboardNavigation = true;
+            }
+        }
         for (let index = 0; index < this.data.length; index++) {
             const el: ComponentListElement = this.data[index];
             if (el.selected) {
@@ -648,6 +656,7 @@ export class KupList {
     }
 
     render() {
+        this.listItems = [];
         let componentClass: string = 'list';
         let wrapperClass = undefined;
 
@@ -682,9 +691,7 @@ export class KupList {
 
         this.filteredItems = [];
         this.radios = [];
-        this.checkboxes = [];
         let index = 0;
-
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
@@ -701,11 +708,7 @@ export class KupList {
                     >
                         {this.data
                             .filter((item) => this.itemCompliant(item))
-                            .map((item) =>
-                                item.isSeparator
-                                    ? this.renderSeparator()
-                                    : this.renderListItem(item, index++)
-                            )}
+                            .map((item) => this.renderListItem(item, index++))}
                     </ul>
                 </div>
             </Host>

@@ -106,6 +106,13 @@
     }
   }
 
+  .list-divider {
+    background-color: rgba(var(--kup-text-color-rgb), 0.25);
+    height: 1px;
+    padding: 0;
+    background-clip: content-box;
+  }
+
   &.list--two-line {
     .list-item {
       height: 3.6em;

@@ -26,14 +26,6 @@ export default {
           type: 'click',
         },
         {
-          name: 'kup-list-change',
-          type: 'change',
-        },
-        {
-          name: 'kup-list-input',
-          type: 'input',
-        },
-        {
           name: 'kup-list-focus',
           type: 'focus',
         },
@@ -43,22 +35,6 @@ export default {
         },
       ],
       demoProps: [
-        {
-          prop: 'arrowDown',
-          description:
-            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'arrowUp',
-          description:
-            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
         {
           prop: 'customStyle',
           description:
@@ -103,6 +79,14 @@ export default {
           description: 'Defines whether the list is a menu or not.',
           type: 'boolean',
           default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'keyboardNavigation',
+          description:
+            "When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.",
+          type: 'boolean',
+          default: 'undefined',
           try: 'switch',
         },
         {
@@ -191,14 +175,10 @@ function createComp() {
       icon: 'ac_unit',
     },
     {
-      text: null,
-      value: null,
-      isSeparator: true,
-    },
-    {
       text: 'Third choice (below a separator)',
       value: '3',
       icon: '3d_rotation',
+      separator: true,
     },
   ];
   comp.id = 'demo-component';

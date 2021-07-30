@@ -3684,7 +3684,7 @@ export class KupDataTable {
                     menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
-                menu.focus();
+                setTimeout(() => menu.focus(), 0);
             }
         }
     }
@@ -3833,14 +3833,10 @@ export class KupDataTable {
                         // TODO Move these objects in declarations
                         listData.push(
                             {
-                                text: null,
-                                value: null,
-                                isSeparator: true,
-                            },
-                            {
                                 text: translation[TotalLabel.SUM],
                                 value: TotalMode.SUM,
                                 selected: false,
+                                separator: true,
                             },
                             {
                                 text: translation[TotalLabel.AVERAGE],
@@ -3861,14 +3857,10 @@ export class KupDataTable {
                     } else if (this.kupManager.objects.isDate(column.obj)) {
                         listData.push(
                             {
-                                text: null,
-                                value: null,
-                                isSeparator: true,
-                            },
-                            {
                                 text: translation[TotalLabel.MIN],
                                 value: TotalMode.MIN,
                                 selected: false,
+                                separator: true,
                             },
                             {
                                 text: translation[TotalLabel.MAX],
@@ -3885,18 +3877,12 @@ export class KupDataTable {
                             );
                         if (selectedItem) {
                             selectedItem.selected = true;
-                            listData.push(
-                                {
-                                    text: null,
-                                    value: null,
-                                    isSeparator: true,
-                                },
-                                {
-                                    text: translation[TotalLabel.CANC],
-                                    value: TotalLabel.CANC,
-                                    selected: false,
-                                }
-                            );
+                            listData.push({
+                                text: translation[TotalLabel.CANC],
+                                value: TotalLabel.CANC,
+                                selected: false,
+                                separator: true,
+                            });
                         }
                     }
 
@@ -3906,6 +3892,7 @@ export class KupDataTable {
                             data={...listData}
                             id="totals-menu"
                             is-menu
+                            keyboardNavigation={true}
                             menu-visible
                             onBlur={() => this.closeTotalMenu()}
                             onkup-list-click={(event) =>

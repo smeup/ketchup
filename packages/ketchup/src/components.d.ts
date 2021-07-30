@@ -1668,6 +1668,10 @@ export namespace Components {
          */
         "isMenu": boolean;
         /**
+          * When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.
+         */
+        "keyboardNavigation": boolean;
+        /**
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible": boolean;
@@ -1684,7 +1688,7 @@ export namespace Components {
          */
         "roleType"?: string;
         /**
-          * Selects the specified item.
+          * Calls handleSelection internal method to select the given item.
           * @param index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
          */
         "select": (index?: number) => Promise<void>;
@@ -4289,6 +4293,10 @@ declare namespace LocalJSX {
           * Defines whether the list is a menu or not.
          */
         "isMenu"?: boolean;
+        /**
+          * When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.
+         */
+        "keyboardNavigation"?: boolean;
         /**
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
