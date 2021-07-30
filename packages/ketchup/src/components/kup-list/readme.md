@@ -7,8 +7,6 @@
 
 | Property      | Attribute      | Description                                                                      | Type                                                                                             | Default                        |
 | ------------- | -------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `arrowDown`   | `arrow-down`   | Used to navigate the list when it's bound to a text field, i.e.: autocomplete.   | `boolean`                                                                                        | `false`                        |
-| `arrowUp`     | `arrow-up`     |                                                                                  | `boolean`                                                                                        | `false`                        |
 | `customStyle` | `custom-style` | Custom style of the component.                                                   | `string`                                                                                         | `''`                           |
 | `data`        | --             | The data of the list.                                                            | `ComponentListElement[]`                                                                         | `[]`                           |
 | `displayMode` | `display-mode` | Selects how the items must display their label and how they can be filtered for. | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
@@ -24,16 +22,34 @@
 
 ## Events
 
-| Event             | Description | Type                               |
-| ----------------- | ----------- | ---------------------------------- |
-| `kup-list-blur`   |             | `CustomEvent<KupListEventPayload>` |
-| `kup-list-change` |             | `CustomEvent<KupListEventPayload>` |
-| `kup-list-click`  |             | `CustomEvent<KupListEventPayload>` |
-| `kup-list-focus`  |             | `CustomEvent<KupListEventPayload>` |
-| `kup-list-input`  |             | `CustomEvent<KupListEventPayload>` |
+| Event            | Description | Type                               |
+| ---------------- | ----------- | ---------------------------------- |
+| `kup-list-blur`  |             | `CustomEvent<KupEventPayload>`     |
+| `kup-list-click` |             | `CustomEvent<KupListEventPayload>` |
+| `kup-list-focus` |             | `CustomEvent<KupEventPayload>`     |
 
 
 ## Methods
+
+### `focusNext() => Promise<void>`
+
+Focuses the next element of the list.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `focusPrevious() => Promise<void>`
+
+Focuses the previous element of the list.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
@@ -57,7 +73,18 @@ Type: `Promise<void>`
 
 ### `resetFilter(newFilter: string) => Promise<void>`
 
+Resets filter.
+memo - FOSLUC to PASCAR: why isn't it enough to change only the prop?
 
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `select(index?: number) => Promise<void>`
+
+Selects the specified item.
 
 #### Returns
 
