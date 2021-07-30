@@ -31,6 +31,7 @@
     justify-content: flex-start;
     padding: 0 0.75em;
     overflow: hidden;
+    transition: background-color 120ms, color 120ms;
 
     &.list-item--activated,
     &.list-item--activated .list-item__graphic,
@@ -120,10 +121,13 @@
       cursor: pointer;
     }
 
-    .mdc-list-item {
-      &:not(.mdc-list-item--selected):hover {
-        background-color: var(--kup-hover-background-color);
-        color: var(--kup-hover-color);
+    .list-item {
+      &:not(.list-item--selected) {
+        &:hover,
+        &:focus {
+          background-color: var(--kup-hover-background-color);
+          color: var(--kup-hover-color);
+        }
       }
     }
   }
