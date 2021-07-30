@@ -18,6 +18,11 @@
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <kup-list id="list-1" two-line role-type="listbox"></kup-list>
         <kup-list
             id="list-2"
@@ -25,6 +30,7 @@
             show-icons
             role-type="listbox"
         ></kup-list>
+        <kup-list id="list-2a" show-icons role-type="listbox"></kup-list>
         <kup-list
             id="list-3"
             hide-text

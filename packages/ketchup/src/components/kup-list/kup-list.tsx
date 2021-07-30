@@ -373,7 +373,7 @@ export class KupList {
         ];
 
         let secTextTag = [];
-        if (item.secondaryText && item.secondaryText != '') {
+        if (this.twoLine && item.secondaryText && item.secondaryText != '') {
             primaryTextTag = [
                 <span class="list-item__primary-text">{item.text}</span>,
             ];
@@ -503,7 +503,7 @@ export class KupList {
             <FImage
                 {...propsFImage}
                 resource={icon}
-                wrapperClass={`icon-button__icon icon-container material-icons`}
+                wrapperClass={`icon-button__icon icon-container`}
             />
         );
     }

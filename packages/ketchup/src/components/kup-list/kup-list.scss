@@ -29,7 +29,7 @@
     align-items: center;
     -ms-flex-pack: start;
     justify-content: flex-start;
-    padding: 0 1em;
+    padding: 0 0.75em;
     overflow: hidden;
 
     &.list-item--activated,
@@ -96,7 +96,7 @@
 
     .icon-container {
       margin: 0;
-      margin-right: 0.25em;
+      margin-right: 0.75em;
     }
 
     kup-checkbox {
