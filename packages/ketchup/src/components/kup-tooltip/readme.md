@@ -130,7 +130,6 @@ graph TD;
   kup-chip --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-combobox --> kup-list
   kup-date-picker --> kup-text-field

@@ -46,8 +46,8 @@ export default {
         {
           prop: 'data',
           description: 'The data of the list.',
-          type: 'ComponentListElement',
-          default: 'undefined',
+          type: 'KupListData[]',
+          default: '[]',
           try: 'json',
         },
         {

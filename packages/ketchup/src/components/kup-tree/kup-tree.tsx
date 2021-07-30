@@ -76,7 +76,7 @@ import {
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -2024,7 +2024,7 @@ export class KupTree {
             }
 
             if (this.isOpenedTotalMenuForColumn(column.name)) {
-                let listData: ComponentListElement[] = [
+                let listData: KupListData[] = [
                     {
                         text: translation[TotalLabel.COUNT],
                         value: TotalMode.COUNT,

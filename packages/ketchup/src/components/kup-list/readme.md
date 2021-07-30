@@ -8,7 +8,7 @@
 | Property             | Attribute             | Description                                                                                                           | Type                                                                                             | Default                        |
 | -------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
 | `customStyle`        | `custom-style`        | Custom style of the component.                                                                                        | `string`                                                                                         | `''`                           |
-| `data`               | --                    | The data of the list.                                                                                                 | `ComponentListElement[]`                                                                         | `[]`                           |
+| `data`               | --                    | The data of the list.                                                                                                 | `KupListData[]`                                                                                  | `[]`                           |
 | `displayMode`        | `display-mode`        | Selects how the items must display their label and how they can be filtered for.                                      | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
 | `filter`             | `filter`              | Keeps string for filtering elements when filter mode is active                                                        | `string`                                                                                         | `''`                           |
 | `hideText`           | `hide-text`           | Hides rows' text, ideally to display a list of icons only.                                                            | `boolean`                                                                                        | `false`                        |
@@ -85,7 +85,7 @@ Type: `Promise<void>`
 
 ### `select(index?: number) => Promise<void>`
 
-Selects the specified item.
+Calls handleSelection internal method to select the given item.
 
 #### Returns
 
@@ -120,14 +120,12 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-radio](../kup-radio)
-- [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list

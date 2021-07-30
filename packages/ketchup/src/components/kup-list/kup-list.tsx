@@ -14,12 +14,11 @@ import {
     Watch,
 } from '@stencil/core';
 import {
-    ComponentListElement,
+    KupListData,
     KupListEventPayload,
     KupListProps,
 } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
-import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 import {
@@ -71,47 +70,58 @@ export class KupList {
     @Prop() customStyle: string = '';
     /**
      * The data of the list.
+     * @default []
      */
-    @Prop({ mutable: true }) data: ComponentListElement[] = [];
+    @Prop({ mutable: true }) data: KupListData[] = [];
     /**
      * Selects how the items must display their label and how they can be filtered for.
+     * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Keeps string for filtering elements when filter mode is active
+     * @default ''
      */
     @Prop({ mutable: true }) filter: string = '';
     /**
      * Hides rows' text, ideally to display a list of icons only.
+     * @default false
      */
     @Prop() hideText: boolean = false;
     /**
      * Defines whether the list is a menu or not.
+     * @default false
      */
     @Prop() isMenu: boolean = false;
     /**
      * When true, enables items' navigation through keys.
      * Defaults to false when the component's isMenu prop is set to true.
+     * @default undefined
      */
     @Prop({ mutable: true }) keyboardNavigation: boolean = undefined;
     /**
      * Sets the status of the menu, when false it's hidden otherwise it's visible.
+     * @default false
      */
     @Prop() menuVisible: boolean = false;
     /**
      * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+     * @default KupList.ROLE_LISTBOX
      */
     @Prop({ mutable: true }) roleType?: string = KupList.ROLE_LISTBOX;
     /**
      * Defines whether items are selectable or not.
+     * @default true
      */
     @Prop() selectable: boolean = true;
     /**
      * Displays the icons associated to each row when set to true.
+     * @default false
      */
     @Prop() showIcons: boolean = false;
     /**
      * The list elements descriptions will be arranged in two lines.
+     * @default false
      */
     @Prop() twoLine: boolean = false;
 
@@ -123,7 +133,7 @@ export class KupList {
     static ROLE_RADIOGROUP: string = 'radiogroup';
     static ROLE_CHECKBOX: string = 'group';
 
-    private filteredItems: ComponentListElement[] = [];
+    private filteredItems: KupListData[] = [];
     /**
      * Instance of the KupManager class.
      */
@@ -258,8 +268,8 @@ export class KupList {
             this.focused === undefined
         ) {
             if (this.selected.length === 1) {
-                const selectedItem: ComponentListElement = this.data.find(
-                    (x: ComponentListElement) => x.value === this.selected[0]
+                const selectedItem: KupListData = this.data.find(
+                    (x: KupListData) => x.value === this.selected[0]
                 );
                 this.focused = this.data.indexOf(selectedItem) - 1;
             } else {
@@ -284,8 +294,8 @@ export class KupList {
             this.focused === undefined
         ) {
             if (this.selected.length === 1) {
-                const selectedItem: ComponentListElement = this.data.find(
-                    (x: ComponentListElement) => x.value === this.selected[0]
+                const selectedItem: KupListData = this.data.find(
+                    (x: KupListData) => x.value === this.selected[0]
                 );
                 this.focused = this.data.indexOf(selectedItem) + 1;
             } else {
@@ -332,7 +342,6 @@ export class KupList {
             const value: string = this.data[index].value;
             switch (this.roleType) {
                 case KupList.ROLE_CHECKBOX:
-                    console.log('wat');
                     if (this.selected.includes(value)) {
                         this.selected.splice(this.selected.indexOf(value), 1);
                     } else {
@@ -345,7 +354,7 @@ export class KupList {
                     break;
             }
             for (let index = 0; index < this.data.length; index++) {
-                const item: ComponentListElement = this.data[index];
+                const item: KupListData = this.data[index];
                 if (this.selected.includes(item.value)) {
                     item.selected = true;
                 } else {
@@ -364,7 +373,7 @@ export class KupList {
         return <li role="separator" class="list-divider"></li>;
     }
 
-    renderListItem(item: ComponentListElement, index: number) {
+    renderListItem(item: KupListData, index: number) {
         this.filteredItems[index] = item;
 
         if (item.selected != true) {
@@ -525,17 +534,17 @@ export class KupList {
         );
     }
 
-    setUnselected(item: ComponentListElement, index: number) {
+    setUnselected(item: KupListData, index: number) {
         item.selected = false;
         this.sendInfoToSubComponent(index, item);
     }
 
-    setSelected(item: ComponentListElement, index: number) {
+    setSelected(item: KupListData, index: number) {
         item.selected = true;
         this.sendInfoToSubComponent(index, item);
     }
 
-    sendInfoToSubComponent(index: number, item: ComponentListElement) {
+    sendInfoToSubComponent(index: number, item: KupListData) {
         if (this.isRadioButtonRule()) {
             if (this.radios[index]) {
                 let dataTmp = [
@@ -589,7 +598,7 @@ export class KupList {
         }
     }
 
-    itemCompliant(item: ComponentListElement): boolean {
+    itemCompliant(item: KupListData): boolean {
         if (!this.filter) {
             return true;
         }
@@ -626,7 +635,7 @@ export class KupList {
             }
         }
         for (let index = 0; index < this.data.length; index++) {
-            const el: ComponentListElement = this.data[index];
+            const el: KupListData = this.data[index];
             if (el.selected) {
                 this.selected.push(el.value);
             }

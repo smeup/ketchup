@@ -20,7 +20,7 @@ export enum KupListProps {
     twoLine = 'The list elements descriptions will be arranged in two lines.',
 }
 
-export interface ComponentListElement {
+export interface KupListData {
     text: string;
     value: string;
     icon?: string;
@@ -38,7 +38,7 @@ export enum ItemsDisplayMode {
 }
 
 export function getValueOfItemByDisplayMode(
-    item: ComponentListElement,
+    item: KupListData,
     mode: ItemsDisplayMode,
     separator: string
 ): string {
@@ -65,7 +65,7 @@ export function consistencyCheck(
     let value: string = '';
     let displayedValue: string = '';
 
-    let selected: ComponentListElement = null;
+    let selected: KupListData = null;
     if (e != null) {
         selected = e.detail.selected;
     }
@@ -92,7 +92,7 @@ export function consistencyCheck(
     };
 }
 
-export function getFirstItemSelected(listData: Object): ComponentListElement {
+export function getFirstItemSelected(listData: Object): KupListData {
     if (listData['data']) {
         for (let i = 0; i < listData['data'].length; i++) {
             if (listData['data'][i].selected) {
@@ -107,10 +107,10 @@ export function getItemByValue(
     listData: Object,
     value: string,
     setSelected: boolean
-): ComponentListElement {
+): KupListData {
     if (listData && listData['data']) {
         let found: boolean = false;
-        let item: ComponentListElement = null;
+        let item: KupListData = null;
         for (let i = 0; i < listData['data'].length; i++) {
             if (setSelected == true) {
                 listData['data'][i].selected = false;
@@ -151,10 +151,10 @@ export function getItemByDisplayMode(
     value: string,
     displayMode: ItemsDisplayMode,
     setSelected: boolean
-): ComponentListElement {
+): KupListData {
     if (listData && listData['data']) {
         let found: boolean = false;
-        let item: ComponentListElement = null;
+        let item: KupListData = null;
         for (let i = 0; i < listData['data'].length; i++) {
             let displayedValue = getValueOfItemByDisplayMode(
                 listData['data'][i],
@@ -182,5 +182,5 @@ export function getItemByDisplayMode(
 }
 
 export interface KupListEventPayload extends KupEventPayload {
-    selected: ComponentListElement;
+    selected: KupListData;
 }

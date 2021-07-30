@@ -18,7 +18,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import {
     ISO_DEFAULT_TIME_FORMAT,
     ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
@@ -819,7 +819,7 @@ export class KupTimePicker {
     }
 
     private createTimeListData(value: string) {
-        let listData: ComponentListElement[] = [];
+        let listData: KupListData[] = [];
 
         let selectedTime: Date;
         if (value == null || value.trim() == '') {
@@ -854,7 +854,7 @@ export class KupTimePicker {
                     : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
                 this.manageSeconds
             );
-            let item: ComponentListElement = {
+            let item: KupListData = {
                 text: text,
                 value: value,
                 selected: selected,

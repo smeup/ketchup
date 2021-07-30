@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ComponentListElement, ItemsDisplayMode, KupListEventPayload } from "./components/kup-list/kup-list-declarations";
+import { ItemsDisplayMode, KupListData, KupListEventPayload } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
@@ -1635,14 +1635,17 @@ export namespace Components {
         "customStyle": string;
         /**
           * The data of the list.
+          * @default []
          */
-        "data": ComponentListElement[];
+        "data": KupListData[];
         /**
           * Selects how the items must display their label and how they can be filtered for.
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
         /**
           * Keeps string for filtering elements when filter mode is active
+          * @default ''
          */
         "filter": string;
         /**
@@ -1661,18 +1664,22 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Hides rows' text, ideally to display a list of icons only.
+          * @default false
          */
         "hideText": boolean;
         /**
           * Defines whether the list is a menu or not.
+          * @default false
          */
         "isMenu": boolean;
         /**
           * When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.
+          * @default undefined
          */
         "keyboardNavigation": boolean;
         /**
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
+          * @default false
          */
         "menuVisible": boolean;
         /**
@@ -1685,6 +1692,7 @@ export namespace Components {
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+          * @default KupList.ROLE_LISTBOX
          */
         "roleType"?: string;
         /**
@@ -1694,6 +1702,7 @@ export namespace Components {
         "select": (index?: number) => Promise<void>;
         /**
           * Defines whether items are selectable or not.
+          * @default true
          */
         "selectable": boolean;
         /**
@@ -1703,10 +1712,12 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Displays the icons associated to each row when set to true.
+          * @default false
          */
         "showIcons": boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
+          * @default false
          */
         "twoLine": boolean;
     }
@@ -4275,30 +4286,37 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * The data of the list.
+          * @default []
          */
-        "data"?: ComponentListElement[];
+        "data"?: KupListData[];
         /**
           * Selects how the items must display their label and how they can be filtered for.
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
         /**
           * Keeps string for filtering elements when filter mode is active
+          * @default ''
          */
         "filter"?: string;
         /**
           * Hides rows' text, ideally to display a list of icons only.
+          * @default false
          */
         "hideText"?: boolean;
         /**
           * Defines whether the list is a menu or not.
+          * @default false
          */
         "isMenu"?: boolean;
         /**
           * When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.
+          * @default undefined
          */
         "keyboardNavigation"?: boolean;
         /**
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
+          * @default false
          */
         "menuVisible"?: boolean;
         "onKup-list-blur"?: (event: CustomEvent<KupEventPayload>) => void;
@@ -4306,18 +4324,22 @@ declare namespace LocalJSX {
         "onKup-list-focus"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+          * @default KupList.ROLE_LISTBOX
          */
         "roleType"?: string;
         /**
           * Defines whether items are selectable or not.
+          * @default true
          */
         "selectable"?: boolean;
         /**
           * Displays the icons associated to each row when set to true.
+          * @default false
          */
         "showIcons"?: boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
+          * @default false
          */
         "twoLine"?: boolean;
     }

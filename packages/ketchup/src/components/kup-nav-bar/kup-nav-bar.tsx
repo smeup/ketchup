@@ -28,7 +28,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -264,7 +264,7 @@ export class KupNavBar {
         return listEl.menuVisible == true;
     }
 
-    prepMenuList(listData: ComponentListElement[]): HTMLElement {
+    prepMenuList(listData: KupListData[]): HTMLElement {
         this.menuListEl = null;
         if (listData.length == 0) {
             return null;
@@ -302,7 +302,7 @@ export class KupNavBar {
         return value;
     }
 
-    prepOptionsList(listData: ComponentListElement[]): HTMLElement {
+    prepOptionsList(listData: KupListData[]): HTMLElement {
         this.optionsListEl = null;
         if (listData.length == 0) {
             return null;
@@ -373,8 +373,8 @@ export class KupNavBar {
         let wrapperClass = undefined;
 
         let visibleButtons: Array<HTMLElement> = [];
-        let optionsButtons: ComponentListElement[] = [];
-        let menuButtons: ComponentListElement[] = [];
+        let optionsButtons: KupListData[] = [];
+        let menuButtons: KupListData[] = [];
 
         if (this.data.optionActions != null) {
             for (let i = 0; i < this.data.optionActions.length; i++) {
@@ -392,7 +392,7 @@ export class KupNavBar {
                     );
                     visibleButtons.push(button);
                 } else {
-                    let listItem: ComponentListElement = {
+                    let listItem: KupListData = {
                         text: action.text,
                         value: action.value,
                         icon: action.icon,
@@ -434,7 +434,7 @@ export class KupNavBar {
         } else if (this.data.menuActions != null) {
             for (let i = 0; i < this.data.menuActions.length; i++) {
                 let action: KupNavBarElement = this.data.menuActions[i];
-                let listItem: ComponentListElement = {
+                let listItem: KupListData = {
                     text: action.text,
                     value: action.value,
                     icon: action.icon,

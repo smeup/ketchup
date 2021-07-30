@@ -22,7 +22,7 @@ import {
     KupDataTableRowDragType,
     Row,
 } from '../kup-data-table/kup-data-table-declarations';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import {
@@ -125,7 +125,7 @@ export class KupMagicBox {
      * @returns {GenericObject} Combobox props.
      */
     private comboboxProps(): GenericObject {
-        const listData: ComponentListElement[] = [];
+        const listData: KupListData[] = [];
         for (const key in MagicBoxDisplay) {
             if (Object.prototype.hasOwnProperty.call(MagicBoxDisplay, key)) {
                 listData.push({

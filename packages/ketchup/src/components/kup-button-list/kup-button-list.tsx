@@ -22,7 +22,7 @@ import {
     KupButtonListProps,
 } from './kup-button-list-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
@@ -297,10 +297,8 @@ export class KupButtonList {
         return data;
     }
 
-    private getKupListDataForChildren(
-        children: TreeNode[]
-    ): ComponentListElement[] {
-        let ris: ComponentListElement[] = [];
+    private getKupListDataForChildren(children: TreeNode[]): KupListData[] {
+        let ris: KupListData[] = [];
 
         for (let i = 0; i < children.length; i++) {
             let tn: TreeNode = children[i];

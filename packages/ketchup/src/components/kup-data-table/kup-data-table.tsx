@@ -97,7 +97,7 @@ import {
 } from '../../utils/utils';
 
 import {
-    ComponentListElement,
+    KupListData,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import {
@@ -626,7 +626,7 @@ export class KupDataTable {
     /**
      * Defines the current totals options
      */
-    @Prop() totals: TotalsMap;
+    @Prop({ mutable: true }) totals: TotalsMap;
     /**
      * Transposes the data of the data table
      */
@@ -3817,7 +3817,7 @@ export class KupDataTable {
                 }
 
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    const listData: ComponentListElement[] = [
+                    const listData: KupListData[] = [
                         {
                             text: translation[TotalLabel.COUNT],
                             value: TotalMode.COUNT,
@@ -3870,11 +3870,9 @@ export class KupDataTable {
                         );
                     }
                     if (this.totals) {
-                        const selectedItem: ComponentListElement =
-                            listData.find(
-                                (item) =>
-                                    item.value === this.totals[column.name]
-                            );
+                        const selectedItem: KupListData = listData.find(
+                            (item) => item.value === this.totals[column.name]
+                        );
                         if (selectedItem) {
                             selectedItem.selected = true;
                             listData.push({
@@ -4086,7 +4084,7 @@ export class KupDataTable {
                     TODO Group Menu
                     const groupMenu = undefined;
                     if (this.isOpenedGroupMenuForColumn(column.name)) {
-                        const listData: ComponentListElement[] = [
+                        const listData: KupListData[] = [
                             {
                                 text: 'Matrice dei totali',
                                 value: 'MATTOT',
@@ -5481,8 +5479,8 @@ export class KupDataTable {
         codes: Array<string>,
         icons: Array<string>,
         selectedCode: string
-    ): ComponentListElement[] {
-        const listItems: ComponentListElement[] = [];
+    ): KupListData[] {
+        const listItems: KupListData[] = [];
         for (let i = 0; i < codes.length; i++) {
             let text: KupLanguageKey = null;
             switch (codes[i]) {
@@ -5542,7 +5540,7 @@ export class KupDataTable {
     }
 
     private renderFontSizePanel() {
-        const listItems: ComponentListElement[] = this.createListData(
+        const listItems: KupListData[] = this.createListData(
             this.FONTSIZE_CODES,
             this.FONTSIZE_ICONS,
             this.fontsize
@@ -5613,7 +5611,7 @@ export class KupDataTable {
     }
 
     private renderDensityPanel() {
-        const listItems: ComponentListElement[] = this.createListData(
+        const listItems: KupListData[] = this.createListData(
             this.DENSITY_CODES,
             this.DENSITY_ICONS,
             this.density
@@ -5725,7 +5723,7 @@ export class KupDataTable {
     }
 
     private renderGridPanel() {
-        const listItems: ComponentListElement[] = this.createListData(
+        const listItems: KupListData[] = this.createListData(
             this.GRID_CODES,
             this.GRID_ICONS,
             this.showGrid
