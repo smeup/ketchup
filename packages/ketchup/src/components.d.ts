@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ItemsDisplayMode, KupListData, KupListEventPayload } from "./components/kup-list/kup-list-declarations";
+import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
@@ -1692,9 +1692,9 @@ export namespace Components {
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
-          * @default KupList.ROLE_LISTBOX
+          * @default KupListRole.LISTBOX
          */
-        "roleType"?: string;
+        "roleType"?: KupListRole;
         /**
           * Calls handleSelection internal method to select the given item.
           * @param index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
@@ -4324,9 +4324,9 @@ declare namespace LocalJSX {
         "onKup-list-focus"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
-          * @default KupList.ROLE_LISTBOX
+          * @default KupListRole.LISTBOX
          */
-        "roleType"?: string;
+        "roleType"?: KupListRole;
         /**
           * Defines whether items are selectable or not.
           * @default true

@@ -19,7 +19,9 @@ export enum KupListProps {
     showIcons = 'Displays the icons associated to each row when set to true.',
     twoLine = 'The list elements descriptions will be arranged in two lines.',
 }
-
+/**
+ * Data structure of a single list item.
+ */
 export interface KupListData {
     text: string;
     value: string;
@@ -27,6 +29,14 @@ export interface KupListData {
     secondaryText?: string;
     selected?: boolean;
     separator?: boolean;
+}
+/**
+ * Available types of selection.
+ */
+export enum KupListRole {
+    LISTBOX = 'listbox',
+    RADIOGROUP = 'radiogroup',
+    GROUP = 'group',
 }
 
 export interface ValueDisplayedValue extends vdv {}

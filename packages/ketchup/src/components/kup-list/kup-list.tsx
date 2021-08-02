@@ -17,6 +17,7 @@ import {
     KupListData,
     KupListEventPayload,
     KupListProps,
+    KupListRole,
 } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { ItemsDisplayMode } from './kup-list-declarations';
@@ -106,9 +107,9 @@ export class KupList {
     @Prop() menuVisible: boolean = false;
     /**
      * Defines the type of selection. Values accepted: listbox, radiogroup or group.
-     * @default KupList.ROLE_LISTBOX
+     * @default KupListRole.LISTBOX
      */
-    @Prop({ mutable: true }) roleType?: string = KupList.ROLE_LISTBOX;
+    @Prop({ mutable: true }) roleType?: KupListRole = KupListRole.LISTBOX;
     /**
      * Defines whether items are selectable or not.
      * @default true
@@ -128,10 +129,6 @@ export class KupList {
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
-
-    static ROLE_LISTBOX: string = 'listbox';
-    static ROLE_RADIOGROUP: string = 'radiogroup';
-    static ROLE_CHECKBOX: string = 'group';
 
     private filteredItems: KupListData[] = [];
     /**
@@ -341,7 +338,7 @@ export class KupList {
         if (index !== null && index !== undefined && !isNaN(index)) {
             const value: string = this.data[index].value;
             switch (this.roleType) {
-                case KupList.ROLE_CHECKBOX:
+                case KupListRole.GROUP:
                     if (this.selected.includes(value)) {
                         this.selected.splice(this.selected.indexOf(value), 1);
                     } else {
@@ -581,20 +578,20 @@ export class KupList {
     }
 
     isCheckBoxRule(): boolean {
-        return this.roleType == KupList.ROLE_CHECKBOX;
+        return this.roleType == KupListRole.GROUP;
     }
 
     isRadioButtonRule(): boolean {
-        return this.roleType == KupList.ROLE_RADIOGROUP;
+        return this.roleType == KupListRole.RADIOGROUP;
     }
 
     isListBoxRule(): boolean {
-        return this.roleType == KupList.ROLE_LISTBOX;
+        return this.roleType == KupListRole.LISTBOX;
     }
 
     checkRoleType() {
         if (!this.isCheckBoxRule() && !this.isRadioButtonRule()) {
-            this.roleType = KupList.ROLE_LISTBOX;
+            this.roleType = KupListRole.LISTBOX;
         }
     }
 

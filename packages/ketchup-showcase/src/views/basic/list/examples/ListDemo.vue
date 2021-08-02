@@ -102,7 +102,7 @@ export default {
           description:
             'Defines the type of selection. Values accepted: listbox, radiogroup or group.',
           type: 'string',
-          default: 'listbox',
+          default: 'KupListRole.LISTBOX',
           try: 'field',
         },
         {
