@@ -21,10 +21,8 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import {
-    ItemsDisplayMode,
-    consistencyCheck,
-} from '../kup-list/kup-list-declarations';
+import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import {

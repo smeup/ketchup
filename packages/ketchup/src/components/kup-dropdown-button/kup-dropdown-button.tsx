@@ -17,10 +17,8 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import {
-    consistencyCheck,
-    ItemsDisplayMode,
-} from '../kup-list/kup-list-declarations';
+import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import { consistencyCheck } from '../kup-list/kup-list-helper';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,

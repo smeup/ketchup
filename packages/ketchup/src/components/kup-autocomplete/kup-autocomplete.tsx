@@ -28,10 +28,8 @@ import {
     kupAutocompleteFilterChangedEventPayload,
     KupAutocompleteProps,
 } from './kup-autocomplete-declarations';
-import {
-    ItemsDisplayMode,
-    consistencyCheck,
-} from '../kup-list/kup-list-declarations';
+import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 

@@ -21,7 +21,7 @@ import {
 } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { ItemsDisplayMode } from './kup-list-declarations';
-import { getValueOfItemByDisplayMode } from './kup-list-declarations';
+import { getValueOfItemByDisplayMode } from './kup-list-helper';
 import {
     KupManager,
     kupManagerInstance,
