@@ -34,6 +34,11 @@
     outline: none;
     transition: background-color 120ms, color 120ms;
 
+    &[role='checkbox'],
+    &[role='radio'] {
+      height: 3em;
+    }
+
     &.list-item--activated,
     &.list-item--activated .list-item__graphic,
     &.list-item--selected,
@@ -127,6 +132,10 @@
   &:not(.list--non-interactive) {
     > :not(.list-item--disabled).list-item {
       cursor: pointer;
+
+      label {
+        cursor: pointer;
+      }
     }
 
     .list-item {
