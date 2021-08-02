@@ -20,29 +20,32 @@ export class KupDates {
      * Initializes KupDates.
      */
     constructor(locale?: string) {
+        this.setLocale(locale);
         this.dayjs = dayjs;
-        // this.locale = locale ? locale : this.setLocale(); -- TODO: find better approach to set locale from the browser
-        this.locale = locale ? locale : 'it';
         dayjs.extend(customParseFormat);
         dayjs.extend(localizedFormat);
         dayjs.extend(minMax);
-        if (this.locale && this.locale !== 'en') {
-            dayjs.locale(this.locale);
-        }
     }
     /**
-     * Sets the locale from the browser.
+     * Sets the locale from the browser or from a given argument.
      * @returns {string} Locale string.
      * @see https://github.com/iamkun/dayjs/issues/732
      */
-    setLocale(): string {
-        const navLangs: false | readonly string[] =
-            navigator.languages ||
-            (navigator.language ? [navigator.language] : false);
-        if (!navLangs || !navLangs.length) {
-            return 'en';
+    setLocale(locale?: string): string {
+        if (locale) {
+            // Sets locale from string
+            this.locale = locale;
+        } else {
+            // Sets locale from browser
+            const navLangs: false | readonly string[] =
+                navigator.languages ||
+                (navigator.language ? [navigator.language] : false);
+            if (!navLangs || !navLangs.length) {
+                return 'en';
+            }
+            this.locale = navLangs[0].split('-')[0].toLowerCase();
         }
-        return navLangs[0].split('-')[0].toLowerCase();
+        dayjs.locale(this.locale);
     }
     /**
      * Formats the given date.
