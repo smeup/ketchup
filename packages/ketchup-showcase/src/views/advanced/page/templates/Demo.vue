@@ -105,7 +105,6 @@
         <table
           v-if="demoEvents !== null"
           id="events-tab"
-          style="display: none"
           class="instruction-table sample-section events-section"
         >
           <thead>
@@ -130,7 +129,7 @@
             </tr>
           </tbody>
         </table>
-        <div id="json-tab" class="sample-section padded" style="display: none">
+        <div id="json-tab" class="sample-section padded">
           <textarea id="json-textarea" style="display: none"></textarea>
           <kup-text-field
             class="visible"
@@ -155,7 +154,7 @@
             title="Invalid JSON. You can ignore this warning if the prop you're changing isn't an object."
           ></kup-button>
         </div>
-        <div id="css-tab" class="sample-section" style="display: none">
+        <div id="css-tab" class="sample-section">
           <textarea id="css-textarea" style="display: none"></textarea>
         </div>
       </div>
@@ -250,7 +249,15 @@ enum DemoTry {
   SWITCH = 'switch',
 }
 
-var demoComponent: HTMLElement = null, // Kup component
+// Recurring CSS classes
+const closedClass: string = 'closed',
+  detachedClass: string = 'detached',
+  fullClass: string = 'full',
+  paddedClass: string = 'padded',
+  visibleClass: string = 'visible';
+
+// Kup component
+var demoComponent: HTMLElement = null,
   // Kup component wrapper
   demoComponentWrapper: HTMLDivElement = null,
   // Vue component's props
@@ -273,7 +280,12 @@ var demoComponent: HTMLElement = null, // Kup component
   // JSON tab sub-components
   jsonSetter: HTMLKupTextFieldElement = null,
   jsonSetterOpener: HTMLKupButtonElement = null,
-  jsonWarning: HTMLKupButtonElement = null;
+  jsonWarning: HTMLKupButtonElement = null,
+  // Sections of the playground layout
+  sampleWrapper: HTMLElement = null,
+  sampleComp: HTMLElement = null,
+  sampleDynamic: HTMLElement = null,
+  sampleSpecs: HTMLElement = null;
 
 export default {
   props: {
@@ -311,6 +323,10 @@ export default {
       jsonSetterOpener = document.querySelector('#json-setter-opener');
       jsonTextarea = document.querySelector('#json-textarea');
       jsonWarning = document.querySelector('#json-warning');
+      sampleWrapper = document.querySelector('#sample-wrapper');
+      sampleComp = document.querySelector('#sample-comp');
+      sampleDynamic = document.querySelector('#sample-dynamic');
+      sampleSpecs = document.querySelector('#sample-specs');
       demoClasses = this.demoClasses;
       demoEvents = this.demoEvents;
       demoMethods = this.demoMethods;
@@ -433,9 +449,9 @@ export default {
      */
     swapView(e: CustomEvent<KupButtonClickEventPayload>): void {
       if (e.detail.value === 'on') {
-        document.querySelector('#sample-wrapper').classList.add('full');
+        sampleWrapper.classList.add(fullClass);
       } else {
-        document.querySelector('#sample-wrapper').classList.remove('full');
+        sampleWrapper.classList.remove(fullClass);
       }
     },
     /**
@@ -444,9 +460,9 @@ export default {
      */
     splitView(e: CustomEvent<KupButtonClickEventPayload>): void {
       if (e.detail.value === 'on') {
-        document.querySelector('#sample-wrapper').classList.remove('detached');
+        sampleWrapper.classList.remove(detachedClass);
       } else {
-        document.querySelector('#sample-wrapper').classList.add('detached');
+        sampleWrapper.classList.add(detachedClass);
       }
     },
     /**
@@ -455,13 +471,13 @@ export default {
      */
     menuTrigger(e: CustomEvent<KupButtonClickEventPayload>): void {
       if (e.detail.value === 'on') {
-        document.querySelector('#sample-comp').classList.add('full');
-        document.querySelector('#sample-dynamic').classList.add('full');
-        document.querySelector('#sample-specs').classList.add('closed');
+        sampleComp.classList.add(fullClass);
+        sampleDynamic.classList.add(fullClass);
+        sampleSpecs.classList.add(closedClass);
       } else {
-        document.querySelector('#sample-comp').classList.remove('full');
-        document.querySelector('#sample-dynamic').classList.remove('full');
-        document.querySelector('#sample-specs').classList.remove('closed');
+        sampleComp.classList.remove(fullClass);
+        sampleDynamic.classList.remove(fullClass);
+        sampleSpecs.classList.remove(closedClass);
       }
     },
     /**
@@ -505,31 +521,31 @@ export default {
      * @param {number} i - Index of the tab to select.
      */
     handleTab(i: number): void {
-      propsView.setAttribute('style', 'display: none;');
-      classesView.setAttribute('style', 'display: none;');
-      methodsView.setAttribute('style', 'display: none;');
-      eventsView.setAttribute('style', 'display: none;');
-      jsonView.setAttribute('style', 'display: none;');
-      cssView.setAttribute('style', 'display: none;');
+      propsView.classList.remove(visibleClass);
+      classesView.classList.remove(visibleClass);
+      methodsView.classList.remove(visibleClass);
+      eventsView.classList.remove(visibleClass);
+      jsonView.classList.remove(visibleClass);
+      cssView.classList.remove(visibleClass);
 
       switch (tabBar.data[i].text) {
         case DemoTabs.PROPS:
-          propsView.setAttribute('style', '');
+          propsView.classList.add(visibleClass);
           break;
         case DemoTabs.CLASSES:
-          classesView.setAttribute('style', '');
+          classesView.classList.add(visibleClass);
           break;
         case DemoTabs.METHODS:
-          methodsView.setAttribute('style', '');
+          methodsView.classList.add(visibleClass);
           break;
         case DemoTabs.EVENTS:
-          eventsView.setAttribute('style', '');
+          eventsView.classList.add(visibleClass);
           break;
         case DemoTabs.JSON:
-          jsonView.setAttribute('style', '');
+          jsonView.classList.add(visibleClass);
           break;
         case DemoTabs.CSS:
-          cssView.setAttribute('style', '');
+          cssView.classList.add(visibleClass);
           this.prepareCssView();
           break;
       }
@@ -538,21 +554,21 @@ export default {
      * Shows/hides the prop text field inside the JSON view.
      */
     jsonSetSwitch(): void {
-      if (jsonSetter.classList.contains('visible')) {
-        jsonSetter.classList.remove('visible');
-        jsonView.classList.remove('padded');
-        jsonSetterOpener.classList.add('visible');
+      if (jsonSetter.classList.contains(visibleClass)) {
+        jsonSetter.classList.remove(visibleClass);
+        jsonView.classList.remove(paddedClass);
+        jsonSetterOpener.classList.add(visibleClass);
       } else {
-        jsonSetter.classList.add('visible');
-        jsonView.classList.add('padded');
-        jsonSetterOpener.classList.remove('visible');
+        jsonSetter.classList.add(visibleClass);
+        jsonView.classList.add(paddedClass);
+        jsonSetterOpener.classList.remove(visibleClass);
       }
     },
     /**
      * Retrieves the user typed prop's value, displaying it inside the textarea - ready to be edited.
      * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-text-field input event.
      */
-    prepareJsonView(e: CustomEvent<KupTextFieldEventPayload>) {
+    prepareJsonView(e: CustomEvent<KupTextFieldEventPayload>): void {
       demoComponent.dataset.prop = e.detail.value;
       jsonTextarea.value = JSON.stringify(
         demoComponent[e.detail.value],
@@ -577,10 +593,10 @@ export default {
         const prop: string = demoComponent.dataset.prop;
         try {
           demoComponent[prop] = JSON.parse(jsonTextarea.value);
-          jsonWarning.classList.remove('visible');
+          jsonWarning.classList.remove(visibleClass);
         } catch (error) {
           demoComponent[prop] = jsonTextarea.value;
-          jsonWarning.classList.add('visible');
+          jsonWarning.classList.add(visibleClass);
         }
       });
     },
