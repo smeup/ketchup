@@ -191,7 +191,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Components } from 'ketchup/dist/types/components';
+import { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
+var demoComponent: DemoComponent = null;
+var demoComponentWrapper: HTMLDivElement = null;
+var tabBar: HTMLKupTabBarElement = null;
+
+export interface DemoComponent extends HTMLElement {
+  currentJSONprop: string;
+}
+
 export default {
   props: {
     demoComp: HTMLElement,
@@ -200,10 +210,11 @@ export default {
     demoEvents: Array,
   },
   methods: {
-    initEvents() {
-      let demoComponentWrapper = document.querySelector('#sample-comp-wrapper');
+    initEvents(): void {
+      demoComponentWrapper = document.querySelector('#sample-comp-wrapper');
       demoComponentWrapper.appendChild(this.demoComp);
-      let demoComponent = document.querySelector('#demo-component');
+      demoComponent = document.querySelector('#demo-component');
+      tabBar = document.querySelector('#demo-tab-bar');
       if (this.demoEvents) {
         for (let i = 0; i < this.demoEvents.length; i++) {
           demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
@@ -212,10 +223,9 @@ export default {
         }
       }
     },
-    initTabs() {
-      let tabBar = document.querySelector('#demo-tab-bar');
-      let data = [];
 
+    initTabs(): void {
+      const data: KupTabBarData[] = [];
       if (this.demoProps) {
         data.push({
           value: 'Props',
@@ -265,9 +275,7 @@ export default {
       }
     },
 
-    initDefaults() {
-      let demoComponent = document.querySelector('#demo-component');
-
+    initDefaults() : void {
       for (let i = 0; i < this.demoProps.length; i++) {
         switch (this.demoProps[i].try) {
           case 'field':
@@ -318,7 +326,8 @@ export default {
                   .addEventListener('kup-button-click', (e) => {
                     this.updateDemoFieldArrayRemove(e);
                   });
-                document.querySelector('#' + newEntryId).styling = 'flat';
+                (document.querySelector('#' + newEntryId) as any).styling =
+                  'flat';
               }
             }
             break;
@@ -329,7 +338,7 @@ export default {
     handleEvent(e) {
       var d = new Date();
       console.log('Playground event fired: ', e);
-      document.querySelector('#on' + e.type).innerText =
+      (document.querySelector('#on' + e.type) as HTMLElement).innerText =
         e.type +
         ' event fired at ' +
         d.getHours() +
@@ -368,7 +377,6 @@ export default {
     },
 
     updateDemoClass(e) {
-      let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value === 'on') {
         demoComponent.classList.add(e.target.id);
       } else {
@@ -377,7 +385,6 @@ export default {
     },
 
     updateDemoSwitch(e) {
-      let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value === 'on') {
         demoComponent[e.target.id] = true;
       } else {
@@ -454,12 +461,11 @@ export default {
     },
 
     handleTab(i) {
-      let tabBar = document.querySelector('#demo-tab-bar');
-      let propsTab = document.querySelector('#props-tab');
-      let classesTab = document.querySelector('#classes-tab');
-      let eventsTab = document.querySelector('#events-tab');
-      let jsonTab = document.querySelector('#json-tab');
-      let cssTab = document.querySelector('#css-tab');
+      const propsTab: HTMLElement = document.querySelector('#props-tab');
+      const classesTab: HTMLElement = document.querySelector('#classes-tab');
+      const eventsTab: HTMLElement = document.querySelector('#events-tab');
+      const jsonTab: HTMLElement = document.querySelector('#json-tab');
+      const cssTab: HTMLElement = document.querySelector('#css-tab');
 
       propsTab.setAttribute('style', 'display: none;');
       classesTab.setAttribute('style', 'display: none;');
@@ -502,37 +508,29 @@ export default {
       }
     },
 
-    cssSetSwitch() {
-      let cssTab = document.querySelector('#css-tab');
-      if (cssSetter.classList.contains('visible')) {
-        cssTab.classList.remove('padded');
-      } else {
-        cssTab.classList.add('padded');
-      }
-    },
-
     jsonSet(e) {
-      let jsonWarning = document.querySelector('#json-warning');
-      let jsonProp = e.detail.value;
-      let demoComponent = document.querySelector('#demo-component');
+      const jsonWarning: HTMLKupButtonElement =
+        document.querySelector('#json-warning');
+      const jsonProp: string = e.detail.value;
       demoComponent.currentJSONprop = jsonProp;
-      let jsonData = demoComponent[jsonProp];
-      let stringifiedJSON = JSON.stringify(jsonData, null, 2);
-      let jsonTextarea = document.querySelector('#json-textarea');
+      const jsonData: Object = demoComponent[jsonProp];
+      const stringifiedJSON: string = JSON.stringify(jsonData, null, 2);
+      const jsonTextarea: HTMLTextAreaElement =
+        document.querySelector('#json-textarea');
       let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
       jsonTextarea.value = stringifiedJSON;
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
       }
+      //@ts-ignore
       CodeMirror.fromTextArea(jsonTextarea, {
         mode: { name: 'javascript', json: true },
         lineNumbers: true,
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
-        let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentJSONprop;
         try {
           let jsonifiedData = JSON.parse(jsonTextarea.value);
@@ -546,22 +544,22 @@ export default {
     },
 
     cssSet() {
-      let demoComponent = document.querySelector('#demo-component');
-      let cssTextarea = document.querySelector('#css-textarea');
+      const cssTextarea: HTMLTextAreaElement =
+        document.querySelector('#css-textarea');
       let codemirrorTextarea = document.querySelector('#css-tab .CodeMirror');
       cssTextarea.value = demoComponent['customStyle'];
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
       }
+      //@ts-ignore
       CodeMirror.fromTextArea(cssTextarea, {
         mode: { name: 'text/css' },
         lineNumbers: true,
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
-        let demoComponent = document.querySelector('#demo-component');
         demoComponent['customStyle'] = cssTextarea.value;
       });
     },
