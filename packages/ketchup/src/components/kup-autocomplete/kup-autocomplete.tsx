@@ -39,12 +39,34 @@ import { getProps, setProps } from '../../utils/utils';
     shadow: true,
 })
 export class KupAutocomplete {
+    /**
+     * References the root HTML element of the component (<kup-autocomplete>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
     @State() displayedValue: string = undefined;
     @State() value: string = '';
 
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+     */
+    @Prop() callBackOnFilterUpdate: (detail: {
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined = undefined;
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -71,6 +93,15 @@ export class KupAutocomplete {
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
+    /**
+     * When true, it will emit events to inform the listener of the change of the current filter value.
+     * Also the component builtin filter will be disabled.
+     */
+    @Prop({ reflect: true }) serverHandledFilter: boolean = false;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     private doConsistencyCheck: boolean = true;
     private elStyle: any = undefined;
@@ -82,9 +113,9 @@ export class KupAutocomplete {
     private textfieldWrapper: HTMLElement = undefined;
     private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
 
-    /**
-     * Event example.
-     */
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kup-autocomplete-blur',
@@ -149,118 +180,6 @@ export class KupAutocomplete {
         bubbles: true,
     })
     kupFilterChanged: EventEmitter<kupAutocompleteFilterChangedEventPayload>;
-
-    @Event({
-        eventName: 'kup-autocomplete-textfieldsubmit',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupTextFieldSubmit: EventEmitter<KupAutocompleteEventPayload>;
-
-    /**
-     * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
-     */
-    @Prop() callBackOnFilterUpdate: (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined = undefined;
-
-    /**
-     * When true, it will emit events to inform the listener of the change of the current filter value.
-     * Also the component builtin filter will be disabled.
-     */
-    @Prop({ reflect: true }) serverHandledFilter: boolean = false;
-
-    @Listen('keydown')
-    listenKeydown(e: KeyboardEvent) {
-        if (this.isListOpened()) {
-            switch (e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.listEl.focusNext();
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.listEl.focusPrevious();
-                    break;
-                case 'Enter':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.listEl.select().then(() => {
-                        this.closeList();
-                        this.textfieldEl.focus();
-                    });
-                    break;
-                case 'Escape':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.closeList();
-                    break;
-            }
-        } else {
-            switch (e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.openList(false);
-                    this.listEl.focusNext();
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.openList(false);
-                    this.listEl.focusPrevious();
-                    break;
-            }
-        }
-    }
-
-    //---- Methods ----
-
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-
-    @Method()
-    async setFocus() {
-        this.textfieldEl.focus();
-    }
-
-    @Method()
-    async setValue(value: string) {
-        this.value = value;
-        this.doConsistencyCheck = true;
-        this.consistencyCheck(undefined, value);
-    }
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupAutocompleteProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupAutocompleteProps, props);
-    }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
         this.closeList();
@@ -344,6 +263,114 @@ export class KupAutocomplete {
             value: this.value,
         });
     }
+
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keydown')
+    listenKeydown(e: KeyboardEvent) {
+        if (this.isListOpened()) {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.select().then(() => {
+                        this.closeList();
+                        this.textfieldEl.focus();
+                    });
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.closeList();
+                    break;
+            }
+        } else {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.openList(false);
+                    this.listEl.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.openList(false);
+                    this.listEl.focusPrevious();
+                    break;
+            }
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupAutocompleteProps, descriptions);
+    }
+    /**
+     * Used to retrieve the value of the component.
+     * @returns {Promise<string>} Value of the component.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the focus to the component.
+     */
+    @Method()
+    async setFocus() {
+        this.textfieldEl.focus();
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupAutocompleteProps, props);
+    }
+    /**
+     * Sets the value of the component.
+     * @param {string} value - Value of the component.
+     */
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        this.doConsistencyCheck = true;
+        this.consistencyCheck(undefined, value);
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     private handleFilterChange(newFilter: string, eventTarget: EventTarget) {
         let detail = {
@@ -477,7 +504,9 @@ export class KupAutocomplete {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);

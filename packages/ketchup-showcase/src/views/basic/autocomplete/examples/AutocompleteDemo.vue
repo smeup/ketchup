@@ -1,10 +1,11 @@
 <template>
   <div>
     <demo
+      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
-      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -19,6 +20,43 @@ export default {
   name: 'AutocompleteDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-full-height',
+          description:
+            'The autocomplete will fill all the available vertical space (needs a new render to be effective).',
+        },
+        {
+          class: 'kup-full-width',
+          description:
+            'The autocomplete will fill all the available horizontal space (needs a new render to be effective).',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
       demoEvents: [
         {
@@ -51,14 +89,46 @@ export default {
         },
         {
           name: 'kup-autocomplete-filterchanged',
-          type: 'customEvent',
+          type: 'CustomEvent',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
         },
         {
-          name: 'kup-autocomplete-textfieldsubmit',
-          type: 'click',
+          name: 'getValue',
+          description: 'Used to retrieve the value of the component.',
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setFocus',
+          description: 'Sets the focus to the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+        {
+          name: 'setValue',
+          description: 'Sets the value of the component.',
         },
       ],
       demoProps: [
+        {
+          prop: 'callBackOnFilterUpdate',
+          description:
+            'Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.',
+          type: 'Promise<any[]>',
+          default: 'undefined',
+          try: 'json',
+        },
         {
           prop: 'customStyle',
           description:
@@ -114,49 +184,12 @@ export default {
           try: 'field',
         },
         {
-          prop: 'textfieldData',
+          prop: 'serverHandledFilter',
           description:
-            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
-          type: 'Object',
-          default: '{}',
-          try: 'json',
-        },
-      ],
-      demoClasses: [
-        {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-full-height',
-          description:
-            'The autocomplete will fill all the available vertical space (needs a new render to be effective).',
-        },
-        {
-          class: 'kup-full-width',
-          description:
-            'The autocomplete will fill all the available horizontal space (needs a new render to be effective).',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
+            'When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
       ],
     };

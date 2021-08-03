@@ -58,7 +58,9 @@ export namespace Components {
         el: EventTarget;
     }) => Promise<any[]> | undefined;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -79,6 +81,10 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Used to retrieve the value of the component.
+          * @returns Value of the component.
+         */
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component.
@@ -100,12 +106,19 @@ export namespace Components {
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
         "serverHandledFilter": boolean;
+        /**
+          * Sets the focus to the component.
+         */
         "setFocus": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the value of the component.
+          * @param value - Value of the component.
+         */
         "setValue": (value: string) => Promise<void>;
     }
     interface KupBadge {
@@ -2865,7 +2878,9 @@ declare namespace LocalJSX {
         el: EventTarget;
     }) => Promise<any[]> | undefined;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -2888,9 +2903,6 @@ declare namespace LocalJSX {
           * The minimum number of chars to trigger the autocomplete
          */
         "minimumChars"?: number;
-        /**
-          * Event example.
-         */
         "onKup-autocomplete-blur"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-change"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-click"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;

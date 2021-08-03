@@ -83,6 +83,26 @@
           </tbody>
         </table>
         <table
+          id="methods-tab"
+          v-if="demoMethods !== null"
+          class="instruction-table sample-section"
+        >
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(methodList, i) in demoMethods" :key="i">
+              <td class="prevent-cr">
+                <span class="code-word">{{ methodList.name }}</span>
+              </td>
+              <td>{{ methodList.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table
           v-if="demoEvents !== null"
           id="events-tab"
           style="display: none"
@@ -200,6 +220,11 @@ interface DemoEvents {
   type: string;
 }
 
+interface DemoMethods {
+  description: string;
+  name: string;
+}
+
 interface DemoProps {
   prop: string;
   description: string;
@@ -211,6 +236,7 @@ interface DemoProps {
 enum DemoTabs {
   PROPS = 'Props',
   CLASSES = 'Classes',
+  METHODS = 'Methods',
   EVENTS = 'Events',
   JSON = 'JSON',
   CSS = 'CSS',
@@ -224,29 +250,46 @@ enum DemoTry {
   SWITCH = 'switch',
 }
 
-var demoComponent: HTMLElement = null;
-var demoComponentWrapper: HTMLDivElement = null;
-var demoClasses: DemoClasses[] = null;
-var demoEvents: DemoEvents[] = null;
-var demoProps: DemoProps[] = null;
-var tabBar: HTMLKupTabBarElement = null;
-var propsTab: HTMLElement = null;
-var classesTab: HTMLElement = null;
-var eventsTab: HTMLElement = null;
-var jsonTab: HTMLElement = null;
-var cssTab: HTMLElement = null;
-var cssTextarea: HTMLTextAreaElement = null;
-var jsonSetter: HTMLKupTextFieldElement = null;
-var jsonSetterOpener: HTMLKupButtonElement = null;
-var jsonTextarea: HTMLTextAreaElement = null;
-var jsonWarning: HTMLKupButtonElement = null;
+var demoComponent: HTMLElement = null, // Kup component
+  // Kup component wrapper
+  demoComponentWrapper: HTMLDivElement = null,
+  // Vue component's props
+  demoClasses: DemoClasses[] = null,
+  demoEvents: DemoEvents[] = null,
+  demoMethods: DemoMethods[] = null,
+  demoProps: DemoProps[] = null,
+  // Navigation tab bar
+  tabBar: HTMLKupTabBarElement = null,
+  // Views
+  propsView: HTMLElement = null,
+  classesView: HTMLElement = null,
+  methodsView: HTMLElement = null,
+  eventsView: HTMLElement = null,
+  jsonView: HTMLElement = null,
+  cssView: HTMLElement = null,
+  // Textareas
+  cssTextarea: HTMLTextAreaElement = null,
+  jsonTextarea: HTMLTextAreaElement = null,
+  // JSON tab sub-components
+  jsonSetter: HTMLKupTextFieldElement = null,
+  jsonSetterOpener: HTMLKupButtonElement = null,
+  jsonWarning: HTMLKupButtonElement = null;
 
 export default {
   props: {
-    demoComp: HTMLElement,
-    demoProps: Array,
     demoClasses: Array,
+    demoComp: HTMLElement,
     demoEvents: Array,
+    demoMethods: Array,
+    demoProps: Array,
+  },
+  /**
+   * Called after the instance of the Vue component has been mounted.
+   */
+  mounted() {
+    this.initVariables();
+    this.initTabs();
+    this.initDefaults();
   },
   methods: {
     /**
@@ -257,11 +300,12 @@ export default {
       demoComponentWrapper.appendChild(this.demoComp);
       demoComponent = document.querySelector('#demo-component');
       tabBar = document.querySelector('#demo-tab-bar');
-      propsTab = document.querySelector('#props-tab');
-      classesTab = document.querySelector('#classes-tab');
-      eventsTab = document.querySelector('#events-tab');
-      jsonTab = document.querySelector('#json-tab');
-      cssTab = document.querySelector('#css-tab');
+      propsView = document.querySelector('#props-tab');
+      classesView = document.querySelector('#classes-tab');
+      eventsView = document.querySelector('#events-tab');
+      methodsView = document.querySelector('#methods-tab');
+      jsonView = document.querySelector('#json-tab');
+      cssView = document.querySelector('#css-tab');
       cssTextarea = document.querySelector('#css-textarea');
       jsonSetter = document.querySelector('#json-setter');
       jsonSetterOpener = document.querySelector('#json-setter-opener');
@@ -269,6 +313,7 @@ export default {
       jsonWarning = document.querySelector('#json-warning');
       demoClasses = this.demoClasses;
       demoEvents = this.demoEvents;
+      demoMethods = this.demoMethods;
       demoProps = this.demoProps;
     },
     /**
@@ -276,18 +321,18 @@ export default {
      */
     initTabs(): void {
       const data: KupTabBarData[] = [];
-      if (demoProps) {
-        data.push({
-          value: DemoTabs.PROPS,
-          text: DemoTabs.PROPS,
-          title: 'List of props available to the component.',
-        });
-      }
       if (demoClasses) {
         data.push({
           value: DemoTabs.CLASSES,
           text: DemoTabs.CLASSES,
           title: 'List of classes available to the component.',
+        });
+      }
+      if (demoMethods) {
+        data.push({
+          value: DemoTabs.METHODS,
+          text: DemoTabs.METHODS,
+          title: 'List of public methods available to the component.',
         });
       }
       if (demoEvents) {
@@ -304,16 +349,21 @@ export default {
         title: 'Here you can change props values manually.',
       });
       if (demoProps) {
-        for (let i = 0; i < demoProps.length; i++) {
-          if (demoProps[i].prop === 'customStyle') {
-            data.push({
-              value: DemoTabs.CSS,
-              text: DemoTabs.CSS,
-              icon: 'style',
-              title:
-                'Here you can write CSS code used by the customStyle prop.',
-            });
-          }
+        data.unshift({
+          value: DemoTabs.PROPS,
+          text: DemoTabs.PROPS,
+          title: 'List of props available to the component.',
+        });
+        const hasCustomStyle: DemoProps = demoProps.find(
+          (x: DemoProps) => x.prop === 'customStyle'
+        );
+        if (hasCustomStyle) {
+          data.push({
+            value: DemoTabs.CSS,
+            text: DemoTabs.CSS,
+            icon: 'style',
+            title: 'Here you can write CSS code used by the customStyle prop.',
+          });
         }
       }
       if (data.length === 0) {
@@ -346,7 +396,7 @@ export default {
             if (demoComponent[demoProps[i].prop] !== undefined) {
               (
                 document.querySelector(
-                  '#' + this.demoProps[i].prop
+                  '#' + demoProps[i].prop
                 ) as HTMLKupTextFieldElement
               ).setValue(demoComponent[demoProps[i].prop]);
             }
@@ -455,27 +505,31 @@ export default {
      * @param {number} i - Index of the tab to select.
      */
     handleTab(i: number): void {
-      propsTab.setAttribute('style', 'display: none;');
-      classesTab.setAttribute('style', 'display: none;');
-      eventsTab.setAttribute('style', 'display: none;');
-      jsonTab.setAttribute('style', 'display: none;');
-      cssTab.setAttribute('style', 'display: none;');
+      propsView.setAttribute('style', 'display: none;');
+      classesView.setAttribute('style', 'display: none;');
+      methodsView.setAttribute('style', 'display: none;');
+      eventsView.setAttribute('style', 'display: none;');
+      jsonView.setAttribute('style', 'display: none;');
+      cssView.setAttribute('style', 'display: none;');
 
       switch (tabBar.data[i].text) {
         case DemoTabs.PROPS:
-          propsTab.setAttribute('style', '');
+          propsView.setAttribute('style', '');
           break;
         case DemoTabs.CLASSES:
-          classesTab.setAttribute('style', '');
+          classesView.setAttribute('style', '');
+          break;
+        case DemoTabs.METHODS:
+          methodsView.setAttribute('style', '');
           break;
         case DemoTabs.EVENTS:
-          eventsTab.setAttribute('style', '');
+          eventsView.setAttribute('style', '');
           break;
         case DemoTabs.JSON:
-          jsonTab.setAttribute('style', '');
+          jsonView.setAttribute('style', '');
           break;
         case DemoTabs.CSS:
-          cssTab.setAttribute('style', '');
+          cssView.setAttribute('style', '');
           this.prepareCssView();
           break;
       }
@@ -486,11 +540,11 @@ export default {
     jsonSetSwitch(): void {
       if (jsonSetter.classList.contains('visible')) {
         jsonSetter.classList.remove('visible');
-        jsonTab.classList.remove('padded');
+        jsonView.classList.remove('padded');
         jsonSetterOpener.classList.add('visible');
       } else {
         jsonSetter.classList.add('visible');
-        jsonTab.classList.add('padded');
+        jsonView.classList.add('padded');
         jsonSetterOpener.classList.remove('visible');
       }
     },
@@ -553,14 +607,6 @@ export default {
         demoComponent['customStyle'] = cssTextarea.value;
       });
     },
-  },
-  /**
-   * Called after the instance of the Vue component has been mounted.
-   */
-  mounted() {
-    this.initVariables();
-    this.initTabs();
-    this.initDefaults();
   },
 };
 </script>
