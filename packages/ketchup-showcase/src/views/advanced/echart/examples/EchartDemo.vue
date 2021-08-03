@@ -70,7 +70,7 @@ export default {
             'The data series to be displayed. They must be of the same type.',
           type: 'string[]',
           default: 'undefined',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'types',
@@ -78,7 +78,7 @@ export default {
             'The type of the chart. Supported formats: Bar, Line, Pie, Scatter, it is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
           type: 'string[]',
           default: ['Line'],
-          try: 'array',
+          try: 'json',
         },
       ],
     };

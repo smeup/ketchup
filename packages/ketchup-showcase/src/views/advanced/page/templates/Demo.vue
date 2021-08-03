@@ -52,16 +52,6 @@
                   @kup-textfield-input="updateDemoField"
                 ></kup-text-field>
               </td>
-              <td class="text-cell" v-if="propList.try === 'array'">
-                <kup-text-field
-                  full-width
-                  trailing-icon
-                  icon="add"
-                  v-bind:id="propList.prop"
-                  @kup-textfield-change="updateDemoFieldArray"
-                  @kup-textfield-iconclick="updateDemoFieldArray"
-                ></kup-text-field>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -131,7 +121,7 @@
             trailing-icon
             helper-when-focused
             @kup-textfield-iconclick="jsonSetSwitch"
-            @kup-textfield-input="jsonSet"
+            @kup-textfield-input="prepareJsonView"
           ></kup-text-field>
           <kup-button
             @kup-button-click="jsonSetSwitch"
@@ -194,16 +184,11 @@
 <script lang="ts">
 import { Components } from 'ketchup/dist/types/components';
 import { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
-var demoComponent: DemoComponent = null;
-var demoComponentWrapper: HTMLDivElement = null;
-var demoClasses: DemoClasses[] = null;
-var demoEvents: DemoEvents[] = null;
-var demoProps: DemoProps[] = null;
-var tabBar: HTMLKupTabBarElement = null;
-
-interface DemoComponent extends HTMLElement {
-  currentJSONprop: string;
-}
+import { KupButtonClickEventPayload } from 'ketchup/dist/types/components/kup-button/kup-button-declarations';
+import { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
+import { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
+import { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 
 interface DemoClasses {
   class: string;
@@ -223,14 +208,38 @@ interface DemoProps {
   try: DemoTry;
 }
 
+enum DemoTabs {
+  PROPS = 'Props',
+  CLASSES = 'Classes',
+  EVENTS = 'Events',
+  JSON = 'JSON',
+  CSS = 'CSS',
+}
+
 enum DemoTry {
-  ARRAY = 'array',
   CSS = 'css',
   FIELD = 'field',
   NUMBER = 'number',
   JSON = 'json',
   SWITCH = 'switch',
 }
+
+var demoComponent: HTMLElement = null;
+var demoComponentWrapper: HTMLDivElement = null;
+var demoClasses: DemoClasses[] = null;
+var demoEvents: DemoEvents[] = null;
+var demoProps: DemoProps[] = null;
+var tabBar: HTMLKupTabBarElement = null;
+var propsTab: HTMLElement = null;
+var classesTab: HTMLElement = null;
+var eventsTab: HTMLElement = null;
+var jsonTab: HTMLElement = null;
+var cssTab: HTMLElement = null;
+var cssTextarea: HTMLTextAreaElement = null;
+var jsonSetter: HTMLKupTextFieldElement = null;
+var jsonSetterOpener: HTMLKupButtonElement = null;
+var jsonTextarea: HTMLTextAreaElement = null;
+var jsonWarning: HTMLKupButtonElement = null;
 
 export default {
   props: {
@@ -240,49 +249,57 @@ export default {
     demoEvents: Array,
   },
   methods: {
-    initEvents(): void {
+    /**
+     * Initializes Vue component's variables.
+     */
+    initVariables(): void {
       demoComponentWrapper = document.querySelector('#sample-comp-wrapper');
       demoComponentWrapper.appendChild(this.demoComp);
       demoComponent = document.querySelector('#demo-component');
       tabBar = document.querySelector('#demo-tab-bar');
+      propsTab = document.querySelector('#props-tab');
+      classesTab = document.querySelector('#classes-tab');
+      eventsTab = document.querySelector('#events-tab');
+      jsonTab = document.querySelector('#json-tab');
+      cssTab = document.querySelector('#css-tab');
+      cssTextarea = document.querySelector('#css-textarea');
+      jsonSetter = document.querySelector('#json-setter');
+      jsonSetterOpener = document.querySelector('#json-setter-opener');
+      jsonTextarea = document.querySelector('#json-textarea');
+      jsonWarning = document.querySelector('#json-warning');
       demoClasses = this.demoClasses;
       demoEvents = this.demoEvents;
       demoProps = this.demoProps;
-      if (demoEvents) {
-        for (let i = 0; i < demoEvents.length; i++) {
-          demoComponent.addEventListener(demoEvents[i].name, (e) =>
-            this.handleEvent(e)
-          );
-        }
-      }
     },
-
+    /**
+     * Initializes kup-tab-bar tabs.
+     */
     initTabs(): void {
       const data: KupTabBarData[] = [];
       if (demoProps) {
         data.push({
-          value: 'Props',
-          text: 'Props',
+          value: DemoTabs.PROPS,
+          text: DemoTabs.PROPS,
           title: 'List of props available to the component.',
         });
       }
       if (demoClasses) {
         data.push({
-          value: 'Classes',
-          text: 'Classes',
+          value: DemoTabs.CLASSES,
+          text: DemoTabs.CLASSES,
           title: 'List of classes available to the component.',
         });
       }
       if (demoEvents) {
         data.push({
-          value: 'Events',
-          text: 'Events',
+          value: DemoTabs.EVENTS,
+          text: DemoTabs.EVENTS,
           title: 'List of events available to the component.',
         });
       }
       data.push({
-        value: 'json',
-        text: 'JSON',
+        value: DemoTabs.JSON,
+        text: DemoTabs.JSON,
         icon: 'json',
         title: 'Here you can change props values manually.',
       });
@@ -290,8 +307,8 @@ export default {
         for (let i = 0; i < demoProps.length; i++) {
           if (demoProps[i].prop === 'customStyle') {
             data.push({
-              value: 'CSS',
-              text: 'CSS',
+              value: DemoTabs.CSS,
+              text: DemoTabs.CSS,
               icon: 'style',
               title:
                 'Here you can write CSS code used by the customStyle prop.',
@@ -307,67 +324,48 @@ export default {
         this.handleTab(0);
       }
     },
-
+    /**
+     * Initializes the "try" section of the props view and adds event listener for defined events.
+     */
     initDefaults(): void {
+      if (demoEvents) {
+        for (let i = 0; i < demoEvents.length; i++) {
+          demoComponent.addEventListener(demoEvents[i].name, (e) =>
+            this.handleEvent(e)
+          );
+        }
+      }
       for (let i = 0; i < demoProps.length; i++) {
         switch (demoProps[i].try) {
-          case DemoTry.ARRAY:
-            if (demoComponent[demoProps[i].prop]) {
-              for (
-                var j = 0;
-                j < demoComponent[demoProps[i].prop].length;
-                j++
-              ) {
-                const propName: string = demoProps[i].prop;
-                const arrayList: any = demoComponent[demoProps[i].prop];
-                const newEntryId: string = '' + propName + '-' + j;
-                const newEntry: string =
-                  '<kup-button data-id="' +
-                  propName +
-                  '" id="' +
-                  newEntryId +
-                  '" style="display: inline-block;" flat icon="remove" label="' +
-                  arrayList[j] +
-                  '"></kup-button>';
-                document
-                  .querySelector('#' + this.demoProps[i].prop)
-                  .insertAdjacentHTML('beforebegin', newEntry);
-                document
-                  .querySelector('#' + newEntryId)
-                  .addEventListener('kup-button-click', (e) => {
-                    this.updateDemoFieldArrayRemove(e);
-                  });
-                (document.querySelector('#' + newEntryId) as any).styling =
-                  'flat';
-              }
-            }
-            break;
           case DemoTry.FIELD:
             if (demoProps[i].type === DemoTry.NUMBER) {
               document
                 .querySelector('#' + demoProps[i].prop)
                 .setAttribute('input-type', DemoTry.NUMBER);
             }
-            if (demoComponent[this.demoProps[i].prop] !== undefined) {
+            if (demoComponent[demoProps[i].prop] !== undefined) {
               (
                 document.querySelector(
                   '#' + this.demoProps[i].prop
                 ) as HTMLKupTextFieldElement
-              ).setValue(demoComponent[this.demoProps[i].prop]);
+              ).setValue(demoComponent[demoProps[i].prop]);
             }
             break;
           case DemoTry.SWITCH:
-            if (demoComponent[this.demoProps[i].prop] === true) {
+            if (demoComponent[demoProps[i].prop] === true) {
               document
-                .querySelector('#' + this.demoProps[i].prop)
-                .setAttribute('checked', demoComponent[this.demoProps[i].prop]);
+                .querySelector('#' + demoProps[i].prop)
+                .setAttribute('checked', demoComponent[demoProps[i].prop]);
             }
             break;
         }
       }
     },
-
-    handleEvent(e: CustomEvent) {
+    /**
+     * Displays a console log whenever a registered event fires.
+     * @param {CustomEvent<KupEventPayload>} e - Generic kup event.
+     */
+    handleEvent(e: CustomEvent<Partial<KupEventPayload>>): void {
       const d: Date = new Date();
       console.log('Playground event fired: ', e);
       (document.querySelector('#on' + e.type) as HTMLElement).innerText =
@@ -379,24 +377,33 @@ export default {
         ':' +
         d.getSeconds();
     },
-
-    swapView(e) {
+    /**
+     * Enables/disables full screen mode.
+     * @param {CustomEvent<KupButtonClickEventPayload>} e - kup-button click event.
+     */
+    swapView(e: CustomEvent<KupButtonClickEventPayload>): void {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-wrapper').classList.add('full');
       } else {
         document.querySelector('#sample-wrapper').classList.remove('full');
       }
     },
-
-    splitView(e) {
+    /**
+     * Swaps between the horizontally and the vertically split view.
+     * @param {CustomEvent<KupButtonClickEventPayload>} e - kup-button click event.
+     */
+    splitView(e: CustomEvent<KupButtonClickEventPayload>): void {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-wrapper').classList.remove('detached');
       } else {
         document.querySelector('#sample-wrapper').classList.add('detached');
       }
     },
-
-    menuTrigger(e) {
+    /**
+     * Opens/closes the settings view.
+     * @param {CustomEvent<KupButtonClickEventPayload>} e - kup-button click event.
+     */
+    menuTrigger(e: CustomEvent<KupButtonClickEventPayload>): void {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-comp').classList.add('full');
         document.querySelector('#sample-dynamic').classList.add('full');
@@ -407,98 +414,47 @@ export default {
         document.querySelector('#sample-specs').classList.remove('closed');
       }
     },
-
-    updateDemoClass(e) {
+    /**
+     * Adds/removes the specified class on DemoComponent.
+     * @param {CustomEvent<KupSwitchEventPayload>} e - kup-switch change event.
+     */
+    updateDemoClass(e: CustomEvent<KupSwitchEventPayload>): void {
       if (e.detail.value === 'on') {
-        demoComponent.classList.add(e.target.id);
+        demoComponent.classList.add(e.detail.id);
       } else {
-        demoComponent.classList.remove(e.target.id);
+        demoComponent.classList.remove(e.detail.id);
       }
     },
-
-    updateDemoSwitch(e) {
+    /**
+     * Enables/disables the specified boolean prop on DemoComponent.
+     * @param {CustomEvent<KupSwitchEventPayload>} e - kup-switch change event.
+     */
+    updateDemoSwitch(e: CustomEvent<KupSwitchEventPayload>): void {
       if (e.detail.value === 'on') {
-        demoComponent[e.target.id] = true;
+        demoComponent[e.detail.id] = true;
       } else {
-        demoComponent[e.target.id] = false;
+        demoComponent[e.detail.id] = false;
       }
     },
-
-    updateDemoField(e) {
-      let demoComponent = document.querySelector('#demo-component');
-      demoComponent[e.target.id] = e.detail.value;
+    /**
+     * Updates the specified string/number prop on DemoComponent.
+     * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-text-field input event.
+     */
+    updateDemoField(e: CustomEvent<KupTextFieldEventPayload>): void {
+      demoComponent[e.detail.id] = e.detail.value;
     },
-
-    updateDemoFieldArray(e) {
-      if (e.detail.value === undefined) {
-        return;
-      }
-      let demoComponent = document.querySelector('#demo-component');
-      let propName = e.target.id;
-      let arrayList = demoComponent[propName];
-      let arrayLen = 0;
-      if (arrayList) {
-        arrayLen = arrayList.length;
-        arrayList = [...arrayList, e.detail.value];
-      } else {
-        arrayList = [e.detail.value];
-      }
-
-      for (let endFor = false; endFor === false; ) {
-        var newEntryId = '' + e.target.id + '-' + arrayLen;
-        let existingEl = document.querySelector('#' + newEntryId);
-        if (!existingEl) {
-          endFor = true;
-        } else {
-          arrayLen += 1;
-        }
-      }
-
-      let newEntry =
-        '<kup-button data-id="' +
-        e.target.id +
-        '" id="' +
-        newEntryId +
-        '" style="display: inline-block;" flat icon="remove" label="' +
-        e.detail.value +
-        '"></kup-button>';
-      demoComponent[propName] = arrayList;
-      e.target.insertAdjacentHTML('beforebegin', newEntry);
-      e.target.initialValue = '';
-      e.target.value = '';
-      document
-        .querySelector('#' + newEntryId)
-        .addEventListener('kup-button-click', (e) => {
-          this.updateDemoFieldArrayRemove(e);
-        });
+    /**
+     * Swaps between different tabs on click.
+     * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-tab-bar click event.
+     */
+    tabSelection(e: CustomEvent<KupTabBarClickEventPayload>): void {
+      this.handleTab(e.detail.index);
     },
-
-    updateDemoFieldArrayRemove(e) {
-      let demoComponent = document.querySelector('#demo-component');
-      let propName = e.target.getAttribute('data-id');
-      let labelName = e.target.getAttribute('label');
-      let arrayList = demoComponent[propName];
-      const index = arrayList.indexOf(labelName);
-      if (index > -1) {
-        arrayList.splice(index, 1);
-      }
-      arrayList = [...arrayList];
-      demoComponent[propName] = arrayList;
-      e.target.remove();
-    },
-
-    tabSelection(e) {
-      let i = e.detail.index;
-      this.handleTab(i);
-    },
-
-    handleTab(i) {
-      const propsTab: HTMLElement = document.querySelector('#props-tab');
-      const classesTab: HTMLElement = document.querySelector('#classes-tab');
-      const eventsTab: HTMLElement = document.querySelector('#events-tab');
-      const jsonTab: HTMLElement = document.querySelector('#json-tab');
-      const cssTab: HTMLElement = document.querySelector('#css-tab');
-
+    /**
+     * Enables the view related to the given tab index.
+     * @param {number} i - Index of the tab to select.
+     */
+    handleTab(i: number): void {
       propsTab.setAttribute('style', 'display: none;');
       classesTab.setAttribute('style', 'display: none;');
       eventsTab.setAttribute('style', 'display: none;');
@@ -506,29 +462,28 @@ export default {
       cssTab.setAttribute('style', 'display: none;');
 
       switch (tabBar.data[i].text) {
-        case 'Props':
+        case DemoTabs.PROPS:
           propsTab.setAttribute('style', '');
           break;
-        case 'Classes':
+        case DemoTabs.CLASSES:
           classesTab.setAttribute('style', '');
           break;
-        case 'Events':
+        case DemoTabs.EVENTS:
           eventsTab.setAttribute('style', '');
           break;
-        case 'JSON':
+        case DemoTabs.JSON:
           jsonTab.setAttribute('style', '');
           break;
-        case 'CSS':
+        case DemoTabs.CSS:
           cssTab.setAttribute('style', '');
-          this.cssSet();
+          this.prepareCssView();
           break;
       }
     },
-
-    jsonSetSwitch() {
-      let jsonSetter = document.querySelector('#json-setter');
-      let jsonSetterOpener = document.querySelector('#json-setter-opener');
-      let jsonTab = document.querySelector('#json-tab');
+    /**
+     * Shows/hides the prop text field inside the JSON view.
+     */
+    jsonSetSwitch(): void {
       if (jsonSetter.classList.contains('visible')) {
         jsonSetter.classList.remove('visible');
         jsonTab.classList.remove('padded');
@@ -539,18 +494,20 @@ export default {
         jsonSetterOpener.classList.remove('visible');
       }
     },
-
-    jsonSet(e) {
-      const jsonWarning: HTMLKupButtonElement =
-        document.querySelector('#json-warning');
-      const jsonProp: string = e.detail.value;
-      demoComponent.currentJSONprop = jsonProp;
-      const jsonData: Object = demoComponent[jsonProp];
-      const stringifiedJSON: string = JSON.stringify(jsonData, null, 2);
-      const jsonTextarea: HTMLTextAreaElement =
-        document.querySelector('#json-textarea');
-      let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
-      jsonTextarea.value = stringifiedJSON;
+    /**
+     * Retrieves the user typed prop's value, displaying it inside the textarea - ready to be edited.
+     * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-text-field input event.
+     */
+    prepareJsonView(e: CustomEvent<KupTextFieldEventPayload>) {
+      demoComponent.dataset.prop = e.detail.value;
+      jsonTextarea.value = JSON.stringify(
+        demoComponent[e.detail.value],
+        null,
+        2
+      );
+      const codemirrorTextarea: HTMLElement = document.querySelector(
+        '#json-tab .CodeMirror'
+      );
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
       }
@@ -561,12 +518,11 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function (cm) {
+      }).on('change', function (cm: any) {
         cm.save();
-        let prop = demoComponent.currentJSONprop;
+        const prop: string = demoComponent.dataset.prop;
         try {
-          let jsonifiedData = JSON.parse(jsonTextarea.value);
-          demoComponent[prop] = jsonifiedData;
+          demoComponent[prop] = JSON.parse(jsonTextarea.value);
           jsonWarning.classList.remove('visible');
         } catch (error) {
           demoComponent[prop] = jsonTextarea.value;
@@ -574,12 +530,14 @@ export default {
         }
       });
     },
-
-    cssSet() {
-      const cssTextarea: HTMLTextAreaElement =
-        document.querySelector('#css-textarea');
-      let codemirrorTextarea = document.querySelector('#css-tab .CodeMirror');
+    /**
+     * Retrieves the customStyle of the component, displaying it inside the textarea - ready to be edited.
+     */
+    prepareCssView(): void {
       cssTextarea.value = demoComponent['customStyle'];
+      const codemirrorTextarea: HTMLElement = document.querySelector(
+        '#css-tab .CodeMirror'
+      );
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
       }
@@ -590,15 +548,17 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function (cm) {
+      }).on('change', function (cm: any) {
         cm.save();
         demoComponent['customStyle'] = cssTextarea.value;
       });
     },
   },
-
+  /**
+   * Called after the instance of the Vue component has been mounted.
+   */
   mounted() {
-    this.initEvents();
+    this.initVariables();
     this.initTabs();
     this.initDefaults();
   },

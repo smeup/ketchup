@@ -199,7 +199,7 @@ export default {
           description: 'Multiple selection.',
           type: 'BoxRow[]',
           default: '[]',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'showSelection',

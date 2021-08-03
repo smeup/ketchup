@@ -29,7 +29,7 @@ export default {
             'Array of three elements to specify the color of the arcs.',
           type: 'string[]',
           default: 'Theme state colors',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'customStyle',
