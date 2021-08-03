@@ -75,8 +75,7 @@ export default {
         },
 
         {
-          text:
-            "a section with the name 'main-content' which contains the main content of the drawer; for example, a list.",
+          text: "a section with the name 'main-content' which contains the main content of the drawer; for example, a list.",
           value: '3',
           icon: 'trending_flat',
         },

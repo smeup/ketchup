@@ -196,10 +196,40 @@ import { Components } from 'ketchup/dist/types/components';
 import { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
 var demoComponent: DemoComponent = null;
 var demoComponentWrapper: HTMLDivElement = null;
+var demoClasses: DemoClasses[] = null;
+var demoEvents: DemoEvents[] = null;
+var demoProps: DemoProps[] = null;
 var tabBar: HTMLKupTabBarElement = null;
 
-export interface DemoComponent extends HTMLElement {
+interface DemoComponent extends HTMLElement {
   currentJSONprop: string;
+}
+
+interface DemoClasses {
+  class: string;
+  description: string;
+}
+
+interface DemoEvents {
+  name: string;
+  type: string;
+}
+
+interface DemoProps {
+  prop: string;
+  description: string;
+  type: string;
+  default: string;
+  try: DemoTry;
+}
+
+enum DemoTry {
+  ARRAY = 'array',
+  CSS = 'css',
+  FIELD = 'field',
+  NUMBER = 'number',
+  JSON = 'json',
+  SWITCH = 'switch',
 }
 
 export default {
@@ -215,9 +245,12 @@ export default {
       demoComponentWrapper.appendChild(this.demoComp);
       demoComponent = document.querySelector('#demo-component');
       tabBar = document.querySelector('#demo-tab-bar');
-      if (this.demoEvents) {
-        for (let i = 0; i < this.demoEvents.length; i++) {
-          demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
+      demoClasses = this.demoClasses;
+      demoEvents = this.demoEvents;
+      demoProps = this.demoProps;
+      if (demoEvents) {
+        for (let i = 0; i < demoEvents.length; i++) {
+          demoComponent.addEventListener(demoEvents[i].name, (e) =>
             this.handleEvent(e)
           );
         }
@@ -226,21 +259,21 @@ export default {
 
     initTabs(): void {
       const data: KupTabBarData[] = [];
-      if (this.demoProps) {
+      if (demoProps) {
         data.push({
           value: 'Props',
           text: 'Props',
           title: 'List of props available to the component.',
         });
       }
-      if (this.demoClasses) {
+      if (demoClasses) {
         data.push({
           value: 'Classes',
           text: 'Classes',
           title: 'List of classes available to the component.',
         });
       }
-      if (this.demoEvents) {
+      if (demoEvents) {
         data.push({
           value: 'Events',
           text: 'Events',
@@ -253,9 +286,9 @@ export default {
         icon: 'json',
         title: 'Here you can change props values manually.',
       });
-      if (this.demoProps) {
-        for (let i = 0; i < this.demoProps.length; i++) {
-          if (this.demoProps[i].prop === 'customStyle') {
+      if (demoProps) {
+        for (let i = 0; i < demoProps.length; i++) {
+          if (demoProps[i].prop === 'customStyle') {
             data.push({
               value: 'CSS',
               text: 'CSS',
@@ -275,42 +308,20 @@ export default {
       }
     },
 
-    initDefaults() : void {
-      for (let i = 0; i < this.demoProps.length; i++) {
-        switch (this.demoProps[i].try) {
-          case 'field':
-            if (this.demoProps[i].type === 'number') {
-              document
-                .querySelector('#' + this.demoProps[i].prop)
-                .setAttribute('input-type', 'number');
-            }
-            if (demoComponent[this.demoProps[i].prop] !== undefined) {
-              document
-                .querySelector('#' + this.demoProps[i].prop)
-                .setAttribute(
-                  'initial-value',
-                  demoComponent[this.demoProps[i].prop]
-                );
-            }
-            break;
-          case 'switch':
-            if (demoComponent[this.demoProps[i].prop] === true) {
-              document
-                .querySelector('#' + this.demoProps[i].prop)
-                .setAttribute('checked', demoComponent[this.demoProps[i].prop]);
-            }
-            break;
-          case 'array':
-            if (demoComponent[this.demoProps[i].prop]) {
+    initDefaults(): void {
+      for (let i = 0; i < demoProps.length; i++) {
+        switch (demoProps[i].try) {
+          case DemoTry.ARRAY:
+            if (demoComponent[demoProps[i].prop]) {
               for (
                 var j = 0;
-                j < demoComponent[this.demoProps[i].prop].length;
+                j < demoComponent[demoProps[i].prop].length;
                 j++
               ) {
-                let propName = this.demoProps[i].prop;
-                let arrayList = demoComponent[this.demoProps[i].prop];
-                let newEntryId = '' + propName + '-' + j;
-                let newEntry =
+                const propName: string = demoProps[i].prop;
+                const arrayList: any = demoComponent[demoProps[i].prop];
+                const newEntryId: string = '' + propName + '-' + j;
+                const newEntry: string =
                   '<kup-button data-id="' +
                   propName +
                   '" id="' +
@@ -331,12 +342,33 @@ export default {
               }
             }
             break;
+          case DemoTry.FIELD:
+            if (demoProps[i].type === DemoTry.NUMBER) {
+              document
+                .querySelector('#' + demoProps[i].prop)
+                .setAttribute('input-type', DemoTry.NUMBER);
+            }
+            if (demoComponent[this.demoProps[i].prop] !== undefined) {
+              (
+                document.querySelector(
+                  '#' + this.demoProps[i].prop
+                ) as HTMLKupTextFieldElement
+              ).setValue(demoComponent[this.demoProps[i].prop]);
+            }
+            break;
+          case DemoTry.SWITCH:
+            if (demoComponent[this.demoProps[i].prop] === true) {
+              document
+                .querySelector('#' + this.demoProps[i].prop)
+                .setAttribute('checked', demoComponent[this.demoProps[i].prop]);
+            }
+            break;
         }
       }
     },
 
-    handleEvent(e) {
-      var d = new Date();
+    handleEvent(e: CustomEvent) {
+      const d: Date = new Date();
       console.log('Playground event fired: ', e);
       (document.querySelector('#on' + e.type) as HTMLElement).innerText =
         e.type +
