@@ -38,6 +38,20 @@ export default {
           default: 'undefined',
           try: 'json',
         },
+        {
+          prop: 'globalFilter',
+          description: 'When set to true it activates the global filter.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'globalFilterValue',
+          description: 'The value of the global filter.',
+          type: 'string',
+          default: '',
+          try: 'field',
+        },
       ],
       demoClasses: [],
     };

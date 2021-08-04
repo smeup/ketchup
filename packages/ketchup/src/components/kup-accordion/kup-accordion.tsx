@@ -10,8 +10,11 @@ import {
     State,
     Listen,
     Event,
-    EventEmitter
+    EventEmitter,
+    Watch,
 } from '@stencil/core';
+
+import { KupLanguageSearch } from '../../utils/kup-language/kup-language-declarations';
 
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
@@ -22,12 +25,12 @@ import { getProps, setProps } from '../../utils/utils';
 import { Cell, CellData } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupAccordionData,
-    KupAccordionProps
+    KupAccordionProps,
 } from './kup-accordion-declarations';
 
 import {
     TreeNode,
-    KupTreeNodeSelectedEventPayload
+    KupTreeNodeSelectedEventPayload,
 } from './../kup-tree/kup-tree-declarations';
 
 @Component({
@@ -63,6 +66,15 @@ export class KupAccordion {
      * @default null
      */
     @Prop() data: KupAccordionData = null;
+    /**
+     * When set to true it activates the global filter.
+     */
+    @Prop() globalFilter: boolean = false;
+
+    /**
+     * The value of the global filter.
+     */
+    @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -72,6 +84,11 @@ export class KupAccordion {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+
+    private globalFilterTimeout: number;
+
+    @State()
+    private actualData: KupAccordionData = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -92,9 +109,10 @@ export class KupAccordion {
      * Catch kup-tree-nodeselected event and emits a new kup-accordion-selectedNode event
      * @Param event
      */
-    @Listen('kup-tree-nodeselected', {target: 'body'})
-    kupTreeNodeSelectedHandler(event: CustomEvent){
-        var selectedNodeEvent: KupTreeNodeSelectedEventPayload = {} as KupTreeNodeSelectedEventPayload;
+    @Listen('kup-tree-nodeselected', { target: 'body' })
+    kupTreeNodeSelectedHandler(event: CustomEvent) {
+        var selectedNodeEvent: KupTreeNodeSelectedEventPayload =
+            {} as KupTreeNodeSelectedEventPayload;
         selectedNodeEvent.treeNode = event.detail.treeNode;
         selectedNodeEvent.treeNodePath = event.detail.treeNodePath;
         this.kupAccordionSelectedNode.emit(selectedNodeEvent);
@@ -134,7 +152,7 @@ export class KupAccordion {
      * @param e event
      * @param columnId name of category
      */
-    expandCategory(e: MouseEvent, columnId: string){
+    expandCategory(e: MouseEvent, columnId: string) {
         let el: HTMLButtonElement = null;
 
         if ((e.target as HTMLElement).tagName === 'BUTTON') {
@@ -143,12 +161,12 @@ export class KupAccordion {
             el = (e.target as HTMLElement).closest('button');
         }
 
-        if(el.className == "accordion-button--active"){
+        if (el.className == 'accordion-button--active') {
             const index = this.expandedCategoryIds.indexOf(columnId, 0);
             if (index > -1) {
                 this.expandedCategoryIds.splice(index, 1);
             }
-        }else{
+        } else {
             this.expandedCategoryIds.push(columnId);
         }
         this.refresh();
@@ -158,23 +176,40 @@ export class KupAccordion {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    @Watch('data')
+    @Watch('globalFilterValue')
+    recalculateData() {
+        this.actualData = this.data;
+    }
+
+    private onGlobalFilterChange({ detail }) {
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
+    }
+
     /**
      * This method is used to build TreeNode structure and create kup-tree component
      * @param cellData
      * @param columnName category id
      * @returns VNode[]
      */
-    private renderKupTree(cellData: CellData): VNode[]{
+    private renderKupTree(cellData: CellData): VNode[] {
         const kupTree: VNode[] = [];
         const tree: TreeNode[] = [];
 
-        for(var i=0; i<cellData.data.length; i++){
+        for (var i = 0; i < cellData.data.length; i++) {
             const treeNode: TreeNode = cellData.data[i];
             tree.push(treeNode);
         }
 
         kupTree.push(
-            <kup-tree data={tree}></kup-tree>
+            <kup-tree
+                data={tree}
+                globalFilterValue={this.globalFilterValue}
+            ></kup-tree>
         );
 
         return kupTree;
@@ -182,18 +217,19 @@ export class KupAccordion {
 
     /**
      * This method is used to create the sub component structure
-     * @param cell 
+     * @param cell
      * @param columnName category id
      * @returns VNode[]
      */
-    private renderSubComponent(cell:Cell): VNode[] {
+    private renderSubComponent(cell: Cell): VNode[] {
         const shape = cell.shape;
 
-        switch(shape){
-            case "TRE":{
+        switch (shape) {
+            case 'TRE': {
                 return this.renderKupTree(cell.data);
             }
-            default: return
+            default:
+                return;
         }
     }
 
@@ -202,37 +238,38 @@ export class KupAccordion {
      * @returns VNode[]
      */
     private renderAccordion(): VNode[] {
-       const categories: VNode[] = [];
+        const categories: VNode[] = [];
 
-        for(var i=0; i<this.data.columns.length; i++) {
-            const columnName = this.data.columns[i].name;
-            const cell = this.data.rows[0].cells[columnName];
+        for (var i = 0; i < this.actualData.columns.length; i++) {
+            const columnName = this.actualData.columns[i].name;
+            const cell = this.actualData.rows[0].cells[columnName];
 
             var subComponent: VNode[] = [];
-            if(cell != null){
+            if (cell != null) {
                 subComponent = this.renderSubComponent(cell);
             }
 
             var buttonCssClass;
             var divCssClass;
             const index = this.expandedCategoryIds.indexOf(columnName, 0);
-            if(index > -1){
-                buttonCssClass = "accordion-button--active";
-                divCssClass = "accordion-subcomponent--active";
-            }else{
-                buttonCssClass = "accordion-button";
-                divCssClass = "accordion-subcomponent";
+            if (index > -1) {
+                buttonCssClass = 'accordion-button--active';
+                divCssClass = 'accordion-subcomponent--active';
+            } else {
+                buttonCssClass = 'accordion-button';
+                divCssClass = 'accordion-subcomponent';
             }
 
             categories.push(
                 <div class="accordion-category-wrapper">
-                    <button class={buttonCssClass}
-
-                    onClick={
-                        (e: MouseEvent) => this.expandCategory(e, columnName)
-                    }
-
-                    >{this.data.columns[i].title}</button>
+                    <button
+                        class={buttonCssClass}
+                        onClick={(e: MouseEvent) =>
+                            this.expandCategory(e, columnName)
+                        }
+                    >
+                        {this.actualData.columns[i].title}
+                    </button>
                     <div class={divCssClass}>{subComponent}</div>
                 </div>
             );
@@ -247,6 +284,7 @@ export class KupAccordion {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
+        this.recalculateData();
     }
 
     componentDidLoad() {
@@ -267,10 +305,40 @@ export class KupAccordion {
             this.rootElement as KupComponent
         );
 
+        let filterPanel = null;
+        if (this.globalFilter) {
+            filterPanel = (
+                <div id="global-filter">
+                    <kup-text-field
+                        fullWidth={true}
+                        isClearable={true}
+                        label={this.kupManager.language.translate(
+                            KupLanguageSearch.SEARCH
+                        )}
+                        icon="magnify"
+                        initialValue={this.globalFilterValue}
+                        onkup-textfield-input={(event) => {
+                            window.clearTimeout(this.globalFilterTimeout);
+                            this.globalFilterTimeout = window.setTimeout(
+                                () => this.onGlobalFilterChange(event),
+                                600
+                            );
+                        }}
+                        onkup-textfield-cleariconclick={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
+                    ></kup-text-field>
+                </div>
+            );
+        }
+
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">{content}</div>
+                <div id="kup-component">
+                    {filterPanel}
+                    {content}
+                </div>
             </Host>
         );
     }

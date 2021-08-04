@@ -168,3 +168,4 @@ const data = {
 
 const accordion = document.getElementById('first');
 accordion.data = data;
+accordion.globalFilter = 'true';

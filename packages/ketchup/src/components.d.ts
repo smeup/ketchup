@@ -68,6 +68,14 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * When set to true it activates the global filter.
+         */
+        "globalFilter": boolean;
+        /**
+          * The value of the global filter.
+         */
+        "globalFilterValue": string;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -2875,6 +2883,14 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupAccordionData;
+        /**
+          * When set to true it activates the global filter.
+         */
+        "globalFilter"?: boolean;
+        /**
+          * The value of the global filter.
+         */
+        "globalFilterValue"?: string;
         /**
           * Fired when a TreeNode is selected
          */

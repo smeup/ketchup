@@ -7,10 +7,12 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type               | Default |
-| ------------- | -------------- | ------------------------------ | ------------------ | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`           | `''`    |
-| `data`        | --             | Data of the accordion.         | `KupAccordionData` | `null`  |
+| Property            | Attribute             | Description                                      | Type               | Default |
+| ------------------- | --------------------- | ------------------------------------------------ | ------------------ | ------- |
+| `customStyle`       | `custom-style`        | Custom style of the component.                   | `string`           | `''`    |
+| `data`              | --                    | Data of the accordion.                           | `KupAccordionData` | `null`  |
+| `globalFilter`      | `global-filter`       | When set to true it activates the global filter. | `boolean`          | `false` |
+| `globalFilterValue` | `global-filter-value` | The value of the global filter.                  | `string`           | `''`    |
 
 
 ## Events
@@ -58,11 +60,13 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-tree](../kup-tree)
+- [kup-text-field](../kup-text-field)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-accordion --> kup-tree
+  kup-accordion --> kup-text-field
   kup-tree --> kup-card
   kup-tree --> kup-image
   kup-tree --> kup-button
