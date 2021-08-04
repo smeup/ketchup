@@ -15,6 +15,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupBpmnProps } from './kup-bpmn-declarations';
 import Diagram from './resources/diagram.svg';
 
@@ -83,6 +84,15 @@ export class KupBpmn {
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupBpmnProps, descriptions);
+    }
     @Method()
     async openDiagram(): Promise<void> {
         try {
@@ -96,13 +106,11 @@ export class KupBpmn {
         }
     }
     /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     * This method is used to trigger a new render of the component.
      */
     @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupBpmnProps, descriptions);
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
     /**
      * Sets the props to the component.
@@ -111,13 +119,6 @@ export class KupBpmn {
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupBpmnProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -163,7 +164,15 @@ export class KupBpmn {
     }
 
     render() {
-        if (this.asImage == false) {
+        if (this.asImage) {
+            return (
+                <Host>
+                    <div id={componentWrapperId}>
+                        <img src={Diagram} />
+                    </div>
+                </Host>
+            );
+        } else {
             return (
                 <Host>
                     <link
@@ -174,7 +183,7 @@ export class KupBpmn {
                         rel="stylesheet"
                         href="https://unpkg.com/bpmn-js@8.7.1/dist/assets/bpmn-font/css/bpmn.css"
                     />
-                    <div class="bpmn--wrapper">
+                    <div id={componentWrapperId}>
                         <div class="content with-diagram" id="js-drop-zone">
                             <div class="message error">
                                 <div class="note">
@@ -200,12 +209,6 @@ export class KupBpmn {
                         </button>
                     </div>
                 </Host>
-            );
-        } else if (this.asImage == true) {
-            return (
-                <div>
-                    <img src={Diagram} />
-                </div>
             );
         }
     }
