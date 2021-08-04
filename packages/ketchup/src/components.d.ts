@@ -526,26 +526,33 @@ export namespace Components {
     interface KupChart {
         /**
           * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+          * @default undefined
          */
         "asp": ChartAspect;
         /**
           * Sets the axis of the chart.
+          * @default undefined
          */
         "axis": string;
         /**
           * Title of the graph.
+          * @default undefined
          */
         "chartTitle": ChartTitle;
         /**
           * Colors of the chart.
+          * @default []
          */
         "colors": string[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * The actual data of the chart.
+          * @default undefined
          */
         "data": DataTable;
         /**
@@ -556,14 +563,17 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Customize the hAxis.
+          * @default undefined
          */
         "hAxis": ChartAxis;
         /**
           * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default "right"
          */
         "legend": string;
         /**
           * Renders charts without the Google API and using jQuery Sparkline.
+          * @default undefined
          */
         "offlineMode": ChartOfflineMode;
         /**
@@ -576,6 +586,7 @@ export namespace Components {
         "resizeCallback": () => Promise<void>;
         /**
           * The data series to be displayed. They must be of the same type.
+          * @default undefined
          */
         "series": ChartSerie[];
         /**
@@ -585,30 +596,37 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Displays the numerical values.
+          * @default false
          */
         "showMarks": boolean;
         /**
           * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
          */
         "sizeX": string;
         /**
           * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
          */
         "sizeY": string;
         /**
           * Displays the data columns of an object on top of each other.
+          * @default false
          */
         "stacked": boolean;
         /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+          * @default [ChartType.Hbar]
          */
         "types": ChartType[];
         /**
           * Customize the vAxis.
+          * @default undefined
          */
         "vAxis": ChartAxis;
         /**
           * Google chart version to load
+          * @default "45.2"
          */
         "version": string;
     }
@@ -3353,38 +3371,48 @@ declare namespace LocalJSX {
     interface KupChart {
         /**
           * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+          * @default undefined
          */
         "asp"?: ChartAspect;
         /**
           * Sets the axis of the chart.
+          * @default undefined
          */
         "axis"?: string;
         /**
           * Title of the graph.
+          * @default undefined
          */
         "chartTitle"?: ChartTitle;
         /**
           * Colors of the chart.
+          * @default []
          */
         "colors"?: string[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The actual data of the chart.
+          * @default undefined
          */
         "data"?: DataTable;
         /**
           * Customize the hAxis.
+          * @default undefined
          */
         "hAxis"?: ChartAxis;
         /**
           * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default "right"
          */
         "legend"?: string;
         /**
           * Renders charts without the Google API and using jQuery Sparkline.
+          * @default undefined
          */
         "offlineMode"?: ChartOfflineMode;
         /**
@@ -3393,34 +3421,42 @@ declare namespace LocalJSX {
         "onKup-chart-click"?: (event: CustomEvent<KupChartClickEvent>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
+          * @default undefined
          */
         "series"?: ChartSerie[];
         /**
           * Displays the numerical values.
+          * @default false
          */
         "showMarks"?: boolean;
         /**
           * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
          */
         "sizeX"?: string;
         /**
           * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
          */
         "sizeY"?: string;
         /**
           * Displays the data columns of an object on top of each other.
+          * @default false
          */
         "stacked"?: boolean;
         /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+          * @default [ChartType.Hbar]
          */
         "types"?: ChartType[];
         /**
           * Customize the vAxis.
+          * @default undefined
          */
         "vAxis"?: ChartAxis;
         /**
           * Google chart version to load
+          * @default "45.2"
          */
         "version"?: string;
     }
