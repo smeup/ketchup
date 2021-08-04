@@ -20,17 +20,16 @@
 
 ## Events
 
-| Event                              | Description | Type                                                    |
-| ---------------------------------- | ----------- | ------------------------------------------------------- |
-| `kup-autocomplete-blur`            |             | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-change`          |             | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-click`           |             | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-filterchanged`   |             | `CustomEvent<kupAutocompleteFilterChangedEventPayload>` |
-| `kup-autocomplete-focus`           |             | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-iconclick`       |             | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-input`           |             | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-itemclick`       |             | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-textfieldsubmit` |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| Event                            | Description | Type                                                    |
+| -------------------------------- | ----------- | ------------------------------------------------------- |
+| `kup-autocomplete-blur`          |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-change`        |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-click`         |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-filterchanged` |             | `CustomEvent<kupAutocompleteFilterChangedEventPayload>` |
+| `kup-autocomplete-focus`         |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-iconclick`     |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-input`         |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-itemclick`     |             | `CustomEvent<KupAutocompleteEventPayload>`              |
 
 
 ## Methods

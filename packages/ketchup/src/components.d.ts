@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
-import { KupBadgeEventPayload } from "./components/kup-badge/kup-badge-declarations";
+import { FImageData, FImageProps } from "./f-components/f-image/f-image-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
@@ -32,7 +32,6 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
-import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
@@ -123,7 +122,9 @@ export namespace Components {
     }
     interface KupBadge {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -134,8 +135,9 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The data of the image displayed inside the badge.
+          * @default null
          */
-        "imageData": {};
+        "imageData": Partial<FImageProps>;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -147,6 +149,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The text displayed inside the badge.
+          * @default null
          */
         "text": string;
     }
@@ -2911,7 +2914,6 @@ declare namespace LocalJSX {
         "onKup-autocomplete-iconclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-input"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-itemclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
-        "onKup-autocomplete-textfieldsubmit"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
@@ -2923,16 +2925,20 @@ declare namespace LocalJSX {
     }
     interface KupBadge {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The data of the image displayed inside the badge.
+          * @default null
          */
-        "imageData"?: {};
-        "onKup-badge-click"?: (event: CustomEvent<KupBadgeEventPayload>) => void;
+        "imageData"?: Partial<FImageProps>;
+        "onKup-badge-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The text displayed inside the badge.
+          * @default null
          */
         "text"?: string;
     }

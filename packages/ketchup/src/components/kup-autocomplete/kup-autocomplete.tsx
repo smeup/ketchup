@@ -32,6 +32,7 @@ import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -557,7 +558,7 @@ export class KupAutocomplete {
                 style={this.elStyle}
             >
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" style={this.elStyle}>
+                <div id={componentWrapperId} style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}
                         disabled={this.disabled}

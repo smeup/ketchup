@@ -201,13 +201,13 @@
 </template>
 
 <script lang="ts">
-import { Components } from 'ketchup/dist/types/components';
-import { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
-import { KupButtonClickEventPayload } from 'ketchup/dist/types/components/kup-button/kup-button-declarations';
-import { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
-import { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
-import { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
-import { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { Components } from 'ketchup/dist/types/components';
+import type { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
+import type { KupButtonClickEventPayload } from 'ketchup/dist/types/components/kup-button/kup-button-declarations';
+import type { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
+import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 
 interface DemoClasses {
   class: string;
@@ -404,25 +404,24 @@ export default {
       for (let i = 0; i < demoProps.length; i++) {
         switch (demoProps[i].try) {
           case DemoTry.FIELD:
+            const fieldEl: HTMLKupTextFieldElement = document.querySelector(
+              '#' + demoProps[i].prop
+            );
             if (demoProps[i].type === DemoTry.NUMBER) {
-              document
-                .querySelector('#' + demoProps[i].prop)
-                .setAttribute('input-type', DemoTry.NUMBER);
+              fieldEl.inputType = DemoTry.NUMBER;
             }
-            if (demoComponent[demoProps[i].prop] !== undefined) {
-              (
-                document.querySelector(
-                  '#' + demoProps[i].prop
-                ) as HTMLKupTextFieldElement
-              ).setValue(demoComponent[demoProps[i].prop]);
+            if (
+              demoComponent[demoProps[i].prop] !== undefined &&
+              demoComponent[demoProps[i].prop] !== null
+            ) {
+              fieldEl.setValue(demoComponent[demoProps[i].prop]);
             }
             break;
           case DemoTry.SWITCH:
-            if (demoComponent[demoProps[i].prop] === true) {
-              document
-                .querySelector('#' + demoProps[i].prop)
-                .setAttribute('checked', demoComponent[demoProps[i].prop]);
-            }
+            const switchEl: HTMLKupSwitchElement = document.querySelector(
+              '#' + demoProps[i].prop
+            );
+            switchEl.checked = demoComponent[demoProps[i].prop] ? true : false;
             break;
         }
       }
