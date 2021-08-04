@@ -547,6 +547,10 @@ export namespace Components {
          */
         "types": ChartType[];
         /**
+          * Customize the vAxes for multiple-chart.
+         */
+        "vAxes": ChartAxis[];
+        /**
           * Customize the vAxis.
          */
         "vAxis": ChartAxis;
@@ -3292,6 +3296,10 @@ declare namespace LocalJSX {
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
          */
         "types"?: ChartType[];
+        /**
+          * Customize the vAxes for multiple-chart.
+         */
+        "vAxes"?: ChartAxis[];
         /**
           * Customize the vAxis.
          */

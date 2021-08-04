@@ -113,6 +113,10 @@ export class KupChart {
      */
     @Prop() types: ChartType[] = [ChartType.Hbar];
     /**
+     * Customize the vAxes for multiple-chart.
+     */
+    @Prop() vAxes: ChartAxis[];
+    /**
      * Customize the vAxis.
      */
     @Prop() vAxis: ChartAxis;
@@ -342,6 +346,9 @@ export class KupChart {
             });
         }
 
+        if (this.vAxes) {
+            opts.vAxes = this.vAxes;
+        }
         if (this.vAxis) {
             opts.vAxis = this.vAxis;
             opts.vAxis['textStyle'] = { color: this.themeText };

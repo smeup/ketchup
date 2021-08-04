@@ -20,6 +20,7 @@ export enum KupChartProps {
     sizeY = 'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
     stacked = 'Displays the data columns of an object on top of each other.',
     types = 'The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.',
+    vAxes = 'Customize the vAxes for multiple-charts.',
     vAxis = 'Customize the vAxis.',
     version = 'Google chart version to load.',
 }
@@ -31,6 +32,7 @@ export enum ChartAspect {
 
 export interface ChartAxis {
     ticks?: string[];
+    textPosition?: string;
     gridlines?: ChartAxisGridlines;
     viewWindow?: ChartAxisViewWindow;
     textStyle?: { color?: string; fontSize?: number };
@@ -76,6 +78,7 @@ export interface ChartOptions {
     }[];
     hAxis?: ChartAxis;
     vAxis?: ChartAxis;
+    vAxes?: ChartAxis[];
 }
 
 export interface ChartSerie {
