@@ -8,10 +8,9 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
-import { FImageData, FImageProps } from "./f-components/f-image/f-image-declarations";
-import { KupStore } from "./components/kup-state/kup-store";
 import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
+import { KupStore } from "./components/kup-state/kup-store";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -32,6 +31,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
+import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
@@ -137,7 +137,7 @@ export namespace Components {
           * The data of the image displayed inside the badge.
           * @default null
          */
-        "imageData": Partial<FImageProps>;
+        "imageData": GenericObject;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -156,34 +156,43 @@ export namespace Components {
     interface KupBox {
         /**
           * Data of the card linked to the box when the latter's layout must be a premade template.
+          * @default null
          */
         "cardData": GenericObject;
         /**
           * Number of columns
+          * @default 1
          */
         "columns": number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
-          * Data
+          * Actual data of the box.
+          * @default null
          */
         "data": { columns?: Column[]; rows?: BoxRow[] };
         /**
           * Enable dragging
+          * @default false
          */
         "dragEnabled": boolean;
         /**
           * Enable dropping
+          * @default false
          */
         "dropEnabled": boolean;
         /**
           * Drop can be done in section
+          * @default false
          */
         "dropOnSection": boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
+          * @default false
          */
         "enableRowActions": boolean;
         /**
@@ -194,35 +203,43 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
+          * @default false
          */
         "globalFilter": boolean;
         /**
           * The value of the global filter.
+          * @default ""
          */
         "globalFilterValue": string;
         /**
           * Displays the boxlist as a Kanban.
+          * @default null
          */
         "kanban": BoxKanban;
         /**
           * How the field will be displayed. If not present, a default one will be created.
+          * @default undefined
          */
         "layout": Layout;
         "loadRowActions": (row: BoxRow, actions: RowAction[]) => Promise<void>;
         /**
           * Enable multi selection
+          * @default false
          */
         "multiSelection": boolean;
         /**
           * Current page number
+          * @default 1
          */
         "pageSelected": number;
         /**
           * Number of boxes per page
+          * @default 10
          */
         "pageSize": number;
         /**
           * Enables pagination
+          * @default false
          */
         "pagination": boolean;
         /**
@@ -231,18 +248,22 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * Number of current rows per page
+          * @default undefined
          */
         "rowsPerPage": number;
         /**
           * Activates the scroll on hover function.
+          * @default false
          */
         "scrollOnHover": boolean;
         /**
           * Automatically selects the box at the specified index
+          * @default undefined
          */
         "selectBox": number;
         /**
           * Multiple selection
+          * @default undefined
          */
         "selectedRowsState": string;
         /**
@@ -252,36 +273,44 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * If enabled, highlights the selected box/boxes
+          * @default true
          */
         "showSelection": boolean;
         /**
           * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+          * @default true
          */
         "showTooltipOnRightClick": boolean;
         /**
           * If sorting is enabled, specifies which column to sort
+          * @default undefined
          */
         "sortBy": string;
         /**
           * Enable sorting
+          * @default false
          */
         "sortEnabled": boolean;
         "stateId": string;
         "store": KupStore;
         /**
           * Disable swipe
+          * @default false
          */
         "swipeDisabled": boolean;
         /**
           * Defines the timeout for tooltip detail
+          * @default undefined
          */
         "tooltipDetailTimeout": number;
         /**
           * Enable show tooltip
+          * @default true
          */
         "tooltipEnabled": boolean;
         /**
           * Defines the timeout for tooltip load
+          * @default undefined
          */
         "tooltipLoadTimeout": number;
     }
@@ -2934,7 +2963,7 @@ declare namespace LocalJSX {
           * The data of the image displayed inside the badge.
           * @default null
          */
-        "imageData"?: Partial<FImageProps>;
+        "imageData"?: GenericObject;
         "onKup-badge-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The text displayed inside the badge.
@@ -2945,54 +2974,68 @@ declare namespace LocalJSX {
     interface KupBox {
         /**
           * Data of the card linked to the box when the latter's layout must be a premade template.
+          * @default null
          */
         "cardData"?: GenericObject;
         /**
           * Number of columns
+          * @default 1
          */
         "columns"?: number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
-          * Data
+          * Actual data of the box.
+          * @default null
          */
         "data"?: { columns?: Column[]; rows?: BoxRow[] };
         /**
           * Enable dragging
+          * @default false
          */
         "dragEnabled"?: boolean;
         /**
           * Enable dropping
+          * @default false
          */
         "dropEnabled"?: boolean;
         /**
           * Drop can be done in section
+          * @default false
          */
         "dropOnSection"?: boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
+          * @default false
          */
         "enableRowActions"?: boolean;
         /**
           * When set to true it activates the global filter.
+          * @default false
          */
         "globalFilter"?: boolean;
         /**
           * The value of the global filter.
+          * @default ""
          */
         "globalFilterValue"?: string;
         /**
           * Displays the boxlist as a Kanban.
+          * @default null
          */
         "kanban"?: BoxKanban;
         /**
           * How the field will be displayed. If not present, a default one will be created.
+          * @default undefined
          */
         "layout"?: Layout;
         /**
           * Enable multi selection
+          * @default false
          */
         "multiSelection"?: boolean;
         /**
@@ -3026,64 +3069,79 @@ declare namespace LocalJSX {
         "onKup-box-selected"?: (event: CustomEvent<KupBoxSelectedEventPayload>) => void;
         /**
           * Current page number
+          * @default 1
          */
         "pageSelected"?: number;
         /**
           * Number of boxes per page
+          * @default 10
          */
         "pageSize"?: number;
         /**
           * Enables pagination
+          * @default false
          */
         "pagination"?: boolean;
         /**
           * Number of current rows per page
+          * @default undefined
          */
         "rowsPerPage"?: number;
         /**
           * Activates the scroll on hover function.
+          * @default false
          */
         "scrollOnHover"?: boolean;
         /**
           * Automatically selects the box at the specified index
+          * @default undefined
          */
         "selectBox"?: number;
         /**
           * Multiple selection
+          * @default undefined
          */
         "selectedRowsState"?: string;
         /**
           * If enabled, highlights the selected box/boxes
+          * @default true
          */
         "showSelection"?: boolean;
         /**
           * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+          * @default true
          */
         "showTooltipOnRightClick"?: boolean;
         /**
           * If sorting is enabled, specifies which column to sort
+          * @default undefined
          */
         "sortBy"?: string;
         /**
           * Enable sorting
+          * @default false
          */
         "sortEnabled"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
         /**
           * Disable swipe
+          * @default false
          */
         "swipeDisabled"?: boolean;
         /**
           * Defines the timeout for tooltip detail
+          * @default undefined
          */
         "tooltipDetailTimeout"?: number;
         /**
           * Enable show tooltip
+          * @default true
          */
         "tooltipEnabled"?: boolean;
         /**
           * Defines the timeout for tooltip load
+          * @default undefined
          */
         "tooltipLoadTimeout"?: number;
     }

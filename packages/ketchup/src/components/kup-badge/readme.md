@@ -5,11 +5,11 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                       | Type                                                                                                                                                                                                              | Default |
-| ------------- | -------------- | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.                    | `string`                                                                                                                                                                                                          | `''`    |
-| `imageData`   | --             | The data of the image displayed inside the badge. | `{ badgeData?: KupBadge[]; color?: string; data?: FImageData[]; fit?: boolean; resource?: string; sizeX?: string; sizeY?: string; dataSet?: GenericObject; id?: string; title?: string; wrapperClass?: string; }` | `null`  |
-| `text`        | `text`         | The text displayed inside the badge.              | `string`                                                                                                                                                                                                          | `null`  |
+| Property      | Attribute      | Description                                       | Type            | Default |
+| ------------- | -------------- | ------------------------------------------------- | --------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.                    | `string`        | `''`    |
+| `imageData`   | --             | The data of the image displayed inside the badge. | `GenericObject` | `null`  |
+| `text`        | `text`         | The text displayed inside the badge.              | `string`        | `null`  |
 
 
 ## Events
