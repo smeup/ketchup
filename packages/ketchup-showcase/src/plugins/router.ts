@@ -148,6 +148,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/box/Box.vue`),
   },
   {
+    path: `/buttonlist`,
+    name: 'buttonlist',
+    component: () => import(`@/views/advanced/buttonlist/Buttonlist.vue`),
+  },
+  {
     path: `/bpmn.io`,
     name: 'bpmn.io',
     component: () => import(`@/views/advanced/bpmn.io/Bpmn.vue`),

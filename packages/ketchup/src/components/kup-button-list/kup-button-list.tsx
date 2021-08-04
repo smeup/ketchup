@@ -9,6 +9,7 @@ import {
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
@@ -16,7 +17,10 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
-import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../f-components/f-button/f-button-declarations';
 import {
     KupButtonListClickEventPayload,
     KupButtonListProps,
@@ -24,6 +28,10 @@ import {
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListData } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
+import { setProps } from '../../utils/utils';
+import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 
 @Component({
     tag: 'kup-button-list',
@@ -50,30 +58,36 @@ export class KupButtonList {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
     /**
-     * Number of columns for draw sub-components.
+     * Number of columns.
+     * @default 0
      */
     @Prop() columns: number = 0;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * Props of the sub-components.
+     * @default []
      */
     @Prop() data: TreeNode[] = [];
     /**
-     * Default at false. When set to true, the sub-components are disabled.
+     * When set to true, the sub-components are disabled.
+     * @default false
      */
     @Prop() disabled: boolean = false;
     /**
-     * If enabled, highlights the selected button
+     * When set to true, highlights the selected button with the secondary color of KupTheme.
+     * @default true
      */
     @Prop() showSelection: boolean = true;
     /**
-     * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default.
-     * If set, will be valid for all sub-components.
+     * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
+     * @default FButtonStyling.RAISED
      */
-    @Prop({ reflect: true }) styling: string = '';
+    @Prop({ reflect: true }) styling: FButtonStyling = FButtonStyling.RAISED;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -89,14 +103,14 @@ export class KupButtonList {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kup-button-list-click',
+        eventName: 'kup-buttonlist-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kupClick: EventEmitter<KupButtonListClickEventPayload>;
 
-    onKupClick(index: string, subIndex: string) {
+    onKupClick(index: string, subIndex: string): void {
         this.selected = index;
         this.kupClick.emit({
             comp: this,
@@ -107,7 +121,7 @@ export class KupButtonList {
         });
     }
 
-    onDropDownItemClick(e: CustomEvent, index: string) {
+    onDropDownItemClick(e: CustomEvent, index: string): void {
         this.selected = index;
         this.onKupClick(index, e.detail.value);
     }
@@ -147,6 +161,14 @@ export class KupButtonList {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupButtonListProps, props);
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -173,27 +195,25 @@ export class KupButtonList {
         }
     }
 
-    private renderButton(node: TreeNode, index: number) {
-        if (node == null) {
-            let message = 'Empty data button.';
+    private renderButton(node: TreeNode, index: number): VNode {
+        if (node === null) {
             this.kupManager.debug.logMessage(
                 this,
-                message,
+                'Empty data button.',
                 KupDebugCategory.WARNING
             );
             return null;
         }
-        let data: GenericObject = this.prepareDataFromTreeNode(node, index);
+        const data: GenericObject = this.prepareDataFromTreeNode(node, index);
         if (!data.label && !data.icon) {
-            let message = 'Empty button.';
             this.kupManager.debug.logMessage(
                 this,
-                message,
+                'Empty button.',
                 KupDebugCategory.WARNING
             );
             return null;
         }
-        let props: FButtonProps = {
+        const props: FButtonProps = {
             checked: data.checked,
             disabled: data.disabled,
             fullHeight: data.fullHeight,
@@ -213,22 +233,20 @@ export class KupButtonList {
         return <FButton {...props} />;
     }
 
-    private renderDropdownButton(node: TreeNode, index: number) {
-        if (node == null) {
-            let message = 'Empty data dropdown button.';
+    private renderDropdownButton(node: TreeNode, index: number): VNode {
+        if (node === null) {
             this.kupManager.debug.logMessage(
                 this,
-                message,
+                'Empty data dropdown button.',
                 KupDebugCategory.WARNING
             );
             return null;
         }
-        let data: GenericObject = this.prepareDataFromTreeNode(node, index);
+        const data: GenericObject = this.prepareDataFromTreeNode(node, index);
         if (!data.label && !data.icon && !node?.data.dropdownOnly) {
-            let message = 'Empty dropdown button.';
             this.kupManager.debug.logMessage(
                 this,
-                message,
+                'Empty dropdown button.',
                 KupDebugCategory.WARNING
             );
             return null;
@@ -246,9 +264,9 @@ export class KupButtonList {
                 onkup-dropdownbutton-click={() =>
                     this.onKupClick(index.toString(), '-1')
                 }
-                onkup-dropdownbutton-itemclick={(e) =>
-                    this.onDropDownItemClick(e, index.toString())
-                }
+                onkup-dropdownbutton-itemclick={(
+                    e: CustomEvent<KupDropdownButtonEventPayload>
+                ) => this.onDropDownItemClick(e, index.toString())}
             />
         );
     }
@@ -257,7 +275,7 @@ export class KupButtonList {
         node: TreeNode,
         index: number
     ): GenericObject {
-        let data: GenericObject = node.data != null ? { ...node.data } : {};
+        const data: GenericObject = node.data != null ? { ...node.data } : {};
 
         if (this.customStyle != null && this.customStyle.trim() != '') {
             data.customStyle = this.customStyle;
@@ -307,7 +325,7 @@ export class KupButtonList {
         return ris;
     }
 
-    private getObjForEvent(index: string, subIndex: string) {
+    private getObjForEvent(index: string, subIndex: string): KupObj {
         let indexInt: number = Number(index);
         let subIndexInt: number = -1;
         if (subIndex != null && subIndex.trim() != '') {
@@ -321,23 +339,22 @@ export class KupButtonList {
         return tn.obj;
     }
 
-    private renderButtons() {
+    private renderButtons(): VNode[] {
         if (this.data == null || this.data.length < 1) {
             return null;
         }
-        let columns = [];
+        const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {
-            let node: TreeNode = this.data[i];
-            let b;
+            const node: TreeNode = this.data[i];
+            let b: VNode = null;
             if (node.children != null && node.children.length > 0) {
                 b = this.renderDropdownButton(node, i);
             } else {
                 b = this.renderButton(node, i);
             }
-            if (b == null) {
-                continue;
+            if (b) {
+                columns.push(b);
             }
-            columns.push(b);
         }
         return columns;
     }
@@ -365,13 +382,13 @@ export class KupButtonList {
     }
 
     render() {
-        let buttons = this.renderButtons();
-        let nrOfColumns = this.columns;
+        const buttons: VNode[] = this.renderButtons();
+        let nrOfColumns: number = this.columns;
         if (this.data != null && this.data.length > 0 && nrOfColumns <= 0) {
             nrOfColumns = this.data.length;
         }
 
-        let hostStyle = {
+        const hostStyle: GenericObject = {
             '--grid-columns': `repeat(${nrOfColumns}, auto)`,
         };
 
@@ -388,7 +405,7 @@ export class KupButtonList {
         return (
             <Host style={hostStyle}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div class={classObj}>{buttons}</div>
                 </div>
             </Host>

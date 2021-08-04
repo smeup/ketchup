@@ -26,6 +26,7 @@ import {
 } from './kup-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-button',
@@ -192,19 +193,19 @@ export class KupButton {
         return getProps(this, KupButtonProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupButtonProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -261,7 +262,7 @@ export class KupButton {
     }
 
     render() {
-        let props: FButtonProps = {
+        const props: FButtonProps = {
             checked: this.checked,
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
@@ -285,14 +286,14 @@ export class KupButton {
         };
 
         if (!this.label && !this.icon) {
-            let message = 'Empty button.';
             this.kupManager.debug.logMessage(
                 this,
-                message,
+                'Empty button.',
                 KupDebugCategory.WARNING
             );
             return;
         }
+
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
@@ -300,7 +301,7 @@ export class KupButton {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <FButton {...props} />
                 </div>
             </Host>

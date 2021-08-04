@@ -402,19 +402,24 @@ export namespace Components {
     }
     interface KupButtonList {
         /**
-          * Number of columns for draw sub-components.
+          * Number of columns.
+          * @default 0
          */
         "columns": number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the sub-components.
+          * @default []
          */
         "data": TreeNode[];
         /**
-          * Default at false. When set to true, the sub-components are disabled.
+          * When set to true, the sub-components are disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -428,13 +433,20 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * If enabled, highlights the selected button
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When set to true, highlights the selected button with the secondary color of KupTheme.
+          * @default true
          */
         "showSelection": boolean;
         /**
-          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
+          * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
+          * @default FButtonStyling.RAISED
          */
-        "styling": string;
+        "styling": FButtonStyling;
     }
     interface KupCalendar {
         "data": DataTable;
@@ -3214,30 +3226,37 @@ declare namespace LocalJSX {
     }
     interface KupButtonList {
         /**
-          * Number of columns for draw sub-components.
+          * Number of columns.
+          * @default 0
          */
         "columns"?: number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the sub-components.
+          * @default []
          */
         "data"?: TreeNode[];
         /**
-          * Default at false. When set to true, the sub-components are disabled.
+          * When set to true, the sub-components are disabled.
+          * @default false
          */
         "disabled"?: boolean;
-        "onKup-button-list-click"?: (event: CustomEvent<KupButtonListClickEventPayload>) => void;
+        "onKup-buttonlist-click"?: (event: CustomEvent<KupButtonListClickEventPayload>) => void;
         /**
-          * If enabled, highlights the selected button
+          * When set to true, highlights the selected button with the secondary color of KupTheme.
+          * @default true
          */
         "showSelection"?: boolean;
         /**
-          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
+          * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
+          * @default FButtonStyling.RAISED
          */
-        "styling"?: string;
+        "styling"?: FButtonStyling;
     }
     interface KupCalendar {
         "data"?: DataTable;

@@ -811,6 +811,10 @@ table#customstyle-tab kup-text-field {
   display: block;
 }
 
+.sample-section.instruction-table.visible {
+  display: table;
+}
+
 #json-tab.padded,
 #css-tab.padded {
   padding-top: 75px;
