@@ -1,171 +1,170 @@
 const data = {
-        columns:[
-            {
-
-                name:'FLD1',
-                title:'First Category'
-            },
-            {
-                name:'FLD2',
-                title:'Second Category'
-            },
-            {
-                name:'FLD3',
-                title:'Third Category'
-            }
-        ],
-        rows:[
-            {
-                cells:{
-                    FLD1:{
-                        data:{
-                            data:[
-                                {
-                                    children:[
-                                        {
-                                            disabled:false,
-                                            expandable:true,
-                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                            id:'',
-                                            isExpanded:false,
-                                            options:false,
-                                            value:'Principale'
-                                        },
-                                        {
-                                            disabled:false,
-                                            expandable:true,
-                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                            id:'',
-                                            isExpanded:false,
-                                            options:false,
-                                            value:'Secondaria'
-                                        },
-                                        {
-                                            disabled:false,
-                                            expandable:true,
-                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                            id:'',
-                                            isExpanded:false,
-                                            options:false,
-                                            value:'Terziaria'
-                                        }
-                                    ],
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Dashboard'
-                                },
-                                {
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Contabilità'
-                                },
-                                {
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Cronologia'
-                                },
-                            ]
-                        },
-                        shape:'TRE'
+    columns: [
+        {
+            name: 'FLD1',
+            title: 'Dashboard',
+        },
+        {
+            name: 'FLD2',
+            title: 'People',
+        },
+        {
+            name: 'FLD3',
+            title: 'Locations',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                FLD1: {
+                    data: {
+                        data: [
+                            {
+                                children: [
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: 'accessibility',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'Primary',
+                                    },
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: 'account_box',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'Secondary',
+                                    },
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: 'ac_unit',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'Third',
+                                    },
+                                ],
+                                disabled: false,
+                                expandable: true,
+                                icon: 'filter_2',
+                                id: '',
+                                isExpanded: false,
+                                options: false,
+                                value: 'Favorites',
+                            },
+                            {
+                                disabled: false,
+                                expandable: true,
+                                icon: '3d_rotation',
+                                id: '',
+                                isExpanded: false,
+                                options: false,
+                                value: 'Account',
+                            },
+                            {
+                                disabled: false,
+                                expandable: true,
+                                icon: 'book',
+                                id: '',
+                                isExpanded: false,
+                                options: false,
+                                value: 'Chronology',
+                            },
+                        ],
                     },
-                    FLD2:{
-                        data:{
-                            data:[
-                                {
-                                    children:[
-                                        {
-                                            disabled:false,
-                                            expandable:true,
-                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                            id:'',
-                                            isExpanded:false,
-                                            options:false,
-                                            value:'Per provincia'
-                                        },
-                                        {
-                                            disabled:false,
-                                            expandable:true,
-                                            icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                            id:'',
-                                            isExpanded:false,
-                                            options:false,
-                                            value:'Per regione'
-                                        }
-                                    ],
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Clienti'
-                                },
-                                {
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Collaboratori'
-                                },
-                                {
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Fornitori'
-                                }
-                            ]
-                        },
-                        shape:'TRE'
-                    },
-                    FLD3:{
-                        data:{
-                            data:[
-                                {
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Sedi'
-                                },
-                                {
-                                    disabled:false,
-                                    expandable:true,
-                                    icon:'null/javax.faces.resource/OG%253BOG%253BOG.jsf?ln=smeupIcons',
-                                    id:'',
-                                    isExpanded:false,
-                                    options:false,
-                                    value:'Sedi clienti'
-                                }
-                            ]
-                        },
-                        shape:'TRE'
-                    },
+                    shape: 'TRE',
                 },
-                id:'1',
-                readOnly:false
-            }
-        ],
-        key:'123'
-}
+                FLD2: {
+                    data: {
+                        data: [
+                            {
+                                children: [
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: 'warning',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'By province',
+                                    },
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: 'magnify',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'By region',
+                                    },
+                                ],
+                                disabled: false,
+                                expandable: true,
+                                icon: 'star',
+                                id: '',
+                                isExpanded: false,
+                                options: false,
+                                value: 'Customers',
+                            },
+                            {
+                                disabled: false,
+                                expandable: true,
+                                icon: 'rename-box',
+                                id: '',
+                                isExpanded: false,
+                                options: false,
+                                value: 'Employees',
+                            },
+                            {
+                                disabled: false,
+                                expandable: true,
+                                icon: 'thumb-up',
+                                id: '',
+                                isExpanded: false,
+                                options: false,
+                                value: 'Suppliers',
+                            },
+                        ],
+                    },
+                    shape: 'TRE',
+                },
+                FLD3: {
+                    data: {
+                        data: [
+                            {
+                                disabled: false,
+                                expandable: true,
+                                icon: 'omega',
+                                id: '',
+                                isExpanded: false,
+                                options: false,
+                                value: 'Our Locations',
+                            },
+                            {
+                                disabled: false,
+                                expandable: true,
+                                icon: 'view-quilt',
+                                id: '',
+                                isExpanded: false,
+                                options: false,
+                                value: 'Customers locations',
+                            },
+                        ],
+                    },
+                    shape: 'TRE',
+                },
+            },
+            id: '1',
+            readOnly: false,
+        },
+    ],
+    key: '123',
+};
 
 const accordion = document.getElementById('first');
 accordion.data = data;
