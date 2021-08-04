@@ -2,36 +2,63 @@
   font-size: var(--kup-font-size);
   height: 100%;
   width: 100%;
-  border: 5px solid black;
 }
 
-.kup-component{
+.kup-component {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 }
 
-.kup-acc-category{
+.accordion {
+  &-button {
+    width: 100%;
+    padding: 16px 24px;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
 
+    &:hover {
+      background-color: lightgrey;
+      transition: max-height 0.2s ease-out;
+      /*background-color: var(--kup-hover);*/
+    }
+
+    &--active {
+      width: 100%;
+      padding: 16px 24px;
+      outline: none;
+      border: 0;
+      cursor: pointer;
+      text-align: left;
+      background-color: lightgrey;
+    }
+  }
+
+  &-subcomponent {
+    display: none;
+    overflow: hidden;
+
+    &--active {
+      display: block;
+    }
+  }
 }
 
-.kup-acc-category-button{
+.kup-acc-category-button {
   outline: none;
   border: 1px solid;
   cursor: pointer;
   text-align: left;
 }
 
-.kup-acc-category-button:hover{
+.kup-acc-category-button:hover {
   background-color: lightgrey;
 }
 
-.kup-acc-category-sub-component{
+.kup-acc-category-sub-component {
   display: none;
   overflow: hidden;
-}
-
-.kup-acc-category-sub-component:active{
-
 }
