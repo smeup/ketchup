@@ -3,6 +3,7 @@
     <demo
       :demoClasses="demoClasses"
       :demoComp="demoComp"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>
   </div>
