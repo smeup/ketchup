@@ -125,7 +125,7 @@ Type: `Promise<void>`
 
 ### `collapseAll() => Promise<void>`
 
-
+Collapses all groups.
 
 #### Returns
 
@@ -145,7 +145,7 @@ Type: `Promise<Column[]>`
 
 ### `expandAll() => Promise<void>`
 
-
+Expands all groups.
 
 #### Returns
 

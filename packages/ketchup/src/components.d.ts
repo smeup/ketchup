@@ -820,7 +820,9 @@ export namespace Components {
     }
     interface KupCombobox {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -841,6 +843,10 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
@@ -858,12 +864,19 @@ export namespace Components {
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
+        /**
+          * Sets the focus to the component.
+         */
         "setFocus": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @param value - Value to be set.
+         */
         "setValue": (value: string) => Promise<void>;
     }
     interface KupCrud {
@@ -928,6 +941,9 @@ export namespace Components {
           * Closes any opened column menu.
          */
         "closeColumnMenu": () => Promise<void>;
+        /**
+          * Collapses all groups.
+         */
         "collapseAll": () => Promise<void>;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -967,6 +983,9 @@ export namespace Components {
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns": boolean;
+        /**
+          * Expands all groups.
+         */
         "expandAll": () => Promise<void>;
         /**
           * Expands groups when set to true.
@@ -1184,19 +1203,24 @@ export namespace Components {
     }
     interface KupDatePicker {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the sub-components.
+          * @default null
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
+          * @default 1
          */
         "firstDayIndex": number;
         /**
@@ -1205,22 +1229,39 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
+          * @default ""
          */
         "initialValue": string;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the focus to the component.
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @param value - Value to be set.
+         */
         "setValue": (value: string) => Promise<void>;
     }
     interface KupDrawer {
+        /**
+          * Closes the drawer.
+         */
         "close": () => Promise<void>;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1229,9 +1270,13 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Opens the drawer.
+         */
         "open": () => Promise<void>;
         /**
-          * Defaults at false. When set to true, the drawer appears.
+          * When set to true, the drawer appears.
+          * @default false
          */
         "opened": boolean;
         /**
@@ -1243,6 +1288,9 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Opens the drawer when closed and vice-versa.
+         */
         "toggle": () => Promise<void>;
     }
     interface KupDropdownButton {
@@ -3672,7 +3720,9 @@ declare namespace LocalJSX {
     }
     interface KupCombobox {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3695,9 +3745,6 @@ declare namespace LocalJSX {
           * Lets the combobox behave as a select element.
          */
         "isSelect"?: boolean;
-        /**
-          * Event example.
-         */
         "onKup-combobox-blur"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-change"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-click"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
@@ -4047,23 +4094,29 @@ declare namespace LocalJSX {
     }
     interface KupDatePicker {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the sub-components.
+          * @default null
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
+          * @default 1
          */
         "firstDayIndex"?: number;
         /**
           * Sets the initial value of the component
+          * @default ""
          */
         "initialValue"?: string;
         "onKup-datepicker-blur"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
@@ -4078,13 +4131,16 @@ declare namespace LocalJSX {
     }
     interface KupDrawer {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         "onKupDrawerClose"?: (event: CustomEvent<KupEventPayload>) => void;
         "onKupDrawerOpen"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * Defaults at false. When set to true, the drawer appears.
+          * When set to true, the drawer appears.
+          * @default false
          */
         "opened"?: boolean;
     }

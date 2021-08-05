@@ -31,6 +31,7 @@ import {
 } from './kup-combobox-declarations';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-combobox',
@@ -39,11 +40,22 @@ import { getProps, setProps } from '../../utils/utils';
 })
 export class KupCombobox {
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
     @State() displayedValue: string = undefined;
     @State() value: string = '';
 
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -71,6 +83,10 @@ export class KupCombobox {
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
     /**
      * Instance of the KupManager class.
      */
@@ -80,9 +96,9 @@ export class KupCombobox {
     private textfieldWrapper: HTMLElement = undefined;
     private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
 
-    /**
-     * Event example.
-     */
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kup-combobox-blur',
@@ -148,70 +164,6 @@ export class KupCombobox {
     })
     kupTextFieldSubmit: EventEmitter<KupComboboxEventPayload>;
 
-    @Listen('keydown')
-    listenKeydown(e: KeyboardEvent) {
-        if (this.isListOpened()) {
-            switch (e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.listEl.focusNext();
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.listEl.focusPrevious();
-                    break;
-                case 'Enter':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.listEl.select().then(() => {
-                        this.closeList();
-                        this.textfieldEl.focus();
-                    });
-                    break;
-                case 'Escape':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.closeList();
-                    break;
-            }
-        } else {
-            switch (e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.openList();
-                    this.listEl.focusNext();
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.openList();
-                    this.listEl.focusPrevious();
-                    break;
-            }
-        }
-    }
-
-    //---- Methods ----
-
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-
-    @Method()
-    async setFocus() {
-        this.textfieldEl.focus();
-    }
-
-    @Method()
-    async setValue(value: string) {
-        this.value = value;
-        this.consistencyCheck(undefined, value);
-    }
-
     onKupBlur() {
         this.closeList();
         this.kupBlur.emit({
@@ -228,30 +180,6 @@ export class KupCombobox {
             id: this.rootElement.id,
             value: this.value,
         });
-    }
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupComboboxProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupComboboxProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {
@@ -321,6 +249,113 @@ export class KupCombobox {
             value: this.value,
         });
     }
+
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keydown')
+    listenKeydown(e: KeyboardEvent) {
+        if (this.isListOpened()) {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.select().then(() => {
+                        this.closeList();
+                        this.textfieldEl.focus();
+                    });
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.closeList();
+                    break;
+            }
+        } else {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.openList();
+                    this.listEl.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.openList();
+                    this.listEl.focusPrevious();
+                    break;
+            }
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupComboboxProps, descriptions);
+    }
+    /**
+     * Retrieves the component's value.
+     * @returns {string} Value of the component.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the focus to the component.
+     */
+    @Method()
+    async setFocus() {
+        this.textfieldEl.focus();
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupComboboxProps, props);
+    }
+    /**
+     * Sets the component's value.
+     * @param {string} value - Value to be set.
+     */
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        this.consistencyCheck(undefined, value);
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     openList() {
         this.textfieldWrapper.classList.add('toggled');
@@ -409,7 +444,9 @@ export class KupCombobox {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -460,7 +497,7 @@ export class KupCombobox {
                 style={this.elStyle}
             >
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" style={this.elStyle}>
+                <div id={componentWrapperId} style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}
                         disabled={this.disabled}

@@ -164,6 +164,7 @@ import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-data-table',
@@ -996,14 +997,36 @@ export class KupDataTable {
     })
     kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInputEventPayload>;
     /**
-     * This method is invoked by KupManager whenever the component changes size.
+     * Closes any opened column menu.
      */
     @Method()
-    async resizeCallback(): Promise<void> {
-        if (this.lazyLoadCells) {
-            window.clearTimeout(this.resizeTimeout);
-            this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+    async closeColumnMenu(): Promise<void> {
+        this.columnMenuAnchor = null;
+        if (this.columnMenuCard) {
+            this.columnMenuCard.data = null;
         }
+        this.columnMenuInstance.close(this.columnMenuCard);
+        this.kupDataTableColumnMenu.emit({
+            comp: this,
+            id: this.rootElement.id,
+            card: this.columnMenuCard,
+            event: null,
+            open: false,
+        });
+    }
+    /**
+     * Collapses all groups.
+     */
+    @Method()
+    async collapseAll(): Promise<void> {
+        this.expandGroups = false;
+    }
+    /**
+     * Expands all groups.
+     */
+    @Method()
+    async expandAll(): Promise<void> {
+        this.expandGroups = true;
     }
     /**
      * Used to retrieve component's props values.
@@ -1013,14 +1036,6 @@ export class KupDataTable {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupDataTableProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupDataTableProps, props);
     }
     /**
      * Opens the column menu of the given column.
@@ -1090,29 +1105,29 @@ export class KupDataTable {
         });
     }
     /**
-     * Closes any opened column menu.
-     */
-    @Method()
-    async closeColumnMenu(): Promise<void> {
-        this.columnMenuAnchor = null;
-        if (this.columnMenuCard) {
-            this.columnMenuCard.data = null;
-        }
-        this.columnMenuInstance.close(this.columnMenuCard);
-        this.kupDataTableColumnMenu.emit({
-            comp: this,
-            id: this.rootElement.id,
-            card: this.columnMenuCard,
-            event: null,
-            open: false,
-        });
-    }
-    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        if (this.lazyLoadCells) {
+            window.clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+        }
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupDataTableProps, props);
     }
     /**
      * This method will set the selected rows of the component.
@@ -1140,16 +1155,6 @@ export class KupDataTable {
                 clickedRow: null,
             });
         }
-    }
-
-    @Method()
-    async expandAll() {
-        this.expandGroups = true;
-    }
-
-    @Method()
-    async collapseAll() {
-        this.expandGroups = false;
     }
 
     private calculateData() {
@@ -5951,7 +5956,7 @@ export class KupDataTable {
         const compCreated = (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div class="above-wrapper">
                         {this.globalFilter ? (
                             <div id="global-filter">
