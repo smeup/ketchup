@@ -1,6 +1,11 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
+      :demoProps="demoProps"
+    ></demo>
   </div>
 </template>
 
@@ -19,6 +24,22 @@ export default {
         {
           name: 'kupRatingClick',
           type: 'click',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
         },
       ],
       demoProps: [
