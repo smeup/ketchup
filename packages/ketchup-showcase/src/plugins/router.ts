@@ -143,6 +143,11 @@ let basicRoutes = [
 
 let advancedRoutes = [
   {
+    path: `/accordion`,
+    name: 'accordion',
+    component: () => import(`@/views/advanced/accordion/Accordion.vue`),
+  },
+  {
     path: `/box`,
     name: 'box',
     component: () => import(`@/views/advanced/box/Box.vue`),
