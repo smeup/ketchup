@@ -1751,24 +1751,6 @@ export namespace Components {
          */
         "sizeY": string;
     }
-    interface KupImageButton {
-        /**
-          * If enabled, can select one or more images
-         */
-        "allowMultiSelection": boolean;
-        /**
-          * urls of the images
-         */
-        "images": any;
-        /**
-          * If enabled, display the image description below the image
-         */
-        "showDescription": boolean;
-        /**
-          * image dimension
-         */
-        "size": number;
-    }
     interface KupLayout {
         /**
           * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
@@ -1891,7 +1873,8 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Resets filter. memo - FOSLUC to PASCAR: why isn't it enough to change only the prop?
+          * Resets filter.
+          * @todo FOSLUC to PASCAR: why isn't it enough to change only the prop?
          */
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
@@ -2034,10 +2017,13 @@ export namespace Components {
     interface KupProgressBar {
         /**
           * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+          * @default true
          */
         "centeredLabel": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -2048,18 +2034,22 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Flag to show or hide the progress bar's label.
+          * @default false
          */
         "hideLabel": boolean;
         /**
           * Specifies an icon to replace the label.
+          * @default null
          */
         "icon": string;
         /**
           * Radial version.
+          * @default false
          */
         "isRadial": boolean;
         /**
           * Specifies a text for the bar's label.
+          * @default null
          */
         "label": string;
         /**
@@ -2073,6 +2063,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The current value the progress bar must display.
+          * @default 0
          */
         "value": number;
     }
@@ -2159,11 +2150,14 @@ export namespace Components {
     }
     interface KupRating {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -2173,7 +2167,8 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Max number of stars (default 5)
+          * Max number of stars (default 5).
+          * @default 5
          */
         "maxValue": number;
         /**
@@ -2186,7 +2181,8 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * Rated stars
+          * Rated stars.
+          * @default 0
          */
         "value": number;
     }
@@ -2213,30 +2209,38 @@ export namespace Components {
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
+          * @default false
          */
         "active": boolean;
         /**
           * Decides whether the component is a bar or a spinner.
+          * @default false
          */
         "barVariant": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Width and height of the spinner. For the bar variant, only height.
+          * @default false
          */
         "dimensions": string;
         /**
           * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+          * @default false
          */
         "fader": boolean;
         /**
           * The time required for the "fader" to trigger.
+          * @default 3500
          */
         "faderTimeout": number;
         /**
           * When set to true the component will fill the whole viewport.
+          * @default false
          */
         "fullScreen": boolean;
         /**
@@ -2247,6 +2251,7 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Sets the layout of the spinner.
+          * @default 1
          */
         "layout": number;
         /**
@@ -2468,18 +2473,23 @@ export namespace Components {
     interface KupTimePicker {
         /**
           * When set to true, the drop down menu will display a clock.
+          * @default true
          */
         "clockVariant": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the sub-components (time input text field)
+          * @default {}
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -2488,28 +2498,40 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the component's internal value.
+         */
         "getValue": () => Promise<string>;
         /**
-          * Sets the initial value of the component
+          * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue": string;
         /**
-          * Manage seconds
+          * Manage seconds.
+          * @default false
          */
         "manageSeconds": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Focuses the input element.
+         */
         "setFocus": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the internal value of the component.
+         */
         "setValue": (value: string) => Promise<void>;
         /**
-          * Minutes step
+          * Minutes step.
+          * @default 10
          */
         "timeMinutesStep": number;
     }
@@ -2573,13 +2595,18 @@ export namespace Components {
           * Closes any opened column menu.
          */
         "closeColumnMenu": () => Promise<void>;
+        /**
+          * Collapses all nodes.
+         */
         "collapseAll": () => Promise<void>;
         /**
           * The columns of the tree when tree visualization is active.
          */
         "columns"?: Column[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -2602,6 +2629,9 @@ export namespace Components {
           * Enables the extracolumns add buttons.
          */
         "enableExtraColumns": boolean;
+        /**
+          * Expands all nodes.
+         */
         "expandAll": () => Promise<void>;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
@@ -2879,12 +2909,6 @@ declare global {
         prototype: HTMLKupImageElement;
         new (): HTMLKupImageElement;
     };
-    interface HTMLKupImageButtonElement extends Components.KupImageButton, HTMLStencilElement {
-    }
-    var HTMLKupImageButtonElement: {
-        prototype: HTMLKupImageButtonElement;
-        new (): HTMLKupImageButtonElement;
-    };
     interface HTMLKupLayoutElement extends Components.KupLayout, HTMLStencilElement {
     }
     var HTMLKupLayoutElement: {
@@ -3041,7 +3065,6 @@ declare global {
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
-        "kup-image-button": HTMLKupImageButtonElement;
         "kup-layout": HTMLKupLayoutElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
@@ -4538,27 +4561,6 @@ declare namespace LocalJSX {
          */
         "sizeY"?: string;
     }
-    interface KupImageButton {
-        /**
-          * If enabled, can select one or more images
-         */
-        "allowMultiSelection"?: boolean;
-        /**
-          * urls of the images
-         */
-        "images"?: any;
-        "onKup-imagebutton-selected"?: (event: CustomEvent<{
-        selectedImages: [];
-    }>) => void;
-        /**
-          * If enabled, display the image description below the image
-         */
-        "showDescription"?: boolean;
-        /**
-          * image dimension
-         */
-        "size"?: number;
-    }
     interface KupLayout {
         /**
           * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
@@ -4755,30 +4757,38 @@ declare namespace LocalJSX {
     interface KupProgressBar {
         /**
           * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+          * @default true
          */
         "centeredLabel"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Flag to show or hide the progress bar's label.
+          * @default false
          */
         "hideLabel"?: boolean;
         /**
           * Specifies an icon to replace the label.
+          * @default null
          */
         "icon"?: string;
         /**
           * Radial version.
+          * @default false
          */
         "isRadial"?: boolean;
         /**
           * Specifies a text for the bar's label.
+          * @default null
          */
         "label"?: string;
         /**
           * The current value the progress bar must display.
+          * @default 0
          */
         "value"?: number;
     }
@@ -4862,20 +4872,25 @@ declare namespace LocalJSX {
     }
     interface KupRating {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
-          * Max number of stars (default 5)
+          * Max number of stars (default 5).
+          * @default 5
          */
         "maxValue"?: number;
         "onKupRatingClick"?: (event: CustomEvent<KupRatingClickEventPayload>) => void;
         /**
-          * Rated stars
+          * Rated stars.
+          * @default 0
          */
         "value"?: number;
     }
@@ -4907,34 +4922,43 @@ declare namespace LocalJSX {
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
+          * @default false
          */
         "active"?: boolean;
         /**
           * Decides whether the component is a bar or a spinner.
+          * @default false
          */
         "barVariant"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Width and height of the spinner. For the bar variant, only height.
+          * @default false
          */
         "dimensions"?: string;
         /**
           * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+          * @default false
          */
         "fader"?: boolean;
         /**
           * The time required for the "fader" to trigger.
+          * @default 3500
          */
         "faderTimeout"?: number;
         /**
           * When set to true the component will fill the whole viewport.
+          * @default false
          */
         "fullScreen"?: boolean;
         /**
           * Sets the layout of the spinner.
+          * @default 1
          */
         "layout"?: number;
     }
@@ -5146,26 +5170,33 @@ declare namespace LocalJSX {
     interface KupTimePicker {
         /**
           * When set to true, the drop down menu will display a clock.
+          * @default true
          */
         "clockVariant"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the sub-components (time input text field)
+          * @default {}
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
-          * Sets the initial value of the component
+          * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue"?: string;
         /**
-          * Manage seconds
+          * Manage seconds.
+          * @default false
          */
         "manageSeconds"?: boolean;
         "onKup-timepicker-blur"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
@@ -5178,7 +5209,8 @@ declare namespace LocalJSX {
         "onKup-timepicker-itemclick"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
         "onKup-timepicker-textfieldsubmit"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
         /**
-          * Minutes step
+          * Minutes step.
+          * @default 10
          */
         "timeMinutesStep"?: number;
     }
@@ -5241,7 +5273,9 @@ declare namespace LocalJSX {
          */
         "columns"?: Column[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -5416,7 +5450,6 @@ declare namespace LocalJSX {
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
-        "kup-image-button": KupImageButton;
         "kup-layout": KupLayout;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
@@ -5473,7 +5506,6 @@ declare module "@stencil/core" {
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
-            "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;

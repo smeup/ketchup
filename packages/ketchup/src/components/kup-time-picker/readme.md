@@ -5,15 +5,15 @@
 
 ## Properties
 
-| Property          | Attribute           | Description                                                                                                     | Type      | Default |
-| ----------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.                                                      | `boolean` | `true`  |
-| `customStyle`     | `custom-style`      | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`    |
-| `data`            | --                  | Props of the sub-components (time input text field)                                                             | `Object`  | `{}`    |
-| `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false` |
-| `initialValue`    | `initial-value`     | Sets the initial value of the component                                                                         | `string`  | `''`    |
-| `manageSeconds`   | `manage-seconds`    | Manage seconds                                                                                                  | `boolean` | `false` |
-| `timeMinutesStep` | `time-minutes-step` | Minutes step                                                                                                    | `number`  | `10`    |
+| Property          | Attribute           | Description                                                     | Type      | Default |
+| ----------------- | ------------------- | --------------------------------------------------------------- | --------- | ------- |
+| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.      | `boolean` | `true`  |
+| `customStyle`     | `custom-style`      | Custom style of the component.                                  | `string`  | `''`    |
+| `data`            | --                  | Props of the sub-components (time input text field)             | `Object`  | `{}`    |
+| `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `initialValue`    | `initial-value`     | Sets the initial value of the component.                        | `string`  | `''`    |
+| `manageSeconds`   | `manage-seconds`    | Manage seconds.                                                 | `boolean` | `false` |
+| `timeMinutesStep` | `time-minutes-step` | Minutes step.                                                   | `number`  | `10`    |
 
 
 ## Events
@@ -45,7 +45,7 @@ Type: `Promise<GenericObject>`
 
 ### `getValue() => Promise<string>`
 
-
+Returns the component's internal value.
 
 #### Returns
 
@@ -65,7 +65,7 @@ Type: `Promise<void>`
 
 ### `setFocus() => Promise<void>`
 
-
+Focuses the input element.
 
 #### Returns
 
@@ -85,7 +85,7 @@ Type: `Promise<void>`
 
 ### `setValue(value: string) => Promise<void>`
 
-
+Sets the internal value of the component.
 
 #### Returns
 

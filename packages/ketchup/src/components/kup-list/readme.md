@@ -75,7 +75,6 @@ Type: `Promise<void>`
 ### `resetFilter(newFilter: string) => Promise<void>`
 
 Resets filter.
-memo - FOSLUC to PASCAR: why isn't it enough to change only the prop?
 
 #### Returns
 
