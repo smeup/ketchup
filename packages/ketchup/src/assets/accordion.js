@@ -1,4 +1,6 @@
-document.addEventListener('kup-accordion-selectedNode', (e) => console.log(e));
+document.addEventListener('kup-accordion-tree-nodeselected', (e) =>
+    console.log(e)
+);
 
 const data = {
     columns: [

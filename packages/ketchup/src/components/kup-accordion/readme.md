@@ -17,9 +17,9 @@
 
 ## Events
 
-| Event                        | Description                       | Type                                           |
-| ---------------------------- | --------------------------------- | ---------------------------------------------- |
-| `kup-accordion-selectednode` | Fired when a TreeNode is selected | `CustomEvent<KupTreeNodeSelectedEventPayload>` |
+| Event                             | Description                       | Type                                                    |
+| --------------------------------- | --------------------------------- | ------------------------------------------------------- |
+| `kup-accordion-tree-nodeselected` | Fired when a TreeNode is selected | `CustomEvent<KupAccordionTreeNodeSelectedEventPayload>` |
 
 
 ## Methods
@@ -54,7 +54,7 @@ Type: `Promise<void>`
 
 
 
-### `toggleItem(columnName: string) => Promise<void>`
+### `toggleItem(itemName: string) => Promise<void>`
 
 This method expands or collapses the given item.
 
