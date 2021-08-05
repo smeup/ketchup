@@ -37,7 +37,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupAccordion {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-accordion>).
      */
     @Element() rootElement: HTMLElement;
 

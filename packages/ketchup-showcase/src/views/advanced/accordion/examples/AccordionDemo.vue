@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoClasses="demoClasses"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+    ></demo>
   </div>
 </template>
 
@@ -15,6 +19,42 @@ export default {
   name: 'AccordionDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-full-height',
+          description: 'The button will fill all the available vertical space.',
+        },
+        {
+          class: 'kup-full-width',
+          description:
+            'The button will fill all the available horizontal space.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the info color of the app.',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
       demoMethods: [
         {
