@@ -19,7 +19,7 @@
 
 | Event                        | Description                       | Type                                           |
 | ---------------------------- | --------------------------------- | ---------------------------------------------- |
-| `kup-accordion-selectedNode` | Fired when a TreeNode is selected | `CustomEvent<KupTreeNodeSelectedEventPayload>` |
+| `kup-accordion-selectednode` | Fired when a TreeNode is selected | `CustomEvent<KupTreeNodeSelectedEventPayload>` |
 
 
 ## Methods
@@ -54,9 +54,9 @@ Type: `Promise<void>`
 
 
 
-### `toggleCategory(el: HTMLElement, columnId: string) => Promise<void>`
+### `toggleItem(columnName: string) => Promise<void>`
 
-This method expand or collapsed the category
+This method expands or collapses the given item.
 
 #### Returns
 

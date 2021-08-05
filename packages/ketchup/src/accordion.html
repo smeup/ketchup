@@ -25,8 +25,13 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <div id="wrapper">
-            <kup-accordion id="first" data=""></kup-accordion>
+            <kup-accordion id="first"></kup-accordion>
         </div>
     </body>
     <script src="/assets/accordion.js"></script>

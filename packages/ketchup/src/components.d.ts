@@ -69,10 +69,12 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
+          * @default false
          */
         "globalFilter": boolean;
         /**
           * The value of the global filter.
+          * @default ""
          */
         "globalFilterValue": string;
         /**
@@ -85,11 +87,10 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * This method expand or collapsed the category
-          * @param e event
-          * @param columnId name of category
+          * This method expands or collapses the given item.
+          * @param columnName - Name of the item.
          */
-        "toggleCategory": (el: HTMLElement, columnId: string) => Promise<void>;
+        "toggleItem": (columnName: string) => Promise<void>;
     }
     interface KupAutocomplete {
         /**
@@ -2891,16 +2892,18 @@ declare namespace LocalJSX {
         "data"?: KupAccordionData;
         /**
           * When set to true it activates the global filter.
+          * @default false
          */
         "globalFilter"?: boolean;
         /**
           * The value of the global filter.
+          * @default ""
          */
         "globalFilterValue"?: string;
         /**
           * Fired when a TreeNode is selected
          */
-        "onKup-accordion-selectedNode"?: (event: CustomEvent<KupTreeNodeSelectedEventPayload>) => void;
+        "onKup-accordion-selectednode"?: (event: CustomEvent<KupTreeNodeSelectedEventPayload>) => void;
     }
     interface KupAutocomplete {
         /**

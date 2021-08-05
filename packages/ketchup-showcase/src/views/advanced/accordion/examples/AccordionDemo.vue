@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoComp="demoComp"
-      :demoEvents="demoEvents"
-      :demoProps="demoProps"
-      :demoClasses="demoClasses"
-    ></demo>
+    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
   </div>
 </template>
 
@@ -21,7 +16,6 @@ export default {
   data() {
     return {
       demoComp: createComp(),
-      demoEvents: [],
       demoProps: [
         {
           prop: 'customStyle',
@@ -35,7 +29,7 @@ export default {
           prop: 'data',
           description: 'The actual data of the component',
           type: '{ columns: Column[]; rows: Row[]; }',
-          default: 'undefined',
+          default: 'null',
           try: 'json',
         },
         {
@@ -53,7 +47,6 @@ export default {
           try: 'field',
         },
       ],
-      demoClasses: [],
     };
   },
 };

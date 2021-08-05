@@ -1,21 +1,19 @@
 import {
     Component,
     Element,
-    forceUpdate,
-    Host,
-    h,
-    Method,
-    Prop,
-    VNode,
-    State,
     Event,
     EventEmitter,
+    forceUpdate,
+    h,
+    Host,
+    Method,
+    Prop,
+    State,
+    VNode,
     Watch,
 } from '@stencil/core';
-
-import { KupLanguageSearch } from '../../utils/kup-language/kup-language-declarations';
-
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupLanguageSearch } from '../../utils/kup-language/kup-language-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -26,7 +24,6 @@ import {
     KupAccordionData,
     KupAccordionProps,
 } from './kup-accordion-declarations';
-
 import {
     TreeNode,
     KupTreeNodeSelectedEventPayload,
@@ -38,9 +35,29 @@ import {
     shadow: true,
 })
 export class KupAccordion {
-    //--------------------------------------------------------------------------
-    // PROPS
-    // -------------------------------------------------------------------------
+    /**
+     * References the root HTML element of the component (<kup-button>).
+     */
+    @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * Ids of the expanded categories.
+     * @default []
+     */
+    @State() private expandedCategoryIds: string[] = [];
+    /**
+     * Treated data prop.
+     * @default null
+     */
+    @State() private actualData: KupAccordionData = null;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Custom style of the component.
@@ -55,54 +72,57 @@ export class KupAccordion {
     @Prop() data: KupAccordionData = null;
     /**
      * When set to true it activates the global filter.
+     * @default false
      */
     @Prop() globalFilter: boolean = false;
 
     /**
      * The value of the global filter.
+     * @default ""
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
 
-    //--------------------------------------------------------------------------
-    // STATES
-    // -------------------------------------------------------------------------
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
-    // flag of the expanded categories
-    @State() expandedCategoryIds: string[] = [];
-
-    @State()
-    private actualData: KupAccordionData = null;
-
-    //--------------------------------------------------------------------------
-    // INTERNAL VARIABLES
-    // -------------------------------------------------------------------------
-
-    @Element() rootElement: HTMLElement;
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-
+    /**
+     * Timeout to debounce global filter.
+     */
     private globalFilterTimeout: number;
 
-    //--------------------------------------------------------------------------
-    // EVENTS
-    // -------------------------------------------------------------------------
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     /**
      * Fired when a TreeNode is selected
      */
     @Event({
-        eventName: 'kup-accordion-selectedNode',
+        eventName: 'kup-accordion-selectednode',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kupAccordionSelectedNode: EventEmitter<KupTreeNodeSelectedEventPayload>;
 
-    //--------------------------------------------------------------------------
-    // PUBLIC METHODS
-    // -------------------------------------------------------------------------
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('data')
+    @Watch('globalFilterValue')
+    recalculateData() {
+        this.actualData = this.data;
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -114,6 +134,13 @@ export class KupAccordion {
         return getProps(this, KupAccordionProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
@@ -122,36 +149,25 @@ export class KupAccordion {
         setProps(this, KupAccordionProps, props);
     }
     /**
-     * This method is used to trigger a new render of the component.
+     * This method expands or collapses the given item.
+     * @param {string} columnName - Name of the item.
      */
     @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
-
-    /**
-     * This method expand or collapsed the category
-     * @param e event
-     * @param columnId name of category
-     */
-    @Method()
-    async toggleCategory(el: HTMLElement, columnId: string): Promise<void> {
-        if (el.className == 'accordion-button--active') {
-            const index = this.expandedCategoryIds.indexOf(columnId, 0);
-            if (index > -1) {
-                this.expandedCategoryIds.splice(index, 1);
-            }
+    async toggleItem(columnName: string): Promise<void> {
+        const ids: string[] = [...this.expandedCategoryIds];
+        if (ids.includes(columnName)) {
+            ids.splice(ids.indexOf(columnName), 1);
         } else {
-            this.expandedCategoryIds.push(columnId);
+            ids.push(columnName);
         }
-        this.refresh();
+        this.expandedCategoryIds = ids;
     }
 
-    //--------------------------------------------------------------------------
-    // PRIVATE METHODS
-    // -------------------------------------------------------------------------
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
-    private onKupTreeNodeSelected(e: CustomEvent) {
+    private onKupTreeNodeSelected(e: CustomEvent): void {
         e.stopPropagation();
 
         this.kupAccordionSelectedNode.emit({
@@ -163,27 +179,13 @@ export class KupAccordion {
             auto: e.detail.auto,
         });
     }
-
-    private onToggleCategory(e: MouseEvent, columnId: string) {
-        let el: HTMLButtonElement = null;
-
-        if ((e.target as HTMLElement).tagName === 'BUTTON') {
-            el = e.target as HTMLButtonElement;
-        } else {
-            el = (e.target as HTMLElement).closest('button');
-        }
-
-        this.toggleCategory(el, columnId);
-    }
-
-    private onGlobalFilterChange({ detail }) {
+    private onGlobalFilterChange({ detail }): void {
         let value = '';
         if (detail && detail.value) {
             value = detail.value;
         }
         this.globalFilterValue = value;
     }
-
     /**
      * This method is used to build TreeNode structure and create kup-tree component
      * @param cellData
@@ -209,15 +211,13 @@ export class KupAccordion {
 
         return kupTree;
     }
-
     /**
      * This method is used to create the sub component structure
-     * @param cell
-     * @param columnName category id
-     * @returns VNode[]
+     * @param {Cell} cell - Cell containing the accordion content.
+     * @returns {VNode[]} Virtual node of the content.
      */
     private renderSubComponent(cell: Cell): VNode[] {
-        const shape = cell.shape;
+        const shape: string = cell.shape;
 
         switch (shape) {
             case 'TRE': {
@@ -227,60 +227,51 @@ export class KupAccordion {
                 return;
         }
     }
-
     /**
-     * This method is used to trigger a new render of the component.
-     * @returns VNode[]
+     * This method renders the items of the accordion.
+     * @returns {VNode[]} Virtual nodes containing the accordion items.
      */
     private renderAccordion(): VNode[] {
-        const categories: VNode[] = [];
+        const items: VNode[] = [];
 
         for (var i = 0; i < this.actualData.columns.length; i++) {
-            const columnName = this.actualData.columns[i].name;
-            const cell = this.actualData.rows[0].cells[columnName];
+            const columnName: string = this.actualData.columns[i].name;
+            const cell: Cell = this.actualData.rows[0].cells[columnName];
+            const isItemExpanded: boolean =
+                this.expandedCategoryIds.includes(columnName);
 
-            var subComponent: VNode[] = [];
+            let subComponent: VNode[] = [];
             if (cell != null) {
                 subComponent = this.renderSubComponent(cell);
             }
 
-            var buttonCssClass;
-            var divCssClass;
-            const index = this.expandedCategoryIds.indexOf(columnName, 0);
-            if (index > -1) {
-                buttonCssClass = 'accordion-button--active';
-                divCssClass = 'accordion-subcomponent--active';
-            } else {
-                buttonCssClass = 'accordion-button';
-                divCssClass = 'accordion-subcomponent';
-            }
+            const buttonClass: GenericObject = {
+                'accordion-button': true,
+                'accordion-button--active': isItemExpanded ? true : false,
+            };
+            const contentClass: GenericObject = {
+                'accordion-content': true,
+                'accordion-content--active': isItemExpanded ? true : false,
+            };
 
-            categories.push(
-                <div class="accordion-category-wrapper">
+            items.push(
+                <div class="accordion-item">
                     <button
-                        class={buttonCssClass}
-                        onClick={(e: MouseEvent) =>
-                            this.onToggleCategory(e, columnName)
-                        }
+                        class={buttonClass}
+                        onClick={() => this.toggleItem(columnName)}
                     >
                         {this.actualData.columns[i].title}
                     </button>
-                    <div class={divCssClass}>{subComponent}</div>
+                    <div class={contentClass}>{subComponent}</div>
                 </div>
             );
         }
-        return categories;
+        return items;
     }
 
-    //--------------------------------------------------------------------------
-    // LIFECYCLE HOOKS
-    // -------------------------------------------------------------------------
-
-    @Watch('data')
-    @Watch('globalFilterValue')
-    recalculateData() {
-        this.actualData = this.data;
-    }
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -300,21 +291,13 @@ export class KupAccordion {
         this.kupManager.debug.logRender(this, true);
     }
 
-    disconnectedCallback() {
-        this.kupManager.theme.unregister(this);
-    }
-
-    //--------------------------------------------------------------------------
-    // RENDERING
-    // -------------------------------------------------------------------------
-
     render() {
         const content: VNode[] = this.renderAccordion();
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
 
-        let filterPanel = null;
+        let filterPanel: VNode = null;
         if (this.globalFilter) {
             filterPanel = (
                 <div id="global-filter">
@@ -346,9 +329,13 @@ export class KupAccordion {
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id="kup-component">
                     {filterPanel}
-                    {content}
+                    <div class="accordion--wrapper">{content}</div>
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
     }
 }
