@@ -28,6 +28,7 @@ import {
     TreeNode,
     KupTreeNodeSelectedEventPayload,
 } from './../kup-tree/kup-tree-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-accordion',
@@ -327,7 +328,7 @@ export class KupAccordion {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     {filterPanel}
                     <div class="accordion--wrapper">{content}</div>
                 </div>

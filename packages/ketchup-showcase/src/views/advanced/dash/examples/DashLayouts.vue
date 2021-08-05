@@ -265,7 +265,8 @@ export default {
     return {
       listdata1: [
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '1',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -297,7 +298,8 @@ export default {
           icon: 'trending_flat',
         },
         {
-          text: "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
+          text:
+            "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
           value: '4',
           icon: 'trending_flat',
         },
@@ -305,7 +307,8 @@ export default {
 
       listdata3: [
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '1',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -338,12 +341,14 @@ export default {
           icon: 'trending_flat',
         },
         {
-          text: "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
+          text:
+            "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
           value: '4',
           icon: 'trending_flat',
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '5',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -363,7 +368,8 @@ export default {
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -383,7 +389,8 @@ export default {
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -403,7 +410,8 @@ export default {
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -423,7 +431,8 @@ export default {
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
