@@ -25,7 +25,7 @@ import { KupProgressBarProps } from './kup-progress-bar-declarations';
 })
 export class KupProgressBar {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-progress-bar>).
      */
     @Element() rootElement: HTMLElement;
 

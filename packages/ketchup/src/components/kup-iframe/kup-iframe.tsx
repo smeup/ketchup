@@ -26,7 +26,7 @@ import { KupIframeProps } from './kup-iframe-declarations';
 })
 export class KupIframe {
     /**
-     * References the root HTML element of the component (<kup-grid>).
+     * References the root HTML element of the component (<kup-iframe>).
      */
     @Element() rootElement: HTMLElement;
 

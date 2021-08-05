@@ -49,7 +49,7 @@ declare const $: any;
 })
 export class KupChart {
     /**
-     * References the root HTML element of the component (<kup-card>).
+     * References the root HTML element of the component (<kup-chart>).
      */
     @Element() rootElement: HTMLElement;
 

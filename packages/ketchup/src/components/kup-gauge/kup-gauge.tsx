@@ -32,7 +32,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupGauge {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-gauge>).
      */
     @Element() rootElement: HTMLElement;
 

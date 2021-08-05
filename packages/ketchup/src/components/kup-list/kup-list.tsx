@@ -42,6 +42,9 @@ import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
     shadow: true,
 })
 export class KupList {
+    /**
+     * References the root HTML element of the component (<kup-list>).
+     */
     @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/

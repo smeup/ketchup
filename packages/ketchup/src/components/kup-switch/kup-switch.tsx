@@ -32,7 +32,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupSwitch {
     /**
-     * References the root HTML element of the component (<kup-image>).
+     * References the root HTML element of the component (<kup-switch>).
      */
     @Element() rootElement: HTMLElement;
 

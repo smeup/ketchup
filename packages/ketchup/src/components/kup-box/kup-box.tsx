@@ -105,7 +105,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupBox {
     /**
-     * References the root HTML element of the component (<kup-badge>).
+     * References the root HTML element of the component (<kup-box>).
      */
     @Element() rootElement: HTMLElement;
 

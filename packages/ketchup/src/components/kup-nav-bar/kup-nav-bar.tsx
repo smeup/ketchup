@@ -41,7 +41,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupNavBar {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-nav-bar>).
      */
     @Element() rootElement: HTMLElement;
 

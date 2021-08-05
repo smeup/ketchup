@@ -25,7 +25,7 @@ import { KupSpinnerProps } from './kup-spinner-declarations';
 })
 export class KupSpinner {
     /**
-     * References the root HTML element of the component (<kup-radio>).
+     * References the root HTML element of the component (<kup-spinner>).
      */
     @Element() rootElement: HTMLElement;
 

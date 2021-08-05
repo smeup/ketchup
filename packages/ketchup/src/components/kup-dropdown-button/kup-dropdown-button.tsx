@@ -40,7 +40,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupDropdownButton {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-dropdown-button>).
      */
     @Element() rootElement: HTMLElement;
 

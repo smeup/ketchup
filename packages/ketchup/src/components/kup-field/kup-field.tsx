@@ -30,7 +30,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupField {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-field>).
      */
     @Element() rootElement: HTMLElement;
 

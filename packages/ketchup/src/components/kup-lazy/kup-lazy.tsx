@@ -25,7 +25,7 @@ import { KupLazyProps, KupLazyRender } from './kup-lazy-declarations';
 })
 export class KupLazy {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-lazy>).
      */
     @Element() rootElement: HTMLElement;
 

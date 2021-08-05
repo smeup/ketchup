@@ -38,7 +38,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupTextField {
     /**
-     * References the root HTML element of the component (<kup-image>).
+     * References the root HTML element of the component (<kup-text-field>).
      */
     @Element() rootElement: HTMLElement;
 

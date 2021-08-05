@@ -104,7 +104,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupTree {
     /**
-     * References the root HTML element of the component (<kup-grid>).
+     * References the root HTML element of the component (<kup-tree>).
      */
     @Element() rootElement: HTMLElement;
 

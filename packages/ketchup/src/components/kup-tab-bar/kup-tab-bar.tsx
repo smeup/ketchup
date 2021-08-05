@@ -37,7 +37,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupTabBar {
     /**
-     * References the root HTML element of the component (<kup-checkbox>).
+     * References the root HTML element of the component (<kup-tab-bar>).
      */
     @Element() rootElement: HTMLElement;
 

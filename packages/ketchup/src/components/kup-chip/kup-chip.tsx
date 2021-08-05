@@ -35,7 +35,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupChip {
     /**
-     * References the root HTML element of the component (<kup-image>).
+     * References the root HTML element of the component (<kup-chip>).
      */
     @Element() rootElement: HTMLElement;
 

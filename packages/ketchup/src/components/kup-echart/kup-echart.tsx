@@ -35,7 +35,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupEchart {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-echart>).
      */
     @Element() rootElement: HTMLElement;
 

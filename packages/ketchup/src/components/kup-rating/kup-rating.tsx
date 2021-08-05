@@ -31,7 +31,7 @@ import {
 })
 export class KupRating {
     /**
-     * References the root HTML element of the component (<kup-radio>).
+     * References the root HTML element of the component (<kup-rating>).
      */
     @Element() rootElement: HTMLElement;
 

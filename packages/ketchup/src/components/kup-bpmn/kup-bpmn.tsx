@@ -35,7 +35,7 @@ import Diagram from './resources/diagram.svg';
 })
 export class KupBpmn {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-bpmn>).
      */
     @Element() rootElement: HTMLElement;
 

@@ -54,7 +54,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupTimePicker {
     /**
-     * References the root HTML element of the component (<kup-image>).
+     * References the root HTML element of the component (<kup-time-picker>).
      */
     @Element() rootElement: HTMLElement;
 
