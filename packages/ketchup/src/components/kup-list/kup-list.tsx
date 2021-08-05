@@ -231,28 +231,30 @@ export class KupList {
     /*-------------------------------------------------*/
 
     /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     * Focuses the next element of the list.
      */
     @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupListProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupListProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
+    async focusNext(): Promise<void> {
+        if (
+            isNaN(this.focused) ||
+            this.focused === null ||
+            this.focused === undefined
+        ) {
+            if (this.selected.length === 1) {
+                const selectedItem: KupListData = this.data.find(
+                    (x: KupListData) => x.value === this.selected[0]
+                );
+                this.focused = this.data.indexOf(selectedItem) + 1;
+            } else {
+                this.focused = 0;
+            }
+        } else {
+            this.focused++;
+        }
+        if (this.focused > this.listItems.length - 1) {
+            this.focused = 0;
+        }
+        this.listItems[this.focused].focus();
     }
     /**
      * Focuses the previous element of the list.
@@ -281,30 +283,28 @@ export class KupList {
         this.listItems[this.focused].focus();
     }
     /**
-     * Focuses the next element of the list.
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
      */
     @Method()
-    async focusNext(): Promise<void> {
-        if (
-            isNaN(this.focused) ||
-            this.focused === null ||
-            this.focused === undefined
-        ) {
-            if (this.selected.length === 1) {
-                const selectedItem: KupListData = this.data.find(
-                    (x: KupListData) => x.value === this.selected[0]
-                );
-                this.focused = this.data.indexOf(selectedItem) + 1;
-            } else {
-                this.focused = 0;
-            }
-        } else {
-            this.focused++;
-        }
-        if (this.focused > this.listItems.length - 1) {
-            this.focused = 0;
-        }
-        this.listItems[this.focused].focus();
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupListProps, descriptions);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Resets filter.
+     * @todo FOSLUC to PASCAR: why isn't it enough to change only the prop?
+     */
+    @Method()
+    async resetFilter(newFilter: string) {
+        this.filter = newFilter;
     }
     /**
      * Calls handleSelection internal method to select the given item.
@@ -318,12 +318,12 @@ export class KupList {
         this.handleSelection(index);
     }
     /**
-     * Resets filter.
-     * memo - FOSLUC to PASCAR: why isn't it enough to change only the prop?
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
-    async resetFilter(newFilter: string) {
-        this.filter = newFilter;
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupListProps, props);
     }
 
     /*-------------------------------------------------*/

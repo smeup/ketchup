@@ -32,6 +32,7 @@ import { KupListData } from '../kup-list/kup-list-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -73,7 +74,6 @@ export class KupNavBar {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-
     private optionsButtonEl: any = undefined;
     private optionsListEl: any = undefined;
     private menuButtonEl: any = undefined;
@@ -83,29 +83,6 @@ export class KupNavBar {
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
-
-    @Listen('click', { target: 'document' })
-    listenClick() {
-        this.closeList();
-    }
-
-    @Listen('keyup', { target: 'document' })
-    listenKeyup(e: KeyboardEvent) {
-        if (this.isListOpened()) {
-            if (e.key === 'Escape') {
-                this.closeList();
-            }
-            if (e.key === 'Enter') {
-                this.closeList();
-            }
-            if (e.key === 'ArrowDown') {
-                this.arrowDownList();
-            }
-            if (e.key === 'ArrowUp') {
-                this.arrowUpList();
-            }
-        }
-    }
 
     /**
      * Triggered when a button's list item is clicked.
@@ -167,6 +144,33 @@ export class KupNavBar {
     }
 
     /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('click')
+    listenClick() {
+        this.closeList();
+    }
+
+    @Listen('keyup')
+    listenKeyup(e: KeyboardEvent) {
+        if (this.isListOpened()) {
+            if (e.key === 'Escape') {
+                this.closeList();
+            }
+            if (e.key === 'Enter') {
+                this.closeList();
+            }
+            if (e.key === 'ArrowDown') {
+                this.arrowDownList();
+            }
+            if (e.key === 'ArrowUp') {
+                this.arrowUpList();
+            }
+        }
+    }
+
+    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -180,19 +184,19 @@ export class KupNavBar {
         return getProps(this, KupNavBarProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupNavBarProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -467,7 +471,7 @@ export class KupNavBar {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" class={wrapperClass}>
+                <div id={componentWrapperId} class={wrapperClass}>
                     <header class={headerClassName}>
                         <div class="top-app-bar__row">
                             <section class="top-app-bar__section top-app-bar__section--align-start">

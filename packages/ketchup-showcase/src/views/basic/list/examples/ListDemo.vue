@@ -19,6 +19,33 @@ export default {
   name: 'ListDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
       demoEvents: [
         {
@@ -32,6 +59,39 @@ export default {
         {
           name: 'kup-list-blur',
           type: 'blur',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'focusNext',
+          description: 'Focuses the next element of the list.',
+        },
+        {
+          name: 'focusPrevious',
+          description: 'Focuses the previous element of the list.',
+        },
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'resetFilter',
+          description: 'Resets filter.',
+        },
+        {
+          name: 'select',
+          description:
+            'Calls handleSelection internal method to select the given item.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
         },
       ],
       demoProps: [
@@ -126,33 +186,6 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-      ],
-      demoClasses: [
-        {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
     };
