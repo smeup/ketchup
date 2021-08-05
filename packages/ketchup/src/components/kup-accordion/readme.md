@@ -54,6 +54,16 @@ Type: `Promise<void>`
 
 
 
+### `toggleCategory(el: HTMLElement, columnId: string) => Promise<void>`
+
+This method expand or collapsed the category
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 

@@ -84,6 +84,12 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * This method expand or collapsed the category
+          * @param e event
+          * @param columnId name of category
+         */
+        "toggleCategory": (el: HTMLElement, columnId: string) => Promise<void>;
     }
     interface KupAutocomplete {
         /**

@@ -1,3 +1,5 @@
+document.addEventListener('kup-accordion-selectedNode', (e) => console.log(e));
+
 const data = {
     columns: [
         {

@@ -8,7 +8,6 @@ import {
     Prop,
     VNode,
     State,
-    Listen,
     Event,
     EventEmitter,
     Watch,
@@ -39,21 +38,9 @@ import {
     shadow: true,
 })
 export class KupAccordion {
-    /**
-     * References the root HTML element of the component (<kup-accordion>).
-     */
-    @Element() rootElement: HTMLElement;
-
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-
-    // flag of the expanded categories
-    @State() expandedCategoryIds: string[] = [];
-
-    /*-------------------------------------------------*/
-    /*                    P r o p s                    */
-    /*-------------------------------------------------*/
+    //--------------------------------------------------------------------------
+    // PROPS
+    // -------------------------------------------------------------------------
 
     /**
      * Custom style of the component.
@@ -76,10 +63,21 @@ export class KupAccordion {
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
 
-    /*-------------------------------------------------*/
-    /*       I n t e r n a l   V a r i a b l e s       */
-    /*-------------------------------------------------*/
+    //--------------------------------------------------------------------------
+    // STATES
+    // -------------------------------------------------------------------------
 
+    // flag of the expanded categories
+    @State() expandedCategoryIds: string[] = [];
+
+    @State()
+    private actualData: KupAccordionData = null;
+
+    //--------------------------------------------------------------------------
+    // INTERNAL VARIABLES
+    // -------------------------------------------------------------------------
+
+    @Element() rootElement: HTMLElement;
     /**
      * Instance of the KupManager class.
      */
@@ -87,12 +85,9 @@ export class KupAccordion {
 
     private globalFilterTimeout: number;
 
-    @State()
-    private actualData: KupAccordionData = null;
-
-    /*-------------------------------------------------*/
-    /*                   E v e n t s                   */
-    /*-------------------------------------------------*/
+    //--------------------------------------------------------------------------
+    // EVENTS
+    // -------------------------------------------------------------------------
 
     /**
      * Fired when a TreeNode is selected
@@ -105,22 +100,9 @@ export class KupAccordion {
     })
     kupAccordionSelectedNode: EventEmitter<KupTreeNodeSelectedEventPayload>;
 
-    /**
-     * Catch kup-tree-nodeselected event and emits a new kup-accordion-selectedNode event
-     * @Param event
-     */
-    @Listen('kup-tree-nodeselected', { target: 'body' })
-    kupTreeNodeSelectedHandler(event: CustomEvent) {
-        var selectedNodeEvent: KupTreeNodeSelectedEventPayload =
-            {} as KupTreeNodeSelectedEventPayload;
-        selectedNodeEvent.treeNode = event.detail.treeNode;
-        selectedNodeEvent.treeNodePath = event.detail.treeNodePath;
-        this.kupAccordionSelectedNode.emit(selectedNodeEvent);
-    }
-
-    /*-------------------------------------------------*/
-    /*           P u b l i c   M e t h o d s           */
-    /*-------------------------------------------------*/
+    //--------------------------------------------------------------------------
+    // PUBLIC METHODS
+    // -------------------------------------------------------------------------
 
     /**
      * Used to retrieve component's props values.
@@ -148,19 +130,12 @@ export class KupAccordion {
     }
 
     /**
-     * This method is called by button and set or unset the expanded category id
+     * This method expand or collapsed the category
      * @param e event
      * @param columnId name of category
      */
-    expandCategory(e: MouseEvent, columnId: string) {
-        let el: HTMLButtonElement = null;
-
-        if ((e.target as HTMLElement).tagName === 'BUTTON') {
-            el = e.target as HTMLButtonElement;
-        } else {
-            el = (e.target as HTMLElement).closest('button');
-        }
-
+    @Method()
+    async toggleCategory(el: HTMLElement, columnId: string): Promise<void> {
         if (el.className == 'accordion-button--active') {
             const index = this.expandedCategoryIds.indexOf(columnId, 0);
             if (index > -1) {
@@ -172,14 +147,33 @@ export class KupAccordion {
         this.refresh();
     }
 
-    /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
+    //--------------------------------------------------------------------------
+    // PRIVATE METHODS
+    // -------------------------------------------------------------------------
 
-    @Watch('data')
-    @Watch('globalFilterValue')
-    recalculateData() {
-        this.actualData = this.data;
+    private onKupTreeNodeSelected(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupAccordionSelectedNode.emit({
+            comp: this,
+            id: this.rootElement.id,
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            columnName: e.detail.columnName,
+            auto: e.detail.auto,
+        });
+    }
+
+    private onToggleCategory(e: MouseEvent, columnId: string) {
+        let el: HTMLButtonElement = null;
+
+        if ((e.target as HTMLElement).tagName === 'BUTTON') {
+            el = e.target as HTMLButtonElement;
+        } else {
+            el = (e.target as HTMLElement).closest('button');
+        }
+
+        this.toggleCategory(el, columnId);
     }
 
     private onGlobalFilterChange({ detail }) {
@@ -209,6 +203,7 @@ export class KupAccordion {
             <kup-tree
                 data={tree}
                 globalFilterValue={this.globalFilterValue}
+                onkup-tree-nodeselected={(e) => this.onKupTreeNodeSelected(e)}
             ></kup-tree>
         );
 
@@ -265,7 +260,7 @@ export class KupAccordion {
                     <button
                         class={buttonCssClass}
                         onClick={(e: MouseEvent) =>
-                            this.expandCategory(e, columnName)
+                            this.onToggleCategory(e, columnName)
                         }
                     >
                         {this.actualData.columns[i].title}
@@ -277,9 +272,15 @@ export class KupAccordion {
         return categories;
     }
 
-    /*-------------------------------------------------*/
-    /*          L i f e c y c l e   H o o k s          */
-    /*-------------------------------------------------*/
+    //--------------------------------------------------------------------------
+    // LIFECYCLE HOOKS
+    // -------------------------------------------------------------------------
+
+    @Watch('data')
+    @Watch('globalFilterValue')
+    recalculateData() {
+        this.actualData = this.data;
+    }
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -298,6 +299,14 @@ export class KupAccordion {
     componentDidRender() {
         this.kupManager.debug.logRender(this, true);
     }
+
+    disconnectedCallback() {
+        this.kupManager.theme.unregister(this);
+    }
+
+    //--------------------------------------------------------------------------
+    // RENDERING
+    // -------------------------------------------------------------------------
 
     render() {
         const content: VNode[] = this.renderAccordion();
@@ -341,9 +350,5 @@ export class KupAccordion {
                 </div>
             </Host>
         );
-    }
-
-    disconnectedCallback() {
-        this.kupManager.theme.unregister(this);
     }
 }
