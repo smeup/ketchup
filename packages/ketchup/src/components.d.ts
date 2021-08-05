@@ -763,15 +763,19 @@ export namespace Components {
     }
     interface KupColorPicker {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the text field.
+          * @default null
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -780,24 +784,37 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+          * @default ""
          */
         "initialValue": string;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the focus to the component.
+         */
         "setFocus": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @param value - Value to be set.
+         */
         "setValue": (value: string) => Promise<void>;
         /**
           * When true, the component's text field will be replaced by a swatch.
+          * @default false
          */
         "swatchOnly": boolean;
     }
@@ -3625,25 +3642,31 @@ declare namespace LocalJSX {
     }
     interface KupColorPicker {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the text field.
+          * @default null
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+          * @default ""
          */
         "initialValue"?: string;
         "onKup-colorpicker-change"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
         "onKup-colorpicker-input"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
+          * @default false
          */
         "swatchOnly"?: boolean;
     }
