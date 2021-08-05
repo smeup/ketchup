@@ -415,6 +415,12 @@ export default {
             title: 'Advanced',
             advancedItems: [
               {
+                title: 'Accordion',
+                to: {
+                  name: 'accordion',
+                },
+              },
+              {
                 title: 'Box',
                 to: {
                   name: 'box',

@@ -117,24 +117,26 @@ export class FiltersTreeItems extends FiltersRows {
             if (visibility == true && isUsingGlobalFilter) {
                 this.setAllVisible(node.children);
             } else {
-                for (let i = 0; i < node.children.length; i++) {
-                    if (
-                        this.setNodeVisibility(
-                            node.children[i],
-                            filters,
-                            globalFilter,
-                            isUsingGlobalFilter,
-                            columns,
-                            treeExpandedPropName,
-                            columnFilters
-                        )
-                    ) {
-                        this.expandCollapseNode(
-                            node,
-                            true,
-                            treeExpandedPropName
-                        );
-                        visibility = true;
+                if (node.children) {
+                    for (let i = 0; i < node.children.length; i++) {
+                        if (
+                            this.setNodeVisibility(
+                                node.children[i],
+                                filters,
+                                globalFilter,
+                                isUsingGlobalFilter,
+                                columns,
+                                treeExpandedPropName,
+                                columnFilters
+                            )
+                        ) {
+                            this.expandCollapseNode(
+                                node,
+                                true,
+                                treeExpandedPropName
+                            );
+                            visibility = true;
+                        }
                     }
                 }
             }
