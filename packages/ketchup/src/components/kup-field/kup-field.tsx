@@ -21,6 +21,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-field',
@@ -28,47 +29,66 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupField {
+    /**
+     * References the root HTML element of the component (<kup-button>).
+     */
     @Element() rootElement: HTMLElement;
 
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * Effective data to pass to the component.
+     * @default {}
      */
     @Prop() data: Object = {};
     /**
      * The text of the label. If set to empty or has only white space chars, the label will be removed.
+     * @default ""
      */
     @Prop() label: string = '';
     /**
      * Sets the label's position, left right or top.
+     * @default "left"
      */
     @Prop() labelPos: string = 'left';
     /**
      * Sets whether the submit button must be displayed or not.
+     * @default false
      */
     @Prop() showSubmit: boolean = false;
     /**
      * Sets the submit button's label.
+     * @default ""
      */
     @Prop() submitLabel: string = '';
     /**
      * Sets the submit button's position, top right bottom or left.
+     * @default "right"
      */
     @Prop() submitPos: string = 'right';
     /**
      * The type of the FLD
+     * @default undefined
      */
     @Prop() type: string = undefined;
 
-    //-- Not reactive --
-    currentValue: object | string = null;
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    currentValue: object | string = null;
     previousValue: object | string = null;
 
     // Generates an instance of the event handler while binding the current component as its this value
@@ -76,7 +96,10 @@ export class KupField {
     onChangeInstance = this.onChange.bind(this);
     onSubmitInstance = this.onSubmit.bind(this);
 
-    //---- Events ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
     /**
      * Launched when the value of the current FLD changes.
      */
@@ -98,35 +121,6 @@ export class KupField {
         bubbles: true,
     })
     kupSubmit: EventEmitter<KupFieldSubmitEvent>;
-
-    //---- Methods ----
-
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupFieldProps;
-        } else {
-            for (const key in KupFieldProps) {
-                if (Object.prototype.hasOwnProperty.call(KupFieldProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
 
     // When a change or update event must be launched as if it's coming from the FLD itself
     onChange(event: CustomEvent) {
@@ -156,7 +150,9 @@ export class KupField {
         });
     }
 
-    //-- Public --
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Provides an interface to get the current value programmatically
@@ -167,8 +163,36 @@ export class KupField {
     async getCurrentValue() {
         return this.currentValue;
     }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupFieldProps;
+        } else {
+            for (const key in KupFieldProps) {
+                if (Object.prototype.hasOwnProperty.call(KupFieldProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -304,7 +328,7 @@ export class KupField {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" class={wrapperClass}>
+                <div id={componentWrapperId} class={wrapperClass}>
                     {toRender}
                 </div>
             </Host>

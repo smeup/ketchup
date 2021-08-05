@@ -25,7 +25,14 @@ import { KupIframeProps } from './kup-iframe-declarations';
     shadow: true,
 })
 export class KupIframe {
+    /**
+     * References the root HTML element of the component (<kup-grid>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      *  Props of the button (when isButton is set to true).
@@ -40,12 +47,18 @@ export class KupIframe {
      */
     @Prop() src: string = undefined;
 
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
 
-    //---- Methods ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kup-iframe-error',
@@ -71,9 +84,10 @@ export class KupIframe {
         this.kupIframeLoad.emit({ comp: this, id: this.rootElement.id });
     }
 
-    openInNew() {
-        window.open(this.src, '_blank');
-    }
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -84,6 +98,13 @@ export class KupIframe {
         return getProps(this, KupIframeProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
@@ -91,15 +112,18 @@ export class KupIframe {
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupIframeProps, props);
     }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    openInNew() {
+        window.open(this.src, '_blank');
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);

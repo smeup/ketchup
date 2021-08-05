@@ -31,6 +31,7 @@ import {
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -294,20 +295,6 @@ export class KupDropdownButton {
     /*-------------------------------------------------*/
 
     /**
-     * Returns the component's internal value.
-     */
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-    /**
-     * Sets the internal value of the component.
-     */
-    @Method()
-    async setValue(value: string): Promise<void> {
-        this.value = value;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -315,6 +302,20 @@ export class KupDropdownButton {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupDropdownButtonProps, descriptions);
+    }
+    /**
+     * Returns the component's internal value.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
     /**
      * Sets the props to the component.
@@ -325,11 +326,11 @@ export class KupDropdownButton {
         setProps(this, KupDropdownButtonProps, props);
     }
     /**
-     * This method is used to trigger a new render of the component.
+     * Sets the internal value of the component.
      */
     @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
+    async setValue(value: string): Promise<void> {
+        this.value = value;
     }
 
     /*-------------------------------------------------*/
@@ -505,7 +506,7 @@ export class KupDropdownButton {
             <Host onBlur={() => this.onKupBlur()}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div
-                    id="kup-component"
+                    id={componentWrapperId}
                     ref={(el) => (this.wrapperEl = el as any)}
                 >
                     <div class="dropdown-button--wrapper">

@@ -3,6 +3,7 @@
     <demo
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>
   </div>
@@ -22,8 +23,29 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupEchartClick',
+          name: 'kup-echart-click',
           type: 'click',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'resizeCallback',
+          description:
+            'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
         },
       ],
       demoProps: [

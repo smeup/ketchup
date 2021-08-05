@@ -1377,18 +1377,23 @@ export namespace Components {
     interface KupEchart {
         /**
           * Sets the axis of the chart.
+          * @default ""
          */
         "axis": string;
         /**
           * Title of the graph.
+          * @default undefined
          */
         "chartTitle": EchartTitle;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * The actual data of the chart.
+          * @default {}
          */
         "data": object;
         /**
@@ -1399,10 +1404,12 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default undefined
          */
         "legend": string;
         /**
           * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
+          * @default undefined
          */
         "mapType": any;
         /**
@@ -1415,6 +1422,7 @@ export namespace Components {
         "resizeCallback": () => Promise<void>;
         /**
           * The data series to be displayed. They must be of the same type.
+          * @default undefined
          */
         "series": string[];
         /**
@@ -1424,6 +1432,7 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+          * @default ['Line']
          */
         "types": String[];
     }
@@ -1435,11 +1444,14 @@ export namespace Components {
     }
     interface KupField {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Effective data to pass to the component.
+          * @default {}
          */
         "data": Object;
         /**
@@ -1456,10 +1468,12 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The text of the label. If set to empty or has only white space chars, the label will be removed.
+          * @default ""
          */
         "label": string;
         /**
           * Sets the label's position, left right or top.
+          * @default "left"
          */
         "labelPos": string;
         /**
@@ -1468,18 +1482,22 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * Sets whether the submit button must be displayed or not.
+          * @default false
          */
         "showSubmit": boolean;
         /**
           * Sets the submit button's label.
+          * @default ""
          */
         "submitLabel": string;
         /**
           * Sets the submit button's position, top right bottom or left.
+          * @default "right"
          */
         "submitPos": string;
         /**
           * The type of the FLD
+          * @default undefined
          */
         "type": string;
     }
@@ -1521,7 +1539,9 @@ export namespace Components {
          */
         "colors": string[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -4225,35 +4245,44 @@ declare namespace LocalJSX {
     interface KupEchart {
         /**
           * Sets the axis of the chart.
+          * @default ""
          */
         "axis"?: string;
         /**
           * Title of the graph.
+          * @default undefined
          */
         "chartTitle"?: EchartTitle;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The actual data of the chart.
+          * @default {}
          */
         "data"?: object;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default undefined
          */
         "legend"?: string;
         /**
           * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
+          * @default undefined
          */
         "mapType"?: any;
-        "onKupEchartClick"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
+          * @default undefined
          */
         "series"?: string[];
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+          * @default ['Line']
          */
         "types"?: String[];
     }
@@ -4265,19 +4294,24 @@ declare namespace LocalJSX {
     }
     interface KupField {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Effective data to pass to the component.
+          * @default {}
          */
         "data"?: Object;
         /**
           * The text of the label. If set to empty or has only white space chars, the label will be removed.
+          * @default ""
          */
         "label"?: string;
         /**
           * Sets the label's position, left right or top.
+          * @default "left"
          */
         "labelPos"?: string;
         /**
@@ -4290,18 +4324,22 @@ declare namespace LocalJSX {
         "onKup-field-submit"?: (event: CustomEvent<KupFieldSubmitEvent>) => void;
         /**
           * Sets whether the submit button must be displayed or not.
+          * @default false
          */
         "showSubmit"?: boolean;
         /**
           * Sets the submit button's label.
+          * @default ""
          */
         "submitLabel"?: string;
         /**
           * Sets the submit button's position, top right bottom or left.
+          * @default "right"
          */
         "submitPos"?: string;
         /**
           * The type of the FLD
+          * @default undefined
          */
         "type"?: string;
     }
@@ -4345,7 +4383,9 @@ declare namespace LocalJSX {
          */
         "colors"?: string[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
