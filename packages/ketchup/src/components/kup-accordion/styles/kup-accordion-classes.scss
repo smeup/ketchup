@@ -2,12 +2,10 @@
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
 
-:host(.#{$kup-class-full-width}) {
-  .flex-layout__inner {
-    width: 100%;
+:host(.#{$kup-class-full-height}) {
+  height: 100%;
+}
 
-    & * {
-      margin: auto;
-    }
-  }
+:host(.#{$kup-class-full-width}) {
+  width: 100%;
 }

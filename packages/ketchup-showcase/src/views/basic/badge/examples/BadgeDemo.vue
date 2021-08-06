@@ -1,10 +1,11 @@
 <template>
   <div>
     <demo
+      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
-      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -19,38 +20,6 @@ export default {
   name: 'BadgeDemo',
   data() {
     return {
-      demoComp: createComp(),
-      demoEvents: [
-        {
-          name: 'kup-badge-click',
-          type: 'click',
-        },
-      ],
-      demoProps: [
-        {
-          prop: 'customStyle',
-          description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
-          type: 'string',
-          default: '""',
-          try: 'css',
-        },
-        {
-          prop: 'imageData',
-          description:
-            'The data of the image displayed inside the badge. It will displayed only when "text" is undefined.',
-          type: 'Object',
-          default: '{}',
-          try: 'json',
-        },
-        {
-          prop: 'text',
-          description: 'The text displayed inside the badge.',
-          type: 'string',
-          default: '""',
-          try: 'field',
-        },
-      ],
       demoClasses: [
         {
           class: 'kup-bottom-left',
@@ -91,6 +60,54 @@ export default {
           class: 'kup-warning',
           description:
             'The component will be rendered using the warning color of the app.',
+        },
+      ],
+      demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kup-badge-click',
+          type: 'click',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
+      demoProps: [
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: '""',
+          try: 'css',
+        },
+        {
+          prop: 'imageData',
+          description:
+            'The data of the image displayed inside the badge. It will displayed only when "text" is undefined.',
+          type: 'GenericObject',
+          default: 'null',
+          try: 'json',
+        },
+        {
+          prop: 'text',
+          description: 'The text displayed inside the badge.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
         },
       ],
     };

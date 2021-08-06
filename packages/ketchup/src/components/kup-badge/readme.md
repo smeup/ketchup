@@ -5,18 +5,18 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type     | Default     |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `''`        |
-| `imageData`   | --             | The data of the image displayed inside the badge.                                                               | `{}`     | `undefined` |
-| `text`        | `text`         | The text displayed inside the badge.                                                                            | `string` | `undefined` |
+| Property      | Attribute      | Description                                       | Type            | Default |
+| ------------- | -------------- | ------------------------------------------------- | --------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.                    | `string`        | `''`    |
+| `imageData`   | --             | The data of the image displayed inside the badge. | `GenericObject` | `null`  |
+| `text`        | `text`         | The text displayed inside the badge.              | `string`        | `null`  |
 
 
 ## Events
 
-| Event             | Description | Type                                |
-| ----------------- | ----------- | ----------------------------------- |
-| `kup-badge-click` |             | `CustomEvent<KupBadgeEventPayload>` |
+| Event             | Description | Type                           |
+| ----------------- | ----------- | ------------------------------ |
+| `kup-badge-click` |             | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods

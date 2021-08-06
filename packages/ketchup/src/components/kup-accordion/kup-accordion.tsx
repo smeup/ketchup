@@ -27,6 +27,7 @@ import {
     KupAccordionItemSelectedEventPayload,
 } from './kup-accordion-declarations';
 import { TreeNode } from './../kup-tree/kup-tree-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-accordion',
@@ -35,7 +36,7 @@ import { TreeNode } from './../kup-tree/kup-tree-declarations';
 })
 export class KupAccordion {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-accordion>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -343,7 +344,7 @@ export class KupAccordion {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     {filterPanel}
                     <div class="accordion--wrapper">{content}</div>
                 </div>

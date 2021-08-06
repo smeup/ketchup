@@ -9,7 +9,6 @@ import {
     h,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
 
 import { EchartTitle, KupEchartProps } from './kup-echart-declarations';
@@ -26,6 +25,7 @@ import {
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-echart',
@@ -34,49 +34,61 @@ import { getProps, setProps } from '../../utils/utils';
     shadow: true,
 })
 export class KupEchart {
+    /**
+     * References the root HTML element of the component (<kup-echart>).
+     */
     @Element() rootElement: HTMLElement;
-    @State() themeBorder: string = undefined;
-    @State() themeColors: string[] = undefined;
-    @State() themeFont: string = undefined;
-    @State() themeText: string = undefined;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Sets the axis of the chart.
+     * @default ""
      */
     @Prop() axis: string = '';
     /**
      * Title of the graph.
+     * @default undefined
      */
     @Prop() chartTitle: EchartTitle;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * The actual data of the chart.
+     * @default {}
      */
     @Prop() data: object = {};
     /**
      * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+     * @default undefined
      */
     @Prop() legend: string;
     /**
      * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
+     * @default undefined
      */
     @Prop() mapType: any;
     /**
      * The data series to be displayed. They must be of the same type.
+     * @default undefined
      */
     @Prop() series: string[];
     /**
      * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+     * @default ['Line']
      */
     @Prop() types: String[] = ['Line'];
 
-    private chartContainer?: HTMLDivElement;
-    private chartEl: ECharts;
-    private echartOption: EChartOption;
-    private echartSeries: EChartOption.Series[];
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
     /**
      * Instance of the KupManager class.
      */
@@ -85,12 +97,36 @@ export class KupEchart {
      * Used to prevent too many resizes callbacks at once.
      */
     private resizeTimeout: number;
+    private chartContainer?: HTMLDivElement;
+    private chartEl: ECharts;
+    private echartOption: EChartOption;
+    private echartSeries: EChartOption.Series[];
     private nameMap: any;
     private jsonMap: any;
+    private themeBorder: string = null;
+    private themeColors: string[] = null;
+    private themeFont: string = null;
+    private themeText: string = null;
 
-    @Event() kupEchartClick: EventEmitter<KupEventPayload>;
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
-    //---- Methods ----
+    @Event({
+        eventName: 'kup-echart-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupEchartClick: EventEmitter<KupEventPayload>;
+
+    private onKupClick() {
+        this.kupEchartClick.emit({ comp: this, id: this.rootElement.id });
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -100,14 +136,6 @@ export class KupEchart {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupEchartProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupEchartProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -124,10 +152,18 @@ export class KupEchart {
         window.clearTimeout(this.resizeTimeout);
         this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
     }
-
-    private onKupClick() {
-        this.kupEchartClick.emit({ comp: this, id: this.rootElement.id });
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupEchartProps, props);
     }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     private initChart() {
         this.echartOption = {};
@@ -514,7 +550,9 @@ export class KupEchart {
         };
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -546,7 +584,7 @@ export class KupEchart {
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div
-                    id="kup-component"
+                    id={componentWrapperId}
                     onClick={() => this.onKupClick()}
                     ref={(chartContainer) =>
                         (this.chartContainer = chartContainer)

@@ -22,7 +22,7 @@ import {
     KupDataTableRowDragType,
     Row,
 } from '../kup-data-table/kup-data-table-declarations';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import {
@@ -36,6 +36,7 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-magic-box',
@@ -101,19 +102,19 @@ export class KupMagicBox {
         return getProps(this, KupMagicBoxProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupMagicBoxProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -125,14 +126,13 @@ export class KupMagicBox {
      * @returns {GenericObject} Combobox props.
      */
     private comboboxProps(): GenericObject {
-        const listData: ComponentListElement[] = [];
+        const listData: KupListData[] = [];
         for (const key in MagicBoxDisplay) {
             if (Object.prototype.hasOwnProperty.call(MagicBoxDisplay, key)) {
                 listData.push({
                     text: MagicBoxDisplay[key],
                     value: MagicBoxDisplay[key],
                     selected: false,
-                    isSeparator: false,
                 });
             }
         }
@@ -350,7 +350,7 @@ export class KupMagicBox {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div
                         class="magic-box-wrapper"
                         {...setKetchupDroppable(

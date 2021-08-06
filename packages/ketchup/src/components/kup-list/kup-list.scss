@@ -1,67 +1,157 @@
-@import '@material/list/mdc-list';
-
 :host {
   display: block;
+  font-family: var(--kup-font-family);
   font-size: var(--kup-font-size);
   outline: none;
 }
 
-#kup-component .mdc-list {
+.list {
+  background-color: var(--kup-background-color);
+  font-family: var(--kup-font-family);
   font-size: 1em;
-
-  .mdc-list-item {
-    & .mdc-list-item__text,
-    & .mdc-list-item__primary-text,
-    & .mdc-list-item__secondary-text {
-      font-family: var(--kup-font-family);
-    }
-
-    & .mdc-list-item__text {
-      padding-bottom: 4px;
-      padding-top: 4px;
-    }
-
-    & .mdc-list-item__graphic + .mdc-list-item__text {
-      padding-top: 10px;
-    }
-  }
-
-  &:not(.mdc-list--non-interactive) .mdc-list-item {
-    &:not(.mdc-list-item--selected):hover {
-      background-color: var(--kup-hover-background-color);
-      color: var(--kup-hover-color);
-    }
-  }
-
-  &.mdc-list--non-interactive .mdc-list-item {
-    cursor: auto;
-  }
-}
-
-.mdc-list.text-hidden {
-  & .mdc-list-item__text {
-    display: none;
-  }
-}
-
-.mdc-list:not(.mdc-list--two-line) {
-  @include mdc-list-deprecated-single-line-density(0);
-
-  & .mdc-list-item:not(.mdc-list-item--selected) .mdc-list-item__text {
-    color: var(--kup-text-color);
-  }
-}
-
-.mdc-list-item__secondary-text {
+  line-height: 1.75em;
+  font-weight: 400;
+  letter-spacing: 0.009375em;
+  text-decoration: inherit;
+  text-transform: inherit;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 0.5em 0;
+  list-style-type: none;
   color: var(--kup-text-color);
-  opacity: 0.75;
-}
 
-.icon-container {
-  margin: 0;
-  margin-right: 0.25em;
-}
+  .list-item {
+    display: -ms-flexbox;
+    display: flex;
+    height: 2.5em;
+    position: relative;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    padding: 0 0.75em;
+    overflow: hidden;
+    outline: none;
+    transition: background-color 120ms, color 120ms;
 
-kup-checkbox {
-  margin: 0;
+    &[role='checkbox'],
+    &[role='radio'] {
+      height: 3em;
+    }
+
+    &.list-item--activated,
+    &.list-item--activated .list-item__graphic,
+    &.list-item--selected,
+    &.list-item--selected .list-item__graphic {
+      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+      color: var(--kup-primary-color);
+    }
+
+    .list-item__text {
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .list-item__primary-text {
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin-top: 0;
+      line-height: normal;
+      margin-bottom: -1.5em;
+      display: block;
+
+      &:before {
+        display: inline-block;
+        width: 0;
+        height: 1.5em;
+        content: '';
+        vertical-align: 0;
+      }
+
+      &:after {
+        display: inline-block;
+        width: 0;
+        height: 2em;
+        content: '';
+        vertical-align: -2em;
+      }
+    }
+
+    .list-item__secondary-text {
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      font-size: 0.875em;
+      line-height: 1.25em;
+      font-weight: 400;
+      letter-spacing: 0.0178571429em;
+      text-decoration: inherit;
+      text-transform: inherit;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin-top: 0;
+      line-height: normal;
+      display: block;
+      color: var(--kup-text-color);
+      opacity: 0.75;
+    }
+
+    .icon-container {
+      margin: 0;
+      margin-right: 0.75em;
+    }
+
+    kup-checkbox {
+      margin: 0;
+    }
+  }
+
+  .list-divider {
+    background-color: rgba(var(--kup-text-color-rgb), 0.25);
+    height: 1px;
+    padding: 0;
+    background-clip: content-box;
+  }
+
+  &.list--two-line {
+    .list-item {
+      height: 3.6em;
+    }
+
+    .list-item__text {
+      -ms-flex-item-align: start;
+      align-self: flex-start;
+    }
+  }
+
+  &:not(.list--non-interactive) {
+    > :not(.list-item--disabled).list-item {
+      cursor: pointer;
+
+      label {
+        cursor: pointer;
+      }
+    }
+
+    .list-item {
+      &:not(.list-item--selected) {
+        &:hover,
+        &.list-item--focused {
+          background-color: var(--kup-hover-background-color);
+          color: var(--kup-hover-color);
+        }
+      }
+    }
+  }
+
+  &.text-hidden {
+    .list-item__text {
+      display: none;
+    }
+  }
 }

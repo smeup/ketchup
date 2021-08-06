@@ -1,7 +1,7 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { CardFamily } from '../../components/kup-card/kup-card-declarations';
-import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
+import { KupListData } from '../../components/kup-list/kup-list-declarations';
 import { KupLanguageDebug } from '../kup-language/kup-language-declarations';
 import {
     KupDebugCategory,
@@ -63,7 +63,7 @@ export class KupDebug {
         const debugWidget: HTMLKupCardElement =
             document.createElement('kup-card');
         const languages: string[] = dom.ketchup.language.getLanguages();
-        const languagesListData: ComponentListElement[] = [];
+        const languagesListData: KupListData[] = [];
         for (let index = 0; index < languages.length; index++) {
             languagesListData.push({
                 text: languages[index],
@@ -75,7 +75,7 @@ export class KupDebug {
             });
         }
         const themes: string[] = dom.ketchup.theme.getThemes();
-        const themesListData: ComponentListElement[] = [];
+        const themesListData: KupListData[] = [];
         for (let index = 0; index < themes.length; index++) {
             themesListData.push({
                 text: themes[index],

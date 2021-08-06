@@ -18,7 +18,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import {
     ISO_DEFAULT_TIME_FORMAT,
     ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
@@ -45,6 +45,7 @@ import {
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-time-picker',
@@ -52,36 +53,61 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
     shadow: true,
 })
 export class KupTimePicker {
+    /**
+     * References the root HTML element of the component (<kup-time-picker>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
     @State() value: string = '';
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
      * When set to true, the drop down menu will display a clock.
+     * @default true
      */
     @Prop() clockVariant: boolean = true;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * Props of the sub-components (time input text field)
+     * @default {}
      */
     @Prop() data: Object = {};
     /**
      * Defaults at false. When set to true, the component is disabled.
+     * @default false
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets the initial value of the component
+     * Sets the initial value of the component.
+     * @default ""
      */
     @Prop() initialValue: string = '';
     /**
-     * Manage seconds
+     * Manage seconds.
+     * @default false
      */
     @Prop() manageSeconds: boolean = false;
     /**
-     * Minutes step
+     * Minutes step.
+     * @default 10
      */
     @Prop() timeMinutesStep: number = 10;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
      * Instance of the KupManager class.
@@ -101,7 +127,9 @@ export class KupTimePicker {
     private pickerEl: HTMLElement = undefined;
     private pickerOpened: boolean = false;
 
-    //---- Events ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kup-timepicker-blur',
@@ -175,19 +203,6 @@ export class KupTimePicker {
     })
     kupClearIconClick: EventEmitter<KupEventPayload>;
 
-    @Listen('keyup', { target: 'document' })
-    listenKeyup(e: KeyboardEvent) {
-        if (this.isPickerOpened()) {
-            if (e.key === 'Escape') {
-                this.closePicker();
-            }
-            if (e.key === 'Enter') {
-                e.stopPropagation();
-                this.onKupTimePickerItemClick(null);
-            }
-        }
-    }
-
     onKupTimePickerItemClick(e: CustomEvent, value?: string) {
         if (e != null) {
             e.stopPropagation();
@@ -224,82 +239,6 @@ export class KupTimePicker {
             comp: this,
             id: this.rootElement.id,
         });
-    }
-
-    @Watch('timeMinutesStep')
-    watchTimeMinutesStep() {
-        if (this.clockVariant) {
-            return;
-        }
-        if (this.timeMinutesStep <= 0) {
-            this.kupManager.debug.logMessage(
-                this,
-                'property time-minutes-step=[' +
-                    this.timeMinutesStep +
-                    '] not allowed: it must be > 0 and divisor of 60',
-                KupDebugCategory.WARNING
-            );
-            this.timeMinutesStep = 10;
-            return;
-        }
-        let result: number = 60 % this.timeMinutesStep;
-
-        if (result != 0) {
-            this.kupManager.debug.logMessage(
-                this,
-                'property time-minutes-step=[' +
-                    this.timeMinutesStep +
-                    '] not allowed: it must be > 0 and divisor of 60',
-                KupDebugCategory.WARNING
-            );
-            this.timeMinutesStep = 10;
-            return;
-        }
-    }
-
-    //---- Methods ----
-
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        return getProps(this, KupTimePickerProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupTimePickerProps, props);
-    }
-
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
-
-    @Method()
-    async setFocus() {
-        if (this.textfieldEl != null) {
-            this.textfieldEl.setFocus();
-        }
-    }
-
-    @Method()
-    async setValue(value: string) {
-        this.value = value;
-        this.setTextFieldInitalValue(this.getTimeForOutput());
     }
 
     onKupBlur() {
@@ -357,6 +296,115 @@ export class KupTimePicker {
             value: this.value,
         });
     }
+
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keyup', { target: 'document' })
+    listenKeyup(e: KeyboardEvent) {
+        if (this.isPickerOpened()) {
+            if (e.key === 'Escape') {
+                this.closePicker();
+            }
+            if (e.key === 'Enter') {
+                e.stopPropagation();
+                this.onKupTimePickerItemClick(null);
+            }
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('timeMinutesStep')
+    watchTimeMinutesStep() {
+        if (this.clockVariant) {
+            return;
+        }
+        if (this.timeMinutesStep <= 0) {
+            this.kupManager.debug.logMessage(
+                this,
+                'property time-minutes-step=[' +
+                    this.timeMinutesStep +
+                    '] not allowed: it must be > 0 and divisor of 60',
+                KupDebugCategory.WARNING
+            );
+            this.timeMinutesStep = 10;
+            return;
+        }
+        let result: number = 60 % this.timeMinutesStep;
+
+        if (result != 0) {
+            this.kupManager.debug.logMessage(
+                this,
+                'property time-minutes-step=[' +
+                    this.timeMinutesStep +
+                    '] not allowed: it must be > 0 and divisor of 60',
+                KupDebugCategory.WARNING
+            );
+            this.timeMinutesStep = 10;
+            return;
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupTimePickerProps, descriptions);
+    }
+    /**
+     * Returns the component's internal value.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Focuses the input element.
+     */
+    @Method()
+    async setFocus() {
+        if (this.textfieldEl != null) {
+            this.textfieldEl.setFocus();
+        }
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupTimePickerProps, props);
+    }
+    /**
+     * Sets the internal value of the component.
+     */
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        this.setTextFieldInitalValue(this.getTimeForOutput());
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     refreshPickerValue(eventDetailValue: string, eventToRaise: EventEmitter) {
         let newValue = null;
@@ -819,7 +867,7 @@ export class KupTimePicker {
     }
 
     private createTimeListData(value: string) {
-        let listData: ComponentListElement[] = [];
+        let listData: KupListData[] = [];
 
         let selectedTime: Date;
         if (value == null || value.trim() == '') {
@@ -854,7 +902,7 @@ export class KupTimePicker {
                     : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
                 this.manageSeconds
             );
-            let item: ComponentListElement = {
+            let item: KupListData = {
                 text: text,
                 value: value,
                 selected: selected,
@@ -886,7 +934,9 @@ export class KupTimePicker {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -952,7 +1002,7 @@ export class KupTimePicker {
         return (
             <Host class={hostClass} onBlur={() => this.onKupBlur()}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     {this.prepTimeTextfield()}
                     {this.prepTimePicker()}
                 </div>

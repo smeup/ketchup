@@ -427,6 +427,12 @@ export default {
                 },
               },
               {
+                title: 'Button list',
+                to: {
+                  name: 'buttonlist',
+                },
+              },
+              {
                 title: 'Bpmn.io',
                 to: {
                   name: 'bpmn.io',

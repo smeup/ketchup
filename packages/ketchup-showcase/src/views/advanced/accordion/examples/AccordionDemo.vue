@@ -3,6 +3,8 @@
     <demo
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoClasses="demoClasses"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>
   </div>
@@ -19,6 +21,42 @@ export default {
   name: 'AccordionDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-full-height',
+          description: 'The button will fill all the available vertical space.',
+        },
+        {
+          class: 'kup-full-width',
+          description:
+            'The button will fill all the available horizontal space.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the info color of the app.',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
       demoEvents: [
         {
@@ -28,6 +66,26 @@ export default {
         {
           name: 'kup-accordion-tree-nodeselected',
           type: 'CustomEvent',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+        {
+          name: 'toggleItem',
+          description: 'This method expands or collapses the given item.',
         },
       ],
       demoProps: [

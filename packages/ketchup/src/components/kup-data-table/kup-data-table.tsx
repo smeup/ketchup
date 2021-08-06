@@ -97,7 +97,7 @@ import {
 } from '../../utils/utils';
 
 import {
-    ComponentListElement,
+    KupListData,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import {
@@ -164,6 +164,7 @@ import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-data-table',
@@ -626,7 +627,7 @@ export class KupDataTable {
     /**
      * Defines the current totals options
      */
-    @Prop() totals: TotalsMap;
+    @Prop({ mutable: true }) totals: TotalsMap;
     /**
      * Transposes the data of the data table
      */
@@ -996,14 +997,36 @@ export class KupDataTable {
     })
     kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInputEventPayload>;
     /**
-     * This method is invoked by KupManager whenever the component changes size.
+     * Closes any opened column menu.
      */
     @Method()
-    async resizeCallback(): Promise<void> {
-        if (this.lazyLoadCells) {
-            window.clearTimeout(this.resizeTimeout);
-            this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+    async closeColumnMenu(): Promise<void> {
+        this.columnMenuAnchor = null;
+        if (this.columnMenuCard) {
+            this.columnMenuCard.data = null;
         }
+        this.columnMenuInstance.close(this.columnMenuCard);
+        this.kupDataTableColumnMenu.emit({
+            comp: this,
+            id: this.rootElement.id,
+            card: this.columnMenuCard,
+            event: null,
+            open: false,
+        });
+    }
+    /**
+     * Collapses all groups.
+     */
+    @Method()
+    async collapseAll(): Promise<void> {
+        this.expandGroups = false;
+    }
+    /**
+     * Expands all groups.
+     */
+    @Method()
+    async expandAll(): Promise<void> {
+        this.expandGroups = true;
     }
     /**
      * Used to retrieve component's props values.
@@ -1013,14 +1036,6 @@ export class KupDataTable {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupDataTableProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupDataTableProps, props);
     }
     /**
      * Opens the column menu of the given column.
@@ -1090,29 +1105,29 @@ export class KupDataTable {
         });
     }
     /**
-     * Closes any opened column menu.
-     */
-    @Method()
-    async closeColumnMenu(): Promise<void> {
-        this.columnMenuAnchor = null;
-        if (this.columnMenuCard) {
-            this.columnMenuCard.data = null;
-        }
-        this.columnMenuInstance.close(this.columnMenuCard);
-        this.kupDataTableColumnMenu.emit({
-            comp: this,
-            id: this.rootElement.id,
-            card: this.columnMenuCard,
-            event: null,
-            open: false,
-        });
-    }
-    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        if (this.lazyLoadCells) {
+            window.clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+        }
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupDataTableProps, props);
     }
     /**
      * This method will set the selected rows of the component.
@@ -1140,16 +1155,6 @@ export class KupDataTable {
                 clickedRow: null,
             });
         }
-    }
-
-    @Method()
-    async expandAll() {
-        this.expandGroups = true;
-    }
-
-    @Method()
-    async collapseAll() {
-        this.expandGroups = false;
     }
 
     private calculateData() {
@@ -3684,7 +3689,7 @@ export class KupDataTable {
                     menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
-                menu.focus();
+                setTimeout(() => menu.focus(), 0);
             }
         }
     }
@@ -3817,7 +3822,7 @@ export class KupDataTable {
                 }
 
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    const listData: ComponentListElement[] = [
+                    const listData: KupListData[] = [
                         {
                             text: translation[TotalLabel.COUNT],
                             value: TotalMode.COUNT,
@@ -3833,14 +3838,10 @@ export class KupDataTable {
                         // TODO Move these objects in declarations
                         listData.push(
                             {
-                                text: null,
-                                value: null,
-                                isSeparator: true,
-                            },
-                            {
                                 text: translation[TotalLabel.SUM],
                                 value: TotalMode.SUM,
                                 selected: false,
+                                separator: true,
                             },
                             {
                                 text: translation[TotalLabel.AVERAGE],
@@ -3861,14 +3862,10 @@ export class KupDataTable {
                     } else if (this.kupManager.objects.isDate(column.obj)) {
                         listData.push(
                             {
-                                text: null,
-                                value: null,
-                                isSeparator: true,
-                            },
-                            {
                                 text: translation[TotalLabel.MIN],
                                 value: TotalMode.MIN,
                                 selected: false,
+                                separator: true,
                             },
                             {
                                 text: translation[TotalLabel.MAX],
@@ -3878,25 +3875,17 @@ export class KupDataTable {
                         );
                     }
                     if (this.totals) {
-                        const selectedItem: ComponentListElement =
-                            listData.find(
-                                (item) =>
-                                    item.value === this.totals[column.name]
-                            );
+                        const selectedItem: KupListData = listData.find(
+                            (item) => item.value === this.totals[column.name]
+                        );
                         if (selectedItem) {
                             selectedItem.selected = true;
-                            listData.push(
-                                {
-                                    text: null,
-                                    value: null,
-                                    isSeparator: true,
-                                },
-                                {
-                                    text: translation[TotalLabel.CANC],
-                                    value: TotalLabel.CANC,
-                                    selected: false,
-                                }
-                            );
+                            listData.push({
+                                text: translation[TotalLabel.CANC],
+                                value: TotalLabel.CANC,
+                                selected: false,
+                                separator: true,
+                            });
                         }
                     }
 
@@ -3906,6 +3895,7 @@ export class KupDataTable {
                             data={...listData}
                             id="totals-menu"
                             is-menu
+                            keyboardNavigation={true}
                             menu-visible
                             onBlur={() => this.closeTotalMenu()}
                             onkup-list-click={(event) =>
@@ -4099,7 +4089,7 @@ export class KupDataTable {
                     TODO Group Menu
                     const groupMenu = undefined;
                     if (this.isOpenedGroupMenuForColumn(column.name)) {
-                        const listData: ComponentListElement[] = [
+                        const listData: KupListData[] = [
                             {
                                 text: 'Matrice dei totali',
                                 value: 'MATTOT',
@@ -5494,8 +5484,8 @@ export class KupDataTable {
         codes: Array<string>,
         icons: Array<string>,
         selectedCode: string
-    ): ComponentListElement[] {
-        const listItems: ComponentListElement[] = [];
+    ): KupListData[] {
+        const listItems: KupListData[] = [];
         for (let i = 0; i < codes.length; i++) {
             let text: KupLanguageKey = null;
             switch (codes[i]) {
@@ -5555,7 +5545,7 @@ export class KupDataTable {
     }
 
     private renderFontSizePanel() {
-        const listItems: ComponentListElement[] = this.createListData(
+        const listItems: KupListData[] = this.createListData(
             this.FONTSIZE_CODES,
             this.FONTSIZE_ICONS,
             this.fontsize
@@ -5626,7 +5616,7 @@ export class KupDataTable {
     }
 
     private renderDensityPanel() {
-        const listItems: ComponentListElement[] = this.createListData(
+        const listItems: KupListData[] = this.createListData(
             this.DENSITY_CODES,
             this.DENSITY_ICONS,
             this.density
@@ -5738,7 +5728,7 @@ export class KupDataTable {
     }
 
     private renderGridPanel() {
-        const listItems: ComponentListElement[] = this.createListData(
+        const listItems: KupListData[] = this.createListData(
             this.GRID_CODES,
             this.GRID_ICONS,
             this.showGrid
@@ -5966,7 +5956,7 @@ export class KupDataTable {
         const compCreated = (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div class="above-wrapper">
                         {this.globalFilter ? (
                             <div id="global-filter">
