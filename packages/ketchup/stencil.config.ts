@@ -13,6 +13,7 @@ export const config: Config = {
         {
             type: 'www',
             copy: [
+                { src: 'accordion.html' },
                 { src: 'autocomplete.html' },
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
@@ -38,7 +39,7 @@ export const config: Config = {
                 { src: 'echart.html' },
                 { src: 'gauge.html' },
                 { src: 'layout-component.html' },
-                { src: 'list-box.html' },
+                { src: 'list.html' },
                 { src: 'magic-box.html' },
                 { src: 'nav-bar.html' },
                 { src: 'probe.html' },

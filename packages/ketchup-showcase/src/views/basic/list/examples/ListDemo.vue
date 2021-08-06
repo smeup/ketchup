@@ -19,19 +19,38 @@ export default {
   name: 'ListDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
       demoEvents: [
         {
           name: 'kup-list-click',
           type: 'click',
-        },
-        {
-          name: 'kup-list-change',
-          type: 'change',
-        },
-        {
-          name: 'kup-list-input',
-          type: 'input',
         },
         {
           name: 'kup-list-focus',
@@ -42,23 +61,40 @@ export default {
           type: 'blur',
         },
       ],
+      demoMethods: [
+        {
+          name: 'focusNext',
+          description: 'Focuses the next element of the list.',
+        },
+        {
+          name: 'focusPrevious',
+          description: 'Focuses the previous element of the list.',
+        },
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'resetFilter',
+          description: 'Resets filter.',
+        },
+        {
+          name: 'select',
+          description:
+            'Calls handleSelection internal method to select the given item.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
       demoProps: [
-        {
-          prop: 'arrowDown',
-          description:
-            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'arrowUp',
-          description:
-            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
         {
           prop: 'customStyle',
           description:
@@ -70,8 +106,8 @@ export default {
         {
           prop: 'data',
           description: 'The data of the list.',
-          type: 'ComponentListElement',
-          default: 'undefined',
+          type: 'KupListData[]',
+          default: '[]',
           try: 'json',
         },
         {
@@ -106,6 +142,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'keyboardNavigation',
+          description:
+            "When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.",
+          type: 'boolean',
+          default: 'undefined',
+          try: 'switch',
+        },
+        {
           prop: 'menuVisible',
           description:
             "Sets the status of the menu, when false it's hidden otherwise it's visible.",
@@ -118,7 +162,7 @@ export default {
           description:
             'Defines the type of selection. Values accepted: listbox, radiogroup or group.',
           type: 'string',
-          default: 'listbox',
+          default: 'KupListRole.LISTBOX',
           try: 'field',
         },
         {
@@ -144,33 +188,6 @@ export default {
           try: 'switch',
         },
       ],
-      demoClasses: [
-        {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
-        },
-      ],
     };
   },
 };
@@ -191,14 +208,10 @@ function createComp() {
       icon: 'ac_unit',
     },
     {
-      text: null,
-      value: null,
-      isSeparator: true,
-    },
-    {
       text: 'Third choice (below a separator)',
       value: '3',
       icon: '3d_rotation',
+      separator: true,
     },
   ];
   comp.id = 'demo-component';

@@ -81,7 +81,6 @@ export class KupColumnMenu {
     }
     /**
      * Function called to reposition the column menu card to the appropriate column.
-     * Note that focus() is mandatory in order to properly close the card on blur (along with the tab-index="-1" attribute on the element).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     reposition(comp: KupDataTable | KupTree, card: HTMLKupCardElement): void {

@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type      | Default |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`    |
-| `opened`      | `opened`       | Defaults at false. When set to true, the drawer appears.                                                        | `boolean` | `false` |
+| Property      | Attribute      | Description                           | Type      | Default |
+| ------------- | -------------- | ------------------------------------- | --------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.        | `string`  | `''`    |
+| `opened`      | `opened`       | When set to true, the drawer appears. | `boolean` | `false` |
 
 
 ## Events
@@ -25,7 +25,7 @@
 
 ### `close() => Promise<void>`
 
-
+Closes the drawer.
 
 #### Returns
 
@@ -45,7 +45,7 @@ Type: `Promise<GenericObject>`
 
 ### `open() => Promise<void>`
 
-
+Opens the drawer.
 
 #### Returns
 
@@ -75,7 +75,7 @@ Type: `Promise<void>`
 
 ### `toggle() => Promise<void>`
 
-
+Opens the drawer when closed and vice-versa.
 
 #### Returns
 
