@@ -1,10 +1,11 @@
 <template>
   <div>
     <demo
+      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
-      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -20,6 +21,76 @@ export default {
   name: 'BoxDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-borderless',
+          description: 'Displays boxes without borders.',
+        },
+        {
+          class: 'kup-bottom-aligned',
+          description:
+            "Content will be vertically aligned to section's bottom.",
+        },
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-dashed-sections',
+          description: 'Setions will have a dashed border.',
+        },
+        {
+          class: 'kup-flat-on-hover',
+          description: 'Disables the box shadow effect on hover.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-left-aligned',
+          description:
+            "Content will be horizontally aligned to section's left.",
+        },
+        {
+          class: 'kup-paddingless',
+          description: 'Removes padding from box sections.',
+        },
+        {
+          class: 'kup-right-aligned',
+          description:
+            "Content will be horizontally aligned to section's right.",
+        },
+        {
+          class: 'kup-round',
+          description: 'Boxes borders will be heavily rounded.',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-shaped',
+          description: 'Boxes borders will be slightly rounded.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-top-aligned',
+          description: "Content will be vertically aligned to section's top.",
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
       demoEvents: [
         {
@@ -55,13 +126,33 @@ export default {
           type: 'CustomEvent',
         },
       ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'loadRowActions',
+          description: 'Sets the row actions of the given row.',
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
       demoProps: [
         {
           prop: 'cardData',
           description:
             'When present, the box will be rendered using the card component. This prop contains the card props which will be spread on the kup-card.',
           type: 'ComponentCardElement',
-          default: 'undefined',
+          default: 'null',
           try: 'json',
         },
         {
@@ -83,7 +174,7 @@ export default {
           prop: 'data',
           description: 'The actual data of the box.',
           type: '{ columns?: Column[]; rows?: BoxRow[]; }',
-          default: 'undefined',
+          default: 'null',
           try: 'json',
         },
         {
@@ -199,7 +290,7 @@ export default {
           description: 'Multiple selection.',
           type: 'BoxRow[]',
           default: '[]',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'showSelection',
@@ -231,6 +322,20 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'stateId',
+          description: 'State Id.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'store',
+          description: 'Store.',
+          type: 'KupStore',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
           prop: 'swipeDisabled',
           description: 'Disable swipe.',
           type: 'boolean',
@@ -257,76 +362,6 @@ export default {
           type: 'number',
           default: 'undefined',
           try: 'field',
-        },
-      ],
-      demoClasses: [
-        {
-          class: 'kup-borderless',
-          description: 'Displays boxes without borders.',
-        },
-        {
-          class: 'kup-bottom-aligned',
-          description:
-            "Content will be vertically aligned to section's bottom.",
-        },
-        {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-dashed-sections',
-          description: 'Setions will have a dashed border.',
-        },
-        {
-          class: 'kup-flat-on-hover',
-          description: 'Disables the box shadow effect on hover.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-left-aligned',
-          description:
-            "Content will be horizontally aligned to section's left.",
-        },
-        {
-          class: 'kup-paddingless',
-          description: 'Removes padding from box sections.',
-        },
-        {
-          class: 'kup-right-aligned',
-          description:
-            "Content will be horizontally aligned to section's right.",
-        },
-        {
-          class: 'kup-round',
-          description: 'Boxes borders will be heavily rounded.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-shaped',
-          description: 'Boxes borders will be slightly rounded.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-top-aligned',
-          description: "Content will be vertically aligned to section's top.",
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

@@ -28,10 +28,11 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -40,7 +41,7 @@ import { getProps, setProps } from '../../utils/utils';
 })
 export class KupNavBar {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-nav-bar>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -73,7 +74,6 @@ export class KupNavBar {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-
     private optionsButtonEl: any = undefined;
     private optionsListEl: any = undefined;
     private menuButtonEl: any = undefined;
@@ -83,29 +83,6 @@ export class KupNavBar {
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
-
-    @Listen('click', { target: 'document' })
-    listenClick() {
-        this.closeList();
-    }
-
-    @Listen('keyup', { target: 'document' })
-    listenKeyup(e: KeyboardEvent) {
-        if (this.isListOpened()) {
-            if (e.key === 'Escape') {
-                this.closeList();
-            }
-            if (e.key === 'Enter') {
-                this.closeList();
-            }
-            if (e.key === 'ArrowDown') {
-                this.arrowDownList();
-            }
-            if (e.key === 'ArrowUp') {
-                this.arrowUpList();
-            }
-        }
-    }
 
     /**
      * Triggered when a button's list item is clicked.
@@ -167,6 +144,33 @@ export class KupNavBar {
     }
 
     /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('click')
+    listenClick() {
+        this.closeList();
+    }
+
+    @Listen('keyup')
+    listenKeyup(e: KeyboardEvent) {
+        if (this.isListOpened()) {
+            if (e.key === 'Escape') {
+                this.closeList();
+            }
+            if (e.key === 'Enter') {
+                this.closeList();
+            }
+            if (e.key === 'ArrowDown') {
+                this.arrowDownList();
+            }
+            if (e.key === 'ArrowUp') {
+                this.arrowUpList();
+            }
+        }
+    }
+
+    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -180,19 +184,19 @@ export class KupNavBar {
         return getProps(this, KupNavBarProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupNavBarProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -264,7 +268,7 @@ export class KupNavBar {
         return listEl.menuVisible == true;
     }
 
-    prepMenuList(listData: ComponentListElement[]): HTMLElement {
+    prepMenuList(listData: KupListData[]): HTMLElement {
         this.menuListEl = null;
         if (listData.length == 0) {
             return null;
@@ -302,7 +306,7 @@ export class KupNavBar {
         return value;
     }
 
-    prepOptionsList(listData: ComponentListElement[]): HTMLElement {
+    prepOptionsList(listData: KupListData[]): HTMLElement {
         this.optionsListEl = null;
         if (listData.length == 0) {
             return null;
@@ -373,8 +377,8 @@ export class KupNavBar {
         let wrapperClass = undefined;
 
         let visibleButtons: Array<HTMLElement> = [];
-        let optionsButtons: ComponentListElement[] = [];
-        let menuButtons: ComponentListElement[] = [];
+        let optionsButtons: KupListData[] = [];
+        let menuButtons: KupListData[] = [];
 
         if (this.data.optionActions != null) {
             for (let i = 0; i < this.data.optionActions.length; i++) {
@@ -392,7 +396,7 @@ export class KupNavBar {
                     );
                     visibleButtons.push(button);
                 } else {
-                    let listItem: ComponentListElement = {
+                    let listItem: KupListData = {
                         text: action.text,
                         value: action.value,
                         icon: action.icon,
@@ -434,7 +438,7 @@ export class KupNavBar {
         } else if (this.data.menuActions != null) {
             for (let i = 0; i < this.data.menuActions.length; i++) {
                 let action: KupNavBarElement = this.data.menuActions[i];
-                let listItem: ComponentListElement = {
+                let listItem: KupListData = {
                     text: action.text,
                     value: action.value,
                     icon: action.icon,
@@ -467,7 +471,7 @@ export class KupNavBar {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" class={wrapperClass}>
+                <div id={componentWrapperId} class={wrapperClass}>
                     <header class={headerClassName}>
                         <div class="top-app-bar__row">
                             <section class="top-app-bar__section top-app-bar__section--align-start">

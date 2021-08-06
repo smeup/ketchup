@@ -125,7 +125,7 @@ Type: `Promise<void>`
 
 ### `collapseAll() => Promise<void>`
 
-
+Collapses all groups.
 
 #### Returns
 
@@ -145,7 +145,7 @@ Type: `Promise<Column[]>`
 
 ### `expandAll() => Promise<void>`
 
-
+Expands all groups.
 
 #### Returns
 
@@ -279,7 +279,6 @@ graph TD;
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list

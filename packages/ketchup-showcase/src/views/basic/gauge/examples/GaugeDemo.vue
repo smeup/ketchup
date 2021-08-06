@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoMethods="demoMethods"
+      :demoProps="demoProps"
+    ></demo>
   </div>
 </template>
 
@@ -15,6 +19,22 @@ export default {
   data() {
     return {
       demoComp: createComp(),
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
       demoProps: [
         {
           prop: 'arcThickness',
@@ -29,7 +49,7 @@ export default {
             'Array of three elements to specify the color of the arcs.',
           type: 'string[]',
           default: 'Theme state colors',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'customStyle',

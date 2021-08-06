@@ -112,7 +112,6 @@ graph TD;
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list

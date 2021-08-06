@@ -1,9 +1,10 @@
 <template>
   <div>
     <demo
-      :demoComp="demoComp"
-      :demoProps="demoProps"
       :demoClasses="demoClasses"
+      :demoComp="demoComp"
+      :demoMethods="demoMethods"
+      :demoProps="demoProps"
     ></demo>
   </div>
 </template>
@@ -18,7 +19,67 @@ export default {
   name: 'ProgressbarDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-animated',
+          description:
+            'When the striped class is active, the stripes will be animated.',
+        },
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-padded',
+          description: 'Adds padding to the progress bar.',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-slim',
+          description: 'Slim version.',
+        },
+        {
+          class: 'kup-striped',
+          description: 'Displays stripes above the progress bar.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
       demoProps: [
         {
           prop: 'centeredLabel',
@@ -71,50 +132,6 @@ export default {
           type: 'number',
           default: '0',
           try: 'field',
-        },
-      ],
-      demoClasses: [
-        {
-          class: 'kup-animated',
-          description:
-            'When the striped class is active, the stripes will be animated.',
-        },
-        {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-padded',
-          description: 'Adds padding to the progress bar.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-slim',
-          description: 'Slim version.',
-        },
-        {
-          class: 'kup-striped',
-          description: 'Displays stripes above the progress bar.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

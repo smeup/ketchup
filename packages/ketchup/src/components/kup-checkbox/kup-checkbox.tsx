@@ -23,6 +23,7 @@ import {
     KupCheckboxEventPayload,
 } from './kup-checkbox-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-checkbox',
@@ -177,19 +178,19 @@ export class KupCheckbox {
         return getProps(this, KupCheckboxProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupCheckboxProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -261,7 +262,7 @@ export class KupCheckbox {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <FCheckbox {...props} />
                 </div>
             </Host>

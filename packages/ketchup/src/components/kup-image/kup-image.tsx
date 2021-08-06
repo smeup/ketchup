@@ -29,6 +29,7 @@ import {
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-image',
@@ -148,19 +149,19 @@ export class KupImage {
         return getProps(this, KupImageProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupImageProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -286,7 +287,10 @@ export class KupImage {
             <Host style={elStyle}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 {feedback}
-                <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+                <div
+                    id={componentWrapperId}
+                    onClick={(e) => this.onKupClick(e)}
+                >
                     {el}
                 </div>
             </Host>
