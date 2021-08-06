@@ -30,6 +30,10 @@ export enum ChartAspect {
     D3 = '3D',
 }
 
+export interface vAxesMap {
+    [index: string]: {textPosition: string};
+}
+
 export interface ChartAxis {
     ticks?: string[];
     textPosition?: string;
@@ -78,7 +82,7 @@ export interface ChartOptions {
     }[];
     hAxis?: ChartAxis;
     vAxis?: ChartAxis;
-    vAxes?: ChartAxis[];
+    vAxes?: vAxesMap;
 }
 
 export interface ChartSerie {

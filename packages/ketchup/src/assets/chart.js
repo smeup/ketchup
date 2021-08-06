@@ -1,108 +1,137 @@
 const baseData = {
     columns: [
-        {
-            name: 'Col1',
-            title: 'Person',
-            size: '10',
-        },
-        {
-            name: 'Col2',
-            title: 'Value',
-            size: '10',
-        },
-        {
-            name: 'Col3',
-            title: 'Value2',
-            size: '10',
-        },
+      {
+        name: 'Col1',
+        title: 'Person',
+        size: '10',
+      },
+      {
+        name: 'Col2',
+        title: 'Value1',
+        size: '10',
+      },
+      {
+        name: 'Col3',
+        title: 'Value2',
+        size: '10',
+      },
+      {
+        name: 'Col4',
+        title: 'Value3',
+        size: '10',
+      },
     ],
     rows: [
-        {
-            cells: {
-                Col1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'CASFRA',
-                    },
-                    value: 'CASFRA',
-                },
-                Col2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '10',
-                    },
-                    value: '10',
-                },
-                Col3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '100.60',
-                    },
-                    value: '100.60',
-                },
+      {
+        cells: {
+          Col1: {
+            obj: {
+              t: 'CN',
+              p: 'COL',
+              k: 'CASFRA',
             },
-        },
-        {
-            cells: {
-                Col1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'DELGIO',
-                    },
-                    value: 'DELGIO',
-                },
-                Col2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '6',
-                    },
-                    value: '6',
-                },
-                Col3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '67.8',
-                    },
-                    value: '67.8',
-                },
+            value: 'CASFRA',
+          },
+          Col2: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '10',
             },
-        },
-        {
-            cells: {
-                Col1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'PARFRA',
-                    },
-                    value: 'PARFRA',
-                },
-                Col2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '5',
-                    },
-                    value: '5',
-                },
-                Col3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '120.06',
-                    },
-                    value: '120.06',
-                },
+            value: '10',
+          },
+          Col3: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '100.50',
             },
+            value: '100.50',
+          },
+          Col4: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '55',
+            },
+            value: '55',
+          },
         },
+      },
+      {
+        cells: {
+          Col1: {
+            obj: {
+              t: 'CN',
+              p: 'COL',
+              k: 'DELGIO',
+            },
+            value: 'DELGIO',
+          },
+          Col2: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '6',
+            },
+            value: '6',
+          },
+          Col3: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '67.8',
+            },
+            value: '67.8',
+          },
+          Col4: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '33',
+            },
+            value: '33',
+          },
+        },
+      },
+      {
+        cells: {
+          Col1: {
+            obj: {
+              t: 'CN',
+              p: 'COL',
+              k: 'PARFRA',
+            },
+            value: 'PARFRA',
+          },
+          Col2: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '5',
+            },
+            value: '5',
+          },
+          Col3: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '120.06',
+            },
+            value: '120.06',
+          },
+          Col4: {
+            obj: {
+              t: 'NR',
+              p: '',
+              k: '77',
+            },
+            value: '77',
+          },
+        },
+      },
     ],
-};
+  };
 
 const baseConfig = {
     types: ['Hbar'],
@@ -110,7 +139,7 @@ const baseConfig = {
     series: [{ code: 'Col2' }, { code: 'Col3' }],
 };
 const keys = Object.keys(baseConfig);
-
+/*
 // HBAR
 const hbar = document.getElementById('hbar');
 hbar.data = baseData;
@@ -144,6 +173,21 @@ pie.series = [{ code: 'Col2' }];
 document.getElementById('pie-aspect').addEventListener('change', (e) => {
     pie.asp = e.target.checked ? '3D' : '';
 });
+*/
+// Multiple series
+const mults = document.getElementById('multseries');
+mults.data = baseData;
+for (let k of keys) {
+    mults[k] = baseConfig[k];
+}
+mults.types = ['Line'];
+mults.series = [
+    { code: 'Col2', decode: 'Col2' },
+    { code: 'Col3', decode: 'Col3' },
+    { code: 'Col4', decode: 'Col4' },
+  ];
+mults.axis = 'Col1';
+mults.vAxes = {'0' : {'textPosition':'out'},'1' : {'textPosition':'out'},'2' : {'textPosition':'in'}};
 
 // custom colors
 document.getElementById('colors').addEventListener('change', ({ target }) => {

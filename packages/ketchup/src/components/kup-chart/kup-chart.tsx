@@ -22,6 +22,7 @@ import {
     ChartTitle,
     KupChartProps,
     KupChartClickEvent,
+    vAxesMap,
 } from './kup-chart-declarations';
 import {
     convertColumns,
@@ -115,7 +116,7 @@ export class KupChart {
     /**
      * Customize the vAxes for multiple-chart.
      */
-    @Prop() vAxes: ChartAxis[];
+    @Prop() vAxes: vAxesMap;
     /**
      * Customize the vAxis.
      */
@@ -375,7 +376,7 @@ export class KupChart {
                 });
             }
         }
-
+        console.log("Chart Options " + JSON.stringify(opts));
         return opts;
     }
 
@@ -416,6 +417,9 @@ export class KupChart {
         this.gChart = this.createGoogleChart();
 
         const options = this.createGoogleChartOptions();
+
+            console.log("Chart option 1");
+            console.log(JSON.stringify(options));
 
         this.gChart.draw(this.gChartView, options);
 
