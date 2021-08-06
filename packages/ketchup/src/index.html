@@ -69,17 +69,8 @@
             }
             #debug,
             #theme {
-                position: fixed;
-                bottom: 5vh;
                 z-index: 2;
             }
-            #debug {
-                left: 10px;
-            }
-            #theme {
-                right: 10px;
-            }
-
             #landing-spinner-modal {
                 --kup-spinner-color: var(--kup-primary-color);
                 display: flex;
@@ -93,16 +84,13 @@
                 transition: opacity 0.5s ease-out;
                 z-index: 999;
             }
-
             #landing-spinner-wrapper {
                 margin: auto;
             }
-
             #landing-spinner-container {
                 height: 150px;
                 width: 150px;
             }
-
             #landing-spinner-label {
                 color: var(--kup-text-color, transparent);
                 font-family: 'Ubuntu', sans-serif;
@@ -110,6 +98,9 @@
                 text-align: center;
                 font-weight: bold;
                 letter-spacing: 2px;
+            }
+            #dev-server-progress-bar {
+                background: var(--kup-spinner-color) !important;
             }
 
             @media screen and (min-width: 900px) {
@@ -158,12 +149,27 @@
                     const landingLabel = document.querySelector(
                         '#landing-spinner-label'
                     );
+                    const debugButton = document.querySelector('#debug');
                     const themeButton = document.querySelector('#theme');
                     if (isDarkMode()) {
                         themeButton.icon = 'brightness_5';
                     } else {
                         themeButton.icon = 'brightness_3';
                     }
+                    kupManager.dialog.register(debugButton, null, true);
+                    kupManager.dialog.register(themeButton, null, true);
+                    debugButton.style.top = 'unset';
+                    debugButton.style.bottom = '5vh';
+                    debugButton.style.left = '10px';
+                    debugButton.style.right = 'unset';
+                    debugButton.style.height = 'max-content';
+                    debugButton.style.borderRadius = '50%';
+                    themeButton.style.top = 'unset';
+                    themeButton.style.bottom = '5vh';
+                    themeButton.style.left = 'unset';
+                    themeButton.style.right = '10px';
+                    themeButton.style.height = 'max-content';
+                    themeButton.style.borderRadius = '50%';
                     landingLabel.innerHTML = 'Ready!';
                     landingModal.style.opacity = '0';
                     setTimeout(() => landingModal.remove(), 300);
