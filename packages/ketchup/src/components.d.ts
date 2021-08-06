@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KupAccordionData, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
+import { KupAccordionData, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ComponentListElement, ItemsDisplayMode, KupListEventPayload } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -2900,6 +2900,10 @@ declare namespace LocalJSX {
           * @default ""
          */
         "globalFilterValue"?: string;
+        /**
+          * Fired when a item is selected
+         */
+        "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
         /**
           * Fired when a TreeNode is selected
          */

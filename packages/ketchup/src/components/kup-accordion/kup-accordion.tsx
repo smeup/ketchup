@@ -24,6 +24,7 @@ import {
     KupAccordionData,
     KupAccordionProps,
     KupAccordionTreeNodeSelectedEventPayload,
+    KupAccordionItemSelectedEventPayload,
 } from './kup-accordion-declarations';
 import { TreeNode } from './../kup-tree/kup-tree-declarations';
 
@@ -98,6 +99,17 @@ export class KupAccordion {
     /*-------------------------------------------------*/
 
     /**
+     * Fired when a item is selected
+     */
+    @Event({
+        eventName: 'kup-accordion-itemselected',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAccordionItemSelected: EventEmitter<KupAccordionItemSelectedEventPayload>;
+
+    /**
      * Fired when a TreeNode is selected
      */
     @Event({
@@ -165,6 +177,18 @@ export class KupAccordion {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    private onItemClicked(itemName: string, hasSubComponent: boolean) {
+        if (hasSubComponent) {
+            this.toggleItem(itemName);
+        } else {
+            this.kupAccordionItemSelected.emit({
+                comp: this,
+                id: this.rootElement.id,
+                itemName: itemName,
+            });
+        }
+    }
+
     private onKupTreeNodeSelected(e: CustomEvent, itemName: string): void {
         e.stopPropagation();
 
@@ -224,7 +248,8 @@ export class KupAccordion {
         const items: VNode[] = [];
 
         for (var i = 0; i < this.actualData.columns.length; i++) {
-            const itemName: string = this.actualData.columns[i].name;
+            const column = this.actualData.columns[i];
+            const itemName: string = column.name;
             const cell: Cell = this.actualData.rows[0].cells[itemName];
             const isItemExpanded: boolean =
                 this.expandedCategoryIds.includes(itemName);
@@ -247,9 +272,11 @@ export class KupAccordion {
                 <div class="accordion-item">
                     <button
                         class={buttonClass}
-                        onClick={() => this.toggleItem(itemName)}
+                        onClick={() =>
+                            this.onItemClicked(itemName, cell != null)
+                        }
                     >
-                        {this.actualData.columns[i].title}
+                        {column.title}
                     </button>
                     <div class={contentClass}>{subComponent}</div>
                 </div>

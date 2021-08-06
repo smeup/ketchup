@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoEvents="demoEvents"
+      :demoProps="demoProps"
+    ></demo>
   </div>
 </template>
 
@@ -16,6 +20,16 @@ export default {
   data() {
     return {
       demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kup-accordion-itemselected',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-tree-nodeselected',
+          type: 'CustomEvent',
+        },
+      ],
       demoProps: [
         {
           prop: 'customStyle',

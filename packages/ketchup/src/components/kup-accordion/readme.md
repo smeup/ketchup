@@ -19,6 +19,7 @@
 
 | Event                             | Description                       | Type                                                    |
 | --------------------------------- | --------------------------------- | ------------------------------------------------------- |
+| `kup-accordion-itemselected`      | Fired when a item is selected     | `CustomEvent<KupAccordionItemSelectedEventPayload>`     |
 | `kup-accordion-tree-nodeselected` | Fired when a TreeNode is selected | `CustomEvent<KupAccordionTreeNodeSelectedEventPayload>` |
 
 
