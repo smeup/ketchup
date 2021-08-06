@@ -12,19 +12,29 @@
         <script nomodule src="/build/ketchup.js"></script>
 
         <style>
+            body,
+            html,
+            .section--wrapper {
+                height: 100%;
+                width: 100%;
+            }
             html {
                 background-color: var(--kup-background-color);
                 color: var(--kup-text-color);
                 font-family: var(--kup-font-family);
                 font-size: var(--kup-font-size);
             }
+            body {
+                margin: 0;
+            }
             .flex-wrapper {
                 display: flex;
+                justify-content: space-evenly;
             }
             .flex-wrapper--column {
                 flex-direction: column;
             }
-            .flex-wrapper--row {
+            .flex-wrapper--responsive {
                 flex-direction: row;
             }
             a {
@@ -40,63 +50,180 @@
                 background-color: rgba(var(--kup-primary-color-rgb), 0.2);
                 color: var(--kup-primary-color);
             }
+            h2,
+            p {
+                text-align: center;
+                width: 100%;
+            }
+            h2 {
+                margin: 0;
+                padding: 12px 0;
+                background-color: var(--kup-primary-color);
+                color: var(--kup-text-on-primary-color);
+                position: sticky;
+                top: 0;
+                z-index: 1;
+            }
+            p {
+                margin-bottom: 20px;
+            }
+            #debug,
+            #theme {
+                z-index: 2;
+            }
+            #landing-spinner-modal {
+                --kup-spinner-color: var(--kup-primary-color);
+                display: flex;
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                background: var(--kup-background-color, white);
+                left: 0;
+                top: 0;
+                opacity: 1;
+                transition: opacity 0.5s ease-out;
+                z-index: 999;
+            }
+            #landing-spinner-wrapper {
+                margin: auto;
+            }
+            #landing-spinner-container {
+                height: 150px;
+                width: 150px;
+            }
+            #landing-spinner-label {
+                color: var(--kup-text-color, transparent);
+                font-family: 'Ubuntu', sans-serif;
+                font-size: 14px;
+                text-align: center;
+                font-weight: bold;
+                letter-spacing: 2px;
+            }
+            #dev-server-progress-bar {
+                background: var(--kup-spinner-color) !important;
+            }
+
+            @media screen and (min-width: 900px) {
+                .section {
+                    border: 2px solid var(--kup-primary-color);
+                    margin: 20px;
+                    border-radius: 5px;
+                }
+                kup-card:last-of-type {
+                    margin-bottom: 20px;
+                }
+            }
+
+            @media screen and (max-width: 899px) {
+                .flex-wrapper--responsive {
+                    flex-direction: column;
+                }
+                kup-card {
+                    margin: 12px auto;
+                }
+            }
         </style>
     </head>
 
     <body>
-        <div class="flex-wrapper flex-wrapper--row">
-            <kup-button
-                label="Debug"
-                icon="bug"
-                onclick="location.href = 'debug.html'"
-            ></kup-button>
-            <kup-button
-                label="Probe"
-                icon="timer"
-                onclick="location.href = 'probe.html'"
-            ></kup-button
-        ></div>
-        <!-- Convert to data table after refactoring(s) -->
-        <div class="flex-wrapper flex-wrapper--column">
-            <a href="css-grid.html">[Misc] CSS grid</a>
-            <br />
-            <a href="box-performance.html">[Performance] kup-box</a>
-            <a href="card-performance.html">[Performance] kup-card</a>
-            <a href="data-table-performance.html"
-                >[Performance] kup-data-table</a
+        <script>
+            var kupManager = null;
+            if (
+                window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches
+            ) {
+                document.documentElement['ketchupInit'] = {
+                    theme: { name: 'dark' },
+                };
+            }
+            document.addEventListener('kupManagerReady', () => {
+                kupManager = document.documentElement.ketchup;
+                removeSpinner();
+            });
+
+            function removeSpinner() {
+                setTimeout(() => {
+                    const landingModal = document.querySelector(
+                        '#landing-spinner-modal'
+                    );
+                    const landingLabel = document.querySelector(
+                        '#landing-spinner-label'
+                    );
+                    const debugButton = document.querySelector('#debug');
+                    const themeButton = document.querySelector('#theme');
+                    if (isDarkMode()) {
+                        themeButton.icon = 'brightness_5';
+                    } else {
+                        themeButton.icon = 'brightness_3';
+                    }
+                    kupManager.dialog.register(debugButton, null, true);
+                    kupManager.dialog.register(themeButton, null, true);
+                    debugButton.style.top = 'unset';
+                    debugButton.style.bottom = '5vh';
+                    debugButton.style.left = '10px';
+                    debugButton.style.right = 'unset';
+                    debugButton.style.height = 'max-content';
+                    debugButton.style.borderRadius = '50%';
+                    themeButton.style.top = 'unset';
+                    themeButton.style.bottom = '5vh';
+                    themeButton.style.left = 'unset';
+                    themeButton.style.right = '10px';
+                    themeButton.style.height = 'max-content';
+                    themeButton.style.borderRadius = '50%';
+                    landingLabel.innerHTML = 'Ready!';
+                    landingModal.style.opacity = '0';
+                    setTimeout(() => landingModal.remove(), 300);
+                }, 575);
+            }
+        </script>
+        <div id="landing-spinner-modal"
+            ><div id="landing-spinner-wrapper">
+                <div id="landing-spinner-container"
+                    ><kup-spinner active layout="13"></kup-spinner
+                ></div>
+                <div id="landing-spinner-label">Loading...</div></div
             >
-            <br />
-            <a href="accordion.html">kup-accordion</a>
-            <a href="autocomplete.html">kup-autocomplete</a>
-            <a href="box.html">kup-box</a>
-            <a href="bpmn.html">kup-bpmn</a>
-            <a href="button.html">kup-button</a>
-            <a href="button-list.html">kup-button-list</a>
-            <a href="card.html">kup-card</a>
-            <a href="chart.html">kup-chart</a>
-            <a href="checkbox.html">kup-checkbox</a>
-            <a href="chip.html">kup-chip</a>
-            <a href="color-picker.html">kup-color-picker</a>
-            <a href="combobox.html">kup-combobox</a>
-            <a href="dash-list.html">kup-dash-list</a>
-            <a href="data-table.html">kup-data-table</a>
-            <a href="date-picker.html">kup-date-picker</a>
-            <a href="drawer.html">kup-drawer</a>
-            <a href="dropdown.html">kup-dropdown-button</a>
-            <a href="echart.html">kup-echart</a>
-            <a href="gauge.html">kup-gauge</a>
-            <a href="layout-component.html">kup-layout</a>
-            <a href="list.html">kup-list</a>
-            <a href="magic-box.html">kup-magic-box</a>
-            <a href="nav-bar.html">kup-nav-bar</a>
-            <a href="radio.html">kup-radio</a>
-            <a href="rating.html">kup-rating</a>
-            <a href="switch.html">kup-switch</a>
-            <a href="tab-bar.html">kup-tab-bar</a>
-            <a href="time-picker.html">kup-time-picker</a>
-            <a href="text-field.html">kup-text-field</a>
-            <a href="tooltip.html">kup-tooltip</a>
-            <a href="tree.html">kup-tree</a>
         </div>
+        <div class="section--wrapper">
+            <div class="section">
+                <h2>Utilities</h2>
+                <p>Ctrl + Click to open the page in a new tab.</p>
+                <div class="flex-wrapper flex-wrapper--responsive">
+                    <kup-card
+                        data-description="Page useful to test a single component's behavior. Do not commit any change on this page!"
+                        data-href="debug.html"
+                        data-icon="bug"
+                        data-title="Debug"
+                    ></kup-card>
+                    <kup-card
+                        data-description="Environment to test ketchup components inside a CSS grid."
+                        data-href="css-grid.html"
+                        data-icon="table"
+                        data-title="CSS Grid"
+                    ></kup-card>
+                    <kup-card
+                        data-description="Environment for performance testing through kup-probe."
+                        data-href="probe.html"
+                        data-icon="timer"
+                        data-title="Probe"
+                    ></kup-card
+                ></div>
+            </div>
+            <div class="section">
+                <h2>Components</h2>
+                <div class="flex-wrapper flex-wrapper--column">
+                    <kup-list id="components"></kup-list>
+                </div>
+            </div>
+            <div class="section">
+                <h2>Performances</h2>
+                <div class="flex-wrapper flex-wrapper--column">
+                    <kup-list id="performances"></kup-list>
+                </div>
+            </div>
+        </div>
+        <kup-button id="debug" styling="floating" icon="bug"></kup-button>
+        <kup-button id="theme" styling="floating"></kup-button>
     </body>
+    <script src="/assets/index.js"></script>
 </html>
