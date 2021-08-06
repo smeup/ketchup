@@ -99,7 +99,7 @@
         window.matchMedia &&
         window.matchMedia('(prefers-color-scheme: dark)').matches
       ) {
-        document['ketchupInit'] = { theme: { name: 'dark' } };
+        document.documentElement['ketchupInit'] = { theme: { name: 'dark' } };
       }
       function removeSpinner() {
         setTimeout(() => {

@@ -38,14 +38,11 @@
     </div>
     <br />
     <p>
-      You might notice a couple things.
       <br />There's no border radius anymore: that's because there isn't a
       variable which handles it - so if you want to change it you still have to
-      add it manually to the button element. <br />The ripple effect has
-      different color: by using variables, Material Design automations will
-      work. In this case the ripple effect will have a blending of your text
-      color. <br />In conclusion: when possibile, it's always to be preferred
-      using variables instead of manually targeting elements.
+      add it manually to the button element. <br />In conclusion: when
+      possibile, it's always to be preferred using variables instead of manually
+      targeting elements.
     </p>
   </div>
 </template>
