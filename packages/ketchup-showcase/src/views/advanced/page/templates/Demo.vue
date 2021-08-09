@@ -28,7 +28,9 @@
               </td>
               <td>{{ propList.description }}</td>
               <td class="prevent-cr">
-                <span class="code-word">{{ propList.type }}</span>
+                <span :data-type="propList.type" class="code-word">{{
+                  propList.type
+                }}</span>
               </td>
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
@@ -202,12 +204,15 @@
 
 <script lang="ts">
 import type { Components } from 'ketchup/dist/types/components';
-import type { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
-import type { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
 import type { KupButtonClickEventPayload } from 'ketchup/dist/types/components/kup-button/kup-button-declarations';
+import type { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupDynamicPositionElement } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import type { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
 import type { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
-import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import { KupDynamicPosition } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position';
 
 interface DemoClasses {
   class: string;
@@ -249,12 +254,18 @@ enum DemoTry {
   SWITCH = 'switch',
 }
 
+enum DemoTypes {
+  GenericObject = '{<br><strong>[index: string]</strong>: any<br>}',
+}
+
 // Recurring CSS classes
 const closedClass: string = 'closed',
   detachedClass: string = 'detached',
   fullClass: string = 'full',
   paddedClass: string = 'padded',
   visibleClass: string = 'visible';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 // Kup component
 var demoComponent: HTMLElement = null,
@@ -285,7 +296,8 @@ var demoComponent: HTMLElement = null,
   sampleWrapper: HTMLElement = null,
   sampleComp: HTMLElement = null,
   sampleDynamic: HTMLElement = null,
-  sampleSpecs: HTMLElement = null;
+  sampleSpecs: HTMLElement = null,
+  sampleTooltip: HTMLElement = null;
 
 export default {
   props: {
@@ -327,6 +339,16 @@ export default {
       sampleComp = document.querySelector('#sample-comp');
       sampleDynamic = document.querySelector('#sample-dynamic');
       sampleSpecs = document.querySelector('#sample-specs');
+      const tooltip: HTMLElement = document.querySelector('#sample-tooltip');
+      if (tooltip) {
+        sampleTooltip = tooltip;
+      } else {
+        sampleTooltip = document.createElement('div');
+        sampleTooltip.id = 'sample-tooltip';
+      }
+      sampleWrapper.addEventListener('mousemove', (e: MouseEvent) => {
+        this.handleTooltip(e);
+      });
       demoClasses = this.demoClasses;
       demoEvents = this.demoEvents;
       demoMethods = this.demoMethods;
@@ -335,7 +357,34 @@ export default {
     /**
      * Initializes kup-tab-bar tabs.
      */
-    initTabs(): void {
+    handleTooltip(e: MouseEvent) {
+      const dynamicPosition: KupDynamicPosition = dom.ketchup.dynamicPosition;
+      if (!dynamicPosition.isRegistered(sampleTooltip as any)) {
+        dynamicPosition.register(
+          sampleTooltip as KupDynamicPositionElement,
+          sampleWrapper,
+          0,
+          'b' as any,
+          true
+        );
+      }
+      const t: HTMLElement = e.target as HTMLElement;
+      if (t.dataset.type && DemoTypes[t.dataset.type]) {
+        dynamicPosition.changeAnchor(
+          sampleTooltip as KupDynamicPositionElement,
+          t
+        );
+        dynamicPosition.start(sampleTooltip as KupDynamicPositionElement);
+        sampleTooltip.classList.add(visibleClass);
+        sampleTooltip.innerHTML = DemoTypes[t.dataset.type];
+      } else {
+        sampleTooltip.classList.remove(visibleClass);
+        dynamicPosition.stop(sampleTooltip as KupDynamicPositionElement);
+      }
+    },
+    /**
+     * Initializes kup-tab-bar tabs.
+     */ initTabs(): void {
       const data: KupTabBarData[] = [];
       if (demoClasses) {
         data.push({
@@ -402,27 +451,36 @@ export default {
         }
       }
       for (let i = 0; i < demoProps.length; i++) {
-        switch (demoProps[i].try) {
-          case DemoTry.FIELD:
+        const prop: DemoProps = demoProps[i];
+        if (DemoTypes[prop.type]) {
+          const typeEl: HTMLElement = document.querySelector(
+            '[data-type=' + prop.type + ']'
+          );
+          typeEl.classList.add('has-tooltip');
+        }
+        switch (prop.try) {
+          case DemoTry.FIELD: {
             const fieldEl: HTMLKupTextFieldElement = document.querySelector(
-              '#' + demoProps[i].prop
+              '#' + prop.prop
             );
-            if (demoProps[i].type === DemoTry.NUMBER) {
+            if (prop.type === DemoTry.NUMBER) {
               fieldEl.inputType = DemoTry.NUMBER;
             }
             if (
-              demoComponent[demoProps[i].prop] !== undefined &&
-              demoComponent[demoProps[i].prop] !== null
+              demoComponent[prop.prop] !== undefined &&
+              demoComponent[prop.prop] !== null
             ) {
-              fieldEl.setValue(demoComponent[demoProps[i].prop]);
+              fieldEl.setValue(demoComponent[prop.prop]);
             }
             break;
-          case DemoTry.SWITCH:
+          }
+          case DemoTry.SWITCH: {
             const switchEl: HTMLKupSwitchElement = document.querySelector(
-              '#' + demoProps[i].prop
+              '#' + prop.prop
             );
-            switchEl.checked = demoComponent[demoProps[i].prop] ? true : false;
+            switchEl.checked = demoComponent[prop.prop] ? true : false;
             break;
+          }
         }
       }
     },
