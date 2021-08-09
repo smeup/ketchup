@@ -28,6 +28,7 @@ import {
 } from './kup-accordion-declarations';
 import { TreeNode } from './../kup-tree/kup-tree-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -260,10 +261,27 @@ export class KupAccordion {
                 subComponent = this.renderSubComponent(cell, itemName);
             }
 
+            // If the accordion item is expandable, adds the icon to show the expansion.
+            // If expandable, also add the callback on the click action.
+            // If it is not expandable, we simply add a placeholder with no icons.
+            const hasExpandIcon: boolean = cell != null;
+            let expandClass = 'icon expand-icon';
+            if (hasExpandIcon) {
+                expandClass += ' icon-container';
+                if (isItemExpanded) {
+                    expandClass += ' expanded';
+                } else {
+                    expandClass += ' collapsed';
+                }
+            }
+
+            let accordionExpandIcon = <span class={expandClass}></span>;
+
             const buttonClass: GenericObject = {
                 'accordion-button': true,
                 'accordion-button--active': isItemExpanded ? true : false,
             };
+
             const contentClass: GenericObject = {
                 'accordion-content': true,
                 'accordion-content--active': isItemExpanded ? true : false,
@@ -271,14 +289,16 @@ export class KupAccordion {
 
             items.push(
                 <div class="accordion-item">
-                    <button
+                    <div
                         class={buttonClass}
                         onClick={() =>
                             this.onItemClicked(itemName, cell != null)
                         }
-                    >
+>
+                        {accordionExpandIcon}
                         {column.title}
-                    </button>
+                    </div>
+
                     <div class={contentClass}>{subComponent}</div>
                 </div>
             );

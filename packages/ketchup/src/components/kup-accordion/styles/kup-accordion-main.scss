@@ -46,6 +46,26 @@
       &--active {
         background-color: rgba(var(--kup-primary-color-rgb), 0.125);
       }
+
+      .icon {
+        display: inline-block;
+        margin-right: 0.4em;
+        height: 1.5em;
+        width: 1.5em;
+        transition: transform 0.1s;
+
+        &.collapsed {
+          -webkit-mask: url('/build/assets/svg/arrow_drop_down.svg');
+          mask: url('/build/assets/svg/arrow_drop_down.svg');
+          background-color: var(--kup-text-color);
+        }
+
+        &.expanded {
+          -webkit-mask: url('/build/assets/svg/arrow_drop_up.svg');
+          mask: url('/build/assets/svg/arrow_drop_up.svg');
+          background-color: var(--kup-text-color);
+        }
+      }
     }
 
     .accordion-content {
