@@ -114,7 +114,7 @@ export class KupAccordion {
      * Fired when a TreeNode is selected
      */
     @Event({
-        eventName: 'kup-accordion-tree-nodeselected',
+        eventName: 'kup-accordion-treenodeselected',
         composed: true,
         cancelable: false,
         bubbles: true,

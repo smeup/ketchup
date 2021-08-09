@@ -1,4 +1,4 @@
-document.addEventListener('kup-accordion-tree-nodeselected', (e) =>
+document.addEventListener('kup-accordion-treenodeselected', (e) =>
     console.log(e)
 );
 

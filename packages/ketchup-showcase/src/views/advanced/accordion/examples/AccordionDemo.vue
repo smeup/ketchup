@@ -64,7 +64,7 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-accordion-tree-nodeselected',
+          name: 'kup-accordion-treenodeselected',
           type: 'CustomEvent',
         },
       ],

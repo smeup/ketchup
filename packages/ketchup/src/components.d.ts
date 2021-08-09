@@ -3118,7 +3118,7 @@ declare namespace LocalJSX {
         /**
           * Fired when a TreeNode is selected
          */
-        "onKup-accordion-tree-nodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
+        "onKup-accordion-treenodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
     }
     interface KupAutocomplete {
         /**
