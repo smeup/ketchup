@@ -1,9 +1,9 @@
 <template>
   <div>
     <demo
+      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
-      :demoClasses="demoClasses"
       :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>

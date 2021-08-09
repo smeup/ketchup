@@ -99,7 +99,8 @@ export default {
           prop: 'data',
           description:
             'Object array containing the data of the radio list: value, label to be shown and status (if checked or not).',
-          type: 'KupRadioData[]',
+          type: 'KupRadioData',
+          isArray: true,
           default: 'null',
           try: 'json',
         },

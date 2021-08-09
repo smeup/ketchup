@@ -32,7 +32,7 @@
                   propList.type
                 }}</span
                 ><kup-image
-                  title="Array."
+                  title="This prop is an array."
                   class="type-icon"
                   resource="code-array"
                   color="var(--kup-primary-color)"
@@ -216,7 +216,10 @@ import type { Components } from 'ketchup/dist/types/components';
 import type { KupButtonClickEventPayload } from 'ketchup/dist/types/components/kup-button/kup-button-declarations';
 import type { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
 import type { KupDynamicPositionElement } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import type { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
+import type {
+  GenericObject,
+  KupEventPayload,
+} from 'ketchup/dist/types/types/GenericTypes';
 import type { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
 import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
@@ -264,12 +267,116 @@ enum DemoTry {
   SWITCH = 'switch',
 }
 
-enum DemoTypes {
-  GenericObject = 'interface <strong>GenericObject</strong> {<br><strong>[index: string]</strong>: any;<br>}',
-  FButtonStyling = "enum <strong>FButtonStyling</strong> {<br><strong>FLAT</strong> = 'flat',<br><strong>FLOATING</strong> = 'floating',<br><strong>ICON</strong> = 'icon',<br><strong>OUTLINED</strong> = 'outlined',<br><strong>RAISED</strong> = 'raised',<br>}",
-  FChipData = 'interface <strong>FChipData</strong> {<br> <strong>label</strong>: string;<br><strong>value</strong>: string;<br><strong>checked?</strong>: boolean;<br><strong>icon?</strong>: string;<br><strong>obj?</strong>: KupObj;<br>}',
-  FChipType = "enum <strong>FChipType</strong> {<br> <strong>CHOICE</strong> = 'choice',<br><strong>FILTER</strong> = 'filter',<br><strong>INPUT</strong> = 'input',<br><strong>STANDARD</strong> = 'standard',<br>}",
+interface DemoTypeJson {
+  [index: string]: DemoType;
 }
+
+interface DemoType {
+  keys: GenericObject;
+  type: DemoTypeFeature;
+}
+
+enum DemoTypeFeature {
+  ENUM = 'enum',
+  INTERFACE = 'interface',
+}
+
+// JSON used to display custom types inside tooltip
+const demoTypes: DemoTypeJson = {
+  GenericObject: {
+    keys: {
+      '[index: string]': 'any',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  FButtonStyling: {
+    keys: {
+      FLAT: 'flat',
+      FLOATING: 'floating',
+      ICON: 'icon',
+      OUTLINED: 'outlined',
+      RAISED: 'raised',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  FChipData: {
+    keys: {
+      label: 'string',
+      value: 'string',
+      'checked?': 'boolean',
+      'icon?': 'string',
+      'obj?': 'KupObj',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  FChipType: {
+    keys: {
+      CHOICE: 'choice',
+      FILTER: 'filter',
+      INPUT: 'input',
+      STANDARD: 'standard',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  FImageData: {
+    keys: {
+      'shape?': 'FImageShape',
+      'color?': 'string',
+      'height?': 'string',
+      'width?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupListData: {
+    keys: {
+      text: 'string',
+      value: 'string',
+      'icon?': 'string',
+      'secondaryText?': 'string',
+      'selected?': 'boolean',
+      'separator?': 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupNavBarData: {
+    keys: {
+      title: 'string',
+      'menuAction?': 'KupNavBarElement',
+      'menuActions?': 'KupNavBarElement[]',
+      'optionActions?': 'KupNavBarElement[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupNavBarMode: {
+    keys: {
+      DEFAULT: '',
+      DENSE: 'dense',
+      FIXED: 'fixed',
+      PROMINENT: 'prominent',
+      SHORT: 'short',
+      SHORT_COLLAPSED: 'short-collapsed',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  KupRadioData: {
+    keys: {
+      value: 'string',
+      label: 'string',
+      checked: 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupTabBarData: {
+    keys: {
+      value: "string",
+      'active?': "boolean",
+      'icon?': "string",
+      'text?': "string",
+      'title?': "string",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+};
 
 // Recurring CSS classes
 const closedClass: string = 'closed',
@@ -383,14 +490,36 @@ export default {
         );
       }
       const t: HTMLElement = e.target as HTMLElement;
-      if (t.dataset.type && DemoTypes[t.dataset.type]) {
+      if (t.dataset.type && demoTypes[t.dataset.type]) {
+        const type: string = t.dataset.type;
         dynamicPosition.changeAnchor(
           sampleTooltip as KupDynamicPositionElement,
           t
         );
         dynamicPosition.start(sampleTooltip as KupDynamicPositionElement);
+        let htmlString: string =
+          demoTypes[type].type + '<strong> ' + type + '</strong> {<br>';
+        const keys: GenericObject = demoTypes[type].keys;
+        switch (demoTypes[type].type) {
+          case DemoTypeFeature.ENUM: {
+            for (const key in keys) {
+              const value: string = keys[key];
+              htmlString +=
+                '<strong>' + key + "</strong> = '" + value + "',<br>";
+            }
+            break;
+          }
+          case DemoTypeFeature.INTERFACE: {
+            for (const key in keys) {
+              const value: string = keys[key];
+              htmlString += '<strong>' + key + '</strong> : ' + value + ';<br>';
+            }
+            break;
+          }
+        }
+        htmlString += '}';
+        sampleTooltip.innerHTML = htmlString;
         sampleTooltip.classList.add(visibleClass);
-        sampleTooltip.innerHTML = DemoTypes[t.dataset.type];
       } else {
         sampleTooltip.classList.remove(visibleClass);
         dynamicPosition.stop(sampleTooltip as KupDynamicPositionElement);
@@ -466,7 +595,7 @@ export default {
       }
       for (let i = 0; i < demoProps.length; i++) {
         const prop: DemoProps = demoProps[i];
-        if (DemoTypes[prop.type]) {
+        if (demoTypes[prop.type]) {
           const typeEl: HTMLElement = document.querySelector(
             '[data-type=' + prop.type + ']'
           );

@@ -86,7 +86,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the nav bar.',
-          type: 'ComponentNavBarData',
+          type: 'KupNavBarData',
           default: "title: 'default title'",
           try: 'json',
         },
@@ -94,7 +94,7 @@ export default {
           prop: 'mode',
           description:
             "Defines how the bar will be displayed. Available options: DEFAULT = '', SHORT = 'short', SHORT_COLLAPSED = 'short-collapsed', FIXED = 'fixed', PROMINENT = 'prominent', DENSE = 'dense',",
-          type: 'ComponentNavBarMode',
+          type: 'KupNavBarMode',
           default: "''",
           try: 'field',
         },
