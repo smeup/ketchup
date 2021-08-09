@@ -10,6 +10,10 @@ export const defaultData = {
     },
     {
       name: 'FLD3',
+      title: 'Buy',
+    },
+    {
+      name: 'FLD4',
       title: 'Locations',
     },
   ],
@@ -133,7 +137,7 @@ export const defaultData = {
           },
           shape: 'TRE',
         },
-        FLD3: {
+        FLD4: {
           data: {
             data: [
               {

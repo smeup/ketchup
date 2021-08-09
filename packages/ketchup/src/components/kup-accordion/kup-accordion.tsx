@@ -23,11 +23,10 @@ import { Cell, CellData } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupAccordionData,
     KupAccordionProps,
+    KupAccordionTreeNodeSelectedEventPayload,
+    KupAccordionItemSelectedEventPayload,
 } from './kup-accordion-declarations';
-import {
-    TreeNode,
-    KupTreeNodeSelectedEventPayload,
-} from './../kup-tree/kup-tree-declarations';
+import { TreeNode } from './../kup-tree/kup-tree-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
@@ -101,15 +100,26 @@ export class KupAccordion {
     /*-------------------------------------------------*/
 
     /**
-     * Fired when a TreeNode is selected
+     * Fired when a item is selected
      */
     @Event({
-        eventName: 'kup-accordion-selectednode',
+        eventName: 'kup-accordion-itemselected',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupAccordionSelectedNode: EventEmitter<KupTreeNodeSelectedEventPayload>;
+    kupAccordionItemSelected: EventEmitter<KupAccordionItemSelectedEventPayload>;
+
+    /**
+     * Fired when a TreeNode is selected
+     */
+    @Event({
+        eventName: 'kup-accordion-treenodeselected',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAccordionTreeNodeSelected: EventEmitter<KupAccordionTreeNodeSelectedEventPayload>;
 
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
@@ -151,15 +161,15 @@ export class KupAccordion {
     }
     /**
      * This method expands or collapses the given item.
-     * @param {string} columnName - Name of the item.
+     * @param {string} itemName - Name of the item.
      */
     @Method()
-    async toggleItem(columnName: string): Promise<void> {
+    async toggleItem(itemName: string): Promise<void> {
         const ids: string[] = [...this.expandedCategoryIds];
-        if (ids.includes(columnName)) {
-            ids.splice(ids.indexOf(columnName), 1);
+        if (ids.includes(itemName)) {
+            ids.splice(ids.indexOf(itemName), 1);
         } else {
-            ids.push(columnName);
+            ids.push(itemName);
         }
         this.expandedCategoryIds = ids;
     }
@@ -168,16 +178,29 @@ export class KupAccordion {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private onKupTreeNodeSelected(e: CustomEvent): void {
+    private onItemClicked(itemName: string, hasSubComponent: boolean) {
+        if (hasSubComponent) {
+            this.toggleItem(itemName);
+        } else {
+            this.kupAccordionItemSelected.emit({
+                comp: this,
+                id: this.rootElement.id,
+                itemName: itemName,
+            });
+        }
+    }
+
+    private onKupTreeNodeSelected(e: CustomEvent, itemName: string): void {
         e.stopPropagation();
 
-        this.kupAccordionSelectedNode.emit({
+        this.kupAccordionTreeNodeSelected.emit({
             comp: this,
             id: this.rootElement.id,
             treeNodePath: e.detail.treeNodePath,
             treeNode: e.detail.treeNode,
             columnName: e.detail.columnName,
             auto: e.detail.auto,
+            itemName: itemName,
         });
     }
     private onGlobalFilterChange({ detail }): void {
@@ -187,13 +210,8 @@ export class KupAccordion {
         }
         this.globalFilterValue = value;
     }
-    /**
-     * This method is used to build TreeNode structure and create kup-tree component
-     * @param cellData
-     * @param columnName category id
-     * @returns VNode[]
-     */
-    private renderKupTree(cellData: CellData): VNode[] {
+
+    private renderKupTree(cellData: CellData, itemName: string): VNode[] {
         const kupTree: VNode[] = [];
         const tree: TreeNode[] = [];
 
@@ -206,44 +224,40 @@ export class KupAccordion {
             <kup-tree
                 data={tree}
                 globalFilterValue={this.globalFilterValue}
-                onkup-tree-nodeselected={(e) => this.onKupTreeNodeSelected(e)}
+                onkup-tree-nodeselected={(e) =>
+                    this.onKupTreeNodeSelected(e, itemName)
+                }
             ></kup-tree>
         );
 
         return kupTree;
     }
-    /**
-     * This method is used to create the sub component structure
-     * @param {Cell} cell - Cell containing the accordion content.
-     * @returns {VNode[]} Virtual node of the content.
-     */
-    private renderSubComponent(cell: Cell): VNode[] {
+
+    private renderSubComponent(cell: Cell, itemName: string): VNode[] {
         const shape: string = cell.shape;
 
         switch (shape) {
             case 'TRE': {
-                return this.renderKupTree(cell.data);
+                return this.renderKupTree(cell.data, itemName);
             }
             default:
                 return;
         }
     }
-    /**
-     * This method renders the items of the accordion.
-     * @returns {VNode[]} Virtual nodes containing the accordion items.
-     */
+
     private renderAccordion(): VNode[] {
         const items: VNode[] = [];
 
         for (var i = 0; i < this.actualData.columns.length; i++) {
-            const columnName: string = this.actualData.columns[i].name;
-            const cell: Cell = this.actualData.rows[0].cells[columnName];
+            const column = this.actualData.columns[i];
+            const itemName: string = column.name;
+            const cell: Cell = this.actualData.rows[0].cells[itemName];
             const isItemExpanded: boolean =
-                this.expandedCategoryIds.includes(columnName);
+                this.expandedCategoryIds.includes(itemName);
 
             let subComponent: VNode[] = [];
             if (cell != null) {
-                subComponent = this.renderSubComponent(cell);
+                subComponent = this.renderSubComponent(cell, itemName);
             }
 
             const buttonClass: GenericObject = {
@@ -259,9 +273,11 @@ export class KupAccordion {
                 <div class="accordion-item">
                     <button
                         class={buttonClass}
-                        onClick={() => this.toggleItem(columnName)}
+                        onClick={() =>
+                            this.onItemClicked(itemName, cell != null)
+                        }
                     >
-                        {this.actualData.columns[i].title}
+                        {column.title}
                     </button>
                     <div class={contentClass}>{subComponent}</div>
                 </div>

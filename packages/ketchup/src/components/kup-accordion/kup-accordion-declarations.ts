@@ -1,5 +1,9 @@
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 
+import { KupTreeNodeSelectedEventPayload } from './../kup-tree/kup-tree-declarations';
+
+import { KupEventPayload } from '../../types/GenericTypes';
+
 /**
  * Props of the kup-accordion component.
  * Used to export every prop in an object.
@@ -16,4 +20,13 @@ export enum KupAccordionProps {
 export interface KupAccordionData {
     columns: Column[];
     rows: Row[];
+}
+
+export interface KupAccordionTreeNodeSelectedEventPayload
+    extends KupTreeNodeSelectedEventPayload {
+    itemName: string;
+}
+
+export interface KupAccordionItemSelectedEventPayload extends KupEventPayload {
+    itemName: string;
 }

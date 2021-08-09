@@ -5,8 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KupAccordionData } from "./components/kup-accordion/kup-accordion-declarations";
-import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupAccordionData, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -15,6 +14,7 @@ import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClickEventPayloa
 import { KupStore } from "./components/kup-state/kup-store";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent } from "./components/kup-chart/kup-chart-declarations";
@@ -87,9 +87,9 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * This method expands or collapses the given item.
-          * @param columnName - Name of the item.
+          * @param itemName - Name of the item.
          */
-        "toggleItem": (columnName: string) => Promise<void>;
+        "toggleItem": (itemName: string) => Promise<void>;
     }
     interface KupAutocomplete {
         /**
@@ -3112,9 +3112,13 @@ declare namespace LocalJSX {
          */
         "globalFilterValue"?: string;
         /**
+          * Fired when a item is selected
+         */
+        "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
+        /**
           * Fired when a TreeNode is selected
          */
-        "onKup-accordion-selectednode"?: (event: CustomEvent<KupTreeNodeSelectedEventPayload>) => void;
+        "onKup-accordion-treenodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
     }
     interface KupAutocomplete {
         /**
