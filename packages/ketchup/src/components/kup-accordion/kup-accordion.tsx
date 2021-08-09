@@ -171,6 +171,7 @@ export class KupAccordion {
         if (ids.includes(itemName)) {
             ids.splice(ids.indexOf(itemName), 1);
         } else {
+            ids.splice(0, ids.length);
             ids.push(itemName);
         }
         this.expandedCategoryIds = ids;
