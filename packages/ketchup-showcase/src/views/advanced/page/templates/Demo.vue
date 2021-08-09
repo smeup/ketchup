@@ -30,7 +30,16 @@
               <td class="prevent-cr">
                 <span :data-type="propList.type" class="code-word">{{
                   propList.type
-                }}</span>
+                }}</span
+                ><kup-image
+                  title="Array."
+                  class="type-icon"
+                  resource="code-array"
+                  color="var(--kup-primary-color)"
+                  size-x="1.25em"
+                  size-y="1.25em"
+                  v-if="propList.isArray"
+                ></kup-image>
               </td>
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
@@ -230,11 +239,12 @@ interface DemoMethods {
 }
 
 interface DemoProps {
-  prop: string;
-  description: string;
-  type: string;
   default: string;
+  description: string;
+  prop: string;
   try: DemoTry;
+  type: string;
+  isArray?: boolean;
 }
 
 enum DemoTabs {
@@ -255,7 +265,10 @@ enum DemoTry {
 }
 
 enum DemoTypes {
-  GenericObject = '{<br><strong>[index: string]</strong>: any<br>}',
+  GenericObject = 'interface <strong>GenericObject</strong> {<br><strong>[index: string]</strong>: any;<br>}',
+  FButtonStyling = "enum <strong>FButtonStyling</strong> {<br><strong>FLAT</strong> = 'flat',<br><strong>FLOATING</strong> = 'floating',<br><strong>ICON</strong> = 'icon',<br><strong>OUTLINED</strong> = 'outlined',<br><strong>RAISED</strong> = 'raised',<br>}",
+  FChipData = 'interface <strong>FChipData</strong> {<br> <strong>label</strong>: string;<br><strong>value</strong>: string;<br><strong>checked?</strong>: boolean;<br><strong>icon?</strong>: string;<br><strong>obj?</strong>: KupObj;<br>}',
+  FChipType = "enum <strong>FChipType</strong> {<br> <strong>CHOICE</strong> = 'choice',<br><strong>FILTER</strong> = 'filter',<br><strong>INPUT</strong> = 'input',<br><strong>STANDARD</strong> = 'standard',<br>}",
 }
 
 // Recurring CSS classes
@@ -355,9 +368,10 @@ export default {
       demoProps = this.demoProps;
     },
     /**
-     * Initializes kup-tab-bar tabs.
+     * Displays the tooltip when mouse-hovering on a type.
+     * @param {MouseEvent} e - Mouse move event.
      */
-    handleTooltip(e: MouseEvent) {
+    handleTooltip(e: MouseEvent): void {
       const dynamicPosition: KupDynamicPosition = dom.ketchup.dynamicPosition;
       if (!dynamicPosition.isRegistered(sampleTooltip as any)) {
         dynamicPosition.register(

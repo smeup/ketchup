@@ -1056,7 +1056,8 @@ table#customstyle-tab kup-text-field {
 #sample-tooltip {
   display: none;
   background: var(--kup-background-color);
-  color: var(--kup-primary-color);
+  color: var(--kup-text-color);
+  font-size: 1.2em;
   padding: 12px;
   border-radius: 8px;
   box-shadow: var(--kup-box-shadow);
@@ -1066,8 +1067,17 @@ table#customstyle-tab kup-text-field {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
+#sample-tooltip strong {
+  color: var(--kup-primary-color);
+}
+
 #sample-tooltip.visible {
   display: block;
+}
+
+.type-icon {
+  display: inline-block;
+  vertical-align: text-bottom;
 }
 
 .has-tooltip {
