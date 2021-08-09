@@ -262,24 +262,25 @@ export class KupAccordion {
                 subComponent = this.renderSubComponent(cell, itemName);
             }
 
-            // If the accordion item is expandable, adds the icon to show the expansion.
-            // If expandable, also add the callback on the click action.
-            // If it is not expandable, we simply add a placeholder with no icons.
             const hasExpandIcon: boolean = cell != null;
-            let expandClass = 'icon expand-icon';
+            let itemExpandIcon: any = <span class="icon" />;
             if (hasExpandIcon) {
-                expandClass += ' icon-container';
                 if (isItemExpanded) {
-                    expandClass += ' expanded';
+                    itemExpandIcon = this.createIconElement(
+                        'icon icon-container',
+                        'arrow_drop_up',
+                        ''
+                    );
                 } else {
-                    expandClass += ' collapsed';
+                    itemExpandIcon = this.createIconElement(
+                        'icon icon-container',
+                        'arrow_drop_down',
+                        ''
+                    );
                 }
             }
 
-            let accordionExpandIcon = <span class={expandClass}></span>;
-
             let itemIcon: any = null;
-
             if (!column.icon || column.icon === '') {
                 itemIcon = <span class="icon" />;
             } else {
@@ -308,7 +309,7 @@ export class KupAccordion {
                             this.onItemClicked(itemName, cell != null)
                         }
                     >
-                        {accordionExpandIcon}
+                        {itemExpandIcon}
                         {itemIcon}
                         {column.title}
                     </div>

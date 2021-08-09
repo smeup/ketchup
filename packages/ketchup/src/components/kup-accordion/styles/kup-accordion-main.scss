@@ -54,18 +54,6 @@
         width: 1.5em;
         transition: transform 0.1s;
 
-        &.collapsed {
-          -webkit-mask: url('/build/assets/svg/arrow_drop_down.svg');
-          mask: url('/build/assets/svg/arrow_drop_down.svg');
-          background-color: var(--kup-text-color);
-        }
-
-        &.expanded {
-          -webkit-mask: url('/build/assets/svg/arrow_drop_up.svg');
-          mask: url('/build/assets/svg/arrow_drop_up.svg');
-          background-color: var(--kup-text-color);
-        }
-
         &.icon-container:not(.is-image) {
           background-color: var(--kup-icon-color);
         }
