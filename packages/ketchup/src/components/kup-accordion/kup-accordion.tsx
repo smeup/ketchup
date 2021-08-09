@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    getAssetPath,
     h,
     Host,
     Method,
@@ -277,6 +278,18 @@ export class KupAccordion {
 
             let accordionExpandIcon = <span class={expandClass}></span>;
 
+            let itemIcon: any = null;
+
+            if (!column.icon || column.icon === '') {
+                itemIcon = <span class="icon" />;
+            } else {
+                itemIcon = this.createIconElement(
+                    'icon icon-container',
+                    column.icon,
+                    ''
+                );
+            }
+
             const buttonClass: GenericObject = {
                 'accordion-button': true,
                 'accordion-button--active': isItemExpanded ? true : false,
@@ -294,8 +307,9 @@ export class KupAccordion {
                         onClick={() =>
                             this.onItemClicked(itemName, cell != null)
                         }
->
+                    >
                         {accordionExpandIcon}
+                        {itemIcon}
                         {column.title}
                     </div>
 
@@ -304,6 +318,37 @@ export class KupAccordion {
             );
         }
         return items;
+    }
+
+    // TODO: refactor same method in kup-tree.tsx
+    private createIconElement(
+        CSSClass: string,
+        icon: string,
+        iconColor: string
+    ) {
+        if (
+            icon.indexOf('.') > -1 ||
+            icon.indexOf('/') > -1 ||
+            icon.indexOf('\\') > -1
+        ) {
+            CSSClass += ' is-image';
+            return (
+                <span class={CSSClass}>
+                    <img src={icon}></img>
+                </span>
+            );
+        } else {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${icon}.svg`
+            )}') no-repeat center`;
+            CSSClass += ' icon-container material-icons';
+            let iconStyle = {
+                ...(iconColor ? { background: iconColor } : {}),
+                mask: svg,
+                webkitMask: svg,
+            };
+            return <span style={iconStyle} class={CSSClass}></span>;
+        }
     }
 
     /*-------------------------------------------------*/
