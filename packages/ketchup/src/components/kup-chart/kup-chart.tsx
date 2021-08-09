@@ -437,8 +437,6 @@ export class KupChart {
                 });
             }
         }
-        console.log("Options");
-        console.log(opts);
         return opts;
     }
 
