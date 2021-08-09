@@ -22,7 +22,7 @@ import {
     ChartTitle,
     KupChartProps,
     KupChartClickEvent,
-    vAxesMap,
+    Trendlines,
 } from './kup-chart-declarations';
 import {
     convertColumns,
@@ -82,6 +82,10 @@ export class KupChart {
      */
     @Prop() hAxis: ChartAxis;
     /**
+     * Customize the hAxes for multiple-chart.
+     */
+     @Prop() hAxes: ChartAxis[];
+    /**
      * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
      */
     @Prop() legend: string = 'right';
@@ -116,12 +120,16 @@ export class KupChart {
     /**
      * Customize the vAxes for multiple-chart.
      */
-    @Prop() vAxes: vAxesMap;
+    @Prop() vAxes: ChartAxis[];
     /**
      * Customize the vAxis.
      */
     @Prop() vAxis: ChartAxis;
     /**
+     * Trendlines.
+     */
+     @Prop() trendlines: Trendlines;
+     /**
      * Google chart version to load
      */
     @Prop() version = '45.2';
@@ -286,6 +294,9 @@ export class KupChart {
             is3D: ChartAspect.D3 === this.asp,
         };
 
+        if(this.trendlines)
+            opts.trendlines = this.trendlines
+
         if (this.colors && this.colors.length > 0) {
             opts.colors = this.colors;
         } else {
@@ -343,13 +354,17 @@ export class KupChart {
 
                 opts.series[index.toString()] = {
                     type: serieType,
+                    targetAxisIndex: index.toString(),
                 };
             });
         }
-
-        if (this.vAxes) {
-            opts.vAxes = this.vAxes;
+        if(this.vAxes){
+            opts.vAxes = {};
+            this.vAxes.forEach((vAxe, index) => {
+                opts.vAxes[index.toString()] = vAxe;
+            });
         }
+
         if (this.vAxis) {
             opts.vAxis = this.vAxis;
             opts.vAxis['textStyle'] = { color: this.themeText };
@@ -357,6 +372,9 @@ export class KupChart {
             opts.vAxis = { textStyle: { color: this.themeText } };
         }
 
+        if (this.hAxes) {
+            opts.hAxes = this.hAxes;
+        }
         if (this.hAxis) {
             opts.hAxis = this.hAxis;
             opts.hAxis['textStyle'] = { color: this.themeText };
@@ -376,7 +394,8 @@ export class KupChart {
                 });
             }
         }
-        console.log("Chart Options " + JSON.stringify(opts));
+        console.log("Options");
+        console.log(opts);
         return opts;
     }
 
@@ -417,9 +436,6 @@ export class KupChart {
         this.gChart = this.createGoogleChart();
 
         const options = this.createGoogleChartOptions();
-
-            console.log("Chart option 1");
-            console.log(JSON.stringify(options));
 
         this.gChart.draw(this.gChartView, options);
 

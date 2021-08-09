@@ -30,8 +30,10 @@ export enum ChartAspect {
     D3 = '3D',
 }
 
-export interface vAxesMap {
-    [index: string]: {textPosition: string};
+export interface Trendlines {
+    [index: string]: {
+        color: string
+    };
 }
 
 export interface ChartAxis {
@@ -81,8 +83,11 @@ export interface ChartOptions {
         textStyle?: { color?: string };
     }[];
     hAxis?: ChartAxis;
+    hAxes?: any;
     vAxis?: ChartAxis;
-    vAxes?: vAxesMap;
+    vAxes?: any;
+    type?: string;
+    trendlines?: any;
 }
 
 export interface ChartSerie {

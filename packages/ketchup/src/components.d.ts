@@ -17,7 +17,7 @@ import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-d
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
-import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, vAxesMap } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, Trendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
@@ -498,6 +498,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Customize the hAxes for multiple-chart.
+         */
+        "hAxes": ChartAxis[];
+        /**
           * Customize the hAxis.
          */
         "hAxis": ChartAxis;
@@ -543,13 +547,17 @@ export namespace Components {
          */
         "stacked": boolean;
         /**
+          * Trendlines.
+         */
+        "trendlines": Trendlines;
+        /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
          */
         "types": ChartType[];
         /**
           * Customize the vAxes for multiple-chart.
          */
-        "vAxes": vAxesMap;
+        "vAxes": ChartAxis[];
         /**
           * Customize the vAxis.
          */
@@ -3257,6 +3265,10 @@ declare namespace LocalJSX {
          */
         "data"?: DataTable;
         /**
+          * Customize the hAxes for multiple-chart.
+         */
+        "hAxes"?: ChartAxis[];
+        /**
           * Customize the hAxis.
          */
         "hAxis"?: ChartAxis;
@@ -3293,13 +3305,17 @@ declare namespace LocalJSX {
          */
         "stacked"?: boolean;
         /**
+          * Trendlines.
+         */
+        "trendlines"?: Trendlines;
+        /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
          */
         "types"?: ChartType[];
         /**
           * Customize the vAxes for multiple-chart.
          */
-        "vAxes"?: vAxesMap;
+        "vAxes"?: ChartAxis[];
         /**
           * Customize the vAxis.
          */
