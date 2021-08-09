@@ -14,6 +14,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-probe',
@@ -329,7 +330,7 @@ export class KupProbe {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">{this.content}</div>
+                <div id={componentWrapperId}>{this.content}</div>
             </Host>
         );
     }

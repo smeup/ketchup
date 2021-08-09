@@ -63,7 +63,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | -------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ----------- |
 | `autoSelectionNodeMode`    | `auto-selection-node-mode`    | Auto select programmatic selectic node                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `boolean`                                                                         | `true`      |
 | `columns`                  | --                            | The columns of the tree when tree visualization is active.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `Column[]`                                                                        | `undefined` |
-| `customStyle`              | `custom-style`                | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                          | `''`        |
+| `customStyle`              | `custom-style`                | Custom style of the component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `string`                                                                          | `''`        |
 | `data`                     | --                            | The json data used to populate the tree view: the basic, always visible tree nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `TreeNode[]`                                                                      | `[]`        |
 | `density`                  | `density`                     | The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `string`                                                                          | `'medium'`  |
 | `dynamicExpansionCallback` | --                            | Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change. | `(treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]>` | `undefined` |
@@ -120,7 +120,7 @@ Type: `Promise<void>`
 
 ### `collapseAll() => Promise<void>`
 
-
+Collapses all nodes.
 
 #### Returns
 
@@ -130,7 +130,7 @@ Type: `Promise<void>`
 
 ### `expandAll() => Promise<void>`
 
-
+Expands all nodes.
 
 #### Returns
 
@@ -183,6 +183,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-accordion](../kup-accordion)
  - [kup-card](../kup-card)
  - [kup-tooltip](../kup-tooltip)
 
@@ -225,7 +226,6 @@ graph TD;
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list
@@ -263,6 +263,7 @@ graph TD;
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
+  kup-accordion --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

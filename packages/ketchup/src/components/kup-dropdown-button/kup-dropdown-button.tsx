@@ -17,10 +17,8 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import {
-    consistencyCheck,
-    ItemsDisplayMode,
-} from '../kup-list/kup-list-declarations';
+import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import { consistencyCheck } from '../kup-list/kup-list-helper';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
@@ -33,6 +31,7 @@ import {
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -41,7 +40,7 @@ import { getProps, setProps } from '../../utils/utils';
 })
 export class KupDropdownButton {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-dropdown-button>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -194,20 +193,48 @@ export class KupDropdownButton {
     /**
      * Handles the navigation of the dropdown menu with the keyboard.
      */
-    @Listen('keyup', { target: 'document' })
-    listenKeyup(e: KeyboardEvent) {
+    @Listen('keydown')
+    listenKeydown(e: KeyboardEvent) {
         if (this.isListOpened()) {
-            if (e.key === 'Escape') {
-                this.closeList();
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.listEl.select().then(() => {
+                        this.closeList();
+                    });
+                    this.dropdownEl.focus();
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.closeList();
+                    break;
             }
-            if (e.key === 'Enter') {
-                this.closeList();
-            }
-            if (e.key === 'ArrowDown') {
-                this.listEl.arrowDown = true;
-            }
-            if (e.key === 'ArrowUp') {
-                this.listEl.arrowUp = true;
+        } else {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.openList();
+                    this.listEl.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.openList();
+                    this.listEl.focusPrevious();
+                    break;
             }
         }
     }
@@ -268,20 +295,6 @@ export class KupDropdownButton {
     /*-------------------------------------------------*/
 
     /**
-     * Returns the component's internal value.
-     */
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-    /**
-     * Sets the internal value of the component.
-     */
-    @Method()
-    async setValue(value: string): Promise<void> {
-        this.value = value;
-    }
-    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -289,6 +302,20 @@ export class KupDropdownButton {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupDropdownButtonProps, descriptions);
+    }
+    /**
+     * Returns the component's internal value.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
     }
     /**
      * Sets the props to the component.
@@ -299,11 +326,11 @@ export class KupDropdownButton {
         setProps(this, KupDropdownButtonProps, props);
     }
     /**
-     * This method is used to trigger a new render of the component.
+     * Sets the internal value of the component.
      */
     @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
+    async setValue(value: string): Promise<void> {
+        this.value = value;
     }
 
     /*-------------------------------------------------*/
@@ -479,7 +506,7 @@ export class KupDropdownButton {
             <Host onBlur={() => this.onKupBlur()}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div
-                    id="kup-component"
+                    id={componentWrapperId}
                     ref={(el) => (this.wrapperEl = el as any)}
                 >
                     <div class="dropdown-button--wrapper">
@@ -492,6 +519,7 @@ export class KupDropdownButton {
                         onkup-list-click={(e) => this.onKupItemClick(e)}
                         id={this.rootElement.id + '_list'}
                         ref={(el) => (this.listEl = el as any)}
+                        tabindex={-1}
                     ></kup-list>
                 </div>
             </Host>

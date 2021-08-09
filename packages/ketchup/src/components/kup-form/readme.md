@@ -140,7 +140,6 @@ graph TD;
   kup-form --> kup-button
   kup-combobox --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-crud --> kup-form

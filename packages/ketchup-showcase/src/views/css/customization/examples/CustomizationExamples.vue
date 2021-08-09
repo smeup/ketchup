@@ -38,7 +38,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .mdc-chip { background-color: blue !important; color: pink !important; } #kup-component .f-image__icon { background-color: pink !important; }"
+            custom-style="#kup-component .chip { background-color: blue !important; color: pink !important; } #kup-component .f-image__icon { background-color: pink !important; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -53,7 +53,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .mdc-chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .mdc-chip:first-child .f-image__icon{ background-color: pink !important; }"
+            custom-style="#kup-component .chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .chip:first-child .f-image__icon{ background-color: pink !important; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -82,7 +82,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-checkbox
-            custom-style="#kup-component .mdc-checkbox.mdc-checkbox--checked .mdc-checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }"
+            custom-style="#kup-component .checkbox.checkbox--checked .checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }"
             label="Check me and I spin"
           ></kup-checkbox>
         </div>
@@ -97,7 +97,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-tab-bar
-            custom-style="#kup-component .mdc-tab__text-label { font-style: italic; }"
+            custom-style="#kup-component .tab__text-label { font-style: italic; }"
             :data.prop="tabbarData"
           ></kup-tab-bar>
         </div>
@@ -193,15 +193,15 @@ export default {
         '#kup-component input, #kup-component label{ font-family: Courier, sans-serif !important; }',
       markup2: '#kup-component button { text-decoration: underline; }',
       markup3:
-        '#kup-component .mdc-chip { background-color: blue !important; color: pink !important; } #kup-component .f-image__icon { background-color: pink !important; }',
+        '#kup-component .chip { background-color: blue !important; color: pink !important; } #kup-component .f-image__icon { background-color: pink !important; }',
       markup4:
-        '#kup-component .mdc-chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .mdc-chip:first-child .f-image__icon { background-color: pink !important; }',
+        '#kup-component .chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .chip:first-child .f-image__icon { background-color: pink !important; }',
 
       markup5:
         '#kup-component button { color: transparent; } #kup-component button:hover { color: var(--kup-text-on-primary-color); }',
       markup6:
-        '#kup-component .mdc-checkbox.mdc-checkbox--checked .mdc-checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }',
-      markup7: '#kup-component .mdc-tab__text-label { font-style: italic; }',
+        '#kup-component .checkbox.checkbox--checked .checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }',
+      markup7: '#kup-component .tab__text-label { font-style: italic; }',
       markup8:
         '#kup-component input { color: blue !important; font-weight: bold; }',
       markup9:

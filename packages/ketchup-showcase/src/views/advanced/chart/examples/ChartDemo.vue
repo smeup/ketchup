@@ -3,6 +3,7 @@
     <demo
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>
   </div>
@@ -26,13 +27,34 @@ export default {
           type: 'click',
         },
       ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'resizeCallback',
+          description:
+            'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
       demoProps: [
         {
           prop: 'asp',
           description:
             'Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.',
-          type: 'string',
-          default: '2D',
+          type: 'ChartAspect',
+          default: 'undefined',
           try: 'field',
         },
         {
@@ -54,7 +76,7 @@ export default {
           description: 'Colors of the chart.',
           type: 'string[]',
           default: '[]',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'customStyle',
@@ -139,7 +161,7 @@ export default {
             'The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.',
           type: 'ChartType[]',
           default: '[ChartType.Hbar]',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'vAxis',

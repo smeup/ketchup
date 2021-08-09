@@ -13,6 +13,7 @@ export const config: Config = {
         {
             type: 'www',
             copy: [
+                { src: 'accordion.html' },
                 { src: 'autocomplete.html' },
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
@@ -34,11 +35,11 @@ export const config: Config = {
                 { src: 'date-picker.html' },
                 { src: 'debug.html' },
                 { src: 'drawer.html' },
-                { src: 'dropdown.html' },
+                { src: 'dropdown-button.html' },
                 { src: 'echart.html' },
                 { src: 'gauge.html' },
-                { src: 'layout-component.html' },
-                { src: 'list-box.html' },
+                { src: 'layout.html' },
+                { src: 'list.html' },
                 { src: 'magic-box.html' },
                 { src: 'nav-bar.html' },
                 { src: 'probe.html' },

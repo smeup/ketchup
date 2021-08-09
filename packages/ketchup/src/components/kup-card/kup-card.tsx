@@ -38,6 +38,7 @@ import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { layoutSpecificEvents } from './kup-card-helper';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-card',
@@ -183,14 +184,6 @@ export class KupCard {
         return getProps(this, KupCardProps, descriptions);
     }
     /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupCardProps, props);
-    }
-    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
@@ -206,6 +199,14 @@ export class KupCard {
         this.resizeTimeout = window.setTimeout(() => {
             this.layoutManager();
         }, 300);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupCardProps, props);
     }
 
     /*-------------------------------------------------*/
@@ -527,7 +528,10 @@ export class KupCard {
         return (
             <Host style={style}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" onClick={() => this.onKupClick(null)}>
+                <div
+                    id={componentWrapperId}
+                    onClick={() => this.onKupClick(null)}
+                >
                     {this.getLayout()}
                 </div>
             </Host>
