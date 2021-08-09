@@ -57,7 +57,7 @@ Type: `Promise<void>`
 
 ### `toggleItem(itemName: string) => Promise<void>`
 
-This method expands or collapses the given item.
+This method activates or deactivates an item
 
 #### Returns
 

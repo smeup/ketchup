@@ -26,7 +26,7 @@
       border-bottom-right-radius: 4px;
     }
 
-    .accordion-button {
+    .accordion-item-header {
       border: none;
       color: var(--kup-text-color);
       font-family: var(--kup-font-family);
@@ -38,12 +38,17 @@
       text-align: left;
       transition: background-color 80ms, color 80ms, max-height 0.2s ease-out;
 
-      &:not(.accordion-button--active):hover {
+      &:hover {
         color: var(--kup-hover-color);
         background-color: var(--kup-hover-background-color);
       }
 
-      &--active {
+      &--expanded {
+        color: var(--kup-hover-color);
+        background-color: var(--kup-hover-background-color);
+      }
+
+      &--selected {
         background-color: rgba(var(--kup-primary-color-rgb), 0.125);
       }
 
@@ -66,11 +71,11 @@
       }
     }
 
-    .accordion-content {
+    .accordion-item-content {
       display: none;
       overflow: hidden;
 
-      &--active {
+      &--selected {
         display: block;
       }
     }

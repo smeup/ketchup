@@ -86,7 +86,7 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * This method expands or collapses the given item.
+          * This method activates or deactivates an item
           * @param itemName - Name of the item.
          */
         "toggleItem": (itemName: string) => Promise<void>;

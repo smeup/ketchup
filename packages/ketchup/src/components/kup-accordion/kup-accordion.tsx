@@ -29,7 +29,6 @@ import {
 } from './kup-accordion-declarations';
 import { TreeNode } from './../kup-tree/kup-tree-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -47,12 +46,13 @@ export class KupAccordion {
     /*-------------------------------------------------*/
 
     /**
-     * Ids of the expanded categories.
+     * Names of the selected items
      * @default []
      */
-    @State() private expandedCategoryIds: string[] = [];
+    @State() private selectedItemsNames: string[] = [];
+
     /**
-     * Treated data prop.
+     * Treated data prop
      * @default null
      */
     @State() private actualData: KupAccordionData = null;
@@ -162,35 +162,44 @@ export class KupAccordion {
         setProps(this, KupAccordionProps, props);
     }
     /**
-     * This method expands or collapses the given item.
+     * This method activates or deactivates an item
      * @param {string} itemName - Name of the item.
      */
     @Method()
-    async toggleItem(itemName: string): Promise<void> {
-        const ids: string[] = [...this.expandedCategoryIds];
+    async toggleItem(itemName: string) {
+        const isItemExpandible = this.isItemExpandible(itemName);
+
+        const ids: string[] = [...this.selectedItemsNames];
         if (ids.includes(itemName)) {
-            ids.splice(ids.indexOf(itemName), 1);
+            if (isItemExpandible) {
+                ids.splice(ids.indexOf(itemName), 1);
+            }
         } else {
             ids.splice(0, ids.length);
             ids.push(itemName);
         }
-        this.expandedCategoryIds = ids;
-    }
+        this.selectedItemsNames = ids;
 
-    /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    private onItemClicked(itemName: string, hasSubComponent: boolean) {
-        if (hasSubComponent) {
-            this.toggleItem(itemName);
-        } else {
+        if (!isItemExpandible) {
             this.kupAccordionItemSelected.emit({
                 comp: this,
                 id: this.rootElement.id,
                 itemName: itemName,
             });
         }
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    private isItemSelected(itemName: string): boolean {
+        return this.selectedItemsNames.includes(itemName);
+    }
+
+    private isItemExpandible(itemName: string): boolean {
+        const cell: Cell = this.actualData.rows[0].cells[itemName];
+        return cell != null;
     }
 
     private onKupTreeNodeSelected(e: CustomEvent, itemName: string): void {
@@ -255,25 +264,26 @@ export class KupAccordion {
             const column = this.actualData.columns[i];
             const itemName: string = column.name;
             const cell: Cell = this.actualData.rows[0].cells[itemName];
-            const isItemExpanded: boolean =
-                this.expandedCategoryIds.includes(itemName);
+            const isItemExpandible = this.isItemExpandible(itemName);
+            const isItemSelected = this.isItemSelected(itemName);
 
+            // subcomponent
             let subComponent: VNode[] = [];
-            if (cell != null) {
+            if (isItemExpandible) {
                 subComponent = this.renderSubComponent(cell, itemName);
             }
 
-            const hasExpandIcon: boolean = cell != null;
-            let itemExpandIcon: any = <span class="icon" />;
-            if (hasExpandIcon) {
-                if (isItemExpanded) {
-                    itemExpandIcon = this.createIconElement(
+            // item expansion icon
+            let itemExpansionIcon: any = <span class="icon" />;
+            if (isItemExpandible) {
+                if (isItemSelected) {
+                    itemExpansionIcon = this.createIconElement(
                         'icon icon-container',
                         'arrow_drop_up',
                         ''
                     );
                 } else {
-                    itemExpandIcon = this.createIconElement(
+                    itemExpansionIcon = this.createIconElement(
                         'icon icon-container',
                         'arrow_drop_down',
                         ''
@@ -281,6 +291,7 @@ export class KupAccordion {
                 }
             }
 
+            // item icon
             let itemIcon: any = null;
             if (!column.icon || column.icon === '') {
                 itemIcon = <span class="icon" />;
@@ -292,30 +303,33 @@ export class KupAccordion {
                 );
             }
 
-            const buttonClass: GenericObject = {
-                'accordion-button': true,
-                'accordion-button--active': isItemExpanded ? true : false,
+            const itemHeaderClass: GenericObject = {
+                'accordion-item-header': true,
+                'accordion-item-header--selected':
+                    !isItemExpandible && isItemSelected ? true : false,
+                'accordion-item-header--expanded':
+                    isItemExpandible && isItemSelected ? true : false,
             };
 
-            const contentClass: GenericObject = {
-                'accordion-content': true,
-                'accordion-content--active': isItemExpanded ? true : false,
+            const itemContentClass: GenericObject = {
+                'accordion-item-content': true,
+                'accordion-item-content--selected': isItemSelected
+                    ? true
+                    : false,
             };
 
             items.push(
                 <div class="accordion-item">
                     <div
-                        class={buttonClass}
-                        onClick={() =>
-                            this.onItemClicked(itemName, cell != null)
-                        }
+                        class={itemHeaderClass}
+                        onClick={() => this.toggleItem(itemName)}
                     >
-                        {itemExpandIcon}
+                        {itemExpansionIcon}
                         {itemIcon}
                         {column.title}
                     </div>
 
-                    <div class={contentClass}>{subComponent}</div>
+                    <div class={itemContentClass}>{subComponent}</div>
                 </div>
             );
         }
