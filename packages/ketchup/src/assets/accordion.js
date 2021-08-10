@@ -1,10 +1,15 @@
-document.addEventListener('kup-accordion-selectedNode', (e) => console.log(e));
+document.addEventListener('kup-accordion-treenodeselected', (e) =>
+    console.log(e)
+);
+
+document.addEventListener('kup-accordion-itemselected', (e) => console.log(e));
 
 const data = {
     columns: [
         {
             name: 'FLD1',
             title: 'Dashboard',
+            icon: 'compass-outline',
         },
         {
             name: 'FLD2',
@@ -12,6 +17,11 @@ const data = {
         },
         {
             name: 'FLD3',
+            title: 'Buy',
+            icon: 'add_shopping_cart',
+        },
+        {
+            name: 'FLD4',
             title: 'Locations',
         },
     ],
@@ -135,7 +145,7 @@ const data = {
                     },
                     shape: 'TRE',
                 },
-                FLD3: {
+                FLD4: {
                     data: {
                         data: [
                             {

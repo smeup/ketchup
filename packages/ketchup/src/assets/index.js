@@ -161,13 +161,17 @@ performances.data = [
 ];
 // Setting up events
 var ctrlKey = false;
-document.addEventListener('keydown', () => {
-    console.log('Pressing CTRL key.');
-    ctrlKey = true;
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Control' || e.key === 'Meta') {
+        console.log('Pressing CTRL key.');
+        ctrlKey = true;
+    }
 });
-document.addEventListener('keyup', () => {
-    console.log('CTRL key was released.');
-    ctrlKey = false;
+document.addEventListener('keyup', (e) => {
+    if (e.key === 'Control' || e.key === 'Meta') {
+        console.log('CTRL key was released.');
+        ctrlKey = false;
+    }
 });
 document.addEventListener('kup-button-click', (e) => {
     const id = e.detail.id;

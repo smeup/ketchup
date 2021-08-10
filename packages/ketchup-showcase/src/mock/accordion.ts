@@ -3,6 +3,7 @@ export const defaultData = {
     {
       name: 'FLD1',
       title: 'Dashboard',
+      icon: 'compass-outline',
     },
     {
       name: 'FLD2',
@@ -10,6 +11,11 @@ export const defaultData = {
     },
     {
       name: 'FLD3',
+      title: 'Buy',
+      icon: 'add_shopping_cart',
+    },
+    {
+      name: 'FLD4',
       title: 'Locations',
     },
   ],
@@ -133,7 +139,7 @@ export const defaultData = {
           },
           shape: 'TRE',
         },
-        FLD3: {
+        FLD4: {
           data: {
             data: [
               {

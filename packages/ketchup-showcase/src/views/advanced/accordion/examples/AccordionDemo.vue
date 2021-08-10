@@ -3,6 +3,7 @@
     <demo
       :demoClasses="demoClasses"
       :demoComp="demoComp"
+      :demoEvents="demoEvents"
       :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>
@@ -57,6 +58,16 @@ export default {
         },
       ],
       demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kup-accordion-itemselected',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-treenodeselected',
+          type: 'CustomEvent',
+        },
+      ],
       demoMethods: [
         {
           name: 'getProps',
