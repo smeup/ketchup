@@ -47,7 +47,8 @@ export default {
           prop: 'colors',
           description:
             'Array of three elements to specify the color of the arcs.',
-          type: 'string[]',
+          type: 'string',
+          isArray: true,
           default: 'Theme state colors',
           try: 'json',
         },

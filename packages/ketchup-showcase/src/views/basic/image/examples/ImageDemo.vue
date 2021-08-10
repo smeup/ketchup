@@ -80,6 +80,7 @@ export default {
           prop: 'badgeData',
           description: 'Sets the data of badges.',
           type: 'KupBadge',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -103,7 +104,8 @@ export default {
           prop: 'data',
           description:
             'When present, the component will be drawn using CSS. Check the "Drawing with CSS" section of the image showcase for more information.',
-          type: 'FImageData[]',
+          type: 'FImageData',
+          isArray: true,
           default: 'null',
           try: 'json',
         },

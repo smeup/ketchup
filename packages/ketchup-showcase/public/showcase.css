@@ -1052,3 +1052,34 @@ table#customstyle-tab kup-text-field {
   font-weight: bold;
   letter-spacing: 2px;
 }
+
+#sample-tooltip {
+  display: none;
+  background: var(--kup-background-color);
+  color: var(--kup-text-color);
+  font-size: 1.2em;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: var(--kup-box-shadow);
+  -webkit-animation: fadeInFromNone 0.25s ease-out;
+  -moz-animation: fadeInFromNone 0.25s ease-out;
+  -o-animation: fadeInFromNone 0.25s ease-out;
+  animation: fadeInFromNone 0.25s ease-out;
+}
+
+#sample-tooltip strong {
+  color: var(--kup-primary-color);
+}
+
+#sample-tooltip.visible {
+  display: block;
+}
+
+.type-icon {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+.has-tooltip {
+  cursor: help;
+}
