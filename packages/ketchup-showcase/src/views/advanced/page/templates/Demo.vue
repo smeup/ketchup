@@ -409,6 +409,27 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  TreeNode: {
+    keys: {
+      'data?': 'Object',
+      'actions?': 'RowAction[]',
+      cells: 'CellsHolder',
+      children: 'TreeNode[]',
+      disabled: 'boolean',
+      expandable: 'boolean',
+      'icon?': 'string',
+      'iconColor?': 'string',
+      'id?': 'string',
+      obj: 'KupObj',
+      'options?': 'boolean',
+      'readOnly?': 'boolean',
+      'style?': 'Object',
+      value: 'string',
+      'visible?': 'boolean',
+      'isExpanded?': 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
 };
 
 // Recurring CSS classes
