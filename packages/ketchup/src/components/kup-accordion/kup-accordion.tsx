@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    getAssetPath,
     h,
     Host,
     Method,
@@ -45,12 +46,13 @@ export class KupAccordion {
     /*-------------------------------------------------*/
 
     /**
-     * Ids of the expanded categories.
+     * Names of the selected items
      * @default []
      */
-    @State() private expandedCategoryIds: string[] = [];
+    @State() private selectedItemsNames: string[] = [];
+
     /**
-     * Treated data prop.
+     * Treated data prop
      * @default null
      */
     @State() private actualData: KupAccordionData = null;
@@ -160,34 +162,44 @@ export class KupAccordion {
         setProps(this, KupAccordionProps, props);
     }
     /**
-     * This method expands or collapses the given item.
+     * This method activates or deactivates an item
      * @param {string} itemName - Name of the item.
      */
     @Method()
-    async toggleItem(itemName: string): Promise<void> {
-        const ids: string[] = [...this.expandedCategoryIds];
+    async toggleItem(itemName: string) {
+        const isItemExpandible = this.isItemExpandible(itemName);
+
+        const ids: string[] = [...this.selectedItemsNames];
         if (ids.includes(itemName)) {
-            ids.splice(ids.indexOf(itemName), 1);
+            if (isItemExpandible) {
+                ids.splice(ids.indexOf(itemName), 1);
+            }
         } else {
+            ids.splice(0, ids.length);
             ids.push(itemName);
         }
-        this.expandedCategoryIds = ids;
-    }
+        this.selectedItemsNames = ids;
 
-    /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    private onItemClicked(itemName: string, hasSubComponent: boolean) {
-        if (hasSubComponent) {
-            this.toggleItem(itemName);
-        } else {
+        if (!isItemExpandible) {
             this.kupAccordionItemSelected.emit({
                 comp: this,
                 id: this.rootElement.id,
                 itemName: itemName,
             });
         }
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    private isItemSelected(itemName: string): boolean {
+        return this.selectedItemsNames.includes(itemName);
+    }
+
+    private isItemExpandible(itemName: string): boolean {
+        const cell: Cell = this.actualData.rows[0].cells[itemName];
+        return cell != null;
     }
 
     private onKupTreeNodeSelected(e: CustomEvent, itemName: string): void {
@@ -252,38 +264,107 @@ export class KupAccordion {
             const column = this.actualData.columns[i];
             const itemName: string = column.name;
             const cell: Cell = this.actualData.rows[0].cells[itemName];
-            const isItemExpanded: boolean =
-                this.expandedCategoryIds.includes(itemName);
+            const isItemExpandible = this.isItemExpandible(itemName);
+            const isItemSelected = this.isItemSelected(itemName);
 
+            // subcomponent
             let subComponent: VNode[] = [];
-            if (cell != null) {
+            if (isItemExpandible) {
                 subComponent = this.renderSubComponent(cell, itemName);
             }
 
-            const buttonClass: GenericObject = {
-                'accordion-button': true,
-                'accordion-button--active': isItemExpanded ? true : false,
+            // item expansion icon
+            let itemExpansionIcon: any = <span class="icon" />;
+            if (isItemExpandible) {
+                if (isItemSelected) {
+                    itemExpansionIcon = this.createIconElement(
+                        'icon icon-container',
+                        'arrow_drop_up',
+                        ''
+                    );
+                } else {
+                    itemExpansionIcon = this.createIconElement(
+                        'icon icon-container',
+                        'arrow_drop_down',
+                        ''
+                    );
+                }
+            }
+
+            // item icon
+            let itemIcon: any = null;
+            if (!column.icon || column.icon === '') {
+                itemIcon = <span class="icon" />;
+            } else {
+                itemIcon = this.createIconElement(
+                    'icon icon-container',
+                    column.icon,
+                    ''
+                );
+            }
+
+            const itemHeaderClass: GenericObject = {
+                'accordion-item-header': true,
+                'accordion-item-header--selected':
+                    !isItemExpandible && isItemSelected ? true : false,
+                'accordion-item-header--expanded':
+                    isItemExpandible && isItemSelected ? true : false,
             };
-            const contentClass: GenericObject = {
-                'accordion-content': true,
-                'accordion-content--active': isItemExpanded ? true : false,
+
+            const itemContentClass: GenericObject = {
+                'accordion-item-content': true,
+                'accordion-item-content--selected': isItemSelected
+                    ? true
+                    : false,
             };
 
             items.push(
                 <div class="accordion-item">
-                    <button
-                        class={buttonClass}
-                        onClick={() =>
-                            this.onItemClicked(itemName, cell != null)
-                        }
+                    <div
+                        class={itemHeaderClass}
+                        onClick={() => this.toggleItem(itemName)}
                     >
+                        {itemExpansionIcon}
+                        {itemIcon}
                         {column.title}
-                    </button>
-                    <div class={contentClass}>{subComponent}</div>
+                    </div>
+
+                    <div class={itemContentClass}>{subComponent}</div>
                 </div>
             );
         }
         return items;
+    }
+
+    // TODO: refactor same method in kup-tree.tsx
+    private createIconElement(
+        CSSClass: string,
+        icon: string,
+        iconColor: string
+    ) {
+        if (
+            icon.indexOf('.') > -1 ||
+            icon.indexOf('/') > -1 ||
+            icon.indexOf('\\') > -1
+        ) {
+            CSSClass += ' is-image';
+            return (
+                <span class={CSSClass}>
+                    <img src={icon}></img>
+                </span>
+            );
+        } else {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${icon}.svg`
+            )}') no-repeat center`;
+            CSSClass += ' icon-container material-icons';
+            let iconStyle = {
+                ...(iconColor ? { background: iconColor } : {}),
+                mask: svg,
+                webkitMask: svg,
+            };
+            return <span style={iconStyle} class={CSSClass}></span>;
+        }
     }
 
     /*-------------------------------------------------*/
