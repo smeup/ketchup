@@ -283,12 +283,6 @@ enum DemoTypeFeature {
 
 // JSON used to display custom types inside tooltip
 const demoTypes: DemoTypeJson = {
-  GenericObject: {
-    keys: {
-      '[index: string]': 'any',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
   FButtonStyling: {
     keys: {
       FLAT: 'flat',
@@ -324,6 +318,45 @@ const demoTypes: DemoTypeJson = {
       'color?': 'string',
       'height?': 'string',
       'width?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupAccordionData: {
+    keys: {
+      columns: 'Column[]',
+      rows: ' Row[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupBoxData: {
+    keys: {
+      'columns?': 'Column[]',
+      'rows?': 'BoxRow[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupBoxKanban: {
+    keys: {
+      columns: 'string[]',
+      'labels?': 'string[][]',
+      'size?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupBoxLayout: {
+    keys: {
+      'horizontal?': 'boolean',
+      'sections?': 'Section[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupBoxRow: {
+    keys: {
+      cells: '{ [index: string]: Cell; }',
+      'actions?': 'RowAction[]',
+      'layout?': 'KupBoxLayout',
+      'badgeData?': 'KupBadge[]',
+      'id?': 'string',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -368,11 +401,11 @@ const demoTypes: DemoTypeJson = {
   },
   KupTabBarData: {
     keys: {
-      value: "string",
-      'active?': "boolean",
-      'icon?': "string",
-      'text?': "string",
-      'title?': "string",
+      value: 'string',
+      'active?': 'boolean',
+      'icon?': 'string',
+      'text?': 'string',
+      'title?': 'string',
     },
     type: DemoTypeFeature.INTERFACE,
   },

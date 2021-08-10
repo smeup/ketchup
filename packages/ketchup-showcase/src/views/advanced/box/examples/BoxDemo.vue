@@ -151,7 +151,7 @@ export default {
           prop: 'cardData',
           description:
             'When present, the box will be rendered using the card component. This prop contains the card props which will be spread on the kup-card.',
-          type: 'ComponentCardElement',
+          type: 'KupCard',
           default: 'null',
           try: 'json',
         },
@@ -173,7 +173,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the box.',
-          type: '{ columns?: Column[]; rows?: BoxRow[]; }',
+          type: 'KupBoxData',
           default: 'null',
           try: 'json',
         },
@@ -223,7 +223,7 @@ export default {
         {
           prop: 'kanban',
           description: 'Displays the boxlist as a Kanban.',
-          type: 'BoxKanban',
+          type: 'KupBoxKanban',
           default: 'null',
           try: 'json',
         },
@@ -231,7 +231,7 @@ export default {
           prop: 'layout',
           description:
             'How the field will be displayed. If not present, a default one will be created.',
-          type: 'Layout',
+          type: 'KupBoxLayout',
           default: 'undefined',
           try: 'json',
         },
@@ -288,7 +288,8 @@ export default {
         {
           prop: 'selectedRowsState',
           description: 'Multiple selection.',
-          type: 'BoxRow[]',
+          type: 'KupBoxRow',
+          isArray: true,
           default: '[]',
           try: 'json',
         },

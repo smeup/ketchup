@@ -100,7 +100,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the component',
-          type: '{ columns: Column[]; rows: Row[]; }',
+          type: 'KupAccordionData',
           default: 'null',
           try: 'json',
         },
