@@ -9,12 +9,13 @@
     />
     <hr />
 
-    <h3>Multiple serie</h3>
+    <h3>Multiple series</h3>
     <kup-chart
       :data.prop="baseData"
-      :types.prop="types"
+      :types.prop="['Vbar', 'Vbar', 'Vbar']"
       axis="Col1"
       :series.prop="series"
+      :vAxes.prop="vAxes"
     />
     <hr />
 
@@ -42,6 +43,11 @@ export default {
         { code: 'Col4', decode: 'Col4' },
       ],
       types: ['Vbar'],
+      vAxes: [
+        { textPosition: 'out' },
+        { textPosition: 'out' },
+        { textPosition: 'in' },
+      ],
     };
   },
 };

@@ -45,6 +45,9 @@
     <template v-slot:14>
       <chart-scatter></chart-scatter>
     </template>
+    <template v-slot:15>
+      <chart-trend></chart-trend>
+    </template>
   </comp>
 </template>
 
@@ -64,6 +67,7 @@ import ChartPie from '@/views/advanced/chart/examples/ChartPie';
 import ChartBasic from '@/views/advanced/chart/examples/ChartBasic';
 import ChartSankey from '@/views/advanced/chart/examples/ChartSankey';
 import ChartScatter from '@/views/advanced/chart/examples/ChartScatter';
+import ChartTrend from '@/views/advanced/chart/examples/ChartTrend';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
@@ -83,6 +87,7 @@ export default {
     ChartPie,
     ChartSankey,
     ChartScatter,
+    ChartTrend,
     Comp,
   },
   data() {
@@ -106,6 +111,7 @@ export default {
         'Pie',
         'Sankey',
         'Scatter',
+        'Trendlines',
       ],
     };
   },
