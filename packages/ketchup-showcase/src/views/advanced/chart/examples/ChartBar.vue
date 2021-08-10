@@ -8,7 +8,7 @@
     />
     <hr />
 
-    <h3>Multiple serie</h3>
+    <h3>Multiple series</h3>
     <kup-chart
       :data.prop="baseData"
       :axis.prop="'Col1'"
