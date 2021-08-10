@@ -416,8 +416,12 @@ export class KupChart {
         }
 
         if (this.hAxes) {
-            opts.hAxes = this.hAxes;
+            opts.hAxes = {};
+            this.hAxes.forEach((hAxe, index) => {
+                opts.hAxes[index.toString()] = hAxe;
+            });
         }
+
         if (this.hAxis) {
             opts.hAxis = this.hAxis;
             opts.hAxis['textStyle'] = { color: this.themeText };
