@@ -17,7 +17,7 @@ export enum KupCardProps {
 /**
  * Data prop of the kup-card component.
  */
-export interface CardData {
+export interface KupCardData {
     autocomplete?: GenericObject[];
     button?: GenericObject[];
     chart?: GenericObject[];
@@ -45,7 +45,7 @@ export interface CardData {
  * @property {string} SCALABLE - Content will fit its container, resizing itself automatically.
  * @property {string} STANDARD - Stndard layouts.
  */
-export enum CardFamily {
+export enum KupCardFamily {
     COLLAPSIBLE = 'collapsible',
     DIALOG = 'dialog',
     SCALABLE = 'scalable',

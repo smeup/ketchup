@@ -65,7 +65,7 @@ import {
 const KupBoxDragType = 'text/kup-box-drag';
 
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
-import { CardData } from '../kup-card/kup-card-declarations';
+import { KupCardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
     KupManager,
@@ -981,7 +981,7 @@ export class KupBox {
     // render methods
     private renderSectionAsCard(row: KupBoxRow) {
         let skipPush: boolean = false;
-        let cardData: CardData = {
+        let cardData: KupCardData = {
             button: [],
             image: [],
             progressbar: [],

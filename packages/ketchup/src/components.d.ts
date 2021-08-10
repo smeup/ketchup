@@ -16,7 +16,7 @@ import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
-import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
+import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
@@ -516,7 +516,7 @@ export namespace Components {
           * The actual data of the card.
           * @default null
          */
-        "data": CardData;
+        "data": KupCardData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -530,9 +530,9 @@ export namespace Components {
         "isMenu": boolean;
         /**
           * Sets the type of the card.
-          * @default CardFamily.STANDARD
+          * @default KupCardFamily.STANDARD
          */
-        "layoutFamily": CardFamily;
+        "layoutFamily": KupCardFamily;
         /**
           * Sets the number of the layout.
           * @default 1
@@ -3518,7 +3518,7 @@ declare namespace LocalJSX {
           * The actual data of the card.
           * @default null
          */
-        "data"?: CardData;
+        "data"?: KupCardData;
         /**
           * Defines whether the card is a menu or not. Works together with menuVisible.
           * @default false
@@ -3526,9 +3526,9 @@ declare namespace LocalJSX {
         "isMenu"?: boolean;
         /**
           * Sets the type of the card.
-          * @default CardFamily.STANDARD
+          * @default KupCardFamily.STANDARD
          */
-        "layoutFamily"?: CardFamily;
+        "layoutFamily"?: KupCardFamily;
         /**
           * Sets the number of the layout.
           * @default 1

@@ -41,7 +41,7 @@ import {
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
-import { CardFamily } from '../kup-card/kup-card-declarations';
+import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
 
 @Component({
@@ -654,7 +654,7 @@ export class KupTooltip {
                     }}
                     id="dialog-card-5"
                     layoutNumber={5}
-                    layoutFamily={CardFamily.DIALOG}
+                    layoutFamily={KupCardFamily.DIALOG}
                     onClick={(e) => e.stopPropagation()}
                     sizeX="300px"
                     sizeY="auto"

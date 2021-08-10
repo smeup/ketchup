@@ -25,8 +25,8 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import {
-    CardData,
-    CardFamily,
+    KupCardData,
+    KupCardFamily,
     KupCardCSSClasses,
     KupCardEventPayload,
     KupCardIds,
@@ -65,7 +65,7 @@ export class KupCard {
      * The actual data of the card.
      * @default null
      */
-    @Prop() data: CardData = null;
+    @Prop() data: KupCardData = null;
     /**
      * Defines whether the card is a menu or not.
      * Works together with menuVisible.
@@ -74,9 +74,9 @@ export class KupCard {
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
      * Sets the type of the card.
-     * @default CardFamily.STANDARD
+     * @default KupCardFamily.STANDARD
      */
-    @Prop() layoutFamily: CardFamily = CardFamily.STANDARD;
+    @Prop() layoutFamily: KupCardFamily = KupCardFamily.STANDARD;
     /**
      * Sets the number of the layout.
      * @default 1
@@ -285,17 +285,17 @@ export class KupCard {
 
         try {
             switch (family) {
-                case CardFamily.COLLAPSIBLE: {
+                case KupCardFamily.COLLAPSIBLE: {
                     return collapsibleLayouts[method](this);
                 }
-                case CardFamily.DIALOG: {
+                case KupCardFamily.DIALOG: {
                     return dialogLayouts[method](this);
                 }
-                case CardFamily.SCALABLE: {
+                case KupCardFamily.SCALABLE: {
                     return scalableLayouts[method](this);
                 }
                 default:
-                case CardFamily.STANDARD: {
+                case KupCardFamily.STANDARD: {
                     return standardLayouts[method](this);
                 }
             }
@@ -358,13 +358,13 @@ export class KupCard {
                 );
             }
             switch (family) {
-                case CardFamily.COLLAPSIBLE:
+                case KupCardFamily.COLLAPSIBLE:
                     this.collapsible();
                     break;
-                case CardFamily.DIALOG:
+                case KupCardFamily.DIALOG:
                     this.dialog();
                     break;
-                case CardFamily.SCALABLE:
+                case KupCardFamily.SCALABLE:
                     if (!this.scalingActive) {
                         this.scalable();
                     }
