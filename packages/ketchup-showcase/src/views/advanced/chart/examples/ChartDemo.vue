@@ -199,8 +199,7 @@ export default {
         {
           prop: 'trendlines',
           description: 'Trendline definition',
-          type: 'ChartAxis',
-          isArray: true,
+          type: 'Trendlines',
           default: 'undefined',
           try: 'json',
         },

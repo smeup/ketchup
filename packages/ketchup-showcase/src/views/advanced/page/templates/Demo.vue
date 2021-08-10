@@ -376,6 +376,52 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+// CHAR
+  ChartAxis: {
+    keys: {
+      'ticks?': 'string[]',
+      'textPosition?': 'string',
+      'gridlines?': 'ChartAxisGridlines',
+      'viewWindow?': 'ChartAxisViewWindow',
+      'textStyle?': "{ 'color?': 'string', 'fontSize?': 'number' }",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+ ChartAspect: {
+    keys: {
+      D2: '2D',
+      D3: '3D',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartTitle: {
+    keys: {
+      value: 'string',
+      'color?': 'string',
+      'size?': 'number',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartSerie: {
+    keys: {
+      code: 'string',
+      'decode?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartOfflineMode: {
+    keys: {
+      value: 'string',
+      shape: 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  Trendlines: {
+    keys: {
+      '[index: string]': "{color: 'string'}",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
 };
 
 // Recurring CSS classes
