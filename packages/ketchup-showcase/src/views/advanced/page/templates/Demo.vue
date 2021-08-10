@@ -283,6 +283,25 @@ enum DemoTypeFeature {
 
 // JSON used to display custom types inside tooltip
 const demoTypes: DemoTypeJson = {
+  Column: {
+    keys: {
+      name: 'string',
+      title: 'string',
+      'size?': 'string',
+      'visible?': 'boolean',
+      'clickable?': 'boolean',
+      'hideValuesRepetitions?': 'boolean',
+      'obj?': 'KupObj',
+      'shape?': 'string',
+      'decimals?': 'number',
+      'icon?': 'string',
+      'formula?': 'string',
+      'valuesForFilter?': 'string[]',
+      'isKey?': 'boolean',
+      'children?': 'ColumnChild[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   FButtonStyling: {
     keys: {
       FLAT: 'flat',
@@ -318,6 +337,13 @@ const demoTypes: DemoTypeJson = {
       'color?': 'string',
       'height?': 'string',
       'width?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  GroupObject: {
+    keys: {
+      column: 'string',
+      visible: 'boolean',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -393,6 +419,15 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
+  KupEchartTitle: {
+    keys: {
+      value: 'string',
+      'color?': 'string',
+      'position?': 'string',
+      'size?': 'number',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupListData: {
     keys: {
       text: 'string',
@@ -439,6 +474,50 @@ const demoTypes: DemoTypeJson = {
       'icon?': 'string',
       'text?': 'string',
       'title?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  LoadMoreMode: {
+    keys: {
+      CONSTANT: 'constant',
+      CONSTANT_INCREMENT: 'constant_increment',
+      PROGRESSIVE_THRESHOLD: 'progressive_threshold',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  RowAction: {
+    keys: {
+      text: 'string',
+      icon: 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  SelectionMode: {
+    keys: {
+      SINGLE: 'single',
+      MULTIPLE_CHECKBOX: 'multiple-checkbox',
+      MULTIPLE: 'multiple',
+      NONE: 'none',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  SortObject: {
+    keys: {
+      column: 'string',
+      sortMode: 'SortMode',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  TableData: {
+    keys: {
+      'columns?': 'Column[]',
+      'rows?': 'Row[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  TotalsMap: {
+    keys: {
+      '[index: string]': 'TotalMode',
     },
     type: DemoTypeFeature.INTERFACE,
   },
