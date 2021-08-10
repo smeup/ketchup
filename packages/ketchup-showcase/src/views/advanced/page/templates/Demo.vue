@@ -28,7 +28,18 @@
               </td>
               <td>{{ propList.description }}</td>
               <td class="prevent-cr">
-                <span class="code-word">{{ propList.type }}</span>
+                <span :data-type="propList.type" class="code-word">{{
+                  propList.type
+                }}</span
+                ><kup-image
+                  title="This prop is an array."
+                  class="type-icon"
+                  resource="code-array"
+                  color="var(--kup-primary-color)"
+                  size-x="1.25em"
+                  size-y="1.25em"
+                  v-if="propList.isArray"
+                ></kup-image>
               </td>
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
@@ -202,12 +213,18 @@
 
 <script lang="ts">
 import type { Components } from 'ketchup/dist/types/components';
-import type { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
-import type { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
 import type { KupButtonClickEventPayload } from 'ketchup/dist/types/components/kup-button/kup-button-declarations';
+import type { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupDynamicPositionElement } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import type {
+  GenericObject,
+  KupEventPayload,
+} from 'ketchup/dist/types/types/GenericTypes';
 import type { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
-import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import { KupDynamicPosition } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position';
 
 interface DemoClasses {
   class: string;
@@ -225,11 +242,12 @@ interface DemoMethods {
 }
 
 interface DemoProps {
-  prop: string;
-  description: string;
-  type: string;
   default: string;
+  description: string;
+  prop: string;
   try: DemoTry;
+  type: string;
+  isArray?: boolean;
 }
 
 enum DemoTabs {
@@ -249,12 +267,125 @@ enum DemoTry {
   SWITCH = 'switch',
 }
 
+interface DemoTypeJson {
+  [index: string]: DemoType;
+}
+
+interface DemoType {
+  keys: GenericObject;
+  type: DemoTypeFeature;
+}
+
+enum DemoTypeFeature {
+  ENUM = 'enum',
+  INTERFACE = 'interface',
+}
+
+// JSON used to display custom types inside tooltip
+const demoTypes: DemoTypeJson = {
+  GenericObject: {
+    keys: {
+      '[index: string]': 'any',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  FButtonStyling: {
+    keys: {
+      FLAT: 'flat',
+      FLOATING: 'floating',
+      ICON: 'icon',
+      OUTLINED: 'outlined',
+      RAISED: 'raised',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  FChipData: {
+    keys: {
+      label: 'string',
+      value: 'string',
+      'checked?': 'boolean',
+      'icon?': 'string',
+      'obj?': 'KupObj',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  FChipType: {
+    keys: {
+      CHOICE: 'choice',
+      FILTER: 'filter',
+      INPUT: 'input',
+      STANDARD: 'standard',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  FImageData: {
+    keys: {
+      'shape?': 'FImageShape',
+      'color?': 'string',
+      'height?': 'string',
+      'width?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupListData: {
+    keys: {
+      text: 'string',
+      value: 'string',
+      'icon?': 'string',
+      'secondaryText?': 'string',
+      'selected?': 'boolean',
+      'separator?': 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupNavBarData: {
+    keys: {
+      title: 'string',
+      'menuAction?': 'KupNavBarElement',
+      'menuActions?': 'KupNavBarElement[]',
+      'optionActions?': 'KupNavBarElement[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupNavBarMode: {
+    keys: {
+      DEFAULT: '',
+      DENSE: 'dense',
+      FIXED: 'fixed',
+      PROMINENT: 'prominent',
+      SHORT: 'short',
+      SHORT_COLLAPSED: 'short-collapsed',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  KupRadioData: {
+    keys: {
+      value: 'string',
+      label: 'string',
+      checked: 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupTabBarData: {
+    keys: {
+      value: "string",
+      'active?': "boolean",
+      'icon?': "string",
+      'text?': "string",
+      'title?': "string",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+};
+
 // Recurring CSS classes
 const closedClass: string = 'closed',
   detachedClass: string = 'detached',
   fullClass: string = 'full',
   paddedClass: string = 'padded',
   visibleClass: string = 'visible';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 // Kup component
 var demoComponent: HTMLElement = null,
@@ -285,7 +416,8 @@ var demoComponent: HTMLElement = null,
   sampleWrapper: HTMLElement = null,
   sampleComp: HTMLElement = null,
   sampleDynamic: HTMLElement = null,
-  sampleSpecs: HTMLElement = null;
+  sampleSpecs: HTMLElement = null,
+  sampleTooltip: HTMLElement = null;
 
 export default {
   props: {
@@ -327,15 +459,75 @@ export default {
       sampleComp = document.querySelector('#sample-comp');
       sampleDynamic = document.querySelector('#sample-dynamic');
       sampleSpecs = document.querySelector('#sample-specs');
+      const tooltip: HTMLElement = document.querySelector('#sample-tooltip');
+      if (tooltip) {
+        sampleTooltip = tooltip;
+      } else {
+        sampleTooltip = document.createElement('div');
+        sampleTooltip.id = 'sample-tooltip';
+      }
+      sampleWrapper.addEventListener('mousemove', (e: MouseEvent) => {
+        this.handleTooltip(e);
+      });
       demoClasses = this.demoClasses;
       demoEvents = this.demoEvents;
       demoMethods = this.demoMethods;
       demoProps = this.demoProps;
     },
     /**
-     * Initializes kup-tab-bar tabs.
+     * Displays the tooltip when mouse-hovering on a type.
+     * @param {MouseEvent} e - Mouse move event.
      */
-    initTabs(): void {
+    handleTooltip(e: MouseEvent): void {
+      const dynamicPosition: KupDynamicPosition = dom.ketchup.dynamicPosition;
+      if (!dynamicPosition.isRegistered(sampleTooltip as any)) {
+        dynamicPosition.register(
+          sampleTooltip as KupDynamicPositionElement,
+          sampleWrapper,
+          0,
+          'b' as any,
+          true
+        );
+      }
+      const t: HTMLElement = e.target as HTMLElement;
+      if (t.dataset.type && demoTypes[t.dataset.type]) {
+        const type: string = t.dataset.type;
+        dynamicPosition.changeAnchor(
+          sampleTooltip as KupDynamicPositionElement,
+          t
+        );
+        dynamicPosition.start(sampleTooltip as KupDynamicPositionElement);
+        let htmlString: string =
+          demoTypes[type].type + '<strong> ' + type + '</strong> {<br>';
+        const keys: GenericObject = demoTypes[type].keys;
+        switch (demoTypes[type].type) {
+          case DemoTypeFeature.ENUM: {
+            for (const key in keys) {
+              const value: string = keys[key];
+              htmlString +=
+                '<strong>' + key + "</strong> = '" + value + "',<br>";
+            }
+            break;
+          }
+          case DemoTypeFeature.INTERFACE: {
+            for (const key in keys) {
+              const value: string = keys[key];
+              htmlString += '<strong>' + key + '</strong> : ' + value + ';<br>';
+            }
+            break;
+          }
+        }
+        htmlString += '}';
+        sampleTooltip.innerHTML = htmlString;
+        sampleTooltip.classList.add(visibleClass);
+      } else {
+        sampleTooltip.classList.remove(visibleClass);
+        dynamicPosition.stop(sampleTooltip as KupDynamicPositionElement);
+      }
+    },
+    /**
+     * Initializes kup-tab-bar tabs.
+     */ initTabs(): void {
       const data: KupTabBarData[] = [];
       if (demoClasses) {
         data.push({
@@ -402,27 +594,36 @@ export default {
         }
       }
       for (let i = 0; i < demoProps.length; i++) {
-        switch (demoProps[i].try) {
-          case DemoTry.FIELD:
+        const prop: DemoProps = demoProps[i];
+        if (demoTypes[prop.type]) {
+          const typeEl: HTMLElement = document.querySelector(
+            '[data-type=' + prop.type + ']'
+          );
+          typeEl.classList.add('has-tooltip');
+        }
+        switch (prop.try) {
+          case DemoTry.FIELD: {
             const fieldEl: HTMLKupTextFieldElement = document.querySelector(
-              '#' + demoProps[i].prop
+              '#' + prop.prop
             );
-            if (demoProps[i].type === DemoTry.NUMBER) {
+            if (prop.type === DemoTry.NUMBER) {
               fieldEl.inputType = DemoTry.NUMBER;
             }
             if (
-              demoComponent[demoProps[i].prop] !== undefined &&
-              demoComponent[demoProps[i].prop] !== null
+              demoComponent[prop.prop] !== undefined &&
+              demoComponent[prop.prop] !== null
             ) {
-              fieldEl.setValue(demoComponent[demoProps[i].prop]);
+              fieldEl.setValue(demoComponent[prop.prop]);
             }
             break;
-          case DemoTry.SWITCH:
+          }
+          case DemoTry.SWITCH: {
             const switchEl: HTMLKupSwitchElement = document.querySelector(
-              '#' + demoProps[i].prop
+              '#' + prop.prop
             );
-            switchEl.checked = demoComponent[demoProps[i].prop] ? true : false;
+            switchEl.checked = demoComponent[prop.prop] ? true : false;
             break;
+          }
         }
       }
     },

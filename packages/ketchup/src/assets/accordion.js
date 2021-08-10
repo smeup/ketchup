@@ -9,6 +9,7 @@ const data = {
         {
             name: 'FLD1',
             title: 'Dashboard',
+            icon: 'compass-outline',
         },
         {
             name: 'FLD2',
@@ -17,6 +18,7 @@ const data = {
         {
             name: 'FLD3',
             title: 'Buy',
+            icon: 'add_shopping_cart',
         },
         {
             name: 'FLD4',
