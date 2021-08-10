@@ -17,7 +17,7 @@ import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-d
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
-import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, Trendlines } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
@@ -663,9 +663,9 @@ export namespace Components {
          */
         "stacked": boolean;
         /**
-          * Trendlines.
+          * KupChartTrendlines.
          */
-        "trendlines": Trendlines;
+        "trendlines": KupChartTrendlines;
         /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
           * @default [ChartType.Hbar]
@@ -3651,9 +3651,9 @@ declare namespace LocalJSX {
          */
         "stacked"?: boolean;
         /**
-          * Trendlines.
+          * KupChartTrendlines.
          */
-        "trendlines"?: Trendlines;
+        "trendlines"?: KupChartTrendlines;
         /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
           * @default [ChartType.Hbar]

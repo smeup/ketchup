@@ -21,7 +21,7 @@ import {
     ChartTitle,
     KupChartProps,
     KupChartClickEvent,
-    Trendlines,
+    KupChartTrendlines,
 } from './kup-chart-declarations';
 import {
     convertColumns,
@@ -97,7 +97,7 @@ export class KupChart {
     /**
      * Customize the hAxes for multiple-chart.
      */
-     @Prop() hAxes: ChartAxis[];
+    @Prop() hAxes: ChartAxis[];
     /**
      * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
      * @default "right"
@@ -149,10 +149,10 @@ export class KupChart {
      */
     @Prop() vAxis: ChartAxis;
     /**
-     * Trendlines.
+     * KupChartTrendlines.
      */
-     @Prop() trendlines: Trendlines;
-     /**
+    @Prop() trendlines: KupChartTrendlines;
+    /**
      * Google chart version to load
      * @default "45.2"
      */
@@ -337,8 +337,7 @@ export class KupChart {
             is3D: ChartAspect.D3 === this.asp,
         };
 
-        if(this.trendlines)
-            opts.trendlines = this.trendlines
+        if (this.trendlines) opts.trendlines = this.trendlines;
 
         if (this.colors && this.colors.length > 0) {
             opts.colors = this.colors;
@@ -401,7 +400,7 @@ export class KupChart {
                 };
             });
         }
-        if(this.vAxes){
+        if (this.vAxes) {
             opts.vAxes = {};
             this.vAxes.forEach((vAxe, index) => {
                 opts.vAxes[index.toString()] = vAxe;

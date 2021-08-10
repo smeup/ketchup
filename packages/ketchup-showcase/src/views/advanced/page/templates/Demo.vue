@@ -283,6 +283,65 @@ enum DemoTypeFeature {
 
 // JSON used to display custom types inside tooltip
 const demoTypes: DemoTypeJson = {
+  ChartAspect: {
+    keys: {
+      D2: '2D',
+      D3: '3D',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  ChartAxis: {
+    keys: {
+      'ticks?': 'string[]',
+      'textPosition?': 'string',
+      'gridlines?': 'ChartAxisGridlines',
+      'viewWindow?': 'ChartAxisViewWindow',
+      'textStyle?': "{ 'color?': 'string', 'fontSize?': 'number' }",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartOfflineMode: {
+    keys: {
+      value: 'string',
+      shape: 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartSerie: {
+    keys: {
+      code: 'string',
+      'decode?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartTitle: {
+    keys: {
+      value: 'string',
+      'color?': 'string',
+      'size?': 'number',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartType: {
+    keys: {
+      Area: 'Area',
+      Bubble: 'Bubble',
+      Cal: 'Cal',
+      Candlestick: 'Candlestick',
+      Combo: 'Combo',
+      Geo: 'Geo',
+      Hbar: 'Hbar',
+      Line: 'Line',
+      Ohlc: 'Ohlc',
+      Pie: 'Pie',
+      Sankey: 'Sankey',
+      Scatter: 'Scatter',
+      Unk: 'Unk',
+      ColumnChart: 'ColumnChart',
+      Vbar: 'Vbar',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
   GenericObject: {
     keys: {
       '[index: string]': 'any',
@@ -327,6 +386,12 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupChartTrendlines: {
+    keys: {
+      '[index: string]': "{color: 'string'}",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupListData: {
     keys: {
       text: 'string',
@@ -368,57 +433,11 @@ const demoTypes: DemoTypeJson = {
   },
   KupTabBarData: {
     keys: {
-      value: "string",
-      'active?': "boolean",
-      'icon?': "string",
-      'text?': "string",
-      'title?': "string",
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-// CHAR
-  ChartAxis: {
-    keys: {
-      'ticks?': 'string[]',
-      'textPosition?': 'string',
-      'gridlines?': 'ChartAxisGridlines',
-      'viewWindow?': 'ChartAxisViewWindow',
-      'textStyle?': "{ 'color?': 'string', 'fontSize?': 'number' }",
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
- ChartAspect: {
-    keys: {
-      D2: '2D',
-      D3: '3D',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-  ChartTitle: {
-    keys: {
       value: 'string',
-      'color?': 'string',
-      'size?': 'number',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-  ChartSerie: {
-    keys: {
-      code: 'string',
-      'decode?': 'string',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-  ChartOfflineMode: {
-    keys: {
-      value: 'string',
-      shape: 'string',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-  Trendlines: {
-    keys: {
-      '[index: string]': "{color: 'string'}",
+      'active?': 'boolean',
+      'icon?': 'string',
+      'text?': 'string',
+      'title?': 'string',
     },
     type: DemoTypeFeature.INTERFACE,
   },
