@@ -29,6 +29,7 @@ import {
 } from './kup-accordion-declarations';
 import { TreeNode } from './../kup-tree/kup-tree-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupTree } from '../kup-tree/kup-tree';
 
 @Component({
     tag: 'kup-accordion',
@@ -40,6 +41,14 @@ export class KupAccordion {
      * References the root HTML element of the component (<kup-accordion>).
      */
     @Element() rootElement: HTMLElement;
+    /**
+     * References the tree subcomponents of the component (<kup-tree>).
+     */
+    private treeElements: { [key: number]: KupTree } = {};
+    /**
+     * References the item elements of the component (<div class="accordion-item">).
+     */
+    private itemElements: { [key: number]: HTMLElement } = {};
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -127,10 +136,13 @@ export class KupAccordion {
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
 
-    @Watch('data')
     @Watch('globalFilterValue')
-    recalculateData() {
-        this.actualData = this.data;
+    onGlobalFilterValueChange(newValue: string, oldValue: string) {
+        if (newValue && newValue != oldValue) {
+            this.expandAll();
+        } else {
+            this.collapseAll();
+        }
     }
 
     /*-------------------------------------------------*/
@@ -189,9 +201,40 @@ export class KupAccordion {
         }
     }
 
+    /**
+     * This method expand all items
+     */
+    @Method()
+    async expandAll(): Promise<void> {
+        const ids: string[] = [...this.selectedItemsNames];
+        ids.splice(0, ids.length);
+
+        for (var i = 0; i < this.actualData.columns.length; i++) {
+            const column = this.actualData.columns[i];
+            const itemName: string = column.name;
+            ids.push(itemName);
+        }
+
+        this.selectedItemsNames = ids;
+    }
+
+    /**
+     * This method collapse all items
+     */
+    @Method()
+    async collapseAll(): Promise<void> {
+        const ids: string[] = [...this.selectedItemsNames];
+        ids.splice(0, ids.length);
+        this.selectedItemsNames = ids;
+    }
+
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    recalculateData() {
+        this.actualData = this.data;
+    }
 
     private isItemSelected(itemName: string): boolean {
         return this.selectedItemsNames.includes(itemName);
@@ -223,12 +266,16 @@ export class KupAccordion {
         this.globalFilterValue = value;
     }
 
-    private renderKupTree(cellData: CellData, itemName: string): VNode[] {
+    private renderKupTree(
+        i: number,
+        cellData: CellData,
+        itemName: string
+    ): VNode[] {
         const kupTree: VNode[] = [];
         const tree: TreeNode[] = [];
 
-        for (var i = 0; i < cellData.data.length; i++) {
-            const treeNode: TreeNode = cellData.data[i];
+        for (let m = 0; m < cellData.data.length; m++) {
+            const treeNode: TreeNode = cellData.data[m];
             tree.push(treeNode);
         }
 
@@ -239,18 +286,22 @@ export class KupAccordion {
                 onkup-tree-nodeselected={(e) =>
                     this.onKupTreeNodeSelected(e, itemName)
                 }
+                ref={(el: any) => (this.treeElements[i] = el as KupTree)}
             ></kup-tree>
         );
-
         return kupTree;
     }
 
-    private renderSubComponent(cell: Cell, itemName: string): VNode[] {
+    private renderSubComponent(
+        i: number,
+        cell: Cell,
+        itemName: string
+    ): VNode[] {
         const shape: string = cell.shape;
 
         switch (shape) {
             case 'TRE': {
-                return this.renderKupTree(cell.data, itemName);
+                return this.renderKupTree(i, cell.data, itemName);
             }
             default:
                 return;
@@ -270,7 +321,7 @@ export class KupAccordion {
             // subcomponent
             let subComponent: VNode[] = [];
             if (isItemExpandible) {
-                subComponent = this.renderSubComponent(cell, itemName);
+                subComponent = this.renderSubComponent(i, cell, itemName);
             }
 
             // item expansion icon
@@ -318,8 +369,14 @@ export class KupAccordion {
                     : false,
             };
 
+            const ic = i;
             items.push(
-                <div class="accordion-item">
+                <div
+                    class="accordion-item"
+                    ref={(el: any) =>
+                        (this.itemElements[ic] = el as HTMLElement)
+                    }
+                >
                     <div
                         class={itemHeaderClass}
                         onClick={() => this.toggleItem(itemName)}
@@ -386,6 +443,33 @@ export class KupAccordion {
     }
 
     componentDidRender() {
+        // logic conditioned from subcomponents filtering result
+        for (let i = 0; i < this.actualData.columns.length; i++) {
+            let treeElement = this.treeElements[i];
+            const column = this.actualData.columns[i];
+            const itemTitle: string = column.title;
+            const isItemTitleFiltered: boolean =
+                itemTitle && itemTitle.includes(this.globalFilterValue);
+            if (treeElement) {
+                treeElement.isEmpty().then((treeIsEmpty: boolean) => {
+                    if (this.itemElements[i]) {
+                        if (isItemTitleFiltered || !treeIsEmpty) {
+                            this.itemElements[i].classList.add('visible');
+                        } else {
+                            this.itemElements[i].classList.remove('visible');
+                        }
+                        if (isItemTitleFiltered) {
+                            treeElement.globalFilterValue = '';
+                        }
+                    }
+                });
+            } else if (isItemTitleFiltered) {
+                this.itemElements[i].classList.add('visible');
+            } else {
+                this.itemElements[i].classList.remove('visible');
+            }
+        }
+
         this.kupManager.debug.logRender(this, true);
     }
 

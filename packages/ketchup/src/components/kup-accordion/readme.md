@@ -25,6 +25,26 @@
 
 ## Methods
 
+### `collapseAll() => Promise<void>`
+
+This method collapse all items
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `expandAll() => Promise<void>`
+
+This method expand all items
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
