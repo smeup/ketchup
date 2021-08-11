@@ -1,4 +1,4 @@
-import type { CardData } from '../../components/kup-card/kup-card-declarations';
+import type { KupCardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
@@ -114,15 +114,15 @@ export class KupColumnMenu {
      * Function called by the column menu card to prepare its 'data' prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
-     * @param {CardData} currentData - 'data' prop of the column menu card when it's already initialized.
+     * @param {KupCardData} currentData - 'data' prop of the column menu card when it's already initialized.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
     prepData(
         comp: KupDataTable | KupTree,
         column: Column,
-        currentData?: CardData
-    ): CardData {
-        const data: CardData = currentData ? { ...currentData } : {};
+        currentData?: KupCardData
+    ): KupCardData {
+        const data: KupCardData = currentData ? { ...currentData } : {};
         data.button = this.prepButton(comp, column);
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);

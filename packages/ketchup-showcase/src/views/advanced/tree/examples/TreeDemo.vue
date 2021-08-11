@@ -128,7 +128,8 @@ export default {
           prop: 'columns',
           description:
             'The columns of the tree when tree visualization is active.',
-          type: 'Column[]',
+          type: 'Column',
+          isArray: true,
           default: 'undefined',
           try: 'json',
         },
@@ -143,7 +144,8 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the chart.',
-          type: 'TreeNode[]',
+          type: 'TreeNode',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -197,7 +199,8 @@ export default {
           prop: 'selectedNode',
           description:
             'An array of integers containing the path to a selected child. Groups up the properties SelFirst, SelItem, SelName.',
-          type: 'number[]',
+          type: 'number',
+          isArray: true,
           default: '[]',
           try: 'json',
         },

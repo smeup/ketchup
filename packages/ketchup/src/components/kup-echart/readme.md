@@ -1,22 +1,20 @@
 # kup-echarts
 
-
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                                            | Type          | Default     |
-| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------- |
-| `axis`        | `axis`         | Sets the axis of the chart.                                                                                                                                            | `string`      | `''`        |
-| `chartTitle`  | --             | Title of the graph.                                                                                                                                                    | `EchartTitle` | `undefined` |
-| `customStyle` | `custom-style` | Custom style of the component.                                                                                                                                         | `string`      | `''`        |
-| `data`        | --             | The actual data of the chart.                                                                                                                                          | `object`      | `{}`        |
-| `legend`      | `legend`       | Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work. | `string`      | `undefined` |
-| `mapType`     | `map-type`     | Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.                 | `any`         | `undefined` |
-| `series`      | --             | The data series to be displayed. They must be of the same type.                                                                                                        | `string[]`    | `undefined` |
-| `types`       | --             | The type of the chart. Supported formats: Line, Pie, Map, Scatter                                                                                                      | `String[]`    | `['Line']`  |
+| Property      | Attribute      | Description                                                                                                                                                            | Type             | Default     |
+| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ----------- |
+| `axis`        | `axis`         | Sets the axis of the chart.                                                                                                                                            | `string`         | `''`        |
+| `chartTitle`  | --             | Title of the graph.                                                                                                                                                    | `KupEchartTitle` | `undefined` |
+| `customStyle` | `custom-style` | Custom style of the component.                                                                                                                                         | `string`         | `''`        |
+| `data`        | --             | The actual data of the chart.                                                                                                                                          | `object`         | `{}`        |
+| `legend`      | `legend`       | Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work. | `string`         | `undefined` |
+| `mapType`     | `map-type`     | Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.                 | `any`            | `undefined` |
+| `series`      | --             | The data series to be displayed. They must be of the same type.                                                                                                        | `string[]`       | `undefined` |
+| `types`       | --             | The type of the chart. Supported formats: Line, Pie, Map, Scatter                                                                                                      | `String[]`       | `['Line']`  |
 
 
 ## Events

@@ -9,14 +9,14 @@ import { KupAccordionData, KupAccordionItemSelectedEventPayload, KupAccordionTre
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { BoxKanban, BoxRow, KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload, Layout } from "./components/kup-box/kup-box-declarations";
+import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
-import { CardData, CardFamily, KupCardEventPayload } from "./components/kup-card/kup-card-declarations";
+import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
@@ -29,7 +29,7 @@ import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } f
 import { GenericFilter } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
-import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
+import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
@@ -218,7 +218,7 @@ export namespace Components {
           * Actual data of the box.
           * @default null
          */
-        "data": { columns?: Column[]; rows?: BoxRow[] };
+        "data": KupBoxData;
         /**
           * Enable dragging
           * @default false
@@ -259,13 +259,13 @@ export namespace Components {
           * Displays the boxlist as a Kanban.
           * @default null
          */
-        "kanban": BoxKanban;
+        "kanban": KupBoxKanban;
         /**
           * How the field will be displayed. If not present, a default one will be created.
           * @default undefined
          */
-        "layout": Layout;
-        "loadRowActions": (row: BoxRow, actions: RowAction[]) => Promise<void>;
+        "layout": KupBoxLayout;
+        "loadRowActions": (row: KupBoxRow, actions: RowAction[]) => Promise<void>;
         /**
           * Enable multi selection
           * @default false
@@ -516,7 +516,7 @@ export namespace Components {
           * The actual data of the card.
           * @default null
          */
-        "data": CardData;
+        "data": KupCardData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -530,9 +530,9 @@ export namespace Components {
         "isMenu": boolean;
         /**
           * Sets the type of the card.
-          * @default CardFamily.STANDARD
+          * @default KupCardFamily.STANDARD
          */
-        "layoutFamily": CardFamily;
+        "layoutFamily": KupCardFamily;
         /**
           * Sets the number of the layout.
           * @default 1
@@ -1396,7 +1396,7 @@ export namespace Components {
           * Title of the graph.
           * @default undefined
          */
-        "chartTitle": EchartTitle;
+        "chartTitle": KupEchartTitle;
         /**
           * Custom style of the component.
           * @default ""
@@ -3224,7 +3224,7 @@ declare namespace LocalJSX {
           * Actual data of the box.
           * @default null
          */
-        "data"?: { columns?: Column[]; rows?: BoxRow[] };
+        "data"?: KupBoxData;
         /**
           * Enable dragging
           * @default false
@@ -3259,12 +3259,12 @@ declare namespace LocalJSX {
           * Displays the boxlist as a Kanban.
           * @default null
          */
-        "kanban"?: BoxKanban;
+        "kanban"?: KupBoxKanban;
         /**
           * How the field will be displayed. If not present, a default one will be created.
           * @default undefined
          */
-        "layout"?: Layout;
+        "layout"?: KupBoxLayout;
         /**
           * Enable multi selection
           * @default false
@@ -3530,7 +3530,7 @@ declare namespace LocalJSX {
           * The actual data of the card.
           * @default null
          */
-        "data"?: CardData;
+        "data"?: KupCardData;
         /**
           * Defines whether the card is a menu or not. Works together with menuVisible.
           * @default false
@@ -3538,9 +3538,9 @@ declare namespace LocalJSX {
         "isMenu"?: boolean;
         /**
           * Sets the type of the card.
-          * @default CardFamily.STANDARD
+          * @default KupCardFamily.STANDARD
          */
-        "layoutFamily"?: CardFamily;
+        "layoutFamily"?: KupCardFamily;
         /**
           * Sets the number of the layout.
           * @default 1
@@ -4303,7 +4303,7 @@ declare namespace LocalJSX {
           * Title of the graph.
           * @default undefined
          */
-        "chartTitle"?: EchartTitle;
+        "chartTitle"?: KupEchartTitle;
         /**
           * Custom style of the component.
           * @default ""

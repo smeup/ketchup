@@ -219,7 +219,7 @@ export default {
         {
           prop: 'filters',
           description: 'List of filters set by the user.',
-          type: 'GenericMap',
+          type: 'Object',
           default: 'undefined',
           try: 'json',
         },
@@ -270,7 +270,8 @@ export default {
         {
           prop: 'groups',
           description: 'The list of groups.',
-          type: 'GroupObject[]',
+          type: 'GroupObject',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -355,7 +356,8 @@ export default {
         {
           prop: 'rowActions',
           description: 'Sets the actions of the rows.',
-          type: 'rowAction[]',
+          type: 'RowAction',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -458,7 +460,8 @@ export default {
         {
           prop: 'sort',
           description: 'Defines the current sorting options.',
-          type: 'SortObject[]',
+          type: 'SortObject',
+          isArray: true,
           default: '[]',
           try: 'json',
         },

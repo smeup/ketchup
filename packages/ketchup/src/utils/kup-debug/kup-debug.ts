@@ -1,6 +1,6 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { CardFamily } from '../../components/kup-card/kup-card-declarations';
+import { KupCardFamily } from '../../components/kup-card/kup-card-declarations';
 import { KupListData } from '../../components/kup-list/kup-list-declarations';
 import { KupLanguageDebug } from '../kup-language/kup-language-declarations';
 import {
@@ -222,7 +222,7 @@ export class KupDebug {
         debugWidget.customStyle =
             '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;} #kup-debug-language-changer {width: 190px;}';
         debugWidget.id = 'kup-debug-widget';
-        debugWidget.layoutFamily = CardFamily.DIALOG;
+        debugWidget.layoutFamily = KupCardFamily.DIALOG;
         debugWidget.layoutNumber = 3;
         debugWidget.sizeX = 'auto';
         debugWidget.sizeY = 'auto';

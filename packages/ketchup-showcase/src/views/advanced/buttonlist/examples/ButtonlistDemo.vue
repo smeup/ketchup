@@ -94,7 +94,8 @@ export default {
         {
           prop: 'data',
           description: 'Props of the sub-components.',
-          type: 'TreeNode[]',
+          type: 'TreeNode',
+          isArray: true,
           default: '[]',
           try: 'json',
         },

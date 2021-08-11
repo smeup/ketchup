@@ -21,18 +21,19 @@ import {
 } from '../kup-data-table/kup-data-table-declarations';
 
 import {
-    BoxRow,
-    Layout,
+    KupBoxRow,
+    KupBoxLayout,
     Section,
     CollapsedSectionsState,
     BoxObject,
-    BoxKanban,
+    KupBoxKanban,
     KupBoxProps,
     KupBoxClickEventPayload,
     KupBoxSelectedEventPayload,
     KupBoxAutoSelectEventPayload,
     KupBoxRowActionClickEventPayload,
     KupBoxContextMenuEventPayload,
+    KupBoxData,
 } from './kup-box-declarations';
 
 import {
@@ -64,7 +65,7 @@ import {
 const KupBoxDragType = 'text/kup-box-drag';
 
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
-import { CardData } from '../kup-card/kup-card-declarations';
+import { KupCardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
     KupManager,
@@ -117,13 +118,13 @@ export class KupBox {
     private collapsedSection: CollapsedSectionsState = {};
 
     @State()
-    private selectedRows: Array<BoxRow> = [];
+    private selectedRows: Array<KupBoxRow> = [];
 
     /**
      * Row that has the row object menu open
      */
     @State()
-    private rowActionMenuOpened: BoxRow;
+    private rowActionMenuOpened: KupBoxRow;
 
     @State()
     private currentPage = 1;
@@ -234,7 +235,7 @@ export class KupBox {
      * Actual data of the box.
      * @default null
      */
-    @Prop() data: { columns?: Column[]; rows?: BoxRow[] } = null;
+    @Prop() data: KupBoxData = null;
     /**
      * Enable dragging
      * @default false
@@ -270,12 +271,12 @@ export class KupBox {
      * Displays the boxlist as a Kanban.
      * @default null
      */
-    @Prop() kanban: BoxKanban = null;
+    @Prop() kanban: KupBoxKanban = null;
     /**
      * How the field will be displayed. If not present, a default one will be created.
      * @default undefined
      */
-    @Prop() layout: Layout;
+    @Prop() layout: KupBoxLayout;
     /**
      * Enable multi selection
      * @default false
@@ -367,10 +368,10 @@ export class KupBox {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private boxLayout: Layout;
+    private boxLayout: KupBoxLayout;
     private visibleColumns: Column[] = [];
-    private rows: BoxRow[] = [];
-    private filteredRows: BoxRow[] = [];
+    private rows: KupBoxRow[] = [];
+    private filteredRows: KupBoxRow[] = [];
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
     private boxContainer: KupScrollOnHoverElement;
@@ -514,7 +515,7 @@ export class KupBox {
         return getProps(this, KupBoxProps, descriptions);
     }
     @Method()
-    async loadRowActions(row: BoxRow, actions: RowAction[]) {
+    async loadRowActions(row: KupBoxRow, actions: RowAction[]) {
         row.actions = actions;
 
         // show menu
@@ -556,7 +557,7 @@ export class KupBox {
         });
     }
 
-    private getRows(): BoxRow[] {
+    private getRows(): KupBoxRow[] {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
@@ -585,7 +586,7 @@ export class KupBox {
         }
     }
 
-    private sortRows(rows: BoxRow[]): BoxRow[] {
+    private sortRows(rows: KupBoxRow[]): KupBoxRow[] {
         let sortedRows = rows;
 
         if (this.sortBy) {
@@ -661,7 +662,7 @@ export class KupBox {
         this.globalFilterValue = value;
     }
 
-    private isSectionExpanded(row: BoxRow, section: Section): boolean {
+    private isSectionExpanded(row: KupBoxRow, section: Section): boolean {
         if (!row.id || !section.id) {
             return false;
         }
@@ -696,13 +697,13 @@ export class KupBox {
 
     private getEventDetails(el: HTMLElement): {
         boxObject: HTMLElement;
-        row: BoxRow;
+        row: KupBoxRow;
         column: string;
         cell: Cell;
     } {
         const boxObject: HTMLDivElement = el.closest('.box-object');
         let cell: Cell = null;
-        let row: BoxRow = null;
+        let row: KupBoxRow = null;
         let column: string = null;
         if (boxObject) {
             cell = boxObject['data-cell'];
@@ -721,7 +722,7 @@ export class KupBox {
     private contextMenuHandler(e: MouseEvent): void {
         const details: {
             boxObject: HTMLElement;
-            row: BoxRow;
+            row: KupBoxRow;
             column: string;
             cell: Cell;
         } = this.getEventDetails(e.target as HTMLElement);
@@ -759,7 +760,7 @@ export class KupBox {
     }
 
     // event listeners
-    private onBoxClick({ target }: MouseEvent, row: BoxRow) {
+    private onBoxClick({ target }: MouseEvent, row: KupBoxRow) {
         if (!(target instanceof HTMLElement)) {
             return;
         }
@@ -804,7 +805,7 @@ export class KupBox {
         }
     }
 
-    private onSelectionCheckChange(row: BoxRow) {
+    private onSelectionCheckChange(row: KupBoxRow) {
         var index = -1;
         for (let i = 0; i < this.selectedRows.length; i++) {
             const select = this.selectedRows[i];
@@ -830,7 +831,7 @@ export class KupBox {
         });
     }
 
-    private toggleSectionExpand(row: BoxRow, section: Section) {
+    private toggleSectionExpand(row: KupBoxRow, section: Section) {
         // check if section / row has id
         if (!section.id) {
             // error
@@ -865,7 +866,7 @@ export class KupBox {
         this.collapsedSection = { ...this.collapsedSection };
     }
 
-    private onRowAction(row: BoxRow) {
+    private onRowAction(row: KupBoxRow) {
         if (!row) {
             return;
         }
@@ -889,7 +890,7 @@ export class KupBox {
         }
     }
 
-    private onRowActionClick(row: BoxRow, action: RowAction, index: number) {
+    private onRowActionClick(row: KupBoxRow, action: RowAction, index: number) {
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -978,9 +979,9 @@ export class KupBox {
     }
 
     // render methods
-    private renderSectionAsCard(row: BoxRow) {
+    private renderSectionAsCard(row: KupBoxRow) {
         let skipPush: boolean = false;
-        let cardData: CardData = {
+        let cardData: KupCardData = {
             button: [],
             image: [],
             progressbar: [],
@@ -1126,7 +1127,7 @@ export class KupBox {
         return <kup-card data={cardData} {...this.cardData}></kup-card>;
     }
 
-    private renderRow(row: BoxRow) {
+    private renderRow(row: KupBoxRow) {
         const visibleColumns = [...this.visibleColumns];
 
         let boxContent = null;
@@ -1348,7 +1349,7 @@ export class KupBox {
     private renderSection(
         section: Section,
         parent: Section,
-        row: BoxRow,
+        row: KupBoxRow,
         visibleColumns: Column[]
     ) {
         let sectionContent = null;
@@ -1503,7 +1504,7 @@ export class KupBox {
         visibleColumns,
     }: {
         boxObject: BoxObject;
-        row: BoxRow;
+        row: KupBoxRow;
         visibleColumns: Column[];
     }) {
         let classObj: Record<string, boolean> = {

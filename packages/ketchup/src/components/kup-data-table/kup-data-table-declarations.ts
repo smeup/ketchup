@@ -1,6 +1,5 @@
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
-import type { KupDataTable } from './kup-data-table';
 /**
  * Props of the kup-data-table component.
  * Used to export every prop in an object.
