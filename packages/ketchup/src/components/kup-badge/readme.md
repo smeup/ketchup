@@ -56,6 +56,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-accordion](../kup-accordion)
  - [kup-badge](.)
  - [kup-box](../kup-box)
  - [kup-button](../kup-button)
@@ -78,6 +79,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-badge --> kup-badge
+  kup-accordion --> kup-badge
   kup-box --> kup-badge
   kup-button --> kup-badge
   kup-button-list --> kup-badge

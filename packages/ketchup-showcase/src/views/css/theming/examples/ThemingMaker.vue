@@ -1090,6 +1090,19 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">--kup-dropdown-icon</span>
+                </td>
+                <td>Used in dropdown fields/items.</td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="dropdown-icon"
+                    @kup-textfield-input="updateThemeIcons"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">--kup-clear-icon</span>
                 </td>
                 <td>Used when an element can be cleared or deleted.</td>

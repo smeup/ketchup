@@ -92,12 +92,14 @@ Type: `Promise<void>`
 
 - [kup-tree](../kup-tree)
 - [kup-text-field](../kup-text-field)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-accordion --> kup-tree
   kup-accordion --> kup-text-field
+  kup-accordion --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-image
   kup-tree --> kup-button

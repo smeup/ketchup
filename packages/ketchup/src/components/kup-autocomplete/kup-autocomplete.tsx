@@ -564,7 +564,7 @@ export class KupAutocomplete {
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
-                        icon={KupThemeIconValues.EXPANDED}
+                        icon={KupThemeIconValues.DROPDOWN}
                         trailingIcon={true}
                         value={this.displayedValue}
                     />
