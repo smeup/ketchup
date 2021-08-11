@@ -199,7 +199,7 @@ export default {
         {
           prop: 'trendlines',
           description: 'Trendline definition',
-          type: 'Trendlines',
+          type: 'KupChartTrendlines',
           default: 'undefined',
           try: 'json',
         },

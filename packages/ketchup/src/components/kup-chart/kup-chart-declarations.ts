@@ -1,4 +1,4 @@
-import { KupEventPayload } from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 /**
  * Props of the kup-card component.
@@ -30,10 +30,8 @@ export enum ChartAspect {
     D3 = '3D',
 }
 
-export interface Trendlines {
-    [index: string]: {
-        color: string
-    };
+export interface KupChartTrendlines {
+    [index: string]: GenericObject;
 }
 
 export interface ChartAxis {
@@ -76,20 +74,24 @@ export interface ChartOptions {
     isStacked?: boolean;
     title?: string;
     titleTextStyle?: { color?: string; fontSize?: number };
-    series?: any;
+    series?: { [index: string]: ChartOptionsSerie };
     slices?: {
         color?: string;
         offset?: number;
         textStyle?: { color?: string };
     }[];
     hAxis?: ChartAxis;
-    hAxes?: any;
+    hAxes?: { [index: string]: ChartAxis };
     vAxis?: ChartAxis;
-    vAxes?: any;
+    vAxes?: { [index: string]: ChartAxis };
     type?: string;
-    trendlines?: any;
+    trendlines?: KupChartTrendlines;
 }
 
+export interface ChartOptionsSerie {
+    type?: string;
+    targetAxisIndex?: string;
+}
 export interface ChartSerie {
     code: string;
     decode?: string;
