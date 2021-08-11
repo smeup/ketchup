@@ -22,7 +22,7 @@ const data = {
         },
         {
             name: 'FLD4',
-            title: 'Locations',
+            title: 'All Locations',
         },
     ],
     rows: [
@@ -164,7 +164,7 @@ const data = {
                                 id: '',
                                 isExpanded: false,
                                 options: false,
-                                value: 'Customers locations',
+                                value: 'Customers Locations',
                             },
                         ],
                     },

@@ -50,6 +50,10 @@ import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
+          * This method collapse all items
+         */
+        "collapseAll": () => Promise<void>;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -60,6 +64,10 @@ export namespace Components {
           * @default null
          */
         "data": KupAccordionData;
+        /**
+          * This method expand all items
+         */
+        "expandAll": () => Promise<void>;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2667,6 +2675,10 @@ export namespace Components {
           * The value of the global filter.
          */
         "globalFilterValue": string;
+        /**
+          * True if there aren't visible nodes
+         */
+        "isEmpty": () => Promise<boolean>;
         /**
           * Opens the column menu of the given column.
           * @param column - Name of the column.

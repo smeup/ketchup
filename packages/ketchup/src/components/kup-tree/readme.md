@@ -148,6 +148,16 @@ Type: `Promise<GenericObject>`
 
 
 
+### `isEmpty() => Promise<boolean>`
+
+True if there aren't visible nodes
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+
+
 ### `openColumnMenu(column: string) => Promise<void>`
 
 Opens the column menu of the given column.

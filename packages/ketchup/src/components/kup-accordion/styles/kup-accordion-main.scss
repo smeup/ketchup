@@ -11,9 +11,14 @@
   width: 100%;
 
   .accordion-item {
+    display: none;
     border-left: 1px solid var(--kup-border-color);
     border-right: 1px solid var(--kup-border-color);
     border-top: 1px solid var(--kup-border-color);
+
+    &.visible {
+      display: block;
+    }
 
     &:first-of-type {
       border-top-left-radius: 4px;

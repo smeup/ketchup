@@ -346,6 +346,7 @@ export class KupTree {
         new FiltersColumnMenu();
     private filtersTreeItemsInstance: FiltersTreeItems = new FiltersTreeItems();
     private totalMenuCoords: KupDynamicPositionCoordinates = null;
+    private visibleNodes: number;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -487,6 +488,14 @@ export class KupTree {
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
+
+    /**
+     * True if there aren't visible nodes
+     */
+    @Method()
+    async isEmpty(): Promise<boolean> {
+        return this.visibleNodes == 0;
+    }
 
     /**
      * Closes any opened column menu.
@@ -1094,7 +1103,7 @@ export class KupTree {
     }
 
     private filterNodes() {
-        this.filtersTreeItemsInstance.filterRows(
+        let items: TreeNode[] = this.filtersTreeItemsInstance.filterRows(
             this.getRows(),
             this.filters,
             this.globalFilterValue,
@@ -1102,6 +1111,21 @@ export class KupTree {
             treeExpandedPropName,
             this.filtersColumnMenuInstance
         );
+
+        this.visibleNodes = this.calculateVisibleNodes(items);
+    }
+
+    private calculateVisibleNodes(items: TreeNode[]): number {
+        let count = 0;
+        if (items) {
+            items.forEach((element) => {
+                if (element.visible) {
+                    count++;
+                }
+                count += this.calculateVisibleNodes(element.children);
+            });
+        }
+        return count;
     }
 
     private refreshStructureState() {
