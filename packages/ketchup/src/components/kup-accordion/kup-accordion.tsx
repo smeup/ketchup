@@ -286,6 +286,7 @@ export class KupAccordion {
 
         kupTree.push(
             <kup-tree
+                class="kup-full-width"
                 data={tree}
                 globalFilterValue={this.globalFilterValue}
                 onkup-tree-nodeselected={(e) =>
@@ -404,9 +405,9 @@ export class KupAccordion {
             const itemTitle: string = column.title;
             const isItemTitleFiltered: boolean =
                 itemTitle && itemTitle.includes(this.globalFilterValue);
-            if (treeElement) {
-                treeElement.isEmpty().then((treeIsEmpty: boolean) => {
-                    if (this.itemElements[i]) {
+            if (this.itemElements[i]) {
+                if (treeElement) {
+                    treeElement.isEmpty().then((treeIsEmpty: boolean) => {
                         if (isItemTitleFiltered || !treeIsEmpty) {
                             this.itemElements[i].classList.add(
                                 'accordion-item--visible'
@@ -419,14 +420,16 @@ export class KupAccordion {
                         if (isItemTitleFiltered) {
                             treeElement.globalFilterValue = '';
                         }
-                    }
-                });
-            } else if (isItemTitleFiltered) {
-                this.itemElements[i].classList.add('accordion-item--visible');
-            } else {
-                this.itemElements[i].classList.remove(
-                    'accordion-item--visible'
-                );
+                    });
+                } else if (isItemTitleFiltered) {
+                    this.itemElements[i].classList.add(
+                        'accordion-item--visible'
+                    );
+                } else {
+                    this.itemElements[i].classList.remove(
+                        'accordion-item--visible'
+                    );
+                }
             }
         }
 
