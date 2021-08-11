@@ -11,7 +11,7 @@ import {
     Prop,
 } from '@stencil/core';
 
-import { EchartTitle, KupEchartProps } from './kup-echart-declarations';
+import { KupEchartTitle, KupEchartProps } from './kup-echart-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -52,7 +52,7 @@ export class KupEchart {
      * Title of the graph.
      * @default undefined
      */
-    @Prop() chartTitle: EchartTitle;
+    @Prop() chartTitle: KupEchartTitle;
     /**
      * Custom style of the component.
      * @default ""

@@ -92,7 +92,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the card.',
-          type: 'CardData',
+          type: 'KupCardData',
           default: 'null',
           try: 'json',
         },
@@ -107,7 +107,7 @@ export default {
           prop: 'layoutFamily',
           description:
             'Sets the type of the card. Currently supported values: "collapsible", "dialog", "scalable", "standard".',
-          type: 'CardFamily',
+          type: 'KupCardFamily',
           default: 'standard',
           try: 'field',
         },

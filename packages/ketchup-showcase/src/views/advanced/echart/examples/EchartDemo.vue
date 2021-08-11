@@ -59,7 +59,7 @@ export default {
         {
           prop: 'chartTitle',
           description: 'Title of the graph.',
-          type: 'EchartTitle',
+          type: 'KupEchartTitle',
           default: 'undefined',
           try: 'json',
         },

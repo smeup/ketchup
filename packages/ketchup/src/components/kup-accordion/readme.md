@@ -25,6 +25,26 @@
 
 ## Methods
 
+### `collapseAll() => Promise<void>`
+
+This method collapse all items
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `expandAll() => Promise<void>`
+
+This method expand all items
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
@@ -72,12 +92,14 @@ Type: `Promise<void>`
 
 - [kup-tree](../kup-tree)
 - [kup-text-field](../kup-text-field)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-accordion --> kup-tree
   kup-accordion --> kup-text-field
+  kup-accordion --> kup-badge
   kup-tree --> kup-card
   kup-tree --> kup-image
   kup-tree --> kup-button

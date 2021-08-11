@@ -283,9 +283,81 @@ enum DemoTypeFeature {
 
 // JSON used to display custom types inside tooltip
 const demoTypes: DemoTypeJson = {
-  GenericObject: {
+  ChartAspect: {
     keys: {
-      '[index: string]': 'any',
+      D2: '2D',
+      D3: '3D',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  ChartAxis: {
+    keys: {
+      'ticks?': 'string[]',
+      'textPosition?': 'string',
+      'gridlines?': 'ChartAxisGridlines',
+      'viewWindow?': 'ChartAxisViewWindow',
+      'textStyle?': "{ 'color?': 'string', 'fontSize?': 'number' }",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartOfflineMode: {
+    keys: {
+      value: 'string',
+      shape: 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartSerie: {
+    keys: {
+      code: 'string',
+      'decode?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartTitle: {
+    keys: {
+      value: 'string',
+      'color?': 'string',
+      'size?': 'number',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartType: {
+    keys: {
+      Area: 'Area',
+      Bubble: 'Bubble',
+      Cal: 'Cal',
+      Candlestick: 'Candlestick',
+      Combo: 'Combo',
+      Geo: 'Geo',
+      Hbar: 'Hbar',
+      Line: 'Line',
+      Ohlc: 'Ohlc',
+      Pie: 'Pie',
+      Sankey: 'Sankey',
+      Scatter: 'Scatter',
+      Unk: 'Unk',
+      ColumnChart: 'ColumnChart',
+      Vbar: 'Vbar',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  Column: {
+    keys: {
+      name: 'string',
+      title: 'string',
+      'size?': 'string',
+      'visible?': 'boolean',
+      'clickable?': 'boolean',
+      'hideValuesRepetitions?': 'boolean',
+      'obj?': 'KupObj',
+      'shape?': 'string',
+      'decimals?': 'number',
+      'icon?': 'string',
+      'formula?': 'string',
+      'valuesForFilter?': 'string[]',
+      'isKey?': 'boolean',
+      'children?': 'ColumnChild[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -324,6 +396,100 @@ const demoTypes: DemoTypeJson = {
       'color?': 'string',
       'height?': 'string',
       'width?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  GroupObject: {
+    keys: {
+      column: 'string',
+      visible: 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupAccordionData: {
+    keys: {
+      columns: 'Column[]',
+      rows: ' Row[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupBoxData: {
+    keys: {
+      'columns?': 'Column[]',
+      'rows?': 'BoxRow[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupBoxKanban: {
+    keys: {
+      columns: 'string[]',
+      'labels?': 'string[][]',
+      'size?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupBoxLayout: {
+    keys: {
+      'horizontal?': 'boolean',
+      'sections?': 'Section[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupBoxRow: {
+    keys: {
+      cells: '{ [index: string]: Cell; }',
+      'actions?': 'RowAction[]',
+      'layout?': 'KupBoxLayout',
+      'badgeData?': 'KupBadge[]',
+      'id?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupCardData: {
+    keys: {
+      'autocomplete?': 'KupAutocomplete[]',
+      'button?': 'KupButton[]',
+      'chart?': 'KupChart[]',
+      'checkbox?': 'KupCheckbox[]',
+      'chip?': 'KupChip[]',
+      'color?': 'string[]',
+      'combobox?': 'KupCombobox[]',
+      'datatable?': 'KupDataTable[]',
+      'datepicker?': 'KupDatePicker[]',
+      'image?': 'KupImage[]',
+      'list?': 'KupList[]',
+      'object?': 'KupObj[]',
+      'progressbar?': 'KupProgressBar[]',
+      'switch?': 'KupSwitch[]',
+      'tabbar?': 'KupTabBar[]',
+      'text?': 'string[]',
+      'textfield?': 'KupTextField[]',
+      'timepicker?': 'KupTimePicker[]',
+      'tree?': 'KupTree[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupCardFamily: {
+    keys: {
+      COLLAPSIBLE: 'collapsible',
+      DIALOG: 'dialog',
+      SCALABLE: 'scalable',
+      STANDARD: 'standard',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  KupChartTrendlines: {
+    keys: {
+      '[index: string]': "{color: 'string'}",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupEchartTitle: {
+    keys: {
+      value: 'string',
+      'color?': 'string',
+      'position?': 'string',
+      'size?': 'number',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -368,11 +534,76 @@ const demoTypes: DemoTypeJson = {
   },
   KupTabBarData: {
     keys: {
-      value: "string",
-      'active?': "boolean",
-      'icon?': "string",
-      'text?': "string",
-      'title?': "string",
+      value: 'string',
+      'active?': 'boolean',
+      'icon?': 'string',
+      'text?': 'string',
+      'title?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  LoadMoreMode: {
+    keys: {
+      CONSTANT: 'constant',
+      CONSTANT_INCREMENT: 'constant_increment',
+      PROGRESSIVE_THRESHOLD: 'progressive_threshold',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  RowAction: {
+    keys: {
+      text: 'string',
+      icon: 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  SelectionMode: {
+    keys: {
+      SINGLE: 'single',
+      MULTIPLE_CHECKBOX: 'multiple-checkbox',
+      MULTIPLE: 'multiple',
+      NONE: 'none',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  SortObject: {
+    keys: {
+      column: 'string',
+      sortMode: 'SortMode',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  TableData: {
+    keys: {
+      'columns?': 'Column[]',
+      'rows?': 'Row[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  TotalsMap: {
+    keys: {
+      '[index: string]': 'TotalMode',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  TreeNode: {
+    keys: {
+      'data?': 'Object',
+      'actions?': 'RowAction[]',
+      cells: 'CellsHolder',
+      children: 'TreeNode[]',
+      disabled: 'boolean',
+      expandable: 'boolean',
+      'icon?': 'string',
+      'iconColor?': 'string',
+      'id?': 'string',
+      obj: 'KupObj',
+      'options?': 'boolean',
+      'readOnly?': 'boolean',
+      'style?': 'Object',
+      value: 'string',
+      'visible?': 'boolean',
+      'isExpanded?': 'boolean',
     },
     type: DemoTypeFeature.INTERFACE,
   },

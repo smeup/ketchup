@@ -143,8 +143,8 @@ import {
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
-    CardData,
-    CardFamily,
+    KupCardData,
+    KupCardFamily,
     KupCardEventPayload,
 } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -1881,7 +1881,7 @@ export class KupDataTable {
      */
     private rowDetail(row: Row, x: number, y: number): void {
         const transposedData: TableData = this.getTransposedData();
-        const cardData: CardData = {
+        const cardData: KupCardData = {
             button: [
                 {
                     disabled: parseInt(row.id) === 0 ? true : false,
@@ -2025,7 +2025,7 @@ export class KupDataTable {
         }
         if (!this.detailCard) {
             this.detailCard = document.createElement('kup-card');
-            this.detailCard.layoutFamily = CardFamily.DIALOG;
+            this.detailCard.layoutFamily = KupCardFamily.DIALOG;
             this.detailCard.layoutNumber = 4;
             this.detailCard.sizeX = 'auto';
             this.detailCard.sizeY = 'auto';

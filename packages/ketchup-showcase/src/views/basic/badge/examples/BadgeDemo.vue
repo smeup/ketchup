@@ -98,7 +98,7 @@ export default {
           prop: 'imageData',
           description:
             'The data of the image displayed inside the badge. It will displayed only when "text" is undefined.',
-          type: 'GenericObject',
+          type: 'Object',
           default: 'null',
           try: 'json',
         },

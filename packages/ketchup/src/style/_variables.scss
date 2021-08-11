@@ -77,6 +77,11 @@ $kup-class-unclickable: 'kup-unclickable'; // The component will be unclickable.
   mask: var(--kup-collapsed-icon);
 }
 
+.icon-container.dropdown {
+  -webkit-mask: var(--kup-dropdown-icon);
+  mask: var(--kup-dropdown-icon);
+}
+
 .icon-container.expanded {
   -webkit-mask: var(--kup-expanded-icon);
   mask: var(--kup-expanded-icon);

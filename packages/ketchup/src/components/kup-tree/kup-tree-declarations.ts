@@ -49,41 +49,25 @@ export const treeExpandedPropName = 'isExpanded';
 
 export interface TreeNode {
     data?: GenericObject;
-
     actions?: Array<RowAction>;
-
     cells: CellsHolder;
-
     children: Array<TreeNode>;
-
     disabled: boolean;
-
     expandable: boolean;
-
     icon?: string;
-
     iconColor?: string;
-
     id?: string;
-
     obj: {
         t: string;
         p: string;
         k: string;
     };
-
     options?: boolean;
-
-    // TODO what is this?
     readOnly?: boolean;
-
     style?: { [index: string]: string };
-
     value: string;
-
     /** used for render or not render node (and children) while filtering */
     visible?: boolean;
-
     [treeExpandedPropName]?: boolean;
 }
 
