@@ -20,7 +20,11 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
-import { Cell, CellData } from '../kup-data-table/kup-data-table-declarations';
+import {
+    Cell,
+    CellData,
+    Column,
+} from '../kup-data-table/kup-data-table-declarations';
 import {
     KupAccordionData,
     KupAccordionProps,
@@ -313,11 +317,11 @@ export class KupAccordion {
         const items: VNode[] = [];
 
         for (var i = 0; i < this.actualData.columns.length; i++) {
-            const column = this.actualData.columns[i];
+            const column: Column = this.actualData.columns[i];
             const itemName: string = column.name;
             const cell: Cell = this.actualData.rows[0].cells[itemName];
-            const isItemExpandible = this.isItemExpandible(itemName);
-            const isItemSelected = this.isItemSelected(itemName);
+            const isItemExpandible: boolean = this.isItemExpandible(itemName);
+            const isItemSelected: boolean = this.isItemSelected(itemName);
 
             // subcomponent
             let subComponent: VNode[] = [];
@@ -362,7 +366,9 @@ export class KupAccordion {
                             />
                         ) : null}
                         <span class="accordion-item__text">{column.title}</span>
-                        <span class="accordion-item__dropdown icon-container dropdown" />
+                        {isItemExpandible ? (
+                            <span class="accordion-item__dropdown icon-container dropdown" />
+                        ) : null}
                     </div>
 
                     <div class={itemContentClass}>{subComponent}</div>
