@@ -63,6 +63,7 @@ export interface KupThemeIcons {
     [KupThemeIconValues.CLEAR]: string;
     [KupThemeIconValues.COLLAPSED]: string;
     [KupThemeIconValues.DESCENDING]: string;
+    [KupThemeIconValues.DROPDOWN]: string;
     [KupThemeIconValues.EXPANDED]: string;
     [KupThemeIconValues.FILTER_REMOVE]: string;
 }
@@ -113,6 +114,7 @@ export enum KupThemeIconValues {
     CLEAR = '--kup-clear-icon',
     COLLAPSED = '--kup-collapsed-icon',
     DESCENDING = '--kup-descending-icon',
+    DROPDOWN = '--kup-dropdown-icon',
     EXPANDED = '--kup-expanded-icon',
     FILTER_REMOVE = '--kup-filter-remove-icon',
 }

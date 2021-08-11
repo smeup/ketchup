@@ -20,16 +20,25 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
-import { Cell, CellData } from '../kup-data-table/kup-data-table-declarations';
+import {
+    Cell,
+    CellData,
+    Column,
+} from '../kup-data-table/kup-data-table-declarations';
 import {
     KupAccordionData,
     KupAccordionProps,
     KupAccordionTreeNodeSelectedEventPayload,
     KupAccordionItemSelectedEventPayload,
 } from './kup-accordion-declarations';
-import { TreeNode } from './../kup-tree/kup-tree-declarations';
+import {
+    KupTreeNodeSelectedEventPayload,
+    TreeNode,
+} from './../kup-tree/kup-tree-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupTree } from '../kup-tree/kup-tree';
+import { FImage } from '../../f-components/f-image/f-image';
+import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -41,14 +50,6 @@ export class KupAccordion {
      * References the root HTML element of the component (<kup-accordion>).
      */
     @Element() rootElement: HTMLElement;
-    /**
-     * References the tree subcomponents of the component (<kup-tree>).
-     */
-    private treeElements: { [key: number]: KupTree } = {};
-    /**
-     * References the item elements of the component (<div class="accordion-item">).
-     */
-    private itemElements: { [key: number]: HTMLElement } = {};
 
     /*-------------------------------------------------*/
     /*                   S t a t e s                   */
@@ -59,12 +60,6 @@ export class KupAccordion {
      * @default []
      */
     @State() private selectedItemsNames: string[] = [];
-
-    /**
-     * Treated data prop
-     * @default null
-     */
-    @State() private actualData: KupAccordionData = null;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -105,6 +100,14 @@ export class KupAccordion {
      * Timeout to debounce global filter.
      */
     private globalFilterTimeout: number;
+    /**
+     * References the item elements of the component (<div class="accordion-item">).
+     */
+    private itemElements: { [key: number]: HTMLElement } = {};
+    /**
+     * References the tree subcomponents of the component (<kup-tree>).
+     */
+    private treeElements: { [key: number]: KupTree } = {};
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -209,8 +212,8 @@ export class KupAccordion {
         const ids: string[] = [...this.selectedItemsNames];
         ids.splice(0, ids.length);
 
-        for (var i = 0; i < this.actualData.columns.length; i++) {
-            const column = this.actualData.columns[i];
+        for (var i = 0; i < this.data.columns.length; i++) {
+            const column = this.data.columns[i];
             const itemName: string = column.name;
             ids.push(itemName);
         }
@@ -232,20 +235,19 @@ export class KupAccordion {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    recalculateData() {
-        this.actualData = this.data;
-    }
-
     private isItemSelected(itemName: string): boolean {
         return this.selectedItemsNames.includes(itemName);
     }
 
     private isItemExpandible(itemName: string): boolean {
-        const cell: Cell = this.actualData.rows[0].cells[itemName];
+        const cell: Cell = this.data.rows[0].cells[itemName];
         return cell != null;
     }
 
-    private onKupTreeNodeSelected(e: CustomEvent, itemName: string): void {
+    private onKupTreeNodeSelected(
+        e: CustomEvent<KupTreeNodeSelectedEventPayload>,
+        itemName: string
+    ): void {
         e.stopPropagation();
 
         this.kupAccordionTreeNodeSelected.emit({
@@ -258,8 +260,11 @@ export class KupAccordion {
             itemName: itemName,
         });
     }
-    private onGlobalFilterChange({ detail }): void {
-        let value = '';
+    private onGlobalFilterChange(
+        e: CustomEvent<KupTextFieldEventPayload>
+    ): void {
+        const detail: GenericObject = e.detail;
+        let value: string = '';
         if (detail && detail.value) {
             value = detail.value;
         }
@@ -281,11 +286,12 @@ export class KupAccordion {
 
         kupTree.push(
             <kup-tree
+                class="kup-full-width"
                 data={tree}
                 globalFilterValue={this.globalFilterValue}
-                onkup-tree-nodeselected={(e) =>
-                    this.onKupTreeNodeSelected(e, itemName)
-                }
+                onkup-tree-nodeselected={(
+                    e: CustomEvent<KupTreeNodeSelectedEventPayload>
+                ) => this.onKupTreeNodeSelected(e, itemName)}
                 ref={(el: any) => (this.treeElements[i] = el as KupTree)}
             ></kup-tree>
         );
@@ -311,12 +317,12 @@ export class KupAccordion {
     private renderAccordion(): VNode[] {
         const items: VNode[] = [];
 
-        for (var i = 0; i < this.actualData.columns.length; i++) {
-            const column = this.actualData.columns[i];
+        for (var i = 0; i < this.data.columns.length; i++) {
+            const column: Column = this.data.columns[i];
             const itemName: string = column.name;
-            const cell: Cell = this.actualData.rows[0].cells[itemName];
-            const isItemExpandible = this.isItemExpandible(itemName);
-            const isItemSelected = this.isItemSelected(itemName);
+            const cell: Cell = this.data.rows[0].cells[itemName];
+            const isItemExpandible: boolean = this.isItemExpandible(itemName);
+            const isItemSelected: boolean = this.isItemSelected(itemName);
 
             // subcomponent
             let subComponent: VNode[] = [];
@@ -324,52 +330,22 @@ export class KupAccordion {
                 subComponent = this.renderSubComponent(i, cell, itemName);
             }
 
-            // item expansion icon
-            let itemExpansionIcon: any = <span class="icon" />;
-            if (isItemExpandible) {
-                if (isItemSelected) {
-                    itemExpansionIcon = this.createIconElement(
-                        'icon icon-container',
-                        'arrow_drop_up',
-                        ''
-                    );
-                } else {
-                    itemExpansionIcon = this.createIconElement(
-                        'icon icon-container',
-                        'arrow_drop_down',
-                        ''
-                    );
-                }
-            }
-
-            // item icon
-            let itemIcon: any = null;
-            if (!column.icon || column.icon === '') {
-                itemIcon = <span class="icon" />;
-            } else {
-                itemIcon = this.createIconElement(
-                    'icon icon-container',
-                    column.icon,
-                    ''
-                );
-            }
-
             const itemHeaderClass: GenericObject = {
-                'accordion-item-header': true,
-                'accordion-item-header--selected':
+                'accordion-item__header': true,
+                'accordion-item__header--selected':
                     !isItemExpandible && isItemSelected ? true : false,
-                'accordion-item-header--expanded':
+                'accordion-item__header--expanded':
                     isItemExpandible && isItemSelected ? true : false,
             };
 
             const itemContentClass: GenericObject = {
-                'accordion-item-content': true,
-                'accordion-item-content--selected': isItemSelected
+                'accordion-item__content': true,
+                'accordion-item__content--selected': isItemSelected
                     ? true
                     : false,
             };
 
-            const ic = i;
+            const ic: number = i;
             items.push(
                 <div
                     class="accordion-item"
@@ -381,9 +357,19 @@ export class KupAccordion {
                         class={itemHeaderClass}
                         onClick={() => this.toggleItem(itemName)}
                     >
-                        {itemExpansionIcon}
-                        {itemIcon}
-                        {column.title}
+                        {column.icon ? (
+                            <FImage
+                                color="var(--kup-icon-color)"
+                                resource={column.icon}
+                                sizeX="1.5em"
+                                sizeY="1.5em"
+                                wrapperClass="accordion-item__icon"
+                            />
+                        ) : null}
+                        <span class="accordion-item__text">{column.title}</span>
+                        {isItemExpandible ? (
+                            <span class="accordion-item__dropdown icon-container dropdown" />
+                        ) : null}
                     </div>
 
                     <div class={itemContentClass}>{subComponent}</div>
@@ -393,37 +379,6 @@ export class KupAccordion {
         return items;
     }
 
-    // TODO: refactor same method in kup-tree.tsx
-    private createIconElement(
-        CSSClass: string,
-        icon: string,
-        iconColor: string
-    ) {
-        if (
-            icon.indexOf('.') > -1 ||
-            icon.indexOf('/') > -1 ||
-            icon.indexOf('\\') > -1
-        ) {
-            CSSClass += ' is-image';
-            return (
-                <span class={CSSClass}>
-                    <img src={icon}></img>
-                </span>
-            );
-        } else {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${icon}.svg`
-            )}') no-repeat center`;
-            CSSClass += ' icon-container material-icons';
-            let iconStyle = {
-                ...(iconColor ? { background: iconColor } : {}),
-                mask: svg,
-                webkitMask: svg,
-            };
-            return <span style={iconStyle} class={CSSClass}></span>;
-        }
-    }
-
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -431,7 +386,6 @@ export class KupAccordion {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.recalculateData();
     }
 
     componentDidLoad() {
@@ -444,29 +398,37 @@ export class KupAccordion {
 
     componentDidRender() {
         // logic conditioned from subcomponents filtering result
-        for (let i = 0; i < this.actualData.columns.length; i++) {
-            let treeElement = this.treeElements[i];
-            const column = this.actualData.columns[i];
+        for (let i = 0; i < this.data.columns.length; i++) {
+            const treeElement: KupTree = this.treeElements[i];
+            const column: Column = this.data.columns[i];
             const itemTitle: string = column.title;
             const isItemTitleFiltered: boolean =
                 itemTitle && itemTitle.includes(this.globalFilterValue);
-            if (treeElement) {
-                treeElement.isEmpty().then((treeIsEmpty: boolean) => {
-                    if (this.itemElements[i]) {
+            if (this.itemElements[i]) {
+                if (treeElement) {
+                    treeElement.isEmpty().then((treeIsEmpty: boolean) => {
                         if (isItemTitleFiltered || !treeIsEmpty) {
-                            this.itemElements[i].classList.add('visible');
+                            this.itemElements[i].classList.add(
+                                'accordion-item--visible'
+                            );
                         } else {
-                            this.itemElements[i].classList.remove('visible');
+                            this.itemElements[i].classList.remove(
+                                'accordion-item--visible'
+                            );
                         }
                         if (isItemTitleFiltered) {
                             treeElement.globalFilterValue = '';
                         }
-                    }
-                });
-            } else if (isItemTitleFiltered) {
-                this.itemElements[i].classList.add('visible');
-            } else {
-                this.itemElements[i].classList.remove('visible');
+                    });
+                } else if (isItemTitleFiltered) {
+                    this.itemElements[i].classList.add(
+                        'accordion-item--visible'
+                    );
+                } else {
+                    this.itemElements[i].classList.remove(
+                        'accordion-item--visible'
+                    );
+                }
             }
         }
 
@@ -491,16 +453,18 @@ export class KupAccordion {
                         )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        onkup-textfield-input={(event) => {
+                        onkup-textfield-input={(
+                            event: CustomEvent<KupTextFieldEventPayload>
+                        ) => {
                             window.clearTimeout(this.globalFilterTimeout);
                             this.globalFilterTimeout = window.setTimeout(
                                 () => this.onGlobalFilterChange(event),
                                 600
                             );
                         }}
-                        onkup-textfield-cleariconclick={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
+                        onkup-textfield-cleariconclick={(
+                            event: CustomEvent<KupTextFieldEventPayload>
+                        ) => this.onGlobalFilterChange(event)}
                     ></kup-text-field>
                 </div>
             );
@@ -511,7 +475,7 @@ export class KupAccordion {
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id={componentWrapperId}>
                     {filterPanel}
-                    <div class="accordion--wrapper">{content}</div>
+                    <div class="accordion">{content}</div>
                 </div>
             </Host>
         );
