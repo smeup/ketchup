@@ -21,6 +21,7 @@ import {
     ChartTitle,
     KupChartProps,
     KupChartClickEvent,
+    KupChartTrendlines,
 } from './kup-chart-declarations';
 import {
     convertColumns,
@@ -94,6 +95,10 @@ export class KupChart {
      */
     @Prop() hAxis: ChartAxis;
     /**
+     * Customize the hAxes for multiple-chart.
+     */
+    @Prop() hAxes: ChartAxis[];
+    /**
      * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
      * @default "right"
      */
@@ -134,11 +139,19 @@ export class KupChart {
      */
     @Prop() types: ChartType[] = [ChartType.Hbar];
     /**
+     * Customize the vAxes for multiple-chart.
+     */
+    @Prop() vAxes: ChartAxis[];
+    /**
      * Customize the vAxis.
      * @default undefined
      *
      */
     @Prop() vAxis: ChartAxis;
+    /**
+     * KupChartTrendlines.
+     */
+    @Prop() trendlines: KupChartTrendlines;
     /**
      * Google chart version to load
      * @default "45.2"
@@ -324,6 +337,8 @@ export class KupChart {
             is3D: ChartAspect.D3 === this.asp,
         };
 
+        if (this.trendlines) opts.trendlines = this.trendlines;
+
         if (this.colors && this.colors.length > 0) {
             opts.colors = this.colors;
         } else {
@@ -381,7 +396,14 @@ export class KupChart {
 
                 opts.series[index.toString()] = {
                     type: serieType,
+                    targetAxisIndex: index.toString(),
                 };
+            });
+        }
+        if (this.vAxes) {
+            opts.vAxes = {};
+            this.vAxes.forEach((vAxe, index) => {
+                opts.vAxes[index.toString()] = vAxe;
             });
         }
 
@@ -390,6 +412,13 @@ export class KupChart {
             opts.vAxis['textStyle'] = { color: this.themeText };
         } else {
             opts.vAxis = { textStyle: { color: this.themeText } };
+        }
+
+        if (this.hAxes) {
+            opts.hAxes = {};
+            this.hAxes.forEach((hAxe, index) => {
+                opts.hAxes[index.toString()] = hAxe;
+            });
         }
 
         if (this.hAxis) {
@@ -411,7 +440,6 @@ export class KupChart {
                 });
             }
         }
-
         return opts;
     }
 

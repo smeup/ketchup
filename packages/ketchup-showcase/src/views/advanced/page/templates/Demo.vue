@@ -283,6 +283,65 @@ enum DemoTypeFeature {
 
 // JSON used to display custom types inside tooltip
 const demoTypes: DemoTypeJson = {
+  ChartAspect: {
+    keys: {
+      D2: '2D',
+      D3: '3D',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  ChartAxis: {
+    keys: {
+      'ticks?': 'string[]',
+      'textPosition?': 'string',
+      'gridlines?': 'ChartAxisGridlines',
+      'viewWindow?': 'ChartAxisViewWindow',
+      'textStyle?': "{ 'color?': 'string', 'fontSize?': 'number' }",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartOfflineMode: {
+    keys: {
+      value: 'string',
+      shape: 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartSerie: {
+    keys: {
+      code: 'string',
+      'decode?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartTitle: {
+    keys: {
+      value: 'string',
+      'color?': 'string',
+      'size?': 'number',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  ChartType: {
+    keys: {
+      Area: 'Area',
+      Bubble: 'Bubble',
+      Cal: 'Cal',
+      Candlestick: 'Candlestick',
+      Combo: 'Combo',
+      Geo: 'Geo',
+      Hbar: 'Hbar',
+      Line: 'Line',
+      Ohlc: 'Ohlc',
+      Pie: 'Pie',
+      Sankey: 'Sankey',
+      Scatter: 'Scatter',
+      Unk: 'Unk',
+      ColumnChart: 'ColumnChart',
+      Vbar: 'Vbar',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
   Column: {
     keys: {
       name: 'string',
@@ -418,6 +477,12 @@ const demoTypes: DemoTypeJson = {
       STANDARD: 'standard',
     },
     type: DemoTypeFeature.ENUM,
+  },
+  KupChartTrendlines: {
+    keys: {
+      '[index: string]': "{color: 'string'}",
+    },
+    type: DemoTypeFeature.INTERFACE,
   },
   KupEchartTitle: {
     keys: {

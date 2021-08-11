@@ -1,4 +1,4 @@
-import { KupEventPayload } from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 /**
  * Props of the kup-card component.
@@ -20,6 +20,7 @@ export enum KupChartProps {
     sizeY = 'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
     stacked = 'Displays the data columns of an object on top of each other.',
     types = 'The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.',
+    vAxes = 'Customize the vAxes for multiple-charts.',
     vAxis = 'Customize the vAxis.',
     version = 'Google chart version to load.',
 }
@@ -29,8 +30,13 @@ export enum ChartAspect {
     D3 = '3D',
 }
 
+export interface KupChartTrendlines {
+    [index: string]: GenericObject;
+}
+
 export interface ChartAxis {
     ticks?: string[];
+    textPosition?: string;
     gridlines?: ChartAxisGridlines;
     viewWindow?: ChartAxisViewWindow;
     textStyle?: { color?: string; fontSize?: number };
@@ -68,16 +74,24 @@ export interface ChartOptions {
     isStacked?: boolean;
     title?: string;
     titleTextStyle?: { color?: string; fontSize?: number };
-    series?: any;
+    series?: { [index: string]: ChartOptionsSerie };
     slices?: {
         color?: string;
         offset?: number;
         textStyle?: { color?: string };
     }[];
     hAxis?: ChartAxis;
+    hAxes?: { [index: string]: ChartAxis };
     vAxis?: ChartAxis;
+    vAxes?: { [index: string]: ChartAxis };
+    type?: string;
+    trendlines?: KupChartTrendlines;
 }
 
+export interface ChartOptionsSerie {
+    type?: string;
+    targetAxisIndex?: string;
+}
 export interface ChartSerie {
     code: string;
     decode?: string;
