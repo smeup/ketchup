@@ -31,10 +31,14 @@ import {
     KupAccordionTreeNodeSelectedEventPayload,
     KupAccordionItemSelectedEventPayload,
 } from './kup-accordion-declarations';
-import { TreeNode } from './../kup-tree/kup-tree-declarations';
+import {
+    KupTreeNodeSelectedEventPayload,
+    TreeNode,
+} from './../kup-tree/kup-tree-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupTree } from '../kup-tree/kup-tree';
 import { FImage } from '../../f-components/f-image/f-image';
+import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -56,12 +60,6 @@ export class KupAccordion {
      * @default []
      */
     @State() private selectedItemsNames: string[] = [];
-
-    /**
-     * Treated data prop
-     * @default null
-     */
-    @State() private actualData: KupAccordionData = null;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -214,8 +212,8 @@ export class KupAccordion {
         const ids: string[] = [...this.selectedItemsNames];
         ids.splice(0, ids.length);
 
-        for (var i = 0; i < this.actualData.columns.length; i++) {
-            const column = this.actualData.columns[i];
+        for (var i = 0; i < this.data.columns.length; i++) {
+            const column = this.data.columns[i];
             const itemName: string = column.name;
             ids.push(itemName);
         }
@@ -237,20 +235,19 @@ export class KupAccordion {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    recalculateData() {
-        this.actualData = this.data;
-    }
-
     private isItemSelected(itemName: string): boolean {
         return this.selectedItemsNames.includes(itemName);
     }
 
     private isItemExpandible(itemName: string): boolean {
-        const cell: Cell = this.actualData.rows[0].cells[itemName];
+        const cell: Cell = this.data.rows[0].cells[itemName];
         return cell != null;
     }
 
-    private onKupTreeNodeSelected(e: CustomEvent, itemName: string): void {
+    private onKupTreeNodeSelected(
+        e: CustomEvent<KupTreeNodeSelectedEventPayload>,
+        itemName: string
+    ): void {
         e.stopPropagation();
 
         this.kupAccordionTreeNodeSelected.emit({
@@ -263,8 +260,11 @@ export class KupAccordion {
             itemName: itemName,
         });
     }
-    private onGlobalFilterChange({ detail }): void {
-        let value = '';
+    private onGlobalFilterChange(
+        e: CustomEvent<KupTextFieldEventPayload>
+    ): void {
+        const detail: GenericObject = e.detail;
+        let value: string = '';
         if (detail && detail.value) {
             value = detail.value;
         }
@@ -289,9 +289,9 @@ export class KupAccordion {
                 class="kup-full-width"
                 data={tree}
                 globalFilterValue={this.globalFilterValue}
-                onkup-tree-nodeselected={(e) =>
-                    this.onKupTreeNodeSelected(e, itemName)
-                }
+                onkup-tree-nodeselected={(
+                    e: CustomEvent<KupTreeNodeSelectedEventPayload>
+                ) => this.onKupTreeNodeSelected(e, itemName)}
                 ref={(el: any) => (this.treeElements[i] = el as KupTree)}
             ></kup-tree>
         );
@@ -317,10 +317,10 @@ export class KupAccordion {
     private renderAccordion(): VNode[] {
         const items: VNode[] = [];
 
-        for (var i = 0; i < this.actualData.columns.length; i++) {
-            const column: Column = this.actualData.columns[i];
+        for (var i = 0; i < this.data.columns.length; i++) {
+            const column: Column = this.data.columns[i];
             const itemName: string = column.name;
-            const cell: Cell = this.actualData.rows[0].cells[itemName];
+            const cell: Cell = this.data.rows[0].cells[itemName];
             const isItemExpandible: boolean = this.isItemExpandible(itemName);
             const isItemSelected: boolean = this.isItemSelected(itemName);
 
@@ -386,7 +386,6 @@ export class KupAccordion {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.recalculateData();
     }
 
     componentDidLoad() {
@@ -399,9 +398,9 @@ export class KupAccordion {
 
     componentDidRender() {
         // logic conditioned from subcomponents filtering result
-        for (let i = 0; i < this.actualData.columns.length; i++) {
-            let treeElement = this.treeElements[i];
-            const column = this.actualData.columns[i];
+        for (let i = 0; i < this.data.columns.length; i++) {
+            const treeElement: KupTree = this.treeElements[i];
+            const column: Column = this.data.columns[i];
             const itemTitle: string = column.title;
             const isItemTitleFiltered: boolean =
                 itemTitle && itemTitle.includes(this.globalFilterValue);
@@ -454,16 +453,18 @@ export class KupAccordion {
                         )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        onkup-textfield-input={(event) => {
+                        onkup-textfield-input={(
+                            event: CustomEvent<KupTextFieldEventPayload>
+                        ) => {
                             window.clearTimeout(this.globalFilterTimeout);
                             this.globalFilterTimeout = window.setTimeout(
                                 () => this.onGlobalFilterChange(event),
                                 600
                             );
                         }}
-                        onkup-textfield-cleariconclick={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
+                        onkup-textfield-cleariconclick={(
+                            event: CustomEvent<KupTextFieldEventPayload>
+                        ) => this.onGlobalFilterChange(event)}
                     ></kup-text-field>
                 </div>
             );
