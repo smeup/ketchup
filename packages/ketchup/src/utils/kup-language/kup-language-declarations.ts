@@ -21,7 +21,23 @@ export type KupLanguageKey =
  * Interface of the languages JSON.
  */
 export interface KupLanguageJSON {
-    [index: string]: GenericObject;
+    [index: string]: KupLanguageElement;
+}
+/**
+ * Interface of a single language.
+ */
+export interface KupLanguageElement {
+    keys: GenericObject;
+    variants: {
+        keys: GenericObject;
+    };
+}
+/**
+ * Decode language interface.
+ */
+export interface KupLanguageDecode {
+    language: string;
+    variant: string;
 }
 /**
  * Default languages available.

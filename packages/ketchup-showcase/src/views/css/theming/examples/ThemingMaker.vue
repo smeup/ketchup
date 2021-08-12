@@ -1360,7 +1360,7 @@ export default {
   },
 
   destroyed() {
-    document.removeEventListener('kupThemeChange', initDemo);
+    document.removeEventListener('kup-theme-change', initDemo);
   },
 
   mounted() {
@@ -1375,7 +1375,7 @@ export default {
       initDemo();
     }
 
-    document.addEventListener('kupThemeChange', initDemo);
+    document.addEventListener('kup-theme-change', initDemo);
   },
 };
 
