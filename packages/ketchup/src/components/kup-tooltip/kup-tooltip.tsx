@@ -413,12 +413,18 @@ export class KupTooltip {
                     onkup-button-click={(event) =>
                         this.onDefaultActionClick(event)
                     }
+                    title={this.kupManager.language.translate(
+                        KupLanguageGeneric.OPEN_IN_NEW_TAB
+                    )}
                 ></kup-button>
                 <kup-button
                     icon="search"
                     onkup-button-click={(event) =>
                         this.onDefaultPreviewClick(event)
                     }
+                    title={this.kupManager.language.translate(
+                        KupLanguageGeneric.INFO
+                    )}
                 ></kup-button>
             </div>
         );

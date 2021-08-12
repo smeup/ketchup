@@ -17,7 +17,7 @@ export default {
   mounted() {
     const dom = document.documentElement;
     if (!dom.ketchup) {
-      document.addEventListener('kupThemeChange', getThemes);
+      document.addEventListener('kup-theme-change', getThemes);
     } else {
       getThemes();
     }
@@ -68,6 +68,6 @@ function getThemes() {
     }
   }
   themeContainer.customStyle = '';
-  document.removeEventListener('kupThemeChange', getThemes);
+  document.removeEventListener('kup-theme-change', getThemes);
 }
 </script>
