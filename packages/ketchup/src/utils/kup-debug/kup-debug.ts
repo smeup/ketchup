@@ -34,7 +34,7 @@ export class KupDebug {
         this.logLimit = logLimit ? logLimit : 250;
         this.logs = [];
         this.#debugWidget = null;
-        document.addEventListener('kupLanguageChange', () => {
+        document.addEventListener('kup-language-change', () => {
             if (this.active && this.#debugWidget) {
                 this.hideWidget();
                 this.showWidget();
