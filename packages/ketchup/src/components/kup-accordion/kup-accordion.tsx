@@ -4,7 +4,6 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
-    getAssetPath,
     h,
     Host,
     Method,
@@ -349,11 +348,10 @@ export class KupAccordion {
             items.push(
                 <div
                     class="accordion-item"
-                    ref={(el: any) =>
-                        (this.itemElements[ic] = el as HTMLElement)
-                    }
+                    ref={(el: HTMLElement) => (this.itemElements[ic] = el)}
                 >
                     <div
+                        title={column.title}
                         class={itemHeaderClass}
                         onClick={() => this.toggleItem(itemName)}
                     >
