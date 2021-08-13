@@ -1139,7 +1139,20 @@
                     @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td> </tr
-            ></tbody>
+            >
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-search-icon</span>
+                </td>
+                <td>Used in search-related fields.</td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="search-icon"
+                    @kup-textfield-input="updateThemeIcons"
+                  ></kup-text-field>
+                </td>
+              </tr></tbody>
           </table>
           <div id="json-tab" class="sample-section" style="display: none">
             <textarea id="json-textarea" style="display: none"></textarea>

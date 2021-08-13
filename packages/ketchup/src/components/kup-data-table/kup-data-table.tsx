@@ -163,7 +163,10 @@ import {
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import {
+    KupThemeColorValues,
+    KupThemeIconValues,
+} from '../../utils/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
@@ -5962,7 +5965,7 @@ export class KupDataTable {
                             <div id="global-filter">
                                 <FTextField
                                     fullWidth={true}
-                                    icon="magnify"
+                                    icon={KupThemeIconValues.SEARCH}
                                     isClearable={true}
                                     label={this.kupManager.language.translate(
                                         KupLanguageSearch.SEARCH
