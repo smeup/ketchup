@@ -33,10 +33,6 @@ export const FImage: FunctionalComponent<FImageProps> = (
                 '--f-image-height': props.sizeY ? props.sizeY : '100%',
                 '--f-image-width': props.sizeX ? props.sizeX : '100%',
             };
-            if (props.resource.indexOf('--kup') > -1) {
-                props.resource = props.resource.replace('--kup-', '');
-                props.resource = props.resource.replace('-icon', '');
-            }
             el = createIcon(props);
         }
     } else if (props.data) {
@@ -75,15 +71,25 @@ export const FImage: FunctionalComponent<FImageProps> = (
 /*-------------------------------------------------*/
 
 function createIcon(props: FImageProps): HTMLDivElement {
-    const path: string = getAssetPath(`./assets/svg/${props.resource}.svg`);
+    const classObj: GenericObject = {
+        'f-image__icon': true,
+    };
     const style: GenericObject = {
         background: props.color
             ? props.color
             : `var(${KupThemeColorValues.ICON})`,
-        mask: `url('${path}') no-repeat center`,
-        webkitMask: `url('${path}') no-repeat center`,
     };
-    return <div class="f-image__icon" style={style}></div>;
+    if (props.resource.indexOf('--kup') > -1) {
+        let themeIcon: string = props.resource.replace('--kup-', '');
+        themeIcon = themeIcon.replace('-icon', '');
+        classObj['icon-container'] = true;
+        classObj[themeIcon] = true;
+    } else {
+        const path: string = getAssetPath(`./assets/svg/${props.resource}.svg`);
+        style.mask = `url('${path}') no-repeat center`;
+        style.webkitMask = `url('${path}') no-repeat center`;
+    }
+    return <div class={classObj} style={style}></div>;
 }
 
 function createImage(resource: string): HTMLImageElement {
