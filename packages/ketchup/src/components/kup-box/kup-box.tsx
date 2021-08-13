@@ -98,6 +98,7 @@ import {
     KupLanguageSearch,
 } from '../../utils/kup-language/kup-language-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -1944,7 +1945,7 @@ export class KupBox {
                         label={this.kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
-                        icon="magnify"
+                        icon={KupThemeIconValues.SEARCH}
                         initialValue={this.globalFilterValue}
                         onkup-textfield-input={(event) => {
                             window.clearTimeout(this.globalFilterTimeout);
