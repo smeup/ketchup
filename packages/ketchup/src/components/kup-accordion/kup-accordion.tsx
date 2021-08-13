@@ -4,7 +4,6 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
-    getAssetPath,
     h,
     Host,
     Method,
@@ -39,6 +38,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupTree } from '../kup-tree/kup-tree';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
+import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -349,11 +349,10 @@ export class KupAccordion {
             items.push(
                 <div
                     class="accordion-item"
-                    ref={(el: any) =>
-                        (this.itemElements[ic] = el as HTMLElement)
-                    }
+                    ref={(el: HTMLElement) => (this.itemElements[ic] = el)}
                 >
                     <div
+                        title={column.title}
                         class={itemHeaderClass}
                         onClick={() => this.toggleItem(itemName)}
                     >
@@ -451,7 +450,7 @@ export class KupAccordion {
                         label={this.kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
-                        icon="magnify"
+                        icon={KupThemeIconValues.SEARCH}
                         initialValue={this.globalFilterValue}
                         onkup-textfield-input={(
                             event: CustomEvent<KupTextFieldEventPayload>
