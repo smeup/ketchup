@@ -46,7 +46,6 @@ import {
 } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-
 @Component({
     tag: 'kup-time-picker',
     styleUrl: 'kup-time-picker.scss',
@@ -250,6 +249,16 @@ export class KupTimePicker {
         });
     }
 
+    onKupTextFieldBlur(e) {
+        const eventValue = e.detail.value;
+        if (eventValue) {
+            const newValue = this.getFormattedValue(eventValue);
+            if (newValue) {
+                this.setValue(newValue);
+            }
+        }
+    }
+
     onKupChange(e: CustomEvent) {
         e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupChange);
@@ -406,17 +415,20 @@ export class KupTimePicker {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    getFormattedValue(value: string): string {
+        return formattedStringToCustomUnformattedStringTime(
+            value,
+            this.manageSeconds
+                ? ISO_DEFAULT_TIME_FORMAT
+                : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+            this.manageSeconds
+        );
+    }
+
     refreshPickerValue(eventDetailValue: string, eventToRaise: EventEmitter) {
         let newValue = null;
         if (isValidFormattedStringTime(eventDetailValue, this.manageSeconds)) {
-            newValue = formattedStringToCustomUnformattedStringTime(
-                eventDetailValue,
-                this.manageSeconds
-                    ? ISO_DEFAULT_TIME_FORMAT
-                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
-                this.manageSeconds
-            );
-            this.value = newValue;
+            this.value = this.getFormattedValue(eventDetailValue);
             this.setTextFieldInitalValue(this.getTimeForOutput());
         }
 
@@ -543,6 +555,7 @@ export class KupTimePicker {
                 onkup-textfield-click={(e: any) => this.onKupClick(e)}
                 onkup-textfield-focus={(e: any) => this.onKupFocus(e)}
                 onkup-textfield-input={(e: any) => this.onKupInput(e)}
+                onkup-textfield-blur={(e: any) => this.onKupTextFieldBlur(e)}
                 onkup-textfield-iconclick={(e: any) => this.onKupIconClick(e)}
                 onkup-textfield-submit={(e: any) =>
                     this.onKupTextFieldSubmit(e)
