@@ -39,7 +39,7 @@ Yes, of course: see the [presentation list](docs/presentations.md)
 -   Add Ketch.UP dependency to your project:
 
 ```
-npm install @sme.up/ketchup --save
+npm install "@sme.up/ketchup" --save
 ```
 
 -   Define Ketch.UP custom elements in your pages:
