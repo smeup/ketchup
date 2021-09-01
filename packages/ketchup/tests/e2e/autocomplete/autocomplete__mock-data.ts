@@ -1,11 +1,11 @@
-import { ComponentListElement } from '../../../src/components/kup-list/kup-list-declarations';
+import { KupListData } from '../../../src/components/kup-list/kup-list-declarations';
 
 export function AutocompleteItemFactory(
     itemsCount = 20,
     baseCode = 'CD',
     baseDescription = 'Item '
-): ComponentListElement[] {
-    const toRet: ComponentListElement[] = [];
+): KupListData[] {
+    const toRet: KupListData[] = [];
 
     for (let i = 0; i < itemsCount; i++) {
         toRet.push({

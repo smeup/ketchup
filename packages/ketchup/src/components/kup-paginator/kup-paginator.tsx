@@ -9,7 +9,11 @@ import {
     Prop,
 } from '@stencil/core';
 
-import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from './kup-paginator-declarations';
+import {
+    KupPaginatorPageChangedEventPayload,
+    KupPaginatorRowsPerPageChangedEventPayload,
+    PaginatorMode,
+} from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
 import {
     KupManager,
@@ -20,6 +24,7 @@ import {
     KupLanguagePage,
     KupLanguageRow,
 } from '../../utils/kup-language/kup-language-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-paginator',
@@ -305,7 +310,7 @@ export class KupPaginator {
             'kup-text-field': textfieldDataRows,
         };
         let compCreated = (
-            <div id="kup-component">
+            <div id={componentWrapperId}>
                 <div class="align-left">
                     <div class="nav-section">
                         <FButton
@@ -317,7 +322,9 @@ export class KupPaginator {
                             class="page-selector"
                             data={dataPageSelector}
                             initialValue={this.currentPage.toString()}
-                            onkup-combobox-itemclick={(e) => this.onPageChange(e)}
+                            onkup-combobox-itemclick={(e) =>
+                                this.onPageChange(e)
+                            }
                             onkup-combobox-textfieldsubmit={(e) =>
                                 this.onPageChange(e)
                             }

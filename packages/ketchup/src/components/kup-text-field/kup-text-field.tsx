@@ -29,6 +29,7 @@ import {
 } from './kup-text-field-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-text-field',
@@ -37,7 +38,7 @@ import { getProps, setProps } from '../../utils/utils';
 })
 export class KupTextField {
     /**
-     * References the root HTML element of the component (<kup-image>).
+     * References the root HTML element of the component (<kup-text-field>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -352,14 +353,6 @@ export class KupTextField {
         return getProps(this, KupTextFieldProps, descriptions);
     }
     /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupTextFieldProps, props);
-    }
-    /**
      * Returns the component's internal value.
      */
     @Method()
@@ -379,6 +372,14 @@ export class KupTextField {
     @Method()
     async setFocus(): Promise<void> {
         this.inputEl.focus();
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupTextFieldProps, props);
     }
     /**
      * Sets the internal value of the component.
@@ -469,7 +470,7 @@ export class KupTextField {
     }
 
     render() {
-        let props: FTextFieldProps = {
+        const props: FTextFieldProps = {
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
@@ -505,7 +506,7 @@ export class KupTextField {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <FTextField {...props} />
                 </div>
             </Host>

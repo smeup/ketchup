@@ -44,6 +44,7 @@ import {
 } from './kup-date-picker-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-date-picker',
@@ -52,35 +53,54 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 })
 export class KupDatePicker {
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
     @State() stateSwitcher: boolean = false;
     @State() value: string = '';
 
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * Props of the sub-components.
+     * @default null
      */
-    @Prop({ mutable: true }) data: Object = undefined;
+    @Prop({ mutable: true }) data: Object = null;
     /**
      * Defaults at false. When set to true, the component is disabled.
+     * @default false
      */
     @Prop() disabled: boolean = false;
     /**
      * First day number (0 - sunday, 1 - monday, ...)
+     * @default 1
      */
     @Prop() firstDayIndex: number = 1;
     /**
      * Sets the initial value of the component
+     * @default ""
      */
     @Prop() initialValue: string = '';
 
-    private calendarView: SourceEvent = SourceEvent.DATE;
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    private calendarView: SourceEvent = SourceEvent.DATE;
     private textfieldEl: any = undefined;
     private pickerContainerEl: HTMLElement = undefined;
     private pickerEl: { value: string; date: Date } = {
@@ -89,7 +109,9 @@ export class KupDatePicker {
     };
     private pickerOpened: boolean = false;
 
-    //---- Events ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kup-datepicker-blur',
@@ -163,19 +185,6 @@ export class KupDatePicker {
     })
     kupClearIconClick: EventEmitter<KupEventPayload>;
 
-    @Listen('keyup', { target: 'document' })
-    listenKeyup(e: KeyboardEvent) {
-        if (this.isPickerOpened()) {
-            if (e.key === 'Escape') {
-                this.closePicker();
-            }
-            if (e.key === 'Enter') {
-                e.stopPropagation();
-                this.setPickerValueSelected();
-            }
-        }
-    }
-
     onKupDatePickerItemClick(e: MouseEvent, value: string) {
         e.stopPropagation();
         this.setPickerValueSelected(value);
@@ -222,71 +231,6 @@ export class KupDatePicker {
             }
         }
         this.refreshPickerComponentValue(value);
-    }
-
-    @Watch('firstDayIndex')
-    watchFirstDayIndex() {
-        if (this.firstDayIndex > 6 || this.firstDayIndex < 0) {
-            this.kupManager.debug.logMessage(
-                this,
-                'property first-day-index=[' +
-                    this.firstDayIndex +
-                    '] not allowed: it must be >= 0 and <= 6',
-                KupDebugCategory.WARNING
-            );
-            this.firstDayIndex = 1;
-        }
-    }
-
-    //---- Methods ----
-
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-
-    @Method()
-    async setFocus() {
-        if (this.textfieldEl != null) {
-            this.textfieldEl.setFocus();
-        }
-    }
-
-    @Method()
-    async setValue(value: string) {
-        this.value = value;
-        this.setTextFieldInitalValue(this.getDateForOutput());
-    }
-    /**
-     * Used to retrieve component's props values.
-     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
-     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
-     */
-    @Method()
-    async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupDatePickerProps;
-        } else {
-            for (const key in KupDatePickerProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupDatePickerProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     onKupBlur() {
@@ -344,6 +288,107 @@ export class KupDatePicker {
             value: this.value,
         });
     }
+
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keyup', { target: 'document' })
+    listenKeyup(e: KeyboardEvent) {
+        if (this.isPickerOpened()) {
+            if (e.key === 'Escape') {
+                this.closePicker();
+            }
+            if (e.key === 'Enter') {
+                e.stopPropagation();
+                this.setPickerValueSelected();
+            }
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('firstDayIndex')
+    watchFirstDayIndex() {
+        if (this.firstDayIndex > 6 || this.firstDayIndex < 0) {
+            this.kupManager.debug.logMessage(
+                this,
+                'property first-day-index=[' +
+                    this.firstDayIndex +
+                    '] not allowed: it must be >= 0 and <= 6',
+                KupDebugCategory.WARNING
+            );
+            this.firstDayIndex = 1;
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Retrieves the component's value.
+     * @returns {string} Value of the component.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupDatePickerProps;
+        } else {
+            for (const key in KupDatePickerProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupDatePickerProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the focus to the component.
+     */
+    @Method()
+    async setFocus() {
+        if (this.textfieldEl != null) {
+            this.textfieldEl.setFocus();
+        }
+    }
+    /**
+     * Sets the component's value.
+     * @param {string} value - Value to be set.
+     */
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        this.setTextFieldInitalValue(this.getDateForOutput());
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     refreshPickerValue(
         eventDetailValue: string,
@@ -932,7 +977,9 @@ export class KupDatePicker {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -988,7 +1035,7 @@ export class KupDatePicker {
         return (
             <Host class={hostClass} onBlur={() => this.onKupBlur()}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     {this.prepDateTextfield()}
                     {this.prepDatePicker()}
                 </div>

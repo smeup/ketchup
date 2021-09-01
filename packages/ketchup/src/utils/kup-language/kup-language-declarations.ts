@@ -21,7 +21,23 @@ export type KupLanguageKey =
  * Interface of the languages JSON.
  */
 export interface KupLanguageJSON {
-    [index: string]: GenericObject;
+    [index: string]: KupLanguageElement;
+}
+/**
+ * Interface of a single language.
+ */
+export interface KupLanguageElement {
+    keys: GenericObject;
+    variants: {
+        keys: GenericObject;
+    };
+}
+/**
+ * Decode language interface.
+ */
+export interface KupLanguageDecode {
+    language: string;
+    variant: string;
 }
 /**
  * Default languages available.
@@ -35,7 +51,7 @@ export enum KupLanguageDefaults {
     RU = 'russian',
 }
 /**
- * Checkbox statuses decodes (data table groups).
+ * Checkbox statuses decodes.
  */
 export enum KupLanguageCheckbox {
     ALL = 'checkboxAll',
@@ -91,6 +107,7 @@ export enum KupLanguageFontsize {
  * Generic user interface action/messages.
  */
 export enum KupLanguageGeneric {
+    ADD_NEW = 'genericAddNew',
     APPLY = 'genericApply',
     COLLAPSE = 'genericCollapse',
     DRAG_AND_DROP = 'genericDragAndDrop',
@@ -101,10 +118,14 @@ export enum KupLanguageGeneric {
     EXPAND = 'genericExpand',
     EXPERIMENTAL_FEAT = 'genericExperimentalFeat',
     FILTERS = 'genericFilters',
+    INFO = 'genericInfo',
     INVALID_COLOR = 'genericInvalidColor',
     LAYOUT_NYI = 'genericLayoutNotYetImplemented',
     LOAD_MORE = 'genericLoadMoreData',
+    MENU = 'genericMenu',
     OPEN_NAVIGATION_MENU = 'genericOpenNavigationMenu',
+    OPEN_IN_NEW_TAB = 'genericOpenInNewTab',
+    OPEN_IN_NEW_WINDOW = 'genericOpenInNewWindow',
     OPTIONS = 'genericOptions',
     REMOVE_FILTERS = 'genericRemoveFilters',
     SETTINGS = 'genericSettings',

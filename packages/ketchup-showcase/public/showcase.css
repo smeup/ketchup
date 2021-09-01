@@ -797,6 +797,7 @@ table#customstyle-tab kup-text-field {
 }
 
 .sample-section {
+  display: none;
   height: 100%;
   position: relative;
   padding: 1rem 0.5rem;
@@ -804,6 +805,14 @@ table#customstyle-tab kup-text-field {
   -moz-animation: fadeInFromNone 0.25s ease-out;
   -o-animation: fadeInFromNone 0.25s ease-out;
   animation: fadeInFromNone 0.25s ease-out;
+}
+
+.sample-section.visible {
+  display: block;
+}
+
+.sample-section.instruction-table.visible {
+  display: table;
 }
 
 #json-tab.padded,
@@ -1042,4 +1051,35 @@ table#customstyle-tab kup-text-field {
   text-align: center;
   font-weight: bold;
   letter-spacing: 2px;
+}
+
+#sample-tooltip {
+  display: none;
+  background: var(--kup-background-color);
+  color: var(--kup-text-color);
+  font-size: 1.2em;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: var(--kup-box-shadow);
+  -webkit-animation: fadeInFromNone 0.25s ease-out;
+  -moz-animation: fadeInFromNone 0.25s ease-out;
+  -o-animation: fadeInFromNone 0.25s ease-out;
+  animation: fadeInFromNone 0.25s ease-out;
+}
+
+#sample-tooltip strong {
+  color: var(--kup-primary-color);
+}
+
+#sample-tooltip.visible {
+  display: block;
+}
+
+.type-icon {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+.has-tooltip {
+  cursor: help;
 }

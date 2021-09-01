@@ -8,7 +8,7 @@
 | Property                 | Attribute               | Description                                                                                                                                          | Type                                                                                                     | Default                        |
 | ------------------------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | `callBackOnFilterUpdate` | --                      | Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.                     | `(detail: { filter: string; matchesMinimumCharsRequired: boolean; el: EventTarget; }) => Promise<any[]>` | `undefined`                    |
-| `customStyle`            | `custom-style`          | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                      | `string`                                                                                                 | `''`                           |
+| `customStyle`            | `custom-style`          | Custom style of the component.                                                                                                                       | `string`                                                                                                 | `''`                           |
 | `data`                   | --                      | Props of the sub-components.                                                                                                                         | `Object`                                                                                                 | `undefined`                    |
 | `disabled`               | `disabled`              | Defaults at false. When set to true, the component is disabled.                                                                                      | `boolean`                                                                                                | `false`                        |
 | `displayMode`            | `display-mode`          | Sets how to show the selected item value. Suported values: "code", "description", "both".                                                            | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`         | `ItemsDisplayMode.DESCRIPTION` |
@@ -20,17 +20,16 @@
 
 ## Events
 
-| Event                              | Description    | Type                                                    |
-| ---------------------------------- | -------------- | ------------------------------------------------------- |
-| `kup-autocomplete-blur`            | Event example. | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-change`          |                | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-click`           |                | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-filterchanged`   |                | `CustomEvent<kupAutocompleteFilterChangedEventPayload>` |
-| `kup-autocomplete-focus`           |                | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-iconclick`       |                | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-input`           |                | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-itemclick`       |                | `CustomEvent<KupAutocompleteEventPayload>`              |
-| `kup-autocomplete-textfieldsubmit` |                | `CustomEvent<KupAutocompleteEventPayload>`              |
+| Event                            | Description | Type                                                    |
+| -------------------------------- | ----------- | ------------------------------------------------------- |
+| `kup-autocomplete-blur`          |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-change`        |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-click`         |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-filterchanged` |             | `CustomEvent<kupAutocompleteFilterChangedEventPayload>` |
+| `kup-autocomplete-focus`         |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-iconclick`     |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-input`         |             | `CustomEvent<KupAutocompleteEventPayload>`              |
+| `kup-autocomplete-itemclick`     |             | `CustomEvent<KupAutocompleteEventPayload>`              |
 
 
 ## Methods
@@ -47,7 +46,7 @@ Type: `Promise<GenericObject>`
 
 ### `getValue() => Promise<string>`
 
-
+Used to retrieve the value of the component.
 
 #### Returns
 
@@ -67,7 +66,7 @@ Type: `Promise<void>`
 
 ### `setFocus() => Promise<void>`
 
-
+Sets the focus to the component.
 
 #### Returns
 
@@ -87,7 +86,7 @@ Type: `Promise<void>`
 
 ### `setValue(value: string) => Promise<void>`
 
-
+Sets the value of the component.
 
 #### Returns
 
@@ -112,7 +111,6 @@ Type: `Promise<void>`
 graph TD;
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-card --> kup-autocomplete

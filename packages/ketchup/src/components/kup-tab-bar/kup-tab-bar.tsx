@@ -28,6 +28,7 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -36,7 +37,7 @@ import { getProps, setProps } from '../../utils/utils';
 })
 export class KupTabBar {
     /**
-     * References the root HTML element of the component (<kup-checkbox>).
+     * References the root HTML element of the component (<kup-tab-bar>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -158,19 +159,19 @@ export class KupTabBar {
         return getProps(this, KupTabBarProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupTabBarProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -288,7 +289,7 @@ export class KupTabBar {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div class="tab-bar" role="tablist">
                         <div class="tab-scroller">
                             <div

@@ -41,7 +41,7 @@ import {
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
-import { CardFamily } from '../kup-card/kup-card-declarations';
+import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
 
 @Component({
@@ -413,12 +413,18 @@ export class KupTooltip {
                     onkup-button-click={(event) =>
                         this.onDefaultActionClick(event)
                     }
+                    title={this.kupManager.language.translate(
+                        KupLanguageGeneric.OPEN_IN_NEW_TAB
+                    )}
                 ></kup-button>
                 <kup-button
                     icon="search"
                     onkup-button-click={(event) =>
                         this.onDefaultPreviewClick(event)
                     }
+                    title={this.kupManager.language.translate(
+                        KupLanguageGeneric.INFO
+                    )}
                 ></kup-button>
             </div>
         );
@@ -654,7 +660,7 @@ export class KupTooltip {
                     }}
                     id="dialog-card-5"
                     layoutNumber={5}
-                    layoutFamily={CardFamily.DIALOG}
+                    layoutFamily={KupCardFamily.DIALOG}
                     onClick={(e) => e.stopPropagation()}
                     sizeX="300px"
                     sizeY="auto"
@@ -903,8 +909,7 @@ export class KupTooltip {
                 this.rootElement as KupDynamicPositionElement,
                 this.relatedObject.element,
                 0,
-                KupDynamicPositionPlacement.AUTO,
-                true
+                KupDynamicPositionPlacement.AUTO
             );
             this.kupManager.dynamicPosition.start(
                 this.rootElement as KupDynamicPositionElement

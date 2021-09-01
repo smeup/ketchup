@@ -1,7 +1,7 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { CardFamily } from '../../components/kup-card/kup-card-declarations';
-import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
+import { KupCardFamily } from '../../components/kup-card/kup-card-declarations';
+import { KupListData } from '../../components/kup-list/kup-list-declarations';
 import { KupLanguageDebug } from '../kup-language/kup-language-declarations';
 import {
     KupDebugCategory,
@@ -34,7 +34,7 @@ export class KupDebug {
         this.logLimit = logLimit ? logLimit : 250;
         this.logs = [];
         this.#debugWidget = null;
-        document.addEventListener('kupLanguageChange', () => {
+        document.addEventListener('kup-language-change', () => {
             if (this.active && this.#debugWidget) {
                 this.hideWidget();
                 this.showWidget();
@@ -63,7 +63,7 @@ export class KupDebug {
         const debugWidget: HTMLKupCardElement =
             document.createElement('kup-card');
         const languages: string[] = dom.ketchup.language.getLanguages();
-        const languagesListData: ComponentListElement[] = [];
+        const languagesListData: KupListData[] = [];
         for (let index = 0; index < languages.length; index++) {
             languagesListData.push({
                 text: languages[index],
@@ -75,7 +75,7 @@ export class KupDebug {
             });
         }
         const themes: string[] = dom.ketchup.theme.getThemes();
-        const themesListData: ComponentListElement[] = [];
+        const themesListData: KupListData[] = [];
         for (let index = 0; index < themes.length; index++) {
             themesListData.push({
                 text: themes[index],
@@ -222,7 +222,7 @@ export class KupDebug {
         debugWidget.customStyle =
             '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;} #kup-debug-language-changer {width: 190px;}';
         debugWidget.id = 'kup-debug-widget';
-        debugWidget.layoutFamily = CardFamily.DIALOG;
+        debugWidget.layoutFamily = KupCardFamily.DIALOG;
         debugWidget.layoutNumber = 3;
         debugWidget.sizeX = 'auto';
         debugWidget.sizeY = 'auto';

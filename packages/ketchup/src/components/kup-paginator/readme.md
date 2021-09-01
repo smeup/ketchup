@@ -56,7 +56,6 @@ graph TD;
   kup-paginator --> kup-badge
   kup-combobox --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-box --> kup-paginator

@@ -1,4 +1,4 @@
-import type { CardData } from '../../components/kup-card/kup-card-declarations';
+import type { KupCardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
@@ -81,15 +81,11 @@ export class KupColumnMenu {
     }
     /**
      * Function called to reposition the column menu card to the appropriate column.
-     * Note that focus() is mandatory in order to properly close the card on blur (along with the tab-index="-1" attribute on the element).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
-    reposition(comp: KupDataTable | KupTree): void {
+    reposition(comp: KupDataTable | KupTree, card: HTMLKupCardElement): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: HTMLKupCardElement = root.querySelector(
-                '#' + KupColumnMenuIds.CARD_COLUMN_MENU
-            );
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
@@ -105,13 +101,12 @@ export class KupColumnMenu {
                         card as any,
                         wrapper,
                         0,
-                        KupDynamicPositionPlacement.AUTO,
+                        KupDynamicPositionPlacement.BOTTOM,
                         true
                     );
                 }
                 dom.ketchup.dynamicPosition.start(card as any);
                 card.menuVisible = true;
-                card.focus();
             }
         }
     }
@@ -119,15 +114,15 @@ export class KupColumnMenu {
      * Function called by the column menu card to prepare its 'data' prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
-     * @param {CardData} currentData - 'data' prop of the column menu card when it's already initialized.
+     * @param {KupCardData} currentData - 'data' prop of the column menu card when it's already initialized.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
     prepData(
         comp: KupDataTable | KupTree,
         column: Column,
-        currentData?: CardData
-    ): CardData {
-        const data: CardData = currentData ? { ...currentData } : {};
+        currentData?: KupCardData
+    ): KupCardData {
+        const data: KupCardData = currentData ? { ...currentData } : {};
         data.button = this.prepButton(comp, column);
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);
@@ -179,18 +174,23 @@ export class KupColumnMenu {
             customStyle: ':host {--kup-font-size: 0.75em;}',
             icon: 'open-in-new',
             id: KupColumnMenuIds.BUTTON_OPEN_IN_NEW,
+            title: dom.ketchup.language.translate(
+                KupLanguageGeneric.OPEN_IN_NEW_TAB
+            ),
         });
         props.push({
             className: 'printable',
             customStyle: ':host {--kup-font-size: 0.75em;}',
             icon: 'search',
             id: KupColumnMenuIds.BUTTON_SEARCH,
+            title: dom.ketchup.language.translate(KupLanguageGeneric.INFO),
         });
         props.push({
             className: 'printable',
             customStyle: ':host {--kup-font-size: 0.75em;}',
             icon: 'add',
             id: KupColumnMenuIds.BUTTON_NEW,
+            title: dom.ketchup.language.translate(KupLanguageGeneric.ADD_NEW),
         });
         if (comp.removableColumns) {
             props.push({
@@ -405,10 +405,13 @@ export class KupColumnMenu {
                 value: KupLanguageColumn.COLUMNS,
             });
         }
-        data.push({
-            icon: 'settings',
-            value: KupLanguageGeneric.SETTINGS,
-        });
+        if (!FiltersColumnMenu.isTree(comp)) {
+            data.push({
+                icon: 'settings',
+                value: KupLanguageGeneric.SETTINGS,
+            });
+        }
+
         if (data.length > 0) {
             data[0].active = true;
         }

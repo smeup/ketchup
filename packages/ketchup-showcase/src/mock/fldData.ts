@@ -123,13 +123,9 @@ export const fldDataWupComboboxSeparator = [
         value: 'sme002',
       },
       {
-        text: null,
-        value: null,
-        isSeparator: true,
-      },
-      {
         text: 'PARFRA',
         value: 'sme004',
+        separator: true,
       },
       {
         text: 'ZAMCHI',

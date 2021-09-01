@@ -14,7 +14,7 @@
       <kup-button
         title="Download"
         icon="download"
-        @kup-button-click="downloadTheme" />
+        @kup-button-click="downloadTheme"/>
       <kup-button title="Delete" icon="delete" @kup-button-click="deleteTheme"
     /></div>
     <div id="sample-wrapper" class="theming">
@@ -1090,6 +1090,19 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">--kup-dropdown-icon</span>
+                </td>
+                <td>Used in dropdown fields/items.</td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="dropdown-icon"
+                    @kup-textfield-input="updateThemeIcons"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">--kup-clear-icon</span>
                 </td>
                 <td>Used when an element can be cleared or deleted.</td>
@@ -1126,7 +1139,20 @@
                     @kup-textfield-input="updateThemeIcons"
                   ></kup-text-field>
                 </td> </tr
-            ></tbody>
+            >
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-search-icon</span>
+                </td>
+                <td>Used in search-related fields.</td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="search-icon"
+                    @kup-textfield-input="updateThemeIcons"
+                  ></kup-text-field>
+                </td>
+              </tr></tbody>
           </table>
           <div id="json-tab" class="sample-section" style="display: none">
             <textarea id="json-textarea" style="display: none"></textarea>
@@ -1332,7 +1358,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function (cm) {
+      }).on('change', function(cm) {
         cm.save();
         try {
           let jsonifiedData = JSON.parse(jsonTextarea.value);
@@ -1347,7 +1373,7 @@ export default {
   },
 
   destroyed() {
-    document.removeEventListener('kupThemeChange', initDemo);
+    document.removeEventListener('kup-theme-change', initDemo);
   },
 
   mounted() {
@@ -1362,7 +1388,7 @@ export default {
       initDemo();
     }
 
-    document.addEventListener('kupThemeChange', initDemo);
+    document.addEventListener('kup-theme-change', initDemo);
   },
 };
 
@@ -1426,7 +1452,7 @@ function createTile() {
   themeWrapper.classList.add('icon-wrapper');
   themeWrapper.classList.add('theme-wrapper');
   themeWrapper.id = 'showcaseDemo';
-  themeWrapper.onclick = function () {
+  themeWrapper.onclick = function() {
     setDemoTheme();
   };
   themeWrapper.title = 'Toggle your theme';

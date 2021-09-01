@@ -1,9 +1,11 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import * as languagesJson from './languages.json';
-import { KupComponent } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import {
+    KupLanguageDecode,
     KupLanguageDefaults,
+    KupLanguageElement,
     KupLanguageJSON,
     KupLanguageKey,
 } from './kup-language-declarations';
@@ -21,7 +23,7 @@ export class KupLanguage {
     /**
      * Initializes KupLanguage.
      * @param {KupLanguageJSON} list - Overrides the default languages.json.
-     * @param {string} name - Starting language.
+     * @param {string} name - Starting language. Can be a combination of language and variant (separated by "_").
      */
     constructor(list?: KupLanguageJSON, name?: string) {
         this.list = list ? list : languagesJson['default'];
@@ -36,9 +38,27 @@ export class KupLanguage {
      * @returns {string} Translated string or initial string (when translation failed).
      */
     translate(key: KupLanguageKey, language?: string): string {
-        const name: string = language ? language : this.name;
+        const decodedLanguage: KupLanguageDecode = this.decodeLanguage(
+            language ? language : this.name
+        );
+        const name: string = decodedLanguage.language;
+        const variantName: string = decodedLanguage.variant;
         try {
-            const translatedString: string = this.list[name][key];
+            let translatedString: string = null;
+            if (variantName) {
+                const variants: GenericObject = this.list[name].variants;
+                if (
+                    variants &&
+                    variants[variantName] &&
+                    variants[variantName].keys[key]
+                ) {
+                    translatedString = variants[variantName].keys[key];
+                } else {
+                    translatedString = this.list[name].keys[key];
+                }
+            } else {
+                translatedString = this.list[name].keys[key];
+            }
             if (translatedString) {
                 return translatedString;
             } else {
@@ -57,7 +77,7 @@ export class KupLanguage {
         }
     }
     /**
-     * Changes the current Ketch.UP language to the one provided.
+     * Changes the current Ketch.UP language to the one provided. If the language argument contains a "_", a combo of language and variant will be assumed.
      * @param {string} language - The new language. If not present in this.list, this function will keep the previous language.
      */
     set(language: string): void {
@@ -73,22 +93,53 @@ export class KupLanguage {
             );
             return;
         }
-        if (this.list[language]) {
-            this.name = language;
+        const decodedLanguage: KupLanguageDecode =
+            this.decodeLanguage(language);
+        const dLanguage: string = decodedLanguage.language;
+        const dVariant: string = decodedLanguage.variant;
+        if (this.list[dLanguage]) {
+            if (dVariant && !this.list[dLanguage].variants[dVariant]) {
+                dom.ketchup.debug.logMessage(
+                    'kup-language',
+                    'Variant not found (' + dVariant + ')!',
+                    KupDebugCategory.WARNING
+                );
+                return;
+            }
         } else {
             dom.ketchup.debug.logMessage(
                 'kup-language',
-                'Language not found (' + language + ')!',
+                'Language not found (' + dLanguage + ')!',
                 KupDebugCategory.WARNING
             );
             return;
         }
+        this.name = language;
         this.managedComponents.forEach(function (comp) {
             if (comp.isConnected) {
                 comp.refresh();
             }
         });
-        document.dispatchEvent(new CustomEvent('kupLanguageChange'));
+        document.dispatchEvent(new CustomEvent('kup-language-change'));
+    }
+    /**
+     * Checks whether the language is a combination of main language and variant (separated by "_"), returning them splitted in an object.
+     * @param {string} language - Language to check.
+     * @returns {KupLanguageDecode} Object containing language and variant.
+     */
+    decodeLanguage(language: string): KupLanguageDecode {
+        const result: KupLanguageDecode = {
+            language: null,
+            variant: null,
+        };
+        const separator: number = language.indexOf('_');
+        if (separator > -1) {
+            result.variant = language.substr(separator + 1);
+            result.language = language.substr(0, separator);
+        } else {
+            result.language = language;
+        }
+        return result;
     }
     /**
      * Gets the name of available languages.
@@ -98,7 +149,11 @@ export class KupLanguage {
         const languages: Array<string> = [];
         for (var key in this.list) {
             if (this.list.hasOwnProperty(key)) {
+                const language: KupLanguageElement = this.list[key];
                 languages.push(key);
+                for (const variantKey in language.variants) {
+                    languages.push(key + '_' + variantKey);
+                }
             }
         }
         return languages;

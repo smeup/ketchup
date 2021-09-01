@@ -25,8 +25,8 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import {
-    CardData,
-    CardFamily,
+    KupCardData,
+    KupCardFamily,
     KupCardCSSClasses,
     KupCardEventPayload,
     KupCardIds,
@@ -37,8 +37,8 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { layoutSpecificEvents } from './kup-card-helper';
-import { KupDynamicPositionElement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-card',
@@ -65,7 +65,7 @@ export class KupCard {
      * The actual data of the card.
      * @default null
      */
-    @Prop() data: CardData = null;
+    @Prop() data: KupCardData = null;
     /**
      * Defines whether the card is a menu or not.
      * Works together with menuVisible.
@@ -74,9 +74,9 @@ export class KupCard {
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
      * Sets the type of the card.
-     * @default CardFamily.STANDARD
+     * @default KupCardFamily.STANDARD
      */
-    @Prop() layoutFamily: CardFamily = CardFamily.STANDARD;
+    @Prop() layoutFamily: KupCardFamily = KupCardFamily.STANDARD;
     /**
      * Sets the number of the layout.
      * @default 1
@@ -184,14 +184,6 @@ export class KupCard {
         return getProps(this, KupCardProps, descriptions);
     }
     /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupCardProps, props);
-    }
-    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
@@ -207,6 +199,14 @@ export class KupCard {
         this.resizeTimeout = window.setTimeout(() => {
             this.layoutManager();
         }, 300);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupCardProps, props);
     }
 
     /*-------------------------------------------------*/
@@ -285,17 +285,17 @@ export class KupCard {
 
         try {
             switch (family) {
-                case CardFamily.COLLAPSIBLE: {
+                case KupCardFamily.COLLAPSIBLE: {
                     return collapsibleLayouts[method](this);
                 }
-                case CardFamily.DIALOG: {
+                case KupCardFamily.DIALOG: {
                     return dialogLayouts[method](this);
                 }
-                case CardFamily.SCALABLE: {
+                case KupCardFamily.SCALABLE: {
                     return scalableLayouts[method](this);
                 }
                 default:
-                case CardFamily.STANDARD: {
+                case KupCardFamily.STANDARD: {
                     return standardLayouts[method](this);
                 }
             }
@@ -358,13 +358,13 @@ export class KupCard {
                 );
             }
             switch (family) {
-                case CardFamily.COLLAPSIBLE:
+                case KupCardFamily.COLLAPSIBLE:
                     this.collapsible();
                     break;
-                case CardFamily.DIALOG:
+                case KupCardFamily.DIALOG:
                     this.dialog();
                     break;
-                case CardFamily.SCALABLE:
+                case KupCardFamily.SCALABLE:
                     if (!this.scalingActive) {
                         this.scalable();
                     }
@@ -379,8 +379,6 @@ export class KupCard {
      */
     registerListeners(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        root.addEventListener('kup-datatable-addcolumn', this.cardEvent);
-        root.addEventListener('kup-tree-addcolumn', this.cardEvent);
         root.addEventListener('kup-autocomplete-blur', this.cardEvent);
         root.addEventListener('kup-autocomplete-change', this.cardEvent);
         root.addEventListener('kup-autocomplete-input', this.cardEvent);
@@ -500,15 +498,15 @@ export class KupCard {
     componentDidRender() {
         this.setEvents();
         this.layoutManager();
-        if (this.isMenu && this.menuVisible) {
-            const dynCard: KupDynamicPositionElement = this
-                .rootElement as KupDynamicPositionElement;
-            if (
-                dynCard.kupDynamicPosition &&
-                dynCard.kupDynamicPosition.detached
-            ) {
-                this.kupManager.dynamicPosition.run(dynCard);
-            }
+        if (
+            this.isMenu &&
+            this.menuVisible &&
+            (!document.activeElement ||
+                document.activeElement.tagName === 'BODY')
+        ) {
+            setTimeout(() => {
+                this.rootElement.focus();
+            }, 0);
         }
         this.kupManager.debug.logRender(this, true);
     }
@@ -530,7 +528,10 @@ export class KupCard {
         return (
             <Host style={style}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" onClick={() => this.onKupClick(null)}>
+                <div
+                    id={componentWrapperId}
+                    onClick={() => this.onKupClick(null)}
+                >
                     {this.getLayout()}
                 </div>
             </Host>

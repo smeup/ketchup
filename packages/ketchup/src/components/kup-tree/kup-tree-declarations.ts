@@ -1,4 +1,5 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
     Cell,
     CellsHolder,
@@ -48,41 +49,25 @@ export const treeExpandedPropName = 'isExpanded';
 
 export interface TreeNode {
     data?: GenericObject;
-
     actions?: Array<RowAction>;
-
     cells: CellsHolder;
-
     children: Array<TreeNode>;
-
     disabled: boolean;
-
     expandable: boolean;
-
     icon?: string;
-
     iconColor?: string;
-
     id?: string;
-
     obj: {
         t: string;
         p: string;
         k: string;
     };
-
     options?: boolean;
-
-    // TODO what is this?
     readOnly?: boolean;
-
     style?: { [index: string]: string };
-
     value: string;
-
     /** used for render or not render node (and children) while filtering */
     visible?: boolean;
-
     [treeExpandedPropName]?: boolean;
 }
 
@@ -138,11 +123,8 @@ export interface KupTreeContextMenuEventPayload extends KupEventPayload {
 
 export interface KupTreeColumnMenuEventPayload extends KupEventPayload {
     card: HTMLKupCardElement;
+    event: CustomEvent<KupCardEventPayload | KupEventPayload>;
     open: boolean;
-}
-
-export interface KupTreeAddColumnEventPayload extends KupEventPayload {
-    column: string;
 }
 
 export interface KupTreeDynamicMassExpansionEventPayload

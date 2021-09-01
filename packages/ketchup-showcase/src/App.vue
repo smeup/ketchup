@@ -415,9 +415,27 @@ export default {
             title: 'Advanced',
             advancedItems: [
               {
+                title: 'Accordion',
+                to: {
+                  name: 'accordion',
+                },
+              },
+              {
                 title: 'Box',
                 to: {
                   name: 'box',
+                },
+              },
+              {
+                title: 'Bpmn.io',
+                to: {
+                  name: 'bpmn.io',
+                },
+              },
+              {
+                title: 'Button list',
+                to: {
+                  name: 'buttonlist',
                 },
               },
               {

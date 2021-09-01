@@ -5,29 +5,29 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                     | Type                                                                                             | Default                        |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `''`                           |
-| `data`         | --              | Props of the sub-components (date input text field).                                                            | `Object`                                                                                         | `undefined`                    |
-| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                 | `boolean`                                                                                        | `false`                        |
-| `displayMode`  | `display-mode`  | Sets how to show the selected item value. Suported values: "code", "description", "both".                       | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
-| `initialValue` | `initial-value` | Sets the initial value of the component                                                                         | `string`                                                                                         | `''`                           |
-| `isSelect`     | `is-select`     | Lets the combobox behave as a select element.                                                                   | `boolean`                                                                                        | `false`                        |
-| `selectMode`   | `select-mode`   | Sets how to return the selected item value. Suported values: "code", "description", "both".                     | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE`        |
+| Property       | Attribute       | Description                                                                                 | Type                                                                                             | Default                        |
+| -------------- | --------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `customStyle`  | `custom-style`  | Custom style of the component.                                                              | `string`                                                                                         | `''`                           |
+| `data`         | --              | Props of the sub-components (date input text field).                                        | `Object`                                                                                         | `undefined`                    |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                             | `boolean`                                                                                        | `false`                        |
+| `displayMode`  | `display-mode`  | Sets how to show the selected item value. Suported values: "code", "description", "both".   | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `initialValue` | `initial-value` | Sets the initial value of the component                                                     | `string`                                                                                         | `''`                           |
+| `isSelect`     | `is-select`     | Lets the combobox behave as a select element.                                               | `boolean`                                                                                        | `false`                        |
+| `selectMode`   | `select-mode`   | Sets how to return the selected item value. Suported values: "code", "description", "both". | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE`        |
 
 
 ## Events
 
-| Event                          | Description    | Type                                   |
-| ------------------------------ | -------------- | -------------------------------------- |
-| `kup-combobox-blur`            | Event example. | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-change`          |                | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-click`           |                | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-focus`           |                | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-iconclick`       |                | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-input`           |                | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-itemclick`       |                | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-textfieldsubmit` |                | `CustomEvent<KupComboboxEventPayload>` |
+| Event                          | Description | Type                                   |
+| ------------------------------ | ----------- | -------------------------------------- |
+| `kup-combobox-blur`            |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-change`          |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-click`           |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-focus`           |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-iconclick`       |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-input`           |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-itemclick`       |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-textfieldsubmit` |             | `CustomEvent<KupComboboxEventPayload>` |
 
 
 ## Methods
@@ -44,7 +44,7 @@ Type: `Promise<GenericObject>`
 
 ### `getValue() => Promise<string>`
 
-
+Retrieves the component's value.
 
 #### Returns
 
@@ -64,7 +64,7 @@ Type: `Promise<void>`
 
 ### `setFocus() => Promise<void>`
 
-
+Sets the focus to the component.
 
 #### Returns
 
@@ -84,7 +84,7 @@ Type: `Promise<void>`
 
 ### `setValue(value: string) => Promise<void>`
 
-
+Sets the component's value.
 
 #### Returns
 
@@ -113,7 +113,6 @@ Type: `Promise<void>`
 graph TD;
   kup-combobox --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-box --> kup-combobox

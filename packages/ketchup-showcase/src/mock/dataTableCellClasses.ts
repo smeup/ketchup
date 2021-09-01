@@ -493,6 +493,36 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'top-right-indicator',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value:
+            'A triangle-shaped indicator will be displayed on the top right of the cell.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'top-right-indicator',
+          cssClass: 'top-right-indicator',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'c-vertical-text',
         },
         DESCR: {

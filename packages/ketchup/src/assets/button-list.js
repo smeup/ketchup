@@ -172,7 +172,7 @@ const defaultData = [
 ];
 const bottoniera1 = document.getElementById('button-list-orizzontale');
 bottoniera1.data = defaultData;
-bottoniera1.addEventListener('kup-button-list-click', (e) => {
+bottoniera1.addEventListener('kup-buttonlist-click', (e) => {
     alert(
         'Clicked button with index: [' +
             e.detail.id +

@@ -1,5 +1,5 @@
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
-import type { KupDataTable } from './kup-data-table';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 /**
  * Props of the kup-data-table component.
  * Used to export every prop in an object.
@@ -335,16 +335,13 @@ export interface KupDatatableClickEventPayload extends KupEventPayload {
 
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
     card: HTMLKupCardElement;
+    event: CustomEvent<KupCardEventPayload | KupEventPayload>;
     open: boolean;
 }
 
 export interface KupDatatableOptionClickEventPayload extends KupEventPayload {
     column: string;
     row: Row;
-}
-
-export interface KupDatatableAddColumnEventPayload extends KupEventPayload {
-    column: string;
 }
 
 export interface KupDatatableRowActionClickEventPayload

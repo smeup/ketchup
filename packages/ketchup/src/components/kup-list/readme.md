@@ -5,35 +5,52 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type                                                                                             | Default                        |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `arrowDown`   | `arrow-down`   | Used to navigate the list when it's bound to a text field, i.e.: autocomplete.                                  | `boolean`                                                                                        | `false`                        |
-| `arrowUp`     | `arrow-up`     |                                                                                                                 | `boolean`                                                                                        | `false`                        |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `''`                           |
-| `data`        | --             | The data of the list.                                                                                           | `ComponentListElement[]`                                                                         | `[]`                           |
-| `displayMode` | `display-mode` | Selects how the items must display their label and how they can be filtered for.                                | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
-| `filter`      | `filter`       | Keeps string for filtering elements when filter mode is active                                                  | `string`                                                                                         | `''`                           |
-| `hideText`    | `hide-text`    | Hides rows' text, ideally to display a list of icons only.                                                      | `boolean`                                                                                        | `false`                        |
-| `isMenu`      | `is-menu`      | Defines whether the list is a menu or not.                                                                      | `boolean`                                                                                        | `false`                        |
-| `menuVisible` | `menu-visible` | Sets the status of the menu, when false it's hidden otherwise it's visible.                                     | `boolean`                                                                                        | `false`                        |
-| `roleType`    | `role-type`    | Defines the type of selection. Values accepted: listbox, radiogroup or group.                                   | `string`                                                                                         | `KupList.ROLE_LISTBOX`         |
-| `selectable`  | `selectable`   | Defines whether items are selectable or not.                                                                    | `boolean`                                                                                        | `true`                         |
-| `showIcons`   | `show-icons`   | Displays the icons associated to each row when set to true.                                                     | `boolean`                                                                                        | `false`                        |
-| `twoLine`     | `two-line`     | The list elements descriptions will be arranged in two lines.                                                   | `boolean`                                                                                        | `false`                        |
+| Property             | Attribute             | Description                                                                                                           | Type                                                                                             | Default                        |
+| -------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `customStyle`        | `custom-style`        | Custom style of the component.                                                                                        | `string`                                                                                         | `''`                           |
+| `data`               | --                    | The data of the list.                                                                                                 | `KupListData[]`                                                                                  | `[]`                           |
+| `displayMode`        | `display-mode`        | Selects how the items must display their label and how they can be filtered for.                                      | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `filter`             | `filter`              | Keeps string for filtering elements when filter mode is active                                                        | `string`                                                                                         | `''`                           |
+| `hideText`           | `hide-text`           | Hides rows' text, ideally to display a list of icons only.                                                            | `boolean`                                                                                        | `false`                        |
+| `isMenu`             | `is-menu`             | Defines whether the list is a menu or not.                                                                            | `boolean`                                                                                        | `false`                        |
+| `keyboardNavigation` | `keyboard-navigation` | When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true. | `boolean`                                                                                        | `undefined`                    |
+| `menuVisible`        | `menu-visible`        | Sets the status of the menu, when false it's hidden otherwise it's visible.                                           | `boolean`                                                                                        | `false`                        |
+| `roleType`           | `role-type`           | Defines the type of selection. Values accepted: listbox, radiogroup or group.                                         | `KupListRole.GROUP \| KupListRole.LISTBOX \| KupListRole.RADIOGROUP`                             | `KupListRole.LISTBOX`          |
+| `selectable`         | `selectable`          | Defines whether items are selectable or not.                                                                          | `boolean`                                                                                        | `true`                         |
+| `showIcons`          | `show-icons`          | Displays the icons associated to each row when set to true.                                                           | `boolean`                                                                                        | `false`                        |
+| `twoLine`            | `two-line`            | The list elements descriptions will be arranged in two lines.                                                         | `boolean`                                                                                        | `false`                        |
 
 
 ## Events
 
-| Event             | Description | Type                               |
-| ----------------- | ----------- | ---------------------------------- |
-| `kup-list-blur`   | Events.     | `CustomEvent<KupListEventPayload>` |
-| `kup-list-change` |             | `CustomEvent<KupListEventPayload>` |
-| `kup-list-click`  |             | `CustomEvent<KupListEventPayload>` |
-| `kup-list-focus`  |             | `CustomEvent<KupListEventPayload>` |
-| `kup-list-input`  |             | `CustomEvent<KupListEventPayload>` |
+| Event            | Description | Type                               |
+| ---------------- | ----------- | ---------------------------------- |
+| `kup-list-blur`  |             | `CustomEvent<KupEventPayload>`     |
+| `kup-list-click` |             | `CustomEvent<KupListEventPayload>` |
+| `kup-list-focus` |             | `CustomEvent<KupEventPayload>`     |
 
 
 ## Methods
+
+### `focusNext() => Promise<void>`
+
+Focuses the next element of the list.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `focusPrevious() => Promise<void>`
+
+Focuses the previous element of the list.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
@@ -57,7 +74,17 @@ Type: `Promise<void>`
 
 ### `resetFilter(newFilter: string) => Promise<void>`
 
+Resets filter.
 
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `select(index?: number) => Promise<void>`
+
+Calls handleSelection internal method to select the given item.
 
 #### Returns
 
@@ -92,14 +119,12 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-radio](../kup-radio)
-- [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list

@@ -430,8 +430,12 @@ export function changeDateTimeFormat(
     outputFormat: string
 ): string {
     let m = moment(value, inputFormat);
-    let str = m.format(outputFormat);
-    return str;
+    if (m.isValid()) {
+        let str = m.format(outputFormat);
+        return str;
+    } else {
+        return '';
+    }
 }
 
 /**

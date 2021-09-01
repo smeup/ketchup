@@ -23,6 +23,7 @@ import {
     KupSwitchProps,
 } from './kup-switch-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-switch',
@@ -31,7 +32,7 @@ import { getProps, setProps } from '../../utils/utils';
 })
 export class KupSwitch {
     /**
-     * References the root HTML element of the component (<kup-image>).
+     * References the root HTML element of the component (<kup-switch>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -165,19 +166,19 @@ export class KupSwitch {
         return getProps(this, KupSwitchProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupSwitchProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -248,7 +249,7 @@ export class KupSwitch {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <FSwitch {...props} />
                 </div>
             </Host>

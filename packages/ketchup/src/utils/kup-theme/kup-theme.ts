@@ -71,7 +71,7 @@ export class KupTheme {
         this.customStyle();
 
         document.documentElement.setAttribute('kup-theme', this.name);
-        document.dispatchEvent(new CustomEvent('kupThemeChange'));
+        document.dispatchEvent(new CustomEvent('kup-theme-change'));
     }
     /**
      * Gets the name of available themes (filters out themes named "test").
@@ -167,7 +167,7 @@ export class KupTheme {
                 'kup-theme',
                 'Theme ' + dom.getAttribute('kup-theme') + ' refreshed.'
             );
-            document.dispatchEvent(new CustomEvent('kupThemeRefresh'));
+            document.dispatchEvent(new CustomEvent('kup-theme-refresh'));
         } catch (error) {
             dom.ketchup.debug.logMessage(
                 'kup-theme',

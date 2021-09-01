@@ -21,18 +21,19 @@ import {
 } from '../kup-data-table/kup-data-table-declarations';
 
 import {
-    BoxRow,
-    Layout,
+    KupBoxRow,
+    KupBoxLayout,
     Section,
     CollapsedSectionsState,
     BoxObject,
-    BoxKanban,
+    KupBoxKanban,
     KupBoxProps,
     KupBoxClickEventPayload,
     KupBoxSelectedEventPayload,
     KupBoxAutoSelectEventPayload,
     KupBoxRowActionClickEventPayload,
     KupBoxContextMenuEventPayload,
+    KupBoxData,
 } from './kup-box-declarations';
 
 import {
@@ -64,7 +65,7 @@ import {
 const KupBoxDragType = 'text/kup-box-drag';
 
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
-import { CardData } from '../kup-card/kup-card-declarations';
+import { KupCardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
     KupManager,
@@ -96,6 +97,8 @@ import {
     KupLanguageGeneric,
     KupLanguageSearch,
 } from '../../utils/kup-language/kup-language-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -103,12 +106,32 @@ import {
     shadow: true,
 })
 export class KupBox {
-    //////////////////////////////
-    // Begin state stuff
-    //////////////////////////////
+    /**
+     * References the root HTML element of the component (<kup-box>).
+     */
+    @Element() rootElement: HTMLElement;
 
-    @Prop() stateId: string = '';
-    @Prop() store: KupStore;
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    @State()
+    private collapsedSection: CollapsedSectionsState = {};
+
+    @State()
+    private selectedRows: Array<KupBoxRow> = [];
+
+    /**
+     * Row that has the row object menu open
+     */
+    @State()
+    private rowActionMenuOpened: KupBoxRow;
+
+    @State()
+    private currentPage = 1;
+
+    @State()
+    private currentRowsPerPage = 10;
 
     state: KupBoxState = new KupBoxState();
 
@@ -189,143 +212,174 @@ export class KupBox {
         }
     }
 
-    //////////////////////////////
-    // End state stuff
-    //////////////////////////////
-
-    @Element() rootElement: HTMLElement;
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Data of the card linked to the box when the latter's layout must be a premade template.
+     * @default null
      */
-    @Prop() cardData: GenericObject;
+    @Prop() cardData: GenericObject = null;
     /**
      * Number of columns
+     * @default 1
      */
     @Prop() columns: number = 1;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
-     * Data
+     * Actual data of the box.
+     * @default null
      */
-    @Prop() data: { columns?: Column[]; rows?: BoxRow[] };
+    @Prop() data: KupBoxData = null;
     /**
      * Enable dragging
+     * @default false
      */
     @Prop() dragEnabled: boolean = false;
     /**
      * Enable dropping
+     * @default false
      */
     @Prop() dropEnabled: boolean = false;
     /**
      * Drop can be done in section
+     * @default false
      */
     @Prop() dropOnSection: boolean = false;
     /**
      * If enabled, a button to load / display the row actions
      * will be displayed on the right of every box
+     * @default false
      */
     @Prop() enableRowActions: boolean = false;
     /**
      * When set to true it activates the global filter.
+     * @default false
      */
     @Prop() globalFilter: boolean = false;
     /**
      * The value of the global filter.
+     * @default ""
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
     /**
      * Displays the boxlist as a Kanban.
+     * @default null
      */
-    @Prop() kanban: BoxKanban = null;
+    @Prop() kanban: KupBoxKanban = null;
     /**
      * How the field will be displayed. If not present, a default one will be created.
+     * @default undefined
      */
-    @Prop() layout: Layout;
+    @Prop() layout: KupBoxLayout;
     /**
      * Enable multi selection
+     * @default false
      */
     @Prop() multiSelection: boolean = false;
     /**
      * Current page number
+     * @default 1
      */
     @Prop() pageSelected: number = 1;
     /**
      * Number of boxes per page
+     * @default 10
      */
     @Prop() pageSize: number = 10;
     /**
      * Enables pagination
+     * @default false
      */
     @Prop() pagination: boolean = false;
     /**
      * Number of current rows per page
+     * @default undefined
      */
     @Prop() rowsPerPage: number;
     /**
      * Activates the scroll on hover function.
+     * @default false
      */
     @Prop() scrollOnHover: boolean = false;
     /**
      * Automatically selects the box at the specified index
+     * @default undefined
      */
     @Prop() selectBox: number;
     /**
      * Multiple selection
+     * @default undefined
      */
     @Prop({ mutable: true }) selectedRowsState: string;
     /**
      * If enabled, highlights the selected box/boxes
+     * @default true
      */
     @Prop() showSelection: boolean = true;
     /**
      * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+     * @default true
      */
     @Prop() showTooltipOnRightClick: boolean = true;
     /**
      * If sorting is enabled, specifies which column to sort
+     * @default undefined
      */
     @Prop({ mutable: true }) sortBy: string;
     /**
      * Enable sorting
+     * @default false
      */
     @Prop() sortEnabled: boolean = false;
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
     /**
      * Disable swipe
+     * @default false
      */
     @Prop() swipeDisabled: boolean = false;
     /**
      * Defines the timeout for tooltip detail
+     * @default undefined
      */
     @Prop() tooltipDetailTimeout: number;
     /**
      * Enable show tooltip
+     * @default true
      */
     @Prop() tooltipEnabled: boolean = true;
     /**
      * Defines the timeout for tooltip load
+     * @default undefined
      */
     @Prop() tooltipLoadTimeout: number;
 
-    @State()
-    private collapsedSection: CollapsedSectionsState = {};
-
-    @State()
-    private selectedRows: Array<BoxRow> = [];
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
-     * Row that has the row object menu open
+     * Instance of the KupManager class.
      */
-    @State()
-    private rowActionMenuOpened: BoxRow;
+    private kupManager: KupManager = kupManagerInstance();
+    private boxLayout: KupBoxLayout;
+    private visibleColumns: Column[] = [];
+    private rows: KupBoxRow[] = [];
+    private filteredRows: KupBoxRow[] = [];
+    private tooltip: KupTooltip;
+    private globalFilterTimeout: number;
+    private boxContainer: KupScrollOnHoverElement;
 
-    @State()
-    private currentPage = 1;
-
-    @State()
-    private currentRowsPerPage = 10;
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     /**
      * Triggered when a box is clicked
@@ -411,20 +465,9 @@ export class KupBox {
     })
     kupBoxContextMenu: EventEmitter<KupBoxContextMenuEventPayload>;
 
-    private boxLayout: Layout;
-
-    private visibleColumns: Column[] = [];
-
-    private rows: BoxRow[] = [];
-    private filteredRows: BoxRow[] = [];
-
-    private tooltip: KupTooltip;
-    private globalFilterTimeout: number;
-    private boxContainer: KupScrollOnHoverElement;
-    /**
-     * Instance of the KupManager class.
-     */
-    private kupManager: KupManager = kupManagerInstance();
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
 
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
@@ -459,7 +502,9 @@ export class KupBox {
         this.handleAutomaticBoxSelection();
     }
 
-    //---- Methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -470,13 +515,12 @@ export class KupBox {
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupBoxProps, descriptions);
     }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
     @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupBoxProps, props);
+    async loadRowActions(row: KupBoxRow, actions: RowAction[]) {
+        row.actions = actions;
+
+        // show menu
+        this.rowActionMenuOpened = row;
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -485,74 +529,19 @@ export class KupBox {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
-
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
-        this.kupManager.debug.logLoad(this, false);
-
-        if (this.rowsPerPage) {
-            this.currentRowsPerPage = this.rowsPerPage;
-        } else if (this.pageSize) {
-            this.currentRowsPerPage = this.pageSize;
-        }
-        this.kupManager.language.register(this);
-        this.kupManager.theme.register(this);
-        this.onDataChanged();
-        this.adjustPaginator();
-    }
-
-    componentDidLoad() {
-        this.handleAutomaticBoxSelection();
-
-        // When component is created, then the listener is set. @See clickFunction for more details
-        document.addEventListener('click', this.clickFunction.bind(this));
-
-        this.currentPage = this.pageSelected;
-        //        this.currentRowsPerPage = this.rowsPerPage;
-
-        if (this.multiSelection && this.selectedRowsState) {
-            this.selectedRows = [];
-            let selectedIds: Array<string> = this.selectedRowsState.split(';');
-            this.selectedRows = this.data.rows.filter((r) => {
-                return selectedIds.indexOf(r.id) >= 0;
-            });
-        }
-        this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
-        this.kupManager.debug.logLoad(this, true);
-    }
-
-    componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
-    }
-
-    componentDidRender() {
-        this.checkScrollOnHover();
-        // *** Store
-        this.persistState();
-        // ***
-        this.kupManager.debug.logRender(this, true);
-    }
-
-    // @Methods
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
     @Method()
-    async loadRowActions(row: BoxRow, actions: RowAction[]) {
-        row.actions = actions;
-
-        // show menu
-        this.rowActionMenuOpened = row;
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupBoxProps, props);
     }
 
-    private getColumnByDesc(columns: Column[], title: string): Column {
-        for (let column of columns) {
-            if (column.title === title) {
-                return column;
-            }
-        }
-        return null;
-    }
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
-    // private methods
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
             ? this.data.columns
@@ -569,7 +558,7 @@ export class KupBox {
         });
     }
 
-    private getRows(): BoxRow[] {
+    private getRows(): KupBoxRow[] {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
@@ -598,7 +587,7 @@ export class KupBox {
         }
     }
 
-    private sortRows(rows: BoxRow[]): BoxRow[] {
+    private sortRows(rows: KupBoxRow[]): KupBoxRow[] {
         let sortedRows = rows;
 
         if (this.sortBy) {
@@ -674,7 +663,7 @@ export class KupBox {
         this.globalFilterValue = value;
     }
 
-    private isSectionExpanded(row: BoxRow, section: Section): boolean {
+    private isSectionExpanded(row: KupBoxRow, section: Section): boolean {
         if (!row.id || !section.id) {
             return false;
         }
@@ -709,13 +698,13 @@ export class KupBox {
 
     private getEventDetails(el: HTMLElement): {
         boxObject: HTMLElement;
-        row: BoxRow;
+        row: KupBoxRow;
         column: string;
         cell: Cell;
     } {
         const boxObject: HTMLDivElement = el.closest('.box-object');
         let cell: Cell = null;
-        let row: BoxRow = null;
+        let row: KupBoxRow = null;
         let column: string = null;
         if (boxObject) {
             cell = boxObject['data-cell'];
@@ -734,7 +723,7 @@ export class KupBox {
     private contextMenuHandler(e: MouseEvent): void {
         const details: {
             boxObject: HTMLElement;
-            row: BoxRow;
+            row: KupBoxRow;
             column: string;
             cell: Cell;
         } = this.getEventDetails(e.target as HTMLElement);
@@ -772,7 +761,7 @@ export class KupBox {
     }
 
     // event listeners
-    private onBoxClick({ target }: MouseEvent, row: BoxRow) {
+    private onBoxClick({ target }: MouseEvent, row: KupBoxRow) {
         if (!(target instanceof HTMLElement)) {
             return;
         }
@@ -817,7 +806,7 @@ export class KupBox {
         }
     }
 
-    private onSelectionCheckChange(row: BoxRow) {
+    private onSelectionCheckChange(row: KupBoxRow) {
         var index = -1;
         for (let i = 0; i < this.selectedRows.length; i++) {
             const select = this.selectedRows[i];
@@ -843,7 +832,7 @@ export class KupBox {
         });
     }
 
-    private toggleSectionExpand(row: BoxRow, section: Section) {
+    private toggleSectionExpand(row: KupBoxRow, section: Section) {
         // check if section / row has id
         if (!section.id) {
             // error
@@ -878,7 +867,7 @@ export class KupBox {
         this.collapsedSection = { ...this.collapsedSection };
     }
 
-    private onRowAction(row: BoxRow) {
+    private onRowAction(row: KupBoxRow) {
         if (!row) {
             return;
         }
@@ -902,7 +891,7 @@ export class KupBox {
         }
     }
 
-    private onRowActionClick(row: BoxRow, action: RowAction, index: number) {
+    private onRowActionClick(row: KupBoxRow, action: RowAction, index: number) {
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -991,9 +980,9 @@ export class KupBox {
     }
 
     // render methods
-    private renderSectionAsCard(row: BoxRow) {
+    private renderSectionAsCard(row: KupBoxRow) {
         let skipPush: boolean = false;
-        let cardData: CardData = {
+        let cardData: KupCardData = {
             button: [],
             image: [],
             progressbar: [],
@@ -1139,7 +1128,7 @@ export class KupBox {
         return <kup-card data={cardData} {...this.cardData}></kup-card>;
     }
 
-    private renderRow(row: BoxRow) {
+    private renderRow(row: KupBoxRow) {
         const visibleColumns = [...this.visibleColumns];
 
         let boxContent = null;
@@ -1172,9 +1161,12 @@ export class KupBox {
 
             while (size-- > 0) {
                 if (
-                    typeof this.cardData !== 'object' &&
-                    this.cardData !== null
+                    this.cardData !== null &&
+                    this.cardData !== undefined &&
+                    typeof this.cardData === 'object'
                 ) {
+                    boxContent.push(this.renderSectionAsCard(row));
+                } else {
                     boxContent.push(
                         this.renderSection(
                             sections[cnt++],
@@ -1183,8 +1175,6 @@ export class KupBox {
                             visibleColumns
                         )
                     );
-                } else {
-                    boxContent.push(this.renderSectionAsCard(row));
                 }
             }
         }
@@ -1360,7 +1350,7 @@ export class KupBox {
     private renderSection(
         section: Section,
         parent: Section,
-        row: BoxRow,
+        row: KupBoxRow,
         visibleColumns: Column[]
     ) {
         let sectionContent = null;
@@ -1515,7 +1505,7 @@ export class KupBox {
         visibleColumns,
     }: {
         boxObject: BoxObject;
-        row: BoxRow;
+        row: KupBoxRow;
         visibleColumns: Column[];
     }) {
         let classObj: Record<string, boolean> = {
@@ -1856,6 +1846,53 @@ export class KupBox {
         );
     }
 
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
+
+    componentWillLoad() {
+        this.kupManager.debug.logLoad(this, false);
+
+        if (this.rowsPerPage) {
+            this.currentRowsPerPage = this.rowsPerPage;
+        } else if (this.pageSize) {
+            this.currentRowsPerPage = this.pageSize;
+        }
+        this.kupManager.language.register(this);
+        this.kupManager.theme.register(this);
+        this.onDataChanged();
+        this.adjustPaginator();
+    }
+
+    componentDidLoad() {
+        this.handleAutomaticBoxSelection();
+
+        // When component is created, then the listener is set. @See clickFunction for more details
+        document.addEventListener('click', this.clickFunction.bind(this));
+
+        this.currentPage = this.pageSelected;
+
+        if (this.multiSelection && this.selectedRowsState) {
+            this.selectedRows = [];
+            let selectedIds: Array<string> = this.selectedRowsState.split(';');
+            this.selectedRows = this.data.rows.filter((r) => {
+                return selectedIds.indexOf(r.id) >= 0;
+            });
+        }
+        this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
+        this.kupManager.debug.logLoad(this, true);
+    }
+
+    componentWillRender() {
+        this.kupManager.debug.logRender(this, false);
+    }
+
+    componentDidRender() {
+        this.checkScrollOnHover();
+        this.persistState();
+        this.kupManager.debug.logRender(this, true);
+    }
+
     render() {
         const isKanban: boolean = !!(
             typeof this.kanban === 'object' && this.kanban !== null
@@ -1908,7 +1945,7 @@ export class KupBox {
                         label={this.kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
-                        icon="magnify"
+                        icon={KupThemeIconValues.SEARCH}
                         initialValue={this.globalFilterValue}
                         onkup-textfield-input={(event) => {
                             window.clearTimeout(this.globalFilterTimeout);
@@ -2010,7 +2047,7 @@ export class KupBox {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div
                         class={'box-component'}
                         {...(this.dropEnabled &&

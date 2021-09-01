@@ -6,30 +6,35 @@ import {
     forceUpdate,
     h,
     Host,
+    Listen,
     Method,
     Prop,
+    State,
+    VNode,
     Watch,
 } from '@stencil/core';
-
-import { MDCList } from '@material/list';
-import { MDCRipple } from '@material/ripple';
 import {
-    ComponentListElement,
+    KupListData,
     KupListEventPayload,
     KupListProps,
+    KupListRole,
 } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
-import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
-import { getValueOfItemByDisplayMode } from './kup-list-declarations';
+import { getValueOfItemByDisplayMode } from './kup-list-helper';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 
 @Component({
     tag: 'kup-list',
@@ -37,79 +42,109 @@ import { getProps, setProps } from '../../utils/utils';
     shadow: true,
 })
 export class KupList {
+    /**
+     * References the root HTML element of the component (<kup-list>).
+     */
     @Element() rootElement: HTMLElement;
 
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
     /**
-     * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
+     * The focused list item.
+     * @default null
      */
-    @Prop({ mutable: true }) arrowDown: boolean = false;
-    @Prop({ mutable: true }) arrowUp: boolean = false;
+    @State() focused: number = null;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * The selected list items.
+     * @default []
+     */
+    @State() selected: string[] = [];
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * The data of the list.
+     * @default []
      */
-    @Prop({ mutable: true }) data: ComponentListElement[] = [];
+    @Prop({ mutable: true }) data: KupListData[] = [];
     /**
      * Selects how the items must display their label and how they can be filtered for.
+     * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Keeps string for filtering elements when filter mode is active
+     * @default ''
      */
     @Prop({ mutable: true }) filter: string = '';
     /**
      * Hides rows' text, ideally to display a list of icons only.
+     * @default false
      */
     @Prop() hideText: boolean = false;
     /**
      * Defines whether the list is a menu or not.
+     * @default false
      */
     @Prop() isMenu: boolean = false;
     /**
+     * When true, enables items' navigation through keys.
+     * Defaults to false when the component's isMenu prop is set to true.
+     * @default undefined
+     */
+    @Prop({ mutable: true }) keyboardNavigation: boolean = undefined;
+    /**
      * Sets the status of the menu, when false it's hidden otherwise it's visible.
+     * @default false
      */
     @Prop() menuVisible: boolean = false;
     /**
      * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+     * @default KupListRole.LISTBOX
      */
-    @Prop({ mutable: true }) roleType?: string = KupList.ROLE_LISTBOX;
+    @Prop({ mutable: true }) roleType?: KupListRole = KupListRole.LISTBOX;
     /**
      * Defines whether items are selectable or not.
+     * @default true
      */
     @Prop() selectable: boolean = true;
     /**
      * Displays the icons associated to each row when set to true.
+     * @default false
      */
     @Prop() showIcons: boolean = false;
     /**
      * The list elements descriptions will be arranged in two lines.
+     * @default false
      */
     @Prop() twoLine: boolean = false;
 
-    //---- Internal state ----
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
-    static ROLE_LISTBOX: string = 'listbox';
-    static ROLE_RADIOGROUP: string = 'radiogroup';
-    static ROLE_CHECKBOX: string = 'group';
-
-    private filteredItems: ComponentListElement[] = [];
-    private listComponent: MDCList = null;
+    private filteredItems: KupListData[] = [];
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
 
     private radios: KupRadio[] = [];
-    private checkboxes: KupCheckbox[] = [];
+    private listItems: HTMLElement[] = [];
 
-    private focIndex: number = -1;
-
-    /**
-     * Events.
-     */
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kup-list-blur',
@@ -117,15 +152,15 @@ export class KupList {
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<KupListEventPayload>;
+    kupBlur: EventEmitter<KupEventPayload>;
 
     @Event({
-        eventName: 'kup-list-change',
+        eventName: 'kup-list-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<KupListEventPayload>;
+    kupFocus: EventEmitter<KupEventPayload>;
 
     @Event({
         eventName: 'kup-list-click',
@@ -135,26 +170,57 @@ export class KupList {
     })
     kupClick: EventEmitter<KupListEventPayload>;
 
-    @Event({
-        eventName: 'kup-list-focus',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupFocus: EventEmitter<KupListEventPayload>;
+    onKupBlur(_index: number) {
+        this.kupBlur.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+    }
 
-    @Event({
-        eventName: 'kup-list-input',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<KupListEventPayload>;
+    onKupFocus(_index: number) {
+        this.kupFocus.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+    }
+
+    onKupClick(index: number) {
+        this.handleSelection(index);
+    }
+
+    /*-------------------------------------------------*/
+    /*                L i s t e n e r s                */
+    /*-------------------------------------------------*/
+
+    @Listen('keydown')
+    listenKeydown(e: KeyboardEvent) {
+        if (this.keyboardNavigation) {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusNext();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.focusPrevious();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.handleSelection(this.focused);
+                    break;
+            }
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
 
     @Watch('filter')
     watchFilter() {
-        this.focIndex = -1;
-
         this.filteredItems = [];
         let index = 0;
         this.data.map((item) => {
@@ -163,41 +229,62 @@ export class KupList {
         this.data = [...this.data];
     }
 
-    @Watch('arrowDown')
-    watchArrowDown() {
-        if (this.arrowDown == true) {
-            if (this.focIndex < this.listComponent.listElements.length - 1) {
-                if (this.focIndex == -1) {
-                    let idx = this.listComponent
-                        .getDefaultFoundation()
-                        .focusFirstElement();
-                    this.focIndex = idx;
-                } else {
-                    let idx = this.listComponent
-                        .getDefaultFoundation()
-                        .focusNextElement(this.focIndex);
-                    this.focIndex = idx;
-                }
-                //this.focIndex++;
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Focuses the next element of the list.
+     */
+    @Method()
+    async focusNext(): Promise<void> {
+        if (
+            isNaN(this.focused) ||
+            this.focused === null ||
+            this.focused === undefined
+        ) {
+            if (this.selected.length === 1) {
+                const selectedItem: KupListData = this.data.find(
+                    (x: KupListData) => x.value === this.selected[0]
+                );
+                this.focused = this.data.indexOf(selectedItem) + 1;
+            } else {
+                this.focused = 0;
             }
-            this.arrowDown = false;
+        } else {
+            this.focused++;
         }
+        if (this.focused > this.listItems.length - 1) {
+            this.focused = 0;
+        }
+        this.listItems[this.focused].focus();
     }
-
-    @Watch('arrowUp')
-    watchArrowUp() {
-        if (this.arrowUp == true) {
-            if (this.focIndex > 0) {
-                this.listComponent
-                    .getDefaultFoundation()
-                    .focusPrevElement(this.focIndex--);
+    /**
+     * Focuses the previous element of the list.
+     */
+    @Method()
+    async focusPrevious(): Promise<void> {
+        if (
+            isNaN(this.focused) ||
+            this.focused === null ||
+            this.focused === undefined
+        ) {
+            if (this.selected.length === 1) {
+                const selectedItem: KupListData = this.data.find(
+                    (x: KupListData) => x.value === this.selected[0]
+                );
+                this.focused = this.data.indexOf(selectedItem) - 1;
+            } else {
+                this.focused = 0;
             }
-            this.arrowUp = false;
+        } else {
+            this.focused--;
         }
+        if (this.focused < 0) {
+            this.focused = this.listItems.length - 1;
+        }
+        this.listItems[this.focused].focus();
     }
-
-    //---- Methods ----
-
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -208,6 +295,32 @@ export class KupList {
         return getProps(this, KupListProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Resets filter.
+     * @todo FOSLUC to PASCAR: why isn't it enough to change only the prop?
+     */
+    @Method()
+    async resetFilter(newFilter: string) {
+        this.filter = newFilter;
+    }
+    /**
+     * Calls handleSelection internal method to select the given item.
+     * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
+     */
+    @Method()
+    async select(index?: number): Promise<void> {
+        if (index === undefined) {
+            index = this.focused;
+        }
+        this.handleSelection(index);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
@@ -215,111 +328,53 @@ export class KupList {
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupListProps, props);
     }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
     /**
-     * This method is used to trigger a new render of the component.
+     * Selects the specified item.
+     * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
      */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
-
-    onKupBlur(e: CustomEvent, item: ComponentListElement) {
-        this.kupBlur.emit({
-            comp: this,
-            id: this.rootElement.id,
-            selected: item,
-            el: e.target,
-        });
-    }
-
-    onKupChange(e: CustomEvent, item: ComponentListElement) {
-        this.kupChange.emit({
-            comp: this,
-            id: this.rootElement.id,
-            selected: item,
-            el: e.target,
-        });
-    }
-
-    onKupClick(e: MouseEvent, item: ComponentListElement, index: number) {
-        let el: HTMLLIElement = null;
-        if ((e.target as HTMLElement).tagName === 'LI') {
-            el = e.target as HTMLLIElement;
-        } else {
-            el = (e.target as HTMLElement).closest('li');
-        }
-        el.blur();
-        this.onKupClickInternalUse(e.target, item, index);
-    }
-
-    onKupClickInternalUse(
-        target: EventTarget,
-        item: ComponentListElement,
-        index: number
-    ) {
-        if (this.isMultiSelection()) {
-            if (item.selected == true) {
-                this.setUnselected(item, index);
-            } else {
-                this.setSelected(item, index);
+    private handleSelection(index: number): void {
+        if (index !== null && index !== undefined && !isNaN(index)) {
+            const value: string = this.data[index].value;
+            switch (this.roleType) {
+                case KupListRole.GROUP:
+                    if (this.selected.includes(value)) {
+                        this.selected.splice(this.selected.indexOf(value), 1);
+                    } else {
+                        this.selected.push(value);
+                    }
+                    this.selected = new Array(...this.selected);
+                    break;
+                default:
+                    this.selected = new Array(value);
+                    break;
             }
-        }
-        if (this.isSingleSelection()) {
-            if (item.selected != true) {
-                let index1 = 0;
-                this.filteredItems.map((item1) => {
-                    this.setUnselected(item1, index1++);
-                });
-                this.setSelected(item, index);
+            for (let index = 0; index < this.data.length; index++) {
+                const item: KupListData = this.data[index];
+                if (this.selected.includes(item.value)) {
+                    item.selected = true;
+                } else {
+                    item.selected = false;
+                }
             }
-        }
-
-        this.kupClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            selected: item,
-            el: target,
-        });
-    }
-
-    onKupFocus(e: CustomEvent, item: ComponentListElement) {
-        this.kupFocus.emit({
-            comp: this,
-            id: this.rootElement.id,
-            selected: item,
-            el: e.target,
-        });
-    }
-
-    onKupInput(e: KeyboardEvent, item: ComponentListElement, index: number) {
-        if (e.key == 'Enter') {
-            this.onKupClickInternalUse(e.target, item, index);
-        } else {
-            this.kupInput.emit({
+            this.kupClick.emit({
                 comp: this,
                 id: this.rootElement.id,
-                selected: item,
-                el: e.target,
+                selected: this.data[index],
             });
         }
     }
 
-    @Method()
-    async resetFilter(newFilter: string) {
-        this.filter = newFilter;
-    }
-
     renderSeparator() {
-        return <li role="separator" class="mdc-list-divider"></li>;
+        return <li role="separator" class="list-divider"></li>;
     }
 
-    renderListItem(item: ComponentListElement, index: number) {
-        let rippleEl: HTMLElement = undefined;
+    renderListItem(item: KupListData, index: number) {
         this.filteredItems[index] = item;
-
-        if (this.selectable) {
-            rippleEl = <span class="mdc-list-item__ripple"></span>;
-        }
 
         if (item.selected != true) {
             item.selected = false;
@@ -338,20 +393,23 @@ export class KupList {
         ];
 
         let secTextTag = [];
-        if (item.secondaryText && item.secondaryText != '') {
+        if (this.twoLine && item.secondaryText && item.secondaryText != '') {
             primaryTextTag = [
-                <span class="mdc-list-item__primary-text">{item.text}</span>,
+                <span class="list-item__primary-text">{item.text}</span>,
             ];
             secTextTag = [
-                <span class="mdc-list-item__secondary-text">
+                <span class="list-item__secondary-text">
                     {item.secondaryText}
                 </span>,
             ];
         }
-        let classAttr = 'mdc-list-item';
+        let classAttr = 'list-item';
         let tabIndexAttr = item.selected == true ? '0' : '-1';
         if (item.selected == true && this.isListBoxRule()) {
-            classAttr += ' mdc-list-item--selected';
+            classAttr += ' list-item--selected';
+        }
+        if (this.focused === index) {
+            classAttr += ' list-item--focused';
         }
         let roleAttr = 'option';
 
@@ -362,7 +420,7 @@ export class KupList {
         }
         let innerSpanTag = [
             imageTag,
-            <span class="mdc-list-item__text">
+            <span class="list-item__text">
                 {primaryTextTag}
                 {secTextTag}
             </span>,
@@ -381,7 +439,7 @@ export class KupList {
                 display: 'none',
             };
             innerSpanTag = [
-                <span class="mdc-list-item__graphic">
+                <span class="list-item__graphic">
                     <input type="radio" style={trickForMDC} />
                     <kup-radio
                         data={dataTmp}
@@ -391,7 +449,7 @@ export class KupList {
                 </span>,
                 imageTag,
                 <label
-                    class="mdc-list-item__text"
+                    class="list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
                 >
                     {primaryTextTag}
@@ -408,18 +466,13 @@ export class KupList {
             };
 
             innerSpanTag = [
-                <span class="mdc-list-item__graphic">
+                <span class="list-item__graphic">
                     <input type="checkbox" style={trickForMDC} />
-                    <kup-checkbox
-                        class="mdc-checkbox"
-                        id={this.rootElement.id + '_' + index}
-                        checked={checkedAttr}
-                        ref={(el) => (this.checkboxes[index] = el as any)}
-                    ></kup-checkbox>
+                    <FCheckbox checked={checkedAttr} />
                 </span>,
                 imageTag,
                 <label
-                    class="mdc-list-item__text"
+                    class="list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
                 >
                     {primaryTextTag}
@@ -427,34 +480,41 @@ export class KupList {
                 </label>,
             ];
         }
-        return (
+        const vNodes: VNode[] = [];
+        if (item.separator) {
+            vNodes.push(<li role="separator" class="list-divider"></li>);
+        }
+        vNodes.push(
             <li
+                ref={(el: HTMLLIElement) => {
+                    this.listItems.push(el);
+                }}
                 class={classAttr}
                 role={roleAttr}
                 tabindex={tabIndexAttr}
                 data-value={item.value}
                 aria-selected={ariaSelectedAttr}
                 aria-checked={ariaCheckedAttr}
+                onBlur={
+                    !this.selectable
+                        ? (e: FocusEvent) => e.stopPropagation()
+                        : () => this.onKupBlur(index)
+                }
                 onFocus={
                     !this.selectable
-                        ? (e: any) => e.stopPropagation()
-                        : (e: any) => this.onKupFocus(e, item)
+                        ? (e: FocusEvent) => e.stopPropagation()
+                        : () => this.onKupFocus(index)
                 }
                 onClick={
                     !this.selectable
                         ? (e: MouseEvent) => e.stopPropagation()
-                        : (e: MouseEvent) => this.onKupClick(e, item, index)
-                }
-                onKeyUp={
-                    !this.selectable
-                        ? (e: any) => e.stopPropagation()
-                        : (e: any) => this.onKupInput(e, item, index)
+                        : () => this.onKupClick(index)
                 }
             >
-                {rippleEl}
                 {innerSpanTag}
             </li>
         );
+        return vNodes;
     }
 
     getIconTag(icon: string) {
@@ -469,22 +529,22 @@ export class KupList {
             <FImage
                 {...propsFImage}
                 resource={icon}
-                wrapperClass={`mdc-icon-button__icon icon-container material-icons`}
+                wrapperClass={`icon-button__icon icon-container`}
             />
         );
     }
 
-    setUnselected(item: ComponentListElement, index: number) {
+    setUnselected(item: KupListData, index: number) {
         item.selected = false;
         this.sendInfoToSubComponent(index, item);
     }
 
-    setSelected(item: ComponentListElement, index: number) {
+    setSelected(item: KupListData, index: number) {
         item.selected = true;
         this.sendInfoToSubComponent(index, item);
     }
 
-    sendInfoToSubComponent(index: number, item: ComponentListElement) {
+    sendInfoToSubComponent(index: number, item: KupListData) {
         if (this.isRadioButtonRule()) {
             if (this.radios[index]) {
                 let dataTmp = [
@@ -497,21 +557,14 @@ export class KupList {
                 this.radios[index].data = dataTmp;
             }
         }
-        if (this.isCheckBoxRule()) {
-            if (this.checkboxes[index]) {
-                this.checkboxes[index].checked = item.selected;
-            }
-        }
     }
 
     getLiIndexElementForValue(key: string): number {
         let index = -1;
         let i = 0;
         this.filteredItems.forEach((item) => {
-            if (item.isSeparator != true) {
-                if (item.value == key) {
-                    index = i;
-                }
+            if (item.value == key) {
+                index = i;
             }
             i++;
         });
@@ -528,27 +581,24 @@ export class KupList {
     }
 
     isCheckBoxRule(): boolean {
-        return this.roleType == KupList.ROLE_CHECKBOX;
+        return this.roleType == KupListRole.GROUP;
     }
 
     isRadioButtonRule(): boolean {
-        return this.roleType == KupList.ROLE_RADIOGROUP;
+        return this.roleType == KupListRole.RADIOGROUP;
     }
 
     isListBoxRule(): boolean {
-        return this.roleType == KupList.ROLE_LISTBOX;
+        return this.roleType == KupListRole.LISTBOX;
     }
 
     checkRoleType() {
         if (!this.isCheckBoxRule() && !this.isRadioButtonRule()) {
-            this.roleType = KupList.ROLE_LISTBOX;
+            this.roleType = KupListRole.LISTBOX;
         }
     }
 
-    itemCompliant(item: ComponentListElement): boolean {
-        if (item.isSeparator) {
-            return true;
-        }
+    itemCompliant(item: KupListData): boolean {
         if (!this.filter) {
             return true;
         }
@@ -570,28 +620,29 @@ export class KupList {
         );
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
+        if (this.keyboardNavigation === undefined) {
+            if (this.isMenu) {
+                this.keyboardNavigation = false;
+            } else {
+                this.keyboardNavigation = true;
+            }
+        }
+        for (let index = 0; index < this.data.length; index++) {
+            const el: KupListData = this.data[index];
+            if (el.selected) {
+                this.selected.push(el.value);
+            }
+        }
     }
 
     componentDidLoad() {
-        this.listComponent = null;
-        // Called once just after the component fully loaded and the first render() occurs.
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            this.listComponent = MDCList.attachTo(
-                root.querySelector('.mdc-list')
-            );
-
-            this.listComponent.singleSelection = this.isSingleSelection();
-
-            this.listComponent.listElements.map(
-                (listItemEl: any) => new MDCRipple(listItemEl)
-            );
-        }
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -600,11 +651,22 @@ export class KupList {
     }
 
     componentDidRender() {
+        if (
+            this.isMenu &&
+            this.menuVisible &&
+            (!document.activeElement ||
+                document.activeElement.tagName === 'BODY')
+        ) {
+            setTimeout(() => {
+                this.rootElement.focus();
+            }, 0);
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
-        let componentClass: string = 'mdc-list';
+        this.listItems = [];
+        let componentClass: string = 'list';
         let wrapperClass = undefined;
 
         if (this.isMenu) {
@@ -618,11 +680,11 @@ export class KupList {
         this.checkRoleType();
 
         if (this.selectable != true) {
-            componentClass += ' mdc-list--non-interactive';
+            componentClass += ' list--non-interactive';
         }
 
         if (this.twoLine) {
-            componentClass += ' mdc-list--two-line';
+            componentClass += ' list--two-line';
         }
 
         if (this.hideText) {
@@ -638,9 +700,7 @@ export class KupList {
 
         this.filteredItems = [];
         this.radios = [];
-        this.checkboxes = [];
         let index = 0;
-
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
@@ -657,11 +717,7 @@ export class KupList {
                     >
                         {this.data
                             .filter((item) => this.itemCompliant(item))
-                            .map((item) =>
-                                item.isSeparator
-                                    ? this.renderSeparator()
-                                    : this.renderListItem(item, index++)
-                            )}
+                            .map((item) => this.renderListItem(item, index++))}
                     </ul>
                 </div>
             </Host>

@@ -15,6 +15,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupLazyProps, KupLazyRender } from './kup-lazy-declarations';
 
 @Component({
@@ -24,7 +25,7 @@ import { KupLazyProps, KupLazyRender } from './kup-lazy-declarations';
 })
 export class KupLazy {
     /**
-     * References the root HTML element of the component (<kup-button>).
+     * References the root HTML element of the component (<kup-lazy>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -93,19 +94,19 @@ export class KupLazy {
         return getProps(this, KupLazyProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
     @Method()
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupLazyProps, props);
-    }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
     }
 
     /*-------------------------------------------------*/
@@ -305,7 +306,7 @@ export class KupLazy {
         return (
             <Host class={className}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">{content}</div>
+                <div id={componentWrapperId}>{content}</div>
             </Host>
         );
     }

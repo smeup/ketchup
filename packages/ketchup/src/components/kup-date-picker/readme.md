@@ -5,13 +5,13 @@
 
 ## Properties
 
-| Property        | Attribute         | Description                                                                                                     | Type      | Default     |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle`   | `custom-style`    | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`        |
-| `data`          | --                | Props of the sub-components.                                                                                    | `Object`  | `undefined` |
-| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false`     |
-| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number`  | `1`         |
-| `initialValue`  | `initial-value`   | Sets the initial value of the component                                                                         | `string`  | `''`        |
+| Property        | Attribute         | Description                                                     | Type      | Default |
+| --------------- | ----------------- | --------------------------------------------------------------- | --------- | ------- |
+| `customStyle`   | `custom-style`    | Custom style of the component.                                  | `string`  | `''`    |
+| `data`          | --                | Props of the sub-components.                                    | `Object`  | `null`  |
+| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                  | `number`  | `1`     |
+| `initialValue`  | `initial-value`   | Sets the initial value of the component                         | `string`  | `''`    |
 
 
 ## Events
@@ -43,7 +43,7 @@ Type: `Promise<GenericObject>`
 
 ### `getValue() => Promise<string>`
 
-
+Retrieves the component's value.
 
 #### Returns
 
@@ -63,7 +63,7 @@ Type: `Promise<void>`
 
 ### `setFocus() => Promise<void>`
 
-
+Sets the focus to the component.
 
 #### Returns
 
@@ -73,7 +73,7 @@ Type: `Promise<void>`
 
 ### `setValue(value: string) => Promise<void>`
 
-
+Sets the component's value.
 
 #### Returns
 

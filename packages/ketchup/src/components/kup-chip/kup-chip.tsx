@@ -26,6 +26,7 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-chip',
@@ -34,7 +35,7 @@ import { getProps, setProps } from '../../utils/utils';
 })
 export class KupChip {
     /**
-     * References the root HTML element of the component (<kup-image>).
+     * References the root HTML element of the component (<kup-chip>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -210,6 +211,13 @@ export class KupChip {
         return getProps(this, KupChipProps, descriptions);
     }
     /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
@@ -217,20 +225,13 @@ export class KupChip {
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupChipProps, props);
     }
-    /**
-     * This method is used to trigger a new render of the component.
-     */
-    @Method()
-    async refresh(): Promise<void> {
-        forceUpdate(this);
-    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
     /**
-     * Set the events of the component and instantiates Material Design.
+     * Sets the events of the component and instantiates Material Design.
      */
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
@@ -326,7 +327,7 @@ export class KupChip {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <FChip {...props} />
                 </div>
             </Host>

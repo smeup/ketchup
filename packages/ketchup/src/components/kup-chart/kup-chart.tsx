@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
     Watch,
 } from '@stencil/core';
 
@@ -22,6 +21,7 @@ import {
     ChartTitle,
     KupChartProps,
     KupChartClickEvent,
+    KupChartTrendlines,
 } from './kup-chart-declarations';
 import {
     convertColumns,
@@ -38,6 +38,7 @@ import { getColumnByName } from '../../utils/cell-utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 declare const google: any;
 declare const $: any;
@@ -48,78 +49,138 @@ declare const $: any;
     shadow: true,
 })
 export class KupChart {
+    /**
+     * References the root HTML element of the component (<kup-chart>).
+     */
     @Element() rootElement: HTMLElement;
-    @State() themeColors: string[] = undefined;
-    @State() themeText: string = undefined;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+     * @default undefined
      */
     @Prop() asp: ChartAspect;
     /**
      * Sets the axis of the chart.
+     * @default undefined
      */
     @Prop() axis: string;
     /**
-     * Colors of the chart.
-     */
-    @Prop() colors: string[] = [];
-    /**
      * Title of the graph.
+     * @default undefined
      */
     @Prop() chartTitle: ChartTitle;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+     * Colors of the chart.
+     * @default []
+     */
+    @Prop() colors: string[] = [];
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * The actual data of the chart.
+     * @default undefined
      */
     @Prop() data: DataTable;
     /**
      * Customize the hAxis.
+     * @default undefined
      */
     @Prop() hAxis: ChartAxis;
     /**
+     * Customize the hAxes for multiple-chart.
+     */
+    @Prop() hAxes: ChartAxis[];
+    /**
      * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+     * @default "right"
      */
     @Prop() legend: string = 'right';
     /**
      * Renders charts without the Google API and using jQuery Sparkline.
+     * @default undefined
      */
     @Prop() offlineMode: ChartOfflineMode = undefined;
     /**
      * The data series to be displayed. They must be of the same type.
+     * @default undefined
      */
     @Prop() series: ChartSerie[];
     /**
      * Displays the numerical values.
+     * @default false
      */
     @Prop() showMarks = false;
     /**
      * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+     * @default "100%"
      */
     @Prop() sizeX: string = '100%';
     /**
      * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default "100%"
      */
     @Prop() sizeY: string = '100%';
     /**
      * Displays the data columns of an object on top of each other.
+     * @default false
      */
     @Prop() stacked = false;
     /**
      * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+     * @default [ChartType.Hbar]
      */
     @Prop() types: ChartType[] = [ChartType.Hbar];
     /**
+     * Customize the vAxes for multiple-chart.
+     */
+    @Prop() vAxes: ChartAxis[];
+    /**
      * Customize the vAxis.
+     * @default undefined
+     *
      */
     @Prop() vAxis: ChartAxis;
     /**
+     * KupChartTrendlines.
+     */
+    @Prop() trendlines: KupChartTrendlines;
+    /**
      * Google chart version to load
+     * @default "45.2"
      */
     @Prop() version = '45.2';
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to prevent too many resize callbacks at once.
+     */
+    private resizeTimeout: number;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+    private chartContainer?: HTMLDivElement;
+    private gChart: any;
+    private gChartDataTable: any;
+    private gChartView: any;
+    private elStyle = undefined;
+    private themeColors: string[] = null;
+    private themeText: string = null;
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
 
     @Watch('data')
     identifyRows() {
@@ -127,6 +188,11 @@ export class KupChart {
             identify(this.data.rows);
         }
     }
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
     /**
      * Triggered when a chart serie is clicked
      */
@@ -138,23 +204,9 @@ export class KupChart {
     })
     kupChartClick: EventEmitter<KupChartClickEvent>;
 
-    private chartContainer?: HTMLDivElement;
-
-    private gChart: any;
-
-    private gChartDataTable: any;
-    private gChartView: any;
-    private elStyle = undefined;
-    /**
-     * Used to prevent too many resizes callbacks at once.
-     */
-    private resizeTimeout: number;
-    /**
-     * Instance of the KupManager class.
-     */
-    private kupManager: KupManager = kupManagerInstance();
-
-    //---- Methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -164,14 +216,6 @@ export class KupChart {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupChartProps, descriptions);
-    }
-    /**
-     * Sets the props to the component.
-     * @param {GenericObject} props - Object containing props that will be set to the component.
-     */
-    @Method()
-    async setProps(props: GenericObject): Promise<void> {
-        setProps(this, KupChartProps, props);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -197,12 +241,24 @@ export class KupChart {
             }
         }, 300);
     }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupChartProps, props);
+    }
 
-    private loadGoogleChart() {
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    private loadGoogleChart(): void {
         google.charts.setOnLoadCallback(this.createChart.bind(this));
     }
 
-    private createGoogleChart() {
+    private createGoogleChart(): any {
         if (this.isComboChart()) {
             return new google.visualization.ComboChart(this.chartContainer);
         } else if (this.types.length === 1) {
@@ -271,15 +327,17 @@ export class KupChart {
         return ChartType.Unk;
     }
 
-    private isComboChart() {
+    private isComboChart(): boolean {
         return this.types.length > 1;
     }
 
-    private createGoogleChartOptions() {
+    private createGoogleChartOptions(): ChartOptions {
         const opts: ChartOptions = {
             backgroundColor: 'transparent',
             is3D: ChartAspect.D3 === this.asp,
         };
+
+        if (this.trendlines) opts.trendlines = this.trendlines;
 
         if (this.colors && this.colors.length > 0) {
             opts.colors = this.colors;
@@ -338,7 +396,14 @@ export class KupChart {
 
                 opts.series[index.toString()] = {
                     type: serieType,
+                    targetAxisIndex: index.toString(),
                 };
+            });
+        }
+        if (this.vAxes) {
+            opts.vAxes = {};
+            this.vAxes.forEach((vAxe, index) => {
+                opts.vAxes[index.toString()] = vAxe;
             });
         }
 
@@ -347,6 +412,13 @@ export class KupChart {
             opts.vAxis['textStyle'] = { color: this.themeText };
         } else {
             opts.vAxis = { textStyle: { color: this.themeText } };
+        }
+
+        if (this.hAxes) {
+            opts.hAxes = {};
+            this.hAxes.forEach((hAxe, index) => {
+                opts.hAxes[index.toString()] = hAxe;
+            });
         }
 
         if (this.hAxis) {
@@ -368,11 +440,10 @@ export class KupChart {
                 });
             }
         }
-
         return opts;
     }
 
-    private createChart() {
+    private createChart(): void {
         const tableColumns = convertColumns(this.data, {
             axis: this.axis,
             series: this.series,
@@ -419,7 +490,7 @@ export class KupChart {
         );
     }
 
-    private onChartSelect() {
+    private onChartSelect(): void {
         const selectedItem = this.gChart.getSelection()[0];
 
         if (selectedItem) {
@@ -487,7 +558,7 @@ export class KupChart {
         }
     }
 
-    private loadOfflineChart() {
+    private loadOfflineChart(): void {
         if (!this.offlineMode.value || this.offlineMode.value == '') {
             this.kupManager.debug.logMessage(
                 this,
@@ -576,9 +647,9 @@ export class KupChart {
         return ints;
     }
 
-    private fetchThemeColors() {
-        let colorArray: string[] = [];
-        let key: string = '--kup-chart-color-';
+    private fetchThemeColors(): void {
+        const colorArray: string[] = [];
+        const key: string = '--kup-chart-color-';
         for (
             let index = 1;
             this.kupManager.theme.cssVars[key + index];
@@ -611,7 +682,9 @@ export class KupChart {
         this.themeColors = colorArray;
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -690,7 +763,7 @@ export class KupChart {
             <Host style={this.elStyle}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div
-                    id="kup-component"
+                    id={componentWrapperId}
                     ref={(chartContainer) =>
                         (this.chartContainer = chartContainer)
                     }

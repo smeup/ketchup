@@ -9,21 +9,21 @@
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                                                          | Type         | Default |
-| --------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
-| `columns`       | `columns`        | Number of columns for draw sub-components.                                                                                                           | `number`     | `0`     |
-| `customStyle`   | `custom-style`   | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                      | `string`     | `''`    |
-| `data`          | --               | Props of the sub-components.                                                                                                                         | `TreeNode[]` | `[]`    |
-| `disabled`      | `disabled`       | Default at false. When set to true, the sub-components are disabled.                                                                                 | `boolean`    | `false` |
-| `showSelection` | `show-selection` | If enabled, highlights the selected button                                                                                                           | `boolean`    | `true`  |
-| `styling`       | `styling`        | Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components. | `string`     | `''`    |
+| Property        | Attribute        | Description                                                                                                    | Type                                                                                                                        | Default                 |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| `columns`       | `columns`        | Number of columns.                                                                                             | `number`                                                                                                                    | `0`                     |
+| `customStyle`   | `custom-style`   | Custom style of the component.                                                                                 | `string`                                                                                                                    | `''`                    |
+| `data`          | --               | Props of the sub-components.                                                                                   | `TreeNode[]`                                                                                                                | `[]`                    |
+| `disabled`      | `disabled`       | When set to true, the sub-components are disabled.                                                             | `boolean`                                                                                                                   | `false`                 |
+| `showSelection` | `show-selection` | When set to true, highlights the selected button with the secondary color of KupTheme.                         | `boolean`                                                                                                                   | `true`                  |
+| `styling`       | `styling`        | Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default). | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED` |
 
 
 ## Events
 
-| Event                   | Description | Type                                          |
-| ----------------------- | ----------- | --------------------------------------------- |
-| `kup-button-list-click` |             | `CustomEvent<KupButtonListClickEventPayload>` |
+| Event                  | Description | Type                                          |
+| ---------------------- | ----------- | --------------------------------------------- |
+| `kup-buttonlist-click` |             | `CustomEvent<KupButtonListClickEventPayload>` |
 
 
 ## Methods
@@ -41,6 +41,16 @@ Type: `Promise<GenericObject>`
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
 
 #### Returns
 
@@ -68,7 +78,6 @@ graph TD;
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-data-table --> kup-button-list
