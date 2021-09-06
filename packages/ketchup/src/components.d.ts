@@ -17,7 +17,7 @@ import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-d
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
-import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartSort, ChartTitle, ChartType, KupChartClickEvent, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
@@ -666,10 +666,10 @@ export namespace Components {
          */
         "sizeY": string;
         /**
-          * Sorting series.
-          * @default undefined
+          * Used to sort series.
+          * @default null
          */
-        "sorting": ChartSort[];
+        "sorting": KupChartSort[];
         /**
           * Displays the data columns of an object on top of each other.
          */
@@ -3662,10 +3662,10 @@ declare namespace LocalJSX {
          */
         "sizeY"?: string;
         /**
-          * Sorting series.
-          * @default undefined
+          * Used to sort series.
+          * @default null
          */
-        "sorting"?: ChartSort[];
+        "sorting"?: KupChartSort[];
         /**
           * Displays the data columns of an object on top of each other.
          */

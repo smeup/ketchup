@@ -1,7 +1,5 @@
 # kup-chart
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -23,7 +21,7 @@
 | `showMarks`   | `show-marks`   | Displays the numerical values.                                                                                                                                                        | `boolean`                          | `false`            |
 | `sizeX`       | `size-x`       | The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                                                                                             | `string`                           | `'100%'`           |
 | `sizeY`       | `size-y`       | The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                                                                                            | `string`                           | `'100%'`           |
-| `sorting`     | --             | Sorting series.                                                                                                                                                                       | `ChartSort[]`                      | `undefined`        |
+| `sorting`     | --             | Used to sort series.                                                                                                                                                                  | `KupChartSort[]`                   | `null`             |
 | `stacked`     | `stacked`      | Displays the data columns of an object on top of each other.                                                                                                                          | `boolean`                          | `false`            |
 | `trendlines`  | --             | KupChartTrendlines.                                                                                                                                                                   | `KupChartTrendlines`               | `undefined`        |
 | `types`       | --             | The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.                                              | `ChartType[]`                      | `[ChartType.Hbar]` |
