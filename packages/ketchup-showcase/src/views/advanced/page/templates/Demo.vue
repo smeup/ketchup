@@ -478,9 +478,16 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
+  KupChartSort: {
+    keys: {
+      column: 'number',
+      'desc?': 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupChartTrendlines: {
     keys: {
-      '[index: string]': "{color: 'string'}",
+      '[index: string]': '{ color: string }',
     },
     type: DemoTypeFeature.INTERFACE,
   },

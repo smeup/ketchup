@@ -150,6 +150,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'sorting',
+          description: 'Used to sort series.',
+          type: 'KupChartSort',
+          isArray: true,
+          default: 'null',
+          try: 'json',
+        },
+        {
           prop: 'stacked',
           description:
             'Displays the data columns of an object on top of each other.',
