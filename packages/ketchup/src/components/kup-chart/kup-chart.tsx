@@ -22,6 +22,7 @@ import {
     KupChartProps,
     KupChartClickEvent,
     KupChartTrendlines,
+    ChartSort,
 } from './kup-chart-declarations';
 import {
     convertColumns,
@@ -129,11 +130,15 @@ export class KupChart {
      */
     @Prop() sizeY: string = '100%';
     /**
-     * Displays the data columns of an object on top of each other.
-     * @default false
+     * Sorting series.
+     * @default undefined
      */
-    @Prop() stacked = false;
-    /**
+     @Prop() sorting: ChartSort[];
+     /**
+     * Displays the data columns of an object on top of each other.
+     */
+     @Prop() stacked = false;
+     /**
      * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
      * @default [ChartType.Hbar]
      */
@@ -476,6 +481,11 @@ export class KupChart {
         this.gChartView = new google.visualization.DataView(
             this.gChartDataTable
         );
+
+        // Char sort
+        if(this.sorting){
+            this.gChartView.setRows(this.gChartView.getSortedRows(this.sorting));
+        }
 
         this.gChart = this.createGoogleChart();
 

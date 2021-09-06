@@ -42,6 +42,11 @@ export interface ChartAxis {
     textStyle?: { color?: string; fontSize?: number };
 }
 
+export interface ChartSort {
+    column: number;
+    desc?: boolean;
+}
+
 export interface ChartAxisGridlines {
     count?: number;
 }
