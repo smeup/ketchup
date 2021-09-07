@@ -14,7 +14,7 @@
       <kup-button
         title="Download"
         icon="download"
-        @kup-button-click="downloadTheme"/>
+        @kup-button-click="downloadTheme" />
       <kup-button title="Delete" icon="delete" @kup-button-click="deleteTheme"
     /></div>
     <div id="sample-wrapper" class="theming">
@@ -22,10 +22,13 @@
         <kup-tab-bar
           id="demo-tab-bar"
           :data.prop="tabs"
-          @kup-tabbar-click="handleTab"
+          @kup-tabbar-click="tabSelection"
         ></kup-tab-bar>
         <div id="sample-comp" class="full">
-          <table class="instruction-table" id="css-variables-tab">
+          <table
+            class="instruction-table sample-section"
+            id="css-variables-tab"
+          >
             <thead>
               <tr>
                 <th>Variable name</th>
@@ -50,8 +53,8 @@
                   <kup-color-picker
                     id="primary-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -70,8 +73,8 @@
                   <kup-color-picker
                     id="secondary-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -87,8 +90,8 @@
                   <kup-color-picker
                     id="background-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -104,8 +107,8 @@
                   <kup-color-picker
                     id="nav-bar-background-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -121,8 +124,8 @@
                   <kup-color-picker
                     id="drawer-background-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -143,7 +146,7 @@
                   <kup-text-field
                     full-width
                     id="font-family"
-                    @kup-textfield-input="updateThemeVariable"
+                    @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -162,7 +165,7 @@
                   <kup-text-field
                     full-width
                     id="font-family-monospace"
-                    @kup-textfield-input="updateThemeVariable"
+                    @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -182,7 +185,7 @@
                   <kup-text-field
                     full-width
                     id="font-size"
-                    @kup-textfield-input="updateThemeVariable"
+                    @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -198,8 +201,8 @@
                   <kup-color-picker
                     id="text-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -218,8 +221,8 @@
                   <kup-color-picker
                     id="text-on-primary-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -238,8 +241,8 @@
                   <kup-color-picker
                     id="text-on-secondary-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -259,8 +262,8 @@
                   <kup-color-picker
                     id="disabled-background-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -276,8 +279,8 @@
                   <kup-color-picker
                     id="disabled-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -293,8 +296,8 @@
                   <kup-color-picker
                     id="hover-background-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -314,8 +317,8 @@
                   <kup-color-picker
                     id="hover-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -334,8 +337,8 @@
                   <kup-color-picker
                     id="title-background-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -351,8 +354,8 @@
                   <kup-color-picker
                     id="title-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -371,8 +374,8 @@
                   <kup-color-picker
                     id="icon-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -388,8 +391,8 @@
                   <kup-color-picker
                     id="border-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -408,7 +411,7 @@
                   <kup-text-field
                     full-width
                     id="box-shadow"
-                    @kup-textfield-input="updateThemeVariable"
+                    @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -424,8 +427,8 @@
                   <kup-color-picker
                     id="field-background-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -444,8 +447,8 @@
                   <kup-color-picker
                     id="info-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -464,8 +467,8 @@
                   <kup-color-picker
                     id="success-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -484,8 +487,8 @@
                   <kup-color-picker
                     id="warning-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -504,8 +507,8 @@
                   <kup-color-picker
                     id="danger-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -521,8 +524,8 @@
                   <kup-color-picker
                     id="spinner-color"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -542,8 +545,8 @@
                   <kup-color-picker
                     id="chart-color-1"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -563,8 +566,8 @@
                   <kup-color-picker
                     id="chart-color-2"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -583,8 +586,8 @@
                   <kup-color-picker
                     id="chart-color-3"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -604,8 +607,8 @@
                   <kup-color-picker
                     id="chart-color-4"
                     :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateThemeVariable"
-                    @kup-colorpicker-change="updateThemeVariable"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
                 </td>
               </tr>
@@ -624,13 +627,13 @@
                   <kup-text-field
                     full-width
                     id="obj-cursor"
-                    @kup-textfield-input="updateThemeVariable"
+                    @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>
               </tr>
             </tbody>
           </table>
-          <table class="instruction-table" id="customstyle-tab">
+          <table class="instruction-table sample-section" id="customstyle-tab">
             <thead>
               <tr>
                 <th>Component</th>
@@ -647,7 +650,7 @@
                     text-area
                     full-width
                     id="master"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -660,7 +663,7 @@
                     text-area
                     full-width
                     id="kup-autocomplete"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -673,7 +676,7 @@
                     text-area
                     full-width
                     id="kup-badge"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -686,7 +689,7 @@
                     text-area
                     full-width
                     id="kup-button"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -699,7 +702,7 @@
                     text-area
                     full-width
                     id="kup-box"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -712,7 +715,7 @@
                     text-area
                     full-width
                     id="kup-card"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -725,7 +728,7 @@
                     text-area
                     full-width
                     id="kup-checkbox"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -738,7 +741,7 @@
                     text-area
                     full-width
                     id="kup-chip"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -751,7 +754,7 @@
                     text-area
                     full-width
                     id="kup-color-picker"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -764,7 +767,7 @@
                     text-area
                     full-width
                     id="kup-combobox"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -777,7 +780,7 @@
                     text-area
                     full-width
                     id="kup-data-table"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -790,7 +793,7 @@
                     text-area
                     full-width
                     id="kup-date-picker"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -803,7 +806,7 @@
                     text-area
                     full-width
                     id="kup-drawer"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -816,7 +819,7 @@
                     text-area
                     full-width
                     id="kup-echart"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -829,7 +832,7 @@
                     text-area
                     full-width
                     id="kup-field"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -842,7 +845,7 @@
                     text-area
                     full-width
                     id="kup-gauge"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -855,7 +858,7 @@
                     text-area
                     full-width
                     id="kup-grid"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -868,7 +871,7 @@
                     text-area
                     full-width
                     id="kup-image"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -881,7 +884,7 @@
                     text-area
                     full-width
                     id="kup-lazy"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -894,7 +897,7 @@
                     text-area
                     full-width
                     id="kup-list"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -907,7 +910,7 @@
                     text-area
                     full-width
                     id="kup-nav-bar"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -920,7 +923,7 @@
                     text-area
                     full-width
                     id="kup-progress-bar"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -933,7 +936,7 @@
                     text-area
                     full-width
                     id="kup-radio"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -946,7 +949,7 @@
                     text-area
                     full-width
                     id="kup-rating"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -959,7 +962,7 @@
                     text-area
                     full-width
                     id="kup-spinner"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -972,7 +975,7 @@
                     text-area
                     full-width
                     id="kup-switch"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -985,7 +988,7 @@
                     text-area
                     full-width
                     id="kup-tab-bar"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -998,7 +1001,7 @@
                     text-area
                     full-width
                     id="kup-text-field"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -1011,7 +1014,7 @@
                     text-area
                     full-width
                     id="kup-time-picker"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -1024,11 +1027,11 @@
                     text-area
                     full-width
                     id="kup-tree"
-                    @kup-textfield-input="updateThemeCustomStyles"
+                    @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td> </tr></tbody
           ></table>
-          <table class="instruction-table" id="icons-tab">
+          <table class="instruction-table sample-section" id="icons-tab">
             <thead>
               <tr>
                 <th>Variable name</th>
@@ -1045,7 +1048,7 @@
                   <kup-text-field
                     full-width
                     id="ascending-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1058,7 +1061,7 @@
                   <kup-text-field
                     full-width
                     id="descending-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1071,7 +1074,7 @@
                   <kup-text-field
                     full-width
                     id="expanded-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1084,7 +1087,7 @@
                   <kup-text-field
                     full-width
                     id="collapsed-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1097,7 +1100,7 @@
                   <kup-text-field
                     full-width
                     id="dropdown-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1110,7 +1113,7 @@
                   <kup-text-field
                     full-width
                     id="clear-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1123,7 +1126,7 @@
                   <kup-text-field
                     full-width
                     id="filter-remove-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -1136,10 +1139,10 @@
                   <kup-text-field
                     full-width
                     id="key-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
-                </td> </tr
-            >
+                </td>
+              </tr>
               <tr>
                 <td class="prevent-cr">
                   <span class="code-word">--kup-search-icon</span>
@@ -1149,12 +1152,12 @@
                   <kup-text-field
                     full-width
                     id="search-icon"
-                    @kup-textfield-input="updateThemeIcons"
+                    @kup-textfield-input="updateIcons"
                   ></kup-text-field>
-                </td>
-              </tr></tbody>
+                </td> </tr
+            ></tbody>
           </table>
-          <div id="json-tab" class="sample-section" style="display: none">
+          <div id="json-tab" class="sample-section">
             <textarea id="json-textarea" style="display: none"></textarea>
             <kup-button
               id="json-warning"
@@ -1168,7 +1171,47 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import type { KupColorPickerEventPayload } from 'ketchup/dist/types/components/kup-color-picker/kup-color-picker-declarations';
+import type { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import type {
+  KupThemeCSSVariables,
+  KupThemeElement,
+  KupThemeJSON,
+} from 'ketchup/dist/types/utils/kup-theme/kup-theme-declarations';
+
+enum ThemeMakerTabs {
+  VARIABLES = 'CSS variables',
+  CUSTOM_STYLES = 'customStyles',
+  ICONS = 'Icons',
+  JSON = 'JSON',
+}
+
+// Recurring CSS classes
+const visibleClass: string = 'visible';
+// Name of the theme in creation
+const temporaryTheme: string = 'showcaseDemo';
+
+const dom: KupDom = document.documentElement as KupDom;
+
+// Navigation tab bar
+var tabBar: HTMLKupTabBarElement = null,
+  // Views
+  variablesView: HTMLElement = null,
+  customStyleView: HTMLElement = null,
+  iconsView: HTMLElement = null,
+  jsonView: HTMLElement = null,
+  // Textareas
+  jsonTextarea: HTMLTextAreaElement = null,
+  // Container of the theme in cretion's tile
+  themeContainer: HTMLElement = null,
+  // Wrapper for the tile actions
+  themeActions: HTMLElement = null,
+  // JSON tab sub-components
+  jsonWarning: HTMLKupButtonElement = null;
+
 export default {
   name: 'ThemingMaker',
   data() {
@@ -1176,174 +1219,214 @@ export default {
       colorPickerData: { 'kup-text-field': { fullWidth: true } },
       tabs: [
         {
-          value: 'CSSvariables',
-          text: 'CSS variables',
+          value: ThemeMakerTabs.VARIABLES,
+          text: ThemeMakerTabs.VARIABLES,
           icon: 'color_lens',
           title: "List of the current theme's variables",
         },
         {
-          value: 'customStyles',
-          text: 'customStyles',
+          value: ThemeMakerTabs.CUSTOM_STYLES,
+          text: ThemeMakerTabs.CUSTOM_STYLES,
           icon: 'style',
           title: "List of the current theme's customStyles",
         },
         {
-          value: 'Icons',
-          text: 'Icons',
+          value: ThemeMakerTabs.ICONS,
+          text: ThemeMakerTabs.ICONS,
           icon: 'photo',
           title: "List of the current theme's icons",
         },
         {
-          value: 'JSON',
-          text: 'JSON',
+          value: ThemeMakerTabs.JSON,
+          text: ThemeMakerTabs.JSON,
           icon: 'json',
           title: 'The JSON of your theme',
         },
       ],
     };
   },
+  mounted() {
+    this.initVariables();
+    this.handleTab(0);
+
+    if (dom.ketchup) {
+      this.initWidget();
+    }
+
+    document.addEventListener('kup-theme-change', this.initWidget);
+  },
+  destroyed() {
+    document.removeEventListener('kup-theme-change', this.initWidget);
+  },
   methods: {
-    updateThemeVariable(e) {
-      const dom = document.documentElement;
-      this.initTheme();
-
-      const list = { ...dom.ketchup.theme.list };
-      list['showcaseDemo']['cssVariables']['--kup-' + e.target.id] =
-        e.detail.value;
-      dom.ketchup.theme.set(null, list);
-      e.target.customStyle =
-        '#kup-component .icon-container { background-color: ' +
-        e.detail.value +
-        ' }';
-
-      this.refreshTheme();
+    /**
+     * Initializes Vue component's variables.
+     */
+    initVariables(): void {
+      tabBar = document.querySelector('#demo-tab-bar');
+      variablesView = document.querySelector('#css-variables-tab');
+      customStyleView = document.querySelector('#customstyle-tab');
+      iconsView = document.querySelector('#icons-tab');
+      jsonView = document.querySelector('#json-tab');
+      jsonTextarea = document.querySelector('#json-textarea');
+      jsonWarning = document.querySelector('#json-warning');
+      themeContainer = document.querySelector('#theme-container-demo');
+      themeActions = document.querySelector('#theme-action-demo');
     },
-
-    updateThemeCustomStyles(e) {
-      const dom = document.documentElement;
-      this.initTheme();
-
-      const list = { ...dom.ketchup.theme.list };
-      list['showcaseDemo']['customStyles'][e.target.id.toUpperCase()] =
-        e.detail.value;
-      dom.ketchup.theme.set(null, list);
-
-      this.refreshTheme();
-    },
-
-    updateThemeIcons(e) {
-      const dom = document.documentElement;
-      this.initTheme();
-
-      const list = { ...dom.ketchup.theme.list };
-      list['showcaseDemo']['icons']['--kup-' + e.target.id] = e.detail.value;
-      dom.ketchup.theme.set(null, list);
-      e.target.icon = e.detail.value;
-
-      this.refreshTheme();
-    },
-
-    initTheme() {
-      const dom = document.documentElement;
-      const list = { ...dom.ketchup.theme.list };
-
-      if (!list['showcaseDemo']) {
-        list['showcaseDemo'] = JSON.parse(
+    /**
+     * Checks whether the theme in creation is still to be iniziatilized (or its tile).
+     * When theme or tile are missing, they are created.
+     */
+    initTheme(): void {
+      const list: KupThemeJSON = { ...dom.ketchup.theme.list };
+      if (!list[temporaryTheme]) {
+        list[temporaryTheme] = JSON.parse(
           JSON.stringify(dom.ketchup.theme.list[dom.ketchup.theme.name])
         );
-        if (!list['showcaseDemo'].cssVariables) {
-          list['showcaseDemo'].cssVariables = {};
+        if (!list[temporaryTheme].cssVariables) {
+          list[temporaryTheme].cssVariables = {} as any;
         }
-        if (!list['showcaseDemo'].customStyles) {
-          list['showcaseDemo'].customStyles = {};
+        if (!list[temporaryTheme].customStyles) {
+          list[temporaryTheme].customStyles = {} as any;
         }
-        if (!list['showcaseDemo'].icons) {
-          list['showcaseDemo'].icons = {};
+        if (!list[temporaryTheme].icons) {
+          list[temporaryTheme].icons = {} as any;
         }
         dom.ketchup.theme.set(null, list);
       }
-
-      const tile = document.querySelector('#showcaseDemo');
+      const tile: HTMLElement = document.querySelector('#' + temporaryTheme);
       if (!tile) {
-        createTile();
+        this.createTile();
       }
     },
-
-    downloadTheme() {
-      const dom = document.documentElement;
-      var dataStr =
+    /**
+     * Updates the value of the updated variable for the theme in creation.
+     * @param {CustomEvent<KupTextFieldEventPayload|KupColorPickerEventPayload>} e - Event fired by a CSS variables-related color picker or text field.
+     */
+    updateVariable(
+      e: CustomEvent<KupTextFieldEventPayload | KupColorPickerEventPayload>
+    ): void {
+      this.initTheme();
+      const list: KupThemeJSON = { ...dom.ketchup.theme.list };
+      list[temporaryTheme].cssVariables['--kup-' + e.detail.id] =
+        e.detail.value;
+      dom.ketchup.theme.set(null, list);
+      e.detail.comp.customStyle =
+        '#kup-component .icon-container { background-color: ' +
+        e.detail.value +
+        ' }';
+      this.refreshTheme();
+    },
+    /**
+     * Updates the value of the updated custom style for the theme in creation.
+     * @param {CustomEvent<KupTextFieldEventPayload>} e - Event fired by a customStyle-related text field.
+     */
+    updateCustomStyles(e: CustomEvent<KupTextFieldEventPayload>): void {
+      this.initTheme();
+      const list: KupThemeJSON = { ...dom.ketchup.theme.list };
+      list[temporaryTheme].customStyles[e.detail.id.toUpperCase()] =
+        e.detail.value;
+      dom.ketchup.theme.set(null, list);
+      this.refreshTheme();
+    },
+    /**
+     * Updates the value of the updated icon for the theme in creation.
+     * @param {CustomEvent<KupTextFieldEventPayload>} e - Event fired by an icon-related text field.
+     */
+    updateIcons(e: CustomEvent<KupTextFieldEventPayload>): void {
+      this.initTheme();
+      const list: KupThemeJSON = { ...dom.ketchup.theme.list };
+      list[temporaryTheme].icons['--kup-' + e.detail.id] = e.detail.value;
+      dom.ketchup.theme.set(null, list);
+      (e.detail.comp as HTMLKupTextFieldElement).icon = e.detail.value;
+      this.refreshTheme();
+    },
+    /**
+     * Downloads the theme in creation in JSON format.
+     */
+    downloadTheme(): void {
+      const stingifiedJson: string =
         'data:text/json;charset=utf-8,' +
         encodeURIComponent(
-          JSON.stringify(dom.ketchup.theme.list['showcaseDemo'], null, 2)
+          JSON.stringify(dom.ketchup.theme.list[temporaryTheme], null, 2)
         );
-      var downloadAnchorNode = document.createElement('a');
-      downloadAnchorNode.setAttribute('href', dataStr);
-      downloadAnchorNode.setAttribute('download', 'your_theme.json');
-      document.body.appendChild(downloadAnchorNode);
-      downloadAnchorNode.click();
-      downloadAnchorNode.remove();
+      const downloadEl: HTMLAnchorElement = document.createElement('a');
+      downloadEl.setAttribute('href', stingifiedJson);
+      downloadEl.setAttribute('download', 'your_theme.json');
+      document.body.appendChild(downloadEl);
+      downloadEl.click();
+      downloadEl.remove();
     },
-
-    deleteTheme() {
-      const dom = document.documentElement;
-      const list = { ...dom.ketchup.theme.list };
-      const tile = document.querySelector('#showcaseDemo');
-      const actions = document.querySelector('#theme-action-demo');
-      actions.classList.remove('visible');
+    /**
+     * Deletes the theme in creation.
+     */
+    deleteTheme(): void {
+      const list: KupThemeJSON = { ...dom.ketchup.theme.list };
+      const tile: HTMLElement = document.querySelector('#' + temporaryTheme);
+      themeActions.classList.remove(visibleClass);
       tile.remove();
-      delete list['showcaseDemo'];
+      delete list[temporaryTheme];
       dom.ketchup.theme.set('ketchup', list);
     },
-
-    refreshTheme() {
-      const dom = document.documentElement;
-
-      if (dom.ketchup.theme.name === 'showcaseDemo') {
+    /**
+     * Sets the theme in creation as active, or refreshes it in order to trigger components' own refreshes when is already active.
+     */
+    refreshTheme(): void {
+      if (dom.ketchup.theme.name === temporaryTheme) {
         dom.ketchup.theme.refresh();
       } else {
-        dom.ketchup.theme.set('showcaseDemo');
+        dom.ketchup.theme.set(temporaryTheme);
       }
-      updateTile();
+      this.updateTile();
     },
-
-    handleTab(e) {
-      let i = e.detail.index;
-      let tabBar = document.querySelector('#demo-tab-bar');
-      let cssVariablesTab = document.querySelector('#css-variables-tab');
-      let customStyleTab = document.querySelector('#customstyle-tab');
-      let iconsTab = document.querySelector('#icons-tab');
-      let jsonTab = document.querySelector('#json-tab');
-
-      cssVariablesTab.setAttribute('style', 'display: none;');
-      customStyleTab.setAttribute('style', 'display: none;');
-      iconsTab.setAttribute('style', 'display: none;');
-      jsonTab.setAttribute('style', 'display: none;');
+    /**
+     * Swaps between different tabs on click.
+     * @param {CustomEvent<KupTextFieldEventPayload>} e - kup-tab-bar click event.
+     */
+    tabSelection(e: CustomEvent<KupTabBarClickEventPayload>): void {
+      this.handleTab(e.detail.index);
+    },
+    /**
+     * Enables the view related to the given tab index.
+     * @param {number} i - Index of the tab to select.
+     */
+    handleTab(i: number): void {
+      variablesView.classList.remove(visibleClass);
+      customStyleView.classList.remove(visibleClass);
+      iconsView.classList.remove(visibleClass);
+      jsonView.classList.remove(visibleClass);
 
       switch (tabBar.data[i].text) {
-        case 'CSS variables':
-          cssVariablesTab.setAttribute('style', '');
+        case ThemeMakerTabs.VARIABLES:
+          variablesView.classList.add(visibleClass);
           break;
-        case 'customStyles':
-          customStyleTab.setAttribute('style', '');
+        case ThemeMakerTabs.CUSTOM_STYLES:
+          customStyleView.classList.add(visibleClass);
           break;
-        case 'Icons':
-          iconsTab.setAttribute('style', '');
+        case ThemeMakerTabs.ICONS:
+          iconsView.classList.add(visibleClass);
           break;
-        case 'JSON':
-          jsonTab.setAttribute('style', '');
+        case ThemeMakerTabs.JSON:
+          jsonView.classList.add(visibleClass);
           this.initTheme();
-          this.jsonSet();
+          this.prepareJsonView();
           break;
       }
     },
-
-    jsonSet() {
-      const dom = document.documentElement;
-      const list = { ...dom.ketchup.theme.list };
-      let jsonWarning = document.querySelector('#json-warning');
-      let jsonTextarea = document.querySelector('#json-textarea');
-      let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
-      let stringifiedJSON = JSON.stringify(list['showcaseDemo'], null, 2);
+    /**
+     * When the theme doesn't exist, this method retrieves the json data of the active theme, creating an instance of the theme in creation.
+     * Otherwise, the json displayed will be the one associated with the theme in creation.
+     */
+    prepareJsonView(): void {
+      const list: KupThemeJSON = { ...dom.ketchup.theme.list };
+      const codemirrorTextarea: HTMLElement = document.querySelector(
+        '#json-tab .CodeMirror'
+      );
+      const stringifiedJSON: string = JSON.stringify(
+        list[temporaryTheme],
+        null,
+        2
+      );
       if (jsonTextarea.value === stringifiedJSON) {
         return;
       } else {
@@ -1352,142 +1435,135 @@ export default {
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
       }
+      //@ts-ignore
       CodeMirror.fromTextArea(jsonTextarea, {
         mode: { name: 'javascript', json: true },
         lineNumbers: true,
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         try {
           let jsonifiedData = JSON.parse(jsonTextarea.value);
-          list['showcaseDemo'] = jsonifiedData;
-          dom.ketchup.theme.set('showcaseDemo', list);
+          list[temporaryTheme] = jsonifiedData;
+          dom.ketchup.theme.set(temporaryTheme, list);
           jsonWarning.classList.remove('visible');
         } catch (error) {
           jsonWarning.classList.add('visible');
         }
       });
     },
-  },
+    /**
+     * Initializes the theme maker widget by setting all the values to the related components.
+     */
+    initWidget(): void {
+      const theme: KupThemeElement =
+        dom.ketchup.theme.list[dom.ketchup.theme.name];
+      const tile: HTMLElement = document.querySelector('#' + temporaryTheme);
 
-  destroyed() {
-    document.removeEventListener('kup-theme-change', initDemo);
-  },
+      if (tile) {
+        this.updateTile();
+      } else if (dom.ketchup.theme.list[temporaryTheme]) {
+        this.createTile();
+      }
 
-  mounted() {
-    const dom = document.documentElement;
-    let customStyleTab = document.querySelector('#customstyle-tab');
-    let iconsTab = document.querySelector('#icons-tab');
-
-    customStyleTab.setAttribute('style', 'display: none;');
-    iconsTab.setAttribute('style', 'display: none;');
-
-    if (dom.ketchup) {
-      initDemo();
-    }
-
-    document.addEventListener('kup-theme-change', initDemo);
+      // Clears all components.
+      const fields: NodeListOf<HTMLElement> = document.querySelectorAll(
+        '#css-variables-tab kup-color-picker, #css-variables-tab kup-text-field, #customstyle-tab kup-color-picker, #customstyle-tab kup-text-field, #icons-tab kup-color-picker, #icons-tab kup-text-field'
+      );
+      for (let index = 0; index < fields.length; index++) {
+        (fields[index] as HTMLKupTextFieldElement).setValue('');
+      }
+      // Sets the variables components.
+      for (let key in theme.cssVariables) {
+        const variable: string = key.replace('--kup-', '');
+        const field: HTMLKupTextFieldElement = variablesView.querySelector(
+          '#' + variable
+        );
+        try {
+          field.setValue(theme.cssVariables[key]);
+        } catch (error) {
+          console.warn("Couldn't set field for variable '" + key + "'.");
+        }
+      }
+      // Sets the custom styles components.
+      for (let key in theme.customStyles) {
+        const field: HTMLKupTextFieldElement = customStyleView.querySelector(
+          '#' + key.toLowerCase()
+        );
+        try {
+          field.setValue(theme.customStyles[key]);
+        } catch (error) {
+          console.warn("Couldn't set field for customStyle '" + key + "'.");
+        }
+      }
+      // Sets the icons components.
+      for (let key in theme.icons) {
+        const variable: string = key.replace('--kup-', '');
+        const field: HTMLKupTextFieldElement = iconsView.querySelector(
+          '#' + variable
+        );
+        try {
+          field.icon = theme.icons[key];
+          field.setValue(theme.icons[key]);
+        } catch (error) {
+          console.warn("Couldn't set field for icon '" + key + "'.");
+        }
+      }
+    },
+    /**
+     * Creates the tile of the theme in creation.
+     */
+    createTile(): void {
+      const themeWrapper: HTMLElement = document.createElement('div');
+      const themeImage: HTMLKupImageElement =
+        document.createElement('kup-image');
+      const themeText: HTMLElement = document.createElement('div');
+      themeWrapper.classList.add('icon-wrapper');
+      themeWrapper.classList.add('theme-wrapper');
+      themeWrapper.id = temporaryTheme;
+      themeWrapper.onclick = function () {
+        dom.ketchup.theme.set(temporaryTheme);
+      };
+      themeWrapper.title = 'Toggle your theme';
+      themeImage.sizeX = '70px';
+      themeImage.sizeY = '70px';
+      themeImage.resource = 'widgets';
+      themeText.classList.add('icon-label');
+      themeText.innerText = 'Your theme!';
+      themeText.style.letterSpacing = '1.5px';
+      themeWrapper.append(themeImage);
+      themeWrapper.append(themeText);
+      themeContainer.append(themeWrapper);
+      this.updateTile();
+    },
+    /**
+     * Updates the tile of the theme in creation with the new values.
+     */
+    updateTile(): void {
+      const variables: KupThemeCSSVariables =
+        dom.ketchup.theme.list[temporaryTheme].cssVariables;
+      const themeWrapper: HTMLElement = document.querySelector(
+        '#' + temporaryTheme
+      );
+      const themeImage: HTMLKupImageElement = document.querySelector(
+        '#' + temporaryTheme + ' kup-image'
+      );
+      const themeText: HTMLElement = document.querySelector(
+        '#' + temporaryTheme + ' .icon-label'
+      );
+      if (variables) {
+        themeWrapper.style.backgroundColor =
+          variables['--kup-background-color'];
+        themeWrapper.style.borderColor = variables['--kup-border-color'];
+        themeImage.color = variables['--kup-primary-color'];
+        themeText.style.color = variables['--kup-text-color'];
+        themeText.style.fontFamily = variables['--kup-font-family'];
+        themeText.style.fontSize = variables['--kup-font-size'];
+      }
+      themeActions.classList.add('visible');
+    },
   },
 };
-
-function initDemo() {
-  const dom = document.documentElement;
-  const theme = dom.ketchup.theme.list[dom.ketchup.theme.name];
-  const tile = document.querySelector('#showcaseDemo');
-
-  if (tile) {
-    updateTile();
-  } else if (dom.ketchup.theme.list['showcaseDemo']) {
-    createTile();
-  }
-
-  const fields = document.querySelectorAll(
-    '#css-variables-tab kup-color-picker, #css-variables-tab kup-text-field, #customstyle-tab kup-color-picker, #customstyle-tab kup-text-field, #icons-tab kup-color-picker, #icons-tab kup-text-field'
-  );
-  for (let index = 0; index < fields.length; index++) {
-    fields[index].setValue('');
-  }
-
-  let cssVariablesTab = document.querySelector('#css-variables-tab');
-  for (let key in theme.cssVariables) {
-    let variable = key.replace('--kup-', '');
-    let field = cssVariablesTab.querySelector('#' + variable);
-    try {
-      field.setValue(theme.cssVariables[key]);
-    } catch (error) {
-      console.warn("Couldn't set field for variable '" + key + "'.");
-    }
-  }
-
-  let customStyleTab = document.querySelector('#customstyle-tab');
-  for (let key in theme.customStyles) {
-    let field = customStyleTab.querySelector('#' + key.toLowerCase());
-    try {
-      field.setValue(theme.customStyles[key]);
-    } catch (error) {
-      console.warn("Couldn't set field for customStyle '" + key + "'.");
-    }
-  }
-
-  let iconsTab = document.querySelector('#icons-tab');
-  for (let key in theme.icons) {
-    let variable = key.replace('--kup-', '');
-    let field = iconsTab.querySelector('#' + variable);
-    try {
-      field.icon = theme.icons[key];
-      field.setValue(theme.icons[key]);
-    } catch (error) {
-      console.warn("Couldn't set field for icon '" + key + "'.");
-    }
-  }
-}
-
-function createTile() {
-  const themeContainer = document.querySelector('#theme-container-demo');
-  let themeWrapper = document.createElement('div');
-  let themeImage = document.createElement('kup-image');
-  let themeText = document.createElement('div');
-  themeWrapper.classList.add('icon-wrapper');
-  themeWrapper.classList.add('theme-wrapper');
-  themeWrapper.id = 'showcaseDemo';
-  themeWrapper.onclick = function() {
-    setDemoTheme();
-  };
-  themeWrapper.title = 'Toggle your theme';
-  themeImage.sizeX = '70px';
-  themeImage.sizeY = '70px';
-  themeImage.resource = 'widgets';
-  themeText.classList.add('icon-label');
-  themeText.innerText = 'Your theme!';
-  themeText.style.letterSpacing = '1.5px';
-  themeWrapper.append(themeImage);
-  themeWrapper.append(themeText);
-  themeContainer.append(themeWrapper);
-  updateTile();
-}
-
-function updateTile() {
-  const dom = document.documentElement;
-  var variables = dom.ketchup.theme.list['showcaseDemo'].cssVariables;
-  let themeWrapper = document.querySelector('#showcaseDemo');
-  let themeImage = document.querySelector('#showcaseDemo kup-image');
-  let themeText = document.querySelector('#showcaseDemo .icon-label');
-  if (variables) {
-    themeWrapper.style.backgroundColor = variables['--kup-background-color'];
-    themeWrapper.style.borderColor = variables['--kup-border-color'];
-    themeImage.color = variables['--kup-primary-color'];
-    themeText.style.color = variables['--kup-text-color'];
-    themeText.style.fontFamily = variables['--kup-font-family'];
-    themeText.style.fontSize = variables['--kup-font-size'];
-  }
-  const actions = document.querySelector('#theme-action-demo');
-  actions.classList.add('visible');
-}
-
-function setDemoTheme() {
-  const dom = document.documentElement;
-  dom.ketchup.theme.set('showcaseDemo');
-}
 </script>

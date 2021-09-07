@@ -224,7 +224,7 @@ import type { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-sw
 import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
-import { KupDynamicPosition } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position';
+import type { KupDynamicPosition } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position';
 
 interface DemoClasses {
   class: string;
