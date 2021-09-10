@@ -16,7 +16,7 @@ document.addEventListener('kup-accordion-treenodecollapsed', (e) =>
 
 document.addEventListener('kup-accordion-itemcollapsed', (e) => console.log(e));
 
-const data = {
+const ksData = {
     columns: [
         {
             name: 'FLD1',
@@ -191,7 +191,10 @@ const data = {
     key: '123',
 };
 
-const accordion = document.getElementById('first');
-accordion.data = data;
-accordion.globalFilter = 'true';
-accordion.selectedItemsNames = 'FLD1';
+const ksAccordion = document.getElementById('ks');
+ksAccordion.data = ksData;
+ksAccordion.globalFilter = 'true';
+ksAccordion.selectedItemsNames = 'FLD1';
+
+const emptyAccordion = document.getElementById('empty');
+emptyAccordion.data = {};
