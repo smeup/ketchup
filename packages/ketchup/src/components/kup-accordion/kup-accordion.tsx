@@ -415,7 +415,11 @@ export class KupAccordion {
     private renderAccordion(): VNode[] {
         const items: VNode[] = [];
 
-        for (var i = 0; i < this.data.columns.length; i++) {
+        for (
+            var i = 0;
+            this.data && this.data.columns && i < this.data.columns.length;
+            i++
+        ) {
             const column: Column = this.data.columns[i];
             const itemName: string = column.name;
             const cell: Cell = this.data.rows[0].cells[itemName];
@@ -495,7 +499,11 @@ export class KupAccordion {
 
     componentDidRender() {
         // logic conditioned from subcomponents filtering result
-        for (let i = 0; i < this.data.columns.length; i++) {
+        for (
+            let i = 0;
+            this.data && this.data.columns && i < this.data.columns.length;
+            i++
+        ) {
             const treeElement: KupTree = this.treeElements[i];
             const column: Column = this.data.columns[i];
             const itemTitle: string = column.title;

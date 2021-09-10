@@ -72,7 +72,7 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-accordion-treenodexpanded',
+          name: 'kup-accordion-treenodeexpanded',
           type: 'CustomEvent',
         },
         {
