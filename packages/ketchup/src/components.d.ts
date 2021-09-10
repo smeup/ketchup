@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KupAccordionData, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
+import { KupAccordionData, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -88,6 +88,10 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * The names of the selected items
+         */
+        "selectedItemsNames": string[];
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -3140,13 +3144,33 @@ declare namespace LocalJSX {
          */
         "globalFilterValue"?: string;
         /**
+          * Fired when a item is collapsed
+         */
+        "onKup-accordion-itemcollapsed"?: (event: CustomEvent<KupAccordionItemCollapsedEventPayload>) => void;
+        /**
+          * Fired when a item is expanded
+         */
+        "onKup-accordion-itemexpanded"?: (event: CustomEvent<KupAccordionItemExpandedEventPayload>) => void;
+        /**
           * Fired when a item is selected
          */
         "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
         /**
+          * Fired when a TreeNode is collapsed
+         */
+        "onKup-accordion-treenodecollapsed"?: (event: CustomEvent<KupAccordionTreeNodeCollapsedEventPayload>) => void;
+        /**
+          * Fired when a TreeNode is expanded
+         */
+        "onKup-accordion-treenodeexpanded"?: (event: CustomEvent<KupAccordionTreeNodeExpandedEventPayload>) => void;
+        /**
           * Fired when a TreeNode is selected
          */
         "onKup-accordion-treenodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
+        /**
+          * The names of the selected items
+         */
+        "selectedItemsNames"?: string[];
     }
     interface KupAutocomplete {
         /**

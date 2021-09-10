@@ -29,8 +29,14 @@ import {
     KupAccordionProps,
     KupAccordionTreeNodeSelectedEventPayload,
     KupAccordionItemSelectedEventPayload,
+    KupAccordionItemExpandedEventPayload,
+    KupAccordionTreeNodeExpandedEventPayload,
+    KupAccordionTreeNodeCollapsedEventPayload,
+    KupAccordionItemCollapsedEventPayload,
 } from './kup-accordion-declarations';
 import {
+    KupTreeNodeCollapseEventPayload,
+    KupTreeNodeExpandEventPayload,
     KupTreeNodeSelectedEventPayload,
     TreeNode,
 } from './../kup-tree/kup-tree-declarations';
@@ -50,16 +56,6 @@ export class KupAccordion {
      * References the root HTML element of the component (<kup-accordion>).
      */
     @Element() rootElement: HTMLElement;
-
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
-
-    /**
-     * Names of the selected items
-     * @default []
-     */
-    @State() private selectedItemsNames: string[] = [];
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -87,6 +83,11 @@ export class KupAccordion {
      * @default ""
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
+
+    /**
+     * The names of the selected items
+     */
+    @Prop({ mutable: true }) selectedItemsNames: string[] = [];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -134,6 +135,50 @@ export class KupAccordion {
         bubbles: true,
     })
     kupAccordionTreeNodeSelected: EventEmitter<KupAccordionTreeNodeSelectedEventPayload>;
+
+    /**
+     * Fired when a item is expanded
+     */
+    @Event({
+        eventName: 'kup-accordion-itemexpanded',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAccordionItemExpanded: EventEmitter<KupAccordionItemExpandedEventPayload>;
+
+    /**
+     * Fired when a TreeNode is expanded
+     */
+    @Event({
+        eventName: 'kup-accordion-treenodeexpanded',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAccordionTreeNodeExpanded: EventEmitter<KupAccordionTreeNodeExpandedEventPayload>;
+
+    /**
+     * Fired when a item is collapsed
+     */
+    @Event({
+        eventName: 'kup-accordion-itemcollapsed',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAccordionItemCollapsed: EventEmitter<KupAccordionItemCollapsedEventPayload>;
+
+    /**
+     * Fired when a TreeNode is collapsed
+     */
+    @Event({
+        eventName: 'kup-accordion-treenodecollapsed',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAccordionTreeNodeCollapsed: EventEmitter<KupAccordionTreeNodeCollapsedEventPayload>;
 
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
@@ -183,6 +228,7 @@ export class KupAccordion {
     @Method()
     async toggleItem(itemName: string) {
         const isItemExpandible = this.isItemExpandible(itemName);
+        const isItemSelected = this.isItemSelected(itemName);
 
         const ids: string[] = [...this.selectedItemsNames];
         if (ids.includes(itemName)) {
@@ -197,6 +243,18 @@ export class KupAccordion {
 
         if (!isItemExpandible) {
             this.kupAccordionItemSelected.emit({
+                comp: this,
+                id: this.rootElement.id,
+                itemName: itemName,
+            });
+        } else if (isItemSelected) {
+            this.kupAccordionItemCollapsed.emit({
+                comp: this,
+                id: this.rootElement.id,
+                itemName: itemName,
+            });
+        } else {
+            this.kupAccordionItemExpanded.emit({
                 comp: this,
                 id: this.rootElement.id,
                 itemName: itemName,
@@ -260,6 +318,37 @@ export class KupAccordion {
             itemName: itemName,
         });
     }
+
+    private onKupTreeNodeExpanded(
+        e: CustomEvent<KupTreeNodeExpandEventPayload>,
+        itemName: string
+    ): void {
+        e.stopPropagation();
+
+        this.kupAccordionTreeNodeExpanded.emit({
+            comp: this,
+            id: this.rootElement.id,
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            itemName: itemName,
+        });
+    }
+
+    private onKupTreeNodeCollapsed(
+        e: CustomEvent<KupTreeNodeCollapseEventPayload>,
+        itemName: string
+    ): void {
+        e.stopPropagation();
+
+        this.kupAccordionTreeNodeCollapsed.emit({
+            comp: this,
+            id: this.rootElement.id,
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            itemName: itemName,
+        });
+    }
+
     private onGlobalFilterChange(
         e: CustomEvent<KupTextFieldEventPayload>
     ): void {
@@ -288,10 +377,19 @@ export class KupAccordion {
             <kup-tree
                 class="kup-full-width"
                 data={tree}
+                {...(cellData.selectedNode
+                    ? { selectedNode: cellData.selectedNode }
+                    : {})}
                 globalFilterValue={this.globalFilterValue}
                 onkup-tree-nodeselected={(
                     e: CustomEvent<KupTreeNodeSelectedEventPayload>
                 ) => this.onKupTreeNodeSelected(e, itemName)}
+                onkup-tree-nodeexpand={(
+                    e: CustomEvent<KupTreeNodeExpandEventPayload>
+                ) => this.onKupTreeNodeExpanded(e, itemName)}
+                onkup-tree-nodecollapse={(
+                    e: CustomEvent<KupTreeNodeCollapseEventPayload>
+                ) => this.onKupTreeNodeCollapsed(e, itemName)}
                 ref={(el: any) => (this.treeElements[i] = el as KupTree)}
             ></kup-tree>
         );

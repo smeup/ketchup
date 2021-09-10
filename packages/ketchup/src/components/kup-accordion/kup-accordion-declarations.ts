@@ -1,6 +1,10 @@
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 
-import { KupTreeNodeSelectedEventPayload } from './../kup-tree/kup-tree-declarations';
+import {
+    KupTreeNodeCollapseEventPayload,
+    KupTreeNodeExpandEventPayload,
+    KupTreeNodeSelectedEventPayload,
+} from './../kup-tree/kup-tree-declarations';
 
 import { KupEventPayload } from '../../types/GenericTypes';
 
@@ -22,11 +26,29 @@ export interface KupAccordionData {
     rows: Row[];
 }
 
+export interface KupAccordionItemSelectedEventPayload extends KupEventPayload {
+    itemName: string;
+}
+
 export interface KupAccordionTreeNodeSelectedEventPayload
     extends KupTreeNodeSelectedEventPayload {
     itemName: string;
 }
 
-export interface KupAccordionItemSelectedEventPayload extends KupEventPayload {
+export interface KupAccordionItemExpandedEventPayload extends KupEventPayload {
+    itemName: string;
+}
+
+export interface KupAccordionTreeNodeExpandedEventPayload
+    extends KupTreeNodeExpandEventPayload {
+    itemName: string;
+}
+
+export interface KupAccordionItemCollapsedEventPayload extends KupEventPayload {
+    itemName: string;
+}
+
+export interface KupAccordionTreeNodeCollapsedEventPayload
+    extends KupTreeNodeCollapseEventPayload {
     itemName: string;
 }
