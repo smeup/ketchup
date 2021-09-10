@@ -4,6 +4,18 @@ document.addEventListener('kup-accordion-treenodeselected', (e) =>
 
 document.addEventListener('kup-accordion-itemselected', (e) => console.log(e));
 
+document.addEventListener('kup-accordion-treenodeexpanded', (e) =>
+    console.log(e)
+);
+
+document.addEventListener('kup-accordion-itemexpanded', (e) => console.log(e));
+
+document.addEventListener('kup-accordion-treenodecollapsed', (e) =>
+    console.log(e)
+);
+
+document.addEventListener('kup-accordion-itemcollapsed', (e) => console.log(e));
+
 const data = {
     columns: [
         {
@@ -30,6 +42,7 @@ const data = {
             cells: {
                 FLD1: {
                     data: {
+                        selectedNode: [0, 1],
                         data: [
                             {
                                 children: [
@@ -54,7 +67,7 @@ const data = {
                                     {
                                         disabled: false,
                                         expandable: true,
-                                        icon: 'ac_unit',
+                                        icon: '',
                                         id: '',
                                         isExpanded: false,
                                         options: false,
@@ -65,14 +78,14 @@ const data = {
                                 expandable: true,
                                 icon: 'filter_2',
                                 id: '',
-                                isExpanded: false,
+                                isExpanded: true,
                                 options: false,
                                 value: 'Favorites',
                             },
                             {
                                 disabled: false,
                                 expandable: true,
-                                icon: '3d_rotation',
+                                icon: '',
                                 id: '',
                                 isExpanded: false,
                                 options: false,
@@ -151,7 +164,7 @@ const data = {
                             {
                                 disabled: false,
                                 expandable: true,
-                                icon: 'omega',
+                                icon: '',
                                 id: '',
                                 isExpanded: false,
                                 options: false,
@@ -160,7 +173,7 @@ const data = {
                             {
                                 disabled: false,
                                 expandable: true,
-                                icon: 'view-quilt',
+                                icon: '',
                                 id: '',
                                 isExpanded: false,
                                 options: false,
@@ -181,3 +194,4 @@ const data = {
 const accordion = document.getElementById('first');
 accordion.data = data;
 accordion.globalFilter = 'true';
+accordion.selectedItemsNames = 'FLD1';

@@ -67,6 +67,22 @@ export default {
           name: 'kup-accordion-treenodeselected',
           type: 'CustomEvent',
         },
+        {
+          name: 'kup-accordion-itemexpanded',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-treenodexpanded',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-itemcollapsed',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-treenodecollapsed',
+          type: 'CustomEvent',
+        },
       ],
       demoMethods: [
         {
@@ -114,6 +130,13 @@ export default {
         {
           prop: 'globalFilterValue',
           description: 'The value of the global filter.',
+          type: 'string',
+          default: '',
+          try: 'field',
+        },
+        {
+          prop: 'selectedItemsNames',
+          description: 'The names of the selected items.',
           type: 'string',
           default: '',
           try: 'field',
