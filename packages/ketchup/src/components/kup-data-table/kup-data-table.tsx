@@ -161,7 +161,6 @@ import {
     KupLanguageTotals,
 } from '../../utils/kup-language/kup-language-declarations';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
-import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupThemeColorValues,
@@ -4322,7 +4321,7 @@ export class KupDataTable {
 
                 let cellStyle: GenericObject = null;
                 if (!styleHasBorderRadius(cell)) {
-                    cellStyle = cell.style;
+                    cellStyle = { ...cell.style };
                 }
 
                 //-- For fixed cells --
@@ -4794,8 +4793,6 @@ export class KupDataTable {
                 let height: string = '';
                 if (props.label) {
                     height = '36px';
-                } else {
-                    height = '48px';
                 }
                 if (cell.style) {
                     if (!cell.style.height) {
@@ -4938,7 +4935,6 @@ export class KupDataTable {
                 }
             case 'button':
                 classObj['is-centered'] = true;
-                props['disabled'] = row.readOnly;
                 props['onkup-button-click'] = this.onJ4btnClicked.bind(
                     this,
                     row,
