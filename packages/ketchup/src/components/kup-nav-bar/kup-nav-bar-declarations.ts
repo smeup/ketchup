@@ -1,3 +1,4 @@
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
@@ -7,38 +8,16 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupNavBarProps {
     customStyle = 'Custom style of the component.',
     data = 'The actual data of the nav bar.',
-    mode = 'Defines how the bar will be displayed.',
-}
-/**
- * Data of the nav bar.
- */
-export interface KupNavBarData {
-    title: string;
-    menuAction?: KupNavBarElement;
-    menuActions?: KupNavBarElement[];
-    optionActions?: KupNavBarElement[];
-}
-/**
- * Identifies a single nav bar element.
- */
-export interface KupNavBarElement {
-    icon: string;
-    tooltip?: string;
-    text?: string;
-    value: string;
-    visible?: boolean;
+    image = 'Image displayed by the nav bar.',
+    label = 'Text displayed by the nav bar.',
 }
 /**
  * Styling modes of the nav bar.
  */
-export enum KupNavBarMode {
-    DEFAULT = '',
-    SHORT = 'short',
-    SHORT_COLLAPSED = 'short-collapsed',
+export enum KupNavBarStyling {
+    DENSE = 'dense',
     FIXED = 'fixed',
     PROMINENT = 'prominent',
-    DENSE = 'dense',
-}
-export interface KupNavbarEventPayload extends KupEventPayload {
-    value: string;
+    SHORT = 'short',
+    SHORT_COLLAPSED = 'short-collapsed',
 }

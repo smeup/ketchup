@@ -36,7 +36,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
-import { KupNavBarData, KupNavbarEventPayload, KupNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -1976,21 +1976,21 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * The actual data of the nav bar.
-          * @default null
-         */
-        "data": KupNavBarData;
-        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Defines how the bar will be displayed.
-          * @default KupNavBarMode.DEFAULT
+          * Image displayed by the nav bar.
+          * @default null
          */
-        "mode": KupNavBarMode;
+        "image": string;
+        /**
+          * Text displayed by the nav bar.
+          * @default null
+         */
+        "label": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2000,6 +2000,16 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When true, displays the menu button.
+          * @default null
+         */
+        "showMenuButton": boolean;
+        /**
+          * Defines how the bar will be displayed.
+          * @default KupNavBarMode.FIXED
+         */
+        "styling": KupNavBarStyling;
     }
     interface KupPaginator {
         "currentPage": number;
@@ -4771,23 +4781,29 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The actual data of the nav bar.
+          * Image displayed by the nav bar.
           * @default null
          */
-        "data"?: KupNavBarData;
+        "image"?: string;
+        /**
+          * Text displayed by the nav bar.
+          * @default null
+         */
+        "label"?: string;
+        /**
+          * Triggered when the menu button is clicked.
+         */
+        "onKup-navbar-menuclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * When true, displays the menu button.
+          * @default null
+         */
+        "showMenuButton"?: boolean;
         /**
           * Defines how the bar will be displayed.
-          * @default KupNavBarMode.DEFAULT
+          * @default KupNavBarMode.FIXED
          */
-        "mode"?: KupNavBarMode;
-        /**
-          * Triggered when a button's list item is clicked.
-         */
-        "onKup-navbar-menuitemclick"?: (event: CustomEvent<KupNavbarEventPayload>) => void;
-        /**
-          * Triggered when a button is clicked.
-         */
-        "onKup-navbar-optionitemclick"?: (event: CustomEvent<KupNavbarEventPayload>) => void;
+        "styling"?: KupNavBarStyling;
     }
     interface KupPaginator {
         "currentPage"?: number;
