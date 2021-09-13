@@ -1,4 +1,5 @@
 :host {
+  box-sizing: border-box;
   font-size: var(--kup-font-size);
   left: 0;
   position: fixed;
@@ -14,6 +15,7 @@
 .nav-bar {
   --kup-primary-color: var(--dyn-color, white);
   --kup-primary-color-rgb: var(--dyn-color-rgb, 255, 255, 255);
+  --kup-text-color: var(--dyn-color, white);
   background-color: var(--kup-nav-bar-background-color);
   box-shadow: 0 2px 4px -1px rgba(128, 128, 128, 0.2),
     0 4px 5px 0 rgba(128, 128, 128, 0.14),

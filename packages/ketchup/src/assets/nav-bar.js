@@ -1,6 +1,16 @@
 const drawer = document.querySelector('kup-drawer');
-const navBars = document.querySelectorAll('kup-nav-bar');
-navBars.forEach((el) => {
+const switches = document.querySelectorAll('kup-switch');
+const bars = document.querySelectorAll('kup-nav-bar');
+switches.forEach((el) => {
+    el.addEventListener('kup-switch-change', (e) => {
+        if (e.detail.value === 'on') {
+            document.documentElement.ketchup.theme.set('dark');
+        } else {
+            document.documentElement.ketchup.theme.set('ketchup');
+        }
+    });
+});
+bars.forEach((el) => {
     el.image = {
         resource:
             'https://ketchup.smeup.com/ketchup-showcase/ketchup_logo_header.svg',
@@ -16,8 +26,8 @@ navBars.forEach((el) => {
     });
 });
 document.addEventListener('kup-dropdownbutton-itemclick', (e) => {
-    for (let index = 0; index < navBars.length; index++) {
-        const el = navBars[index];
+    for (let index = 0; index < bars.length; index++) {
+        const el = bars[index];
         if (e.detail.value !== el.id) {
             el.classList.remove('visible');
         } else {

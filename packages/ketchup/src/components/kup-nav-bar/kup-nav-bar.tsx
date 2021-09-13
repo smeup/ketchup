@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    VNode,
 } from '@stencil/core';
 import { KupNavBarStyling, KupNavBarProps } from './kup-nav-bar-declarations';
 import type {
@@ -141,7 +142,18 @@ export class KupNavBar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private components() {}
+    private components(): VNode[] {
+        const slots: Array<HTMLElement> = Array.prototype.slice.call(
+            this.rootElement.children,
+            0
+        );
+        const components: VNode[] = [];
+        for (let index = 0; index < slots.length; index++) {
+            const slot: HTMLElement = slots[index] as HTMLElement;
+            components.push(<slot></slot>);
+        }
+        return components;
+    }
 
     /**
      * Sets the dynamic colors depending on the nav bar background.
