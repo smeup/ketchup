@@ -38,6 +38,7 @@
             "--kup-descending-icon": "sort-descending",
             "--kup-expanded-icon": "chevron-down",
             "--kup-collapsed-icon": "chevron_right",
+            "--kup-dropdown-icon": "chevron-down",
             "--kup-clear-icon": "clear",
             "--kup-filter-remove-icon": "filter-remove",
             "--kup-key-icon": "key-variant",
