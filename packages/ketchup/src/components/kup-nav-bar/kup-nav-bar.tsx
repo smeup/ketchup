@@ -23,6 +23,8 @@ import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declaration
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -46,25 +48,26 @@ export class KupNavBar {
      */
     @Prop() customStyle: string = '';
     /**
-     * Image displayed by the nav bar.
+     * Image displayed by the nav bar, uses the kup-image component's props.
      * @default null
      */
-    @Prop() image: string = null;
+    @Prop() image: FImageProps = null;
     /**
      * Text displayed by the nav bar.
      * @default null
      */
     @Prop() label: string = null;
     /**
-     * When true, displays the menu button.
+     * When true, the menu button will be displayed on the left of the nav bar.
      * @default null
      */
     @Prop() showMenuButton: boolean = true;
     /**
-     * Defines how the bar will be displayed.
-     * @default KupNavBarMode.FIXED
+     * Defines the style of the nav bar.
+     * @default KupNavBarMode.STANDARD
      */
-    @Prop({ reflect: true }) styling: KupNavBarStyling = KupNavBarStyling.FIXED;
+    @Prop({ reflect: true }) styling: KupNavBarStyling =
+        KupNavBarStyling.STANDARD;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -78,6 +81,10 @@ export class KupNavBar {
      * Text color of the title, which is set automatically depending on the contrast with the background.
      */
     private textColor: string = 'white';
+    /**
+     * Text color of the title in RGB values.
+     */
+    private textColorRGB: string = '255,255,255';
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -94,7 +101,7 @@ export class KupNavBar {
     })
     kupNavbarMenuClick: EventEmitter<KupEventPayload>;
 
-    onKupNavbarMenuToggle() {
+    onKupNavbarMenuClick() {
         this.kupNavbarMenuClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -134,15 +141,37 @@ export class KupNavBar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private fetchThemeColors() {
-        let color =
+    private components() {}
+
+    /**
+     * Sets the dynamic colors depending on the nav bar background.
+     */
+    private fetchThemeColors(): void {
+        const color: string =
             this.kupManager.theme.cssVars[
                 KupThemeColorValues.NAV_BAR_BACKGROUND
             ];
         this.textColor = this.kupManager.theme.colorContrast(color);
+        this.textColorRGB = this.kupManager.theme.colorCheck(
+            this.textColor
+        ).rgbValues;
     }
 
-    private rightComponents() {}
+    /**
+     * Set the events of the component.
+     */
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.nav-bar__menu-toggler');
+            if (f) {
+                const buttonEl: HTMLButtonElement = f.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = () => this.onKupNavbarMenuClick();
+                }
+            }
+        }
+    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -164,11 +193,19 @@ export class KupNavBar {
     }
 
     componentDidRender() {
+        this.setEvents();
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
-        const style: GenericObject = { '--title-color': this.textColor };
+        const showImage: boolean =
+            this.image && this.styling.toLowerCase() !== KupNavBarStyling.SHORT;
+        const showLabel: boolean =
+            this.label && this.styling.toLowerCase() !== KupNavBarStyling.SHORT;
+        const style: GenericObject = {
+            '--dyn-color': this.textColor,
+            '--dyn-color-rgb': this.textColorRGB,
+        };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
@@ -184,9 +221,26 @@ export class KupNavBar {
                         <div class="nav-bar__row">
                             <section class="nav-bar__section nav-bar__section--align-start">
                                 {this.showMenuButton ? (
-                                    <FButton icon="menu" />
+                                    <FButton
+                                        icon="menu"
+                                        wrapperClass="nav-bar__menu-toggler"
+                                    />
                                 ) : null}
-                                {this.label ? (
+                                {showImage ? (
+                                    <span class="nav-bar__image">
+                                        <FImage
+                                            sizeX="auto"
+                                            sizeY={
+                                                this.styling.toLowerCase() ===
+                                                KupNavBarStyling.DENSE
+                                                    ? '36px'
+                                                    : '48px'
+                                            }
+                                            {...this.image}
+                                        />
+                                    </span>
+                                ) : null}
+                                {showLabel ? (
                                     <span class="nav-bar__title">
                                         {this.label}
                                     </span>
@@ -196,7 +250,7 @@ export class KupNavBar {
                                 class="nav-bar__section nav-bar__section--align-end"
                                 role="toolbar"
                             >
-                                {this.rightComponents()}
+                                {this.components()}
                             </section>
                         </div>
                     </header>

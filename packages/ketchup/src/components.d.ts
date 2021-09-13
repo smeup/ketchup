@@ -32,7 +32,7 @@ import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/
 import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
-import { FImageData } from "./f-components/f-image/f-image-declarations";
+import { FImageData, FImageProps } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
@@ -1982,10 +1982,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Image displayed by the nav bar.
+          * Image displayed by the nav bar, uses the kup-image component's props.
           * @default null
          */
-        "image": string;
+        "image": FImageProps;
         /**
           * Text displayed by the nav bar.
           * @default null
@@ -2001,13 +2001,13 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * When true, displays the menu button.
+          * When true, the menu button will be displayed on the left of the nav bar.
           * @default null
          */
         "showMenuButton": boolean;
         /**
-          * Defines how the bar will be displayed.
-          * @default KupNavBarMode.FIXED
+          * Defines the style of the nav bar.
+          * @default KupNavBarMode.STANDARD
          */
         "styling": KupNavBarStyling;
     }
@@ -4781,10 +4781,10 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Image displayed by the nav bar.
+          * Image displayed by the nav bar, uses the kup-image component's props.
           * @default null
          */
-        "image"?: string;
+        "image"?: FImageProps;
         /**
           * Text displayed by the nav bar.
           * @default null
@@ -4795,13 +4795,13 @@ declare namespace LocalJSX {
          */
         "onKup-navbar-menuclick"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * When true, displays the menu button.
+          * When true, the menu button will be displayed on the left of the nav bar.
           * @default null
          */
         "showMenuButton"?: boolean;
         /**
-          * Defines how the bar will be displayed.
-          * @default KupNavBarMode.FIXED
+          * Defines the style of the nav bar.
+          * @default KupNavBarMode.STANDARD
          */
         "styling"?: KupNavBarStyling;
     }

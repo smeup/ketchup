@@ -2,60 +2,74 @@
 <html dir="ltr" lang="en">
     <head>
         <meta charset="utf-8" />
-
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
         />
-
-        <title>Ketchup nav bar</title>
-        <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        ></link>
-        
-        <link
-            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
-            rel="stylesheet"
-            type="text/css"
-        />
-
+        <title>Nav bar</title>
         <script type="module" src="/build/ketchup.esm.js"></script>
         <script nomodule src="/build/ketchup.js"></script>
-
-        <link
-            href="https://fonts.googleapis.com/css?family=Lato"
-            rel="stylesheet"
-        />
-
-        <script
-            type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"
-        ></script>
         <style>
+            body,
+            html {
+                box-sizing: border-box;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
             html {
                 background-color: var(--kup-background-color);
                 color: var(--kup-text-color);
                 font-family: var(--kup-font-family);
                 font-size: var(--kup-font-size);
-                padding: 1rem;
+            }
+
+            kup-dropdown-button {
+                bottom: 10px;
+                position: fixed;
+                right: 10px;
+            }
+
+            kup-nav-bar {
+                display: none;
+            }
+
+            kup-nav-bar.visible {
+                display: block;
+            }
+
+            .padded {
+                padding-left: 300px;
+            }
+
+            .wrapper {
+                height: 1000vh;
+                overflow: auto;
             }
         </style>
     </head>
-
     <body>
-        <div class="data-examples">
-            <h1>Navigation bar</h1>
-            <kup-nav-bar mode="prominent" id="navbar"></kup-nav-bar>
-
-            <br/><br/><br/><br/>
-            <kup-checkbox id="itemSelect" label="select me" value="S"></kup-checkbox>
+        <div class="wrapper">
+            <kup-nav-bar class="visible" id="standard" label="Standard"
+                ><kup-switch label="Dark mode"></kup-switch
+            ></kup-nav-bar>
+            <kup-nav-bar
+                id="prominent"
+                label="Prominent"
+                styling="prominent"
+            ></kup-nav-bar>
+            <kup-nav-bar id="dense" label="Dense" styling="dense"></kup-nav-bar>
+            <kup-nav-bar id="short" styling="short"></kup-nav-bar>
+            <kup-drawer class="kup-permanent"></kup-drawer>
+            <kup-dropdown-button
+                id="styling-selector"
+                dropdown-only
+                icon="menu"
+                styling="icon"
+            ></kup-dropdown-button>
         </div>
-        <div class="data-examples">
-            <h1>Navigation bar with mode</h1>
-            <kup-nav-bar id="navbar-short" mode="short-collapsed" />
-        </div>
-
         <script src="/assets/nav-bar.js"></script>
     </body>
 </html>
