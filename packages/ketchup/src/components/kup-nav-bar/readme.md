@@ -5,19 +5,20 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                            | Type                                                                                                                                                     | Default                 |
-| ------------- | -------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `customStyle` | `custom-style` | Custom style of the component.         | `string`                                                                                                                                                 | `''`                    |
-| `data`        | --             | The actual data of the nav bar.        | `KupNavBarData`                                                                                                                                          | `null`                  |
-| `mode`        | `mode`         | Defines how the bar will be displayed. | `KupNavBarMode.DEFAULT \| KupNavBarMode.DENSE \| KupNavBarMode.FIXED \| KupNavBarMode.PROMINENT \| KupNavBarMode.SHORT \| KupNavBarMode.SHORT_COLLAPSED` | `KupNavBarMode.DEFAULT` |
+| Property         | Attribute          | Description                                                              | Type                                                                                                          | Default                     |
+| ---------------- | ------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `customStyle`    | `custom-style`     | Custom style of the component.                                           | `string`                                                                                                      | `''`                        |
+| `image`          | --                 | Image displayed by the nav bar, uses the kup-image component's props.    | `FImageProps`                                                                                                 | `null`                      |
+| `label`          | `label`            | Text displayed by the nav bar.                                           | `string`                                                                                                      | `null`                      |
+| `showMenuButton` | `show-menu-button` | When true, the menu button will be displayed on the left of the nav bar. | `boolean`                                                                                                     | `true`                      |
+| `styling`        | `styling`          | Defines the style of the nav bar.                                        | `KupNavBarStyling.DENSE \| KupNavBarStyling.PROMINENT \| KupNavBarStyling.SHORT \| KupNavBarStyling.STANDARD` | `KupNavBarStyling.STANDARD` |
 
 
 ## Events
 
-| Event                        | Description                                     | Type                                 |
-| ---------------------------- | ----------------------------------------------- | ------------------------------------ |
-| `kup-navbar-menuitemclick`   | Triggered when a button's list item is clicked. | `CustomEvent<KupNavbarEventPayload>` |
-| `kup-navbar-optionitemclick` | Triggered when a button is clicked.             | `CustomEvent<KupNavbarEventPayload>` |
+| Event                  | Description                                | Type                           |
+| ---------------------- | ------------------------------------------ | ------------------------------ |
+| `kup-navbar-menuclick` | Triggered when the menu button is clicked. | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
@@ -57,18 +58,13 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-list](../kup-list)
-- [kup-button](../kup-button)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-nav-bar --> kup-list
-  kup-nav-bar --> kup-button
-  kup-list --> kup-radio
-  kup-list --> kup-badge
+  kup-nav-bar --> kup-badge
   kup-badge --> kup-badge
-  kup-button --> kup-badge
   style kup-nav-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
