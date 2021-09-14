@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
+import { GenericFilter, GlobalFilterMode } from "./utils/filters/filters-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
@@ -26,7 +27,6 @@ import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { GenericFilter } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
@@ -79,6 +79,10 @@ export namespace Components {
           * @default false
          */
         "globalFilter": boolean;
+        /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode": GlobalFilterMode;
         /**
           * The value of the global filter.
           * @default ""
@@ -2680,6 +2684,10 @@ export namespace Components {
          */
         "globalFilter": boolean;
         /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode": GlobalFilterMode;
+        /**
           * The value of the global filter.
          */
         "globalFilterValue": string;
@@ -3138,6 +3146,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "globalFilter"?: boolean;
+        /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode"?: GlobalFilterMode;
         /**
           * The value of the global filter.
           * @default ""
@@ -5382,6 +5394,10 @@ declare namespace LocalJSX {
           * When set to true it activates the global filter.
          */
         "globalFilter"?: boolean;
+        /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode"?: GlobalFilterMode;
         /**
           * The value of the global filter.
          */

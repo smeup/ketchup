@@ -7,13 +7,14 @@
 
 ## Properties
 
-| Property             | Attribute             | Description                                      | Type               | Default |
-| -------------------- | --------------------- | ------------------------------------------------ | ------------------ | ------- |
-| `customStyle`        | `custom-style`        | Custom style of the component.                   | `string`           | `''`    |
-| `data`               | --                    | Data of the accordion.                           | `KupAccordionData` | `null`  |
-| `globalFilter`       | `global-filter`       | When set to true it activates the global filter. | `boolean`          | `false` |
-| `globalFilterValue`  | `global-filter-value` | The value of the global filter.                  | `string`           | `''`    |
-| `selectedItemsNames` | --                    | The names of the selected items                  | `string[]`         | `[]`    |
+| Property             | Attribute             | Description                                      | Type                                                     | Default                   |
+| -------------------- | --------------------- | ------------------------------------------------ | -------------------------------------------------------- | ------------------------- |
+| `customStyle`        | `custom-style`        | Custom style of the component.                   | `string`                                                 | `''`                      |
+| `data`               | --                    | Data of the accordion.                           | `KupAccordionData`                                       | `null`                    |
+| `globalFilter`       | `global-filter`       | When set to true it activates the global filter. | `boolean`                                                | `false`                   |
+| `globalFilterMode`   | `global-filter-mode`  | The mode of the global filter (default SIMPLE)   | `GlobalFilterMode.HIGHTLIGHT \| GlobalFilterMode.SIMPLE` | `GlobalFilterMode.SIMPLE` |
+| `globalFilterValue`  | `global-filter-value` | The value of the global filter.                  | `string`                                                 | `''`                      |
+| `selectedItemsNames` | --                    | The names of the selected items                  | `string[]`                                               | `[]`                      |
 
 
 ## Events

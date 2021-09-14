@@ -72,6 +72,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: pre;
+
+      &--highlighted {
+        color: white;
+        background-color: lightseagreen;
+      }
     }
 
     &__icon {

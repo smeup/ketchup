@@ -194,6 +194,7 @@ const ksData = {
 const ksAccordion = document.getElementById('ks');
 ksAccordion.data = ksData;
 ksAccordion.globalFilter = 'true';
+ksAccordion.globalFilterMode = 'HIGHTLIGHT';
 ksAccordion.selectedItemsNames = 'FLD1';
 
 const emptyAccordion = document.getElementById('empty');

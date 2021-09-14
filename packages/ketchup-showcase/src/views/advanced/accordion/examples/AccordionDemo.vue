@@ -135,6 +135,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'globalFilterMode',
+          description: 'The mode of the global filter',
+          type: 'GlobalFilterMode',
+          default: 'SIMPLE',
+          try: 'field',
+        },
+        {
           prop: 'selectedItemsNames',
           description: 'The names of the selected items.',
           type: 'string',
