@@ -97,6 +97,20 @@ h3 {
   font-size: 140%;
 }
 
+.v-content {
+  padding-top: 64px !important;
+}
+
+.has-padding {
+  padding-left: 0;
+}
+
+@media screen and (min-width: 1264px) {
+  .has-padding {
+    padding-left: 300px;
+  }
+}
+
 @media screen and (max-width: 1260px) {
   #page-wrapper {
     flex-direction: column-reverse;

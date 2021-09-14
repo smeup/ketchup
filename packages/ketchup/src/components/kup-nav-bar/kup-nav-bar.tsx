@@ -224,7 +224,7 @@ export class KupNavBar {
         );
 
         return (
-            <Host>
+            <Host class="header">
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id={componentWrapperId} style={style}>
                     <header

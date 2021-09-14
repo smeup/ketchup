@@ -143,20 +143,27 @@
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
-
-    <v-toolbar class="header" fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <div class="logo_header">
-        <img src="ketchup_logo_header.svg" class="light" style="height: 40px" />
-      </div>
-      <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
+    <kup-nav-bar
+      class="has-padding"
+      @kup-navbar-menuclick="
+        (e) => {
+          if (this.drawer) {
+            e.detail.comp.rootElement.classList.remove('has-padding');
+          } else {
+            e.detail.comp.rootElement.classList.add('has-padding');
+          }
+          this.drawer = !this.drawer;
+        }
+      "
+      :image.prop="navbarImage"
+      label="Ketch.UP | Showcase"
+    >
       <kup-switch
         @kup-switch-change="
           (e) => {
             this.changeTheme(e);
           }
         "
-        style="min-width: 150px; --kup-text-color: #f5f5f5"
         leading-label
         label="Dark Mode"
         id="theme-switch"
@@ -169,12 +176,12 @@
         "
         id="debug-toggler"
         icon="bug"
-        custom-style=":host{--kup-primary-color: white}"
       ></kup-button>
-      <v-toolbar-side-icon :to="{ path: '/' }">
-        <v-icon>home</v-icon>
-      </v-toolbar-side-icon>
-    </v-toolbar>
+      <kup-button
+        @kup-button-click="$router.push('/').catch(() => {})"
+        icon="home"
+      ></kup-button
+    ></kup-nav-bar>
 
     <v-content>
       <v-container>
@@ -241,17 +248,16 @@ export default {
 
       if (dom.ketchup.debug.isDebug()) {
         console.log('Debug deactivated.');
-        debugToggler.customStyle = ':host{--kup-primary-color: white}';
         dom.ketchup.debug.toggle(false);
       } else {
         console.log('Debug activated.');
-        debugToggler.customStyle = '';
         dom.ketchup.debug.toggle(true);
       }
     },
   },
   data: () => ({
     drawer: null,
+    navbarImage: { resource: 'ketchup_logo_header.svg' },
     groupNavigationSections: [
       {
         title: 'Components',

@@ -6,6 +6,7 @@
   top: 0;
   transition: all 250ms;
   width: 100%;
+  z-index: 90;
 }
 
 #kup-component {
@@ -20,14 +21,12 @@
   box-shadow: 0 2px 4px -1px rgba(128, 128, 128, 0.2),
     0 4px 5px 0 rgba(128, 128, 128, 0.14),
     0 1px 10px 0 rgba(128, 128, 128, 0.12);
+  box-sizing: border-box;
   color: var(--dyn-color, white);
   display: flex;
-  position: unset;
   flex-direction: column;
   justify-content: space-between;
-  box-sizing: border-box;
   width: 100%;
-  z-index: 4;
 
   &--dense {
     .nav-bar__row {
@@ -97,6 +96,7 @@
   z-index: 1;
 
   &--align-start {
+    flex-shrink: 5;
     justify-content: flex-start;
     order: -1;
 
@@ -106,8 +106,8 @@
 
     .nav-bar__title {
       font-family: var(--kup-font-family);
-      font-size: 1.25rem;
-      line-height: 2rem;
+      font-size: 1.25em;
+      line-height: 2em;
       font-weight: 500;
       letter-spacing: 0.0125em;
       text-decoration: inherit;
@@ -124,6 +124,7 @@
   &--align-end {
     justify-content: flex-end;
     order: 1;
+    overflow: hidden;
   }
 }
 
