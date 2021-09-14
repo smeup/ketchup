@@ -56,7 +56,7 @@
         "vanilla-picker": "^2.11.0"
     },
     "devDependencies": {
-        "@stencil/core": "^2.6.0",
+        "@stencil/core": "^2.8.0",
         "@stencil/sass": "^1.4.1",
         "@types/d3-shape": "^2.1.0",
         "@types/jest": "^26.0.21",
