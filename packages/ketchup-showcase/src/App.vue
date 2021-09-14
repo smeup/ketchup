@@ -169,11 +169,14 @@
         id="theme-switch"
       ></kup-switch>
       <kup-button
+        class="kup-pulsating"
         @kup-button-click="
           () => {
             this.toggleDebug();
           }
         "
+        toggable
+        icon-off="bug"
         id="debug-toggler"
         icon="bug"
       ></kup-button>
