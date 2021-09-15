@@ -131,6 +131,26 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">--kup-drawer-width</span>
+                </td>
+                <td
+                  >Sets the width of the drawer (any valid CSS unit can be used
+                  - vw, px, em, etc.).</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">size</span>
+                </td>
+                <td class="text-cell">
+                  <kup-color-picker
+                    id="drawer-size"
+                    :data.prop="colorPickerData"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
+                  ></kup-color-picker>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">--kup-font-family</span>
                 </td>
                 <td>
@@ -627,6 +647,42 @@
                   <kup-text-field
                     full-width
                     id="obj-cursor"
+                    @kup-textfield-input="updateVariable"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-drawer-zindex</span>
+                </td>
+                <td
+                  >Sets the z-index for kup-drawer. Should be set accordingly to the app using the component.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">z-index</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="drawer-zindex"
+                    @kup-textfield-input="updateVariable"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-navbar-zindex</span>
+                </td>
+                <td
+                  >Sets the z-index for kup-nav-bar. Should be set accordingly to the app using the component.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">z-index</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="navbar-zindex"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>
