@@ -174,8 +174,8 @@
 
 .cell-content {
   &--highlighted {
-    color: white;
-    background-color: lightseagreen;
+    color: var(--kup-text-on-primary-color);
+    background-color: var(--kup-primary-color);
   }
 }
 

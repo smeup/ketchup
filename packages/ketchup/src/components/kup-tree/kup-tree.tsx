@@ -1718,29 +1718,29 @@ export class KupTree {
      */
     private renderHighlightedContent(
         content: string,
-        hightligh: string,
+        highlight: string,
         styleClass: string
     ) {
         let contentSlices = [];
-        if (hightligh && content) {
+        if (highlight && content) {
             let contentPart = content;
             let end = contentPart
                 .toLowerCase()
-                .indexOf(hightligh.toLowerCase());
+                .indexOf(highlight.toLowerCase());
             while (end > -1) {
                 contentSlices.push(contentPart.substring(0, end));
                 contentSlices.push(
                     <span class={styleClass + '--highlighted'}>
-                        {contentPart.substring(end, end + hightligh.length)}
+                        {contentPart.substring(end, end + highlight.length)}
                     </span>
                 );
                 contentPart = contentPart.substring(
-                    end + hightligh.length,
+                    end + highlight.length,
                     contentPart.length
                 );
                 end = contentPart
                     .toLowerCase()
-                    .indexOf(hightligh.toLowerCase());
+                    .indexOf(highlight.toLowerCase());
             }
             if (end < contentPart.length) {
                 contentSlices.push(
