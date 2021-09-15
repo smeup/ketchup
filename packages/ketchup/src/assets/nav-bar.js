@@ -29,20 +29,24 @@ dropdownEl.data = {
         ],
     },
 };
-
 barEl.addEventListener('kup-navbar-menuclick', (e) => {
-    drawerEl.toggle().then(() => {
-        if (drawerEl.opened) {
-            e.detail.comp.rootElement.classList.add('padded');
-        } else {
-            e.detail.comp.rootElement.classList.remove('padded');
-        }
-    });
+    console.log(e.type, e);
+    drawerEl.toggle();
+});
+drawerEl.addEventListener('kup-drawer-close', (e) => {
+    console.log(e.type, e);
+    barEl.classList.remove('padded');
+});
+drawerEl.addEventListener('kup-drawer-open', (e) => {
+    console.log(e.type, e);
+    barEl.classList.add('padded');
 });
 dropdownEl.addEventListener('kup-dropdownbutton-itemclick', (e) => {
+    console.log(e.type, e);
     barEl.styling = e.detail.value;
 });
 switchEl.addEventListener('kup-switch-change', (e) => {
+    console.log(e.type, e);
     if (e.detail.value === 'on') {
         document.documentElement.ketchup.theme.set('dark');
     } else {

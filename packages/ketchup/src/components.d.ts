@@ -1299,14 +1299,14 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Returns the state of the drawer.
+          * @returns True when opened, false when closed.
+         */
+        "isOpened": () => Promise<boolean>;
+        /**
           * Opens the drawer.
          */
         "open": () => Promise<void>;
-        /**
-          * When set to true, the drawer appears.
-          * @default false
-         */
-        "opened": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2007,7 +2007,7 @@ export namespace Components {
         "showMenuButton": boolean;
         /**
           * Defines the style of the nav bar.
-          * @default KupNavBarMode.STANDARD
+          * @default KupNavBarStyling.STANDARD
          */
         "styling": KupNavBarStyling;
     }
@@ -4261,13 +4261,14 @@ declare namespace LocalJSX {
           * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
-        "onKupDrawerClose"?: (event: CustomEvent<KupEventPayload>) => void;
-        "onKupDrawerOpen"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * When set to true, the drawer appears.
-          * @default false
+          * Fired when the drawer gets closed.
          */
-        "opened"?: boolean;
+        "onKup-drawer-close"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Fired when the drawer gets opened.
+         */
+        "onKup-drawer-open"?: (event: CustomEvent<KupEventPayload>) => void;
     }
     interface KupDropdownButton {
         /**
@@ -4801,7 +4802,7 @@ declare namespace LocalJSX {
         "showMenuButton"?: boolean;
         /**
           * Defines the style of the nav bar.
-          * @default KupNavBarMode.STANDARD
+          * @default KupNavBarStyling.STANDARD
          */
         "styling"?: KupNavBarStyling;
     }
