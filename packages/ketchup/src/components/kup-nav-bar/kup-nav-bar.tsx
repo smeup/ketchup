@@ -10,7 +10,11 @@ import {
     Prop,
     VNode,
 } from '@stencil/core';
-import { KupNavBarStyling, KupNavBarProps } from './kup-nav-bar-declarations';
+import {
+    KupNavBarStyling,
+    KupNavBarProps,
+    navbarClass,
+} from './kup-nav-bar-declarations';
 import type {
     GenericObject,
     KupComponent,
@@ -65,7 +69,7 @@ export class KupNavBar {
     @Prop() showMenuButton: boolean = true;
     /**
      * Defines the style of the nav bar.
-     * @default KupNavBarMode.STANDARD
+     * @default KupNavBarStyling.STANDARD
      */
     @Prop({ reflect: true }) styling: KupNavBarStyling =
         KupNavBarStyling.STANDARD;
@@ -142,19 +146,20 @@ export class KupNavBar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private components(): VNode[] {
+    /**
+     * Reads the slots returning them as an array of virtual nodes.
+     */
+    private content(): VNode[] {
         const slots: Array<HTMLElement> = Array.prototype.slice.call(
             this.rootElement.children,
             0
         );
-        const components: VNode[] = [];
+        const content: VNode[] = [];
         for (let index = 0; index < slots.length; index++) {
-            const slot: HTMLElement = slots[index] as HTMLElement;
-            components.push(<slot></slot>);
+            content.push(<slot></slot>);
         }
-        return components;
+        return content;
     }
-
     /**
      * Sets the dynamic colors depending on the nav bar background.
      */
@@ -168,7 +173,6 @@ export class KupNavBar {
             this.textColor
         ).rgbValues;
     }
-
     /**
      * Set the events of the component.
      */
@@ -228,18 +232,20 @@ export class KupNavBar {
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id={componentWrapperId} style={style}>
                     <header
-                        class={`nav-bar nav-bar--${this.styling.toLowerCase()} `}
+                        class={`${navbarClass} ${navbarClass}--${this.styling.toLowerCase()} `}
                     >
-                        <div class="nav-bar__row">
-                            <section class="nav-bar__section nav-bar__section--align-start">
+                        <div class={`${navbarClass}__row`}>
+                            <section
+                                class={`${navbarClass}__section ${navbarClass}__section--align-start`}
+                            >
                                 {this.showMenuButton ? (
                                     <FButton
                                         icon="menu"
-                                        wrapperClass="nav-bar__menu-toggler"
+                                        wrapperClass={`${navbarClass}__menu-toggler`}
                                     />
                                 ) : null}
                                 {showImage ? (
-                                    <span class="nav-bar__image">
+                                    <span class={`${navbarClass}__image`}>
                                         <FImage
                                             sizeX="auto"
                                             sizeY={
@@ -253,16 +259,16 @@ export class KupNavBar {
                                     </span>
                                 ) : null}
                                 {showLabel ? (
-                                    <span class="nav-bar__title">
+                                    <span class={`${navbarClass}__title`}>
                                         {this.label}
                                     </span>
                                 ) : null}
                             </section>
                             <section
-                                class="nav-bar__section nav-bar__section--align-end"
+                                class={`${navbarClass}__section ${navbarClass}__section--align-end`}
                                 role="toolbar"
                             >
-                                {this.components()}
+                                {this.content()}
                             </section>
                         </div>
                     </header>

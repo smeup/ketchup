@@ -1,6 +1,4 @@
-import { FImageProps } from '../../f-components/f-image/f-image-declarations';
-import { KupEventPayload } from '../../types/GenericTypes';
-
+export const navbarClass = 'nav-bar';
 /**
  * Props of the kup-nav-bar component.
  * Used to export every prop in an object.

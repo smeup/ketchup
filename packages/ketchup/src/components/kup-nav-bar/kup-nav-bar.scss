@@ -6,7 +6,7 @@
   top: 0;
   transition: all 250ms;
   width: 100%;
-  z-index: 90;
+  z-index: var(--kup-navbar-zindex);
 }
 
 #kup-component {
@@ -66,7 +66,6 @@
       rgba(128, 128, 128, 0.14) 0px 4px 5px 0px,
       rgba(128, 128, 128, 0.12) 0px 1px 10px 0px;
     width: 9em;
-    transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
     border-radius: 0px 0px 24px;
 
     .nav-bar--short-has-action-item {
@@ -93,7 +92,6 @@
   align-items: center;
   min-width: 0;
   padding: 8px 12px;
-  z-index: 1;
 
   &--align-start {
     flex-shrink: 5;
@@ -117,7 +115,6 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      z-index: 1;
     }
   }
 
