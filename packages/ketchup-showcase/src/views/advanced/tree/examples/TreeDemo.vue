@@ -188,6 +188,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'globalFilterMode',
+          description: 'The mode of the global filter',
+          type: 'GlobalFilterMode',
+          default: 'SIMPLE',
+          try: 'field',
+        },
+        {
           prop: 'scrollOnHover',
           description:
             'When the mouse move towards the left or right edge and there is an overflow, the tree will automatically scroll.',

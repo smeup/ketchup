@@ -72,6 +72,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: pre;
+
+      &--highlighted {
+        color: var(--kup-text-on-primary-color);
+        background-color: var(--kup-primary-color);
+      }
     }
 
     &__icon {

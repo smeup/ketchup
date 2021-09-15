@@ -73,6 +73,7 @@ import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
     GenericFilter,
+    GlobalFilterMode,
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
@@ -252,6 +253,12 @@ export class KupTree {
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
+
+    /**
+     * The mode of the global filter (default SIMPLE)
+     */
+    @Prop() globalFilterMode: GlobalFilterMode = GlobalFilterMode.SIMPLE;
+
     /**
      * Sets the possibility to remove the selected column.
      */
@@ -1706,6 +1713,47 @@ export class KupTree {
     }
 
     /**
+     * Renders a content with a part highlighted.
+     * NOTE: same in kup-accordion and in kup-tree
+     */
+    private renderHighlightedContent(
+        content: string,
+        highlight: string,
+        styleClass: string
+    ) {
+        let contentSlices = [];
+        if (highlight && content) {
+            let contentPart = content;
+            let end = contentPart
+                .toLowerCase()
+                .indexOf(highlight.toLowerCase());
+            while (end > -1) {
+                contentSlices.push(contentPart.substring(0, end));
+                contentSlices.push(
+                    <span class={styleClass + '--highlighted'}>
+                        {contentPart.substring(end, end + highlight.length)}
+                    </span>
+                );
+                contentPart = contentPart.substring(
+                    end + highlight.length,
+                    contentPart.length
+                );
+                end = contentPart
+                    .toLowerCase()
+                    .indexOf(highlight.toLowerCase());
+            }
+            if (end < contentPart.length) {
+                contentSlices.push(
+                    contentPart.substring(end, contentPart.length)
+                );
+            }
+        } else {
+            contentSlices.push(content);
+        }
+        return <span class={styleClass}>{contentSlices}</span>;
+    }
+
+    /**
      * Given a TreeNode, reads through its data then composes and returns its JSX object.
      * @param treeNodeData - The TreeNode object to parse.
      * @param treeNodePath - A string containing the comma(,) separated indexes of the TreeNodes to use,
@@ -1856,6 +1904,19 @@ export class KupTree {
 
         let treeNodeCell = null;
         if (this.isTreeColumnVisible()) {
+            let content = '';
+            if (GlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
+                content = this.renderHighlightedContent(
+                    treeNodeData.value,
+                    this.globalFilterValue,
+                    'cell-content'
+                );
+            } else {
+                content = (
+                    <span class="cell-content">{treeNodeData.value}</span>
+                );
+            }
+
             treeNodeCell = (
                 <td
                     class={{
@@ -1880,7 +1941,7 @@ export class KupTree {
                     {indent}
                     {treeExpandIcon}
                     {treeNodeIcon}
-                    <span class="cell-content">{treeNodeData.value}</span>
+                    {content}
                 </td>
             );
         }
