@@ -141,12 +141,11 @@
                   <span class="code-word">size</span>
                 </td>
                 <td class="text-cell">
-                  <kup-color-picker
-                    id="drawer-size"
-                    :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateVariable"
-                    @kup-colorpicker-change="updateVariable"
-                  ></kup-color-picker>
+                  <kup-text-field
+                    full-width
+                    id="drawer-width"
+                    @kup-textfield-input="updateVariable"
+                  ></kup-text-field>
                 </td>
               </tr>
               <tr>
@@ -665,6 +664,7 @@
                   <kup-text-field
                     full-width
                     id="drawer-zindex"
+                    input-type="number"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>
@@ -683,6 +683,7 @@
                   <kup-text-field
                     full-width
                     id="navbar-zindex"
+                    input-type="number"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>

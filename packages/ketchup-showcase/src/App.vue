@@ -1,6 +1,37 @@
 <template>
   <v-app id="inspire" style="display: none">
-    <v-navigation-drawer v-model="drawer" fixed app>
+    <kup-nav-bar
+      id="app-nav-bar"
+      :image.prop="navbarImage"
+      label="Ketch.UP | Showcase"
+      @kup-navbar-menuclick="menuClick"
+    >
+      <kup-switch
+        id="theme-switch"
+        label="Dark Mode"
+        leading-label
+        @kup-switch-change="changeTheme"
+      ></kup-switch>
+      <kup-button
+        class="kup-pulsating"
+        icon="bug"
+        icon-off="bug"
+        id="debug-toggler"
+        toggable
+        @kup-button-click="toggleDebug"
+      ></kup-button>
+      <kup-button
+        icon="home"
+        @kup-button-click="$router.push('/').catch(() => {})"
+      ></kup-button
+    ></kup-nav-bar>
+    <kup-drawer
+      class="kup-permanent"
+      id="app-drawer"
+      @kup-drawer-close="drawerClose"
+      @kup-drawer-open="drawerOpen"
+      @kup-drawer-ready="drawerReady"
+    >
       <div class="logo">
         <a title="Sme.UP" target="_blank" href="https://www.smeup.com/"
           ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 519.34 210.83">
@@ -27,165 +58,7 @@
           </svg>
         </a>
       </div>
-      <v-list dense>
-        <v-list-group v-for="(group, i) in groupNavigationSections" :key="i">
-          <template v-slot:activator>
-            <v-list-tile>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ group.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-
-          <v-list dense>
-            <v-list-group v-for="(section, j) in group.items" :key="j">
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list-group>
-
-            <v-list dense>
-              <v-list-group
-                v-for="(group, i) in group.componentsItems"
-                :key="i"
-              >
-                <template v-slot:activator>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{ group.title }}</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </template>
-                <v-list-tile
-                  v-for="route in group.basicItems"
-                  :key="route.to.name"
-                  :to="route.to"
-                >
-                  <v-list-tile-content>
-                    <v-list-tile-title class="extra-padding">{{
-                      route.title
-                    }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                  v-for="route in group.advancedItems"
-                  :key="route.to.name"
-                  :to="route.to"
-                >
-                  <v-list-tile-content>
-                    <v-list-tile-title class="extra-padding">{{
-                      route.title
-                    }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                  v-for="route in group.thirdParties"
-                  :key="route.to.name"
-                  :to="route.to"
-                >
-                  <v-list-tile-content>
-                    <v-list-tile-title class="extra-padding">{{
-                      route.title
-                    }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list-group>
-            </v-list>
-          </v-list>
-
-          <v-list dense>
-            <v-list-group v-for="(section, j) in group.items" :key="j">
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list-group>
-
-            <v-list-tile
-              v-for="route in group.cssItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-
-          <v-list dense>
-            <v-list-group v-for="(section, j) in group.items" :key="j">
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list-group>
-
-            <v-list-tile
-              v-for="route in group.javascriptItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-list-group>
-      </v-list>
-    </v-navigation-drawer>
-    <kup-nav-bar
-      class="has-padding"
-      @kup-navbar-menuclick="
-        (e) => {
-          if (this.drawer) {
-            e.detail.comp.rootElement.classList.remove('has-padding');
-          } else {
-            e.detail.comp.rootElement.classList.add('has-padding');
-          }
-          this.drawer = !this.drawer;
-        }
-      "
-      :image.prop="navbarImage"
-      label="Ketch.UP | Showcase"
-    >
-      <kup-switch
-        @kup-switch-change="
-          (e) => {
-            this.changeTheme(e);
-          }
-        "
-        leading-label
-        label="Dark Mode"
-        id="theme-switch"
-      ></kup-switch>
-      <kup-button
-        class="kup-pulsating"
-        @kup-button-click="
-          () => {
-            this.toggleDebug();
-          }
-        "
-        toggable
-        icon-off="bug"
-        id="debug-toggler"
-        icon="bug"
-      ></kup-button>
-      <kup-button
-        @kup-button-click="$router.push('/').catch(() => {})"
-        icon="home"
-      ></kup-button
-    ></kup-nav-bar>
-
+    </kup-drawer>
     <v-content>
       <v-container>
         <v-fade-transition mode="out-in">
@@ -193,7 +66,6 @@
         </v-fade-transition>
       </v-container>
     </v-content>
-
     <v-footer app>
       <a
         class="first-icon"
@@ -230,25 +102,62 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
+import { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
+
+var main: HTMLElement = null;
+var drawer: HTMLKupDrawerElement = null;
+var navbar: HTMLKupNavBarElement = null;
+
 export default {
+  mounted: () => {
+    drawer = document.getElementById('app-drawer') as HTMLKupDrawerElement;
+    main = document.querySelector('main');
+    main.style.padding = '';
+    navbar = document.getElementById('app-nav-bar') as HTMLKupNavBarElement;
+  },
   methods: {
-    changeTheme(e) {
-      const dom = document.documentElement;
+    changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
       if (e.detail.value === 'on') {
         dom.ketchup.theme.set('dark');
       } else {
         dom.ketchup.theme.set('ketchup');
       }
     },
-    setTheme(themeID) {
-      const dom = document.documentElement;
-      dom.ketchup.theme.set(themeID);
+    drawerClose(): void {
+      if (window.outerWidth >= 1260) {
+        main.classList.remove('has-padding');
+        navbar.classList.remove('has-padding');
+      }
     },
-    toggleDebug() {
-      const dom = document.documentElement;
-      let debugToggler = document.querySelector('#debug-toggler');
-
+    drawerOpen(): void {
+      if (window.outerWidth >= 1260) {
+        main.classList.add('has-padding');
+        navbar.classList.add('has-padding');
+      }
+    },
+    drawerReady(e: CustomEvent<KupEventPayload>): void {
+      if (window.outerWidth >= 1260) {
+        e.detail.comp.open().then(() => {
+          main.classList.add('has-padding');
+          navbar.classList.add('has-padding');
+        });
+      }
+    },
+    menuClick(): void {
+      drawer.isOpened().then((res: boolean) => {
+        if (res) {
+          drawer.close();
+        } else {
+          drawer.open();
+        }
+      });
+    },
+    toggleDebug(): void {
       if (dom.ketchup.debug.isDebug()) {
         console.log('Debug deactivated.');
         dom.ketchup.debug.toggle(false);

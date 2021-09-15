@@ -88,6 +88,16 @@ export class KupDrawer {
         bubbles: true,
     })
     kupDrawerOpen: EventEmitter<KupEventPayload>;
+    /**
+     * Triggered when the component is ready.
+     */
+    @Event({
+        eventName: 'kup-drawer-ready',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDrawerReady: EventEmitter<KupEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -207,6 +217,10 @@ export class KupDrawer {
     }
 
     componentDidLoad() {
+        this.kupDrawerReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
         this.kupManager.debug.logLoad(this, true);
     }
 

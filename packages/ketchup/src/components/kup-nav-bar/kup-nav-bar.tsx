@@ -96,6 +96,16 @@ export class KupNavBar {
     /*-------------------------------------------------*/
 
     /**
+     * Triggered when the component is ready.
+     */
+    @Event({
+        eventName: 'kup-navbar-ready',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupNavbarReady: EventEmitter<KupEventPayload>;
+    /**
      * Triggered when the menu button is clicked.
      */
     @Event({
@@ -200,6 +210,10 @@ export class KupNavBar {
     }
 
     componentDidLoad() {
+        this.kupNavbarReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
         this.kupManager.debug.logLoad(this, true);
     }
 

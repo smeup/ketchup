@@ -4269,6 +4269,10 @@ declare namespace LocalJSX {
           * Fired when the drawer gets opened.
          */
         "onKup-drawer-open"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-drawer-ready"?: (event: CustomEvent<KupEventPayload>) => void;
     }
     interface KupDropdownButton {
         /**
@@ -4795,6 +4799,10 @@ declare namespace LocalJSX {
           * Triggered when the menu button is clicked.
          */
         "onKup-navbar-menuclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-navbar-ready"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * When true, the menu button will be displayed on the left of the nav bar.
           * @default null

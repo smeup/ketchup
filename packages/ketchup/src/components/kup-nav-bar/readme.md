@@ -19,6 +19,7 @@
 | Event                  | Description                                | Type                           |
 | ---------------------- | ------------------------------------------ | ------------------------------ |
 | `kup-navbar-menuclick` | Triggered when the menu button is clicked. | `CustomEvent<KupEventPayload>` |
+| `kup-navbar-ready`     | Triggered when the component is ready.     | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods

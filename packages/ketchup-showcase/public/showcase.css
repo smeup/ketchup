@@ -102,13 +102,7 @@ h3 {
 }
 
 .has-padding {
-  padding-left: 0;
-}
-
-@media screen and (min-width: 1264px) {
-  .has-padding {
-    padding-left: 300px;
-  }
+  padding-left: var(--kup-drawer-width);
 }
 
 @media screen and (max-width: 1260px) {
