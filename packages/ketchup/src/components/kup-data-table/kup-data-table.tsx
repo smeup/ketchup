@@ -2834,7 +2834,7 @@ export class KupDataTable {
         this.openedTotalMenu = null;
     }
 
-    /* TODO 
+    /* TODO
     private openGroupMenu(column: Column) {
         this.openedGroupMenu = column.name;
     }
@@ -3035,7 +3035,9 @@ export class KupDataTable {
     }
 
     private sortRows(): void {
-        this.rows = sortRows(this.rows, this.sort);
+        if (this.sortEnabled) {
+            this.rows = sortRows(this.rows, this.sort);
+        }
     }
 
     private getSortIcon(columnName: string): string {
@@ -3335,21 +3337,20 @@ export class KupDataTable {
                 // When sorting is enabled, there are two things to do:
                 // 1 - Add correct icon to the table
                 // 2 - stores the handler to be later set onto the whole cell
-                if (this.sortEnabled) {
-                    let iconClass = this.getSortIcon(column.name);
-                    if (iconClass !== '') {
-                        iconClass += ' icon-container';
-                        sortIcon = (
-                            <span
-                                class={iconClass}
-                                title={this.getSortDecode(column.name)}
-                            ></span>
-                        );
-                    }
 
-                    // Adds the sortable class to the header cell
-                    columnClass['header-cell--sortable'] = true;
+                let iconClass = this.getSortIcon(column.name);
+                if (iconClass !== '') {
+                    iconClass += ' icon-container';
+                    sortIcon = (
+                        <span
+                            class={iconClass}
+                            title={this.getSortDecode(column.name)}
+                        ></span>
+                    );
                 }
+
+                // Adds the sortable class to the header cell
+                columnClass['header-cell--sortable'] = true;
 
                 let keyIcon: HTMLSpanElement = null;
                 if (column.isKey) {
