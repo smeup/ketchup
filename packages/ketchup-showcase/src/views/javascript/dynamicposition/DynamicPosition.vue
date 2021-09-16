@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/blob/develop/packages/ketchup/src/utils/dynamic-position/dynamic-position.ts',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-dynamic-position',
       headtitle: 'Dynamic position',
       titles: ['Basic usage', 'On an image'],
     };

@@ -100,6 +100,16 @@ export class KupNavBar {
     /*-------------------------------------------------*/
 
     /**
+     * Triggered when the menu button is clicked.
+     */
+    @Event({
+        eventName: 'kup-navbar-menuclick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupNavbarMenuClick: EventEmitter<KupEventPayload>;
+    /**
      * Triggered when the component is ready.
      */
     @Event({
@@ -119,16 +129,6 @@ export class KupNavBar {
         bubbles: true,
     })
     kupNavbarResize: EventEmitter<KupEventPayload>;
-    /**
-     * Triggered when the menu button is clicked.
-     */
-    @Event({
-        eventName: 'kup-navbar-menuclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupNavbarMenuClick: EventEmitter<KupEventPayload>;
 
     onKupNavbarMenuClick() {
         this.kupNavbarMenuClick.emit({

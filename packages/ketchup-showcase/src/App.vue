@@ -63,6 +63,7 @@
       <kup-accordion
         class="kup-borderless kup-full-width"
         :data.prop="accordionData"
+        global-filter
         id="navigation-accordion"
         @kup-accordion-treenodeselected="treeClick"
       ></kup-accordion>
@@ -109,6 +110,7 @@
 </template>
 
 <script lang="ts">
+import { Cell } from 'ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
 import { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
 import { KupAccordionTreeNodeSelectedEventPayload } from 'ketchup/dist/types/components/kup-accordion/kup-accordion-declarations';
@@ -176,11 +178,16 @@ export default {
       }
     },
     treeClick(e: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>): void {
-      console.log(e);
+      const route: Cell =
+        e.detail.treeNode.cells && e.detail.treeNode.cells['ROUTE']
+          ? e.detail.treeNode.cells['ROUTE']
+          : null;
+      if (route) {
+        this.$router.push(route.value).catch(() => {});
+      }
     },
   },
   data: () => ({
-    drawer: null,
     accordionData: {
       columns: [
         {
@@ -208,84 +215,154 @@ export default {
                   {
                     children: [
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'accordion',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Accordion',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'box',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Box',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'bpmn.io',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Bpmn.io',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'buttonlist',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Button list',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'calendar',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Calendar',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'card',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Card',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'chart',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Chart',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'dash',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Dash',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'dashlist',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Dash list',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'datatable',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Data table',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'echart',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Echart',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'field',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Field',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'tooltip',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Tooltip',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'tree',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Tree',
@@ -300,150 +377,275 @@ export default {
                   {
                     children: [
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'autocomplete',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Autocomplete',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'badge',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Badge',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'button',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Button',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'checkbox',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Checkbox',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'chip',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Chip',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'colorpicker',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Color picker',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'combobox',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Combobox',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'datepicker',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Datepicker',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'drawer',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Drawer',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'dropdownbutton',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Dropdown button',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'gauge',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Gauge',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'grid',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Grid',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'iframe',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Iframe',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'image',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Image',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'lazy',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Lazy',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'list',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'List',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'navbar',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Nav bar',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'progressbar',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Progress bar',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'radio',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Radio',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'rating',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Rating',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'spinner',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Spinner',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'switch',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Switch',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'tabbar',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Tab bar',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'textfield',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Text field',
                         visible: true,
                       },
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'timepicker',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Time picker',
@@ -458,6 +660,11 @@ export default {
                   {
                     children: [
                       {
+                        cells: {
+                          ROUTE: {
+                            value: 'qlik',
+                          },
+                        },
                         expandable: true,
                         isExpanded: false,
                         value: 'Qlik',
@@ -479,12 +686,22 @@ export default {
               data: {
                 data: [
                   {
+                    cells: {
+                      ROUTE: {
+                        value: 'customization',
+                      },
+                    },
                     expandable: true,
                     isExpanded: false,
                     value: 'Customization',
                     visible: true,
                   },
                   {
+                    cells: {
+                      ROUTE: {
+                        value: 'theming',
+                      },
+                    },
                     expandable: true,
                     isExpanded: false,
                     value: 'Theming',
@@ -500,18 +717,33 @@ export default {
               data: {
                 data: [
                   {
+                    cells: {
+                      ROUTE: {
+                        value: 'debugging',
+                      },
+                    },
                     expandable: true,
                     isExpanded: false,
                     value: 'Debugging',
                     visible: true,
                   },
                   {
+                    cells: {
+                      ROUTE: {
+                        value: 'dynamicposition',
+                      },
+                    },
                     expandable: true,
                     isExpanded: false,
                     value: 'Dynamic position',
                     visible: true,
                   },
                   {
+                    cells: {
+                      ROUTE: {
+                        value: 'scrollonhover',
+                      },
+                    },
                     expandable: true,
                     isExpanded: false,
                     value: 'Scroll on hover',
@@ -529,346 +761,67 @@ export default {
       ],
     },
     navbarImage: { resource: 'ketchup_logo_header.svg' },
-    groupNavigationSections: [
-      {
-        title: 'Components',
-        componentsItems: [
-          {
-            title: 'Basic',
-            basicItems: [
-              {
-                title: 'Autocomplete',
-                to: {
-                  name: 'autocomplete',
-                },
-              },
-              {
-                title: `Badge`,
-                to: {
-                  name: 'badge',
-                },
-              },
-              {
-                title: `Button`,
-                to: {
-                  name: 'button',
-                },
-              },
-              {
-                title: `Checkbox`,
-                to: {
-                  name: 'checkbox',
-                },
-              },
-              {
-                title: `Chip`,
-                to: {
-                  name: 'chip',
-                },
-              },
-              {
-                title: `Color Picker`,
-                to: {
-                  name: 'colorpicker',
-                },
-              },
-              {
-                title: `Combobox`,
-                to: {
-                  name: 'combobox',
-                },
-              },
-              {
-                title: `Date Picker`,
-                to: {
-                  name: 'datepicker',
-                },
-              },
-              {
-                title: 'Drawer',
-                to: {
-                  name: 'drawer',
-                },
-              },
-              {
-                title: 'Dropdown Button',
-                to: {
-                  name: 'dropdownbutton',
-                },
-              },
-              {
-                title: 'Gauge',
-                to: {
-                  name: 'gauge',
-                },
-              },
-              {
-                title: 'Grid',
-                to: {
-                  name: 'grid',
-                },
-              },
-              {
-                title: `Iframe`,
-                to: {
-                  name: 'iframe',
-                },
-              },
-              {
-                title: `Image`,
-                to: {
-                  name: 'image',
-                },
-              },
-              {
-                title: 'Lazy',
-                to: {
-                  name: 'lazy',
-                },
-              },
-              {
-                title: `List`,
-                to: {
-                  name: 'list',
-                },
-              },
-              {
-                title: 'Nav Bar',
-                to: {
-                  name: 'navbar',
-                },
-              },
-              {
-                title: 'Progress bar',
-                to: {
-                  name: 'progressbar',
-                },
-              },
-              {
-                title: `Radio`,
-                to: {
-                  name: 'radio',
-                },
-              },
-              {
-                title: `Rating`,
-                to: {
-                  name: 'rating',
-                },
-              },
-              {
-                title: `Spinner`,
-                to: {
-                  name: 'spinner',
-                },
-              },
-              {
-                title: `Switch`,
-                to: {
-                  name: 'switch',
-                },
-              },
-              {
-                title: `Tab bar`,
-                to: {
-                  name: 'tabbar',
-                },
-              },
-              {
-                title: `Text field`,
-                to: {
-                  name: 'textfield',
-                },
-              },
-              {
-                title: `Time Picker`,
-                to: {
-                  name: 'timepicker',
-                },
-              },
-            ],
-          },
-          {
-            title: 'Advanced',
-            advancedItems: [
-              {
-                title: 'Accordion',
-                to: {
-                  name: 'accordion',
-                },
-              },
-              {
-                title: 'Box',
-                to: {
-                  name: 'box',
-                },
-              },
-              {
-                title: 'Bpmn.io',
-                to: {
-                  name: 'bpmn.io',
-                },
-              },
-              {
-                title: 'Button list',
-                to: {
-                  name: 'buttonlist',
-                },
-              },
-              {
-                title: `Calendar`,
-                to: {
-                  name: 'calendar',
-                },
-              },
-              {
-                title: `Card`,
-                to: {
-                  name: 'card',
-                },
-              },
-              {
-                title: `Chart`,
-                to: {
-                  name: 'chart',
-                },
-              },
-              {
-                title: `Dash`,
-                to: {
-                  name: 'dash',
-                },
-              },
-              {
-                title: `Dash List`,
-                to: {
-                  name: 'dashlist',
-                },
-              },
-              {
-                title: `Data Table`,
-                to: {
-                  name: 'datatable',
-                },
-              },
-              {
-                title: `Echart`,
-                to: {
-                  name: 'echart',
-                },
-              },
-              {
-                title: `Field`,
-                to: {
-                  name: 'field',
-                },
-              },
-              {
-                title: 'Search',
-                to: {
-                  name: 'search',
-                },
-              },
-              {
-                title: 'Tooltip',
-                to: {
-                  name: 'tooltip',
-                },
-              },
-              {
-                title: 'Tree',
-                to: {
-                  name: 'tree',
-                },
-              },
-            ],
-          },
-          {
-            title: '3rd Parties',
-            thirdParties: [
-              {
-                title: 'Qlik',
-                to: {
-                  name: 'qlik',
-                },
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'CSS',
-        cssItems: [
-          {
-            title: 'Customization',
-            to: {
-              name: 'customization',
-            },
-          },
-          {
-            title: 'Theming',
-            to: {
-              name: 'theming',
-            },
-          },
-        ],
-      },
-      {
-        title: 'JavaScript',
-        javascriptItems: [
-          {
-            title: 'Debugging',
-            to: {
-              name: 'debugging',
-            },
-          },
-          {
-            title: 'Scroll on hover',
-            to: {
-              name: 'scrollonhover',
-            },
-          },
-          {
-            title: 'Dynamic position',
-            to: {
-              name: 'dynamicposition',
-            },
-          },
-        ],
-      },
-    ],
   }),
-  props: {
-    source: String,
-  },
 };
 </script>
 
 <style lang="scss">
-//---- Tags ----
-// For code sources
+* {
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--kup-background-color);
+  color: var(--kup-text-color);
+  font-family: var(--kup-font-family);
+  font-size: var(--kup-font-size);
+}
+
+a {
+  cursor: pointer;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+ul {
+  padding-left: 1.75em;
+}
+
 code {
   box-sizing: border-box;
   overflow: auto;
   padding: 8px;
   width: 100%;
 
-  // When there is code which needs to be displayed inline
   &.inline {
     display: inline;
-    padding: 2px;
     margin: 1px 2px;
+    padding: 2px;
   }
 }
 
-// For big titles
-h2 {
-  font-size: 1.75rem;
+h1 {
+  font-size: 2.5em;
+  font-weight: 400;
+  margin: 0 0 0.5em;
 }
 
-// For small titles
+h2 {
+  font-size: 1.75em;
+  margin: 2em 0 1em;
+}
+
 h3 {
-  margin: 2rem 0 1rem;
+  border-bottom: 1px solid;
+  font-size: 1.25em;
+  font-weight: 500;
+  letter-spacing: 0.0125em;
+  line-height: 2em;
+  margin: 1.75em 0 1em;
 }
 
 h4 {
@@ -880,66 +833,21 @@ hr {
 }
 
 label {
-  margin-right: 8px !important;
+  margin-right: 8px;
 }
 
-select,
-[type='number'],
-[type='text'] {
-  border-radius: 2px !important;
-  border: 1px solid rgb(169, 169, 169) !important;
-  padding: 1px !important;
-}
+#app {
+  line-height: 1.5;
 
-//---- General classes ----
-// Basic spacer
-.basic-spacer {
-  margin: 8px 12px;
-}
-
-// For examples where slot has a border
-.name-slotted {
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-sizing: border-box;
-  padding: 4px;
-}
-
-// Max with for a more readable text
-.max-width-container {
-  display: block;
-  margin: 0 auto;
-  padding: 24px 40px;
-  max-width: 800px;
-}
-
-// Main components container
-.example-container {
-  display: grid;
-  grid-template-areas: 'component space configuration';
-  grid-template-columns: 47% 6% 47%;
-
-  > *:nth-child(2) {
-    grid-area: configuration;
-
-    > * {
-      margin-bottom: 10px;
-    }
+  &__container {
+    padding: 1.2em 2.4em;
   }
 }
 
-// General class for no margin
-.no-margin {
-  margin: 0;
-}
-
-// A scrollable container which can be used to perform test on some components.
-.scrollable-container {
-  height: 400px;
-  overflow: auto;
-}
-
-// When there is the need to hide overflow
-.hide-overflow {
-  overflow: hidden;
+.max-width-container {
+  display: block;
+  margin: 0 auto;
+  max-width: 80%;
+  padding: 24px 40px;
 }
 </style>

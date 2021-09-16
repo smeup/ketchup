@@ -568,6 +568,7 @@ export class KupAccordion {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
     }
 
@@ -591,7 +592,7 @@ export class KupAccordion {
                 this.globalFilterValue
             );
 
-            if (this.treeElements[i]) {
+            if (this.treeElements && this.treeElements[i]) {
                 this.treeElements[i].isEmpty().then((treeIsEmpty: boolean) => {
                     if (isItemTitleFiltered || !treeIsEmpty) {
                         this.itemElements[i].classList.add(
@@ -603,12 +604,16 @@ export class KupAccordion {
                         );
                     }
                 });
-            } else if (isItemTitleFiltered) {
-                this.itemElements[i].classList.add('accordion-item--visible');
-            } else {
-                this.itemElements[i].classList.remove(
-                    'accordion-item--visible'
-                );
+            } else if (this.itemElements && this.itemElements[i]) {
+                if (isItemTitleFiltered) {
+                    this.itemElements[i].classList.add(
+                        'accordion-item--visible'
+                    );
+                } else {
+                    this.itemElements[i].classList.remove(
+                        'accordion-item--visible'
+                    );
+                }
             }
         }
 
@@ -665,6 +670,7 @@ export class KupAccordion {
     }
 
     disconnectedCallback() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
     }
 }
