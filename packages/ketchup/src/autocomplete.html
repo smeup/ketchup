@@ -19,9 +19,8 @@
             <kup-text-field id="tf"></kup-text-field>
             <script>
                 window.onload = function () {
-                    let ac = document.getElementsByTagName(
-                        'kup-autocomplete'
-                    )[0];
+                    let ac =
+                        document.getElementsByTagName('kup-autocomplete')[0];
                     ac.data = {
                         'kup-text-field': { label: 'ciao' },
                         'kup-list': {
@@ -43,14 +42,10 @@
                                     icon: 'accessibility',
                                 },
                                 {
-                                    text: null,
-                                    value: null,
-                                    isSeparator: true,
-                                },
-                                {
                                     text: 'Text 4',
                                     value: 'txt4',
                                     icon: 'account_box',
+                                    separator: true,
                                 },
                                 {
                                     text: 'Text 5',

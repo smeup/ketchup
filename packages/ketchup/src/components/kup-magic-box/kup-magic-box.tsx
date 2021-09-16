@@ -22,7 +22,7 @@ import {
     KupDataTableRowDragType,
     Row,
 } from '../kup-data-table/kup-data-table-declarations';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupListData } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import {
@@ -33,6 +33,10 @@ import {
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
+import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-magic-box',
@@ -95,19 +99,7 @@ export class KupMagicBox {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupMagicBoxProps;
-        } else {
-            for (const key in KupMagicBoxProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(KupMagicBoxProps, key)
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupMagicBoxProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -115,6 +107,14 @@ export class KupMagicBox {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupMagicBoxProps, props);
     }
 
     /*-------------------------------------------------*/
@@ -126,14 +126,13 @@ export class KupMagicBox {
      * @returns {GenericObject} Combobox props.
      */
     private comboboxProps(): GenericObject {
-        const listData: ComponentListElement[] = [];
+        const listData: KupListData[] = [];
         for (const key in MagicBoxDisplay) {
             if (Object.prototype.hasOwnProperty.call(MagicBoxDisplay, key)) {
                 listData.push({
                     text: MagicBoxDisplay[key],
                     value: MagicBoxDisplay[key],
                     selected: false,
-                    isSeparator: false,
                 });
             }
         }
@@ -154,7 +153,9 @@ export class KupMagicBox {
             id: 'comp-switcher',
             initialValue: this.display,
             isSelect: true,
-            onKupComboboxItemClick: (e: CustomEvent) => {
+            ['onKup-combobox-itemclick']: (
+                e: CustomEvent<KupComboboxEventPayload>
+            ) => {
                 this.display = e.detail.value;
             },
         };
@@ -313,9 +314,8 @@ export class KupMagicBox {
         this.rootElement.addEventListener('kup-drop', (e: CustomEvent) =>
             this.updateData(e)
         );
-        this.dragHandler = this.rootElement.shadowRoot.querySelector(
-            '#drag-handle'
-        );
+        this.dragHandler =
+            this.rootElement.shadowRoot.querySelector('#drag-handle');
         this.kupManager.dialog.register(
             this.rootElement as DialogElement,
             this.dragHandler
@@ -350,7 +350,7 @@ export class KupMagicBox {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div
                         class="magic-box-wrapper"
                         {...setKetchupDroppable(
@@ -374,15 +374,15 @@ export class KupMagicBox {
                                 styling={FButtonStyling.FLAT}
                                 icon="delete"
                                 label="Reset"
-                                onKupButtonClick={() => {
+                                onkup-button-click={() => {
                                     this.data = null;
                                 }}
                             ></kup-button>
                             <kup-button
                                 id="close-dialog"
-                                customStyle=":host{--kup-primary-color: var(--kup-title-color);}"
+                                customStyle={`:host{${KupThemeColorValues.PRIMARY}: var(${KupThemeColorValues.TITLE});}`}
                                 icon="clear"
-                                onKupButtonClick={() => {
+                                onkup-button-click={() => {
                                     this.kupManager.hideMagicBox();
                                 }}
                             ></kup-button>

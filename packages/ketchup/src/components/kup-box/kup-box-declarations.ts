@@ -1,17 +1,23 @@
-import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
+import {
+    Cell,
+    Column,
+    RowAction,
+} from '../kup-data-table/kup-data-table-declarations';
 import { KupBadge } from '../kup-badge/kup-badge';
-import { Identifiable } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    Identifiable,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 /**
  * Props of the kup-box component.
  * Used to export every prop in an object.
  */
 export enum KupBoxProps {
-    stateId = '',
-    store = '',
     cardData = "Data of the card linked to the box when the latter's layout must be a premade template.",
     columns = 'Number of columns.',
     customStyle = 'Custom style of the component.',
-    data = 'Data',
+    data = 'Actual data of the box.',
     dragEnabled = 'Enable dragging.',
     dropEnabled = 'Enable dropping.',
     dropOnSection = 'Drop can be done in section.',
@@ -32,25 +38,27 @@ export enum KupBoxProps {
     showTooltipOnRightClick = 'If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.',
     sortBy = 'If sorting is enabled, specifies which column to sort.',
     sortEnabled = 'Enable sorting.',
+    stateId = '',
+    store = '',
     swipeDisabled = 'Disable swipe.',
     tooltipDetailTimeout = 'Defines the timeout for tooltip detail.',
     tooltipEnabled = 'Enable show tooltip.',
     tooltipLoadTimeout = 'Defines the timeout for tooltip load.',
 }
-
-export interface BoxRow extends Identifiable {
+export interface KupBoxData {
+    columns?: Column[];
+    rows?: KupBoxRow[];
+}
+export interface KupBoxRow extends Identifiable {
     cells: {
         [index: string]: Cell;
     };
-
     actions?: Array<RowAction>;
-
-    layout?: Layout;
-
+    layout?: KupBoxLayout;
     badgeData?: KupBadge[];
 }
 
-export interface Layout {
+export interface KupBoxLayout {
     horizontal?: boolean;
     sections?: Section[];
 }
@@ -83,8 +91,30 @@ export interface CollapsedSectionsState {
 /**
  * Interface for a kanban-displayed boxlist.
  */
-export interface BoxKanban {
+export interface KupBoxKanban {
     columns: string[];
     labels?: Array<Array<string>>;
     size?: string;
+}
+
+export interface KupBoxClickEventPayload extends KupEventPayload {
+    row: KupBoxRow;
+    column?: string;
+}
+
+export interface KupBoxSelectedEventPayload extends KupEventPayload {
+    rows: KupBoxRow[];
+}
+
+export interface KupBoxAutoSelectEventPayload extends KupEventPayload {
+    row: KupBoxRow;
+}
+
+export interface KupBoxRowActionClickEventPayload extends KupEventPayload {
+    row: KupBoxRow;
+    action: RowAction;
+    index: number;
+}
+export interface KupBoxContextMenuEventPayload extends KupEventPayload {
+    details: GenericObject;
 }

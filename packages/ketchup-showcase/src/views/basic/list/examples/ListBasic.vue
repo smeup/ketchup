@@ -18,8 +18,8 @@
         <span class="code-word">value</span> is mandatory and it's the actual
         value of the item.
         <br />
-        <span class="code-word">isSeparator</span> is optional and will set the
-        item to behave as a separator.
+        <span class="code-word">separator</span> is optional and will display a
+        separator above this item.
         <br />
         <span class="code-word">selected</span> is optional and defines whether
         the tab is selected or not.

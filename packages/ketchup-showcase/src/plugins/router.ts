@@ -143,9 +143,24 @@ let basicRoutes = [
 
 let advancedRoutes = [
   {
+    path: `/accordion`,
+    name: 'accordion',
+    component: () => import(`@/views/advanced/accordion/Accordion.vue`),
+  },
+  {
     path: `/box`,
     name: 'box',
     component: () => import(`@/views/advanced/box/Box.vue`),
+  },
+  {
+    path: `/bpmn.io`,
+    name: 'bpmn.io',
+    component: () => import(`@/views/advanced/bpmn.io/Bpmn.vue`),
+  },
+  {
+    path: `/buttonlist`,
+    name: 'buttonlist',
+    component: () => import(`@/views/advanced/buttonlist/Buttonlist.vue`),
   },
   {
     path: `/calendar`,

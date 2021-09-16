@@ -1,4 +1,4 @@
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 /**
  * Props of the kup-card component.
@@ -17,7 +17,7 @@ export enum KupCardProps {
 /**
  * Data prop of the kup-card component.
  */
-export interface CardData {
+export interface KupCardData {
     autocomplete?: GenericObject[];
     button?: GenericObject[];
     chart?: GenericObject[];
@@ -45,7 +45,7 @@ export interface CardData {
  * @property {string} SCALABLE - Content will fit its container, resizing itself automatically.
  * @property {string} STANDARD - Stndard layouts.
  */
-export enum CardFamily {
+export enum KupCardFamily {
     COLLAPSIBLE = 'collapsible',
     DIALOG = 'dialog',
     SCALABLE = 'scalable',
@@ -88,11 +88,15 @@ export enum KupCardCSSClasses {
  * Internally-handled sub-component events.
  */
 export enum KupCardSubEvents {
-    AUTOCOMPLETE_BLUR = 'kupAutocompleteBlur',
-    AUTOCOMPLETE_ITEMCLICK = 'kupAutocompleteItemClick',
-    BUTTON_CLICK = 'kupButtonClick',
-    CHIP_BLUR = 'kupChipBlur',
-    CHIP_ICONCLICK = 'kupChipIconClick',
-    TABBAR_CLICK = 'kupTabBarClick',
-    TREE_NODESELECTED = 'kupTreeNodeSelected',
+    AUTOCOMPLETE_BLUR = 'kup-autocomplete-blur',
+    AUTOCOMPLETE_ITEMCLICK = 'kup-autocomplete-itemclick',
+    BUTTON_CLICK = 'kup-button-click',
+    CHIP_BLUR = 'kup-chip-blur',
+    CHIP_ICONCLICK = 'kup-chip-iconclick',
+    TABBAR_CLICK = 'kup-tabbar-click',
+    TREE_NODESELECTED = 'kup-tree-nodeselected',
+}
+
+export interface KupCardEventPayload extends KupEventPayload {
+    event: any;
 }

@@ -14,6 +14,8 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupProgressBarProps } from './kup-progress-bar-declarations';
 
 @Component({
@@ -22,43 +24,64 @@ import { KupProgressBarProps } from './kup-progress-bar-declarations';
     shadow: true,
 })
 export class KupProgressBar {
+    /**
+     * References the root HTML element of the component (<kup-progress-bar>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+     * @default true
      */
     @Prop() centeredLabel: boolean = true;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * Flag to show or hide the progress bar's label.
+     * @default false
      */
     @Prop() hideLabel: boolean = false;
     /**
      * Specifies an icon to replace the label.
+     * @default null
      */
-    @Prop() icon: string = undefined;
+    @Prop() icon: string = null;
     /**
      * Specifies a text for the bar's label.
+     * @default null
      */
-    @Prop() label: string = undefined;
+    @Prop() label: string = null;
     /**
      * Radial version.
+     * @default false
      */
     @Prop({ reflect: true }) isRadial: boolean = false;
     /**
      * The current value the progress bar must display.
+     * @default 0
      */
     @Prop() value: number = 0;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
 
-    //---- Methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -67,22 +90,7 @@ export class KupProgressBar {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupProgressBarProps;
-        } else {
-            for (const key in KupProgressBarProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupProgressBarProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupProgressBarProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -91,6 +99,18 @@ export class KupProgressBar {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupProgressBarProps, props);
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     private createIconElement() {
         if (!this.icon) {
@@ -119,7 +139,9 @@ export class KupProgressBar {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -239,7 +261,7 @@ export class KupProgressBar {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">{el}</div>
+                <div id={componentWrapperId}>{el}</div>
             </Host>
         );
     }

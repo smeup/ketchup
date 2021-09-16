@@ -5,28 +5,28 @@
 
 ## Properties
 
-| Property        | Attribute         | Description                                                                                                     | Type      | Default     |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle`   | `custom-style`    | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`        |
-| `data`          | --                | Props of the sub-components.                                                                                    | `Object`  | `undefined` |
-| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false`     |
-| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number`  | `1`         |
-| `initialValue`  | `initial-value`   | Sets the initial value of the component                                                                         | `string`  | `''`        |
+| Property        | Attribute         | Description                                                     | Type      | Default |
+| --------------- | ----------------- | --------------------------------------------------------------- | --------- | ------- |
+| `customStyle`   | `custom-style`    | Custom style of the component.                                  | `string`  | `''`    |
+| `data`          | --                | Props of the sub-components.                                    | `Object`  | `null`  |
+| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                  | `number`  | `1`     |
+| `initialValue`  | `initial-value`   | Sets the initial value of the component                         | `string`  | `''`    |
 
 
 ## Events
 
-| Event                          | Description | Type                                    |
-| ------------------------------ | ----------- | --------------------------------------- |
-| `kupDatePickerBlur`            |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupDatePickerChange`          |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupDatePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`             |
-| `kupDatePickerClick`           |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupDatePickerFocus`           |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupDatePickerIconClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupDatePickerInput`           |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupDatePickerItemClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupDatePickerTextFieldSubmit` |             | `CustomEvent<{ id: any; value: any; }>` |
+| Event                            | Description | Type                                     |
+| -------------------------------- | ----------- | ---------------------------------------- |
+| `kup-datepicker-blur`            |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-change`          |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-cleariconclick`  |             | `CustomEvent<KupEventPayload>`           |
+| `kup-datepicker-click`           |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-focus`           |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-iconclick`       |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-input`           |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-itemclick`       |             | `CustomEvent<KupDatePickerEventPayload>` |
+| `kup-datepicker-textfieldsubmit` |             | `CustomEvent<KupDatePickerEventPayload>` |
 
 
 ## Methods
@@ -43,7 +43,7 @@ Type: `Promise<GenericObject>`
 
 ### `getValue() => Promise<string>`
 
-
+Retrieves the component's value.
 
 #### Returns
 
@@ -63,7 +63,7 @@ Type: `Promise<void>`
 
 ### `setFocus() => Promise<void>`
 
-
+Sets the focus to the component.
 
 #### Returns
 
@@ -73,7 +73,7 @@ Type: `Promise<void>`
 
 ### `setValue(value: string) => Promise<void>`
 
-
+Sets the component's value.
 
 #### Returns
 

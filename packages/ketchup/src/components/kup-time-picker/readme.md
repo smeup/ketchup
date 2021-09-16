@@ -5,30 +5,30 @@
 
 ## Properties
 
-| Property          | Attribute           | Description                                                                                                     | Type      | Default |
-| ----------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.                                                      | `boolean` | `true`  |
-| `customStyle`     | `custom-style`      | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`    |
-| `data`            | --                  | Props of the sub-components (time input text field)                                                             | `Object`  | `{}`    |
-| `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false` |
-| `initialValue`    | `initial-value`     | Sets the initial value of the component                                                                         | `string`  | `''`    |
-| `manageSeconds`   | `manage-seconds`    | Manage seconds                                                                                                  | `boolean` | `false` |
-| `timeMinutesStep` | `time-minutes-step` | Minutes step                                                                                                    | `number`  | `10`    |
+| Property          | Attribute           | Description                                                     | Type      | Default |
+| ----------------- | ------------------- | --------------------------------------------------------------- | --------- | ------- |
+| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.      | `boolean` | `true`  |
+| `customStyle`     | `custom-style`      | Custom style of the component.                                  | `string`  | `''`    |
+| `data`            | --                  | Props of the sub-components (time input text field)             | `Object`  | `{}`    |
+| `disabled`        | `disabled`          | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `initialValue`    | `initial-value`     | Sets the initial value of the component.                        | `string`  | `''`    |
+| `manageSeconds`   | `manage-seconds`    | Manage seconds.                                                 | `boolean` | `false` |
+| `timeMinutesStep` | `time-minutes-step` | Minutes step.                                                   | `number`  | `10`    |
 
 
 ## Events
 
-| Event                          | Description | Type                                    |
-| ------------------------------ | ----------- | --------------------------------------- |
-| `kupTimePickerBlur`            |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupTimePickerChange`          |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupTimePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`             |
-| `kupTimePickerClick`           |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupTimePickerFocus`           |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupTimePickerIconClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupTimePickerInput`           |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupTimePickerItemClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupTimePickerTextFieldSubmit` |             | `CustomEvent<{ id: any; value: any; }>` |
+| Event                            | Description | Type                                     |
+| -------------------------------- | ----------- | ---------------------------------------- |
+| `kup-timepicker-blur`            |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-change`          |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-cleariconclick`  |             | `CustomEvent<KupEventPayload>`           |
+| `kup-timepicker-click`           |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-focus`           |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-iconclick`       |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-input`           |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-itemclick`       |             | `CustomEvent<KupTimePickerEventPayload>` |
+| `kup-timepicker-textfieldsubmit` |             | `CustomEvent<KupTimePickerEventPayload>` |
 
 
 ## Methods
@@ -45,7 +45,7 @@ Type: `Promise<GenericObject>`
 
 ### `getValue() => Promise<string>`
 
-
+Returns the component's internal value.
 
 #### Returns
 
@@ -65,7 +65,17 @@ Type: `Promise<void>`
 
 ### `setFocus() => Promise<void>`
 
+Focuses the input element.
 
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
 
 #### Returns
 
@@ -75,7 +85,7 @@ Type: `Promise<void>`
 
 ### `setValue(value: string) => Promise<void>`
 
-
+Sets the internal value of the component.
 
 #### Returns
 
@@ -105,7 +115,6 @@ graph TD;
   kup-button --> kup-badge
   kup-badge --> kup-badge
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-card --> kup-time-picker
   style kup-time-picker fill:#f9f,stroke:#333,stroke-width:4px

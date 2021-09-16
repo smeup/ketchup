@@ -1,9 +1,10 @@
 <template>
   <div>
     <demo
-      :demoComp="demoComp"
-      :demoProps="demoProps"
       :demoClasses="demoClasses"
+      :demoComp="demoComp"
+      :demoMethods="demoMethods"
+      :demoProps="demoProps"
     ></demo>
   </div>
 </template>
@@ -18,7 +19,30 @@ export default {
   name: 'SpinnerDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-unclickable',
+          description:
+            'The area covered by the spinner will be unclickable and the cursor will change to "wait".',
+        },
+      ],
       demoComp: createComp(),
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
       demoProps: [
         {
           prop: 'active',
@@ -79,13 +103,6 @@ export default {
           type: 'number',
           default: '1',
           try: 'field',
-        },
-      ],
-      demoClasses: [
-        {
-          class: 'kup-unclickable',
-          description:
-            'The area covered by the spinner will be unclickable and the cursor will change to "wait".',
         },
       ],
     };

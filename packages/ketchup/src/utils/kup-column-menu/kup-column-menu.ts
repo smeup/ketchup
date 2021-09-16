@@ -1,4 +1,4 @@
-import type { CardData } from '../../components/kup-card/kup-card-declarations';
+import type { KupCardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
@@ -34,7 +34,7 @@ import {
     KupLanguageGeneric,
     KupLanguageRow,
 } from '../kup-language/kup-language-declarations';
-import { ComponentTabBarElement } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
+import { KupTabBarData } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
@@ -81,15 +81,11 @@ export class KupColumnMenu {
     }
     /**
      * Function called to reposition the column menu card to the appropriate column.
-     * Note that focus() is mandatory in order to properly close the card on blur (along with the tab-index="-1" attribute on the element).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
-    reposition(comp: KupDataTable | KupTree): void {
+    reposition(comp: KupDataTable | KupTree, card: HTMLKupCardElement): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: HTMLKupCardElement = root.querySelector(
-                '#' + KupColumnMenuIds.CARD_COLUMN_MENU
-            );
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
@@ -105,13 +101,12 @@ export class KupColumnMenu {
                         card as any,
                         wrapper,
                         0,
-                        KupDynamicPositionPlacement.AUTO,
+                        KupDynamicPositionPlacement.BOTTOM,
                         true
                     );
                 }
                 dom.ketchup.dynamicPosition.start(card as any);
                 card.menuVisible = true;
-                card.focus();
             }
         }
     }
@@ -119,15 +114,15 @@ export class KupColumnMenu {
      * Function called by the column menu card to prepare its 'data' prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {Column} column - Column of the menu.
-     * @param {CardData} currentData - 'data' prop of the column menu card when it's already initialized.
+     * @param {KupCardData} currentData - 'data' prop of the column menu card when it's already initialized.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
     prepData(
         comp: KupDataTable | KupTree,
         column: Column,
-        currentData?: CardData
-    ): CardData {
-        const data: CardData = currentData ? { ...currentData } : {};
+        currentData?: KupCardData
+    ): KupCardData {
+        const data: KupCardData = currentData ? { ...currentData } : {};
         data.button = this.prepButton(comp, column);
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);
@@ -176,18 +171,26 @@ export class KupColumnMenu {
         }
         props.push({
             className: 'printable',
+            customStyle: ':host {--kup-font-size: 0.75em;}',
             icon: 'open-in-new',
             id: KupColumnMenuIds.BUTTON_OPEN_IN_NEW,
+            title: dom.ketchup.language.translate(
+                KupLanguageGeneric.OPEN_IN_NEW_TAB
+            ),
         });
         props.push({
             className: 'printable',
+            customStyle: ':host {--kup-font-size: 0.75em;}',
             icon: 'search',
             id: KupColumnMenuIds.BUTTON_SEARCH,
+            title: dom.ketchup.language.translate(KupLanguageGeneric.INFO),
         });
         props.push({
             className: 'printable',
+            customStyle: ':host {--kup-font-size: 0.75em;}',
             icon: 'add',
             id: KupColumnMenuIds.BUTTON_NEW,
+            title: dom.ketchup.language.translate(KupLanguageGeneric.ADD_NEW),
         });
         if (comp.removableColumns) {
             props.push({
@@ -213,19 +216,6 @@ export class KupColumnMenu {
                 id: KupColumnMenuIds.BUTTON_ADD_COLUMNS,
                 title: dom.ketchup.language.translate(KupLanguageColumn.ADD),
             });
-            if (dom.ketchup.objects.canHaveAutomaticDerivedColumn(column.obj)) {
-                props.push({
-                    className: 'printable',
-                    'data-storage': {
-                        columnName: column.name,
-                    },
-                    icon: 'label',
-                    id: KupColumnMenuIds.BUTTON_DESCRIPTION,
-                    title: dom.ketchup.language.translate(
-                        KupLanguageColumn.ADD_DESCRIPTION
-                    ),
-                });
-            }
             props.push({
                 className: 'printable',
                 label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
@@ -396,7 +386,7 @@ export class KupColumnMenu {
      */
     prepTabBar(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [{ data: [] }];
-        const data: ComponentTabBarElement[] = props[0].data;
+        const data: KupTabBarData[] = props[0].data;
         if (comp.showFilters) {
             data.push({
                 text: dom.ketchup.language.translate(
@@ -415,10 +405,13 @@ export class KupColumnMenu {
                 value: KupLanguageColumn.COLUMNS,
             });
         }
-        data.push({
-            icon: 'settings',
-            value: KupLanguageGeneric.SETTINGS,
-        });
+        if (!FiltersColumnMenu.isTree(comp)) {
+            data.push({
+                icon: 'settings',
+                value: KupLanguageGeneric.SETTINGS,
+            });
+        }
+
         if (data.length > 0) {
             data[0].active = true;
         }
@@ -687,12 +680,14 @@ export class KupColumnMenu {
         return props;
     }
     /**
-     * Function called by the column menu card when a kupCardEvent is received.
-     * @param {CustomEvent} cardEvent - kupCardEvent emitted by the column menu.
+     * Function called by the column menu card when a kup-card-event is received.
+     * @param {CustomEvent} cardEvent - kup-card-event emitted by the column menu.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      */
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
-        const card: HTMLKupCardElement = cardEvent.detail.card;
+        const card: HTMLKupCardElement = cardEvent.detail.card
+            ? cardEvent.detail.card
+            : cardEvent.detail.comp;
         const compEvent: CustomEvent = cardEvent.detail.event;
         const compID: string = compEvent.detail.id;
         const subcomp: HTMLElement = compEvent.target as HTMLElement;
@@ -702,7 +697,7 @@ export class KupColumnMenu {
             .toLowerCase()
             .endsWith('click');
         switch (compEvent.type) {
-            case 'kupCheckboxChange':
+            case 'kup-checkbox-change':
                 this.checkboxChange(
                     comp,
                     compEvent.detail.checked,
@@ -713,17 +708,11 @@ export class KupColumnMenu {
                     }
                 );
                 break;
-            case 'kupButtonClick':
+            case 'kup-button-click':
                 switch (compID) {
                     case KupColumnMenuIds.BUTTON_GROUP:
                         this.toggleGroup(
                             comp as KupDataTable,
-                            dataStorage['columnName']
-                        );
-                        break;
-                    case KupColumnMenuIds.BUTTON_DESCRIPTION:
-                        this.addDescriptionColumn(
-                            comp,
                             dataStorage['columnName']
                         );
                         break;
@@ -732,7 +721,7 @@ export class KupColumnMenu {
                         break;
                 }
                 break;
-            case 'kupSwitchChange':
+            case 'kup-switch-change':
                 switch (compID) {
                     case KupColumnMenuIds.SWITCH_GROUP:
                         this.toggleGroup(
@@ -749,15 +738,15 @@ export class KupColumnMenu {
                         break;
                 }
                 break;
-            case 'kupTextFieldSubmit':
-            case 'kupDatePickerTextFieldSubmit':
-            case 'kupTimePickerTextFieldSubmit':
+            case 'kup-textfield-submit':
+            case 'kup-datepicker-textfieldsubmit':
+            case 'kup-timepicker-textfieldsubmit':
                 this.saveTextualFilters(comp, dataStorage['column']);
                 this.close(card);
                 break;
-            case 'kupTextFieldClearIconClick':
-            case 'kupDatePickerClearIconClick':
-            case 'kupTimePickerClearIconClick':
+            case 'kup-textfield-cleariconclick':
+            case 'kup-datepicker-cleariconclick':
+            case 'kup-timepicker-cleariconclick':
                 if (dataStorage['isInterval'] == true) {
                     this.intervalChange(
                         comp,
@@ -771,11 +760,11 @@ export class KupColumnMenu {
                 }
                 this.saveTextualFilters(comp, dataStorage['column']);
                 break;
-            case 'kupTextFieldInput':
-            case 'kupDatePickerInput':
-            case 'kupDatePickerItemClick':
-            case 'kupTimePickerInput':
-            case 'kupTimePickerItemClick':
+            case 'kup-textfield-input':
+            case 'kup-datepicker-input':
+            case 'kup-datepicker-itemclick':
+            case 'kup-timepicker-input':
+            case 'kup-timepicker-itemclick':
                 window.clearTimeout(comp.columnFilterTimeout);
                 comp.columnFilterTimeout = window.setTimeout(() => {
                     if (dataStorage['isInterval'] == true) {
@@ -962,17 +951,6 @@ export class KupColumnMenu {
         } else {
             column.visible = false;
         }
-        comp.closeColumnMenu();
-    }
-    /**
-     * Adds the description column (or code column, if it is a description).
-     * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {string} column - Name of the column.
-     */
-    addDescriptionColumn(comp: KupDataTable | KupTree, column: string): void {
-        comp.kupAddCodeDecodeColumn.emit({
-            column: column,
-        });
         comp.closeColumnMenu();
     }
 }

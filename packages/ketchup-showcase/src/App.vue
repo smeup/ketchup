@@ -151,7 +151,7 @@
       </div>
       <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
       <kup-switch
-        @kupSwitchChange="
+        @kup-switch-change="
           (e) => {
             this.changeTheme(e);
           }
@@ -162,7 +162,7 @@
         id="theme-switch"
       ></kup-switch>
       <kup-button
-        @kupButtonClick="
+        @kup-button-click="
           () => {
             this.toggleDebug();
           }
@@ -415,9 +415,27 @@ export default {
             title: 'Advanced',
             advancedItems: [
               {
+                title: 'Accordion',
+                to: {
+                  name: 'accordion',
+                },
+              },
+              {
                 title: 'Box',
                 to: {
                   name: 'box',
+                },
+              },
+              {
+                title: 'Bpmn.io',
+                to: {
+                  name: 'bpmn.io',
+                },
+              },
+              {
+                title: 'Button list',
+                to: {
+                  name: 'buttonlist',
                 },
               },
               {

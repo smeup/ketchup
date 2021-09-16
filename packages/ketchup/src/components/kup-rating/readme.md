@@ -7,19 +7,19 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type      | Default |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`    |
-| `disabled`    | `disabled`     | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false` |
-| `maxValue`    | `max-value`    | Max number of stars (default 5)                                                                                 | `number`  | `5`     |
-| `value`       | `value`        | Rated stars                                                                                                     | `number`  | `0`     |
+| Property      | Attribute      | Description                                                     | Type      | Default |
+| ------------- | -------------- | --------------------------------------------------------------- | --------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`  | `''`    |
+| `disabled`    | `disabled`     | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
+| `maxValue`    | `max-value`    | Max number of stars (default 5).                                | `number`  | `5`     |
+| `value`       | `value`        | Rated stars.                                                    | `number`  | `0`     |
 
 
 ## Events
 
-| Event              | Description | Type               |
-| ------------------ | ----------- | ------------------ |
-| `kupRatingClicked` |             | `CustomEvent<any>` |
+| Event            | Description | Type                                      |
+| ---------------- | ----------- | ----------------------------------------- |
+| `kupRatingClick` |             | `CustomEvent<KupRatingClickEventPayload>` |
 
 
 ## Methods
@@ -37,6 +37,16 @@ Type: `Promise<GenericObject>`
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
 
 #### Returns
 

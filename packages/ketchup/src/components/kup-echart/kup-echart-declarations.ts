@@ -12,7 +12,7 @@ export enum KupEchartProps {
     series = 'The data series to be displayed. They must be of the same type.',
     types = 'The type of the chart. Supported formats: Line, Pie, Map, Scatter.',
 }
-export interface EchartTitle {
+export interface KupEchartTitle {
     value: string;
     color?: string;
     position?: string;

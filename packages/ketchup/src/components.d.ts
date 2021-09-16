@@ -5,35 +5,108 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
-import { GenericObject } from "./types/GenericTypes";
+import { KupAccordionData, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
+import { GenericFilter, GlobalFilterMode } from "./utils/filters/filters-declarations";
+import { GenericObject, KupEventPayload } from "./types/GenericTypes";
+import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
+import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
+import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, DataTable, EventHandlerDetails, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
-import { EventHandlerDetails as EventHandlerDetails1, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
-import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
+import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
+import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
+import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
-import { KupObj } from "./utils/kup-objects/kup-objects-declarations";
+import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
+import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
+import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { GenericFilter } from "./utils/filters/filters-declarations";
-import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
-import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
+import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
+import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
+import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
+import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
+import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
+import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
-import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
-import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
+import { KupNavBarData, KupNavbarEventPayload, KupNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
-import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
-import { KupTree } from "./components/kup-tree/kup-tree";
+import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
+import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
+import { KupSwitchEventPayload } from "./components/kup-switch/kup-switch-declarations";
+import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
+import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
+import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
+    interface KupAccordion {
+        /**
+          * This method collapse all items
+         */
+        "collapseAll": () => Promise<void>;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Data of the accordion.
+          * @default null
+         */
+        "data": KupAccordionData;
+        /**
+          * This method expand all items
+         */
+        "expandAll": () => Promise<void>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When set to true it activates the global filter.
+          * @default false
+         */
+        "globalFilter": boolean;
+        /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode": GlobalFilterMode;
+        /**
+          * The value of the global filter.
+          * @default ""
+         */
+        "globalFilterValue": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * The names of the selected items
+         */
+        "selectedItemsNames": string[];
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * This method activates or deactivates an item
+          * @param itemName - Name of the item.
+         */
+        "toggleItem": (itemName: string) => Promise<void>;
+    }
     interface KupAutocomplete {
         /**
           * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
@@ -44,7 +117,9 @@ export namespace Components {
         el: EventTarget;
     }) => Promise<any[]> | undefined;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -65,6 +140,10 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Used to retrieve the value of the component.
+          * @returns Value of the component.
+         */
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component.
@@ -86,12 +165,26 @@ export namespace Components {
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
         "serverHandledFilter": boolean;
+        /**
+          * Sets the focus to the component.
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the value of the component.
+          * @param value - Value of the component.
+         */
         "setValue": (value: string) => Promise<void>;
     }
     interface KupBadge {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -102,48 +195,64 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The data of the image displayed inside the badge.
+          * @default null
          */
-        "imageData": {};
+        "imageData": GenericObject;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * The text displayed inside the badge.
+          * @default null
          */
         "text": string;
     }
     interface KupBox {
         /**
           * Data of the card linked to the box when the latter's layout must be a premade template.
+          * @default null
          */
         "cardData": GenericObject;
         /**
           * Number of columns
+          * @default 1
          */
         "columns": number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
-          * Data
+          * Actual data of the box.
+          * @default null
          */
-        "data": { columns?: Column[]; rows?: BoxRow[] };
+        "data": KupBoxData;
         /**
           * Enable dragging
+          * @default false
          */
         "dragEnabled": boolean;
         /**
           * Enable dropping
+          * @default false
          */
         "dropEnabled": boolean;
         /**
           * Drop can be done in section
+          * @default false
          */
         "dropOnSection": boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
+          * @default false
          */
         "enableRowActions": boolean;
         /**
@@ -154,35 +263,43 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
+          * @default false
          */
         "globalFilter": boolean;
         /**
           * The value of the global filter.
+          * @default ""
          */
         "globalFilterValue": string;
         /**
           * Displays the boxlist as a Kanban.
+          * @default null
          */
-        "kanban": BoxKanban;
+        "kanban": KupBoxKanban;
         /**
           * How the field will be displayed. If not present, a default one will be created.
+          * @default undefined
          */
-        "layout": Layout;
-        "loadRowActions": (row: BoxRow, actions: RowAction[]) => Promise<void>;
+        "layout": KupBoxLayout;
+        "loadRowActions": (row: KupBoxRow, actions: RowAction[]) => Promise<void>;
         /**
           * Enable multi selection
+          * @default false
          */
         "multiSelection": boolean;
         /**
           * Current page number
+          * @default 1
          */
         "pageSelected": number;
         /**
           * Number of boxes per page
+          * @default 10
          */
         "pageSize": number;
         /**
           * Enables pagination
+          * @default false
          */
         "pagination": boolean;
         /**
@@ -191,90 +308,94 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * Number of current rows per page
+          * @default undefined
          */
         "rowsPerPage": number;
         /**
           * Activates the scroll on hover function.
+          * @default false
          */
         "scrollOnHover": boolean;
         /**
           * Automatically selects the box at the specified index
+          * @default undefined
          */
         "selectBox": number;
         /**
           * Multiple selection
+          * @default undefined
          */
         "selectedRowsState": string;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * If enabled, highlights the selected box/boxes
+          * @default true
          */
         "showSelection": boolean;
         /**
           * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+          * @default true
          */
         "showTooltipOnRightClick": boolean;
         /**
           * If sorting is enabled, specifies which column to sort
+          * @default undefined
          */
         "sortBy": string;
         /**
           * Enable sorting
+          * @default false
          */
         "sortEnabled": boolean;
         "stateId": string;
         "store": KupStore;
         /**
           * Disable swipe
+          * @default false
          */
         "swipeDisabled": boolean;
         /**
           * Defines the timeout for tooltip detail
+          * @default undefined
          */
         "tooltipDetailTimeout": number;
         /**
           * Enable show tooltip
+          * @default true
          */
         "tooltipEnabled": boolean;
         /**
           * Defines the timeout for tooltip load
+          * @default undefined
          */
         "tooltipLoadTimeout": number;
     }
-    interface KupBtn {
+    interface KupBpmn {
         /**
-          * Number of columns for draw sub-components.
+          * When set to true, the diagram won't be interactive but it will displayed as an image.
+          * @default false
          */
-        "columns": number;
-        /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
-          * Props of the sub-components.
-         */
-        "data": TreeNode[];
-        /**
-          * Default at false. When set to true, the sub-components are disabled.
-         */
-        "disabled": boolean;
+        "asImage": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        "openDiagram": () => Promise<void>;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
-          * If enabled, highlights the selected button
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
          */
-        "showSelection": boolean;
-        /**
-          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
-         */
-        "styling": string;
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupButton {
         /**
@@ -319,6 +440,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
@@ -333,6 +459,54 @@ export namespace Components {
           * @default false
          */
         "trailingIcon": boolean;
+    }
+    interface KupButtonList {
+        /**
+          * Number of columns.
+          * @default 0
+         */
+        "columns": number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+          * @default []
+         */
+        "data": TreeNode[];
+        /**
+          * When set to true, the sub-components are disabled.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When set to true, highlights the selected button with the secondary color of KupTheme.
+          * @default true
+         */
+        "showSelection": boolean;
+        /**
+          * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
+          * @default FButtonStyling.RAISED
+         */
+        "styling": FButtonStyling;
     }
     interface KupCalendar {
         "data": DataTable;
@@ -358,7 +532,7 @@ export namespace Components {
           * The actual data of the card.
           * @default null
          */
-        "data": CardData;
+        "data": KupCardData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -372,9 +546,9 @@ export namespace Components {
         "isMenu": boolean;
         /**
           * Sets the type of the card.
-          * @default CardFamily.STANDARD
+          * @default KupCardFamily.STANDARD
          */
-        "layoutFamily": CardFamily;
+        "layoutFamily": KupCardFamily;
         /**
           * Sets the number of the layout.
           * @default 1
@@ -394,6 +568,11 @@ export namespace Components {
          */
         "resizeCallback": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -407,26 +586,33 @@ export namespace Components {
     interface KupChart {
         /**
           * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+          * @default undefined
          */
         "asp": ChartAspect;
         /**
           * Sets the axis of the chart.
+          * @default undefined
          */
         "axis": string;
         /**
           * Title of the graph.
+          * @default undefined
          */
         "chartTitle": ChartTitle;
         /**
           * Colors of the chart.
+          * @default []
          */
         "colors": string[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * The actual data of the chart.
+          * @default undefined
          */
         "data": DataTable;
         /**
@@ -436,15 +622,22 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Customize the hAxes for multiple-chart.
+         */
+        "hAxes": ChartAxis[];
+        /**
           * Customize the hAxis.
+          * @default undefined
          */
         "hAxis": ChartAxis;
         /**
           * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default "right"
          */
         "legend": string;
         /**
           * Renders charts without the Google API and using jQuery Sparkline.
+          * @default undefined
          */
         "offlineMode": ChartOfflineMode;
         /**
@@ -457,34 +650,59 @@ export namespace Components {
         "resizeCallback": () => Promise<void>;
         /**
           * The data series to be displayed. They must be of the same type.
+          * @default undefined
          */
         "series": ChartSerie[];
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Displays the numerical values.
+          * @default false
          */
         "showMarks": boolean;
         /**
           * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
          */
         "sizeX": string;
         /**
           * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
          */
         "sizeY": string;
+        /**
+          * Used to sort series.
+          * @default null
+         */
+        "sorting": KupChartSort[];
         /**
           * Displays the data columns of an object on top of each other.
          */
         "stacked": boolean;
         /**
+          * KupChartTrendlines.
+         */
+        "trendlines": KupChartTrendlines;
+        /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+          * @default [ChartType.Hbar]
          */
         "types": ChartType[];
         /**
+          * Customize the vAxes for multiple-chart.
+         */
+        "vAxes": ChartAxis[];
+        /**
           * Customize the vAxis.
+          * @default undefined
          */
         "vAxis": ChartAxis;
         /**
           * Google chart version to load
+          * @default "45.2"
          */
         "version": string;
     }
@@ -530,6 +748,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupChip {
         /**
@@ -560,6 +783,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
          */
@@ -567,15 +795,19 @@ export namespace Components {
     }
     interface KupColorPicker {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the text field.
+          * @default null
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -584,25 +816,45 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+          * @default ""
          */
         "initialValue": string;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the focus to the component.
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @param value - Value to be set.
+         */
         "setValue": (value: string) => Promise<void>;
         /**
           * When true, the component's text field will be replaced by a swatch.
+          * @default false
          */
         "swatchOnly": boolean;
     }
     interface KupCombobox {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -623,6 +875,10 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
@@ -640,7 +896,19 @@ export namespace Components {
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
+        /**
+          * Sets the focus to the component.
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @param value - Value to be set.
+         */
         "setValue": (value: string) => Promise<void>;
     }
     interface KupCrud {
@@ -705,6 +973,9 @@ export namespace Components {
           * Closes any opened column menu.
          */
         "closeColumnMenu": () => Promise<void>;
+        /**
+          * Collapses all groups.
+         */
         "collapseAll": () => Promise<void>;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -744,6 +1015,9 @@ export namespace Components {
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns": boolean;
+        /**
+          * Expands all groups.
+         */
         "expandAll": () => Promise<void>;
         /**
           * Expands groups when set to true.
@@ -873,6 +1147,11 @@ export namespace Components {
          */
         "selection": SelectionMode;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * This method will set the selected rows of the component.
           * @param rowsById - String containing the ids separated by ";".
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
@@ -956,19 +1235,24 @@ export namespace Components {
     }
     interface KupDatePicker {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the sub-components.
+          * @default null
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
+          * @default 1
          */
         "firstDayIndex": number;
         /**
@@ -977,22 +1261,39 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
+          * @default ""
          */
         "initialValue": string;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the focus to the component.
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @param value - Value to be set.
+         */
         "setValue": (value: string) => Promise<void>;
     }
     interface KupDrawer {
+        /**
+          * Closes the drawer.
+         */
         "close": () => Promise<void>;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1001,51 +1302,79 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Opens the drawer.
+         */
         "open": () => Promise<void>;
         /**
-          * Defaults at false. When set to true, the drawer appears.
+          * When set to true, the drawer appears.
+          * @default false
          */
         "opened": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Opens the drawer when closed and vice-versa.
+         */
         "toggle": () => Promise<void>;
     }
     interface KupDropdownButton {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the sub-components.
+          * @default null
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
           * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
+        /**
+          * Default value is false. When set to true, the arrow dropdown button is the only button displayed.
+          * @default false
+         */
+        "dropdownOnly": boolean;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the component's internal value.
+         */
         "getValue": () => Promise<string>;
         /**
           * Defaults at null. When set, the button will show this icon.
+          * @default icon
          */
         "icon": string;
         /**
           * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue": string;
         /**
           * Defaults at null. When set, the button will show this text.
+          * @default ""
          */
         "label": string;
         /**
@@ -1054,8 +1383,17 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.CODE
          */
         "selectMode": ItemsDisplayMode;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the internal value of the component.
+         */
         "setValue": (value: string) => Promise<void>;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
@@ -1064,24 +1402,30 @@ export namespace Components {
         "styling": FButtonStyling;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
+          * @default false
          */
         "trailingIcon": boolean;
     }
     interface KupEchart {
         /**
           * Sets the axis of the chart.
+          * @default ""
          */
         "axis": string;
         /**
           * Title of the graph.
+          * @default undefined
          */
-        "chartTitle": EchartTitle;
+        "chartTitle": KupEchartTitle;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * The actual data of the chart.
+          * @default {}
          */
         "data": object;
         /**
@@ -1092,10 +1436,12 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default undefined
          */
         "legend": string;
         /**
           * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
+          * @default undefined
          */
         "mapType": any;
         /**
@@ -1108,10 +1454,17 @@ export namespace Components {
         "resizeCallback": () => Promise<void>;
         /**
           * The data series to be displayed. They must be of the same type.
+          * @default undefined
          */
         "series": string[];
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+          * @default ['Line']
          */
         "types": String[];
     }
@@ -1121,16 +1474,16 @@ export namespace Components {
          */
         "text": string;
     }
-    interface KupFab {
-        "colorButton": string;
-    }
     interface KupField {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Effective data to pass to the component.
+          * @default {}
          */
         "data": Object;
         /**
@@ -1147,10 +1500,12 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The text of the label. If set to empty or has only white space chars, the label will be removed.
+          * @default ""
          */
         "label": string;
         /**
           * Sets the label's position, left right or top.
+          * @default "left"
          */
         "labelPos": string;
         /**
@@ -1159,18 +1514,22 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * Sets whether the submit button must be displayed or not.
+          * @default false
          */
         "showSubmit": boolean;
         /**
           * Sets the submit button's label.
+          * @default ""
          */
         "submitLabel": string;
         /**
           * Sets the submit button's position, top right bottom or left.
+          * @default "right"
          */
         "submitPos": string;
         /**
           * The type of the FLD
+          * @default undefined
          */
         "type": string;
     }
@@ -1212,7 +1571,9 @@ export namespace Components {
          */
         "colors": string[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1262,6 +1623,11 @@ export namespace Components {
          */
         "secondThreshold"?: number;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * If set to false, threshold values of the gauge are not displayed.
          */
         "showLabels": boolean;
@@ -1295,10 +1661,13 @@ export namespace Components {
     interface KupGrid {
         /**
           * The number of columns displayed by the grid, the default behavior is 12.
+          * @default 12
          */
         "columns": number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1312,7 +1681,13 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * When set to true, forces the content on a single line.
+          * @default false
          */
         "singleLine": boolean;
     }
@@ -1336,6 +1711,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * The address the iframe should be referencing to.
          */
         "src": string;
@@ -1347,8 +1727,8 @@ export namespace Components {
          */
         "badgeData": KupBadge[];
         /**
-          * The color of the icon, defaults to the CSS variable --kup-icon-color.
-          * @default 'var(--kup-icon-color)'
+          * The color of the icon, defaults to the CSS variable KupThemeColorValues.ICON.
+          * @default KupThemeColorValues.ICON
          */
         "color": string;
         /**
@@ -1388,6 +1768,11 @@ export namespace Components {
          */
         "resource": string;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
           * @default '100%'
          */
@@ -1397,24 +1782,6 @@ export namespace Components {
           * @default '100%'
          */
         "sizeY": string;
-    }
-    interface KupImageButton {
-        /**
-          * If enabled, can select one or more images
-         */
-        "allowMultiSelection": boolean;
-        /**
-          * urls of the images
-         */
-        "images": any;
-        /**
-          * If enabled, display the image description below the image
-         */
-        "showDescription": boolean;
-        /**
-          * image dimension
-         */
-        "size": number;
     }
     interface KupLayout {
         /**
@@ -1437,16 +1804,20 @@ export namespace Components {
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
+          * @default null
          */
         "componentName": string;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Sets the data of the component to be lazy loaded.
+          * @default null
          */
-        "data": {};
+        "data": GenericObject;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1458,32 +1829,51 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport.
+          * @default KupLazyRender.BOTH
+         */
+        "renderMode": KupLazyRender;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Displays an animated SVG placeholder until the component is loaded.
+          * @default true
          */
         "showPlaceholder": boolean;
     }
     interface KupList {
         /**
-          * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
-         */
-        "arrowDown": boolean;
-        "arrowUp": boolean;
-        /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * The data of the list.
+          * @default []
          */
-        "data": ComponentListElement[];
+        "data": KupListData[];
         /**
           * Selects how the items must display their label and how they can be filtered for.
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
         /**
           * Keeps string for filtering elements when filter mode is active
+          * @default ''
          */
         "filter": string;
+        /**
+          * Focuses the next element of the list.
+         */
+        "focusNext": () => Promise<void>;
+        /**
+          * Focuses the previous element of the list.
+         */
+        "focusPrevious": () => Promise<void>;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1492,35 +1882,61 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Hides rows' text, ideally to display a list of icons only.
+          * @default false
          */
         "hideText": boolean;
         /**
           * Defines whether the list is a menu or not.
+          * @default false
          */
         "isMenu": boolean;
         /**
+          * When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.
+          * @default undefined
+         */
+        "keyboardNavigation": boolean;
+        /**
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
+          * @default false
          */
         "menuVisible": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Resets filter.
+          * @todo FOSLUC to PASCAR: why isn't it enough to change only the prop?
+         */
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+          * @default KupListRole.LISTBOX
          */
-        "roleType"?: string;
+        "roleType"?: KupListRole;
+        /**
+          * Calls handleSelection internal method to select the given item.
+          * @param index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
+         */
+        "select": (index?: number) => Promise<void>;
         /**
           * Defines whether items are selectable or not.
+          * @default true
          */
         "selectable": boolean;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Displays the icons associated to each row when set to true.
+          * @default false
          */
         "showIcons": boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
+          * @default false
          */
         "twoLine": boolean;
     }
@@ -1546,6 +1962,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupModal {
         "header": string;
@@ -1553,13 +1974,16 @@ export namespace Components {
     }
     interface KupNavBar {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * The actual data of the nav bar.
+          * @default null
          */
-        "data": ComponentNavBarData;
+        "data": KupNavBarData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1568,12 +1992,18 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Defines how the bar will be displayed.
+          * @default KupNavBarMode.DEFAULT
          */
-        "mode": ComponentNavBarMode;
+        "mode": KupNavBarMode;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupPaginator {
         "currentPage": number;
@@ -1619,10 +2049,13 @@ export namespace Components {
     interface KupProgressBar {
         /**
           * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+          * @default true
          */
         "centeredLabel": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1633,18 +2066,22 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Flag to show or hide the progress bar's label.
+          * @default false
          */
         "hideLabel": boolean;
         /**
           * Specifies an icon to replace the label.
+          * @default null
          */
         "icon": string;
         /**
           * Radial version.
+          * @default false
          */
         "isRadial": boolean;
         /**
           * Specifies a text for the bar's label.
+          * @default null
          */
         "label": string;
         /**
@@ -1652,7 +2089,13 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * The current value the progress bar must display.
+          * @default 0
          */
         "value": number;
     }
@@ -1696,19 +2139,24 @@ export namespace Components {
     }
     interface KupRadio {
         /**
-          * Number of columns. When undefined, radio fields will be displayed inline.
+          * Number of columns. When null, radio fields will be displayed inline.
+          * @default null
          */
         "columns": number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * List of elements.
+          * @default null
          */
-        "data": ComponentRadioElement[];
+        "data": KupRadioData[];
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -1719,24 +2167,29 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Defaults at false. When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel": boolean;
-        /**
-          * Defaults at null. It's the name that binds the radio buttons together.
-         */
-        "name": string;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupRating {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -1746,7 +2199,8 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Max number of stars (default 5)
+          * Max number of stars (default 5).
+          * @default 5
          */
         "maxValue": number;
         /**
@@ -1754,7 +2208,13 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * Rated stars
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Rated stars.
+          * @default 0
          */
         "value": number;
     }
@@ -1781,30 +2241,38 @@ export namespace Components {
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
+          * @default false
          */
         "active": boolean;
         /**
           * Decides whether the component is a bar or a spinner.
+          * @default false
          */
         "barVariant": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Width and height of the spinner. For the bar variant, only height.
+          * @default false
          */
         "dimensions": string;
         /**
           * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+          * @default false
          */
         "fader": boolean;
         /**
           * The time required for the "fader" to trigger.
+          * @default 3500
          */
         "faderTimeout": number;
         /**
           * When set to true the component will fill the whole viewport.
+          * @default false
          */
         "fullScreen": boolean;
         /**
@@ -1815,12 +2283,18 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Sets the layout of the spinner.
+          * @default 1
          */
         "layout": number;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupSwitch {
         /**
@@ -1859,16 +2333,24 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupTabBar {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * List of elements.
+          * @default null
          */
-        "data": ComponentTabBarElement[];
+        "data": KupTabBarData[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1879,6 +2361,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
     }
     interface KupTextField {
         /**
@@ -1986,6 +2473,11 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
           * Sets the internal value of the component.
          */
         "setValue": (value: string) => Promise<void>;
@@ -2013,18 +2505,23 @@ export namespace Components {
     interface KupTimePicker {
         /**
           * When set to true, the drop down menu will display a clock.
+          * @default true
          */
         "clockVariant": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * Props of the sub-components (time input text field)
+          * @default {}
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -2033,23 +2530,40 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Returns the component's internal value.
+         */
         "getValue": () => Promise<string>;
         /**
-          * Sets the initial value of the component
+          * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue": string;
         /**
-          * Manage seconds
+          * Manage seconds.
+          * @default false
          */
         "manageSeconds": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Focuses the input element.
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Sets the internal value of the component.
+         */
         "setValue": (value: string) => Promise<void>;
         /**
-          * Minutes step
+          * Minutes step.
+          * @default 10
          */
         "timeMinutesStep": number;
     }
@@ -2096,6 +2610,11 @@ export namespace Components {
           * Container element for tooltip
          */
         "relatedObject": TooltipRelatedObject;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         "setTooltipInfo": (relatedObject: TooltipRelatedObject) => Promise<void>;
         "unsetTooltipInfo": () => Promise<void>;
     }
@@ -2108,13 +2627,18 @@ export namespace Components {
           * Closes any opened column menu.
          */
         "closeColumnMenu": () => Promise<void>;
+        /**
+          * Collapses all nodes.
+         */
         "collapseAll": () => Promise<void>;
         /**
           * The columns of the tree when tree visualization is active.
          */
         "columns"?: Column[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -2137,6 +2661,9 @@ export namespace Components {
           * Enables the extracolumns add buttons.
          */
         "enableExtraColumns": boolean;
+        /**
+          * Expands all nodes.
+         */
         "expandAll": () => Promise<void>;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
@@ -2157,9 +2684,17 @@ export namespace Components {
          */
         "globalFilter": boolean;
         /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode": GlobalFilterMode;
+        /**
           * The value of the global filter.
          */
         "globalFilterValue": string;
+        /**
+          * True if there aren't visible nodes
+         */
+        "isEmpty": () => Promise<boolean>;
         /**
           * Opens the column menu of the given column.
           * @param column - Name of the column.
@@ -2181,6 +2716,11 @@ export namespace Components {
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
         "selectedNode": TreeNodePath;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         /**
           * Shows the tree data as a table.
          */
@@ -2235,6 +2775,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLKupAccordionElement extends Components.KupAccordion, HTMLStencilElement {
+    }
+    var HTMLKupAccordionElement: {
+        prototype: HTMLKupAccordionElement;
+        new (): HTMLKupAccordionElement;
+    };
     interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {
     }
     var HTMLKupAutocompleteElement: {
@@ -2253,17 +2799,23 @@ declare global {
         prototype: HTMLKupBoxElement;
         new (): HTMLKupBoxElement;
     };
-    interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {
+    interface HTMLKupBpmnElement extends Components.KupBpmn, HTMLStencilElement {
     }
-    var HTMLKupBtnElement: {
-        prototype: HTMLKupBtnElement;
-        new (): HTMLKupBtnElement;
+    var HTMLKupBpmnElement: {
+        prototype: HTMLKupBpmnElement;
+        new (): HTMLKupBpmnElement;
     };
     interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {
     }
     var HTMLKupButtonElement: {
         prototype: HTMLKupButtonElement;
         new (): HTMLKupButtonElement;
+    };
+    interface HTMLKupButtonListElement extends Components.KupButtonList, HTMLStencilElement {
+    }
+    var HTMLKupButtonListElement: {
+        prototype: HTMLKupButtonListElement;
+        new (): HTMLKupButtonListElement;
     };
     interface HTMLKupCalendarElement extends Components.KupCalendar, HTMLStencilElement {
     }
@@ -2361,12 +2913,6 @@ declare global {
         prototype: HTMLKupEditorElement;
         new (): HTMLKupEditorElement;
     };
-    interface HTMLKupFabElement extends Components.KupFab, HTMLStencilElement {
-    }
-    var HTMLKupFabElement: {
-        prototype: HTMLKupFabElement;
-        new (): HTMLKupFabElement;
-    };
     interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
     }
     var HTMLKupFieldElement: {
@@ -2402,12 +2948,6 @@ declare global {
     var HTMLKupImageElement: {
         prototype: HTMLKupImageElement;
         new (): HTMLKupImageElement;
-    };
-    interface HTMLKupImageButtonElement extends Components.KupImageButton, HTMLStencilElement {
-    }
-    var HTMLKupImageButtonElement: {
-        prototype: HTMLKupImageButtonElement;
-        new (): HTMLKupImageButtonElement;
     };
     interface HTMLKupLayoutElement extends Components.KupLayout, HTMLStencilElement {
     }
@@ -2536,11 +3076,13 @@ declare global {
         new (): HTMLKupUploadElement;
     };
     interface HTMLElementTagNameMap {
+        "kup-accordion": HTMLKupAccordionElement;
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
         "kup-box": HTMLKupBoxElement;
-        "kup-btn": HTMLKupBtnElement;
+        "kup-bpmn": HTMLKupBpmnElement;
         "kup-button": HTMLKupButtonElement;
+        "kup-button-list": HTMLKupButtonListElement;
         "kup-calendar": HTMLKupCalendarElement;
         "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
@@ -2557,14 +3099,12 @@ declare global {
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
-        "kup-fab": HTMLKupFabElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
-        "kup-image-button": HTMLKupImageButtonElement;
         "kup-layout": HTMLKupLayoutElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
@@ -2589,6 +3129,61 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface KupAccordion {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Data of the accordion.
+          * @default null
+         */
+        "data"?: KupAccordionData;
+        /**
+          * When set to true it activates the global filter.
+          * @default false
+         */
+        "globalFilter"?: boolean;
+        /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode"?: GlobalFilterMode;
+        /**
+          * The value of the global filter.
+          * @default ""
+         */
+        "globalFilterValue"?: string;
+        /**
+          * Fired when a item is collapsed
+         */
+        "onKup-accordion-itemcollapsed"?: (event: CustomEvent<KupAccordionItemCollapsedEventPayload>) => void;
+        /**
+          * Fired when a item is expanded
+         */
+        "onKup-accordion-itemexpanded"?: (event: CustomEvent<KupAccordionItemExpandedEventPayload>) => void;
+        /**
+          * Fired when a item is selected
+         */
+        "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
+        /**
+          * Fired when a TreeNode is collapsed
+         */
+        "onKup-accordion-treenodecollapsed"?: (event: CustomEvent<KupAccordionTreeNodeCollapsedEventPayload>) => void;
+        /**
+          * Fired when a TreeNode is expanded
+         */
+        "onKup-accordion-treenodeexpanded"?: (event: CustomEvent<KupAccordionTreeNodeExpandedEventPayload>) => void;
+        /**
+          * Fired when a TreeNode is selected
+         */
+        "onKup-accordion-treenodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
+        /**
+          * The names of the selected items
+         */
+        "selectedItemsNames"?: string[];
+    }
     interface KupAutocomplete {
         /**
           * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
@@ -2599,7 +3194,9 @@ declare namespace LocalJSX {
         el: EventTarget;
     }) => Promise<any[]> | undefined;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -2622,54 +3219,14 @@ declare namespace LocalJSX {
           * The minimum number of chars to trigger the autocomplete
          */
         "minimumChars"?: number;
-        /**
-          * Event example.
-         */
-        "onKupAutocompleteBlur"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteChange"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteClick"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteFilterChanged"?: (event: CustomEvent<{
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteFocus"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteIconClick"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteInput"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteItemClick"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
-        "onKupAutocompleteTextFieldSubmit"?: (event: CustomEvent<{
-        value: any;
-        id: string;
-        comp: KupAutocomplete;
-    }>) => void;
+        "onKup-autocomplete-blur"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-change"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-click"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-filterchanged"?: (event: CustomEvent<kupAutocompleteFilterChangedEventPayload>) => void;
+        "onKup-autocomplete-focus"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-iconclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-input"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
+        "onKup-autocomplete-itemclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
@@ -2681,227 +3238,203 @@ declare namespace LocalJSX {
     }
     interface KupBadge {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The data of the image displayed inside the badge.
+          * @default null
          */
-        "imageData"?: {};
-        "onKupBadgeClick"?: (event: CustomEvent<{
-        el: EventTarget;
-    }>) => void;
+        "imageData"?: GenericObject;
+        "onKup-badge-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The text displayed inside the badge.
+          * @default null
          */
         "text"?: string;
     }
     interface KupBox {
         /**
           * Data of the card linked to the box when the latter's layout must be a premade template.
+          * @default null
          */
         "cardData"?: GenericObject;
         /**
           * Number of columns
+          * @default 1
          */
         "columns"?: number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
-          * Data
+          * Actual data of the box.
+          * @default null
          */
-        "data"?: { columns?: Column[]; rows?: BoxRow[] };
+        "data"?: KupBoxData;
         /**
           * Enable dragging
+          * @default false
          */
         "dragEnabled"?: boolean;
         /**
           * Enable dropping
+          * @default false
          */
         "dropEnabled"?: boolean;
         /**
           * Drop can be done in section
+          * @default false
          */
         "dropOnSection"?: boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
+          * @default false
          */
         "enableRowActions"?: boolean;
         /**
           * When set to true it activates the global filter.
+          * @default false
          */
         "globalFilter"?: boolean;
         /**
           * The value of the global filter.
+          * @default ""
          */
         "globalFilterValue"?: string;
         /**
           * Displays the boxlist as a Kanban.
+          * @default null
          */
-        "kanban"?: BoxKanban;
+        "kanban"?: KupBoxKanban;
         /**
           * How the field will be displayed. If not present, a default one will be created.
+          * @default undefined
          */
-        "layout"?: Layout;
+        "layout"?: KupBoxLayout;
         /**
           * Enable multi selection
+          * @default false
          */
         "multiSelection"?: boolean;
         /**
           * Triggered when a box is auto selected via selectBox prop
          */
-        "onKupAutoBoxSelect"?: (event: CustomEvent<{
-        row: BoxRow;
-    }>) => void;
+        "onKup-box-autoselect"?: (event: CustomEvent<KupBoxAutoSelectEventPayload>) => void;
         /**
           * Triggered when a box is clicked
          */
-        "onKupBoxClicked"?: (event: CustomEvent<{
-        row: BoxRow;
-        column?: string;
-    }>) => void;
+        "onKup-box-click"?: (event: CustomEvent<KupBoxClickEventPayload>) => void;
         /**
           * Generic right click event on box.
          */
-        "onKupBoxContextMenu"?: (event: CustomEvent<{
-        details: GenericObject;
-    }>) => void;
-        /**
-          * Triggered when a box dragging is ended
-         */
-        "onKupBoxDragEnded"?: (event: CustomEvent<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-    }>) => void;
-        /**
-          * Triggered when a box dragging is started
-         */
-        "onKupBoxDragStarted"?: (event: CustomEvent<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-    }>) => void;
-        /**
-          * Triggered when the multi selection checkbox changes value
-         */
-        "onKupBoxSelected"?: (event: CustomEvent<{
-        rows: BoxRow[];
-    }>) => void;
-        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
+        "onKup-box-contextmenu"?: (event: CustomEvent<KupBoxContextMenuEventPayload>) => void;
+        "onKup-box-didload"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Triggered when stop propagation event
          */
-        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        "onKup-box-didunload"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * When the row menu action icon is clicked
+          * When the row menu action icon is click
          */
-        "onKupRowActionClicked"?: (event: CustomEvent<{
-        row: BoxRow;
-        action: RowAction;
-        index: number;
-    }>) => void;
+        "onKup-box-rowactionclick"?: (event: CustomEvent<KupBoxRowActionClickEventPayload>) => void;
         /**
-          * When the row menu action icon is clicked
+          * When the row menu action icon is click
          */
-        "onKupRowActionMenuClicked"?: (event: CustomEvent<{
-        row: BoxRow;
-    }>) => void;
+        "onKup-box-rowactionmenuclick"?: (event: CustomEvent<KupBoxAutoSelectEventPayload>) => void;
+        /**
+          * Triggered when the multi selection checkbox changes value
+         */
+        "onKup-box-selected"?: (event: CustomEvent<KupBoxSelectedEventPayload>) => void;
         /**
           * Current page number
+          * @default 1
          */
         "pageSelected"?: number;
         /**
           * Number of boxes per page
+          * @default 10
          */
         "pageSize"?: number;
         /**
           * Enables pagination
+          * @default false
          */
         "pagination"?: boolean;
         /**
           * Number of current rows per page
+          * @default undefined
          */
         "rowsPerPage"?: number;
         /**
           * Activates the scroll on hover function.
+          * @default false
          */
         "scrollOnHover"?: boolean;
         /**
           * Automatically selects the box at the specified index
+          * @default undefined
          */
         "selectBox"?: number;
         /**
           * Multiple selection
+          * @default undefined
          */
         "selectedRowsState"?: string;
         /**
           * If enabled, highlights the selected box/boxes
+          * @default true
          */
         "showSelection"?: boolean;
         /**
           * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+          * @default true
          */
         "showTooltipOnRightClick"?: boolean;
         /**
           * If sorting is enabled, specifies which column to sort
+          * @default undefined
          */
         "sortBy"?: string;
         /**
           * Enable sorting
+          * @default false
          */
         "sortEnabled"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
         /**
           * Disable swipe
+          * @default false
          */
         "swipeDisabled"?: boolean;
         /**
           * Defines the timeout for tooltip detail
+          * @default undefined
          */
         "tooltipDetailTimeout"?: number;
         /**
           * Enable show tooltip
+          * @default true
          */
         "tooltipEnabled"?: boolean;
         /**
           * Defines the timeout for tooltip load
+          * @default undefined
          */
         "tooltipLoadTimeout"?: number;
     }
-    interface KupBtn {
+    interface KupBpmn {
         /**
-          * Number of columns for draw sub-components.
+          * When set to true, the diagram won't be interactive but it will displayed as an image.
+          * @default false
          */
-        "columns"?: number;
-        /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * Props of the sub-components.
-         */
-        "data"?: TreeNode[];
-        /**
-          * Default at false. When set to true, the sub-components are disabled.
-         */
-        "disabled"?: boolean;
-        "onKupBtnClick"?: (event: CustomEvent<{
-        id: string;
-        subId: string;
-        obj: any;
-    }>) => void;
-        /**
-          * If enabled, highlights the selected button
-         */
-        "showSelection"?: boolean;
-        /**
-          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
-         */
-        "styling"?: string;
+        "asImage"?: boolean;
     }
     interface KupButton {
         /**
@@ -2935,18 +3468,18 @@ declare namespace LocalJSX {
           * @default null
          */
         "label"?: string;
-        "onKupButtonBlur"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        "onKupButtonClick"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        "onKupButtonFocus"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
+        /**
+          * Triggered when the button loses focus.
+         */
+        "onKup-button-blur"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
+        /**
+          * Triggered when the button is clicked.
+         */
+        "onKup-button-click"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
+        /**
+          * Triggered when the button is focused.
+         */
+        "onKup-button-focus"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -2962,6 +3495,40 @@ declare namespace LocalJSX {
           * @default false
          */
         "trailingIcon"?: boolean;
+    }
+    interface KupButtonList {
+        /**
+          * Number of columns.
+          * @default 0
+         */
+        "columns"?: number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+          * @default []
+         */
+        "data"?: TreeNode[];
+        /**
+          * When set to true, the sub-components are disabled.
+          * @default false
+         */
+        "disabled"?: boolean;
+        "onKup-buttonlist-click"?: (event: CustomEvent<KupButtonListClickEventPayload>) => void;
+        /**
+          * When set to true, highlights the selected button with the secondary color of KupTheme.
+          * @default true
+         */
+        "showSelection"?: boolean;
+        /**
+          * Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default).
+          * @default FButtonStyling.RAISED
+         */
+        "styling"?: FButtonStyling;
     }
     interface KupCalendar {
         "data"?: DataTable;
@@ -3015,7 +3582,7 @@ declare namespace LocalJSX {
           * The actual data of the card.
           * @default null
          */
-        "data"?: CardData;
+        "data"?: KupCardData;
         /**
           * Defines whether the card is a menu or not. Works together with menuVisible.
           * @default false
@@ -3023,9 +3590,9 @@ declare namespace LocalJSX {
         "isMenu"?: boolean;
         /**
           * Sets the type of the card.
-          * @default CardFamily.STANDARD
+          * @default KupCardFamily.STANDARD
          */
-        "layoutFamily"?: CardFamily;
+        "layoutFamily"?: KupCardFamily;
         /**
           * Sets the number of the layout.
           * @default 1
@@ -3039,17 +3606,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when the card is clicked.
          */
-        "onKupCardClick"?: (event: CustomEvent<{
-        card: KupCard;
-        id: string;
-    }>) => void;
+        "onKup-card-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Triggered when a sub-component of the card emits an event.
          */
-        "onKupCardEvent"?: (event: CustomEvent<{
-        card: KupCard;
-        event: any;
-    }>) => void;
+        "onKup-card-event"?: (event: CustomEvent<KupCardEventPayload>) => void;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
@@ -3064,74 +3625,108 @@ declare namespace LocalJSX {
     interface KupChart {
         /**
           * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+          * @default undefined
          */
         "asp"?: ChartAspect;
         /**
           * Sets the axis of the chart.
+          * @default undefined
          */
         "axis"?: string;
         /**
           * Title of the graph.
+          * @default undefined
          */
         "chartTitle"?: ChartTitle;
         /**
           * Colors of the chart.
+          * @default []
          */
         "colors"?: string[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The actual data of the chart.
+          * @default undefined
          */
         "data"?: DataTable;
         /**
+          * Customize the hAxes for multiple-chart.
+         */
+        "hAxes"?: ChartAxis[];
+        /**
           * Customize the hAxis.
+          * @default undefined
          */
         "hAxis"?: ChartAxis;
         /**
           * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default "right"
          */
         "legend"?: string;
         /**
           * Renders charts without the Google API and using jQuery Sparkline.
+          * @default undefined
          */
         "offlineMode"?: ChartOfflineMode;
         /**
           * Triggered when a chart serie is clicked
          */
-        "onKupChartClicked"?: (event: CustomEvent<ChartClickedEvent>) => void;
+        "onKup-chart-click"?: (event: CustomEvent<KupChartClickEvent>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
+          * @default undefined
          */
         "series"?: ChartSerie[];
         /**
           * Displays the numerical values.
+          * @default false
          */
         "showMarks"?: boolean;
         /**
           * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
          */
         "sizeX"?: string;
         /**
           * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
          */
         "sizeY"?: string;
+        /**
+          * Used to sort series.
+          * @default null
+         */
+        "sorting"?: KupChartSort[];
         /**
           * Displays the data columns of an object on top of each other.
          */
         "stacked"?: boolean;
         /**
+          * KupChartTrendlines.
+         */
+        "trendlines"?: KupChartTrendlines;
+        /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+          * @default [ChartType.Hbar]
          */
         "types"?: ChartType[];
         /**
+          * Customize the vAxes for multiple-chart.
+         */
+        "vAxes"?: ChartAxis[];
+        /**
           * Customize the vAxis.
+          * @default undefined
          */
         "vAxis"?: ChartAxis;
         /**
           * Google chart version to load
+          * @default "45.2"
          */
         "version"?: string;
     }
@@ -3170,27 +3765,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input element loses focus.
          */
-        "onKupCheckboxBlur"?: (event: CustomEvent<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>) => void;
+        "onKup-checkbox-blur"?: (event: CustomEvent<KupCheckboxEventPayload>) => void;
         /**
           * Triggered when the input element's value changes.
          */
-        "onKupCheckboxChange"?: (event: CustomEvent<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>) => void;
+        "onKup-checkbox-change"?: (event: CustomEvent<KupCheckboxEventPayload>) => void;
         /**
           * Triggered when the input element gets focused.
          */
-        "onKupCheckboxFocus"?: (event: CustomEvent<{
-        id: string;
-        checked: boolean;
-        value: string;
-    }>) => void;
+        "onKup-checkbox-focus"?: (event: CustomEvent<KupCheckboxEventPayload>) => void;
     }
     interface KupChip {
         /**
@@ -3213,39 +3796,19 @@ declare namespace LocalJSX {
         /**
           * Triggered when a chip loses focus.
          */
-        "onKupChipBlur"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>) => void;
+        "onKup-chip-blur"?: (event: CustomEvent<KupChipEventPayload>) => void;
         /**
           * Triggered when a chip is clicked.
          */
-        "onKupChipClick"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>) => void;
+        "onKup-chip-click"?: (event: CustomEvent<KupChipEventPayload>) => void;
         /**
           * Triggered when a chip gets focused.
          */
-        "onKupChipFocus"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>) => void;
+        "onKup-chip-focus"?: (event: CustomEvent<KupChipEventPayload>) => void;
         /**
           * Triggered when the removal icon on input chips is clicked.
          */
-        "onKupChipIconClick"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        obj: KupObj;
-        value: string;
-    }>) => void;
+        "onKup-chip-iconclick"?: (event: CustomEvent<KupChipEventPayload>) => void;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
@@ -3254,35 +3817,39 @@ declare namespace LocalJSX {
     }
     interface KupColorPicker {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the text field.
+          * @default null
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+          * @default ""
          */
         "initialValue"?: string;
-        "onKupColorPickerChange"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupColorPickerInput"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        "onKup-colorpicker-change"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
+        "onKup-colorpicker-input"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
+          * @default false
          */
         "swatchOnly"?: boolean;
     }
     interface KupCombobox {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3305,35 +3872,14 @@ declare namespace LocalJSX {
           * Lets the combobox behave as a select element.
          */
         "isSelect"?: boolean;
-        /**
-          * Event example.
-         */
-        "onKupComboboxBlur"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxChange"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxClick"?: (event: CustomEvent<{
-        id: string;
-        value: any;
-    }>) => void;
-        "onKupComboboxFocus"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxIconClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxInput"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupComboboxItemClick"?: (event: CustomEvent<{
-        id: string;
-        value: any;
-    }>) => void;
-        "onKupComboboxTextFieldSubmit"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        "onKup-combobox-blur"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-change"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-click"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-focus"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-iconclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-input"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-itemclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-textfieldsubmit"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
@@ -3386,7 +3932,7 @@ declare namespace LocalJSX {
           * Sets the layout of the component.
          */
         "layout"?: string;
-        "onKetchupDashClicked"?: (event: CustomEvent<{
+        "onKup-dash-click"?: (event: CustomEvent<{
         id: number;
     }>) => void;
     }
@@ -3399,7 +3945,7 @@ declare namespace LocalJSX {
         "horizontal"?: boolean;
         "iconColor"?: Array<any>;
         "layout"?: string;
-        "onKetchupDashClicked"?: (event: CustomEvent<{
+        "onKup-dash-click"?: (event: CustomEvent<{
         idx: number;
     }>) => void;
         "textColor"?: Array<any>;
@@ -3514,105 +4060,53 @@ declare namespace LocalJSX {
           * @see loadMoreLimit
          */
         "loadMoreStep"?: number;
-        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{
-        column: string;
-    }>) => void;
-        /**
-          * When 'add column' menu item is clicked
-         */
-        "onKupAddColumn"?: (event: CustomEvent<{ column: string; comp: KupDataTable }>) => void;
         /**
           * When a row is auto selected via selectRow prop
          */
-        "onKupAutoRowSelect"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        selectedRow: Row;
-    }>) => void;
-        "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
-        "onKupCellTextFieldInput"?: (event: CustomEvent<KupDataTableCellTextFieldInput>) => void;
+        "onKup-datatable-autorowselect"?: (event: CustomEvent<KupDatatableAutoRowSelectEventPayload>) => void;
+        "onKup-datatable-cellbuttonclick"?: (event: CustomEvent<KupDataTableCellButtonClickEventPayload>) => void;
         /**
           * Emitted when a cell's data has been updated.
          */
-        "onKupDataTableCellUpdate"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        cell: Cell;
-        column: Column;
-        id: string;
-        row: Row;
-        event: any;
-    }>) => void;
+        "onKup-datatable-cellupdate"?: (event: CustomEvent<KupDatatableCellUpdateEventPayload>) => void;
         /**
           * Generic click event on data table.
          */
-        "onKupDataTableClick"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>) => void;
+        "onKup-datatable-click"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
         /**
-          * When the column menu is being opened/closed.
+          * Emitted by the column menu card when opened/closed or when a kup-card-event is fired.
          */
-        "onKupDataTableColumnMenu"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        card: HTMLKupCardElement;
-        open: boolean;
-    }>) => void;
+        "onKup-datatable-columnmenu"?: (event: CustomEvent<KupDatatableColumnMenuEventPayload>) => void;
         /**
           * Generic right click event on data table.
          */
-        "onKupDataTableContextMenu"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>) => void;
+        "onKup-datatable-contextmenu"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
         /**
           * Generic double click event on data table.
          */
-        "onKupDataTableDblClick"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        details: EventHandlerDetails;
-    }>) => void;
+        "onKup-datatable-dblclick"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
         /**
           * When component load is complete
          */
-        "onKupDidLoad"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
+        "onKup-datatable-didload"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * When component unload is complete
          */
-        "onKupDidUnload"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
-        "onKupLoadMoreClicked"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        loadItems: number;
-    }>) => void;
-        /**
-          * When cell option is clicked
-         */
-        "onKupOptionClicked"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        column: string;
-        row: Row;
-    }>) => void;
+        "onKup-datatable-didunload"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-datatable-loadmoreclick"?: (event: CustomEvent<KupDatatableLoadMoreClickEventPayload>) => void;
         /**
           * When rows selections reset
          */
-        "onKupResetSelectedRows"?: (event: CustomEvent<{ comp: KupDataTable }>) => void;
+        "onKup-datatable-resetselectedrows"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * When a row action is clicked
          */
-        "onKupRowActionClicked"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        type: 'default' | 'variable' | 'expander';
-        row: Row;
-        action?: RowAction;
-        index?: number;
-    }>) => void;
+        "onKup-datatable-rowactionclick"?: (event: CustomEvent<KupDatatableRowActionClickEventPayload>) => void;
         /**
           * When a row is selected
          */
-        "onKupRowSelected"?: (event: CustomEvent<{
-        comp: KupDataTable;
-        selectedRows: Array<Row>;
-        clickedRow: Row;
-        clickedColumn: string;
-    }>) => void;
+        "onKup-datatable-rowselected"?: (event: CustomEvent<KupDatatableRowSelectedEventPayload>) => void;
+        "onKup-datatable-textfieldinput"?: (event: CustomEvent<KupDataTableCellTextFieldInputEventPayload>) => void;
         /**
           * Current selected page set on component load
          */
@@ -3727,122 +4221,121 @@ declare namespace LocalJSX {
     }
     interface KupDatePicker {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the sub-components.
+          * @default null
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
+          * @default 1
          */
         "firstDayIndex"?: number;
         /**
           * Sets the initial value of the component
+          * @default ""
          */
         "initialValue"?: string;
-        "onKupDatePickerBlur"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerChange"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerClearIconClick"?: (event: CustomEvent<{
-        id: any;
-    }>) => void;
-        "onKupDatePickerClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerFocus"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerIconClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerInput"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerItemClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
+        "onKup-datepicker-blur"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-change"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-cleariconclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-datepicker-click"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-focus"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-iconclick"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-input"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-itemclick"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
+        "onKup-datepicker-textfieldsubmit"?: (event: CustomEvent<KupDatePickerEventPayload>) => void;
     }
     interface KupDrawer {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
-        "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
-        "onKupDrawerOpen"?: (event: CustomEvent<any>) => void;
+        "onKupDrawerClose"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKupDrawerOpen"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * Defaults at false. When set to true, the drawer appears.
+          * When set to true, the drawer appears.
+          * @default false
          */
         "opened"?: boolean;
     }
     interface KupDropdownButton {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the sub-components.
+          * @default null
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
         /**
+          * Default value is false. When set to true, the arrow dropdown button is the only button displayed.
+          * @default false
+         */
+        "dropdownOnly"?: boolean;
+        /**
           * Defaults at null. When set, the button will show this icon.
+          * @default icon
          */
         "icon"?: string;
         /**
           * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue"?: string;
         /**
           * Defaults at null. When set, the button will show this text.
+          * @default ""
          */
         "label"?: string;
-        "onKupDropdownButtonBlur"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        "onKupDropdownButtonClick"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        "onKupDropdownButtonFocus"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
-        "onKupDropdownSelectionChange"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupDropdownSelectionItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        /**
+          * Triggered when the primary button loses focus.
+         */
+        "onKup-dropdownbutton-blur"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
+        /**
+          * Triggered when a list item changes.
+         */
+        "onKup-dropdownbutton-change"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
+        /**
+          * Triggered when the primary button is clicked.
+         */
+        "onKup-dropdownbutton-click"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
+        /**
+          * Triggered when the primary button is focused.
+         */
+        "onKup-dropdownbutton-focus"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
+        /**
+          * Triggered when a list item is clicked.
+         */
+        "onKup-dropdownbutton-itemclick"?: (event: CustomEvent<KupDropdownButtonEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
         /**
@@ -3852,41 +4345,51 @@ declare namespace LocalJSX {
         "styling"?: FButtonStyling;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
+          * @default false
          */
         "trailingIcon"?: boolean;
     }
     interface KupEchart {
         /**
           * Sets the axis of the chart.
+          * @default ""
          */
         "axis"?: string;
         /**
           * Title of the graph.
+          * @default undefined
          */
-        "chartTitle"?: EchartTitle;
+        "chartTitle"?: KupEchartTitle;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The actual data of the chart.
+          * @default {}
          */
         "data"?: object;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default undefined
          */
         "legend"?: string;
         /**
           * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
+          * @default undefined
          */
         "mapType"?: any;
-        "onKupEchartClicked"?: (event: CustomEvent<any>) => void;
+        "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
+          * @default undefined
          */
         "series"?: string[];
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+          * @default ['Line']
          */
         "types"?: String[];
     }
@@ -3896,49 +4399,54 @@ declare namespace LocalJSX {
          */
         "text"?: string;
     }
-    interface KupFab {
-        "colorButton"?: string;
-        "onKupFabClick"?: (event: CustomEvent<{ id: string }>) => void;
-    }
     interface KupField {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Effective data to pass to the component.
+          * @default {}
          */
         "data"?: Object;
         /**
           * The text of the label. If set to empty or has only white space chars, the label will be removed.
+          * @default ""
          */
         "label"?: string;
         /**
           * Sets the label's position, left right or top.
+          * @default "left"
          */
         "labelPos"?: string;
         /**
           * Launched when the value of the current FLD changes.
          */
-        "onKupFldChange"?: (event: CustomEvent<KupFldChangeEvent>) => void;
+        "onKup-field-change"?: (event: CustomEvent<KupFieldChangeEvent>) => void;
         /**
           * Launched when the FLD values are confirmed and a submit event is triggered.
          */
-        "onKupFldSubmit"?: (event: CustomEvent<KupFldSubmitEvent>) => void;
+        "onKup-field-submit"?: (event: CustomEvent<KupFieldSubmitEvent>) => void;
         /**
           * Sets whether the submit button must be displayed or not.
+          * @default false
          */
         "showSubmit"?: boolean;
         /**
           * Sets the submit button's label.
+          * @default ""
          */
         "submitLabel"?: string;
         /**
           * Sets the submit button's position, top right bottom or left.
+          * @default "right"
          */
         "submitPos"?: string;
         /**
           * The type of the FLD
+          * @default undefined
          */
         "type"?: string;
     }
@@ -3960,10 +4468,10 @@ declare namespace LocalJSX {
         "extra"?: any;
         "extraMessages"?: FormMessage[];
         "fields"?: FormFields;
-        "onKupFormActionSubmitted"?: (event: CustomEvent<FormActionEventDetail>) => void;
-        "onKupFormFieldBlurred"?: (event: CustomEvent<FormFieldEventDetail>) => void;
-        "onKupFormFieldChanged"?: (event: CustomEvent<FormFieldEventDetail>) => void;
-        "onKupFormFieldFocused"?: (event: CustomEvent<FormFieldEventDetail>) => void;
+        "onKup-form-actionsubmitted"?: (event: CustomEvent<FormActionEventDetail>) => void;
+        "onKup-form-fieldblurred"?: (event: CustomEvent<FormFieldEventDetail>) => void;
+        "onKup-form-fieldchanged"?: (event: CustomEvent<FormFieldEventDetail>) => void;
+        "onKup-form-fieldfocused"?: (event: CustomEvent<FormFieldEventDetail>) => void;
         "refid"?: string;
         "searchCallBackOnFilterSubmitted"?: (
         detail: SearchFilterSubmittedEventDetail
@@ -3982,7 +4490,9 @@ declare namespace LocalJSX {
          */
         "colors"?: string[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4055,14 +4565,18 @@ declare namespace LocalJSX {
     interface KupGrid {
         /**
           * The number of columns displayed by the grid, the default behavior is 12.
+          * @default 12
          */
         "columns"?: number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * When set to true, forces the content on a single line.
+          * @default false
          */
         "singleLine"?: boolean;
     }
@@ -4075,8 +4589,8 @@ declare namespace LocalJSX {
           * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
         "isButton"?: boolean;
-        "onKupIframeError"?: (event: CustomEvent<any>) => void;
-        "onKupIframeLoad"?: (event: CustomEvent<any>) => void;
+        "onKup-iframe-error"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-iframe-load"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The address the iframe should be referencing to.
          */
@@ -4089,8 +4603,8 @@ declare namespace LocalJSX {
          */
         "badgeData"?: KupBadge[];
         /**
-          * The color of the icon, defaults to the CSS variable --kup-icon-color.
-          * @default 'var(--kup-icon-color)'
+          * The color of the icon, defaults to the CSS variable KupThemeColorValues.ICON.
+          * @default KupThemeColorValues.ICON
          */
         "color"?: string;
         /**
@@ -4114,9 +4628,7 @@ declare namespace LocalJSX {
           * @default false
          */
         "isCanvas"?: boolean;
-        "onKupImageClick"?: (event: CustomEvent<{
-        el: EventTarget;
-    }>) => void;
+        "onKup-image-click"?: (event: CustomEvent<KupImageClickEventPayload>) => void;
         /**
           * The resource used to fetch the image.
           * @default null
@@ -4132,27 +4644,6 @@ declare namespace LocalJSX {
           * @default '100%'
          */
         "sizeY"?: string;
-    }
-    interface KupImageButton {
-        /**
-          * If enabled, can select one or more images
-         */
-        "allowMultiSelection"?: boolean;
-        /**
-          * urls of the images
-         */
-        "images"?: any;
-        "onKupImageButtonSelected"?: (event: CustomEvent<{
-        selectedImages: [];
-    }>) => void;
-        /**
-          * If enabled, display the image description below the image
-         */
-        "showDescription"?: boolean;
-        /**
-          * image dimension
-         */
-        "size"?: number;
     }
     interface KupLayout {
         /**
@@ -4175,92 +4666,94 @@ declare namespace LocalJSX {
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
+          * @default null
          */
         "componentName"?: string;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Sets the data of the component to be lazy loaded.
+          * @default null
          */
-        "data"?: {};
+        "data"?: GenericObject;
+        /**
+          * Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport.
+          * @default KupLazyRender.BOTH
+         */
+        "renderMode"?: KupLazyRender;
         /**
           * Displays an animated SVG placeholder until the component is loaded.
+          * @default true
          */
         "showPlaceholder"?: boolean;
     }
     interface KupList {
         /**
-          * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
-         */
-        "arrowDown"?: boolean;
-        "arrowUp"?: boolean;
-        /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The data of the list.
+          * @default []
          */
-        "data"?: ComponentListElement[];
+        "data"?: KupListData[];
         /**
           * Selects how the items must display their label and how they can be filtered for.
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
         /**
           * Keeps string for filtering elements when filter mode is active
+          * @default ''
          */
         "filter"?: string;
         /**
           * Hides rows' text, ideally to display a list of icons only.
+          * @default false
          */
         "hideText"?: boolean;
         /**
           * Defines whether the list is a menu or not.
+          * @default false
          */
         "isMenu"?: boolean;
         /**
+          * When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.
+          * @default undefined
+         */
+        "keyboardNavigation"?: boolean;
+        /**
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
+          * @default false
          */
         "menuVisible"?: boolean;
-        /**
-          * Events.
-         */
-        "onKupListBlur"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
-        "onKupListChange"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
-        "onKupListClick"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
-        "onKupListFocus"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
-        "onKupListInput"?: (event: CustomEvent<{
-        selected: ComponentListElement;
-        el: EventTarget;
-    }>) => void;
+        "onKup-list-blur"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-list-click"?: (event: CustomEvent<KupListEventPayload>) => void;
+        "onKup-list-focus"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+          * @default KupListRole.LISTBOX
          */
-        "roleType"?: string;
+        "roleType"?: KupListRole;
         /**
           * Defines whether items are selectable or not.
+          * @default true
          */
         "selectable"?: boolean;
         /**
           * Displays the icons associated to each row when set to true.
+          * @default false
          */
         "showIcons"?: boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
+          * @default false
          */
         "twoLine"?: boolean;
     }
@@ -4284,23 +4777,29 @@ declare namespace LocalJSX {
     }
     interface KupNavBar {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The actual data of the nav bar.
+          * @default null
          */
-        "data"?: ComponentNavBarData;
+        "data"?: KupNavBarData;
         /**
           * Defines how the bar will be displayed.
+          * @default KupNavBarMode.DEFAULT
          */
-        "mode"?: ComponentNavBarMode;
-        "onKupNavbarMenuItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupNavbarOptionItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+        "mode"?: KupNavBarMode;
+        /**
+          * Triggered when a button's list item is clicked.
+         */
+        "onKup-navbar-menuitemclick"?: (event: CustomEvent<KupNavbarEventPayload>) => void;
+        /**
+          * Triggered when a button is clicked.
+         */
+        "onKup-navbar-optionitemclick"?: (event: CustomEvent<KupNavbarEventPayload>) => void;
     }
     interface KupPaginator {
         "currentPage"?: number;
@@ -4309,11 +4808,11 @@ declare namespace LocalJSX {
         /**
           * When the current page change
          */
-        "onKupPageChanged"?: (event: CustomEvent<{ newPage: number }>) => void;
+        "onKup-paginator-pagechanged"?: (event: CustomEvent<KupPaginatorPageChangedEventPayload>) => void;
         /**
           * When the rows per page change
          */
-        "onKupRowsPerPageChanged"?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
+        "onKup-paginator-rowsperpagechanged"?: (event: CustomEvent<KupPaginatorRowsPerPageChangedEventPayload>) => void;
         "perPage"?: number;
         "selectedPerPage"?: number;
     }
@@ -4342,30 +4841,38 @@ declare namespace LocalJSX {
     interface KupProgressBar {
         /**
           * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+          * @default true
          */
         "centeredLabel"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Flag to show or hide the progress bar's label.
+          * @default false
          */
         "hideLabel"?: boolean;
         /**
           * Specifies an icon to replace the label.
+          * @default null
          */
         "icon"?: string;
         /**
           * Radial version.
+          * @default false
          */
         "isRadial"?: boolean;
         /**
           * Specifies a text for the bar's label.
+          * @default null
          */
         "label"?: string;
         /**
           * The current value the progress bar must display.
+          * @default 0
          */
         "value"?: number;
     }
@@ -4409,66 +4916,65 @@ declare namespace LocalJSX {
     }
     interface KupRadio {
         /**
-          * Number of columns. When undefined, radio fields will be displayed inline.
+          * Number of columns. When null, radio fields will be displayed inline.
+          * @default null
          */
         "columns"?: number;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * List of elements.
+          * @default null
          */
-        "data"?: ComponentRadioElement[];
+        "data"?: KupRadioData[];
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Defaults at false. When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel"?: boolean;
         /**
-          * Defaults at null. It's the name that binds the radio buttons together.
+          * Triggered when the input element loses focus.
          */
-        "name"?: string;
-        "onKupRadioBlur"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
-    }>) => void;
-        "onKupRadioChange"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
-    }>) => void;
-        "onKupRadioClick"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
-    }>) => void;
-        "onKupRadioFocus"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
-    }>) => void;
-        "onKupRadioInput"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
-    }>) => void;
+        "onKup-radio-blur"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when the input element's value changes.
+         */
+        "onKup-radio-change"?: (event: CustomEvent<KupRadioChangeEventPayload>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
+        "onKup-radio-focus"?: (event: CustomEvent<KupEventPayload>) => void;
     }
     interface KupRating {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
-          * Max number of stars (default 5)
+          * Max number of stars (default 5).
+          * @default 5
          */
         "maxValue"?: number;
-        "onKupRatingClicked"?: (event: CustomEvent<any>) => void;
+        "onKupRatingClick"?: (event: CustomEvent<KupRatingClickEventPayload>) => void;
         /**
-          * Rated stars
+          * Rated stars.
+          * @default 0
          */
         "value"?: number;
     }
@@ -4500,34 +5006,43 @@ declare namespace LocalJSX {
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
+          * @default false
          */
         "active"?: boolean;
         /**
           * Decides whether the component is a bar or a spinner.
+          * @default false
          */
         "barVariant"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Width and height of the spinner. For the bar variant, only height.
+          * @default false
          */
         "dimensions"?: string;
         /**
           * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+          * @default false
          */
         "fader"?: boolean;
         /**
           * The time required for the "fader" to trigger.
+          * @default 3500
          */
         "faderTimeout"?: number;
         /**
           * When set to true the component will fill the whole viewport.
+          * @default false
          */
         "fullScreen"?: boolean;
         /**
           * Sets the layout of the spinner.
+          * @default 1
          */
         "layout"?: number;
     }
@@ -4561,46 +5076,40 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input element loses focus.
          */
-        "onKupSwitchBlur"?: (event: CustomEvent<{
-        value: string;
-    }>) => void;
+        "onKup-switch-blur"?: (event: CustomEvent<KupSwitchEventPayload>) => void;
         /**
           * Triggered when the input element's value changes.
          */
-        "onKupSwitchChange"?: (event: CustomEvent<{
-        id: string;
-        value: string;
-    }>) => void;
+        "onKup-switch-change"?: (event: CustomEvent<KupSwitchEventPayload>) => void;
         /**
           * Triggered when the input element gets focused.
          */
-        "onKupSwitchFocus"?: (event: CustomEvent<{
-        value: string;
-    }>) => void;
+        "onKup-switch-focus"?: (event: CustomEvent<KupSwitchEventPayload>) => void;
     }
     interface KupTabBar {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * List of elements.
+          * @default null
          */
-        "data"?: ComponentTabBarElement[];
-        "onKupTabBarBlur"?: (event: CustomEvent<{
-        index: number;
-        el: EventTarget;
-    }>) => void;
-        "onKupTabBarClick"?: (event: CustomEvent<{
-        id: string;
-        index: number;
-        el: EventTarget;
-        value: string;
-    }>) => void;
-        "onKupTabBarFocus"?: (event: CustomEvent<{
-        index: number;
-        el: EventTarget;
-    }>) => void;
+        "data"?: KupTabBarData[];
+        /**
+          * Triggered when the tab loses focus.
+         */
+        "onKup-tabbar-blur"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * Triggered when the tab is clicked.
+         */
+        "onKup-tabbar-click"?: (event: CustomEvent<KupTabBarClickEventPayload>) => void;
+        /**
+          * Triggered when the tab is focused.
+         */
+        "onKup-tabbar-focus"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
     }
     interface KupTextField {
         /**
@@ -4682,58 +5191,35 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input element loses focus.
          */
-        "onKupTextFieldBlur"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-blur"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the input element changes.
          */
-        "onKupTextFieldChange"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-change"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the text field's clear icon is clicked.
          */
-        "onKupTextFieldClearIconClick"?: (event: CustomEvent<{
-        id: any;
-    }>) => void;
+        "onKup-textfield-cleariconclick"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Triggered when the input element is clicked.
          */
-        "onKupTextFieldClick"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-click"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the input element gets focused.
          */
-        "onKupTextFieldFocus"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-focus"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the text field's icon is clicked.
          */
-        "onKupTextFieldIconClick"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-iconclick"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the input element receives an input.
          */
-        "onKupTextFieldInput"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-input"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * Triggered when the Enter key is pressed.
          */
-        "onKupTextFieldSubmit"?: (event: CustomEvent<{
-        id: any;
-        value: string;
-    }>) => void;
+        "onKup-textfield-submit"?: (event: CustomEvent<KupTextFieldEventPayload>) => void;
         /**
           * When set to true, the component will be rendered as an outlined field.
           * @default false
@@ -4768,65 +5254,47 @@ declare namespace LocalJSX {
     interface KupTimePicker {
         /**
           * When set to true, the drop down menu will display a clock.
+          * @default true
          */
         "clockVariant"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * Props of the sub-components (time input text field)
+          * @default {}
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
-          * Sets the initial value of the component
+          * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue"?: string;
         /**
-          * Manage seconds
+          * Manage seconds.
+          * @default false
          */
         "manageSeconds"?: boolean;
-        "onKupTimePickerBlur"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerChange"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerClearIconClick"?: (event: CustomEvent<{
-        id: any;
-    }>) => void;
-        "onKupTimePickerClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerFocus"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerIconClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerInput"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerItemClick"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
-        "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
-        id: any;
-        value: any;
-    }>) => void;
+        "onKup-timepicker-blur"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-change"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-cleariconclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-timepicker-click"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-focus"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-iconclick"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-input"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-itemclick"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
+        "onKup-timepicker-textfieldsubmit"?: (event: CustomEvent<KupTimePickerEventPayload>) => void;
         /**
-          * Minutes step
+          * Minutes step.
+          * @default 10
          */
         "timeMinutesStep"?: number;
     }
@@ -4855,65 +5323,21 @@ declare namespace LocalJSX {
           * Timeout for tooltip
          */
         "loadTimeout"?: number;
-        "onKupActionCommandClicked"?: (event: CustomEvent<{
-        actionCommand: TooltipAction;
-        relatedObject: TooltipRelatedObject;
-    }>) => void;
-        "onKupDefaultActionClicked"?: (event: CustomEvent<{
-        obj: TooltipObject;
-    }>) => void;
-        "onKupDefaultOptionClicked"?: (event: CustomEvent<{
-        obj: TooltipObject;
-    }>) => void;
-        "onKupDefaultPreviewClicked"?: (event: CustomEvent<{
-        obj: TooltipObject;
-    }>) => void;
-        "onKupTooltipLoadCellOptions"?: (event: CustomEvent<{
-        relatedObject: TooltipRelatedObject;
-        tooltip: KupTooltip;
-    }>) => void;
-        "onKupTooltipLoadData"?: (event: CustomEvent<{
-        relatedObject: TooltipRelatedObject;
-        tooltip: KupTooltip;
-    }>) => void;
-        "onKupTooltipLoadDetail"?: (event: CustomEvent<{
-        relatedObject: TooltipRelatedObject;
-        tooltip: KupTooltip;
-    }>) => void;
-        "onKupTooltipTreeDynamicMassExpansion"?: (event: CustomEvent<{
-        treeNodePath?: TreeNodePath;
-        treeNode?: TreeNode;
-        expandAll?: boolean;
-    }>) => void;
-        "onKupTooltipTreeNodeButtonClicked"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        column: Column;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>) => void;
-        "onKupTooltipTreeNodeDblClick"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-    }>) => void;
-        "onKupTooltipTreeNodeExpand"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        usesDynamicExpansion?: boolean;
-        dynamicExpansionRequireChildren?: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tooltip-actioncommandclick"?: (event: CustomEvent<KupTooltipActionCommandClickEventPayload>) => void;
+        "onKup-tooltip-defaultactionclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-defaultoptionclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-defaultpreviewclick"?: (event: CustomEvent<KupTooltipDefaultEventPayload>) => void;
+        "onKup-tooltip-loadcelloptions"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
+        "onKup-tooltip-loaddata"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
+        "onKup-tooltip-loaddetail"?: (event: CustomEvent<KupTooltipLoadEventPayload>) => void;
+        "onKup-tooltip-treedynamicmassexpansion"?: (event: CustomEvent<KupTooltipTreeDynamicMassExpansionEventPayload>) => void;
+        "onKup-tooltip-treenodebuttonclick"?: (event: CustomEvent<KupTooltipTreeNodeButtonClickEventPayload>) => void;
+        "onKup-tooltip-treenodedblclick"?: (event: CustomEvent<KupTooltipTreeNodeDblClickEventPayload>) => void;
+        "onKup-tooltip-treenodeexpand"?: (event: CustomEvent<KupTooltipTreeNodeExpandEventPayload>) => void;
         /**
           * Fired when a node of the tree has been selected
          */
-        "onKupTooltipTreeNodeSelected"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tooltip-treenodeselected"?: (event: CustomEvent<KupTooltipTreeNodeSelectedEventPayload>) => void;
         /**
           * Owner of this tooltip
          */
@@ -4933,7 +5357,9 @@ declare namespace LocalJSX {
          */
         "columns"?: Column[];
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -4969,60 +5395,36 @@ declare namespace LocalJSX {
          */
         "globalFilter"?: boolean;
         /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode"?: GlobalFilterMode;
+        /**
           * The value of the global filter.
          */
         "globalFilterValue"?: string;
-        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{ column: string }>) => void;
-        /**
-          * When 'add column' menu item is clicked
-         */
-        "onKupAddColumn"?: (event: CustomEvent<{ column: string }>) => void;
-        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
-        /**
-          * Triggered when stop propagation event
-         */
-        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        "onKup-tree-buttonclick"?: (event: CustomEvent<KupTreeNodeButtonClickEventPayload>) => void;
         /**
           * When the column menu is being opened/closed.
          */
-        "onKupTreeColumnMenu"?: (event: CustomEvent<{
-        card: HTMLKupCardElement;
-        open: boolean;
-    }>) => void;
+        "onKup-tree-columnmenu"?: (event: CustomEvent<KupTreeColumnMenuEventPayload>) => void;
         /**
           * Generic right click event on tree.
          */
-        "onKupTreeContextMenu"?: (event: CustomEvent<{
-        details: EventHandlerDetails;
-    }>) => void;
-        "onKupTreeDynamicMassExpansion"?: (event: CustomEvent<{
-        treeNodePath?: TreeNodePath;
-        treeNode?: TreeNode;
-        expandAll?: boolean;
-    }>) => void;
-        "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        column: Column;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tree-contextmenu"?: (event: CustomEvent<KupTreeContextMenuEventPayload>) => void;
+        "onKup-tree-didload"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when stop propagation event
+         */
+        "onKup-tree-didunload"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-tree-dynamicmassexpansion"?: (event: CustomEvent<KupTreeDynamicMassExpansionEventPayload>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).
          */
-        "onKupTreeNodeCollapse"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        tree: KupTree;
-    }>) => void;
-        "onKupTreeNodeDblClick"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-    }>) => void;
+        "onKup-tree-nodecollapse"?: (event: CustomEvent<KupTreeNodeCollapseEventPayload>) => void;
+        "onKup-tree-nodedblclick"?: (event: CustomEvent<KupTreeNodeCollapseEventPayload>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
-          * @event kupTreeNodeExpand
+          * @event kup-tree-nodeexpand
           * @type {object}
           * @property {TreeNodePath} treeNodePath - The array of indexes to retrieve the current treeNode inside the data prop.
           * @property {TreeNode} treeNode - Reference to the TreeNode data object which is being expanded (passed through the data prop).
@@ -5032,24 +5434,11 @@ declare namespace LocalJSX {
           * @see dynamicExpansionCallback *
           * @since 1.0.0
          */
-        "onKupTreeNodeExpand"?: (event: CustomEvent<{
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        usesDynamicExpansion?: boolean;
-        dynamicExpansionRequireChildren?: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tree-nodeexpand"?: (event: CustomEvent<KupTreeNodeExpandEventPayload>) => void;
         /**
           * Fired when a node of the tree has been selected
          */
-        "onKupTreeNodeSelected"?: (event: CustomEvent<{
-        id: string;
-        treeNodePath: TreeNodePath;
-        treeNode: TreeNode;
-        columnName: string;
-        auto: boolean;
-        tree: KupTree;
-    }>) => void;
+        "onKup-tree-nodeselected"?: (event: CustomEvent<KupTreeNodeSelectedEventPayload>) => void;
         /**
           * Sets the possibility to remove the selected column.
          */
@@ -5120,11 +5509,13 @@ declare namespace LocalJSX {
         "typeOptions"?: UploadProps;
     }
     interface IntrinsicElements {
+        "kup-accordion": KupAccordion;
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
         "kup-box": KupBox;
-        "kup-btn": KupBtn;
+        "kup-bpmn": KupBpmn;
         "kup-button": KupButton;
+        "kup-button-list": KupButtonList;
         "kup-calendar": KupCalendar;
         "kup-card": KupCard;
         "kup-chart": KupChart;
@@ -5141,14 +5532,12 @@ declare namespace LocalJSX {
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
         "kup-editor": KupEditor;
-        "kup-fab": KupFab;
         "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
-        "kup-image-button": KupImageButton;
         "kup-layout": KupLayout;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
@@ -5176,11 +5565,13 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "kup-accordion": LocalJSX.KupAccordion & JSXBase.HTMLAttributes<HTMLKupAccordionElement>;
             "kup-autocomplete": LocalJSX.KupAutocomplete & JSXBase.HTMLAttributes<HTMLKupAutocompleteElement>;
             "kup-badge": LocalJSX.KupBadge & JSXBase.HTMLAttributes<HTMLKupBadgeElement>;
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;
-            "kup-btn": LocalJSX.KupBtn & JSXBase.HTMLAttributes<HTMLKupBtnElement>;
+            "kup-bpmn": LocalJSX.KupBpmn & JSXBase.HTMLAttributes<HTMLKupBpmnElement>;
             "kup-button": LocalJSX.KupButton & JSXBase.HTMLAttributes<HTMLKupButtonElement>;
+            "kup-button-list": LocalJSX.KupButtonList & JSXBase.HTMLAttributes<HTMLKupButtonListElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
@@ -5197,14 +5588,12 @@ declare module "@stencil/core" {
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
-            "kup-fab": LocalJSX.KupFab & JSXBase.HTMLAttributes<HTMLKupFabElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
-            "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;

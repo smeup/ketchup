@@ -1,10 +1,11 @@
 <template>
   <div>
     <demo
+      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
-      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -20,11 +21,138 @@ export default {
   name: 'DatatableDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-cross-selection',
+          description:
+            'The selected cell will be highlighted by a cross-selection between its row and its column.',
+        },
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-layout-fixed',
+          description:
+            'Sets a fixed layout to improve performances (specifically when using Google Chrome, becasue every scroll triggers a repaint).',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupDataTableDblClick',
+          name: 'kup-datatable-resetselectedrows',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-autorowselect',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-rowselected',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-cellupdate',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-click',
+          type: 'click',
+        },
+        {
+          name: 'kup-datatable-contextmenu',
+          type: 'click',
+        },
+        {
+          name: 'kup-datatable-dblclick',
           type: 'dblclick',
+        },
+        {
+          name: 'kup-datatable-columnmenu',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-optionclick',
+          type: 'click',
+        },
+        {
+          name: 'kup-datatable-rowactionclick',
+          type: 'click',
+        },
+        {
+          name: 'kup-datatable-loadmoreclick',
+          type: 'click',
+        },
+        {
+          name: 'kup-datatable-cellbuttonclick',
+          type: 'click',
+        },
+        {
+          name: 'kup-datatable-textfieldinput',
+          type: 'input',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'closeColumnMenu',
+          description: 'Closes any opened column menu.',
+        },
+        {
+          name: 'collapseAll',
+          description: 'Collapses all groups.',
+        },
+        {
+          name: 'expandAll',
+          description: 'Expands all groups.',
+        },
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'openColumnMenu',
+          description: 'Opens the column menu of the given column.',
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'resizeCallback',
+          description:
+            'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+        {
+          name: 'setSelectedRows',
+          description:
+            'This method will set the selected rows of the component.',
         },
       ],
       demoProps: [
@@ -91,7 +219,7 @@ export default {
         {
           prop: 'filters',
           description: 'List of filters set by the user.',
-          type: 'GenericMap',
+          type: 'Object',
           default: 'undefined',
           try: 'json',
         },
@@ -142,7 +270,8 @@ export default {
         {
           prop: 'groups',
           description: 'The list of groups.',
-          type: 'GroupObject[]',
+          type: 'GroupObject',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -227,7 +356,8 @@ export default {
         {
           prop: 'rowActions',
           description: 'Sets the actions of the rows.',
-          type: 'rowAction[]',
+          type: 'RowAction',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -330,7 +460,8 @@ export default {
         {
           prop: 'sort',
           description: 'Defines the current sorting options.',
-          type: 'SortObject[]',
+          type: 'SortObject',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -399,43 +530,6 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-      ],
-      demoClasses: [
-        {
-          class: 'kup-cross-selection',
-          description:
-            'The selected cell will be highlighted by a cross-selection between its row and its column.',
-        },
-        {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-layout-fixed',
-          description:
-            'Sets a fixed layout to improve performances (specifically when using Google Chrome, becasue every scroll triggers a repaint).',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

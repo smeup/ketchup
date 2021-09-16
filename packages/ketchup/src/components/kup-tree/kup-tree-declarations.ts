@@ -1,4 +1,5 @@
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
     Cell,
     CellsHolder,
@@ -22,6 +23,7 @@ export enum KupTreeProps {
     filters = 'List of filters set by the user.',
     globalFilter = 'When set to true it activates the global filter.',
     globalFilterValue = 'The value of the global filter.',
+    globalFilterMode = 'The mode of the global filter.',
     removableColumns = 'Sets the possibility to remove the selected column.',
     scrollOnHover = 'Activates the scroll on hover function.',
     selectedNode = 'An array of integers containing the path to a selected child. Groups up the properties SelFirst, SelItem, SelName.',
@@ -48,41 +50,25 @@ export const treeExpandedPropName = 'isExpanded';
 
 export interface TreeNode {
     data?: GenericObject;
-
     actions?: Array<RowAction>;
-
     cells: CellsHolder;
-
     children: Array<TreeNode>;
- 
     disabled: boolean;
-
     expandable: boolean;
-
     icon?: string;
-
     iconColor?: string;
-
     id?: string;
-
     obj: {
         t: string;
         p: string;
         k: string;
     };
-
     options?: boolean;
-
-    // TODO what is this?
     readOnly?: boolean;
-
     style?: { [index: string]: string };
-
     value: string;
-
     /** used for render or not render node (and children) while filtering */
     visible?: boolean;
-
     [treeExpandedPropName]?: boolean;
 }
 
@@ -106,4 +92,45 @@ export interface EventHandlerDetails {
     td: HTMLTableDataCellElement;
     th: HTMLTableHeaderCellElement;
     tr: HTMLTableRowElement;
+}
+
+export interface KupTreeNodeCollapseEventPayload extends KupEventPayload {
+    treeNodePath: TreeNodePath;
+    treeNode: TreeNode;
+}
+
+export interface KupTreeNodeExpandEventPayload
+    extends KupTreeNodeCollapseEventPayload {
+    usesDynamicExpansion?: boolean;
+    dynamicExpansionRequireChildren?: boolean;
+}
+
+export interface KupTreeNodeSelectedEventPayload
+    extends KupTreeNodeCollapseEventPayload {
+    columnName: string;
+    auto: boolean;
+}
+
+export interface KupTreeNodeButtonClickEventPayload
+    extends KupTreeNodeCollapseEventPayload {
+    column: Column;
+    columnName: string;
+    auto: boolean;
+}
+
+export interface KupTreeContextMenuEventPayload extends KupEventPayload {
+    details: EventHandlerDetails;
+}
+
+export interface KupTreeColumnMenuEventPayload extends KupEventPayload {
+    card: HTMLKupCardElement;
+    event: CustomEvent<KupCardEventPayload | KupEventPayload>;
+    open: boolean;
+}
+
+export interface KupTreeDynamicMassExpansionEventPayload
+    extends KupEventPayload {
+    treeNodePath?: TreeNodePath;
+    treeNode?: TreeNode;
+    expandAll?: boolean;
 }

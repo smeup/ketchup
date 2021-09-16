@@ -5,19 +5,19 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type                                                                                                                                                                                         | Default                                   |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                                                                                                                     | `undefined`                               |
-| `data`        | --             | The actual data of the nav bar.                                                                                 | `ComponentNavBarData`                                                                                                                                                                        | `{         title: 'default title',     }` |
-| `mode`        | `mode`         | Defines how the bar will be displayed.                                                                          | `ComponentNavBarMode.DEFAULT \| ComponentNavBarMode.DENSE \| ComponentNavBarMode.FIXED \| ComponentNavBarMode.PROMINENT \| ComponentNavBarMode.SHORT \| ComponentNavBarMode.SHORT_COLLAPSED` | `ComponentNavBarMode.DEFAULT`             |
+| Property      | Attribute      | Description                            | Type                                                                                                                                                     | Default                 |
+| ------------- | -------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.         | `string`                                                                                                                                                 | `''`                    |
+| `data`        | --             | The actual data of the nav bar.        | `KupNavBarData`                                                                                                                                          | `null`                  |
+| `mode`        | `mode`         | Defines how the bar will be displayed. | `KupNavBarMode.DEFAULT \| KupNavBarMode.DENSE \| KupNavBarMode.FIXED \| KupNavBarMode.PROMINENT \| KupNavBarMode.SHORT \| KupNavBarMode.SHORT_COLLAPSED` | `KupNavBarMode.DEFAULT` |
 
 
 ## Events
 
-| Event                      | Description | Type                           |
-| -------------------------- | ----------- | ------------------------------ |
-| `kupNavbarMenuItemClick`   |             | `CustomEvent<{ value: any; }>` |
-| `kupNavbarOptionItemClick` |             | `CustomEvent<{ value: any; }>` |
+| Event                        | Description                                     | Type                                 |
+| ---------------------------- | ----------------------------------------------- | ------------------------------------ |
+| `kup-navbar-menuitemclick`   | Triggered when a button's list item is clicked. | `CustomEvent<KupNavbarEventPayload>` |
+| `kup-navbar-optionitemclick` | Triggered when a button is clicked.             | `CustomEvent<KupNavbarEventPayload>` |
 
 
 ## Methods
@@ -42,6 +42,16 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -56,7 +66,6 @@ graph TD;
   kup-nav-bar --> kup-list
   kup-nav-bar --> kup-button
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge

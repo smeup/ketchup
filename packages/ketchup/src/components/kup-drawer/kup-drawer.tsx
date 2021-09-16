@@ -8,15 +8,20 @@ import {
     Host,
     Method,
     Prop,
-    State,
     Watch,
 } from '@stencil/core';
 
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDrawerProps } from './kup-drawer-declarations';
 
 @Component({
@@ -27,55 +32,61 @@ import { KupDrawerProps } from './kup-drawer-declarations';
 export class KupDrawer {
     @Element() rootElement: HTMLElement;
 
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
-     * Defaults at false. When set to true, the drawer appears.
+     * When set to true, the drawer appears.
+     * @default false
      */
     @Prop({ reflect: true, mutable: true }) opened: boolean = false;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
 
-    //---- Watches ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    @Event() kupDrawerClose: EventEmitter<KupEventPayload>;
+    @Event() kupDrawerOpen: EventEmitter<KupEventPayload>;
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
 
     @Watch('opened')
     onOpenedChange(newValue: boolean) {
         if (newValue) {
-            this.kupDrawerOpen.emit();
+            this.kupDrawerOpen.emit({ comp: this, id: this.rootElement.id });
         } else {
-            this.kupDrawerClose.emit();
+            this.kupDrawerClose.emit({ comp: this, id: this.rootElement.id });
         }
     }
 
-    //---- Events ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
-    @Event() kupDrawerClose: EventEmitter;
-    @Event() kupDrawerOpen: EventEmitter;
-
-    //---- Methods ----
-
+    /**
+     * Closes the drawer.
+     */
     @Method()
-    async toggle() {
-        if (this.opened) {
-            this.close();
-        } else {
-            this.open();
-        }
-    }
-
-    @Method()
-    async close() {
+    async close(): Promise<void> {
         this.opened = false;
-    }
-
-    @Method()
-    async open() {
-        this.opened = true;
     }
     /**
      * Used to retrieve component's props values.
@@ -84,17 +95,14 @@ export class KupDrawer {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupDrawerProps;
-        } else {
-            for (const key in KupDrawerProps) {
-                if (Object.prototype.hasOwnProperty.call(KupDrawerProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupDrawerProps, descriptions);
+    }
+    /**
+     * Opens the drawer.
+     */
+    @Method()
+    async open(): Promise<void> {
+        this.opened = true;
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -103,8 +111,29 @@ export class KupDrawer {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupDrawerProps, props);
+    }
+    /**
+     * Opens the drawer when closed and vice-versa.
+     */
+    @Method()
+    async toggle(): Promise<void> {
+        if (this.opened) {
+            this.close();
+        } else {
+            this.open();
+        }
+    }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -131,7 +160,7 @@ export class KupDrawer {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div class="backdrop" onClick={() => this.close()} />
                     <aside>
                         <div class="header">

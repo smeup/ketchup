@@ -2,7 +2,11 @@ import get from 'lodash/get';
 import numeral from 'numeral';
 import moment from 'moment';
 
-import { Identifiable } from '../types/GenericTypes';
+import {
+    GenericObject,
+    Identifiable,
+    KupComponent,
+} from '../types/GenericTypes';
 
 export enum DateTimeFormatOptionsMonth {
     NUMERIC = 'numeric',
@@ -13,7 +17,7 @@ export enum DateTimeFormatOptionsMonth {
 }
 
 export function formatExtendedDate(date: Date): string {
-    return moment(date).format("dddd D MMMM YYYY");
+    return moment(date).format('dddd D MMMM YYYY');
 }
 
 export function identify(array: Array<Identifiable>) {
@@ -426,8 +430,12 @@ export function changeDateTimeFormat(
     outputFormat: string
 ): string {
     let m = moment(value, inputFormat);
-    let str = m.format(outputFormat);
-    return str;
+    if (m.isValid()) {
+        let str = m.format(outputFormat);
+        return str;
+    } else {
+        return '';
+    }
 }
 
 /**
@@ -872,9 +880,8 @@ function thisWeek(firstDayIndex?: number): { startDate: Date; endDate: Date } {
 export function getDaysOfWeekAsStringByLocale(
     firstDayIndex?: number
 ): string[] {
-    var thisWeekDays: { startDate: Date; endDate: Date } = thisWeek(
-        firstDayIndex
-    );
+    var thisWeekDays: { startDate: Date; endDate: Date } =
+        thisWeek(firstDayIndex);
     var monday: Date = thisWeekDays.startDate;
     var days: string[] = [];
     for (var i = 0; i < 7; i++) {
@@ -931,4 +938,50 @@ export function deepEqual(object1, object2): boolean {
 
 export function isObject(object): boolean {
     return object != null && typeof object === 'object';
+}
+
+/**
+ * Used to retrieve component's props values.
+ * @param {any} comp - Component calling this function.
+ * @param {GenericObject} list - Prop list, specific for each component.
+ * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+ * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+ */
+export function getProps(
+    comp: any,
+    list: GenericObject,
+    descriptions?: boolean
+): GenericObject {
+    let props: GenericObject = {};
+    if (descriptions) {
+        props = list;
+    } else {
+        for (const key in list) {
+            if (Object.prototype.hasOwnProperty.call(list, key)) {
+                props[key] = comp[key];
+            }
+        }
+    }
+    return props;
+}
+/**
+ * Sets the props to the component.
+ * @param {any} comp - Component calling this function.
+ * @param {GenericObject} list - Prop list, specific for each component.
+ * @param {GenericObject} props - Prop to be set.
+ */
+export function setProps(
+    comp: any,
+    list: GenericObject,
+    props: GenericObject
+): void {
+    for (const key in props) {
+        // If key is a custom prop it will be set on the component (i.e.: "data", "customStyle", ecc.)
+        if (list[key]) {
+            comp[key] = props[key];
+        } else {
+            // Otherwise, it will be set on its HTML element (i.e.: "id", "style", ecc.)
+            comp.rootElement[key] = props[key];
+        }
+    }
 }

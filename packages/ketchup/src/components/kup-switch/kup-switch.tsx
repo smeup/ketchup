@@ -16,10 +16,14 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
-import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupSwitchProps } from './kup-switch-declarations';
+import {
+    KupSwitchEventPayload,
+    KupSwitchProps,
+} from './kup-switch-declarations';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-switch',
@@ -28,7 +32,7 @@ import { KupSwitchProps } from './kup-switch-declarations';
 })
 export class KupSwitch {
     /**
-     * References the root HTML element of the component (<kup-image>).
+     * References the root HTML element of the component (<kup-switch>).
      */
     @Element() rootElement: HTMLElement;
 
@@ -90,42 +94,37 @@ export class KupSwitch {
      * Triggered when the input element loses focus.
      */
     @Event({
-        eventName: 'kupSwitchBlur',
+        eventName: 'kup-switch-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        value: string;
-    }>;
+    kupBlur: EventEmitter<KupSwitchEventPayload>;
     /**
      * Triggered when the input element's value changes.
      */
     @Event({
-        eventName: 'kupSwitchChange',
+        eventName: 'kup-switch-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupChange: EventEmitter<KupSwitchEventPayload>;
     /**
      * Triggered when the input element gets focused.
      */
     @Event({
-        eventName: 'kupSwitchFocus',
+        eventName: 'kup-switch-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupSwitchEventPayload>;
 
     onKupBlur() {
         this.kupBlur.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -139,6 +138,7 @@ export class KupSwitch {
             this.value = 'on';
         }
         this.kupChange.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -146,6 +146,8 @@ export class KupSwitch {
 
     onKupFocus() {
         this.kupFocus.emit({
+            comp: this,
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -161,17 +163,7 @@ export class KupSwitch {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupSwitchProps;
-        } else {
-            for (const key in KupSwitchProps) {
-                if (Object.prototype.hasOwnProperty.call(KupSwitchProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupSwitchProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -179,6 +171,14 @@ export class KupSwitch {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupSwitchProps, props);
     }
 
     /*-------------------------------------------------*/
@@ -203,7 +203,6 @@ export class KupSwitch {
                 if (labelEl) {
                     labelEl.onclick = () => this.onKupChange();
                 }
-                FSwitchMDC(f);
             }
         }
     }
@@ -250,7 +249,7 @@ export class KupSwitch {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <FSwitch {...props} />
                 </div>
             </Host>

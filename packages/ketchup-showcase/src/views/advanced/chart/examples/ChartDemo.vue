@@ -3,6 +3,7 @@
     <demo
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>
   </div>
@@ -22,8 +23,29 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupChartClicked',
+          name: 'kup-chart-click',
           type: 'click',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'resizeCallback',
+          description:
+            'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
         },
       ],
       demoProps: [
@@ -31,8 +53,8 @@ export default {
           prop: 'asp',
           description:
             'Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.',
-          type: 'string',
-          default: '2D',
+          type: 'ChartAspect',
+          default: 'undefined',
           try: 'field',
         },
         {
@@ -52,9 +74,10 @@ export default {
         {
           prop: 'colors',
           description: 'Colors of the chart.',
-          type: 'string[]',
+          type: 'string',
+          isArray: true,
           default: '[]',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'customStyle',
@@ -67,7 +90,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the chart.',
-          type: 'DataTable',
+          type: 'TableData',
           default: 'undefined',
           try: 'json',
         },
@@ -98,7 +121,8 @@ export default {
           prop: 'series',
           description:
             'The data series to be displayed. They must be of the same type.',
-          type: 'ChartSerie[]',
+          type: 'ChartSerie',
+          isArray: true,
           default: 'undefined',
           try: 'json',
         },
@@ -126,6 +150,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'sorting',
+          description: 'Used to sort series.',
+          type: 'KupChartSort',
+          isArray: true,
+          default: 'null',
+          try: 'json',
+        },
+        {
           prop: 'stacked',
           description:
             'Displays the data columns of an object on top of each other.',
@@ -137,9 +169,10 @@ export default {
           prop: 'types',
           description:
             'The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.',
-          type: 'ChartType[]',
+          type: 'ChartType',
+          isArray: true,
           default: '[ChartType.Hbar]',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'vAxis',
@@ -154,6 +187,29 @@ export default {
           type: 'string',
           default: '45.2',
           try: 'field',
+        },
+        {
+          prop: 'vAxes',
+          description: 'Customization vertical axis',
+          type: 'ChartAxis',
+          isArray: true,
+          default: 'undefined',
+          try: 'json',
+        },
+        {
+          prop: 'hAxes',
+          description: 'Customization horizontal axis',
+          type: 'ChartAxis',
+          isArray: true,
+          default: 'undefined',
+          try: 'json',
+        },
+        {
+          prop: 'trendlines',
+          description: 'Trendline definition',
+          type: 'KupChartTrendlines',
+          default: 'undefined',
+          try: 'json',
         },
       ],
     };

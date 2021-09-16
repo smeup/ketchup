@@ -1,4 +1,5 @@
-import { Identifiable } from '../../types/GenericTypes';
+import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 /**
  * Props of the kup-data-table component.
  * Used to export every prop in an object.
@@ -234,20 +235,6 @@ export enum ShowGrid {
 //     VARIABLE = 'Variable',
 // }
 
-export interface KupDataTableCellButtonClick {
-    comp: any;
-    cell: Cell;
-    column: Column;
-    row: Row;
-}
-
-export interface KupDataTableCellTextFieldInput {
-    comp: any;
-    cell: Cell;
-    column: Column;
-    row: Row;
-}
-
 //---- *NEXT functionality AKA load more ----
 export enum LoadMoreMode {
     CONSTANT = 'constant',
@@ -323,4 +310,60 @@ export enum SelectionMode {
     MULTIPLE_CHECKBOX = 'multiple-checkbox',
     MULTIPLE = 'multiple',
     NONE = 'none',
+}
+
+export interface KupDatatableAutoRowSelectEventPayload extends KupEventPayload {
+    selectedRow: Row;
+}
+
+export interface KupDatatableRowSelectedEventPayload extends KupEventPayload {
+    selectedRows: Array<Row>;
+    clickedRow: Row;
+    clickedColumn: string;
+}
+
+export interface KupDatatableCellUpdateEventPayload extends KupEventPayload {
+    cell: Cell;
+    column: Column;
+    row: Row;
+    event: any;
+}
+
+export interface KupDatatableClickEventPayload extends KupEventPayload {
+    details: EventHandlerDetails;
+}
+
+export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
+    card: HTMLKupCardElement;
+    event: CustomEvent<KupCardEventPayload | KupEventPayload>;
+    open: boolean;
+}
+
+export interface KupDatatableOptionClickEventPayload extends KupEventPayload {
+    column: string;
+    row: Row;
+}
+
+export interface KupDatatableRowActionClickEventPayload
+    extends KupEventPayload {
+    type: 'default' | 'variable' | 'expander';
+    row: Row;
+    action?: RowAction;
+    index?: number;
+}
+export interface KupDataTableCellButtonClickEventPayload
+    extends KupEventPayload {
+    cell: Cell;
+    column: Column;
+    row: Row;
+}
+
+export interface KupDataTableCellTextFieldInputEventPayload
+    extends KupEventPayload {
+    cell: Cell;
+    column: Column;
+    row: Row;
+}
+export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {
+    loadItems: number;
 }

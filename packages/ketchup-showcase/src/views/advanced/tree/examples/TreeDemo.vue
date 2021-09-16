@@ -1,17 +1,17 @@
 <template>
   <div>
     <demo
+      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
-      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
-import { baseData } from '@/mock/chart';
 
 export default {
   components: {
@@ -20,27 +20,100 @@ export default {
   name: 'TreeDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-full-width',
+          description: 'The tree will fill all the available horizontal space.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-layout-fixed',
+          description:
+            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-shaped',
+          description:
+            'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+      ],
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupTreeNodeCollapse',
+          name: 'kup-tree-nodecollapse',
           type: 'custom',
         },
         {
-          name: 'kupTreeNodeExpand',
+          name: 'kup-tree-nodeexpand',
           type: 'custom',
         },
         {
-          name: 'kupTreeNodeSelected',
+          name: 'kup-tree-nodeselected',
           type: 'custom',
         },
         {
-          name: 'kupTreeNodeDblClick',
+          name: 'kup-tree-nodedblclick',
           type: 'dblclick',
         },
         {
-          name: 'kupTreeDynamicMassExpansion',
+          name: 'kup-tree-dynamicmassexpansion',
           type: 'custom',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'closeColumnMenu',
+          description: 'Closes any opened column menu.',
+        },
+        {
+          name: 'collapseAll',
+          description: 'Collapses all nodes.',
+        },
+        {
+          name: 'expandAll',
+          description: 'Expands all nodes.',
+        },
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'openColumnMenu',
+          description: 'Opens the column menu of the given column.',
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
         },
       ],
       demoProps: [
@@ -55,7 +128,8 @@ export default {
           prop: 'columns',
           description:
             'The columns of the tree when tree visualization is active.',
-          type: 'Column[]',
+          type: 'Column',
+          isArray: true,
           default: 'undefined',
           try: 'json',
         },
@@ -70,7 +144,8 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the chart.',
-          type: 'TreeNode[]',
+          type: 'TreeNode',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -113,6 +188,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'globalFilterMode',
+          description: 'The mode of the global filter',
+          type: 'GlobalFilterMode',
+          default: 'SIMPLE',
+          try: 'field',
+        },
+        {
           prop: 'scrollOnHover',
           description:
             'When the mouse move towards the left or right edge and there is an overflow, the tree will automatically scroll.',
@@ -124,7 +206,8 @@ export default {
           prop: 'selectedNode',
           description:
             'An array of integers containing the path to a selected child. Groups up the properties SelFirst, SelItem, SelName.',
-          type: 'number[]',
+          type: 'number',
+          isArray: true,
           default: '[]',
           try: 'json',
         },
@@ -185,47 +268,6 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-      ],
-      demoClasses: [
-        {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-full-width',
-          description: 'The tree will fill all the available horizontal space.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-layout-fixed',
-          description:
-            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-shaped',
-          description:
-            'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

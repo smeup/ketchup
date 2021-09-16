@@ -35,6 +35,16 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -91,7 +101,6 @@ graph TD;
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list
@@ -107,6 +116,7 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
   kup-data-table --> kup-button
+  kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
@@ -120,6 +130,7 @@ graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
   kup-tooltip --> kup-tree
+  kup-tree --> kup-card
   kup-tree --> kup-image
   kup-tree --> kup-button
   kup-tree --> kup-chart
@@ -133,12 +144,16 @@ graph TD;
   kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
-  kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-color-picker --> kup-text-field
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-badge
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
+  kup-tab-bar --> kup-badge
   style kup-magic-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -1,9 +1,10 @@
 <template>
   <div>
     <demo
-      :demoComp="demoComp"
-      :demoProps="demoProps"
       :demoClasses="demoClasses"
+      :demoComp="demoComp"
+      :demoMethods="demoMethods"
+      :demoProps="demoProps"
     ></demo>
   </div>
 </template>
@@ -18,32 +19,6 @@ export default {
   name: 'GridDemo',
   data() {
     return {
-      demoComp: createComp(),
-      demoProps: [
-        {
-          prop: 'columns',
-          description:
-            'The number of columns displayed by the grid, the default behavior is 12.',
-          type: 'number',
-          default: '12',
-          try: 'field',
-        },
-        {
-          prop: 'customStyle',
-          description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
-          type: 'string',
-          default: '""',
-          try: 'css',
-        },
-        {
-          prop: 'singleLine',
-          description: 'When set to true, forces the content on a single line.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-      ],
       demoClasses: [
         {
           class: 'kup-danger',
@@ -73,6 +48,48 @@ export default {
           class: 'kup-warning',
           description:
             'The component will be rendered using the warning color of the app.',
+        },
+      ],
+      demoComp: createComp(),
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
+      demoProps: [
+        {
+          prop: 'columns',
+          description:
+            'The number of columns displayed by the grid, the default behavior is 12.',
+          type: 'number',
+          default: '12',
+          try: 'field',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: '""',
+          try: 'css',
+        },
+        {
+          prop: 'singleLine',
+          description: 'When set to true, forces the content on a single line.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
       ],
     };

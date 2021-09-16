@@ -172,6 +172,13 @@
   font-weight: bold;
 }
 
+.cell-content {
+  &--highlighted {
+    color: var(--kup-text-on-primary-color);
+    background-color: var(--kup-primary-color);
+  }
+}
+
 .icon-container.filter-remove:not(.f-image--wrapper) {
   background-color: var(--kup-text-color);
   margin: 0 0.25em;

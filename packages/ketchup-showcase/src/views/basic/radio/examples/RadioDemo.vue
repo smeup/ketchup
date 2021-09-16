@@ -1,10 +1,11 @@
 <template>
   <div>
     <demo
+      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
+      :demoMethods="demoMethods"
       :demoProps="demoProps"
-      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -19,78 +20,6 @@ export default {
   name: 'RadioDemo',
   data() {
     return {
-      demoComp: createComp(),
-      demoEvents: [
-        {
-          name: 'kupRadioClick',
-          type: 'click',
-        },
-        {
-          name: 'kupRadioChange',
-          type: 'change',
-        },
-        {
-          name: 'kupRadioInput',
-          type: 'input',
-        },
-        {
-          name: 'kupRadioFocus',
-          type: 'focus',
-        },
-        {
-          name: 'kupRadioBlur',
-          type: 'blur',
-        },
-      ],
-      demoProps: [
-        {
-          prop: 'columns',
-          description:
-            'Number of columns. When undefined, radio fields will be displayed inline.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
-          prop: 'customStyle',
-          description:
-            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
-          type: 'string',
-          default: '""',
-          try: 'css',
-        },
-        {
-          prop: 'data',
-          description:
-            'Object array containing the data of the radio list: value, label to be shown and status (if checked or not).',
-          type: 'ComponentRadioElement[]',
-          default: '[]',
-          try: 'json',
-        },
-        {
-          prop: 'disabled',
-          description:
-            'Sets the component to disabled state, making it not interactable.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'leadingLabel',
-          description:
-            'The label will be displayed to the left of the component.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'name',
-          description: "It's the name that binds the radio buttons together.",
-          type: 'string',
-          default: 'radio-list',
-          try: 'field',
-        },
-      ],
       demoClasses: [
         {
           class: 'kup-danger',
@@ -118,6 +47,80 @@ export default {
             'The component will be rendered using the warning color of the app.',
         },
       ],
+      demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kup-radio-change',
+          type: 'change',
+        },
+        {
+          name: 'kup-radio-focus',
+          type: 'focus',
+        },
+        {
+          name: 'kup-radio-blur',
+          type: 'blur',
+        },
+      ],
+      demoMethods: [
+        {
+          name: 'getProps',
+          description:
+            "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'refresh',
+          description:
+            'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'setProps',
+          description: 'Sets the props to the component.',
+        },
+      ],
+      demoProps: [
+        {
+          prop: 'columns',
+          description:
+            'Number of columns. When undefined, radio fields will be displayed inline.',
+          type: 'number',
+          default: 'null',
+          try: 'field',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: '""',
+          try: 'css',
+        },
+        {
+          prop: 'data',
+          description:
+            'Object array containing the data of the radio list: value, label to be shown and status (if checked or not).',
+          type: 'KupRadioData',
+          isArray: true,
+          default: 'null',
+          try: 'json',
+        },
+        {
+          prop: 'disabled',
+          description:
+            'Sets the component to disabled state, making it not interactable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'leadingLabel',
+          description:
+            'The label will be displayed to the left of the component.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+      ],
     };
   },
 };
@@ -137,7 +140,6 @@ function createComp() {
     },
   ];
   comp.id = 'demo-component';
-  comp.name = 'radio-list';
   return comp;
 }
 </script>

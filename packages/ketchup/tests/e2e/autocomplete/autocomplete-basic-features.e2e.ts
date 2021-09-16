@@ -1,7 +1,7 @@
 import { newE2EPage, E2EElement, E2EPage } from '@stencil/core/testing';
 
 import {
-    AutocompleteDisplayMode,
+    KupAutocompleteDisplayMode,
     AutocompleteSortBy,
     AutocompleteSortOrder,
     KupAutocompleteOption,
@@ -180,19 +180,19 @@ describe.skip('KetchUP autocomplete', () => {
     it.each([
         [
             'only the description',
-            AutocompleteDisplayMode.DESCRIPTION,
+            KupAutocompleteDisplayMode.DESCRIPTION,
             baseDescription.substr(0, 4),
             (item: KupAutocompleteOption) => item.description,
         ],
         [
             'only the code',
-            AutocompleteDisplayMode.CODE,
+            KupAutocompleteDisplayMode.CODE,
             baseCode.substr(0, 4),
             (item: KupAutocompleteOption) => item.code,
         ],
         [
             'both the code and description',
-            AutocompleteDisplayMode.DESCRIPTION_AND_CODE,
+            KupAutocompleteDisplayMode.DESCRIPTION_AND_CODE,
             baseCode.substr(0, 4),
             (item: KupAutocompleteOption) =>
                 item.code + ' - ' + item.description,
@@ -371,9 +371,10 @@ describe.skip('KetchUP autocomplete', () => {
         });
 
         it('can select more then one result', async () => {
-            const itemsToCheck: KupAutocompleteOption[] = multipleSelectedItems.map(
-                (index) => basicAutocompleteData[index]
-            );
+            const itemsToCheck: KupAutocompleteOption[] =
+                multipleSelectedItems.map(
+                    (index) => basicAutocompleteData[index]
+                );
 
             // Controls that the given elements have been selected.
             expect(autocompleteSelectEventSpy).toHaveLength(
@@ -397,9 +398,9 @@ describe.skip('KetchUP autocomplete', () => {
             // For each element to remove
             while (!removedAllSelected) {
                 // Gets the icon which can trigger the remove of the item from among the selected ones
-                const svg = ((await page.evaluateHandle(
+                const svg = (await page.evaluateHandle(
                     'document.querySelector("kup-autocomplete").shadowRoot.querySelector("kup-chip").shadowRoot.querySelector("svg")'
-                )) as unknown) as HTMLElement;
+                )) as unknown as HTMLElement;
                 svg.click();
                 await page.waitForChanges();
                 currentPayloadSelectedItemsCount--;

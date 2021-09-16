@@ -9,6 +9,7 @@ import {
     Method,
     Prop,
     State,
+    VNode,
 } from '@stencil/core';
 
 import Picker from 'vanilla-picker';
@@ -22,8 +23,14 @@ import {
     KupDynamicPositionElement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupColorPickerProps } from './kup-color-picker-declarations';
+import {
+    KupColorPickerEventPayload,
+    KupColorPickerProps,
+} from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-color-picker',
@@ -32,75 +39,96 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 })
 export class KupColorPicker {
     @Element() rootElement: HTMLElement;
-    @State() value: string = undefined;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
 
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * State of the component.
+     * @default null
+     */
+    @State() value: string = null;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * Props of the text field.
+     * @default null
      */
-    @Prop({ mutable: true }) data: Object = undefined;
+    @Prop({ mutable: true }) data: Object = null;
     /**
      * Defaults at false. When set to true, the component is disabled.
+     * @default false
      */
     @Prop() disabled: boolean = false;
     /**
      * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+     * @default ""
      */
     @Prop() initialValue: string = '';
     /**
      * When true, the component's text field will be replaced by a swatch.
+     * @default false
      */
     @Prop() swatchOnly: boolean = false;
 
-    private anchorEl: HTMLElement;
-    dropdownEl: HTMLElement;
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
     /**
      * Instance of the KupManager class.
      */
     kupManager: KupManager = kupManagerInstance();
+    private anchorEl: HTMLElement;
+    dropdownEl: HTMLElement;
     private picker: Picker;
     private textfieldEl: KupTextField;
 
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
     @Event({
-        eventName: 'kupColorPickerChange',
+        eventName: 'kup-colorpicker-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<{
-        value: any;
-    }>;
+    kupChange: EventEmitter<KupColorPickerEventPayload>;
 
     @Event({
-        eventName: 'kupColorPickerInput',
+        eventName: 'kup-colorpicker-input',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupInput: EventEmitter<{
-        value: any;
-    }>;
+    kupInput: EventEmitter<KupColorPickerEventPayload>;
 
-    //---- Methods ----
+    private onKupInput(e: CustomEvent): void {
+        this.value = e.detail.value;
+        this.setHexValue();
 
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
+        this.kupInput.emit({
+            comp: this,
+            id: this.rootElement.id,
+            value: this.value,
+        });
     }
 
-    @Method()
-    async setFocus() {
-        this.textfieldEl.setFocus();
-    }
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
-    @Method()
-    async setValue(value: string) {
-        this.value = value;
-        this.textfieldEl.setValue(value);
-    }
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -108,22 +136,39 @@ export class KupColorPicker {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupColorPickerProps;
-        } else {
-            for (const key in KupColorPickerProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        KupColorPickerProps,
-                        key
-                    )
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupColorPickerProps, descriptions);
+    }
+    /**
+     * Retrieves the component's value.
+     * @returns {string} Value of the component.
+     */
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+    /**
+     * Sets the focus to the component.
+     */
+    @Method()
+    async setFocus(): Promise<void> {
+        this.textfieldEl.setFocus();
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupColorPickerProps, props);
+    }
+    /**
+     * Sets the component's value.
+     * @param {string} value - Value to be set.
+     */
+    @Method()
+    async setValue(value: string): Promise<void> {
+        this.value = value;
+        this.textfieldEl.setValue(value);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -133,16 +178,11 @@ export class KupColorPicker {
         forceUpdate(this);
     }
 
-    private onKupInput(e: CustomEvent) {
-        this.value = e.detail.value;
-        this.setHexValue();
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
-        this.kupInput.emit({
-            value: this.value,
-        });
-    }
-
-    private setHexValue() {
+    private setHexValue(): void {
         if (this.value) {
             if (this.value.indexOf('#') < 0) {
                 this.value = this.kupManager.theme.colorCheck(
@@ -160,10 +200,10 @@ export class KupColorPicker {
         }
     }
 
-    private prepTextField() {
+    private prepTextField(): VNode {
         let initialValue = undefined;
         let textfieldData = { ...this.data['kup-text-field'] };
-        let customStyle: string = ` #kup-component .icon-container{box-sizing: border-box; border: 3px solid rgba(var(--kup-text-color-rgb),.575); border-radius: 50%; background-color:${this.value}!important;}`;
+        let customStyle: string = ` #kup-component .icon-container{box-sizing: border-box; border: 3px solid rgba(var(${KupThemeColorValues.TEXT}-rgb), .575); border-radius: 50%; background-color:${this.value}!important;}`;
         if (!textfieldData['icon']) {
             textfieldData['icon'] = 'brightness-1';
         }
@@ -200,13 +240,15 @@ export class KupColorPicker {
                 {...textfieldData}
                 disabled={this.disabled}
                 initialValue={initialValue}
-                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
+                onkup-textfield-input={(e: any) => this.onKupInput(e)}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -238,6 +280,8 @@ export class KupColorPicker {
                     colorPicker.dropdownEl as KupDynamicPositionElement
                 );
                 colorPicker.kupChange.emit({
+                    comp: colorPicker,
+                    id: colorPicker.rootElement.id,
                     value: colorPicker.value,
                 });
             };
@@ -278,8 +322,8 @@ export class KupColorPicker {
     }
 
     render() {
-        let hostClass: Record<string, boolean> = {};
-        let widget: HTMLElement = undefined;
+        const hostClass: Record<string, boolean> = {};
+        let widget: VNode = null;
         if (this.swatchOnly) {
             widget = (
                 <button
@@ -322,7 +366,7 @@ export class KupColorPicker {
             <Host class={hostClass}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div
-                    id="kup-component"
+                    id={componentWrapperId}
                     ref={(el) => (this.anchorEl = el as any)}
                 >
                     {widget}

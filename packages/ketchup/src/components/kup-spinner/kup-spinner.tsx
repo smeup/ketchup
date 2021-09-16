@@ -13,6 +13,8 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupSpinnerProps } from './kup-spinner-declarations';
 
 @Component({
@@ -22,47 +24,69 @@ import { KupSpinnerProps } from './kup-spinner-declarations';
     assetsDirs: ['assets'],
 })
 export class KupSpinner {
+    /**
+     * References the root HTML element of the component (<kup-spinner>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * When set to true the spinner is animating.
+     * @default false
      */
     @Prop({ reflect: true }) active: boolean = false;
     /**
      * Decides whether the component is a bar or a spinner.
+     * @default false
      */
     @Prop() barVariant: boolean = false;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * Width and height of the spinner. For the bar variant, only height.
+     * @default false
      */
-    @Prop() dimensions: string = undefined;
+    @Prop() dimensions: string = null;
     /**
      * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+     * @default false
      */
     @Prop() fader: boolean = false;
     /**
      * The time required for the "fader" to trigger.
+     * @default 3500
      */
     @Prop() faderTimeout: number = 3500;
     /**
      * When set to true the component will fill the whole viewport.
+     * @default false
      */
     @Prop({ reflect: true }) fullScreen: boolean = false;
     /**
      * Sets the layout of the spinner.
+     * @default 1
      */
     @Prop() layout: number = 1;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
 
-    //---- Methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -71,19 +95,7 @@ export class KupSpinner {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupSpinnerProps;
-        } else {
-            for (const key in KupSpinnerProps) {
-                if (
-                    Object.prototype.hasOwnProperty.call(KupSpinnerProps, key)
-                ) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupSpinnerProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -92,8 +104,18 @@ export class KupSpinner {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupSpinnerProps, props);
+    }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -237,7 +259,7 @@ export class KupSpinner {
         return (
             <Host style={elStyle}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" style={elStyle}>
+                <div id={componentWrapperId} style={elStyle}>
                     <div
                         id="loading-wrapper-master"
                         class={masterClass}

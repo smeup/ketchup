@@ -17,7 +17,12 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { KupRatingProps } from './kup-rating-declarations';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    KupRatingClickEventPayload,
+    KupRatingProps,
+} from './kup-rating-declarations';
 
 @Component({
     tag: 'kup-rating',
@@ -25,32 +30,73 @@ import { KupRatingProps } from './kup-rating-declarations';
     shadow: true,
 })
 export class KupRating {
+    /**
+     * References the root HTML element of the component (<kup-rating>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
     @State() stars: Array<object> = [];
 
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
+     * @default false
      */
     @Prop() disabled: boolean = false;
     /**
-     * Max number of stars (default 5)
+     * Max number of stars (default 5).
+     * @default 5
      */
     @Prop() maxValue: number = 5;
     /**
-     * Rated stars
+     * Rated stars.
+     * @default 0
      */
     @Prop() value: number = 0;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
 
-    @Event() kupRatingClicked: EventEmitter;
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    @Event() kupRatingClick: EventEmitter<KupRatingClickEventPayload>;
+
+    onStarClick(newValue: number) {
+        if (!this.disabled) {
+            this.value = newValue;
+            this.buildStars(this.value);
+            this.kupRatingClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+            });
+        }
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
 
     @Watch('value')
     @Watch('maxValue')
@@ -58,7 +104,9 @@ export class KupRating {
         this.buildStars(this.value);
     }
 
-    //---- Methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -67,17 +115,7 @@ export class KupRating {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupRatingProps;
-        } else {
-            for (const key in KupRatingProps) {
-                if (Object.prototype.hasOwnProperty.call(KupRatingProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupRatingProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -86,14 +124,18 @@ export class KupRating {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
-
-    onStarClicked(newValue: number) {
-        if (!this.disabled) {
-            this.value = newValue;
-            this.buildStars(this.value);
-            this.kupRatingClicked.emit({ value: this.value });
-        }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupRatingProps, props);
     }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     onMouseOver(newValue: number) {
         if (!this.disabled) {
@@ -117,7 +159,7 @@ export class KupRating {
                         class="rating"
                         onMouseOver={() => this.onMouseOver(i)}
                         onMouseOut={() => this.onMouseOut()}
-                        onClick={() => this.onStarClicked(i)}
+                        onClick={() => this.onStarClick(i)}
                     >
                         &#x2605;
                     </span>
@@ -128,7 +170,7 @@ export class KupRating {
                         class="rating"
                         onMouseOver={() => this.onMouseOver(i)}
                         onMouseOut={() => this.onMouseOut()}
-                        onClick={() => this.onStarClicked(i)}
+                        onClick={() => this.onStarClick(i)}
                     >
                         &#x2606;
                     </span>
@@ -139,7 +181,9 @@ export class KupRating {
         this.stars = stars;
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -167,7 +211,7 @@ export class KupRating {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <div>{this.stars}</div>
                 </div>
             </Host>

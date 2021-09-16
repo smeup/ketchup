@@ -44,9 +44,9 @@ export const baseData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
+            k: '100.50',
           },
-          value: '100.60',
+          value: '100.50',
         },
         Col4: {
           obj: {
@@ -469,6 +469,242 @@ export const ageWeightData = {
           value: '14',
         },
       },
+    },
+  ],
+};
+
+export const trendLinesData = {
+  columns: [
+    {
+      decimals: 0,
+      isKey: false,
+      name: 'COL1',
+      obj: {
+        k: '',
+        p: '',
+        t: 'NR',
+      },
+      title: 'Eta Beta',
+    },
+    {
+      decimals: 0,
+      isKey: false,
+      name: 'COL2',
+      obj: {
+        k: '',
+        p: '',
+        t: 'NR',
+      },
+      title: 'Filo Sganga',
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '0',
+            p: '',
+            t: 'NR',
+          },
+          value: '0',
+        },
+        COL1: {
+          obj: {
+            k: '5',
+            p: '',
+            t: 'NR',
+          },
+          value: '5',
+        },
+      },
+      id: '0',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '2',
+            p: '',
+            t: 'NR',
+          },
+          value: '2',
+        },
+        COL1: {
+          obj: {
+            k: '20',
+            p: '',
+            t: 'NR',
+          },
+          value: '20',
+        },
+      },
+      id: '1',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '44',
+            p: '',
+            t: 'NR',
+          },
+          value: '44',
+        },
+        COL1: {
+          obj: {
+            k: '35',
+            p: '',
+            t: 'NR',
+          },
+          value: '35',
+        },
+      },
+      id: '2',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '69',
+            p: '',
+            t: 'NR',
+          },
+          value: '69',
+        },
+        COL1: {
+          obj: {
+            k: '49',
+            p: '',
+            t: 'NR',
+          },
+          value: '49',
+        },
+      },
+      id: '3',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '110',
+            p: '',
+            t: 'NR',
+          },
+          value: '110',
+        },
+        COL1: {
+          obj: {
+            k: '63',
+            p: '',
+            t: 'NR',
+          },
+          value: '63',
+        },
+      },
+      id: '4',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '54',
+            p: '',
+            t: 'NR',
+          },
+          value: '54',
+        },
+        COL1: {
+          obj: {
+            k: '100',
+            p: '',
+            t: 'NR',
+          },
+          value: '100',
+        },
+      },
+      id: '5',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '560',
+            p: '',
+            t: 'NR',
+          },
+          value: '560',
+        },
+        COL1: {
+          obj: {
+            k: '110',
+            p: '',
+            t: 'NR',
+          },
+          value: '110',
+        },
+      },
+      id: '6',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '200',
+            p: '',
+            t: 'NR',
+          },
+          value: '200',
+        },
+        COL1: {
+          obj: {
+            k: '155',
+            p: '',
+            t: 'NR',
+          },
+          value: '155',
+        },
+      },
+      id: '7',
+      object: '',
+      readOnly: true,
+    },
+    {
+      cells: {
+        COL2: {
+          obj: {
+            k: '903',
+            p: '',
+            t: 'NR',
+          },
+          value: '903',
+        },
+        COL1: {
+          obj: {
+            k: '220',
+            p: '',
+            t: 'NR',
+          },
+          value: '220',
+        },
+      },
+      id: '8',
+      object: '',
+      readOnly: true,
     },
   ],
 };

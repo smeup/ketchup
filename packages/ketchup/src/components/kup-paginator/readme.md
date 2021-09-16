@@ -18,10 +18,10 @@
 
 ## Events
 
-| Event                   | Description                   | Type                                       |
-| ----------------------- | ----------------------------- | ------------------------------------------ |
-| `kupPageChanged`        | When the current page change  | `CustomEvent<{ newPage: number; }>`        |
-| `kupRowsPerPageChanged` | When the rows per page change | `CustomEvent<{ newRowsPerPage: number; }>` |
+| Event                              | Description                   | Type                                                      |
+| ---------------------------------- | ----------------------------- | --------------------------------------------------------- |
+| `kup-paginator-pagechanged`        | When the current page change  | `CustomEvent<KupPaginatorPageChangedEventPayload>`        |
+| `kup-paginator-rowsperpagechanged` | When the rows per page change | `CustomEvent<KupPaginatorRowsPerPageChangedEventPayload>` |
 
 
 ## Methods
@@ -56,7 +56,6 @@ graph TD;
   kup-paginator --> kup-badge
   kup-combobox --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-box --> kup-paginator

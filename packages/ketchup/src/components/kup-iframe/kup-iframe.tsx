@@ -10,12 +10,13 @@ import {
     Prop,
 } from '@stencil/core';
 
-import type { GenericObject } from '../../types/GenericTypes';
+import type { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { getProps, setProps } from '../../utils/utils';
 import { KupIframeProps } from './kup-iframe-declarations';
 
 @Component({
@@ -24,7 +25,14 @@ import { KupIframeProps } from './kup-iframe-declarations';
     shadow: true,
 })
 export class KupIframe {
+    /**
+     * References the root HTML element of the component (<kup-iframe>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      *  Props of the button (when isButton is set to true).
@@ -39,40 +47,47 @@ export class KupIframe {
      */
     @Prop() src: string = undefined;
 
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
     /**
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
 
-    //---- Methods ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kupIframeError',
+        eventName: 'kup-iframe-error',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupIframeError: EventEmitter;
+    kupIframeError: EventEmitter<KupEventPayload>;
 
     onKupIframeError() {
-        this.kupIframeError.emit();
+        this.kupIframeError.emit({ comp: this, id: this.rootElement.id });
     }
 
     @Event({
-        eventName: 'kupIframeLoad',
+        eventName: 'kup-iframe-load',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupIframeLoad: EventEmitter;
+    kupIframeLoad: EventEmitter<KupEventPayload>;
 
     onKupIframeLoad() {
-        this.kupIframeLoad.emit();
+        this.kupIframeLoad.emit({ comp: this, id: this.rootElement.id });
     }
 
-    openInNew() {
-        window.open(this.src, '_blank');
-    }
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
     /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
@@ -80,17 +95,7 @@ export class KupIframe {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupIframeProps;
-        } else {
-            for (const key in KupIframeProps) {
-                if (Object.prototype.hasOwnProperty.call(KupIframeProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupIframeProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -99,8 +104,26 @@ export class KupIframe {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupIframeProps, props);
+    }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    openInNew() {
+        window.open(this.src, '_blank');
+    }
+
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -138,7 +161,7 @@ export class KupIframe {
         }
 
         return !this.isButton ? (
-            <Host class="kup-iframe-version">
+            <Host is-iframe>
                 <iframe
                     onError={this.onKupIframeError.bind(this)}
                     onLoad={this.onKupIframeLoad.bind(this)}
@@ -146,10 +169,10 @@ export class KupIframe {
                 />
             </Host>
         ) : (
-            <Host class="kup-button-version">
+            <Host is-button>
                 <kup-button
                     {...this.buttonData}
-                    onKupButtonClick={() => this.openInNew()}
+                    onkup-button-click={() => this.openInNew()}
                 />
             </Host>
         );

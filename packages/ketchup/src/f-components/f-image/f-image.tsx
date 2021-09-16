@@ -1,6 +1,8 @@
 import type { KupBadge } from '../../components/kup-badge/kup-badge';
 import { FImageProps, FImageData, FImageShape } from './f-image-declarations';
 import { FunctionalComponent, getAssetPath, h, JSX } from '@stencil/core';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -41,7 +43,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
         el = createBar(props.data);
     }
 
-    let badgeCollection: KupBadge[] = [];
+    const badgeCollection: KupBadge[] = [];
     if (props.badgeData) {
         for (let index = 0; index < props.badgeData.length; index++) {
             badgeCollection.push(<kup-badge {...props.badgeData[index]} />);
@@ -69,13 +71,25 @@ export const FImage: FunctionalComponent<FImageProps> = (
 /*-------------------------------------------------*/
 
 function createIcon(props: FImageProps): HTMLDivElement {
-    let path = getAssetPath(`./assets/svg/${props.resource}.svg`);
-    let style = {
-        background: props.color ? props.color : 'var(--kup-icon-color)',
-        mask: `url('${path}') no-repeat center`,
-        webkitMask: `url('${path}') no-repeat center`,
+    const classObj: GenericObject = {
+        'f-image__icon': true,
     };
-    return <div class="f-image__icon" style={style}></div>;
+    const style: GenericObject = {
+        background: props.color
+            ? props.color
+            : `var(${KupThemeColorValues.ICON})`,
+    };
+    if (props.resource.indexOf('--kup') > -1) {
+        let themeIcon: string = props.resource.replace('--kup-', '');
+        themeIcon = themeIcon.replace('-icon', '');
+        classObj['icon-container'] = true;
+        classObj[themeIcon] = true;
+    } else {
+        const path: string = getAssetPath(`./assets/svg/${props.resource}.svg`);
+        style.mask = `url('${path}') no-repeat center`;
+        style.webkitMask = `url('${path}') no-repeat center`;
+    }
+    return <div class={classObj} style={style}></div>;
 }
 
 function createImage(resource: string): HTMLImageElement {
@@ -83,7 +97,7 @@ function createImage(resource: string): HTMLImageElement {
 }
 
 function createBar(data: FImageData[]): HTMLDivElement {
-    let steps: JSX.Element[] = [];
+    const steps: JSX.Element[] = [];
     let leftProgression: number = 0;
 
     for (let i = 0; i < data.length; i++) {
@@ -102,9 +116,9 @@ function createBar(data: FImageData[]): HTMLDivElement {
             data[i].width = '100%';
         }
 
-        let stepId: string = 'step-' + i;
-        let stepClass: string = 'css-step bottom-aligned';
-        let stepStyle: any = {
+        const stepId: string = 'step-' + i;
+        const stepClass: string = 'css-step bottom-aligned';
+        const stepStyle: any = {
             backgroundColor: data[i].color,
             left: leftProgression + '%',
             height: data[i].height,

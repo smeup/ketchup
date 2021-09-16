@@ -90,7 +90,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            "Cell's borders will be shaped (4px border radius). In the example the background is set to teal to see the borders.",
+            "Cell's borders will be shaped (4px border-radius). In the example the background is set to teal to see the borders.",
         },
         EXAMPLE: {
           obj: {
@@ -482,6 +482,36 @@ export const cellClassesDataTable = {
           },
           value: 'purple-bg',
           cssClass: 'purple-bg',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'top-right-indicator',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value:
+            'A triangle-shaped indicator will be displayed on the top right of the cell.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'top-right-indicator',
+          cssClass: 'top-right-indicator',
         },
       },
     },

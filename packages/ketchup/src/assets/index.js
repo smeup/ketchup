@@ -1,238 +1,214 @@
-// BTN
-// button list
-const btnlist = JSON.parse(`{
-      "key": "i456",
-      "options": {
-        "BTN": {
-          "": {
-            "enableSort": true
-          }
-        }
-      },
-      "data": [{
-        "value": "label bottone #1",
-        "options (sarebbe il tasto destro)": true,
-        "obj": "J1KEY",
-        "icon": "account",
-        "children": []
-      },{
-        "value": "label bottone #2",
-        "options (sarebbe il tasto destro)": true,
-        "obj": "J1KEY",
-        "icon": "plus",
-        "children": []
-      },{
-        "value": "label bottone #3",
-        "options (sarebbe il tasto destro)": true,
-        "obj": "J1KEY",
-        "icon": "plus",
-        "children": []
-      },{
-        "value": "label bottone #4",
-        "options (sarebbe il tasto destro)": true,
-        "obj": "J1KEY",
-        "icon": "plus",
-        "children": []
-      },{
-        "value": "label bottone #5",
-        "options (sarebbe il tasto destro)": true,
-        "obj": "J1KEY",
-        "icon": "plus",
-        "children": []
-      },{
-        "value": "label bottone #6",
-        "options (sarebbe il tasto destro)": true,
-        "obj": "J1KEY",
-        "icon": "plus",
-        "children": []
-      },{
-        "value": "label bottone #7",
-        "options (sarebbe il tasto destro)": true,
-        "obj": "J1KEY",
-        "icon": "plus",
-        "children": []
-      }],
-      "messages": [],
-      "actions": {
-        "row": [
-          {
-            "exec": "...",
-            "icon": "clock",
-            "text": "Scheda orologio"
-          }
+// Setting up utilities cards
+const cards = document.querySelectorAll('kup-card');
+for (let index = 0; index < cards.length; index++) {
+    const card = cards[index];
+    card.data = {
+        image: card.dataset.icon ? [{ resource: card.dataset.icon }] : null,
+        text: [
+            card.dataset.title ? card.dataset.title : null,
+            card.dataset.description ? card.dataset.description : null,
         ],
-        "global": [],
-        "auto (tag action attuale)": [
-          "F() / CLOSE / ETC...",
-          "F() / CLOSE / ETC...",
-          "F() / CLOSE / ETC...",
-          "F() / CLOSE / ETC..."
-        ],
-        "command": [
-          {
-            "exec": "...",
-            "icon": "play",
-            "text": "Spotify"
-          }
-        ]
-      },
-      "variables": [],
-      "dynamisms": []
-    }`);
-
-if (document.querySelector('kup-btn')) {
-    document.querySelector('kup-btn').buttons = btnlist.data;
-
-    document
-        .querySelector('kup-btn')
-        .addEventListener('kupButtonClicked', (event) => {
-            console.log(event);
-
-            const btnIndex = event.detail.id;
-
-            const jsonBtn = JSON.stringify(btnlist.data[btnIndex]);
-
-            document.getElementById(
-                'btn-label'
-            ).innerHTML = `Hai premuto sul pulsante: ${jsonBtn} ed il suo indice e' ${btnIndex}`;
-        });
-}
-
-function toggleBtnFillspace(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = { ...btn.config, fillspace: event.target.checked };
-}
-
-function toggleBtnShowtext(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        showtext: event.target.checked,
     };
-}
-
-function toggleBtnHorizontal(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        horizontal: event.target.checked,
+    card.onclick = (e) => {
+        gotoPage(e, card.dataset.href);
     };
+    card.sizeX = '264px';
+    card.sizeY = '264px';
 }
-
-function toggleBtnShowicon(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        showicon: event.target.checked,
-    };
-}
-
-function toggleBtnRounded(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        rounded: event.target.checked,
-    };
-}
-
-function toggleBtnTextModeHint(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        textmode: event.target.checked ? 'Hint' : '',
-    };
-}
-
-function toggleBtnTransparent(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        transparent: event.target.checked,
-    };
-}
-
-function onBorderColorChange(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        borderColor: event.target.value,
-    };
-}
-
-function onBorderButtonClassChange(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        buttonClass: event.target.value,
-    };
-}
-
-function toggleBtnFlat(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        flat: event.target.checked,
-    };
-}
-
-function toggleBtnShowSelection(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        showSelection: event.target.checked,
-    };
-}
-
-function toggleBtnColumns(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        columns: event.target.value,
-    };
-}
-
-function onBtnAlignChange(event) {
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        align: event.target.value,
-    };
-}
-
-function toggleBtnStyle() {
-    const bold = document.querySelector('#btn-fontbold').checked;
-    const italic = document.querySelector('#btn-fontitalic').checked;
-    const underline = document.querySelector('#btn-fontunderline').checked;
-    const fontColor = document.querySelector('#btn-fontcolor').value;
-    const bckColor = document.querySelector('#btn-bckcolor').value;
-    const font = document.querySelector('#btn-font').value;
-    const fontsize = document.querySelector('#btn-fontsize').value;
-
-    let btnStyle = {
-        bold,
-        italic,
-        underline,
-    };
-
-    if (fontColor) {
-        btnStyle.fontColor = fontColor;
+// Setting up components
+const components = document.querySelector('#components');
+components.data = [
+    {
+        text: 'Accordion',
+        value: 'accordion.html',
+    },
+    {
+        text: 'Autocomplete',
+        value: 'autocomplete.html',
+    },
+    {
+        text: 'Box',
+        value: 'box.html',
+    },
+    {
+        text: 'Bpmn.io',
+        value: 'bpmn.html',
+    },
+    {
+        text: 'Button',
+        value: 'button.html',
+    },
+    {
+        text: 'Button list',
+        value: 'button-list.html',
+    },
+    {
+        text: 'Card',
+        value: 'card.html',
+    },
+    {
+        text: 'Chart',
+        value: 'chart.html',
+    },
+    {
+        text: 'Checkbox',
+        value: 'checkbox.html',
+    },
+    {
+        text: 'Chip',
+        value: 'chip.html',
+    },
+    {
+        text: 'Color picker',
+        value: 'color-picker.html',
+    },
+    {
+        text: 'Combobox',
+        value: 'combobox.html',
+    },
+    {
+        text: 'Dash list',
+        value: 'dash-list.html',
+    },
+    {
+        text: 'Data table',
+        value: 'data-table.html',
+    },
+    {
+        text: 'Date picker',
+        value: 'date-picker.html',
+    },
+    {
+        text: 'Drawer',
+        value: 'drawer.html',
+    },
+    {
+        text: 'Dropdown button',
+        value: 'dropdown-button.html',
+    },
+    {
+        text: 'Echart',
+        value: 'echart.html',
+    },
+    {
+        text: 'Gauge',
+        value: 'gauge.html',
+    },
+    {
+        text: 'Layout',
+        value: 'layout.html',
+    },
+    {
+        text: 'List',
+        value: 'list.html',
+    },
+    {
+        text: 'Magic box',
+        value: 'magic-box.html',
+    },
+    {
+        text: 'Nav bar',
+        value: 'nav-bar.html',
+    },
+    {
+        text: 'Radio',
+        value: 'radio.html',
+    },
+    {
+        text: 'Rating',
+        value: 'rating.html',
+    },
+    {
+        text: 'Switch',
+        value: 'switch.html',
+    },
+    {
+        text: 'Tab bar',
+        value: 'tab-bar.html',
+    },
+    {
+        text: 'Time picker',
+        value: 'time-picker.html',
+    },
+    {
+        text: 'Text field',
+        value: 'text-field.html',
+    },
+    {
+        text: 'Tooltip',
+        value: 'tooltip.html',
+    },
+    {
+        text: 'Tree',
+        value: 'tree.html',
+    },
+];
+// Setting up performance pages
+const performances = document.querySelector('#performances');
+performances.data = [
+    {
+        text: 'Box',
+        value: 'box-performance.html',
+    },
+    {
+        text: 'Card',
+        value: 'card-performance.html',
+    },
+    {
+        text: 'Data table',
+        value: 'data-table-performance.html',
+    },
+];
+// Setting up events
+var ctrlKey = false;
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Control' || e.key === 'Meta') {
+        console.log('Pressing CTRL key.');
+        ctrlKey = true;
     }
-
-    if (bckColor) {
-        btnStyle.bckColor = bckColor;
+});
+document.addEventListener('keyup', (e) => {
+    if (e.key === 'Control' || e.key === 'Meta') {
+        console.log('CTRL key was released.');
+        ctrlKey = false;
     }
-
-    if (font) {
-        btnStyle.fontName = font;
+});
+document.addEventListener('kup-button-click', (e) => {
+    const id = e.detail.id;
+    switch (id) {
+        case 'debug':
+            console.log('Toggling debug.');
+            kupManager.debug.toggle();
+            break;
+        case 'theme':
+            if (isDarkMode()) {
+                console.log('Switching to light mode.');
+                e.detail.comp.icon = 'brightness_3';
+                kupManager.theme.set('ketchup');
+            } else {
+                console.log('Switching to dark mode.');
+                e.detail.comp.icon = 'brightness_5';
+                kupManager.theme.set('dark');
+            }
+            break;
     }
+});
+document.addEventListener('kup-list-click', (e) => {
+    gotoPage(e, e.detail.selected.value);
+});
 
-    if (fontsize) {
-        btnStyle.fontSize = '' + fontsize + 'px';
+function isDarkMode() {
+    return kupManager.theme.name === 'dark' ? true : false;
+}
+
+function gotoPage(e, href) {
+    console.log('Opening page:' + href);
+    const a = document.createElement('a');
+    a.setAttribute('href', href);
+    if (ctrlKey) {
+        a.setAttribute('target', '_blank');
     }
-
-    const btn = document.querySelector('kup-btn');
-    btn.config = {
-        ...btn.config,
-        btnStyle,
-    };
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
 }

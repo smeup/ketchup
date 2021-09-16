@@ -14,10 +14,16 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
+import {
+    getProps,
+    setProps,
+    unformattedStringToFormattedStringNumber,
+} from '../../utils/utils';
 import { KupGaugeProps } from './kup-gauge-declarations';
 
-declare const d3: any;
+import { arc } from 'd3-shape';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-gauge',
@@ -25,7 +31,14 @@ declare const d3: any;
     shadow: true,
 })
 export class KupGauge {
+    /**
+     * References the root HTML element of the component (<kup-gauge>).
+     */
     @Element() rootElement: HTMLElement;
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Sets how much the arc of the gauge should be thick.
@@ -37,12 +50,14 @@ export class KupGauge {
      * Array of three elements to specify the color of the arcs.
      */
     @Prop() colors: string[] = [
-        'var(--kup-success-color)',
-        'var(--kup-warning-color)',
-        'var(--kup-danger-color)',
+        `var(${KupThemeColorValues.SUCCESS})`,
+        `var(${KupThemeColorValues.WARNING})`,
+        `var(${KupThemeColorValues.DANGER})`,
     ];
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -115,10 +130,16 @@ export class KupGauge {
      */
     @Prop() widthComponent: string = '100%';
 
-    //---- Internal not reactive state ----
-    // Arcs generator
-    private arcGenerator = d3.arc();
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+    // Arcs generator
+    private arcGenerator = arc();
     /**
      * Holds the maximum positive interval.
      * Percentages are calculated as it follows:
@@ -128,12 +149,10 @@ export class KupGauge {
      * @namespace kup-gauge.maxValuePositive
      */
     private maxValuePositive = 0;
-    /**
-     * Instance of the KupManager class.
-     */
-    private kupManager: KupManager = kupManagerInstance();
 
-    //---- Methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
     /**
      * Used to retrieve component's props values.
@@ -142,17 +161,7 @@ export class KupGauge {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupGaugeProps;
-        } else {
-            for (const key in KupGaugeProps) {
-                if (Object.prototype.hasOwnProperty.call(KupGaugeProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupGaugeProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -161,9 +170,18 @@ export class KupGauge {
     async refresh(): Promise<void> {
         forceUpdate(this);
     }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupGaugeProps, props);
+    }
 
-    //---- Utility functions ----
-    // Manipulates and transforms degrees to percentage and vice versa.
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
     percToDeg(perc) {
         return perc * 360;
@@ -240,6 +258,10 @@ export class KupGauge {
             rightY
         );
     }
+
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
@@ -349,7 +371,10 @@ export class KupGauge {
                     : this.value < this.secondThreshold
                     ? computedcolors[1]
                     : computedcolors[2];
-            arcsColors = [valuecolor, 'rgba(var(--kup-text-color-rgb), .1)'];
+            arcsColors = [
+                valuecolor,
+                `rgba(var(${KupThemeColorValues.TEXT}-rgb), .1)`,
+            ];
         }
 
         for (let i = 0; i < arcsThresholds.length - 1; i++) {
@@ -471,7 +496,7 @@ export class KupGauge {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component" class="gauge__container">
+                <div id={componentWrapperId} class="gauge__container">
                     <svg
                         class="gauge"
                         style={width}

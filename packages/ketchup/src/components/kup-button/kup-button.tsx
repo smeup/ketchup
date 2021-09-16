@@ -16,13 +16,17 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
-import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import {
     FButtonProps,
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
-import { KupButtonProps } from './kup-button-declarations';
+import {
+    KupButtonClickEventPayload,
+    KupButtonProps,
+} from './kup-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-button',
@@ -109,41 +113,40 @@ export class KupButton {
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
+    /**
+     * Triggered when the button loses focus.
+     */
     @Event({
-        eventName: 'kupButtonBlur',
+        eventName: 'kup-button-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
-
+    kupBlur: EventEmitter<KupButtonClickEventPayload>;
+    /**
+     * Triggered when the button is clicked.
+     */
     @Event({
-        eventName: 'kupButtonClick',
+        eventName: 'kup-button-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
-
+    kupClick: EventEmitter<KupButtonClickEventPayload>;
+    /**
+     * Triggered when the button is focused.
+     */
     @Event({
-        eventName: 'kupButtonFocus',
+        eventName: 'kup-button-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<{
-        id: string;
-        value: string;
-    }>;
+    kupFocus: EventEmitter<KupButtonClickEventPayload>;
 
     onKupBlur() {
         this.kupBlur.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -162,6 +165,7 @@ export class KupButton {
             this.value = 'N/A';
         }
         this.kupClick.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -169,6 +173,7 @@ export class KupButton {
 
     onKupFocus() {
         this.kupFocus.emit({
+            comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
@@ -185,17 +190,7 @@ export class KupButton {
      */
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
-        let props: GenericObject = {};
-        if (descriptions) {
-            props = KupButtonProps;
-        } else {
-            for (const key in KupButtonProps) {
-                if (Object.prototype.hasOwnProperty.call(KupButtonProps, key)) {
-                    props[key] = this[key];
-                }
-            }
-        }
-        return props;
+        return getProps(this, KupButtonProps, descriptions);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -203,6 +198,14 @@ export class KupButton {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupButtonProps, props);
     }
 
     /*-------------------------------------------------*/
@@ -223,7 +226,6 @@ export class KupButton {
                     buttonEl.onclick = () => this.onKupClick();
                     buttonEl.onfocus = () => this.onKupFocus();
                 }
-                FButtonMDC(f);
             }
         }
     }
@@ -260,7 +262,7 @@ export class KupButton {
     }
 
     render() {
-        let props: FButtonProps = {
+        const props: FButtonProps = {
             checked: this.checked,
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
@@ -284,14 +286,14 @@ export class KupButton {
         };
 
         if (!this.label && !this.icon) {
-            let message = 'Empty button.';
             this.kupManager.debug.logMessage(
                 this,
-                message,
+                'Empty button.',
                 KupDebugCategory.WARNING
             );
             return;
         }
+
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
@@ -299,7 +301,7 @@ export class KupButton {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id="kup-component">
+                <div id={componentWrapperId}>
                     <FButton {...props} />
                 </div>
             </Host>

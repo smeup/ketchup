@@ -93,25 +93,22 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 ## Events
 
-| Event                     | Description                                    | Type                                                                                                                              |
-| ------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `kupAddCodeDecodeColumn`  |                                                | `CustomEvent<{ column: string; }>`                                                                                                |
-| `kupAddColumn`            | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; comp: KupDataTable; }>`                                                                            |
-| `kupAutoRowSelect`        | When a row is auto selected via selectRow prop | `CustomEvent<{ comp: KupDataTable; selectedRow: Row; }>`                                                                          |
-| `kupCellButtonClicked`    |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                                        |
-| `kupCellTextFieldInput`   |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`                                                                                     |
-| `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ comp: KupDataTable; cell: Cell; column: Column; id: string; row: Row; event: any; }>`                              |
-| `kupDataTableClick`       | Generic click event on data table.             | `CustomEvent<{ comp: KupDataTable; details: EventHandlerDetails; }>`                                                              |
-| `kupDataTableColumnMenu`  | When the column menu is being opened/closed.   | `CustomEvent<{ comp: KupDataTable; card: HTMLKupCardElement; open: boolean; }>`                                                   |
-| `kupDataTableContextMenu` | Generic right click event on data table.       | `CustomEvent<{ comp: KupDataTable; details: EventHandlerDetails; }>`                                                              |
-| `kupDataTableDblClick`    | Generic double click event on data table.      | `CustomEvent<{ comp: KupDataTable; details: EventHandlerDetails; }>`                                                              |
-| `kupDidLoad`              | When component load is complete                | `CustomEvent<{ comp: KupDataTable; }>`                                                                                            |
-| `kupDidUnload`            | When component unload is complete              | `CustomEvent<{ comp: KupDataTable; }>`                                                                                            |
-| `kupLoadMoreClicked`      |                                                | `CustomEvent<{ comp: KupDataTable; loadItems: number; }>`                                                                         |
-| `kupOptionClicked`        | When cell option is clicked                    | `CustomEvent<{ comp: KupDataTable; column: string; row: Row; }>`                                                                  |
-| `kupResetSelectedRows`    | When rows selections reset                     | `CustomEvent<{ comp: KupDataTable; }>`                                                                                            |
-| `kupRowActionClicked`     | When a row action is clicked                   | `CustomEvent<{ comp: KupDataTable; type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
-| `kupRowSelected`          | When a row is selected                         | `CustomEvent<{ comp: KupDataTable; selectedRows: Row[]; clickedRow: Row; clickedColumn: string; }>`                               |
+| Event                             | Description                                                                           | Type                                                      |
+| --------------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `kup-datatable-autorowselect`     | When a row is auto selected via selectRow prop                                        | `CustomEvent<KupDatatableAutoRowSelectEventPayload>`      |
+| `kup-datatable-cellbuttonclick`   |                                                                                       | `CustomEvent<KupDataTableCellButtonClickEventPayload>`    |
+| `kup-datatable-cellupdate`        | Emitted when a cell's data has been updated.                                          | `CustomEvent<KupDatatableCellUpdateEventPayload>`         |
+| `kup-datatable-click`             | Generic click event on data table.                                                    | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-columnmenu`        | Emitted by the column menu card when opened/closed or when a kup-card-event is fired. | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
+| `kup-datatable-contextmenu`       | Generic right click event on data table.                                              | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-dblclick`          | Generic double click event on data table.                                             | `CustomEvent<KupDatatableClickEventPayload>`              |
+| `kup-datatable-didload`           | When component load is complete                                                       | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-didunload`         | When component unload is complete                                                     | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-loadmoreclick`     |                                                                                       | `CustomEvent<KupDatatableLoadMoreClickEventPayload>`      |
+| `kup-datatable-resetselectedrows` | When rows selections reset                                                            | `CustomEvent<KupEventPayload>`                            |
+| `kup-datatable-rowactionclick`    | When a row action is clicked                                                          | `CustomEvent<KupDatatableRowActionClickEventPayload>`     |
+| `kup-datatable-rowselected`       | When a row is selected                                                                | `CustomEvent<KupDatatableRowSelectedEventPayload>`        |
+| `kup-datatable-textfieldinput`    |                                                                                       | `CustomEvent<KupDataTableCellTextFieldInputEventPayload>` |
 
 
 ## Methods
@@ -128,7 +125,7 @@ Type: `Promise<void>`
 
 ### `collapseAll() => Promise<void>`
 
-
+Collapses all groups.
 
 #### Returns
 
@@ -148,7 +145,7 @@ Type: `Promise<Column[]>`
 
 ### `expandAll() => Promise<void>`
 
-
+Expands all groups.
 
 #### Returns
 
@@ -206,6 +203,16 @@ Type: `Promise<void>`
 
 
 
+### `setProps(props: GenericObject) => Promise<void>`
+
+Sets the props to the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setSelectedRows(rowsById: string, emitEvent?: boolean) => Promise<void>`
 
 This method will set the selected rows of the component.
@@ -234,6 +241,7 @@ Type: `Promise<void>`
 - [kup-date-picker](../kup-date-picker)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
+- [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
@@ -255,6 +263,7 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
   kup-data-table --> kup-button
+  kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
@@ -270,7 +279,6 @@ graph TD;
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list
@@ -279,6 +287,8 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
+  kup-tab-bar --> kup-badge
+  kup-tree --> kup-card
   kup-tree --> kup-image
   kup-tree --> kup-button
   kup-tree --> kup-chart
@@ -292,13 +302,16 @@ graph TD;
   kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
-  kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-color-picker --> kup-text-field
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
   kup-tooltip --> kup-tree
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-badge
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-magic-box --> kup-data-table
