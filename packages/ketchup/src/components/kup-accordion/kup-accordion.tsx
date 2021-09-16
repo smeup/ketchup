@@ -45,6 +45,7 @@ import { KupTree } from '../kup-tree/kup-tree';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { GlobalFilterMode } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -83,6 +84,11 @@ export class KupAccordion {
      * @default ""
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
+
+    /**
+     * The mode of the global filter (default SIMPLE)
+     */
+    @Prop() globalFilterMode: GlobalFilterMode = GlobalFilterMode.SIMPLE;
 
     /**
      * The names of the selected items
@@ -302,6 +308,16 @@ export class KupAccordion {
         return cell != null;
     }
 
+    private isItemTitleFiltered(column: Column, filter: string): boolean {
+        const itemTitle: string = column.title;
+        const isItemTitleFiltered: boolean =
+            (itemTitle &&
+                filter &&
+                itemTitle.toLowerCase().includes(filter.toLowerCase())) ||
+            !filter;
+        return isItemTitleFiltered;
+    }
+
     private onKupTreeNodeSelected(
         e: CustomEvent<KupTreeNodeSelectedEventPayload>,
         itemName: string
@@ -381,6 +397,7 @@ export class KupAccordion {
                     ? { selectedNode: cellData.selectedNode }
                     : {})}
                 globalFilterValue={this.globalFilterValue}
+                globalFilterMode={this.globalFilterMode}
                 onkup-tree-nodeselected={(
                     e: CustomEvent<KupTreeNodeSelectedEventPayload>
                 ) => this.onKupTreeNodeSelected(e, itemName)}
@@ -410,6 +427,47 @@ export class KupAccordion {
             default:
                 return;
         }
+    }
+
+    /**
+     * Renders a content with a part highlighted.
+     * NOTE: same in kup-accordion and in kup-tree
+     */
+    private renderHighlightedContent(
+        content: string,
+        highlight: string,
+        styleClass: string
+    ) {
+        let contentSlices = [];
+        if (highlight && content) {
+            let contentPart = content;
+            let end = contentPart
+                .toLowerCase()
+                .indexOf(highlight.toLowerCase());
+            while (end > -1) {
+                contentSlices.push(contentPart.substring(0, end));
+                contentSlices.push(
+                    <span class={styleClass + '--highlighted'}>
+                        {contentPart.substring(end, end + highlight.length)}
+                    </span>
+                );
+                contentPart = contentPart.substring(
+                    end + highlight.length,
+                    contentPart.length
+                );
+                end = contentPart
+                    .toLowerCase()
+                    .indexOf(highlight.toLowerCase());
+            }
+            if (end < contentPart.length) {
+                contentSlices.push(
+                    contentPart.substring(end, contentPart.length)
+                );
+            }
+        } else {
+            contentSlices.push(content);
+        }
+        return <span class={styleClass}>{contentSlices}</span>;
     }
 
     private renderAccordion(): VNode[] {
@@ -447,6 +505,19 @@ export class KupAccordion {
                     : false,
             };
 
+            let title = '';
+            if (GlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
+                title = this.renderHighlightedContent(
+                    column.title,
+                    this.globalFilterValue,
+                    'accordion-item__text'
+                );
+            } else {
+                title = (
+                    <span class="accordion-item__text">{column.title}</span>
+                );
+            }
+
             const ic: number = i;
             items.push(
                 <div
@@ -467,7 +538,7 @@ export class KupAccordion {
                                 wrapperClass="accordion-item__icon"
                             />
                         ) : null}
-                        <span class="accordion-item__text">{column.title}</span>
+                        {title}
                         {isItemExpandible ? (
                             <span class="accordion-item__dropdown icon-container dropdown" />
                         ) : null}
@@ -507,8 +578,11 @@ export class KupAccordion {
             const treeElement: KupTree = this.treeElements[i];
             const column: Column = this.data.columns[i];
             const itemTitle: string = column.title;
-            const isItemTitleFiltered: boolean =
-                itemTitle && itemTitle.includes(this.globalFilterValue);
+            const isItemTitleFiltered = this.isItemTitleFiltered(
+                column,
+                this.globalFilterValue
+            );
+
             if (this.itemElements[i]) {
                 if (treeElement) {
                     treeElement.isEmpty().then((treeIsEmpty: boolean) => {

@@ -35,3 +35,8 @@ export interface Filter {
  * @property {string} 5 - Always equal to ': it's the end of the filter.
  */
 export const FILTER_ANALIZER = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
+
+export enum GlobalFilterMode {
+    SIMPLE = 'simple',
+    HIGHLIGHT = 'highlight',
+}
