@@ -58,6 +58,12 @@
           </svg>
         </a>
       </div>
+      <kup-accordion
+        class="kup-full-width"
+        :data.prop="accordionData"
+        id="navigation-accordion"
+        @kup-accordion-treenodeselected="treeClick"
+      ></kup-accordion>
     </kup-drawer>
     <v-content>
       <v-container>
@@ -106,6 +112,7 @@
 import { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
 import { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
 import { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
+import { KupAccordionTreeNodeSelectedEventPayload } from 'ketchup/dist/types/components/kup-accordion/kup-accordion-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -166,9 +173,345 @@ export default {
         dom.ketchup.debug.toggle(true);
       }
     },
+    treeClick(e: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>): void {
+      console.log(e);
+    },
   },
   data: () => ({
     drawer: null,
+    accordionData: {
+      columns: [
+        {
+          name: 'Components',
+          title: 'Components',
+          icon: 'widgets',
+        },
+        {
+          name: 'CSS',
+          title: 'CSS',
+          icon: 'style',
+        },
+        {
+          name: 'Javascript',
+          title: 'Javascript',
+          icon: 'json',
+        },
+      ],
+      rows: [
+        {
+          cells: {
+            Components: {
+              data: {
+                data: [
+                  {
+                    children: [
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Accordion',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Box',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Bpmn.io',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Button list',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Calendar',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Card',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Chart',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Dash',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Dash list',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Data table',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Echart',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Field',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Tooltip',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Tree',
+                        visible: true,
+                      },
+                    ],
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Advanced',
+                    visible: true,
+                  },
+                  {
+                    children: [
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Autocomplete',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Badge',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Button',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Checkbox',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Chip',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Color picker',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Combobox',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Datepicker',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Drawer',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Dropdown button',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Gauge',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Grid',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Iframe',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Image',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Lazy',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'List',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Nav bar',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Progress bar',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Radio',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Rating',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Spinner',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Switch',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Tab bar',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Text field',
+                        visible: true,
+                      },
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Time picker',
+                        visible: true,
+                      },
+                    ],
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Basic',
+                    visible: true,
+                  },
+                ],
+                density: 'wide',
+                scrollOnHover: true,
+              },
+              shape: 'TRE',
+            },
+            CSS: {
+              data: {
+                data: [
+                  {
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Customization',
+                    visible: true,
+                  },
+                  {
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Theming',
+                    visible: true,
+                  },
+                ],
+                density: 'wide',
+                scrollOnHover: true,
+              },
+              shape: 'TRE',
+            },
+            Javascript: {
+              data: {
+                data: [
+                  {
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Debugging',
+                    visible: true,
+                  },
+                  {
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Dynamic position',
+                    visible: true,
+                  },
+                  {
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Scroll on hover',
+                    visible: true,
+                  },
+                ],
+                density: 'wide',
+                scrollOnHover: true,
+              },
+              shape: 'TRE',
+            },
+          },
+          id: '1',
+        },
+      ],
+    },
     navbarImage: { resource: 'ketchup_logo_header.svg' },
     groupNavigationSections: [
       {
