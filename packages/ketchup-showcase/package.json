@@ -1,15 +1,15 @@
 {
   "name": "ketchup-showcase",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "keywords": [
-    "Sme.UP",
+    "smeup",
     "KetchUP showcase",
     "pwa",
     "custom elements",
     "components",
     "Vue.js"
   ],
-  "description": "Sme.UP's KetchUP web components library showcase based on Vuetify",
+  "description": "Ketch.UP Web Components library by smeup",
   "license": "Apache-2.0",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -65,9 +65,7 @@
     "start-server-and-test": "^1.7.10",
     "ts-jest": "^27.0.3",
     "typescript": "4.2.3",
-    "vue-cli-plugin-vuetify": "^0.5.0",
-    "vue-template-compiler": "^2.5.17",
-    "vuetify-loader": "^1.0.5"
+    "vue-template-compiler": "^2.5.17"
   },
   "vaadin": {
     "disableUsageStatistics": true

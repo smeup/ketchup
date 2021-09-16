@@ -1,9 +1,9 @@
 {
     "name": "ketchup-root",
-    "version": "0.0.1",
-    "description": "Sme.UP KetchUP components, web components library and showcase monorepo.",
+    "version": "1.0.0",
+    "description": "KetchUP Web Components, library and showcase monorepo by smeup.",
     "keywords": [
-        "Sme.UP",
+        "smeup",
         "monorepo",
         "Stencil",
         "web components",
