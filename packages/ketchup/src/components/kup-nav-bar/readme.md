@@ -20,6 +20,7 @@
 | ---------------------- | ------------------------------------------ | ------------------------------ |
 | `kup-navbar-menuclick` | Triggered when the menu button is clicked. | `CustomEvent<KupEventPayload>` |
 | `kup-navbar-ready`     | Triggered when the component is ready.     | `CustomEvent<KupEventPayload>` |
+| `kup-navbar-resize`    | Triggered when the component is resize.    | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
@@ -37,6 +38,16 @@ Type: `Promise<GenericObject>`
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `resizeCallback() => Promise<void>`
+
+This method is invoked by KupManager whenever the component changes size.
 
 #### Returns
 

@@ -2000,6 +2000,10 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
@@ -4815,6 +4819,10 @@ declare namespace LocalJSX {
           * Triggered when the component is ready.
          */
         "onKup-navbar-ready"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when the component is resize.
+         */
+        "onKup-navbar-resize"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * When true, the menu button will be displayed on the left of the nav bar.
           * @default null

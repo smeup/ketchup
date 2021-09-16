@@ -1,10 +1,11 @@
 <template>
-  <v-app id="inspire" style="display: none">
+  <div id="app" style="display: none">
     <kup-nav-bar
-      id="app-nav-bar"
+      id="app__nav-bar"
       :image.prop="navbarImage"
       label="Ketch.UP | Showcase"
       @kup-navbar-menuclick="menuClick"
+      @kup-navbar-resize="redrawNavigation"
     >
       <kup-switch
         id="theme-switch"
@@ -27,9 +28,9 @@
     ></kup-nav-bar>
     <kup-drawer
       class="kup-permanent"
-      id="app-drawer"
-      @kup-drawer-close="drawerClose"
-      @kup-drawer-open="drawerOpen"
+      id="app__drawer"
+      @kup-drawer-close="redrawNavigation"
+      @kup-drawer-open="redrawNavigation"
       @kup-drawer-ready="drawerReady"
     >
       <div class="logo">
@@ -65,14 +66,12 @@
         @kup-accordion-treenodeselected="treeClick"
       ></kup-accordion>
     </kup-drawer>
-    <v-content>
-      <v-container>
-        <v-fade-transition mode="out-in">
-          <router-view></router-view>
-        </v-fade-transition>
-      </v-container>
-    </v-content>
-    <v-footer app>
+    <div id="app__content">
+      <div id="app__container">
+        <router-view></router-view>
+      </div>
+    </div>
+    <div id="app__footer">
       <a
         class="first-icon"
         target="_blank"
@@ -104,13 +103,12 @@
           size-y="24px"
         ></kup-image>
       </a>
-    </v-footer>
-  </v-app>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
-import { KupEventPayload } from 'ketchup/dist/types/types/GenericTypes';
 import { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
 import { KupAccordionTreeNodeSelectedEventPayload } from 'ketchup/dist/types/components/kup-accordion/kup-accordion-declarations';
 
@@ -121,11 +119,11 @@ var drawer: HTMLKupDrawerElement = null;
 var navbar: HTMLKupNavBarElement = null;
 
 export default {
-  mounted: () => {
-    drawer = document.getElementById('app-drawer') as HTMLKupDrawerElement;
-    main = document.querySelector('main');
+  mounted: function () {
+    drawer = document.getElementById('app__drawer') as HTMLKupDrawerElement;
+    main = document.getElementById('app__content') as HTMLKupDrawerElement;
     main.style.padding = '';
-    navbar = document.getElementById('app-nav-bar') as HTMLKupNavBarElement;
+    navbar = document.getElementById('app__nav-bar') as HTMLKupNavBarElement;
   },
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
@@ -135,25 +133,28 @@ export default {
         dom.ketchup.theme.set('ketchup');
       }
     },
-    drawerClose(): void {
-      if (window.outerWidth >= 1260) {
-        main.classList.remove('has-padding');
-        navbar.classList.remove('has-padding');
+    drawerReady(): void {
+      if (window.outerWidth >= 1264) {
+        drawer.open();
       }
     },
-    drawerOpen(): void {
-      if (window.outerWidth >= 1260) {
-        main.classList.add('has-padding');
-        navbar.classList.add('has-padding');
-      }
-    },
-    drawerReady(e: CustomEvent<KupEventPayload>): void {
-      if (window.outerWidth >= 1260) {
-        e.detail.comp.open().then(() => {
-          main.classList.add('has-padding');
-          navbar.classList.add('has-padding');
-        });
-      }
+    redrawNavigation(): void {
+      drawer.isOpened().then((opened: boolean) => {
+        if (window.outerWidth >= 1264) {
+          drawer.classList.add('kup-permanent');
+          if (opened) {
+            main.classList.add('has-padding');
+            navbar.classList.add('has-padding');
+          } else {
+            main.classList.remove('has-padding');
+            navbar.classList.remove('has-padding');
+          }
+        } else {
+          drawer.classList.remove('kup-permanent');
+          main.classList.remove('has-padding');
+          navbar.classList.remove('has-padding');
+        }
+      });
     },
     menuClick(): void {
       drawer.isOpened().then((res: boolean) => {

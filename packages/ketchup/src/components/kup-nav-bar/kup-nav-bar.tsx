@@ -83,6 +83,10 @@ export class KupNavBar {
      */
     private kupManager: KupManager = kupManagerInstance();
     /**
+     * Used to prevent too many resizes callbacks at once.
+     */
+    private resizeTimeout: number;
+    /**
      * Text color of the title, which is set automatically depending on the contrast with the background.
      */
     private textColor: string = 'white';
@@ -105,6 +109,16 @@ export class KupNavBar {
         bubbles: true,
     })
     kupNavbarReady: EventEmitter<KupEventPayload>;
+    /**
+     * Triggered when the component is resize.
+     */
+    @Event({
+        eventName: 'kup-navbar-resize',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupNavbarResize: EventEmitter<KupEventPayload>;
     /**
      * Triggered when the menu button is clicked.
      */
@@ -142,6 +156,19 @@ export class KupNavBar {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            this.kupNavbarResize.emit({
+                comp: this,
+                id: this.rootElement.id,
+            });
+        }, 300);
     }
     /**
      * Sets the props to the component.
@@ -214,6 +241,7 @@ export class KupNavBar {
             comp: this,
             id: this.rootElement.id,
         });
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -293,6 +321,7 @@ export class KupNavBar {
 
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
+        this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);
     }
 }
