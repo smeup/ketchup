@@ -27,7 +27,8 @@
       ></kup-button
     ></kup-nav-bar>
     <kup-drawer
-      class="kup-permanent"
+      class="kup-full-width kup-permanent"
+      custom-style="::-webkit-scrollbar { width: 9px; }::-webkit-scrollbar-thumb {background-color: var(--kup-disabled-color);transition: background-color 0.2s ease-in-out;}::-webkit-scrollbar-track {background-color: var(--kup-background-color);}"
       id="app__drawer"
       @kup-drawer-close="redrawNavigation"
       @kup-drawer-open="redrawNavigation"
@@ -60,7 +61,7 @@
         </a>
       </div>
       <kup-accordion
-        class="kup-full-width"
+        class="kup-borderless kup-full-width"
         :data.prop="accordionData"
         id="navigation-accordion"
         @kup-accordion-treenodeselected="treeClick"
@@ -452,6 +453,20 @@ export default {
                     expandable: true,
                     isExpanded: false,
                     value: 'Basic',
+                    visible: true,
+                  },
+                  {
+                    children: [
+                      {
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Qlik',
+                        visible: true,
+                      },
+                    ],
+                    expandable: true,
+                    isExpanded: false,
+                    value: '3rd Parties',
                     visible: true,
                   },
                 ],

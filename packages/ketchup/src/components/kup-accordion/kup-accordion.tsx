@@ -8,7 +8,6 @@ import {
     Host,
     Method,
     Prop,
-    State,
     VNode,
     Watch,
 } from '@stencil/core';
@@ -19,11 +18,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
-import {
-    Cell,
-    CellData,
-    Column,
-} from '../kup-data-table/kup-data-table-declarations';
+import { Cell, Column } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupAccordionData,
     KupAccordionProps,
@@ -38,14 +33,12 @@ import {
     KupTreeNodeCollapseEventPayload,
     KupTreeNodeExpandEventPayload,
     KupTreeNodeSelectedEventPayload,
-    TreeNode,
 } from './../kup-tree/kup-tree-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupTree } from '../kup-tree/kup-tree';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
-import { GlobalFilterMode } from '../../utils/filters/filters-declarations';
+import { KupGlobalFilterMode } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -78,20 +71,19 @@ export class KupAccordion {
      * @default false
      */
     @Prop() globalFilter: boolean = false;
-
+    /**
+     * The mode of the global filter.
+     * @default KupGlobalFilterMode.SIMPLE
+     */
+    @Prop() globalFilterMode: KupGlobalFilterMode = KupGlobalFilterMode.SIMPLE;
     /**
      * The value of the global filter.
      * @default ""
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
-
     /**
-     * The mode of the global filter (default SIMPLE)
-     */
-    @Prop() globalFilterMode: GlobalFilterMode = GlobalFilterMode.SIMPLE;
-
-    /**
-     * The names of the selected items
+     * The names of the selected items.
+     * @default []
      */
     @Prop({ mutable: true }) selectedItemsNames: string[] = [];
 
@@ -114,14 +106,14 @@ export class KupAccordion {
     /**
      * References the tree subcomponents of the component (<kup-tree>).
      */
-    private treeElements: { [key: number]: KupTree } = {};
+    private treeElements: { [key: number]: HTMLKupTreeElement } = {};
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
     /**
-     * Fired when a item is selected
+     * Fired when an item is selected.
      */
     @Event({
         eventName: 'kup-accordion-itemselected',
@@ -130,9 +122,8 @@ export class KupAccordion {
         bubbles: true,
     })
     kupAccordionItemSelected: EventEmitter<KupAccordionItemSelectedEventPayload>;
-
     /**
-     * Fired when a TreeNode is selected
+     * Fired when a TreeNode is selected.
      */
     @Event({
         eventName: 'kup-accordion-treenodeselected',
@@ -141,9 +132,8 @@ export class KupAccordion {
         bubbles: true,
     })
     kupAccordionTreeNodeSelected: EventEmitter<KupAccordionTreeNodeSelectedEventPayload>;
-
     /**
-     * Fired when a item is expanded
+     * Fired when an item is expanded.
      */
     @Event({
         eventName: 'kup-accordion-itemexpanded',
@@ -152,9 +142,8 @@ export class KupAccordion {
         bubbles: true,
     })
     kupAccordionItemExpanded: EventEmitter<KupAccordionItemExpandedEventPayload>;
-
     /**
-     * Fired when a TreeNode is expanded
+     * Fired when a TreeNode is expanded.
      */
     @Event({
         eventName: 'kup-accordion-treenodeexpanded',
@@ -163,9 +152,8 @@ export class KupAccordion {
         bubbles: true,
     })
     kupAccordionTreeNodeExpanded: EventEmitter<KupAccordionTreeNodeExpandedEventPayload>;
-
     /**
-     * Fired when a item is collapsed
+     * Fired when an item is collapsed.
      */
     @Event({
         eventName: 'kup-accordion-itemcollapsed',
@@ -174,9 +162,8 @@ export class KupAccordion {
         bubbles: true,
     })
     kupAccordionItemCollapsed: EventEmitter<KupAccordionItemCollapsedEventPayload>;
-
     /**
-     * Fired when a TreeNode is collapsed
+     * Fired when a TreeNode is collapsed.
      */
     @Event({
         eventName: 'kup-accordion-treenodecollapsed',
@@ -233,8 +220,8 @@ export class KupAccordion {
      */
     @Method()
     async toggleItem(itemName: string) {
-        const isItemExpandible = this.isItemExpandible(itemName);
-        const isItemSelected = this.isItemSelected(itemName);
+        const isItemExpandible: boolean = this.isItemExpandible(itemName);
+        const isItemSelected: boolean = this.isItemSelected(itemName);
 
         const ids: string[] = [...this.selectedItemsNames];
         if (ids.includes(itemName)) {
@@ -277,7 +264,7 @@ export class KupAccordion {
         ids.splice(0, ids.length);
 
         for (var i = 0; i < this.data.columns.length; i++) {
-            const column = this.data.columns[i];
+            const column: Column = this.data.columns[i];
             const itemName: string = column.name;
             ids.push(itemName);
         }
@@ -376,43 +363,6 @@ export class KupAccordion {
         this.globalFilterValue = value;
     }
 
-    private renderKupTree(
-        i: number,
-        cellData: CellData,
-        itemName: string
-    ): VNode[] {
-        const kupTree: VNode[] = [];
-        const tree: TreeNode[] = [];
-
-        for (let m = 0; m < cellData.data.length; m++) {
-            const treeNode: TreeNode = cellData.data[m];
-            tree.push(treeNode);
-        }
-
-        kupTree.push(
-            <kup-tree
-                class="kup-full-width"
-                data={tree}
-                {...(cellData.selectedNode
-                    ? { selectedNode: cellData.selectedNode }
-                    : {})}
-                globalFilterValue={this.globalFilterValue}
-                globalFilterMode={this.globalFilterMode}
-                onkup-tree-nodeselected={(
-                    e: CustomEvent<KupTreeNodeSelectedEventPayload>
-                ) => this.onKupTreeNodeSelected(e, itemName)}
-                onkup-tree-nodeexpand={(
-                    e: CustomEvent<KupTreeNodeExpandEventPayload>
-                ) => this.onKupTreeNodeExpanded(e, itemName)}
-                onkup-tree-nodecollapse={(
-                    e: CustomEvent<KupTreeNodeCollapseEventPayload>
-                ) => this.onKupTreeNodeCollapsed(e, itemName)}
-                ref={(el: any) => (this.treeElements[i] = el as KupTree)}
-            ></kup-tree>
-        );
-        return kupTree;
-    }
-
     private renderSubComponent(
         i: number,
         cell: Cell,
@@ -422,26 +372,51 @@ export class KupAccordion {
 
         switch (shape) {
             case 'TRE': {
-                return this.renderKupTree(i, cell.data, itemName);
+                return (
+                    <kup-tree
+                        class="kup-full-width"
+                        {...cell.data}
+                        {...(cell.data.selectedNode
+                            ? { selectedNode: cell.data.selectedNode }
+                            : {})}
+                        globalFilterValue={this.globalFilterValue}
+                        globalFilterMode={this.globalFilterMode}
+                        onkup-tree-nodeselected={(
+                            e: CustomEvent<KupTreeNodeSelectedEventPayload>
+                        ) => this.onKupTreeNodeSelected(e, itemName)}
+                        onkup-tree-nodeexpand={(
+                            e: CustomEvent<KupTreeNodeExpandEventPayload>
+                        ) => this.onKupTreeNodeExpanded(e, itemName)}
+                        onkup-tree-nodecollapse={(
+                            e: CustomEvent<KupTreeNodeCollapseEventPayload>
+                        ) => this.onKupTreeNodeCollapsed(e, itemName)}
+                        ref={(el: HTMLKupTreeElement) =>
+                            (this.treeElements[i] = el)
+                        }
+                    ></kup-tree>
+                );
             }
             default:
                 return;
         }
     }
-
     /**
      * Renders a content with a part highlighted.
      * NOTE: same in kup-accordion and in kup-tree
+     * @param {string} content - String that needs to be checked.
+     * @param {string} highlight - String that needs to be highlighted.
+     * @param {string} styleClass - className of the virtual node returned.
+     * @returns {VNode} Virtual node of the hightlighted content.
      */
     private renderHighlightedContent(
         content: string,
         highlight: string,
         styleClass: string
-    ) {
-        let contentSlices = [];
+    ): VNode {
+        const contentSlices: Array<VNode | string> = [];
         if (highlight && content) {
-            let contentPart = content;
-            let end = contentPart
+            let contentPart: string = content;
+            let end: number = contentPart
                 .toLowerCase()
                 .indexOf(highlight.toLowerCase());
             while (end > -1) {
@@ -505,8 +480,8 @@ export class KupAccordion {
                     : false,
             };
 
-            let title = '';
-            if (GlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
+            let title: VNode = null;
+            if (KupGlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
                 title = this.renderHighlightedContent(
                     column.title,
                     this.globalFilterValue,
@@ -575,10 +550,9 @@ export class KupAccordion {
             this.data && this.data.columns && i < this.data.columns.length;
             i++
         ) {
-            const treeElement: KupTree = this.treeElements[i];
+            const treeElement: HTMLKupTreeElement = this.treeElements[i];
             const column: Column = this.data.columns[i];
-            const itemTitle: string = column.title;
-            const isItemTitleFiltered = this.isItemTitleFiltered(
+            const isItemTitleFiltered: boolean = this.isItemTitleFiltered(
                 column,
                 this.globalFilterValue
             );

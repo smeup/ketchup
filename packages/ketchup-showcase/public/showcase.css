@@ -113,6 +113,7 @@ h3 {
 
 #app__content {
   padding-top: 64px;
+  transition: all 250ms;
 }
 
 .has-padding {
@@ -304,7 +305,7 @@ code.flat {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: var(--kup-navbar-zindex);
+  z-index: calc(var(--kup-drawer-zindex) - 1);
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -935,9 +936,9 @@ table#customstyle-tab kup-text-field {
 @media only screen and (max-width: 960px) {
   #app__container {
     padding: 0;
+    padding-bottom: 2.5em;
   }
 }
-
 @media only screen and (min-width: 960px) {
   #app__container {
     max-width: 900px;

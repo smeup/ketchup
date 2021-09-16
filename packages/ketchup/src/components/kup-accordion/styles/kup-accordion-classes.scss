@@ -2,6 +2,23 @@
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
 
+:host(.#{$kup-class-borderless}) {
+  .accordion-item {
+    border: none;
+
+    &:first-of-type {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
 :host(.#{$kup-class-full-height}) {
   height: 100%;
 }

@@ -500,6 +500,13 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupGlobalFilterMode: {
+    keys: {
+      HIGHLIGHT: 'highlight',
+      SIMPLE: 'simple',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
   KupListData: {
     keys: {
       text: 'string',

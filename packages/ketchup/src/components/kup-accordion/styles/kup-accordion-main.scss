@@ -9,99 +9,99 @@
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
+}
 
-  .accordion-item {
-    border-left: 1px solid var(--kup-border-color);
-    border-right: 1px solid var(--kup-border-color);
-    border-top: 1px solid var(--kup-border-color);
+.accordion-item {
+  border-left: 1px solid var(--kup-border-color);
+  border-right: 1px solid var(--kup-border-color);
+  border-top: 1px solid var(--kup-border-color);
+  box-sizing: border-box;
+  display: none;
+  width: 100%;
+
+  &--visible {
+    display: block;
+  }
+
+  &:first-of-type {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  &:last-of-type {
+    border-bottom: 1px solid var(--kup-border-color);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  &__header {
+    align-items: center;
+    border: none;
     box-sizing: border-box;
-    display: none;
+    color: var(--kup-text-color);
+    cursor: pointer;
+    display: flex;
+    font-family: var(--kup-font-family);
+    line-height: 1.75em;
+    outline: none;
+    padding: 1em 1.5em;
+    text-align: left;
+    transition: background-color 80ms, color 80ms;
     width: 100%;
 
-    &--visible {
+    &:hover:not(.accordion-item__header--selected) {
+      color: var(--kup-hover-color);
+      background-color: var(--kup-hover-background-color);
+    }
+
+    &--expanded {
+      color: var(--kup-hover-color);
+      background-color: var(--kup-hover-background-color);
+
+      .accordion-item__dropdown {
+        transform: rotate(-180deg);
+      }
+    }
+
+    &--selected {
+      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+    }
+  }
+
+  &__text {
+    margin-right: 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+
+    &--highlighted {
+      color: var(--kup-text-on-primary-color);
+      background-color: var(--kup-primary-color);
+    }
+  }
+
+  &__icon {
+    margin-left: 0;
+    margin-right: 0.5em;
+  }
+
+  &__dropdown {
+    background-color: var(--kup-icon-color);
+    height: 1.5em;
+    margin-left: auto;
+    margin-right: 0;
+    min-width: 1.5em;
+    width: 1.5em;
+    transition: transform 0.1s;
+  }
+
+  &__content {
+    animation: fadeInFromNone 0.25s ease-out;
+    display: none;
+    overflow: hidden;
+
+    &--selected {
       display: block;
-    }
-
-    &:first-of-type {
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-    }
-
-    &:last-of-type {
-      border-bottom: 1px solid var(--kup-border-color);
-      border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
-
-    &__header {
-      align-items: center;
-      border: none;
-      box-sizing: border-box;
-      color: var(--kup-text-color);
-      cursor: pointer;
-      display: flex;
-      font-family: var(--kup-font-family);
-      line-height: 1.75em;
-      outline: none;
-      padding: 1em 1.5em;
-      text-align: left;
-      transition: background-color 80ms, color 80ms;
-      width: 100%;
-
-      &:hover:not(.accordion-item__header--selected) {
-        color: var(--kup-hover-color);
-        background-color: var(--kup-hover-background-color);
-      }
-
-      &--expanded {
-        color: var(--kup-hover-color);
-        background-color: var(--kup-hover-background-color);
-
-        .accordion-item__dropdown {
-          transform: rotate(-180deg);
-        }
-      }
-
-      &--selected {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
-      }
-    }
-
-    &__text {
-      margin-right: 0.5em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: pre;
-
-      &--highlighted {
-        color: var(--kup-text-on-primary-color);
-        background-color: var(--kup-primary-color);
-      }
-    }
-
-    &__icon {
-      margin-left: 0;
-      margin-right: 0.5em;
-    }
-
-    &__dropdown {
-      background-color: var(--kup-icon-color);
-      height: 1.5em;
-      margin-left: auto;
-      margin-right: 0;
-      min-width: 1.5em;
-      width: 1.5em;
-      transition: transform 0.1s;
-    }
-
-    &__content {
-      animation: fadeInFromNone 0.25s ease-out;
-      display: none;
-      overflow: hidden;
-
-      &--selected {
-        display: block;
-      }
     }
   }
 }

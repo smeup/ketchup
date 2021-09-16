@@ -6,13 +6,13 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
-import { GenericFilter, GlobalFilterMode } from "./utils/filters/filters-declarations";
+import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -80,9 +80,10 @@ export namespace Components {
          */
         "globalFilter": boolean;
         /**
-          * The mode of the global filter (default SIMPLE)
+          * The mode of the global filter.
+          * @default KupGlobalFilterMode.SIMPLE
          */
-        "globalFilterMode": GlobalFilterMode;
+        "globalFilterMode": KupGlobalFilterMode;
         /**
           * The value of the global filter.
           * @default ""
@@ -93,7 +94,8 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * The names of the selected items
+          * The names of the selected items.
+          * @default []
          */
         "selectedItemsNames": string[];
         /**
@@ -2700,7 +2702,7 @@ export namespace Components {
         /**
           * The mode of the global filter (default SIMPLE)
          */
-        "globalFilterMode": GlobalFilterMode;
+        "globalFilterMode": KupGlobalFilterMode;
         /**
           * The value of the global filter.
          */
@@ -3161,40 +3163,42 @@ declare namespace LocalJSX {
          */
         "globalFilter"?: boolean;
         /**
-          * The mode of the global filter (default SIMPLE)
+          * The mode of the global filter.
+          * @default KupGlobalFilterMode.SIMPLE
          */
-        "globalFilterMode"?: GlobalFilterMode;
+        "globalFilterMode"?: KupGlobalFilterMode;
         /**
           * The value of the global filter.
           * @default ""
          */
         "globalFilterValue"?: string;
         /**
-          * Fired when a item is collapsed
+          * Fired when an item is collapsed.
          */
         "onKup-accordion-itemcollapsed"?: (event: CustomEvent<KupAccordionItemCollapsedEventPayload>) => void;
         /**
-          * Fired when a item is expanded
+          * Fired when an item is expanded.
          */
         "onKup-accordion-itemexpanded"?: (event: CustomEvent<KupAccordionItemExpandedEventPayload>) => void;
         /**
-          * Fired when a item is selected
+          * Fired when an item is selected.
          */
         "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
         /**
-          * Fired when a TreeNode is collapsed
+          * Fired when a TreeNode is collapsed.
          */
         "onKup-accordion-treenodecollapsed"?: (event: CustomEvent<KupAccordionTreeNodeCollapsedEventPayload>) => void;
         /**
-          * Fired when a TreeNode is expanded
+          * Fired when a TreeNode is expanded.
          */
         "onKup-accordion-treenodeexpanded"?: (event: CustomEvent<KupAccordionTreeNodeExpandedEventPayload>) => void;
         /**
-          * Fired when a TreeNode is selected
+          * Fired when a TreeNode is selected.
          */
         "onKup-accordion-treenodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
         /**
-          * The names of the selected items
+          * The names of the selected items.
+          * @default []
          */
         "selectedItemsNames"?: string[];
     }
@@ -5430,7 +5434,7 @@ declare namespace LocalJSX {
         /**
           * The mode of the global filter (default SIMPLE)
          */
-        "globalFilterMode"?: GlobalFilterMode;
+        "globalFilterMode"?: KupGlobalFilterMode;
         /**
           * The value of the global filter.
          */
