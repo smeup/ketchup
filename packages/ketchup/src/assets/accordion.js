@@ -92,6 +92,26 @@ const ksData = {
                                 value: 'Account',
                             },
                             {
+                                children: [
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: '',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'Today',
+                                    },
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: '',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'Yesterday',
+                                    },
+                                ],
                                 disabled: false,
                                 expandable: true,
                                 icon: 'book',
