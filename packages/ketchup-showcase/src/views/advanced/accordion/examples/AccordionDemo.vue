@@ -23,6 +23,10 @@ export default {
     return {
       demoClasses: [
         {
+          class: 'kup-borderless',
+          description: 'Displays the component without borders.',
+        },
+        {
           class: 'kup-danger',
           description:
             'The component will be rendered using the danger color of the app.',
@@ -128,17 +132,25 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'globalFilterMode',
+          description: 'The mode of the global filter',
+          type: 'KupGlobalFilterMode',
+          default: 'simple',
+          try: 'field',
+        },
+        {
           prop: 'globalFilterValue',
           description: 'The value of the global filter.',
           type: 'string',
-          default: '',
+          default: '""',
           try: 'field',
         },
         {
           prop: 'selectedItemsNames',
           description: 'The names of the selected items.',
           type: 'string',
-          default: '',
+          isArray: true,
+          default: '[]',
           try: 'field',
         },
       ],

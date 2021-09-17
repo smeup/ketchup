@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { DynamicExpansionFaker } from 'ketchup/src/components/kup-tree/kup-tree-faker';
+import { DynamicExpansionFaker } from '@sme.up/ketchup/src/components/kup-tree/kup-tree-faker';
 
 function kupTreeDynamicCallbackFactory(currentFaker) {
   return (treeNodeToExpand, treeNodePath) =>
@@ -106,9 +106,8 @@ export default {
       useCallbackTable = DynamicExpansionFaker(3, 3),
       // TODO horrible name, change it
       useCallbackCallback = kupTreeDynamicCallbackFactory(useCallback),
-      useCallbackTableCallback = kupTreeDynamicCallbackFactory(
-        useCallbackTable
-      );
+      useCallbackTableCallback =
+        kupTreeDynamicCallbackFactory(useCallbackTable);
 
     return {
       callbacks: {

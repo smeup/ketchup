@@ -289,10 +289,6 @@ export class KupField {
                     comp = 'kup-combobox';
                     propList.onKupComboboxChange = this.onChangeInstance;
                     break;
-                case 'fup':
-                    comp = 'kup-upload';
-                    propList.items = this.data;
-                    break;
                 case 'itx':
                     comp = 'kup-text-field';
                     propList.onkupTextFieldChange = this.onChangeInstance;

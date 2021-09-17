@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/blob/develop/packages/ketchup/src/utils/debug-manager.ts',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-debug',
       headtitle: 'Debugging',
       titles: ['Basic usage', 'Component picker'],
     };

@@ -6,12 +6,13 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
+import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -26,17 +27,16 @@ import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { GenericFilter } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
-import { FImageData } from "./f-components/f-image/f-image-declarations";
+import { FImageData, FImageProps } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
-import { KupNavBarData, KupNavbarEventPayload, KupNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -46,7 +46,6 @@ import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
-import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
@@ -80,6 +79,11 @@ export namespace Components {
          */
         "globalFilter": boolean;
         /**
+          * The mode of the global filter.
+          * @default KupGlobalFilterMode.SIMPLE
+         */
+        "globalFilterMode": KupGlobalFilterMode;
+        /**
           * The value of the global filter.
           * @default ""
          */
@@ -89,7 +93,8 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
-          * The names of the selected items
+          * The names of the selected items.
+          * @default []
          */
         "selectedItemsNames": string[];
         /**
@@ -1299,14 +1304,14 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Returns the state of the drawer.
+          * @returns True when opened, false when closed.
+         */
+        "isOpened": () => Promise<boolean>;
+        /**
           * Opens the drawer.
          */
         "open": () => Promise<void>;
-        /**
-          * When set to true, the drawer appears.
-          * @default false
-         */
-        "opened": boolean;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -1976,30 +1981,44 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * The actual data of the nav bar.
-          * @default null
-         */
-        "data": KupNavBarData;
-        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Defines how the bar will be displayed.
-          * @default KupNavBarMode.DEFAULT
+          * Image displayed by the nav bar, uses the kup-image component's props.
+          * @default null
          */
-        "mode": KupNavBarMode;
+        "image": FImageProps;
+        /**
+          * Text displayed by the nav bar.
+          * @default null
+         */
+        "label": string;
         /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When true, the menu button will be displayed on the left of the nav bar.
+          * @default null
+         */
+        "showMenuButton": boolean;
+        /**
+          * Defines the style of the nav bar.
+          * @default KupNavBarStyling.STANDARD
+         */
+        "styling": KupNavBarStyling;
     }
     interface KupPaginator {
         "currentPage": number;
@@ -2680,6 +2699,10 @@ export namespace Components {
          */
         "globalFilter": boolean;
         /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode": KupGlobalFilterMode;
+        /**
           * The value of the global filter.
          */
         "globalFilterValue": string;
@@ -2761,9 +2784,6 @@ export namespace Components {
           * @see dynamicExpansionCallback
          */
         "useDynamicExpansion": boolean;
-    }
-    interface KupUpload {
-        "typeOptions": UploadProps;
     }
 }
 declare global {
@@ -3061,12 +3081,6 @@ declare global {
         prototype: HTMLKupTreeElement;
         new (): HTMLKupTreeElement;
     };
-    interface HTMLKupUploadElement extends Components.KupUpload, HTMLStencilElement {
-    }
-    var HTMLKupUploadElement: {
-        prototype: HTMLKupUploadElement;
-        new (): HTMLKupUploadElement;
-    };
     interface HTMLElementTagNameMap {
         "kup-accordion": HTMLKupAccordionElement;
         "kup-autocomplete": HTMLKupAutocompleteElement;
@@ -3117,7 +3131,6 @@ declare global {
         "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
-        "kup-upload": HTMLKupUploadElement;
     }
 }
 declare namespace LocalJSX {
@@ -3139,36 +3152,42 @@ declare namespace LocalJSX {
          */
         "globalFilter"?: boolean;
         /**
+          * The mode of the global filter.
+          * @default KupGlobalFilterMode.SIMPLE
+         */
+        "globalFilterMode"?: KupGlobalFilterMode;
+        /**
           * The value of the global filter.
           * @default ""
          */
         "globalFilterValue"?: string;
         /**
-          * Fired when a item is collapsed
+          * Fired when an item is collapsed.
          */
         "onKup-accordion-itemcollapsed"?: (event: CustomEvent<KupAccordionItemCollapsedEventPayload>) => void;
         /**
-          * Fired when a item is expanded
+          * Fired when an item is expanded.
          */
         "onKup-accordion-itemexpanded"?: (event: CustomEvent<KupAccordionItemExpandedEventPayload>) => void;
         /**
-          * Fired when a item is selected
+          * Fired when an item is selected.
          */
         "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
         /**
-          * Fired when a TreeNode is collapsed
+          * Fired when a TreeNode is collapsed.
          */
         "onKup-accordion-treenodecollapsed"?: (event: CustomEvent<KupAccordionTreeNodeCollapsedEventPayload>) => void;
         /**
-          * Fired when a TreeNode is expanded
+          * Fired when a TreeNode is expanded.
          */
         "onKup-accordion-treenodeexpanded"?: (event: CustomEvent<KupAccordionTreeNodeExpandedEventPayload>) => void;
         /**
-          * Fired when a TreeNode is selected
+          * Fired when a TreeNode is selected.
          */
         "onKup-accordion-treenodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
         /**
-          * The names of the selected items
+          * The names of the selected items.
+          * @default []
          */
         "selectedItemsNames"?: string[];
     }
@@ -4251,13 +4270,18 @@ declare namespace LocalJSX {
           * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
-        "onKupDrawerClose"?: (event: CustomEvent<KupEventPayload>) => void;
-        "onKupDrawerOpen"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * When set to true, the drawer appears.
-          * @default false
+          * Fired when the drawer gets closed.
          */
-        "opened"?: boolean;
+        "onKup-drawer-close"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Fired when the drawer gets opened.
+         */
+        "onKup-drawer-open"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-drawer-ready"?: (event: CustomEvent<KupEventPayload>) => void;
     }
     interface KupDropdownButton {
         /**
@@ -4771,23 +4795,37 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The actual data of the nav bar.
+          * Image displayed by the nav bar, uses the kup-image component's props.
           * @default null
          */
-        "data"?: KupNavBarData;
+        "image"?: FImageProps;
         /**
-          * Defines how the bar will be displayed.
-          * @default KupNavBarMode.DEFAULT
+          * Text displayed by the nav bar.
+          * @default null
          */
-        "mode"?: KupNavBarMode;
+        "label"?: string;
         /**
-          * Triggered when a button's list item is clicked.
+          * Triggered when the menu button is clicked.
          */
-        "onKup-navbar-menuitemclick"?: (event: CustomEvent<KupNavbarEventPayload>) => void;
+        "onKup-navbar-menuclick"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * Triggered when a button is clicked.
+          * Triggered when the component is ready.
          */
-        "onKup-navbar-optionitemclick"?: (event: CustomEvent<KupNavbarEventPayload>) => void;
+        "onKup-navbar-ready"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when the component is resize.
+         */
+        "onKup-navbar-resize"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * When true, the menu button will be displayed on the left of the nav bar.
+          * @default null
+         */
+        "showMenuButton"?: boolean;
+        /**
+          * Defines the style of the nav bar.
+          * @default KupNavBarStyling.STANDARD
+         */
+        "styling"?: KupNavBarStyling;
     }
     interface KupPaginator {
         "currentPage"?: number;
@@ -5383,6 +5421,10 @@ declare namespace LocalJSX {
          */
         "globalFilter"?: boolean;
         /**
+          * The mode of the global filter (default SIMPLE)
+         */
+        "globalFilterMode"?: KupGlobalFilterMode;
+        /**
           * The value of the global filter.
          */
         "globalFilterValue"?: string;
@@ -5484,14 +5526,6 @@ declare namespace LocalJSX {
          */
         "useDynamicExpansion"?: boolean;
     }
-    interface KupUpload {
-        "onKetchupFileRejected"?: (event: CustomEvent<any>) => void;
-        /**
-          * Launched when file upload succeed
-         */
-        "onKetchupFileUploaded"?: (event: CustomEvent<any>) => void;
-        "typeOptions"?: UploadProps;
-    }
     interface IntrinsicElements {
         "kup-accordion": KupAccordion;
         "kup-autocomplete": KupAutocomplete;
@@ -5542,7 +5576,6 @@ declare namespace LocalJSX {
         "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
-        "kup-upload": KupUpload;
     }
 }
 export { LocalJSX as JSX };
@@ -5598,7 +5631,6 @@ declare module "@stencil/core" {
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
-            "kup-upload": LocalJSX.KupUpload & JSXBase.HTMLAttributes<HTMLKupUploadElement>;
         }
     }
 }

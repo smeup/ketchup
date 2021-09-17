@@ -401,10 +401,12 @@ export class KupDebug {
             this.active = value;
         }
         if (this.active) {
+            document.dispatchEvent(new CustomEvent('kup-debug-active'));
             if (!this.#debugWidget) {
                 this.showWidget();
             }
         } else {
+            document.dispatchEvent(new CustomEvent('kup-debug-inactive'));
             if (this.#debugWidget) {
                 this.hideWidget();
             }

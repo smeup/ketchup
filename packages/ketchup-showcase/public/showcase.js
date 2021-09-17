@@ -5,7 +5,7 @@ window.onload = function() {
 };
 
 function checkNav() {
-  var listLabels = document.querySelectorAll('.page-nav-element');
+  var listLabels = document.querySelectorAll('.page__nav-element');
   if (listLabels.length === 0) {
     return;
   }
@@ -61,7 +61,7 @@ function isElementPartiallyInViewport(el, offset) {
 }
 
 function scrollToSmoothly() {
-  var listLabels = document.querySelectorAll('.page-nav-element');
+  var listLabels = document.querySelectorAll('.page__nav-element');
   var elements = document.querySelectorAll('.section .nav-title');
 
   for (let i = 0; i < listLabels.length; i++) {

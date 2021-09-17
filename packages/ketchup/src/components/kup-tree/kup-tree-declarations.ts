@@ -23,6 +23,7 @@ export enum KupTreeProps {
     filters = 'List of filters set by the user.',
     globalFilter = 'When set to true it activates the global filter.',
     globalFilterValue = 'The value of the global filter.',
+    globalFilterMode = 'The mode of the global filter.',
     removableColumns = 'Sets the possibility to remove the selected column.',
     scrollOnHover = 'Activates the scroll on hover function.',
     selectedNode = 'An array of integers containing the path to a selected child. Groups up the properties SelFirst, SelItem, SelName.',
