@@ -603,7 +603,7 @@ export class KupDataTable {
      */
     @Prop() sortableColumnsMutateData: boolean = true;
     /**
-     * When set to true enables the sorting of the columns.
+     * When set to true enables the sorting of the columns by clicking on the column header.
      */
     @Prop() sortEnabled = true;
     /**
@@ -2122,7 +2122,7 @@ export class KupDataTable {
                 if (details.filterRemove) {
                     this.onRemoveFilter(details.column);
                     return details;
-                } else {
+                } else if (this.sortEnabled) {
                     this.onColumnSort(e, details.column.name);
                     return details;
                 }
@@ -2314,7 +2314,6 @@ export class KupDataTable {
         );
 
         this.groupRows();
-
         this.sortRows();
         this.adjustPaginator();
 
@@ -3034,9 +3033,7 @@ export class KupDataTable {
     }
 
     private sortRows(): void {
-        if (this.sortEnabled) {
-            this.rows = sortRows(this.rows, this.sort);
-        }
+        this.rows = sortRows(this.rows, this.sort);
     }
 
     private getSortIcon(columnName: string): string {
