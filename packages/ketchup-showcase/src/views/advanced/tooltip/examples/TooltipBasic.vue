@@ -1,134 +1,9 @@
 <template>
-  <div id="kup-tooltip">
-    <h3
-      >Layout 1 (default layout)
-      <span
-        id="action-confirm-label"
-        v-text="labelText"
-        v-if="labelText !== ''"
-      ></span
-    ></h3>
-    <div id="layout1">
-      <kup-tooltip
-        @kup-tooltip-loaddata="onLoadData($event, 1)"
-        @kup-tooltip-loaddetail="loadBornToDie"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.bornToDie" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        @kup-tooltip-loaddata="onLoadData($event, 2)"
-        @kup-tooltip-loaddetail="loadUltraviolence"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.ultra" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        @kup-tooltip-loaddata="onLoadData($event, 3)"
-        @kup-tooltip-loaddetail="loadHoneymoon"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.honey" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        @kup-tooltip-loaddata="onLoadData($event, 4)"
-        @kup-tooltip-loaddetail="loadLust"
-      >
-        <img :src="images.lust" width="64" height="64" />
-      </kup-tooltip>
-    </div>
-
-    <h3>Layout 2</h3>
-    <div id="layout2">
-      <kup-tooltip
-        layout="2"
-        @kup-tooltip-loaddata="onLoadData($event, 1)"
-        @kup-tooltip-loaddetail="loadBornToDie"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.bornToDie" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        layout="2"
-        @kup-tooltip-loaddata="onLoadData($event, 2)"
-        @kup-tooltip-loaddetail="loadUltraviolence"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.ultra" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        layout="2"
-        @kup-tooltip-loaddata="onLoadData($event, 3)"
-        @kup-tooltip-loaddetail="loadHoneymoon"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.honey" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        layout="2"
-        @kup-tooltip-loaddata="onLoadData($event, 4)"
-        @kup-tooltip-loaddetail="loadLust"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.lust" width="64" height="64" />
-      </kup-tooltip>
-    </div>
-
-    <h3>Layout 3</h3>
-    <div id="layout3">
-      <kup-tooltip
-        layout="3"
-        @kup-tooltip-loaddata="onLoadData($event, 1)"
-        @kup-tooltip-loaddetail="loadBornToDie"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.bornToDie" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        layout="3"
-        @kup-tooltip-loaddata="onLoadData($event, 2)"
-        @kup-tooltip-loaddetail="loadUltraviolence"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.ultra" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        layout="3"
-        @kup-tooltip-loaddata="onLoadData($event, 3)"
-        @kup-tooltip-loaddetail="loadHoneymoon"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.honey" width="64" height="64" />
-      </kup-tooltip>
-
-      <kup-tooltip
-        layout="3"
-        @kup-tooltip-loaddata="onLoadData($event, 4)"
-        @kup-tooltip-loaddetail="loadLust"
-        @kup-tooltip-actioncommandclicked="actionCommandClicked"
-      >
-        <img :src="images.lust" width="64" height="64" />
-      </kup-tooltip>
-    </div>
-
-    <div class="tooltip-perf">
-      <kup-tooltip
-        v-for="index in 10000"
-        :key="index"
-        @kup-tooltip-loaddata="onLoadData($event, 1)"
-        @kup-tooltip-loaddetail="loadBornToDie"
-      >
-        <p>{{ index }}</p>
-      </kup-tooltip>
-    </div>
+  <div id="kup-tooltip-basic">
+    <p>
+      The component Tooltip enables you to create a tooltip's whit 3 different
+      layers for the components: Box, Tree, Data Table.
+    </p>
   </div>
 </template>
 
@@ -142,6 +17,7 @@ import {
 } from '@/mock/tooltip';
 
 export default {
+  name: 'TooltipBasic',
   data() {
     return {
       images: {
@@ -153,6 +29,7 @@ export default {
 
   methods: {
     onLoadData(event, index) {
+      console.log('sono qui');
       this.labelText = '';
       let data;
       switch (index) {
@@ -224,7 +101,8 @@ export default {
           };
           break;
       }
-
+      console.log(event);
+      console.log(data);
       event.target.data = data;
     },
 
