@@ -1196,7 +1196,7 @@ export namespace Components {
          */
         "sort": Array<SortObject>;
         /**
-          * When set to true enables the sorting of the columns.
+          * When set to true enables the sorting of the columns by clicking on the column header.
          */
         "sortEnabled": boolean;
         /**
@@ -4188,7 +4188,7 @@ declare namespace LocalJSX {
          */
         "sort"?: Array<SortObject>;
         /**
-          * When set to true enables the sorting of the columns.
+          * When set to true enables the sorting of the columns by clicking on the column header.
          */
         "sortEnabled"?: boolean;
         /**

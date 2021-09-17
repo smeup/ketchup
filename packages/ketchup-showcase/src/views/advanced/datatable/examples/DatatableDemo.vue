@@ -475,7 +475,8 @@ export default {
         },
         {
           prop: 'sortEnabled',
-          description: 'When set to true enables the sorting of the columns.',
+          description:
+            'When set to true enables the sorting of the columns by clicking on the column header.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
