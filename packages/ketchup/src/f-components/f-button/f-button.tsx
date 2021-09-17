@@ -32,9 +32,9 @@ export const FButton: FunctionalComponent<FButtonProps> = (
                 props.fullHeight ? 'kup-full-height' : ''
             } ${props.fullWidth ? 'kup-full-width' : ''} ${
                 props.large ? 'kup-large' : ''
-            } ${props.shaped ? 'kup-shaped' : ''} ${
-                props.wrapperClass ? props.wrapperClass : ''
-            }`}
+            } ${props.pulsating ? 'kup-pulsating' : ''}  ${
+                props.shaped ? 'kup-shaped' : ''
+            } ${props.wrapperClass ? props.wrapperClass : ''}`}
             {...props.dataSet}
             id={props.id}
             title={props.title}

@@ -27,6 +27,8 @@ export default {
   },
   data() {
     return {
+      giturl:
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-theme',
       headtitle: 'Theming',
       titles: ['Basic usage', 'List of templates', 'Create your theme'],
     };

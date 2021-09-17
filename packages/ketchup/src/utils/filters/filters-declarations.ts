@@ -36,7 +36,7 @@ export interface Filter {
  */
 export const FILTER_ANALIZER = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
 
-export enum GlobalFilterMode {
+export enum KupGlobalFilterMode {
     SIMPLE = 'simple',
     HIGHLIGHT = 'highlight',
 }

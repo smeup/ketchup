@@ -28,6 +28,7 @@ export interface KupThemeCSSVariables {
     [KupThemeColorValues.BACKGROUND]: string;
     [KupThemeColorValues.NAV_BAR_BACKGROUND]: string;
     [KupThemeColorValues.DRAWER_BACKGROUND]: string;
+    '--kup-drawer-width': string;
     '--kup-font-family': string;
     '--kup-font-size': string;
     [KupThemeColorValues.TEXT]: string;
@@ -54,6 +55,8 @@ export interface KupThemeCSSVariables {
     '--kup-font-family-monospace': string;
     '--kup-obj-cursor': string;
     [KupThemeColorValues.TEXT_ON_SECONDARY]: string;
+    '--kup-drawer-zindex': number;
+    '--kup-navbar-zindex': number;
 }
 /**
  * All icons managed by KupTheme.

@@ -51,7 +51,7 @@ export enum KupDataTableProps {
     stateId = '',
     store = '',
     sortableColumnsMutateData = 'If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event',
-    sortEnabled = 'When set to true enables the sorting of the columns.',
+    sortEnabled = 'When set to true enables the sorting of the columns by clicking on the column header.',
     tableHeight = 'Sets the height of the table.',
     tableWidth = 'Sets the width of the table.',
     tooltipDetailTimeout = 'Defines the timeout for tooltip detail',

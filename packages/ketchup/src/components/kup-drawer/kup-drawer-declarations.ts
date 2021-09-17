@@ -1,3 +1,4 @@
+export const drawerClass = 'drawer';
 /**
  * Props of the kup-drawer component.
  * Used to export every prop in an object.
