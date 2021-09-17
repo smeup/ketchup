@@ -399,6 +399,18 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  FImageProps: {
+    keys: {
+    "badgeData?": "KupBadge[]",
+    "color?": "string",
+    "data?": "FImageData[]",
+    "fit?": "boolean",
+    "resource?": "string",
+    "sizeX?": "string",
+    "sizeY?": "string",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   GroupObject: {
     keys: {
       column: 'string',
@@ -518,23 +530,12 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
-  KupNavBarData: {
+  KupNavBarStyling: {
     keys: {
-      title: 'string',
-      'menuAction?': 'KupNavBarElement',
-      'menuActions?': 'KupNavBarElement[]',
-      'optionActions?': 'KupNavBarElement[]',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-  KupNavBarMode: {
-    keys: {
-      DEFAULT: '',
       DENSE: 'dense',
-      FIXED: 'fixed',
       PROMINENT: 'prominent',
       SHORT: 'short',
-      SHORT_COLLAPSED: 'short-collapsed',
+      STANDARD: 'standard',
     },
     type: DemoTypeFeature.ENUM,
   },

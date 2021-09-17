@@ -1,47 +1,4 @@
 /* Global */
-.section {
-  margin-bottom: 6em;
-}
-
-.logo_header {
-  height: 40px;
-}
-
-#app__content {
-  padding-top: 64px;
-  transition: all 250ms;
-}
-
-.has-padding {
-  padding-left: var(--kup-drawer-width);
-}
-
-::-webkit-scrollbar {
-  width: 9px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--kup-disabled-color);
-  transition: background-color 0.2s ease-in-out;
-}
-
-::-webkit-scrollbar-track {
-  background-color: var(--kup-background-color);
-}
-
-.demo-container {
-  text-align: center;
-  margin: auto;
-}
-
-.demo-container code.flat {
-  margin-bottom: 30px;
-}
-
-.demo-container kup-text-field {
-  margin: 0 20px;
-}
-
 .kup-container {
   display: inline-flex;
   margin: 2em 1.5em;
@@ -113,92 +70,9 @@ code.flat {
   margin-bottom: 10px;
 }
 
-.github-link-area {
-  width: 100%;
-  cursor: pointer;
-  max-width: fit-content;
-  display: inline-flex;
-  margin: 1.2em 0;
-  text-decoration: none;
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-}
-
-.github-link-area:hover {
-  opacity: 0.8;
-}
-
-.github-link-area svg,
-.github-link-area .mdi-open-in-new:before {
-  fill: var(--kup-primary-color);
-  color: var(--kup-primary-color);
-}
-
-.github-link-area .github-text {
-  color: var(--kup-primary-color);
-  font-family: var(--kup-font-family);
-  -webkit-font-smoothing: antialiased;
-  font-size: 0.875em;
-  font-weight: 500;
-  letter-spacing: 0.0892857em;
-  text-transform: uppercase;
-  display: inline-flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  min-width: 64px;
-  line-height: inherit;
-  user-select: none;
-  -webkit-appearance: none;
-  vertical-align: middle;
-  text-decoration: none;
-  padding: 0px 8px;
-  border-width: initial;
-  border-style: none;
-  border-color: initial;
-  border-image: initial;
-  outline: none;
-  overflow: visible;
-  border-radius: 4px;
-}
-
 /* Navigation bar and footer */
 kup-drawer {
   height: calc(100vh - 32px);
-}
-
-#app__footer {
-  background: var(--kup-nav-bar-background-color);
-  color: #ffffff;
-  box-shadow: 0px -1px 4px -1px rgb(0 0 0 / 20%),
-    0px -1px 5px 0 rgb(0 0 0 / 14%), 0px -1px 10px 0 rgb(0 0 0 / 12%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 32px;
-  z-index: var(--kup-drawer-zindex);
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding: 0.375em 0;
-}
-
-a.first-icon {
-  margin-right: 20px;
-}
-
-a.second-icon {
-  margin-left: 20px;
-}
-
-.footer-icon {
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.footer-icon:hover {
-  opacity: 0.7;
 }
 
 span.company-text {
@@ -493,6 +367,7 @@ table#customstyle-tab kup-text-field {
 #sample-comp-wrapper {
   display: flex;
   height: 100%;
+  position: relative;
 }
 
 #sample-comp-wrapper #demo-component {

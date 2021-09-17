@@ -75,14 +75,14 @@
     </div>
     <div id="app__footer">
       <a
-        class="first-icon"
+        class="footer__icon--leading"
         target="_blank"
         rel="noopener"
         title="View Ketch.UP on GitHub"
         href="https://github.com/smeup/ketchup"
       >
         <kup-image
-          class="footer-icon"
+          class="footer__icon"
           resource="github"
           color="white"
           size-x="24px"
@@ -91,14 +91,14 @@
       </a>
       <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
       <a
-        class="second-icon"
+        class="footer__icon--trailing"
         target="_blank"
         rel="noopener"
         title="View Ketch.UP on npm"
         href="https://www.npmjs.com/package/@sme.up/ketchup"
       >
         <kup-image
-          class="footer-icon"
+          class="footer__icon"
           resource="npm"
           color="white"
           size-x="24px"
@@ -118,15 +118,23 @@ import { KupAccordionTreeNodeSelectedEventPayload } from 'ketchup/dist/types/com
 const dom: KupDom = document.documentElement as KupDom;
 
 var main: HTMLElement = null;
+var debug: HTMLKupButtonElement = null;
 var drawer: HTMLKupDrawerElement = null;
 var navbar: HTMLKupNavBarElement = null;
 
 export default {
   mounted: function () {
+    debug = document.getElementById('debug-toggler') as HTMLKupButtonElement;
     drawer = document.getElementById('app__drawer') as HTMLKupDrawerElement;
     main = document.getElementById('app__content') as HTMLKupDrawerElement;
     main.style.padding = '';
     navbar = document.getElementById('app__nav-bar') as HTMLKupNavBarElement;
+    document.addEventListener('kup-debug-active', () => {
+      debug.checked = true;
+    });
+    document.addEventListener('kup-debug-inactive', () => {
+      debug.checked = false;
+    });
   },
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
@@ -153,7 +161,10 @@ export default {
             navbar.classList.remove('has-padding');
           }
         } else {
-          drawer.classList.remove('kup-permanent');
+          if (drawer.classList.contains('kup-permanent')) {
+            drawer.classList.remove('kup-permanent');
+            drawer.close();
+          }
           main.classList.remove('has-padding');
           navbar.classList.remove('has-padding');
         }
@@ -836,6 +847,13 @@ label {
   margin-right: 8px;
 }
 
+.max-width-container {
+  display: block;
+  margin: 0 auto;
+  max-width: 80%;
+  padding: 24px 40px;
+}
+
 #app {
   line-height: 1.5;
 
@@ -844,10 +862,73 @@ label {
   }
 }
 
-.max-width-container {
-  display: block;
-  margin: 0 auto;
-  max-width: 80%;
-  padding: 24px 40px;
+#app__content {
+  padding-top: 64px;
+  transition: all 250ms;
+}
+
+#app__footer {
+  align-items: center;
+  background: var(--kup-nav-bar-background-color);
+  bottom: 0;
+  box-shadow: 0px -1px 4px -1px rgba(128, 128, 128, 0.2),
+    0px -1px 5px 0 rgba(128, 128, 128, 0.14),
+    0px -1px 10px 0 rgba(128, 128, 128, 0.12);
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  padding: 0.375em 0;
+  position: fixed;
+  width: 100%;
+  z-index: var(--kup-drawer-zindex);
+}
+
+a.footer__icon--leading {
+  margin-right: 20px;
+}
+
+a.footer__icon--trailing {
+  margin-left: 20px;
+}
+
+.footer__icon {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.footer__icon:hover {
+  opacity: 0.7;
+}
+
+.demo-container {
+  text-align: center;
+  margin: auto;
+
+  code.flat {
+    margin-bottom: 2em;
+  }
+
+  kup-text-field {
+    margin: 0 1.25em;
+  }
+}
+
+.has-padding {
+  padding-left: var(--kup-drawer-width);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--kup-disabled-color);
+  transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--kup-background-color);
 }
 </style>
