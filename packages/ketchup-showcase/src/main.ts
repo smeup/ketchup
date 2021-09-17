@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-import { defineCustomElements } from 'ketchup/dist/loader';
+import { defineCustomElements } from '@sme.up/ketchup/dist/loader';
 defineCustomElements(window);
 
 Vue.config.productionTip = false;

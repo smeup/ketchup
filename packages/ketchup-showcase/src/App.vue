@@ -110,10 +110,11 @@
 </template>
 
 <script lang="ts">
-import { Cell } from 'ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
-import { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
-import { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
-import { KupAccordionTreeNodeSelectedEventPayload } from 'ketchup/dist/types/components/kup-accordion/kup-accordion-declarations';
+import type { Components } from '@sme.up/ketchup/dist/types/components';
+import type { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
+import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
+import type { KupAccordionTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-accordion/kup-accordion-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -123,7 +124,7 @@ var drawer: HTMLKupDrawerElement = null;
 var navbar: HTMLKupNavBarElement = null;
 
 export default {
-  mounted: function() {
+  mounted: function () {
     debug = document.getElementById('debug-toggler') as HTMLKupButtonElement;
     drawer = document.getElementById('app__drawer') as HTMLKupDrawerElement;
     main = document.getElementById('app__content') as HTMLKupDrawerElement;

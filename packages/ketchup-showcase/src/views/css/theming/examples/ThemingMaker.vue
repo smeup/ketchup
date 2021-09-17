@@ -14,7 +14,7 @@
       <kup-button
         title="Download"
         icon="download"
-        @kup-button-click="downloadTheme"/>
+        @kup-button-click="downloadTheme" />
       <kup-button title="Delete" icon="delete" @kup-button-click="deleteTheme"
     /></div>
     <div id="sample-wrapper" class="theming">
@@ -1231,15 +1231,16 @@
 </template>
 
 <script lang="ts">
-import type { KupColorPickerEventPayload } from 'ketchup/dist/types/components/kup-color-picker/kup-color-picker-declarations';
-import type { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
-import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
-import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import type { Components } from '@sme.up/ketchup/dist/types/components';
+import type { KupColorPickerEventPayload } from '@sme.up/ketchup/dist/types/components/kup-color-picker/kup-color-picker-declarations';
+import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupTabBarClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type {
   KupThemeCSSVariables,
   KupThemeElement,
   KupThemeJSON,
-} from 'ketchup/dist/types/utils/kup-theme/kup-theme-declarations';
+} from '@sme.up/ketchup/dist/types/utils/kup-theme/kup-theme-declarations';
 
 enum ThemeMakerTabs {
   VARIABLES = 'CSS variables',
