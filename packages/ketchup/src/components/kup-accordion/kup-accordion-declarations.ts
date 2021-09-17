@@ -16,7 +16,9 @@ export enum KupAccordionProps {
     customStyle = 'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
     data = 'Data of the accordion.',
     globalFilter = 'When set to true it activates the global filter.',
+    globalFilterMode = 'The mode of the global filter.',
     globalFilterValue = 'The value of the global filter.',
+    selectedItemsNames = 'The names of the selected items.',
 }
 /**
  * Data of the accordion.

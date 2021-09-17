@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { TreeFactory } from 'ketchup/src/components/kup-tree/kup-tree-faker';
+import { TreeFactory } from '@sme.up/ketchup/src/components/kup-tree/kup-tree-faker';
 
 export default {
   name: 'TBasic',

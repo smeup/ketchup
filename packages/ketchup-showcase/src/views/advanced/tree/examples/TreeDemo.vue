@@ -190,7 +190,7 @@ export default {
         {
           prop: 'globalFilterMode',
           description: 'The mode of the global filter',
-          type: 'GlobalFilterMode',
+          type: 'KupGlobalFilterMode',
           default: 'SIMPLE',
           try: 'field',
         },

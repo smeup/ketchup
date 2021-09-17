@@ -131,6 +131,25 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">--kup-drawer-width</span>
+                </td>
+                <td
+                  >Sets the width of the drawer (any valid CSS unit can be used
+                  - vw, px, em, etc.).</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">size</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="drawer-width"
+                    @kup-textfield-input="updateVariable"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">--kup-font-family</span>
                 </td>
                 <td>
@@ -627,6 +646,46 @@
                   <kup-text-field
                     full-width
                     id="obj-cursor"
+                    @kup-textfield-input="updateVariable"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-drawer-zindex</span>
+                </td>
+                <td
+                  >Sets the z-index for kup-drawer. Should be set accordingly to
+                  the app using the component.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">z-index</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="drawer-zindex"
+                    input-type="number"
+                    @kup-textfield-input="updateVariable"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-navbar-zindex</span>
+                </td>
+                <td
+                  >Sets the z-index for kup-nav-bar. Should be set accordingly
+                  to the app using the component.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">z-index</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="navbar-zindex"
+                    input-type="number"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
                 </td>
@@ -1172,15 +1231,16 @@
 </template>
 
 <script lang="ts">
-import type { KupColorPickerEventPayload } from 'ketchup/dist/types/components/kup-color-picker/kup-color-picker-declarations';
-import type { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
-import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
-import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import type { Components } from '@sme.up/ketchup/dist/types/components';
+import type { KupColorPickerEventPayload } from '@sme.up/ketchup/dist/types/components/kup-color-picker/kup-color-picker-declarations';
+import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupTabBarClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import type {
   KupThemeCSSVariables,
   KupThemeElement,
   KupThemeJSON,
-} from 'ketchup/dist/types/utils/kup-theme/kup-theme-declarations';
+} from '@sme.up/ketchup/dist/types/utils/kup-theme/kup-theme-declarations';
 
 enum ThemeMakerTabs {
   VARIABLES = 'CSS variables',
