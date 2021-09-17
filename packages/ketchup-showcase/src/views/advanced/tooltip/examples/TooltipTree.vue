@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import { TreeFactory } from 'ketchup/src/components/kup-tree/kup-tree-faker';
+import { TreeFactory } from '@sme.up/ketchup/src/components/kup-tree/kup-tree-faker';
 import { bornToDie, imageUrls, cellOptionsTree } from '@/mock/tooltip';
 export default {
   name: 'TooltipTree',

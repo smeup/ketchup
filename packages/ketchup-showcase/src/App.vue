@@ -176,14 +176,17 @@ export default {
     redrawNavigation(): void {
       drawer.isOpened().then((opened: boolean) => {
         if (window.outerWidth >= 1264) {
-          drawer.classList.add('kup-permanent');
           if (opened) {
             main.classList.add('has-padding');
             navbar.classList.add('has-padding');
           } else {
+            if (!drawer.classList.contains('kup-permanent')) {
+              drawer.open();
+            }
             main.classList.remove('has-padding');
             navbar.classList.remove('has-padding');
           }
+          drawer.classList.add('kup-permanent');
         } else {
           if (drawer.classList.contains('kup-permanent')) {
             drawer.classList.remove('kup-permanent');

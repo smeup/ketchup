@@ -17,6 +17,13 @@
 | `layout`       | `layout`        | Sets the layout of the spinner.                                                                | `number`  | `1`     |
 
 
+## Events
+
+| Event               | Description                            | Type                           |
+| ------------------- | -------------------------------------- | ------------------------------ |
+| `kup-spinner-ready` | Triggered when the component is ready. | `CustomEvent<KupEventPayload>` |
+
+
 ## Methods
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`

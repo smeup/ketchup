@@ -992,11 +992,11 @@ export namespace Components {
          */
         "density": string;
         /**
-          * Enable row dragging
+          * Enables drag.
          */
         "dragEnabled": boolean;
         /**
-          * Enable record dropping
+          * Enables drop.
          */
         "dropEnabled": boolean;
         /**
@@ -3972,11 +3972,11 @@ declare namespace LocalJSX {
          */
         "density"?: string;
         /**
-          * Enable row dragging
+          * Enables drag.
          */
         "dragEnabled"?: boolean;
         /**
-          * Enable record dropping
+          * Enables drop.
          */
         "dropEnabled"?: boolean;
         /**
@@ -5071,6 +5071,10 @@ declare namespace LocalJSX {
           * @default 1
          */
         "layout"?: number;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-spinner-ready"?: (event: CustomEvent<KupEventPayload>) => void;
     }
     interface KupSwitch {
         /**
