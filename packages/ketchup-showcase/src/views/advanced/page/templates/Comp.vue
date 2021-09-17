@@ -25,7 +25,7 @@
         ></kup-image>
       </a>
       <div v-for="(item, index) in titles" :key="item" class="page__section">
-        <h3 class="nav-title">{{ item }}</h3>
+        <h3 class="page__section-header">{{ item }}</h3>
         <slot :name="'' + index"></slot>
       </div>
     </div>
@@ -34,7 +34,7 @@
         <a
           v-for="item in titles"
           :key="item"
-          onclick="scrollToSmoothly();"
+          @click="scrollToSmoothly"
           class="page__nav-element"
           >{{ item }}</a
         >
@@ -44,7 +44,117 @@
 </template>
 
 <script lang="ts">
+var labels: NodeListOf<HTMLElement> = null;
+var sections: NodeListOf<HTMLElement> = null;
+var title: NodeListOf<HTMLElement> = null;
+
 export default {
+  beforeMount: function () {
+    document.addEventListener('scroll', this.checkNav);
+    document.addEventListener('resize', this.checkNav);
+  },
+  destroyed: function () {
+    document.removeEventListener('scroll', this.checkNav);
+    document.removeEventListener('resize', this.checkNav);
+  },
+  mounted: function () {
+    labels = document.querySelectorAll('.page__nav-element');
+    sections = document.querySelectorAll('.page__section');
+    title = document.querySelectorAll('.page__section-header');
+    this.checkNav();
+  },
+  methods: {
+    checkNav(): void {
+      if (labels.length === 0) {
+        return;
+      }
+      const offset: number =
+        document.querySelector('#app__nav-bar').clientHeight;
+      for (let i = 0; i < labels.length; i++) {
+        labels[i].classList.remove('active');
+      }
+      for (let i = 0; i < sections.length; i++) {
+        if (this.isElementPartiallyInViewport(sections[i], offset)) {
+          const lastEl: number = sections.length - 1;
+          const currentPos: number = window.scrollY || window.screenTop;
+          const maxPos: number =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight;
+          if (maxPos - currentPos < 10) {
+            labels[lastEl].classList.add('active');
+            return;
+          } else {
+            labels[i].classList.add('active');
+            return;
+          }
+        }
+      }
+    },
+    isElementPartiallyInViewport(el: HTMLElement, offset: number): boolean {
+      const rect: DOMRect = el.getBoundingClientRect();
+      if (
+        rect.top === 0 &&
+        rect.left === 0 &&
+        rect.right === 0 &&
+        rect.bottom === 0 &&
+        rect.height === 0 &&
+        rect.width === 0 &&
+        rect.x === 0 &&
+        rect.y === 0
+      ) {
+        return false;
+      }
+      let windowHeight: number =
+        window.innerHeight || document.documentElement.clientHeight;
+      const windowWidth: number =
+        window.innerWidth || document.documentElement.clientWidth;
+      windowHeight = windowHeight - offset;
+      const vertInView: boolean =
+        rect.top - offset <= windowHeight &&
+        rect.top - offset + rect.height >= 0;
+      const horInView: boolean =
+        rect.left <= windowWidth && rect.left + rect.width >= 0;
+      return vertInView && horInView;
+    },
+    scrollToSmoothly(e: MouseEvent): void {
+      // pos is the y-position to scroll to (in pixels)
+      let pos: number = null;
+      const currentPos: number = window.scrollY || window.screenTop;
+      const target: HTMLElement = e.target as HTMLElement;
+      for (let i = 0; i < labels.length; i++) {
+        if (target.textContent === labels[i].textContent) {
+          pos = title[i].offsetTop;
+        }
+      }
+      if (isNaN(pos)) {
+        throw 'Position must be a number';
+      }
+      if (pos < 0) {
+        throw 'Position can not be negative';
+      }
+      if (currentPos < pos) {
+        if (pos - currentPos < 3000) {
+          for (let i = currentPos; i <= pos; i += 1) {
+            setTimeout(function () {
+              window.scrollTo(0, i);
+            }, 100);
+          }
+        } else {
+          window.scrollTo(0, pos);
+        }
+      } else {
+        if (currentPos - pos < 3000) {
+          for (let i = currentPos; i >= pos; i -= 1) {
+            setTimeout(function () {
+              window.scrollTo(0, i);
+            }, 100);
+          }
+        } else {
+          window.scrollTo(0, pos);
+        }
+      }
+    },
+  },
   props: {
     giturl: String,
     headtitle: String,
