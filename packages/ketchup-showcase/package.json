@@ -1,5 +1,5 @@
 {
-  "name": "ketchup-showcase",
+  "name": "@sme.up/ketchup-showcase",
   "version": "2.0.0",
   "keywords": [
     "smeup",
@@ -25,15 +25,12 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@sme.up/ketchup": "^3.0.0-SNAPSHOT",
     "caniuse-lite": "^1.0.30001239",
-    "ketchup": "^3.0.0-SNAPSHOT",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.17",
-    "vue-class-component": "^6.0.0",
-    "vue-material-design-icons": "^2.3.0",
-    "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {

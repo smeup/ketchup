@@ -1,14 +1,15 @@
 {
-    "name": "ketchup-root",
+    "name": "@sme.up/ketchup-root",
     "version": "1.0.0",
     "description": "KetchUP Web Components, library and showcase monorepo by smeup.",
     "keywords": [
         "smeup",
+        "ketchup",
         "monorepo",
-        "Stencil",
         "web components",
-        "Vue.js components",
-        "showcase"
+        "showcase",
+        "Stencil",
+        "Vue.js components"
     ],
     "license": "Apache-2.0",
     "author": "Gruppo Sme.UP <info@smeup.com> (https://www.smeup.com/)",
@@ -20,18 +21,18 @@
     },
     "scripts": {
         "lerna": "lerna",
-        "k:build": "lerna run build --scope ketchup --stream",
-        "k:start": "lerna run start --scope ketchup --stream",
-        "k:test:unit": "lerna run test:spec --scope ketchup --stream",
-        "k:test:e2e": "lerna run test:e2e --scope ketchup --stream",
-        "ksc:serve": "lerna run serve --scope ketchup-showcase --stream",
-        "ksc:build": "lerna run build --scope ketchup-showcase --stream",
-        "ksc:lint": "lerna run lint --scope ketchup-showcase --stream",
-        "ksc:test:unit": "lerna run test:unit --scope ketchup-showcase --stream",
-        "ksc:test:cy:open": "lerna run test:cy:open --scope ketchup-showcase --stream",
-        "ksc:test:cy:run": "lerna run test:cy:run --scope ketchup-showcase --stream",
-        "ksc:test:e2e:open": "lerna run test:e2e:open --scope ketchup-showcase --stream",
-        "ksc:test:e2e:run": "lerna run test:e2e:run --scope ketchup-showcase --stream"
+        "k:build": "lerna run build --scope @sme.up/ketchup --stream",
+        "k:start": "lerna run start --scope @sme.up/ketchup --stream",
+        "k:test:unit": "lerna run test:spec --scope @sme.up/ketchup --stream",
+        "k:test:e2e": "lerna run test:e2e --scope @sme.up/ketchup --stream",
+        "ksc:serve": "lerna run serve --scope @sme.up/ketchup-showcase --stream",
+        "ksc:build": "lerna run build --scope @sme.up/ketchup-showcase --stream",
+        "ksc:lint": "lerna run lint --scope @sme.up/ketchup-showcase --stream",
+        "ksc:test:unit": "lerna run test:unit --scope @sme.up/ketchup-showcase --stream",
+        "ksc:test:cy:open": "lerna run test:cy:open --scope @sme.up/ketchup-showcase --stream",
+        "ksc:test:cy:run": "lerna run test:cy:run --scope @sme.up/ketchup-showcase --stream",
+        "ksc:test:e2e:open": "lerna run test:e2e:open --scope @sme.up/ketchup-showcase --stream",
+        "ksc:test:e2e:run": "lerna run test:e2e:run --scope @sme.up/ketchup-showcase --stream"
     },
     "dependencies": {
         "@justinribeiro/html5-dragdroptouch-shim": "^0.1.2",

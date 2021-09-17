@@ -46,7 +46,6 @@ import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
-import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
@@ -2786,9 +2785,6 @@ export namespace Components {
          */
         "useDynamicExpansion": boolean;
     }
-    interface KupUpload {
-        "typeOptions": UploadProps;
-    }
 }
 declare global {
     interface HTMLKupAccordionElement extends Components.KupAccordion, HTMLStencilElement {
@@ -3085,12 +3081,6 @@ declare global {
         prototype: HTMLKupTreeElement;
         new (): HTMLKupTreeElement;
     };
-    interface HTMLKupUploadElement extends Components.KupUpload, HTMLStencilElement {
-    }
-    var HTMLKupUploadElement: {
-        prototype: HTMLKupUploadElement;
-        new (): HTMLKupUploadElement;
-    };
     interface HTMLElementTagNameMap {
         "kup-accordion": HTMLKupAccordionElement;
         "kup-autocomplete": HTMLKupAutocompleteElement;
@@ -3141,7 +3131,6 @@ declare global {
         "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
-        "kup-upload": HTMLKupUploadElement;
     }
 }
 declare namespace LocalJSX {
@@ -5537,14 +5526,6 @@ declare namespace LocalJSX {
          */
         "useDynamicExpansion"?: boolean;
     }
-    interface KupUpload {
-        "onKetchupFileRejected"?: (event: CustomEvent<any>) => void;
-        /**
-          * Launched when file upload succeed
-         */
-        "onKetchupFileUploaded"?: (event: CustomEvent<any>) => void;
-        "typeOptions"?: UploadProps;
-    }
     interface IntrinsicElements {
         "kup-accordion": KupAccordion;
         "kup-autocomplete": KupAutocomplete;
@@ -5595,7 +5576,6 @@ declare namespace LocalJSX {
         "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
-        "kup-upload": KupUpload;
     }
 }
 export { LocalJSX as JSX };
@@ -5651,7 +5631,6 @@ declare module "@stencil/core" {
             "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
-            "kup-upload": LocalJSX.KupUpload & JSXBase.HTMLAttributes<HTMLKupUploadElement>;
         }
     }
 }
