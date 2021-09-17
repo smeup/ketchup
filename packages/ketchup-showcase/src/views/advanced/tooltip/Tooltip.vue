@@ -9,6 +9,9 @@
     <template v-slot:2>
       <tooltip-tree></tooltip-tree>
     </template>
+    <template v-slot:3>
+      <tooltip-data-table></tooltip-data-table>
+    </template>
   </comp>
 </template>
 
@@ -16,6 +19,7 @@
 import TooltipBasic from '@/views/advanced/tooltip/examples/TooltipBasic';
 import TooltipBox from '@/views/advanced/tooltip/examples/TooltipBox';
 import TooltipTree from '@/views/advanced/tooltip/examples/TooltipTree';
+import TooltipDataTable from '@/views/advanced/tooltip/examples/TooltipDataTable';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
@@ -23,14 +27,15 @@ export default {
     TooltipBasic,
     TooltipBox,
     TooltipTree,
-    Comp,
+    TooltipDataTable,
+    Comp
   },
   data() {
     return {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-tooltip',
       headtitle: 'Tooltip',
-      titles: ['Basic usage', 'Box','Tree'],
+      titles: ['Basic usage', 'Box', 'Tree', 'Data Table'],
     };
   },
 };

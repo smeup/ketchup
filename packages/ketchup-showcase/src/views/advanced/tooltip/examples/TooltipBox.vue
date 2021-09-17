@@ -19,7 +19,6 @@ const colors = ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd'];
 
 export default {
   name: 'TooltipBox',
-
   data() {
     let dataTableWithLayout = JSON.parse(JSON.stringify(defaultData));
 
@@ -89,6 +88,7 @@ export default {
           },
         },
       };
+      console.log(event.detail.comp.data);
       event.detail.comp.data = data;
     },
     loadBornToDie(event) {
