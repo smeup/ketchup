@@ -2153,6 +2153,7 @@ export class KupDataTable {
                 return details;
             }
         }
+        return details;
     }
 
     private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
@@ -2192,6 +2193,7 @@ export class KupDataTable {
                 return details;
             }
         }
+        return details;
     }
 
     private dblClickHandler(e: MouseEvent): EventHandlerDetails {
