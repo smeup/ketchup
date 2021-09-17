@@ -131,7 +131,6 @@ var modal: HTMLElement = null;
 var navbar: HTMLKupNavBarElement = null;
 var spinnerLabel: HTMLElement = null;
 var theme: HTMLKupSwitchElement = null;
-var wrapper: HTMLElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -153,7 +152,6 @@ export default {
     navbar = document.getElementById('app__nav-bar') as HTMLKupNavBarElement;
     spinnerLabel = document.querySelector('.spinner__label');
     theme = document.getElementById('theme-switch') as HTMLKupSwitchElement;
-    wrapper = document.getElementById('app') as HTMLElement;
     document.addEventListener('kup-drawer-ready', () => this.removeSpinner());
     document.addEventListener('kup-debug-active', () => {
       debug.checked = true;
