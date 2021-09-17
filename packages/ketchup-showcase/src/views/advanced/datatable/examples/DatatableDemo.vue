@@ -180,6 +180,20 @@ export default {
           try: 'field',
         },
         {
+          prop: 'dragEnabled',
+          description: 'Enables drag.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'dropEnabled',
+          description: 'Enables drop.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'editableData',
           description:
             'When set to true, editable cells will be rendered using input components.',

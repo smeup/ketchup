@@ -1,5 +1,13 @@
 <template>
-  <div id="app" style="display: none">
+  <div id="app">
+    <div id="app__modal"
+      ><div class="spinner">
+        <div class="spinner__container"
+          ><kup-spinner active layout="13"></kup-spinner
+        ></div>
+        <div class="spinner__label">Loading...</div></div
+      >
+    </div>
     <kup-nav-bar
       id="app__nav-bar"
       :image.prop="navbarImage"
@@ -116,20 +124,37 @@ import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-ma
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
 import type { KupAccordionTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-accordion/kup-accordion-declarations';
 
-const dom: KupDom = document.documentElement as KupDom;
-
-var main: HTMLElement = null;
 var debug: HTMLKupButtonElement = null;
 var drawer: HTMLKupDrawerElement = null;
+var main: HTMLElement = null;
+var modal: HTMLElement = null;
 var navbar: HTMLKupNavBarElement = null;
+var spinnerLabel: HTMLElement = null;
+var theme: HTMLKupSwitchElement = null;
+var wrapper: HTMLElement = null;
+
+const dom: KupDom = document.documentElement as KupDom;
 
 export default {
+  beforeCreate: function () {
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      document.documentElement['ketchupInit'] = { theme: { name: 'dark' } };
+    }
+  },
   mounted: function () {
     debug = document.getElementById('debug-toggler') as HTMLKupButtonElement;
     drawer = document.getElementById('app__drawer') as HTMLKupDrawerElement;
-    main = document.getElementById('app__content') as HTMLKupDrawerElement;
+    main = document.getElementById('app__content') as HTMLElement;
     main.style.padding = '';
+    modal = document.getElementById('app__modal') as HTMLElement;
     navbar = document.getElementById('app__nav-bar') as HTMLKupNavBarElement;
+    spinnerLabel = document.querySelector('.spinner__label');
+    theme = document.getElementById('theme-switch') as HTMLKupSwitchElement;
+    wrapper = document.getElementById('app') as HTMLElement;
+    document.addEventListener('kup-drawer-ready', () => this.removeSpinner());
     document.addEventListener('kup-debug-active', () => {
       debug.checked = true;
     });
@@ -170,6 +195,16 @@ export default {
           navbar.classList.remove('has-padding');
         }
       });
+    },
+    removeSpinner(): void {
+      setTimeout(() => {
+        if (dom.ketchup.theme.name === 'dark') {
+          theme.checked = true;
+        }
+        spinnerLabel.innerHTML = 'Ready!';
+        modal.style.opacity = '0';
+        setTimeout(() => modal.remove(), 500);
+      }, 1000);
     },
     menuClick(): void {
       drawer.isOpened().then((res: boolean) => {
@@ -861,30 +896,62 @@ label {
   &__container {
     padding: 1.2em 2.4em;
   }
+
+  &__content {
+    padding-bottom: 32px;
+    padding-top: 64px;
+    transition: all 250ms;
+  }
+
+  &__modal {
+    --kup-spinner-color: var(--kup-primary-color);
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: var(--kup-background-color, white);
+    left: 0;
+    top: 0;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    z-index: 999;
+  }
+
+  &__footer {
+    align-items: center;
+    background: var(--kup-nav-bar-background-color);
+    bottom: 0;
+    box-shadow: 0px -1px 4px -1px rgba(128, 128, 128, 0.2),
+      0px -1px 5px 0 rgba(128, 128, 128, 0.14),
+      0px -1px 10px 0 rgba(128, 128, 128, 0.12);
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    padding: 0.375em 0;
+    position: fixed;
+    width: 100%;
+    z-index: var(--kup-drawer-zindex);
+  }
 }
 
-#app__content {
-  padding-bottom: 32px;
-  padding-top: 64px;
-  transition: all 250ms;
-}
+.spinner {
+  margin: auto;
 
-#app__footer {
-  align-items: center;
-  background: var(--kup-nav-bar-background-color);
-  bottom: 0;
-  box-shadow: 0px -1px 4px -1px rgba(128, 128, 128, 0.2),
-    0px -1px 5px 0 rgba(128, 128, 128, 0.14),
-    0px -1px 10px 0 rgba(128, 128, 128, 0.12);
-  box-sizing: border-box;
-  color: white;
-  display: flex;
-  height: 32px;
-  justify-content: center;
-  padding: 0.375em 0;
-  position: fixed;
-  width: 100%;
-  z-index: var(--kup-drawer-zindex);
+  &__container {
+    height: 150px;
+    width: 150px;
+  }
+
+  &__label {
+    color: var(--kup-text-color, transparent);
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
 }
 
 a.footer__icon--leading {

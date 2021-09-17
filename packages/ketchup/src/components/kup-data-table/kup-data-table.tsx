@@ -418,11 +418,11 @@ export class KupDataTable {
      */
     @Prop() density: string = 'dense';
     /**
-     * Enable row dragging
+     * Enables drag.
      */
     @Prop() dragEnabled: boolean = false;
     /**
-     * Enable record dropping
+     * Enables drop.
      */
     @Prop() dropEnabled: boolean = false;
     /**

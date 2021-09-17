@@ -9,12 +9,13 @@ function checkNav() {
   if (listLabels.length === 0) {
     return;
   }
-  var elements = document.querySelectorAll('.section');
-  var offset = document.querySelectorAll('.header')[0].clientHeight;
+  var elements = document.querySelectorAll('.page__section');
+  var offset = document.querySelector('#app__nav-bar').clientHeight;
   for (let i = 0; i < listLabels.length; i++) {
     listLabels[i].classList.remove('active');
   }
   for (let i = 0; i < elements.length; i++) {
+    console.log('here');
     if (isElementPartiallyInViewport(elements[i], offset)) {
       var lastEl = elements.length - 1;
       var currentPos = window.scrollY || window.screenTop;
@@ -62,7 +63,7 @@ function isElementPartiallyInViewport(el, offset) {
 
 function scrollToSmoothly() {
   var listLabels = document.querySelectorAll('.page__nav-element');
-  var elements = document.querySelectorAll('.section .nav-title');
+  var elements = document.querySelectorAll('.page__section .nav-title');
 
   for (let i = 0; i < listLabels.length; i++) {
     if (event.target.textContent === listLabels[i].textContent) {

@@ -1,6 +1,8 @@
 import {
     Component,
     Element,
+    Event,
+    EventEmitter,
     forceUpdate,
     h,
     Host,
@@ -8,7 +10,11 @@ import {
     Prop,
 } from '@stencil/core';
 
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -85,6 +91,21 @@ export class KupSpinner {
     private kupManager: KupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * Triggered when the component is ready.
+     */
+    @Event({
+        eventName: 'kup-spinner-ready',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupSpinnerReady: EventEmitter<KupEventPayload>;
+
+    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -123,6 +144,10 @@ export class KupSpinner {
     }
 
     componentDidLoad() {
+        this.kupSpinnerReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
         this.kupManager.debug.logLoad(this, true);
     }
 
