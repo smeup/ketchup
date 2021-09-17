@@ -14,7 +14,7 @@
       <kup-button
         title="Download"
         icon="download"
-        @kup-button-click="downloadTheme" />
+        @kup-button-click="downloadTheme"/>
       <kup-button title="Delete" icon="delete" @kup-button-click="deleteTheme"
     /></div>
     <div id="sample-wrapper" class="theming">
@@ -655,7 +655,8 @@
                   <span class="code-word">--kup-drawer-zindex</span>
                 </td>
                 <td
-                  >Sets the z-index for kup-drawer. Should be set accordingly to the app using the component.</td
+                  >Sets the z-index for kup-drawer. Should be set accordingly to
+                  the app using the component.</td
                 >
                 <td class="prevent-cr">
                   <span class="code-word">z-index</span>
@@ -674,7 +675,8 @@
                   <span class="code-word">--kup-navbar-zindex</span>
                 </td>
                 <td
-                  >Sets the z-index for kup-nav-bar. Should be set accordingly to the app using the component.</td
+                  >Sets the z-index for kup-nav-bar. Should be set accordingly
+                  to the app using the component.</td
                 >
                 <td class="prevent-cr">
                   <span class="code-word">z-index</span>

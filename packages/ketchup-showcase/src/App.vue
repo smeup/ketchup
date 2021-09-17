@@ -123,7 +123,7 @@ var drawer: HTMLKupDrawerElement = null;
 var navbar: HTMLKupNavBarElement = null;
 
 export default {
-  mounted: function () {
+  mounted: function() {
     debug = document.getElementById('debug-toggler') as HTMLKupButtonElement;
     drawer = document.getElementById('app__drawer') as HTMLKupDrawerElement;
     main = document.getElementById('app__content') as HTMLKupDrawerElement;
@@ -863,6 +863,7 @@ label {
 }
 
 #app__content {
+  padding-bottom: 32px;
   padding-top: 64px;
   transition: all 250ms;
 }
