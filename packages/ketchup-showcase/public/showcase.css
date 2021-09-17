@@ -603,38 +603,6 @@ table#customstyle-tab kup-text-field {
   }
 }
 
-#landing-spinner-modal {
-  --kup-spinner-color: var(--kup-primary-color);
-  display: flex;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  background: var(--kup-background-color, white);
-  left: 0;
-  top: 0;
-  opacity: 1;
-  transition: opacity 0.5s ease-out;
-  z-index: 999;
-}
-
-#landing-spinner-wrapper {
-  margin: auto;
-}
-
-#landing-spinner-container {
-  height: 150px;
-  width: 150px;
-}
-
-#landing-spinner-label {
-  color: var(--kup-text-color, transparent);
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 14px;
-  text-align: center;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
 #sample-tooltip {
   display: none;
   background: var(--kup-background-color);
