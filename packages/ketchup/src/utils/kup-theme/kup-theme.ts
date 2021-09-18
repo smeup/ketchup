@@ -5,8 +5,10 @@ import * as themesJson from './themes.json';
 import * as themeCSS from './kup-theme.css';
 import {
     KupThemeCSSVariables,
+    KupThemeHSLValues,
     KupThemeIcons,
     KupThemeJSON,
+    KupThemeRGBValues,
     masterCustomStyle,
 } from './kup-theme-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
@@ -370,9 +372,9 @@ export class KupTheme {
     /**
      * Converts an HEX color to its RGB values.
      * @param {string} hex - Hex code.
-     * @returns {{number, number, number}} Object of color values: hexColor ("#ffffff"), rgbColor ("rgb(255,255,255)"") and rgbValues ("255,255,255").
+     * @returns {KupThemeRGBValues} Object containing RGB values.
      */
-    hexToRgb(hex: string): { r: number; g: number; b: number } {
+    hexToRgb(hex: string): KupThemeRGBValues {
         var result: RegExpExecArray =
             /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result
@@ -400,21 +402,21 @@ export class KupTheme {
      * @param {number} r - Red channel value.
      * @param {number} g - Green channel value.
      * @param {number} b - Blue channel value.
-     * @returns {string} HSL color.
+     * @returns {KupThemeHSLValues} Object containing HSL values.
      */
-    rgbToHsl(r: number, g: number, b: number): string {
+    rgbToHsl(r: number, g: number, b: number): KupThemeHSLValues {
         // Make r, g, and b fractions of 1
         r /= 255;
         g /= 255;
         b /= 255;
 
         // Find greatest and smallest channel values
-        let cmin = Math.min(r, g, b),
-            cmax = Math.max(r, g, b),
-            delta = cmax - cmin,
-            h = 0,
-            s = 0,
-            l = 0;
+        const cmin: number = Math.min(r, g, b),
+            cmax: number = Math.max(r, g, b),
+            delta: number = cmax - cmin;
+        let h: number = 0,
+            s: number = 0,
+            l: number = 0;
 
         // Calculate hue
         // No difference
@@ -441,7 +443,7 @@ export class KupTheme {
         s = +(s * 100).toFixed(1);
         l = +(l * 100).toFixed(1);
 
-        return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+        return { h: h, s: s, l: l };
     }
     /**
      * Converts a single RGB value to the corresponding HEX value.
@@ -449,7 +451,7 @@ export class KupTheme {
      * @returns {string} HEX value.
      */
     valueToHex(c: number): string {
-        var hex = c.toString(16);
+        const hex: string = c.toString(16);
         return hex.length == 1 ? '0' + hex : hex;
     }
     /**
@@ -458,7 +460,7 @@ export class KupTheme {
      * @returns {string} HEX value.
      */
     codeToHex(color: string): string {
-        const colorCodes = {
+        const colorCodes: GenericObject = {
             aliceblue: '#f0f8ff',
             antiquewhite: '#faebd7',
             aqua: '#00ffff',

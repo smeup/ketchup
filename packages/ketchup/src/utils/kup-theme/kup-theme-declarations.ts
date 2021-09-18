@@ -79,6 +79,22 @@ export interface KupThemeCSSVariablesRGB {
     [key: string]: string;
 }
 /**
+ * Interface of a color described by RGB colors.
+ */
+export interface KupThemeRGBValues {
+    r: number;
+    g: number;
+    b: number;
+}
+/**
+ * Interface of a color described by HSL colors.
+ */
+export interface KupThemeHSLValues {
+    h: number;
+    s: number;
+    l: number;
+}
+/**
  * List of all colors.
  */
 export enum KupThemeColorValues {
