@@ -4,6 +4,7 @@ import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
 import * as themeCSS from './kup-theme.css';
 import {
+    KupThemeColor,
     KupThemeCSSVariables,
     KupThemeHSLValues,
     KupThemeIcons,
@@ -112,12 +113,13 @@ export class KupTheme {
         let css: string = '';
         for (var key in variables) {
             if (variables.hasOwnProperty(key)) {
-                var val = variables[key];
+                var val: string = variables[key];
                 this.cssVars[key] = val;
                 css += key + ': ' + val + ';';
                 if (key.indexOf('color') > -1) {
-                    let rgbKey = key + '-rgb';
-                    let rgbVal = this.colorCheck(val).rgbValues;
+                    const computedColor: KupThemeColor = this.colorCheck(val);
+                    const rgbKey: string = key + '-rgb';
+                    const rgbVal: string = computedColor.rgbValues;
                     this.cssVars[rgbKey] = rgbVal;
                     css += rgbKey + ': ' + rgbVal + ';';
                 }
@@ -275,16 +277,12 @@ export class KupTheme {
     /**
      * Returns HEX, RGB and RGB values from a given color.
      * @param {string} color - Color.
-     * @returns {{string, string, string}} Object of color values: hexColor ("#ffffff"), rgbColor ("rgb(255,255,255)"") and rgbValues ("255,255,255").
+     * @returns {KupThemeColor} Object of color values: hexColor ("#ffffff"), hslColor ("hsl(255,100%,100%)"), hslValues ("255,100%,100%"), rgbColor ("rgb(255,255,255)") and rgbValues ("255,255,255").
      */
-    colorCheck(color: string): {
-        hexColor: string;
-        rgbColor: string;
-        rgbValues: string;
-    } {
+    colorCheck(color: string): KupThemeColor {
         //Testing whether the color is transparent, if it is a fall back value will be returned matching the background-color
         if (color === 'transparent') {
-            color = this.list[this.name].cssVariables['--kup-background-color'];
+            color = this.cssVars['--kup-background-color'];
             dom.ketchup.debug.logMessage(
                 'theme manager',
                 'Received TRANSPARENT color, converted to ' +
@@ -293,10 +291,15 @@ export class KupTheme {
             );
         }
 
-        //Testing whether the color isn't "rgb" nor "hex" value, supposedly is a code word
-        if (color.substr(0, 1) !== '#' && color.substr(0, 3) !== 'rgb') {
-            let oldColor = color;
+        let isHex: boolean = color.substr(0, 1) === '#';
+        const isHsl: boolean = color.substr(0, 3).toLowerCase() === 'hsl';
+        const isRgb: boolean = color.substr(0, 3).toLowerCase() === 'rgb';
+
+        //If true, supposedly it's a code word
+        if (!isHex && !isHsl && !isRgb) {
+            const oldColor: string = color;
             color = this.codeToHex(color);
+            isHex = color.substr(0, 1) === '#' ? true : false;
             dom.ketchup.debug.logMessage(
                 'theme manager',
                 'Received CODE NAME color ' +
@@ -307,12 +310,28 @@ export class KupTheme {
             );
         }
 
-        //Testing whether the color is "hex" value
-        let hexColor: string = undefined;
-        if (color.substr(0, 1) === '#') {
-            hexColor = color;
-            let oldColor = color;
-            let rgbColor = this.hexToRgb(color);
+        //Testing whether the color is "hex" value or "hsl"
+        let hexColor: string = null;
+        let hslColor: string = null;
+        let hslValues: string = null;
+
+        if (isHex || isHsl) {
+            const oldColor: string = color;
+            let rgbColor: KupThemeRGBValues = null;
+            if (isHex) {
+                hexColor = color;
+                rgbColor = this.hexToRgb(color);
+            } else {
+                hslColor = color;
+                const regexp: RegExp =
+                    /hsl\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?%)\s*,\s*(\d+(?:\.\d+)?%)\)/g;
+                const hsl: string[] = regexp.exec(color).slice(1);
+                hslValues = hsl[0] + ',' + hsl[1] + ',' + hsl[2];
+                const h: number = parseInt(hsl[0].replace('deg', ''));
+                const s: number = parseInt(hsl[1].replace('%', '')) / 100;
+                const l: number = parseInt(hsl[2].replace('%', '')) / 100;
+                rgbColor = this.hslToRgb(h, s, l);
+            }
             try {
                 color =
                     'rgb(' +
@@ -322,8 +341,24 @@ export class KupTheme {
                     ',' +
                     rgbColor.b +
                     ')';
+                if (isHex) {
+                    const hsl: KupThemeHSLValues = this.rgbToHsl(
+                        rgbColor.r,
+                        rgbColor.g,
+                        rgbColor.b
+                    );
+                    hslValues = hsl.h + ',' + hsl.s + '%,' + hsl.l + '%';
+                    hslColor =
+                        'hsl(' + hsl.h + ',' + hsl.s + '%,' + hsl.l + '%)';
+                } else {
+                    hexColor = this.rgbToHex(
+                        rgbColor.r,
+                        rgbColor.g,
+                        rgbColor.b
+                    );
+                }
                 dom.ketchup.debug.logMessage(
-                    'theme manager',
+                    'theme-manager',
                     'Received HEX color ' +
                         oldColor +
                         ', converted to ' +
@@ -338,8 +373,8 @@ export class KupTheme {
             }
         }
 
-        let rgbValues: string = undefined;
-        var values = color.match(
+        let rgbValues: string = null;
+        const values: RegExpMatchArray = color.match(
             /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
         );
 
@@ -367,7 +402,30 @@ export class KupTheme {
             }
         }
 
-        return { hexColor: hexColor, rgbColor: color, rgbValues: rgbValues };
+        if (!hslColor || !hslValues) {
+            try {
+                const hsl: KupThemeHSLValues = this.rgbToHsl(
+                    parseInt(values[1]),
+                    parseInt(values[2]),
+                    parseInt(values[3])
+                );
+                hslValues = hsl.h + ',' + hsl.s + '%,' + hsl.l + '%';
+                hslColor = 'hsl(' + hsl.h + ',' + hsl.s + '%,' + hsl.l + '%)';
+            } catch (error) {
+                dom.ketchup.debug.logMessage(
+                    'theme-manager',
+                    'Color not converted to hex value: ' + color + '.'
+                );
+            }
+        }
+
+        return {
+            hexColor: hexColor,
+            hslColor: hslColor,
+            hslValues: hslValues,
+            rgbColor: color,
+            rgbValues: rgbValues,
+        };
     }
     /**
      * Converts an HEX color to its RGB values.
@@ -384,6 +442,62 @@ export class KupTheme {
                   b: parseInt(result[3], 16),
               }
             : null;
+    }
+    /**
+     * Converts an HSL color to its RGB values.
+     * @param {number} h - Hue (range [0, 360)).
+     * @param {number} s - Saturation (range [0, 1)).
+     * @param {number} l - Lightness (range [0, 1)).
+     * @returns {Array} RGB values.
+     */
+    hslToRgb(h: number, s: number, l: number): KupThemeRGBValues {
+        if (h == undefined) {
+            return { r: 0, g: 0, b: 0 };
+        }
+
+        let huePrime: number = h / 60;
+        const chroma: number = (1 - Math.abs(2 * l - 1)) * s;
+        const secondComponent: number =
+            chroma * (1 - Math.abs((huePrime % 2) - 1));
+
+        huePrime = Math.floor(huePrime);
+        let red: number, green: number, blue: number;
+
+        if (huePrime === 0) {
+            red = chroma;
+            green = secondComponent;
+            blue = 0;
+        } else if (huePrime === 1) {
+            red = secondComponent;
+            green = chroma;
+            blue = 0;
+        } else if (huePrime === 2) {
+            red = 0;
+            green = chroma;
+            blue = secondComponent;
+        } else if (huePrime === 3) {
+            red = 0;
+            green = secondComponent;
+            blue = chroma;
+        } else if (huePrime === 4) {
+            red = secondComponent;
+            green = 0;
+            blue = chroma;
+        } else if (huePrime === 5) {
+            red = chroma;
+            green = 0;
+            blue = secondComponent;
+        }
+
+        const lightnessAdjustment: number = l - chroma / 2;
+        red += lightnessAdjustment;
+        green += lightnessAdjustment;
+        blue += lightnessAdjustment;
+        return {
+            r: Math.round(red * 255),
+            g: Math.round(green * 255),
+            b: Math.round(blue * 255),
+        };
     }
     /**
      * Converts a color in RGB format to the corresponding HEX color.

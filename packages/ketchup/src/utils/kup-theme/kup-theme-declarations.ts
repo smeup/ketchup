@@ -79,6 +79,16 @@ export interface KupThemeCSSVariablesRGB {
     [key: string]: string;
 }
 /**
+ * Object returned by the colorCheck method, containing hex/rgb/hsl CSS colors and rgb/hsl values.
+ */
+export interface KupThemeColor {
+    hexColor: string;
+    hslColor: string;
+    hslValues: string;
+    rgbColor: string;
+    rgbValues: string;
+}
+/**
  * Interface of a color described by RGB colors.
  */
 export interface KupThemeRGBValues {
