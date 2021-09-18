@@ -342,12 +342,12 @@ export class KupTheme {
                     /hsl\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?%)\s*,\s*(\d+(?:\.\d+)?%)\)/g;
                 const hsl: string[] = regexp.exec(color).slice(1);
                 hslValues = hsl[0] + ',' + hsl[1] + ',' + hsl[2];
-                hue = hsl[0].replace('deg', '');
-                lightness = hsl[1].replace('%', '');
-                saturation = hsl[2].replace('%', '');
-                const h: number = parseInt(hue);
-                const s: number = parseInt(lightness) / 100;
-                const l: number = parseInt(saturation) / 100;
+                hue = hsl[0];
+                saturation = hsl[2];
+                lightness = hsl[1];
+                const h: number = parseInt(hue.replace('deg', ''));
+                const s: number = parseInt(saturation.replace('%', '')) / 100;
+                const l: number = parseInt(lightness.replace('%', '')) / 100;
                 rgbColor = this.hslToRgb(h, s, l);
             }
             try {
@@ -366,11 +366,10 @@ export class KupTheme {
                         rgbColor.b
                     );
                     hue = hsl.h.toString();
-                    lightness = hsl.l.toString();
-                    saturation = hsl.s.toString();
-                    hslValues = hsl.h + ',' + hsl.s + '%,' + hsl.l + '%';
-                    hslColor =
-                        'hsl(' + hsl.h + ',' + hsl.s + '%,' + hsl.l + '%)';
+                    saturation = hsl.s.toString() + '%';
+                    lightness = hsl.l.toString() + '%';
+                    hslValues = hue + ',' + saturation + ',' + lightness;
+                    hslColor = 'hsl(' + hslValues + ')';
                 } else {
                     hexColor = this.rgbToHex(
                         rgbColor.r,
@@ -430,6 +429,9 @@ export class KupTheme {
                     parseInt(values[2]),
                     parseInt(values[3])
                 );
+                hue = hsl.h.toString();
+                saturation = hsl.s.toString() + '%';
+                lightness = hsl.l.toString() + '%';
                 hslValues = hsl.h + ',' + hsl.s + '%,' + hsl.l + '%';
                 hslColor = 'hsl(' + hsl.h + ',' + hsl.s + '%,' + hsl.l + '%)';
             } catch (error) {

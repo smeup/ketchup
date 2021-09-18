@@ -4,7 +4,6 @@
     border-radius: 4px;
     color: var(--kup-primary-color);
     cursor: pointer;
-    filter: brightness(100%) saturate(100%);
     font-family: var(--kup-font-family);
     font-size: 0.875em;
     -moz-osx-font-smoothing: grayscale;
@@ -29,12 +28,15 @@
     -webkit-appearance: none;
     overflow: visible;
     vertical-align: middle;
-    transition: background-color 80ms linear, filter 80ms linear,
+    transition: background-color 80ms linear,
       box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: rgba(var(--kup-primary-color-rgb), 0.125);
+    }
+
+    &:focus {
+      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
     }
 
     .button__icon {
@@ -54,9 +56,20 @@
         color: var(--kup-text-on-primary-color);
       }
 
-      &:focus,
       &:hover {
-        filter: brightness(110%) saturate(90%);
+        background-color: hsl(
+          var(--kup-primary-color-h),
+          calc(var(--kup-primary-color-s) * 0.93),
+          calc(var(--kup-primary-color-l) * 1.07)
+        );
+      }
+
+      &:focus {
+        background-color: hsl(
+          var(--kup-primary-color-h),
+          calc(var(--kup-primary-color-s) * 0.88),
+          calc(var(--kup-primary-color-l) * 1.12)
+        );
       }
 
       &.button--disabled {
@@ -122,9 +135,12 @@
         color: var(--kup-primary-color);
       }
 
-      &:focus,
       &:hover {
         background-color: rgba(var(--kup-primary-color-rgb), 0.125);
+      }
+
+      &:focus {
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
       }
 
       &.button--disabled {
