@@ -111,17 +111,29 @@ export class KupTheme {
         const variables: KupThemeCSSVariables =
             this.list[this.name].cssVariables;
         let css: string = '';
-        for (var key in variables) {
+        for (let key in variables) {
             if (variables.hasOwnProperty(key)) {
-                var val: string = variables[key];
+                const val: string = variables[key];
                 this.cssVars[key] = val;
                 css += key + ': ' + val + ';';
                 if (key.indexOf('color') > -1) {
                     const computedColor: KupThemeColor = this.colorCheck(val);
                     const rgbKey: string = key + '-rgb';
+                    const hKey: string = key + '-h';
+                    const sKey: string = key + '-s';
+                    const lKey: string = key + '-l';
                     const rgbVal: string = computedColor.rgbValues;
+                    const hue: string = computedColor.hue;
+                    const saturation: string = computedColor.saturation;
+                    const lightness: string = computedColor.lightness;
                     this.cssVars[rgbKey] = rgbVal;
+                    this.cssVars[hKey] = hue;
+                    this.cssVars[lKey] = lightness;
+                    this.cssVars[sKey] = saturation;
                     css += rgbKey + ': ' + rgbVal + ';';
+                    css += hKey + ': ' + hue + ';';
+                    css += lKey + ': ' + lightness + ';';
+                    css += sKey + ': ' + saturation + ';';
                 }
             }
         }
@@ -314,6 +326,9 @@ export class KupTheme {
         let hexColor: string = null;
         let hslColor: string = null;
         let hslValues: string = null;
+        let hue: string = null;
+        let lightness: string = null;
+        let saturation: string = null;
 
         if (isHex || isHsl) {
             const oldColor: string = color;
@@ -327,9 +342,12 @@ export class KupTheme {
                     /hsl\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?%)\s*,\s*(\d+(?:\.\d+)?%)\)/g;
                 const hsl: string[] = regexp.exec(color).slice(1);
                 hslValues = hsl[0] + ',' + hsl[1] + ',' + hsl[2];
-                const h: number = parseInt(hsl[0].replace('deg', ''));
-                const s: number = parseInt(hsl[1].replace('%', '')) / 100;
-                const l: number = parseInt(hsl[2].replace('%', '')) / 100;
+                hue = hsl[0].replace('deg', '');
+                lightness = hsl[1].replace('%', '');
+                saturation = hsl[2].replace('%', '');
+                const h: number = parseInt(hue);
+                const s: number = parseInt(lightness) / 100;
+                const l: number = parseInt(saturation) / 100;
                 rgbColor = this.hslToRgb(h, s, l);
             }
             try {
@@ -347,6 +365,9 @@ export class KupTheme {
                         rgbColor.g,
                         rgbColor.b
                     );
+                    hue = hsl.h.toString();
+                    lightness = hsl.l.toString();
+                    saturation = hsl.s.toString();
                     hslValues = hsl.h + ',' + hsl.s + '%,' + hsl.l + '%';
                     hslColor =
                         'hsl(' + hsl.h + ',' + hsl.s + '%,' + hsl.l + '%)';
@@ -423,6 +444,9 @@ export class KupTheme {
             hexColor: hexColor,
             hslColor: hslColor,
             hslValues: hslValues,
+            hue: hue,
+            lightness: lightness,
+            saturation: saturation,
             rgbColor: color,
             rgbValues: rgbValues,
         };
