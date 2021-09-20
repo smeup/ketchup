@@ -140,7 +140,9 @@ export default {
       window.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches
     ) {
-      document.documentElement['ketchupInit'] = { theme: { name: 'dark' } };
+      dom.ketchupInit = {
+        theme: { name: 'dark' },
+      };
     }
   },
   mounted: function () {

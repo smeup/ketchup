@@ -399,11 +399,7 @@ export class KupAccordion {
         this.globalFilterValue = value;
     }
 
-    private renderSubComponent(
-        i: number,
-        cell: Cell,
-        itemName: string
-    ): VNode[] {
+    private renderSubComponent(i: number, cell: Cell, itemName: string): VNode {
         const shape: string = cell.shape;
 
         switch (shape) {
@@ -433,7 +429,7 @@ export class KupAccordion {
                 );
             }
             default:
-                return;
+                return null;
         }
     }
     /**
@@ -494,10 +490,10 @@ export class KupAccordion {
             const cell: Cell = this.data.rows[0].cells[itemName];
             const isItemExpandible: boolean = this.isItemExpandible(itemName);
             const isItemSelected: boolean = this.isItemSelected(itemName);
+            const isItemExpanded: boolean = isItemExpandible && isItemSelected;
 
-            // subcomponent
-            let subComponent: VNode[] = null;
-            if (isItemExpandible) {
+            let subComponent: VNode = null;
+            if (isItemExpanded) {
                 subComponent = this.renderSubComponent(i, cell, itemName);
             }
 
@@ -505,8 +501,9 @@ export class KupAccordion {
                 'accordion-item__header': true,
                 'accordion-item__header--selected':
                     !isItemExpandible && isItemSelected ? true : false,
-                'accordion-item__header--expanded':
-                    isItemExpandible && isItemSelected ? true : false,
+                'accordion-item__header--expanded': isItemExpanded
+                    ? true
+                    : false,
             };
 
             const itemContentClass: GenericObject = {
