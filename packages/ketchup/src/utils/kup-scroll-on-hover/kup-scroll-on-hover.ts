@@ -11,6 +11,7 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupScrollOnHover
  */
 export class KupScrollOnHover {
+    container: HTMLElement;
     delay: number;
     managedElements: Set<KupScrollOnHoverElement>;
     step: number;
@@ -61,7 +62,10 @@ export class KupScrollOnHover {
             this.#rightArrows[1],
             this.#rightArrows[2]
         );
-        document.body.append(this.#arrowsContainer);
+        this.container = document.createElement('div');
+        this.container.setAttribute('kup-scroll-on-hover', '');
+        this.container.appendChild(this.#arrowsContainer);
+        document.body.appendChild(this.container);
     }
     /**
      * Watches the given element in order to trigger the scroll on hover when conditions are met.

@@ -19,6 +19,7 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupDebug {
     active: boolean;
     autoPrint: boolean;
+    container: HTMLElement;
     logLimit: number;
     logs: KupDebugLog[];
     #debugWidget: HTMLKupCardElement;
@@ -31,6 +32,9 @@ export class KupDebug {
     constructor(active?: boolean, autoprint?: boolean, logLimit?: number) {
         this.active = active ? true : false;
         this.autoPrint = autoprint ? true : false;
+        this.container = document.createElement('div');
+        this.container.setAttribute('kup-debug', '');
+        document.body.appendChild(this.container);
         this.logLimit = logLimit ? logLimit : 250;
         this.logs = [];
         this.#debugWidget = null;
@@ -52,7 +56,7 @@ export class KupDebug {
             document.createElement('a');
         downloadAnchorNode.setAttribute('href', dataStr);
         downloadAnchorNode.setAttribute('download', 'kup_props.json');
-        document.body.appendChild(downloadAnchorNode);
+        this.container.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
     }
@@ -229,7 +233,7 @@ export class KupDebug {
         debugWidget.addEventListener('kup-card-event', (e: CustomEvent) =>
             this.handleEvents(e)
         );
-        document.body.append(debugWidget);
+        this.container.append(debugWidget);
         this.#debugWidget = debugWidget;
     }
     /**
