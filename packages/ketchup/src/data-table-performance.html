@@ -21,18 +21,67 @@
                 color: var(--kup-text-color);
                 font-family: var(--kup-font-family);
                 font-size: var(--kup-font-size);
-                padding: 1rem;
+            }
+
+            body,
+            html {
+                box-sizing: border-box;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            kup-text-field {
+                margin: 1em;
+            }
+
+            #datatable-wrapper {
+                padding-top: 64px;
             }
         </style>
     </head>
 
     <body>
         <div class="data-examples">
-            <h1>Performance Data Table (50 tables, 10 Columns/Rows each)</h1>
-            <script>
-                document.documentElement['ketchupInit'] = { debug: { active: true } };
-            </script>
+            <kup-nav-bar
+                id="nav-bar"
+                label="Performance Data Table"
+                show-menu-button="false"
+            >
+                <kup-text-field
+                    id="table-field"
+                    initial-value="0"
+                    input-type="number"
+                    label="N° of tables"
+                ></kup-text-field>
+                <kup-text-field
+                    id="column-field"
+                    initial-value="10"
+                    input-type="number"
+                    label="N° of columns"
+                ></kup-text-field>
+                <kup-text-field
+                    id="row-field"
+                    initial-value="400"
+                    input-type="number"
+                    label="N° of rows"
+                ></kup-text-field
+                ><kup-button
+                    id="apply-button"
+                    label="Apply"
+                    styling="flat"
+                ></kup-button
+                ><kup-button
+                    class="kup-pulsating"
+                    onclick="document.documentElement.ketchup.debug.toggle();"
+                    toggable
+                    icon-off="bug"
+                    icon="bug"
+                ></kup-button
+            ></kup-nav-bar>
             <div id="datatable-wrapper"></div>
-        <script src="/assets/data-table-performance.js"></script>
+            <script src="/assets/data-table-performance.js"></script
+        ></div>
     </body>
 </html>
