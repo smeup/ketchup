@@ -51,7 +51,6 @@ export class KupManager {
             debugAutoprint: boolean = null,
             debugLogLimit: number = null,
             dialogZIndex: number = null,
-            dynamicPositionContainer: string = null,
             languageList: KupLanguageJSON = null,
             languageName: string = null,
             objectsList: KupObjectsJSON = null,
