@@ -734,16 +734,23 @@ export class KupDebug {
     }
     /**
      * Function used to time the render times of a component.
-     * @param comp - The component calling this function or a string.
-     * @param didRender - Must be set to false when called inside a componentWillRender() lifecycle hook and true when called inside componentDidRender().
+     * @param {any} comp - The component calling this function or a string.
+     * @param {boolean} didRender - Must be set to false when called inside a componentWillRender() lifecycle hook and true when called inside componentDidRender().
+     * @param {string} breakpoint - When present, this log is supposedly between a willRender and didRender hook. Used to time single features of the render lifecycle.
      */
-    logRender(comp: any, didRender: boolean): void {
-        if (!didRender) {
+    logRender(comp: any, didRender: boolean, breakpoint?: string): void {
+        if (breakpoint) {
+            const timeDiff: number =
+                window.performance.now() - comp.debugInfo.renderStart;
+            if (this.isDebug()) {
+                this.logMessage(comp, breakpoint + ' took ' + timeDiff + 'ms.');
+            }
+        } else if (!didRender) {
             comp.debugInfo.renderCount++;
             comp.debugInfo.renderStart = window.performance.now();
         } else {
             comp.debugInfo.renderEnd = window.performance.now();
-            let timeDiff: number =
+            const timeDiff: number =
                 comp.debugInfo.renderEnd - comp.debugInfo.renderStart;
             if (this.isDebug()) {
                 this.logMessage(
