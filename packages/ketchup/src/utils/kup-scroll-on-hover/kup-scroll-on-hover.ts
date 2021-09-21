@@ -43,15 +43,21 @@ export class KupScrollOnHover {
             this.updateChildren(event.target as KupScrollOnHoverElement);
         this.#timeout = null;
 
-        this.#arrowsContainer.id = 'container-scrolling-arrow';
+        this.#arrowsContainer.id = 'kup-scrolling-arrows';
         for (let index = 1; index < 4; index++) {
             const arrow: HTMLElement = document.createElement('div');
-            arrow.setAttribute('class', 'left-scrolling-arrow arrow-' + index);
+            arrow.setAttribute(
+                'class',
+                'kup-left-scrolling-arrow kup-arrow-' + index
+            );
             this.#leftArrows.push(arrow);
         }
         for (let index = 1; index < 4; index++) {
             const arrow: HTMLElement = document.createElement('div');
-            arrow.setAttribute('class', 'right-scrolling-arrow arrow-' + index);
+            arrow.setAttribute(
+                'class',
+                'kup-right-scrolling-arrow kup-arrow-' + index
+            );
             this.#rightArrows.push(arrow);
         }
         this.#arrowsContainer.append(
@@ -144,9 +150,9 @@ export class KupScrollOnHover {
                 if (direction) {
                     for (let i = 0; i < 3; i++) {
                         if (direction === ScrollOnHoverDirection.LEFT) {
-                            this.#leftArrows[i].classList.add('activated');
+                            this.#leftArrows[i].classList.add('kup-activated');
                         } else {
-                            this.#rightArrows[i].classList.add('activated');
+                            this.#rightArrows[i].classList.add('kup-activated');
                         }
                     }
                     this.#timeout = setTimeout(() => {
@@ -175,12 +181,12 @@ export class KupScrollOnHover {
         clearTimeout(this.#timeout);
         this.#timeout = null;
         for (let i = 0; i < this.#leftArrows.length; i++) {
-            this.#leftArrows[i].classList.remove('activated');
-            this.#leftArrows[i].classList.remove('animated');
+            this.#leftArrows[i].classList.remove('kup-activated');
+            this.#leftArrows[i].classList.remove('kup-animated');
         }
         for (let i = 0; i < this.#rightArrows.length; i++) {
-            this.#rightArrows[i].classList.remove('activated');
-            this.#rightArrows[i].classList.remove('animated');
+            this.#rightArrows[i].classList.remove('kup-activated');
+            this.#rightArrows[i].classList.remove('kup-animated');
         }
     }
     /**
@@ -235,7 +241,7 @@ export class KupScrollOnHover {
             el.scrollLeft += this.step;
         }
         for (let i = 0; i < arrow.length; i++) {
-            arrow[i].classList.add('animated');
+            arrow[i].classList.add('kup-animated');
         }
 
         this.#rAF = requestAnimationFrame(function () {
