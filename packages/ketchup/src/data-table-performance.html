@@ -8,26 +8,9 @@
             content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
         />
 
-        <title>Ketchup data table - Test Performance</title>
-        <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        ></link>
-        
-        <link
-            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
-            rel="stylesheet"
-            type="text/css"
-        />
-
+        <title>Performance data table</title>
         <script type="module" src="/build/ketchup.esm.js"></script>
         <script nomodule src="/build/ketchup.js"></script>
-
-        <link
-            href="https://fonts.googleapis.com/css?family=Lato"
-            rel="stylesheet"
-        />
-
         <script
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"
@@ -38,61 +21,67 @@
                 color: var(--kup-text-color);
                 font-family: var(--kup-font-family);
                 font-size: var(--kup-font-size);
-                padding: 1rem;
+            }
+
+            body,
+            html {
+                box-sizing: border-box;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            kup-text-field {
+                margin: 1em;
+            }
+
+            #datatable-wrapper {
+                padding-top: 64px;
             }
         </style>
     </head>
 
     <body>
         <div class="data-examples">
-
-            <h1>Test Performance</h1>
-            <script>
-                document.documentElement['ketchupInit'] = { debug: { active: true } };
-            </script>
-            <div>
-                <kup-data-table
-                    id="basic-data"
-                    enable-sortable-columns
-                    lazy-load-rows="false"
-                    drag-enabled
-                    drop-enabled
-                    rows-per-page=200
-                ></kup-data-table
-            ></div>
-
-        <script src="/assets/data-table-performance.js"></script>
-
-        <style>
-            :root {
-                --kup-background-color: #ffffff;
-                --kup-nav-bar-background-color: #2e2e2e;
-                --kup-drawer-background-color: #ffffff;
-                --kup-primary-color: #d64325;
-                --kup-font-family: 'Oswald', sans-serif;
-                --kup-font-size: 16px;
-                --kup-text-on-primary-color: #ffffff;
-                --kup-text-color: #2e2e2e;
-                --kup-icon-color: #505050;
-                --kup-hover-background-color: #f0f0f0;
-                --kup-hover-color: #545454;
-                --kup-border-color: #e0e0e0;
-                --kup-disabled-color: #5c5c5c;
-                --kup-disabled-background-color: #eaeaea;
-                --kup-field-background-color: #fafafa;
-                --kup-chip-background-color: #eaeaea;
-                --kup-spinner-color: #eaa710;
-                --kup-title-background-color: #f1f3f4;
-
-                --mdc-theme-primary: var(--kup-primary-color);
-                --mdc-theme-on-primary: var(--kup-text-on-primary-color);
-                --mdc-theme-secondary: var(--kup-primary-color);
-                --mdc-theme-on-secondary: var(--kup-text-on-primary-color);
-                --mdc-theme-surface: var(--kup-background-color);
-                --mdc-theme-on-surface: var(--kup-text-color);
-                --mdc-theme-background: var(--kup-background-color);
-                --mdc-theme-text-primary-on-background: var(--kup-text-color);
-            }
-        </style>
+            <kup-nav-bar
+                id="nav-bar"
+                label="Performance Data Table"
+                show-menu-button="false"
+            >
+                <kup-text-field
+                    id="table-field"
+                    initial-value="1"
+                    input-type="number"
+                    label="N° of tables"
+                ></kup-text-field>
+                <kup-text-field
+                    id="column-field"
+                    initial-value="10"
+                    input-type="number"
+                    label="N° of columns"
+                ></kup-text-field>
+                <kup-text-field
+                    id="row-field"
+                    initial-value="400"
+                    input-type="number"
+                    label="N° of rows"
+                ></kup-text-field
+                ><kup-button
+                    id="apply-button"
+                    label="Apply"
+                    styling="flat"
+                ></kup-button
+                ><kup-button
+                    class="kup-pulsating"
+                    onclick="document.documentElement.ketchup.debug.toggle();"
+                    toggable
+                    icon-off="bug"
+                    icon="bug"
+                ></kup-button
+            ></kup-nav-bar>
+            <div id="datatable-wrapper"></div>
+            <script src="/assets/data-table-performance.js"></script
+        ></div>
     </body>
 </html>

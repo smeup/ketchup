@@ -23,6 +23,10 @@ export default {
     return {
       demoClasses: [
         {
+          class: 'kup-borderless',
+          description: 'Displays the component without borders.',
+        },
+        {
           class: 'kup-danger',
           description:
             'The component will be rendered using the danger color of the app.',
@@ -65,6 +69,22 @@ export default {
         },
         {
           name: 'kup-accordion-treenodeselected',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-itemexpanded',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-treenodeexpanded',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-itemcollapsed',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-treenodecollapsed',
           type: 'CustomEvent',
         },
       ],
@@ -112,10 +132,25 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'globalFilterMode',
+          description: 'The mode of the global filter',
+          type: 'KupGlobalFilterMode',
+          default: 'simple',
+          try: 'field',
+        },
+        {
           prop: 'globalFilterValue',
           description: 'The value of the global filter.',
           type: 'string',
-          default: '',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'selectedItemsNames',
+          description: 'The names of the selected items.',
+          type: 'string',
+          isArray: true,
+          default: '[]',
           try: 'field',
         },
       ],

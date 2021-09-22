@@ -15,13 +15,15 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupDynamicPosition
  */
 export class KupDynamicPosition {
-    container: string;
+    container: HTMLElement;
     managedElements: Set<KupDynamicPositionElement>;
     /**
      * Initializes KupDynamicPosition.
      */
-    constructor(container?: string) {
-        this.container = container ? container : 'body';
+    constructor() {
+        this.container = document.createElement('div');
+        this.container.setAttribute('kup-dynamic-position', '');
+        document.body.appendChild(this.container);
         this.managedElements = new Set();
     }
     /**
@@ -55,7 +57,7 @@ export class KupDynamicPosition {
         }
         if (detach) {
             el.style.position = 'absolute';
-            document.querySelector(this.container).appendChild(el);
+            this.container.appendChild(el);
         } else {
             el.style.position = 'fixed';
         }

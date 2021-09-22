@@ -212,19 +212,19 @@
 </template>
 
 <script lang="ts">
-import type { Components } from 'ketchup/dist/types/components';
-import type { KupButtonClickEventPayload } from 'ketchup/dist/types/components/kup-button/kup-button-declarations';
-import type { KupDom } from 'ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
-import type { KupDynamicPositionElement } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import type { Components } from '@sme.up/ketchup/dist/types/components';
+import type { KupButtonClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-button/kup-button-declarations';
+import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupDynamicPositionElement } from '@sme.up/ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type {
   GenericObject,
   KupEventPayload,
-} from 'ketchup/dist/types/types/GenericTypes';
-import type { KupSwitchEventPayload } from 'ketchup/dist/types/components/kup-switch/kup-switch-declarations';
-import type { KupTabBarClickEventPayload } from 'ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
-import type { KupTabBarData } from 'ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
-import type { KupTextFieldEventPayload } from 'ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
-import { KupDynamicPosition } from 'ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position';
+} from '@sme.up/ketchup/dist/types/types/GenericTypes';
+import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
+import type { KupTabBarClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTabBarData } from '@sme.up/ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
+import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import type { KupDynamicPosition } from '@sme.up/ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position';
 
 interface DemoClasses {
   class: string;
@@ -399,6 +399,18 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  FImageProps: {
+    keys: {
+    "badgeData?": "KupBadge[]",
+    "color?": "string",
+    "data?": "FImageData[]",
+    "fit?": "boolean",
+    "resource?": "string",
+    "sizeX?": "string",
+    "sizeY?": "string",
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   GroupObject: {
     keys: {
       column: 'string',
@@ -478,9 +490,16 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
+  KupChartSort: {
+    keys: {
+      column: 'number',
+      'desc?': 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupChartTrendlines: {
     keys: {
-      '[index: string]': "{color: 'string'}",
+      '[index: string]': '{ color: string }',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -493,6 +512,13 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupGlobalFilterMode: {
+    keys: {
+      HIGHLIGHT: 'highlight',
+      SIMPLE: 'simple',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
   KupListData: {
     keys: {
       text: 'string',
@@ -504,23 +530,12 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
-  KupNavBarData: {
+  KupNavBarStyling: {
     keys: {
-      title: 'string',
-      'menuAction?': 'KupNavBarElement',
-      'menuActions?': 'KupNavBarElement[]',
-      'optionActions?': 'KupNavBarElement[]',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-  KupNavBarMode: {
-    keys: {
-      DEFAULT: '',
       DENSE: 'dense',
-      FIXED: 'fixed',
       PROMINENT: 'prominent',
       SHORT: 'short',
-      SHORT_COLLAPSED: 'short-collapsed',
+      STANDARD: 'standard',
     },
     type: DemoTypeFeature.ENUM,
   },

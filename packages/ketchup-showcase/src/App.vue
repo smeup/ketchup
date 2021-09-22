@@ -1,6 +1,47 @@
 <template>
-  <v-app id="inspire" style="display: none">
-    <v-navigation-drawer v-model="drawer" fixed app>
+  <div id="app">
+    <div id="app__modal"
+      ><div class="spinner">
+        <div class="spinner__container"
+          ><kup-spinner active layout="13"></kup-spinner
+        ></div>
+        <div class="spinner__label">Loading...</div></div
+      >
+    </div>
+    <kup-nav-bar
+      id="app__nav-bar"
+      :image.prop="navbarImage"
+      label="Ketch.UP | Showcase"
+      @kup-navbar-menuclick="menuClick"
+      @kup-navbar-resize="redrawNavigation"
+    >
+      <kup-switch
+        id="theme-switch"
+        label="Dark Mode"
+        leading-label
+        @kup-switch-change="changeTheme"
+      ></kup-switch>
+      <kup-button
+        class="kup-pulsating"
+        icon="bug"
+        icon-off="bug"
+        id="debug-toggler"
+        toggable
+        @kup-button-click="toggleDebug"
+      ></kup-button>
+      <kup-button
+        icon="home"
+        @kup-button-click="$router.push('/').catch(() => {})"
+      ></kup-button
+    ></kup-nav-bar>
+    <kup-drawer
+      class="kup-full-width kup-permanent"
+      custom-style="::-webkit-scrollbar { width: 9px; }::-webkit-scrollbar-thumb {background-color: var(--kup-disabled-color);transition: background-color 0.2s ease-in-out;}::-webkit-scrollbar-track {background-color: var(--kup-background-color);}"
+      id="app__drawer"
+      @kup-drawer-close="redrawNavigation"
+      @kup-drawer-open="redrawNavigation"
+      @kup-drawer-ready="drawerReady"
+    >
       <div class="logo">
         <a title="Sme.UP" target="_blank" href="https://www.smeup.com/"
           ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 519.34 210.83">
@@ -27,173 +68,29 @@
           </svg>
         </a>
       </div>
-      <v-list dense>
-        <v-list-group v-for="(group, i) in groupNavigationSections" :key="i">
-          <template v-slot:activator>
-            <v-list-tile>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ group.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-
-          <v-list dense>
-            <v-list-group v-for="(section, j) in group.items" :key="j">
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list-group>
-
-            <v-list dense>
-              <v-list-group
-                v-for="(group, i) in group.componentsItems"
-                :key="i"
-              >
-                <template v-slot:activator>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{ group.title }}</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </template>
-                <v-list-tile
-                  v-for="route in group.basicItems"
-                  :key="route.to.name"
-                  :to="route.to"
-                >
-                  <v-list-tile-content>
-                    <v-list-tile-title class="extra-padding">{{
-                      route.title
-                    }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                  v-for="route in group.advancedItems"
-                  :key="route.to.name"
-                  :to="route.to"
-                >
-                  <v-list-tile-content>
-                    <v-list-tile-title class="extra-padding">{{
-                      route.title
-                    }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                  v-for="route in group.thirdParties"
-                  :key="route.to.name"
-                  :to="route.to"
-                >
-                  <v-list-tile-content>
-                    <v-list-tile-title class="extra-padding">{{
-                      route.title
-                    }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list-group>
-            </v-list>
-          </v-list>
-
-          <v-list dense>
-            <v-list-group v-for="(section, j) in group.items" :key="j">
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list-group>
-
-            <v-list-tile
-              v-for="route in group.cssItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-
-          <v-list dense>
-            <v-list-group v-for="(section, j) in group.items" :key="j">
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list-group>
-
-            <v-list-tile
-              v-for="route in group.javascriptItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-list-group>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-toolbar class="header" fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <div class="logo_header">
-        <img src="ketchup_logo_header.svg" class="light" style="height: 40px" />
+      <kup-accordion
+        class="kup-borderless kup-full-width"
+        :data.prop="accordionData"
+        global-filter
+        id="navigation-accordion"
+        @kup-accordion-treenodeselected="treeClick"
+      ></kup-accordion>
+    </kup-drawer>
+    <div id="app__content">
+      <div id="app__container">
+        <router-view></router-view>
       </div>
-      <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
-      <kup-switch
-        @kup-switch-change="
-          (e) => {
-            this.changeTheme(e);
-          }
-        "
-        style="min-width: 150px; --kup-text-color: #f5f5f5"
-        leading-label
-        label="Dark Mode"
-        id="theme-switch"
-      ></kup-switch>
-      <kup-button
-        @kup-button-click="
-          () => {
-            this.toggleDebug();
-          }
-        "
-        id="debug-toggler"
-        icon="bug"
-        custom-style=":host{--kup-primary-color: white}"
-      ></kup-button>
-      <v-toolbar-side-icon :to="{ path: '/' }">
-        <v-icon>home</v-icon>
-      </v-toolbar-side-icon>
-    </v-toolbar>
-
-    <v-content>
-      <v-container>
-        <v-fade-transition mode="out-in">
-          <router-view></router-view>
-        </v-fade-transition>
-      </v-container>
-    </v-content>
-
-    <v-footer app>
+    </div>
+    <div id="app__footer">
       <a
-        class="first-icon"
+        class="footer__icon--leading"
         target="_blank"
         rel="noopener"
         title="View Ketch.UP on GitHub"
         href="https://github.com/smeup/ketchup"
       >
         <kup-image
-          class="footer-icon"
+          class="footer__icon"
           resource="github"
           color="white"
           size-x="24px"
@@ -202,396 +99,779 @@
       </a>
       <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
       <a
-        class="second-icon"
+        class="footer__icon--trailing"
         target="_blank"
         rel="noopener"
         title="View Ketch.UP on npm"
         href="https://www.npmjs.com/package/@sme.up/ketchup"
       >
         <kup-image
-          class="footer-icon"
+          class="footer__icon"
           resource="npm"
           color="white"
           size-x="24px"
           size-y="24px"
         ></kup-image>
       </a>
-    </v-footer>
-  </v-app>
+    </div>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import type { Components } from '@sme.up/ketchup/dist/types/components';
+import type { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
+import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
+import type { KupAccordionTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-accordion/kup-accordion-declarations';
+
+var debug: HTMLKupButtonElement = null;
+var drawer: HTMLKupDrawerElement = null;
+var main: HTMLElement = null;
+var modal: HTMLElement = null;
+var navbar: HTMLKupNavBarElement = null;
+var spinnerLabel: HTMLElement = null;
+var theme: HTMLKupSwitchElement = null;
+
+const dom: KupDom = document.documentElement as KupDom;
+
 export default {
+  beforeCreate: function () {
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      dom.ketchupInit = {
+        theme: { name: 'dark' },
+      };
+    }
+  },
+  mounted: function () {
+    debug = document.getElementById('debug-toggler') as HTMLKupButtonElement;
+    drawer = document.getElementById('app__drawer') as HTMLKupDrawerElement;
+    main = document.getElementById('app__content') as HTMLElement;
+    main.style.padding = '';
+    modal = document.getElementById('app__modal') as HTMLElement;
+    navbar = document.getElementById('app__nav-bar') as HTMLKupNavBarElement;
+    spinnerLabel = document.querySelector('.spinner__label');
+    theme = document.getElementById('theme-switch') as HTMLKupSwitchElement;
+    document.addEventListener('kup-drawer-ready', () => this.removeSpinner());
+    document.addEventListener('kup-debug-active', () => {
+      debug.checked = true;
+    });
+    document.addEventListener('kup-debug-inactive', () => {
+      debug.checked = false;
+    });
+  },
   methods: {
-    changeTheme(e) {
-      const dom = document.documentElement;
+    changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
       if (e.detail.value === 'on') {
         dom.ketchup.theme.set('dark');
       } else {
         dom.ketchup.theme.set('ketchup');
       }
     },
-    setTheme(themeID) {
-      const dom = document.documentElement;
-      dom.ketchup.theme.set(themeID);
+    drawerReady(): void {
+      if (window.outerWidth >= 1264) {
+        drawer.open();
+      }
     },
-    toggleDebug() {
-      const dom = document.documentElement;
-      let debugToggler = document.querySelector('#debug-toggler');
-
+    redrawNavigation(): void {
+      drawer.isOpened().then((opened: boolean) => {
+        if (window.outerWidth >= 1264) {
+          if (opened) {
+            main.classList.add('has-padding');
+            navbar.classList.add('has-padding');
+          } else {
+            if (!drawer.classList.contains('kup-permanent')) {
+              drawer.open();
+            }
+            main.classList.remove('has-padding');
+            navbar.classList.remove('has-padding');
+          }
+          drawer.classList.add('kup-permanent');
+        } else {
+          if (drawer.classList.contains('kup-permanent')) {
+            drawer.classList.remove('kup-permanent');
+            drawer.close();
+          }
+          main.classList.remove('has-padding');
+          navbar.classList.remove('has-padding');
+        }
+      });
+    },
+    removeSpinner(): void {
+      setTimeout(() => {
+        if (dom.ketchup.theme.name === 'dark') {
+          theme.checked = true;
+        }
+        spinnerLabel.innerHTML = 'Ready!';
+        modal.style.opacity = '0';
+        setTimeout(() => modal.remove(), 500);
+      }, 1000);
+    },
+    menuClick(): void {
+      drawer.isOpened().then((res: boolean) => {
+        if (res) {
+          drawer.close();
+        } else {
+          drawer.open();
+        }
+      });
+    },
+    toggleDebug(): void {
       if (dom.ketchup.debug.isDebug()) {
         console.log('Debug deactivated.');
-        debugToggler.customStyle = ':host{--kup-primary-color: white}';
         dom.ketchup.debug.toggle(false);
       } else {
         console.log('Debug activated.');
-        debugToggler.customStyle = '';
         dom.ketchup.debug.toggle(true);
+      }
+    },
+    treeClick(e: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>): void {
+      const route: Cell =
+        e.detail.treeNode.cells && e.detail.treeNode.cells['ROUTE']
+          ? e.detail.treeNode.cells['ROUTE']
+          : null;
+      if (route) {
+        this.$router.push(route.value).catch(() => {});
       }
     },
   },
   data: () => ({
-    drawer: null,
-    groupNavigationSections: [
-      {
-        title: 'Components',
-        componentsItems: [
-          {
-            title: 'Basic',
-            basicItems: [
-              {
-                title: 'Autocomplete',
-                to: {
-                  name: 'autocomplete',
-                },
+    accordionData: {
+      columns: [
+        {
+          name: 'Components',
+          title: 'Components',
+          icon: 'widgets',
+        },
+        {
+          name: 'CSS',
+          title: 'CSS',
+          icon: 'style',
+        },
+        {
+          name: 'Javascript',
+          title: 'Javascript',
+          icon: 'json',
+        },
+      ],
+      rows: [
+        {
+          cells: {
+            Components: {
+              data: {
+                data: [
+                  {
+                    children: [
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'accordion',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Accordion',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'box',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Box',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'bpmn.io',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Bpmn.io',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'buttonlist',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Button list',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'calendar',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Calendar',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'card',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Card',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'chart',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Chart',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'dash',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Dash',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'dashlist',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Dash list',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'datatable',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Data table',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'echart',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Echart',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'field',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Field',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'tooltip',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Tooltip',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'tree',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Tree',
+                        visible: true,
+                      },
+                    ],
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Advanced',
+                    visible: true,
+                  },
+                  {
+                    children: [
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'autocomplete',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Autocomplete',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'badge',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Badge',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'button',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Button',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'checkbox',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Checkbox',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'chip',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Chip',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'colorpicker',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Color picker',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'combobox',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Combobox',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'datepicker',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Datepicker',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'drawer',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Drawer',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'dropdownbutton',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Dropdown button',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'gauge',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Gauge',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'grid',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Grid',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'iframe',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Iframe',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'image',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Image',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'lazy',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Lazy',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'list',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'List',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'navbar',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Nav bar',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'progressbar',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Progress bar',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'radio',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Radio',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'rating',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Rating',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'spinner',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Spinner',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'switch',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Switch',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'tabbar',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Tab bar',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'textfield',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Text field',
+                        visible: true,
+                      },
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'timepicker',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Time picker',
+                        visible: true,
+                      },
+                    ],
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Basic',
+                    visible: true,
+                  },
+                  {
+                    children: [
+                      {
+                        cells: {
+                          ROUTE: {
+                            value: 'qlik',
+                          },
+                        },
+                        expandable: true,
+                        isExpanded: false,
+                        value: 'Qlik',
+                        visible: true,
+                      },
+                    ],
+                    expandable: true,
+                    isExpanded: false,
+                    value: '3rd Parties',
+                    visible: true,
+                  },
+                ],
+                density: 'wide',
+                scrollOnHover: true,
               },
-              {
-                title: `Badge`,
-                to: {
-                  name: 'badge',
-                },
+              shape: 'TRE',
+            },
+            CSS: {
+              data: {
+                data: [
+                  {
+                    cells: {
+                      ROUTE: {
+                        value: 'customization',
+                      },
+                    },
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Customization',
+                    visible: true,
+                  },
+                  {
+                    cells: {
+                      ROUTE: {
+                        value: 'theming',
+                      },
+                    },
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Theming',
+                    visible: true,
+                  },
+                ],
+                density: 'wide',
+                scrollOnHover: true,
               },
-              {
-                title: `Button`,
-                to: {
-                  name: 'button',
-                },
+              shape: 'TRE',
+            },
+            Javascript: {
+              data: {
+                data: [
+                  {
+                    cells: {
+                      ROUTE: {
+                        value: 'debugging',
+                      },
+                    },
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Debugging',
+                    visible: true,
+                  },
+                  {
+                    cells: {
+                      ROUTE: {
+                        value: 'dynamicposition',
+                      },
+                    },
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Dynamic position',
+                    visible: true,
+                  },
+                  {
+                    cells: {
+                      ROUTE: {
+                        value: 'scrollonhover',
+                      },
+                    },
+                    expandable: true,
+                    isExpanded: false,
+                    value: 'Scroll on hover',
+                    visible: true,
+                  },
+                ],
+                density: 'wide',
+                scrollOnHover: true,
               },
-              {
-                title: `Checkbox`,
-                to: {
-                  name: 'checkbox',
-                },
-              },
-              {
-                title: `Chip`,
-                to: {
-                  name: 'chip',
-                },
-              },
-              {
-                title: `Color Picker`,
-                to: {
-                  name: 'colorpicker',
-                },
-              },
-              {
-                title: `Combobox`,
-                to: {
-                  name: 'combobox',
-                },
-              },
-              {
-                title: `Date Picker`,
-                to: {
-                  name: 'datepicker',
-                },
-              },
-              {
-                title: 'Drawer',
-                to: {
-                  name: 'drawer',
-                },
-              },
-              {
-                title: 'Dropdown Button',
-                to: {
-                  name: 'dropdownbutton',
-                },
-              },
-              {
-                title: 'Gauge',
-                to: {
-                  name: 'gauge',
-                },
-              },
-              {
-                title: 'Grid',
-                to: {
-                  name: 'grid',
-                },
-              },
-              {
-                title: `Iframe`,
-                to: {
-                  name: 'iframe',
-                },
-              },
-              {
-                title: `Image`,
-                to: {
-                  name: 'image',
-                },
-              },
-              {
-                title: 'Lazy',
-                to: {
-                  name: 'lazy',
-                },
-              },
-              {
-                title: `List`,
-                to: {
-                  name: 'list',
-                },
-              },
-              {
-                title: 'Nav Bar',
-                to: {
-                  name: 'navbar',
-                },
-              },
-              {
-                title: 'Progress bar',
-                to: {
-                  name: 'progressbar',
-                },
-              },
-              {
-                title: `Radio`,
-                to: {
-                  name: 'radio',
-                },
-              },
-              {
-                title: `Rating`,
-                to: {
-                  name: 'rating',
-                },
-              },
-              {
-                title: `Spinner`,
-                to: {
-                  name: 'spinner',
-                },
-              },
-              {
-                title: `Switch`,
-                to: {
-                  name: 'switch',
-                },
-              },
-              {
-                title: `Tab bar`,
-                to: {
-                  name: 'tabbar',
-                },
-              },
-              {
-                title: `Text field`,
-                to: {
-                  name: 'textfield',
-                },
-              },
-              {
-                title: `Time Picker`,
-                to: {
-                  name: 'timepicker',
-                },
-              },
-            ],
-          },
-          {
-            title: 'Advanced',
-            advancedItems: [
-              {
-                title: 'Accordion',
-                to: {
-                  name: 'accordion',
-                },
-              },
-              {
-                title: 'Box',
-                to: {
-                  name: 'box',
-                },
-              },
-              {
-                title: 'Bpmn.io',
-                to: {
-                  name: 'bpmn.io',
-                },
-              },
-              {
-                title: 'Button list',
-                to: {
-                  name: 'buttonlist',
-                },
-              },
-              {
-                title: `Calendar`,
-                to: {
-                  name: 'calendar',
-                },
-              },
-              {
-                title: `Card`,
-                to: {
-                  name: 'card',
-                },
-              },
-              {
-                title: `Chart`,
-                to: {
-                  name: 'chart',
-                },
-              },
-              {
-                title: `Dash`,
-                to: {
-                  name: 'dash',
-                },
-              },
-              {
-                title: `Dash List`,
-                to: {
-                  name: 'dashlist',
-                },
-              },
-              {
-                title: `Data Table`,
-                to: {
-                  name: 'datatable',
-                },
-              },
-              {
-                title: `Echart`,
-                to: {
-                  name: 'echart',
-                },
-              },
-              {
-                title: `Field`,
-                to: {
-                  name: 'field',
-                },
-              },
-              {
-                title: 'Search',
-                to: {
-                  name: 'search',
-                },
-              },
-              {
-                title: 'Tooltip',
-                to: {
-                  name: 'tooltip',
-                },
-              },
-              {
-                title: 'Tree',
-                to: {
-                  name: 'tree',
-                },
-              },
-            ],
-          },
-          {
-            title: '3rd Parties',
-            thirdParties: [
-              {
-                title: 'Qlik',
-                to: {
-                  name: 'qlik',
-                },
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'CSS',
-        cssItems: [
-          {
-            title: 'Customization',
-            to: {
-              name: 'customization',
+              shape: 'TRE',
             },
           },
-          {
-            title: 'Theming',
-            to: {
-              name: 'theming',
-            },
-          },
-        ],
-      },
-      {
-        title: 'JavaScript',
-        javascriptItems: [
-          {
-            title: 'Debugging',
-            to: {
-              name: 'debugging',
-            },
-          },
-          {
-            title: 'Scroll on hover',
-            to: {
-              name: 'scrollonhover',
-            },
-          },
-          {
-            title: 'Dynamic position',
-            to: {
-              name: 'dynamicposition',
-            },
-          },
-        ],
-      },
-    ],
+          id: '1',
+        },
+      ],
+    },
+    navbarImage: { resource: 'ketchup_logo_header.svg' },
   }),
-  props: {
-    source: String,
-  },
 };
 </script>
 
 <style lang="scss">
-//---- Tags ----
-// For code sources
+* {
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--kup-background-color);
+  color: var(--kup-text-color);
+  font-family: var(--kup-font-family);
+  font-size: var(--kup-font-size);
+}
+
+a {
+  cursor: pointer;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+ul {
+  padding-left: 1.75em;
+}
+
 code {
   box-sizing: border-box;
   overflow: auto;
   padding: 8px;
   width: 100%;
 
-  // When there is code which needs to be displayed inline
   &.inline {
     display: inline;
-    padding: 2px;
     margin: 1px 2px;
+    padding: 2px;
   }
 }
 
-// For big titles
-h2 {
-  font-size: 1.75rem;
+h1 {
+  font-size: 2.5em;
+  font-weight: 400;
+  margin: 0 0 0.5em;
 }
 
-// For small titles
+h2 {
+  font-size: 1.75em;
+  margin: 2em 0 1em;
+}
+
 h3 {
-  margin: 2rem 0 1rem;
+  border-bottom: 1px solid;
+  font-size: 1.25em;
+  font-weight: 500;
+  letter-spacing: 0.0125em;
+  line-height: 2em;
+  margin: 1.75em 0 1em;
 }
 
 h4 {
@@ -603,66 +883,124 @@ hr {
 }
 
 label {
-  margin-right: 8px !important;
+  margin-right: 8px;
 }
 
-select,
-[type='number'],
-[type='text'] {
-  border-radius: 2px !important;
-  border: 1px solid rgb(169, 169, 169) !important;
-  padding: 1px !important;
-}
-
-//---- General classes ----
-// Basic spacer
-.basic-spacer {
-  margin: 8px 12px;
-}
-
-// For examples where slot has a border
-.name-slotted {
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-sizing: border-box;
-  padding: 4px;
-}
-
-// Max with for a more readable text
 .max-width-container {
   display: block;
   margin: 0 auto;
+  max-width: 80%;
   padding: 24px 40px;
-  max-width: 800px;
 }
 
-// Main components container
-.example-container {
-  display: grid;
-  grid-template-areas: 'component space configuration';
-  grid-template-columns: 47% 6% 47%;
+#app {
+  line-height: 1.5;
 
-  > *:nth-child(2) {
-    grid-area: configuration;
+  &__container {
+    padding: 1.2em 2.4em;
+  }
 
-    > * {
-      margin-bottom: 10px;
-    }
+  &__content {
+    padding-bottom: 32px;
+    padding-top: 64px;
+    transition: all 250ms;
+  }
+
+  &__modal {
+    --kup-spinner-color: var(--kup-primary-color);
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: var(--kup-background-color, white);
+    left: 0;
+    top: 0;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    z-index: 999;
+  }
+
+  &__footer {
+    align-items: center;
+    background: var(--kup-nav-bar-background-color);
+    bottom: 0;
+    box-shadow: 0px -1px 4px -1px rgba(128, 128, 128, 0.2),
+      0px -1px 5px 0 rgba(128, 128, 128, 0.14),
+      0px -1px 10px 0 rgba(128, 128, 128, 0.12);
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    padding: 0.375em 0;
+    position: fixed;
+    width: 100%;
+    z-index: var(--kup-drawer-zindex);
   }
 }
 
-// General class for no margin
-.no-margin {
-  margin: 0;
+.spinner {
+  margin: auto;
+
+  &__container {
+    height: 150px;
+    width: 150px;
+  }
+
+  &__label {
+    color: var(--kup-text-color, transparent);
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
 }
 
-// A scrollable container which can be used to perform test on some components.
-.scrollable-container {
-  height: 400px;
-  overflow: auto;
+a.footer__icon--leading {
+  margin-right: 20px;
 }
 
-// When there is the need to hide overflow
-.hide-overflow {
-  overflow: hidden;
+a.footer__icon--trailing {
+  margin-left: 20px;
+}
+
+.footer__icon {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.footer__icon:hover {
+  opacity: 0.7;
+}
+
+.demo-container {
+  text-align: center;
+  margin: auto;
+
+  code.flat {
+    margin-bottom: 2em;
+  }
+
+  kup-text-field {
+    margin: 0 1.25em;
+  }
+}
+
+.has-padding {
+  padding-left: var(--kup-drawer-width);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--kup-disabled-color);
+  transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--kup-background-color);
 }
 </style>

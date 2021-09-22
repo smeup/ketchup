@@ -1170,6 +1170,17 @@ export function create14(component: KupCard): VNode {
                                     )}
                                 />
                             ) : null}
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_GROUP
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_GROUP
+                                    )}
+                                />
+                            ) : null}
                         </div>
                         <div class="sub-chip">
                             {chipArray[0] ? (
@@ -1241,17 +1252,6 @@ export function create14(component: KupCard): VNode {
                                     {...switchArray.find(
                                         (x) =>
                                             x.id === KupColumnMenuIds.SWITCH_KEY
-                                    )}
-                                />
-                            ) : null}
-                            {switchesIds.includes(
-                                KupColumnMenuIds.SWITCH_GROUP
-                            ) ? (
-                                <kup-switch
-                                    {...switchArray.find(
-                                        (x) =>
-                                            x.id ===
-                                            KupColumnMenuIds.SWITCH_GROUP
                                     )}
                                 />
                             ) : null}

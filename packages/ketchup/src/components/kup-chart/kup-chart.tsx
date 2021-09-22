@@ -22,6 +22,7 @@ import {
     KupChartProps,
     KupChartClickEvent,
     KupChartTrendlines,
+    KupChartSort,
 } from './kup-chart-declarations';
 import {
     convertColumns,
@@ -129,8 +130,12 @@ export class KupChart {
      */
     @Prop() sizeY: string = '100%';
     /**
+     * Used to sort series.
+     * @default null
+     */
+    @Prop() sorting: KupChartSort[] = null;
+    /**
      * Displays the data columns of an object on top of each other.
-     * @default false
      */
     @Prop() stacked = false;
     /**
@@ -476,6 +481,12 @@ export class KupChart {
         this.gChartView = new google.visualization.DataView(
             this.gChartDataTable
         );
+
+        if (this.sorting && this.sorting.length > 0) {
+            this.gChartView.setRows(
+                this.gChartView.getSortedRows(this.sorting)
+            );
+        }
 
         this.gChart = this.createGoogleChart();
 

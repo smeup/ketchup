@@ -58,67 +58,73 @@
 /*-------------------------------------------------*/
 /*          S c r o l l   o n   h o v e r          */
 /*-------------------------------------------------*/
-#container-scrolling-arrow {
+#kup-scrolling-arrows {
     position: fixed;
     top: 50%;
     left: 50%;
     pointer-events: none;
     z-index: 9999;
 }
-#container-scrolling-arrow .left-scrolling-arrow,
-#container-scrolling-arrow .right-scrolling-arrow {
+#kup-scrolling-arrows .kup-left-scrolling-arrow,
+#kup-scrolling-arrows .kup-right-scrolling-arrow {
     position: absolute;
     width: 0;
     height: 0;
     visibility: hidden;
 }
-#container-scrolling-arrow .left-scrolling-arrow {
+#kup-scrolling-arrows .kup-left-scrolling-arrow {
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     border-right: 8px solid var(--kup-primary-color);
     transform: translate(30px, -10px) translateZ(0);
 }
-#container-scrolling-arrow .right-scrolling-arrow {
+#kup-scrolling-arrows .kup-right-scrolling-arrow {
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     border-left: 8px solid var(--kup-primary-color);
     transform: translate(-30px, -10px) translateZ(0);
 }
-#container-scrolling-arrow .left-scrolling-arrow.activated {
+#kup-scrolling-arrows .kup-left-scrolling-arrow.kup-activated {
     visibility: visible;
 }
-#container-scrolling-arrow .left-scrolling-arrow.activated.animated.arrow-1 {
-    -webkit-animation: pulseleft 1.2s infinite;
-    animation: pulseleft 1.2s infinite;
+#kup-scrolling-arrows
+    .kup-left-scrolling-arrow.kup-activated.kup-animated.kup-arrow-1 {
+    -webkit-animation: kup-pulseleft 1.2s infinite;
+    animation: kup-pulseleft 1.2s infinite;
     animation-delay: 0.4s;
 }
-#container-scrolling-arrow .left-scrolling-arrow.activated.animated.arrow-2 {
-    -webkit-animation: pulseleft 1.2s infinite;
-    animation: pulseleft 1.2s infinite;
+#kup-scrolling-arrows
+    .kup-left-scrolling-arrow.kup-activated.kup-animated.kup-arrow-2 {
+    -webkit-animation: kup-pulseleft 1.2s infinite;
+    animation: kup-pulseleft 1.2s infinite;
     animation-delay: 0.2s;
 }
-#container-scrolling-arrow .left-scrolling-arrow.activated.animated.arrow-3 {
-    -webkit-animation: pulseleft 1.2s infinite;
-    animation: pulseleft 1.2s infinite;
+#kup-scrolling-arrows
+    .kup-left-scrolling-arrow.kup-activated.kup-animated.kup-arrow-3 {
+    -webkit-animation: kup-pulseleft 1.2s infinite;
+    animation: kup-pulseleft 1.2s infinite;
 }
-#container-scrolling-arrow .right-scrolling-arrow.activated {
+#kup-scrolling-arrows .kup-right-scrolling-arrow.kup-activated {
     visibility: visible;
 }
-#container-scrolling-arrow .right-scrolling-arrow.activated.animated.arrow-1 {
-    -webkit-animation: pulseright 1.2s infinite;
-    animation: pulseright 1.2s infinite;
+#kup-scrolling-arrows
+    .kup-right-scrolling-arrow.kup-activated.kup-animated.kup-arrow-1 {
+    -webkit-animation: kup-pulseright 1.2s infinite;
+    animation: kup-pulseright 1.2s infinite;
     animation-delay: 0.4s;
 }
-#container-scrolling-arrow .right-scrolling-arrow.activated.animated.arrow-2 {
-    -webkit-animation: pulseright 1.2s infinite;
-    animation: pulseright 1.2s infinite;
+#kup-scrolling-arrows
+    .kup-right-scrolling-arrow.kup-activated.kup-animated.kup-arrow-2 {
+    -webkit-animation: kup-pulseright 1.2s infinite;
+    animation: kup-pulseright 1.2s infinite;
     animation-delay: 0.2s;
 }
-#container-scrolling-arrow .right-scrolling-arrow.activated.animated.arrow-3 {
-    -webkit-animation: pulseright 1.2s infinite;
-    animation: pulseright 1.2s infinite;
+#kup-scrolling-arrows
+    .kup-right-scrolling-arrow.kup-activated.kup-animated.kup-arrow-3 {
+    -webkit-animation: kup-pulseright 1.2s infinite;
+    animation: kup-pulseright 1.2s infinite;
 }
-@-moz-keyframes pulseleft {
+@-moz-keyframes kup-pulseleft {
     0% {
         opacity: 0.2;
         transform: translate(30px, -10px);
@@ -128,7 +134,7 @@
         transform: translate(10px, -10px);
     }
 }
-@-webkit-keyframes pulseleft {
+@-webkit-keyframes kup-pulseleft {
     0% {
         opacity: 0.2;
         transform: translate(30px, -10px);
@@ -138,7 +144,7 @@
         transform: translate(10px, -10px);
     }
 }
-@-o-keyframes pulseleft {
+@-o-keyframes kup-pulseleft {
     0% {
         opacity: 0.2;
         transform: translate(30px, -10px);
@@ -148,7 +154,7 @@
         transform: translate(10px, -10px);
     }
 }
-@keyframes pulseleft {
+@keyframes kup-pulseleft {
     0% {
         opacity: 0.2;
         transform: translate(30px, -10px);
@@ -158,7 +164,7 @@
         transform: translate(10px, -10px);
     }
 }
-@-moz-keyframes pulseright {
+@-moz-keyframes kup-pulseright {
     0% {
         opacity: 0.2;
         transform: translate(-30px, -10px);
@@ -168,7 +174,7 @@
         transform: translate(-10px, -10px);
     }
 }
-@-webkit-keyframes pulseright {
+@-webkit-keyframes kup-pulseright {
     0% {
         opacity: 0.2;
         transform: translate(-30px, -10px);
@@ -178,7 +184,7 @@
         transform: translate(-10px, -10px);
     }
 }
-@-o-keyframes pulseright {
+@-o-keyframes kup-pulseright {
     0% {
         opacity: 0.2;
         transform: translate(-30px, -10px);
@@ -188,7 +194,7 @@
         transform: translate(-10px, -10px);
     }
 }
-@keyframes pulseright {
+@keyframes kup-pulseright {
     0% {
         opacity: 0.2;
         transform: translate(-30px, -10px);

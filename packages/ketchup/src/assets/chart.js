@@ -439,6 +439,21 @@ mults.vAxes = [
 mults.hAxis = {"slantedText":true,"slantedTextAngle":25};
 mults.sizeY = '300';
 
+// Stacked series
+const stacked = document.getElementById('stackedseries');
+stacked.data = baseData;
+for (let k of keys) {
+  stacked[k] = baseConfig[k];
+}
+stacked.stacked = "true";
+stacked.sorting = [
+  {
+    "column": 1
+  }
+];
+
+//
+
 // custom colors
 document.getElementById('colors').addEventListener('change', ({ target }) => {
     const charts = document.querySelectorAll('kup-chart');

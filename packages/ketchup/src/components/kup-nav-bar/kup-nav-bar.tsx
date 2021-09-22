@@ -6,33 +6,30 @@ import {
     forceUpdate,
     h,
     Host,
-    Listen,
     Method,
     Prop,
+    VNode,
 } from '@stencil/core';
-
 import {
-    KupNavBarData,
-    KupNavBarElement,
-    KupNavBarMode,
+    KupNavBarStyling,
     KupNavBarProps,
-    KupNavbarEventPayload,
+    navbarClass,
 } from './kup-nav-bar-declarations';
-
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import {
-    kupDynamicPositionAttribute,
-    KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import type {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { KupListData } from '../kup-list/kup-list-declarations';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FImageProps } from '../../f-components/f-image/f-image-declarations';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -56,15 +53,26 @@ export class KupNavBar {
      */
     @Prop() customStyle: string = '';
     /**
-     * The actual data of the nav bar.
+     * Image displayed by the nav bar, uses the kup-image component's props.
      * @default null
      */
-    @Prop() data: KupNavBarData = null;
+    @Prop() image: FImageProps = null;
     /**
-     * Defines how the bar will be displayed.
-     * @default KupNavBarMode.DEFAULT
+     * Text displayed by the nav bar.
+     * @default null
      */
-    @Prop({ reflect: true }) mode: KupNavBarMode = KupNavBarMode.DEFAULT;
+    @Prop() label: string = null;
+    /**
+     * When true, the menu button will be displayed on the left of the nav bar.
+     * @default null
+     */
+    @Prop() showMenuButton: boolean = true;
+    /**
+     * Defines the style of the nav bar.
+     * @default KupNavBarStyling.STANDARD
+     */
+    @Prop({ reflect: true }) styling: KupNavBarStyling =
+        KupNavBarStyling.STANDARD;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -74,100 +82,59 @@ export class KupNavBar {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private optionsButtonEl: any = undefined;
-    private optionsListEl: any = undefined;
-    private menuButtonEl: any = undefined;
-    private menuListEl: any = undefined;
+    /**
+     * Used to prevent too many resizes callbacks at once.
+     */
+    private resizeTimeout: number;
+    /**
+     * Text color of the title, which is set automatically depending on the contrast with the background.
+     */
     private textColor: string = 'white';
+    /**
+     * Text color of the title in RGB values.
+     */
+    private textColorRGB: string = '255,255,255';
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
     /**
-     * Triggered when a button's list item is clicked.
+     * Triggered when the menu button is clicked.
      */
     @Event({
-        eventName: 'kup-navbar-menuitemclick',
+        eventName: 'kup-navbar-menuclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupNavbarMenuItemClick: EventEmitter<KupNavbarEventPayload>;
+    kupNavbarMenuClick: EventEmitter<KupEventPayload>;
     /**
-     * Triggered when a button is clicked.
+     * Triggered when the component is ready.
      */
     @Event({
-        eventName: 'kup-navbar-optionitemclick',
+        eventName: 'kup-navbar-ready',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupNavbarOptionItemClick: EventEmitter<KupNavbarEventPayload>;
+    kupNavbarReady: EventEmitter<KupEventPayload>;
+    /**
+     * Triggered when the component is resize.
+     */
+    @Event({
+        eventName: 'kup-navbar-resize',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupNavbarResize: EventEmitter<KupEventPayload>;
 
-    onKupNavbarMenuItemClick(e: CustomEvent) {
-        let selectedValue: string = e.detail.selected.value;
-        this.closeList();
-        this.kupNavbarMenuItemClick.emit({
+    onKupNavbarMenuClick() {
+        this.kupNavbarMenuClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: selectedValue,
         });
-    }
-
-    onKupNavbarMenuButtonClick(value: string) {
-        let selectedValue: string = value;
-        this.kupNavbarMenuItemClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: selectedValue,
-        });
-    }
-
-    onKupNavbarOptionItemClick(e: CustomEvent) {
-        let selectedValue: string = e.detail.selected.value;
-        this.closeList();
-        this.kupNavbarOptionItemClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: selectedValue,
-        });
-    }
-
-    onKupOptionButtonClick(value: string) {
-        let selectedValue: string = value;
-        this.kupNavbarOptionItemClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: selectedValue,
-        });
-    }
-
-    /*-------------------------------------------------*/
-    /*                L i s t e n e r s                */
-    /*-------------------------------------------------*/
-
-    @Listen('click')
-    listenClick() {
-        this.closeList();
-    }
-
-    @Listen('keyup')
-    listenKeyup(e: KeyboardEvent) {
-        if (this.isListOpened()) {
-            if (e.key === 'Escape') {
-                this.closeList();
-            }
-            if (e.key === 'Enter') {
-                this.closeList();
-            }
-            if (e.key === 'ArrowDown') {
-                this.arrowDownList();
-            }
-            if (e.key === 'ArrowUp') {
-                this.arrowUpList();
-            }
-        }
     }
 
     /*-------------------------------------------------*/
@@ -191,6 +158,19 @@ export class KupNavBar {
         forceUpdate(this);
     }
     /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            this.kupNavbarResize.emit({
+                comp: this,
+                id: this.rootElement.id,
+            });
+        }, 300);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
@@ -203,134 +183,47 @@ export class KupNavBar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    arrowDownList() {
-        if (this.isThisListOpened(this.optionsListEl)) {
-            this.optionsListEl.arrowDown = true;
-        }
-        if (this.isThisListOpened(this.menuListEl)) {
-            this.menuListEl.arrowDown = true;
-        }
-    }
-
-    arrowUpList() {
-        if (this.isThisListOpened(this.optionsListEl)) {
-            this.optionsListEl.arrowUp = true;
-        }
-        if (this.isThisListOpened(this.menuListEl)) {
-            this.menuListEl.arrowUp = true;
-        }
-    }
-
-    openList(listEl): boolean {
-        this.closeList();
-        if (listEl == null) {
-            return false;
-        }
-        listEl.menuVisible = true;
-        this.kupManager.dynamicPosition.start(
-            listEl as KupDynamicPositionElement
+    /**
+     * Reads the slots returning them as an array of virtual nodes.
+     */
+    private content(): VNode[] {
+        const slots: Array<HTMLElement> = Array.prototype.slice.call(
+            this.rootElement.children,
+            0
         );
-        let elStyle: any = listEl.style;
-        elStyle.height = 'auto';
-        return true;
-    }
-
-    closeList() {
-        if (this.isThisListOpened(this.optionsListEl)) {
-            this.closeThisList(this.optionsListEl);
+        const content: VNode[] = [];
+        for (let index = 0; index < slots.length; index++) {
+            content.push(<slot></slot>);
         }
-        if (this.isThisListOpened(this.menuListEl)) {
-            this.closeThisList(this.menuListEl);
-        }
+        return content;
     }
-
-    closeThisList(listEl) {
-        if (listEl == null) {
-            return;
-        }
-        listEl.menuVisible = false;
-        this.kupManager.dynamicPosition.stop(
-            listEl as KupDynamicPositionElement
-        );
-    }
-
-    isListOpened(): boolean {
-        return (
-            this.isThisListOpened(this.optionsListEl) ||
-            this.isThisListOpened(this.menuListEl)
-        );
-    }
-
-    isThisListOpened(listEl): boolean {
-        if (listEl == null) {
-            return false;
-        }
-        return listEl.menuVisible == true;
-    }
-
-    prepMenuList(listData: KupListData[]): HTMLElement {
-        this.menuListEl = null;
-        if (listData.length == 0) {
-            return null;
-        }
-        let comp: HTMLElement = (
-            <kup-list
-                data={...listData}
-                is-menu
-                show-icons
-                onkup-list-click={(e) => this.onKupNavbarMenuItemClick(e)}
-                id={this.rootElement.id + '_list'}
-                ref={(el) => (this.menuListEl = el as any)}
-            ></kup-list>
-        );
-
-        return comp;
-    }
-
-    getClassNameByComponentMode(mode: string) {
-        let value: string = '';
-
-        switch (mode) {
-            case KupNavBarMode.DEFAULT: {
-                break;
-            }
-            case KupNavBarMode.SHORT_COLLAPSED: {
-                value = 'top-app-bar--short top-app-bar--short-collapsed';
-                break;
-            }
-            default: {
-                value = 'top-app-bar--' + mode;
-                break;
-            }
-        }
-        return value;
-    }
-
-    prepOptionsList(listData: KupListData[]): HTMLElement {
-        this.optionsListEl = null;
-        if (listData.length == 0) {
-            return null;
-        }
-        let comp: HTMLElement = (
-            <kup-list
-                data={...listData}
-                is-menu
-                show-icons
-                onkup-list-click={(e) => this.onKupNavbarOptionItemClick(e)}
-                id={this.rootElement.id + '_list'}
-                ref={(el) => (this.optionsListEl = el as any)}
-            ></kup-list>
-        );
-
-        return comp;
-    }
-
-    private fetchThemeColors() {
-        let color =
+    /**
+     * Sets the dynamic colors depending on the nav bar background.
+     */
+    private fetchThemeColors(): void {
+        const color: string =
             this.kupManager.theme.cssVars[
                 KupThemeColorValues.NAV_BAR_BACKGROUND
             ];
         this.textColor = this.kupManager.theme.colorContrast(color);
+        this.textColorRGB = this.kupManager.theme.colorCheck(
+            this.textColor
+        ).rgbValues;
+    }
+    /**
+     * Set the events of the component.
+     */
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.nav-bar__menu-toggler');
+            if (f) {
+                const buttonEl: HTMLButtonElement = f.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = () => this.onKupNavbarMenuClick();
+                }
+            }
+        }
     }
 
     /*-------------------------------------------------*/
@@ -341,14 +234,14 @@ export class KupNavBar {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
-        if (!this.data) {
-            this.data = {
-                title: 'Default title',
-            };
-        }
     }
 
     componentDidLoad() {
+        this.kupNavbarReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -358,138 +251,66 @@ export class KupNavBar {
     }
 
     componentDidRender() {
-        if (this.menuListEl != null) {
-            this.kupManager.dynamicPosition.register(
-                this.menuListEl,
-                this.menuButtonEl
-            );
-        }
-        if (this.optionsListEl != null) {
-            this.kupManager.dynamicPosition.register(
-                this.optionsListEl,
-                this.optionsButtonEl
-            );
-        }
+        this.setEvents();
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
-        let wrapperClass = undefined;
-
-        let visibleButtons: Array<HTMLElement> = [];
-        let optionsButtons: KupListData[] = [];
-        let menuButtons: KupListData[] = [];
-
-        if (this.data.optionActions != null) {
-            for (let i = 0; i < this.data.optionActions.length; i++) {
-                let action: KupNavBarElement = this.data.optionActions[i];
-                if (action.visible == true) {
-                    let button = (
-                        <kup-button
-                            customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
-                            icon={action.icon}
-                            title={action.tooltip}
-                            onkup-button-click={() =>
-                                this.onKupOptionButtonClick(action.value)
-                            }
-                        ></kup-button>
-                    );
-                    visibleButtons.push(button);
-                } else {
-                    let listItem: KupListData = {
-                        text: action.text,
-                        value: action.value,
-                        icon: action.icon,
-                    };
-                    optionsButtons.push(listItem);
-                }
-            }
-        }
-
-        if (optionsButtons.length > 0) {
-            let button = (
-                <kup-button
-                    customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
-                    icon="more_vert"
-                    title={this.kupManager.language.translate(
-                        KupLanguageGeneric.OPTIONS
-                    )}
-                    onkup-button-click={() => this.openList(this.optionsListEl)}
-                    onClick={(e) => e.stopPropagation()}
-                    ref={(el) => (this.optionsButtonEl = el as any)}
-                ></kup-button>
-            );
-            visibleButtons.push(button);
-        }
-
-        let menuButton = null;
-        if (this.data.menuAction != null) {
-            let action = this.data.menuAction;
-            menuButton = (
-                <kup-button
-                    customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
-                    icon={action.icon}
-                    title={action.tooltip}
-                    onkup-button-click={() =>
-                        this.onKupNavbarMenuButtonClick(action.value)
-                    }
-                ></kup-button>
-            );
-        } else if (this.data.menuActions != null) {
-            for (let i = 0; i < this.data.menuActions.length; i++) {
-                let action: KupNavBarElement = this.data.menuActions[i];
-                let listItem: KupListData = {
-                    text: action.text,
-                    value: action.value,
-                    icon: action.icon,
-                };
-                menuButtons.push(listItem);
-            }
-            menuButton = (
-                <kup-button
-                    customStyle={`:host{ ${KupThemeColorValues.PRIMARY}: ${this.textColor}; }`}
-                    icon="menu"
-                    title={this.kupManager.language.translate(
-                        KupLanguageGeneric.OPEN_NAVIGATION_MENU
-                    )}
-                    disabled={menuButtons.length == 0}
-                    onkup-button-click={() => this.openList(this.menuListEl)}
-                    onClick={(e) => e.stopPropagation()}
-                    ref={(el) => (this.menuButtonEl = el as any)}
-                ></kup-button>
-            );
-        }
-
-        let headerClassName =
-            'top-app-bar ' + this.getClassNameByComponentMode(this.mode);
-        let titleStyle = { color: this.textColor };
+        const showImage: boolean =
+            this.image && this.styling.toLowerCase() !== KupNavBarStyling.SHORT;
+        const showLabel: boolean =
+            this.label && this.styling.toLowerCase() !== KupNavBarStyling.SHORT;
+        const style: GenericObject = {
+            '--dyn-color': this.textColor,
+            '--dyn-color-rgb': this.textColorRGB,
+        };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
 
         return (
-            <Host>
+            <Host class="header">
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id={componentWrapperId} class={wrapperClass}>
-                    <header class={headerClassName}>
-                        <div class="top-app-bar__row">
-                            <section class="top-app-bar__section top-app-bar__section--align-start">
-                                {menuButton}
-                                {this.prepMenuList(menuButtons)}
-                                <span
-                                    class="top-app-bar__title"
-                                    style={titleStyle}
-                                >
-                                    {this.data.title}
-                                </span>
+                <div id={componentWrapperId} style={style}>
+                    <header
+                        class={`${navbarClass} ${navbarClass}--${this.styling.toLowerCase()} `}
+                    >
+                        <div class={`${navbarClass}__row`}>
+                            <section
+                                class={`${navbarClass}__section ${navbarClass}__section--align-start`}
+                            >
+                                {this.showMenuButton ? (
+                                    <FButton
+                                        icon="menu"
+                                        wrapperClass={`${navbarClass}__menu-toggler`}
+                                    />
+                                ) : null}
+                                {showImage ? (
+                                    <span class={`${navbarClass}__image`}>
+                                        <FImage
+                                            sizeX="auto"
+                                            sizeY={
+                                                this.styling.toLowerCase() ===
+                                                KupNavBarStyling.DENSE
+                                                    ? '36px'
+                                                    : '48px'
+                                            }
+                                            {...this.image}
+                                        />
+                                    </span>
+                                ) : null}
+                                {showLabel ? (
+                                    <span class={`${navbarClass}__title`}>
+                                        {this.label}
+                                    </span>
+                                ) : null}
                             </section>
                             <section
-                                class="top-app-bar__section top-app-bar__section--align-end"
+                                class={`${navbarClass}__section ${navbarClass}__section--align-end`}
                                 role="toolbar"
                             >
-                                {visibleButtons}
-                                {this.prepOptionsList(optionsButtons)}
+                                {this.content()}
                             </section>
                         </div>
                     </header>
@@ -500,15 +321,7 @@ export class KupNavBar {
 
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
+        this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll(
-                '[' + kupDynamicPositionAttribute + ']'
-            );
-        if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.unregister(
-                Array.prototype.slice.call(dynamicPositionElements)
-            );
-        }
     }
 }

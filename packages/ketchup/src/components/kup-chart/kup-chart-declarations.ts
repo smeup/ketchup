@@ -18,6 +18,7 @@ export enum KupChartProps {
     showMarks = 'Displays the numerical values.',
     sizeX = 'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
     sizeY = 'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+    sorting = 'Used to sort series.',
     stacked = 'Displays the data columns of an object on top of each other.',
     types = 'The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.',
     vAxes = 'Customize the vAxes for multiple-charts.',
@@ -28,6 +29,11 @@ export enum KupChartProps {
 export enum ChartAspect {
     D2 = '2D',
     D3 = '3D',
+}
+
+export interface KupChartSort {
+    column: number;
+    desc?: boolean;
 }
 
 export interface KupChartTrendlines {
