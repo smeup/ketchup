@@ -271,16 +271,17 @@ export default {
     flex-direction: column-reverse;
 
     &__content {
+      padding: 0;
       width: 100%;
-      padding: 0 30px;
     }
 
     &__nav {
+      margin-bottom: 4em;
+      padding: 0;
       position: relative;
       right: unset;
       top: unset;
       width: 100%;
-      margin-bottom: 4em;
     }
 
     &__nav-list {
@@ -291,6 +292,7 @@ export default {
       max-height: unset;
       text-align: center;
       padding-top: 15px;
+      padding-left: 0;
     }
   }
 }
