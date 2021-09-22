@@ -890,6 +890,7 @@ label {
   display: block;
   margin: 0 auto;
   max-width: 80%;
+  overscroll-behavior: none;
   padding: 24px 40px;
 }
 
@@ -902,7 +903,7 @@ label {
 
   &__content {
     padding-bottom: 32px;
-    padding-top: 64px;
+    padding-top: var(--kup-navbar-height);
     transition: all 250ms;
   }
 
@@ -922,7 +923,7 @@ label {
 
   &__footer {
     align-items: center;
-    background: var(--kup-nav-bar-background-color);
+    background: var(--kup-navbar-background-color);
     bottom: 0;
     box-shadow: 0px -1px 4px -1px rgba(128, 128, 128, 0.2),
       0px -1px 5px 0 rgba(128, 128, 128, 0.14),

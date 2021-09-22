@@ -14,7 +14,8 @@
       <kup-button
         title="Download"
         icon="download"
-        @kup-button-click="downloadTheme" />
+        @kup-button-click="downloadTheme"
+      ></kup-button>
       <kup-button title="Delete" icon="delete" @kup-button-click="deleteTheme"
     /></div>
     <div id="sample-wrapper" class="theming">
@@ -97,7 +98,7 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">--kup-nav-bar-background-color</span>
+                  <span class="code-word">--kup-navbar-background-color</span>
                 </td>
                 <td>Sets the background color of the header/nav bar.</td>
                 <td class="prevent-cr">
@@ -127,6 +128,26 @@
                     @kup-colorpicker-input="updateVariable"
                     @kup-colorpicker-change="updateVariable"
                   ></kup-color-picker>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-navbar-height</span>
+                </td>
+                <td
+                  >Sets the height of the nav bar (any valid CSS unit can be
+                  used - vw, px, em, etc.). Suggested values: 64px for standard
+                  and short, 128px for prominent and 48px for dense.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">size</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="navbar-height"
+                    @kup-textfield-input="updateVariable"
+                  ></kup-text-field>
                 </td>
               </tr>
               <tr>
