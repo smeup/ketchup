@@ -23,6 +23,11 @@ export enum KupListProps {
  * Data structure of a single list item.
  */
 export interface KupListData {
+    obj?: {
+        t: string;
+        p: string;
+        k: string;
+    };
     text: string;
     value: string;
     icon?: string;
