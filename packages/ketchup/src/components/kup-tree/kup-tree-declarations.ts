@@ -25,6 +25,7 @@ export enum KupTreeProps {
     globalFilterValue = 'The value of the global filter.',
     globalFilterMode = 'The mode of the global filter.',
     removableColumns = 'Sets the possibility to remove the selected column.',
+    preventXScroll = 'Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.',
     scrollOnHover = 'Activates the scroll on hover function.',
     selectedNode = 'An array of integers containing the path to a selected child. Groups up the properties SelFirst, SelItem, SelName.',
     showColumns = 'Shows the tree data as a table.',

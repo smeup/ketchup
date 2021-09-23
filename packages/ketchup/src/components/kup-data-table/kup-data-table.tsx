@@ -2205,14 +2205,16 @@ export class KupDataTable {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
-        if (this.selection == SelectionMode.MULTIPLE) {
-            this.resetSelectedRows();
-        }
-        if (
-            this.selection == SelectionMode.SINGLE ||
-            this.selection == SelectionMode.MULTIPLE
-        ) {
-            this.onRowClick(e, details.row, false);
+        if (details.area === 'body') {
+            if (this.selection == SelectionMode.MULTIPLE) {
+                this.resetSelectedRows();
+            }
+            if (
+                this.selection == SelectionMode.SINGLE ||
+                this.selection == SelectionMode.MULTIPLE
+            ) {
+                this.onRowClick(e, details.row, false);
+            }
         }
         return details;
     }

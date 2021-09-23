@@ -2721,6 +2721,11 @@ export namespace Components {
          */
         "openColumnMenu": (column: string) => Promise<void>;
         /**
+          * Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.
+          * @default false;
+         */
+        "preventXScroll": boolean;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -2728,6 +2733,10 @@ export namespace Components {
           * Sets the possibility to remove the selected column.
          */
         "removableColumns": boolean;
+        /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
         /**
           * Activates the scroll on hover function.
          */
@@ -5479,6 +5488,11 @@ declare namespace LocalJSX {
           * Fired when a node of the tree has been selected
          */
         "onKup-tree-nodeselected"?: (event: CustomEvent<KupTreeNodeSelectedEventPayload>) => void;
+        /**
+          * Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.
+          * @default false;
+         */
+        "preventXScroll"?: boolean;
         /**
           * Sets the possibility to remove the selected column.
          */

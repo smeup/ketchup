@@ -40,7 +40,6 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { KupGlobalFilterMode } from '../../utils/filters/filters-declarations';
-import { KupTextField } from '../kup-text-field/kup-text-field';
 
 @Component({
     tag: 'kup-accordion',

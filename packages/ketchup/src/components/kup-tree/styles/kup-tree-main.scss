@@ -3,6 +3,12 @@
   font-size: var(--kup-font-size);
 }
 
+:host([prevent-x-scroll]) {
+  .wrapper {
+    overflow-x: hidden;
+  }
+}
+
 #kup-component {
   color: var(--kup-text-color);
 }
@@ -173,6 +179,12 @@
 }
 
 .cell-content {
+  &--ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: var(--content_width, auto);
+  }
   &--highlighted {
     color: var(--kup-text-on-primary-color);
     background-color: var(--kup-primary-color);
