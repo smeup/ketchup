@@ -44,6 +44,10 @@
       margin-right: 8px;
     }
 
+    .button__label {
+      font-weight: 400;
+    }
+
     .button__label + .button__icon {
       margin-left: 8px;
       margin-right: -4px;
@@ -241,6 +245,17 @@
       &.button--floating {
         border-radius: 50% 0;
       }
+    }
+  }
+
+  &.#{$kup-class-slim} {
+    .button {
+      font-size: 0.75em;
+      height: 26px;
+    }
+
+    .f-image--wrapper {
+      font-size: 16px;
     }
   }
 
