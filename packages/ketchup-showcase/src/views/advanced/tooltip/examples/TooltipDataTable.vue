@@ -136,7 +136,6 @@ export default {
           };
           break;
       }
-      console.log(event);
       event.detail.comp.data = data;
     },
   },
