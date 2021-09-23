@@ -28,7 +28,10 @@ import {
     KupDropdownButtonEventPayload,
     KupDropdownButtonProps,
 } from './kup-dropdown-button-declarations';
-import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -464,15 +467,26 @@ export class KupDropdownButton {
 
     private renderButtons() {
         const buttons: VNode[] = [];
+        const props: FButtonProps = {
+            disabled: this.disabled ? true : false,
+            large: this.rootElement.classList.contains('kup-large')
+                ? true
+                : false,
+            pulsating: this.rootElement.classList.contains('kup-pulsating')
+                ? true
+                : false,
+            slim: this.rootElement.classList.contains('kup-slim')
+                ? true
+                : false,
+            styling: this.styling ? this.styling : FButtonStyling.RAISED,
+        };
+
         if (!this.dropdownOnly) {
             buttons.push(
                 <FButton
-                    disabled={this.disabled ? true : false}
+                    {...props}
                     icon={this.icon ? this.icon : null}
                     label={this.label ? this.label : null}
-                    styling={
-                        this.styling ? this.styling : FButtonStyling.RAISED
-                    }
                     trailingIcon={this.trailingIcon ? true : false}
                     wrapperClass="dropdown-button__primary-action"
                 />
@@ -480,6 +494,7 @@ export class KupDropdownButton {
         }
         buttons.push(
             <FButton
+                {...props}
                 disabled={this.disabled ? true : false}
                 icon={
                     this.dropdownOnly && this.icon && this.icon !== ''
@@ -487,7 +502,6 @@ export class KupDropdownButton {
                         : 'arrow_drop_down'
                 }
                 label=" "
-                styling={this.styling ? this.styling : FButtonStyling.RAISED}
                 wrapperClass={
                     'dropdown-button__dropdown-action' +
                     (this.dropdownOnly ? ' dropdown-only' : '')
