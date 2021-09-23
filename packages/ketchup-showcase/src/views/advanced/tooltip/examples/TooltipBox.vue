@@ -88,7 +88,6 @@ export default {
           },
         },
       };
-      console.log(event.detail.comp.data);
       event.detail.comp.data = data;
     },
     loadBornToDie(event) {
