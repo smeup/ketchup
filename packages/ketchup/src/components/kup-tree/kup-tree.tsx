@@ -1751,10 +1751,7 @@ export class KupTree {
             while (end > -1) {
                 contentSlices.push(contentPart.substring(0, end));
                 contentSlices.push(
-                    <span
-                        ref={(el: HTMLElement) => this.contentRefs.push(el)}
-                        class={styleClass + '--highlighted'}
-                    >
+                    <span class={styleClass + '--highlighted'}>
                         {contentPart.substring(end, end + highlight.length)}
                     </span>
                 );
@@ -1774,7 +1771,15 @@ export class KupTree {
         } else {
             contentSlices.push(content);
         }
-        return <span class={styleClass}>{contentSlices}</span>;
+        return (
+            <span
+                class={styleClass}
+                ref={(el: HTMLElement) => this.contentRefs.push(el)}
+                title={this.preventXScroll ? content : null}
+            >
+                {contentSlices}
+            </span>
+        );
     }
 
     /**
@@ -1940,6 +1945,7 @@ export class KupTree {
                     <span
                         ref={(el: HTMLElement) => this.contentRefs.push(el)}
                         class="cell-content"
+                        title={this.preventXScroll ? treeNodeData.value : null}
                     >
                         {treeNodeData.value}
                     </span>
@@ -2260,14 +2266,16 @@ export class KupTree {
         for (let index = 0; index < this.contentRefs.length; index++) {
             const cell: HTMLElement = this.contentRefs[index];
             if (cell) {
+                cell.classList.remove('cell-content--ellipsis');
+                cell.style.setProperty('--content_width', ``);
                 const rect: DOMRect = cell.getBoundingClientRect();
                 if (rect.right > treeRect.right) {
-                    const ellipsisIndicator: number = 15;
+                    const failsafeOffset: number = 5;
                     const delta: number = rect.right - treeRect.right;
                     cell.classList.add('cell-content--ellipsis');
                     cell.style.setProperty(
                         '--content_width',
-                        `${rect.width - delta - ellipsisIndicator}px`
+                        `${rect.width - delta - failsafeOffset}px`
                     );
                 }
             }
