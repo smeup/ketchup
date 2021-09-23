@@ -21,7 +21,7 @@ export default {
 
   data() {
     return {
-      demoComp: createCompTu(),
+      demoComp: createComp(),
       demoEvents: [
         {
           name: 'kup-tooltip-actioncommandclick',
@@ -154,10 +154,9 @@ export default {
       ],
     };
   },
-  methods: {},
 };
 
-function createCompTu() {
+function createComp() {
   let comp = document.createElement('div');
   let compSurface = document.createElement('span');
   let compEl = document.createElement('kup-tooltip');
