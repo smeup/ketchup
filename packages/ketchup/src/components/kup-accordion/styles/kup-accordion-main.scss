@@ -3,8 +3,14 @@
   font-size: var(--kup-font-size);
 }
 
+#global-filter {
+  margin-bottom: 0.5em;
+}
+
 .accordion {
+  border-bottom: 1px solid var(--kup-border-color);
   border-radius: 4px;
+  border-top: 1px solid var(--kup-border-color);
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -14,7 +20,6 @@
 .accordion-item {
   border-left: 1px solid var(--kup-border-color);
   border-right: 1px solid var(--kup-border-color);
-  border-top: 1px solid var(--kup-border-color);
   box-sizing: border-box;
   display: none;
   width: 100%;
@@ -23,15 +28,8 @@
     display: block;
   }
 
-  &:first-of-type {
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-  }
-
-  &:last-of-type {
-    border-bottom: 1px solid var(--kup-border-color);
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+  &:not(:first-of-type) {
+    border-top: 1px solid var(--kup-border-color);
   }
 
   &__header {
