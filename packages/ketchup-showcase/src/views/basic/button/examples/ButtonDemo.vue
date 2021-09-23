@@ -62,6 +62,11 @@ export default {
             'The borders of the button will be shaped (needs a new render to be effective).',
         },
         {
+          class: 'kup-slim',
+          description:
+            'The button will have a decreased size (needs a new render to be effective).',
+        },
+        {
           class: 'kup-success',
           description:
             'The component will be rendered using the success color of the app.',

@@ -244,6 +244,17 @@
     }
   }
 
+  &.#{$kup-class-slim} {
+    .button {
+      font-size: 0.75em;
+      height: 26px;
+    }
+
+    .f-image--wrapper {
+      font-size: 16px;
+    }
+  }
+
   &.#{$kup-class-pulsating} {
     .icon-button--on:after {
       content: '';

@@ -283,6 +283,9 @@ export class KupButton {
             shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
+            slim: this.rootElement.classList.contains('kup-slim')
+                ? true
+                : false,
             styling: this.styling,
             toggable: this.toggable,
             trailingIcon: this.trailingIcon,
