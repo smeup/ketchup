@@ -125,6 +125,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'expansionMode',
+          description:
+            'The mode of the expansion. If single you cannot find more than one item expanded at a given time, if multiple you could',
+          type: 'KupAccordionExpansionMode',
+          default: 'single',
+          try: 'field',
+        },
+        {
           prop: 'globalFilter',
           description: 'When set to true it activates the global filter.',
           type: 'boolean',

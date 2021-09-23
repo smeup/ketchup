@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KupAccordionData, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
+import { KupAccordionData, KupAccordionExpansionMode, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
@@ -67,6 +67,11 @@ export namespace Components {
           * This method expand all items
          */
         "expandAll": () => Promise<void>;
+        /**
+          * The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.
+          * @default KupAccordionExpansionMode.SINGLE
+         */
+        "expansionMode": KupAccordionExpansionMode;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -3146,6 +3151,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: KupAccordionData;
+        /**
+          * The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.
+          * @default KupAccordionExpansionMode.SINGLE
+         */
+        "expansionMode"?: KupAccordionExpansionMode;
         /**
           * When set to true it activates the global filter.
           * @default false

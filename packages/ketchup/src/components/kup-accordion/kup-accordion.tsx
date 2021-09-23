@@ -28,6 +28,7 @@ import {
     KupAccordionTreeNodeExpandedEventPayload,
     KupAccordionTreeNodeCollapsedEventPayload,
     KupAccordionItemCollapsedEventPayload,
+    KupAccordionExpansionMode,
 } from './kup-accordion-declarations';
 import {
     KupTreeNodeCollapseEventPayload,
@@ -67,6 +68,12 @@ export class KupAccordion {
      * @default null
      */
     @Prop() data: KupAccordionData = null;
+    /**
+     * The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.
+     * @default KupAccordionExpansionMode.SINGLE
+     */
+    @Prop() expansionMode: KupAccordionExpansionMode =
+        KupAccordionExpansionMode.SINGLE;
     /**
      * When set to true it activates the global filter.
      * @default false
@@ -240,7 +247,9 @@ export class KupAccordion {
                 ids.splice(ids.indexOf(itemName), 1);
             }
         } else {
-            ids.splice(0, ids.length);
+            if (KupAccordionExpansionMode.SINGLE === this.expansionMode) {
+                ids.splice(0, ids.length);
+            }
             ids.push(itemName);
         }
         this.selectedItemsNames = ids;
@@ -334,7 +343,9 @@ export class KupAccordion {
 
         // if tree node is selected then item must be selected (useful when filter)
         const ids: string[] = [...this.selectedItemsNames];
-        ids.splice(0, ids.length);
+        if (KupAccordionExpansionMode.SINGLE === this.expansionMode) {
+            ids.splice(0, ids.length);
+        }
         ids.push(itemName);
         this.selectedItemsNames = ids;
 

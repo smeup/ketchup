@@ -213,6 +213,7 @@ const ksData = {
 
 const ksAccordion = document.getElementById('ks');
 ksAccordion.data = ksData;
+ksAccordion.expansionMode = 'multiple';
 ksAccordion.globalFilter = 'true';
 ksAccordion.globalFilterMode = 'highlight';
 ksAccordion.selectedItemsNames = 'FLD1';
