@@ -54,3 +54,8 @@ export interface KupAccordionTreeNodeCollapsedEventPayload
     extends KupTreeNodeCollapseEventPayload {
     itemName: string;
 }
+
+export enum KupAccordionExpansionMode {
+    SINGLE = 'single',
+    MULTIPLE = 'multiple',
+}
