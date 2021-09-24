@@ -87,20 +87,6 @@ a.primary--text {
   text-align: center;
 }
 
-div.logo svg {
-  cursor: pointer;
-  display: block;
-  fill: var(--kup-primary-color);
-  margin: 1em auto 2em auto;
-  height: 70px;
-  margin-top: 30px;
-  margin-bottom: 50px;
-}
-
-div.logo svg.visible {
-  display: block;
-}
-
 html a {
   color: var(--kup-primary-color);
 }
