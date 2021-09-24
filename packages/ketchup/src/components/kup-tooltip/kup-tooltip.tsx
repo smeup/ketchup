@@ -203,15 +203,42 @@ export class KupTooltip {
     onDataChanged() {
         this.waitingServerResponse = false;
         if (this.relatedObject == null) {
+            this.kupManager.dynamicPosition.stop(
+                this.rootElement as KupDynamicPositionElement
+            );
             this.onElementChanged();
             return;
         }
         if (this.data == null) {
+            this.kupManager.dynamicPosition.stop(
+                this.rootElement as KupDynamicPositionElement
+            );
             this.relatedObject = null;
             return;
         }
+
+        if (
+            !this.kupManager.dynamicPosition.isRegistered(
+                this.rootElement as KupDynamicPositionElement
+            )
+        ) {
+            this.kupManager.dynamicPosition.register(
+                this.rootElement as KupDynamicPositionElement,
+                this.relatedObject.element,
+                0,
+                KupDynamicPositionPlacement.AUTO
+            );
+        } else {
+            this.kupManager.dynamicPosition.changeAnchor(
+                this.rootElement as KupDynamicPositionElement,
+                this.relatedObject.element
+            );
+        }
+        this.kupManager.dynamicPosition.start(
+            this.rootElement as KupDynamicPositionElement
+        );
         this.visible = true;
-        //this._mouseIsOn = true;
+        this.rootElement.focus();
         this.startLoadDetail(true);
     }
 
@@ -904,22 +931,6 @@ export class KupTooltip {
     }
 
     componentDidRender() {
-        if (this.visible) {
-            this.kupManager.dynamicPosition.register(
-                this.rootElement as KupDynamicPositionElement,
-                this.relatedObject.element,
-                0,
-                KupDynamicPositionPlacement.AUTO
-            );
-            this.kupManager.dynamicPosition.start(
-                this.rootElement as KupDynamicPositionElement
-            );
-            this.rootElement.focus();
-        } else {
-            this.kupManager.dynamicPosition.stop(
-                this.rootElement as KupDynamicPositionElement
-            );
-        }
         this.kupManager.debug.logRender(this, true);
     }
 

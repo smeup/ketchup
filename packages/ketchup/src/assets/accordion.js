@@ -4,7 +4,19 @@ document.addEventListener('kup-accordion-treenodeselected', (e) =>
 
 document.addEventListener('kup-accordion-itemselected', (e) => console.log(e));
 
-const data = {
+document.addEventListener('kup-accordion-treenodeexpanded', (e) =>
+    console.log(e)
+);
+
+document.addEventListener('kup-accordion-itemexpanded', (e) => console.log(e));
+
+document.addEventListener('kup-accordion-treenodecollapsed', (e) =>
+    console.log(e)
+);
+
+document.addEventListener('kup-accordion-itemcollapsed', (e) => console.log(e));
+
+const ksData = {
     columns: [
         {
             name: 'FLD1',
@@ -30,6 +42,7 @@ const data = {
             cells: {
                 FLD1: {
                     data: {
+                        selectedNode: [0, 1],
                         data: [
                             {
                                 children: [
@@ -54,7 +67,7 @@ const data = {
                                     {
                                         disabled: false,
                                         expandable: true,
-                                        icon: 'ac_unit',
+                                        icon: '',
                                         id: '',
                                         isExpanded: false,
                                         options: false,
@@ -65,20 +78,40 @@ const data = {
                                 expandable: true,
                                 icon: 'filter_2',
                                 id: '',
-                                isExpanded: false,
+                                isExpanded: true,
                                 options: false,
                                 value: 'Favorites',
                             },
                             {
                                 disabled: false,
                                 expandable: true,
-                                icon: '3d_rotation',
+                                icon: '',
                                 id: '',
                                 isExpanded: false,
                                 options: false,
                                 value: 'Account',
                             },
                             {
+                                children: [
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: '',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'Today',
+                                    },
+                                    {
+                                        disabled: false,
+                                        expandable: true,
+                                        icon: '',
+                                        id: '',
+                                        isExpanded: false,
+                                        options: false,
+                                        value: 'Yesterday',
+                                    },
+                                ],
                                 disabled: false,
                                 expandable: true,
                                 icon: 'book',
@@ -151,7 +184,7 @@ const data = {
                             {
                                 disabled: false,
                                 expandable: true,
-                                icon: 'omega',
+                                icon: '',
                                 id: '',
                                 isExpanded: false,
                                 options: false,
@@ -160,7 +193,7 @@ const data = {
                             {
                                 disabled: false,
                                 expandable: true,
-                                icon: 'view-quilt',
+                                icon: '',
                                 id: '',
                                 isExpanded: false,
                                 options: false,
@@ -178,6 +211,12 @@ const data = {
     key: '123',
 };
 
-const accordion = document.getElementById('first');
-accordion.data = data;
-accordion.globalFilter = 'true';
+const ksAccordion = document.getElementById('ks');
+ksAccordion.data = ksData;
+ksAccordion.expansionMode = 'multiple';
+ksAccordion.globalFilter = 'true';
+ksAccordion.globalFilterMode = 'highlight';
+ksAccordion.selectedItemsNames = 'FLD1';
+
+const emptyAccordion = document.getElementById('empty');
+emptyAccordion.data = {};

@@ -3,7 +3,6 @@ import type {
     KupManagerDatesSettings,
     KupManagerDebugSettings,
     KupManagerDialogSettings,
-    KupManagerDynamicPositionSettings,
     KupManagerInitialization,
     KupManagerLanguageSettings,
     KupManagerObjectsSettings,
@@ -56,7 +55,6 @@ export class KupManager {
             debugAutoprint: boolean = null,
             debugLogLimit: number = null,
             dialogZIndex: number = null,
-            dynamicPositionContainer: string = null,
             languageList: KupLanguageJSON = null,
             languageName: string = null,
             objectsList: KupObjectsJSON = null,
@@ -68,8 +66,6 @@ export class KupManager {
             const dates: KupManagerDatesSettings = overrides.dates;
             const debug: KupManagerDebugSettings = overrides.debug;
             const dialog: KupManagerDialogSettings = overrides.dialog;
-            const dynamicPosition: KupManagerDynamicPositionSettings =
-                overrides.dynamicPosition;
             const language: KupManagerLanguageSettings = overrides.language;
             const objects: KupManagerObjectsSettings = overrides.objects;
             const scrollOnHover: KupManagerScrollOnHoverSettings =
@@ -85,11 +81,6 @@ export class KupManager {
             }
             if (dialog) {
                 dialogZIndex = dialog.zIndex ? dialog.zIndex : null;
-            }
-            if (dynamicPosition) {
-                dynamicPositionContainer = dynamicPosition.container
-                    ? dynamicPosition.container
-                    : null;
             }
             if (language) {
                 languageList = language.list ? language.list : null;
@@ -114,7 +105,7 @@ export class KupManager {
         this.dates = new KupDates(datesLocale);
         this.debug = new KupDebug(debugActive, debugAutoprint, debugLogLimit);
         this.dialog = new KupDialog(dialogZIndex);
-        this.dynamicPosition = new KupDynamicPosition(dynamicPositionContainer);
+        this.dynamicPosition = new KupDynamicPosition();
         this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
         this.overrides = overrides ? overrides : null;

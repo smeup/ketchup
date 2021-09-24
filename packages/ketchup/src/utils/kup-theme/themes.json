@@ -4,8 +4,10 @@
             "--kup-primary-color": "#c18f00",
             "--kup-secondary-color": "#1d1d1d",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#beb08d",
+            "--kup-navbar-background-color": "#beb08d",
             "--kup-drawer-background-color": "#ffffff",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Lato, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
@@ -31,13 +33,16 @@
             "--kup-chart-color-2": "#e0a0a0",
             "--kup-chart-color-3": "#8e1010",
             "--kup-chart-color-4": "#f5f5dc",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
             "--kup-descending-icon": "sort-descending",
             "--kup-expanded-icon": "chevron-down",
             "--kup-collapsed-icon": "chevron_right",
+            "--kup-dropdown-icon": "chevron-down",
             "--kup-clear-icon": "clear",
             "--kup-filter-remove-icon": "filter-remove",
             "--kup-key-icon": "key-variant",
@@ -53,8 +58,10 @@
             "--kup-primary-color": "#248aff",
             "--kup-secondary-color": "#65cbe9",
             "--kup-background-color": "#222222",
-            "--kup-nav-bar-background-color": "#131313",
+            "--kup-navbar-background-color": "#131313",
             "--kup-drawer-background-color": "#2e2e2e",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Blinker, sans-serif;",
             "--kup-font-family-monospace": "Andalé Mono, monospace",
             "--kup-font-size": "14px",
@@ -80,7 +87,9 @@
             "--kup-chart-color-2": "#5eb6d1",
             "--kup-chart-color-3": "#b1eafb",
             "--kup-chart-color-4": "#ffffff",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -102,8 +111,10 @@
             "--kup-primary-color": "#82f0e2",
             "--kup-secondary-color": "#f9ff00",
             "--kup-background-color": "#2d2d2d",
-            "--kup-nav-bar-background-color": "#2d2d2d",
+            "--kup-navbar-background-color": "#2d2d2d",
             "--kup-drawer-background-color": "#1f1f1f",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Lato, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
@@ -129,7 +140,9 @@
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#860bb5",
             "--kup-chart-color-4": "#1a83e4",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -151,8 +164,10 @@
             "--kup-primary-color": "#e88aab",
             "--kup-secondary-color": "#7f00e7",
             "--kup-background-color": "#222222",
-            "--kup-nav-bar-background-color": "#2d2d2d",
+            "--kup-navbar-background-color": "#2d2d2d",
             "--kup-drawer-background-color": "#1f1f1f",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Mali, cursive;",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
@@ -178,7 +193,9 @@
             "--kup-chart-color-2": "#dc5584",
             "--kup-chart-color-3": "#c21350",
             "--kup-chart-color-4": "#c88da1",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -200,8 +217,10 @@
             "--kup-primary-color": "#888888",
             "--kup-secondary-color": "#d91e18",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#535353",
+            "--kup-navbar-background-color": "#535353",
             "--kup-drawer-background-color": "#ffffff",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "13px",
@@ -233,7 +252,9 @@
             "--kup-chart-color-8": "magenta",
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "customStyles": {
             "KUP-BUTTON": "#kup-component button {\ntext-transform: unset;\n}\n\n"
@@ -255,8 +276,10 @@
             "--kup-primary-color": "#d64325",
             "--kup-secondary-color": "#a6192e",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#2e2e2e",
+            "--kup-navbar-background-color": "#2e2e2e",
             "--kup-drawer-background-color": "#ffffff",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Ubuntu, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
@@ -282,7 +305,9 @@
             "--kup-chart-color-2": "#e0a0a0",
             "--kup-chart-color-3": "#8e1010",
             "--kup-chart-color-4": "#f5f5dc",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
@@ -304,8 +329,10 @@
             "--kup-primary-color": "#0081c5",
             "--kup-secondary-color": "#3a8ede",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#001d3e",
+            "--kup-navbar-background-color": "#001d3e",
             "--kup-drawer-background-color": "#e6f1ff",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Open Sans Condensed, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "16px",
@@ -331,7 +358,9 @@
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -353,8 +382,10 @@
             "--kup-primary-color": "#000000",
             "--kup-secondary-color": "#cccccc",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#000000",
+            "--kup-navbar-background-color": "#000000",
             "--kup-drawer-background-color": "#ffffff",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Arial, Helvetica, sans-serif",
             "--kup-font-family-monospace": "Courier New, Courier, monospace",
             "--kup-font-size": "13px",
@@ -386,7 +417,9 @@
             "--kup-chart-color-8": "magenta",
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "customStyles": {
             "MASTER": "#kup-component #global-filter {\ndisplay: none;\n}\n\n",
@@ -414,8 +447,10 @@
             "--kup-primary-color": "rgb(187, 198, 5)",
             "--kup-secondary-color": "#ffe600",
             "--kup-background-color": "#000000",
-            "--kup-nav-bar-background-color": "#000000",
+            "--kup-navbar-background-color": "#000000",
             "--kup-drawer-background-color": "#000000",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "'Rajdhani', sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "15px",
@@ -441,7 +476,9 @@
             "--kup-chart-color-2": "rgb(187, 198, 5)",
             "--kup-chart-color-3": "#ffe600",
             "--kup-chart-color-4": "#effd02",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "sort-ascending",
@@ -463,8 +500,10 @@
             "--kup-primary-color": "#a6192e",
             "--kup-secondary-color": "#ffc107",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#a6192e",
+            "--kup-navbar-background-color": "#a6192e",
             "--kup-drawer-background-color": "#f5f5f5",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Open Sans, arial, helvatica",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "13px",
@@ -496,7 +535,9 @@
             "--kup-chart-color-8": "magenta",
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -519,8 +560,10 @@
             "--kup-primary-color": "#068A9C",
             "--kup-secondary-color": "#ffc107",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#068A9C",
+            "--kup-navbar-background-color": "#068A9C",
             "--kup-drawer-background-color": "#ffffff",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "13px",
@@ -552,7 +595,9 @@
             "--kup-chart-color-8": "magenta",
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -571,8 +616,10 @@
             "--kup-primary-color": "#0fa918",
             "--kup-secondary-color": "#739f5a",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#095a1f",
+            "--kup-navbar-background-color": "#095a1f",
             "--kup-drawer-background-color": "#dbfbd5",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Abel, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "16px",
@@ -598,7 +645,9 @@
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "inherit"
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
@@ -620,8 +669,10 @@
             "--kup-primary-color": "#d64325",
             "--kup-secondary-color": "#ffc107",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#f5f5f5",
+            "--kup-navbar-background-color": "#f5f5f5",
             "--kup-drawer-background-color": "#ffffff",
+            "--kup-navbar-height": "64px",
+            "--kup-drawer-width": "300px",
             "--kup-font-family": "Architects Daughter, cursive",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
@@ -647,7 +698,9 @@
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "alias"
+            "--kup-obj-cursor": "alias",
+            "--kup-drawer-zindex": "90",
+            "--kup-navbar-zindex": "90"
         },
         "customStyles": {
             "MASTER": "#kup-component { background-color: red; }",

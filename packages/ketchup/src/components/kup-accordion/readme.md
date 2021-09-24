@@ -1,26 +1,31 @@
 # kup-accordion
 
-
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property            | Attribute             | Description                                      | Type               | Default |
-| ------------------- | --------------------- | ------------------------------------------------ | ------------------ | ------- |
-| `customStyle`       | `custom-style`        | Custom style of the component.                   | `string`           | `''`    |
-| `data`              | --                    | Data of the accordion.                           | `KupAccordionData` | `null`  |
-| `globalFilter`      | `global-filter`       | When set to true it activates the global filter. | `boolean`          | `false` |
-| `globalFilterValue` | `global-filter-value` | The value of the global filter.                  | `string`           | `''`    |
+| Property             | Attribute             | Description                                                                                                             | Type                                                                     | Default                            |
+| -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ---------------------------------- |
+| `customStyle`        | `custom-style`        | Custom style of the component.                                                                                          | `string`                                                                 | `''`                               |
+| `data`               | --                    | Data of the accordion.                                                                                                  | `KupAccordionData`                                                       | `null`                             |
+| `expansionMode`      | `expansion-mode`      | The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could. | `KupAccordionExpansionMode.MULTIPLE \| KupAccordionExpansionMode.SINGLE` | `KupAccordionExpansionMode.SINGLE` |
+| `globalFilter`       | `global-filter`       | When set to true it activates the global filter.                                                                        | `boolean`                                                                | `false`                            |
+| `globalFilterMode`   | `global-filter-mode`  | The mode of the global filter.                                                                                          | `KupGlobalFilterMode.HIGHLIGHT \| KupGlobalFilterMode.SIMPLE`            | `KupGlobalFilterMode.SIMPLE`       |
+| `globalFilterValue`  | `global-filter-value` | The value of the global filter.                                                                                         | `string`                                                                 | `''`                               |
+| `selectedItemsNames` | --                    | The names of the selected items.                                                                                        | `string[]`                                                               | `[]`                               |
 
 
 ## Events
 
-| Event                            | Description                       | Type                                                    |
-| -------------------------------- | --------------------------------- | ------------------------------------------------------- |
-| `kup-accordion-itemselected`     | Fired when a item is selected     | `CustomEvent<KupAccordionItemSelectedEventPayload>`     |
-| `kup-accordion-treenodeselected` | Fired when a TreeNode is selected | `CustomEvent<KupAccordionTreeNodeSelectedEventPayload>` |
+| Event                             | Description                         | Type                                                     |
+| --------------------------------- | ----------------------------------- | -------------------------------------------------------- |
+| `kup-accordion-itemcollapsed`     | Fired when an item is collapsed.    | `CustomEvent<KupAccordionItemCollapsedEventPayload>`     |
+| `kup-accordion-itemexpanded`      | Fired when an item is expanded.     | `CustomEvent<KupAccordionItemExpandedEventPayload>`      |
+| `kup-accordion-itemselected`      | Fired when an item is selected.     | `CustomEvent<KupAccordionItemSelectedEventPayload>`      |
+| `kup-accordion-treenodecollapsed` | Fired when a TreeNode is collapsed. | `CustomEvent<KupAccordionTreeNodeCollapsedEventPayload>` |
+| `kup-accordion-treenodeexpanded`  | Fired when a TreeNode is expanded.  | `CustomEvent<KupAccordionTreeNodeExpandedEventPayload>`  |
+| `kup-accordion-treenodeselected`  | Fired when a TreeNode is selected.  | `CustomEvent<KupAccordionTreeNodeSelectedEventPayload>`  |
 
 
 ## Methods

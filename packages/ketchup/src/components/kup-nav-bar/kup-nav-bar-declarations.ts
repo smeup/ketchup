@@ -1,44 +1,21 @@
-import { KupEventPayload } from '../../types/GenericTypes';
-
+export const navbarClass = 'nav-bar';
 /**
  * Props of the kup-nav-bar component.
  * Used to export every prop in an object.
  */
 export enum KupNavBarProps {
     customStyle = 'Custom style of the component.',
-    data = 'The actual data of the nav bar.',
-    mode = 'Defines how the bar will be displayed.',
-}
-/**
- * Data of the nav bar.
- */
-export interface KupNavBarData {
-    title: string;
-    menuAction?: KupNavBarElement;
-    menuActions?: KupNavBarElement[];
-    optionActions?: KupNavBarElement[];
-}
-/**
- * Identifies a single nav bar element.
- */
-export interface KupNavBarElement {
-    icon: string;
-    tooltip?: string;
-    text?: string;
-    value: string;
-    visible?: boolean;
+    image = "Image displayed by the nav bar, uses the kup-image component's props.",
+    label = 'Text displayed by the nav bar.',
+    showMenuButton = 'When true, the menu button will be displayed on the left of the nav bar.',
+    styling = 'Defines the style of the nav bar',
 }
 /**
  * Styling modes of the nav bar.
  */
-export enum KupNavBarMode {
-    DEFAULT = '',
-    SHORT = 'short',
-    SHORT_COLLAPSED = 'short-collapsed',
-    FIXED = 'fixed',
-    PROMINENT = 'prominent',
+export enum KupNavBarStyling {
     DENSE = 'dense',
-}
-export interface KupNavbarEventPayload extends KupEventPayload {
-    value: string;
+    PROMINENT = 'prominent',
+    SHORT = 'short',
+    STANDARD = 'standard',
 }

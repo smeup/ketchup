@@ -23,6 +23,10 @@ export default {
     return {
       demoClasses: [
         {
+          class: 'kup-borderless',
+          description: 'Displays the component without borders.',
+        },
+        {
           class: 'kup-danger',
           description:
             'The component will be rendered using the danger color of the app.',
@@ -67,6 +71,22 @@ export default {
           name: 'kup-accordion-treenodeselected',
           type: 'CustomEvent',
         },
+        {
+          name: 'kup-accordion-itemexpanded',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-treenodeexpanded',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-itemcollapsed',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-accordion-treenodecollapsed',
+          type: 'CustomEvent',
+        },
       ],
       demoMethods: [
         {
@@ -105,6 +125,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'expansionMode',
+          description:
+            'The mode of the expansion. If single you cannot find more than one item expanded at a given time, if multiple you could',
+          type: 'KupAccordionExpansionMode',
+          default: 'single',
+          try: 'field',
+        },
+        {
           prop: 'globalFilter',
           description: 'When set to true it activates the global filter.',
           type: 'boolean',
@@ -112,10 +140,25 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'globalFilterMode',
+          description: 'The mode of the global filter',
+          type: 'KupGlobalFilterMode',
+          default: 'simple',
+          try: 'field',
+        },
+        {
           prop: 'globalFilterValue',
           description: 'The value of the global filter.',
           type: 'string',
-          default: '',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'selectedItemsNames',
+          description: 'The names of the selected items.',
+          type: 'string',
+          isArray: true,
+          default: '[]',
           try: 'field',
         },
       ],

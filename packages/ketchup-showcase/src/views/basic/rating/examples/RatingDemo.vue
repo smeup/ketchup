@@ -22,7 +22,7 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupRatingClick',
+          name: 'kup-rating-click',
           type: 'click',
         },
       ],

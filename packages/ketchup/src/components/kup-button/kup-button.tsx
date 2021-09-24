@@ -277,7 +277,13 @@ export class KupButton {
             large: this.rootElement.classList.contains('kup-large')
                 ? true
                 : false,
+            pulsating: this.rootElement.classList.contains('kup-pulsating')
+                ? true
+                : false,
             shaped: this.rootElement.classList.contains('kup-shaped')
+                ? true
+                : false,
+            slim: this.rootElement.classList.contains('kup-slim')
                 ? true
                 : false,
             styling: this.styling,

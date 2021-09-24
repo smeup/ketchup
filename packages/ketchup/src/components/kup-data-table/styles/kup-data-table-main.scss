@@ -459,6 +459,11 @@ tr {
     display: inline-block;
   }
 
+  kup-button-list {
+    display: flex;
+    margin: auto;
+  }
+
   kup-progress-bar {
     display: block;
   }
@@ -590,6 +595,11 @@ th.obj:hover span:not(.overlay-action) {
 
 .f-image--wrapper.cell-info {
   margin: auto 0.5em auto 0.25em;
+
+  :host([force-one-line]) & {
+    display: inline-block;
+    vertical-align: sub;
+  }
 }
 
 [kup-dialog] {

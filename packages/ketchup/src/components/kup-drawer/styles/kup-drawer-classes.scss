@@ -3,20 +3,24 @@
 /*-------------------------------------------------*/
 
 :host(.#{$kup-class-right}) {
-  aside {
-    left: unset;
-    right: -100%;
-  }
+  left: unset;
+  right: -100%;
 }
 
-:host([opened].#{$kup-class-right}) {
-  aside {
-    right: 0;
-  }
+:host([kup-opened].#{$kup-class-right}) {
+  right: 0;
 }
 
 :host(.#{$kup-class-permanent}) {
+  box-shadow: unset;
+  transition: all 250ms;
   .backdrop {
     display: none;
+  }
+  .drawer {
+    position: relative;
+    &__content {
+      border-right: 1px solid var(--kup-border-color);
+    }
   }
 }

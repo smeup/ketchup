@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/blob/develop/packages/ketchup/src/utils/scroll-on-hover.ts',
+        'https://github.com/smeup/ketchup/blob/develop/packages/ketchup/src/utils/kup-scroll-on-hover/kup-scroll-on-hover.ts',
       headtitle: 'Scroll on hover',
       titles: ['Basic usage', 'Data Table integration', 'Tree integration'],
     };

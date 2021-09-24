@@ -112,6 +112,11 @@ export default {
             'This method is used to trigger a new render of the component.',
         },
         {
+          name: 'resizeCallback',
+          description:
+            'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
           name: 'setProps',
           description: 'Sets the props to the component.',
         },
@@ -181,11 +186,26 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'globalFilterMode',
+          description: 'The mode of the global filter',
+          type: 'KupGlobalFilterMode',
+          default: 'SIMPLE',
+          try: 'field',
+        },
+        {
           prop: 'globalFilterValue',
           description: 'The value of the global filter.',
           type: 'string',
           default: '',
           try: 'field',
+        },
+        {
+          prop: 'preventXScroll',
+          description:
+            'Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'scrollOnHover',

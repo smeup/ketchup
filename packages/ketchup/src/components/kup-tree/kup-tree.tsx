@@ -73,6 +73,7 @@ import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
     GenericFilter,
+    KupGlobalFilterMode,
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
@@ -252,6 +253,17 @@ export class KupTree {
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
+
+    /**
+     * The mode of the global filter (default SIMPLE)
+     */
+    @Prop() globalFilterMode: KupGlobalFilterMode = KupGlobalFilterMode.SIMPLE;
+    /**
+     * Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells.
+     * It works only on cells of the main column.
+     * @default false;
+     */
+    @Prop({ reflect: true }) preventXScroll: boolean = false;
     /**
      * Sets the possibility to remove the selected column.
      */
@@ -348,6 +360,12 @@ export class KupTree {
     private filtersTreeItemsInstance: FiltersTreeItems = new FiltersTreeItems();
     private totalMenuCoords: KupDynamicPositionCoordinates = null;
     private visibleNodes: number;
+    private contentRefs: HTMLElement[] = [];
+    private oldWidth: number = null;
+    /**
+     * Used to prevent too many resizes callbacks at once.
+     */
+    private resizeTimeout: number;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -636,6 +654,16 @@ export class KupTree {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        if (this.rootElement.clientWidth !== this.oldWidth) {
+            window.clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+        }
     }
     /**
      * Sets the props to the component.
@@ -1706,6 +1734,55 @@ export class KupTree {
     }
 
     /**
+     * Renders a content with a part highlighted.
+     * NOTE: same in kup-accordion and in kup-tree
+     */
+    private renderHighlightedContent(
+        content: string,
+        highlight: string,
+        styleClass: string
+    ) {
+        let contentSlices = [];
+        if (highlight && content) {
+            let contentPart = content;
+            let end = contentPart
+                .toLowerCase()
+                .indexOf(highlight.toLowerCase());
+            while (end > -1) {
+                contentSlices.push(contentPart.substring(0, end));
+                contentSlices.push(
+                    <span class={styleClass + '--highlighted'}>
+                        {contentPart.substring(end, end + highlight.length)}
+                    </span>
+                );
+                contentPart = contentPart.substring(
+                    end + highlight.length,
+                    contentPart.length
+                );
+                end = contentPart
+                    .toLowerCase()
+                    .indexOf(highlight.toLowerCase());
+            }
+            if (end < contentPart.length) {
+                contentSlices.push(
+                    contentPart.substring(end, contentPart.length)
+                );
+            }
+        } else {
+            contentSlices.push(content);
+        }
+        return (
+            <span
+                class={styleClass}
+                ref={(el: HTMLElement) => this.contentRefs.push(el)}
+                title={this.preventXScroll ? content : null}
+            >
+                {contentSlices}
+            </span>
+        );
+    }
+
+    /**
      * Given a TreeNode, reads through its data then composes and returns its JSX object.
      * @param treeNodeData - The TreeNode object to parse.
      * @param treeNodePath - A string containing the comma(,) separated indexes of the TreeNodes to use,
@@ -1856,6 +1933,25 @@ export class KupTree {
 
         let treeNodeCell = null;
         if (this.isTreeColumnVisible()) {
+            let content = '';
+            if (KupGlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
+                content = this.renderHighlightedContent(
+                    treeNodeData.value,
+                    this.globalFilterValue,
+                    'cell-content'
+                );
+            } else {
+                content = (
+                    <span
+                        ref={(el: HTMLElement) => this.contentRefs.push(el)}
+                        class="cell-content"
+                        title={this.preventXScroll ? treeNodeData.value : null}
+                    >
+                        {treeNodeData.value}
+                    </span>
+                );
+            }
+
             treeNodeCell = (
                 <td
                     class={{
@@ -1880,7 +1976,7 @@ export class KupTree {
                     {indent}
                     {treeExpandIcon}
                     {treeNodeIcon}
-                    <span class="cell-content">{treeNodeData.value}</span>
+                    {content}
                 </td>
             );
         }
@@ -2165,6 +2261,27 @@ export class KupTree {
         return treeNodes;
     }
 
+    private setEllipsis(): void {
+        const treeRect: DOMRect = this.rootElement.getBoundingClientRect();
+        for (let index = 0; index < this.contentRefs.length; index++) {
+            const cell: HTMLElement = this.contentRefs[index];
+            if (cell) {
+                cell.classList.remove('cell-content--ellipsis');
+                cell.style.setProperty('--content_width', ``);
+                const rect: DOMRect = cell.getBoundingClientRect();
+                if (rect.right > treeRect.right) {
+                    const failsafeOffset: number = 5;
+                    const delta: number = rect.right - treeRect.right;
+                    cell.classList.add('cell-content--ellipsis');
+                    cell.style.setProperty(
+                        '--content_width',
+                        `${rect.width - delta - failsafeOffset}px`
+                    );
+                }
+            }
+        }
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -2200,6 +2317,7 @@ export class KupTree {
             }
         }
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -2216,6 +2334,9 @@ export class KupTree {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
+        if (this.preventXScroll) {
+            this.setEllipsis();
+        }
         this.totalMenuPosition();
         this.checkScrollOnHover();
         this.setDynPosElements();
@@ -2232,10 +2353,12 @@ export class KupTree {
         // *** Store
         this.persistState();
         // ***
+        this.oldWidth = this.rootElement.clientWidth;
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
+        this.contentRefs = [];
         const tooltip = this.renderTooltip();
 
         this.sizedColumns = this.getSizedColumns();
@@ -2356,6 +2479,7 @@ export class KupTree {
 
     disconnectedCallback() {
         this.kupManager.language.register(this);
+        this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(
