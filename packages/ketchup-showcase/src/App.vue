@@ -71,6 +71,7 @@
       <kup-accordion
         class="kup-borderless kup-full-width"
         :data.prop="accordionData"
+        expansion-mode="multiple"
         global-filter
         id="navigation-accordion"
         @kup-accordion-treenodeselected="treeClick"
@@ -728,6 +729,7 @@ export default {
                   },
                 ],
                 density: 'wide',
+                expansionMode: 'node',
                 preventXScroll: true,
               },
               shape: 'TRE',
@@ -759,6 +761,7 @@ export default {
                   },
                 ],
                 density: 'wide',
+                expansionMode: 'node',
                 preventXScroll: true,
               },
               shape: 'TRE',
@@ -801,6 +804,7 @@ export default {
                   },
                 ],
                 density: 'wide',
+                expansionMode: 'node',
                 preventXScroll: true,
               },
               shape: 'TRE',

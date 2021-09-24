@@ -20,6 +20,7 @@ export enum KupTreeProps {
     dynamicExpansionCallback = 'Function that gets invoked when a new set of nodes must be loaded as children of a node. When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. If this prop is set to null, no callback to download data is available: the component will emit an event requiring the parent to load the children of the given node. If this prop is set to have a callback, then the component will automatically make requests to load children of a given node. After the load has been completed, a different event will be fired to alert the parent of the change.',
     enableExtraColumns = 'Enables adding extra columns.',
     expanded = 'Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.',
+    expansionMode = "Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.",
     filters = 'List of filters set by the user.',
     globalFilter = 'When set to true it activates the global filter.',
     globalFilterValue = 'The value of the global filter.',
@@ -93,6 +94,11 @@ export interface EventHandlerDetails {
     td: HTMLTableDataCellElement;
     th: HTMLTableHeaderCellElement;
     tr: HTMLTableRowElement;
+}
+
+export enum KupTreeExpansionMode {
+    DROPDOWN = 'dropdown',
+    NODE = 'node',
 }
 
 export interface KupTreeNodeCollapseEventPayload extends KupEventPayload {

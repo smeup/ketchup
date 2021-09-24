@@ -32,14 +32,6 @@ More about this issue inside the SCSS file of this component.
 | `horizontal`               | `horizontal`                  | Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.                                                                                                              | `boolean` | `false` |
 
 
-## CSS Custom Properties
-
-| Name                                              | Description                                                                                                                    |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `--lyo_column-number, --kup-layout_column-number` | Number of columns. This property is regulated by the columnsNumber property, but can be overridden by !important declarations. |
-| `--lyo_grid-gap, --kup-layout_grid-gap`           | Space between two adjacent cells (on columns and rows).                                                                        |
-
-
 ## Dependencies
 
 ### Used by

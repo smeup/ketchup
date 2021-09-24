@@ -38,6 +38,7 @@ import {
     KupTreeContextMenuEventPayload,
     KupTreeColumnMenuEventPayload,
     KupTreeDynamicMassExpansionEventPayload,
+    KupTreeExpansionMode,
 } from './kup-tree-declarations';
 
 import { MDCRipple } from '@material/ripple';
@@ -241,6 +242,11 @@ export class KupTree {
      * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
      */
     @Prop() expanded: boolean = false;
+    /**
+     * Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.
+     * @default KupTreeExpansionMode.DROPDOWN
+     */
+    @Prop() expansionMode: KupTreeExpansionMode = KupTreeExpansionMode.DROPDOWN;
     /**
      * List of filters set by the user.
      */
@@ -826,7 +832,12 @@ export class KupTree {
                     treeNodePath = treeNodePath.slice(1);
                     this.launchNodeEvent(treeNodePath, tn);
                 } else {
-                    this.hdlTreeNodeClick(tn, this.selectedNodeString, true);
+                    this.hdlTreeNodeClick(
+                        null,
+                        tn,
+                        this.selectedNodeString,
+                        true
+                    );
                 }
             }
         }
@@ -935,12 +946,20 @@ export class KupTree {
 
     // When a TreeNode can be selected
     hdlTreeNodeClick(
+        e: MouseEvent,
         treeNodeData: TreeNode,
         treeNodePath: string,
         auto: boolean
     ) {
         unsetTooltip(this.tooltip);
         // If this TreeNode is not disabled, then it can be selected and an event is emitted
+        if (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE) {
+            this.hdlTreeNodeExpanderClick(
+                treeNodeData,
+                treeNodePath,
+                e ? e.ctrlKey : false
+            );
+        }
         if (treeNodeData && !treeNodeData.disabled) {
             if (this.autoSelectionNodeMode)
                 this.selectedNode = treeNodePath
@@ -1834,7 +1853,8 @@ export class KupTree {
                 }
                 class={expandClass}
                 onClick={
-                    !treeNodeData.disabled
+                    this.expansionMode.toLowerCase() ===
+                        KupTreeExpansionMode.DROPDOWN && !treeNodeData.disabled
                         ? (event: MouseEvent) => {
                               event.stopPropagation();
                               this.hdlTreeNodeExpanderClick(
@@ -1883,8 +1903,9 @@ export class KupTree {
             treeNodeOptions['onClick'] = () => {
                 this.clickTimeout.push(
                     setTimeout(
-                        () =>
+                        (e: MouseEvent) =>
                             this.hdlTreeNodeClick(
+                                e,
                                 treeNodeData,
                                 treeNodePath,
                                 false
@@ -2313,7 +2334,7 @@ export class KupTree {
                 path = path.slice(1);
                 this.launchNodeEvent(path, tn);
             } else {
-                this.hdlTreeNodeClick(tn, this.selectedNodeString, true);
+                this.hdlTreeNodeClick(null, tn, this.selectedNodeString, true);
             }
         }
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });

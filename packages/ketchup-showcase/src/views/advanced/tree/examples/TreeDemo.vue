@@ -179,6 +179,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'expansionMode',
+          description:
+            "Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.",
+          type: 'KupTreeExpansionMode',
+          default: 'KupTreeExpansionMode.DROPDOWN',
+          try: 'field',
+        },
+        {
           prop: 'globalFilter',
           description: 'When set to true it activates the global filter.',
           type: 'boolean',
