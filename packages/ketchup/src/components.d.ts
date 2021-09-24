@@ -2640,6 +2640,11 @@ export namespace Components {
     }
     interface KupTree {
         /**
+          * When enabled, the first level of depth will give an accordion look to nodes.
+          * @default false
+         */
+        "asAccordion": boolean;
+        /**
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode": boolean;
@@ -5402,6 +5407,11 @@ declare namespace LocalJSX {
         "relatedObject"?: TooltipRelatedObject;
     }
     interface KupTree {
+        /**
+          * When enabled, the first level of depth will give an accordion look to nodes.
+          * @default false
+         */
+        "asAccordion"?: boolean;
         /**
           * Auto select programmatic selectic node
          */

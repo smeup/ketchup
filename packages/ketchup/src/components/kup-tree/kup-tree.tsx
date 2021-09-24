@@ -198,6 +198,11 @@ export class KupTree {
     /*-------------------------------------------------*/
 
     /**
+     * When enabled, the first level of depth will give an accordion look to nodes.
+     * @default false
+     */
+    @Prop({ reflect: true }) asAccordion: boolean = false;
+    /**
      * Auto select programmatic selectic node
      */
     @Prop() autoSelectionNodeMode: boolean = true;
@@ -1818,7 +1823,11 @@ export class KupTree {
         let indent = treeNodeDepth ? (
             <span
                 class="kup-tree__indent"
-                style={{ ['--tree-node_depth']: treeNodeDepth.toString() }}
+                style={{
+                    ['--tree-node_depth']: this.asAccordion
+                        ? (treeNodeDepth - 1).toString()
+                        : treeNodeDepth.toString(),
+                }}
             />
         ) : null;
 
@@ -1833,7 +1842,9 @@ export class KupTree {
         let expandClass = 'expand-icon kup-tree__icon kup-tree__node__expander';
         if (hasExpandIcon) {
             expandClass += ' icon-container';
-            if (treeNodeData[treeExpandedPropName]) {
+            if (this.asAccordion) {
+                expandClass += ' dropdown';
+            } else if (treeNodeData[treeExpandedPropName]) {
                 expandClass += ' expanded';
             } else {
                 expandClass += ' collapsed';
@@ -1994,10 +2005,9 @@ export class KupTree {
                         _hasTooltip
                     )}
                 >
-                    {indent}
-                    {treeExpandIcon}
-                    {treeNodeIcon}
-                    {content}
+                    {this.asAccordion && !treeNodeDepth
+                        ? [treeNodeIcon, content, treeExpandIcon]
+                        : [indent, treeExpandIcon, treeNodeIcon, content]}
                 </td>
             );
         }
@@ -2008,6 +2018,7 @@ export class KupTree {
                     'kup-tree__node': true,
                     'with-dyn': !treeNodeData.disabled,
                     'kup-tree__node--disabled': treeNodeData.disabled,
+                    'kup-tree__node--first': treeNodeDepth ? false : true,
                     'kup-tree__node--selected':
                         !treeNodeData.disabled &&
                         treeNodePath === this.selectedNodeString,

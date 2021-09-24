@@ -12,6 +12,7 @@ import {
  * Used to export every prop in an object.
  */
 export enum KupTreeProps {
+    asAccordion = 'When enabled, the first level of depth will give an accordion look to nodes.',
     autoSelectionNodeMode = 'Auto select programmatic selectic node',
     columns = 'The columns of the tree when tree visualization is active.',
     customStyle = 'Custom style of the component.',

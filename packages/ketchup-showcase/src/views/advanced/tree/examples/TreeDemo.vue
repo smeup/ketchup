@@ -123,6 +123,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'asAccordion',
+          description:
+            'When enabled, the first level of depth will give an accordion look to nodes.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'autoSelectionNodeMode',
           description: 'Auto selection of the node.',
           type: 'boolean',
