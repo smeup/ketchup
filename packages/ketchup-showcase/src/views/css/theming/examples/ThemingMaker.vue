@@ -106,7 +106,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-color-picker
-                    id="nav-bar-background-color"
+                    id="navbar-background-color"
                     :data.prop="colorPickerData"
                     @kup-colorpicker-input="updateVariable"
                     @kup-colorpicker-change="updateVariable"
