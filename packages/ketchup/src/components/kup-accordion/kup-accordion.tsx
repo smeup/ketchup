@@ -417,6 +417,7 @@ export class KupAccordion {
                 return (
                     <kup-tree
                         class="kup-full-width"
+                        preventXScroll={true}
                         {...cell.data}
                         {...(cell.data.selectedNode
                             ? { selectedNode: cell.data.selectedNode }
