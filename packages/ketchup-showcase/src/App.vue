@@ -101,7 +101,7 @@
           size-y="24px"
         ></kup-image>
       </a>
-      <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
+      <span class="company-text">© Copyright 2021 - Sme.UP Spa</span>
       <a
         class="footer__icon--trailing"
         target="_blank"
