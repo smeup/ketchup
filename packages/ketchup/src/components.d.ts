@@ -15,7 +15,7 @@ import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMen
 import { KupStore } from "./components/kup-state/kup-store";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
-import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
@@ -2640,6 +2640,11 @@ export namespace Components {
     }
     interface KupTree {
         /**
+          * When enabled, the first level of depth will give an accordion look to nodes.
+          * @default false
+         */
+        "asAccordion": boolean;
+        /**
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode": boolean;
@@ -2689,6 +2694,11 @@ export namespace Components {
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
         "expanded": boolean;
+        /**
+          * Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.
+          * @default KupTreeExpansionMode.DROPDOWN
+         */
+        "expansionMode": KupTreeExpansionMode;
         /**
           * List of filters set by the user.
          */
@@ -5398,6 +5408,11 @@ declare namespace LocalJSX {
     }
     interface KupTree {
         /**
+          * When enabled, the first level of depth will give an accordion look to nodes.
+          * @default false
+         */
+        "asAccordion"?: boolean;
+        /**
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode"?: boolean;
@@ -5435,6 +5450,11 @@ declare namespace LocalJSX {
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
         "expanded"?: boolean;
+        /**
+          * Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.
+          * @default KupTreeExpansionMode.DROPDOWN
+         */
+        "expansionMode"?: KupTreeExpansionMode;
         /**
           * List of filters set by the user.
          */

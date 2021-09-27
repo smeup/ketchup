@@ -619,25 +619,3 @@ table#customstyle-tab kup-text-field {
 .has-tooltip {
   cursor: help;
 }
-
-@media only screen and (max-width: 960px) {
-  #app__container {
-    padding: 0;
-    padding-bottom: 2.5em;
-  }
-}
-@media only screen and (min-width: 960px) {
-  #app__container {
-    max-width: 900px;
-  }
-}
-@media only screen and (min-width: 1264px) {
-  #app__container {
-    max-width: 1185px;
-  }
-}
-@media only screen and (min-width: 1904px) {
-  #app__container {
-    max-width: 1785px;
-  }
-}

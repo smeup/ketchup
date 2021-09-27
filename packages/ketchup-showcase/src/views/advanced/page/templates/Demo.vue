@@ -401,13 +401,13 @@ const demoTypes: DemoTypeJson = {
   },
   FImageProps: {
     keys: {
-    "badgeData?": "KupBadge[]",
-    "color?": "string",
-    "data?": "FImageData[]",
-    "fit?": "boolean",
-    "resource?": "string",
-    "sizeX?": "string",
-    "sizeY?": "string",
+      'badgeData?': 'KupBadge[]',
+      'color?': 'string',
+      'data?': 'FImageData[]',
+      'fit?': 'boolean',
+      'resource?': 'string',
+      'sizeX?': 'string',
+      'sizeY?': 'string',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -424,6 +424,13 @@ const demoTypes: DemoTypeJson = {
       rows: ' Row[]',
     },
     type: DemoTypeFeature.INTERFACE,
+  },
+  KupAccordionExpansionMode: {
+    keys: {
+      SINGLE: 'single',
+      MULTIPLE: 'multiple',
+    },
+    type: DemoTypeFeature.ENUM,
   },
   KupBoxData: {
     keys: {
@@ -556,6 +563,13 @@ const demoTypes: DemoTypeJson = {
       'title?': 'string',
     },
     type: DemoTypeFeature.INTERFACE,
+  },
+  KupTreeExpansionMode: {
+    keys: {
+      DROPDOWN: 'dropdown',
+      NODE: 'node',
+    },
+    type: DemoTypeFeature.ENUM,
   },
   LoadMoreMode: {
     keys: {
