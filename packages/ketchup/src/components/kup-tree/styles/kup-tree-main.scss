@@ -243,6 +243,15 @@ tfoot {
 }
 
 :host([as-accordion]) {
+  .wrapper .kup-tree thead {
+    display: table-header-group;
+
+    tr {
+      border-left: 1px solid var(--kup-border-color);
+      border-right: 1px solid var(--kup-border-color);
+    }
+  }
+
   .density-dense {
     .first-node {
       padding: 0.5em 1em;

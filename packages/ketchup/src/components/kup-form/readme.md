@@ -98,6 +98,18 @@ Type: `Promise<FormCells>`
 
 
 
+## CSS Custom Properties
+
+| Name                                                                   | Description                        |
+| ---------------------------------------------------------------------- | ---------------------------------- |
+| `--form_border-color, --kup-form_border-color`                         | form border color                  |
+| `--form_border-radius, --kup-form_border-radius`                       | form border radius                 |
+| `--form_color, --kup-form_color`                                       | text color                         |
+| `--form_titled-section-bg-color, --kup-form_titled-section-bg-color`   | background color for section title |
+| `--form_titled-section-font-size, --kup-form_titled-section-font-size` | font size for section title        |
+| `--form_titled-section-top, --kup-form_titled-section-top`             | top position for section title     |
+
+
 ## Dependencies
 
 ### Used by

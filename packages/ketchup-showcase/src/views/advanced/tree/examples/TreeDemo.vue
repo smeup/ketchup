@@ -22,6 +22,10 @@ export default {
     return {
       demoClasses: [
         {
+          class: 'kup-borderless',
+          description: 'Displays the component without borders.',
+        },
+        {
           class: 'kup-danger',
           description:
             'The component will be rendered using the danger color of the app.',
