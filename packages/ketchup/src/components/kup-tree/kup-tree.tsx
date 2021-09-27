@@ -2296,19 +2296,24 @@ export class KupTree {
     private setEllipsis(): void {
         const treeRect: DOMRect = this.rootElement.getBoundingClientRect();
         for (let index = 0; index < this.contentRefs.length; index++) {
-            const cell: HTMLElement = this.contentRefs[index];
-            if (cell) {
-                cell.classList.remove('cell-content--ellipsis');
-                cell.style.setProperty('--content_width', ``);
-                const rect: DOMRect = cell.getBoundingClientRect();
-                if (rect.right > treeRect.right) {
-                    const failsafeOffset: number = 5;
-                    const delta: number = rect.right - treeRect.right;
-                    cell.classList.add('cell-content--ellipsis');
-                    cell.style.setProperty(
-                        '--content_width',
-                        `${rect.width - delta - failsafeOffset}px`
-                    );
+            const content: HTMLElement = this.contentRefs[index];
+            if (content) {
+                const cell = content.parentNode as HTMLElement;
+                if (this.asAccordion && cell.classList.contains('first-node')) {
+                    cell.style.width = treeRect.width + 'px';
+                } else {
+                    content.classList.remove('cell-content--ellipsis');
+                    content.style.setProperty('--content_width', ``);
+                    const rect: DOMRect = content.getBoundingClientRect();
+                    if (rect.right > treeRect.right) {
+                        const failsafeOffset: number = 5;
+                        const delta: number = rect.right - treeRect.right;
+                        content.classList.add('cell-content--ellipsis');
+                        content.style.setProperty(
+                            '--content_width',
+                            `${rect.width - delta - failsafeOffset}px`
+                        );
+                    }
                 }
             }
         }
