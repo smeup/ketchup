@@ -307,9 +307,20 @@ export function isKnob(cell: Cell, boxObject: BoxObject) {
     return 'KNB' === shape;
 }
 
+// -------------
+// BUTTON-LIST
+// -------------
+
+export function isButtonList(cell: Cell) {
+    let shape = getShape(cell);
+    return shape === 'BTN';
+}
+
 export function getCellType(cell: Cell) {
     let obj = cell.obj;
-    if (kupObjects.isBar(obj)) {
+    if (isButtonList(cell)) {
+        return 'btn';
+    } else if (kupObjects.isBar(obj)) {
         return 'bar';
     } else if (kupObjects.isButton(obj)) {
         return 'button';
@@ -348,7 +359,7 @@ export function getCellType(cell: Cell) {
     } else if (kupObjects.isTextField(obj)) {
         return 'text-field';
     } else if (kupObjects.isVoCodver(obj)) {
-        return 'btn';
+        return 'icon';
     } else {
         return 'string';
     }

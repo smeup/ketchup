@@ -728,7 +728,7 @@ export default {
                   },
                 ],
                 density: 'wide',
-                scrollOnHover: true,
+                preventXScroll: true,
               },
               shape: 'TRE',
             },
@@ -759,7 +759,7 @@ export default {
                   },
                 ],
                 density: 'wide',
-                scrollOnHover: true,
+                preventXScroll: true,
               },
               shape: 'TRE',
             },
@@ -801,7 +801,7 @@ export default {
                   },
                 ],
                 density: 'wide',
-                scrollOnHover: true,
+                preventXScroll: true,
               },
               shape: 'TRE',
             },
@@ -938,6 +938,23 @@ label {
     width: 100%;
     z-index: var(--kup-drawer-zindex);
   }
+}
+
+.logo svg {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  fill: var(--kup-primary-color);
+  height: 70px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  width: calc(var(--kup-drawer-width) / 1.5);
+}
+
+.logo svg.visible {
+  display: block;
 }
 
 .spinner {
