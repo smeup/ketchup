@@ -27,7 +27,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import {
-    formattedStringToDefaultUnformattedStringDate,
     isValidFormattedStringDate,
     isValidStringDate,
     unformattedStringToFormattedStringDate,
@@ -36,6 +35,7 @@ import {
     ISO_DEFAULT_DATE_FORMAT,
     fillString,
     DateTimeFormatOptionsMonth,
+    formattedStringToDefaultUnformattedStringDate,
 } from '../../utils/utils';
 import {
     KupDatePickerEventPayload,
@@ -399,6 +399,11 @@ export class KupDatePicker {
         if (isValidFormattedStringDate(eventDetailValue)) {
             newValue =
                 formattedStringToDefaultUnformattedStringDate(eventDetailValue);
+            //   newValue = this.kupManager.dates.format(
+            //       eventDetailValue,
+            //      'YYYY-MM-DD'
+            //  );
+            console.log(eventDetailValue, newValue);
             this.refreshPickerComponentValue(newValue);
             if (isOnInputEvent != true) {
                 this.setValue(newValue);

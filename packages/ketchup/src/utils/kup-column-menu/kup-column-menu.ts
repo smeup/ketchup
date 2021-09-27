@@ -18,11 +18,6 @@ import {
     GenericFilter,
     ValueDisplayedValue,
 } from '../filters/filters-declarations';
-import {
-    changeDateTimeFormat,
-    ISO_DEFAULT_DATE_FORMAT,
-    ISO_DEFAULT_DATE_TIME_FORMAT,
-} from '../utils';
 import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
 import { Filters } from '../filters/filters';
@@ -622,19 +617,15 @@ export class KupColumnMenu {
         if (dom.ketchup.objects.isTimestamp(column.obj)) {
             suffixFrom = ' 00:00:00';
             suffixTo = ' 23:59:59';
-            if (initialValueFrom != '') {
-                initialValueFrom = changeDateTimeFormat(
-                    initialValueFrom,
-                    ISO_DEFAULT_DATE_TIME_FORMAT,
-                    ISO_DEFAULT_DATE_FORMAT
-                );
+            if (initialValueFrom && initialValueFrom.length >= 10) {
+                initialValueFrom = initialValueFrom.substr(0, 10);
+            } else {
+                initialValueFrom = '';
             }
-            if (initialValueTo != '') {
-                initialValueTo = changeDateTimeFormat(
-                    initialValueTo,
-                    ISO_DEFAULT_DATE_TIME_FORMAT,
-                    ISO_DEFAULT_DATE_FORMAT
-                );
+            if (initialValueTo && initialValueTo.length >= 10) {
+                initialValueTo = initialValueTo.substr(0, 10);
+            } else {
+                initialValueTo = '';
             }
         }
 

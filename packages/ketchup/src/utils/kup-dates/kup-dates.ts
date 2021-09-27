@@ -45,6 +45,7 @@ export class KupDates {
             }
             this.locale = navLangs[0].split('-')[0].toLowerCase();
         }
+        this.locale = 'en';
         dayjs.locale(this.locale);
     }
     /**

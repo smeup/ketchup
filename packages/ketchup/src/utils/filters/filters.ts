@@ -1,5 +1,6 @@
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
+import { KupDates } from '../kup-dates/kup-dates';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { KupObjects } from '../kup-objects/kup-objects';
 import {
@@ -19,8 +20,6 @@ import {
     ISO_DEFAULT_DATE_TIME_FORMAT,
     isValidStringDate,
     unformatDateTime,
-    changeDateTimeFormat,
-    getCurrentDateFormatFromBrowserLocale,
 } from '../utils';
 import {
     FilterInterval,
@@ -29,6 +28,7 @@ import {
 } from './filters-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
+const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 const kupObjects: KupObjects = dom.ketchup
     ? dom.ketchup.objects
     : new KupObjects();
@@ -317,11 +317,7 @@ export class Filters {
                 !isValidStringDate(filterValue, defaultFormat) &&
                 !isValidStringDate(filterValue)
             ) {
-                value = changeDateTimeFormat(
-                    value,
-                    defaultFormat,
-                    getCurrentDateFormatFromBrowserLocale()
-                );
+                value = kupDates.format(value);
             }
         }
         if (checkByRegularExpression) {

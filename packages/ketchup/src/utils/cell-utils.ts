@@ -24,8 +24,10 @@ import {
 import { ValueDisplayedValue } from './filters/filters-declarations';
 import { KupObjects } from './kup-objects/kup-objects';
 import { KupDom } from './kup-manager/kup-manager-declarations';
+import { KupDates } from './kup-dates/kup-dates';
 
 const dom: KupDom = document.documentElement as KupDom;
+const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 const kupObjects: KupObjects = dom.ketchup
     ? dom.ketchup.objects
     : new KupObjects();
@@ -422,11 +424,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
         kupObjects.isDate(obj) &&
         isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)
     ) {
-        return unformattedStringToFormattedStringDate(
-            value,
-            null,
-            obj.t + obj.p
-        );
+        return kupDates.format(value);
     }
     if (kupObjects.isTime(obj)) {
         return unformattedStringToFormattedStringTime(
