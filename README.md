@@ -6,11 +6,11 @@
 
 ## Intro
 
-Ketch.UP is a web components library, built with [Ionic’s Stencil](https://stenciljs.com/), a small TypeScript based web component compiler.
+Ketch.UP is a web components library, built with [Ionic’s Stencil](https://stenciljs.com/), a TypeScript based web component compiler.
 
-Web Components is a suite of different technologies allowing to create reusable custom elements — with their functionality encapsulated away from the rest of your code — that you can use in your web apps. For more information visit this link: https://developer.mozilla.org/en-US/docs/Web/Web_Components
+`Web Components` is a suite of different technologies allowing to create reusable custom elements that you can use in your web apps. For more information visit this link: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 
-The primary focus of Ketch.UP is to provide a suite of powerful and customizable web components, whose main objective is abstracting complex and recurrent programming patterns.
+The primary focus of Ketch.UP is to provide a suite of powerful and customizable Web Components, whose main objective is abstracting complex and recurrent programming patterns.
 
 ## Showcase
 
@@ -28,15 +28,9 @@ Ketch.UP repository is a monorepo multi-package repository managed with [Lerna](
 
 All information for developers is to be found in the [Development guide](docs/development.md).
 
-## Are there any presentations about your work?
+## How to use Ketch.UP in your project
 
-Yes, of course: see the [presentation list](docs/presentations.md)
-
-<font color='red'>TODO: add presentations page</font>
-
-## How to use this code in your project
-
--   Add Ketch.UP dependency to your project:
+-   Add the dependency:
 
 ```
 npm install "@sme.up/ketchup" --save
@@ -52,15 +46,13 @@ defineCustomElements(window);
 -   Use Ketch.UP components in your pages. About components and their props and events see [Ketch.UP Showcase](https://ketchup.smeup.com/). A simple sample for a Ketch.UP button can be:
 
 ```
-<kup-button-list :buttons.prop="btnlist" @kup-button-list-click="onkup-button-list-click" />
+<kup-button label="I'm a button" @kup-button-click="myButtonAction" />
 ```
 
 ## Contributing
 
-Every kind of contribution to this project is really welcome. See our [contributing guide](CONTRIBUTING.md) for more details.
+If you have amazing ideas and you wish to contribute to this project, you're welcome to do so. Check out our [style guide](styleGuide.md) for more details about our coding practices.
 
-<font color='red'>TODO: add contributing page</font>
+## Issues
 
-## Open issues
-
-Here you can find a list of [open issues](docs/openIssues.md).
+If you run into an error or an unexpected behavior, or you just want to give us feedback on how to improve, feel free to use the [issues](https://ketchup.smeup.com/) page.
