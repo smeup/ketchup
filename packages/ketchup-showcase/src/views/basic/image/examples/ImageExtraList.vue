@@ -247,6 +247,10 @@
             ></kup-image>
             <div class="icon-label">binoculars</div>
           </div>
+          <div class="icon-wrapper" title="blank">
+            <kup-image size-x="48px" size-y="48px" resource="blank"></kup-image>
+            <div class="icon-label">blank</div>
+          </div>
           <div class="icon-wrapper" title="block-helper">
             <kup-image
               size-x="48px"
