@@ -101,17 +101,14 @@ export class KupDates {
      * @returns {dayjs.Dayjs} Dayjs object of the normalized date.
      */
     normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs {
-        const l = dayjs.Ls[this.locale].formats.L;
         input.replace(/\//g, ''); // removes all /
         input.replace(/./g, ''); // removes all .
         input.replace(/-/g, ''); // removes all :
         input.replace(/:/g, ''); // removes all -
         switch (type) {
-            case KupDatesNormalize.DATE_TIME:
-                // N.Y.I.
-                break;
             case KupDatesNormalize.TIME:
-                break;
+                const time = normalizeTime();
+                return dayjs(time);
             case KupDatesNormalize.DATE:
             default:
                 const date = normalizeDate();
@@ -119,6 +116,7 @@ export class KupDates {
         }
 
         function normalizeDate(): Date {
+            const l = dayjs.Ls[this.locale].formats.L;
             const today = new Date();
             const dIndex = l.indexOf('DD');
             const mIndex = l.indexOf('MM');
@@ -168,6 +166,47 @@ export class KupDates {
                     } else if (dIndex === 0) {
                         today.setFullYear(parseInt(year), sub2 - 1, sub1);
                     }
+                default:
+                    break;
+            }
+            return today;
+        }
+
+        function normalizeTime(): Date {
+            const today = new Date();
+            let hh = 0,
+                mm = 0,
+                ss = 0,
+                ms = 0;
+            switch (input.length) {
+                case 1:
+                case 2:
+                    hh = parseInt(input);
+                    today.setHours(hh, 0, 0, 0);
+                    break;
+                case 3:
+                    input = '0' + input; // continue into case 4
+                case 4:
+                    hh = parseInt(input.substr(0, 2));
+                    mm = parseInt(input.substr(2, 2));
+                    today.setHours(hh, mm, 0, 0);
+                    break;
+                case 5:
+                    input = '0' + input; // continue into case 6
+                case 6:
+                    hh = parseInt(input.substr(0, 2));
+                    mm = parseInt(input.substr(2, 2));
+                    ss = parseInt(input.substr(4, 2));
+                    today.setHours(hh, mm, ss, 0);
+                    break;
+                case 7:
+                    input = '0' + input; // continue into case 8
+                case 8:
+                    hh = parseInt(input.substr(0, 2));
+                    mm = parseInt(input.substr(2, 2));
+                    ss = parseInt(input.substr(4, 2));
+                    ms = parseInt(input.substr(6, 2));
+                    today.setHours(hh, mm, ss, ms);
                 default:
                     break;
             }
