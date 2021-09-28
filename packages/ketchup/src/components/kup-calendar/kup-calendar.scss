@@ -32,92 +32,92 @@
   --cal_no-work-day-color: var(--kup-cal_no-work-day-color, white);
 
   display: block;
+  height: 100%;
+  width: 100%;
 }
 
-#kup-calendar {
-  &__menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    kup-button {
-      margin: 0 0.5rem;
-    }
+  .f-button--wrapper {
+    margin: 0 0.5rem;
   }
+}
 
-  .icon-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
+.icon-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.image-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  img {
+    width: 20px;
+    height: 20px;
   }
+}
 
-  .image-wrapper {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    img {
-      width: 20px;
-      height: 20px;
-    }
+.fc-toolbar.fc-header-toolbar {
+  margin-top: 1.5rem;
+}
+.fc-ltr .fc-dayGrid-view .fc-day-top {
+  text-align: center;
+  padding: 0.5rem;
+  .fc-day-number {
+    float: none;
   }
+}
 
-  .fc-toolbar.fc-header-toolbar {
-    margin-top: 1.5rem;
-  }
-  .fc-ltr .fc-dayGrid-view .fc-day-top {
-    text-align: center;
-    padding: 0.5rem;
-    .fc-day-number {
-      float: none;
-    }
-  }
+.fc-unthemed .fc-content {
+  padding: 0.25rem;
+}
 
-  .fc-unthemed .fc-content {
-    padding: 0.25rem;
-  }
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-list-heading td,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-row,
+.fc-unthemed tbody,
+.fc-unthemed td {
+  border-color: var(--cal_border-color);
+}
 
-  .fc-unthemed .fc-content,
-  .fc-unthemed .fc-divider,
-  .fc-unthemed .fc-list-heading td,
-  .fc-unthemed .fc-list-view,
-  .fc-unthemed .fc-popover,
-  .fc-unthemed .fc-row,
-  .fc-unthemed tbody,
-  .fc-unthemed td {
-    border-color: var(--cal_border-color);
-  }
+.fc-head th,
+.fc-head thead {
+  background: var(--cal_header-background-color);
+  color: var(--cal_header-color);
+  border: none;
+  border-color: var(--cal_header-background-color);
+}
 
-  .fc-head th,
-  .fc-head thead {
-    background: var(--cal_header-background-color);
-    color: var(--cal_header-color);
-    border: none;
-    border-color: var(--cal_header-background-color);
-  }
+.fc-event,
+.fc-event-dot {
+  background: var(--cal_event-background-color);
+  color: var(--cal_event-color);
+  border: none;
+  border-color: var(--cal_event-background-color);
+}
 
-  .fc-event,
-  .fc-event-dot {
-    background: var(--cal_event-background-color);
-    color: var(--cal_event-color);
-    border: none;
-    border-color: var(--cal_event-background-color);
-  }
+.fc-unthemed td.fc-today {
+  background: none;
 
-  .fc-unthemed td.fc-today {
-    background: none;
-
-    .fc-day-number {
-      background-color: var(--cal_today-background-color);
-      color: var(--cal_today-color);
-      padding: 5px 10px;
-      border-radius: 50%;
-    }
+  .fc-day-number {
+    background-color: var(--cal_today-background-color);
+    color: var(--cal_today-color);
+    padding: 5px 10px;
+    border-radius: 50%;
   }
+}
 
-  .fc-unthemed td.fc-sun,
-  .fc-unthemed td.fc-sat {
-    background-color: var(--cal_no-work-day-background-color);
-    color: var(--cal_no-work-day-color);
-  }
+.fc-unthemed td.fc-sun,
+.fc-unthemed td.fc-sat {
+  background-color: var(--cal_no-work-day-background-color);
+  color: var(--cal_no-work-day-color);
 }

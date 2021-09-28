@@ -3576,15 +3576,15 @@ declare namespace LocalJSX {
         "imageCol"?: string;
         "initialDate"?: string;
         /**
-          * When a date is clicked
+          * When a date is clicked.
          */
         "onKup-calendar-dateclick"?: (event: CustomEvent<Date>) => void;
         /**
-          * When an event is clicked
+          * When an event is clicked.
          */
         "onKup-calendar-eventclick"?: (event: CustomEvent<Row>) => void;
         /**
-          * When a date is dropped
+          * When a date is dropped.
          */
         "onKup-calendar-eventdrop"?: (event: CustomEvent<{
         fromDate: {
