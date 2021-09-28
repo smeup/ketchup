@@ -38,7 +38,7 @@ export class KupCalendar {
      * When an event is clicked
      */
     @Event({
-        eventName: 'kupCalendarEventClicked',
+        eventName: 'kup-calendar-eventclick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -49,7 +49,7 @@ export class KupCalendar {
      * When a date is clicked
      */
     @Event({
-        eventName: 'kupCalendarDateClicked',
+        eventName: 'kup-calendar-dateclick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -60,7 +60,7 @@ export class KupCalendar {
      * When a date is dropped
      */
     @Event({
-        eventName: 'kupCalendarEventDropped',
+        eventName: 'kup-calendar-eventdrop',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -80,7 +80,7 @@ export class KupCalendar {
      * When the navigation change
      */
     @Event({
-        eventName: 'kupCalendarViewChanged',
+        eventName: 'kup-calendar-viewchange',
         composed: true,
         cancelable: false,
         bubbles: true,

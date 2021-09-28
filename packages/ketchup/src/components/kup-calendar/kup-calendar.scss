@@ -31,6 +31,8 @@
     #d4d4d4
   );
   --cal_no-work-day-color: var(--kup-cal_no-work-day-color, white);
+
+  display: block;
 }
 
 #kup-calendar {

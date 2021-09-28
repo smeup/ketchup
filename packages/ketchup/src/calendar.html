@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+        <title>Calendar</title>
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+        <style>
+            body,
+            html {
+                box-sizing: border-box;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+            }
+
+            kup-calendar {
+                margin: auto;
+                width: 80vw;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>Basic</h1>
+            <kup-calendar
+                date-col="date"
+                descr-col="descr"
+                initial-date="2021-09-19"
+                id="basic"
+            ></kup-calendar>
+            <h1>Week view</h1>
+            <kup-calendar
+                date-col="date"
+                descr-col="descr"
+                end-col="end"
+                initial-date="2021-09-19"
+                start-col="start"
+                week-view
+                id="week-view"
+            ></kup-calendar>
+            <h1>Hidden navigation</h1>
+            <kup-calendar
+                date-col="date"
+                descr-col="descr"
+                initial-date="2021-09-19"
+                hide-navigation
+                id="hidden-navigation"
+            ></kup-calendar>
+            <h1>Initial date</h1>
+            <kup-calendar
+                date-col="date"
+                descr-col="descr"
+                initial-date="2022-01-01"
+                id="initial-date"
+            ></kup-calendar>
+        </div>
+        <script src="/assets/calendar.js"></script>
+    </body>
+</html>

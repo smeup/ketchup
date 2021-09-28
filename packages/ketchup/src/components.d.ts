@@ -3578,15 +3578,15 @@ declare namespace LocalJSX {
         /**
           * When a date is clicked
          */
-        "onKupCalendarDateClicked"?: (event: CustomEvent<Date>) => void;
+        "onKup-calendar-dateclick"?: (event: CustomEvent<Date>) => void;
         /**
           * When an event is clicked
          */
-        "onKupCalendarEventClicked"?: (event: CustomEvent<Row>) => void;
+        "onKup-calendar-eventclick"?: (event: CustomEvent<Row>) => void;
         /**
           * When a date is dropped
          */
-        "onKupCalendarEventDropped"?: (event: CustomEvent<{
+        "onKup-calendar-eventdrop"?: (event: CustomEvent<{
         fromDate: {
             start: Date;
             end: Date;
@@ -3599,7 +3599,7 @@ declare namespace LocalJSX {
         /**
           * When the navigation change
          */
-        "onKupCalendarViewChanged"?: (event: CustomEvent<{
+        "onKup-calendar-viewchange"?: (event: CustomEvent<{
         from: Date;
         to: Date;
     }>) => void;

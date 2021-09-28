@@ -43,6 +43,10 @@ components.data = [
         value: 'button-list.html',
     },
     {
+        text: 'Calendar',
+        value: 'calendar.html',
+    },
+    {
         text: 'Card',
         value: 'card.html',
     },
