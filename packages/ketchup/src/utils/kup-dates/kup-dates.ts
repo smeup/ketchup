@@ -8,6 +8,7 @@ import 'dayjs/locale/it';
 import 'dayjs/locale/pl';
 import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
+import { KupDatesNormalize } from './kup-dates-declarations';
 
 /**
  * Handles operations and formatting of dates.
@@ -45,7 +46,6 @@ export class KupDates {
             }
             this.locale = navLangs[0].split('-')[0].toLowerCase();
         }
-        this.locale = 'en';
         dayjs.locale(this.locale);
     }
     /**
@@ -92,6 +92,86 @@ export class KupDates {
             return dayjs(input, format);
         } else {
             return dayjs(input);
+        }
+    }
+    /**
+     * Returns a computed ISO date/time from a partial string.
+     * @param {string} input - Input string containing a partial date/time (i.e.: 011221).
+     * @param {KupDatesNormalize} type - Type of the input string.
+     * @returns {dayjs.Dayjs} Dayjs object of the normalized date.
+     */
+    normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs {
+        const l = dayjs.Ls[this.locale].formats.L;
+        input.replace(/\//g, ''); // removes all /
+        input.replace(/./g, ''); // removes all .
+        input.replace(/-/g, ''); // removes all :
+        input.replace(/:/g, ''); // removes all -
+        switch (type) {
+            case KupDatesNormalize.DATE_TIME:
+                // N.Y.I.
+                break;
+            case KupDatesNormalize.TIME:
+                break;
+            case KupDatesNormalize.DATE:
+            default:
+                const date = normalizeDate();
+                return dayjs(date);
+        }
+
+        function normalizeDate(): Date {
+            const today = new Date();
+            const dIndex = l.indexOf('DD');
+            const mIndex = l.indexOf('MM');
+            let sub1 = 0,
+                sub2 = 0,
+                year = '';
+            switch (input.length) {
+                case 1:
+                case 2:
+                    sub1 = parseInt(input);
+                    today.setDate(sub1);
+                    break;
+                case 3:
+                    input = '0' + input; // continue into case 4
+                case 4:
+                    sub1 = parseInt(input.substr(0, 2));
+                    sub2 = parseInt(input.substr(2, 2));
+                    if (mIndex === 0) {
+                        today.setDate(sub2);
+                        today.setMonth(sub1 - 1); // -1 because it's 0 based
+                    } else if (dIndex === 0) {
+                        today.setDate(sub1);
+                        today.setMonth(sub2 - 1); // -1 because it's 0 based
+                    }
+                    break;
+                case 5:
+                    input = '0' + input; // continue into case 6
+                case 6:
+                    sub1 = parseInt(input.substr(0, 2));
+                    sub2 = parseInt(input.substr(2, 2));
+                    year = today.getFullYear().toString();
+                    year = year.substr(0, 2) + input.substr(4, 2);
+                    if (mIndex === 0) {
+                        today.setFullYear(parseInt(year), sub1, sub2 - 1);
+                    } else if (dIndex === 0) {
+                        today.setFullYear(parseInt(year), sub2 - 1, sub1);
+                    }
+                    break;
+                case 7:
+                    input = '0' + input; // continue into case 8
+                case 8:
+                    sub1 = parseInt(input.substr(0, 2));
+                    sub2 = parseInt(input.substr(2, 2));
+                    year = input.substr(4, 2);
+                    if (mIndex === 0) {
+                        today.setFullYear(parseInt(year), sub1, sub2 - 1);
+                    } else if (dIndex === 0) {
+                        today.setFullYear(parseInt(year), sub2 - 1, sub1);
+                    }
+                default:
+                    break;
+            }
+            return today;
         }
     }
     /**
