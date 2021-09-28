@@ -30,9 +30,23 @@
                 margin: auto;
                 width: 80vw;
             }
+
+            h1 {
+                background-color: var(--kup-primary-color);
+                border-radius: 4px;
+                color: var(--kup-text-on-primary-color);
+                line-height: 2em;
+                margin-top: 0;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <div class="wrapper">
             <h1>Basic</h1>
             <kup-calendar
@@ -65,6 +79,14 @@
                 descr-col="descr"
                 initial-date="2022-01-01"
                 id="initial-date"
+            ></kup-calendar>
+            <h1>With images</h1>
+            <kup-calendar
+                date-col="date"
+                descr-col="descr"
+                image-col="image"
+                initial-date="2021-09-19"
+                id="with-images"
             ></kup-calendar>
         </div>
         <script src="/assets/calendar.js"></script>

@@ -3,22 +3,22 @@ const data = {
         {
             name: 'date',
             title: 'Date',
-            size: '',
         },
         {
             name: 'descr',
             title: 'Description',
-            size: 10,
         },
         {
             name: 'start',
             title: 'Start',
-            size: 10,
         },
         {
             name: 'end',
             title: 'End',
-            size: 10,
+        },
+        {
+            name: 'image',
+            title: 'Image',
         },
     ],
     rows: [
@@ -56,6 +56,14 @@ const data = {
                     },
                     value: '11:00:00',
                 },
+                image: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: '...',
+                    },
+                    value: 'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                },
             },
         },
         {
@@ -92,6 +100,14 @@ const data = {
                     },
                     value: '23:00:00',
                 },
+                image: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: '...',
+                    },
+                    value: 'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                },
             },
         },
     ],
@@ -105,7 +121,14 @@ const basicCal = document.getElementById('basic');
 const weekViewCal = document.getElementById('week-view');
 const hiddenNavigationCal = document.getElementById('hidden-navigation');
 const initialDateCal = document.getElementById('initial-date');
-const calendars = [basicCal, weekViewCal, hiddenNavigationCal, initialDateCal];
+const withImagesCal = document.getElementById('with-images');
+const calendars = [
+    basicCal,
+    weekViewCal,
+    hiddenNavigationCal,
+    initialDateCal,
+    withImagesCal,
+];
 for (let index = 0; index < calendars.length; index++) {
     const calendar = calendars[index];
     calendar.data = { ...data };

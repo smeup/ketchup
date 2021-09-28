@@ -199,15 +199,15 @@ export class KupCalendar {
         this.calendar = new Calendar(this.calendarContainer, {
             plugins,
             events: this.getEvents(),
-            header: {
+            headerToolbar: {
                 left: '',
                 center: 'title',
                 right: '',
             },
-            defaultView: this.weekView ? 'timeGridWeek' : 'dayGridMonth',
-            defaultDate: this.initialDate ? this.initialDate : null,
+            initialView: this.weekView ? 'timeGridWeek' : 'dayGridMonth',
+            initialDate: this.initialDate ? this.initialDate : null,
             editable: true,
-            eventRender: (info) => {
+            eventDidMount: (info) => {
                 if (this.styleCol) {
                     const row: Row = info.event.extendedProps.row;
                     const cell = row.cells[this.styleCol];
@@ -252,7 +252,52 @@ export class KupCalendar {
                     }
                 }
             },
-            eventClick: ({ event }) => {
+            /*
+            eventRender: (info) => {
+                if (this.styleCol) {
+                    const row: Row = info.event.extendedProps.row;
+                    const cell = row.cells[this.styleCol];
+                    if (cell && cell.style) {
+                        Object.keys(cell.style).forEach(
+                            (k) => (info.el.style[k] = cell.style[k])
+                        );
+                    }
+                }
+
+                if (this.iconCol) {
+                    const row: Row = info.event.extendedProps.row;
+                    const cell = row.cells[this.iconCol];
+                    if (cell && cell.value) {
+                        const wrapper = document.createElement('div');
+                        wrapper.classList.add('icon-wrapper');
+
+                        cell.value.split(';').forEach((icon) => {
+                            const span = document.createElement('span');
+                            span.className = icon;
+                            wrapper.appendChild(span);
+                        });
+
+                        info.el.appendChild(wrapper);
+                    }
+                }
+
+                if (this.imageCol) {
+                    const row: Row = info.event.extendedProps.row;
+                    const cell = row.cells[this.imageCol];
+                    if (cell && cell.value) {
+                        const wrapper = document.createElement('div');
+                        wrapper.classList.add('image-wrapper');
+
+                        cell.value.split(';').forEach((icon) => {
+                            const img = document.createElement('img');
+                            img.src = icon;
+                            wrapper.appendChild(img);
+                        });
+
+                        info.el.appendChild(wrapper);
+                    }
+                }
+            },*/ eventClick: ({ event }) => {
                 // see https://fullcalendar.io/docs/eventClick
                 this.kupCalendarEventClicked.emit(event.extendedProps.row);
             },
