@@ -519,10 +519,25 @@ export namespace Components {
         "dateCol": string;
         "descrCol": string;
         "endCol": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "hideNavigation": boolean;
         "iconCol": string;
         "imageCol": string;
         "initialDate": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
         "startCol": string;
         "styleCol": string;
         "weekView": boolean;

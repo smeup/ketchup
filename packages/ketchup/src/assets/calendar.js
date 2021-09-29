@@ -17,6 +17,10 @@ const data = {
             title: 'End',
         },
         {
+            name: 'icon',
+            title: 'Icon',
+        },
+        {
             name: 'image',
             title: 'Image',
         },
@@ -55,6 +59,14 @@ const data = {
                         k: '',
                     },
                     value: '11:00:00',
+                },
+                icon: {
+                    obj: {
+                        t: 'J4',
+                        p: 'ICO',
+                        k: '...',
+                    },
+                    value: 'widgets',
                 },
                 image: {
                     obj: {
@@ -100,6 +112,14 @@ const data = {
                     },
                     value: '23:00:00',
                 },
+                icon: {
+                    obj: {
+                        t: 'J4',
+                        p: 'ICO',
+                        k: '...',
+                    },
+                    value: 'wrench',
+                },
                 image: {
                     obj: {
                         t: 'J4',
@@ -117,18 +137,7 @@ const callback = (e) => {
     console.log(e);
 };
 
-const basicCal = document.getElementById('basic');
-const weekViewCal = document.getElementById('week-view');
-const hiddenNavigationCal = document.getElementById('hidden-navigation');
-const initialDateCal = document.getElementById('initial-date');
-const withImagesCal = document.getElementById('with-images');
-const calendars = [
-    basicCal,
-    weekViewCal,
-    hiddenNavigationCal,
-    initialDateCal,
-    withImagesCal,
-];
+const calendars = document.querySelectorAll('kup-calendar');
 for (let index = 0; index < calendars.length; index++) {
     const calendar = calendars[index];
     calendar.data = { ...data };

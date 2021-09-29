@@ -3,7 +3,9 @@ import {
     Element,
     Event,
     EventEmitter,
+    forceUpdate,
     h,
+    Method,
     Prop,
 } from '@stencil/core';
 import { Calendar } from '@fullcalendar/core';
@@ -24,6 +26,9 @@ import {
 import { getColumnByName } from '../../utils/cell-utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
+import { getProps, setProps } from '../../utils/utils';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupCalendarProps } from './kup-calendar-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -121,20 +126,41 @@ export class KupCalendar {
     private calendarContainer: HTMLDivElement = null;
 
     /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        return getProps(this, KupCalendarProps, descriptions);
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        forceUpdate(this);
+    }
+    /**
+     * Sets the props to the component.
+     * @param {GenericObject} props - Object containing props that will be set to the component.
+     */
+    @Method()
+    async setProps(props: GenericObject): Promise<void> {
+        setProps(this, KupCalendarProps, props);
+    }
+
+    /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
     private getColumns(): Column[] {
         if (this.data && this.data.rows) {
             return this.data.columns;
-        }
-
-        return [];
-    }
-
-    private getRows(): Row[] {
-        if (this.data && this.data.rows) {
-            return this.data.rows;
         }
 
         return [];
@@ -181,6 +207,14 @@ export class KupCalendar {
                 },
             };
         });
+    }
+
+    private getRows(): Row[] {
+        if (this.data && this.data.rows) {
+            return this.data.rows;
+        }
+
+        return [];
     }
     private onPrev() {
         this.calendar.prev();

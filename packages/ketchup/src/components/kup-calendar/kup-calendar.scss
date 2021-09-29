@@ -3,35 +3,44 @@
 @import '~@fullcalendar/timegrid/main.min.css';
 
 /**
-* @prop --cal_border-color, --kup-cal_background-color: Set border color
-* @prop --cal_header-background-color, --kup-cal_header-background-color: Set background color of header
-* @prop --cal_header-color, --kup-cal_header-color: Set text color of header
-* @prop --cal_event-background-color, --kup-cal_event-background-color: Set background color of events
-* @prop --cal_event-color, --kup-cal_event-color: Set text color of events
-* @prop --cal_today-background-color, --kup-cal_today-background-color: Set background color of today's cell
-* @prop --cal_today-color, --kup-cal_today-color: Set text color of today's cell
-* @prop --cal_no-work-day-background-color, --kup-cal_no-work-day-background-color: Set background color of days off of work's cells 
-* @prop --cal_no-work-day-color, --kup-cal_no-work-day-color: Set text color of days off of work's cells 
+* @prop --kup-calendar_background-color: Background of the component.
+* @prop --kup-calendar_border-color: Sets borders color of the calendar.
+* @prop --kup-calendar_event-background-color: Sets background color of events.
+* @prop --kup-calendar_event-border-color: Sets border color of events.
+* @prop --kup-calendar_event-color: Sets text color of events.
+* @prop --kup-calendar_font-family: Sets the font family of the component.
+* @prop --kup-calendar_font-size: Sets the font size of the component.
+* @prop --kup-calendar_header-background-color: Sets background color of the header cell.
+* @prop --kup-calendar_header-color: Sets text color of the header cell.
+* @prop --kup-calendar_no-work-day-background-color: Sets background color of sunday and saturday cells.
+* @prop --kup-calendar_no-work-day-color: Sets text color of sunday and saturday cells.
+* @prop --kup-calendar_today-background-color: Sets background color of today's cell.
 */
 
 :host {
-  --cal_border-color: var(--kup-cal_border-color, grey);
-  --cal_header-background-color: var(
-    --kup-cal_header-background-color,
-    #1fbe7c
+  --kup-calendar_background-color: var(--kup-background-color);
+  --kup-calendar_border-color: var(--kup-border-color);
+  --kup-calendar_event-background-color: var(--kup-primary-color);
+  --kup-calendar_event-border-color: var(--kup-primary-color);
+  --kup-calendar_event-color: var(--kup-text-on-primary-color);
+  --kup-calendar_font-family: var(--kup-font-family);
+  --kup-calendar_font-size: var(--kup-font-size);
+  --kup-calendar_header-background-color: var(--kup-title-background-color);
+  --kup-calendar_header-color: var(--kup-title-color);
+  --kup-calendar_no-work-day-background-color: rgba(
+    var(--kup-disabled-background-color-rgb),
+    0.5
   );
-  --cal_header-color: var(--kup-cal_header-color, white);
-  --cal_event-background-color: var(--kup-cal_event-background-color, #25e092);
-  --cal_event-color: var(--kup-cal_event-color, #202020);
-  --cal_today-background-color: var(--kup-cal_today-background-color, #9fffd7);
-  --cal_today-color: var(--kup-cal_today-color, grey);
-  --cal_no-work-day-background-color: var(
-    --kup-cal_no-work-day-background-color,
-    #d4d4d4
+  --kup-calendar_no-work-day-color: var(--kup-disabled-color);
+  --kup-calendar_today-background-color: rgba(
+    var(--kup-primary-color-rgb),
+    0.125
   );
-  --cal_no-work-day-color: var(--kup-cal_no-work-day-color, white);
 
+  background-color: var(--kup-calendar_background-color);
   display: block;
+  font-family: var(--kup-calendar_font-family);
+  font-size: var(--kup-calendar_font-size);
   height: 100%;
   width: 100%;
 }
@@ -63,61 +72,60 @@
   }
 }
 
-.fc-toolbar.fc-header-toolbar {
-  margin-top: 1.5rem;
-}
-.fc-ltr .fc-dayGrid-view .fc-day-top {
-  text-align: center;
-  padding: 0.5rem;
-  .fc-day-number {
-    float: none;
+#kup-component {
+  .fc-toolbar.fc-header-toolbar {
+    margin-top: 1.5rem;
   }
-}
 
-.fc-unthemed .fc-content {
-  padding: 0.25rem;
-}
+  .fc-ltr .fc-dayGrid-view .fc-day-top {
+    text-align: center;
+    padding: 0.5rem;
 
-.fc-unthemed .fc-content,
-.fc-unthemed .fc-divider,
-.fc-unthemed .fc-list-heading td,
-.fc-unthemed .fc-list-view,
-.fc-unthemed .fc-popover,
-.fc-unthemed .fc-row,
-.fc-unthemed tbody,
-.fc-unthemed td {
-  border-color: var(--cal_border-color);
-}
-
-.fc-head th,
-.fc-head thead {
-  background: var(--cal_header-background-color);
-  color: var(--cal_header-color);
-  border: none;
-  border-color: var(--cal_header-background-color);
-}
-
-.fc-event,
-.fc-event-dot {
-  background: var(--cal_event-background-color);
-  color: var(--cal_event-color);
-  border: none;
-  border-color: var(--cal_event-background-color);
-}
-
-.fc-unthemed td.fc-today {
-  background: none;
-
-  .fc-day-number {
-    background-color: var(--cal_today-background-color);
-    color: var(--cal_today-color);
-    padding: 5px 10px;
-    border-radius: 50%;
+    .fc-day-number {
+      float: none;
+    }
   }
-}
 
-.fc-unthemed td.fc-sun,
-.fc-unthemed td.fc-sat {
-  background-color: var(--cal_no-work-day-background-color);
-  color: var(--cal_no-work-day-color);
+  .fc-content {
+    padding: 0.25rem;
+  }
+
+  .fc-content,
+  .fc-divider,
+  .fc-list-heading td,
+  .fc-list-view,
+  .fc-popover,
+  .fc-row,
+  .fc-scrollgrid,
+  tbody,
+  td {
+    border-color: var(--kup-calendar_border-color);
+  }
+
+  .fc-col-header-cell {
+    background: var(--kup-calendar_header-background-color);
+    color: var(--kup-calendar_header-color);
+  }
+
+  .fc-h-event {
+    background: var(--kup-calendar_event-border-color);
+    border-color: var(--kup-calendar_event-border-color);
+  }
+
+  .fc-event-main {
+    background: var(--kup-calendar_event-background-color);
+    color: var(--kup-calendar_event-color);
+    border: none;
+    border-color: var(--kup-calendar_event-background-color);
+  }
+
+  td.fc-day-today {
+    background-color: var(--kup-calendar_today-background-color);
+  }
+
+  td.fc-day-sun,
+  td.fc-day-sat {
+    background-color: var(--kup-calendar_no-work-day-background-color);
+    color: var(--kup-calendar_no-work-day-color);
+  }
 }
