@@ -120,6 +120,7 @@ export class KupCalendar {
     private calendar: Calendar;
     private calendarContainer: HTMLDivElement = null;
     private kupManager: KupManager = kupManagerInstance();
+    private navTitle: HTMLDivElement = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -293,16 +294,25 @@ export class KupCalendar {
 
     private onPrev() {
         this.calendar.prev();
+        if (this.calendar && !this.hideNavigation) {
+            this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        }
         this.emitNavEvent();
     }
 
     private onNext() {
         this.calendar.next();
+        if (this.calendar && !this.hideNavigation) {
+            this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        }
         this.emitNavEvent();
     }
 
     private onToday() {
         this.calendar.today();
+        if (this.calendar && !this.hideNavigation) {
+            this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        }
     }
 
     private emitNavEvent() {
@@ -355,39 +365,6 @@ export class KupCalendar {
                         this.changeView(KupCalendarViewTypes[value]);
                 }
             }
-
-            const month: HTMLElement = root.querySelector('.navigation__month');
-            if (month) {
-                const buttonEl = month.querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onclick = () =>
-                        this.changeView(KupCalendarViewTypes.MONTH);
-                }
-            }
-            const week: HTMLElement = root.querySelector('.navigation__week');
-            if (week) {
-                const buttonEl = week.querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onclick = () =>
-                        this.changeView(KupCalendarViewTypes.WEEK);
-                }
-            }
-            const day: HTMLElement = root.querySelector('.navigation__day');
-            if (day) {
-                const buttonEl = day.querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onclick = () =>
-                        this.changeView(KupCalendarViewTypes.DAY);
-                }
-            }
-            const list: HTMLElement = root.querySelector('.navigation__list');
-            if (list) {
-                const buttonEl = list.querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onclick = () =>
-                        this.changeView(KupCalendarViewTypes.LIST);
-                }
-            }
         }
     }
 
@@ -405,11 +382,7 @@ export class KupCalendar {
         this.calendar = new Calendar(this.calendarContainer, {
             editable: true,
             events: this.getEvents(),
-            headerToolbar: {
-                start: '',
-                center: 'title',
-                end: '',
-            },
+            headerToolbar: false,
             dateClick: ({ date }) => {
                 this.kupCalendarDateClicked.emit(date);
             },
@@ -490,6 +463,9 @@ export class KupCalendar {
             ],
         });
         this.calendar.render();
+        if (!this.hideNavigation) {
+            this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        }
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -499,6 +475,9 @@ export class KupCalendar {
 
     componentDidRender() {
         this.setEvents();
+        if (this.calendar && !this.hideNavigation) {
+            this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -530,6 +509,12 @@ export class KupCalendar {
                                 wrapperClass="navigation__next"
                             />
                         </div>
+                        <div
+                            class="navigation__title"
+                            ref={(el) => {
+                                this.navTitle = el;
+                            }}
+                        ></div>
                         <div class="navigation__right">
                             <FChip
                                 data={this.setNavChipData()}
