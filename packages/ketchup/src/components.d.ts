@@ -531,6 +531,10 @@ export namespace Components {
           * @default null
          */
         "descrCol": string;
+        /**
+          * Column containing events' ending time.
+          * @default null
+         */
         "endCol": string;
         /**
           * Used to retrieve component's props values.
@@ -538,9 +542,25 @@ export namespace Components {
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When disabled, the navigation toolbar won't be displayed.
+          * @default false
+         */
         "hideNavigation": boolean;
+        /**
+          * Column containing events' icons. There can be multiple icons, divided by ";".
+          * @default null
+         */
         "iconCol": string;
+        /**
+          * Column containing events' images. There can be multiple images, divided by ";".
+          * @default null
+         */
         "imageCol": string;
+        /**
+          * Sets the initial date of the calendar.
+          * @default null
+         */
         "initialDate": string;
         /**
           * This method is used to trigger a new render of the component.
@@ -551,12 +571,20 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Column containing events' starting time.
+          * @default null
+         */
         "startCol": string;
         /**
-          * Column containing events' styles.
+          * Column containing events' CSS styles.
           * @default null
          */
         "styleCol": string;
+        /**
+          * Type of the view.
+          * @default KupCalendarViewTypes.MONTH
+         */
         "viewType": KupCalendarViewTypes;
     }
     interface KupCard {
@@ -801,7 +829,6 @@ export namespace Components {
         "customStyle": string;
         /**
           * List of elements.
-          * @deprecated soon to be replaced by TreeNode[]
           * @default []
          */
         "data": FChipData[];
@@ -3614,10 +3641,30 @@ declare namespace LocalJSX {
           * @default null
          */
         "descrCol"?: string;
+        /**
+          * Column containing events' ending time.
+          * @default null
+         */
         "endCol"?: string;
+        /**
+          * When disabled, the navigation toolbar won't be displayed.
+          * @default false
+         */
         "hideNavigation"?: boolean;
+        /**
+          * Column containing events' icons. There can be multiple icons, divided by ";".
+          * @default null
+         */
         "iconCol"?: string;
+        /**
+          * Column containing events' images. There can be multiple images, divided by ";".
+          * @default null
+         */
         "imageCol"?: string;
+        /**
+          * Sets the initial date of the calendar.
+          * @default null
+         */
         "initialDate"?: string;
         /**
           * When a date is clicked.
@@ -3647,12 +3694,20 @@ declare namespace LocalJSX {
         from: Date;
         to: Date;
     }>) => void;
+        /**
+          * Column containing events' starting time.
+          * @default null
+         */
         "startCol"?: string;
         /**
-          * Column containing events' styles.
+          * Column containing events' CSS styles.
           * @default null
          */
         "styleCol"?: string;
+        /**
+          * Type of the view.
+          * @default KupCalendarViewTypes.MONTH
+         */
         "viewType"?: KupCalendarViewTypes;
     }
     interface KupCard {
@@ -3868,7 +3923,6 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * List of elements.
-          * @deprecated soon to be replaced by TreeNode[]
           * @default []
          */
         "data"?: FChipData[];

@@ -70,7 +70,7 @@ const data = {
                         p: 'ICO',
                         k: '...',
                     },
-                    value: 'widgets',
+                    value: 'widgets;menu',
                 },
                 image: {
                     obj: {

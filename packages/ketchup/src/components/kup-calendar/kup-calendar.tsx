@@ -4,11 +4,12 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    getAssetPath,
     h,
     Method,
     Prop,
 } from '@stencil/core';
-import { Calendar } from '@fullcalendar/core';
+import { Calendar, EventInput, EventSourceInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
@@ -33,13 +34,11 @@ import {
     KupCalendarProps,
     KupCalendarViewTypes,
 } from './kup-calendar-declarations';
-import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import {
     FChipData,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
@@ -73,18 +72,46 @@ export class KupCalendar {
      */
     @Prop() descrCol: string = null;
     /**
-     * Column containing events' styles.
+     * Column containing events' ending time.
+     * @default null
+     */
+    @Prop() endCol: string = null;
+    /**
+     * When disabled, the navigation toolbar won't be displayed.
+     * @default false
+     */
+    @Prop() hideNavigation = false;
+    /**
+     * Column containing events' icons. There can be multiple icons, divided by ";".
+     * @default null
+     */
+    @Prop() iconCol: string = null;
+    /**
+     * Column containing events' images. There can be multiple images, divided by ";".
+     * @default null
+     */
+    @Prop() imageCol: string = null;
+    /**
+     * Sets the initial date of the calendar.
+     * @default null
+     */
+    @Prop() initialDate: string = null;
+    /**
+     * Column containing events' starting time.
+     * @default null
+     */
+    @Prop() startCol: string = null;
+    /**
+     * Column containing events' CSS styles.
      * @default null
      */
     @Prop() styleCol: string = null;
-    @Prop() iconCol: string = null;
-    @Prop() imageCol: string = null;
-    @Prop() startCol: string = null;
-    @Prop() endCol: string = null;
+    /**
+     * Type of the view.
+     * @default KupCalendarViewTypes.MONTH
+     */
     @Prop({ mutable: true }) viewType: KupCalendarViewTypes =
         KupCalendarViewTypes.MONTH;
-    @Prop({ reflect: true }) hideNavigation = false;
-    @Prop({ reflect: true }) initialDate: string = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -221,7 +248,7 @@ export class KupCalendar {
         return data;
     }
 
-    private getEvents() {
+    private getEvents(): EventSourceInput {
         const isHourRange =
             this.startCol &&
             this.endCol &&
@@ -250,17 +277,17 @@ export class KupCalendar {
                 }
             }
 
-            const allDay = !isHourRange;
-
-            return {
-                title: row.cells[this.descrCol].value,
-                allDay,
-                start: startDate.toISOString(),
+            const el: EventInput = {
+                allDay: isHourRange ? false : true,
                 end: endDate.toISOString(),
                 extendedProps: {
                     row,
                 },
+                start: startDate.toISOString(),
+                title: row.cells[this.descrCol].value,
             };
+
+            return el;
         });
     }
 
@@ -383,7 +410,6 @@ export class KupCalendar {
                 center: 'title',
                 end: '',
             },
-            initialView: this.viewType,
             dateClick: ({ date }) => {
                 this.kupCalendarDateClicked.emit(date);
             },
@@ -411,7 +437,12 @@ export class KupCalendar {
 
                         cell.value.split(';').forEach((icon) => {
                             const span = document.createElement('span');
-                            span.className = icon;
+                            span.className = 'custom-icon';
+                            const path: string = getAssetPath(
+                                `./assets/svg/${icon}.svg`
+                            );
+                            span.style.mask = `url('${path}') no-repeat center`;
+                            span.style.webkitMask = `url('${path}') no-repeat center`;
                             wrapper.appendChild(span);
                         });
 
@@ -449,6 +480,8 @@ export class KupCalendar {
                     },
                 });
             },
+            initialDate: this.initialDate,
+            initialView: this.viewType,
             plugins: [
                 interactionPlugin,
                 dayGridPlugin,

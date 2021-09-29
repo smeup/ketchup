@@ -78,6 +78,12 @@
   }
 }
 
+.custom-icon {
+  background-color: var(--kup-calendar_event-color);
+  height: 1.5em;
+  width: 1.5em;
+}
+
 #kup-component {
   .fc-toolbar.fc-header-toolbar {
     margin-top: 1.5rem;
@@ -118,12 +124,31 @@
     border: none;
   }
 
-  .fc-event-main {
+  .fc-list-event-dot {
+    border-color: var(--kup-calendar_event-background-color);
+  }
+
+  .fc-list-day-cushion {
+    background: var(--kup-calendar_header-background-color);
+    color: var(--kup-calendar_header-color);
+  }
+
+  .fc-list-event:hover td {
+    background: var(--kup-hover-background-color);
+    color: var(--kup-hover-color);
+  }
+
+  .fc-daygrid-event,
+  .fc-timegrid-event {
     background: var(--kup-calendar_event-background-color);
     border-radius: var(--kup-calendar_event-border-radius);
-    color: var(--kup-calendar_event-color);
     border: none;
     border-color: var(--kup-calendar_event-background-color);
+    color: var(--kup-calendar_event-color);
+  }
+
+  .fc-event-main {
+    color: inherit;
   }
 
   .fc-event-title {
