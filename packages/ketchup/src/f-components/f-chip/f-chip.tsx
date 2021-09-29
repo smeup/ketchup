@@ -114,7 +114,11 @@ function createChipList(
         }
 
         chipEl = (
-            <div class={componentClass} role="row">
+            <div
+                class={componentClass}
+                data-value={props.data[i].value}
+                role="row"
+            >
                 {iconEl}
                 <span role="gridcell">
                     <span

@@ -10,8 +10,9 @@ import {
 } from '@stencil/core';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import {
     DataTable,
     Row,
@@ -28,7 +29,18 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
-import { KupCalendarProps } from './kup-calendar-declarations';
+import {
+    KupCalendarProps,
+    KupCalendarViewTypes,
+} from './kup-calendar-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { FChip } from '../../f-components/f-chip/f-chip';
+import {
+    FChipData,
+    FChipType,
+} from '../../f-components/f-chip/f-chip-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -45,17 +57,42 @@ export class KupCalendar {
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
 
-    @Prop() data: DataTable;
-    @Prop({ reflect: true }) dateCol: string;
-    @Prop({ reflect: true }) descrCol: string;
-    @Prop({ reflect: true }) styleCol: string;
-    @Prop({ reflect: true }) iconCol: string;
-    @Prop({ reflect: true }) imageCol: string;
-    @Prop({ reflect: true }) startCol: string;
-    @Prop({ reflect: true }) endCol: string;
-    @Prop({ reflect: true }) weekView = false;
+    /**
+     * Actual data of the calendar.
+     * @default null
+     */
+    @Prop() data: DataTable = null;
+    /**
+     * Column containing events' dates.
+     * @default null
+     */
+    @Prop() dateCol: string = null;
+    /**
+     * Column containing events' descriptions.
+     * @default null
+     */
+    @Prop() descrCol: string = null;
+    /**
+     * Column containing events' styles.
+     * @default null
+     */
+    @Prop() styleCol: string = null;
+    @Prop() iconCol: string = null;
+    @Prop() imageCol: string = null;
+    @Prop() startCol: string = null;
+    @Prop() endCol: string = null;
+    @Prop({ mutable: true }) viewType: KupCalendarViewTypes =
+        KupCalendarViewTypes.MONTH;
     @Prop({ reflect: true }) hideNavigation = false;
-    @Prop({ reflect: true }) initialDate: string;
+    @Prop({ reflect: true }) initialDate: string = null;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
+    private calendar: Calendar;
+    private calendarContainer: HTMLDivElement = null;
+    private kupManager: KupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -115,17 +152,6 @@ export class KupCalendar {
     }>;
 
     /*-------------------------------------------------*/
-    /*       I n t e r n a l   V a r i a b l e s       */
-    /*-------------------------------------------------*/
-
-    /**
-     * Instance of the KupManager class.
-     */
-    private kupManager: KupManager = kupManagerInstance();
-    private calendar: Calendar;
-    private calendarContainer: HTMLDivElement = null;
-
-    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -158,12 +184,41 @@ export class KupCalendar {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    private changeView(view: KupCalendarViewTypes) {
+        this.viewType = view;
+        this.calendar.changeView(view);
+    }
+
     private getColumns(): Column[] {
         if (this.data && this.data.rows) {
             return this.data.columns;
         }
 
         return [];
+    }
+
+    private getRows(): Row[] {
+        if (this.data && this.data.rows) {
+            return this.data.rows;
+        }
+
+        return [];
+    }
+
+    private setNavChipData(): FChipData[] {
+        const data: FChipData[] = [];
+        for (const key in KupCalendarViewTypes) {
+            const view: string = KupCalendarViewTypes[key];
+            const chipData: FChipData = {
+                value: key,
+                label: this.kupManager.language.translate(
+                    KupLanguageGeneric[key]
+                ),
+                checked: this.viewType === view ? true : false,
+            };
+            data.push(chipData);
+        }
+        return data;
     }
 
     private getEvents() {
@@ -209,13 +264,6 @@ export class KupCalendar {
         });
     }
 
-    private getRows(): Row[] {
-        if (this.data && this.data.rows) {
-            return this.data.rows;
-        }
-
-        return [];
-    }
     private onPrev() {
         this.calendar.prev();
         this.emitNavEvent();
@@ -269,6 +317,50 @@ export class KupCalendar {
                     buttonEl.onclick = () => this.onNext();
                 }
             }
+            const choices: NodeListOf<HTMLElement> = root.querySelectorAll(
+                '.navigation__choice .chip'
+            );
+            if (choices) {
+                for (let index = 0; index < choices.length; index++) {
+                    const choice = choices[index];
+                    const value = choice.dataset.value;
+                    choice.onclick = () =>
+                        this.changeView(KupCalendarViewTypes[value]);
+                }
+            }
+
+            const month: HTMLElement = root.querySelector('.navigation__month');
+            if (month) {
+                const buttonEl = month.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = () =>
+                        this.changeView(KupCalendarViewTypes.MONTH);
+                }
+            }
+            const week: HTMLElement = root.querySelector('.navigation__week');
+            if (week) {
+                const buttonEl = week.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = () =>
+                        this.changeView(KupCalendarViewTypes.WEEK);
+                }
+            }
+            const day: HTMLElement = root.querySelector('.navigation__day');
+            if (day) {
+                const buttonEl = day.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = () =>
+                        this.changeView(KupCalendarViewTypes.DAY);
+                }
+            }
+            const list: HTMLElement = root.querySelector('.navigation__list');
+            if (list) {
+                const buttonEl = list.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = () =>
+                        this.changeView(KupCalendarViewTypes.LIST);
+                }
+            }
         }
     }
 
@@ -278,27 +370,20 @@ export class KupCalendar {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        const plugins = [interactionPlugin];
-        if (this.weekView) {
-            plugins.push(timeGridPlugin);
-        } else {
-            plugins.push(dayGridPlugin);
-        }
-
         this.calendar = new Calendar(this.calendarContainer, {
-            plugins,
             editable: true,
             events: this.getEvents(),
             headerToolbar: {
-                left: '',
+                start: '',
                 center: 'title',
-                right: '',
+                end: '',
             },
-            initialView: this.weekView ? 'timeGridWeek' : 'dayGridMonth',
+            initialView: this.viewType,
             dateClick: ({ date }) => {
                 this.kupCalendarDateClicked.emit(date);
             },
@@ -309,10 +394,11 @@ export class KupCalendar {
                 if (this.styleCol) {
                     const row: Row = info.event.extendedProps.row;
                     const cell = row.cells[this.styleCol];
+                    const eventCell = info.el.children[0] as HTMLElement;
                     if (cell && cell.style) {
-                        Object.keys(cell.style).forEach(
-                            (k) => (info.el.style[k] = cell.style[k])
-                        );
+                        Object.keys(cell.style).forEach((k) => {
+                            eventCell.style[k] = cell.style[k];
+                        });
                     }
                 }
 
@@ -350,6 +436,7 @@ export class KupCalendar {
                     }
                 }
             },
+            eventDisplay: 'auto',
             eventDrop: ({ event, oldEvent }) => {
                 this.kupCalendarEventDropped.emit({
                     fromDate: {
@@ -362,6 +449,12 @@ export class KupCalendar {
                     },
                 });
             },
+            plugins: [
+                interactionPlugin,
+                dayGridPlugin,
+                listPlugin,
+                timeGridPlugin,
+            ],
         });
         this.calendar.render();
         this.kupManager.debug.logLoad(this, true);
@@ -381,18 +474,36 @@ export class KupCalendar {
             <div id={componentWrapperId}>
                 {this.hideNavigation ? null : (
                     <div class="navigation">
-                        <FButton
-                            icon="chevron_left"
-                            wrapperClass="navigation__prev"
-                        />
-                        <FButton
-                            icon="calendar"
-                            wrapperClass="navigation__today"
-                        />
-                        <FButton
-                            icon="chevron_right"
-                            wrapperClass="navigation__next"
-                        />
+                        <div class="navigation__left">
+                            <FButton
+                                icon="chevron_left"
+                                title={this.kupManager.language.translate(
+                                    KupLanguageGeneric.PREVIOUS
+                                )}
+                                wrapperClass="navigation__prev"
+                            />
+                            <FButton
+                                icon="calendar"
+                                title={this.kupManager.language.translate(
+                                    KupLanguageGeneric.TODAY
+                                )}
+                                wrapperClass="navigation__today"
+                            />
+                            <FButton
+                                icon="chevron_right"
+                                title={this.kupManager.language.translate(
+                                    KupLanguageGeneric.NEXT
+                                )}
+                                wrapperClass="navigation__next"
+                            />
+                        </div>
+                        <div class="navigation__right">
+                            <FChip
+                                data={this.setNavChipData()}
+                                type={FChipType.CHOICE}
+                                wrapperClass="navigation__choice"
+                            ></FChip>
+                        </div>
                     </div>
                 )}
                 <div
@@ -407,6 +518,7 @@ export class KupCalendar {
         if (this.calendar) {
             this.calendar.destroy();
         }
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
     }
 }

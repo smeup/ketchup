@@ -17,6 +17,7 @@ import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
+import { KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -515,8 +516,20 @@ export namespace Components {
         "styling": FButtonStyling;
     }
     interface KupCalendar {
+        /**
+          * Actual data of the calendar.
+          * @default null
+         */
         "data": DataTable;
+        /**
+          * Column containing events' dates.
+          * @default null
+         */
         "dateCol": string;
+        /**
+          * Column containing events' descriptions.
+          * @default null
+         */
         "descrCol": string;
         "endCol": string;
         /**
@@ -539,8 +552,12 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         "startCol": string;
+        /**
+          * Column containing events' styles.
+          * @default null
+         */
         "styleCol": string;
-        "weekView": boolean;
+        "viewType": KupCalendarViewTypes;
     }
     interface KupCard {
         /**
@@ -3582,8 +3599,20 @@ declare namespace LocalJSX {
         "styling"?: FButtonStyling;
     }
     interface KupCalendar {
+        /**
+          * Actual data of the calendar.
+          * @default null
+         */
         "data"?: DataTable;
+        /**
+          * Column containing events' dates.
+          * @default null
+         */
         "dateCol"?: string;
+        /**
+          * Column containing events' descriptions.
+          * @default null
+         */
         "descrCol"?: string;
         "endCol"?: string;
         "hideNavigation"?: boolean;
@@ -3619,8 +3648,12 @@ declare namespace LocalJSX {
         to: Date;
     }>) => void;
         "startCol"?: string;
+        /**
+          * Column containing events' styles.
+          * @default null
+         */
         "styleCol"?: string;
-        "weekView"?: boolean;
+        "viewType"?: KupCalendarViewTypes;
     }
     interface KupCard {
         /**

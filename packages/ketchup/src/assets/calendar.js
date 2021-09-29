@@ -24,6 +24,10 @@ const data = {
             name: 'image',
             title: 'Image',
         },
+        {
+            name: 'style',
+            title: 'Style',
+        },
     ],
     rows: [
         {
@@ -76,6 +80,18 @@ const data = {
                     },
                     value: 'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
                 },
+                style: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '...',
+                    },
+                    value: '',
+                    style: {
+                        background: 'purple',
+                        color: 'yellow',
+                    },
+                },
             },
         },
         {
@@ -127,6 +143,18 @@ const data = {
                         k: '...',
                     },
                     value: 'https://via.placeholder.com/64?text=PF;https://via.placeholder.com/64?text=CF;https://via.placeholder.com/64?text=DG',
+                },
+                style: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '...',
+                    },
+                    value: '',
+                    style: {
+                        background: 'purple',
+                        color: 'yellow',
+                    },
                 },
             },
         },
