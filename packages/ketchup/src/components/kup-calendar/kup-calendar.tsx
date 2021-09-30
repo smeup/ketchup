@@ -214,6 +214,7 @@ export class KupCalendar {
     private changeView(view: KupCalendarViewTypes) {
         this.viewType = view;
         this.calendar.changeView(view);
+        this.emitNavEvent();
     }
 
     private getColumns(): Column[] {
@@ -299,19 +300,19 @@ export class KupCalendar {
 
     private onPrev() {
         this.calendar.prev();
-        this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        this.updateTitle();
         this.emitNavEvent();
     }
 
     private onNext() {
         this.calendar.next();
-        this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        this.updateTitle();
         this.emitNavEvent();
     }
 
     private onToday() {
         this.calendar.today();
-        this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        this.updateTitle();
     }
 
     private emitNavEvent() {
@@ -325,6 +326,13 @@ export class KupCalendar {
             from: this.calendar.view.currentStart,
             to,
         });
+    }
+
+    private updateTitle() {
+        if (this.calendar) {
+            this.navTitle.innerText = this.calendar.currentData.viewTitle;
+            this.calendar.updateSize();
+        }
     }
 
     /*-------------------------------------------------*/
@@ -427,7 +435,7 @@ export class KupCalendar {
             ],
         });
         this.calendar.render();
-        this.navTitle.innerText = this.calendar.currentData.viewTitle;
+        this.updateTitle();
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -436,9 +444,7 @@ export class KupCalendar {
     }
 
     componentDidRender() {
-        this.navTitle.innerText = this.calendar
-            ? this.calendar.currentData.viewTitle
-            : '';
+        this.updateTitle();
         this.kupManager.debug.logRender(this, true);
     }
 

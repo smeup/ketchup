@@ -17,7 +17,7 @@ export default {
   components: {
     Demo,
   },
-  name: 'CardDemo',
+  name: 'CalendarDemo',
   data() {
     return {
       demoClasses: [
@@ -217,9 +217,9 @@ function createComp() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: '20210919',
+              k: new Date().toISOString().substr(0, 10),
             },
-            value: '2021-09-19',
+            value: new Date().toISOString().substr(0, 10),
           },
           descr: {
             obj: {
