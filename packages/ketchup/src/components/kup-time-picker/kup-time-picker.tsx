@@ -20,12 +20,9 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { KupListData } from '../kup-list/kup-list-declarations';
 import {
-    ISO_DEFAULT_TIME_FORMAT,
-    ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
     isValidFormattedStringTime,
     formattedStringToCustomUnformattedStringTime,
     unformattedStringToFormattedStringTime,
-    unformatDateTime,
     formatTime,
     getProps,
     setProps,
@@ -46,6 +43,7 @@ import {
 } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 @Component({
     tag: 'kup-time-picker',
     styleUrl: 'kup-time-picker.scss',
@@ -419,8 +417,8 @@ export class KupTimePicker {
         return formattedStringToCustomUnformattedStringTime(
             value,
             this.manageSeconds
-                ? ISO_DEFAULT_TIME_FORMAT
-                : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+                ? KupDatesFormats.ISO_TIME
+                : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
             this.manageSeconds
         );
     }
@@ -601,11 +599,13 @@ export class KupTimePicker {
     private createClock() {
         let selectedTime: Date;
         if (this.value) {
-            selectedTime = unformatDateTime(
-                this.value,
-                this.manageSeconds
-                    ? ISO_DEFAULT_TIME_FORMAT
-                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS
+            selectedTime = this.kupManager.dates.toDate(
+                this.kupManager.dates.format(
+                    this.value,
+                    this.manageSeconds
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+                )
             );
         } else {
             selectedTime = new Date();
@@ -886,11 +886,13 @@ export class KupTimePicker {
         if (value == null || value.trim() == '') {
             selectedTime = new Date();
         } else {
-            selectedTime = unformatDateTime(
-                value,
-                this.manageSeconds
-                    ? ISO_DEFAULT_TIME_FORMAT
-                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS
+            selectedTime = this.kupManager.dates.toDate(
+                this.kupManager.dates.format(
+                    value,
+                    this.manageSeconds
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+                )
             );
         }
 
@@ -911,8 +913,8 @@ export class KupTimePicker {
             let value = formattedStringToCustomUnformattedStringTime(
                 text,
                 this.manageSeconds
-                    ? ISO_DEFAULT_TIME_FORMAT
-                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
                 this.manageSeconds
             );
             let item: KupListData = {

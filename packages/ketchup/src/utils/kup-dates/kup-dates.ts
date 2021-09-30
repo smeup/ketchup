@@ -49,6 +49,13 @@ export class KupDates {
         dayjs.locale(this.locale);
     }
     /**
+     *
+     * @returns the current locale
+     */
+    getLocale(): string {
+        return this.locale;
+    }
+    /**
      * Formats the given date.
      * @param {dayjs.ConfigType} input - Date to be formatted.
      * @param {string} format - Output format.
@@ -63,10 +70,19 @@ export class KupDates {
     /**
      * Validates the given date.
      * @param {dayjs.ConfigType} date - Date to be validated.
+     * @param {string} format - Format of the input date.
      * @returns {boolean} Returns whether the argument is a valid date or not.
      */
-    isValid(date: dayjs.ConfigType): boolean {
-        return dayjs(date).isValid();
+    isValid(
+        date: dayjs.ConfigType,
+        format?: string,
+        strict?: boolean
+    ): boolean {
+        if (format) {
+            return dayjs(date, format, strict).isValid();
+        } else {
+            return dayjs(date, format, strict).isValid();
+        }
     }
     /**
      * Converts the input in a Date object.
@@ -75,7 +91,7 @@ export class KupDates {
      * @returns {Date} Date object.
      */
     toDate(input: dayjs.ConfigType, format?: string): Date {
-        if (format) {
+        if (format && format != null) {
             return dayjs(input, format).toDate();
         } else {
             return dayjs(input).toDate();
@@ -101,10 +117,28 @@ export class KupDates {
      * @returns {dayjs.Dayjs} Dayjs object of the normalized date.
      */
     normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs {
-        input.replace(/\//g, ''); // removes all /
-        input.replace(/./g, ''); // removes all .
-        input.replace(/-/g, ''); // removes all :
-        input.replace(/:/g, ''); // removes all -
+        const l = dayjs.Ls[this.locale].formats.L;
+        // array e for-each con contains
+        const allowedChars: Array<string> = [
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+        ];
+        let inputCleaned = '';
+        for (let i = 0; i < input.length; i++) {
+            let ch: string = input.charAt(i);
+            if (allowedChars.includes(ch)) {
+                inputCleaned += ch;
+            }
+        }
+        input = inputCleaned;
         switch (type) {
             case KupDatesNormalize.TIME:
                 const time = normalizeTime();
@@ -116,7 +150,6 @@ export class KupDates {
         }
 
         function normalizeDate(): Date {
-            const l = dayjs.Ls[this.locale].formats.L;
             const today = new Date();
             const dIndex = l.indexOf('DD');
             const mIndex = l.indexOf('MM');
@@ -143,29 +176,30 @@ export class KupDates {
                     }
                     break;
                 case 5:
-                    input = '0' + input; // continue into case 6
+                //input = '0' + input; // continue into case 6
                 case 6:
                     sub1 = parseInt(input.substr(0, 2));
                     sub2 = parseInt(input.substr(2, 2));
                     year = today.getFullYear().toString();
-                    year = year.substr(0, 2) + input.substr(4, 2);
+                    year = year.substr(0, 2) + input.substr(4);
                     if (mIndex === 0) {
-                        today.setFullYear(parseInt(year), sub1, sub2 - 1);
+                        today.setFullYear(parseInt(year), sub1 - 1, sub2);
                     } else if (dIndex === 0) {
                         today.setFullYear(parseInt(year), sub2 - 1, sub1);
                     }
                     break;
                 case 7:
-                    input = '0' + input; // continue into case 8
+                //input = '0' + input; // continue into case 8
                 case 8:
                     sub1 = parseInt(input.substr(0, 2));
                     sub2 = parseInt(input.substr(2, 2));
-                    year = input.substr(4, 2);
+                    year = input.substr(4);
                     if (mIndex === 0) {
-                        today.setFullYear(parseInt(year), sub1, sub2 - 1);
+                        today.setFullYear(parseInt(year), sub1 - 1, sub2);
                     } else if (dIndex === 0) {
                         today.setFullYear(parseInt(year), sub2 - 1, sub1);
                     }
+                    break;
                 default:
                     break;
             }

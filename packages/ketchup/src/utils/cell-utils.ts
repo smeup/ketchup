@@ -9,14 +9,8 @@ import {
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
 import numeral from 'numeral';
 import {
-    ISO_DEFAULT_DATE_FORMAT,
-    ISO_DEFAULT_DATE_TIME_FORMAT,
-    ISO_DEFAULT_TIME_FORMAT,
-    isValidStringDate,
     stringToNumber,
     toKebabCase,
-    unformatDateTime,
-    unformattedStringToFormattedStringDate,
     unformattedStringToFormattedStringNumber,
     unformattedStringToFormattedStringTime,
     unformattedStringToFormattedStringTimestamp,
@@ -25,6 +19,7 @@ import { ValueDisplayedValue } from './filters/filters-declarations';
 import { KupObjects } from './kup-objects/kup-objects';
 import { KupDom } from './kup-manager/kup-manager-declarations';
 import { KupDates } from './kup-dates/kup-dates';
+import { KupDatesFormats } from './kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
@@ -422,7 +417,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
     }
     if (
         kupObjects.isDate(obj) &&
-        isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)
+        kupDates.isValid(value, KupDatesFormats.ISO_DATE)
     ) {
         return kupDates.format(value);
     }
@@ -430,8 +425,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
         return unformattedStringToFormattedStringTime(
             value,
             kupObjects.isTimeWithSeconds(obj),
-            null,
-            obj.t + obj.p
+            null
         );
     }
     if (kupObjects.isTimestamp(obj)) {
@@ -510,14 +504,26 @@ export function compareValues(
         v1 = stringToNumber(s1);
         v2 = stringToNumber(s2);
     } else if (kupObjects.isDate(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_FORMAT);
+        v1 = this.kupManager.dates.toDate(
+            this.kupManager.dates.format(s1, KupDatesFormats.ISO_DATE)
+        );
+        v2 = this.kupManager.dates.toDate(
+            this.kupManager.dates.format(s2, KupDatesFormats.ISO_DATE)
+        );
     } else if (kupObjects.isTime(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_TIME_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_TIME_FORMAT);
+        v1 = this.kupManager.dates.toDate(
+            this.kupManager.dates.format(s1, KupDatesFormats.ISO_TIME)
+        );
+        v2 = this.kupManager.dates.toDate(
+            this.kupManager.dates.format(s2, KupDatesFormats.ISO_TIME)
+        );
     } else if (kupObjects.isTimestamp(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_TIME_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_TIME_FORMAT);
+        v1 = this.kupManager.dates.toDate(
+            this.kupManager.dates.format(s1, KupDatesFormats.ISO_DATE_TIME)
+        );
+        v2 = this.kupManager.dates.toDate(
+            this.kupManager.dates.format(s2, KupDatesFormats.ISO_DATE_TIME)
+        );
     }
     if (v1 > v2) {
         return sm * 1;

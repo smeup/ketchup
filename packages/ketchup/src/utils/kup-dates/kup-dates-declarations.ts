@@ -5,3 +5,13 @@ export enum KupDatesNormalize {
     DATE = 'date',
     TIME = 'time',
 }
+
+/**
+ * Common use formats
+ */
+export enum KupDatesFormats {
+    ISO_DATE = 'YYYY-MM-DD',
+    ISO_DATE_TIME = 'YYYY-MM-DD HH:mm:ss',
+    ISO_TIME = 'HH:mm:ss',
+    ISO_TIME_WITHOUT_SECONDS = 'HH:mm',
+}
