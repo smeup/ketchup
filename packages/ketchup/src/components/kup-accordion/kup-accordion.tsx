@@ -640,7 +640,6 @@ export class KupAccordion {
                 <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
-                        isClearable={true}
                         label={this.kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
@@ -655,9 +654,6 @@ export class KupAccordion {
                                 600
                             );
                         }}
-                        onkup-textfield-cleariconclick={(
-                            event: CustomEvent<KupTextFieldEventPayload>
-                        ) => this.onGlobalFilterChange(event)}
                         ref={(el: HTMLKupTextFieldElement) =>
                             (this.textfieldEl = el)
                         }
