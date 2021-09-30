@@ -67,6 +67,9 @@ export class Filters {
             return newValue;
         }
         if (kupObjects.isDate(smeupObj)) {
+            if (kupDates.isValid(value, KupDatesFormats.ISO_DATE)) {
+                return newValue;
+            }
             if (kupDates.isValid(value)) {
                 return kupDates.format(
                     kupDates.normalize(value, KupDatesNormalize.DATE),
@@ -75,8 +78,18 @@ export class Filters {
             }
         } else if (kupObjects.isTime(smeupObj)) {
             let manageSeconds = kupObjects.isTimeWithSeconds(smeupObj);
+            if (
+                kupDates.isValid(
+                    value,
+                    manageSeconds
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+                )
+            ) {
+                return newValue;
+            }
             if (isValidFormattedStringTime(value, manageSeconds)) {
-                formattedStringToCustomUnformattedStringTime(
+                return formattedStringToCustomUnformattedStringTime(
                     value,
                     manageSeconds
                         ? KupDatesFormats.ISO_TIME
@@ -85,6 +98,9 @@ export class Filters {
                 );
             }
         } else if (kupObjects.isTimestamp(smeupObj)) {
+            if (kupDates.isValid(value, KupDatesFormats.ISO_DATE_TIME)) {
+                return newValue;
+            }
             if (isValidFormattedStringTime(value, true)) {
                 return formattedStringToDefaultUnformattedStringTimestamp(
                     value
@@ -285,20 +301,17 @@ export class Filters {
                 defaultFormat = KupDatesFormats.ISO_DATE_TIME;
             }
 
-            if (kupDates.isValid(value, defaultFormat)) {
-                valueDate = kupDates.toDate(
-                    kupDates.format(value, defaultFormat)
-                );
+            if (kupDates.isValid(value, defaultFormat, true)) {
+                valueDate = kupDates.toDate(value, defaultFormat);
             }
+
             if (from != '') {
                 if (
                     valueDate != null &&
-                    kupDates.isValid(from, defaultFormat)
+                    kupDates.isValid(from, defaultFormat, true)
                 ) {
                     checkByRegularExpression = false;
-                    let fromDate: Date = kupDates.toDate(
-                        kupDates.format(from, defaultFormat)
-                    );
+                    let fromDate: Date = kupDates.toDate(from, defaultFormat);
                     if (valueDate < fromDate) {
                         return false;
                     }
@@ -307,11 +320,12 @@ export class Filters {
                 }
             }
             if (to != '') {
-                if (valueDate != null && kupDates.isValid(to, defaultFormat)) {
+                if (
+                    valueDate != null &&
+                    kupDates.isValid(to, defaultFormat, true)
+                ) {
                     checkByRegularExpression = false;
-                    let toDate: Date = kupDates.toDate(
-                        kupDates.format(to, defaultFormat)
-                    );
+                    let toDate: Date = kupDates.toDate(to, defaultFormat);
                     if (valueDate > toDate) {
                         return false;
                     }

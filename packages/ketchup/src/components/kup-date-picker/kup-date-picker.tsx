@@ -381,7 +381,6 @@ export class KupDatePicker {
      */
     @Method()
     async setValue(value: string) {
-        console.log('kup-date-picker.setValue() ', value);
         this.value = value;
         this.setTextFieldInitalValue(this.getDateForOutput());
     }
@@ -400,8 +399,7 @@ export class KupDatePicker {
             eventDetailValue,
             KupDatesNormalize.DATE
         );
-        //if (this.kupManager.dates.isValid(eventDetailValue)) {
-        if (this.kupManager.dates.isValid(dayJs)) {
+        if (this.kupManager.dates.isValid(eventDetailValue)) {
             newValue = this.kupManager.dates.format(
                 this.kupManager.dates.normalize(
                     eventDetailValue,

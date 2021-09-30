@@ -426,7 +426,8 @@ export class KupTimePicker {
     refreshPickerValue(eventDetailValue: string, eventToRaise: EventEmitter) {
         let newValue = null;
         if (isValidFormattedStringTime(eventDetailValue, this.manageSeconds)) {
-            this.value = this.getFormattedValue(eventDetailValue);
+            this.value = eventDetailValue;
+            newValue = this.value;
             this.setTextFieldInitalValue(this.getTimeForOutput());
         }
 
@@ -600,12 +601,10 @@ export class KupTimePicker {
         let selectedTime: Date;
         if (this.value) {
             selectedTime = this.kupManager.dates.toDate(
-                this.kupManager.dates.format(
-                    this.value,
-                    this.manageSeconds
-                        ? KupDatesFormats.ISO_TIME
-                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
-                )
+                this.value,
+                this.manageSeconds
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             );
         } else {
             selectedTime = new Date();
@@ -887,12 +886,10 @@ export class KupTimePicker {
             selectedTime = new Date();
         } else {
             selectedTime = this.kupManager.dates.toDate(
-                this.kupManager.dates.format(
-                    value,
-                    this.manageSeconds
-                        ? KupDatesFormats.ISO_TIME
-                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
-                )
+                value,
+                this.manageSeconds
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             );
         }
 

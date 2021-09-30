@@ -8,7 +8,7 @@ import 'dayjs/locale/it';
 import 'dayjs/locale/pl';
 import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
-import { KupDatesNormalize } from './kup-dates-declarations';
+import { KupDatesFormats, KupDatesNormalize } from './kup-dates-declarations';
 
 /**
  * Handles operations and formatting of dates.
@@ -78,10 +78,10 @@ export class KupDates {
         format?: string,
         strict?: boolean
     ): boolean {
-        if (format) {
+        if (format && format != null) {
             return dayjs(date, format, strict).isValid();
         } else {
-            return dayjs(date, format, strict).isValid();
+            return dayjs(date, undefined, strict).isValid();
         }
     }
     /**
@@ -163,10 +163,10 @@ export class KupDates {
                     today.setDate(sub1);
                     break;
                 case 3:
-                    input = '0' + input; // continue into case 4
+                //input = '0' + input; // continue into case 4
                 case 4:
                     sub1 = parseInt(input.substr(0, 2));
-                    sub2 = parseInt(input.substr(2, 2));
+                    sub2 = parseInt(input.substr(2));
                     if (mIndex === 0) {
                         today.setDate(sub2);
                         today.setMonth(sub1 - 1); // -1 because it's 0 based
@@ -219,28 +219,29 @@ export class KupDates {
                     today.setHours(hh, 0, 0, 0);
                     break;
                 case 3:
-                    input = '0' + input; // continue into case 4
+                //input = '0' + input; // continue into case 4
                 case 4:
                     hh = parseInt(input.substr(0, 2));
-                    mm = parseInt(input.substr(2, 2));
+                    mm = parseInt(input.substr(2));
                     today.setHours(hh, mm, 0, 0);
                     break;
                 case 5:
-                    input = '0' + input; // continue into case 6
+                //input = '0' + input; // continue into case 6
                 case 6:
                     hh = parseInt(input.substr(0, 2));
                     mm = parseInt(input.substr(2, 2));
-                    ss = parseInt(input.substr(4, 2));
+                    ss = parseInt(input.substr(4));
                     today.setHours(hh, mm, ss, 0);
                     break;
                 case 7:
-                    input = '0' + input; // continue into case 8
+                //input = '0' + input; // continue into case 8
                 case 8:
                     hh = parseInt(input.substr(0, 2));
                     mm = parseInt(input.substr(2, 2));
                     ss = parseInt(input.substr(4, 2));
-                    ms = parseInt(input.substr(6, 2));
+                    ms = parseInt(input.substr(6));
                     today.setHours(hh, mm, ss, ms);
+                    break;
                 default:
                     break;
             }

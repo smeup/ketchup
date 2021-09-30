@@ -504,25 +504,32 @@ export function compareValues(
         v1 = stringToNumber(s1);
         v2 = stringToNumber(s2);
     } else if (kupObjects.isDate(obj1)) {
-        v1 = this.kupManager.dates.toDate(
-            this.kupManager.dates.format(s1, KupDatesFormats.ISO_DATE)
-        );
-        v2 = this.kupManager.dates.toDate(
-            this.kupManager.dates.format(s2, KupDatesFormats.ISO_DATE)
-        );
+        v1 = kupDates.toDate(kupDates.format(s1, KupDatesFormats.ISO_DATE));
+        v2 = kupDates.toDate(kupDates.format(s2, KupDatesFormats.ISO_DATE));
     } else if (kupObjects.isTime(obj1)) {
-        v1 = this.kupManager.dates.toDate(
-            this.kupManager.dates.format(s1, KupDatesFormats.ISO_TIME)
+        let manageSeconds = kupObjects.isTimeWithSeconds(obj1);
+        v1 = kupDates.toDate(
+            kupDates.format(
+                s1,
+                manageSeconds
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+            )
         );
-        v2 = this.kupManager.dates.toDate(
-            this.kupManager.dates.format(s2, KupDatesFormats.ISO_TIME)
+        v2 = kupDates.toDate(
+            kupDates.format(
+                s2,
+                manageSeconds
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+            )
         );
     } else if (kupObjects.isTimestamp(obj1)) {
-        v1 = this.kupManager.dates.toDate(
-            this.kupManager.dates.format(s1, KupDatesFormats.ISO_DATE_TIME)
+        v1 = kupDates.toDate(
+            kupDates.format(s1, KupDatesFormats.ISO_DATE_TIME)
         );
-        v2 = this.kupManager.dates.toDate(
-            this.kupManager.dates.format(s2, KupDatesFormats.ISO_DATE_TIME)
+        v2 = kupDates.toDate(
+            kupDates.format(s2, KupDatesFormats.ISO_DATE_TIME)
         );
     }
     if (v1 > v2) {
