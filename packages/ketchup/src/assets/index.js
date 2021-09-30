@@ -158,6 +158,10 @@ performances.data = [
         text: 'Data table',
         value: 'data-table-performance.html',
     },
+    {
+      text: 'Tree',
+      value: 'tree-performance.html',
+  },
 ];
 // Setting up events
 var ctrlKey = false;
