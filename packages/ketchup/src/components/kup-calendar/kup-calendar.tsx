@@ -37,6 +37,7 @@ import {
 import { FChip } from '../../f-components/f-chip/f-chip';
 import {
     FChipData,
+    FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
@@ -239,10 +240,15 @@ export class KupCalendar {
         return [];
     }
 
-    private setNavChipData(): FChipData[] {
-        const data: FChipData[] = [];
+    private setChipProps(): FChipsProps {
+        const props: FChipsProps = {
+            data: [],
+            onClick: [],
+            type: FChipType.CHOICE,
+            wrapperClass: 'navigation__choice',
+        };
         for (const key in KupCalendarViewTypes) {
-            const view: string = KupCalendarViewTypes[key];
+            const view: KupCalendarViewTypes = KupCalendarViewTypes[key];
             const chipData: FChipData = {
                 value: key,
                 label: this.kupManager.language.translate(
@@ -250,9 +256,10 @@ export class KupCalendar {
                 ),
                 checked: this.viewType === view ? true : false,
             };
-            data.push(chipData);
+            props.data.push(chipData);
+            props.onClick.push(() => this.changeView(view));
         }
-        return data;
+        return props;
     }
 
     private getEvents(): EventSourceInput {
@@ -316,7 +323,6 @@ export class KupCalendar {
     }
 
     private emitNavEvent() {
-        // see https://fullcalendar.io/docs/view-object
         const to: Date = moment(this.calendar.view.currentEnd)
             .subtract(1, 'day')
             .toDate();
@@ -325,48 +331,6 @@ export class KupCalendar {
             from: this.calendar.view.currentStart,
             to,
         });
-    }
-
-    /**
-     * Set the events of the component and instantiates Material Design.
-     */
-    private setEvents(): void {
-        /*
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            const prev: HTMLElement = root.querySelector('.navigation__prev');
-            if (prev) {
-                const buttonEl = prev.querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onclick = () => this.onPrev();
-                }
-            }
-            const today: HTMLElement = root.querySelector('.navigation__today');
-            if (today) {
-                const buttonEl = today.querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onclick = () => this.onToday();
-                }
-            }
-            const next: HTMLElement = root.querySelector('.navigation__next');
-            if (next) {
-                const buttonEl = next.querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onclick = () => this.onNext();
-                }
-            }
-            const choices: NodeListOf<HTMLElement> = root.querySelectorAll(
-                '.navigation__choice .chip'
-            );
-            if (choices) {
-                for (let index = 0; index < choices.length; index++) {
-                    const choice = choices[index];
-                    const value = choice.dataset.value;
-                    choice.onclick = () =>
-                        this.changeView(KupCalendarViewTypes[value]);
-                }
-            }
-        }*/
     }
 
     /*-------------------------------------------------*/
@@ -473,7 +437,6 @@ export class KupCalendar {
     }
 
     componentDidRender() {
-        this.setEvents();
         this.navTitle.innerText = this.calendar
             ? this.calendar.currentData.viewTitle
             : '';
@@ -496,6 +459,7 @@ export class KupCalendar {
                             />
                             <FButton
                                 icon="calendar"
+                                onClick={() => this.onToday()}
                                 title={this.kupManager.language.translate(
                                     KupLanguageGeneric.TODAY
                                 )}
@@ -503,6 +467,7 @@ export class KupCalendar {
                             />
                             <FButton
                                 icon="chevron_right"
+                                onClick={() => this.onNext()}
                                 title={this.kupManager.language.translate(
                                     KupLanguageGeneric.NEXT
                                 )}
@@ -511,18 +476,18 @@ export class KupCalendar {
                         </div>
                     ) : null}
                     <div
-                        class="navigation__title"
+                        class={`navigation__title ${
+                            this.hideNavigation
+                                ? 'navigation__title--centered'
+                                : ''
+                        }`}
                         ref={(el) => {
                             this.navTitle = el;
                         }}
                     ></div>
                     {!this.hideNavigation ? (
                         <div class="navigation__right">
-                            <FChip
-                                data={this.setNavChipData()}
-                                type={FChipType.CHOICE}
-                                wrapperClass="navigation__choice"
-                            ></FChip>
+                            <FChip {...this.setChipProps()}></FChip>
                         </div>
                     ) : null}
                 </div>
