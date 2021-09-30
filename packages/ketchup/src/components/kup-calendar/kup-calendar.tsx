@@ -15,9 +15,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import {
-    DataTable,
     Row,
     Column,
+    TableData,
 } from '../kup-data-table/kup-data-table-declarations';
 import { formatToMomentDate } from '../../utils/cell-formatter';
 import moment from 'moment';
@@ -57,10 +57,16 @@ export class KupCalendar {
     /*-------------------------------------------------*/
 
     /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = '';
+    /**
      * Actual data of the calendar.
      * @default null
      */
-    @Prop() data: DataTable = null;
+    @Prop() data: TableData = null;
     /**
      * Column containing events' dates.
      * @default null
@@ -92,7 +98,7 @@ export class KupCalendar {
      */
     @Prop() imageCol: string = null;
     /**
-     * Sets the initial date of the calendar.
+     * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
      * @default null
      */
     @Prop() initialDate: string = null;
@@ -294,25 +300,19 @@ export class KupCalendar {
 
     private onPrev() {
         this.calendar.prev();
-        if (this.calendar && !this.hideNavigation) {
-            this.navTitle.innerText = this.calendar.currentData.viewTitle;
-        }
+        this.navTitle.innerText = this.calendar.currentData.viewTitle;
         this.emitNavEvent();
     }
 
     private onNext() {
         this.calendar.next();
-        if (this.calendar && !this.hideNavigation) {
-            this.navTitle.innerText = this.calendar.currentData.viewTitle;
-        }
+        this.navTitle.innerText = this.calendar.currentData.viewTitle;
         this.emitNavEvent();
     }
 
     private onToday() {
         this.calendar.today();
-        if (this.calendar && !this.hideNavigation) {
-            this.navTitle.innerText = this.calendar.currentData.viewTitle;
-        }
+        this.navTitle.innerText = this.calendar.currentData.viewTitle;
     }
 
     private emitNavEvent() {
@@ -331,6 +331,7 @@ export class KupCalendar {
      * Set the events of the component and instantiates Material Design.
      */
     private setEvents(): void {
+        /*
         const root = this.rootElement.shadowRoot;
         if (root) {
             const prev: HTMLElement = root.querySelector('.navigation__prev');
@@ -365,7 +366,7 @@ export class KupCalendar {
                         this.changeView(KupCalendarViewTypes[value]);
                 }
             }
-        }
+        }*/
     }
 
     /*-------------------------------------------------*/
@@ -456,16 +457,14 @@ export class KupCalendar {
             initialDate: this.initialDate,
             initialView: this.viewType,
             plugins: [
-                interactionPlugin,
                 dayGridPlugin,
+                interactionPlugin,
                 listPlugin,
                 timeGridPlugin,
             ],
         });
         this.calendar.render();
-        if (!this.hideNavigation) {
-            this.navTitle.innerText = this.calendar.currentData.viewTitle;
-        }
+        this.navTitle.innerText = this.calendar.currentData.viewTitle;
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -475,20 +474,21 @@ export class KupCalendar {
 
     componentDidRender() {
         this.setEvents();
-        if (this.calendar && !this.hideNavigation) {
-            this.navTitle.innerText = this.calendar.currentData.viewTitle;
-        }
+        this.navTitle.innerText = this.calendar
+            ? this.calendar.currentData.viewTitle
+            : '';
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         return (
             <div id={componentWrapperId}>
-                {this.hideNavigation ? null : (
-                    <div class="navigation">
+                <div class="navigation">
+                    {!this.hideNavigation ? (
                         <div class="navigation__left">
                             <FButton
                                 icon="chevron_left"
+                                onClick={() => this.onPrev()}
                                 title={this.kupManager.language.translate(
                                     KupLanguageGeneric.PREVIOUS
                                 )}
@@ -509,12 +509,14 @@ export class KupCalendar {
                                 wrapperClass="navigation__next"
                             />
                         </div>
-                        <div
-                            class="navigation__title"
-                            ref={(el) => {
-                                this.navTitle = el;
-                            }}
-                        ></div>
+                    ) : null}
+                    <div
+                        class="navigation__title"
+                        ref={(el) => {
+                            this.navTitle = el;
+                        }}
+                    ></div>
+                    {!this.hideNavigation ? (
                         <div class="navigation__right">
                             <FChip
                                 data={this.setNavChipData()}
@@ -522,8 +524,8 @@ export class KupCalendar {
                                 wrapperClass="navigation__choice"
                             ></FChip>
                         </div>
-                    </div>
-                )}
+                    ) : null}
+                </div>
                 <div
                     class="calendar"
                     ref={(el) => (this.calendarContainer = el)}

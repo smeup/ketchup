@@ -464,6 +464,15 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupCalendarViewTypes: {
+    keys: {
+      DAY: 'timeGridDay',
+      LIST: 'listMonth',
+      MONTH: 'dayGridMonth',
+      WEEK: 'timeGridWeek',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
   KupCardData: {
     keys: {
       'autocomplete?': 'KupAutocomplete[]',

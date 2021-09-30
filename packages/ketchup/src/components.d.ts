@@ -517,10 +517,16 @@ export namespace Components {
     }
     interface KupCalendar {
         /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * Actual data of the calendar.
           * @default null
          */
-        "data": DataTable;
+        "data": TableData;
         /**
           * Column containing events' dates.
           * @default null
@@ -558,7 +564,7 @@ export namespace Components {
          */
         "imageCol": string;
         /**
-          * Sets the initial date of the calendar.
+          * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
           * @default null
          */
         "initialDate": string;
@@ -3627,10 +3633,16 @@ declare namespace LocalJSX {
     }
     interface KupCalendar {
         /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
           * Actual data of the calendar.
           * @default null
          */
-        "data"?: DataTable;
+        "data"?: TableData;
         /**
           * Column containing events' dates.
           * @default null
@@ -3662,7 +3674,7 @@ declare namespace LocalJSX {
          */
         "imageCol"?: string;
         /**
-          * Sets the initial date of the calendar.
+          * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
           * @default null
          */
         "initialDate"?: string;
