@@ -117,6 +117,7 @@ function createChipList(
             <div
                 class={componentClass}
                 data-value={props.data[i].value}
+                onClick={props.onClick[i]}
                 role="row"
             >
                 {iconEl}
