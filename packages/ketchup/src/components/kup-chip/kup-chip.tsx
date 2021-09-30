@@ -51,7 +51,6 @@ export class KupChip {
     @Prop() customStyle: string = '';
     /**
      * List of elements.
-     * @deprecated soon to be replaced by TreeNode[]
      * @default []
      */
     @Prop({ mutable: true }) data: FChipData[] = [];

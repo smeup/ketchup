@@ -82,7 +82,12 @@ function renderButton(props: FButtonProps): VNode {
     };
 
     return (
-        <button type="button" class={classObj} disabled={props.disabled}>
+        <button
+            type="button"
+            class={classObj}
+            disabled={props.disabled}
+            onClick={props.onClick}
+        >
             {props.trailingIcon
                 ? [
                       <span class="button__label">{props.label}</span>,
@@ -121,6 +126,7 @@ function renderIconButton(props: FButtonProps): VNode {
             type="button"
             class={classObj}
             disabled={props.disabled}
+            onClick={props.onClick}
             value={props.checked ? 'on' : 'off'}
         >
             <FImage
