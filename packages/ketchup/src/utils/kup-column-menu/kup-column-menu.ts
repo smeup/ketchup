@@ -209,7 +209,8 @@ export class KupColumnMenu {
         }
         if (
             comp.enableExtraColumns &&
-            dom.ketchup.objects.canHaveExtraColumns(column.obj)
+            (dom.ketchup.objects.canObjHaveExtraColumns(column.obj) ||
+                dom.ketchup.objects.canObjsHaveExtraColumns(column.objs))
         ) {
             props.push({
                 className: 'printable',
@@ -401,7 +402,10 @@ export class KupColumnMenu {
         }
         if (
             (comp.enableExtraColumns &&
-                dom.ketchup.objects.canHaveExtraColumns(column.obj)) ||
+                (dom.ketchup.objects.canObjHaveExtraColumns(column.obj) ||
+                    dom.ketchup.objects.canObjsHaveExtraColumns(
+                        column.objs
+                    ))) ||
             comp.removableColumns
         ) {
             data.push({
