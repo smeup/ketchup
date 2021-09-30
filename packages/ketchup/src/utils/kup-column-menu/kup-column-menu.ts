@@ -127,7 +127,11 @@ export class KupColumnMenu {
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);
         data.datepicker = this.prepIntervalDatePicker(comp, column);
-        data.object = column.obj ? [column.obj] : null;
+        data.object = column.objs
+            ? column.objs
+            : column.obj
+            ? [column.obj]
+            : null;
         data.switch = this.prepSwitch(comp, column);
         if (!currentData) {
             data.tabbar = this.prepTabBar(comp, column);

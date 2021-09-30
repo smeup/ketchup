@@ -102,6 +102,12 @@ export interface CellsHolder {
     [index: string]: Cell;
 }
 
+export interface Obj {
+    t: string;
+    p: string;
+    k: string;
+}
+
 export interface Column {
     name: string;
     title: string;
@@ -114,6 +120,7 @@ export interface Column {
         p: string;
         k: string;
     };
+    objs?: Obj[];
     shape?: string;
     decimals?: number;
     icon?: string;
