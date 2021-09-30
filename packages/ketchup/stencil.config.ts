@@ -20,6 +20,7 @@ export const config: Config = {
                 { src: 'bpmn.html' },
                 { src: 'button.html' },
                 { src: 'button-list.html' },
+                { src: 'calendar.html' },
                 { src: 'card.html' },
                 { src: 'card-performance.html' },
                 { src: 'chart.html' },
