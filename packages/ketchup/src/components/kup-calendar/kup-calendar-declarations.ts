@@ -1,3 +1,6 @@
+import { KupEventPayload } from '../../types/GenericTypes';
+import { Row } from '../kup-data-table/kup-data-table-declarations';
+
 /**
  * Props of the kup-calendar component.
  * Used to export every prop in an object.
@@ -24,4 +27,27 @@ export enum KupCalendarViewTypes {
     LIST = 'listMonth',
     MONTH = 'dayGridMonth',
     WEEK = 'timeGridWeek',
+}
+/**
+ * Events payload.
+ */
+export interface KupCalendarEventClickEventPayload extends KupEventPayload {
+    row: Row;
+}
+export interface KupCalendarDateClickEventPayload extends KupEventPayload {
+    date: Date;
+}
+export interface KupCalendarEventDropEventPayload extends KupEventPayload {
+    fromDate: {
+        start: Date;
+        end: Date;
+    };
+    toDate: {
+        start: Date;
+        end: Date;
+    };
+}
+export interface KupCalendarViewChangeEventPayload extends KupEventPayload {
+    from: Date;
+    to: Date;
 }

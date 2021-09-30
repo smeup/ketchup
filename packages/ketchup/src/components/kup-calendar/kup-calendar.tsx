@@ -31,7 +31,11 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
 import {
+    KupCalendarDateClickEventPayload,
+    KupCalendarEventClickEventPayload,
+    KupCalendarEventDropEventPayload,
     KupCalendarProps,
+    KupCalendarViewChangeEventPayload,
     KupCalendarViewTypes,
 } from './kup-calendar-declarations';
 import { FChip } from '../../f-components/f-chip/f-chip';
@@ -142,7 +146,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarEventClicked: EventEmitter<Row>;
+    kupCalendarEventClicked: EventEmitter<KupCalendarEventClickEventPayload>;
     /**
      * When a date is clicked.
      */
@@ -152,7 +156,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarDateClicked: EventEmitter<Date>;
+    kupCalendarDateClicked: EventEmitter<KupCalendarDateClickEventPayload>;
     /**
      * When a date is dropped.
      */
@@ -162,16 +166,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarEventDropped: EventEmitter<{
-        fromDate: {
-            start: Date;
-            end: Date;
-        };
-        toDate: {
-            start: Date;
-            end: Date;
-        };
-    }>;
+    kupCalendarEventDropped: EventEmitter<KupCalendarEventDropEventPayload>;
     /**
      * When the navigation change
      */
@@ -181,10 +176,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarViewChanged: EventEmitter<{
-        from: Date;
-        to: Date;
-    }>;
+    kupCalendarViewChanged: EventEmitter<KupCalendarViewChangeEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -328,6 +320,8 @@ export class KupCalendar {
             .toDate();
 
         this.kupCalendarViewChanged.emit({
+            comp: this,
+            id: this.rootElement.id,
             from: this.calendar.view.currentStart,
             to,
         });
@@ -349,7 +343,11 @@ export class KupCalendar {
             events: this.getEvents(),
             headerToolbar: false,
             dateClick: ({ date }) => {
-                this.kupCalendarDateClicked.emit(date);
+                this.kupCalendarDateClicked.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    date: date,
+                });
             },
             eventClick: ({ event }) => {
                 this.kupCalendarEventClicked.emit(event.extendedProps.row);
@@ -405,9 +403,10 @@ export class KupCalendar {
                     }
                 }
             },
-            eventDisplay: 'auto',
             eventDrop: ({ event, oldEvent }) => {
                 this.kupCalendarEventDropped.emit({
+                    comp: this,
+                    id: this.rootElement.id,
                     fromDate: {
                         start: oldEvent.start,
                         end: oldEvent.end,
