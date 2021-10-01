@@ -379,8 +379,8 @@ export class KupCalendar {
 
     private updateCalendar() {
         if (this.calendar) {
-            this.navTitle.innerText = this.calendar.currentData.viewTitle;
             this.calendar.setOption('locale', this.getLocale());
+            this.navTitle.innerText = this.calendar.currentData.viewTitle;
             this.calendar.updateSize();
         }
     }

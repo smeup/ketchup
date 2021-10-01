@@ -47,6 +47,7 @@ export class KupDates {
             this.locale = navLangs[0].split('-')[0].toLowerCase();
         }
         dayjs.locale(this.locale);
+        document.dispatchEvent(new CustomEvent('kup-dates-localechange'));
     }
     /**
      *

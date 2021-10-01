@@ -21,10 +21,15 @@ import { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
 import { KupTheme } from '../kup-theme/kup-theme';
 import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import { ResizeObserver } from 'resize-observer';
-import { KupLanguageJSON } from '../kup-language/kup-language-declarations';
+import {
+    KupLanguageDefaults,
+    KupLanguageJSON,
+} from '../kup-language/kup-language-declarations';
 import { KupObjectsJSON } from '../kup-objects/kup-objects-declarations';
 import { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import { KupDates } from '../kup-dates/kup-dates';
+import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -174,6 +179,30 @@ export class KupManager {
             this.hideMagicBox();
         }
     }
+    /**
+     * Sets both locale and language library-wide.
+     * @param {KupDatesLocales} locale - The supported locale.
+     */
+    setLibraryLocalization(locale: KupDatesLocales): void {
+        if (!Object.values(KupDatesLocales).includes(locale)) {
+            this.debug.logMessage(
+                'kup-manager',
+                'Missing locale (' + locale + ')!',
+                KupDebugCategory.ERROR
+            );
+            return;
+        }
+        if (!KupLanguageDefaults[locale]) {
+            this.debug.logMessage(
+                'kup-manager',
+                'Missing language for locale (' + locale + ')!',
+                KupDebugCategory.ERROR
+            );
+            return;
+        }
+        this.dates.setLocale(locale);
+        this.language.set(KupLanguageDefaults[locale]);
+    }
 }
 /**
  * Called by the Ketch.UP components to retrieve the instance of KupManager (or creating a new one when missing).
@@ -188,6 +217,16 @@ export function kupManagerInstance(): KupManager {
         dom.ketchup.theme.set();
         if (dom.ketchup.debug.active) {
             dom.ketchup.debug.toggle(dom.ketchup.debug.active);
+        }
+        if (
+            dom.ketchup.dates.locale !== KupDatesLocales.ENGLISH &&
+            (!overrides.dates || !overrides.dates.locale) &&
+            (!overrides.language || !overrides.language.name) &&
+            KupLanguageDefaults[dom.ketchup.dates.locale]
+        ) {
+            dom.ketchup.language.set(
+                KupLanguageDefaults[dom.ketchup.dates.locale]
+            );
         }
         document.dispatchEvent(new CustomEvent('kup-manager-ready'));
     }

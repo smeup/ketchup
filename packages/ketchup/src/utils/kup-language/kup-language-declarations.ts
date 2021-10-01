@@ -43,12 +43,13 @@ export interface KupLanguageDecode {
  * Default languages available.
  */
 export enum KupLanguageDefaults {
-    CN = 'chinese',
-    EN = 'english',
-    ES = 'spanish',
-    FR = 'french',
-    PL = 'polish',
-    RU = 'russian',
+    cn = 'chinese',
+    en = 'english',
+    es = 'spanish',
+    it = 'italian',
+    fr = 'french',
+    pl = 'polish',
+    ru = 'russian',
 }
 /**
  * Checkbox statuses decodes.

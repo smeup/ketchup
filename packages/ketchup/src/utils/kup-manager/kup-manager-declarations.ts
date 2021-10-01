@@ -38,6 +38,7 @@ export interface KupManager {
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
+    setLibraryLocalization: (locale: string) => void;
 }
 /**
  * Interface for the KupManager utilities.
