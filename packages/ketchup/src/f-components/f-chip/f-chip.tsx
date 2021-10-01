@@ -118,6 +118,8 @@ function createChipList(
                 class={componentClass}
                 data-value={props.data[i].value}
                 onClick={props.onClick[i]}
+                onBlur={props.onBlur[i]}
+                onFocus={props.onFocus[i]}
                 role="row"
             >
                 {iconEl}
@@ -129,6 +131,7 @@ function createChipList(
                         // @ts-ignore
                         value={props.data[i].value}
                         checked={props.data[i].checked}
+                        onIconClick={props.onIconClick[i]}
                     >
                         <span class="chip__text">{props.data[i].label}</span>
                     </span>
@@ -138,6 +141,7 @@ function createChipList(
                         <span
                             tabindex="-1"
                             class="icon-container material-icons chip__icon clear"
+
                         ></span>
                     </span>
                 ) : undefined}

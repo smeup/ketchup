@@ -289,6 +289,9 @@ export class KupButton {
             styling: this.styling,
             toggable: this.toggable,
             trailingIcon: this.trailingIcon,
+            onBlur: () => this.onKupBlur,
+            onClick: () => this.onKupClick,
+            onFocus: () => this.onKupFocus,
         };
 
         if (!this.label && !this.icon) {

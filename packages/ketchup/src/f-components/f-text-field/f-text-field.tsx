@@ -18,6 +18,12 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
             {...props.dataSet}
             id={props.id}
             title={props.title}
+            onBlur={props.onBlur}
+            onClick={props.onClick}
+            onChange={props.onChange}
+            onFocus={props.onFocus}
+            onInput={props.onInput}
+            onKeyDown={props.onKeyDown}
         >
             {props.leadingLabel || props.trailingLabel ? (
                 <div

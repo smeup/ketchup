@@ -7,4 +7,8 @@ export interface FSwitchProps extends FComponent {
     disabled?: boolean;
     label?: string;
     leadingLabel?: boolean;
+    onBlur?: (event: FocusEvent) => void;
+    onClick?: (event: MouseEvent) => void;
+    onChange?: (event: Event) => void;
+    onFocus?: (event: FocusEvent) => void;
 }

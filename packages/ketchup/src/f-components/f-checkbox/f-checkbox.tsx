@@ -40,6 +40,10 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                         class="checkbox__native-control"
                         checked={props.checked}
                         disabled={props.disabled}
+                        onClick={props.onClick}
+                        onBlur={props.onBlur}
+                        onChange={props.onChange}
+                        onFocus={props.onFocus}
                         {...indeterminateAttr}
                         value={props.checked ? 'on' : 'off'}
                     />

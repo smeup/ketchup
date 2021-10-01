@@ -127,6 +127,8 @@ function renderIconButton(props: FButtonProps): VNode {
             class={classObj}
             disabled={props.disabled}
             onClick={props.onClick}
+            onBlur={props.onBlur}
+            onFocus={props.onFocus}
             value={props.checked ? 'on' : 'off'}
         >
             <FImage
