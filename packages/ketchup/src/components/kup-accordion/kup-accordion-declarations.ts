@@ -29,6 +29,11 @@ export interface KupAccordionData {
     rows: Row[];
 }
 
+export enum KupAccordionExpansionMode {
+    SINGLE = 'single',
+    MULTIPLE = 'multiple',
+}
+
 export interface KupAccordionItemSelectedEventPayload extends KupEventPayload {
     itemName: string;
 }
@@ -54,9 +59,4 @@ export interface KupAccordionItemCollapsedEventPayload extends KupEventPayload {
 export interface KupAccordionTreeNodeCollapsedEventPayload
     extends KupTreeNodeCollapseEventPayload {
     itemName: string;
-}
-
-export enum KupAccordionExpansionMode {
-    SINGLE = 'single',
-    MULTIPLE = 'multiple',
 }

@@ -43,6 +43,10 @@ components.data = [
         value: 'button-list.html',
     },
     {
+        text: 'Calendar',
+        value: 'calendar.html',
+    },
+    {
         text: 'Card',
         value: 'card.html',
     },
@@ -158,6 +162,10 @@ performances.data = [
         text: 'Data table',
         value: 'data-table-performance.html',
     },
+    {
+      text: 'Tree',
+      value: 'tree-performance.html',
+  },
 ];
 // Setting up events
 var ctrlKey = false;

@@ -8,15 +8,16 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionExpansionMode, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
-import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
+import { KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -515,17 +516,82 @@ export namespace Components {
         "styling": FButtonStyling;
     }
     interface KupCalendar {
-        "data": DataTable;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Actual data of the calendar.
+          * @default null
+         */
+        "data": TableData;
+        /**
+          * Column containing events' dates.
+          * @default null
+         */
         "dateCol": string;
+        /**
+          * Column containing events' descriptions.
+          * @default null
+         */
         "descrCol": string;
+        /**
+          * Column containing events' ending time.
+          * @default null
+         */
         "endCol": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * When disabled, the navigation toolbar won't be displayed.
+          * @default false
+         */
         "hideNavigation": boolean;
+        /**
+          * Column containing events' icons. There can be multiple icons, divided by ";".
+          * @default null
+         */
         "iconCol": string;
+        /**
+          * Column containing events' images. There can be multiple images, divided by ";".
+          * @default null
+         */
         "imageCol": string;
+        /**
+          * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
+          * @default null
+         */
         "initialDate": string;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Column containing events' starting time.
+          * @default null
+         */
         "startCol": string;
+        /**
+          * Column containing events' CSS styles.
+          * @default null
+         */
         "styleCol": string;
-        "weekView": boolean;
+        /**
+          * Type of the view.
+          * @default KupCalendarViewTypes.MONTH
+         */
+        "viewType": KupCalendarViewTypes;
     }
     interface KupCard {
         /**
@@ -769,7 +835,6 @@ export namespace Components {
         "customStyle": string;
         /**
           * List of elements.
-          * @deprecated soon to be replaced by TreeNode[]
           * @default []
          */
         "data": FChipData[];
@@ -2640,6 +2705,11 @@ export namespace Components {
     }
     interface KupTree {
         /**
+          * When enabled, the first level of depth will give an accordion look to nodes.
+          * @default false
+         */
+        "asAccordion": boolean;
+        /**
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode": boolean;
@@ -2689,6 +2759,11 @@ export namespace Components {
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
         "expanded": boolean;
+        /**
+          * Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.
+          * @default KupTreeExpansionMode.DROPDOWN
+         */
+        "expansionMode": KupTreeExpansionMode;
         /**
           * List of filters set by the user.
          */
@@ -3557,45 +3632,83 @@ declare namespace LocalJSX {
         "styling"?: FButtonStyling;
     }
     interface KupCalendar {
-        "data"?: DataTable;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Actual data of the calendar.
+          * @default null
+         */
+        "data"?: TableData;
+        /**
+          * Column containing events' dates.
+          * @default null
+         */
         "dateCol"?: string;
+        /**
+          * Column containing events' descriptions.
+          * @default null
+         */
         "descrCol"?: string;
+        /**
+          * Column containing events' ending time.
+          * @default null
+         */
         "endCol"?: string;
+        /**
+          * When disabled, the navigation toolbar won't be displayed.
+          * @default false
+         */
         "hideNavigation"?: boolean;
+        /**
+          * Column containing events' icons. There can be multiple icons, divided by ";".
+          * @default null
+         */
         "iconCol"?: string;
+        /**
+          * Column containing events' images. There can be multiple images, divided by ";".
+          * @default null
+         */
         "imageCol"?: string;
+        /**
+          * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
+          * @default null
+         */
         "initialDate"?: string;
         /**
-          * When a date is clicked
+          * When a date is clicked.
          */
-        "onKupCalendarDateClicked"?: (event: CustomEvent<Date>) => void;
+        "onKup-calendar-dateclick"?: (event: CustomEvent<KupCalendarDateClickEventPayload>) => void;
         /**
-          * When an event is clicked
+          * When an event is clicked.
          */
-        "onKupCalendarEventClicked"?: (event: CustomEvent<Row>) => void;
+        "onKup-calendar-eventclick"?: (event: CustomEvent<KupCalendarEventClickEventPayload>) => void;
         /**
-          * When a date is dropped
+          * When a date is dropped.
          */
-        "onKupCalendarEventDropped"?: (event: CustomEvent<{
-        fromDate: {
-            start: Date;
-            end: Date;
-        };
-        toDate: {
-            start: Date;
-            end: Date;
-        };
-    }>) => void;
+        "onKup-calendar-eventdrop"?: (event: CustomEvent<KupCalendarEventDropEventPayload>) => void;
         /**
           * When the navigation change
          */
-        "onKupCalendarViewChanged"?: (event: CustomEvent<{
-        from: Date;
-        to: Date;
-    }>) => void;
+        "onKup-calendar-viewchange"?: (event: CustomEvent<KupCalendarViewChangeEventPayload>) => void;
+        /**
+          * Column containing events' starting time.
+          * @default null
+         */
         "startCol"?: string;
+        /**
+          * Column containing events' CSS styles.
+          * @default null
+         */
         "styleCol"?: string;
-        "weekView"?: boolean;
+        /**
+          * Type of the view.
+          * @default KupCalendarViewTypes.MONTH
+         */
+        "viewType"?: KupCalendarViewTypes;
     }
     interface KupCard {
         /**
@@ -3810,7 +3923,6 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * List of elements.
-          * @deprecated soon to be replaced by TreeNode[]
           * @default []
          */
         "data"?: FChipData[];
@@ -5398,6 +5510,11 @@ declare namespace LocalJSX {
     }
     interface KupTree {
         /**
+          * When enabled, the first level of depth will give an accordion look to nodes.
+          * @default false
+         */
+        "asAccordion"?: boolean;
+        /**
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode"?: boolean;
@@ -5435,6 +5552,11 @@ declare namespace LocalJSX {
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
         "expanded"?: boolean;
+        /**
+          * Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.
+          * @default KupTreeExpansionMode.DROPDOWN
+         */
+        "expansionMode"?: KupTreeExpansionMode;
         /**
           * List of filters set by the user.
          */

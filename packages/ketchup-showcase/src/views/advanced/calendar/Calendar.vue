@@ -1,33 +1,33 @@
 <template>
   <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
-      <calendar-basic></calendar-basic>
+      <calendar-demo></calendar-demo>
     </template>
     <template v-slot:1>
-      <calendar-events></calendar-events>
+      <calendar-basic></calendar-basic>
     </template>
     <template v-slot:2>
-      <calendar-icons></calendar-icons>
+      <calendar-styling></calendar-styling>
     </template>
     <template v-slot:3>
-      <calendar-style></calendar-style>
+      <calendar-event-customization></calendar-event-customization>
     </template>
   </comp>
 </template>
 
 <script>
 import CalendarBasic from '@/views/advanced/calendar/examples/CalendarBasic';
-import CalendarEvents from '@/views/advanced/calendar/examples/CalendarEvents';
-import CalendarIcons from '@/views/advanced/calendar/examples/CalendarIcons';
-import CalendarStyle from '@/views/advanced/calendar/examples/CalendarStyle';
+import CalendarDemo from '@/views/advanced/calendar/examples/CalendarDemo';
+import CalendarEventCustomization from '@/views/advanced/calendar/examples/CalendarEventCustomization';
+import CalendarStyling from '@/views/advanced/calendar/examples/CalendarStyling';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
     CalendarBasic,
-    CalendarEvents,
-    CalendarIcons,
-    CalendarStyle,
+    CalendarDemo,
+    CalendarStyling,
+    CalendarEventCustomization,
     Comp,
   },
   data() {
@@ -35,7 +35,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-calendar',
       headtitle: 'Calendar',
-      titles: ['Basic usage', 'With events', 'With icons', 'Style'],
+      titles: ['Playground', 'Basic usage', 'Styling', 'Event customization'],
     };
   },
 };

@@ -22,6 +22,10 @@ export default {
     return {
       demoClasses: [
         {
+          class: 'kup-borderless',
+          description: 'Displays the component without borders.',
+        },
+        {
           class: 'kup-danger',
           description:
             'The component will be rendered using the danger color of the app.',
@@ -123,6 +127,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'asAccordion',
+          description:
+            'When enabled, the first level of depth will give an accordion look to nodes.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'autoSelectionNodeMode',
           description: 'Auto selection of the node.',
           type: 'boolean',
@@ -177,6 +189,14 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'expansionMode',
+          description:
+            "Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.",
+          type: 'KupTreeExpansionMode',
+          default: 'KupTreeExpansionMode.DROPDOWN',
+          try: 'field',
         },
         {
           prop: 'globalFilter',
