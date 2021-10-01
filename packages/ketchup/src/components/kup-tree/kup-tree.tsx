@@ -2444,7 +2444,6 @@ export class KupTree {
                 <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
-                        isClearable={true}
                         label={this.kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
@@ -2457,9 +2456,6 @@ export class KupTree {
                                 600
                             );
                         }}
-                        onkup-textfield-cleariconclick={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
                     ></kup-text-field>
                 </div>
             );

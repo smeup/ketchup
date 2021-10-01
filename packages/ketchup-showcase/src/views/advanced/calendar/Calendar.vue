@@ -7,13 +7,10 @@
       <calendar-basic></calendar-basic>
     </template>
     <template v-slot:2>
-      <calendar-events></calendar-events>
+      <calendar-styling></calendar-styling>
     </template>
     <template v-slot:3>
-      <calendar-icons></calendar-icons>
-    </template>
-    <template v-slot:4>
-      <calendar-style></calendar-style>
+      <calendar-event-customization></calendar-event-customization>
     </template>
   </comp>
 </template>
@@ -21,18 +18,16 @@
 <script>
 import CalendarBasic from '@/views/advanced/calendar/examples/CalendarBasic';
 import CalendarDemo from '@/views/advanced/calendar/examples/CalendarDemo';
-import CalendarEvents from '@/views/advanced/calendar/examples/CalendarEvents';
-import CalendarIcons from '@/views/advanced/calendar/examples/CalendarIcons';
-import CalendarStyle from '@/views/advanced/calendar/examples/CalendarStyle';
+import CalendarEventCustomization from '@/views/advanced/calendar/examples/CalendarEventCustomization';
+import CalendarStyling from '@/views/advanced/calendar/examples/CalendarStyling';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
     CalendarBasic,
     CalendarDemo,
-    CalendarEvents,
-    CalendarIcons,
-    CalendarStyle,
+    CalendarStyling,
+    CalendarEventCustomization,
     Comp,
   },
   data() {
@@ -40,13 +35,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-calendar',
       headtitle: 'Calendar',
-      titles: [
-        'Playground',
-        'Basic usage',
-        'With events',
-        'With icons',
-        'Style',
-      ],
+      titles: ['Playground', 'Basic usage', 'Styling', 'Event customization'],
     };
   },
 };

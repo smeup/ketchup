@@ -51,6 +51,7 @@ export const config: Config = {
                 { src: 'time-picker.html' },
                 { src: 'text-field.html' },
                 { src: 'tooltip.html' },
+                { src: 'tree-performance.html' },
                 { src: 'tree.html' },
             ],
             serviceWorker: null, // disable service workers

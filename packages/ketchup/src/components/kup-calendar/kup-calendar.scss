@@ -69,12 +69,14 @@
   }
 
   &__title {
-    font-size: 1.75em;
-    font-weight: bold;
-    margin: 0;
+    font-size: 1.25em;
+    font-weight: 400;
+    letter-spacing: 0.1892857em;
+    margin: 0px;
+    padding: 0px 0.5em;
 
     &--centered {
-      padding: 0.5em 0;
+      padding: 0.35em 0;
       text-align: center;
       width: 100%;
     }

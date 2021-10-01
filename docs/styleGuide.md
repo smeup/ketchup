@@ -13,7 +13,12 @@
 
 #### Custom events
 
-1. Must be written following the kebab-case style and prefixed with `kup-componentname` (i.e.: `kup-buttonlist-click`);
+1. Must be written following the kebab-case style and prefixed with `kup-componentname` (i.e.: `kup-buttonlist-click`).
+
+#### Theme variables
+
+1. Must be written following the kebab-case style and prefixed with `--kup-` (i.e.: `--kup-drawer-width`);
+2. Color variables must always have the `-color`suffix.
 
 ## Code structure
 
@@ -321,10 +326,35 @@ The markup returned by the render() method should be like this:
 
 The definition of `Host` makes it easy to add styles, classes or events directly on the root element. The `componentWrapperId` wrapper helps specificity when defining styles, for example when 3rd party stylesheets must be overridden or when a customStyle must be applied.
 
-### CSS variables
+### Variables' declaration
 
-In order to streamline the look of each component, CSS variables should be declared inside themes and should be used across the library. More info about themes can be found [here](https://ketchup.smeup.com/ketchup-showcase/#/theming).
+When declaring variables, always use `const` for constants and `let` for dynamic variables.
 
-There are also internal variables but they are mostly used for runtime needs (i.e.. kup-data-table's fixed rows feature uses CSS variables to set the top property of cells)
+### Typing
 
-In relation to themes, it is important to prevent bloating: each new theme-related CSS variable should be added with caution.
+Avoid using the `any` type whenever possible, otherwise you're losing all the benefits of TypeScript.
+
+## JSDoc
+
+All public methods and props should be documented using JSDoc.  
+Here's an example of a method:
+
+```
+    /**
+     * Converts an HSL color to its RGB values.
+     * @param {number} h - Hue (range [0, 360)).
+     * @param {number} s - Saturation (range [0, 1)).
+     * @param {number} l - Lightness (range [0, 1)).
+     * @returns {Array} RGB values.
+     */
+```
+
+And an example of a prop:
+
+```
+    /**
+     * Text displayed by the nav bar.
+     * @default null
+     */
+    @Prop() label: string = null;
+```

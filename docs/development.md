@@ -5,24 +5,25 @@ This document contains information for developers who want to contribute to the 
 ## Requirements
 
 -   Git
--   NodeJs (11.10.1 suggested)
+-   NodeJs (14.5.0 suggested)
 
 ## Getting started
 
--   Download project from GitHub
+-   Clone the repository from GitHub:
 
 ```
 git clone https://github.com/smeup/ketchup.git
 ```
 
--   Install and bootstrap Lerna
+-   Install the dependencies:
 
 ```
+// From the root of the repository
 npm install
-npm run lerna -- bootstrap
+npm run lerna bootstrap
 ```
 
--   Compile and minifies Ketch.UP library for production
+-   Compile and minifies Ketch.UP library for production:
 
 ```
 npm run k:build
@@ -36,19 +37,19 @@ npm run ksc:serve
 
 ## Other useful commands
 
--   Clean up the project
+-   Clean up the project's dependencies:
 
 ```
 npm run lerna -- clean
 ```
 
--   Start an incorporated minimal showcase inside ketchup package (f you want startup this showcase inside a browser which do not fully support web components nativelyadd add --es5 to compile components into an ECMAScript 5 compatible version)
+-   Start the development environment:
 
 ```
 npm run k:start
 ```
 
--   Compile Ketch.UP Showcase for production
+-   Compile Ketch.UP Showcase for production:
 
 ```
 npm run ksc:build

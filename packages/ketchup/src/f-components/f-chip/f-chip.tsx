@@ -119,6 +119,9 @@ function createChipList(
                 data-value={props.data[i].value}
                 onBlur={props.onBlur[i]}
                 onFocus={props.onFocus[i]}
+                onClick={
+                    props.onClick && props.onClick[i] ? props.onClick[i] : null
+                }
                 role="row"
             >
                 {iconEl}

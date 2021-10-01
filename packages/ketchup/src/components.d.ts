@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionExpansionMode, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, Row, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
@@ -17,7 +17,7 @@ import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
-import { KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
+import { KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -3681,31 +3681,19 @@ declare namespace LocalJSX {
         /**
           * When a date is clicked.
          */
-        "onKup-calendar-dateclick"?: (event: CustomEvent<Date>) => void;
+        "onKup-calendar-dateclick"?: (event: CustomEvent<KupCalendarDateClickEventPayload>) => void;
         /**
           * When an event is clicked.
          */
-        "onKup-calendar-eventclick"?: (event: CustomEvent<Row>) => void;
+        "onKup-calendar-eventclick"?: (event: CustomEvent<KupCalendarEventClickEventPayload>) => void;
         /**
           * When a date is dropped.
          */
-        "onKup-calendar-eventdrop"?: (event: CustomEvent<{
-        fromDate: {
-            start: Date;
-            end: Date;
-        };
-        toDate: {
-            start: Date;
-            end: Date;
-        };
-    }>) => void;
+        "onKup-calendar-eventdrop"?: (event: CustomEvent<KupCalendarEventDropEventPayload>) => void;
         /**
           * When the navigation change
          */
-        "onKup-calendar-viewchange"?: (event: CustomEvent<{
-        from: Date;
-        to: Date;
-    }>) => void;
+        "onKup-calendar-viewchange"?: (event: CustomEvent<KupCalendarViewChangeEventPayload>) => void;
         /**
           * Column containing events' starting time.
           * @default null
