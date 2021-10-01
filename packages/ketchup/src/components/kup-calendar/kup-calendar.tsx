@@ -262,39 +262,30 @@ export class KupCalendar {
 
         return this.getRows().map((row) => {
             const cell = row.cells[this.dateCol];
-            const startDate = cell.obj
-                ? this.kupManager.dates.toDayjs(
-                      this.kupManager.objects.parseDate(cell.obj)
-                  )
-                : this.kupManager.dates.toDayjs(cell.value, 'YYYY/MM/DD');
-            const endDate = cell.obj
-                ? this.kupManager.dates.toDayjs(
-                      this.kupManager.objects.parseDate(cell.obj),
-                      'YYYY/MM/DD'
-                  )
-                : this.kupManager.dates.toDayjs(cell.value, 'YYYY/MM/DD');
+            let startDate = this.kupManager.dates.toDayjs(cell.value);
+            let endDate = this.kupManager.dates.toDayjs(cell.value);
 
             if (isHourRange) {
                 const startCell = row.cells[this.startCol];
                 const endCell = row.cells[this.endCol];
 
                 if (startCell && endCell) {
-                    const momentStart = this.kupManager.dates.toDayjs(
+                    const dayjsStart = this.kupManager.dates.toDayjs(
                         startCell.value,
                         'HH:mm:ss'
                     );
-                    const momentEnd = this.kupManager.dates.toDayjs(
+                    const dayjsEnd = this.kupManager.dates.toDayjs(
                         endCell.value,
                         'HH:mm:ss'
                     );
 
-                    startDate.hour(momentStart.hour());
-                    startDate.minute(momentStart.minute());
-                    startDate.second(momentStart.second());
+                    startDate = startDate.hour(dayjsStart.hour());
+                    startDate = startDate.minute(dayjsStart.minute());
+                    startDate = startDate.second(dayjsStart.second());
 
-                    endDate.hour(momentEnd.hour());
-                    endDate.minute(momentEnd.minute());
-                    endDate.second(momentEnd.second());
+                    endDate = endDate.hour(dayjsEnd.hour());
+                    endDate = endDate.minute(dayjsEnd.minute());
+                    endDate = endDate.second(dayjsEnd.second());
                 }
             }
 
