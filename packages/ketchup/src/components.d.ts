@@ -573,6 +573,10 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */

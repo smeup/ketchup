@@ -143,6 +143,7 @@ export class KupCalendar {
     private calendarContainer: HTMLDivElement = null;
     private kupManager: KupManager = kupManagerInstance();
     private navTitle: HTMLDivElement = null;
+    private resizeTimeout: number = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -208,6 +209,16 @@ export class KupCalendar {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            this.refresh();
+        }, 300);
     }
     /**
      * Sets the props to the component.
@@ -484,6 +495,7 @@ export class KupCalendar {
         });
         this.calendar.render();
         this.updateCalendar();
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -557,6 +569,7 @@ export class KupCalendar {
             this.calendar.destroy();
         }
         this.kupManager.language.unregister(this);
+        this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);
     }
 }
