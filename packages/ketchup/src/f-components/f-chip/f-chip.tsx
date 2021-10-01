@@ -117,7 +117,6 @@ function createChipList(
             <div
                 class={componentClass}
                 data-value={props.data[i].value}
-                onClick={props.onClick[i]}
                 onBlur={props.onBlur[i]}
                 onFocus={props.onFocus[i]}
                 role="row"
