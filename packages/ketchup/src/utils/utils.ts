@@ -1,6 +1,5 @@
 import get from 'lodash/get';
 import numeral from 'numeral';
-//import moment from 'moment';
 
 import { GenericObject, Identifiable } from '../types/GenericTypes';
 import { KupDates } from './kup-dates/kup-dates';
@@ -413,57 +412,6 @@ export function _numberToString(
     return n.toLocaleString(locale, f);
 }
 
-// /**
-//  *
-//  * @param value date as string
-//  * @param inputFormat date format
-//  * @param outputFormat date format to return
-//  * @returns date as string with format changed
-//  */
-// export function changeDateTimeFormat(
-//     value: string,
-//     inputFormat: string,
-//     outputFormat: string
-// ): string {
-//     let m = moment(value, inputFormat);
-//     if (m.isValid()) {
-//         let str = m.format(outputFormat);
-//         return str;
-//     } else {
-//         return '';
-//     }
-// }
-
-// /**
-//  * @param value date as string
-//  * @param defaultValueFormat
-//  * @param valueDateFormat date format (default ISO)
-//  * @return Date object
-//  **/
-// export function unformatDateTime(
-//     value: string,
-//     defaultValueFormat: string,
-//     valueFormat?: string
-// ): Date {
-//     if (valueFormat == null || valueFormat.trim() == '') {
-//         valueFormat = defaultValueFormat;
-//     }
-//     return moment(value, valueFormat).toDate();
-// }
-
-/**
- * @param date date as Date object
- * @return date as string, formatted by actual browser locale
- **/
-export function formatDate(date: Date): string {
-    const options: Intl.DateTimeFormatOptions = {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-    };
-    return date.toLocaleDateString(kupDates.getLocale(), options);
-}
-
 /**
  * @param time time as Date object
  * @param manageSeconds flag to set seconds managing
@@ -481,34 +429,6 @@ export function formatTime(time: Date, manageSeconds: boolean): string {
     return time.toLocaleTimeString(kupDates.getLocale() + '-u-hc-h23', options);
 }
 
-// /**
-//  * @param value date string, formatted by actual browser locale
-//  * @returns true if date string in input is a valid date
-//  */
-// export function isValidFormattedStringDate(value: string): boolean {
-//     return isValidStringDate(value, null, false);
-// }
-
-// /**
-//  * @param value date string
-//  * @param valueDateFormat date format (default actual browser locale)
-//  * @returns true if date string in input is a valid date
-//  */
-// export function isValidStringDate(
-//     value: string | object, // TODO check why with the moment object and the toString the method return that the value is invalid
-//     valueDateFormat?: string,
-//     strictValidation?: boolean
-// ): boolean {
-//     if (valueDateFormat == null) {
-//         valueDateFormat = getCurrentDateFormatFromBrowserLocale();
-//     }
-//     if (strictValidation == undefined) {
-//         strictValidation = true;
-//     }
-//     let m = moment(value, valueDateFormat, strictValidation);
-//     return m.isValid();
-// }
-
 /**
  * @param value time string, formatted by actual browser locale
  * @returns true if time string in input is a valid time
@@ -520,19 +440,6 @@ export function isValidFormattedStringTime(
     let format = getCurrentTimeFormatFromBrowserLocale(manageSeconds);
     return kupDates.isValid(value, format, true);
 }
-
-// /**
-//  * @param value date as string, formatted by actual browser locale
-//  * @returns date as string, formatted ISO
-//  **/
-// export function formattedStringToDefaultUnformattedStringDate(
-//     value: string
-// ): string {
-//     return formattedStringToCustomUnformattedStringDate(
-//         value,
-//         ISO_DEFAULT_DATE_FORMAT
-//     );
-// }
 
 /**
  * @param value time as string, formatted by actual browser locale
@@ -560,22 +467,6 @@ export function formattedStringToDefaultUnformattedStringTimestamp(
     );
 }
 
-// /**
-//  * @param value date as string, formatted by actual browser locale
-//  * @param outputFormat date format to return
-//  * @returns date as string, formatted
-//  **/
-// export function formattedStringToCustomUnformattedStringDate(
-//     value: string,
-//     outputFormat: string
-// ): string {
-//     return changeDateTimeFormat(
-//         value,
-//         getCurrentDateFormatFromBrowserLocale(),
-//         outputFormat
-//     );
-// }
-
 /**
  * @param value time as string, formatted by actual browser locale
  * @param outputFormat time format to return
@@ -598,76 +489,6 @@ export function formattedStringToCustomUnformattedStringTime(
         return '';
     }
 }
-
-// /**
-//  * @param value date as string, formatted ISO
-//  * @param valueDateFormat date format (default ISO)
-//  * @param _customedFormat date format from smeupObject
-//  * @returns date as string, formatted by actual browser locale
-//  **/
-// export function unformattedStringToFormattedStringDate(
-//     value: string,
-//     valueDateFormat?: string,
-//     _customedFormat?: string
-// ): string {
-//     const options: Intl.DateTimeFormatOptions = {
-//         day: '2-digit',
-//         month: '2-digit',
-//         year: 'numeric',
-//     };
-
-//     let date = unformatDateTime(
-//         value,
-//         ISO_DEFAULT_DATE_FORMAT,
-//         valueDateFormat
-//     );
-
-//     // disabled manage of customedOutputFormat
-//     //return formatByCustomedOutputDateFormat(date, options, customedFormat);
-//     return formatByCustomedOutputDateFormat(date, options, null);
-// }
-
-// function formatByCustomedOutputDateFormat(
-//     date: Date,
-//     options: Intl.DateTimeFormatOptions,
-//     customedFormat: string
-// ): string {
-//     if (customedFormat == null) {
-//         return date.toLocaleDateString(getCurrentLocale(), options);
-//     }
-
-//     switch (customedFormat) {
-//         case 'D8*YYMD': {
-//             options.year = '2-digit';
-//             break;
-//         }
-//         case 'D8*YMD': {
-//             return moment(date).format('YYMMDD');
-//         }
-//         case 'D8*DMY': {
-//             return moment(date).format('DDMMYY');
-//         }
-//         case 'D8*DMYY': {
-//             return moment(date).format('DDMMYYYY');
-//         }
-//         case 'D8*CYMD': {
-//             return moment(date).format('EYYMMDD');
-//         }
-//         case 'D8*ODETTE': {
-//             //???
-//             break;
-//         }
-//         case 'D8*JULY': {
-//             //???
-//             break;
-//         }
-//         case 'D8*JULYY': {
-//             //???
-//             break;
-//         }
-//     }
-//     return date.toLocaleDateString(getCurrentLocale(), options);
-// }
 
 /**
  * @param value time as string, formatted ISO

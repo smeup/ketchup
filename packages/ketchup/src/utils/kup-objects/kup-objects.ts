@@ -1,9 +1,11 @@
 import type { Dayjs } from 'dayjs';
+import { KupDates } from '../kup-dates/kup-dates';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupObj, KupObjectsJSON } from './kup-objects-declarations';
 import * as objJson from './obj.json';
 
 const dom: KupDom = document.documentElement as KupDom;
+const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 
 /**
  * Handles objects definition and validation.
@@ -299,8 +301,8 @@ export class KupObjects {
      */
     parseDate(obj: KupObj): Dayjs {
         if (obj.t === 'D8' && obj.p === '*DMYY') {
-            return dom.ketchup.dates.toDayjs(obj.k, 'DDMMYYYY');
+            return kupDates.toDayjs(obj.k, 'DDMMYYYY');
         }
-        return dom.ketchup.dates.toDayjs(obj.k);
+        return kupDates.toDayjs(obj.k);
     }
 }
