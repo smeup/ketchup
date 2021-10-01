@@ -8,7 +8,7 @@ import 'dayjs/locale/it';
 import 'dayjs/locale/pl';
 import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
-import { KupDatesFormats, KupDatesNormalize } from './kup-dates-declarations';
+import { KupDatesNormalize } from './kup-dates-declarations';
 
 /**
  * Handles operations and formatting of dates.

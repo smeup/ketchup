@@ -9,11 +9,23 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import { Calendar, EventInput, EventSourceInput } from '@fullcalendar/core';
+import {
+    Calendar,
+    EventInput,
+    EventSourceInput,
+    LocaleInput,
+} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import enLocale from '@fullcalendar/core/locales/en-gb';
+import esLocale from '@fullcalendar/core/locales/es';
+import frLocale from '@fullcalendar/core/locales/fr';
+import itLocale from '@fullcalendar/core/locales/it';
+import plLocale from '@fullcalendar/core/locales/pl';
+import ruLocale from '@fullcalendar/core/locales/ru';
+import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {
     Row,
     Column,
@@ -43,6 +55,7 @@ import {
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupDatesLocales } from '../../utils/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -223,6 +236,25 @@ export class KupCalendar {
         return [];
     }
 
+    private getLocale(): LocaleInput {
+        switch (this.kupManager.dates.locale) {
+            case KupDatesLocales.CHINESE:
+                return zhLocale;
+            case KupDatesLocales.FRENCH:
+                return frLocale;
+            case KupDatesLocales.ITALIAN:
+                return itLocale;
+            case KupDatesLocales.POLISH:
+                return plLocale;
+            case KupDatesLocales.RUSSIAN:
+                return ruLocale;
+            case KupDatesLocales.SPANISH:
+                return esLocale;
+            default:
+                return enLocale;
+        }
+    }
+
     private getRows(): Row[] {
         if (this.data && this.data.rows) {
             return this.data.rows;
@@ -305,19 +337,19 @@ export class KupCalendar {
 
     private onPrev() {
         this.calendar.prev();
-        this.updateTitle();
+        this.updateCalendar();
         this.emitNavEvent();
     }
 
     private onNext() {
         this.calendar.next();
-        this.updateTitle();
+        this.updateCalendar();
         this.emitNavEvent();
     }
 
     private onToday() {
         this.calendar.today();
-        this.updateTitle();
+        this.updateCalendar();
     }
 
     private emitNavEvent() {
@@ -334,9 +366,10 @@ export class KupCalendar {
         });
     }
 
-    private updateTitle() {
+    private updateCalendar() {
         if (this.calendar) {
             this.navTitle.innerText = this.calendar.currentData.viewTitle;
+            this.calendar.setOption('locale', this.getLocale());
             this.calendar.updateSize();
         }
     }
@@ -353,9 +386,6 @@ export class KupCalendar {
 
     componentDidLoad() {
         this.calendar = new Calendar(this.calendarContainer, {
-            editable: true,
-            events: this.getEvents(),
-            headerToolbar: false,
             dateClick: ({ date }) => {
                 this.kupCalendarDateClicked.emit({
                     comp: this,
@@ -363,6 +393,7 @@ export class KupCalendar {
                     date: date,
                 });
             },
+            editable: true,
             eventClick: ({ event }) => {
                 this.kupCalendarEventClicked.emit(event.extendedProps.row);
             },
@@ -431,8 +462,19 @@ export class KupCalendar {
                     },
                 });
             },
+            events: this.getEvents(),
+            headerToolbar: false,
             initialDate: this.initialDate,
             initialView: this.viewType,
+            locale: this.getLocale(),
+            locales: [
+                esLocale,
+                frLocale,
+                itLocale,
+                plLocale,
+                ruLocale,
+                zhLocale,
+            ],
             plugins: [
                 dayGridPlugin,
                 interactionPlugin,
@@ -441,7 +483,7 @@ export class KupCalendar {
             ],
         });
         this.calendar.render();
-        this.updateTitle();
+        this.updateCalendar();
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -450,7 +492,7 @@ export class KupCalendar {
     }
 
     componentDidRender() {
-        this.updateTitle();
+        this.updateCalendar();
         this.kupManager.debug.logRender(this, true);
     }
 
