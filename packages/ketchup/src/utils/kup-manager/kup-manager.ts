@@ -218,16 +218,6 @@ export function kupManagerInstance(): KupManager {
         if (dom.ketchup.debug.active) {
             dom.ketchup.debug.toggle(dom.ketchup.debug.active);
         }
-        if (
-            dom.ketchup.dates.locale !== KupDatesLocales.ENGLISH &&
-            (!overrides.dates || !overrides.dates.locale) &&
-            (!overrides.language || !overrides.language.name) &&
-            KupLanguageDefaults[dom.ketchup.dates.locale]
-        ) {
-            dom.ketchup.language.set(
-                KupLanguageDefaults[dom.ketchup.dates.locale]
-            );
-        }
         document.dispatchEvent(new CustomEvent('kup-manager-ready'));
     }
     return dom.ketchup;

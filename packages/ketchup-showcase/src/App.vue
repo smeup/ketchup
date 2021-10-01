@@ -158,6 +158,9 @@ export default {
     navbar = document.getElementById('app__nav-bar') as HTMLKupNavBarElement;
     spinnerLabel = document.querySelector('.spinner__label');
     theme = document.getElementById('theme-switch') as HTMLKupSwitchElement;
+    document.addEventListener('kup-manager-ready', () => {
+      dom.ketchup.setLibraryLocalization(dom.ketchup.dates.locale);
+    });
     document.addEventListener('kup-drawer-ready', () => this.removeSpinner());
     document.addEventListener('kup-debug-active', () => {
       debug.checked = true;
