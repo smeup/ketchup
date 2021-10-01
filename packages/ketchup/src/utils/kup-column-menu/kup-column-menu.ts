@@ -127,7 +127,11 @@ export class KupColumnMenu {
         data.checkbox = this.prepCheckbox(comp, column);
         data.chip = this.prepChip(comp, column);
         data.datepicker = this.prepIntervalDatePicker(comp, column);
-        data.object = column.obj ? [column.obj] : null;
+        data.object = column.objs
+            ? column.objs
+            : column.obj
+            ? [column.obj]
+            : null;
         data.switch = this.prepSwitch(comp, column);
         if (!currentData) {
             data.tabbar = this.prepTabBar(comp, column);
@@ -205,7 +209,8 @@ export class KupColumnMenu {
         }
         if (
             comp.enableExtraColumns &&
-            dom.ketchup.objects.canHaveExtraColumns(column.obj)
+            (dom.ketchup.objects.canObjHaveExtraColumns(column.obj) ||
+                dom.ketchup.objects.canObjsHaveExtraColumns(column.objs))
         ) {
             props.push({
                 className: 'printable',
@@ -397,7 +402,10 @@ export class KupColumnMenu {
         }
         if (
             (comp.enableExtraColumns &&
-                dom.ketchup.objects.canHaveExtraColumns(column.obj)) ||
+                (dom.ketchup.objects.canObjHaveExtraColumns(column.obj) ||
+                    dom.ketchup.objects.canObjsHaveExtraColumns(
+                        column.objs
+                    ))) ||
             comp.removableColumns
         ) {
             data.push({
