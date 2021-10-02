@@ -1,3 +1,18 @@
+/**
+* @prop --kup-accordion_background-color: Sets background of the component.
+* @prop --kup-accordion_border: Sets borders color of the accordion.
+* @prop --kup-accordion_border-radius: Sets border radius of the first and last items of the accordion.
+* @prop --kup-accordion_dropdown-icon-color: Sets color of the dropdown icon.
+* @prop --kup-accordion_font-family: Sets font family of the component.
+* @prop --kup-accordion_font-size: Sets font size of the component.
+* @prop --kup-accordion_hover-background-color: Sets background color of the hover effect.
+* @prop --kup-accordion_hover-color: Sets text color of the hover effect.
+* @prop --kup-accordion_padding: Sets padding of the accordion's items.
+* @prop --kup-accordion_selection-color: Sets background color of a selected item.
+* @prop --kup-accordion_text-color: Sets text color of the component.
+* @prop --kup-accordion_transition: Sets transition duration for color and background-color.
+*/
+
 :host {
   --kup-accordion_background-color: transparent;
   --kup-accordion_border: 1px solid var(--kup-border-color);
