@@ -1,4 +1,5 @@
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
+import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 /**
  * Props of the kup-data-table component.
@@ -114,6 +115,8 @@ export interface Column {
         p: string;
         k: string;
     };
+    // a column can contain heterogeneous objs
+    objs?: KupObj[];
     shape?: string;
     decimals?: number;
     icon?: string;
