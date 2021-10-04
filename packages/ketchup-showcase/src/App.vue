@@ -1037,7 +1037,8 @@ a.footer__icon--trailing {
   }
 
   .navbar__title,
-  .navbar__logo {
+  .navbar__logo,
+  #debug-toggler {
     display: none;
   }
 }
