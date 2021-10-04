@@ -240,11 +240,10 @@ export class KupSwitch {
             disabled: this.disabled,
             label: this.label,
             leadingLabel: this.leadingLabel,
-            onBlure: ()=> this.onKupBlur(),
-            onClick: ()=> this.onKupChange(),
-            onChange:()=> this.onKupChange(),
-            onFocus: ()=> this.onKupFocus,
-
+            onBlur: () => this.onKupBlur(),
+            onClick: () => this.onKupChange(),
+            onChange: () => this.onKupChange(),
+            onFocus: () => this.onKupFocus,
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

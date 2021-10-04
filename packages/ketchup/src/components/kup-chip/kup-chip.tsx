@@ -310,10 +310,10 @@ export class KupChip {
             data: this.data,
             dataNew: this.dataNew,
             type: this.type,
-            onBlur: [(e) => this.onKupBlur],
-            onClick: [(e) => this.onKupClick],
-            onFocus: [(e) => this.onKupFocus],
-            onIconClick: [(e) => this.onKupIconClick],
+            onBlur: [() => this.onKupBlur],
+            onClick: [() => this.onKupClick],
+            onFocus: [() => this.onKupFocus],
+            onIconClick: [() => this.onKupIconClick],
         };
 
         if (
