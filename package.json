@@ -16,7 +16,7 @@
     "repository": "https://github.com/smeup/ketchup",
     "devDependencies": {
         "eslint": "^7.32.0",
-        "lerna": "^3.22.1",
+        "lerna": "^4.0.0",
         "workbox-build": "^4.3.1"
     },
     "scripts": {
@@ -38,7 +38,7 @@
         "@justinribeiro/html5-dragdroptouch-shim": "^0.1.2",
         "@types/echarts": "^4.9.10",
         "@types/jest": "^25.2.3",
-        "echarts": "^4.9.0",
+        "echarts": "^5.2.1",
         "resize-observer": "^1.0.2",
         "vue": "^2.6.14"
     }
