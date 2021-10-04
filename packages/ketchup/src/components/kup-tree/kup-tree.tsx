@@ -957,7 +957,34 @@ export class KupTree {
         auto: boolean
     ) {
         unsetTooltip(this.tooltip);
-        // If this TreeNode is not disabled, then it can be selected and an event is emitted
+        if (
+            this.expansionMode.toLowerCase() ===
+                KupTreeExpansionMode.DROPDOWN ||
+            (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE &&
+                !treeNodeData.expandable)
+        ) {
+            // If this TreeNode is not disabled, then it can be selected and an event is emitted
+            if (treeNodeData && !treeNodeData.disabled) {
+                if (this.autoSelectionNodeMode)
+                    this.selectedNode = treeNodePath
+                        .split(',')
+                        .map((treeNodeIndex) => parseInt(treeNodeIndex));
+
+                this.kupTreeNodeSelected.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    treeNodePath: treeNodePath
+                        .split(',')
+                        .map((treeNodeIndex) => parseInt(treeNodeIndex)),
+                    treeNode: treeNodeData,
+                    columnName: this.selectedColumn,
+                    auto: auto,
+                });
+            }
+            this.selectedColumn = '';
+        }
+
+        // If KupTreeExpansionMode.NODE then click is a collapse/expand click
         if (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE) {
             this.hdlTreeNodeExpanderClick(
                 treeNodeData,
@@ -965,24 +992,6 @@ export class KupTree {
                 e ? e.ctrlKey : false
             );
         }
-        if (treeNodeData && !treeNodeData.disabled) {
-            if (this.autoSelectionNodeMode)
-                this.selectedNode = treeNodePath
-                    .split(',')
-                    .map((treeNodeIndex) => parseInt(treeNodeIndex));
-
-            this.kupTreeNodeSelected.emit({
-                comp: this,
-                id: this.rootElement.id,
-                treeNodePath: treeNodePath
-                    .split(',')
-                    .map((treeNodeIndex) => parseInt(treeNodeIndex)),
-                treeNode: treeNodeData,
-                columnName: this.selectedColumn,
-                auto: auto,
-            });
-        }
-        this.selectedColumn = '';
     }
 
     // When a TreeNode must be expanded or closed.
