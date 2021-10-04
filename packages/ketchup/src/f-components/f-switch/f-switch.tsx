@@ -22,6 +22,10 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
             {...props.dataSet}
             id={props.id}
             title={props.title}
+            onBlur={props.onBlur}
+            onClick={props.onClick}
+            onChange={props.onChange}
+            onFocus={props.onFocus}
         >
             <div
                 class={`form-field ${

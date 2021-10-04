@@ -238,6 +238,7 @@ export class KupImage {
             resource: this.resource,
             sizeX: this.sizeX,
             sizeY: this.sizeY,
+            onClick: (e)=> this.onKupClick(e),
         };
 
         let elStyle: {

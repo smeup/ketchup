@@ -117,6 +117,8 @@ function createChipList(
             <div
                 class={componentClass}
                 data-value={props.data[i].value}
+                onBlur={props.onBlur[i]}
+                onFocus={props.onFocus[i]}
                 onClick={
                     props.onClick && props.onClick[i] ? props.onClick[i] : null
                 }
@@ -131,6 +133,7 @@ function createChipList(
                         // @ts-ignore
                         value={props.data[i].value}
                         checked={props.data[i].checked}
+                        onIconClick={props.onIconClick[i]}
                     >
                         <span class="chip__text">{props.data[i].label}</span>
                     </span>

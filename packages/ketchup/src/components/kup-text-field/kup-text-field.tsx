@@ -497,6 +497,12 @@ export class KupTextField {
             trailingIcon: this.trailingIcon,
             trailingLabel: this.trailingLabel,
             value: this.value,
+            onBlur: (e: FocusEvent & { target: HTMLInputElement })=>this.onKupBlur(e),
+            onChange : (e: UIEvent & { target: HTMLInputElement }) => this.onKupChange(e),
+            onClick :(e: MouseEvent & { target: HTMLInputElement }) => this.onKupClick(e),
+            onFocus : ( e: FocusEvent & { target: HTMLInputElement }) => this.onKupFocus(e),
+            onInput : (e: UIEvent & { target: HTMLInputElement } ) => this.onKupInput(e),
+            onKeyDown : (e: KeyboardEvent) => this.onKeyDown(e),
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

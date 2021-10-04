@@ -253,6 +253,10 @@ export class KupCheckbox {
             indeterminate: this.indeterminate,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            onBlur: () => this.onKupBlur(),
+            onClick: () => this.onKupChange(),
+            onChange: () => this.onKupChange(),
+            onFocus: () => this.onKupFocus(),
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(
