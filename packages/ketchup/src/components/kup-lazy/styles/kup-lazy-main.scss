@@ -3,12 +3,15 @@
   height: 100%;
   width: 100%;
   position: relative;
+}
 
-  #kup-component {
-    display: flex;
-    height: 100%;
-    width: 100%;
-  }
+#kup-component {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 svg {
