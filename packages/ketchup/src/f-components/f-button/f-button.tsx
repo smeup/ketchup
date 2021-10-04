@@ -67,8 +67,8 @@ function renderButton(props: FButtonProps): VNode {
             ? `var(${KupThemeColorValues.PRIMARY})`
             : `var(${KupThemeColorValues.TEXT_ON_PRIMARY})`,
         resource: props.icon,
-        sizeX: isFloating ? '24px' : '18px',
-        sizeY: isFloating ? '24px' : '18px',
+        sizeX: isFloating ? '1.75em' : '1.475em',
+        sizeY: isFloating ? '1.75em' : '1.475em',
         wrapperClass: 'button__icon icon-container material-icons',
     };
 
