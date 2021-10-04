@@ -40,7 +40,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-tooltip',
       headtitle: 'Tooltip',
-      titles: ['Playground','Basic usage', 'Box', 'Tree', 'Data Table'],
+      titles: ['Playground', 'Basic usage', 'Box', 'Tree', 'Data Table'],
     };
   },
 };
