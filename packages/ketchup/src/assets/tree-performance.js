@@ -1,15 +1,16 @@
 const applyButton = document.getElementById('apply-button');
-const rootField = document.getElementById('root-field');
-const navBar = document.getElementById('nav-bar');
-const depthField = document.getElementById('depth-field');
-const treeField = document.getElementById('tree-field');
 const columnField = document.getElementById('column-field');
+const depthField = document.getElementById('depth-field');
+const label = document.getElementById('navbar-label');
+const navBar = document.getElementById('nav-bar');
+const rootField = document.getElementById('root-field');
+const treeField = document.getElementById('tree-field');
 const wrapper = document.getElementById('tree-wrapper');
-var data = null;
 var columns = null;
+var data = null;
 var present = false;
+
 applyButton.addEventListener('kup-button-click', () => {
-    console.log('clicked..');
     refreshTree();
 });
 
@@ -21,7 +22,7 @@ function refreshTree() {
     document.querySelectorAll('hr').forEach((line) => {
         line.remove();
     });
-    data = []; //{ value: '', children: [{}] }
+    data = [];
     columns = [];
     let nRootsNode, nDepth, nTrees, nColumns;
     const rootPromise = rootField.getValue();
@@ -64,7 +65,7 @@ function refreshTree() {
             wrapper.appendChild(tree);
             wrapper.appendChild(line);
         }
-        navBar.label = `Created ${nTrees} Trees.`;
+        label.innerText = `Created ${nTrees} Trees.`;
     });
 }
 
@@ -91,6 +92,7 @@ function createNodes(i, depth) {
     node.cells = createCells(i);
     return node;
 }
+
 function createCells(i) {
     const cells = {};
     for (let index = 0; index < columns.length; index++) {

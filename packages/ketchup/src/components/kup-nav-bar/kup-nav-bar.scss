@@ -1,67 +1,59 @@
+/**
+* @prop --kup-navbar_box-shadow: Box shadow of the component.
+* @prop --kup-navbar_padding: Padding of the component.
+* @prop --kup-navbar_position: CSS positioning of the component.
+* @prop --kup-navbar_width: Width of the component.
+* @prop --kup-navbar_short-border-radius: Border radius of the component when in short mode.
+* @prop --kup-navbar_short-box-shadow: Box shadow of the component when in short mode.
+* @prop --kup-navbar_short-width: Width of the component when in short mode.
+* @prop --kup-navbar_transition: Transition time of the component.
+*/
+
 :host {
+  --kup-navbar_box-shadow: 0 2px 4px -1px rgba(128, 128, 128, 0.2),
+    0 4px 5px 0 rgba(128, 128, 128, 0.14),
+    0 1px 10px 0 rgba(128, 128, 128, 0.12);
+  --kup-navbar_padding: 8px 12px;
+  --kup-navbar_position: fixed;
+  --kup-navbar_short-border-radius: 0px 0px 24px;
+  --kup-navbar_short-box-shadow: rgba(128, 128, 128, 0.2) 0px 2px 4px -1px,
+    rgba(128, 128, 128, 0.14) 0px 4px 5px 0px,
+    rgba(128, 128, 128, 0.12) 0px 1px 10px 0px;
+  --kup-navbar_short-width: 9em;
+  --kup-navbar_transition: 250ms;
+  --kup-navbar_width: 100%;
+
   box-sizing: border-box;
   font-size: var(--kup-font-size);
   left: 0;
-  position: fixed;
+  position: var(--kup-navbar_position);
   top: 0;
-  transition: all 250ms;
-  width: 100%;
+  transition: all var(--kup-navbar_transition);
+  width: var(--kup-navbar_width);
   z-index: var(--kup-navbar-zindex);
 }
 
 #kup-component {
-  width: 100%;
+  width: var(--kup-navbar_width);
 }
 
 .nav-bar {
-  --kup-primary-color: var(--dyn-color, white);
-  --kup-primary-color-rgb: var(--dyn-color-rgb, 255, 255, 255);
-  --kup-text-color: var(--dyn-color, white);
   background-color: var(--kup-navbar-background-color);
-  box-shadow: 0 2px 4px -1px rgba(128, 128, 128, 0.2),
-    0 4px 5px 0 rgba(128, 128, 128, 0.14),
-    0 1px 10px 0 rgba(128, 128, 128, 0.12);
+  box-shadow: var(--kup-navbar_box-shadow);
   box-sizing: border-box;
   color: var(--dyn-color, white);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
-
-  &--dense {
-    .nav-bar__section {
-      padding: 0px 4px;
-    }
-  }
-
-  &--prominent {
-    .nav-bar__title {
-      align-self: flex-end;
-      padding-bottom: 2px;
-    }
-
-    .nav-bar__action-item {
-      align-self: flex-start;
-    }
-
-    .nav-bar__navigation-icon {
-      align-self: flex-start;
-    }
-
-    kup-button {
-      margin-bottom: auto;
-    }
-  }
+  width: var(--kup-navbar_width);
 
   &--short {
-    box-shadow: rgba(128, 128, 128, 0.2) 0px 2px 4px -1px,
-      rgba(128, 128, 128, 0.14) 0px 4px 5px 0px,
-      rgba(128, 128, 128, 0.12) 0px 1px 10px 0px;
-    width: 9em;
-    border-radius: 0px 0px 24px;
+    border-radius: var(--kup-navbar_short-border-radius);
+    box-shadow: var(--kup-navbar_short-box-shadow);
+    width: var(--kup-navbar_short-width);
 
-    .nav-bar--short-has-action-item {
-      width: 112px;
+    .nav-bar__section {
+      padding: 0 0.5em;
     }
 
     section {
@@ -71,43 +63,24 @@
 }
 
 .nav-bar__row {
-  display: flex;
-  position: relative;
   box-sizing: border-box;
-  width: 100%;
+  display: flex;
   height: var(--kup-navbar-height);
+  position: relative;
+  width: var(--kup-navbar_width);
 }
 
 .nav-bar__section {
+  align-items: center;
   display: inline-flex;
   flex: 1 1 auto;
-  align-items: center;
   min-width: 0;
-  padding: 8px 12px;
+  padding: var(--kup-navbar_padding);
 
   &--align-start {
     flex-shrink: 5;
     justify-content: flex-start;
     order: -1;
-
-    .nav-bar__image {
-      padding-left: 8px;
-    }
-
-    .nav-bar__title {
-      font-family: var(--kup-font-family);
-      font-size: 1.25em;
-      line-height: 2em;
-      font-weight: 500;
-      letter-spacing: 0.0125em;
-      text-decoration: inherit;
-      text-transform: inherit;
-      padding-left: 20px;
-      padding-right: 0;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
   }
 
   &--align-end {
@@ -118,5 +91,10 @@
 }
 
 ::slotted(*) {
+  --kup-primary-color: var(--kup-navbar-color);
+  --kup-primary-color-rgb: var(--kup-navbar-color-rgb);
+  --kup-text-color: var(--kup-navbar-color);
+  color: var(--kup-navbar-color);
+  fill: var(--kup-navbar-color);
   margin: 0;
 }

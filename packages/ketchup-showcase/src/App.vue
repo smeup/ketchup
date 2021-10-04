@@ -8,17 +8,12 @@
         <div class="spinner__label">Loading...</div></div
       >
     </div>
-    <kup-nav-bar
-      id="app__nav-bar"
-      :image.prop="navbarImage"
-      label="Ketch.UP | Showcase"
-      @kup-navbar-menuclick="menuClick"
-      @kup-navbar-resize="redrawNavigation"
-    >
+    <kup-nav-bar id="app__nav-bar" @kup-navbar-resize="redrawNavigation">
       <kup-switch
         id="theme-switch"
         label="Dark Mode"
         leading-label
+        slot="right"
         @kup-switch-change="changeTheme"
       ></kup-switch>
       <kup-button
@@ -26,14 +21,29 @@
         icon="bug"
         icon-off="bug"
         id="debug-toggler"
+        slot="right"
         toggable
         @kup-button-click="toggleDebug"
       ></kup-button>
       <kup-button
         icon="home"
         @kup-button-click="$router.push('/').catch(() => {})"
+        slot="right"
       ></kup-button
-    ></kup-nav-bar>
+      ><kup-button
+        icon="menu"
+        @kup-button-click="menuClick"
+        slot="left"
+      ></kup-button
+      ><img
+        class="navbar__logo"
+        slot="left"
+        src="ketchup_logo_header.svg"
+      /><span class="navbar__title" slot="left"
+        >Ketch.UP | Showcase
+      </span></kup-nav-bar
+    >
+
     <kup-drawer
       class="kup-full-width kup-permanent"
       custom-style="::-webkit-scrollbar { width: 9px; }::-webkit-scrollbar-thumb {background-color: var(--kup-disabled-color);transition: background-color 0.2s ease-in-out;}::-webkit-scrollbar-track {background-color: var(--kup-background-color);}"
@@ -798,7 +808,6 @@ export default {
         visible: true,
       },
     ],
-    navbarImage: { resource: 'ketchup_logo_header.svg' },
   }),
 };
 </script>
@@ -928,6 +937,17 @@ label {
   }
 }
 
+.navbar__logo {
+  height: 100%;
+}
+
+.navbar__title {
+  font-size: calc(var(--kup-font-size) * 1.25);
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  margin-left: 1em;
+}
+
 .logo svg {
   box-sizing: border-box;
   cursor: pointer;
@@ -1014,6 +1034,11 @@ a.footer__icon--trailing {
   #app__container {
     padding: 0.5em;
     padding-bottom: 2.5em;
+  }
+
+  .navbar__title,
+  .navbar__logo {
+    display: none;
   }
 }
 

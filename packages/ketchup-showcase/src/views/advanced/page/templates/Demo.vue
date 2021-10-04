@@ -548,8 +548,6 @@ const demoTypes: DemoTypeJson = {
   },
   KupNavBarStyling: {
     keys: {
-      DENSE: 'dense',
-      PROMINENT: 'prominent',
       SHORT: 'short',
       STANDARD: 'standard',
     },
