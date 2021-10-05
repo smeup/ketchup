@@ -44,6 +44,10 @@
         var(--kup-text-on-primary-color) -2px 0px 2px -2px;
     }
 
+    &.button--disabled {
+      box-shadow: none;
+    }
+
     &.button--outlined {
       border-left: none;
     }

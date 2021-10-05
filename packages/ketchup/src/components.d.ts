@@ -1326,7 +1326,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * First day number (0 - sunday, 1 - monday, ...)
+          * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
          */
         "firstDayIndex": number;
@@ -4364,7 +4364,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * First day number (0 - sunday, 1 - monday, ...)
+          * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
          */
         "firstDayIndex"?: number;
