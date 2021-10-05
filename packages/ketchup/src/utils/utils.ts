@@ -621,9 +621,10 @@ export function unformattedStringToFormattedStringTimestamp(value: string) {
         second: '2-digit',
         hour12: false,
     };
-    return kupDates
-        .toDate(kupDates.format(value, KupDatesFormats.ISO_DATE_TIME))
-        .toLocaleString(kupDates.getLocale() + '-u-hc-h23', options);
+    let date = kupDates.toDate(
+        kupDates.normalize(value, KupDatesNormalize.TIMESTAMP)
+    );
+    return date.toLocaleString(kupDates.getLocale() + '-u-hc-h23', options);
 }
 
 export function getMonthAsStringByLocale(

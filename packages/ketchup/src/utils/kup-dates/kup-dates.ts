@@ -144,6 +144,8 @@ export class KupDates {
             case KupDatesNormalize.TIME:
                 const time = normalizeTime();
                 return dayjs(time);
+            case KupDatesNormalize.TIMESTAMP:
+                return dayjs(input);
             case KupDatesNormalize.DATE:
             default:
                 const date = normalizeDate();

@@ -425,7 +425,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
         return unformattedStringToFormattedStringTime(
             value,
             kupObjects.isTimeWithSeconds(obj),
-            null
+            obj.t + obj.p
         );
     }
     if (kupObjects.isTimestamp(obj)) {

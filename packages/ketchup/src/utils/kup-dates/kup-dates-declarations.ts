@@ -4,6 +4,7 @@
 export enum KupDatesNormalize {
     DATE = 'date',
     TIME = 'time',
+    TIMESTAMP = 'timestamp',
 }
 /**
  * Common use formats

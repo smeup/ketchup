@@ -82,6 +82,7 @@ export class KupDatePicker {
     @Prop() disabled: boolean = false;
     /**
      * First day number (0 - sunday, 1 - monday, ...)
+     * TODO: manage with kupDates.locale, remove prop
      * @default 1
      */
     @Prop() firstDayIndex: number = 1;
