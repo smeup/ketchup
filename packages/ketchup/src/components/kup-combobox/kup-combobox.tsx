@@ -77,7 +77,7 @@ export class KupCombobox {
     /**
      * Lets the combobox behave as a select element.
      */
-    @Prop() isSelect: boolean = false;
+    @Prop({ reflect: true }) isSelect: boolean = false;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
@@ -504,6 +504,7 @@ export class KupCombobox {
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
                         icon={KupThemeIconValues.DROPDOWN}
+                        readOnly={this.isSelect}
                         trailingIcon={true}
                         value={this.displayedValue}
                     />
