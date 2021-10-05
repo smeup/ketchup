@@ -1,43 +1,55 @@
+/**
+* @prop --kup-gauge_color: Sets text color of the component.
+* @prop --kup-gauge_font-family: Sets font family of the component.
+* @prop --kup-gauge_font-size: Sets font size of the component.
+* @prop --kup-gauge_needle-color: Sets color of the needle.
+*/
+
 :host {
+  --kup-gauge_color: var(--kup-text-color);
+  --kup-gauge_font-family: var(--kup-font-family);
+  --kup-gauge_font-size: var(--kup-font-size);
+  --kup-gauge_needle-color: var(--kup-text-color);
+
   display: inline-block;
-  font-family: var(--kup-font-family);
-  font-size: var(--kup-font-size);
+  font-family: var(--kup-gauge_font-family);
+  font-size: var(--kup-gauge_font-size);
   height: 100%;
   width: 100%;
+}
 
-  .gauge {
-    /*
-     * [1] - This overflow visible here is necessary to allow the numbers of the thresholds to be visible even when placed outside
-     *   the main borders of the svg.
-     */
-    box-sizing: border-box;
+.gauge {
+  /*
+   * [1] - This overflow visible here is necessary to allow the numbers of the thresholds to be visible even when placed outside
+   *   the main borders of the svg.
+   */
+  box-sizing: border-box;
+  height: 100%;
+  overflow: visible; // [1]
+  padding: 10px;
+
+  // Div wrapping the SVG element
+  &__container {
     height: 100%;
-    overflow: visible; // [1]
-    padding: 10px;
+    width: 100%;
+  }
 
-    // Div wrapping the SVG element
-    &__container {
-      height: 100%;
-      width: 100%;
-    }
+  // Class for the labels of the threshold
+  &__label-text {
+    fill: var(--kup-gauge_color);
+    text-align: center;
+  }
 
-    // Class for the labels of the threshold
-    &__label-text {
-      fill: var(--kup-text-color);
-      text-align: center;
-    }
+  // Class for the value label
+  &__value-text {
+    fill: var(--kup-gauge_color);
+    color: var(--kup-gauge_color);
+    text-align: center;
+  }
 
-    // Class for the value label
-    &__value-text {
-      fill: var(--kup-text-color);
-      color: var(--kup-text-color);
-      text-align: center;
-    }
-
-    // Needle colors
-    &__needle-base,
-    &__needle {
-      fill: var(--kup-text-color);
-    }
+  // Needle colors
+  &__needle-base,
+  &__needle {
+    fill: var(--kup-gauge_needle-color);
   }
 }
