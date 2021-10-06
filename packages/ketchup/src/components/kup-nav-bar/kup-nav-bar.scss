@@ -60,6 +60,25 @@
       overflow: hidden;
     }
   }
+
+  ::slotted(*) {
+    --kup-button_primary-color: var(--kup-navbar-color);
+    --kup-button_primary-color-rgb: var(--kup-navbar-color-rgb);
+    --kup-button_primary-color-h: var(--kup-navbar-color-h);
+    --kup-button_primary-color-s: var(--kup-navbar-color-s);
+    --kup-button_primary-color-l: var(--kup-navbar-color-l);
+    --kup-switch_label-color: var(--kup-navbar-color);
+    --kup-switch_primary-color: var(--kup-navbar-color);
+    --kup-switch_primary-color-rgb: var(--kup-navbar-color-rgb);
+    --kup-textfield_color: var(--kup-navbar-color);
+    --kup-textfield_color-rgb: var(--kup-navbar-color-rgb);
+    --kup-tree_color: var(--kup-navbar-color);
+    --kup-tree_color-rgb: var(--kup-navbar-color-rgb);
+
+    color: var(--kup-navbar-color);
+    fill: var(--kup-navbar-color);
+    margin: 0;
+  }
 }
 
 .nav-bar__row {
@@ -91,9 +110,19 @@
 }
 
 ::slotted(*) {
-  --kup-primary-color: var(--kup-navbar-color);
-  --kup-primary-color-rgb: var(--kup-navbar-color-rgb);
-  --kup-text-color: var(--kup-navbar-color);
+  --kup-button_primary-color: var(--kup-navbar-color);
+  --kup-button_primary-color-rgb: var(--kup-navbar-color-rgb);
+  --kup-button_primary-color-h: var(--kup-navbar-color-h);
+  --kup-button_primary-color-s: var(--kup-navbar-color-s);
+  --kup-button_primary-color-l: var(--kup-navbar-color-l);
+  --kup-switch_label-color: var(--kup-navbar-color);
+  --kup-switch_primary-color: var(--kup-navbar-color);
+  --kup-switch_primary-color-rgb: var(--kup-navbar-color-rgb);
+  --kup-textfield_color: var(--kup-navbar-color);
+  --kup-textfield_color-rgb: var(--kup-navbar-color-rgb);
+  --kup-tree_color: var(--kup-navbar-color);
+  --kup-tree_color-rgb: var(--kup-navbar-color-rgb);
+
   color: var(--kup-navbar-color);
   fill: var(--kup-navbar-color);
   margin: 0;

@@ -808,6 +808,32 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-BUTTON-LIST</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-button-list"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-CALENDAR</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-calendar"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-CARD</span>
                 </td>
                 <td class="text-cell">
@@ -906,6 +932,19 @@
                     text-area
                     full-width
                     id="kup-drawer"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-DROPDOWN-BUTTON</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-dropdown-button"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>

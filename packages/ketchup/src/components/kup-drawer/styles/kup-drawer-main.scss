@@ -75,6 +75,24 @@
     overflow-y: auto;
     width: 100%;
   }
+
+  ::slotted(*) {
+    --kup-button_primary-color: var(--kup-drawer-color);
+    --kup-button_primary-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-button_primary-color-h: var(--kup-drawer-color-h);
+    --kup-button_primary-color-s: var(--kup-drawer-color-s);
+    --kup-button_primary-color-l: var(--kup-drawer-color-l);
+    --kup-switch_label-color: var(--kup-drawer-color);
+    --kup-switch_primary-color: var(--kup-drawer-color);
+    --kup-switch_primary-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-textfield_color: var(--kup-drawer-color);
+    --kup-textfield_color-rgb: var(--kup-drawer-color-rgb);
+    --kup-tree_color: var(--kup-drawer-color);
+    --kup-tree_color-rgb: var(--kup-drawer-color-rgb);
+
+    color: var(--kup-drawer-color);
+    fill: var(--kup-drawer-color);
+  }
 }
 
 :host([kup-opened]) {
@@ -84,12 +102,4 @@
     opacity: 1;
     pointer-events: all;
   }
-}
-
-::slotted(*) {
-  --kup-primary-color: var(--kup-drawer-color);
-  --kup-primary-color-rgb: var(--kup-drawer-color-rgb);
-  --kup-text-color: var(--kup-drawer-color);
-  color: var(--kup-drawer-color);
-  fill: var(--kup-drawer-color);
 }
