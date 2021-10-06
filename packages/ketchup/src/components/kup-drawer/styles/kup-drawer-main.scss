@@ -85,3 +85,11 @@
     pointer-events: all;
   }
 }
+
+::slotted(*) {
+  --kup-primary-color: var(--kup-drawer-color);
+  --kup-primary-color-rgb: var(--kup-drawer-color-rgb);
+  --kup-text-color: var(--kup-drawer-color);
+  color: var(--kup-drawer-color);
+  fill: var(--kup-drawer-color);
+}
