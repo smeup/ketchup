@@ -7,18 +7,18 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                           | Type      | Default |
-| ------------- | -------------- | ------------------------------------- | --------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.        | `string`  | `''`    |
-| `opened`      | `opened`       | When set to true, the drawer appears. | `boolean` | `false` |
+| Property      | Attribute      | Description                    | Type     | Default |
+| ------------- | -------------- | ------------------------------ | -------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''`    |
 
 
 ## Events
 
-| Event            | Description | Type                           |
-| ---------------- | ----------- | ------------------------------ |
-| `kupDrawerClose` |             | `CustomEvent<KupEventPayload>` |
-| `kupDrawerOpen`  |             | `CustomEvent<KupEventPayload>` |
+| Event              | Description                            | Type                           |
+| ------------------ | -------------------------------------- | ------------------------------ |
+| `kup-drawer-close` | Fired when the drawer gets closed.     | `CustomEvent<KupEventPayload>` |
+| `kup-drawer-open`  | Fired when the drawer gets opened.     | `CustomEvent<KupEventPayload>` |
+| `kup-drawer-ready` | Triggered when the component is ready. | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
@@ -40,6 +40,16 @@ Used to retrieve component's props values.
 #### Returns
 
 Type: `Promise<GenericObject>`
+
+
+
+### `isOpened() => Promise<boolean>`
+
+Returns the state of the drawer.
+
+#### Returns
+
+Type: `Promise<boolean>`
 
 
 

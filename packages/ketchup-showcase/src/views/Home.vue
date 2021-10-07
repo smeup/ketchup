@@ -63,11 +63,7 @@
     <h3>Credits</h3>
     <p>
       This showcase was built using
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a>
-      and one of its UI frameworks,
-      <a href="https://vuetifyjs.com/en/" target="_blank" rel="noopener"
-        >Vuetify</a
-      >.
+      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a>.
     </p>
   </div>
 </template>

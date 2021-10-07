@@ -418,11 +418,11 @@ export class KupDataTable {
      */
     @Prop() density: string = 'dense';
     /**
-     * Enable row dragging
+     * Enables drag.
      */
     @Prop() dragEnabled: boolean = false;
     /**
-     * Enable record dropping
+     * Enables drop.
      */
     @Prop() dropEnabled: boolean = false;
     /**
@@ -603,7 +603,7 @@ export class KupDataTable {
      */
     @Prop() sortableColumnsMutateData: boolean = true;
     /**
-     * When set to true enables the sorting of the columns.
+     * When set to true enables the sorting of the columns by clicking on the column header.
      */
     @Prop() sortEnabled = true;
     /**
@@ -843,6 +843,8 @@ export class KupDataTable {
     private totalMenuCoords: KupDynamicPositionCoordinates = null;
     columnFilterTimeout: number;
     private clickTimeout: ReturnType<typeof setTimeout>[] = [];
+    private rowsRefs: HTMLElement[] = [];
+    private oldWidth: number = null;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -1118,7 +1120,10 @@ export class KupDataTable {
      */
     @Method()
     async resizeCallback(): Promise<void> {
-        if (this.lazyLoadCells) {
+        if (
+            this.lazyLoadCells &&
+            this.rootElement.clientWidth !== this.oldWidth
+        ) {
             window.clearTimeout(this.resizeTimeout);
             this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
         }
@@ -1494,9 +1499,10 @@ export class KupDataTable {
     }
 
     private didRenderObservers() {
-        const rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
         if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
-            this.intObserver.observe(rows[this.paginatedRowsLength - 1]);
+            this.intObserver.observe(
+                this.rowsRefs[this.paginatedRowsLength - 1]
+            );
         }
     }
 
@@ -1790,8 +1796,6 @@ export class KupDataTable {
             this.customizePanelPosition();
         }
         this.totalMenuPosition();
-        // TODO
-        // this.groupMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnDropArea(false);
@@ -1812,6 +1816,7 @@ export class KupDataTable {
             this.persistState();
         }
         // ***
+        this.oldWidth = this.rootElement.clientWidth;
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -2122,7 +2127,7 @@ export class KupDataTable {
                 if (details.filterRemove) {
                     this.onRemoveFilter(details.column);
                     return details;
-                } else {
+                } else if (this.sortEnabled) {
                     this.onColumnSort(e, details.column.name);
                     return details;
                 }
@@ -2153,6 +2158,7 @@ export class KupDataTable {
                 return details;
             }
         }
+        return details;
     }
 
     private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
@@ -2192,6 +2198,7 @@ export class KupDataTable {
                 return details;
             }
         }
+        return details;
     }
 
     private dblClickHandler(e: MouseEvent): EventHandlerDetails {
@@ -2314,7 +2321,6 @@ export class KupDataTable {
         );
 
         this.groupRows();
-
         this.sortRows();
         this.adjustPaginator();
 
@@ -2833,7 +2839,7 @@ export class KupDataTable {
         this.openedTotalMenu = null;
     }
 
-    /* TODO 
+    /* TODO
     private openGroupMenu(column: Column) {
         this.openedGroupMenu = column.name;
     }
@@ -3334,21 +3340,20 @@ export class KupDataTable {
                 // When sorting is enabled, there are two things to do:
                 // 1 - Add correct icon to the table
                 // 2 - stores the handler to be later set onto the whole cell
-                if (this.sortEnabled) {
-                    let iconClass = this.getSortIcon(column.name);
-                    if (iconClass !== '') {
-                        iconClass += ' icon-container';
-                        sortIcon = (
-                            <span
-                                class={iconClass}
-                                title={this.getSortDecode(column.name)}
-                            ></span>
-                        );
-                    }
 
-                    // Adds the sortable class to the header cell
-                    columnClass['header-cell--sortable'] = true;
+                let iconClass = this.getSortIcon(column.name);
+                if (iconClass !== '') {
+                    iconClass += ' icon-container';
+                    sortIcon = (
+                        <span
+                            class={iconClass}
+                            title={this.getSortDecode(column.name)}
+                        ></span>
+                    );
                 }
+
+                // Adds the sortable class to the header cell
+                columnClass['header-cell--sortable'] = true;
 
                 let keyIcon: HTMLSpanElement = null;
                 if (column.isKey) {
@@ -4138,19 +4143,31 @@ export class KupDataTable {
                 }
 
                 jsxRows.push(
-                    <tr data-row={row} class="group group-label">
+                    <tr
+                        ref={(el: HTMLElement) => this.rowsRefs.push(el)}
+                        data-row={row}
+                        class="group group-label"
+                    >
                         {grouplabelcell}
                     </tr>
                 );
 
                 jsxRows.push(
-                    <tr data-row={row} class="group group-total">
+                    <tr
+                        ref={(el: HTMLElement) => this.rowsRefs.push(el)}
+                        data-row={row}
+                        class="group group-total"
+                    >
                         {cells}
                     </tr>
                 );
             } else {
                 jsxRows.push(
-                    <tr data-row={row} class="group">
+                    <tr
+                        ref={(el: HTMLElement) => this.rowsRefs.push(el)}
+                        data-row={row}
+                        class="group"
+                    >
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
@@ -4538,6 +4555,7 @@ export class KupDataTable {
 
             return (
                 <tr
+                    ref={(el: HTMLElement) => this.rowsRefs.push(el)}
                     data-row={row}
                     class={rowClass}
                     style={style}
@@ -5797,6 +5815,7 @@ export class KupDataTable {
     }
 
     render() {
+        this.rowsRefs = [];
         this.renderedRows = [];
         let elStyle = undefined;
         this.sizedColumns = this.getSizedColumns();
@@ -5804,7 +5823,7 @@ export class KupDataTable {
         let rows = null;
         if (this.paginatedRowsLength === 0) {
             rows = (
-                <tr>
+                <tr ref={(el: HTMLElement) => this.rowsRefs.push(el)}>
                     <td
                         {...(this.dropEnabled
                             ? setKetchupDroppable(

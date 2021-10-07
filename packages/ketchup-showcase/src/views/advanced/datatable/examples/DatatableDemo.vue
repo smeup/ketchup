@@ -180,6 +180,20 @@ export default {
           try: 'field',
         },
         {
+          prop: 'dragEnabled',
+          description: 'Enables drag.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'dropEnabled',
+          description: 'Enables drop.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'editableData',
           description:
             'When set to true, editable cells will be rendered using input components.',
@@ -475,7 +489,8 @@ export default {
         },
         {
           prop: 'sortEnabled',
-          description: 'When set to true enables the sorting of the columns.',
+          description:
+            'When set to true enables the sorting of the columns by clicking on the column header.',
           type: 'boolean',
           default: 'true',
           try: 'switch',

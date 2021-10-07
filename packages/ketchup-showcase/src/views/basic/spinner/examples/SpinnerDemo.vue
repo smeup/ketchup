@@ -3,6 +3,7 @@
     <demo
       :demoClasses="demoClasses"
       :demoComp="demoComp"
+      :demoEvents="demoEvents"
       :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>
@@ -27,6 +28,12 @@ export default {
         },
       ],
       demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kup-spinner-ready',
+          type: 'custom',
+        },
+      ],
       demoMethods: [
         {
           name: 'getProps',

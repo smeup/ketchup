@@ -73,7 +73,7 @@ import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
     GenericFilter,
-    GlobalFilterMode,
+    KupGlobalFilterMode,
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
@@ -257,7 +257,7 @@ export class KupTree {
     /**
      * The mode of the global filter (default SIMPLE)
      */
-    @Prop() globalFilterMode: GlobalFilterMode = GlobalFilterMode.SIMPLE;
+    @Prop() globalFilterMode: KupGlobalFilterMode = KupGlobalFilterMode.SIMPLE;
 
     /**
      * Sets the possibility to remove the selected column.
@@ -1905,7 +1905,7 @@ export class KupTree {
         let treeNodeCell = null;
         if (this.isTreeColumnVisible()) {
             let content = '';
-            if (GlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
+            if (KupGlobalFilterMode.HIGHLIGHT === this.globalFilterMode) {
                 content = this.renderHighlightedContent(
                     treeNodeData.value,
                     this.globalFilterValue,

@@ -373,6 +373,7 @@
                     "genericTotalsTable": "Matrice dei totali",
                     "groupingDisable": "Disabilita raggruppamento",
                     "groupingEnable": "Abilita raggruppamento",
+                    "groupingGroups": "Raggruppamento",
                     "rowEditableKey": "K01 (editabile)",
                     "rowKey": "K01"
                 }

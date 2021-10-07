@@ -19,6 +19,7 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupDebug {
     active: boolean;
     autoPrint: boolean;
+    container: HTMLElement;
     logLimit: number;
     logs: KupDebugLog[];
     #debugWidget: HTMLKupCardElement;
@@ -31,6 +32,9 @@ export class KupDebug {
     constructor(active?: boolean, autoprint?: boolean, logLimit?: number) {
         this.active = active ? true : false;
         this.autoPrint = autoprint ? true : false;
+        this.container = document.createElement('div');
+        this.container.setAttribute('kup-debug', '');
+        document.body.appendChild(this.container);
         this.logLimit = logLimit ? logLimit : 250;
         this.logs = [];
         this.#debugWidget = null;
@@ -52,7 +56,7 @@ export class KupDebug {
             document.createElement('a');
         downloadAnchorNode.setAttribute('href', dataStr);
         downloadAnchorNode.setAttribute('download', 'kup_props.json');
-        document.body.appendChild(downloadAnchorNode);
+        this.container.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
     }
@@ -229,7 +233,7 @@ export class KupDebug {
         debugWidget.addEventListener('kup-card-event', (e: CustomEvent) =>
             this.handleEvents(e)
         );
-        document.body.append(debugWidget);
+        this.container.append(debugWidget);
         this.#debugWidget = debugWidget;
     }
     /**
@@ -401,10 +405,12 @@ export class KupDebug {
             this.active = value;
         }
         if (this.active) {
+            document.dispatchEvent(new CustomEvent('kup-debug-active'));
             if (!this.#debugWidget) {
                 this.showWidget();
             }
         } else {
+            document.dispatchEvent(new CustomEvent('kup-debug-inactive'));
             if (this.#debugWidget) {
                 this.hideWidget();
             }
@@ -728,16 +734,23 @@ export class KupDebug {
     }
     /**
      * Function used to time the render times of a component.
-     * @param comp - The component calling this function or a string.
-     * @param didRender - Must be set to false when called inside a componentWillRender() lifecycle hook and true when called inside componentDidRender().
+     * @param {any} comp - The component calling this function or a string.
+     * @param {boolean} didRender - Must be set to false when called inside a componentWillRender() lifecycle hook and true when called inside componentDidRender().
+     * @param {string} breakpoint - When present, this log is supposedly between a willRender and didRender hook. Used to time single features of the render lifecycle.
      */
-    logRender(comp: any, didRender: boolean): void {
-        if (!didRender) {
+    logRender(comp: any, didRender: boolean, breakpoint?: string): void {
+        if (breakpoint) {
+            const timeDiff: number =
+                window.performance.now() - comp.debugInfo.renderStart;
+            if (this.isDebug()) {
+                this.logMessage(comp, breakpoint + ' took ' + timeDiff + 'ms.');
+            }
+        } else if (!didRender) {
             comp.debugInfo.renderCount++;
             comp.debugInfo.renderStart = window.performance.now();
         } else {
             comp.debugInfo.renderEnd = window.performance.now();
-            let timeDiff: number =
+            const timeDiff: number =
                 comp.debugInfo.renderEnd - comp.debugInfo.renderStart;
             if (this.isDebug()) {
                 this.logMessage(

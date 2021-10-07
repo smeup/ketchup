@@ -50,12 +50,16 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kup-navbar-menuitemclick',
+          name: 'kup-navbar-menuclick',
           type: 'click',
         },
         {
-          name: 'kup-navbar-optionitemclick',
-          type: 'change',
+          name: 'kup-navbar-ready',
+          type: 'ready',
+        },
+        {
+          name: 'kup-navbar-resize',
+          type: 'resize',
         },
       ],
       demoMethods: [
@@ -68,6 +72,11 @@ export default {
           name: 'refresh',
           description:
             'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'resizeCallback',
+          description:
+            'This method is invoked by KupManager whenever the component changes size.',
         },
         {
           name: 'setProps',
@@ -84,18 +93,33 @@ export default {
           try: 'css',
         },
         {
-          prop: 'data',
-          description: 'The actual data of the nav bar.',
-          type: 'KupNavBarData',
-          default: "title: 'default title'",
+          prop: 'image',
+          description:
+            "Image displayed by the nav bar, uses the kup-image component's props.",
+          type: 'FImageProps',
+          default: 'null',
           try: 'json',
         },
         {
-          prop: 'mode',
+          prop: 'label',
+          description: 'Text displayed by the nav bar.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
+          prop: 'showMenuButton',
           description:
-            "Defines how the bar will be displayed. Available options: DEFAULT = '', SHORT = 'short', SHORT_COLLAPSED = 'short-collapsed', FIXED = 'fixed', PROMINENT = 'prominent', DENSE = 'dense',",
-          type: 'KupNavBarMode',
-          default: "''",
+            'When true, the menu button will be displayed on the left of the nav bar.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'styling',
+          description: 'Defines the style of the nav bar.',
+          type: 'KupNavBarStyling',
+          default: 'standard',
           try: 'field',
         },
       ],
@@ -104,23 +128,19 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-nav-bar');
-  comp.customStyle = '#kup-component .mdc-top-app-bar { position: unset; }';
-  comp.data = {
-    title: 'Demo',
-    menuActions: [{ icon: 'search', value: 'AA', text: 'Search AA' }],
-    optionActions: [
-      {
-        icon: 'favorite',
-        value: 'f',
-        tooltip: 'Favorites',
-        visible: true,
-      },
-      { icon: 'search', value: 's', tooltip: 'Search', visible: true },
-    ],
-  };
+  const button = document.createElement('kup-button');
+  button.icon = 'more_vert';
+  const comp = document.createElement('kup-nav-bar');
   comp.id = 'demo-component';
+  comp.image = {
+    resource: 'ketchup_logo_header.svg',
+  };
+  comp.label = ' Demo';
   comp.style.position = 'absolute';
+  comp.style.styling = 'standard';
+  comp.style.top = '0';
+  comp.style.zIndex = 'calc(var(--kup-navbar-zindex) - 1)';
+  comp.appendChild(button);
   return comp;
 }
 </script>

@@ -1,15 +1,15 @@
 {
-  "name": "ketchup-showcase",
-  "version": "1.0.0",
+  "name": "@sme.up/ketchup-showcase",
+  "version": "2.0.0",
   "keywords": [
-    "Sme.UP",
+    "smeup",
     "KetchUP showcase",
     "pwa",
     "custom elements",
     "components",
     "Vue.js"
   ],
-  "description": "Sme.UP's KetchUP web components library showcase based on Vuetify",
+  "description": "Ketch.UP Web Components library by smeup",
   "license": "Apache-2.0",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -25,21 +25,13 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@mdi/font": "^2.8.94",
-    "@vaadin/vaadin-upload": "^4.2.2",
+    "@sme.up/ketchup": "^3.0.0",
     "caniuse-lite": "^1.0.30001239",
-    "element-ui": "^2.4.8",
-    "ketchup": "^2.0.0",
-    "material-design-icons-iconfont": "^4.0.5",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.17",
-    "vue-class-component": "^6.0.0",
-    "vue-material-design-icons": "^2.3.0",
-    "vue-property-decorator": "^7.0.0",
-    "vue-router": "^3.0.3",
-    "vuetify": "^1.5.5"
+    "vue-router": "^3.0.3"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
@@ -65,11 +57,6 @@
     "start-server-and-test": "^1.7.10",
     "ts-jest": "^27.0.3",
     "typescript": "4.2.3",
-    "vue-cli-plugin-vuetify": "^0.5.0",
-    "vue-template-compiler": "^2.5.17",
-    "vuetify-loader": "^1.0.5"
-  },
-  "vaadin": {
-    "disableUsageStatistics": true
+    "vue-template-compiler": "^2.5.17"
   }
 }
