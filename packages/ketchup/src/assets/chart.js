@@ -360,6 +360,345 @@ const baseData = {
   ],
   };
 
+  const comboData = {
+    "columns": [
+			{
+				"isKey": false,
+				"name": "CHA1_A",
+				"obj": {
+					"k": "",
+					"p": "COL",
+					"t": "CN"
+				},
+				"title": "Persona",
+				"tooltip": true
+			},
+			{
+				"decimals": 0,
+				"isKey": false,
+				"name": "CHA1_S",
+				"obj": {
+					"k": "",
+					"p": "",
+					"t": "NR"
+				},
+				"title": "Anno Corrente",
+				"tooltip": true
+			},
+			{
+				"decimals": 0,
+				"isKey": false,
+				"name": "CHA2_S",
+				"obj": {
+					"k": "",
+					"p": "",
+					"t": "NR"
+				},
+				"title": "Anno Corrente",
+				"tooltip": true
+			}
+		],
+    "rows": [
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "SANCOS",
+							"p": "COL",
+							"t": "CN"
+						},
+						"value": "SANCOS"
+					},
+					"CHA1_S_mark": {
+						"value": "3"
+					},
+					"CHA2_S_mark": {
+						"value": "3"
+					}
+				},
+				"id": "0",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "BENMAR",
+							"p": "COL",
+							"t": "CN"
+						},
+						"value": "BENMAR"
+					},
+					"CHA1_S_mark": {
+						"value": "3"
+					},
+					"CHA2_S_mark": {
+						"value": "3"
+					}
+				},
+				"id": "1",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "CARLUC",
+							"p": "COL",
+							"t": "CN"
+						},
+						"value": "CARLUC"
+					},
+					"CHA1_S_mark": {
+						"value": "8"
+					},
+					"CHA2_S_mark": {
+						"value": "10"
+					}
+				},
+				"id": "2",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "22",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "22"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "FIOGIA",
+							"p": "COL",
+							"t": "CN"
+						},
+						"value": "FIOGIA"
+					},
+					"CHA1_S_mark": {
+						"value": "2"
+					},
+					"CHA2_S_mark": {
+						"value": "22"
+					}
+				},
+				"id": "3",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "Franco",
+							"p": "COL",
+							"t": "CN"
+						},
+						"value": "Franco"
+					},
+					"CHA1_S_mark": {
+						"value": "1"
+					},
+					"CHA2_S_mark": {
+						"value": "1"
+					}
+				},
+				"id": "4",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "5",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "5"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "Carlo",
+							"p": "COL",
+							"t": "CN"
+						},
+						"value": "Carlo"
+					},
+					"CHA1_S_mark": {
+						"value": "16"
+					},
+					"CHA2_S_mark": {
+						"value": "5"
+					}
+				},
+				"id": "5",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "7",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "7"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "Oliviero",
+							"p": "COL",
+							"t": "CN"
+						},
+						"value": "Oliviero"
+					},
+					"CHA1_S_mark": {
+						"value": "10"
+					},
+					"CHA2_S_mark": {
+						"value": "7"
+					}
+				},
+				"id": "6",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "Quinto",
+							"p": "COL",
+							"t": "CN"
+						},
+						"value": "Quinto"
+					},
+					"CHA1_S_mark": {
+						"value": "3"
+					},
+					"CHA2_S_mark": {
+						"value": "3"
+					}
+				},
+				"id": "7",
+				"object": "",
+				"readOnly": true
+			}
+		],
+    };
+  
+
 const baseConfig = {
     types: ['Hbar'],
     axis: 'CHA1_A',
@@ -368,89 +707,125 @@ const baseConfig = {
 const keys = Object.keys(baseConfig);
 // HBAR
 const hbar = document.getElementById('hbar');
-hbar.data = baseData;
-for (let k of keys) {
-    hbar[k] = baseConfig[k];
+if(hbar){
+  hbar.data = baseData;
+  for (let k of keys) {
+      hbar[k] = baseConfig[k];
+  }
 }
 
 // VBAR
 const vbar = document.getElementById('vbar');
-vbar.data = baseData;
-for (let k of keys) {
-    vbar[k] = baseConfig[k];
+if(vbar){
+  vbar.data = baseData;
+  for (let k of keys) {
+      vbar[k] = baseConfig[k];
+  }
+  vbar.types = ['Vbar'];
+  
+  document
+      .getElementById('vbar-stacked')
+      .addEventListener('change', ({ target }) => {
+          vbar.stacked = target.checked;
+      });
 }
-vbar.types = ['Vbar'];
 
-document
-    .getElementById('vbar-stacked')
-    .addEventListener('change', ({ target }) => {
-        vbar.stacked = target.checked;
-    });
 
 // PIE
 const pie = document.getElementById('pie');
-pie.data = baseData;
-for (let k of keys) {
-    pie[k] = baseConfig[k];
+if(pie) {
+  pie.data = baseData;
+  for (let k of keys) {
+      pie[k] = baseConfig[k];
+  }
+  pie.types = ['Pie'];
+  pie.series = [{ code: 'CHA2_S' }];
+  
+  document.getElementById('pie-aspect').addEventListener('change', (e) => {
+      pie.asp = e.target.checked ? '3D' : '';
+  });
 }
-pie.types = ['Pie'];
-pie.series = [{ code: 'CHA2_S' }];
-
-document.getElementById('pie-aspect').addEventListener('change', (e) => {
-    pie.asp = e.target.checked ? '3D' : '';
-});
 // Multiple series
 const mults = document.getElementById('multseries');
-mults.data = baseData;
-for (let k of keys) {
-    mults[k] = baseConfig[k];
+if(mults) {
+  mults.data = baseData;
+  for (let k of keys) {
+      mults[k] = baseConfig[k];
+  }
+  mults.types = [
+    "Vbar",
+    "Line",
+    "Line"
+  ];
+  mults.series = [
+    {
+      "code": "CHA1_S",
+      "decode": "Anno Corrente 1",
+    },
+    {
+      "code": "CHA2_S",
+      "decode": "Anno Corrente 2",
+    },
+    {
+      "code": "CHA3_S",
+      "decode": "Anno Corrente 3",
+    }
+  ];
+  mults.axis = 'CHA1_A';
+  mults.vAxes = [
+    {
+      "textPosition": "out",
+    },
+    {
+      "textPosition": "out",
+    },
+    {
+      "textPosition": "in",
+    }
+  ];
+  mults.hAxis = {"slantedText":true,"slantedTextAngle":25};
+  mults.sizeY = '300';
+  mults.legend = {position: "top"};
 }
-mults.types = [
-  "Vbar",
-  "Line",
-  "Line"
-];
-mults.series = [
-  {
-    "code": "CHA1_S",
-    "decode": "Anno Corrente 1",
-  },
-  {
-    "code": "CHA2_S",
-    "decode": "Anno Corrente 2",
-  },
-  {
-    "code": "CHA3_S",
-    "decode": "Anno Corrente 3",
+
+// Combo chart
+const combo = document.getElementById('combo-chart');
+if(combo) {
+  combo.data = comboData;
+  for (let k of keys) {
+    combo[k] = baseConfig[k];
   }
-];
-mults.axis = 'CHA1_A';
-mults.vAxes = [
-  {
-    "textPosition": "out",
-  },
-  {
-    "textPosition": "out",
-  },
-  {
-    "textPosition": "in",
-  }
-];
-mults.hAxis = {"slantedText":true,"slantedTextAngle":25};
-mults.sizeY = '300';
+  combo.showMarks = "true";
+  
+  combo.types = [
+    "Vbar",
+    "Line"
+  ];
+  combo.series = [
+    {
+      "code": "CHA1_S",
+      "decode": "Anno Corrente",
+    }
+  ];
+  combo.axis = 'CHA1_A';
+  combo.sizeY = '300';
+  combo.vAxis = {viewWindow: {min:0}};
+}
 
 // Stacked series
 const stacked = document.getElementById('stackedseries');
-stacked.data = baseData;
-for (let k of keys) {
-  stacked[k] = baseConfig[k];
-}
-stacked.stacked = "true";
-stacked.sorting = [
-  {
-    "column": 1
+if(stacked){
+  stacked.data = baseData;
+  for (let k of keys) {
+    stacked[k] = baseConfig[k];
   }
-];
+  stacked.stacked = "true";
+  stacked.sorting = [
+    {
+      "column": 1
+    }
+  ];
+}
 
 //
 

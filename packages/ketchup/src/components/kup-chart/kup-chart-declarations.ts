@@ -53,8 +53,8 @@ export interface ChartAxisGridlines {
 }
 
 export interface ChartAxisViewWindow {
-    min?: number;
-    max?: number;
+    min?: Date;
+    max?: Date;
 }
 
 export interface KupChartClickEvent extends KupEventPayload {
