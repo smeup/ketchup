@@ -1,11 +1,21 @@
 /**
 * @prop --kup-tree_color: Sets text color of the component.
 * @prop --kup-tree_color-rgb: Sets text color RGB values of the component (used for shaders).
+* @prop --kup-tree_hover-color: Sets hover color of the component.
+* @prop --kup-tree_hover-background-color: Sets hover background color of the component.
+* @prop --kup-tree_primary-color: Sets the primary color of the component.
+* @prop --kup-tree_primary-color-rgb: Sets the primary color RGB values of the component (used for shaders).
+* @prop --kup-tree_text-on-primary-color: Sets the text on primary color of the component.
 */
 
 :host {
   --kup-tree_color: var(--kup-text-color);
   --kup-tree_color-rgb: var(--kup-text-color-rgb);
+  --kup-tree_hover-color: var(--kup-hover-color);
+  --kup-tree_hover-background-color: var(--kup-hover-background-color);
+  --kup-tree_primary-color: var(--kup-primary-color);
+  --kup-tree_primary-color-rgb: var(--kup-primary-color-rgb);
+  --kup-tree_text-on-primary-color: var(--kup-text-on-primary-color);
 
   display: block;
   font-size: var(--kup-font-size);
@@ -79,7 +89,7 @@
 
         &:before,
         &:after {
-          background-color: var(--kup-primary-color);
+          background-color: var(--kup-tree_primary-color);
         }
       }
 
@@ -153,16 +163,16 @@
       }
 
       &:hover:not(.kup-tree__node--disabled):not(.kup-tree__node--selected) td {
-        background-color: var(--kup-hover-background-color);
-        color: var(--kup-hover-color);
+        background-color: var(--kup-tree_hover-background-color);
+        color: var(--kup-tree_hover-color);
 
         .dropdown {
-          background-color: var(--kup-hover-color);
+          background-color: var(--kup-tree_hover-color);
         }
       }
 
       &--selected:not(.kup-tree__node--disabled) td {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+        background-color: rgba(var(--kup-tree_primary-color-rgb), 0.175);
         color: var(--kup-tree_color);
       }
 
@@ -203,8 +213,8 @@
     width: var(--content_width, auto);
   }
   &--highlighted {
-    color: var(--kup-text-on-primary-color);
-    background-color: var(--kup-primary-color);
+    color: var(--kup-tree_text-on-primary-color);
+    background-color: var(--kup-tree_primary-color);
   }
 }
 
@@ -289,14 +299,14 @@ tfoot {
 
     &:hover,
     &[data-is-expanded] {
-      background-color: var(--kup-hover-background-color);
+      background-color: var(--kup-tree_hover-background-color);
 
       .cell-content {
-        color: var(--kup-hover-color);
+        color: var(--kup-tree_hover-color);
       }
 
       .dropdown {
-        background-color: var(--kup-hover-color);
+        background-color: var(--kup-tree_hover-color);
       }
     }
 

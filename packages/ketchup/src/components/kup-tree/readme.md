@@ -205,10 +205,15 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                   | Description                                                     |
-| ---------------------- | --------------------------------------------------------------- |
-| `--kup-tree_color`     | Sets text color of the component.                               |
-| `--kup-tree_color-rgb` | Sets text color RGB values of the component (used for shaders). |
+| Name                                | Description                                                            |
+| ----------------------------------- | ---------------------------------------------------------------------- |
+| `--kup-tree_color`                  | Sets text color of the component.                                      |
+| `--kup-tree_color-rgb`              | Sets text color RGB values of the component (used for shaders).        |
+| `--kup-tree_hover-background-color` | Sets hover background color of the component.                          |
+| `--kup-tree_hover-color`            | Sets hover color of the component.                                     |
+| `--kup-tree_primary-color`          | Sets the primary color of the component.                               |
+| `--kup-tree_primary-color-rgb`      | Sets the primary color RGB values of the component (used for shaders). |
+| `--kup-tree_text-on-primary-color`  | Sets the text on primary color of the component.                       |
 
 
 ## Dependencies
