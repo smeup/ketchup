@@ -115,6 +115,27 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">--kup-navbar-color</span>
+                </td>
+                <td
+                  >Sets the color for slotted content. To achieve a more
+                  predictable result, it is suggested to set the wanted colors
+                  directly on the slots.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">color</span>
+                </td>
+                <td class="text-cell">
+                  <kup-color-picker
+                    id="navbar-color"
+                    :data.prop="colorPickerData"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
+                  ></kup-color-picker>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">--kup-drawer-background-color</span>
                 </td>
                 <td>Sets the color of the drawer/side menu.</td>
@@ -136,8 +157,7 @@
                 </td>
                 <td
                   >Sets the height of the nav bar (any valid CSS unit can be
-                  used - vw, px, em, etc.). Suggested values: 64px for standard
-                  and short, 128px for prominent and 48px for dense.</td
+                  used - vw, px, em, etc.).</td
                 >
                 <td class="prevent-cr">
                   <span class="code-word">size</span>
@@ -788,6 +808,32 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-BUTTON-LIST</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-button-list"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-CALENDAR</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-calendar"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-CARD</span>
                 </td>
                 <td class="text-cell">
@@ -886,6 +932,19 @@
                     text-area
                     full-width
                     id="kup-drawer"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-DROPDOWN-BUTTON</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-dropdown-button"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>

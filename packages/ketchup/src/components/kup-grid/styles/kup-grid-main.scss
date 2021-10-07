@@ -1,5 +1,17 @@
+/**
+* @prop --kup-grid_gap: Sets gap of the grid.
+* @prop --kup-grid_gap-mobile: Sets gap of the grid for lower resolutions.
+* @prop --kup-grid_font-size: Sets font size of the component.
+* @prop --kup-grid_padding: Sets padding of the outer layer.
+*/
+
 :host {
-  font-size: var(--kup-font-size);
+  --kup-grid_font-size: var(--kup-font-size);
+  --kup-grid_gap: 24px;
+  --kup-grid_gap-mobile: 16px;
+  --kup-grid_padding: 24px;
+
+  font-size: var(--kup-grid_font-size);
   height: 100%;
   width: 100%;
 }
@@ -12,12 +24,12 @@
 .layout-grid {
   box-sizing: border-box;
   margin: 0px auto;
-  padding: 24px;
+  padding: var(--kup-grid_padding);
 
   .layout-grid__inner {
     display: grid;
     margin: 0px;
-    grid-gap: 24px;
+    grid-gap: var(--kup-grid_gap);
     grid-template-columns: repeat(var(--columns, 12), minmax(0px, 1fr));
 
     .layout-grid__cell {
@@ -67,7 +79,7 @@
     .layout-grid__inner {
       display: grid;
       margin: 0px;
-      grid-gap: 16px;
+      grid-gap: var(--kup-grid_gap-mobile);
       grid-template-columns: repeat(8, minmax(0px, 1fr));
     }
   }
@@ -78,7 +90,7 @@
     .layout-grid__inner {
       display: grid;
       margin: 0px;
-      grid-gap: 16px;
+      grid-gap: var(--kup-grid_gap-mobile);
       grid-template-columns: repeat(4, minmax(0px, 1fr));
     }
   }

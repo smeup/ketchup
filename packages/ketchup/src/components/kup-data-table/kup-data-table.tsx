@@ -13,8 +13,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-
-import moment from 'moment';
 import {
     Cell,
     Column,
@@ -89,9 +87,6 @@ import {
     numberToFormattedStringNumber,
     identify,
     deepEqual,
-    unformattedStringToFormattedStringDate,
-    isValidStringDate,
-    ISO_DEFAULT_DATE_FORMAT,
     getProps,
     setProps,
 } from '../../utils/utils';
@@ -167,6 +162,7 @@ import {
     KupThemeIconValues,
 } from '../../utils/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1241,10 +1237,13 @@ export class KupDataTable {
                 if (!totalValue) {
                     totalValue = row.group.id;
                 }
-                if (isValidStringDate(totalValue, ISO_DEFAULT_DATE_FORMAT)) {
-                    totalValue = moment(totalValue).format(
-                        ISO_DEFAULT_DATE_FORMAT
-                    );
+                if (
+                    this.kupManager.dates.isValid(
+                        totalValue,
+                        KupDatesFormats.ISO_DATE
+                    )
+                ) {
+                    totalValue = this.kupManager.dates.format(totalValue);
                 }
                 cells[id] = {
                     value: String(totalValue),
@@ -3923,20 +3922,7 @@ export class KupDataTable {
                     this.kupManager.objects.isDate(column.obj)
                 ) {
                     if (footerValue) {
-                        if (
-                            isValidStringDate(
-                                footerValue,
-                                ISO_DEFAULT_DATE_FORMAT
-                            )
-                        ) {
-                            value = unformattedStringToFormattedStringDate(
-                                footerValue,
-                                null,
-                                column.obj.t + column.obj.p
-                            );
-                        } else {
-                            console.warn(`invalid date: ${footerValue}`);
-                        }
+                        value = footerValue;
                     }
                 } else {
                     value = numberToFormattedStringNumber(
@@ -4065,16 +4051,14 @@ export class KupDataTable {
                         if (this.kupManager.objects.isDate(column.obj)) {
                             if (totalValue) {
                                 if (
-                                    isValidStringDate(
+                                    this.kupManager.dates.isValid(
                                         totalValue,
-                                        ISO_DEFAULT_DATE_FORMAT
+                                        KupDatesFormats.ISO_DATE
                                     )
                                 ) {
                                     value =
-                                        unformattedStringToFormattedStringDate(
-                                            totalValue,
-                                            null,
-                                            column.obj.t + column.obj.p
+                                        this.kupManager.dates.format(
+                                            totalValue
                                         );
                                 } else {
                                     console.warn(`invalid date: ${totalValue}`);

@@ -7,7 +7,7 @@
     line-height: 2em;
     font-weight: 400;
     letter-spacing: 0.0178571429em;
-    color: var(--kup-text-color);
+    color: var(--kup-switch_label-color);
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
@@ -21,7 +21,7 @@
     }
 
     & > label {
-      color: var(--kup-text-color);
+      color: var(--kup-switch_label-color);
       font-family: var(--kup-font-family);
       margin-left: 0px;
       margin-right: auto;
@@ -66,7 +66,7 @@
         height: 48px;
 
         &:hover {
-          background-color: rgba(var(--kup-primary-color-rgb), 0.125);
+          background-color: rgba(var(--kup-switch_primary-color-rgb), 0.125);
         }
 
         .switch__thumb {
@@ -99,7 +99,7 @@
 
       &:not(.switch--checked) {
         .switch__track {
-          background-color: var(--kup-text-color);
+          background-color: var(--kup-switch_label-color);
         }
         .switch__thumb {
           background-color: var(--kup-border-color);
@@ -115,7 +115,7 @@
 
       &.switch--checked {
         .switch__track {
-          background-color: var(--kup-primary-color);
+          background-color: var(--kup-switch_primary-color);
           opacity: 0.54;
         }
         .switch__thumb-underlay {
@@ -123,8 +123,8 @@
         }
 
         .switch__thumb {
-          background-color: var(--kup-primary-color);
-          border-color: var(--kup-primary-color);
+          background-color: var(--kup-switch_primary-color);
+          border-color: var(--kup-switch_primary-color);
 
           .switch__native-control {
             transform: translateX(-16px);

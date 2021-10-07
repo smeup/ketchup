@@ -14,8 +14,6 @@ export enum KupNavBarProps {
  * Styling modes of the nav bar.
  */
 export enum KupNavBarStyling {
-    DENSE = 'dense',
-    PROMINENT = 'prominent',
     SHORT = 'short',
     STANDARD = 'standard',
 }

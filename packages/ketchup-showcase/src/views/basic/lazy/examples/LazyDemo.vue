@@ -31,6 +31,14 @@ export default {
             'The component will be rendered using the informational color of the app.',
         },
         {
+          class: 'kup-left-aligned',
+          description: 'Content will be horizontally aligned to the left.',
+        },
+        {
+          class: 'kup-right-aligned',
+          description: 'Content will be horizontally aligned to the right.',
+        },
+        {
           class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',

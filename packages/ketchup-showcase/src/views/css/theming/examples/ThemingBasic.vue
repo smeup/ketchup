@@ -57,15 +57,13 @@
       >
     </p>
     <p>
-      The theming process is handled by the library itself, through a mutation
-      observer listening to changes of the attribute
-      <span class="code-word">kup-theme</span> on the document element. Whenever
-      this attribute changes, the library performs a theme switch, falling back
-      to <span class="code-word">ketchup (default theme)</span> whenever the
-      attribute contains an invalid id. You can try this process right away by
-      typing in the text field below, which reflects its value on the the
-      kup-theme attribute. Try typing <span class="code-word">dark</span> and
-      see what happens:
+      The theming process is handled by the library itself, it's possible to set
+      a theme by invoking the method
+      <span class="code-word">set(theme: string)</span><br />
+      of the <span class="code-word">KupTheme</span> class <br /><br />.You can
+      try this process right away by typing in the text field below, which
+      reflects its value on the the kup-theme attribute. Try typing
+      <span class="code-word">cobalt</span> and see what happens:
     </p>
     <div class="demo-container">
       <div class="kup-container">

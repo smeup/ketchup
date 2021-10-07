@@ -11,7 +11,7 @@ $sticky-cell--row-z-index: 4;
 
 // Base style for the cells which are sticky
 %fixedCellsBase {
-  background-color: var(--kup-background-color);
+  background-color: var(--kup-datatable_background-color);
   color: var(--kup-text-color);
   position: sticky;
 
@@ -43,7 +43,7 @@ tr.hover .fixed-column {
 
 tr.selected .fixed-column,
 tr.selected .fixed-row {
-  background-color: var(--kup-background-color);
+  background-color: var(--kup-datatable_background-color);
   background-image: linear-gradient(
     to right,
     rgba(var(--kup-primary-color-rgb), 0.175) 0%,
@@ -81,5 +81,5 @@ thead tr.hover:not(.group):not(.selected) .fixed-column {
 tfoot tr.hover:not(.group):not(.selected) .fixed-row,
 tfoot tr.hover:not(.group):not(.selected) .fixed-column {
   color: var(--kup-text-color);
-  background-color: var(--kup-background-color);
+  background-color: var(--kup-datatable_background-color);
 }

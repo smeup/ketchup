@@ -107,6 +107,14 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                        | Description                                                                                                                                                                                                         |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--kup-textfield_color`     | Sets text color of the text field.                                                                                                                                                                                  |
+| `--kup-textfield_color-rgb` | Sets text color RGB values of the text field (used for shaders). NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+
+
 ## Dependencies
 
 ### Used by

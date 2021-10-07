@@ -2015,7 +2015,11 @@ export class KupTree {
                     )}
                 >
                     {this.asAccordion && !treeNodeDepth
-                        ? [treeNodeIcon, content, treeExpandIcon]
+                        ? [
+                              treeNodeIcon,
+                              content,
+                              hasExpandIcon ? treeExpandIcon : null,
+                          ]
                         : [indent, treeExpandIcon, treeNodeIcon, content]}
                 </td>
             );

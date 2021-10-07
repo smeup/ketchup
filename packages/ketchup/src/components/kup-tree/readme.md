@@ -203,6 +203,14 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                   | Description                                                     |
+| ---------------------- | --------------------------------------------------------------- |
+| `--kup-tree_color`     | Sets text color of the component.                               |
+| `--kup-tree_color-rgb` | Sets text color RGB values of the component (used for shaders). |
+
+
 ## Dependencies
 
 ### Used by

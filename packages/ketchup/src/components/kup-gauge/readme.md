@@ -131,6 +131,16 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                       | Description                        |
+| -------------------------- | ---------------------------------- |
+| `--kup-gauge_color`        | Sets text color of the component.  |
+| `--kup-gauge_font-family`  | Sets font family of the component. |
+| `--kup-gauge_font-size`    | Sets font size of the component.   |
+| `--kup-gauge_needle-color` | Sets color of the needle.          |
+
+
 ## Dependencies
 
 ### Used by
