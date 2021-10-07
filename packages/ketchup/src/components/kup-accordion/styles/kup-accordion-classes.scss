@@ -3,18 +3,17 @@
 /*-------------------------------------------------*/
 
 :host(.#{$kup-class-borderless}) {
+  .accordion {
+    border-radius: 0;
+    border-bottom: none;
+    border-top: none;
+  }
   .accordion-item {
-    border: none;
+    border-left: none;
+    border-right: none;
 
-    &:first-of-type {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-
-    &:last-of-type {
-      border-bottom: none;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+    &:not(:first-of-type) {
+      border-top: none;
     }
   }
 }

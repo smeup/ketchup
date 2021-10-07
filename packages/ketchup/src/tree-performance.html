@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Performance data table</title>
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+        <style>
+            kup-nav-bar {
+                position: relative;
+            }
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+            }
+
+            body,
+            html {
+                box-sizing: border-box;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            kup-text-field {
+                margin: 1em;
+            }
+
+            #datatable-wrapper {
+                padding-top: var(--kup-navbar-height);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="data-examples">
+            <kup-nav-bar
+                id="nav-bar"
+                label="Performance Data Table"
+                show-menu-button="false"
+            >
+                <kup-text-field
+                    id="tree-field"
+                    initial-value="1"
+                    input-type="number"
+                    label="N° of trees"
+                ></kup-text-field>
+                <kup-text-field
+                    id="root-field"
+                    initial-value="2"
+                    input-type="number"
+                    label="N° of root nodes"
+                ></kup-text-field>
+                <kup-text-field
+                    id="depth-field"
+                    initial-value="1"
+                    input-type="number"
+                    label="N° of depth"
+                ></kup-text-field>
+                <kup-text-field
+                    id="column-field"
+                    initial-value="0"
+                    input-type="number"
+                    label="N° of columns"
+                ></kup-text-field>
+                <kup-button
+                    id="apply-button"
+                    label="Apply"
+                    styling="flat"
+                ></kup-button
+                ><kup-button
+                    class="kup-pulsating"
+                    onclick="document.documentElement.ketchup.debug.toggle();"
+                    toggable
+                    icon-off="bug"
+                    icon="bug"
+                ></kup-button
+            ></kup-nav-bar>
+            <div id="tree-wrapper"></div>
+            <script src="/assets/tree-performance.js"></script
+        ></div>
+    </body>
+</html>

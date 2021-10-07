@@ -5,14 +5,15 @@
 
 ## Properties
 
-| Property             | Attribute             | Description                                      | Type                                                          | Default                      |
-| -------------------- | --------------------- | ------------------------------------------------ | ------------------------------------------------------------- | ---------------------------- |
-| `customStyle`        | `custom-style`        | Custom style of the component.                   | `string`                                                      | `''`                         |
-| `data`               | --                    | Data of the accordion.                           | `KupAccordionData`                                            | `null`                       |
-| `globalFilter`       | `global-filter`       | When set to true it activates the global filter. | `boolean`                                                     | `false`                      |
-| `globalFilterMode`   | `global-filter-mode`  | The mode of the global filter.                   | `KupGlobalFilterMode.HIGHLIGHT \| KupGlobalFilterMode.SIMPLE` | `KupGlobalFilterMode.SIMPLE` |
-| `globalFilterValue`  | `global-filter-value` | The value of the global filter.                  | `string`                                                      | `''`                         |
-| `selectedItemsNames` | --                    | The names of the selected items.                 | `string[]`                                                    | `[]`                         |
+| Property             | Attribute             | Description                                                                                                             | Type                                                                     | Default                            |
+| -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ---------------------------------- |
+| `customStyle`        | `custom-style`        | Custom style of the component.                                                                                          | `string`                                                                 | `''`                               |
+| `data`               | --                    | Data of the accordion.                                                                                                  | `KupAccordionData`                                                       | `null`                             |
+| `expansionMode`      | `expansion-mode`      | The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could. | `KupAccordionExpansionMode.MULTIPLE \| KupAccordionExpansionMode.SINGLE` | `KupAccordionExpansionMode.SINGLE` |
+| `globalFilter`       | `global-filter`       | When set to true it activates the global filter.                                                                        | `boolean`                                                                | `false`                            |
+| `globalFilterMode`   | `global-filter-mode`  | The mode of the global filter.                                                                                          | `KupGlobalFilterMode.HIGHLIGHT \| KupGlobalFilterMode.SIMPLE`            | `KupGlobalFilterMode.SIMPLE`       |
+| `globalFilterValue`  | `global-filter-value` | The value of the global filter.                                                                                         | `string`                                                                 | `''`                               |
+| `selectedItemsNames` | --                    | The names of the selected items.                                                                                        | `string[]`                                                               | `[]`                               |
 
 
 ## Events

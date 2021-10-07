@@ -181,6 +181,7 @@
             appendEl(content, tile);
         }
         content.style.display = 'grid';
+        content.style.gridArea = 'content';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
         content.style.gridTemplateColumns = '1fr 1fr'; // same as repeat(2, 1fr)
         content.style.gridTemplateRows = '1fr 1fr'; // same as repeat(2, 1fr)
@@ -190,7 +191,8 @@
         wrapper.appendChild(content);
         wrapper.style.gridTemplateAreas = "'nav-bar nav-bar' 'drawer content'";
         wrapper.style.gridTemplateColumns = '300px minmax(0, 1fr)';
-        wrapper.style.gridTemplateRows = '64px minmax(0, 1fr)';
+        wrapper.style.gridTemplateRows =
+            'var(--kup-navbar-height) minmax(0, 1fr)';
     };
 
     buttonCards.onclick = () => {
@@ -205,6 +207,7 @@
             appendEl(content, card);
         }
         content.style.display = 'grid';
+        content.style.gridArea = 'content';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
         content.style.gridTemplateColumns = '1fr 1fr'; // same as repeat(2, 1fr)
         content.style.gridTemplateRows = '1fr 1fr'; // same as repeat(2, 1fr)
@@ -214,7 +217,8 @@
         wrapper.appendChild(content);
         wrapper.style.gridTemplateAreas = "'nav-bar nav-bar' 'drawer content'";
         wrapper.style.gridTemplateColumns = '300px minmax(0, 1fr)';
-        wrapper.style.gridTemplateRows = '64px minmax(0, 1fr)';
+        wrapper.style.gridTemplateRows =
+            'var(--kup-navbar-height) minmax(0, 1fr)';
     };
 
     buttonTables.onclick = () => {
@@ -229,6 +233,7 @@
             appendEl(content, table);
         }
         content.style.display = 'grid';
+        content.style.gridArea = 'content';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-2a s-2b'";
         content.style.gridTemplateColumns = '1fr 1fr'; // same as repeat(2, 1fr)
         content.style.gridTemplateRows = '1fr 1fr'; // same as repeat(2, 1fr)
@@ -238,7 +243,8 @@
         wrapper.appendChild(content);
         wrapper.style.gridTemplateAreas = "'nav-bar nav-bar' 'drawer content'";
         wrapper.style.gridTemplateColumns = '300px minmax(0, 1fr)';
-        wrapper.style.gridTemplateRows = '64px minmax(0, 1fr)';
+        wrapper.style.gridTemplateRows =
+            'var(--kup-navbar-height) minmax(0, 1fr)';
     };
 
     buttonMix.onclick = () => {
@@ -252,6 +258,7 @@
             appendEl(content, comp);
         }
         content.style.display = 'grid';
+        content.style.gridArea = 'content';
         content.style.gridTemplateAreas = "'s-1a s-1b' 's-1a s-2b' 's-3a s-3a'";
         content.style.gridTemplateColumns = '30% 1fr';
         content.style.gridTemplateRows = '1fr 1fr 1fr'; // same as repeat(3, 1fr)
@@ -260,7 +267,8 @@
         wrapper.appendChild(content);
         wrapper.style.gridTemplateAreas = "'nav-bar' 'content'";
         wrapper.style.gridTemplateColumns = 'minmax(0, 1fr)';
-        wrapper.style.gridTemplateRows = '64px minmax(0, 1fr)';
+        wrapper.style.gridTemplateRows =
+            'var(--kup-navbar-height) minmax(0, 1fr)';
     };
 
     buttonJsonTiles.onclick = () => {
@@ -330,11 +338,15 @@
 
     function createDrawer() {
         const drawer = document.createElement('kup-drawer');
-        drawer.customStyle =
-            '#kup-component aside {position: unset; left: unset; height: auto; width: auto}';
-        drawer.opened = true;
+        const title = document.createElement('div');
+        title.slot = 'title';
+        title.innerText = 'Drawer';
         drawer.style.gridArea = 'drawer';
         drawer.classList.add('kup-permanent');
+        drawer.appendChild(title);
+        drawer.addEventListener('kup-drawer-ready', () => {
+            drawer.open();
+        });
         return drawer;
     }
 

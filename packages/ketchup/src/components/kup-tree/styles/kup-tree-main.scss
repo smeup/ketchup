@@ -3,6 +3,12 @@
   font-size: var(--kup-font-size);
 }
 
+:host([prevent-x-scroll]) {
+  .wrapper {
+    overflow-x: hidden;
+  }
+}
+
 #kup-component {
   color: var(--kup-text-color);
 }
@@ -82,6 +88,10 @@
       padding: 0.4em 0.5em;
     }
 
+    td {
+      white-space: nowrap;
+    }
+
     &__indent {
       display: inline-block;
       width: calc(1.5em * var(--tree-node_depth, 0));
@@ -91,6 +101,7 @@
       display: inline-block;
       margin-right: 0.4em;
       height: 1.5em;
+      min-width: 1.5em;
       width: 1.5em;
       transition: transform 0.1s;
     }
@@ -173,6 +184,12 @@
 }
 
 .cell-content {
+  &--ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: var(--content_width, auto);
+  }
   &--highlighted {
     color: var(--kup-text-on-primary-color);
     background-color: var(--kup-primary-color);
@@ -223,4 +240,115 @@ tfoot {
 
 .totals-value {
   font-weight: bold;
+}
+
+:host([as-accordion]) {
+  .wrapper .kup-tree thead {
+    display: table-header-group;
+
+    tr {
+      border-left: 1px solid var(--kup-border-color);
+      border-right: 1px solid var(--kup-border-color);
+    }
+  }
+
+  .density-dense {
+    .first-node {
+      padding: 0.5em 1em;
+    }
+  }
+
+  .density-medium {
+    .first-node {
+      padding: 1em 1.5em;
+    }
+  }
+
+  .density-wide {
+    .first-node {
+      padding: 1.75em 1.75em;
+    }
+  }
+
+  .kup-tree__node--first {
+    border: none;
+    box-sizing: border-box;
+    display: block;
+
+    &[data-is-expanded] {
+      background-color: var(--kup-hover-background-color);
+      color: var(--kup-hover-color);
+
+      .first-node {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+
+      .dropdown {
+        transform: rotate(180deg);
+      }
+    }
+
+    &:first-of-type {
+      .first-node {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        border-top: 1px solid var(--kup-border-color);
+      }
+    }
+
+    &:last-of-type {
+      .first-node {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+    }
+
+    .first-node {
+      align-items: center;
+      border-bottom: 1px solid var(--kup-border-color);
+      border-left: 1px solid var(--kup-border-color);
+      border-right: 1px solid var(--kup-border-color);
+      box-sizing: border-box;
+      color: var(--kup-text-color);
+      cursor: pointer;
+      display: flex;
+      font-family: var(--kup-font-family);
+      line-height: 1.75em;
+      outline: none;
+      text-align: left;
+      transition: background-color 80ms, color 80ms;
+      width: 100%;
+    }
+
+    .kup-tree__icon {
+      margin-left: 0;
+      margin-right: 0.5em;
+      min-width: 1.5em;
+    }
+
+    .cell-content {
+      margin-right: 0.5em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre;
+    }
+
+    .dropdown {
+      background-color: var(--kup-icon-color);
+      height: 1.5em;
+      margin-left: auto;
+      margin-right: 0;
+      min-width: 1.5em;
+      width: 1.5em;
+      transition: transform 0.1s;
+    }
+  }
+
+  // First accordion item right below a tree item
+  .kup-tree__node:not(.kup-tree__node--first) + .kup-tree__node--first {
+    border-top: 1px solid var(--kup-border-color);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
 }

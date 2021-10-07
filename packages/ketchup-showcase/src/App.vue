@@ -68,13 +68,17 @@
           </svg>
         </a>
       </div>
-      <kup-accordion
+      <kup-tree
+        as-accordion
         class="kup-borderless kup-full-width"
-        :data.prop="accordionData"
+        :data.prop="treeData"
+        density="wide"
+        expansion-mode="node"
         global-filter
         id="navigation-accordion"
-        @kup-accordion-treenodeselected="treeClick"
-      ></kup-accordion>
+        prevent-x-scroll
+        @kup-tree-nodeselected="treeClick"
+      ></kup-tree>
     </kup-drawer>
     <div id="app__content">
       <div id="app__container">
@@ -97,7 +101,7 @@
           size-y="24px"
         ></kup-image>
       </a>
-      <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
+      <span class="company-text">© Copyright 2021 - Sme.UP Spa</span>
       <a
         class="footer__icon--trailing"
         target="_blank"
@@ -234,582 +238,563 @@ export default {
           : null;
       if (route) {
         this.$router.push(route.value).catch(() => {});
+        drawer.isOpened().then((opened) => {
+          if (!drawer.classList.contains('kup-permanent')) {
+            drawer.close();
+          }
+        });
       }
     },
   },
   data: () => ({
-    accordionData: {
-      columns: [
-        {
-          name: 'Components',
-          title: 'Components',
-          icon: 'widgets',
-        },
-        {
-          name: 'CSS',
-          title: 'CSS',
-          icon: 'style',
-        },
-        {
-          name: 'Javascript',
-          title: 'Javascript',
-          icon: 'json',
-        },
-      ],
-      rows: [
-        {
-          cells: {
-            Components: {
-              data: {
-                data: [
-                  {
-                    children: [
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'accordion',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Accordion',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'box',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Box',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'bpmn.io',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Bpmn.io',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'buttonlist',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Button list',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'calendar',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Calendar',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'card',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Card',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'chart',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Chart',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'dash',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Dash',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'dashlist',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Dash list',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'datatable',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Data table',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'echart',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Echart',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'field',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Field',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'tooltip',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Tooltip',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'tree',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Tree',
-                        visible: true,
-                      },
-                    ],
-                    expandable: true,
-                    isExpanded: false,
-                    value: 'Advanced',
-                    visible: true,
+    treeData: [
+      {
+        children: [
+          {
+            children: [
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'accordion',
                   },
-                  {
-                    children: [
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'autocomplete',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Autocomplete',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'badge',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Badge',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'button',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Button',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'checkbox',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Checkbox',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'chip',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Chip',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'colorpicker',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Color picker',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'combobox',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Combobox',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'datepicker',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Datepicker',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'drawer',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Drawer',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'dropdownbutton',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Dropdown button',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'gauge',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Gauge',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'grid',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Grid',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'iframe',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Iframe',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'image',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Image',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'lazy',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Lazy',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'list',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'List',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'navbar',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Nav bar',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'progressbar',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Progress bar',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'radio',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Radio',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'rating',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Rating',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'spinner',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Spinner',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'switch',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Switch',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'tabbar',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Tab bar',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'textfield',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Text field',
-                        visible: true,
-                      },
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'timepicker',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Time picker',
-                        visible: true,
-                      },
-                    ],
-                    expandable: true,
-                    isExpanded: false,
-                    value: 'Basic',
-                    visible: true,
-                  },
-                  {
-                    children: [
-                      {
-                        cells: {
-                          ROUTE: {
-                            value: 'qlik',
-                          },
-                        },
-                        expandable: true,
-                        isExpanded: false,
-                        value: 'Qlik',
-                        visible: true,
-                      },
-                    ],
-                    expandable: true,
-                    isExpanded: false,
-                    value: '3rd Parties',
-                    visible: true,
-                  },
-                ],
-                density: 'wide',
-                scrollOnHover: true,
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Accordion',
+                visible: true,
               },
-              shape: 'TRE',
-            },
-            CSS: {
-              data: {
-                data: [
-                  {
-                    cells: {
-                      ROUTE: {
-                        value: 'customization',
-                      },
-                    },
-                    expandable: true,
-                    isExpanded: false,
-                    value: 'Customization',
-                    visible: true,
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'box',
                   },
-                  {
-                    cells: {
-                      ROUTE: {
-                        value: 'theming',
-                      },
-                    },
-                    expandable: true,
-                    isExpanded: false,
-                    value: 'Theming',
-                    visible: true,
-                  },
-                ],
-                density: 'wide',
-                scrollOnHover: true,
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Box',
+                visible: true,
               },
-              shape: 'TRE',
-            },
-            Javascript: {
-              data: {
-                data: [
-                  {
-                    cells: {
-                      ROUTE: {
-                        value: 'debugging',
-                      },
-                    },
-                    expandable: true,
-                    isExpanded: false,
-                    value: 'Debugging',
-                    visible: true,
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'bpmn.io',
                   },
-                  {
-                    cells: {
-                      ROUTE: {
-                        value: 'dynamicposition',
-                      },
-                    },
-                    expandable: true,
-                    isExpanded: false,
-                    value: 'Dynamic position',
-                    visible: true,
-                  },
-                  {
-                    cells: {
-                      ROUTE: {
-                        value: 'scrollonhover',
-                      },
-                    },
-                    expandable: true,
-                    isExpanded: false,
-                    value: 'Scroll on hover',
-                    visible: true,
-                  },
-                ],
-                density: 'wide',
-                scrollOnHover: true,
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Bpmn.io',
+                visible: true,
               },
-              shape: 'TRE',
-            },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'buttonlist',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Button list',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'calendar',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Calendar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'card',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Card',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'chart',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Chart',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'dash',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Dash',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'dashlist',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Dash list',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'datatable',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Data table',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'echart',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Echart',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'field',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Field',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'tooltip',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Tooltip',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'tree',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Tree',
+                visible: true,
+              },
+            ],
+            expandable: true,
+            isExpanded: false,
+            value: 'Advanced',
+            visible: true,
           },
-          id: '1',
-        },
-      ],
-    },
+          {
+            children: [
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'autocomplete',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Autocomplete',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'badge',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Badge',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'button',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Button',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'checkbox',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Checkbox',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'chip',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Chip',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'colorpicker',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Color picker',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'combobox',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Combobox',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'datepicker',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Datepicker',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'drawer',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Drawer',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'dropdownbutton',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Dropdown button',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'gauge',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Gauge',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'grid',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Grid',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'iframe',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Iframe',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'image',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Image',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'lazy',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Lazy',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'list',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'List',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'navbar',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Nav bar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'progressbar',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Progress bar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'radio',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Radio',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'rating',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Rating',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'spinner',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Spinner',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'switch',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Switch',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'tabbar',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Tab bar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'textfield',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Text field',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'timepicker',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Time picker',
+                visible: true,
+              },
+            ],
+            expandable: true,
+            isExpanded: false,
+            value: 'Basic',
+            visible: true,
+          },
+          {
+            children: [
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'qlik',
+                  },
+                },
+                expandable: true,
+                isExpanded: false,
+                value: 'Qlik',
+                visible: true,
+              },
+            ],
+            expandable: true,
+            isExpanded: false,
+            value: '3rd Parties',
+            visible: true,
+          },
+        ],
+        expandable: true,
+        icon: 'widgets',
+        isExpanded: false,
+        value: 'Components',
+        visible: true,
+      },
+      {
+        children: [
+          {
+            cells: {
+              ROUTE: {
+                value: 'customization',
+              },
+            },
+            expandable: true,
+            isExpanded: false,
+            value: 'Customization',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'theming',
+              },
+            },
+            expandable: true,
+            isExpanded: false,
+            value: 'Theming',
+            visible: true,
+          },
+        ],
+        expandable: true,
+        icon: 'style',
+        isExpanded: false,
+        value: 'CSS',
+        visible: true,
+      },
+      {
+        children: [
+          {
+            cells: {
+              ROUTE: {
+                value: 'debugging',
+              },
+            },
+            expandable: true,
+            isExpanded: false,
+            value: 'Debugging',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'dynamicposition',
+              },
+            },
+            expandable: true,
+            isExpanded: false,
+            value: 'Dynamic position',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'scrollonhover',
+              },
+            },
+            expandable: true,
+            isExpanded: false,
+            value: 'Scroll on hover',
+            visible: true,
+          },
+        ],
+        expandable: true,
+        icon: 'json',
+        isExpanded: false,
+        value: 'Javascript',
+        visible: true,
+      },
+    ],
     navbarImage: { resource: 'ketchup_logo_header.svg' },
   }),
 };
@@ -890,6 +875,7 @@ label {
   display: block;
   margin: 0 auto;
   max-width: 80%;
+  overscroll-behavior: none;
   padding: 24px 40px;
 }
 
@@ -902,7 +888,7 @@ label {
 
   &__content {
     padding-bottom: 32px;
-    padding-top: 64px;
+    padding-top: var(--kup-navbar-height);
     transition: all 250ms;
   }
 
@@ -922,7 +908,7 @@ label {
 
   &__footer {
     align-items: center;
-    background: var(--kup-nav-bar-background-color);
+    background: var(--kup-navbar-background-color);
     bottom: 0;
     box-shadow: 0px -1px 4px -1px rgba(128, 128, 128, 0.2),
       0px -1px 5px 0 rgba(128, 128, 128, 0.14),
@@ -937,6 +923,23 @@ label {
     width: 100%;
     z-index: var(--kup-drawer-zindex);
   }
+}
+
+.logo svg {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  fill: var(--kup-primary-color);
+  height: 70px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  width: calc(var(--kup-drawer-width) / 1.5);
+}
+
+.logo svg.visible {
+  display: block;
 }
 
 .spinner {
@@ -1002,5 +1005,30 @@ a.footer__icon--trailing {
 
 ::-webkit-scrollbar-track {
   background-color: var(--kup-background-color);
+}
+
+@media only screen and (max-width: 960px) {
+  #app__container {
+    padding: 0.5em;
+    padding-bottom: 2.5em;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  #app__container {
+    max-width: 900px;
+  }
+}
+
+@media only screen and (min-width: 1264px) {
+  #app__container {
+    max-width: 1185px;
+  }
+}
+
+@media only screen and (min-width: 1904px) {
+  #app__container {
+    max-width: 1785px;
+  }
 }
 </style>

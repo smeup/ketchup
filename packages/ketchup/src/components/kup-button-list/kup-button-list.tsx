@@ -302,7 +302,13 @@ export class KupButtonList {
         data.large = this.rootElement.classList.contains('kup-large')
             ? true
             : false;
+        data.pulsating = this.rootElement.classList.contains('kup-pulsating')
+            ? true
+            : false;
         data.shaped = this.rootElement.classList.contains('kup-shaped')
+            ? true
+            : false;
+        data.slim = this.rootElement.classList.contains('kup-slim')
             ? true
             : false;
         if (!data.wrapperClass) {

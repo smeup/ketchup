@@ -23,7 +23,7 @@ export class KupObjects {
      * @returns {boolean} True when columns can be automatically derived from the object.
      */
     canHaveAutomaticDerivedColumn(obj: KupObj): boolean {
-        if (!this.canHaveExtraColumns(obj)) {
+        if (!this.canObjHaveExtraColumns(obj)) {
             return false;
         }
         return (
@@ -33,12 +33,27 @@ export class KupObjects {
             !this.isPercentage(obj)
         );
     }
+
+    /**
+     * Checks whether the objects can have extra columns or not.
+     * @param {KupObj} obj - Object to check.
+     * @returns {boolean} True when the object has extra columns.
+     */
+    canObjsHaveExtraColumns(objs: KupObj[]): boolean {
+        if (!objs) return false;
+        let result: boolean = false;
+        for (let i = 0; i < objs.length; i++) {
+            result = result || this.canObjHaveExtraColumns(objs[i]);
+        }
+        return result;
+    }
+
     /**
      * Checks whether the object can have extra columns or not.
      * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object has extra columns.
      */
-    canHaveExtraColumns(obj: KupObj): boolean {
+    canObjHaveExtraColumns(obj: KupObj): boolean {
         if (!obj) return false;
         if (
             !obj.t ||

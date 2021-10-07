@@ -12,6 +12,7 @@ import {
  * Used to export every prop in an object.
  */
 export enum KupTreeProps {
+    asAccordion = 'When enabled, the first level of depth will give an accordion look to nodes.',
     autoSelectionNodeMode = 'Auto select programmatic selectic node',
     columns = 'The columns of the tree when tree visualization is active.',
     customStyle = 'Custom style of the component.',
@@ -20,11 +21,13 @@ export enum KupTreeProps {
     dynamicExpansionCallback = 'Function that gets invoked when a new set of nodes must be loaded as children of a node. When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. If this prop is set to null, no callback to download data is available: the component will emit an event requiring the parent to load the children of the given node. If this prop is set to have a callback, then the component will automatically make requests to load children of a given node. After the load has been completed, a different event will be fired to alert the parent of the change.',
     enableExtraColumns = 'Enables adding extra columns.',
     expanded = 'Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.',
+    expansionMode = "Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.",
     filters = 'List of filters set by the user.',
     globalFilter = 'When set to true it activates the global filter.',
     globalFilterValue = 'The value of the global filter.',
     globalFilterMode = 'The mode of the global filter.',
     removableColumns = 'Sets the possibility to remove the selected column.',
+    preventXScroll = 'Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.',
     scrollOnHover = 'Activates the scroll on hover function.',
     selectedNode = 'An array of integers containing the path to a selected child. Groups up the properties SelFirst, SelItem, SelName.',
     showColumns = 'Shows the tree data as a table.',
@@ -92,6 +95,11 @@ export interface EventHandlerDetails {
     td: HTMLTableDataCellElement;
     th: HTMLTableHeaderCellElement;
     tr: HTMLTableRowElement;
+}
+
+export enum KupTreeExpansionMode {
+    DROPDOWN = 'dropdown',
+    NODE = 'node',
 }
 
 export interface KupTreeNodeCollapseEventPayload extends KupEventPayload {
