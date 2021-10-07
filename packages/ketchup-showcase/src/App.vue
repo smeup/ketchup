@@ -106,7 +106,7 @@
         <kup-image
           class="footer__icon"
           resource="github"
-          color="white"
+          color="var(--kup-navbar-color)"
           size-x="24px"
           size-y="24px"
         ></kup-image>
@@ -122,7 +122,7 @@
         <kup-image
           class="footer__icon"
           resource="npm"
-          color="white"
+          color="var(--kup-navbar-color)"
           size-x="24px"
           size-y="24px"
         ></kup-image>
@@ -908,6 +908,10 @@ a.footer__icon--trailing {
 
 .footer__icon:hover {
   opacity: 0.7;
+}
+
+.company-text {
+  color: var(--kup-navbar-color);
 }
 
 .demo-container {

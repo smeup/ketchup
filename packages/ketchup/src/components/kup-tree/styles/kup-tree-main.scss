@@ -155,6 +155,10 @@
       &:hover:not(.kup-tree__node--disabled):not(.kup-tree__node--selected) td {
         background-color: var(--kup-hover-background-color);
         color: var(--kup-hover-color);
+
+        .dropdown {
+          background-color: var(--kup-hover-color);
+        }
       }
 
       &--selected:not(.kup-tree__node--disabled) td {
