@@ -10,9 +10,7 @@ import {
     Prop,
     State,
     VNode,
-    Watch,
 } from '@stencil/core';
-
 import {
     GenericObject,
     KupComponent,
