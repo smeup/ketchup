@@ -592,7 +592,7 @@
             "--kup-text-color": "#333333",
             "--kup-text-on-primary-color": "#fafafa",
             "--kup-text-on-secondary-color": "#ffffff",
-            "--kup-disabled-background-color": "#f0f8ff",
+            "--kup-disabled-background-color": "#ddecf8",
             "--kup-disabled-color": "#333333",
             "--kup-hover-background-color": "#d8ecf6",
             "--kup-hover-color": "#333333",
@@ -633,7 +633,6 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {
-            "KUP-BUTTON-LIST": ":host {--kup-button_font-size: 9px}",
             "KUP-DATA-TABLE": "#kup-component th { --kup-datatable_th-border: none; font-weight: normal; }"
         }
     },
