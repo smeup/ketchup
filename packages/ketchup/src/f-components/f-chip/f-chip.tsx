@@ -117,12 +117,6 @@ function createChipList(
             <div
                 class={componentClass}
                 data-value={props.data[i].value}
-                onBlur={
-                    props.onBlur && props.onBlur[i] ? props.onBlur[i] : null
-                }
-                onFocus={
-                    props.onFocus && props.onFocus[i] ? props.onFocus[i] : null
-                }
                 onClick={
                     props.onClick && props.onClick[i] ? props.onClick[i] : null
                 }
@@ -152,8 +146,8 @@ function createChipList(
                             tabindex="-1"
                             class="icon-container material-icons chip__icon clear"
                             onClick={
-                                props.onClick && props.onClick[i]
-                                    ? props.onClick[i]
+                                props.onIconClick && props.onIconClick[i]
+                                    ? props.onIconClick[i]
                                     : null
                             }
                         ></span>
