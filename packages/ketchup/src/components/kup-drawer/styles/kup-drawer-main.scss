@@ -21,7 +21,7 @@
   top: 0;
   transition: left var(--kup-drawer_slide-transition)
       cubic-bezier(0.4, 0, 0.2, 1),
-    right var(--kup-drawer_slide-transition) cubic-bezier(0.4, 0, 0.2, 1);
+    rightvar(--kup-drawer_slide-transition) cubic-bezier(0.4, 0, 0.2, 1);
   width: var(--kup-drawer-width);
   z-index: var(--kup-drawer-zindex);
 }

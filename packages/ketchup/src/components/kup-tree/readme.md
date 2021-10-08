@@ -207,7 +207,6 @@ Type: `Promise<void>`
 
 | Name                                | Description                                                            |
 | ----------------------------------- | ---------------------------------------------------------------------- |
-| `--kup-tree_border`                 | Sets border of the component.                                          |
 | `--kup-tree_color`                  | Sets text color of the component.                                      |
 | `--kup-tree_color-rgb`              | Sets text color RGB values of the component (used for shaders).        |
 | `--kup-tree_font-family`            | Sets font family of the component.                                     |
