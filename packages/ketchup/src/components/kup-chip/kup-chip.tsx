@@ -232,31 +232,31 @@ export class KupChip {
     /**
      * Sets the events of the component and instantiates Material Design.
      */
-    private setEvents(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-chip--wrapper');
-            if (f) {
-                const chips: NodeListOf<HTMLElement> =
-                    f.querySelectorAll('.chip');
-                for (let j = 0; j < chips.length; j++) {
-                    const primaryEl: HTMLElement = chips[j].querySelector(
-                        '.chip__primary-action'
-                    );
-                    primaryEl.onblur = () => this.onKupBlur(j);
-                    primaryEl.onfocus = () => this.onKupFocus(j);
+    // private setEvents(): void {
+    //     const root: ShadowRoot = this.rootElement.shadowRoot;
+    //     if (root) {
+    //         const f: HTMLElement = root.querySelector('.f-chip--wrapper');
+    //         if (f) {
+    //             const chips: NodeListOf<HTMLElement> =
+    //                 f.querySelectorAll('.chip');
+    //             for (let j = 0; j < chips.length; j++) {
+    //                 const primaryEl: HTMLElement = chips[j].querySelector(
+    //                     '.chip__primary-action'
+    //                 );
+    //                 primaryEl.onblur = () => this.onKupBlur(j);
+    //                 primaryEl.onfocus = () => this.onKupFocus(j);
 
-                    const cancelIcon: HTMLElement =
-                        chips[j].querySelector('.chip__icon.clear');
-                    if (cancelIcon) {
-                        cancelIcon.onclick = () => this.onKupIconClick(j);
-                    }
+    //                 const cancelIcon: HTMLElement =
+    //                     chips[j].querySelector('.chip__icon.clear');
+    //                 if (cancelIcon) {
+    //                     cancelIcon.onclick = () => this.onKupIconClick(j);
+    //                 }
 
-                    chips[j].onclick = () => this.onKupClick(j);
-                }
-            }
-        }
-    }
+    //                 chips[j].onclick = () => this.onKupClick(j);
+    //             }
+    //         }
+    //     }
+    // }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -301,21 +301,26 @@ export class KupChip {
     }
 
     componentDidRender() {
-        this.setEvents();
+        this.render();
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
-        let props: FChipsProps = {
+        const props: FChipsProps = {
             data: this.data,
             dataNew: this.dataNew,
             type: this.type,
-            onBlur: [() => this.onKupBlur],
-            onClick: [() => this.onKupClick],
-            onFocus: [() => this.onKupFocus],
-            onIconClick: [() => this.onKupIconClick],
+            onBlur: [],
+            onClick: [],
+            onFocus: [],
+            onIconClick: [],
         };
-
+        for (let j = 0; j < this.data.length; j++) {
+            props.onClick.push(() => this.onKupClick(j));
+            props.onBlur.push(() => this.onKupBlur(j));
+            props.onFocus.push(() => this.onKupFocus(j));
+            props.onIconClick.push(() => this.onKupIconClick(j));
+        }
         if (
             (!this.data || this.data.length === 0) &&
             (!this.dataNew || this.dataNew.length === 0)

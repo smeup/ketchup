@@ -188,24 +188,24 @@ export class KupSwitch {
     /**
      * Set the events of the component and instantiates Material Design.
      */
-    private setEvents(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-switch--wrapper');
-            if (f) {
-                const inputEl: HTMLInputElement = f.querySelector('input');
-                const labelEl: HTMLElement = f.querySelector('label');
-                if (inputEl) {
-                    inputEl.onblur = () => this.onKupBlur();
-                    inputEl.onchange = () => this.onKupChange();
-                    inputEl.onfocus = () => this.onKupFocus();
-                }
-                if (labelEl) {
-                    labelEl.onclick = () => this.onKupChange();
-                }
-            }
-        }
-    }
+    // private setEvents(): void {
+    //     const root: ShadowRoot = this.rootElement.shadowRoot;
+    //     if (root) {
+    //         const f: HTMLElement = root.querySelector('.f-switch--wrapper');
+    //         if (f) {
+    //             const inputEl: HTMLInputElement = f.querySelector('input');
+    //             const labelEl: HTMLElement = f.querySelector('label');
+    //             if (inputEl) {
+    //                 inputEl.onblur = () => this.onKupBlur();
+    //                 inputEl.onchange = () => this.onKupChange();
+    //                 inputEl.onfocus = () => this.onKupFocus();
+    //             }
+    //             if (labelEl) {
+    //                 labelEl.onclick = () => this.onKupChange();
+    //             }
+    //         }
+    //     }
+    // }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -230,7 +230,7 @@ export class KupSwitch {
     }
 
     componentDidRender() {
-        this.setEvents();
+        this.render();
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -241,7 +241,6 @@ export class KupSwitch {
             label: this.label,
             leadingLabel: this.leadingLabel,
             onBlur: () => this.onKupBlur(),
-            onClick: () => this.onKupChange(),
             onChange: () => this.onKupChange(),
             onFocus: () => this.onKupFocus(),
         };

@@ -23,7 +23,6 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
             id={props.id}
             title={props.title}
             onBlur={props.onBlur}
-            onClick={props.onClick}
             onChange={props.onChange}
             onFocus={props.onFocus}
         >
@@ -51,7 +50,7 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
                         </div>
                     </div>
                 </div>
-                <label>{props.label}</label>
+                <label onClick={props.onChange} >{props.label}</label>
             </div>
         </div>
     );

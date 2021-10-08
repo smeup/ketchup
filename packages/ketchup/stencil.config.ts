@@ -39,6 +39,7 @@ export const config: Config = {
                 { src: 'dropdown-button.html' },
                 { src: 'echart.html' },
                 { src: 'gauge.html' },
+                { src: 'image.html' },
                 { src: 'layout.html' },
                 { src: 'list.html' },
                 { src: 'magic-box.html' },

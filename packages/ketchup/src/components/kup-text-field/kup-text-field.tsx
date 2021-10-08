@@ -264,6 +264,7 @@ export class KupTextField {
     kupTextFieldSubmit: EventEmitter<KupTextFieldEventPayload>;
 
     onKupBlur(event: FocusEvent & { target: HTMLInputElement }) {
+        console.log('blur');
         const { target } = event;
         this.kupBlur.emit({
             comp: this,
@@ -405,46 +406,46 @@ export class KupTextField {
     /**
      * Set the events of the component and instantiates Material Design.
      */
-    private setEvents(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
-            if (f) {
-                const inputEl: HTMLInputElement | HTMLTextAreaElement =
-                    f.querySelector('.mdc-text-field__input');
-                const icon: HTMLElement = f.querySelector('.action');
-                const clearIcon: HTMLElement = f.querySelector('.clear');
-                if (inputEl) {
-                    inputEl.onblur = (
-                        e: FocusEvent & { target: HTMLInputElement }
-                    ) => this.onKupBlur(e);
-                    inputEl.onchange = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupChange(e);
-                    inputEl.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupClick(e);
-                    inputEl.onfocus = (
-                        e: FocusEvent & { target: HTMLInputElement }
-                    ) => this.onKupFocus(e);
-                    inputEl.oninput = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupInput(e);
-                    inputEl.onkeydown = (e: KeyboardEvent) => this.onKeyDown(e);
-                    this.inputEl = inputEl;
-                }
-                if (icon) {
-                    icon.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupIconClick(e);
-                }
-                if (clearIcon) {
-                    clearIcon.onclick = () => this.onKupClearIconClick();
-                }
-                FTextFieldMDC(f);
-            }
-        }
-    }
+    // private setEvents(): void {
+    //     const root: ShadowRoot = this.rootElement.shadowRoot;
+    //     if (root) {
+    //         const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+    //         if (f) {
+    //             const inputEl: HTMLInputElement | HTMLTextAreaElement =
+    //                 f.querySelector('.mdc-text-field__input');
+    //             const icon: HTMLElement = f.querySelector('.action');
+    //             const clearIcon: HTMLElement = f.querySelector('.clear');
+    //             if (inputEl) {
+    //                 inputEl.onblur = (
+    //                     e: FocusEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupBlur(e);
+    //                 inputEl.onchange = (
+    //                     e: UIEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupChange(e);
+    //                 inputEl.onclick = (
+    //                     e: MouseEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupClick(e);
+    //                 inputEl.onfocus = (
+    //                     e: FocusEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupFocus(e);
+    //                 inputEl.oninput = (
+    //                     e: UIEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupInput(e);
+    //                 inputEl.onkeydown = (e: KeyboardEvent) => this.onKeyDown(e);
+    //                 this.inputEl = inputEl;
+    //             }
+    //             if (icon) {
+    //                 icon.onclick = (
+    //                     e: MouseEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupIconClick(e);
+    //             }
+    //             if (clearIcon) {
+    //                 clearIcon.onclick = () => this.onKupClearIconClick();
+    //             }
+    //             FTextFieldMDC(f);
+    //         }
+    //     }
+    // }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -465,7 +466,19 @@ export class KupTextField {
     }
 
     componentDidRender() {
-        this.setEvents();
+        this.render();
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            if (f) {
+                const inputEl: HTMLInputElement | HTMLTextAreaElement =
+                    f.querySelector('.mdc-text-field__input');
+                if (inputEl) {
+                    this.inputEl = inputEl;
+                }
+                FTextFieldMDC(f);
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -497,12 +510,20 @@ export class KupTextField {
             trailingIcon: this.trailingIcon,
             trailingLabel: this.trailingLabel,
             value: this.value,
-            onBlur: (e: FocusEvent & { target: HTMLInputElement })=>this.onKupBlur(e),
-            onChange : (e: UIEvent & { target: HTMLInputElement }) => this.onKupChange(e),
-            onClick :(e: MouseEvent & { target: HTMLInputElement }) => this.onKupClick(e),
-            onFocus : ( e: FocusEvent & { target: HTMLInputElement }) => this.onKupFocus(e),
-            onInput : (e: UIEvent & { target: HTMLInputElement } ) => this.onKupInput(e),
-            onKeyDown : (e: KeyboardEvent) => this.onKeyDown(e),
+            onBlur: (e: FocusEvent & { target: HTMLInputElement }) =>
+                this.onKupBlur(e),
+            onChange: (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupChange(e),
+            onClick: (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupClick(e),
+            onFocus: (e: FocusEvent & { target: HTMLInputElement }) =>
+                this.onKupFocus(e),
+            onInput: (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupInput(e),
+            onKeyDown: (e: KeyboardEvent) => this.onKeyDown(e),
+            onIconClick: (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupIconClick(e),
+            onClearIconClick: () => this.onKupClearIconClick(),
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

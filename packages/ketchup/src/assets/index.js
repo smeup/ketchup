@@ -99,6 +99,10 @@ components.data = [
         value: 'gauge.html',
     },
     {
+        text: 'Image',
+        value: 'image.html',
+    },
+    {
         text: 'Layout',
         value: 'layout.html',
     },
@@ -163,9 +167,9 @@ performances.data = [
         value: 'data-table-performance.html',
     },
     {
-      text: 'Tree',
-      value: 'tree-performance.html',
-  },
+        text: 'Tree',
+        value: 'tree-performance.html',
+    },
 ];
 // Setting up events
 var ctrlKey = false;

@@ -31,4 +31,6 @@ export interface FTextFieldProps extends FComponent {
     onFocus?: (event: FocusEvent) => void;
     onInput?: (event: UIEvent) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
+    onIconClick?:(event: MouseEvent)=>void;
+    onClearIconClick?: (event:MouseEvent)=>void;
 }

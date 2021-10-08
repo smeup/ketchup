@@ -82,6 +82,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             <span
                 tabindex="0"
                 style={iconStyle}
+                onClick={props.onIconClick}
                 class={`material-icons mdc-text-field__icon icon-container action ${iconClass}`}
             ></span>
         );
@@ -136,6 +137,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 <span
                     tabindex="1"
                     class="material-icons mdc-text-field__icon icon-container clear"
+                    onClick={props.onClearIconClick}
                 ></span>
             ) : undefined}
             {props.trailingIcon ? iconEl : undefined}
