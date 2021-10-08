@@ -16,7 +16,7 @@
 }
 
 #group-column-area {
-  background: var(--kup-background-color);
+  background: var(--kup-datatable_background-color);
   border: 2px dashed var(--kup-danger-color);
   box-shadow: var(--kup-box-shadow);
   display: none;
@@ -51,7 +51,7 @@
 }
 
 #remove-column-area {
-  background: var(--kup-background-color);
+  background: var(--kup-datatable_background-color);
   border: 2px dashed var(--kup-danger-color);
   box-shadow: var(--kup-box-shadow);
   display: none;

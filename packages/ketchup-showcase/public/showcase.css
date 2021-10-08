@@ -386,6 +386,7 @@ table#customstyle-tab kup-text-field {
 }
 
 .sample-section {
+  box-sizing: border-box;
   display: none;
   height: 100%;
   position: relative;

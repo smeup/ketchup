@@ -28,7 +28,7 @@ export class KupLanguage {
     constructor(list?: KupLanguageJSON, name?: string) {
         this.list = list ? list : languagesJson['default'];
         this.managedComponents = new Set();
-        this.name = name ? name : KupLanguageDefaults.EN;
+        this.name = name ? name : KupLanguageDefaults.en;
     }
     /**
      * Translates the string to the given language.

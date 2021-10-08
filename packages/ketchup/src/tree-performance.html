@@ -57,28 +57,33 @@
                     initial-value="1"
                     input-type="number"
                     label="N° of trees"
+                    slot="right"
                 ></kup-text-field>
                 <kup-text-field
                     id="root-field"
                     initial-value="2"
                     input-type="number"
                     label="N° of root nodes"
+                    slot="right"
                 ></kup-text-field>
                 <kup-text-field
                     id="depth-field"
                     initial-value="1"
                     input-type="number"
                     label="N° of depth"
+                    slot="right"
                 ></kup-text-field>
                 <kup-text-field
                     id="column-field"
                     initial-value="0"
                     input-type="number"
                     label="N° of columns"
+                    slot="right"
                 ></kup-text-field>
                 <kup-button
                     id="apply-button"
                     label="Apply"
+                    slot="right"
                     styling="flat"
                 ></kup-button
                 ><kup-button
@@ -87,8 +92,12 @@
                     toggable
                     icon-off="bug"
                     icon="bug"
+                    slot="right"
                 ></kup-button
-            ></kup-nav-bar>
+                ><span id="navbar-label" slot="left"
+                    >Performance tree</span
+                ></kup-nav-bar
+            >
             <div id="tree-wrapper"></div>
             <script src="/assets/tree-performance.js"></script
         ></div>

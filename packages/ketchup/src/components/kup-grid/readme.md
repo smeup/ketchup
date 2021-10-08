@@ -45,6 +45,16 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                    | Description                                 |
+| ----------------------- | ------------------------------------------- |
+| `--kup-grid_font-size`  | Sets font size of the component.            |
+| `--kup-grid_gap`        | Sets gap of the grid.                       |
+| `--kup-grid_gap-mobile` | Sets gap of the grid for lower resolutions. |
+| `--kup-grid_padding`    | Sets padding of the outer layer.            |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

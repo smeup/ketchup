@@ -56,6 +56,15 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                             | Description                                                                                                                                                                                                            |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--kup-switch_label-color`       | Sets text color of the switch label.                                                                                                                                                                                   |
+| `--kup-switch_primary-color`     | Sets the primary color of the switch.                                                                                                                                                                                  |
+| `--kup-switch_primary-color-rgb` | Sets the primary color RGB values of the switch (used for shaders). NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+
+
 ## Dependencies
 
 ### Used by

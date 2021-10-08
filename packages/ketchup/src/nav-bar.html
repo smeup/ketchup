@@ -26,6 +26,10 @@
                 font-size: var(--kup-font-size);
             }
 
+            kup-switch {
+                --kup-primary-color: var(--kup-secondary-color);
+            }
+
             kup-dropdown-button {
                 bottom: 10px;
                 position: fixed;
@@ -45,17 +49,20 @@
     <body>
         <div class="wrapper">
             <kup-nav-bar class="visible" id="standard" label="Standard"
-                ><kup-switch label="Dark mode"></kup-switch
-                ><kup-button icon="favorite"></kup-button
+                ><kup-switch slot="right" label="Dark mode"></kup-switch
+                ><kup-button slot="right" icon="favorite"></kup-button
                 ><kup-button
+                    slot="right"
                     class="kup-pulsating"
                     onclick="document.documentElement.ketchup.debug.toggle();"
                     toggable
                     icon-off="bug"
                     icon="bug"
                 ></kup-button
-                ><kup-button icon="magnify"></kup-button
-            ></kup-nav-bar>
+                ><kup-button slot="right" icon="magnify"></kup-button
+                ><kup-button slot="left" id="drawer-button" icon="menu"></kup-button
+                ><span slot="left">Nav bar</span></kup-nav-bar
+            >
             <kup-drawer class="kup-permanent"></kup-drawer>
             <kup-dropdown-button
                 id="styling-selector"

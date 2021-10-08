@@ -1,12 +1,41 @@
+/**
+* @prop --kup-accordion_background-color: Sets background of the component.
+* @prop --kup-accordion_border: Sets borders color of the accordion.
+* @prop --kup-accordion_border-radius: Sets border radius of the first and last items of the accordion.
+* @prop --kup-accordion_dropdown-icon-color: Sets color of the dropdown icon.
+* @prop --kup-accordion_font-family: Sets font family of the component.
+* @prop --kup-accordion_font-size: Sets font size of the component.
+* @prop --kup-accordion_hover-background-color: Sets background color of the hover effect.
+* @prop --kup-accordion_hover-color: Sets text color of the hover effect.
+* @prop --kup-accordion_padding: Sets padding of the accordion's items.
+* @prop --kup-accordion_selection-color: Sets background color of a selected item.
+* @prop --kup-accordion_text-color: Sets text color of the component.
+* @prop --kup-accordion_transition: Sets transition duration for color and background-color.
+*/
+
 :host {
+  --kup-accordion_background-color: transparent;
+  --kup-accordion_border: 1px solid var(--kup-border-color);
+  --kup-accordion_border-radius: 4px;
+  --kup-accordion_dropdown-icon-color: var(--kup-icon-color);
+  --kup-accordion_font-family: var(--kup-font-family);
+  --kup-accordion_font-size: var(--kup-font-size);
+  --kup-accordion_hover-background-color: var(--kup-hover-background-color);
+  --kup-accordion_hover-color: var(--kup-hover-color);
+  --kup-accordion_padding: 1em 1.5em;
+  --kup-accordion_selection-color: rgba(var(--kup-primary-color-rgb), 0.175);
+  --kup-accordion_text-color: var(--kup-text-color);
+  --kup-accordion_transition: 80ms;
+
   display: block;
-  font-size: var(--kup-font-size);
+  font-size: var(--kup-accordion_font-size);
 }
 
 .accordion {
-  border-bottom: 1px solid var(--kup-border-color);
-  border-radius: 4px;
-  border-top: 1px solid var(--kup-border-color);
+  background-color: var(--kup-accordion_background-color);
+  border-bottom: var(--kup-accordion_border);
+  border-radius: var(--kup-accordion_border-radius);
+  border-top: var(--kup-accordion_border);
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -14,8 +43,8 @@
 }
 
 .accordion-item {
-  border-left: 1px solid var(--kup-border-color);
-  border-right: 1px solid var(--kup-border-color);
+  border-left: var(--kup-accordion_border);
+  border-right: var(--kup-accordion_border);
   box-sizing: border-box;
   display: none;
   width: 100%;
@@ -25,32 +54,33 @@
   }
 
   &:not(:first-of-type) {
-    border-top: 1px solid var(--kup-border-color);
+    border-top: var(--kup-accordion_border);
   }
 
   &__header {
     align-items: center;
     border: none;
     box-sizing: border-box;
-    color: var(--kup-text-color);
+    color: var(--kup-accordion_text-color);
     cursor: pointer;
     display: flex;
-    font-family: var(--kup-font-family);
+    font-family: var(--kup-accordion_font-family);
     line-height: 1.75em;
     outline: none;
-    padding: 1em 1.5em;
+    padding: var(--kup-accordion_padding);
     text-align: left;
-    transition: background-color 80ms, color 80ms;
+    transition: background-color var(--kup-accordion_transition),
+      color var(--kup-accordion_transition);
     width: 100%;
 
     &:hover:not(.accordion-item__header--selected) {
-      color: var(--kup-hover-color);
-      background-color: var(--kup-hover-background-color);
+      color: var(--kup-accordion_hover-color);
+      background-color: var(--kup-accordion_hover-background-color);
     }
 
     &--expanded {
-      color: var(--kup-hover-color);
-      background-color: var(--kup-hover-background-color);
+      color: var(--kup-accordion_hover-color);
+      background-color: var(--kup-accordion_hover-background-color);
 
       .accordion-item__dropdown {
         transform: rotate(-180deg);
@@ -58,7 +88,7 @@
     }
 
     &--selected {
-      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+      background-color: var(--kup-accordion_selection-color);
     }
   }
 
@@ -80,13 +110,13 @@
   }
 
   &__dropdown {
-    background-color: var(--kup-icon-color);
+    background-color: var(--kup-accordion_dropdown-icon-color);
     height: 1.5em;
     margin-left: auto;
     margin-right: 0;
     min-width: 1.5em;
     width: 1.5em;
-    transition: transform 0.1s;
+    transition: transform var(--kup-accordion_transition);
   }
 
   &__content {
