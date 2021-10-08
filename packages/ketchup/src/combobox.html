@@ -9,22 +9,6 @@
         <script type="module" src="/build/ketchup.esm.js"></script>
         <script nomodule src="/build/ketchup.js"></script>
 
-        <link
-            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
-            rel="stylesheet"
-            type="text/css"
-        />
-
-        <link
-            href="https://fonts.googleapis.com/css?family=Lato"
-            rel="stylesheet"
-        />
-
-        <script
-            type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"
-        ></script>
-
         <style>
             html {
                 background-color: var(--kup-background-color);
@@ -38,6 +22,7 @@
     <body>
         <h4>Material Combobox (widget)</h4>
         <kup-combobox
+            disabled
             is-filterable="false"
             field-id="pluto1"
             is-select="true"
@@ -93,11 +78,8 @@
                 'kup-list': JSON.parse(JSON.stringify(listData)),
             };
             selectBox1.initialValue = 'Text 5';
-            //Object.getOwnPropertyNames(String.prototype).filter(item => typeof String.prototype[item] === 'function')
 
             let selectBox2 = document.getElementsByTagName('kup-combobox')[1];
-            //selectBox2.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
-            //selectBox2.listData = {data: [...itemsForListBox], selectable: true,};
             selectBox2.data = {
                 'text-field': { ...textfieldData },
                 'kup-list': JSON.parse(JSON.stringify(listData)),

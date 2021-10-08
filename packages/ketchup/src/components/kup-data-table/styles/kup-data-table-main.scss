@@ -2,7 +2,7 @@
      * the table automatically has a size equal to the sum of the sizes all columns.
      * Additionally it must remove the min width specification to allow a correct sizing.
      * [column-width-related][mandatory]
-     *
+     * 
      * The property "table-layout" is mandatory to override the default algorithm by which the browsers renders the tables.
      * This algorithm simply tries to adjust the table cell width to fit its content as best as it can.
      * But this is in contrast with having specified widths for the cells.
@@ -21,10 +21,29 @@
      *     the width equal to the sum of all columns widths.
      * [3] - Mandatory for width property to take effect.
      */
+
+/**
+* @prop --kup-datatable_background-color: Sets background color of the component.
+* @prop --kup-datatable_border: Sets border of the component.
+* @prop --kup-datatable_color: Sets text color of the component.
+* @prop --kup-datatable_font-family: Sets font family of the component.
+* @prop --kup-datatable_font-family-monospace: Sets monospace font family of the component (for numbers).
+* @prop --kup-datatable_font-size: Sets font size of the component.
+* @prop --kup-datatable_th-border: Sets border of the th elements.
+*/
+
 :host {
+  --kup-datatable_background-color: var(--kup-background-color);
+  --kup-datatable_border: 1px solid var(--kup-border-color);
+  --kup-datatable_color: var(--kup-text-color)
+  --kup-datatable_font-family: var(--kup-font-family);
+  --kup-datatable_font-family-monospace: var(--kup-font-family-monospace);
+  --kup-datatable_font-size: var(--kup-font-size);
+  --kup-datatable_th-border: 1px solid var(--kup-border-color);
+
   display: block;
-  font-family: var(--kup-font-family);
-  font-size: var(--kup-font-size);
+  font-family: var(--kup-datatable_font-family);
+  font-size: var(--kup-datatable_font-size);
   position: relative;
 }
 
@@ -39,10 +58,10 @@
 
 table {
   // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
+  background-color: var(--kup-datatable_background-color);
   border-spacing: 0; // [TFixed-1]
   border-collapse: separate; // [TFixed-1]
-  color: var(--kup-text-color);
-  font-size: var(--kup-font-size);
+  color: var(--kup-datatable_color);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
@@ -53,9 +72,6 @@ table {
     min-width: auto; // [mandatory] See [1] [2]
     width: 0; // [mandatory] See [1] [2]
   }
-
-  // The common border specification
-  $common-border: 1px solid var(--kup-border-color);
 
   // By default, since border has been moved to the cells themselves, the first and last cell must always simulate the table border
   > tbody > tr {
@@ -69,34 +85,34 @@ table {
 
     > td {
       &:first-of-type {
-        border-left: $common-border;
+        border-left: var(--kup-datatable_border);
       }
 
       &:last-of-type {
-        border-right: $common-border;
+        border-right: var(--kup-datatable_border);
       }
     }
 
     // ALso the last row must always have the border bottom property
     &:last-of-type > td {
-      border-bottom: $common-border;
+      border-bottom: var(--kup-datatable_border);
     }
   }
 
   // When table header is not visible the table needs a border to,
   // so the first row gets added a border
   &.border-top > tbody > tr:first-of-type > td {
-    border-top: $common-border;
+    border-top: var(--kup-datatable_border);
   }
 
   // If row separation is specified, all rows gets a border bottom
   &.row-separation > tbody > tr > td {
-    border-bottom: $common-border;
+    border-bottom: var(--kup-datatable_border);
   }
 
   // If column separation is specified, all rows gets a border bottom
   &.column-separation > tbody > tr > td {
-    border-right: $common-border;
+    border-right: var(--kup-datatable_border);
   }
 
   &.noGrid {
@@ -108,18 +124,18 @@ table {
 
   tfoot {
     td {
-      border-bottom: $common-border;
-      border-right: $common-border;
+      border-bottom: var(--kup-datatable_border);
+      border-right: var(--kup-datatable_border);
       box-sizing: border-box;
       height: 36px;
       text-align: right;
       font-weight: bold;
       padding: 0.5em 0.3125em;
       &:hover {
-        background-color: var(--kup-background-color);
+        background-color: var(--kup-datatable_background-color);
       }
       &:first-of-type {
-        border-left: $common-border;
+        border-left: var(--kup-datatable_border);
       }
     }
   }
@@ -209,26 +225,26 @@ table {
 
 .fontsize- {
   &small {
-    font-size: calc(var(--kup-font-size) * 0.75);
+    font-size: calc(var(--kup-datatable_font-size) * 0.75);
     transition: font-size 0.1s;
 
     .group-cell-content {
       > span {
         &:before {
-          font-size: calc(var(--kup-font-size) * 1) !important;
+          font-size: calc(var(--kup-datatable_font-size) * 1) !important;
         }
       }
     }
   }
 
   &big {
-    font-size: calc(var(--kup-font-size) * 1.25);
+    font-size: calc(var(--kup-datatable_font-size) * 1.25);
     transition: font-size 0.1s;
 
     .group-cell-content {
       > span {
         &:before {
-          font-size: calc(var(--kup-font-size) * 1.5) !important;
+          font-size: calc(var(--kup-datatable_font-size) * 1.5) !important;
         }
       }
     }
@@ -237,11 +253,9 @@ table {
 
 thead {
   th {
-    $common-th-border: 1px solid var(--kup-border-color);
-
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);
-    border: $common-th-border;
+    border: var(--kup-datatable_th-border);
     border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
     border-bottom-width: 2px;
     box-sizing: border-box;
@@ -254,7 +268,7 @@ thead {
 
     // The first cell must have border left to simulate table border.
     &:first-of-type {
-      border-left: $common-th-border;
+      border-left: var(--kup-datatable_th-border);
     }
 
     //---- Column name container ----
@@ -319,7 +333,7 @@ tbody {
     // grouping
     &.group {
       background: var(--kup-title-background-color);
-      border-top: 1px solid var(--kup-border-color);
+      border-top: var(--kup-datatable_border);
       color: var(--kup-title-color);
       font-weight: bold;
       cursor: pointer;
@@ -368,7 +382,7 @@ tbody {
 
       &.number {
         .cell-content {
-          font-family: var(--kup-font-family-monospace);
+          font-family: var(--kup-datatable_font-family-monospace);
           justify-content: flex-end;
         }
       }
@@ -547,7 +561,7 @@ th.obj:hover span:not(.overlay-action) {
     text-overflow: ellipsis;
     transition: color 200ms;
     &:hover {
-      color: var(--kup-text-color);
+      color: var(--kup-datatable_color);
     }
   }
 }
@@ -575,7 +589,7 @@ th.obj:hover span:not(.overlay-action) {
 
 .customize-panel {
   visibility: hidden;
-  background: var(--kup-background-color);
+  background: var(--kup-datatable_background-color);
   box-shadow: var(--kup-box-shadow);
   min-width: 200px;
   width: fit-content;
@@ -603,7 +617,7 @@ th.obj:hover span:not(.overlay-action) {
 }
 
 [kup-dialog] {
-  background-color: var(--kup-background-color);
+  background-color: var(--kup-datatable_background-color);
   margin: 0;
   position: fixed;
   transition: none;

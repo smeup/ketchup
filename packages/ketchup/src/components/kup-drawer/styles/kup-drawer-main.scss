@@ -1,14 +1,27 @@
+/**
+* @prop --kup-drawer_backdrop: Backdrop of the component when in slide mode.
+* @prop --kup-drawer_box-shadow: Box shadow of the component when in slide mode.
+* @prop --kup-drawer_slide-transition: Horizontal transition's duration when in slide mode.
+* @prop --kup-drawer_transition: Transitions duration.
+*/
+
 :host {
-  box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.2),
+  --kup-drawer_backdrop: rgba(0, 0, 0, 0.32);
+  --kup-drawer_box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.2),
     0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12);
+  --kup-drawer_slide-transition: 750ms;
+  --kup-drawer_transition: 250ms;
+
+  box-shadow: var(--kup-drawer_box-shadow);
   display: block;
   font-size: var(--kup-font-size);
   height: 100vh;
   left: calc(var(--kup-drawer-width) * -1);
   position: fixed;
   top: 0;
-  transition: left 0.75s cubic-bezier(0.4, 0, 0.2, 1),
-    right 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: left var(--kup-drawer_slide-transition)
+      cubic-bezier(0.4, 0, 0.2, 1),
+    rightvar(--kup-drawer_slide-transition) cubic-bezier(0.4, 0, 0.2, 1);
   width: var(--kup-drawer-width);
   z-index: var(--kup-drawer-zindex);
 }
@@ -24,10 +37,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.32);
+  background: var(--kup-drawer_backdrop);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease-in;
+  transition: opacity var(--kup-drawer_transition) ease-in;
   z-index: var(--kup-drawer-zindex);
 }
 
@@ -62,10 +75,29 @@
     overflow-y: auto;
     width: 100%;
   }
+
+  ::slotted(*) {
+    --kup-button_primary-color: var(--kup-drawer-color);
+    --kup-button_primary-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-button_primary-color-h: var(--kup-drawer-color-h);
+    --kup-button_primary-color-s: var(--kup-drawer-color-s);
+    --kup-button_primary-color-l: var(--kup-drawer-color-l);
+    --kup-switch_label-color: var(--kup-drawer-color);
+    --kup-switch_primary-color: var(--kup-drawer-color);
+    --kup-switch_primary-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-textfield_color: var(--kup-drawer-color);
+    --kup-textfield_color-rgb: var(--kup-drawer-color-rgb);
+    --kup-tree_color: var(--kup-drawer-color);
+    --kup-tree_color-rgb: var(--kup-drawer-color-rgb);
+
+    color: var(--kup-drawer-color);
+    fill: var(--kup-drawer-color);
+  }
 }
 
 :host([kup-opened]) {
   left: 0;
+
   .backdrop {
     opacity: 1;
     pointer-events: all;

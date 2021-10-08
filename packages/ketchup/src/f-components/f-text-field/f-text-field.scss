@@ -46,9 +46,9 @@
         .mdc-line-ripple:before,
       &.mdc-text-field--fullwidth:not(.mdc-text-field--disabled)
         .mdc-line-ripple:before {
-        border-bottom-color: rgba(var(--kup-text-color-rgb), 0.325);
+        border-bottom-color: rgba(var(--kup-textfield_color-rgb), 0.325);
         &:hover {
-          border-bottom-color: rgba(var(--kup-text-color-rgb), 0.575);
+          border-bottom-color: rgba(var(--kup-textfield_color-rgb), 0.575);
         }
         &.mdc-line-ripple--active {
           border-bottom-color: var(--kup-primary-color);
@@ -96,7 +96,7 @@
         & .mdc-notched-outline__leading,
         & .mdc-notched-outline__notch,
         & .mdc-notched-outline__trailing {
-          border-color: rgba(var(--kup-text-color-rgb), 0.575);
+          border-color: rgba(var(--kup-textfield_color-rgb), 0.575);
           border-bottom-style: inset;
         }
 
@@ -112,18 +112,18 @@
         &.mdc-text-field--disabled .mdc-notched-outline__leading,
         &.mdc-text-field--disabled .mdc-notched-outline__notch,
         &.mdc-text-field--disabled .mdc-notched-outline__trailing {
-          border-color: rgba(var(--kup-text-color-rgb), 0.325);
+          border-color: rgba(var(--kup-textfield_color-rgb), 0.325);
         }
 
         &.mdc-text-field--disabled {
-          color: rgba(var(--kup-text-color-rgb), 0.5);
+          color: rgba(var(--kup-textfield_color-rgb), 0.5);
 
           & .mdc-text-field__input {
-            color: rgba(var(--kup-text-color-rgb), 0.5);
+            color: rgba(var(--kup-textfield_color-rgb), 0.5);
           }
 
           & label {
-            color: rgba(var(--kup-text-color-rgb), 0.5);
+            color: rgba(var(--kup-textfield_color-rgb), 0.5);
           }
         }
 
@@ -185,7 +185,7 @@
         & .mdc-text-field-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
-          color: var(--kup-text-color);
+          color: var(--kup-textfield_color);
         }
         & .mdc-floating-label,
         & .mdc-text-field__input::placeholder,

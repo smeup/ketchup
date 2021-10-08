@@ -13,7 +13,7 @@
 
       &.fixed-column,
       &.fixed-row {
-        background-color: var(--kup-background-color);
+        background-color: var(--kup-datatable_background-color);
         background-image: linear-gradient(
           to right,
           rgba(var(--kup-text-color-rgb), 0.075) 0%,
@@ -38,7 +38,7 @@
 
       td.fixed-column,
       td.fixed-row {
-        background-color: var(--kup-background-color);
+        background-color: var(--kup-datatable_background-color);
         background-image: linear-gradient(
           to right,
           rgba(var(--kup-text-color-rgb), 0.075) 0%,

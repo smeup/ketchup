@@ -8,17 +8,12 @@
         <div class="spinner__label">Loading...</div></div
       >
     </div>
-    <kup-nav-bar
-      id="app__nav-bar"
-      :image.prop="navbarImage"
-      label="Ketch.UP | Showcase"
-      @kup-navbar-menuclick="menuClick"
-      @kup-navbar-resize="redrawNavigation"
-    >
+    <kup-nav-bar id="app__nav-bar" @kup-navbar-resize="redrawNavigation">
       <kup-switch
         id="theme-switch"
         label="Dark Mode"
         leading-label
+        slot="right"
         @kup-switch-change="changeTheme"
       ></kup-switch>
       <kup-button
@@ -26,14 +21,29 @@
         icon="bug"
         icon-off="bug"
         id="debug-toggler"
+        slot="right"
         toggable
         @kup-button-click="toggleDebug"
       ></kup-button>
       <kup-button
         icon="home"
         @kup-button-click="$router.push('/').catch(() => {})"
+        slot="right"
       ></kup-button
-    ></kup-nav-bar>
+      ><kup-button
+        icon="menu"
+        @kup-button-click="menuClick"
+        slot="left"
+      ></kup-button
+      ><img
+        class="navbar__logo"
+        slot="left"
+        src="ketchup_logo_header.svg"
+      /><span class="navbar__title" slot="left"
+        >Ketch.UP | Showcase
+      </span></kup-nav-bar
+    >
+
     <kup-drawer
       class="kup-full-width kup-permanent"
       custom-style="::-webkit-scrollbar { width: 9px; }::-webkit-scrollbar-thumb {background-color: var(--kup-disabled-color);transition: background-color 0.2s ease-in-out;}::-webkit-scrollbar-track {background-color: var(--kup-background-color);}"
@@ -96,7 +106,7 @@
         <kup-image
           class="footer__icon"
           resource="github"
-          color="white"
+          color="var(--kup-navbar-color)"
           size-x="24px"
           size-y="24px"
         ></kup-image>
@@ -112,7 +122,7 @@
         <kup-image
           class="footer__icon"
           resource="npm"
-          color="white"
+          color="var(--kup-navbar-color)"
           size-x="24px"
           size-y="24px"
         ></kup-image>
@@ -158,6 +168,9 @@ export default {
     navbar = document.getElementById('app__nav-bar') as HTMLKupNavBarElement;
     spinnerLabel = document.querySelector('.spinner__label');
     theme = document.getElementById('theme-switch') as HTMLKupSwitchElement;
+    document.addEventListener('kup-manager-ready', () => {
+      dom.ketchup.setLibraryLocalization(dom.ketchup.dates.locale);
+    });
     document.addEventListener('kup-drawer-ready', () => this.removeSpinner());
     document.addEventListener('kup-debug-active', () => {
       debug.checked = true;
@@ -258,8 +271,6 @@ export default {
                     value: 'accordion',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Accordion',
                 visible: true,
               },
@@ -269,8 +280,6 @@ export default {
                     value: 'box',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Box',
                 visible: true,
               },
@@ -280,8 +289,6 @@ export default {
                     value: 'bpmn.io',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Bpmn.io',
                 visible: true,
               },
@@ -291,8 +298,6 @@ export default {
                     value: 'buttonlist',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Button list',
                 visible: true,
               },
@@ -302,8 +307,6 @@ export default {
                     value: 'calendar',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Calendar',
                 visible: true,
               },
@@ -313,8 +316,6 @@ export default {
                     value: 'card',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Card',
                 visible: true,
               },
@@ -324,8 +325,6 @@ export default {
                     value: 'chart',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Chart',
                 visible: true,
               },
@@ -335,8 +334,6 @@ export default {
                     value: 'dash',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Dash',
                 visible: true,
               },
@@ -346,8 +343,6 @@ export default {
                     value: 'dashlist',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Dash list',
                 visible: true,
               },
@@ -357,8 +352,6 @@ export default {
                     value: 'datatable',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Data table',
                 visible: true,
               },
@@ -368,8 +361,6 @@ export default {
                     value: 'echart',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Echart',
                 visible: true,
               },
@@ -379,8 +370,6 @@ export default {
                     value: 'field',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Field',
                 visible: true,
               },
@@ -390,8 +379,6 @@ export default {
                     value: 'tooltip',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Tooltip',
                 visible: true,
               },
@@ -401,8 +388,6 @@ export default {
                     value: 'tree',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Tree',
                 visible: true,
               },
@@ -420,8 +405,6 @@ export default {
                     value: 'autocomplete',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Autocomplete',
                 visible: true,
               },
@@ -431,8 +414,6 @@ export default {
                     value: 'badge',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Badge',
                 visible: true,
               },
@@ -442,8 +423,6 @@ export default {
                     value: 'button',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Button',
                 visible: true,
               },
@@ -453,8 +432,6 @@ export default {
                     value: 'checkbox',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Checkbox',
                 visible: true,
               },
@@ -464,8 +441,6 @@ export default {
                     value: 'chip',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Chip',
                 visible: true,
               },
@@ -475,8 +450,6 @@ export default {
                     value: 'colorpicker',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Color picker',
                 visible: true,
               },
@@ -486,8 +459,6 @@ export default {
                     value: 'combobox',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Combobox',
                 visible: true,
               },
@@ -497,8 +468,6 @@ export default {
                     value: 'datepicker',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Datepicker',
                 visible: true,
               },
@@ -508,8 +477,6 @@ export default {
                     value: 'drawer',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Drawer',
                 visible: true,
               },
@@ -519,8 +486,6 @@ export default {
                     value: 'dropdownbutton',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Dropdown button',
                 visible: true,
               },
@@ -530,8 +495,6 @@ export default {
                     value: 'gauge',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Gauge',
                 visible: true,
               },
@@ -541,8 +504,6 @@ export default {
                     value: 'grid',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Grid',
                 visible: true,
               },
@@ -552,8 +513,6 @@ export default {
                     value: 'iframe',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Iframe',
                 visible: true,
               },
@@ -563,8 +522,6 @@ export default {
                     value: 'image',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Image',
                 visible: true,
               },
@@ -574,8 +531,6 @@ export default {
                     value: 'lazy',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Lazy',
                 visible: true,
               },
@@ -585,8 +540,6 @@ export default {
                     value: 'list',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'List',
                 visible: true,
               },
@@ -596,8 +549,6 @@ export default {
                     value: 'navbar',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Nav bar',
                 visible: true,
               },
@@ -607,8 +558,6 @@ export default {
                     value: 'progressbar',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Progress bar',
                 visible: true,
               },
@@ -618,8 +567,6 @@ export default {
                     value: 'radio',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Radio',
                 visible: true,
               },
@@ -629,8 +576,6 @@ export default {
                     value: 'rating',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Rating',
                 visible: true,
               },
@@ -640,8 +585,6 @@ export default {
                     value: 'spinner',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Spinner',
                 visible: true,
               },
@@ -651,8 +594,6 @@ export default {
                     value: 'switch',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Switch',
                 visible: true,
               },
@@ -662,8 +603,6 @@ export default {
                     value: 'tabbar',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Tab bar',
                 visible: true,
               },
@@ -673,8 +612,6 @@ export default {
                     value: 'textfield',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Text field',
                 visible: true,
               },
@@ -684,8 +621,6 @@ export default {
                     value: 'timepicker',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Time picker',
                 visible: true,
               },
@@ -703,8 +638,6 @@ export default {
                     value: 'qlik',
                   },
                 },
-                expandable: true,
-                isExpanded: false,
                 value: 'Qlik',
                 visible: true,
               },
@@ -729,8 +662,6 @@ export default {
                 value: 'customization',
               },
             },
-            expandable: true,
-            isExpanded: false,
             value: 'Customization',
             visible: true,
           },
@@ -740,8 +671,6 @@ export default {
                 value: 'theming',
               },
             },
-            expandable: true,
-            isExpanded: false,
             value: 'Theming',
             visible: true,
           },
@@ -760,8 +689,6 @@ export default {
                 value: 'debugging',
               },
             },
-            expandable: true,
-            isExpanded: false,
             value: 'Debugging',
             visible: true,
           },
@@ -771,8 +698,6 @@ export default {
                 value: 'dynamicposition',
               },
             },
-            expandable: true,
-            isExpanded: false,
             value: 'Dynamic position',
             visible: true,
           },
@@ -782,8 +707,6 @@ export default {
                 value: 'scrollonhover',
               },
             },
-            expandable: true,
-            isExpanded: false,
             value: 'Scroll on hover',
             visible: true,
           },
@@ -795,7 +718,6 @@ export default {
         visible: true,
       },
     ],
-    navbarImage: { resource: 'ketchup_logo_header.svg' },
   }),
 };
 </script>
@@ -925,6 +847,17 @@ label {
   }
 }
 
+.navbar__logo {
+  height: 100%;
+}
+
+.navbar__title {
+  font-size: calc(var(--kup-font-size) * 1.25);
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  margin-left: 1em;
+}
+
 .logo svg {
   box-sizing: border-box;
   cursor: pointer;
@@ -977,6 +910,10 @@ a.footer__icon--trailing {
   opacity: 0.7;
 }
 
+.company-text {
+  color: var(--kup-navbar-color);
+}
+
 .demo-container {
   text-align: center;
   margin: auto;
@@ -1011,6 +948,12 @@ a.footer__icon--trailing {
   #app__container {
     padding: 0.5em;
     padding-bottom: 2.5em;
+  }
+
+  .navbar__title,
+  .navbar__logo,
+  #debug-toggler {
+    display: none;
   }
 }
 

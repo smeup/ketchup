@@ -1,6 +1,13 @@
 :host {
   display: block;
   font-size: var(--kup-font-size);
+  width: max-content;
+}
+
+:host([is-select]) {
+  .mdc-text-field:not(.mdc-text-field--disabled) input {
+    cursor: pointer;
+  }
 }
 
 .icon-container {

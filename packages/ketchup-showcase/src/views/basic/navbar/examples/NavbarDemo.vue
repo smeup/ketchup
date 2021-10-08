@@ -50,10 +50,6 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kup-navbar-menuclick',
-          type: 'click',
-        },
-        {
           name: 'kup-navbar-ready',
           type: 'ready',
         },
@@ -93,29 +89,6 @@ export default {
           try: 'css',
         },
         {
-          prop: 'image',
-          description:
-            "Image displayed by the nav bar, uses the kup-image component's props.",
-          type: 'FImageProps',
-          default: 'null',
-          try: 'json',
-        },
-        {
-          prop: 'label',
-          description: 'Text displayed by the nav bar.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'showMenuButton',
-          description:
-            'When true, the menu button will be displayed on the left of the nav bar.',
-          type: 'boolean',
-          default: 'true',
-          try: 'switch',
-        },
-        {
           prop: 'styling',
           description: 'Defines the style of the nav bar.',
           type: 'KupNavBarStyling',
@@ -130,6 +103,10 @@ export default {
 function createComp() {
   const button = document.createElement('kup-button');
   button.icon = 'more_vert';
+  button.slot = 'right';
+  const buttonMenu = document.createElement('kup-button');
+  buttonMenu.icon = 'menu';
+  buttonMenu.slot = 'left';
   const comp = document.createElement('kup-nav-bar');
   comp.id = 'demo-component';
   comp.image = {
@@ -137,10 +114,11 @@ function createComp() {
   };
   comp.label = ' Demo';
   comp.style.position = 'absolute';
-  comp.style.styling = 'standard';
   comp.style.top = '0';
   comp.style.zIndex = 'calc(var(--kup-navbar-zindex) - 1)';
+  comp.styling = 'standard';
   comp.appendChild(button);
+  comp.appendChild(buttonMenu);
   return comp;
 }
 </script>

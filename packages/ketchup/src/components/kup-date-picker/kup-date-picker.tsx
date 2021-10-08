@@ -27,13 +27,8 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import {
-    formattedStringToDefaultUnformattedStringDate,
-    isValidFormattedStringDate,
-    isValidStringDate,
-    unformattedStringToFormattedStringDate,
     getMonthsAsStringByLocale,
     getDaysOfWeekAsStringByLocale,
-    ISO_DEFAULT_DATE_FORMAT,
     fillString,
     DateTimeFormatOptionsMonth,
 } from '../../utils/utils';
@@ -45,6 +40,10 @@ import {
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    KupDatesFormats,
+    KupDatesNormalize,
+} from '../../utils/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -83,6 +82,7 @@ export class KupDatePicker {
     @Prop() disabled: boolean = false;
     /**
      * First day number (0 - sunday, 1 - monday, ...)
+     * TODO: manage with kupDates.locale, remove prop
      * @default 1
      */
     @Prop() firstDayIndex: number = 1;
@@ -396,9 +396,19 @@ export class KupDatePicker {
         isOnInputEvent?: boolean
     ) {
         let newValue = eventDetailValue;
-        if (isValidFormattedStringDate(eventDetailValue)) {
-            newValue =
-                formattedStringToDefaultUnformattedStringDate(eventDetailValue);
+        let dayJs = this.kupManager.dates.normalize(
+            eventDetailValue,
+            KupDatesNormalize.DATE
+        );
+        if (this.kupManager.dates.isValid(eventDetailValue)) {
+            newValue = this.kupManager.dates.format(
+                this.kupManager.dates.normalize(
+                    eventDetailValue,
+                    KupDatesNormalize.DATE
+                ),
+                KupDatesFormats.ISO_DATE
+            );
+
             this.refreshPickerComponentValue(newValue);
             if (isOnInputEvent != true) {
                 this.setValue(newValue);
@@ -420,7 +430,7 @@ export class KupDatePicker {
             return;
         }
         let d: Date;
-        if (isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
+        if (this.kupManager.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
             d = new Date(value);
         } else {
             d = new Date();
@@ -964,7 +974,7 @@ export class KupDatePicker {
         if (this.value == null || this.value.trim() == '') {
             return '';
         }
-        let v1 = unformattedStringToFormattedStringDate(this.value);
+        let v1 = this.kupManager.dates.format(this.value);
         return v1;
     }
 

@@ -42,8 +42,6 @@ $kup-class-shaped: 'kup-shaped'; // Gives the component a shaped look by roundin
 $kup-class-striped: 'kup-striped'; // Displays a striped texture.
 $kup-class-unclickable: 'kup-unclickable'; // The component will be unclickable.
 
-// MDC
-
 :host {
   --mdc-theme-primary: var(--kup-primary-color);
   --mdc-theme-on-primary: var(--kup-text-on-primary-color);

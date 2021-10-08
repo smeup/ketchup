@@ -295,7 +295,8 @@ export default {
     return {
       listdata1: [
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '1',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -327,7 +328,8 @@ export default {
           icon: 'trending_flat',
         },
         {
-          text: "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
+          text:
+            "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
           value: '4',
           icon: 'trending_flat',
         },
@@ -335,7 +337,8 @@ export default {
 
       listdata3: [
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '1',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -368,12 +371,14 @@ export default {
           icon: 'trending_flat',
         },
         {
-          text: "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
+          text:
+            "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
           value: '4',
           icon: 'trending_flat',
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '5',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -393,7 +398,8 @@ export default {
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -413,7 +419,8 @@ export default {
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -433,7 +440,8 @@ export default {
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -453,7 +461,8 @@ export default {
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'descr' to set the description of the dash.",
+          text:
+            "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -511,7 +520,8 @@ export default {
       //Layout 7
       markupBasic40: '<kup-dash id="layout7" layout="7">',
       markupBasic41: '  <div slot="icon">',
-      markupBasic42: '    <kup-image size-x="48px" size-y="48px" resource="chart-bar" color="pink"></kup-image>',
+      markupBasic42:
+        '    <kup-image size-x="48px" size-y="48px" resource="chart-bar" color="pink"></kup-image>',
       markupBasic43: '  </div>',
       markupBasic44: '  <div slot="value">34,678</div>',
       markupBasic45: '  <div slot="descr">Admissions Count</div>',

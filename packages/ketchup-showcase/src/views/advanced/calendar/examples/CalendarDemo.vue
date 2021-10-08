@@ -78,6 +78,11 @@ export default {
             'This method is used to trigger a new render of the component.',
         },
         {
+          name: 'resizeCallback',
+          description:
+            'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
           name: 'setProps',
           description: 'Sets the props to the component.',
         },

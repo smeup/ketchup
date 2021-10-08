@@ -3,7 +3,6 @@ import type { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
 import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -37,6 +36,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
             } ${props.slim ? 'kup-slim' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
+            part="kup-button"
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -62,13 +62,13 @@ function renderButton(props: FButtonProps): VNode {
 
     const propsFImage: FImageProps = {
         color: props.disabled
-            ? `var(${KupThemeColorValues.DISABLED})`
+            ? `var(--kup-button_disabled-color)`
             : isOutlined || isFlat
-            ? `var(${KupThemeColorValues.PRIMARY})`
-            : `var(${KupThemeColorValues.TEXT_ON_PRIMARY})`,
+            ? `var(--kup-button_primary-color)`
+            : `var(--kup-button_text-on-primary-color)`,
         resource: props.icon,
-        sizeX: isFloating ? '24px' : '18px',
-        sizeY: isFloating ? '24px' : '18px',
+        sizeX: isFloating ? '1.75em' : '1.475em',
+        sizeY: isFloating ? '1.75em' : '1.475em',
         wrapperClass: 'button__icon icon-container material-icons',
     };
 
@@ -106,8 +106,8 @@ function renderButton(props: FButtonProps): VNode {
 function renderIconButton(props: FButtonProps): VNode {
     const propsFImage: FImageProps = {
         color: props.disabled
-            ? `var(${KupThemeColorValues.DISABLED})`
-            : `var(${KupThemeColorValues.PRIMARY})`,
+            ? `var(--kup-button_disabled-color)`
+            : `var(--kup-button_primary-color)`,
         sizeX: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
         sizeY: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
     };

@@ -16,7 +16,6 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import echarts, { EChartOption, ECharts } from 'echarts';
 import {
     GenericObject,
     KupComponent,
@@ -26,6 +25,8 @@ import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { ECharts, EChartsOption, SeriesOption } from 'echarts';
+import * as echarts from 'echarts';
 
 @Component({
     tag: 'kup-echart',
@@ -99,8 +100,8 @@ export class KupEchart {
     private resizeTimeout: number;
     private chartContainer?: HTMLDivElement;
     private chartEl: ECharts;
-    private echartOption: EChartOption;
-    private echartSeries: EChartOption.Series[];
+    private echartOption: EChartsOption;
+    private echartSeries: SeriesOption[];
     private nameMap: any;
     private jsonMap: any;
     private themeBorder: string = null;
@@ -379,7 +380,7 @@ export class KupEchart {
         // Line, bar, scatter
         let i: number = 0;
         for (const key in y) {
-            let type: string;
+            let type: any;
             if (this.types[i]) {
                 type = this.types[i].toLowerCase();
             } else {

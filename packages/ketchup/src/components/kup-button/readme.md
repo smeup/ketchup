@@ -60,6 +60,25 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                 | Description                                                                                                                                                                                     |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--kup-button_border-radius`         | Sets border radius of the button.                                                                                                                                                               |
+| `--kup-button_disabled-color`        | Sets disabled color of the button.                                                                                                                                                              |
+| `--kup-button_font-family`           | Sets font family of the button.                                                                                                                                                                 |
+| `--kup-button_font-size`             | Sets font size of the button.                                                                                                                                                                   |
+| `--kup-button_font-weight`           | Sets font weight of the button.                                                                                                                                                                 |
+| `--kup-button_height`                | Sets height of the button.                                                                                                                                                                      |
+| `--kup-button_padding`               | Sets padding of the button.                                                                                                                                                                     |
+| `--kup-button_primary-color`         | Sets the primary color of the button.                                                                                                                                                           |
+| `--kup-button_primary-color-h`       | Sets the primary color Hue value of the button (used for focus/hover effects).                                                                                                                  |
+| `--kup-button_primary-color-l`       | Sets the primary color Lightness value of the button (used for focus/hover effects).                                                                                                            |
+| `--kup-button_primary-color-rgb`     | Sets the primary color RGB values of the button (used for shaders).                                                                                                                             |
+| `--kup-button_primary-color-s`       | Sets the primary color Saturation value of the button (used for focus/hover effects).                                                                                                           |
+| `--kup-button_text-on-primary-color` | Sets text and icon color for raised buttons. NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+
+
 ## Dependencies
 
 ### Used by

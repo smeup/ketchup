@@ -1,8 +1,33 @@
+/**
+* @prop --kup-box_background-color: Sets background of the component.
+* @prop --kup-box_font-size: Sets font size of the component.
+* @prop --kup-box_color: Sets text color of the component.
+* @prop --kup-box_grid-gap: Sets gap between each box.
+* @prop --kup-box_hover-box-shadow: Sets box shadow for the hover effect.
+* @prop --kup-box_selection-color: Sets background color of a selected item.
+* @prop --kup-box_transition: Sets transition duration for box-shadow and background-color.
+*/
+
+:host {
+  --kup-box_background-color: var(--kup-background-color);
+  --kup-box_color: var(--kup-text-color);
+  --kup-box_font-size: var(--kup-font-size);
+  --kup-box_grid-gap: 1em;
+  --kup-box_hover-box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+  --kup-box_selection-color: rgba(var(--kup-primary-color-rgb), 0.175);
+  --kup-box_transition: 0.25s;
+
+  display: block;
+  font-size: var(--kup-box_font-size);
+}
+
 .box-section {
   text-align: center;
 }
 
 .box-component {
+  background: var(--kup-box_background-color);
+
   &.component-dropover {
     position: relative;
     border: 3px solid var(--kup-border-color);
@@ -12,7 +37,7 @@
 
 #box-container {
   display: grid;
-  grid-gap: 1em;
+  grid-gap: var(--kup-box_grid-gap);
   color: var(--kup-text-color);
   overflow: auto;
 
@@ -41,7 +66,8 @@
       cursor: pointer;
       position: relative;
       display: flex;
-      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+      transition: background-color var(--kup-box_transition) ease,
+        box-shadow var(--kup-box_transition) ease;
 
       &.column {
         flex-direction: column;
@@ -55,11 +81,11 @@
       }
 
       &:hover {
-        box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+        box-shadow: var(--kup-box_hover-box-shadow);
       }
 
       &.selected {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+        background-color: var(--kup-box_selection-color);
         & .box-section.titled > h3 {
           background-color: transparent;
         }
