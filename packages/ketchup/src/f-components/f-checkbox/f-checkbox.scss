@@ -176,4 +176,41 @@
       }
     }
   }
+
+  &.#{$kup-class-danger} {
+    --kup-checkbox_primary-color: var(--kup-danger-color);
+    --kup-checkbox_primary-color-rgb: var(--kup-danger-color-rgb);
+    --kup-checkbox_text-on-primary-color: white;
+    --kup-checkbox_text-on-primary-color-rgb: 255, 255, 255;
+  }
+
+  &.#{$kup-class-info} {
+    --kup-checkbox_primary-color: var(--kup-info-color);
+    --kup-checkbox_primary-color-rgb: var(--kup-info-color-rgb);
+    --kup-checkbox_text-on-primary-color: white;
+    --kup-checkbox_text-on-primary-color-rgb: 255, 255, 255;
+  }
+
+  &.#{$kup-class-secondary} {
+    --kup-checkbox_primary-color: var(--kup-secondary-color);
+    --kup-checkbox_primary-color-rgb: var(--kup-secondary-color-rgb);
+    --kup-checkbox_text-on-primary-color: var(--kup-text-on-secondary-color);
+    --kup-checkbox_text-on-primary-color-rgb: var(
+      --kup-text-on-secondary-color-rgb
+    );
+  }
+
+  &.#{$kup-class-success} {
+    --kup-checkbox_primary-color: var(--kup-success-color);
+    --kup-checkbox_primary-color-rgb: var(--kup-success-color-rgb);
+    --kup-checkbox_text-on-primary-color: white;
+    --kup-checkbox_text-on-primary-color-rgb: 255, 255, 255;
+  }
+
+  &.#{$kup-class-warning} {
+    --kup-checkbox_primary-color: var(--kup-warning-color);
+    --kup-checkbox_primary-color-rgb: var(--kup-warning-color-rgb);
+    --kup-checkbox_text-on-primary-color: white;
+    --kup-checkbox_text-on-primary-color-rgb: 255, 255, 255;
+  }
 }

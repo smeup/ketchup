@@ -9,3 +9,48 @@
     width: 100%;
   }
 }
+
+:host(.#{$kup-class-danger}) {
+  --kup-button_primary-color: var(--kup-danger-color);
+  --kup-button_primary-color-h: var(--kup-danger-color-h);
+  --kup-button_primary-color-s: var(--kup-danger-color-s);
+  --kup-button_primary-color-l: var(--kup-danger-color-l);
+  --kup-button_primary-color-rgb: var(--kup-danger-color-rgb);
+  --kup-button_text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-button_primary-color: var(--kup-info-color);
+  --kup-button_primary-color-h: var(--kup-info-color-h);
+  --kup-button_primary-color-s: var(--kup-info-color-s);
+  --kup-button_primary-color-l: var(--kup-info-color-l);
+  --kup-button_primary-color-rgb: var(--kup-info-color-rgb);
+  --kup-button_text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-button_primary-color: var(--kup-secondary-color);
+  --kup-button_primary-color-h: var(--kup-secondary-color-h);
+  --kup-button_primary-color-s: var(--kup-secondary-color-s);
+  --kup-button_primary-color-l: var(--kup-secondary-color-l);
+  --kup-button_primary-color-rgb: var(--kup-secondary-color-rgb);
+  --kup-button_text-on-primary-color: var(--kup-text-on-secondary-color);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-button_primary-color: var(--kup-success-color);
+  --kup-button_primary-color-h: var(--kup-success-color-h);
+  --kup-button_primary-color-s: var(--kup-success-color-s);
+  --kup-button_primary-color-l: var(--kup-success-color-l);
+  --kup-button_primary-color-rgb: var(--kup-success-color-rgb);
+  --kup-button_text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-button_primary-color: var(--kup-warning-color);
+  --kup-button_primary-color-h: var(--kup-warning-color-h);
+  --kup-button_primary-color-s: var(--kup-warning-color-s);
+  --kup-button_primary-color-l: var(--kup-warning-color-l);
+  --kup-button_primary-color-rgb: var(--kup-warning-color-rgb);
+  --kup-button_text-on-primary-color: white;
+}

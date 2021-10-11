@@ -1,5 +1,4 @@
 /**
-* @prop --kup-buttonlist_font-size: Sets font size of the component.
 * @prop --kup-buttonlist_grid-columns: Sets grid columns (variable automatically set by the component).
 * @prop --kup-buttonlist_grid-gap: Sets gap between each button.
 * @prop --kup-buttonlist_selected-primary-color: Sets the primary color of a selected button.
@@ -11,7 +10,6 @@
 */
 
 :host {
-  --kup-buttonlist_font-size: var(--kup-font-size);
   --kup-buttonlist_grid-gap: 1em;
   --kup-buttonlist_selected-primary-color: var(--kup-secondary-color);
   --kup-buttonlist_selected-primary-color-rgb: var(--kup-secondary-color-rgb);
@@ -23,7 +21,6 @@
   );
 
   display: block;
-  font-size: var(--kup-buttonlist_font-size);
 }
 
 .button-list--container {

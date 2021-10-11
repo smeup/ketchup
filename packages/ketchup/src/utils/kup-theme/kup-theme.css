@@ -32,6 +32,18 @@
     --kup-checkbox_text-on-primary-color-rgb: var(
         --kup-text-on-primary-color-rgb
     );
+    --kup-chip_background-color: var(--kup-background-color);
+    --kup-chip_border-radius: 16px;
+    --kup-chip_font-family: var(--kup-font-family);
+    --kup-chip_font-size: var(--kup-font-size);
+    --kup-chip_font-weight: var(--kup-font-weight);
+    --kup-chip_height: 32px;
+    --kup-chip_margin: 0 4px;
+    --kup-chip_padding: 0 12px;
+    --kup-chip_primary-color: var(--kup-primary-color);
+    --kup-chip_primary-color-rgb: var(--kup-primary-color-rgb);
+    --kup-chip_text-color: var(--kup-text-color);
+    --kup-chip_text-color-rgb: var(--kup-text-color-rgb);
     --kup-switch_label-color: var(--kup-text-color);
     --kup-switch_primary-color: var(--kup-primary-color);
     --kup-switch_primary-color-rgb: var(--kup-primary-color-rgb);

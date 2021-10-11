@@ -1,4 +1,7 @@
 .f-chip--wrapper {
+  font-family: var(--kup-chip_font-family);
+  font-size: var(--kup-chip_font-size);
+
   .chip-set {
     padding: 4px;
     display: flex;
@@ -9,32 +12,31 @@
       align-items: center;
       display: inline-flex;
       position: relative;
-      background-color: var(--kup-background-color);
+      background-color: var(--kup-chip_background-color);
       background-image: linear-gradient(
         to right,
-        rgba(var(--kup-text-color-rgb), 0.1) 0%,
-        rgba(var(--kup-text-color-rgb), 0.1) 0.1%,
-        rgba(var(--kup-text-color-rgb), 0.1)
+        rgba(var(--kup-chip_text-color-rgb), 0.1) 0%,
+        rgba(var(--kup-chip_text-color-rgb), 0.1) 0.1%,
+        rgba(var(--kup-chip_text-color-rgb), 0.1)
       );
-      color: var(--kup-text-color);
-      border-radius: 16px;
-      font-family: var(--kup-font-family);
+      color: var(--kup-chip_text-color);
+      border-radius: var(--kup-chip_border-radius);
       font-size: 0.875em;
-      font-weight: 400;
+      font-weight: var(--kup-chip_font-weight);
       letter-spacing: 0.0178571429em;
       text-decoration: inherit;
       text-transform: inherit;
-      height: 32px;
+      height: var(--kup-chip_height);
       box-sizing: border-box;
-      padding: 0 12px;
+      padding: var(--kup-chip_padding);
       border-width: 0;
       outline: none;
       cursor: pointer;
       will-change: transform, opacity;
-      margin: 4px;
+      margin: var(--kup-chip_margin);
 
       .chip__icon--leading {
-        color: var(--kup-text-color);
+        color: var(--kup-chip_text-color);
         &:not(.chip__icon--leading-hidden) {
           margin-left: -4px;
           margin-right: 6px;
@@ -75,12 +77,12 @@
       }
 
       svg path {
-        color: var(--kup-text-color);
-        stroke: var(--kup-text-color);
+        color: var(--kup-chip_text-color);
+        stroke: var(--kup-chip_text-color);
       }
 
       .icon-container {
-        background: var(--kup-text-color);
+        background: var(--kup-chip_text-color);
         display: block;
         width: 18px;
         height: 18px;
@@ -89,7 +91,6 @@
       .chip__primary-action {
         outline: none;
         .chip__text {
-          font-family: var(--kup-font-family);
           white-space: nowrap;
         }
       }
@@ -97,14 +98,14 @@
 
     &.chip-set--choice {
       .chip--selected {
-        background-color: var(--kup-background-color);
+        background-color: var(--kup-chip_background-color);
         background-image: linear-gradient(
           to right,
-          rgba(var(--kup-primary-color-rgb), 0.25) 0%,
-          rgba(var(--kup-primary-color-rgb), 0.25) 0.1%,
-          rgba(var(--kup-primary-color-rgb), 0.25)
+          rgba(var(--kup-chip_primary-color-rgb), 0.25) 0%,
+          rgba(var(--kup-chip_primary-color-rgb), 0.25) 0.1%,
+          rgba(var(--kup-chip_primary-color-rgb), 0.25)
         );
-        color: var(--kup-primary-color);
+        color: var(--kup-chip_primary-color);
       }
     }
 
@@ -168,5 +169,30 @@
 
   :not(svg) {
     transform-origin: 0px 0px;
+  }
+
+  &.#{$kup-class-danger} {
+    --kup-chip_primary-color: var(--kup-danger-color);
+    --kup-chip_primary-color-rgb: var(--kup-danger-color-rgb);
+  }
+
+  &.#{$kup-class-info} {
+    --kup-chip_primary-color: var(--kup-info-color);
+    --kup-chip_primary-color-rgb: var(--kup-info-color-rgb);
+  }
+
+  &.#{$kup-class-secondary} {
+    --kup-chip_primary-color: var(--kup-secondary-color);
+    --kup-chip_primary-color-rgb: var(--kup-secondary-color-rgb);
+  }
+
+  &.#{$kup-class-success} {
+    --kup-chip_primary-color: var(--kup-success-color);
+    --kup-chip_primary-color-rgb: var(--kup-success-color-rgb);
+  }
+
+  &.#{$kup-class-warning} {
+    --kup-chip_primary-color: var(--kup-warning-color);
+    --kup-chip_primary-color-rgb: var(--kup-warning-color-rgb);
   }
 }

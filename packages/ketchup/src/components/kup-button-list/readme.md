@@ -63,7 +63,6 @@ Type: `Promise<void>`
 
 | Name                                              | Description                                                      |
 | ------------------------------------------------- | ---------------------------------------------------------------- |
-| `--kup-buttonlist_font-size`                      | Sets font size of the component.                                 |
 | `--kup-buttonlist_grid-columns`                   | Sets grid columns (variable automatically set by the component). |
 | `--kup-buttonlist_grid-gap`                       | Sets gap between each button.                                    |
 | `--kup-buttonlist_selected-primary-color`         | Sets the primary color of a selected button.                     |
