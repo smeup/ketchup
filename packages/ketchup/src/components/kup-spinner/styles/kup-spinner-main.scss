@@ -1,4 +1,12 @@
+/**
+* @prop --kup-spinner_border-color: Sets borders color of the component.
+* @prop --kup-spinner_primary-color: Sets primary color of the component.
+*/
+
 :host {
+  --kup-spinner_border-color: var(--kup-border-color);
+  --kup-spinner_primary-color: var(--kup-spinner-color);
+
   display: block;
 }
 
@@ -38,7 +46,7 @@
 
       & div.spinner-bar-v2 {
         animation: sk-spinner-bar-v2 20s;
-        background-color: var(--kup-spinner-color);
+        background-color: var(--kup-spinner_primary-color);
         left: -1%;
       }
     }
@@ -72,10 +80,10 @@
 }
 
 .spinner-v1 {
-  border-top: 1em solid var(--kup-border-color);
-  border-right: 1em solid var(--kup-border-color);
-  border-bottom: 1em solid var(--kup-border-color);
-  border-left: 1em solid var(--kup-spinner-color);
+  border-top: 1em solid var(--kup-spinner_border-color);
+  border-right: 1em solid var(--kup-spinner_border-color);
+  border-bottom: 1em solid var(--kup-spinner_border-color);
+  border-left: 1em solid var(--kup-spinner_primary-color);
   transform: translatez(0);
   animation: sk-spinner-v1 1.1s infinite linear;
 }
@@ -111,7 +119,7 @@
 
 .spinner-v2 {
   backface-visibility: hidden;
-  color: var(--kup-spinner-color);
+  color: var(--kup-spinner_primary-color);
   font-size: 1em;
   transform: translateY(-2.5em);
   animation-delay: -0.16s;
@@ -146,7 +154,7 @@
 }
 
 .spinner-v3 {
-  color: var(--kup-spinner-color);
+  color: var(--kup-spinner_primary-color);
   font-size: 6em;
   width: 1em;
   height: 1em;
@@ -200,7 +208,7 @@
 }
 
 .spinner-v4 {
-  color: var(--kup-spinner-color);
+  color: var(--kup-spinner_primary-color);
   width: 1em;
   height: 1em;
   border-radius: 50%;
@@ -251,7 +259,7 @@
   border-radius: 50%;
   background: linear-gradient(
     to right,
-    var(--kup-spinner-color) 10%,
+    var(--kup-spinner_primary-color) 10%,
     rgba(255, 255, 255, 0) 42%
   );
   animation: sk-spinner-v5 1.4s infinite linear;
@@ -261,7 +269,7 @@
 .spinner-v5:before {
   width: 50%;
   height: 50%;
-  background: var(--kup-spinner-color);
+  background: var(--kup-spinner_primary-color);
   border-radius: 100% 0 0 0;
   position: absolute;
   top: 0;
@@ -270,7 +278,7 @@
 }
 
 .spinner-v5:after {
-  background: var(--kup-border-color);
+  background: var(--kup-spinner_border-color);
   width: 75%;
   height: 75%;
   border-radius: 50%;
@@ -295,14 +303,14 @@
 .spinner-v6,
 .spinner-v6:before,
 .spinner-v6:after {
-  background: var(--kup-spinner-color);
+  background: var(--kup-spinner_primary-color);
   animation: sk-spinner-v6 1s infinite ease-in-out;
   width: 1em;
   height: 4em;
 }
 
 .spinner-v6 {
-  color: var(--kup-spinner-color);
+  color: var(--kup-spinner_primary-color);
   margin-top: 2em;
   transform: translatez(0);
   animation-delay: -0.16s;
@@ -359,7 +367,7 @@
   display: block;
   width: 25%;
   height: 25%;
-  background-color: var(--kup-spinner-color);
+  background-color: var(--kup-spinner_primary-color);
   border-radius: 100%;
   animation: sk-spinner-v7-dot-before 2s infinite ease-in-out both;
 }
@@ -427,7 +435,7 @@
 .spinner-v8 {
   width: 8em;
   height: 8em;
-  background-color: var(--kup-spinner-color);
+  background-color: var(--kup-spinner_primary-color);
   animation: sk-spinner-v8 1.2s infinite ease-in-out;
 }
 
@@ -454,7 +462,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: var(--kup-spinner-color);
+  background-color: var(--kup-spinner_primary-color);
   opacity: 0.6;
   position: absolute;
   top: 0;
@@ -485,7 +493,7 @@
 .sk-spinner-v10-cube1,
 .sk-spinner-v10-cube2 {
   backface-visibility: hidden;
-  background-color: var(--kup-spinner-color);
+  background-color: var(--kup-spinner_primary-color);
   width: 2em;
   height: 2em;
   position: absolute;
@@ -521,7 +529,7 @@
 .spinner-v11 {
   width: 8em;
   height: 8em;
-  background-color: var(--kup-spinner-color);
+  background-color: var(--kup-spinner_primary-color);
   border-radius: 100%;
   animation: sk-spinner-v11 1s infinite ease-in-out;
 }
@@ -554,7 +562,7 @@
   left: unset !important;
   bottom: unset !important;
   right: unset !important;
-  background-color: var(--kup-spinner-color);
+  background-color: var(--kup-spinner_primary-color);
   border-radius: 100%;
   animation: sk-spinner-v12-1 2s infinite ease-in-out;
 }
@@ -593,7 +601,7 @@
 
 .spinner-v13 .sk-spinner-v13-cube {
   backface-visibility: hidden;
-  background-color: var(--kup-spinner-color);
+  background-color: var(--kup-spinner_primary-color);
   float: left;
   height: 33%;
   width: 33%;
@@ -669,7 +677,7 @@
   margin: 0 auto;
   width: 15%;
   height: 15%;
-  background-color: var(--kup-spinner-color);
+  background-color: var(--kup-spinner_primary-color);
   border-radius: 100%;
   -webkit-animation: sk-spinner-v14-circleFadeDelay 1.2s infinite ease-in-out
     both;
@@ -807,10 +815,10 @@
 @keyframes sk-spinner-bar-v1 {
   from {
     left: -25%;
-    background: var(--kup-spinner-color); /* fallback */
+    background: var(--kup-spinner_primary-color); /* fallback */
     background: linear-gradient(
       to left,
-      var(--kup-spinner-color) 0,
+      var(--kup-spinner_primary-color) 0,
       rgba(255, 255, 255, 0) 100%
     );
   }
@@ -819,17 +827,17 @@
   }
   to {
     left: -25%;
-    background: var(--kup-spinner-color); /* fallback */
+    background: var(--kup-spinner_primary-color); /* fallback */
     background: linear-gradient(
       to right,
-      var(--kup-spinner-color) 0,
+      var(--kup-spinner_primary-color) 0,
       rgba(255, 255, 255, 0) 100%
     );
   }
 }
 
 .spinner-bar-v2 {
-  box-shadow: -1px 0px 2px 2px var(--kup-spinner-color);
+  box-shadow: -1px 0px 2px 2px var(--kup-spinner_primary-color);
   height: calc(1em - 2px);
   position: absolute;
   overflow: hidden;
