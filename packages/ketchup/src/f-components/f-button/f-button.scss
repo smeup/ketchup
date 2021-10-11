@@ -1,4 +1,6 @@
 .f-button--wrapper {
+ 
+
   .button {
     -moz-osx-font-smoothing: grayscale;
     -webkit-appearance: none;
@@ -29,6 +31,7 @@
       box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     vertical-align: middle;
+    --kup-spinner_primary-color: var(--kup-button_text-on-primary-color);
 
     &:hover {
       background-color: rgba(var(--kup-button_primary-color-rgb), 0.125);
@@ -53,6 +56,11 @@
       &:not(.button--disabled) {
         background-color: var(--kup-button_primary-color);
         color: var(--kup-text-on-primary-color);
+        --kup-spinner_border-color: hsl(
+          var(--kup-button_primary-color-h),
+          calc(var(--kup-button_primary-color-s) * 0.88),
+          calc(var(--kup-button_primary-color-l) * 1.12)
+        );
       }
 
       &:hover {
@@ -124,6 +132,7 @@
     &.button--outlined {
       border-width: 1px;
       border-style: solid;
+      --kup-spinner_primary-color: var(--kup-button_primary-color);
 
       &:not(.button--disabled) {
         border-color: var(--kup-button_primary-color);
@@ -160,6 +169,13 @@
       opacity: 0.75;
       pointer-events: none;
     }
+
+    .button__spinnercontainer {
+      width: 100%;
+      height: var(--kup-button_spinner-height);
+      left: 0;
+      position: absolute;
+    }
   }
 
   .icon-button {
@@ -175,6 +191,7 @@
     user-select: none;
     padding: 0.75em;
     border-radius: 50%;
+    --kup-spinner_primary-color: var(--kup-button_primary-color);
 
     &:hover,
     &:focus {
@@ -193,7 +210,21 @@
     &.button--disabled {
       opacity: 0.75;
       pointer-events: none;
+    } 
+
+    .icon-button__spinnercontainer {
+      width: var(--kup-button_spinner-width);
+      height: var(--kup-button_spinner-height);
     }
+  }
+
+  .button__spinner--active {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  .content--hidden {
+    visibility: hidden;
   }
 
   &.#{$kup-class-full-height} {

@@ -71,6 +71,8 @@ function renderButton(props: FButtonProps): VNode {
         sizeY: isFloating ? '1.75em' : '1.475em',
         wrapperClass: 'button__icon icon-container material-icons',
     };
+    if(props.showSpinner)
+        propsFImage.wrapperClass += ' content--hidden'
 
     const classObj: Record<string, boolean> = {
         button: true,
@@ -79,6 +81,16 @@ function renderButton(props: FButtonProps): VNode {
         'button--outlined': isOutlined ? true : false,
         'button--raised': isRaised ? true : false,
         'button--no-label': !props.label || props.label === ' ' ? true : false,
+        'button__spinner--active': props.showSpinner && !props.disabled ? true : false
+    };
+
+    const classLabelObj: Record<string, boolean> = {
+        'button__label': true,
+        'content--hidden': props.showSpinner && !props.disabled ? true : false
+    }
+
+    const styleSpinnerContainer: Record<string, string> = {
+        "--kup-button_spinner-height": propsFImage.sizeY
     };
 
     return (
@@ -90,13 +102,17 @@ function renderButton(props: FButtonProps): VNode {
         >
             {props.trailingIcon
                 ? [
-                      <span class="button__label">{props.label}</span>,
-                      props.icon ? <FImage {...propsFImage} /> : undefined,
-                  ]
+                        <span class={classLabelObj}>{props.label}</span>,
+                        props.icon ? <FImage {...propsFImage} /> : undefined
+                ]
                 : [
-                      props.icon ? <FImage {...propsFImage} /> : undefined,
-                      <span class="button__label">{props.label}</span>,
-                  ]}
+                        props.icon ? <FImage {...propsFImage} /> : undefined,
+                        <span class={classLabelObj}>{props.label}</span>,
+                ]}            
+            {props.showSpinner && !props.disabled
+                ? <div class="button__spinnercontainer" style={styleSpinnerContainer}><slot name="spinner"></slot></div>
+                : undefined
+            }
         </button>
     );
 }
@@ -115,6 +131,12 @@ function renderIconButton(props: FButtonProps): VNode {
         'button--disabled': props.disabled ? true : false,
         'icon-button--on': props.toggable && props.checked ? true : false,
         toggable: props.toggable ? true : false,
+        'button__spinner--active': props.showSpinner && !props.disabled ? true : false
+    };
+
+    const styleSpinnerContainer: Record<string, string> = {
+        "--kup-button_spinner-height": propsFImage.sizeY,
+        "--kup-button_spinner-width": propsFImage.sizeX
     };
 
     const iconOff: string = props.iconOff
@@ -129,20 +151,25 @@ function renderIconButton(props: FButtonProps): VNode {
             onClick={props.onClick}
             value={props.checked ? 'on' : 'off'}
         >
-            <FImage
-                {...propsFImage}
-                resource={
-                    props.toggable && !props.checked ? iconOff : props.icon
-                }
-                wrapperClass={`icon-button__icon icon-container material-icons`}
-            />
-            {props.toggable ? (
+            {!props.showSpinner || props.disabled
+                ?   <FImage
+                        {...propsFImage}
+                        resource={
+                            props.toggable && !props.checked ? iconOff : props.icon
+                        }
+                        wrapperClass={`icon-button__icon icon-container material-icons`}
+                    /> : null}
+            {props.toggable && !props.showSpinner ? (
                 <FImage
                     {...propsFImage}
                     resource={props.icon}
                     wrapperClass={`icon-button__icon icon-button__icon--on icon-container material-icons`}
                 />
             ) : null}
+            {props.showSpinner && !props.disabled
+                ? <div class="icon-button__spinnercontainer" style={styleSpinnerContainer}><slot name="spinner"></slot></div>
+                : undefined
+            }
         </button>
     );
 }

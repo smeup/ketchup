@@ -11,6 +11,8 @@
     --kup-button_primary-color-s: var(--kup-primary-color-s);
     --kup-button_primary-color-l: var(--kup-primary-color-l);
     --kup-button_primary-color-rgb: var(--kup-primary-color-rgb);
+    --kup-button_spinner-height: 1.475em;
+    --kup-button_spinner-width: 1.475em;
     --kup-button_text-on-primary-color: var(--kup-text-on-primary-color);
     --kup-switch_label-color: var(--kup-text-color);
     --kup-switch_primary-color: var(--kup-primary-color);
