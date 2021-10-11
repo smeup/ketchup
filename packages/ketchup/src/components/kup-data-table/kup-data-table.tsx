@@ -5551,7 +5551,6 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(
                 KupLanguageFontsize.LABEL
@@ -5622,7 +5621,6 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageDensity.LABEL),
             icon: 'arrow_drop_down',
@@ -5734,7 +5732,6 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageGrid.LABEL),
             icon: 'arrow_drop_down',

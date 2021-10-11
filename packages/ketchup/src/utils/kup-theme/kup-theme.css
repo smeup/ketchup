@@ -15,8 +15,15 @@
     --kup-switch_label-color: var(--kup-text-color);
     --kup-switch_primary-color: var(--kup-primary-color);
     --kup-switch_primary-color-rgb: var(--kup-primary-color-rgb);
+    --kup-textfield_background-color: var(--kup-background-color);
+    --kup-textfield_background-color-rgb: var(--kup-background-color-rgb);
     --kup-textfield_color: var(--kup-text-color);
     --kup-textfield_color-rgb: var(--kup-text-color-rgb);
+    --kup-textfield_font-family: var(--kup-font-family);
+    --kup-textfield_font-size: 1em;
+    --kup-textfield_icon-color: var(--kup-icon-color);
+    --kup-textfield_primary-color: var(--kup-primary-color);
+    --kup-textfield_primary-color-rgb: var(--kup-primary-color-rgb);
 }
 /*-------------------------------------------------*/
 /*        C o m p o n e n t   C l a s s e s        */

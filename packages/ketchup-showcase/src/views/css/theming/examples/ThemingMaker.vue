@@ -477,23 +477,6 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">--kup-field-background-color</span>
-                </td>
-                <td>Sets the background color of filled text fields.</td>
-                <td class="prevent-cr">
-                  <span class="code-word">color</span>
-                </td>
-                <td class="text-cell">
-                  <kup-color-picker
-                    id="field-background-color"
-                    :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateVariable"
-                    @kup-colorpicker-change="updateVariable"
-                  ></kup-color-picker>
-                </td>
-              </tr>
-              <tr>
-                <td class="prevent-cr">
                   <span class="code-word">--kup-info-color</span>
                 </td>
                 <td
