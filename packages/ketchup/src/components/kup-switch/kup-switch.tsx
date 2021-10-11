@@ -237,9 +237,24 @@ export class KupSwitch {
     render() {
         let props: FSwitchProps = {
             checked: this.checked,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
             disabled: this.disabled,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

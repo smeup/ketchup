@@ -44,9 +44,13 @@
     --kup-chip_primary-color-rgb: var(--kup-primary-color-rgb);
     --kup-chip_text-color: var(--kup-text-color);
     --kup-chip_text-color-rgb: var(--kup-text-color-rgb);
+    --kup-switch_font-family: var(--kup-font-family);
+    --kup-switch_font-size: var(--kup-font-size);
+    --kup-switch_font-weight: 400;
     --kup-switch_label-color: var(--kup-text-color);
     --kup-switch_primary-color: var(--kup-primary-color);
     --kup-switch_primary-color-rgb: var(--kup-primary-color-rgb);
+    --kup-switch_thumb-color: var(--kup-border-color);
     --kup-textfield_background-color-rgb: var(--kup-background-color-rgb);
     --kup-textfield_color: var(--kup-text-color);
     --kup-textfield_color-rgb: var(--kup-text-color-rgb);

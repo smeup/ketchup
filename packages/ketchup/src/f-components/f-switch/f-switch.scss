@@ -1,11 +1,13 @@
 .f-switch--wrapper {
+  font-family: var(--kup-switch_font-family);
+  font-size: var(--kup-switch_font-size);
+
   .form-field {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-family: var(--kup-font-family);
     font-size: 0.875em;
     line-height: 2em;
-    font-weight: 400;
+    font-weight: var(--kup-switch_font-weight);
     letter-spacing: 0.0178571429em;
     color: var(--kup-switch_label-color);
     display: inline-flex;
@@ -102,8 +104,8 @@
           background-color: var(--kup-switch_label-color);
         }
         .switch__thumb {
-          background-color: var(--kup-border-color);
-          border-color: var(--kup-border-color);
+          background-color: var(--kup-switch_thumb-color);
+          border-color: var(--kup-switch_thumb-color);
         }
       }
 
@@ -132,5 +134,30 @@
         }
       }
     }
+  }
+
+  &.#{$kup-class-danger} {
+    --kup-switch_primary-color: var(--kup-danger-color);
+    --kup-switch_primary-color-rgb: var(--kup-danger-color-rgb);
+  }
+
+  &.#{$kup-class-info} {
+    --kup-switch_primary-color: var(--kup-info-color);
+    --kup-switch_primary-color-rgb: var(--kup-info-color-rgb);
+  }
+
+  &.#{$kup-class-secondary} {
+    --kup-switch_primary-color: var(--kup-secondary-color);
+    --kup-switch_primary-color-rgb: var(--kup-secondary-color-rgb);
+  }
+
+  &.#{$kup-class-success} {
+    --kup-switch_primary-color: var(--kup-success-color);
+    --kup-switch_primary-color-rgb: var(--kup-success-color-rgb);
+  }
+
+  &.#{$kup-class-warning} {
+    --kup-switch_primary-color: var(--kup-warning-color);
+    --kup-switch_primary-color-rgb: var(--kup-warning-color-rgb);
   }
 }
