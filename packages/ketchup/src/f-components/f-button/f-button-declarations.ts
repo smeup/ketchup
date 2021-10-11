@@ -4,21 +4,26 @@ import type { FComponent } from '../../types/GenericTypes';
  */
 export interface FButtonProps extends FComponent {
     checked?: boolean;
+    danger?: boolean;
     disabled?: boolean;
     fullHeight?: boolean;
     fullWidth?: boolean;
     icon?: string;
     iconOff?: string;
+    info?: boolean;
     label?: string;
     large?: boolean;
     onClick?: (event: MouseEvent) => void;
     pulsating?: boolean;
     shaped?: boolean;
+    secondary?: boolean;
     slim?: boolean;
+    success?: boolean;
     styling?: FButtonStyling;
     showSpinner?: boolean;
     toggable?: boolean;
-    trailingIcon?: boolean;   
+    trailingIcon?: boolean;
+    warning?: boolean;
 }
 /**
  * Styling options for the f-button component.

@@ -54,14 +54,15 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                           | Description                      |
-| ------------------------------ | -------------------------------- |
-| `--kup-badge_background-color` | Sets background of the badge.    |
-| `--kup-badge_border-radius`    | Sets border radius of the badge. |
-| `--kup-badge_color`            | Sets text color of the badge.    |
-| `--kup-badge_font-size`        | Sets font size of the badge.     |
-| `--kup-badge_min-size`         | Sets minimum size of the badge.  |
-| `--kup-badge_padding`          | Sets padding of the badge.       |
+| Name                                | Description                              |
+| ----------------------------------- | ---------------------------------------- |
+| `--kup-badge_border-radius`         | Sets border radius of the badge.         |
+| `--kup-badge_font-family`           | Sets font family of the badge.           |
+| `--kup-badge_font-size`             | Sets font size of the badge.             |
+| `--kup-badge_min-size`              | Sets minimum size of the badge.          |
+| `--kup-badge_padding`               | Sets padding of the badge.               |
+| `--kup-badge_primary-color`         | Sets primary color of the badge.         |
+| `--kup-badge_text-on-primary-color` | Sets text on primary color of the badge. |
 
 
 ## Dependencies

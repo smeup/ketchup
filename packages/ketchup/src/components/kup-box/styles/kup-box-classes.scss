@@ -92,6 +92,26 @@
   }
 }
 
+:host(.#{$kup-class-danger}) {
+  --kup-box_primary-color-rgb: var(--kup-danger-color-rgb);
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-box_primary-color-rgb: var(--kup-info-color-rgb);
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-box_primary-color-rgb: var(--kup-secondary-color-rgb);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-box_primary-color-rgb: var(--kup-success-color-rgb);
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-box_primary-color-rgb: var(--kup-warning-color-rgb);
+}
+
 /*-------------------------------------------------*/
 /*             J S O N   C l a s s e s             */
 /*-------------------------------------------------*/

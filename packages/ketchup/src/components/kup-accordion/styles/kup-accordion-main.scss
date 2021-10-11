@@ -16,7 +16,7 @@
 */
 
 :host {
-  --kup-accordion_background-color: transparent;
+  --kup-accordion_background-color: var(--kup-background-color);
   --kup-accordion_border: 1px solid var(--kup-border-color);
   --kup-accordion_border-radius: 4px;
   --kup-accordion_dropdown-icon-color: var(--kup-icon-color);
