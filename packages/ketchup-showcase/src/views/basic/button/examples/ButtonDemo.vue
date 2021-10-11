@@ -166,6 +166,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'showSpinner',
+          description:
+            'The button displays a spinner in place of its content and is not clickable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'toggable',
           description:
             'Icon button variant only. The icon button supports the toggable state, switching between ON and OFF.',
@@ -180,7 +188,7 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
+        }
       ],
     };
   },
@@ -192,6 +200,11 @@ function createComp() {
   comp.id = 'demo-component';
   comp.label = 'Demo';
   comp.styling = 'raised';
+  let innerComp = document.createElement('kup-spinner');
+  innerComp.slot = "spinner";
+  innerComp.dimensions = "0.6em";
+  innerComp.active = true;
+  comp.appendChild(innerComp);
   return comp;
 }
 </script>
