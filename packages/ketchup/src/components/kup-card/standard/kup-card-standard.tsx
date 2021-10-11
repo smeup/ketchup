@@ -398,7 +398,7 @@ export function create6(component: KupCard): VNode {
         ['--color-0']: colorArray[0]
             ? colorArray[0]
             : `var(${KupThemeColorValues.PRIMARY})`,
-        ['--dyn-color-0']: 'white',
+        ['--kup-card_dynamic-color-0']: 'white',
     };
     return (
         <div

@@ -104,8 +104,10 @@ Type: `Promise<void>`
 | `--kup-accordion_hover-background-color` | Sets background color of the hover effect.                       |
 | `--kup-accordion_hover-color`            | Sets text color of the hover effect.                             |
 | `--kup-accordion_padding`                | Sets padding of the accordion's items.                           |
-| `--kup-accordion_selection-color`        | Sets background color of a selected item.                        |
+| `--kup-accordion_primary-color`          | Sets primary color of the component.                             |
+| `--kup-accordion_primary-color-rgb`      | Sets primary color RGB values of the component.                  |
 | `--kup-accordion_text-color`             | Sets text color of the component.                                |
+| `--kup-accordion_text-on-primary-color`  | Sets text on primary color of the component.                     |
 | `--kup-accordion_transition`             | Sets transition duration for color and background-color.         |
 
 

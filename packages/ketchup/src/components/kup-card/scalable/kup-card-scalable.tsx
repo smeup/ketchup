@@ -20,7 +20,7 @@ export function create1(component: KupCard): VNode {
         : [];
     //Dynamic CSS variables
     let CSSVariables = {
-        ['--multiplier']: '1',
+        ['--kup-card_multiplier']: '1',
     };
     return (
         <div
@@ -63,7 +63,7 @@ export function create2(component: KupCard): VNode {
         : [];
     //Dynamic CSS variables
     let CSSVariables = {
-        ['--multiplier']: '1',
+        ['--kup-card_multiplier']: '1',
     };
     return (
         <div
@@ -118,7 +118,7 @@ export function create3(component: KupCard): VNode {
         : [];
     //Dynamic CSS variables
     let CSSVariables = {
-        ['--multiplier']: '1',
+        ['--kup-card_multiplier']: '1',
     };
     return (
         <div
@@ -164,7 +164,7 @@ export function create4(component: KupCard): VNode {
         [`--color-0`]: colorArray[0]
             ? colorArray[0]
             : `var(${KupThemeColorValues.PRIMARY})`,
-        ['--multiplier']: '1',
+        ['--kup-card_multiplier']: '1',
     };
     return (
         <div
@@ -235,7 +235,7 @@ export function create5(component: KupCard): VNode {
         : [];
     //Dynamic CSS variables
     let CSSVariables = {
-        ['--multiplier']: '1',
+        ['--kup-card_multiplier']: '1',
     };
     return (
         <div
@@ -296,7 +296,7 @@ export function create6(component: KupCard): VNode {
         : [];
     //Dynamic CSS variables
     let CSSVariables = {
-        ['--multiplier']: '1',
+        ['--kup-card_multiplier']: '1',
     };
     return (
         <div
@@ -357,7 +357,7 @@ export function create7(component: KupCard): VNode {
         : [];
     //Dynamic CSS variables
     let CSSVariables = {
-        ['--multiplier']: '1',
+        ['--kup-card_multiplier']: '1',
     };
     return (
         <div
@@ -418,7 +418,7 @@ export function create8(component: KupCard): VNode {
         : [];
     //Dynamic CSS variables
     let CSSVariables = {
-        ['--multiplier']: '1',
+        ['--kup-card_multiplier']: '1',
     };
     return (
         <div

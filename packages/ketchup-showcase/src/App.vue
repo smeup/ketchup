@@ -10,6 +10,7 @@
     </div>
     <kup-nav-bar id="app__nav-bar" @kup-navbar-resize="redrawNavigation">
       <kup-switch
+        class="kup-secondary"
         id="theme-switch"
         label="Dark Mode"
         leading-label

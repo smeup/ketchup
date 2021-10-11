@@ -68,6 +68,17 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                         | Description                                                                                                       |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `--kup-card_dynamic-color-N` | Sets dynamically computed colors based on contrast (N occurrencies, variable automatically set by the component). |
+| `--kup-card_height`          | Sets height of the card (variable automatically set by the component).                                            |
+| `--kup-card_multiplier`      | Sets the multiplier of scalable cards (variable automatically set by the component).                              |
+| `--kup-card_ripple-color`    | Sets color of ripple effect (for Material layouts).                                                               |
+| `--kup-card_width`           | Sets height of the card (variable automatically set by the component).                                            |
+
+
 ## Dependencies
 
 ### Used by

@@ -14,10 +14,27 @@
     --kup-button_spinner-height: 1.475em;
     --kup-button_spinner-width: 1.475em;
     --kup-button_text-on-primary-color: var(--kup-text-on-primary-color);
+    --kup-checkbox_font-family: var(--kup-font-family);
+    --kup-checkbox_font-size: var(--kup-font-size);
+    --kup-checkbox_disabled-checkmark-color: var(--kup-background-color);
+    --kup-checkbox_hover-background-color: rgba(
+        var(--kup-checkbox_primary-color-rgb),
+        0.125
+    );
+    --kup-checkbox_label-font-size: 0.875em;
+    --kup-checkbox_label-font-weight: 400;
+    --kup-checkbox_padding: calc((40px - 18px) / 2);
+    --kup-checkbox_primary-color: var(--kup-primary-color);
+    --kup-checkbox_primary-color-rgb: var(--kup-primary-color-rgb);
+    --kup-checkbox_text-color: var(--kup-text-color);
+    --kup-checkbox_text-color-rgb: var(--kup-text-color-rgb);
+    --kup-checkbox_text-on-primary-color: var(--kup-text-on-primary-color);
+    --kup-checkbox_text-on-primary-color-rgb: var(
+        --kup-text-on-primary-color-rgb
+    );
     --kup-switch_label-color: var(--kup-text-color);
     --kup-switch_primary-color: var(--kup-primary-color);
     --kup-switch_primary-color-rgb: var(--kup-primary-color-rgb);
-    --kup-textfield_background-color: var(--kup-background-color);
     --kup-textfield_background-color-rgb: var(--kup-background-color-rgb);
     --kup-textfield_color: var(--kup-text-color);
     --kup-textfield_color-rgb: var(--kup-text-color-rgb);
@@ -26,39 +43,6 @@
     --kup-textfield_icon-color: var(--kup-icon-color);
     --kup-textfield_primary-color: var(--kup-primary-color);
     --kup-textfield_primary-color-rgb: var(--kup-primary-color-rgb);
-}
-/*-------------------------------------------------*/
-/*        C o m p o n e n t   C l a s s e s        */
-/*-------------------------------------------------*/
-.kup-danger {
-    --kup-primary-color: var(--kup-danger-color);
-    --kup-text-on-primary-color: white;
-    --kup-primary-color-rgb: var(--kup-danger-color-rgb);
-    --kup-text-on-primary-color-rgb: 255, 255, 255;
-}
-.kup-info {
-    --kup-primary-color: var(--kup-info-color);
-    --kup-text-on-primary-color: white;
-    --kup-primary-color-rgb: var(--kup-info-color-rgb);
-    --kup-text-on-primary-color-rgb: 255, 255, 255;
-}
-.kup-secondary {
-    --kup-primary-color: var(--kup-secondary-color);
-    --kup-text-on-primary-color: var(--kup-text-on-secondary-color);
-    --kup-primary-color-rgb: var(--kup-secondary-color-rgb);
-    --kup-text-on-primary-color-rgb: var(--kup-text-on-secondary-color-rgb);
-}
-.kup-success {
-    --kup-primary-color: var(--kup-success-color);
-    --kup-text-on-primary-color: white;
-    --kup-primary-color-rgb: var(--kup-success-color-rgb);
-    --kup-text-on-primary-color-rgb: 255, 255, 255;
-}
-.kup-warning {
-    --kup-primary-color: var(--kup-warning-color);
-    --kup-text-on-primary-color: white;
-    --kup-primary-color-rgb: var(--kup-warning-color-rgb);
-    --kup-text-on-primary-color-rgb: 255, 255, 255;
 }
 /*-------------------------------------------------*/
 /*                    D e b u g                    */

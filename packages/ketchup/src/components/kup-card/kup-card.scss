@@ -4,21 +4,31 @@
 @import 'scalable/kup-card-scalable';
 @import 'standard/kup-card-standard';
 
+/**
+* @prop --kup-card_dynamic-color-N: Sets dynamically computed colors based on contrast (N occurrencies, variable automatically set by the component).
+* @prop --kup-card_height: Sets height of the card (variable automatically set by the component).
+* @prop --kup-card_multiplier: Sets the multiplier of scalable cards (variable automatically set by the component).
+* @prop --kup-card_ripple-color: Sets color of ripple effect (for Material layouts).
+* @prop --kup-card_width: Sets height of the card (variable automatically set by the component).
+*/
+
 :host {
+  --kup-card_ripple-color: var(--kup-primary-color);
+
   display: block;
   font-size: var(--kup-font-size);
+  height: var(--kup-card_height);
+  min-height: var(--kup-card_height);
+  min-width: var(--kup-card_width);
   outline: none;
   position: relative;
-  min-height: var(--kup-card-height);
-  height: var(--kup-card-height);
-  min-width: var(--kup-card-width);
-  width: var(--kup-card-width);
+  width: var(--kup-card_width);
 }
 
 :host([is-menu]) {
   #kup-component {
-    display: none;
     animation: fadeInFromNone 0.25s ease-out;
+    display: none;
   }
 }
 
@@ -42,7 +52,7 @@
 
   &:before,
   &:after {
-    background-color: var(--kup-primary-color);
+    background-color: var(--kup-card_ripple-color);
   }
 }
 

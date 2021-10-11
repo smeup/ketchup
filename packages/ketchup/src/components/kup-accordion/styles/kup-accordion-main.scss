@@ -8,8 +8,10 @@
 * @prop --kup-accordion_hover-background-color: Sets background color of the hover effect.
 * @prop --kup-accordion_hover-color: Sets text color of the hover effect.
 * @prop --kup-accordion_padding: Sets padding of the accordion's items.
-* @prop --kup-accordion_selection-color: Sets background color of a selected item.
+* @prop --kup-accordion_primary-color: Sets primary color of the component.
+* @prop --kup-accordion_primary-color-rgb: Sets primary color RGB values of the component.
 * @prop --kup-accordion_text-color: Sets text color of the component.
+* @prop --kup-accordion_text-on-primary-color: Sets text on primary color of the component.
 * @prop --kup-accordion_transition: Sets transition duration for color and background-color.
 */
 
@@ -23,11 +25,14 @@
   --kup-accordion_hover-background-color: var(--kup-hover-background-color);
   --kup-accordion_hover-color: var(--kup-hover-color);
   --kup-accordion_padding: 1em 1.5em;
-  --kup-accordion_selection-color: rgba(var(--kup-primary-color-rgb), 0.175);
+  --kup-accordion_primary-color: var(--kup-primary-color);
+  --kup-accordion_primary-color-rgb: var(--kup-primary-color-rgb);
   --kup-accordion_text-color: var(--kup-text-color);
+  --kup-accordion_text-on-primary-color: var(--kup-text-on-primary-color);
   --kup-accordion_transition: 80ms;
 
   display: block;
+  font-family: var(--kup-accordion_font-family);
   font-size: var(--kup-accordion_font-size);
 }
 
@@ -64,7 +69,6 @@
     color: var(--kup-accordion_text-color);
     cursor: pointer;
     display: flex;
-    font-family: var(--kup-accordion_font-family);
     line-height: 1.75em;
     outline: none;
     padding: var(--kup-accordion_padding);
@@ -88,7 +92,7 @@
     }
 
     &--selected {
-      background-color: var(--kup-accordion_selection-color);
+      background-color: rgba(var(--kup-accordion_primary-color-rgb), 0.175);
     }
   }
 
@@ -99,8 +103,8 @@
     white-space: pre;
 
     &--highlighted {
-      color: var(--kup-text-on-primary-color);
-      background-color: var(--kup-primary-color);
+      color: var(--kup-accordion_text-on-primary-color);
+      background-color: var(--kup-accordion_primary-color);
     }
   }
 
