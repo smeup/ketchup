@@ -90,6 +90,11 @@ export class KupButton {
      */
     @Prop() styling: FButtonStyling = FButtonStyling.RAISED;
     /**
+     * When set to true, the button show a spinner received in slot.
+     * @default false
+     */
+     @Prop() showSpinner: boolean = false;
+    /**
      * When set to true, the icon button will be toggable on/off.
      * @default false
      */
@@ -98,7 +103,7 @@ export class KupButton {
      * When set, the icon will be shown after the text.
      * @default false
      */
-    @Prop() trailingIcon: boolean = false;
+    @Prop() trailingIcon: boolean = false;    
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -287,8 +292,9 @@ export class KupButton {
                 ? true
                 : false,
             styling: this.styling,
+            showSpinner: this.showSpinner,
             toggable: this.toggable,
-            trailingIcon: this.trailingIcon,
+            trailingIcon: this.trailingIcon            
         };
 
         if (!this.label && !this.icon) {
