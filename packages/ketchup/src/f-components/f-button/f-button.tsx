@@ -90,7 +90,7 @@ function renderButton(props: FButtonProps): VNode {
     }
 
     const styleSpinnerContainer: Record<string, string> = {
-        "--kup-button-spinner-height": propsFImage.sizeY
+        "--kup-button_spinner-height": propsFImage.sizeY
     };
 
     return (
@@ -135,8 +135,8 @@ function renderIconButton(props: FButtonProps): VNode {
     };
 
     const styleSpinnerContainer: Record<string, string> = {
-        "--kup-button-spinner-height": propsFImage.sizeY,
-        "--kup-button-spinner-width": propsFImage.sizeX
+        "--kup-button_spinner-height": propsFImage.sizeY,
+        "--kup-button_spinner-width": propsFImage.sizeX
     };
 
     const iconOff: string = props.iconOff

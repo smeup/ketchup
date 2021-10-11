@@ -1,6 +1,5 @@
 .f-button--wrapper {
-  --kup-button-spinner-width: 1.475em;
-  --kup-button-spinner-height: 1.475em;
+ 
 
   .button {
     -moz-osx-font-smoothing: grayscale;
@@ -173,7 +172,7 @@
 
     .button__spinnercontainer {
       width: 100%;
-      height: var(--kup-button-spinner-height);
+      height: var(--kup-button_spinner-height);
       left: 0;
       position: absolute;
     }
@@ -214,8 +213,8 @@
     } 
 
     .icon-button__spinnercontainer {
-      width: var(--kup-button-spinner-width);
-      height: var(--kup-button-spinner-height);
+      width: var(--kup-button_spinner-width);
+      height: var(--kup-button_spinner-height);
     }
   }
 
