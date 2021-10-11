@@ -471,6 +471,9 @@ export class KupTextField {
 
     render() {
         const props: FTextFieldProps = {
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
@@ -479,6 +482,9 @@ export class KupTextField {
             helper: this.helper,
             helperWhenFocused: this.helperWhenFocused,
             icon: this.icon,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
             initialValue: this.initialValue,
             inputType: this.inputType,
             isClearable: this.isClearable,
@@ -489,14 +495,23 @@ export class KupTextField {
             min: this.min,
             outlined: this.outlined,
             readOnly: this.readOnly,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
             shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
             step: this.step,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
             textArea: this.textArea,
             trailingIcon: this.trailingIcon,
             trailingLabel: this.trailingLabel,
             value: this.value,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(
