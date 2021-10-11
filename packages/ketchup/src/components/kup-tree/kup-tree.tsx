@@ -1851,7 +1851,7 @@ export class KupTree {
         let expandClass = 'expand-icon kup-tree__icon kup-tree__node__expander';
         if (hasExpandIcon) {
             expandClass += ' icon-container';
-            if (this.asAccordion) {
+            if (this.asAccordion && treeNodeDepth === 0) {
                 expandClass += ' dropdown';
             } else if (treeNodeData[treeExpandedPropName]) {
                 expandClass += ' expanded';
