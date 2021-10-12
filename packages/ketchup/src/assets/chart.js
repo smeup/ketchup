@@ -698,6 +698,2081 @@ const baseData = {
 		],
     };
   
+  const timelineData1 = {
+    "columns" : [
+			{
+				"isKey": false,
+				"name": "CHA1_A",
+				"obj": {
+					"k": "",
+					"p": "YYMD",
+					"t": "D8"
+				},
+				"title": "Persona",
+				"tooltip": true
+			},
+			{
+				"decimals": 0,
+				"isKey": false,
+				"name": "CHA1_S",
+				"obj": {
+					"k": "",
+					"p": "",
+					"t": "NR"
+				},
+				"title": "Anno Corrente",
+				"tooltip": true
+			},
+			{
+				"decimals": 0,
+				"isKey": false,
+				"name": "CHA2_S",
+				"obj": {
+					"k": "",
+					"p": "",
+					"t": "NR"
+				},
+				"title": "Anno Corrente",
+				"tooltip": true
+			}
+		],
+    "rows" : [
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150102",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150102"
+					}
+				},
+				"id": "0",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "20",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "20"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150103",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150103"
+					}
+				},
+				"id": "1",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "12",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "12"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150104",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150104"
+					}
+				},
+				"id": "2",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150105",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150105"
+					}
+				},
+				"id": "3",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150106",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150106"
+					}
+				},
+				"id": "4",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150107",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150107"
+					}
+				},
+				"id": "5",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "11",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "11"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150108",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150108"
+					}
+				},
+				"id": "6",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150109",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150109"
+					}
+				},
+				"id": "7",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "20",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "20"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150110",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150110"
+					}
+				},
+				"id": "8",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "12",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "12"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150111",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150111"
+					}
+				},
+				"id": "9",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150112",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150112"
+					}
+				},
+				"id": "10",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150113",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150113"
+					}
+				},
+				"id": "11",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150114",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150114"
+					}
+				},
+				"id": "12",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "11",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "11"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150115",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150115"
+					}
+				},
+				"id": "13",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150116",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150116"
+					}
+				},
+				"id": "14",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "20",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "20"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150117",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150117"
+					}
+				},
+				"id": "15",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "12",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "12"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150118",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150118"
+					}
+				},
+				"id": "16",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150119",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150119"
+					}
+				},
+				"id": "17",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150120",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150120"
+					}
+				},
+				"id": "18",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150121",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150121"
+					}
+				},
+				"id": "19",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "11",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "11"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150122",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150122"
+					}
+				},
+				"id": "20",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150123",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150123"
+					}
+				},
+				"id": "21",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "20",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "20"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150124",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150124"
+					}
+				},
+				"id": "22",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "12",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "12"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150125",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150125"
+					}
+				},
+				"id": "23",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150126",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150126"
+					}
+				},
+				"id": "24",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150127",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150127"
+					}
+				},
+				"id": "25",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150128",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150128"
+					}
+				},
+				"id": "26",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "11",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "11"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150129",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150129"
+					}
+				},
+				"id": "27",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150201",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150201"
+					}
+				},
+				"id": "28",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150202",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150202"
+					}
+				},
+				"id": "29",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "20",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "20"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150203",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150203"
+					}
+				},
+				"id": "30",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "12",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "12"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150204",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150204"
+					}
+				},
+				"id": "31",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150205",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150205"
+					}
+				},
+				"id": "32",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150206",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150206"
+					}
+				},
+				"id": "33",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150207",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150207"
+					}
+				},
+				"id": "34",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "11",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "11"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150208",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150208"
+					}
+				},
+				"id": "35",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150209",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150209"
+					}
+				},
+				"id": "36",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "20",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "20"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150210",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150210"
+					}
+				},
+				"id": "37",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "12",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "12"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150211",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150211"
+					}
+				},
+				"id": "38",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150212",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150212"
+					}
+				},
+				"id": "39",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150213",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150213"
+					}
+				},
+				"id": "40",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150214",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150214"
+					}
+				},
+				"id": "41",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "11",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "11"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150215",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150215"
+					}
+				},
+				"id": "42",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150216",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150216"
+					}
+				},
+				"id": "43",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "20",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "20"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150217",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150217"
+					}
+				},
+				"id": "44",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "12",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "12"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150218",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150218"
+					}
+				},
+				"id": "45",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150219",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150219"
+					}
+				},
+				"id": "46",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150220",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150220"
+					}
+				},
+				"id": "47",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150221",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150221"
+					}
+				},
+				"id": "48",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "11",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "11"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150222",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150222"
+					}
+				},
+				"id": "49",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "3",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "3"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150223",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150223"
+					}
+				},
+				"id": "50",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "8",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "8"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "20",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "20"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150224",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150224"
+					}
+				},
+				"id": "51",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "12",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "12"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150225",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150225"
+					}
+				},
+				"id": "52",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "2",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150226",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150226"
+					}
+				},
+				"id": "53",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "16",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "16"
+					},
+					"CHA2_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "20150227",
+							"p": "YYMD",
+							"t": "D8"
+						},
+						"value": "20150227"
+					}
+				},
+				"id": "54",
+				"object": "",
+				"readOnly": true
+			}
+		],
+  }
+
+  const timelineData2 = {
+    "columns" : [
+			{
+				"isKey": false,
+				"name": "CHA1_A",
+				"obj": {
+					"k": "",
+					"p": "2",
+					"t": "I1"
+				},
+				"title": "Ora",
+				"tooltip": true
+			},
+			{
+				"decimals": 0,
+				"isKey": false,
+				"name": "CHA1_S",
+				"obj": {
+					"k": "",
+					"p": "",
+					"t": "NR"
+				},
+				"title": "Valore",
+				"tooltip": true
+			}
+		],
+    "rows" : [
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "060033",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "060033"
+					}
+				},
+				"id": "0",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "7",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "7"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "063635",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "063635"
+					}
+				},
+				"id": "1",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "064512",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "064512"
+					}
+				},
+				"id": "2",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "25",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "25"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "070001",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "070001"
+					}
+				},
+				"id": "3",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "080033",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "080033"
+					}
+				},
+				"id": "4",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "7",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "7"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "093635",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "093635"
+					}
+				},
+				"id": "5",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "094512",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "094512"
+					}
+				},
+				"id": "6",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "25",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "25"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "100001",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "100001"
+					}
+				},
+				"id": "7",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "4",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "110033",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "110033"
+					}
+				},
+				"id": "8",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "7",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "7"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "113635",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "113635"
+					}
+				},
+				"id": "9",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "10",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "10"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "114512",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "114512"
+					}
+				},
+				"id": "10",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "25",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "25"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "120001",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "120001"
+					}
+				},
+				"id": "11",
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"CHA1_S": {
+						"obj": {
+							"k": "1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "1"
+					},
+					"CHA1_A": {
+						"obj": {
+							"k": "180000",
+							"p": "2",
+							"t": "I1"
+						},
+						"value": "180000"
+					}
+				},
+				"id": "12",
+				"object": "",
+				"readOnly": true
+			}
+		],
+  }
 
 const baseConfig = {
     types: ['Hbar'],
@@ -810,6 +2885,38 @@ if(combo) {
   combo.axis = 'CHA1_A';
   combo.sizeY = '300';
   combo.vAxis = {viewWindow: {min:0}};
+}
+
+// Timeline chart
+const timeline = document.getElementById('timeline-chart');
+if(timeline) {
+  timeline.data = timelineData2;
+  for (let k of keys) {
+    timeline[k] = baseConfig[k];
+  }
+
+  timeline.axis = "CHA1_A";
+  timeline.chartTitle = {
+	  "value": "Asse delle X di tipo istante I12"
+  };
+  timeline.hAxis = {
+	  "gridlines": {
+		  "count": 47
+	  },
+  };
+  timeline.legend = "none";
+  timeline.series = [
+	  {
+		  "code": "CHA1_S",
+		  "decode": "Valore"
+	  }
+  ];
+  timeline.showMarks = false;
+  timeline.sizeY = "300";
+  timeline.types = [
+	  "Line"
+  ];
+
 }
 
 // Stacked series

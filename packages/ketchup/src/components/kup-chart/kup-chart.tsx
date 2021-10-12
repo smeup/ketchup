@@ -40,6 +40,7 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupObjects } from '../../utils/kup-objects/kup-objects';
 
 declare const google: any;
 declare const $: any;
@@ -457,12 +458,13 @@ export class KupChart {
         const tableRows = convertRows(this.data, tableColumns, this.showMarks);
 
         const dataTableColumns = [];
+        const kupObjects: KupObjects = new KupObjects();
 
         for (let i = 0; i < tableColumns.length; i++) {
             const c = tableColumns[i];
 
             dataTableColumns.push({
-                label: getSerieDecode(c.name, this.series),
+                label: getSerieDecode(c.name, this.data.columns),
             });
 
             if (i > 0 && this.showMarks) {
