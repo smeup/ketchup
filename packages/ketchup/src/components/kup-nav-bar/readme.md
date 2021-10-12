@@ -66,14 +66,14 @@ Type: `Promise<void>`
 
 | Name                               | Description                                        |
 | ---------------------------------- | -------------------------------------------------- |
-| `--kup-navbar_box-shadow`          | Box shadow of the component.                       |
-| `--kup-navbar_padding`             | Padding of the component.                          |
-| `--kup-navbar_position`            | CSS positioning of the component.                  |
-| `--kup-navbar_short-border-radius` | Border radius of the component when in short mode. |
-| `--kup-navbar_short-box-shadow`    | Box shadow of the component when in short mode.    |
-| `--kup-navbar_short-width`         | Width of the component when in short mode.         |
-| `--kup-navbar_transition`          | Transition time of the component.                  |
-| `--kup-navbar_width`               | Width of the component.                            |
+| `--kup-navbar-box-shadow`          | Box shadow of the component.                       |
+| `--kup-navbar-padding`             | Padding of the component.                          |
+| `--kup-navbar-position`            | CSS positioning of the component.                  |
+| `--kup-navbar-short-border-radius` | Border radius of the component when in short mode. |
+| `--kup-navbar-short-box-shadow`    | Box shadow of the component when in short mode.    |
+| `--kup-navbar-short-width`         | Width of the component when in short mode.         |
+| `--kup-navbar-transition`          | Transition time of the component.                  |
+| `--kup-navbar-width`               | Width of the component.                            |
 
 
 ----------------------------------------------

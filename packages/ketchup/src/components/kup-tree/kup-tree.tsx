@@ -1833,7 +1833,7 @@ export class KupTree {
             <span
                 class="kup-tree__indent"
                 style={{
-                    ['--tree-node_depth']: this.asAccordion
+                    ['--kup_tree_node_depth']: this.asAccordion
                         ? (treeNodeDepth - 1).toString()
                         : treeNodeDepth.toString(),
                 }}
@@ -2316,14 +2316,14 @@ export class KupTree {
                     cell.style.width = treeRect.width + 'px';
                 } else {
                     content.classList.remove('cell-content--ellipsis');
-                    content.style.setProperty('--content_width', ``);
+                    content.style.setProperty('--kup_tree_content_width', ``);
                     const rect: DOMRect = content.getBoundingClientRect();
                     if (rect.right > treeRect.right) {
                         const failsafeOffset: number = 5;
                         const delta: number = rect.right - treeRect.right;
                         content.classList.add('cell-content--ellipsis');
                         content.style.setProperty(
-                            '--content_width',
+                            '--kup_tree_content_width',
                             `${rect.width - delta - failsafeOffset}px`
                         );
                     }

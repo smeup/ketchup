@@ -4510,7 +4510,7 @@ export class KupDataTable {
             };
 
             const style: GenericObject = {
-                '--row-actions': rowActionsCount,
+                '--kup_datatable_row_actions': rowActionsCount,
             };
 
             return (

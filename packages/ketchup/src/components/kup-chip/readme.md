@@ -56,6 +56,24 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                           | Description                                                        |
+| ------------------------------ | ------------------------------------------------------------------ |
+| `--kup-chip-background-color`  | Sets background color of the component.                            |
+| `--kup-chip-border-radius`     | Sets border radius of the chips.                                   |
+| `--kup-chip-font-family`       | Sets font family of the chips.                                     |
+| `--kup-chip-font-size`         | Sets font size of the chips.                                       |
+| `--kup-chip-font-weight`       | Sets font weight of the chips.                                     |
+| `--kup-chip-height`            | Sets height of the chips.                                          |
+| `--kup-chip-margin`            | Sets margin of the chips.                                          |
+| `--kup-chip-padding`           | Sets padding of the chips.                                         |
+| `--kup-chip-primary-color`     | Sets primary color of the component.                               |
+| `--kup-chip-primary-color-rgb` | Sets primary color RGB values of the component (used for shaders). |
+| `--kup-chip-text-color`        | Sets text color of the component.                                  |
+| `--kup-chip-text-color-rgb`    | Sets text color RGB values of the component (used for shaders).    |
+
+
 ## Dependencies
 
 ### Used by

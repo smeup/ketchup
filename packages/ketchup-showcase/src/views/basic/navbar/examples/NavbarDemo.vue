@@ -1,7 +1,6 @@
 <template>
   <div>
     <demo
-      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoMethods="demoMethods"
@@ -17,36 +16,9 @@ export default {
   components: {
     Demo,
   },
-  name: 'CheckboxDemo',
+  name: 'NavbarDemo',
   data() {
     return {
-      demoClasses: [
-        {
-          class: 'kup-danger',
-          description:
-            'The subcomponents will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The subcomponents will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The subcomponents will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The subcomponents will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The subcomponents will be rendered using the warning color of the app.',
-        },
-      ],
       demoComp: createComp(),
       demoEvents: [
         {

@@ -53,8 +53,8 @@ Type: `Promise<void>`
 
 | Name                           | Description                         |
 | ------------------------------ | ----------------------------------- |
-| `--kup-lazy_animation-time`    | Sets the duration of the animation. |
-| `--kup-lazy_placeholder-color` | Sets color of the placeholder icon. |
+| `--kup-lazy-animation-time`    | Sets the duration of the animation. |
+| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon. |
 
 
 ----------------------------------------------

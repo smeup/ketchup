@@ -63,14 +63,13 @@ Type: `Promise<void>`
 
 | Name                                              | Description                                                      |
 | ------------------------------------------------- | ---------------------------------------------------------------- |
-| `--kup-buttonlist_grid-columns`                   | Sets grid columns (variable automatically set by the component). |
-| `--kup-buttonlist_grid-gap`                       | Sets gap between each button.                                    |
-| `--kup-buttonlist_selected-primary-color`         | Sets the primary color of a selected button.                     |
-| `--kup-buttonlist_selected-primary-color-h`       | Sets the hue value of primary color of a selected button.        |
-| `--kup-buttonlist_selected-primary-color-l`       | Sets the lightness value of primary color of a selected button.  |
-| `--kup-buttonlist_selected-primary-color-rgb`     | Sets the RGB values of primary color of a selected button.       |
-| `--kup-buttonlist_selected-primary-color-s`       | Sets the saturation value of primary color of a selected button. |
-| `--kup-buttonlist_selected-text-on-primary-color` | Sets the text on primary color of a selected button.             |
+| `--kup-buttonlist-grid-gap`                       | Sets gap between each button.                                    |
+| `--kup-buttonlist-selected-primary-color`         | Sets the primary color of a selected button.                     |
+| `--kup-buttonlist-selected-primary-color-h`       | Sets the hue value of primary color of a selected button.        |
+| `--kup-buttonlist-selected-primary-color-l`       | Sets the lightness value of primary color of a selected button.  |
+| `--kup-buttonlist-selected-primary-color-rgb`     | Sets the RGB values of primary color of a selected button.       |
+| `--kup-buttonlist-selected-primary-color-s`       | Sets the saturation value of primary color of a selected button. |
+| `--kup-buttonlist-selected-text-on-primary-color` | Sets the text on primary color of a selected button.             |
 
 
 ## Dependencies

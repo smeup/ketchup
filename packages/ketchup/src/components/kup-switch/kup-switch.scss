@@ -1,10 +1,13 @@
 /**
-* @prop --kup-switch_label-color: Sets text color of the switch label.
-* @prop --kup-switch_primary-color: Sets the primary color of the switch.
-* @prop --kup-switch_primary-color-rgb: Sets the primary color RGB values of the switch (used for shaders).
+* NOTE: These variables are used in the related f-component.
 *
-* NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component)
-*
+* @prop --kup-switch-font-family: Sets font family of the switch's label.
+* @prop --kup-switch-font-size: Sets font size of the switch's label.
+* @prop --kup-switch-font-weight: Sets font weight of the switch's label.
+* @prop --kup-switch-label-color: Sets text color of the switch's label.
+* @prop --kup-switch-primary-color: Sets primary color of the component.
+* @prop --kup-switch-primary-color-rgb: Sets primary color RGB values of the component.
+* @prop --kup-switch-thumb-color: Sets thumb color.
 */
 
 :host {

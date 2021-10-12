@@ -67,7 +67,7 @@
       box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     vertical-align: middle;
-    --kup-spinner-primary-color: var(--kup_button_text_on_primary_color);
+    --kup-spinner-color: var(--kup_button_text_on_primary_color);
 
     &:hover {
       background-color: rgba(var(--kup_button_primary_color_rgb), 0.125);
@@ -168,7 +168,7 @@
     &.button--outlined {
       border-width: 1px;
       border-style: solid;
-      --kup-spinner-primary-color: var(--kup_button_primary_color);
+      --kup-spinner-color: var(--kup_button_primary_color);
 
       &:not(.button--disabled) {
         border-color: var(--kup_button_primary_color);
@@ -227,7 +227,7 @@
     user-select: none;
     padding: 0.75em;
     border-radius: 50%;
-    --kup-spinner-primary-color: var(--kup_button_primary_color);
+    --kup-spinner-color: var(--kup_button_primary_color);
 
     &:hover,
     &:focus {

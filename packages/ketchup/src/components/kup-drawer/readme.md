@@ -98,10 +98,11 @@ Type: `Promise<void>`
 
 | Name                            | Description                                          |
 | ------------------------------- | ---------------------------------------------------- |
-| `--kup-drawer_backdrop`         | Backdrop of the component when in slide mode.        |
-| `--kup-drawer_box-shadow`       | Box shadow of the component when in slide mode.      |
-| `--kup-drawer_slide-transition` | Horizontal transition's duration when in slide mode. |
-| `--kup-drawer_transition`       | Transitions duration.                                |
+| `--kup-drawer-backdrop`         | Backdrop of the component when in slide mode.        |
+| `--kup-drawer-box-shadow`       | Box shadow of the component when in slide mode.      |
+| `--kup-drawer-permanent-border` | Border of the drawer in permanent mode.              |
+| `--kup-drawer-slide-transition` | Horizontal transition's duration when in slide mode. |
+| `--kup-drawer-transition`       | Transitions duration.                                |
 
 
 ----------------------------------------------

@@ -56,13 +56,13 @@ Type: `Promise<void>`
 
 | Name                                | Description                              |
 | ----------------------------------- | ---------------------------------------- |
-| `--kup-badge_border-radius`         | Sets border radius of the badge.         |
-| `--kup-badge_font-family`           | Sets font family of the badge.           |
-| `--kup-badge_font-size`             | Sets font size of the badge.             |
-| `--kup-badge_min-size`              | Sets minimum size of the badge.          |
-| `--kup-badge_padding`               | Sets padding of the badge.               |
-| `--kup-badge_primary-color`         | Sets primary color of the badge.         |
-| `--kup-badge_text-on-primary-color` | Sets text on primary color of the badge. |
+| `--kup-badge-border-radius`         | Sets border radius of the badge.         |
+| `--kup-badge-font-family`           | Sets font family of the badge.           |
+| `--kup-badge-font-size`             | Sets font size of the badge.             |
+| `--kup-badge-min-size`              | Sets minimum size of the badge.          |
+| `--kup-badge-padding`               | Sets padding of the badge.               |
+| `--kup-badge-primary-color`         | Sets primary color of the badge.         |
+| `--kup-badge-text-on-primary-color` | Sets text on primary color of the badge. |
 
 
 ## Dependencies
