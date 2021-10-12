@@ -207,8 +207,12 @@ Type: `Promise<void>`
 
 | Name                                | Description                                                            |
 | ----------------------------------- | ---------------------------------------------------------------------- |
+| `--kup-tree_border`                 | Sets border of the component.                                          |
 | `--kup-tree_color`                  | Sets text color of the component.                                      |
 | `--kup-tree_color-rgb`              | Sets text color RGB values of the component (used for shaders).        |
+| `--kup-tree_font-family`            | Sets font family of the component.                                     |
+| `--kup-tree_font-family-monospace`  | Sets monospace font family of the component (for number cells).        |
+| `--kup-tree_font-size`              | Sets font size of the component.                                       |
 | `--kup-tree_hover-background-color` | Sets hover background color of the component.                          |
 | `--kup-tree_hover-color`            | Sets hover color of the component.                                     |
 | `--kup-tree_primary-color`          | Sets the primary color of the component.                               |

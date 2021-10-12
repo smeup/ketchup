@@ -1,6 +1,10 @@
 /**
+* @prop --kup-tree_border: Sets border of the component.
 * @prop --kup-tree_color: Sets text color of the component.
 * @prop --kup-tree_color-rgb: Sets text color RGB values of the component (used for shaders).
+* @prop --kup-tree_font-family: Sets font family of the component.
+* @prop --kup-tree_font-family-monospace: Sets monospace font family of the component (for number cells).
+* @prop --kup-tree_font-size: Sets font size of the component.
 * @prop --kup-tree_hover-color: Sets hover color of the component.
 * @prop --kup-tree_hover-background-color: Sets hover background color of the component.
 * @prop --kup-tree_primary-color: Sets the primary color of the component.
@@ -9,8 +13,12 @@
 */
 
 :host {
+  --kup-tree_border: 1px solid var(--kup-border-color);
   --kup-tree_color: var(--kup-text-color);
   --kup-tree_color-rgb: var(--kup-text-color-rgb);
+  --kup-tree_font-family: var(--kup-font-family);
+  --kup-tree_font-family-monospace: var(--kup-font-family-monospace);
+  --kup-tree_font-size: var(--kup-font-size);
   --kup-tree_hover-color: var(--kup-hover-color);
   --kup-tree_hover-background-color: var(--kup-hover-background-color);
   --kup-tree_primary-color: var(--kup-primary-color);
@@ -18,7 +26,8 @@
   --kup-tree_text-on-primary-color: var(--kup-text-on-primary-color);
 
   display: block;
-  font-size: var(--kup-font-size);
+  font-family: var(--kup-tree_font-family);
+  font-size: var(--kup-tree_font-size);
 }
 
 :host([prevent-x-scroll]) {
@@ -186,7 +195,7 @@
       }
 
       .number-cell {
-        font-family: var(--kup-font-family-monospace);
+        font-family: var(--kup-tree_font-family-monospace);
         float: right;
       }
 
@@ -231,8 +240,8 @@
 
 tfoot {
   td {
-    border-bottom: 1px solid var(--kup-border-color);
-    border-right: 1px solid var(--kup-border-color);
+    border-bottom: var(--kup-tree_border-color);
+    border-right: var(--kup-tree_border-color);
     box-sizing: border-box;
     height: 36px;
     text-align: right;
@@ -243,7 +252,7 @@ tfoot {
     }
     &:first-of-type {
       border: none;
-      border-right: 1px solid var(--kup-border-color);
+      border-right: var(--kup-tree_border-color);
     }
   }
 }
@@ -269,8 +278,8 @@ tfoot {
     display: table-header-group;
 
     tr {
-      border-left: 1px solid var(--kup-border-color);
-      border-right: 1px solid var(--kup-border-color);
+      border-left: var(--kup-tree_border-color);
+      border-right: var(--kup-tree_border-color);
     }
   }
 
@@ -325,7 +334,7 @@ tfoot {
       .first-node {
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
-        border-top: 1px solid var(--kup-border-color);
+        border-top: var(--kup-tree_border-color);
       }
     }
 
@@ -338,14 +347,13 @@ tfoot {
 
     .first-node {
       align-items: center;
-      border-bottom: 1px solid var(--kup-border-color);
-      border-left: 1px solid var(--kup-border-color);
-      border-right: 1px solid var(--kup-border-color);
+      border-bottom: var(--kup-tree_border-color);
+      border-left: var(--kup-tree_border-color);
+      border-right: var(--kup-tree_border-color);
       box-sizing: border-box;
       color: var(--kup-tree_color);
       cursor: pointer;
       display: flex;
-      font-family: var(--kup-font-family);
       line-height: 1.75em;
       outline: none;
       text-align: left;
@@ -379,7 +387,7 @@ tfoot {
 
   // First accordion item right below a tree item
   .kup-tree__node:not(.kup-tree__node--first) + .kup-tree__node--first {
-    border-top: 1px solid var(--kup-border-color);
+    border-top: var(--kup-tree_border-color);
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
   }

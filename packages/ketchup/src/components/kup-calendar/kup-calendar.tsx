@@ -406,7 +406,11 @@ export class KupCalendar {
             },
             editable: true,
             eventClick: ({ event }) => {
-                this.kupCalendarEventClicked.emit(event.extendedProps.row);
+                this.kupCalendarEventClicked.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    row: event.extendedProps.row,
+                });
             },
             eventDidMount: (info) => {
                 if (this.styleCol) {
