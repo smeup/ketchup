@@ -2,28 +2,25 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                     | Type                                                                                                    | Default                  |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------ |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                  | `string`                                                                                                | `''`                     |
-| `data`         | --              | The actual data of the card.                                                                                    | `KupCardData`                                                                                           | `null`                   |
-| `isMenu`       | `is-menu`       | Defines whether the card is a menu or not. Works together with menuVisible.                                     | `boolean`                                                                                               | `false`                  |
-| `layoutFamily` | `layout-family` | Sets the type of the card.                                                                                      | `KupCardFamily.COLLAPSIBLE \| KupCardFamily.DIALOG \| KupCardFamily.SCALABLE \| KupCardFamily.STANDARD` | `KupCardFamily.STANDARD` |
-| `layoutNumber` | `layout-number` | Sets the number of the layout.                                                                                  | `number`                                                                                                | `1`                      |
-| `menuVisible`  | `menu-visible`  | Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu. | `boolean`                                                                                               | `false`                  |
-| `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                        | `string`                                                                                                | `'100%'`                 |
-| `sizeY`        | `size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                       | `string`                                                                                                | `'100%'`                 |
-
+| Property | Attribute | Description | Type | Default |
+| --- | --- | --- | --- | --- |
+| `customStyle` | `custom-style` | Custom style of the component. | `string` | `''` |
+| `data` | -- | The actual data of the card. | `KupCardData` | `null` |
+| `isMenu` | `is-menu` | Defines whether the card is a menu or not. Works together with menuVisible. | `boolean` | `false` |
+| `layoutFamily` | `layout-family` | Sets the type of the card. | `KupCardFamily.COLLAPSIBLE \| KupCardFamily.DIALOG \| KupCardFamily.SCALABLE \| KupCardFamily.STANDARD` | `KupCardFamily.STANDARD` |
+| `layoutNumber` | `layout-number` | Sets the number of the layout. | `number` | `1` |
+| `menuVisible` | `menu-visible` | Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu. | `boolean` | `false` |
+| `sizeX` | `size-x` | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.). | `string` | `'100%'` |
+| `sizeY` | `size-y` | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.). | `string` | `'100%'` |
 
 ## Events
 
-| Event            | Description                                                | Type                               |
-| ---------------- | ---------------------------------------------------------- | ---------------------------------- |
-| `kup-card-click` | Triggered when the card is clicked.                        | `CustomEvent<KupEventPayload>`     |
+| Event | Description | Type |
+| --- | --- | --- |
+| `kup-card-click` | Triggered when the card is clicked. | `CustomEvent<KupEventPayload>` |
 | `kup-card-event` | Triggered when a sub-component of the card emits an event. | `CustomEvent<KupCardEventPayload>` |
-
 
 ## Methods
 
@@ -35,8 +32,6 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
-
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
@@ -44,8 +39,6 @@ This method is used to trigger a new render of the component.
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `resizeCallback() => Promise<void>`
 
@@ -55,8 +48,6 @@ This method is invoked by KupManager whenever the component changes size.
 
 Type: `Promise<void>`
 
-
-
 ### `setProps(props: GenericObject) => Promise<void>`
 
 Sets the props to the component.
@@ -65,50 +56,47 @@ Sets the props to the component.
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                         | Description                                                                                                       |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `--kup-card_dynamic-color-N` | Sets dynamically computed colors based on contrast (N occurrencies, variable automatically set by the component). |
-| `--kup-card_height`          | Sets height of the card (variable automatically set by the component).                                            |
-| `--kup-card_multiplier`      | Sets the multiplier of scalable cards (variable automatically set by the component).                              |
-| `--kup-card_ripple-color`    | Sets color of ripple effect (for Material layouts).                                                               |
-| `--kup-card_width`           | Sets height of the card (variable automatically set by the component).                                            |
-
+| Name | Description |
+| --- | --- |
+| `--kup_card_dynamic_color_N` | Sets dynamically computed colors based on contrast (N occurrencies, variable automatically set by the component). |
+| `--kup_card_height` | Sets height of the card (variable automatically set by the component). |
+| `--kup_card_multiplier` | Sets the multiplier of scalable cards (variable automatically set by the component). |
+| `--kup-card_ripple-color` | Sets color of ripple effect (for Material layouts). |
+| `--kup_card_width` | Sets height of the card (variable automatically set by the component). |
 
 ## Dependencies
 
 ### Used by
 
- - [kup-box](../kup-box)
- - [kup-data-table](../kup-data-table)
- - [kup-tooltip](../kup-tooltip)
- - [kup-tree](../kup-tree)
+-   [kup-box](../kup-box)
+-   [kup-data-table](../kup-data-table)
+-   [kup-tooltip](../kup-tooltip)
+-   [kup-tree](../kup-tree)
 
 ### Depends on
 
-- [kup-chip](../kup-chip)
-- [kup-badge](../kup-badge)
-- [kup-autocomplete](../kup-autocomplete)
-- [kup-button](../kup-button)
-- [kup-checkbox](../kup-checkbox)
-- [kup-combobox](../kup-combobox)
-- [kup-date-picker](../kup-date-picker)
-- [kup-text-field](../kup-text-field)
-- [kup-time-picker](../kup-time-picker)
-- [kup-data-table](../kup-data-table)
-- [kup-list](../kup-list)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-chart](../kup-chart)
-- [kup-spinner](../kup-spinner)
-- [kup-tab-bar](../kup-tab-bar)
-- [kup-tree](../kup-tree)
-- [kup-switch](../kup-switch)
+-   [kup-chip](../kup-chip)
+-   [kup-badge](../kup-badge)
+-   [kup-autocomplete](../kup-autocomplete)
+-   [kup-button](../kup-button)
+-   [kup-checkbox](../kup-checkbox)
+-   [kup-combobox](../kup-combobox)
+-   [kup-date-picker](../kup-date-picker)
+-   [kup-text-field](../kup-text-field)
+-   [kup-time-picker](../kup-time-picker)
+-   [kup-data-table](../kup-data-table)
+-   [kup-list](../kup-list)
+-   [kup-progress-bar](../kup-progress-bar)
+-   [kup-chart](../kup-chart)
+-   [kup-spinner](../kup-spinner)
+-   [kup-tab-bar](../kup-tab-bar)
+-   [kup-tree](../kup-tree)
+-   [kup-switch](../kup-switch)
 
 ### Graph
+
 ```mermaid
 graph TD;
   kup-card --> kup-chip
@@ -157,6 +145,6 @@ graph TD;
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

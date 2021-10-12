@@ -1,3 +1,19 @@
+/**
+* NOTE: These variables are used in the related f-component.
+*
+* @prop --kup-checkbox-font-family: Sets font family of the checkbox's label.
+* @prop --kup-checkbox-font-size: Sets font size of the checkbox's label.
+* @prop --kup-checkbox-font-weight: Sets font weight of the checkbox's label.
+* @prop --kup-checkbox-disabled-checkmark-color: Sets color of the checkmark of a disabled checkbox.
+* @prop --kup-checkbox-padding: Sets padding of the checkbox.
+* @prop --kup-checkbox-primary-color: Sets primary color of the component.
+* @prop --kup-checkbox-primary-color-rgb: Sets primary color RGB values of the component (used for shaders).
+* @prop --kup-checkbox-text-color: Sets the text color of the component.
+* @prop --kup-checkbox-text-color-rgb: Sets the text color RGB values of the component (used for shaders).
+* @prop --kup-checkbox-text-on-primary-color: Sets text on primary color of the component.
+* @prop --kup-checkbox-text-on-primary-color-rgb: Sets text on primary color RGB values of the component (used for shaders).
+*/
+
 :host {
   display: block;
   margin: auto;

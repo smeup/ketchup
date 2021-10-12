@@ -350,7 +350,7 @@ export class KupCard {
                 root.querySelectorAll('.dyn-color');
             for (let index = 0; index < dynColors.length; index++) {
                 this.rootElement.style.setProperty(
-                    '--kup-card_dynamic-color-' + index,
+                    '--kup_card_dynamic_color_' + index,
                     this.kupManager.theme.colorContrast(
                         window.getComputedStyle(dynColors[index])
                             .backgroundColor
@@ -414,7 +414,7 @@ export class KupCard {
     /**
      * This method is invoked by the layout manager when the layout family is scalable.
      * The content of the card (.scalable-element) will be resized to fit the wrapper (.scalable-card).
-     * The scaling is performed by using a CSS variable (--kup-card_multiplier) which will impact the card's font-size.
+     * The scaling is performed by using a CSS variable (--kup_card_multiplier) which will impact the card's font-size.
      * When there is empty space, the multiplier will be increased, as will the content.
      * Viceversa, when the content exceeds the boundaries, the multiplier will be decreased.
      */
@@ -435,7 +435,7 @@ export class KupCard {
         const cardWidthHigh: number = (95 / 100) * card.clientWidth;
         let tooManyAttempts: number = 2000;
         let multiplier: number = parseFloat(
-            card.style.getPropertyValue('--kup-card_multiplier')
+            card.style.getPropertyValue('--kup_card_multiplier')
         );
         if (multiplier < 0.1) {
             multiplier = 1;
@@ -452,13 +452,13 @@ export class KupCard {
             if (el.clientWidth < cardWidthLow) {
                 multiplier = multiplier + multiplierStep;
                 card.style.setProperty(
-                    '--kup-card_multiplier',
+                    '--kup_card_multiplier',
                     multiplier + ''
                 );
             } else if (el.clientWidth > cardWidthHigh) {
                 multiplier = multiplier - multiplierStep;
                 card.style.setProperty(
-                    '--kup-card_multiplier',
+                    '--kup_card_multiplier',
                     multiplier + ''
                 );
             } else {
@@ -470,7 +470,7 @@ export class KupCard {
          */
         while (el.clientHeight > cardHeight && multiplier > multiplierStep) {
             multiplier = multiplier - multiplierStep;
-            card.style.setProperty('--kup-card_multiplier', multiplier + '');
+            card.style.setProperty('--kup_card_multiplier', multiplier + '');
         }
         this.scalingActive = false;
     }
@@ -523,8 +523,8 @@ export class KupCard {
         }
 
         const style: GenericObject = {
-            '--kup-card_height': this.sizeY ? this.sizeY : '100%',
-            '--kup-card_width': this.sizeX ? this.sizeX : '100%',
+            '--kup_card_height': this.sizeY ? this.sizeY : '100%',
+            '--kup_card_width': this.sizeX ? this.sizeX : '100%',
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

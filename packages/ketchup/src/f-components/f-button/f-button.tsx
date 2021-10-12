@@ -94,7 +94,7 @@ function renderButton(props: FButtonProps): VNode {
     };
 
     const styleSpinnerContainer: Record<string, string> = {
-        '--kup-button-spinner-height': propsFImage.sizeY,
+        '--kup_button_spinner_height': propsFImage.sizeY,
     };
 
     return (
@@ -115,7 +115,7 @@ function renderButton(props: FButtonProps): VNode {
                       <span class={classLabelObj}>{props.label}</span>,
                   ]}
             {props.showSpinner && !props.disabled ? (
-                <div class="button__spinnercontainer">
+                <div class="button__spinner-container">
                     <slot name="spinner"></slot>
                 </div>
             ) : undefined}
@@ -142,8 +142,8 @@ function renderIconButton(props: FButtonProps): VNode {
     };
 
     const styleSpinnerContainer: Record<string, string> = {
-        '--kup-button-spinner-height': propsFImage.sizeY,
-        '--kup-button-spinner-width': propsFImage.sizeX,
+        '--kup_button_spinner_height': propsFImage.sizeY,
+        '--kup_button_spinner_width': propsFImage.sizeX,
     };
 
     const iconOff: string = props.iconOff
@@ -176,7 +176,7 @@ function renderIconButton(props: FButtonProps): VNode {
                 />
             ) : null}
             {props.showSpinner && !props.disabled ? (
-                <div class="icon-button__spinnercontainer">
+                <div class="icon-button__spinner-container">
                     <slot name="spinner"></slot>
                 </div>
             ) : undefined}

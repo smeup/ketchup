@@ -32,8 +32,6 @@
     --kup-button-primary-color-rgb,
     var(--kup-primary-color-rgb)
   );
-  --kup_button_spinner_height: var(--kup-button-spinner-height, 1.475em);
-  --kup_button_spinner_width: var(--kup-button-spinner-width, 1.475em);
   --kup_button_text_on_primary_color: var(
     --kup-button-text-on-primary-color,
     var(--kup-text-on-primary-color)
@@ -208,7 +206,7 @@
       pointer-events: none;
     }
 
-    .button__spinnercontainer {
+    .button__spinner-container {
       width: 100%;
       height: var(--kup_button_spinner_height);
       left: 0;
@@ -250,7 +248,7 @@
       pointer-events: none;
     }
 
-    .icon-button__spinnercontainer {
+    .icon-button__spinner-container {
       width: var(--kup_button_spinner_width);
       height: var(--kup_button_spinner_height);
     }
