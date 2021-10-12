@@ -1,19 +1,4 @@
 :root {
-    --kup-button_border-radius: 4px;
-    --kup-button_disabled-color: var(--kup-disabled-color);
-    --kup-button_font-family: var(--kup-font-family);
-    --kup-button_font-size: 0.875em;
-    --kup-button_font-weight: 400;
-    --kup-button_height: 3em;
-    --kup-button_padding: 0 1.25em;
-    --kup-button_primary-color: var(--kup-primary-color);
-    --kup-button_primary-color-h: var(--kup-primary-color-h);
-    --kup-button_primary-color-s: var(--kup-primary-color-s);
-    --kup-button_primary-color-l: var(--kup-primary-color-l);
-    --kup-button_primary-color-rgb: var(--kup-primary-color-rgb);
-    --kup-button_spinner-height: 1.475em;
-    --kup-button_spinner-width: 1.475em;
-    --kup-button_text-on-primary-color: var(--kup-text-on-primary-color);
     --kup-checkbox_font-family: var(--kup-font-family);
     --kup-checkbox_font-size: var(--kup-font-size);
     --kup-checkbox_disabled-checkmark-color: var(--kup-background-color);

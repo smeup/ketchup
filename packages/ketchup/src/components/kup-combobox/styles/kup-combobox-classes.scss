@@ -17,3 +17,38 @@
     width: 100%;
   }
 }
+
+:host(.#{$kup-class-danger}) {
+  --kup-textfield_primary-color: var(--kup-danger-color);
+  --kup-textfield_primary-color-rgb: var(--kup-danger-color-rgb);
+  --kup-list_primary-color: var(--kup-danger-color);
+  --kup-list_primary-color-rgb: var(--kup-danger-color-rgb);
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-textfield_primary-color: var(--kup-info-color);
+  --kup-textfield_primary-color-rgb: var(--kup-info-color-rgb);
+  --kup-list_primary-color: var(--kup-info-color);
+  --kup-list_primary-color-rgb: var(--kup-info-color-rgb);
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-textfield_primary-color: var(--kup-secondary-color);
+  --kup-textfield_primary-color-rgb: var(--kup-secondary-color-rgb);
+  --kup-list_primary-color: var(--kup-secondary-color);
+  --kup-list_primary-color-rgb: var(--kup-secondary-color-rgb);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-textfield_primary-color: var(--kup-success-color);
+  --kup-textfield_primary-color-rgb: var(--kup-success-color-rgb);
+  --kup-list_primary-color: var(--kup-success-color);
+  --kup-list_primary-color-rgb: var(--kup-success-color-rgb);
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-textfield_primary-color: var(--kup-warning-color);
+  --kup-textfield_primary-color-rgb: var(--kup-warning-color-rgb);
+  --kup-list_primary-color: var(--kup-warning-color);
+  --kup-list_primary-color-rgb: var(--kup-warning-color-rgb);
+}

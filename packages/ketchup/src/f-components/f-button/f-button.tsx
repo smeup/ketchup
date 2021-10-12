@@ -66,10 +66,10 @@ function renderButton(props: FButtonProps): VNode {
 
     const propsFImage: FImageProps = {
         color: props.disabled
-            ? `var(--kup-button_disabled-color)`
+            ? `var(--kup_button_disabled_color)`
             : isOutlined || isFlat
-            ? `var(--kup-button_primary-color)`
-            : `var(--kup-button_text-on-primary-color)`,
+            ? `var(--kup_button_primary_color)`
+            : `var(--kup_button_text_on_primary_color)`,
         resource: props.icon,
         sizeX: isFloating ? '1.75em' : '1.475em',
         sizeY: isFloating ? '1.75em' : '1.475em',
@@ -84,7 +84,7 @@ function renderButton(props: FButtonProps): VNode {
         'button--outlined': isOutlined ? true : false,
         'button--raised': isRaised ? true : false,
         'button--no-label': !props.label || props.label === ' ' ? true : false,
-        'button__spinner--active':
+        'button--with-spinner':
             props.showSpinner && !props.disabled ? true : false,
     };
 
@@ -94,15 +94,16 @@ function renderButton(props: FButtonProps): VNode {
     };
 
     const styleSpinnerContainer: Record<string, string> = {
-        '--kup-button_spinner-height': propsFImage.sizeY,
+        '--kup-button-spinner-height': propsFImage.sizeY,
     };
 
     return (
         <button
-            type="button"
             class={classObj}
             disabled={props.disabled}
             onClick={props.onClick}
+            style={styleSpinnerContainer}
+            type="button"
         >
             {props.trailingIcon
                 ? [
@@ -114,10 +115,7 @@ function renderButton(props: FButtonProps): VNode {
                       <span class={classLabelObj}>{props.label}</span>,
                   ]}
             {props.showSpinner && !props.disabled ? (
-                <div
-                    class="button__spinnercontainer"
-                    style={styleSpinnerContainer}
-                >
+                <div class="button__spinnercontainer">
                     <slot name="spinner"></slot>
                 </div>
             ) : undefined}
@@ -128,8 +126,8 @@ function renderButton(props: FButtonProps): VNode {
 function renderIconButton(props: FButtonProps): VNode {
     const propsFImage: FImageProps = {
         color: props.disabled
-            ? `var(--kup-button_disabled-color)`
-            : `var(--kup-button_primary-color)`,
+            ? `var(--kup_button_disabled_color)`
+            : `var(--kup_button_primary_color)`,
         sizeX: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
         sizeY: props.large ? 'calc(1.75em * 1.5)' : '1.75em',
     };
@@ -139,13 +137,13 @@ function renderIconButton(props: FButtonProps): VNode {
         'button--disabled': props.disabled ? true : false,
         'icon-button--on': props.toggable && props.checked ? true : false,
         toggable: props.toggable ? true : false,
-        'button__spinner--active':
+        'button--with-spinner':
             props.showSpinner && !props.disabled ? true : false,
     };
 
     const styleSpinnerContainer: Record<string, string> = {
-        '--kup-button_spinner-height': propsFImage.sizeY,
-        '--kup-button_spinner-width': propsFImage.sizeX,
+        '--kup-button-spinner-height': propsFImage.sizeY,
+        '--kup-button-spinner-width': propsFImage.sizeX,
     };
 
     const iconOff: string = props.iconOff
@@ -154,10 +152,11 @@ function renderIconButton(props: FButtonProps): VNode {
 
     return (
         <button
-            type="button"
             class={classObj}
             disabled={props.disabled}
             onClick={props.onClick}
+            style={styleSpinnerContainer}
+            type="button"
             value={props.checked ? 'on' : 'off'}
         >
             {!props.showSpinner || props.disabled ? (
@@ -177,10 +176,7 @@ function renderIconButton(props: FButtonProps): VNode {
                 />
             ) : null}
             {props.showSpinner && !props.disabled ? (
-                <div
-                    class="icon-button__spinnercontainer"
-                    style={styleSpinnerContainer}
-                >
+                <div class="icon-button__spinnercontainer">
                     <slot name="spinner"></slot>
                 </div>
             ) : undefined}

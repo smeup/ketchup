@@ -3,7 +3,7 @@
 /*-------------------------------------------------*/
 
 :host(.#{$kup-class-borderless}) {
-  --kup-accordion_border: none;
+  --kup-accordion-border: none;
 }
 
 :host(.#{$kup-class-full-height}) {
@@ -15,31 +15,31 @@
 }
 
 :host(.#{$kup-class-danger}) {
-  --kup-accordion_primary-color: var(--kup-danger-color);
-  --kup-accordion_primary-color-rgb: var(--kup-danger-color-rgb);
-  --kup-accordion_text-on-primary-color: white;
+  --kup-accordion-primary-color: var(--kup-danger-color);
+  --kup-accordion-primary-color-rgb: var(--kup-danger-color-rgb);
+  --kup-accordion-text-on-primary-color: white;
 }
 
 :host(.#{$kup-class-info}) {
-  --kup-accordion_primary-color: var(--kup-info-color);
-  --kup-accordion_primary-color-rgb: var(--kup-info-color-rgb);
-  --kup-accordion_text-on-primary-color: white;
+  --kup-accordion-primary-color: var(--kup-info-color);
+  --kup-accordion-primary-color-rgb: var(--kup-info-color-rgb);
+  --kup-accordion-text-on-primary-color: white;
 }
 
 :host(.#{$kup-class-secondary}) {
-  --kup-accordion_primary-color: var(--kup-secondary-color);
-  --kup-accordion_primary-color-rgb: var(--kup-secondary-color-rgb);
-  --kup-accordion_text-on-primary-color: var(--kup-text-on-secondary-color);
+  --kup-accordion-primary-color: var(--kup-secondary-color);
+  --kup-accordion-primary-color-rgb: var(--kup-secondary-color-rgb);
+  --kup-accordion-text-on-primary-color: var(--kup-text-on-secondary-color);
 }
 
 :host(.#{$kup-class-success}) {
-  --kup-accordion_primary-color: var(--kup-success-color);
-  --kup-accordion_primary-color-rgb: var(--kup-success-color-rgb);
-  --kup-accordion_text-on-primary-color: white;
+  --kup-accordion-primary-color: var(--kup-success-color);
+  --kup-accordion-primary-color-rgb: var(--kup-success-color-rgb);
+  --kup-accordion-text-on-primary-color: white;
 }
 
 :host(.#{$kup-class-warning}) {
-  --kup-accordion_primary-color: var(--kup-warning-color);
-  --kup-accordion_primary-color-rgb: var(--kup-warning-color-rgb);
-  --kup-accordion_text-on-primary-color: white;
+  --kup-accordion-primary-color: var(--kup-warning-color);
+  --kup-accordion-primary-color-rgb: var(--kup-warning-color-rgb);
+  --kup-accordion-text-on-primary-color: white;
 }
