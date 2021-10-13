@@ -42,17 +42,6 @@ $kup-class-shaped: 'kup-shaped'; // Gives the component a shaped look by roundin
 $kup-class-striped: 'kup-striped'; // Displays a striped texture.
 $kup-class-unclickable: 'kup-unclickable'; // The component will be unclickable.
 
-:host {
-  --mdc-theme-primary: var(--kup-primary-color);
-  --mdc-theme-on-primary: var(--kup-text-on-primary-color);
-  --mdc-theme-secondary: var(--kup-primary-color);
-  --mdc-theme-on-secondary: var(--kup-text-on-primary-color);
-  --mdc-theme-surface: var(--kup-background-color);
-  --mdc-theme-on-surface: var(--kup-text-color);
-  --mdc-theme-background: var(--kup-background-color);
-  --mdc-theme-text-primary-on-background: var(--kup-text-color);
-}
-
 // Cursors
 
 .is-obj {

@@ -1,0 +1,28 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+
+:host(.#{$kup-class-danger}) {
+  --kup-radio-primary-color: var(--kup-danger-color);
+  --kup-radio-primary-color-rgb: var(--kup-danger-color-rgb);
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-radio-primary-color: var(--kup-info-color);
+  --kup-radio-primary-color-rgb: var(--kup-info-color-rgb);
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-radio-primary-color: var(--kup-secondary-color);
+  --kup-radio-primary-color-rgb: var(--kup-secondary-color-rgb);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-radio-primary-color: var(--kup-success-color);
+  --kup-radio-primary-color-rgb: var(--kup-success-color-rgb);
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-radio-primary-color: var(--kup-warning-color);
+  --kup-radio-primary-color-rgb: var(--kup-warning-color-rgb);
+}

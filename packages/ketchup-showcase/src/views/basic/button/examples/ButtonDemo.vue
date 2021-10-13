@@ -24,7 +24,7 @@ export default {
         {
           class: 'kup-danger',
           description:
-            'The component will be rendered using the danger color of the app.',
+            'The component will be rendered using the danger color of the app (needs a new render to be effective).',
         },
         {
           class: 'kup-full-height',
@@ -39,7 +39,7 @@ export default {
         {
           class: 'kup-info',
           description:
-            'The component will be rendered using the info color of the app.',
+            'The component will be rendered using the info color of the app (needs a new render to be effective).',
         },
         {
           class: 'kup-large',
@@ -54,7 +54,7 @@ export default {
         {
           class: 'kup-secondary',
           description:
-            'The component will be rendered using the secondary color of the app.',
+            'The component will be rendered using the secondary color of the app (needs a new render to be effective).',
         },
         {
           class: 'kup-shaped',
@@ -69,12 +69,12 @@ export default {
         {
           class: 'kup-success',
           description:
-            'The component will be rendered using the success color of the app.',
+            'The component will be rendered using the success color of the app (needs a new render to be effective).',
         },
         {
           class: 'kup-warning',
           description:
-            'The component will be rendered using the warning color of the app.',
+            'The component will be rendered using the warning color of the app (needs a new render to be effective).',
         },
       ],
       demoComp: createComp(),
@@ -188,7 +188,7 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        }
+        },
       ],
     };
   },
@@ -201,8 +201,8 @@ function createComp() {
   comp.label = 'Demo';
   comp.styling = 'raised';
   let innerComp = document.createElement('kup-spinner');
-  innerComp.slot = "spinner";
-  innerComp.dimensions = "0.6em";
+  innerComp.slot = 'spinner';
+  innerComp.dimensions = '0.6em';
   innerComp.active = true;
   comp.appendChild(innerComp);
   return comp;

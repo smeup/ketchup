@@ -4,56 +4,86 @@
 @import '~@fullcalendar/timegrid/main.min.css';
 
 /**
-* @prop --kup-calendar_background-color: Background of the component.
-* @prop --kup-calendar_border-color: Sets borders color of the calendar.
-* @prop --kup-calendar_event-background-color: Sets background color of events.
-* @prop --kup-calendar_event-border-color: Sets border color of events.
-* @prop --kup-calendar_event-border-radius: Sets border radius of events.
-* @prop --kup-calendar_event-color: Sets text color of events.
-* @prop --kup-calendar_font-family: Sets the font family of the component.
-* @prop --kup-calendar_font-size: Sets the font size of the component.
-* @prop --kup-calendar_header-background-color: Sets background color of the header cell.
-* @prop --kup-calendar_header-color: Sets text color of the header cell.
-* @prop --kup-calendar_navigator-border: Sets the border of the navigator.
-* @prop --kup-calendar_no-work-day-background-color: Sets background color of sunday and saturday cells.
-* @prop --kup-calendar_no-work-day-color: Sets text color of sunday and saturday cells.
-* @prop --kup-calendar_today-background-color: Sets background color of today's cell.
+* @prop --kup-calendar-background-color: Background of the component.
+* @prop --kup-calendar-border-color: Sets borders color of the calendar.
+* @prop --kup-calendar-event-background-color: Sets background color of events.
+* @prop --kup-calendar-event-border-color: Sets border color of events.
+* @prop --kup-calendar-event-border-radius: Sets border radius of events.
+* @prop --kup-calendar-event-color: Sets text color of events.
+* @prop --kup-calendar-font-family: Sets the font family of the component.
+* @prop --kup-calendar-font-size: Sets the font size of the component.
+* @prop --kup-calendar-header-background-color: Sets background color of the header cell.
+* @prop --kup-calendar-header-color: Sets text color of the header cell.
+* @prop --kup-calendar-navigator-border: Sets the border of the navigator.
+* @prop --kup-calendar-no-work-day-background-color: Sets background color of sunday and saturday cells.
+* @prop --kup-calendar-no-work-day-color: Sets text color of sunday and saturday cells.
+* @prop --kup-calendar-today-background-color: Sets background color of today's cell.
 */
 
 :host {
-  --kup-calendar_background-color: var(--kup-background-color);
-  --kup-calendar_border-color: var(--kup-border-color);
-  --kup-calendar_event-background-color: var(--kup-primary-color);
-  --kup-calendar_event-border-radius: 4px;
-  --kup-calendar_event-color: var(--kup-text-on-primary-color);
-  --kup-calendar_font-family: var(--kup-font-family);
-  --kup-calendar_font-size: var(--kup-font-size);
-  --kup-calendar_header-background-color: var(--kup-title-background-color);
-  --kup-calendar_header-color: var(--kup-title-color);
-  --kup-calendar_navigator-border: 2px solid var(--kup-border-color);
-  --kup-calendar_no-work-day-background-color: rgba(
-    var(--kup-disabled-background-color-rgb),
-    0.5
+  --kup_calendar_background_color: var(
+    --kup-calendar-background-color,
+    var(--kup-background-color)
   );
-  --kup-calendar_no-work-day-color: var(--kup-disabled-color);
-  --kup-calendar_today-background-color: rgba(
-    var(--kup-primary-color-rgb),
-    0.125
+  --kup_calendar_border_color: var(
+    --kup-calendar-border-color,
+    var(--kup-border-color)
+  );
+  --kup_calendar_event_background_color: var(
+    --kup-calendar-event-background-color,
+    var(--kup-primary-color)
+  );
+  --kup_calendar_event_border_radius: var(
+    --kup-calendar-event-border-radius,
+    4px
+  );
+  --kup_calendar_event_color: var(
+    --kup-calendar-event-color,
+    var(--kup-text-on-primary-color)
+  );
+  --kup_calendar_font_family: var(
+    --kup-calendar-font-family,
+    var(--kup-font-family)
+  );
+  --kup_calendar_font_size: var(--kup-calendar-font-size, var(--kup-font-size));
+  --kup_calendar_header_background_color: var(
+    --kup-calendar-header-background-color,
+    var(--kup-title-background-color)
+  );
+  --kup_calendar_header_color: var(
+    --kup-calendar-header-color,
+    var(--kup-title-color)
+  );
+  --kup_calendar_navigator_border: var(
+    --kup-calendar-navigator-border,
+    2px solid var(--kup-border-color)
+  );
+  --kup_calendar_no_work_day_background_color: var(
+    --kup-calendar-no-work-day-background-color,
+    rgba(var(--kup-disabled-background-color-rgb), 0.5)
+  );
+  --kup_calendar_no_work_day_color: var(
+    --kup-calendar-no-work-day-color,
+    var(--kup-disabled-color)
+  );
+  --kup_calendar_today_background_color: var(
+    --kup-calendar-today-background-color,
+    rgba(var(--kup-primary-color-rgb), 0.125)
   );
 
-  background-color: var(--kup-calendar_background-color);
+  background-color: var(--kup_calendar_background_color);
   display: block;
-  font-family: var(--kup-calendar_font-family);
-  font-size: var(--kup-calendar_font-size);
+  font-family: var(--kup_calendar_font_family);
+  font-size: var(--kup_calendar_font_size);
   height: 100%;
   width: 100%;
 }
 
 .navigation {
   align-items: center;
-  border-left: var(--kup-calendar_navigator-border);
-  border-right: var(--kup-calendar_navigator-border);
-  border-top: var(--kup-calendar_navigator-border);
+  border-left: var(--kup_calendar_navigator_border);
+  border-right: var(--kup_calendar_navigator_border);
+  border-top: var(--kup_calendar_navigator_border);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   display: flex;
@@ -101,7 +131,7 @@
 }
 
 .custom-icon {
-  background-color: var(--kup-calendar_event-color);
+  background-color: var(--kup_calendar_event_color);
   height: 1.5em;
   width: 1.5em;
 }
@@ -133,12 +163,12 @@
   .fc-scrollgrid,
   tbody,
   td {
-    border-color: var(--kup-calendar_border-color);
+    border-color: var(--kup_calendar_border_color);
   }
 
   .fc-col-header-cell {
-    background: var(--kup-calendar_header-background-color);
-    color: var(--kup-calendar_header-color);
+    background: var(--kup_calendar_header_background_color);
+    color: var(--kup_calendar_header_color);
   }
 
   .fc-h-event {
@@ -147,12 +177,12 @@
   }
 
   .fc-list-event-dot {
-    border-color: var(--kup-calendar_event-background-color);
+    border-color: var(--kup_calendar_event_background_color);
   }
 
   .fc-list-day-cushion {
-    background: var(--kup-calendar_header-background-color);
-    color: var(--kup-calendar_header-color);
+    background: var(--kup_calendar_header_background_color);
+    color: var(--kup_calendar_header_color);
   }
 
   .fc-list-event:hover td {
@@ -162,11 +192,11 @@
 
   .fc-daygrid-event,
   .fc-timegrid-event {
-    background: var(--kup-calendar_event-background-color);
-    border-radius: var(--kup-calendar_event-border-radius);
+    background: var(--kup_calendar_event_background_color);
+    border-radius: var(--kup_calendar_event_border_radius);
     border: none;
-    border-color: var(--kup-calendar_event-background-color);
-    color: var(--kup-calendar_event-color);
+    border-color: var(--kup_calendar_event_background_color);
+    color: var(--kup_calendar_event_color);
   }
 
   .fc-event-main {
@@ -178,13 +208,13 @@
   }
 
   td.fc-day-today {
-    background-color: var(--kup-calendar_today-background-color);
+    background-color: var(--kup_calendar_today_background_color);
   }
 
   td.fc-day-sun,
   td.fc-day-sat {
-    background-color: var(--kup-calendar_no-work-day-background-color);
-    color: var(--kup-calendar_no-work-day-color);
+    background-color: var(--kup_calendar_no_work_day_background_color);
+    color: var(--kup_calendar_no_work_day_color);
   }
 }
 

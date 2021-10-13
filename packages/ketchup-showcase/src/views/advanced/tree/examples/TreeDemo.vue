@@ -26,18 +26,8 @@ export default {
           description: 'Displays the component without borders.',
         },
         {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
           class: 'kup-full-width',
           description: 'The tree will fill all the available horizontal space.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
         },
         {
           class: 'kup-layout-fixed',
@@ -45,24 +35,9 @@ export default {
             'Sets a fixed layout to improve performances (especially when using Google Chrome).',
         },
         {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
           class: 'kup-shaped',
           description:
             'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
       demoComp: createComp(),

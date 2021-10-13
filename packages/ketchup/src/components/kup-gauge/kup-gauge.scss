@@ -1,19 +1,22 @@
 /**
-* @prop --kup-gauge_color: Sets text color of the component.
-* @prop --kup-gauge_font-family: Sets font family of the component.
-* @prop --kup-gauge_font-size: Sets font size of the component.
-* @prop --kup-gauge_needle-color: Sets color of the needle.
+* @prop --kup-gauge-color: Sets text color of the component.
+* @prop --kup-gauge-font-family: Sets font family of the component.
+* @prop --kup-gauge-font-size: Sets font size of the component.
+* @prop --kup-gauge-needle-color: Sets color of the needle.
 */
 
 :host {
-  --kup-gauge_color: var(--kup-text-color);
-  --kup-gauge_font-family: var(--kup-font-family);
-  --kup-gauge_font-size: var(--kup-font-size);
-  --kup-gauge_needle-color: var(--kup-text-color);
+  --kup_gauge_color: var(--kup-gauge-color, var(--kup-text-color));
+  --kup_gauge_font_family: var(--kup-gauge-font-family, var(--kup-font-family));
+  --kup_gauge_font_size: var(--kup-gauge-font-size, var(--kup-font-size));
+  --kup_gauge_needle_color: var(
+    --kup-gauge-needle-color,
+    var(--kup-text-color)
+  );
 
   display: inline-block;
-  font-family: var(--kup-gauge_font-family);
-  font-size: var(--kup-gauge_font-size);
+  font-family: var(--kup_gauge_font_family);
+  font-size: var(--kup_gauge_font_size);
   height: 100%;
   width: 100%;
 }
@@ -36,20 +39,20 @@
 
   // Class for the labels of the threshold
   &__label-text {
-    fill: var(--kup-gauge_color);
+    fill: var(--kup_gauge_color);
     text-align: center;
   }
 
   // Class for the value label
   &__value-text {
-    fill: var(--kup-gauge_color);
-    color: var(--kup-gauge_color);
+    fill: var(--kup_gauge_color);
+    color: var(--kup_gauge_color);
     text-align: center;
   }
 
   // Needle colors
   &__needle-base,
   &__needle {
-    fill: var(--kup-gauge_needle-color);
+    fill: var(--kup_gauge_needle_color);
   }
 }

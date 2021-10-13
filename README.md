@@ -51,8 +51,8 @@ defineCustomElements(window);
 
 ## Contributing
 
-If you have amazing ideas and you wish to contribute to this project, you're welcome to do so. Check out our [style guide](styleGuide.md) for more details about our coding practices.
+If you have amazing ideas and you wish to contribute to this project, you're welcome to do so. Check out our [style guide](docs/styleGuide.md) for more details about our coding practices.
 
 ## Issues
 
-If you run into an error or an unexpected behavior, or you just want to give us feedback on how to improve, feel free to use the [issues](https://ketchup.smeup.com/) page.
+If you run into an error or an unexpected behavior, or you just want to give us feedback on how to improve, feel free to use the [issues](https://github.com/smeup/ketchup/issues) page.

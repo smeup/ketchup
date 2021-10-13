@@ -1,33 +1,48 @@
 /**
-* @prop --kup-tree_border: Sets border of the component.
-* @prop --kup-tree_color: Sets text color of the component.
-* @prop --kup-tree_color-rgb: Sets text color RGB values of the component (used for shaders).
-* @prop --kup-tree_font-family: Sets font family of the component.
-* @prop --kup-tree_font-family-monospace: Sets monospace font family of the component (for number cells).
-* @prop --kup-tree_font-size: Sets font size of the component.
-* @prop --kup-tree_hover-color: Sets hover color of the component.
-* @prop --kup-tree_hover-background-color: Sets hover background color of the component.
-* @prop --kup-tree_primary-color: Sets the primary color of the component.
-* @prop --kup-tree_primary-color-rgb: Sets the primary color RGB values of the component (used for shaders).
-* @prop --kup-tree_text-on-primary-color: Sets the text on primary color of the component.
+* @prop --kup-tree-border: Sets border of the component.
+* @prop --kup-tree-color: Sets text color of the component.
+* @prop --kup-tree-color-rgb: Sets text color RGB values of the component (used for shaders).
+* @prop --kup-tree-font-family: Sets font family of the component.
+* @prop --kup-tree-font-family-monospace: Sets monospace font family of the component (for number cells).
+* @prop --kup-tree-font-size: Sets font size of the component.
+* @prop --kup-tree-hover-color: Sets hover color of the component.
+* @prop --kup-tree-hover-background-color: Sets hover background color of the component.
+* @prop --kup-tree-primary-color: Sets the primary color of the component.
+* @prop --kup-tree-primary-color-rgb: Sets the primary color RGB values of the component (used for shaders).
+* @prop --kup-tree-text-on-primary-color: Sets the text on primary color of the component.
 */
 
 :host {
-  --kup-tree_border: 1px solid var(--kup-border-color);
-  --kup-tree_color: var(--kup-text-color);
-  --kup-tree_color-rgb: var(--kup-text-color-rgb);
-  --kup-tree_font-family: var(--kup-font-family);
-  --kup-tree_font-family-monospace: var(--kup-font-family-monospace);
-  --kup-tree_font-size: var(--kup-font-size);
-  --kup-tree_hover-color: var(--kup-hover-color);
-  --kup-tree_hover-background-color: var(--kup-hover-background-color);
-  --kup-tree_primary-color: var(--kup-primary-color);
-  --kup-tree_primary-color-rgb: var(--kup-primary-color-rgb);
-  --kup-tree_text-on-primary-color: var(--kup-text-on-primary-color);
+  --kup_tree_border: var(--kup-tree-border, 1px solid var(--kup-border-color));
+  --kup_tree_color: var(--kup-tree-color, var(--kup-text-color));
+  --kup_tree_color_rgb: var(--kup-tree-color-rgb, var(--kup-text-color-rgb));
+  --kup_tree_font_family: var(--kup-tree-font-family, var(--kup-font-family));
+  --kup_tree_font_family_monospace: var(
+    --kup-tree-font-family-monospace,
+    var(--kup-font-family-monospace)
+  );
+  --kup_tree_font_size: var(--kup-tree-font-size, var(--kup-font-size));
+  --kup_tree_hover_color: var(--kup-tree-hover-color, var(--kup-hover-color));
+  --kup_tree_hover_background_color: var(
+    --kup-tree-hover-background-color,
+    var(--kup-hover-background-color)
+  );
+  --kup_tree_primary_color: var(
+    --kup-tree-primary-color,
+    var(--kup-primary-color)
+  );
+  --kup_tree_primary_color_rgb: var(
+    --kup-tree-primary-color-rgb,
+    var(--kup-primary-color-rgb)
+  );
+  --kup_tree_text_on_primary_color: var(
+    --kup-tree-text-on-primary-color,
+    var(--kup-text-on-primary-color)
+  );
 
   display: block;
-  font-family: var(--kup-tree_font-family);
-  font-size: var(--kup-tree_font-size);
+  font-family: var(--kup_tree_font_family);
+  font-size: var(--kup_tree_font_size);
 }
 
 :host([prevent-x-scroll]) {
@@ -37,7 +52,7 @@
 }
 
 #kup-component {
-  color: var(--kup-tree_color);
+  color: var(--kup_tree_color);
 }
 
 .density-dense .wrapper .kup-tree,
@@ -98,7 +113,7 @@
 
         &:before,
         &:after {
-          background-color: var(--kup-tree_primary-color);
+          background-color: var(--kup_tree_primary_color);
         }
       }
 
@@ -121,7 +136,7 @@
 
     &__indent {
       display: inline-block;
-      width: calc(1.5em * var(--tree-node_depth, 0));
+      width: calc(1.5em * var(--kup_tree_node_depth, 0));
     }
 
     &__icon {
@@ -162,7 +177,7 @@
       }
 
       .icon-container.kup-tree__node__expander:not(.is-image) {
-        background-color: var(--kup-tree_color);
+        background-color: var(--kup_tree_color);
       }
 
       .icon-container.is-image img {
@@ -172,17 +187,17 @@
       }
 
       &:hover:not(.kup-tree__node--disabled):not(.kup-tree__node--selected) td {
-        background-color: var(--kup-tree_hover-background-color);
-        color: var(--kup-tree_hover-color);
+        background-color: var(--kup_tree_hover_background_color);
+        color: var(--kup_tree_hover_color);
 
-        .dropdown {
-          background-color: var(--kup-tree_hover-color);
+        .icon-container {
+          background-color: var(--kup_tree_hover_color);
         }
       }
 
       &--selected:not(.kup-tree__node--disabled) td {
-        background-color: rgba(var(--kup-tree_primary-color-rgb), 0.175);
-        color: var(--kup-tree_color);
+        background-color: rgba(var(--kup_tree_primary_color_rgb), 0.175);
+        color: var(--kup_tree_color);
       }
 
       .cell-content .icon-container.obj-icon {
@@ -190,12 +205,12 @@
         vertical-align: sub;
         height: 1.25em;
         width: 1.25em;
-        background-color: rgba(var(--kup-tree_color-rgb), 0.375);
+        background-color: rgba(var(--kup_tree_color_rgb), 0.375);
         margin: auto 0.5em auto 0;
       }
 
       .number-cell {
-        font-family: var(--kup-tree_font-family-monospace);
+        font-family: var(--kup_tree_font_family_monospace);
         float: right;
       }
 
@@ -219,16 +234,16 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: var(--content_width, auto);
+    width: var(--kup_tree_content_width, auto);
   }
   &--highlighted {
-    color: var(--kup-tree_text-on-primary-color);
-    background-color: var(--kup-tree_primary-color);
+    color: var(--kup_tree_text_on_primary_color);
+    background-color: var(--kup_tree_primary_color);
   }
 }
 
 .icon-container.filter-remove:not(.f-image--wrapper) {
-  background-color: var(--kup-tree_color);
+  background-color: var(--kup_tree_color);
   margin: 0 0.25em;
   height: 1em;
   width: 1em;
@@ -240,8 +255,8 @@
 
 tfoot {
   td {
-    border-bottom: var(--kup-tree_border-color);
-    border-right: var(--kup-tree_border-color);
+    border-bottom: var(--kup_tree_border-color);
+    border-right: var(--kup_tree_border-color);
     box-sizing: border-box;
     height: 36px;
     text-align: right;
@@ -252,7 +267,7 @@ tfoot {
     }
     &:first-of-type {
       border: none;
-      border-right: var(--kup-tree_border-color);
+      border-right: var(--kup_tree_border-color);
     }
   }
 }
@@ -264,7 +279,7 @@ tfoot {
     text-overflow: ellipsis;
     transition: color 200ms;
     &:hover {
-      color: var(--kup-tree_color);
+      color: var(--kup_tree_color);
     }
   }
 }
@@ -278,8 +293,8 @@ tfoot {
     display: table-header-group;
 
     tr {
-      border-left: var(--kup-tree_border-color);
-      border-right: var(--kup-tree_border-color);
+      border-left: var(--kup_tree_border-color);
+      border-right: var(--kup_tree_border-color);
     }
   }
 
@@ -308,14 +323,14 @@ tfoot {
 
     &:hover,
     &[data-is-expanded] {
-      background-color: var(--kup-tree_hover-background-color);
+      background-color: var(--kup_tree_hover_background_color);
 
       .cell-content {
-        color: var(--kup-tree_hover-color);
+        color: var(--kup_tree_hover_color);
       }
 
       .dropdown {
-        background-color: var(--kup-tree_hover-color);
+        background-color: var(--kup_tree_hover_color);
       }
     }
 
@@ -334,7 +349,7 @@ tfoot {
       .first-node {
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
-        border-top: var(--kup-tree_border-color);
+        border-top: var(--kup_tree_border-color);
       }
     }
 
@@ -347,11 +362,11 @@ tfoot {
 
     .first-node {
       align-items: center;
-      border-bottom: var(--kup-tree_border-color);
-      border-left: var(--kup-tree_border-color);
-      border-right: var(--kup-tree_border-color);
+      border-bottom: var(--kup_tree_border-color);
+      border-left: var(--kup_tree_border-color);
+      border-right: var(--kup_tree_border-color);
       box-sizing: border-box;
-      color: var(--kup-tree_color);
+      color: var(--kup_tree_color);
       cursor: pointer;
       display: flex;
       line-height: 1.75em;
@@ -387,7 +402,7 @@ tfoot {
 
   // First accordion item right below a tree item
   .kup-tree__node:not(.kup-tree__node--first) + .kup-tree__node--first {
-    border-top: var(--kup-tree_border-color);
+    border-top: var(--kup_tree_border-color);
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
   }

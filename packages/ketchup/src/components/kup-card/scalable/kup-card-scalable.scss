@@ -13,7 +13,7 @@
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   display: flex;
-  font-size: calc(var(--kup-font-size) * var(--multiplier));
+  font-size: calc(var(--kup-font-size) * var(--kup_card_multiplier));
   height: 100%;
   justify-content: center;
   position: relative;

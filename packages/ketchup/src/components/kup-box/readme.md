@@ -63,7 +63,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `loadRowActions(row: KupBoxRow, actions: RowAction[]) => Promise<void>`
 
@@ -98,15 +98,16 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                         | Description                                                   |
-| ---------------------------- | ------------------------------------------------------------- |
-| `--kup-box_background-color` | Sets background of the component.                             |
-| `--kup-box_color`            | Sets text color of the component.                             |
-| `--kup-box_font-size`        | Sets font size of the component.                              |
-| `--kup-box_grid-gap`         | Sets gap between each box.                                    |
-| `--kup-box_hover-box-shadow` | Sets box shadow for the hover effect.                         |
-| `--kup-box_selection-color`  | Sets background color of a selected item.                     |
-| `--kup-box_transition`       | Sets transition duration for box-shadow and background-color. |
+| Name                          | Description                                                   |
+| ----------------------------- | ------------------------------------------------------------- |
+| `--kup-box-background-color`  | Sets background of the component.                             |
+| `--kup-box-color`             | Sets text color of the component.                             |
+| `--kup-box-font-family`       | Sets font family of the component.                            |
+| `--kup-box-font-size`         | Sets font size of the component.                              |
+| `--kup-box-grid-gap`          | Sets gap between each box.                                    |
+| `--kup-box-hover-box-shadow`  | Sets box shadow for the hover effect.                         |
+| `--kup-box-primary-color-rgb` | Sets RGB values of primary color (used for box selection) .   |
+| `--kup-box-transition`        | Sets transition duration for box-shadow and background-color. |
 
 
 ## Dependencies
@@ -211,7 +212,6 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list

@@ -44,7 +44,6 @@ export interface KupThemeCSSVariables {
     [KupThemeColorValues.ICON]: string;
     [KupThemeColorValues.BORDER]: string;
     '--kup-box-shadow': string;
-    [KupThemeColorValues.FIELD_BACKGROUND]: string;
     [KupThemeColorValues.INFO]: string;
     [KupThemeColorValues.SUCCESS]: string;
     [KupThemeColorValues.WARNING]: string;
@@ -122,7 +121,6 @@ export enum KupThemeColorValues {
     TITLE = '--kup-title-color',
     ICON = '--kup-icon-color',
     BORDER = '--kup-border-color',
-    FIELD_BACKGROUND = '--kup-field-background-color',
     INFO = '--kup-info-color',
     SUCCESS = '--kup-success-color',
     WARNING = '--kup-warning-color',

@@ -22,7 +22,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -49,10 +49,10 @@ Type: `Promise<void>`
 
 | Name                    | Description                                 |
 | ----------------------- | ------------------------------------------- |
-| `--kup-grid_font-size`  | Sets font size of the component.            |
-| `--kup-grid_gap`        | Sets gap of the grid.                       |
-| `--kup-grid_gap-mobile` | Sets gap of the grid for lower resolutions. |
-| `--kup-grid_padding`    | Sets padding of the outer layer.            |
+| `--kup-grid-font-size`  | Sets font size of the component.            |
+| `--kup-grid-gap`        | Sets gap of the grid.                       |
+| `--kup-grid-gap-mobile` | Sets gap of the grid for lower resolutions. |
+| `--kup-grid-padding`    | Sets padding of the outer layer.            |
 
 
 ----------------------------------------------

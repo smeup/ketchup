@@ -21,33 +21,8 @@ export default {
     return {
       demoClasses: [
         {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
           class: 'kup-full-width',
           description: 'The grid will fill all the available horizontal space.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
       demoComp: createComp(),
