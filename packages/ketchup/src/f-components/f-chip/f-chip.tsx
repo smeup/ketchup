@@ -131,9 +131,14 @@ function createChipList(
                         // @ts-ignore
                         value={props.data[i].value}
                         checked={props.data[i].checked}
-                        onIconClick={
-                            props.onIconClick && props.onIconClick[i]
-                                ? props.onIconClick[i]
+                        onBlur={
+                            props.onBlur && props.onBlur[i]
+                                ? props.onBlur[i]
+                                : null
+                        }
+                        onFocus={
+                            props.onFocus && props.onFocus[i]
+                                ? props.onFocus[i]
                                 : null
                         }
                     >
