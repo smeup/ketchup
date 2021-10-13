@@ -9,7 +9,6 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-
 import {
     GenericObject,
     KupComponent,

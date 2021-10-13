@@ -9,14 +9,30 @@
 */
 
 :host {
-  --kup_buttonlist_grid_gap: 1em;
-  --kup_buttonlist_selected_primary_color: var(--kup-secondary-color);
-  --kup_buttonlist_selected_primary_color_h: var(--kup-secondary-color-h);
-  --kup_buttonlist_selected_primary_color_s: var(--kup-secondary-color-s);
-  --kup_buttonlist_selected_primary_color_l: var(--kup-secondary-color-l);
-  --kup_buttonlist_selected_primary_color_rgb: var(--kup-secondary-color-rgb);
+  --kup_buttonlist_grid_gap: var(--kup-buttonlist-grid-gap, 1em);
+  --kup_buttonlist_selected_primary_color: var(
+    --kup-buttonlist-selected-primary-color,
+    var(--kup-secondary-color)
+  );
+  --kup_buttonlist_selected_primary_color_h: var(
+    --kup-buttonlist-selected-primary-color-h,
+    var(--kup-secondary-color-h)
+  );
+  --kup_buttonlist_selected_primary_color_s: var(
+    --kup-buttonlist-selected-primary-color-s,
+    var(--kup-secondary-color-s)
+  );
+  --kup_buttonlist_selected_primary_color_l: var(
+    --kup-buttonlist-selected-primary-color-l,
+    var(--kup-secondary-color-l)
+  );
+  --kup_buttonlist_selected_primary_color_rgb: var(
+    --kup-buttonlist-selected-primary-color-rgb,
+    var(--kup-secondary-color-rgb)
+  );
   --kup_buttonlist_selected_text_on_primary_color: var(
-    --kup-text-on-secondary-color
+    --kup-buttonlist-selected-text-on-primary-color,
+    var(--kup-text-on-secondary-color)
   );
 
   display: block;
