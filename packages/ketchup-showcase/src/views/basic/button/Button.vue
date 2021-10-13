@@ -10,9 +10,12 @@
       <button-styling></button-styling>
     </template>
     <template v-slot:3>
-      <button-icon-variant></button-icon-variant>
+      <button-with-spinner></button-with-spinner>
     </template>
     <template v-slot:4>
+      <button-icon-variant></button-icon-variant>
+    </template>
+    <template v-slot:5>
       <button-disabled></button-disabled>
     </template>
   </comp>
@@ -22,6 +25,7 @@
 import ButtonDemo from '@/views/basic/button/examples/ButtonDemo';
 import ButtonBasic from '@/views/basic/button/examples/ButtonBasic';
 import ButtonStyling from '@/views/basic/button/examples/ButtonStyling';
+import ButtonWithSpinner from '@/views/basic/button/examples/ButtonWithSpinner';
 import ButtonDisabled from '@/views/basic/button/examples/ButtonDisabled';
 import ButtonIconVariant from '@/views/basic/button/examples/ButtonIconVariant';
 import Comp from '@/views/advanced/page/templates/Comp';
@@ -30,6 +34,7 @@ export default {
     ButtonDemo,
     ButtonBasic,
     ButtonStyling,
+    ButtonWithSpinner,
     ButtonDisabled,
     ButtonIconVariant,
     Comp,
@@ -43,6 +48,7 @@ export default {
         'Playground',
         'Basic usage',
         'Styling',
+        'With spinner',
         'Icon button variant',
         'Disabled',
       ],

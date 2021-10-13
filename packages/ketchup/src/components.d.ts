@@ -452,6 +452,11 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * When set to true, the button show a spinner received in slot.
+          * @default false
+         */
+        "showSpinner": boolean;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
@@ -3570,6 +3575,11 @@ declare namespace LocalJSX {
           * Triggered when the button is focused.
          */
         "onKup-button-focus"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
+        /**
+          * When set to true, the button show a spinner received in slot.
+          * @default false
+         */
+        "showSpinner"?: boolean;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED

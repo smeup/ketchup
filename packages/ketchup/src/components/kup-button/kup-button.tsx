@@ -90,6 +90,11 @@ export class KupButton {
      */
     @Prop() styling: FButtonStyling = FButtonStyling.RAISED;
     /**
+     * When set to true, the button show a spinner received in slot.
+     * @default false
+     */
+    @Prop() showSpinner: boolean = false;
+    /**
      * When set to true, the icon button will be toggable on/off.
      * @default false
      */
@@ -288,6 +293,7 @@ export class KupButton {
                 ? true
                 : false,
             styling: this.styling,
+            showSpinner: this.showSpinner,
             toggable: this.toggable,
             trailingIcon: this.trailingIcon,
             onBlur: () => this.onKupBlur(),
