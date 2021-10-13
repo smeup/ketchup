@@ -462,7 +462,7 @@ export class KupChart {
             const c = tableColumns[i];
 
             dataTableColumns.push({
-                label: getSerieDecode(c.name, this.series),
+                label: getSerieDecode(c.name, this.data.columns),
             });
 
             if (i > 0 && this.showMarks) {
