@@ -8,17 +8,18 @@ import { formatToNumber } from '../../utils/cell-formatter';
 import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import { KupObjects } from '../../utils/kup-objects/kup-objects';
-import { KupDates } from '../../utils/kup-dates/kup-dates';
+import { KupDates  } from '../../utils/kup-dates/kup-dates';
+import { KupDatesNormalize } from '../../utils/kup-dates/kup-dates-declarations';
 
-export function getSerieDecode(serie: string, series: ChartSerie[]): string {
+export function getSerieDecode(serie: string, series: Column[]): string {
     if (serie == null || series == null) {
         return null;
     }
 
     for (let i = 0; i < series.length; i++) {
         let serieObj = series[i];
-        if (serieObj != null && serieObj.code == serie) {
-            return serieObj.decode;
+        if (serieObj != null && serieObj.name == serie) {
+            return serieObj.title;
         }
     }
     return serie;
@@ -89,6 +90,18 @@ export const convertRows = (
                         currentRow.push(value);
                         if (addMark) {
                             currentRow.push(value.toString());
+                        }
+                    } else if (kupObjects.isTime(cell.obj)) {
+                        const datetime = kupDates.normalize(cell.obj.k, KupDatesNormalize.TIME);
+                        currentRow.push(datetime.toDate());
+                        if (addMark) {
+                            currentRow.push(datetime.toDate());
+                        }
+                    } else if (kupObjects.isTimestamp(cell.obj)) {
+                        const datetime = kupDates.normalize(cell.obj.k, KupDatesNormalize.TIMESTAMP);
+                        currentRow.push(datetime.toDate());
+                        if (addMark) {
+                            currentRow.push(datetime.toDate());
                         }
                     } else {
                         currentRow.push(cell.obj.k);
