@@ -1,9 +1,16 @@
 /*-------------------------------------------------*/
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
-/* $kup-class-large     => Defined in f-button. */
-/* $kup-class-pulsating => Defined in f-button. */
-/* $kup-class-shaped    => Defined in f-button. */
+/* $kup-class-large       => Defined in f-button.  */
+/* $kup-class-danger      => Defined in f-button.  */
+/* $kup-class-info        => Defined in f-button.  */
+/* $kup-class-warning     => Defined in f-button.  */
+/* $kup-class-secondary   => Defined in f-button.  */
+/* $kup-class-success     => Defined in f-button.  */
+/* $kup-class-pulsating   => Defined in f-button.  */
+/* $kup-class-shaped      => Defined in f-button.  */
+/* $kup-class-success     => Defined in f-button.  */
+/*-------------------------------------------------*/
 
 :host(.#{$kup-class-full-height}) {
   height: 100%;

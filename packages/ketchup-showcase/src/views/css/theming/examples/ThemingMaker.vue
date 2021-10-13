@@ -153,6 +153,27 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">--kup-drawer-color</span>
+                </td>
+                <td
+                  >Sets the color for slotted content. To achieve a more
+                  predictable result, it is suggested to set the wanted colors
+                  directly on the slots.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">color</span>
+                </td>
+                <td class="text-cell">
+                  <kup-color-picker
+                    id="drawer-color"
+                    :data.prop="colorPickerData"
+                    @kup-colorpicker-input="updateVariable"
+                    @kup-colorpicker-change="updateVariable"
+                  ></kup-color-picker>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">--kup-navbar-height</span>
                 </td>
                 <td
@@ -473,23 +494,6 @@
                     id="box-shadow"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
-                </td>
-              </tr>
-              <tr>
-                <td class="prevent-cr">
-                  <span class="code-word">--kup-field-background-color</span>
-                </td>
-                <td>Sets the background color of filled text fields.</td>
-                <td class="prevent-cr">
-                  <span class="code-word">color</span>
-                </td>
-                <td class="text-cell">
-                  <kup-color-picker
-                    id="field-background-color"
-                    :data.prop="colorPickerData"
-                    @kup-colorpicker-input="updateVariable"
-                    @kup-colorpicker-change="updateVariable"
-                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>

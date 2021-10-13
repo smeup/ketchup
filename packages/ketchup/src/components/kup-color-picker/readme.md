@@ -21,7 +21,6 @@
 | Event                    | Description | Type                                      |
 | ------------------------ | ----------- | ----------------------------------------- |
 | `kup-colorpicker-change` |             | `CustomEvent<KupColorPickerEventPayload>` |
-| `kup-colorpicker-input`  |             | `CustomEvent<KupColorPickerEventPayload>` |
 
 
 ## Methods
@@ -34,7 +33,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `getValue() => Promise<string>`
 
@@ -44,7 +43,7 @@ Retrieves the component's value.
 
 Type: `Promise<string>`
 
-
+Value of the component.
 
 ### `refresh() => Promise<void>`
 
@@ -94,14 +93,9 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
-### Depends on
-
-- [kup-text-field](../kup-text-field)
-
 ### Graph
 ```mermaid
 graph TD;
-  kup-color-picker --> kup-text-field
   kup-data-table --> kup-color-picker
   kup-tree --> kup-color-picker
   style kup-color-picker fill:#f9f,stroke:#333,stroke-width:4px

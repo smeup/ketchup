@@ -21,6 +21,23 @@
     cursor: default;
   }
 }
-.dynamic-position:not(.dynamic-position-active) {
-  display: none;
+
+#kup-component .mdc-text-field:not(.mdc-text-field--disabled) {
+  cursor: pointer;
+
+  input {
+    cursor: pointer;
+  }
+
+  .icon-container {
+    background-color: var(--kup_colorpicker_thumb_color, var(--kup-icon-color));
+  }
+}
+
+#kup-component .thumb-icon {
+  .icon-container {
+    border: 3px solid rgba(var(--kup-text-color-rgb), 0.575);
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
 }

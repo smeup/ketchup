@@ -1,54 +1,66 @@
 /**
-* @prop --kup-buttonlist_font-size: Sets font size of the component.
-* @prop --kup-buttonlist_grid-columns: Sets grid columns (variable automatically set by the component).
-* @prop --kup-buttonlist_grid-gap: Sets gap between each button.
-* @prop --kup-buttonlist_selected-primary-color: Sets the primary color of a selected button.
-* @prop --kup-buttonlist_selected-primary-color-rgb: Sets the RGB values of primary color of a selected button.
-* @prop --kup-buttonlist_selected-primary-color-h: Sets the hue value of primary color of a selected button.
-* @prop --kup-buttonlist_selected-primary-color-s: Sets the saturation value of primary color of a selected button.
-* @prop --kup-buttonlist_selected-primary-color-l: Sets the lightness value of primary color of a selected button.
-* @prop --kup-buttonlist_selected-text-on-primary-color: Sets the text on primary color of a selected button.
+* @prop --kup-buttonlist-grid-gap: Sets gap between each button.
+* @prop --kup-buttonlist-selected-primary-color: Sets the primary color of a selected button.
+* @prop --kup-buttonlist-selected-primary-color-h: Sets the hue value of primary color of a selected button.
+* @prop --kup-buttonlist-selected-primary-color-s: Sets the saturation value of primary color of a selected button.
+* @prop --kup-buttonlist-selected-primary-color-l: Sets the lightness value of primary color of a selected button.
+* @prop --kup-buttonlist-selected-primary-color-rgb: Sets the RGB values of primary color of a selected button.
+* @prop --kup-buttonlist-selected-text-on-primary-color: Sets the text on primary color of a selected button.
 */
 
 :host {
-  --kup-buttonlist_font-size: var(--kup-font-size);
-  --kup-buttonlist_grid-gap: 1em;
-  --kup-buttonlist_selected-primary-color: var(--kup-secondary-color);
-  --kup-buttonlist_selected-primary-color-rgb: var(--kup-secondary-color-rgb);
-  --kup-buttonlist_selected-primary-color-h: var(--kup-secondary-color-h);
-  --kup-buttonlist_selected-primary-color-s: var(--kup-secondary-color-s);
-  --kup-buttonlist_selected-primary-color-l: var(--kup-secondary-color-l);
-  --kup-buttonlist_selected-text-on-primary-color: var(
-    --kup-text-on-secondary-color
+  --kup_buttonlist_grid_gap: var(--kup-buttonlist-grid-gap, 1em);
+  --kup_buttonlist_selected_primary_color: var(
+    --kup-buttonlist-selected-primary-color,
+    var(--kup-secondary-color)
+  );
+  --kup_buttonlist_selected_primary_color_h: var(
+    --kup-buttonlist-selected-primary-color-h,
+    var(--kup-secondary-color-h)
+  );
+  --kup_buttonlist_selected_primary_color_s: var(
+    --kup-buttonlist-selected-primary-color-s,
+    var(--kup-secondary-color-s)
+  );
+  --kup_buttonlist_selected_primary_color_l: var(
+    --kup-buttonlist-selected-primary-color-l,
+    var(--kup-secondary-color-l)
+  );
+  --kup_buttonlist_selected_primary_color_rgb: var(
+    --kup-buttonlist-selected-primary-color-rgb,
+    var(--kup-secondary-color-rgb)
+  );
+  --kup_buttonlist_selected_text_on_primary_color: var(
+    --kup-buttonlist-selected-text-on-primary-color,
+    var(--kup-text-on-secondary-color)
   );
 
   display: block;
-  font-size: var(--kup-buttonlist_font-size);
 }
 
 .button-list--container {
   display: grid;
-  grid-gap: var(--kup-buttonlist_grid-gap);
-  grid-template-columns: var(--kup-buttonlist_grid-columns);
+  grid-gap: var(--kup_buttonlist_grid_gap);
+  grid-template-columns: var(--kup_buttonlist_grid_columns);
   width: max-content;
 
   &.show-selection {
     .selected {
-      --kup-button_primary-color: var(--kup-buttonlist_selected-primary-color);
-      --kup-button_primary-color-rgb: var(
-        --kup-buttonlist_selected-primary-color-rgb
+      --kup-button-primary-color: var(--kup_buttonlist_selected_primary_color);
+      --kup-button-primary-color-rgb: var(
+        --kup_buttonlist_selected_primary_color_rgb
       );
-      --kup-button_primary-color-h: var(
-        --kup-buttonlist_selected-primary-color-h
+      --kup-button-primary-color-h: var(
+        --kup_buttonlist_selected_primary_color_h
       );
-      --kup-button_primary-color-s: var(
-        --kup-buttonlist_selected-primary-color-s
+      --kup-button-primary-color-s: var(
+        --kup_buttonlist_selected_primary_color_s
       );
-      --kup-button_primary-color-l: var(
-        --kup-buttonlist_selected-primary-color-l
+      --kup-button-primary-color-l: var(
+        --kup_buttonlist_selected_primary_color_l
       );
-      --kup-button_text-on-primary-color: var(
-        --kup-buttonlist_selected-text-on-primary-color
+      --kup-button-text-on-primary-color: var(
+        --kup_buttonlist_selected_text_on_primary_color
       );
     }
   }

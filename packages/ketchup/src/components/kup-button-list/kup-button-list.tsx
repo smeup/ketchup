@@ -395,7 +395,7 @@ export class KupButtonList {
         }
 
         const hostStyle: GenericObject = {
-            '--kup-buttonlist_grid-columns': `repeat(${nrOfColumns}, auto)`,
+            '--kup_buttonlist_grid_columns': `repeat(${nrOfColumns}, auto)`,
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

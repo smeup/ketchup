@@ -20,7 +20,7 @@
   .drawer {
     position: relative;
     &__content {
-      border-right: 1px solid var(--kup-border-color);
+      border-right: var(--kup_drawer_permanent_border);
     }
   }
 }

@@ -29,7 +29,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -54,14 +54,15 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                           | Description                      |
-| ------------------------------ | -------------------------------- |
-| `--kup-badge_background-color` | Sets background of the badge.    |
-| `--kup-badge_border-radius`    | Sets border radius of the badge. |
-| `--kup-badge_color`            | Sets text color of the badge.    |
-| `--kup-badge_font-size`        | Sets font size of the badge.     |
-| `--kup-badge_min-size`         | Sets minimum size of the badge.  |
-| `--kup-badge_padding`          | Sets padding of the badge.       |
+| Name                                | Description                              |
+| ----------------------------------- | ---------------------------------------- |
+| `--kup-badge-border-radius`         | Sets border radius of the badge.         |
+| `--kup-badge-font-family`           | Sets font family of the badge.           |
+| `--kup-badge-font-size`             | Sets font size of the badge.             |
+| `--kup-badge-min-size`              | Sets minimum size of the badge.          |
+| `--kup-badge-padding`               | Sets padding of the badge.               |
+| `--kup-badge-primary-color`         | Sets primary color of the badge.         |
+| `--kup-badge-text-on-primary-color` | Sets text on primary color of the badge. |
 
 
 ## Dependencies

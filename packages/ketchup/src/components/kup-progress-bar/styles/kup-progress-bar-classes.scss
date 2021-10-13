@@ -42,14 +42,39 @@
   .progress-bar-percentage {
     background-image: linear-gradient(
       -45deg,
-      rgba(var(--kup-text-color-rgb), 0.125) 25%,
+      rgba(var(--kup_progressbar_text_color_rgb), 0.125) 25%,
       transparent 25%,
       transparent 50%,
-      rgba(var(--kup-text-color-rgb), 0.125) 50%,
-      rgba(var(--kup-text-color-rgb), 0.125) 75%,
+      rgba(var(--kup_progressbar_text_color_rgb), 0.125) 50%,
+      rgba(var(--kup_progressbar_text_color_rgb), 0.125) 75%,
       transparent 75%,
       transparent
     );
     background-size: 3em 3em;
   }
+}
+
+:host(.#{$kup-class-danger}) {
+  --kup-progressbar-primary-color: var(--kup-danger-color);
+  --kup-progressbar-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-progressbar-primary-color: var(--kup-info-color);
+  --kup-progressbar-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-progressbar-primary-color: var(--kup-secondary-color);
+  --kup-progressbar-text-on-primary-color: var(--kup-text-on-secondary-color);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-progressbar-primary-color: var(--kup-success-color);
+  --kup-progressbar-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-progressbar-primary-color: var(--kup-warning-color);
+  --kup-progressbar-text-on-primary-color: white;
 }

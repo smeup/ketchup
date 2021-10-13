@@ -3975,7 +3975,6 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         "onKup-colorpicker-change"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
-        "onKup-colorpicker-input"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
           * @default false

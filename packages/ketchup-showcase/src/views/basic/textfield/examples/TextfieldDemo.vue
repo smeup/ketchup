@@ -24,7 +24,7 @@ export default {
         {
           class: 'kup-danger',
           description:
-            'The component will be rendered using the danger color of the app.',
+            'The component will be rendered using the danger color of the app (needs a new render to be effective).',
         },
         {
           class: 'kup-full-height',
@@ -34,26 +34,27 @@ export default {
         {
           class: 'kup-info',
           description:
-            'The component will be rendered using the informational color of the app.',
+            'The component will be rendered using the informational color of the app (needs a new render to be effective).',
         },
         {
           class: 'kup-secondary',
           description:
-            'The component will be rendered using the secondary color of the app.',
+            'The component will be rendered using the secondary color of the app (needs a new render to be effective).',
         },
         {
           class: 'kup-shaped',
-          description: 'The text field will be rendered with shaped borders.',
+          description:
+            'The text field will be rendered with shaped borders (needs a new render to be effective).',
         },
         {
           class: 'kup-success',
           description:
-            'The component will be rendered using the success color of the app.',
+            'The component will be rendered using the success color of the app (needs a new render to be effective).',
         },
         {
           class: 'kup-warning',
           description:
-            'The component will be rendered using the warning color of the app.',
+            'The component will be rendered using the warning color of the app (needs a new render to be effective).',
         },
       ],
       demoComp: createComp(),

@@ -34,7 +34,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -59,10 +59,9 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                          | Description                          |
-| ----------------------------- | ------------------------------------ |
-| `--kup-spinner_border-color`  | Sets borders color of the component. |
-| `--kup-spinner_primary-color` | Sets primary color of the component. |
+| Name                         | Description                          |
+| ---------------------------- | ------------------------------------ |
+| `--kup-spinner-border-color` | Sets borders color of the component. |
 
 
 ## Dependencies

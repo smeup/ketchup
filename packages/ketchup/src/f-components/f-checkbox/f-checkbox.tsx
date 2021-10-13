@@ -22,7 +22,11 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
 
     return (
         <div
-            class={`f-checkbox--wrapper ${
+            class={`f-checkbox--wrapper ${props.danger ? 'kup-danger' : ''} ${
+                props.info ? 'kup-info' : ''
+            } ${props.secondary ? 'kup-secondary' : ''} ${
+                props.success ? 'kup-success' : ''
+            } ${props.warning ? 'kup-warning' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
             {...props.dataSet}

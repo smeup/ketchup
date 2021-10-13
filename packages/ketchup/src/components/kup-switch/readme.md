@@ -33,7 +33,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -58,11 +58,15 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                             | Description                                                                                                                                                                                                            |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--kup-switch_label-color`       | Sets text color of the switch label.                                                                                                                                                                                   |
-| `--kup-switch_primary-color`     | Sets the primary color of the switch.                                                                                                                                                                                  |
-| `--kup-switch_primary-color-rgb` | Sets the primary color RGB values of the switch (used for shaders). NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+| Name                             | Description                                     |
+| -------------------------------- | ----------------------------------------------- |
+| `--kup-switch-font-family`       | Sets font family of the switch's label.         |
+| `--kup-switch-font-size`         | Sets font size of the switch's label.           |
+| `--kup-switch-font-weight`       | Sets font weight of the switch's label.         |
+| `--kup-switch-label-color`       | Sets text color of the switch's label.          |
+| `--kup-switch-primary-color`     | Sets primary color of the component.            |
+| `--kup-switch-primary-color-rgb` | Sets primary color RGB values of the component. |
+| `--kup-switch-thumb-color`       | Sets thumb color.                               |
 
 
 ## Dependencies

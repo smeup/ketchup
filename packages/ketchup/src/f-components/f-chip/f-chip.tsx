@@ -34,7 +34,11 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
 
     return (
         <div
-            class={`f-chip--wrapper ${
+            class={`f-chip--wrapper ${props.danger ? 'kup-danger' : ''} ${
+                props.info ? 'kup-info' : ''
+            } ${props.secondary ? 'kup-secondary' : ''} ${
+                props.success ? 'kup-success' : ''
+            } ${props.warning ? 'kup-warning' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
             {...props.dataSet}

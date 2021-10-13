@@ -23,7 +23,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -146,7 +146,6 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list

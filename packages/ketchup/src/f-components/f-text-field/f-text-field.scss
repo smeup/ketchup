@@ -6,26 +6,51 @@
 
 #kup-component {
   .f-text-field--wrapper {
+    --kup_textfield_background_color_rgb: var(
+      --kup-textfield-background-color-rgb,
+      var(--kup-background-color-rgb)
+    );
+    --kup_textfield_color: var(--kup-textfield-color, var(--kup-text-color));
+    --kup_textfield_color_rgb: var(
+      --kup-textfield-color-rgb,
+      var(--kup-text-color-rgb)
+    );
+    --kup_textfield_font_family: var(
+      --kup-textfield-font-family,
+      var(--kup-font-family)
+    );
+    --kup_textfield_font_size: var(--kup-textfield-font-size, 1em);
+    --kup_textfield_icon_color: var(
+      --kup-textfield-icon-color,
+      var(--kup-icon-color)
+    );
+    --kup_textfield_primary_color: var(
+      --kup-textfield-primary-color,
+      var(--kup-primary-color)
+    );
+    --kup_textfield_primary_color_rgb: var(
+      --kup-textfield-primary-color-rgb,
+      var(--kup-primary-color-rgb)
+    );
+    --mdc-theme-primary: var(--kup_textfield_primary_color);
+
+    font-family: var(--kup_textfield_font_family);
+    font-size: var(--kup_textfield_font_size);
+
     .mdc-form-field {
       & label {
-        font-family: var(--kup-font-family);
-        font-size: 1em;
         margin: auto;
       }
       .mdc-text-field__input {
         box-sizing: border-box;
+        font-family: var(--kup_textfield_font_family);
         padding: 6px 0px;
       }
     }
 
     .mdc-text-field {
-      div.mdc-text-field-helper-text {
-        font-family: var(--kup-font-family);
-        font-size: 0.75em;
-      }
-
       .icon-container {
-        background-color: var(--kup-icon-color);
+        background-color: var(--kup_textfield_icon_color);
         cursor: pointer;
         height: 24px;
         outline: none;
@@ -38,7 +63,7 @@
 
       input,
       label {
-        font-family: var(--kup-font-family);
+        font-family: var(--kup_textfield_font_family);
         font-size: 1em;
       }
 
@@ -46,12 +71,12 @@
         .mdc-line-ripple:before,
       &.mdc-text-field--fullwidth:not(.mdc-text-field--disabled)
         .mdc-line-ripple:before {
-        border-bottom-color: rgba(var(--kup-textfield_color-rgb), 0.325);
+        border-bottom-color: rgba(var(--kup_textfield_color_rgb), 0.325);
         &:hover {
-          border-bottom-color: rgba(var(--kup-textfield_color-rgb), 0.575);
+          border-bottom-color: rgba(var(--kup_textfield_color_rgb), 0.575);
         }
         &.mdc-line-ripple--active {
-          border-bottom-color: var(--kup-primary-color);
+          border-bottom-color: var(--kup_textfield_primary_color);
         }
       }
 
@@ -80,7 +105,7 @@
       }
 
       &.mdc-text-field--fullwidth.mdc-text-field--focused {
-        color: var(--kup-primary-color);
+        color: var(--kup_textfield_primary_color);
       }
 
       &.mdc-text-field--fullwidth {
@@ -96,7 +121,7 @@
         & .mdc-notched-outline__leading,
         & .mdc-notched-outline__notch,
         & .mdc-notched-outline__trailing {
-          border-color: rgba(var(--kup-textfield_color-rgb), 0.575);
+          border-color: rgba(var(--kup_textfield_color_rgb), 0.575);
           border-bottom-style: inset;
         }
 
@@ -106,24 +131,24 @@
         &.mdc-text-field--focused .mdc-notched-outline__leading,
         &.mdc-text-field--focused .mdc-notched-outline__notch,
         &.mdc-text-field--focused .mdc-notched-outline__trailing {
-          border-color: var(--kup-primary-color);
+          border-color: var(--kup_textfield_primary_color);
         }
 
         &.mdc-text-field--disabled .mdc-notched-outline__leading,
         &.mdc-text-field--disabled .mdc-notched-outline__notch,
         &.mdc-text-field--disabled .mdc-notched-outline__trailing {
-          border-color: rgba(var(--kup-textfield_color-rgb), 0.325);
+          border-color: rgba(var(--kup_textfield_color_rgb), 0.325);
         }
 
         &.mdc-text-field--disabled {
-          color: rgba(var(--kup-textfield_color-rgb), 0.5);
+          color: rgba(var(--kup_textfield_color_rgb), 0.5);
 
           & .mdc-text-field__input {
-            color: rgba(var(--kup-textfield_color-rgb), 0.5);
+            color: rgba(var(--kup_textfield_color_rgb), 0.5);
           }
 
           & label {
-            color: rgba(var(--kup-textfield_color-rgb), 0.5);
+            color: rgba(var(--kup_textfield_color_rgb), 0.5);
           }
         }
 
@@ -170,7 +195,10 @@
           padding-top: 9px;
         }
         &:not(.mdc-text-field--disabled) {
-          background-color: rgba(var(--kup-field-background-color-rgb), 0.125);
+          background-color: rgba(
+            var(--kup_textfield_background_color_rgb),
+            0.125
+          );
         }
       }
 
@@ -185,7 +213,7 @@
         & .mdc-text-field-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-character-counter,
         & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
-          color: var(--kup-textfield_color);
+          color: var(--kup_textfield_color);
         }
         & .mdc-floating-label,
         & .mdc-text-field__input::placeholder,
@@ -225,9 +253,14 @@
 
       &.mdc-text-field--focused:not(.mdc-text-field-disabled)
         .mdc-floating-label--float-above {
-        color: var(--kup-primary-color);
+        color: var(--kup_textfield_primary_color);
         opacity: 1;
       }
+    }
+
+    div.mdc-text-field-helper-text {
+      font-family: var(--kup_textfield_font_family);
+      font-size: 0.75em;
     }
 
     &.#{$kup-class-full-height} {
@@ -248,7 +281,7 @@
       width: 100%;
     }
 
-    &.shaped {
+    &.kup-shaped {
       .mdc-text-field.mdc-text-field--filled {
         border-radius: 16px 16px 0 0;
       }
@@ -266,6 +299,31 @@
         border-radius: 0 28px 28px 0;
         width: 28px;
       }
+    }
+
+    &.#{$kup-class-danger} {
+      --kup-textfield-primary-color: var(--kup-danger-color);
+      --kup-textfield-primary-color-rgb: var(--kup-danger-color-rgb);
+    }
+
+    &.#{$kup-class-info} {
+      --kup-textfield-primary-color: var(--kup-info-color);
+      --kup-textfield-primary-color-rgb: var(--kup-info-color-rgb);
+    }
+
+    &.#{$kup-class-secondary} {
+      --kup-textfield-primary-color: var(--kup-secondary-color);
+      --kup-textfield-primary-color-rgb: var(--kup-secondary-color-rgb);
+    }
+
+    &.#{$kup-class-success} {
+      --kup-textfield-primary-color: var(--kup-success-color);
+      --kup-textfield-primary-color-rgb: var(--kup-success-color-rgb);
+    }
+
+    &.#{$kup-class-warning} {
+      --kup-textfield-primary-color: var(--kup-warning-color);
+      --kup-textfield-primary-color-rgb: var(--kup-warning-color-rgb);
     }
   }
 }
