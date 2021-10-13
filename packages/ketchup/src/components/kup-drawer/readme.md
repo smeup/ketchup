@@ -41,7 +41,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `isOpened() => Promise<boolean>`
 
@@ -51,7 +51,7 @@ Returns the state of the drawer.
 
 Type: `Promise<boolean>`
 
-
+True when opened, false when closed.
 
 ### `open() => Promise<void>`
 

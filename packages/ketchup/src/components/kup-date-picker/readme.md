@@ -39,7 +39,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `getValue() => Promise<string>`
 
@@ -49,7 +49,7 @@ Retrieves the component's value.
 
 Type: `Promise<string>`
 
-
+Value of the component.
 
 ### `refresh() => Promise<void>`
 

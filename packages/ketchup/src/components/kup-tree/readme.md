@@ -150,7 +150,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `isEmpty() => Promise<boolean>`
 
