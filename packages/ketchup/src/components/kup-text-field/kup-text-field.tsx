@@ -485,7 +485,6 @@ export class KupTextField {
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
-            initialValue: this.initialValue,
             inputType: this.inputType,
             isClearable: this.isClearable,
             label: this.label,

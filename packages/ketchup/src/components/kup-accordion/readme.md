@@ -195,7 +195,6 @@ graph TD;
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge

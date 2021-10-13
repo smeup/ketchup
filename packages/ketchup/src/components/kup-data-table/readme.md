@@ -317,7 +317,6 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
   kup-tooltip --> kup-tree
