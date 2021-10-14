@@ -26,9 +26,6 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
             {...props.dataSet}
             id={props.id}
             title={props.title}
-            onBlur={props.onBlur}
-            onChange={props.onChange}
-            onFocus={props.onFocus}
         >
             <div
                 class={`form-field ${
@@ -50,11 +47,14 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
                                 checked={props.checked}
                                 disabled={props.disabled}
                                 value={props.checked ? 'on' : 'off'}
+                                onBlur={props.onBlur}
+                                onChange={props.onChange}
+                                onFocus={props.onFocus}
                             ></input>
                         </div>
                     </div>
                 </div>
-                <label onClick={props.onChange} >{props.label}</label>
+                <label onClick={props.onChange}>{props.label}</label>
             </div>
         </div>
     );
