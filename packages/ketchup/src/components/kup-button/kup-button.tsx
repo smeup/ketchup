@@ -214,28 +214,6 @@ export class KupButton {
     }
 
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    /**
-     * Set the events of the component and instantiates Material Design.
-     */
-    // private setEvents(): void {
-    //     const root: ShadowRoot = this.rootElement.shadowRoot;
-    //     if (root) {
-    //         const f: HTMLElement = root.querySelector('.f-button--wrapper');
-    //         if (f) {
-    //             const buttonEl: HTMLButtonElement = f.querySelector('button');
-    //             if (buttonEl) {
-    //                 buttonEl.onblur = () => this.onKupBlur();
-    //                 buttonEl.onclick = () => this.onKupClick();
-    //                 buttonEl.onfocus = () => this.onKupFocus();
-    //             }
-    //         }
-    //     }
-    // }
-
-    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
