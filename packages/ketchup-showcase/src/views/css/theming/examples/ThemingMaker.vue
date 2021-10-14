@@ -1617,7 +1617,10 @@ export default {
         '#css-variables-tab kup-color-picker, #css-variables-tab kup-text-field, #customstyle-tab kup-color-picker, #customstyle-tab kup-text-field, #icons-tab kup-color-picker, #icons-tab kup-text-field'
       );
       for (let index = 0; index < fields.length; index++) {
-        (fields[index] as HTMLKupTextFieldElement).setValue('');
+        const field = fields[index];
+        if (document.activeElement.id !== field.id) {
+          (field as HTMLKupTextFieldElement).setValue('');
+        }
       }
       // Sets the variables components.
       for (let key in theme.cssVariables) {
@@ -1626,7 +1629,9 @@ export default {
           '#' + variable
         );
         try {
-          field.setValue(theme.cssVariables[key]);
+          if (document.activeElement.id !== field.id) {
+            field.setValue(theme.cssVariables[key]);
+          }
         } catch (error) {
           console.warn("Couldn't set field for variable '" + key + "'.");
         }
@@ -1637,7 +1642,9 @@ export default {
           '#' + key.toLowerCase()
         );
         try {
-          field.setValue(theme.customStyles[key]);
+          if (document.activeElement.id !== field.id) {
+            field.setValue(theme.customStyles[key]);
+          }
         } catch (error) {
           console.warn("Couldn't set field for customStyle '" + key + "'.");
         }
@@ -1649,8 +1656,10 @@ export default {
           '#' + variable
         );
         try {
-          field.icon = theme.icons[key];
-          field.setValue(theme.icons[key]);
+          if (document.activeElement.id !== field.id) {
+            field.icon = theme.icons[key];
+            field.setValue(theme.icons[key]);
+          }
         } catch (error) {
           console.warn("Couldn't set field for icon '" + key + "'.");
         }
