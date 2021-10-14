@@ -315,6 +315,10 @@ export class KupChip {
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
+            onBlur: [],
+            onClick: [],
+            onFocus: [],
+            onIconClick: [],
             secondary: this.rootElement.classList.contains('kup-secondary')
                 ? true
                 : false,
@@ -327,8 +331,8 @@ export class KupChip {
                 : false,
         };
         for (let j = 0; j < this.data.length; j++) {
-            props.onClick.push(() => this.onKupClick(j));
             props.onBlur.push(() => this.onKupBlur(j));
+            props.onClick.push(() => this.onKupClick(j));
             props.onFocus.push(() => this.onKupFocus(j));
             props.onIconClick.push(() => this.onKupIconClick(j));
         }
