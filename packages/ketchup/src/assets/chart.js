@@ -2880,11 +2880,14 @@ if(combo) {
     {
       "code": "CHA1_S",
       "decode": "Anno Corrente",
-    }
+    },
+	{
+		"code": "CHA2_S",
+		"decode": "Anno Corrente"
+	}
   ];
   combo.axis = 'CHA1_A';
   combo.sizeY = '300';
-  combo.vAxis = {viewWindow: {min:0}};
 }
 
 // Timeline chart
