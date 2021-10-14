@@ -295,7 +295,7 @@ export class KupCalendar {
         }
         return props;
     }
-
+    
     private getEvents(): EventSourceInput {
         const isHourRange =
             this.startCol &&

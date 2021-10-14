@@ -208,7 +208,7 @@ table#customstyle-tab kup-text-field {
 #split-container {
   width: 100%;
   background: var(--kup-primary-color);
-  height: 50px;
+  height: calc(1em * 3.25);
   position: absolute;
   bottom: 0;
   box-shadow: 0px -1px 4px -1px rgba(0, 0, 0, 0.2),
@@ -517,7 +517,6 @@ table#customstyle-tab kup-text-field {
   }
 
   .kup-container {
-    display: block;
     margin: 3em 0;
   }
 }

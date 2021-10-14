@@ -39,6 +39,7 @@
 
     .mdc-form-field {
       & label {
+        color: var(--kup_textfield_color);
         margin: auto;
       }
       .mdc-text-field__input {

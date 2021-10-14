@@ -80,6 +80,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             <span
                 tabindex="0"
                 style={iconStyle}
+                onClick={props.onIconClick}
                 class={`material-icons mdc-text-field__icon icon-container action ${iconClass}`}
             ></span>
         );
@@ -114,6 +115,12 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         readOnly={props.readOnly}
                         maxlength={props.maxLength}
                         value={props.value}
+                        onBlur={props.onBlur}
+                        onClick={props.onClick}
+                        onChange={props.onChange}
+                        onFocus={props.onFocus}
+                        onInput={props.onInput}
+                        onKeyDown={props.onKeyDown}
                     ></textarea>
                 </span>
             ) : (
@@ -128,12 +135,19 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     placeholder={props.fullWidth ? props.label : undefined}
                     maxlength={props.maxLength}
                     value={props.value}
+                    onBlur={props.onBlur}
+                    onClick={props.onClick}
+                    onChange={props.onChange}
+                    onFocus={props.onFocus}
+                    onInput={props.onInput}
+                    onKeyDown={props.onKeyDown}
                 ></input>
             )}
             {props.isClearable ? (
                 <span
                     tabindex="1"
                     class="material-icons mdc-text-field__icon icon-container clear"
+                    onClick={props.onClearIconClick}
                 ></span>
             ) : undefined}
             {props.trailingIcon ? iconEl : undefined}

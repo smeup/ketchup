@@ -101,7 +101,9 @@ function renderButton(props: FButtonProps): VNode {
         <button
             class={classObj}
             disabled={props.disabled}
+            onBlur={props.onBlur}
             onClick={props.onClick}
+            onFocus={props.onFocus}
             style={styleSpinnerContainer}
             type="button"
         >

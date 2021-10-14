@@ -47,11 +47,14 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
                                 checked={props.checked}
                                 disabled={props.disabled}
                                 value={props.checked ? 'on' : 'off'}
+                                onBlur={props.onBlur}
+                                onChange={props.onChange}
+                                onFocus={props.onFocus}
                             ></input>
                         </div>
                     </div>
                 </div>
-                <label>{props.label}</label>
+                <label onClick={props.onChange}>{props.label}</label>
             </div>
         </div>
     );

@@ -8,7 +8,7 @@
     --kup-button-font-family,
     var(--kup-font-family)
   );
-  --kup_button_font_size: var(--kup-button-font-size, 0.875em);
+  --kup_button_font_size: var(--kup-button-font-size, var(--kup-font-size));
   --kup_button_font_weight: var(--kup-button-font-weight, 400);
   --kup_button_height: var(--kup-button-height, 3em);
   --kup_button_padding: var(--kup-button-padding, 0 1.25em);
@@ -37,6 +37,9 @@
     var(--kup-text-on-primary-color)
   );
 
+  font-family: var(--kup_button_font_family);
+  font-size: var(--kup_button_font_size);
+
   .button {
     -moz-osx-font-smoothing: grayscale;
     -webkit-appearance: none;
@@ -49,8 +52,7 @@
     color: var(--kup_button_primary_color);
     cursor: pointer;
     display: inline-flex;
-    font-family: var(--kup_button_font_family);
-    font-size: var(--kup_button_font_size);
+    font-size: 0.875em;
     font-weight: var(--kup_button_font_weight);
     height: var(--kup_button_height);
     justify-content: center;
@@ -67,7 +69,7 @@
       box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     vertical-align: middle;
-    --kup-spinner-color: var(--kup_button_text_on_primary_color);
+    --kup-spinner-color: var(--kup_button_primary_color);
 
     &:hover {
       background-color: rgba(var(--kup_button_primary_color_rgb), 0.125);
@@ -221,7 +223,7 @@
     box-sizing: border-box;
     border: none;
     outline: none;
-    font-size: var(--kup-font-size);
+    font-size: var(--kup_button_font_size);
     text-decoration: none;
     cursor: pointer;
     user-select: none;

@@ -5107,7 +5107,7 @@ declare namespace LocalJSX {
           * @default 5
          */
         "maxValue"?: number;
-        "onKupRatingClick"?: (event: CustomEvent<KupRatingClickEventPayload>) => void;
+        "onKup-rating-click"?: (event: CustomEvent<KupRatingClickEventPayload>) => void;
         /**
           * Rated stars.
           * @default 0

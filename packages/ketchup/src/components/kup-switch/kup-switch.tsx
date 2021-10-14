@@ -182,32 +182,6 @@ export class KupSwitch {
     }
 
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    /**
-     * Set the events of the component and instantiates Material Design.
-     */
-    private setEvents(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-switch--wrapper');
-            if (f) {
-                const inputEl: HTMLInputElement = f.querySelector('input');
-                const labelEl: HTMLElement = f.querySelector('label');
-                if (inputEl) {
-                    inputEl.onblur = () => this.onKupBlur();
-                    inputEl.onchange = () => this.onKupChange();
-                    inputEl.onfocus = () => this.onKupFocus();
-                }
-                if (labelEl) {
-                    labelEl.onclick = () => this.onKupChange();
-                }
-            }
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
@@ -230,7 +204,7 @@ export class KupSwitch {
     }
 
     componentDidRender() {
-        this.setEvents();
+        this.render();
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -255,6 +229,9 @@ export class KupSwitch {
             warning: this.rootElement.classList.contains('kup-warning')
                 ? true
                 : false,
+            onBlur: () => this.onKupBlur(),
+            onChange: () => this.onKupChange(),
+            onFocus: () => this.onKupFocus(),
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

@@ -59,6 +59,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
             id={props.id}
             style={style}
             title={props.title}
+            onClick={props.onClick}
         >
             {el}
             {...badgeCollection}

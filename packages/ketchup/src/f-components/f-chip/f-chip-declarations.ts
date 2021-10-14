@@ -8,6 +8,9 @@ export interface FChipsProps extends FComponent {
     data?: FChipData[];
     dataNew?: TreeNode[];
     onClick?: ((event: MouseEvent) => void)[];
+    onBlur?: ((event: FocusEvent) => void)[];
+    onFocus?: ((event: FocusEvent) => void)[];
+    onIconClick?: ((event: MouseEvent) => void)[];
     type?: FChipType;
 }
 /**
