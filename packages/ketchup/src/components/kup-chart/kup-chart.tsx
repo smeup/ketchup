@@ -399,9 +399,13 @@ export class KupChart {
                     serieType = 'area';
                 }
 
+                var idx = "";
+                if((this.vAxes && this.vAxes.length > 0) || (this.hAxes && this.hAxes.length > 0)) {
+                    idx = index.toString();
+                }
                 opts.series[index.toString()] = {
                     type: serieType,
-                    targetAxisIndex: index.toString(),
+                    targetAxisIndex: idx,
                 };
             });
         }
