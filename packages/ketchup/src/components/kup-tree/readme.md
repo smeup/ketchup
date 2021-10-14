@@ -215,6 +215,7 @@ Type: `Promise<void>`
 | `--kup-tree-font-size`              | Sets font size of the component.                                       |
 | `--kup-tree-hover-background-color` | Sets hover background color of the component.                          |
 | `--kup-tree-hover-color`            | Sets hover color of the component.                                     |
+| `--kup-tree-icon-color`             | Sets icons color.                                                      |
 | `--kup-tree-primary-color`          | Sets the primary color of the component.                               |
 | `--kup-tree-primary-color-rgb`      | Sets the primary color RGB values of the component (used for shaders). |
 | `--kup-tree-text-on-primary-color`  | Sets the text on primary color of the component.                       |
