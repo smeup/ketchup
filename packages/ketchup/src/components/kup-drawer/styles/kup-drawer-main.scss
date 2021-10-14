@@ -59,24 +59,6 @@
   width: var(--kup-drawer-width);
   z-index: calc(var(--kup-drawer-zindex) + 1);
 
-  &__header {
-    padding: 1em;
-    background-color: var(--kup-primary-color);
-    position: relative;
-  }
-
-  &__subtitle {
-    color: var(--kup-text-on-primary-color);
-    font-size: 0.75em;
-    margin: 0;
-  }
-
-  &__title {
-    color: var(--kup-text-on-primary-color);
-    font-size: 1.5em;
-    margin: 0;
-  }
-
   &__content {
     background-color: var(--kup-drawer-background-color);
     box-sizing: border-box;

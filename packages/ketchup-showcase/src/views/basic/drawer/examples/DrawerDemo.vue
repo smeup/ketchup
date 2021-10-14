@@ -1,6 +1,7 @@
 <template>
   <div>
     <demo
+      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoMethods="demoMethods"
@@ -16,25 +17,48 @@ export default {
   components: {
     Demo,
   },
-  name: 'NavbarDemo',
+  name: 'DrawerDemo',
   data() {
     return {
+      demoClasses: [
+        {
+          class: 'kup-permanent',
+          description: "The drawer's look will be suitable to a desktop use.",
+        },
+        {
+          class: 'kup-right',
+          description:
+            'The drawer will be displayed on the right of the screen.',
+        },
+      ],
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kup-navbar-ready',
-          type: 'ready',
+          name: 'kup-drawer-close',
+          type: 'custom',
         },
         {
-          name: 'kup-navbar-resize',
-          type: 'resize',
+          name: 'kup-drawer-open',
+          type: 'custom',
+        },
+        {
+          name: 'kup-drawer-ready',
+          type: 'ready',
         },
       ],
       demoMethods: [
         {
+          name: 'close',
+          description: 'Closes the drawer.',
+        },
+        {
           name: 'getProps',
           description:
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'open',
+          description: 'Opens the drawer.',
         },
         {
           name: 'refresh',
@@ -50,6 +74,10 @@ export default {
           name: 'setProps',
           description: 'Sets the props to the component.',
         },
+        {
+          name: 'toggle',
+          description: "Opens the drawer when it's closed and viceversa.",
+        },
       ],
       demoProps: [
         {
@@ -60,33 +88,26 @@ export default {
           default: '""',
           try: 'css',
         },
-        {
-          prop: 'styling',
-          description: 'Defines the style of the nav bar.',
-          type: 'KupNavBarStyling',
-          default: 'standard',
-          try: 'field',
-        },
       ],
     };
   },
 };
 
 function createComp() {
-  const button = document.createElement('kup-button');
-  button.icon = 'more_vert';
-  button.slot = 'right';
-  const buttonMenu = document.createElement('kup-button');
-  buttonMenu.icon = 'menu';
-  buttonMenu.slot = 'left';
-  const comp = document.createElement('kup-nav-bar');
+  const title = document.createElement('div');
+  title.innerText = 'Demo';
+  title.style.fontSize = '2em';
+  title.style.padding = '10px';
+  const subtitle = document.createElement('div');
+  subtitle.innerText = 'Subtitle';
+  subtitle.style.padding = '10px';
+  const comp = document.createElement('kup-drawer');
+  comp.classList.add('kup-permanent');
   comp.id = 'demo-component';
   comp.style.position = 'absolute';
-  comp.style.top = '0';
-  comp.style.zIndex = 'calc(var(--kup-navbar-zindex) - 1)';
-  comp.styling = 'standard';
-  comp.appendChild(button);
-  comp.appendChild(buttonMenu);
+  comp.appendChild(title);
+  comp.appendChild(subtitle);
+  comp.open();
   return comp;
 }
 </script>
