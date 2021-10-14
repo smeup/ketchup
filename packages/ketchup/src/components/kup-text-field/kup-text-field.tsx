@@ -264,7 +264,6 @@ export class KupTextField {
     kupTextFieldSubmit: EventEmitter<KupTextFieldEventPayload>;
 
     onKupBlur(event: FocusEvent & { target: HTMLInputElement }) {
-        console.log('blur');
         const { target } = event;
         this.kupBlur.emit({
             comp: this,
