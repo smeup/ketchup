@@ -4,7 +4,35 @@
 }
 
 #kup-component {
+  transition: background-color 0.2s;
   width: max-content;
+
+  &:hover {
+    background-color: rgba(var(--kup-text-color-rgb), 0.1);
+  }
+
+  .mdc-text-field:not(.mdc-text-field--disabled) {
+    cursor: pointer;
+
+    input {
+      cursor: pointer;
+    }
+
+    .icon-container {
+      background-color: var(
+        --kup_colorpicker_thumb_color,
+        var(--kup-icon-color)
+      );
+    }
+  }
+
+  .thumb-icon {
+    .icon-container {
+      border: 3px solid rgba(var(--kup-text-color-rgb), 0.575);
+      border-radius: 50%;
+      box-sizing: border-box;
+    }
+  }
 }
 
 .color-picker {
@@ -19,25 +47,5 @@
 
   &:disabled {
     cursor: default;
-  }
-}
-
-#kup-component .mdc-text-field:not(.mdc-text-field--disabled) {
-  cursor: pointer;
-
-  input {
-    cursor: pointer;
-  }
-
-  .icon-container {
-    background-color: var(--kup_colorpicker_thumb_color, var(--kup-icon-color));
-  }
-}
-
-#kup-component .thumb-icon {
-  .icon-container {
-    border: 3px solid rgba(var(--kup-text-color-rgb), 0.575);
-    border-radius: 50%;
-    box-sizing: border-box;
   }
 }
