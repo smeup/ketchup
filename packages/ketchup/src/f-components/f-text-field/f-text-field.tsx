@@ -18,12 +18,6 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
             {...props.dataSet}
             id={props.id}
             title={props.title}
-            onBlur={props.onBlur}
-            onClick={props.onClick}
-            onChange={props.onChange}
-            onFocus={props.onFocus}
-            onInput={props.onInput}
-            onKeyDown={props.onKeyDown}
         >
             {props.leadingLabel || props.trailingLabel ? (
                 <div
@@ -117,6 +111,12 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                         readOnly={props.readOnly}
                         maxlength={props.maxLength}
                         value={props.value}
+                        onBlur={props.onBlur}
+                        onClick={props.onClick}
+                        onChange={props.onChange}
+                        onFocus={props.onFocus}
+                        onInput={props.onInput}
+                        onKeyDown={props.onKeyDown}
                     ></textarea>
                 </span>
             ) : (
@@ -131,6 +131,12 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     placeholder={props.fullWidth ? props.label : undefined}
                     maxlength={props.maxLength}
                     value={props.value}
+                    onBlur={props.onBlur}
+                    onClick={props.onClick}
+                    onChange={props.onChange}
+                    onFocus={props.onFocus}
+                    onInput={props.onInput}
+                    onKeyDown={props.onKeyDown}
                 ></input>
             )}
             {props.isClearable ? (
