@@ -517,7 +517,6 @@ table#customstyle-tab kup-text-field {
   }
 
   .kup-container {
-    display: block;
     margin: 3em 0;
   }
 }
