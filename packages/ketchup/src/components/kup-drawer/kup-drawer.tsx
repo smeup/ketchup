@@ -10,9 +10,7 @@ import {
     Prop,
     State,
     VNode,
-    Watch,
 } from '@stencil/core';
-
 import {
     GenericObject,
     KupComponent,
@@ -171,8 +169,6 @@ export class KupDrawer {
      * Reads the slots returning them as an array of virtual nodes.
      */
     private content(): VNode[] {
-        let subtitle: VNode = null;
-        let title: VNode = null;
         const contentSlots: VNode[] = [];
         const slots: Array<HTMLElement> = Array.prototype.slice.call(
             this.rootElement.children,
@@ -180,26 +176,7 @@ export class KupDrawer {
         );
         const content: VNode[] = [];
         for (let index = 0; index < slots.length; index++) {
-            const slot: HTMLElement = slots[index];
-            if (slot.slot === 'subtitle') {
-                subtitle = <slot name="subtitle" />;
-            } else if (slot.slot === 'title') {
-                title = <slot name="title" />;
-            } else {
-                contentSlots.push(<slot></slot>);
-            }
-        }
-        if (subtitle || title) {
-            content.push(
-                <div class={`${drawerClass}__header`}>
-                    {title ? (
-                        <div class={`${drawerClass}__title`}>{title}</div>
-                    ) : null}
-                    {subtitle ? (
-                        <div class={`${drawerClass}__subtitle`}>{subtitle}</div>
-                    ) : null}
-                </div>
-            );
+            contentSlots.push(<slot></slot>);
         }
         content.push(
             <div class={`${drawerClass}__content`}>{contentSlots}</div>

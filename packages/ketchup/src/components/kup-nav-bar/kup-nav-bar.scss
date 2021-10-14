@@ -1,56 +1,65 @@
 /**
-* @prop --kup-navbar_box-shadow: Box shadow of the component.
-* @prop --kup-navbar_padding: Padding of the component.
-* @prop --kup-navbar_position: CSS positioning of the component.
-* @prop --kup-navbar_width: Width of the component.
-* @prop --kup-navbar_short-border-radius: Border radius of the component when in short mode.
-* @prop --kup-navbar_short-box-shadow: Box shadow of the component when in short mode.
-* @prop --kup-navbar_short-width: Width of the component when in short mode.
-* @prop --kup-navbar_transition: Transition time of the component.
+* @prop --kup-navbar-box-shadow: Box shadow of the component.
+* @prop --kup-navbar-padding: Padding of the component.
+* @prop --kup-navbar-position: CSS positioning of the component.
+* @prop --kup-navbar-short-border-radius: Border radius of the component when in short mode.
+* @prop --kup-navbar-short-box-shadow: Box shadow of the component when in short mode.
+* @prop --kup-navbar-short-width: Width of the component when in short mode.
+* @prop --kup-navbar-transition: Transition time of the component.
+* @prop --kup-navbar-width: Width of the component.
 */
 
 :host {
-  --kup-navbar_box-shadow: 0 2px 4px -1px rgba(128, 128, 128, 0.2),
+  --kup_navbar_box_shadow: var(
+    --kup-navbar-box-shadow,
+    0 2px 4px -1px rgba(128, 128, 128, 0.2),
     0 4px 5px 0 rgba(128, 128, 128, 0.14),
-    0 1px 10px 0 rgba(128, 128, 128, 0.12);
-  --kup-navbar_padding: 8px 12px;
-  --kup-navbar_position: fixed;
-  --kup-navbar_short-border-radius: 0px 0px 24px;
-  --kup-navbar_short-box-shadow: rgba(128, 128, 128, 0.2) 0px 2px 4px -1px,
+    0 1px 10px 0 rgba(128, 128, 128, 0.12)
+  );
+  --kup_navbar_padding: var(--kup-navbar-padding, 8px 12px);
+  --kup_navbar_position: var(--kup-navbar-position, fixed);
+  --kup_navbar_short_border_radius: var(
+    --kup-navbar-short-border-radius,
+    0px 0px 24px
+  );
+  --kup_navbar_short_box_shadow: var(
+    --kup-navbar-short-box-shadow,
+    rgba(128, 128, 128, 0.2) 0px 2px 4px -1px,
     rgba(128, 128, 128, 0.14) 0px 4px 5px 0px,
-    rgba(128, 128, 128, 0.12) 0px 1px 10px 0px;
-  --kup-navbar_short-width: 9em;
-  --kup-navbar_transition: 250ms;
-  --kup-navbar_width: 100%;
+    rgba(128, 128, 128, 0.12) 0px 1px 10px 0px
+  );
+  --kup_navbar_short_width: var(--kup-navbar-short-width, 9em);
+  --kup_navbar_transition: var(--kup-navbar-transition, 250ms);
+  --kup_navbar_width: var(--kup-navbar-width, 100%);
 
   box-sizing: border-box;
   font-size: var(--kup-font-size);
   left: 0;
-  position: var(--kup-navbar_position);
+  position: var(--kup_navbar_position);
   top: 0;
-  transition: all var(--kup-navbar_transition);
-  width: var(--kup-navbar_width);
+  transition: all var(--kup_navbar_transition);
+  width: var(--kup_navbar_width);
   z-index: var(--kup-navbar-zindex);
 }
 
 #kup-component {
-  width: var(--kup-navbar_width);
+  width: var(--kup_navbar_width);
 }
 
 .nav-bar {
   background-color: var(--kup-navbar-background-color);
-  box-shadow: var(--kup-navbar_box-shadow);
+  box-shadow: var(--kup_navbar_box_shadow);
   box-sizing: border-box;
-  color: var(--dyn-color, white);
+  color: var(--kup-navbar-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: var(--kup-navbar_width);
+  width: var(--kup_navbar_width);
 
   &--short {
-    border-radius: var(--kup-navbar_short-border-radius);
-    box-shadow: var(--kup-navbar_short-box-shadow);
-    width: var(--kup-navbar_short-width);
+    border-radius: var(--kup_navbar_short_border_radius);
+    box-shadow: var(--kup_navbar_short_box_shadow);
+    width: var(--kup_navbar_short_width);
 
     .nav-bar__section {
       padding: 0 0.5em;
@@ -62,18 +71,18 @@
   }
 
   ::slotted(*) {
-    --kup-button_primary-color: var(--kup-navbar-color);
-    --kup-button_primary-color-rgb: var(--kup-navbar-color-rgb);
-    --kup-button_primary-color-h: var(--kup-navbar-color-h);
-    --kup-button_primary-color-s: var(--kup-navbar-color-s);
-    --kup-button_primary-color-l: var(--kup-navbar-color-l);
-    --kup-switch_label-color: var(--kup-navbar-color);
-    --kup-switch_primary-color: var(--kup-navbar-color);
-    --kup-switch_primary-color-rgb: var(--kup-navbar-color-rgb);
-    --kup-textfield_color: var(--kup-navbar-color);
-    --kup-textfield_color-rgb: var(--kup-navbar-color-rgb);
-    --kup-tree_color: var(--kup-navbar-color);
-    --kup-tree_color-rgb: var(--kup-navbar-color-rgb);
+    --kup-button-primary-color: var(--kup-navbar-color);
+    --kup-button-primary-color-rgb: var(--kup-navbar-color-rgb);
+    --kup-button-primary-color-h: var(--kup-navbar-color-h);
+    --kup-button-primary-color-s: var(--kup-navbar-color-s);
+    --kup-button-primary-color-l: var(--kup-navbar-color-l);
+    --kup-switch-label-color: var(--kup-navbar-color);
+    --kup-switch-primary-color: var(--kup-navbar-color);
+    --kup-switch-primary-color-rgb: var(--kup-navbar-color-rgb);
+    --kup-textfield-color: var(--kup-navbar-color);
+    --kup-textfield-color-rgb: var(--kup-navbar-color-rgb);
+    --kup-tree-color: var(--kup-navbar-color);
+    --kup-tree-color-rgb: var(--kup-navbar-color-rgb);
 
     color: var(--kup-navbar-color);
     fill: var(--kup-navbar-color);
@@ -86,7 +95,7 @@
   display: flex;
   height: var(--kup-navbar-height);
   position: relative;
-  width: var(--kup-navbar_width);
+  width: var(--kup_navbar_width);
 }
 
 .nav-bar__section {
@@ -94,7 +103,7 @@
   display: inline-flex;
   flex: 1 1 auto;
   min-width: 0;
-  padding: var(--kup-navbar_padding);
+  padding: var(--kup_navbar_padding);
 
   &--align-start {
     flex-shrink: 5;
@@ -110,18 +119,20 @@
 }
 
 ::slotted(*) {
-  --kup-button_primary-color: var(--kup-navbar-color);
-  --kup-button_primary-color-rgb: var(--kup-navbar-color-rgb);
-  --kup-button_primary-color-h: var(--kup-navbar-color-h);
-  --kup-button_primary-color-s: var(--kup-navbar-color-s);
-  --kup-button_primary-color-l: var(--kup-navbar-color-l);
-  --kup-switch_label-color: var(--kup-navbar-color);
-  --kup-switch_primary-color: var(--kup-navbar-color);
-  --kup-switch_primary-color-rgb: var(--kup-navbar-color-rgb);
-  --kup-textfield_color: var(--kup-navbar-color);
-  --kup-textfield_color-rgb: var(--kup-navbar-color-rgb);
-  --kup-tree_color: var(--kup-navbar-color);
-  --kup-tree_color-rgb: var(--kup-navbar-color-rgb);
+  --kup-button-primary-color: var(--kup-navbar-color);
+  --kup-button-primary-color-rgb: var(--kup-navbar-color-rgb);
+  --kup-button-primary-color-h: var(--kup-navbar-color-h);
+  --kup-button-primary-color-s: var(--kup-navbar-color-s);
+  --kup-button-primary-color-l: var(--kup-navbar-color-l);
+  --kup-switch-label-color: var(--kup-navbar-color);
+  --kup-switch-primary-color: var(--kup-navbar-color);
+  --kup-switch-primary-color-rgb: var(--kup-navbar-color-rgb);
+  --kup-textfield-color: var(--kup-navbar-color);
+  --kup-textfield-color-rgb: var(--kup-navbar-color-rgb);
+  --kup-textfield-primary-color: var(--kup-navbar-color);
+  --kup-textfield-primary-color-rgb: var(--kup-navbar-color-rgb);
+  --kup-tree-color: var(--kup-navbar-color);
+  --kup-tree-color-rgb: var(--kup-navbar-color-rgb);
 
   color: var(--kup-navbar-color);
   fill: var(--kup-navbar-color);

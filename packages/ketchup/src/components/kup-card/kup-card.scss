@@ -4,21 +4,30 @@
 @import 'scalable/kup-card-scalable';
 @import 'standard/kup-card-standard';
 
+/**
+* @prop --kup-card-ripple-color: Sets color of ripple effect (for Material layouts).
+*/
+
 :host {
+  --kup_card_ripple_color: var(
+    --kup-card-ripple-color,
+    var(--kup-primary-color)
+  );
+
   display: block;
   font-size: var(--kup-font-size);
+  height: var(--kup_card_height);
+  min-height: var(--kup_card_height);
+  min-width: var(--kup_card_width);
   outline: none;
   position: relative;
-  min-height: var(--kup-card-height);
-  height: var(--kup-card-height);
-  min-width: var(--kup-card-width);
-  width: var(--kup-card-width);
+  width: var(--kup_card_width);
 }
 
 :host([is-menu]) {
   #kup-component {
-    display: none;
     animation: fadeInFromNone 0.25s ease-out;
+    display: none;
   }
 }
 
@@ -42,7 +51,7 @@
 
   &:before,
   &:after {
-    background-color: var(--kup-primary-color);
+    background-color: var(--kup_card_ripple_color);
   }
 }
 

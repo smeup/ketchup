@@ -256,7 +256,9 @@ export class KupRadio {
         }
 
         const hostStyle: GenericObject = {
-            '--grid-columns': hasColumns ? `repeat(${this.columns}, 1fr)` : '',
+            '--kup_radio_columns': hasColumns
+                ? `repeat(${this.columns}, 1fr)`
+                : '',
         };
         const classObj: GenericObject = {
             'radio-wrapper': true,

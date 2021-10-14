@@ -10,6 +10,7 @@
     </div>
     <kup-nav-bar id="app__nav-bar" @kup-navbar-resize="redrawNavigation">
       <kup-switch
+        class="kup-secondary"
         id="theme-switch"
         label="Dark Mode"
         leading-label
@@ -957,21 +958,9 @@ a.footer__icon--trailing {
   }
 }
 
-@media only screen and (min-width: 960px) {
-  #app__container {
-    max-width: 900px;
-  }
-}
-
-@media only screen and (min-width: 1264px) {
-  #app__container {
-    max-width: 1185px;
-  }
-}
-
-@media only screen and (min-width: 1904px) {
-  #app__container {
-    max-width: 1785px;
+@media only screen and (max-width: 1263px) {
+  kup-drawer {
+    position: absolute;
   }
 }
 </style>

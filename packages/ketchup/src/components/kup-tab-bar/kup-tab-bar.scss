@@ -1,17 +1,48 @@
+/**
+* @prop --kup-tabbar-font-family: Sets font family of the component.
+* @prop --kup-tabbar-font-size: Sets font size of the component.
+* @prop --kup-tabbar-font-weight: Sets font weight of the component.
+* @prop --kup-tabbar-height: Sets height of the component.
+* @prop --kup-tabbar-primary-color: Sets primary color of the component.
+* @prop --kup-tabbar-primary-color-rgb: Sets primary color RGB values of the component (used for shaders).
+* @prop --kup-tabbar-tab-padding: Sets padding of each tab.
+*/
+
 :host {
+  --kup_tabbar_font_family: var(
+    --kup-tabbar-font-family,
+    var(--kup-font-family)
+  );
+  --kup_tabbar_font_size: var(--kup-tabbar-font-size, var(--kup-font-size));
+  --kup_tabbar_font_weight: var(--kup-tabbar-font-weight, 500);
+  --kup_tabbar_height: var(--kup-tabbar-height, 36px);
+  --kup_tabbar_primary_color: var(
+    --kup-tabbar-primary-color,
+    var(--kup-primary-color)
+  );
+  --kup_tabbar_primary_color_rgb: var(
+    --kup-tabbar-primary-color-rgb,
+    var(--kup-primary-color-rgb)
+  );
+  --kup_tabbar_tab_padding: var(--kup-tabbar-tab-padding, 0 24px);
+
   display: block;
-  font-size: var(--kup-font-size);
+  font-family: var(--kup_tabbar_font_family);
+  font-size: var(--kup_tabbar_font_size);
 }
 
 .tab-bar {
   width: 100%;
+
   .tab-scroller {
-    height: 36px;
+    height: var(--kup_tabbar_height);
     overflow-y: hidden;
+
     .tab-scroller__scroll-area {
       display: flex;
       overflow-x: hidden;
       overflow: auto;
+
       .tab-scroller__scroll-content {
         position: relative;
         display: flex;
@@ -23,7 +54,7 @@
 
     .tab {
       -webkit-font-smoothing: antialiased;
-      padding: 0px 24px;
+      padding: var(--kup_tabbar_tab_padding);
       min-width: 90px;
       position: relative;
       display: flex;
@@ -39,22 +70,19 @@
       cursor: pointer;
       appearance: none;
       z-index: 1;
-      height: 36px;
-      font-family: var(--kup-font-family);
+      height: var(--kup_tabbar_height);
       font-size: 0.875em;
-      font-weight: 500;
+      font-weight: var(--kup_tabbar_font_weight);
       letter-spacing: 0.0892857143em;
       text-transform: uppercase;
 
-      :not(.tab--stacked) {
-        .tab__icon + .tab__text-label {
-          padding-left: 8px;
-          padding-right: 0px;
-        }
+      .tab__icon + .tab__text-label {
+        padding-left: 8px;
+        padding-right: 0px;
       }
 
       &:hover {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.075);
+        background-color: rgba(var(--kup_tabbar_primary_color_rgb), 0.075);
       }
     }
 
@@ -65,14 +93,16 @@
       justify-content: center;
       height: inherit;
       pointer-events: none;
+
       .tab__icon {
         transition: color 150ms linear 0s;
         width: 24px;
         height: 24px;
         font-size: 24px;
         z-index: 2;
+
         &.icon-container {
-          background-color: var(--kup-primary-color);
+          background-color: var(--kup_tabbar_primary_color);
           height: 24px;
           width: 24px;
         }
@@ -83,7 +113,7 @@
         display: inline-block;
         line-height: 1;
         z-index: 2;
-        color: var(--kup-primary-color);
+        color: var(--kup_tabbar_primary_color);
       }
     }
 
@@ -105,9 +135,10 @@
       }
 
       .tab-indicator__content {
-        border-color: var(--kup-primary-color);
+        border-color: var(--kup_tabbar_primary_color);
         transform-origin: left center;
         opacity: 0;
+
         &.tab-indicator__content--underline {
           align-self: flex-end;
           box-sizing: border-box;

@@ -307,13 +307,24 @@ export class KupChip {
 
     render() {
         const props: FChipsProps = {
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
             data: this.data,
             dataNew: this.dataNew,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
             type: this.type,
-            onBlur: [],
-            onClick: [],
-            onFocus: [],
-            onIconClick: [],
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
         };
         for (let j = 0; j < this.data.length; j++) {
             props.onClick.push(() => this.onKupClick(j));

@@ -2,8 +2,8 @@
   display: block;
   margin: auto;
   position: relative;
-  height: var(--f-image-height, 100%);
-  width: var(--f-image-width, 100%);
+  height: var(--kup_image_height, 100%);
+  width: var(--kup_image_width, 100%);
 
   &.#{$kup-class-fit} {
     img {
@@ -15,20 +15,20 @@
   img {
     display: block;
     margin: auto;
-    height: var(--f-image-height, 100%);
-    width: var(--f-image-width, 100%);
+    height: var(--kup_image_height, 100%);
+    width: var(--kup_image_width, 100%);
   }
 
   .f-image__css {
     overflow: hidden;
-    height: var(--f-image-height, 100%);
-    width: var(--f-image-width, 100%);
+    height: var(--kup_image_height, 100%);
+    width: var(--kup_image_width, 100%);
   }
 
   .f-image__icon {
     margin: auto;
-    height: var(--f-image-height, 100%);
-    width: var(--f-image-width, 100%);
+    height: var(--kup_image_height, 100%);
+    width: var(--kup_image_width, 100%);
   }
 
   .css-step.bottom-aligned {

@@ -9,7 +9,7 @@
         >
         <li
           ><span class="code-word">kup-permanent</span> in order to make the
-          drawer permanent on the screen</li
+          drawer permanent on the screen (usually for desktop applications)</li
         >
       </ul>
       <br />
@@ -39,7 +39,7 @@ export default {
     };
   },
   methods: {
-    Updrawer1: function() {
+    Updrawer1: function () {
       const sideDrawer1 = document.getElementById('seconddrawer');
       if (!sideDrawer1.opened) {
         sideDrawer1.open();

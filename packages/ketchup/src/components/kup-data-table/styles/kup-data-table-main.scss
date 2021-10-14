@@ -23,27 +23,45 @@
      */
 
 /**
-* @prop --kup-datatable_background-color: Sets background color of the component.
-* @prop --kup-datatable_border: Sets border of the component.
-* @prop --kup-datatable_color: Sets text color of the component.
-* @prop --kup-datatable_font-family: Sets font family of the component.
-* @prop --kup-datatable_font-family-monospace: Sets monospace font family of the component (for numbers).
-* @prop --kup-datatable_font-size: Sets font size of the component.
-* @prop --kup-datatable_th-border: Sets border of the th elements.
+* @prop --kup-datatable-background-color: Sets background color of the component.
+* @prop --kup-datatable-border: Sets border of the component.
+* @prop --kup-datatable-color: Sets text color of the component.
+* @prop --kup-datatable-font-family: Sets font family of the component.
+* @prop --kup-datatable-font-family-monospace: Sets monospace font family of the component (for numbers).
+* @prop --kup-datatable-font-size: Sets font size of the component.
+* @prop --kup-datatable-th-border: Sets border of the th elements.
 */
 
 :host {
-  --kup-datatable_background-color: var(--kup-background-color);
-  --kup-datatable_border: 1px solid var(--kup-border-color);
-  --kup-datatable_color: var(--kup-text-color)
-  --kup-datatable_font-family: var(--kup-font-family);
-  --kup-datatable_font-family-monospace: var(--kup-font-family-monospace);
-  --kup-datatable_font-size: var(--kup-font-size);
-  --kup-datatable_th-border: 1px solid var(--kup-border-color);
+  --kup_datatable_background_color: var(
+    --kup-datatable-background-color,
+    var(--kup-background-color)
+  );
+  --kup_datatable_border: var(
+    --kup-datatable-border,
+    1px solid var(--kup-border-color)
+  );
+  --kup_datatable_color: var(--kup-datatable-color, var(--kup-text-color));
+  --kup_datatable_font_family: var(
+    --kup-datatable-font-family,
+    var(--kup-font-family)
+  );
+  --kup_datatable_font_family_monospace: var(
+    --kup-datatable-font-family-monospace,
+    var(--kup-font-family-monospace)
+  );
+  --kup_datatable_font_size: var(
+    --kup-datatable-font-size,
+    var(--kup-font-size)
+  );
+  --kup_datatable_th_border: var(
+    --kup-datatable-th-border,
+    1px solid var(--kup-border-color)
+  );
 
   display: block;
-  font-family: var(--kup-datatable_font-family);
-  font-size: var(--kup-datatable_font-size);
+  font-family: var(--kup_datatable_font_family);
+  font-size: var(--kup_datatable_font_size);
   position: relative;
 }
 
@@ -58,10 +76,10 @@
 
 table {
   // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
-  background-color: var(--kup-datatable_background-color);
+  background-color: var(--kup_datatable_background_color);
   border-spacing: 0; // [TFixed-1]
   border-collapse: separate; // [TFixed-1]
-  color: var(--kup-datatable_color);
+  color: var(--kup_datatable_color);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
   min-width: -moz-max-content; /* Firefox/Gecko */
   min-width: -webkit-max-content; /* Chrome */
@@ -85,34 +103,34 @@ table {
 
     > td {
       &:first-of-type {
-        border-left: var(--kup-datatable_border);
+        border-left: var(--kup_datatable_border);
       }
 
       &:last-of-type {
-        border-right: var(--kup-datatable_border);
+        border-right: var(--kup_datatable_border);
       }
     }
 
     // ALso the last row must always have the border bottom property
     &:last-of-type > td {
-      border-bottom: var(--kup-datatable_border);
+      border-bottom: var(--kup_datatable_border);
     }
   }
 
   // When table header is not visible the table needs a border to,
   // so the first row gets added a border
   &.border-top > tbody > tr:first-of-type > td {
-    border-top: var(--kup-datatable_border);
+    border-top: var(--kup_datatable_border);
   }
 
   // If row separation is specified, all rows gets a border bottom
   &.row-separation > tbody > tr > td {
-    border-bottom: var(--kup-datatable_border);
+    border-bottom: var(--kup_datatable_border);
   }
 
   // If column separation is specified, all rows gets a border bottom
   &.column-separation > tbody > tr > td {
-    border-right: var(--kup-datatable_border);
+    border-right: var(--kup_datatable_border);
   }
 
   &.noGrid {
@@ -124,18 +142,18 @@ table {
 
   tfoot {
     td {
-      border-bottom: var(--kup-datatable_border);
-      border-right: var(--kup-datatable_border);
+      border-bottom: var(--kup_datatable_border);
+      border-right: var(--kup_datatable_border);
       box-sizing: border-box;
       height: 36px;
       text-align: right;
       font-weight: bold;
       padding: 0.5em 0.3125em;
       &:hover {
-        background-color: var(--kup-datatable_background-color);
+        background-color: var(--kup_datatable_background_color);
       }
       &:first-of-type {
-        border-left: var(--kup-datatable_border);
+        border-left: var(--kup_datatable_border);
       }
     }
   }
@@ -225,26 +243,26 @@ table {
 
 .fontsize- {
   &small {
-    font-size: calc(var(--kup-datatable_font-size) * 0.75);
+    font-size: calc(var(--kup_datatable_font_size) * 0.75);
     transition: font-size 0.1s;
 
     .group-cell-content {
       > span {
         &:before {
-          font-size: calc(var(--kup-datatable_font-size) * 1) !important;
+          font-size: calc(var(--kup_datatable_font_size) * 1) !important;
         }
       }
     }
   }
 
   &big {
-    font-size: calc(var(--kup-datatable_font-size) * 1.25);
+    font-size: calc(var(--kup_datatable_font_size) * 1.25);
     transition: font-size 0.1s;
 
     .group-cell-content {
       > span {
         &:before {
-          font-size: calc(var(--kup-datatable_font-size) * 1.5) !important;
+          font-size: calc(var(--kup_datatable_font_size) * 1.5) !important;
         }
       }
     }
@@ -255,7 +273,7 @@ thead {
   th {
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);
-    border: var(--kup-datatable_th-border);
+    border: var(--kup_datatable_th_border);
     border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
     border-bottom-width: 2px;
     box-sizing: border-box;
@@ -268,7 +286,7 @@ thead {
 
     // The first cell must have border left to simulate table border.
     &:first-of-type {
-      border-left: var(--kup-datatable_th-border);
+      border-left: var(--kup_datatable_th_border);
     }
 
     //---- Column name container ----
@@ -333,7 +351,7 @@ tbody {
     // grouping
     &.group {
       background: var(--kup-title-background-color);
-      border-top: var(--kup-datatable_border);
+      border-top: var(--kup_datatable_border);
       color: var(--kup-title-color);
       font-weight: bold;
       cursor: pointer;
@@ -382,7 +400,7 @@ tbody {
 
       &.number {
         .cell-content {
-          font-family: var(--kup-datatable_font-family-monospace);
+          font-family: var(--kup_datatable_font_family_monospace);
           justify-content: flex-end;
         }
       }
@@ -498,7 +516,7 @@ tr {
   }
 
   td[row-action-cell] {
-    width: calc(3em * var(--row-actions));
+    width: calc(3em * var(--kup_datatable_row_actions));
     & .f-image--wrapper {
       cursor: pointer;
       margin-left: 0.75em;
@@ -561,7 +579,7 @@ th.obj:hover span:not(.overlay-action) {
     text-overflow: ellipsis;
     transition: color 200ms;
     &:hover {
-      color: var(--kup-datatable_color);
+      color: var(--kup_datatable_color);
     }
   }
 }
@@ -589,7 +607,7 @@ th.obj:hover span:not(.overlay-action) {
 
 .customize-panel {
   visibility: hidden;
-  background: var(--kup-datatable_background-color);
+  background: var(--kup_datatable_background_color);
   box-shadow: var(--kup-box-shadow);
   min-width: 200px;
   width: fit-content;
@@ -617,7 +635,7 @@ th.obj:hover span:not(.overlay-action) {
 }
 
 [kup-dialog] {
-  background-color: var(--kup-datatable_background-color);
+  background-color: var(--kup_datatable_background_color);
   margin: 0;
   position: fixed;
   transition: none;

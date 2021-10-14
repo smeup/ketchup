@@ -18,6 +18,7 @@ export interface FButtonProps extends FComponent {
     shaped?: boolean;
     slim?: boolean;
     styling?: FButtonStyling;
+    showSpinner?: boolean;
     toggable?: boolean;
     trailingIcon?: boolean;
 }

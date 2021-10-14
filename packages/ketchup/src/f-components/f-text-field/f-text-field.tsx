@@ -10,11 +10,15 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
 ) => {
     return (
         <div
-            class={`f-text-field--wrapper ${
+            class={`f-text-field--wrapper ${props.danger ? 'kup-danger' : ''} ${
                 props.fullHeight ? 'kup-full-height' : ''
-            } ${props.fullWidth ? 'kup-full-width' : ''} ${
-                props.shaped ? 'shaped' : ''
-            } ${props.wrapperClass ? props.wrapperClass : ''}`}
+            } ${props.fullWidth ? 'kup-full-width' : ''}  ${
+                props.info ? 'kup-info' : ''
+            } ${props.secondary ? 'kup-secondary' : ''} ${
+                props.shaped ? 'kup-shaped' : ''
+            } ${props.success ? 'kup-success' : ''} ${
+                props.warning ? 'kup-warning' : ''
+            }  ${props.wrapperClass ? props.wrapperClass : ''}`}
             {...props.dataSet}
             id={props.id}
             title={props.title}

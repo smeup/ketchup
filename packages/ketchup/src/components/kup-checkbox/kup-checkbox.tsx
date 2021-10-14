@@ -249,10 +249,25 @@ export class KupCheckbox {
     render() {
         const props: FCheckboxProps = {
             checked: this.checked,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
             disabled: this.disabled,
             indeterminate: this.indeterminate,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
             onBlur: () => this.onKupBlur(),
             onChange: () => this.onKupChange(),
             onFocus: () => this.onKupFocus(),

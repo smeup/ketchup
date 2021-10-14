@@ -22,34 +22,9 @@ export default {
     return {
       demoClasses: [
         {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
           class: 'kup-fit',
           description:
             "The component won't exceed its size in pixels (needs a new render to be effective, works only when resource is an URL).",
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
       demoComp: createComp(),

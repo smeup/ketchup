@@ -1,7 +1,6 @@
 <template>
   <div>
     <demo
-      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoMethods="demoMethods"
@@ -17,36 +16,9 @@ export default {
   components: {
     Demo,
   },
-  name: 'CheckboxDemo',
+  name: 'NavbarDemo',
   data() {
     return {
-      demoClasses: [
-        {
-          class: 'kup-danger',
-          description:
-            'The subcomponents will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The subcomponents will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The subcomponents will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The subcomponents will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The subcomponents will be rendered using the warning color of the app.',
-        },
-      ],
       demoComp: createComp(),
       demoEvents: [
         {
@@ -109,10 +81,6 @@ function createComp() {
   buttonMenu.slot = 'left';
   const comp = document.createElement('kup-nav-bar');
   comp.id = 'demo-component';
-  comp.image = {
-    resource: 'ketchup_logo_header.svg',
-  };
-  comp.label = ' Demo';
   comp.style.position = 'absolute';
   comp.style.top = '0';
   comp.style.zIndex = 'calc(var(--kup-navbar-zindex) - 1)';

@@ -145,7 +145,7 @@ export class KupGrid {
         }
 
         const style: GenericObject = {
-            ['--columns']: this.columns,
+            ['--kup_grid_columns']: this.columns,
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

@@ -171,7 +171,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `openColumnMenu(column: string) => Promise<void>`
 
@@ -228,13 +228,13 @@ Type: `Promise<void>`
 
 | Name                                    | Description                                                |
 | --------------------------------------- | ---------------------------------------------------------- |
-| `--kup-datatable_background-color`      | Sets background color of the component.                    |
-| `--kup-datatable_border`                | Sets border of the component.                              |
-| `--kup-datatable_color`                 | Sets text color of the component.                          |
-| `--kup-datatable_font-family`           | Sets font family of the component.                         |
-| `--kup-datatable_font-family-monospace` | Sets monospace font family of the component (for numbers). |
-| `--kup-datatable_font-size`             | Sets font size of the component.                           |
-| `--kup-datatable_th-border`             | Sets border of the th elements.                            |
+| `--kup-datatable-background-color`      | Sets background color of the component.                    |
+| `--kup-datatable-border`                | Sets border of the component.                              |
+| `--kup-datatable-color`                 | Sets text color of the component.                          |
+| `--kup-datatable-font-family`           | Sets font family of the component.                         |
+| `--kup-datatable-font-family-monospace` | Sets monospace font family of the component (for numbers). |
+| `--kup-datatable-font-size`             | Sets font size of the component.                           |
+| `--kup-datatable-th-border`             | Sets border of the th elements.                            |
 
 
 ## Dependencies
@@ -317,7 +317,6 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
   kup-tooltip --> kup-tree

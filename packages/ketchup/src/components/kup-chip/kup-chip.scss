@@ -1,4 +1,20 @@
+/**
+* NOTE: These variables are used in the related f-component.
+*
+* @prop --kup-chip-background-color: Sets background color of the component.
+* @prop --kup-chip-border-radius: Sets border radius of the chips.
+* @prop --kup-chip-font-family: Sets font family of the chips.
+* @prop --kup-chip-font-size: Sets font size of the chips.
+* @prop --kup-chip-font-weight: Sets font weight of the chips.
+* @prop --kup-chip-height: Sets height of the chips.
+* @prop --kup-chip-margin: Sets margin of the chips.
+* @prop --kup-chip-padding: Sets padding of the chips.
+* @prop --kup-chip-primary-color: Sets primary color of the component.
+* @prop --kup-chip-primary-color-rgb: Sets primary color RGB values of the component (used for shaders).
+* @prop --kup-chip-text-color: Sets text color of the component.
+* @prop --kup-chip-text-color-rgb: Sets text color RGB values of the component (used for shaders).
+*/
+
 :host {
   display: block;
-  font-size: var(--kup-font-size);
 }

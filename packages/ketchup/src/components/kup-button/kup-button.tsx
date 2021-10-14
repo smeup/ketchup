@@ -90,6 +90,11 @@ export class KupButton {
      */
     @Prop() styling: FButtonStyling = FButtonStyling.RAISED;
     /**
+     * When set to true, the button show a spinner received in slot.
+     * @default false
+     */
+    @Prop() showSpinner: boolean = false;
+    /**
      * When set to true, the icon button will be toggable on/off.
      * @default false
      */
@@ -265,6 +270,9 @@ export class KupButton {
     render() {
         const props: FButtonProps = {
             checked: this.checked,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
@@ -274,11 +282,17 @@ export class KupButton {
                 : false,
             icon: this.icon,
             iconOff: this.iconOff,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
             label: this.label,
             large: this.rootElement.classList.contains('kup-large')
                 ? true
                 : false,
             pulsating: this.rootElement.classList.contains('kup-pulsating')
+                ? true
+                : false,
+            secondary: this.rootElement.classList.contains('kup-secondary')
                 ? true
                 : false,
             shaped: this.rootElement.classList.contains('kup-shaped')
@@ -287,9 +301,16 @@ export class KupButton {
             slim: this.rootElement.classList.contains('kup-slim')
                 ? true
                 : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
             styling: this.styling,
+            showSpinner: this.showSpinner,
             toggable: this.toggable,
             trailingIcon: this.trailingIcon,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
             onBlur: () => this.onKupBlur(),
             onClick: () => this.onKupClick(),
             onFocus: () => this.onKupFocus(),

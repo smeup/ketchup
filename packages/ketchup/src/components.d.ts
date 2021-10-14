@@ -452,6 +452,11 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * When set to true, the button show a spinner received in slot.
+          * @default false
+         */
+        "showSpinner": boolean;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
@@ -3571,6 +3576,11 @@ declare namespace LocalJSX {
          */
         "onKup-button-focus"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
         /**
+          * When set to true, the button show a spinner received in slot.
+          * @default false
+         */
+        "showSpinner"?: boolean;
+        /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
          */
@@ -3965,7 +3975,6 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         "onKup-colorpicker-change"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
-        "onKup-colorpicker-input"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
           * @default false

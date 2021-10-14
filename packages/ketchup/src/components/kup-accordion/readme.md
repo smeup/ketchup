@@ -58,7 +58,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -95,18 +95,20 @@ Type: `Promise<void>`
 
 | Name                                     | Description                                                      |
 | ---------------------------------------- | ---------------------------------------------------------------- |
-| `--kup-accordion_background-color`       | Sets background of the component.                                |
-| `--kup-accordion_border`                 | Sets borders color of the accordion.                             |
-| `--kup-accordion_border-radius`          | Sets border radius of the first and last items of the accordion. |
-| `--kup-accordion_dropdown-icon-color`    | Sets color of the dropdown icon.                                 |
-| `--kup-accordion_font-family`            | Sets font family of the component.                               |
-| `--kup-accordion_font-size`              | Sets font size of the component.                                 |
-| `--kup-accordion_hover-background-color` | Sets background color of the hover effect.                       |
-| `--kup-accordion_hover-color`            | Sets text color of the hover effect.                             |
-| `--kup-accordion_padding`                | Sets padding of the accordion's items.                           |
-| `--kup-accordion_selection-color`        | Sets background color of a selected item.                        |
-| `--kup-accordion_text-color`             | Sets text color of the component.                                |
-| `--kup-accordion_transition`             | Sets transition duration for color and background-color.         |
+| `--kup-accordion-background-color`       | Sets background of the component.                                |
+| `--kup-accordion-border`                 | Sets borders color of the accordion.                             |
+| `--kup-accordion-border-radius`          | Sets border radius of the first and last items of the accordion. |
+| `--kup-accordion-dropdown-icon-color`    | Sets color of the dropdown icon.                                 |
+| `--kup-accordion-font-family`            | Sets font family of the component.                               |
+| `--kup-accordion-font-size`              | Sets font size of the component.                                 |
+| `--kup-accordion-hover-background-color` | Sets background color of the hover effect.                       |
+| `--kup-accordion-hover-color`            | Sets text color of the hover effect.                             |
+| `--kup-accordion-padding`                | Sets padding of the accordion's items.                           |
+| `--kup-accordion-primary-color`          | Sets primary color of the component.                             |
+| `--kup-accordion-primary-color-rgb`      | Sets primary color RGB values of the component.                  |
+| `--kup-accordion-text-color`             | Sets text color of the component.                                |
+| `--kup-accordion-text-on-primary-color`  | Sets text on primary color of the component.                     |
+| `--kup-accordion-transition`             | Sets transition duration for color and background-color.         |
 
 
 ## Dependencies
@@ -193,7 +195,6 @@ graph TD;
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge

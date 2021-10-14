@@ -218,6 +218,7 @@ import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-ma
 import type { KupDynamicPositionElement } from '@sme.up/ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type {
   GenericObject,
+  KupComponent,
   KupEventPayload,
 } from '@sme.up/ketchup/dist/types/types/GenericTypes';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
@@ -957,6 +958,7 @@ export default {
       } else {
         demoComponent.classList.remove(e.detail.id);
       }
+      (demoComponent as KupComponent).refresh();
     },
     /**
      * Enables/disables the specified boolean prop on DemoComponent.
