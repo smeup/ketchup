@@ -957,10 +957,4 @@ a.footer__icon--trailing {
     display: none;
   }
 }
-
-@media only screen and (max-width: 1263px) {
-  kup-drawer {
-    position: absolute;
-  }
-}
 </style>

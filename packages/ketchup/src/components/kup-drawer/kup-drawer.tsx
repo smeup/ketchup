@@ -217,7 +217,7 @@ export class KupDrawer {
         return (
             <Host kup-opened={this.opened}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div class="backdrop" onClick={() => this.close()} />
+                <div class="backdrop" onPointerDown={() => this.close()} />
                 <div id={componentWrapperId}>
                     <div class={drawerClass}>{this.content()}</div>
                 </div>

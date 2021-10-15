@@ -7,6 +7,7 @@
 * @prop --kup-tree-font-size: Sets font size of the component.
 * @prop --kup-tree-hover-color: Sets hover color of the component.
 * @prop --kup-tree-hover-background-color: Sets hover background color of the component.
+* @prop --kup-tree-icon-color: Sets icons color.
 * @prop --kup-tree-primary-color: Sets the primary color of the component.
 * @prop --kup-tree-primary-color-rgb: Sets the primary color RGB values of the component (used for shaders).
 * @prop --kup-tree-text-on-primary-color: Sets the text on primary color of the component.
@@ -27,6 +28,7 @@
     --kup-tree-hover-background-color,
     var(--kup-hover-background-color)
   );
+  --kup_tree_icon_color: var(--kup-tree-icon-color, var(--kup-icon-color));
   --kup_tree_primary_color: var(
     --kup-tree-primary-color,
     var(--kup-primary-color)
@@ -173,7 +175,7 @@
       }
 
       .icon-container:not(.is-image) {
-        background-color: var(--kup-icon-color);
+        background-color: var(--kup_tree_icon_color);
       }
 
       .icon-container.kup-tree__node__expander:not(.is-image) {
@@ -329,7 +331,7 @@ tfoot {
         color: var(--kup_tree_hover_color);
       }
 
-      .dropdown {
+      .kup-tree__icon {
         background-color: var(--kup_tree_hover_color);
       }
     }
@@ -390,7 +392,7 @@ tfoot {
     }
 
     .dropdown {
-      background-color: var(--kup-icon-color);
+      background-color: var(--kup_tree_icon_color);
       height: 1.5em;
       margin-left: auto;
       margin-right: 0;
