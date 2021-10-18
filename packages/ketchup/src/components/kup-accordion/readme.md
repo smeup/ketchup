@@ -5,10 +5,11 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type               | Default |
-| ------------- | -------------- | ------------------------------ | ------------------ | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`           | `''`    |
-| `data`        | --             | Data of the accordion.         | `KupAccordionData` | `null`  |
+| Property      | Attribute      | Description                                                     | Type               | Default |
+| ------------- | -------------- | --------------------------------------------------------------- | ------------------ | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`           | `''`    |
+| `data`        | --             | Data of the accordion.                                          | `KupAccordionData` | `null`  |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`          | `true`  |
 
 
 ## Events

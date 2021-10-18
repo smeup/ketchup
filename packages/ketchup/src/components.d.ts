@@ -79,6 +79,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default null
+         */
+        "ripple": boolean;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
@@ -3208,6 +3213,11 @@ declare namespace LocalJSX {
           * Fired when an item is selected.
          */
         "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
+        /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default null
+         */
+        "ripple"?: boolean;
     }
     interface KupAutocomplete {
         /**
