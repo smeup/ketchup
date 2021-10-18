@@ -15,6 +15,11 @@ const baseRoutes = [
 
 let basicRoutes = [
   {
+    path: `/accordion`,
+    name: 'accordion',
+    component: () => import(`@/views/basic/accordion/Accordion.vue`),
+  },
+  {
     path: `/autocomplete`,
     name: 'autocomplete',
     component: () => import(`@/views/basic/autocomplete/Autocomplete.vue`),
@@ -142,11 +147,6 @@ let basicRoutes = [
 ];
 
 let advancedRoutes = [
-  {
-    path: `/accordion`,
-    name: 'accordion',
-    component: () => import(`@/views/advanced/accordion/Accordion.vue`),
-  },
   {
     path: `/box`,
     name: 'box',

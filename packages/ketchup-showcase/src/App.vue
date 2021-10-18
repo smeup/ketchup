@@ -137,7 +137,7 @@ import type { Components } from '@sme.up/ketchup/dist/types/components';
 import type { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
-import type { KupAccordionTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-accordion/kup-accordion-declarations';
+import { KupTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tree/kup-tree-declarations';
 
 var debug: HTMLKupButtonElement = null;
 var drawer: HTMLKupDrawerElement = null;
@@ -245,14 +245,14 @@ export default {
         dom.ketchup.debug.toggle(true);
       }
     },
-    treeClick(e: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>): void {
+    treeClick(e: CustomEvent<KupTreeNodeSelectedEventPayload>): void {
       const route: Cell =
         e.detail.treeNode.cells && e.detail.treeNode.cells['ROUTE']
           ? e.detail.treeNode.cells['ROUTE']
           : null;
       if (route) {
         this.$router.push(route.value).catch(() => {});
-        drawer.isOpened().then((opened) => {
+        drawer.isOpened().then(() => {
           if (!drawer.classList.contains('kup-permanent')) {
             drawer.close();
           }
@@ -266,15 +266,6 @@ export default {
         children: [
           {
             children: [
-              {
-                cells: {
-                  ROUTE: {
-                    value: 'accordion',
-                  },
-                },
-                value: 'Accordion',
-                visible: true,
-              },
               {
                 cells: {
                   ROUTE: {
@@ -400,6 +391,15 @@ export default {
           },
           {
             children: [
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'accordion',
+                  },
+                },
+                value: 'Accordion',
+                visible: true,
+              },
               {
                 cells: {
                   ROUTE: {
@@ -951,9 +951,10 @@ a.footer__icon--trailing {
     padding-bottom: 2.5em;
   }
 
-  .navbar__title,
   .navbar__logo,
-  #debug-toggler {
+  #debug-toggler,
+  #app__footer,
+  #theme-switch {
     display: none;
   }
 }

@@ -422,7 +422,6 @@ const demoTypes: DemoTypeJson = {
   KupAccordionData: {
     keys: {
       columns: 'Column[]',
-      rows: ' Row[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
