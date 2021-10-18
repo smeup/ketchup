@@ -114,6 +114,14 @@ export default {
           default: 'null',
           try: 'json',
         },
+        {
+          prop: 'ripple',
+          description:
+            "When enabled displays Material's ripple effect on item headers.",
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
       ],
     };
   },

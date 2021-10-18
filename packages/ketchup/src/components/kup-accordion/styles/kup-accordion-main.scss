@@ -165,3 +165,12 @@
     }
   }
 }
+
+.mdc-ripple-surface {
+  --mdc-ripple-fg-opacity: 0.24;
+
+  &:before,
+  &:after {
+    background-color: var(--kup_accordion_primary_color);
+  }
+}

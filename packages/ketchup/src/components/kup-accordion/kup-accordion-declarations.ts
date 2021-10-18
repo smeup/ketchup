@@ -8,6 +8,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupAccordionProps {
     customStyle = 'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
     data = 'Data of the accordion.',
+    ripple = "When enabled displays Material's ripple effect on item headers.",
 }
 /**
  * Data of the accordion.

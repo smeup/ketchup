@@ -11,6 +11,7 @@ import {
     State,
     VNode,
 } from '@stencil/core';
+import { MDCRipple } from '@material/ripple';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -62,6 +63,11 @@ export class KupAccordion {
      * @default null
      */
     @Prop() data: KupAccordionData = null;
+    /**
+     * When enabled displays Material's ripple effect on item headers.
+     * @default null
+     */
+    @Prop() ripple: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -217,6 +223,7 @@ export class KupAccordion {
                     !isItemExpandible && isItemSelected ? true : false,
                 'accordion-item__header--expanded':
                     isItemExpandible && isItemSelected ? true : false,
+                'mdc-ripple-surface': this.ripple ? true : false,
             };
 
             const itemContentClass: GenericObject = {
@@ -275,6 +282,15 @@ export class KupAccordion {
     }
 
     componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            const rippleCells = root.querySelectorAll('.mdc-ripple-surface');
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
