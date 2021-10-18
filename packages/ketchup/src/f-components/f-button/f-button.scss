@@ -128,9 +128,9 @@
 
     &.button--floating {
       border-radius: 24px;
-      box-shadow: 0 3px 5px -1px rgba(var(--kup-text-color-rgb), 0.2),
-        0 6px 10px 0 rgba(var(--kup-text-color-rgb), 0.14),
-        0 1px 18px 0 rgba(var(--kup-text-color-rgb), 0.12);
+      box-shadow: 0 0.215em 0.35em -1px rgba(var(--kup-text-color-rgb), 0.2),
+        0 0.43em 0.71em 0 rgba(var(--kup-text-color-rgb), 0.14),
+        0 0.07em 1.285em 0 rgba(var(--kup-text-color-rgb), 0.12);
       font-weight: 500;
       font-size: 1em;
       height: 3.4em;
@@ -146,27 +146,27 @@
 
       &:hover,
       &:focus {
-        box-shadow: 0 5px 5px -3px rgba(var(--kup-text-color-rgb), 0.2),
-          0 8px 10px 1px rgba(var(--kup-text-color-rgb), 0.14),
-          0 3px 14px 2px rgba(var(--kup-text-color-rgb), 0.12);
+        box-shadow: 0 0.35em 0.35em -3px rgba(var(--kup-text-color-rgb), 0.2),
+          0 0.57em 0.71em 0.07em rgba(var(--kup-text-color-rgb), 0.14),
+          0 0.21em 1em 0.14em rgba(var(--kup-text-color-rgb), 0.12);
       }
 
       &:active {
-        box-shadow: 0 7px 8px -4px rgba(var(--kup-text-color-rgb), 0.2),
-          0 12px 17px 2px rgba(var(--kup-text-color-rgb), 0.14),
-          0 5px 22px 4px rgba(var(--kup-text-color-rgb), 0.12);
+        box-shadow: 0 0.5em 0.57em -4px rgba(var(--kup-text-color-rgb), 0.2),
+          0 0.85em 1.21em 0.14em rgba(var(--kup-text-color-rgb), 0.14),
+          0 0.35em 1.57em 0.28em rgba(var(--kup-text-color-rgb), 0.12);
       }
     }
 
     &.button--raised {
-      box-shadow: 0px 3px 1px -2px rgba(var(--kup-text-color-rgb), 0.125),
-        0px 2px 2px 0px rgba(var(--kup-text-color-rgb), 0.1),
-        0px 1px 5px 0px rgba(var(--kup-text-color-rgb), 0.075);
+      box-shadow: 0px 0.1em 0.1em 0 rgba(var(--kup-text-color-rgb), 0.125),
+        0px 0.2em 1em 0.1em rgba(var(--kup-text-color-rgb), 0.1),
+        0px 0.25em 1.5em 0.2em rgba(var(--kup-text-color-rgb), 0.075);
 
       &:hover {
-        box-shadow: 0px 5px 5px -3px rgba(var(--kup-text-color-rgb), 0.125),
-          0px 8px 10px 1px rgba(var(--kup-text-color-rgb), 0.1),
-          0px 3px 14px 2px rgba(var(--kup-text-color-rgb), 0.075);
+        box-shadow: 0 0.25em 0.25em 0 rgba(var(--kup-text-color-rgb), 0.125),
+          0 0.75em 1em 0.1em rgba(var(--kup-text-color-rgb), 0.1),
+          0 0.25em 1.5em 0.2em rgba(var(--kup-text-color-rgb), 0.075);
       }
     }
 
@@ -300,7 +300,7 @@
 
   &.#{$kup-class-slim} {
     button {
-      font-size: 0.75em;
+      font-size: 0.675em;
     }
   }
 

@@ -40,7 +40,6 @@ export const FButton: FunctionalComponent<FButtonProps> = (
             } ${props.warning ? 'kup-warning' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
-            part="kup-button"
             {...props.dataSet}
             id={props.id}
             title={props.title}

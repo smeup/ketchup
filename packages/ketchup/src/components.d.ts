@@ -5,14 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KupAccordionData, KupAccordionExpansionMode, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
-import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -28,6 +27,7 @@ import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
+import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
@@ -50,7 +50,7 @@ import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload
 export namespace Components {
     interface KupAccordion {
         /**
-          * This method collapse all items
+          * This method collapses all expandible items.
          */
         "collapseAll": () => Promise<void>;
         /**
@@ -65,14 +65,9 @@ export namespace Components {
          */
         "data": KupAccordionData;
         /**
-          * This method expand all items
+          * This method expands all expandible items.
          */
         "expandAll": () => Promise<void>;
-        /**
-          * The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.
-          * @default KupAccordionExpansionMode.SINGLE
-         */
-        "expansionMode": KupAccordionExpansionMode;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -80,29 +75,14 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * When set to true it activates the global filter.
-          * @default false
-         */
-        "globalFilter": boolean;
-        /**
-          * The mode of the global filter.
-          * @default KupGlobalFilterMode.SIMPLE
-         */
-        "globalFilterMode": KupGlobalFilterMode;
-        /**
-          * The value of the global filter.
-          * @default ""
-         */
-        "globalFilterValue": string;
-        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
-          * The names of the selected items.
-          * @default []
+          * When enabled displays Material's ripple effect on item headers.
+          * @default null
          */
-        "selectedItemsNames": string[];
+        "ripple": boolean;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -3230,54 +3210,14 @@ declare namespace LocalJSX {
          */
         "data"?: KupAccordionData;
         /**
-          * The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.
-          * @default KupAccordionExpansionMode.SINGLE
-         */
-        "expansionMode"?: KupAccordionExpansionMode;
-        /**
-          * When set to true it activates the global filter.
-          * @default false
-         */
-        "globalFilter"?: boolean;
-        /**
-          * The mode of the global filter.
-          * @default KupGlobalFilterMode.SIMPLE
-         */
-        "globalFilterMode"?: KupGlobalFilterMode;
-        /**
-          * The value of the global filter.
-          * @default ""
-         */
-        "globalFilterValue"?: string;
-        /**
-          * Fired when an item is collapsed.
-         */
-        "onKup-accordion-itemcollapsed"?: (event: CustomEvent<KupAccordionItemCollapsedEventPayload>) => void;
-        /**
-          * Fired when an item is expanded.
-         */
-        "onKup-accordion-itemexpanded"?: (event: CustomEvent<KupAccordionItemExpandedEventPayload>) => void;
-        /**
           * Fired when an item is selected.
          */
         "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
         /**
-          * Fired when a TreeNode is collapsed.
+          * When enabled displays Material's ripple effect on item headers.
+          * @default null
          */
-        "onKup-accordion-treenodecollapsed"?: (event: CustomEvent<KupAccordionTreeNodeCollapsedEventPayload>) => void;
-        /**
-          * Fired when a TreeNode is expanded.
-         */
-        "onKup-accordion-treenodeexpanded"?: (event: CustomEvent<KupAccordionTreeNodeExpandedEventPayload>) => void;
-        /**
-          * Fired when a TreeNode is selected.
-         */
-        "onKup-accordion-treenodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
-        /**
-          * The names of the selected items.
-          * @default []
-         */
-        "selectedItemsNames"?: string[];
+        "ripple"?: boolean;
     }
     interface KupAutocomplete {
         /**

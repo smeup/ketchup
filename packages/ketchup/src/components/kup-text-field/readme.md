@@ -125,7 +125,6 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-accordion](../kup-accordion)
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-date-picker](../kup-date-picker)
@@ -137,7 +136,6 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-accordion --> kup-text-field
   kup-box --> kup-text-field
   kup-card --> kup-text-field
   kup-date-picker --> kup-text-field

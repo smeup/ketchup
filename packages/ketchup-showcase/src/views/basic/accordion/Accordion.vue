@@ -3,15 +3,20 @@
     <template v-slot:0>
       <accordion-demo></accordion-demo>
     </template>
+    <template v-slot:1>
+      <accordion-basic></accordion-basic>
+    </template>
   </comp>
 </template>
 
 <script>
-import AccordionDemo from '@/views/advanced/accordion/examples/AccordionDemo';
+import AccordionBasic from '@/views/basic/accordion/examples/AccordionBasic';
+import AccordionDemo from '@/views/basic/accordion/examples/AccordionDemo';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
+    AccordionBasic,
     AccordionDemo,
     Comp,
   },
@@ -20,7 +25,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-accordion',
       headtitle: 'Accordion',
-      titles: ['Playground'],
+      titles: ['Playground', 'Basic usage'],
     };
   },
 };

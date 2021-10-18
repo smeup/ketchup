@@ -13,6 +13,7 @@
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
 import { defaultData } from '@/mock/accordion';
+import { defaultDataTable } from '@/mock/dataTable';
 
 export default {
   components: {
@@ -67,28 +68,16 @@ export default {
           name: 'kup-accordion-itemselected',
           type: 'CustomEvent',
         },
-        {
-          name: 'kup-accordion-treenodeselected',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kup-accordion-itemexpanded',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kup-accordion-treenodeexpanded',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kup-accordion-itemcollapsed',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kup-accordion-treenodecollapsed',
-          type: 'CustomEvent',
-        },
       ],
       demoMethods: [
+        {
+          name: 'collapseAll',
+          description: 'Collapses all expandible items.',
+        },
+        {
+          name: 'expandAll',
+          description: 'Expands all expandible items.',
+        },
         {
           name: 'getProps',
           description:
@@ -105,7 +94,8 @@ export default {
         },
         {
           name: 'toggleItem',
-          description: 'This method expands or collapses the given item.',
+          description:
+            "This method expands/collapses the given expandible item or selects/unselectes it in case it's not expandible.",
         },
       ],
       demoProps: [
@@ -125,41 +115,12 @@ export default {
           try: 'json',
         },
         {
-          prop: 'expansionMode',
+          prop: 'ripple',
           description:
-            'The mode of the expansion. If single you cannot find more than one item expanded at a given time, if multiple you could',
-          type: 'KupAccordionExpansionMode',
-          default: 'single',
-          try: 'field',
-        },
-        {
-          prop: 'globalFilter',
-          description: 'When set to true it activates the global filter.',
+            "When enabled displays Material's ripple effect on item headers.",
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
-        },
-        {
-          prop: 'globalFilterMode',
-          description: 'The mode of the global filter',
-          type: 'KupGlobalFilterMode',
-          default: 'simple',
-          try: 'field',
-        },
-        {
-          prop: 'globalFilterValue',
-          description: 'The value of the global filter.',
-          type: 'string',
-          default: '""',
-          try: 'field',
-        },
-        {
-          prop: 'selectedItemsNames',
-          description: 'The names of the selected items.',
-          type: 'string',
-          isArray: true,
-          default: '[]',
-          try: 'field',
         },
       ],
     };
@@ -167,9 +128,42 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-accordion');
+  const slotFLD1 = document.createElement('kup-data-table');
+  slotFLD1.data = defaultDataTable;
+  slotFLD1.slot = 'FLD1';
+  const slotFLD3 = document.createElement('kup-card');
+  slotFLD3.data = {
+    button: [
+      { icon: 'play', flat: true },
+      { icon: 'favorite', flat: true },
+      { icon: 'share', label: 'share' },
+    ],
+    image: [
+      {
+        resource: 'images/catz_small.jpg',
+      },
+      { resource: 'widgets' },
+    ],
+    text: [
+      'I am a title',
+      'I am a subtitle',
+      'I am a description, so I need more words compared to other texts. I will contain some nonsense, apologies.',
+    ],
+  };
+  slotFLD3.sizeY = '300px';
+  slotFLD3.slot = 'FLD3';
+  const slotFLD4 = document.createElement('div');
+  slotFLD4.innerText = 'This is a simple div which uses Ketch.UP theme colors.';
+  slotFLD4.slot = 'FLD4';
+  slotFLD4.style.background = 'var(--kup-primary-color)';
+  slotFLD4.style.color = 'var(--kup-text-on-primary-color)';
+  slotFLD4.style.padding = '1.25em 2em';
+  const comp = document.createElement('kup-accordion');
   comp.data = defaultData;
   comp.id = 'demo-component';
+  comp.appendChild(slotFLD4);
+  comp.appendChild(slotFLD3);
+  comp.appendChild(slotFLD1);
   return comp;
 }
 </script>

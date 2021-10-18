@@ -84,7 +84,6 @@
   border-left: var(--kup_accordion_border);
   border-right: var(--kup_accordion_border);
   box-sizing: border-box;
-  display: none;
   width: 100%;
 
   &--visible {
@@ -164,5 +163,14 @@
     &--selected {
       display: block;
     }
+  }
+}
+
+.mdc-ripple-surface {
+  --mdc-ripple-fg-opacity: 0.24;
+
+  &:before,
+  &:after {
+    background-color: var(--kup_accordion_primary_color);
   }
 }
