@@ -225,7 +225,6 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-accordion](../kup-accordion)
  - [kup-card](../kup-card)
  - [kup-tooltip](../kup-tooltip)
 
@@ -304,7 +303,6 @@ graph TD;
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
-  kup-accordion --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
