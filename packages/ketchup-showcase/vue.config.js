@@ -1,4 +1,12 @@
 module.exports = {
+  // webpackBundleAnalyzer: used to analyze bundle sizes.
+  // set openAnalyzer: true to launch the tool
+  // https://www.npmjs.com/package/vue-cli-plugin-webpack-bundle-analyzer
+  pluginOptions: {
+    webpackBundleAnalyzer: {
+      openAnalyzer: false,
+    },
+  },
   // If uncommented, this will disable all linting on all the showcase project. Use it carefully
   // lintOnSave: false,
   // To correctly use History mode with Vue router, this property must be set to '/'
