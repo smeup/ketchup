@@ -698,6 +698,26 @@ export class KupTooltip {
         }
     }
 
+    private getLayout5() {
+        console.log('kup-tooltip.getLayout5()');
+        var content = this.getContent();
+        var asBoxData = null;
+        if (content) {
+            var asBoxContent = content[`asBoxContent`];
+            if (asBoxContent) {
+                asBoxData = asBoxContent[`data`];
+            }
+        }
+        return (
+            <kup-box
+                data={asBoxData}
+                showSelection={false}
+                showTooltipOnRightClick={false}
+                tooltipEnabled={false}
+            />
+        );
+    }
+
     private getInfos() {
         let infos = null;
 
@@ -766,6 +786,10 @@ export class KupTooltip {
                 break;
             }
             case '4': {
+                /** why are you here??? */
+                break;
+            }
+            case '5': {
                 /** why are you here??? */
                 break;
             }
@@ -862,26 +886,20 @@ export class KupTooltip {
             'detail-loaded': this.firstLoad,
         };
 
-        return (
+        return [
+            <div id="main-content" class={mainContentClass}>
+                {mainContent}
+            </div>,
+            <div id="detail" class={detailClass}>
+                {detailContent}
+            </div>,
             <div
-                id="tooltip"
-                hidden={!this.visible}
-                onClick={(e: MouseEvent) => e.stopPropagation()}
+                id="detail-actions"
+                hidden={detailActions == null || detailActions.length == 0}
             >
-                <div id="main-content" class={mainContentClass}>
-                    {mainContent}
-                </div>
-                <div id="detail" class={detailClass}>
-                    {detailContent}
-                </div>
-                <div
-                    id="detail-actions"
-                    hidden={detailActions == null || detailActions.length == 0}
-                >
-                    {detailActions}
-                </div>
-            </div>
-        );
+                {detailActions}
+            </div>,
+        ];
     }
 
     getTooltipForShowOptionsButton(): string {
@@ -950,7 +968,15 @@ export class KupTooltip {
                     ev.stopPropagation();
                 }}
             >
-                {this.createTooltip()}
+                <div
+                    id="tooltip"
+                    hidden={!this.visible}
+                    onClick={(e: MouseEvent) => e.stopPropagation()}
+                >
+                    {this.layout == '5'
+                        ? this.getLayout5()
+                        : this.createTooltip()}
+                </div>
             </div>
         );
     }

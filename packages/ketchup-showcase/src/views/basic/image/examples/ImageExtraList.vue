@@ -351,6 +351,14 @@
             ></kup-image>
             <div class="icon-label">chart-bar</div>
           </div>
+          <div class="icon-wrapper" title="chart_bar">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="chart_bar"
+            ></kup-image>
+            <div class="icon-label">chart_bar</div>
+          </div>
           <div class="icon-wrapper" title="chart-gantt">
             <kup-image
               size-x="48px"
