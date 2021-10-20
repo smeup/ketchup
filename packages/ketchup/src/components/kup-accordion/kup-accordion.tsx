@@ -251,7 +251,7 @@ export class KupAccordion {
                         ) : null}
                         <span class="accordion-item__text">{column.title}</span>
                         {isItemExpandible ? (
-                            <span class="accordion-item__dropdown icon-container dropdown" />
+                            <span class="accordion-item__dropdown kup-icon kup-dropdown-icon" />
                         ) : null}
                     </div>
 

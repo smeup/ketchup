@@ -1212,7 +1212,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">--kup-expanded-icon</span>
                 </td>
-                <td>Used when a node or a group are expanded.</td>
+                <td>Used when a node/group is expanded.</td>
                 <td class="text-cell">
                   <kup-text-field
                     full-width
@@ -1225,7 +1225,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">--kup-collapsed-icon</span>
                 </td>
-                <td>Used when a node or a group are collapsed.</td>
+                <td>Used when a node/group is collapsed.</td>
                 <td class="text-cell">
                   <kup-text-field
                     full-width
@@ -1456,9 +1456,7 @@ export default {
         e.detail.value;
       dom.ketchup.theme.set(null, list);
       e.detail.comp.customStyle =
-        '#kup-component .icon-container { background-color: ' +
-        e.detail.value +
-        ' }';
+        '#kup-component .kup-icon { background-color: ' + e.detail.value + ' }';
       this.refreshTheme();
     },
     /**

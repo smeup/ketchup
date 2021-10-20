@@ -153,7 +153,7 @@ function createChipList(
                     <span role="gridcell">
                         <span
                             tabindex="-1"
-                            class="icon-container material-icons chip__icon clear"
+                            class="kup-icon chip__icon kup-clear-icon"
                             onClick={
                                 props.onIconClick && props.onIconClick[i]
                                     ? props.onIconClick[i]

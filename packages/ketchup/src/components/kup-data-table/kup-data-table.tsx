@@ -1691,7 +1691,7 @@ export class KupDataTable {
                     groupChip.querySelectorAll('.chip');
                 for (let index = 0; index < chips.length; index++) {
                     const cancelIcon: HTMLElement =
-                        chips[index].querySelector('.chip__icon.clear');
+                        chips[index].querySelector('.chip__icon.kup-clear-icon');
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.removeGroup(index);
                     }
@@ -3042,7 +3042,9 @@ export class KupDataTable {
         // check if column in sort array
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
-                return 'A' === sortObj.sortMode ? 'descending' : 'ascending';
+                return 'A' === sortObj.sortMode
+                    ? 'kup-icon kup-descending-icon'
+                    : 'kup-icon kup-ascending-icon';
             }
         }
 
@@ -3324,7 +3326,7 @@ export class KupDataTable {
                     filter = (
                         <span
                             title={svgLabel}
-                            class="icon-container filter-remove"
+                            class="kup-icon kup-filter-remove-icon"
                         ></span>
                     );
                 }
@@ -3338,7 +3340,6 @@ export class KupDataTable {
 
                 let iconClass = this.getSortIcon(column.name);
                 if (iconClass !== '') {
-                    iconClass += ' icon-container';
                     sortIcon = (
                         <span
                             class={iconClass}
@@ -3354,7 +3355,7 @@ export class KupDataTable {
                 if (column.isKey) {
                     keyIcon = (
                         <span
-                            class="key icon-container"
+                            class="kup-icon kup-key-icon"
                             title={this.kupManager.language.translate(
                                 KupLanguageRow.KEY
                             )}
@@ -4003,8 +4004,8 @@ export class KupDataTable {
             }
 
             const iconClass = row.group.expanded
-                ? 'icon-container expanded'
-                : 'icon-container collapsed';
+                ? 'kup-icon kup-expanded-icon'
+                : 'kup-icon kup-collapsed-icon';
 
             const jsxRows = [];
 
@@ -4657,9 +4658,7 @@ export class KupDataTable {
                 mask: svg,
                 webkitMask: svg,
             };
-            icon = (
-                <span style={iconStyle} class="icon-container obj-icon"></span>
-            );
+            icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
         }
 
         let cellTitle = null;

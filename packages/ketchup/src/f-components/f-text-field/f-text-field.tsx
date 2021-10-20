@@ -65,8 +65,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         };
         let iconClass: string = '';
         if (props.icon.indexOf('--kup') > -1) {
-            iconClass = props.icon.replace('--kup-', '');
-            iconClass = iconClass.replace('-icon', '');
+            iconClass = props.icon.replace('--kup-', 'kup-');
         } else {
             let svg: string = `url('${getAssetPath(
                 `./assets/svg/${props.icon}.svg`
@@ -81,7 +80,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 tabindex="0"
                 style={iconStyle}
                 onClick={props.onIconClick}
-                class={`material-icons mdc-text-field__icon icon-container action ${iconClass}`}
+                class={`mdc-text-field__icon kup-icon action ${iconClass}`}
             ></span>
         );
     }
@@ -146,7 +145,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             {props.isClearable ? (
                 <span
                     tabindex="1"
-                    class="material-icons mdc-text-field__icon icon-container clear"
+                    class="mdc-text-field__icon kup-icon kup-clear-icon"
                     onClick={props.onClearIconClick}
                 ></span>
             ) : undefined}
