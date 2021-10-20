@@ -608,7 +608,7 @@ export class KupTree {
             this.columnMenuCard.tabIndex = -1;
             this.columnMenuCard.onblur = () => {
                 if (
-                    this.kupManager.utilities.lastMouseDownPath.includes(
+                    this.kupManager.utilities.lastPointerDownPath.includes(
                         this.columnMenuCard
                     )
                 ) {

@@ -1054,7 +1054,7 @@ export class KupDataTable {
             this.columnMenuCard.onclick = (e) => e.stopPropagation();
             this.columnMenuCard.addEventListener('blur', () => {
                 if (
-                    this.kupManager.utilities.lastMouseDownPath.includes(
+                    this.kupManager.utilities.lastPointerDownPath.includes(
                         this.columnMenuCard
                     )
                 ) {

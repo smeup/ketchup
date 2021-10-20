@@ -138,11 +138,26 @@ export class KupManager {
             scrollOnHoverDelay,
             scrollOnHoverStep
         );
-        this.utilities = { lastMouseDownPath: null };
+        this.utilities = {
+            lastPointerDownPath: null,
+            lastPointerDownString: null,
+        };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
-        document.addEventListener('mousedown', (e) => {
-            this.utilities.lastMouseDownPath = e.composedPath();
+        document.addEventListener('pointerdown', (e) => {
+            const paths = e.composedPath() as HTMLElement[];
+            const lastString =
+                paths[0].innerText || (paths[0] as HTMLInputElement).value;
+            this.utilities.lastPointerDownPath = paths;
+            this.utilities.lastPointerDownString = lastString;
+            if (lastString) {
+                document.dispatchEvent(
+                    new CustomEvent('kup-manager-stringfinder', {
+                        bubbles: true,
+                        detail: { string: lastString },
+                    })
+                );
+            }
         });
     }
     /**
