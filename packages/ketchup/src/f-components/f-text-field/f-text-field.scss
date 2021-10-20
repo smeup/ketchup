@@ -50,14 +50,14 @@
     }
 
     .mdc-text-field {
-      .icon-container {
+      .kup-icon {
         background-color: var(--kup_textfield_icon_color);
         cursor: pointer;
         height: 24px;
         outline: none;
         padding: 0 7px;
         width: 24px;
-        &.clear:hover {
+        &.#{$kup-icon-clear}:hover {
           background-color: var(--kup-danger-color);
         }
       }
@@ -85,7 +85,7 @@
         left: 36px;
       }
 
-      & .mdc-text-field__icon.clear {
+      & .mdc-text-field__icon.#{$kup-icon-clear} {
         right: 0px;
         left: initial;
         position: absolute;
@@ -93,7 +93,7 @@
         transform: translateY(-50%);
       }
 
-      &.mdc-text-field--with-trailing-icon input ~ .clear {
+      &.mdc-text-field--with-trailing-icon input ~ .#{$kup-icon-clear} {
         right: 26px;
       }
 
@@ -325,6 +325,16 @@
     &.#{$kup-class-warning} {
       --kup-textfield-primary-color: var(--kup-warning-color);
       --kup-textfield-primary-color-rgb: var(--kup-warning-color-rgb);
+    }
+
+    .#{$kup-icon}.#{$kup-icon-clear} {
+      -webkit-mask: var(--kup-clear-icon);
+      mask: var(--kup-clear-icon);
+    }
+
+    .#{$kup-icon}.#{$kup-icon-search} {
+      -webkit-mask: var(--kup-search-icon);
+      mask: var(--kup-search-icon);
     }
   }
 }

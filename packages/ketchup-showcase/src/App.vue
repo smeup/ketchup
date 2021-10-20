@@ -186,6 +186,9 @@ export default {
     document.addEventListener('kup-debug-inactive', () => {
       debug.checked = false;
     });
+    document.addEventListener('kup-manager-stringfinder', (e: CustomEvent) => {
+      console.log('[kup-manager-stringfinder] => ' + e.detail.string);
+    });
   },
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {

@@ -608,7 +608,7 @@ export class KupTree {
             this.columnMenuCard.tabIndex = -1;
             this.columnMenuCard.onblur = () => {
                 if (
-                    this.kupManager.utilities.lastMouseDownPath.includes(
+                    this.kupManager.utilities.lastPointerDownPath.includes(
                         this.columnMenuCard
                     )
                 ) {
@@ -1223,7 +1223,7 @@ export class KupTree {
             let svg: string = `url('${getAssetPath(
                 `./assets/svg/${icon}.svg`
             )}') no-repeat center`;
-            CSSClass += ' icon-container material-icons';
+            CSSClass += ' kup-icon';
             let iconStyle = {
                 ...(iconColor ? { background: iconColor } : {}),
                 mask: svg,
@@ -1317,9 +1317,7 @@ export class KupTree {
                 mask: svg,
                 webkitMask: svg,
             };
-            icon = (
-                <span style={iconStyle} class="icon-container obj-icon"></span>
-            );
+            icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
         }
 
         const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
@@ -1745,7 +1743,10 @@ export class KupTree {
                 filter = (
                     <span
                         title={svgLabel}
-                        class="icon-container filter-remove"
+                        class={`kup-icon ${KupThemeIconValues.FILTER_REMOVE.replace(
+                            '--',
+                            ''
+                        )}`}
                         onClick={(e: MouseEvent) => {
                             e.stopPropagation();
                             this.onRemoveFilter(column);
@@ -1850,13 +1851,22 @@ export class KupTree {
         );
         let expandClass = 'expand-icon kup-tree__icon kup-tree__node__expander';
         if (hasExpandIcon) {
-            expandClass += ' icon-container';
+            expandClass += ' kup-icon';
             if (this.asAccordion && treeNodeDepth === 0) {
-                expandClass += ' dropdown';
+                expandClass += ` ${KupThemeIconValues.DROPDOWN.replace(
+                    '--',
+                    ''
+                )}`;
             } else if (treeNodeData[treeExpandedPropName]) {
-                expandClass += ' expanded';
+                expandClass += ` ${KupThemeIconValues.EXPANDED.replace(
+                    '--',
+                    ''
+                )}`;
             } else {
-                expandClass += ' collapsed';
+                expandClass += ` ${KupThemeIconValues.COLLAPSED.replace(
+                    '--',
+                    ''
+                )}`;
             }
         }
         let treeExpandIcon = (
@@ -1896,7 +1906,7 @@ export class KupTree {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
                     treeNodeIcon = this.createIconElement(
-                        'kup-tree__icon icon-container',
+                        'kup-tree__icon kup-icon',
                         treeNodeData.icon,
                         treeNodeData.iconColor
                     );

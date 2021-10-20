@@ -86,7 +86,7 @@
     width: var(--kup_progressbar_width);
   }
 
-  & .icon-container {
+  & .kup-icon {
     display: block;
     height: var(--kup_progressbar_height);
     &:not(.is-image) {
@@ -177,7 +177,7 @@
       text-align: center;
       top: 0.4em;
 
-      &.icon-container {
+      &.kup-icon {
         display: block;
         height: 1.25em;
         width: 1.25em;

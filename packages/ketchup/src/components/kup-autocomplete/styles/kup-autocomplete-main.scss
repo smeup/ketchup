@@ -3,10 +3,15 @@
   width: max-content;
 }
 
-.icon-container {
+.kup-icon {
   transition: transform 0.15s;
 }
 
-.toggled .icon-container.expanded {
+.toggled .#{$kup-icon}.#{$kup-icon-dropdown} {
   transform: rotate(-180deg);
+}
+
+.#{$kup-icon}.#{$kup-icon-dropdown} {
+  -webkit-mask: var(--kup-dropdown-icon);
+  mask: var(--kup-dropdown-icon);
 }

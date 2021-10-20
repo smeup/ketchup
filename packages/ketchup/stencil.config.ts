@@ -2,10 +2,11 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
-    buildEs5: false,
-    extras: {
-        cssVarsShim: true,
-    },
+    bundles: [
+        { components: ['kup-bpmn'] },
+        { components: ['kup-calendar'] },
+        { components: ['kup-echart'] },
+    ],
     namespace: 'ketchup',
     outputTargets: [
         { type: 'dist' },

@@ -165,30 +165,31 @@ table {
   width: 100%;
 }
 
-.icon-container:not(.f-image--wrapper) {
+.kup-icon:not(.f-image--wrapper) {
   background-color: var(--kup-title-color);
   margin: 0 0.25em;
   height: 1.25em;
   width: 1.25em;
 
-  &.ascending,
-  &.descending,
-  &.key,
-  &.filter-remove {
+  &.#{$kup-icon-ascending},
+  &.#{$kup-icon-descending},
+  &.#{$kup-icon-key},
+  &.#{$kup-icon-filter-remove} {
     float: right;
   }
 
-  &.collapsed,
-  &.expanded {
+  &.#{$kup-icon-collapsed},
+  &.#{$kup-icon-expanded} {
     float: left;
   }
 
-  &.filter-remove,
-  &.key {
+  &.#{$kup-icon-filter-remove},
+  &.#{$kup-icon-key} {
     margin: 0 0.25em;
   }
 
   &.obj-icon {
+    cursor: var(--kup-obj-cursor);
     display: block;
     background-color: rgba(var(--kup-text-color-rgb), 0.375);
     margin: auto 0.5em auto 0;
@@ -550,14 +551,14 @@ tbody td > * {
   border: none !important;
 }
 
-.icon-container.overlay-action {
+.kup-icon.overlay-action {
   display: none;
   position: absolute;
   top: 0.5em;
   left: calc(50% - 0.625em);
 }
 
-th:hover .icon-container.overlay-action {
+th:hover .kup-icon.overlay-action {
   display: block;
 }
 
@@ -644,5 +645,71 @@ th.obj:hover span:not(.overlay-action) {
 
   &.kup-resizable {
     border: 3px outset var(--kup-title-background-color);
+  }
+}
+
+.kup-menu {
+  animation: fade-in 0.25s ease-out;
+  background-color: var(--kup-background-color);
+  box-shadow: var(--kup-box-shadow);
+  color: var(--kup-text-color);
+  display: none;
+  max-height: 33vh;
+  overflow: auto;
+  position: relative;
+  transform: none;
+  transform-origin: unset;
+  transition: height 0.2s;
+  will-change: unset;
+
+  &.visible {
+    display: block;
+  }
+}
+
+.#{$kup-icon}.#{$kup-icon-ascending} {
+  -webkit-mask: var(--kup-ascending-icon);
+  mask: var(--kup-ascending-icon);
+}
+
+.#{$kup-icon}.#{$kup-icon-collapsed} {
+  -webkit-mask: var(--kup-collapsed-icon);
+  mask: var(--kup-collapsed-icon);
+}
+
+.#{$kup-icon}.#{$kup-icon-descending} {
+  -webkit-mask: var(--kup-descending-icon);
+  mask: var(--kup-descending-icon);
+}
+
+.#{$kup-icon}.#{$kup-icon-expanded} {
+  -webkit-mask: var(--kup-expanded-icon);
+  mask: var(--kup-expanded-icon);
+}
+
+.#{$kup-icon}.#{$kup-icon-filter-remove} {
+  -webkit-mask: var(--kup-filter-remove-icon);
+  mask: var(--kup-filter-remove-icon);
+}
+
+.#{$kup-icon}.#{$kup-icon-key} {
+  -webkit-mask: var(--kup-key-icon);
+  mask: var(--kup-key-icon);
+}
+
+@keyframes fade-in {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
   }
 }
