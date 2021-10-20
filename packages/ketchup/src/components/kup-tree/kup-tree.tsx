@@ -1743,7 +1743,10 @@ export class KupTree {
                 filter = (
                     <span
                         title={svgLabel}
-                        class="kup-icon kup-filter-remove-icon"
+                        class={`kup-icon ${KupThemeIconValues.FILTER_REMOVE.replace(
+                            '--',
+                            ''
+                        )}`}
                         onClick={(e: MouseEvent) => {
                             e.stopPropagation();
                             this.onRemoveFilter(column);
@@ -1850,11 +1853,20 @@ export class KupTree {
         if (hasExpandIcon) {
             expandClass += ' kup-icon';
             if (this.asAccordion && treeNodeDepth === 0) {
-                expandClass += ' kup-dropdown-icon';
+                expandClass += ` ${KupThemeIconValues.DROPDOWN.replace(
+                    '--',
+                    ''
+                )}`;
             } else if (treeNodeData[treeExpandedPropName]) {
-                expandClass += ' kup-expanded-icon';
+                expandClass += ` ${KupThemeIconValues.EXPANDED.replace(
+                    '--',
+                    ''
+                )}`;
             } else {
-                expandClass += ' kup-collapsed-icon';
+                expandClass += ` ${KupThemeIconValues.COLLAPSED.replace(
+                    '--',
+                    ''
+                )}`;
             }
         }
         let treeExpandIcon = (

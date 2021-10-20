@@ -1690,8 +1690,12 @@ export class KupDataTable {
                 const chips: NodeListOf<HTMLElement> =
                     groupChip.querySelectorAll('.chip');
                 for (let index = 0; index < chips.length; index++) {
-                    const cancelIcon: HTMLElement =
-                        chips[index].querySelector('.chip__icon.kup-clear-icon');
+                    const cancelIcon: HTMLElement = chips[index].querySelector(
+                        `.chip__icon.${KupThemeIconValues.CLEAR.replace(
+                            '--',
+                            ''
+                        )}`
+                    );
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.removeGroup(index);
                     }
@@ -3043,8 +3047,14 @@ export class KupDataTable {
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
                 return 'A' === sortObj.sortMode
-                    ? 'kup-icon kup-descending-icon'
-                    : 'kup-icon kup-ascending-icon';
+                    ? `kup-icon ${KupThemeIconValues.DESCENDING.replace(
+                          '--',
+                          ''
+                      )}`
+                    : `kup-icon ${KupThemeIconValues.ASCENDING.replace(
+                          '--',
+                          ''
+                      )}`;
             }
         }
 
@@ -3326,7 +3336,10 @@ export class KupDataTable {
                     filter = (
                         <span
                             title={svgLabel}
-                            class="kup-icon kup-filter-remove-icon"
+                            class={`kup-icon ${KupThemeIconValues.FILTER_REMOVE.replace(
+                                '--',
+                                ''
+                            )}`}
                         ></span>
                     );
                 }
@@ -3355,7 +3368,10 @@ export class KupDataTable {
                 if (column.isKey) {
                     keyIcon = (
                         <span
-                            class="kup-icon kup-key-icon"
+                            class={`kup-icon ${KupThemeIconValues.KEY.replace(
+                                '--',
+                                ''
+                            )}`}
                             title={this.kupManager.language.translate(
                                 KupLanguageRow.KEY
                             )}
@@ -4004,8 +4020,8 @@ export class KupDataTable {
             }
 
             const iconClass = row.group.expanded
-                ? 'kup-icon kup-expanded-icon'
-                : 'kup-icon kup-collapsed-icon';
+                ? `kup-icon ${KupThemeIconValues.EXPANDED.replace('--', '')}`
+                : `kup-icon ${KupThemeIconValues.COLLAPSED.replace('--', '')}`;
 
             const jsxRows = [];
 

@@ -26,6 +26,10 @@ import {
 } from './kup-accordion-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    KupThemeColorValues,
+    KupThemeIconValues,
+} from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -242,7 +246,7 @@ export class KupAccordion {
                     >
                         {column.icon ? (
                             <FImage
-                                color="var(--kup-icon-color)"
+                                color={`var(${KupThemeColorValues.ICON})`}
                                 resource={column.icon}
                                 sizeX="1.5em"
                                 sizeY="1.5em"
@@ -251,7 +255,12 @@ export class KupAccordion {
                         ) : null}
                         <span class="accordion-item__text">{column.title}</span>
                         {isItemExpandible ? (
-                            <span class="accordion-item__dropdown kup-icon kup-dropdown-icon" />
+                            <span
+                                class={`accordion-item__dropdown kup-icon ${KupThemeIconValues.DROPDOWN.replace(
+                                    '--',
+                                    ''
+                                )}`}
+                            />
                         ) : null}
                     </div>
 

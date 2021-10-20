@@ -9,7 +9,10 @@ import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
 import { FImageProps } from '../f-image/f-image-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import {
+    KupThemeColorValues,
+    KupThemeIconValues,
+} from '../../utils/kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -153,7 +156,10 @@ function createChipList(
                     <span role="gridcell">
                         <span
                             tabindex="-1"
-                            class="kup-icon chip__icon kup-clear-icon"
+                            class={`kup-icon chip__icon ${KupThemeIconValues.CLEAR.replace(
+                                '--',
+                                ''
+                            )}`}
                             onClick={
                                 props.onIconClick && props.onIconClick[i]
                                     ? props.onIconClick[i]
