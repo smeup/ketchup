@@ -4811,10 +4811,10 @@ export class KupDataTable {
             case 'chips':
                 if (cell.style) {
                     if (!cell.style.height) {
-                        cell.style['minHeight'] = '53px';
+                        cell.style['minHeight'] = '40px';
                     }
                 } else {
-                    cell.style = { minHeight: '53px' };
+                    cell.style = { minHeight: '40px' };
                 }
                 break;
             case 'radio':

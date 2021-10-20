@@ -894,12 +894,17 @@ label {
 }
 
 .version {
+  border-top: 1px solid var(--kup-border-color);
   box-sizing: border-box;
   font-weight: 600;
   margin-top: auto;
-  padding: 2em;
+  padding: 1em 2em;
   text-align: center;
   width: 100%;
+}
+
+.version a {
+  color: var(--kup-drawer-color);
 }
 
 .spinner {
