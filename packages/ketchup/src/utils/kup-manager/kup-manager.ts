@@ -233,6 +233,7 @@ export function kupManagerInstance(): KupManager {
         if (dom.ketchup.debug.active) {
             dom.ketchup.debug.toggle(dom.ketchup.debug.active);
         }
+        globalThis.kupManager = dom.ketchup;
         document.dispatchEvent(new CustomEvent('kup-manager-ready'));
     }
     return dom.ketchup;
