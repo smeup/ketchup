@@ -1,3 +1,4 @@
+@import '@material/ripple/mdc-ripple';
 @import 'f-image/f-image.scss';
 
 /**
@@ -160,5 +161,14 @@
         transition-delay: 100ms;
       }
     }
+  }
+}
+
+.mdc-ripple-surface {
+  --mdc-ripple-fg-opacity: 0.24;
+
+  &:before,
+  &:after {
+    background-color: var(--kup_tabbar_primary_color);
   }
 }

@@ -2421,6 +2421,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default null
+         */
+        "ripple": boolean;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
@@ -5190,6 +5195,11 @@ declare namespace LocalJSX {
           * Triggered when the tab is focused.
          */
         "onKup-tabbar-focus"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default null
+         */
+        "ripple"?: boolean;
     }
     interface KupTextField {
         /**
