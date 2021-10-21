@@ -65,7 +65,7 @@ export class KupTabBar {
     @Prop() data: KupTabBarData[] = null;
     /**
      * When enabled displays Material's ripple effect on item headers.
-     * @default null
+     * @default true
      */
     @Prop() ripple: boolean = true;
 

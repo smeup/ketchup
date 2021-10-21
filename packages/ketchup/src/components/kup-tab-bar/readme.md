@@ -5,10 +5,11 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                    | Type              | Default |
-| ------------- | -------------- | ------------------------------ | ----------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component. | `string`          | `''`    |
-| `data`        | --             | List of elements.              | `KupTabBarData[]` | `null`  |
+| Property      | Attribute      | Description                                                     | Type              | Default |
+| ------------- | -------------- | --------------------------------------------------------------- | ----------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                  | `string`          | `''`    |
+| `data`        | --             | List of elements.                                               | `KupTabBarData[]` | `null`  |
+| `ripple`      | `ripple`       | When enabled displays Material's ripple effect on item headers. | `boolean`         | `true`  |
 
 
 ## Events
