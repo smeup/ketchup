@@ -46,6 +46,7 @@ import {
     isChart,
     getCellValueForDisplay,
     getColumnByName,
+    isRating,
 } from '../../utils/cell-utils';
 
 import {
@@ -1543,6 +1544,10 @@ export class KupBox {
                 if (cell.style) {
                     boStyle = { ...cell.style };
                 }
+
+                if (cell.cssClass) {
+                    classObj[cell.cssClass] = true;
+                }
                 let props: any = { ...cell.data };
 
                 if (this.kupManager.objects.isButton(cell.obj)) {
@@ -1659,6 +1664,12 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
+                } else if (this.kupManager.objects.isLink(cell.obj)) {
+                    boContent = (
+                        <a class="cell-link" href={cell.obj.k} target="_blank">
+                            {cell.value}
+                        </a>
+                    );
                 } else {
                     boContent = getCellValueForDisplay(column, cell);
                 }
