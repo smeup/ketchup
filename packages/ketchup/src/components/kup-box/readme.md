@@ -115,6 +115,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-magic-box](../kup-magic-box)
+ - [kup-tooltip](../kup-tooltip)
 
 ### Depends on
 
@@ -193,9 +194,7 @@ graph TD;
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-card
-  kup-tooltip --> kup-tree
+  kup-tooltip --> kup-box
   kup-tree --> kup-card
   kup-tree --> kup-image
   kup-tree --> kup-button

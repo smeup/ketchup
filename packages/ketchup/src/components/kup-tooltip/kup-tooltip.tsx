@@ -335,7 +335,7 @@ export class KupTooltip {
     }
 
     private startLoadDetail(withTimeout: boolean) {
-        if (this.isCardLayout()) {
+        if (!this.hasDetail()) {
             return;
         }
         this.waitingServerResponse = true;
@@ -699,23 +699,35 @@ export class KupTooltip {
     }
 
     private getLayout5() {
-        console.log('kup-tooltip.getLayout5()');
         var content = this.getContent();
         var asBoxData = null;
+        var listMenuData = null;
         if (content) {
             var asBoxContent = content[`asBoxContent`];
             if (asBoxContent) {
                 asBoxData = asBoxContent[`data`];
             }
+            var listMenu = content[`listMenu`];
+            if (listMenu) {
+                listMenuData = listMenu[`data`];
+            }
         }
-        return (
-            <kup-box
-                data={asBoxData}
-                showSelection={false}
-                showTooltipOnRightClick={false}
-                tooltipEnabled={false}
-            />
-        );
+        var items = [];
+        if (asBoxData != null) {
+            items.push(
+                <kup-box
+                    data={asBoxData}
+                    showSelection={false}
+                    showTooltipOnRightClick={false}
+                    tooltipEnabled={false}
+                    class="kup-left-aligned kup-top-aligned kup-borderless"
+                />
+            );
+        }
+        if (listMenuData != null) {
+            items.push(<kup-list is-menu menu-visible data={listMenuData} />);
+        }
+        return items;
     }
 
     private getInfos() {
@@ -742,6 +754,20 @@ export class KupTooltip {
         }
 
         return infos;
+    }
+
+    private hasDetail(): boolean {
+        switch (this.layout) {
+            case '4': {
+                return false;
+            }
+            case '5': {
+                return false;
+            }
+            default: {
+                return true;
+            }
+        }
     }
 
     private isCardLayout(): boolean {

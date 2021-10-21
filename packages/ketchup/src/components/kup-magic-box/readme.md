@@ -129,6 +129,8 @@ graph TD;
   kup-data-table --> kup-badge
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
   kup-tooltip --> kup-tree
   kup-tree --> kup-card
   kup-tree --> kup-image
