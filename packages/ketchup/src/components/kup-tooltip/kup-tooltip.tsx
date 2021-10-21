@@ -44,6 +44,7 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-tooltip',
@@ -996,25 +997,27 @@ export class KupTooltip {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div
-                    id="wrapper"
-                    onMouseEnter={(ev) => {
-                        this.onMouseEnter();
-                        ev.stopPropagation();
-                    }}
-                    onMouseLeave={(ev) => {
-                        this.onMouseLeave();
-                        ev.stopPropagation();
-                    }}
-                >
+                <div id={componentWrapperId}>
                     <div
-                        id="tooltip"
-                        hidden={!this.visible}
-                        onClick={(e: MouseEvent) => e.stopPropagation()}
+                        id="wrapper"
+                        onMouseEnter={(ev) => {
+                            this.onMouseEnter();
+                            ev.stopPropagation();
+                        }}
+                        onMouseLeave={(ev) => {
+                            this.onMouseLeave();
+                            ev.stopPropagation();
+                        }}
                     >
-                        {this.layout == '5'
-                            ? this.getLayout5()
-                            : this.createTooltip()}
+                        <div
+                            id="tooltip"
+                            hidden={!this.visible}
+                            onClick={(e: MouseEvent) => e.stopPropagation()}
+                        >
+                            {this.layout == '5'
+                                ? this.getLayout5()
+                                : this.createTooltip()}
+                        </div>
                     </div>
                 </div>
             </Host>
