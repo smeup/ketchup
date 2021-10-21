@@ -10,6 +10,7 @@ import {
     Prop,
     State,
     VNode,
+    Watch,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -26,6 +27,10 @@ import {
 } from './kup-accordion-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    KupThemeColorValues,
+    KupThemeIconValues,
+} from '../../utils/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -65,7 +70,7 @@ export class KupAccordion {
     @Prop() data: KupAccordionData = null;
     /**
      * When enabled displays Material's ripple effect on item headers.
-     * @default null
+     * @default true
      */
     @Prop() ripple: boolean = true;
 
@@ -96,6 +101,25 @@ export class KupAccordion {
         bubbles: true,
     })
     kupAccordionItemSelected: EventEmitter<KupAccordionItemSelectedEventPayload>;
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('ripple')
+    applyRipple() {
+        const root = this.rootElement.shadowRoot;
+        if (root && this.ripple) {
+            const rippleCells = root.querySelectorAll(
+                '.mdc-ripple-surface:not(.mdc-ripple-upgraded)'
+            );
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
+        }
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -242,7 +266,7 @@ export class KupAccordion {
                     >
                         {column.icon ? (
                             <FImage
-                                color="var(--kup-icon-color)"
+                                color={`var(${KupThemeColorValues.ICON})`}
                                 resource={column.icon}
                                 sizeX="1.5em"
                                 sizeY="1.5em"
@@ -251,7 +275,12 @@ export class KupAccordion {
                         ) : null}
                         <span class="accordion-item__text">{column.title}</span>
                         {isItemExpandible ? (
-                            <span class="accordion-item__dropdown icon-container dropdown" />
+                            <span
+                                class={`accordion-item__dropdown kup-icon ${KupThemeIconValues.DROPDOWN.replace(
+                                    '--',
+                                    ''
+                                )}`}
+                            />
                         ) : null}
                     </div>
 
@@ -274,6 +303,7 @@ export class KupAccordion {
     }
 
     componentDidLoad() {
+        this.applyRipple();
         this.kupManager.debug.logLoad(this, true);
     }
 

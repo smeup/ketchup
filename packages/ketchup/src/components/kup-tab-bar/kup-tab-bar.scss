@@ -1,3 +1,6 @@
+@import '@material/ripple/mdc-ripple';
+@import 'f-image/f-image.scss';
+
 /**
 * @prop --kup-tabbar-font-family: Sets font family of the component.
 * @prop --kup-tabbar-font-size: Sets font size of the component.
@@ -101,7 +104,7 @@
         font-size: 24px;
         z-index: 2;
 
-        &.icon-container {
+        &.kup-icon {
           background-color: var(--kup_tabbar_primary_color);
           height: 24px;
           width: 24px;
@@ -158,5 +161,14 @@
         transition-delay: 100ms;
       }
     }
+  }
+}
+
+.mdc-ripple-surface {
+  --mdc-ripple-fg-opacity: 0.24;
+
+  &:before,
+  &:after {
+    background-color: var(--kup_tabbar_primary_color);
   }
 }

@@ -44,7 +44,8 @@ export interface KupManager {
  * Interface for the KupManager utilities.
  */
 export interface KupManagerUtilities {
-    lastMouseDownPath: EventTarget[];
+    lastPointerDownPath?: EventTarget[];
+    lastPointerDownString?: string;
 }
 
 /**

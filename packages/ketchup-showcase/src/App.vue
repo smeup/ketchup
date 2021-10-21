@@ -94,7 +94,7 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup">v4.0.0</a></div
+          ><a href="https://github.com/smeup/ketchup">v4.0.0-SNAPSHOT</a></div
         ></div
       >
     </kup-drawer>
@@ -185,6 +185,9 @@ export default {
     });
     document.addEventListener('kup-debug-inactive', () => {
       debug.checked = false;
+    });
+    document.addEventListener('kup-manager-stringfinder', (e: CustomEvent) => {
+      console.log('[kup-manager-stringfinder] => ' + e.detail.string);
     });
   },
   methods: {
@@ -894,12 +897,17 @@ label {
 }
 
 .version {
+  border-top: 1px solid var(--kup-border-color);
   box-sizing: border-box;
   font-weight: 600;
   margin-top: auto;
-  padding: 2em;
+  padding: 1em 2em;
   text-align: center;
   width: 100%;
+}
+
+.version a {
+  color: var(--kup-drawer-color);
 }
 
 .spinner {

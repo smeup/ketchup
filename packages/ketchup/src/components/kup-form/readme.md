@@ -209,13 +209,27 @@ graph TD;
   kup-image --> kup-badge
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
   kup-tooltip --> kup-tree
+  kup-box --> kup-card
+  kup-box --> kup-checkbox
+  kup-box --> kup-badge
+  kup-box --> kup-chart
+  kup-box --> kup-editor
+  kup-box --> kup-text-field
+  kup-box --> kup-progress-bar
+  kup-box --> kup-radio
+  kup-box --> kup-gauge
+  kup-box --> kup-tooltip
+  kup-box --> kup-combobox
+  kup-box --> kup-paginator
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

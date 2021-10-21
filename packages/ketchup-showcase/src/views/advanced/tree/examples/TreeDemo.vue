@@ -203,6 +203,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'ripple',
+          description:
+            "When enabled displays Material's ripple effect on nodes (only when no columns are displayed).",
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'scrollOnHover',
           description:
             'When the mouse move towards the left or right edge and there is an overflow, the tree will automatically scroll.',
