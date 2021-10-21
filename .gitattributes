@@ -26,7 +26,7 @@
 *.inc             text
 *.ini             text
 *.js              text
-*.json            text
+*.json            text eol=lf
 *.jsx             text
 *.less            text
 *.ls              text
@@ -45,7 +45,7 @@
 *.sql             text
 *.styl            text
 *.tag             text
-*.ts              text
+*.ts              text eol=lf
 *.tsx             text
 *.xml             text
 *.xhtml           text diff=html

@@ -10,8 +10,9 @@ import {
     Prop,
     State,
     VNode,
+    Watch,
 } from '@stencil/core';
-
+import { MDCRipple } from '@material/ripple';
 import {
     KupTabBarClickEventPayload,
     KupTabBarData,
@@ -62,6 +63,11 @@ export class KupTabBar {
      * @default null
      */
     @Prop() data: KupTabBarData[] = null;
+    /**
+     * When enabled displays Material's ripple effect on item headers.
+     * @default true
+     */
+    @Prop() ripple: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -146,6 +152,25 @@ export class KupTabBar {
     }
 
     /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('ripple')
+    applyRipple() {
+        const root = this.rootElement.shadowRoot;
+        if (root && this.ripple) {
+            const rippleCells = root.querySelectorAll(
+                '.mdc-ripple-surface:not(.mdc-ripple-upgraded)'
+            );
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
+        }
+    }
+
+    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -222,6 +247,7 @@ export class KupTabBar {
 
     componentDidLoad() {
         this.kupManager.scrollOnHover.register(this.scrollArea);
+        this.applyRipple();
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -245,6 +271,7 @@ export class KupTabBar {
             const tabClass: Record<string, boolean> = {
                 tab: true,
                 'tab--active': data.active ? true : false,
+                'mdc-ripple-surface': this.ripple ? true : false,
             };
 
             const tabEl: VNode = (

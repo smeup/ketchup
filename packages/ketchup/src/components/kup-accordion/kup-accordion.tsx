@@ -10,6 +10,7 @@ import {
     Prop,
     State,
     VNode,
+    Watch,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -69,7 +70,7 @@ export class KupAccordion {
     @Prop() data: KupAccordionData = null;
     /**
      * When enabled displays Material's ripple effect on item headers.
-     * @default null
+     * @default true
      */
     @Prop() ripple: boolean = true;
 
@@ -100,6 +101,25 @@ export class KupAccordion {
         bubbles: true,
     })
     kupAccordionItemSelected: EventEmitter<KupAccordionItemSelectedEventPayload>;
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('ripple')
+    applyRipple() {
+        const root = this.rootElement.shadowRoot;
+        if (root && this.ripple) {
+            const rippleCells = root.querySelectorAll(
+                '.mdc-ripple-surface:not(.mdc-ripple-upgraded)'
+            );
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
+        }
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -283,6 +303,7 @@ export class KupAccordion {
     }
 
     componentDidLoad() {
+        this.applyRipple();
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -291,15 +312,6 @@ export class KupAccordion {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            const rippleCells = root.querySelectorAll('.mdc-ripple-surface');
-            if (rippleCells) {
-                for (let i = 0; i < rippleCells.length; i++) {
-                    MDCRipple.attachTo(rippleCells[i]);
-                }
-            }
-        }
         this.kupManager.debug.logRender(this, true);
     }
 

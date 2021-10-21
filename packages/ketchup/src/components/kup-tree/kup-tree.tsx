@@ -280,6 +280,11 @@ export class KupTree {
      */
     @Prop() removableColumns: boolean = true;
     /**
+     * When enabled displays Material's ripple effect on nodes (only when no columns are displayed).
+     * @default true
+     */
+    @Prop() ripple: boolean = true;
+    /**
      * Activates the scroll on hover function.
      */
     @Prop() scrollOnHover: boolean = false;
@@ -506,6 +511,21 @@ export class KupTree {
     enrichStructureStateWhenChanged(newValue, oldValue) {
         if (newValue !== oldValue) {
             this.refreshStructureState();
+        }
+    }
+
+    @Watch('ripple')
+    applyRipple() {
+        const root = this.rootElement.shadowRoot;
+        if (root && this.ripple) {
+            const rippleCells = root.querySelectorAll(
+                '.mdc-ripple-surface:not(.mdc-ripple-upgraded)'
+            );
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
         }
     }
 
@@ -1906,7 +1926,7 @@ export class KupTree {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
                     treeNodeIcon = this.createIconElement(
-                        'kup-tree__icon kup-icon',
+                        'kup-tree__icon',
                         treeNodeData.icon,
                         treeNodeData.iconColor
                     );
@@ -2008,7 +2028,9 @@ export class KupTree {
                     class={{
                         'first-node': treeNodeDepth === 0 ? true : false,
                         'mdc-ripple-surface':
-                            !this.showColumns && !treeNodeData.disabled,
+                            this.ripple &&
+                            !this.showColumns &&
+                            !treeNodeData.disabled,
                         'is-obj': this.kupManager.objects.hasTooltip(
                             treeNodeData.obj
                         ),
@@ -2377,6 +2399,7 @@ export class KupTree {
             }
         }
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
+        this.applyRipple();
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
@@ -2393,22 +2416,12 @@ export class KupTree {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
         if (this.preventXScroll) {
             this.setEllipsis();
         }
         this.totalMenuPosition();
         this.checkScrollOnHover();
         this.setDynPosElements();
-
-        if (root) {
-            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
-            if (rippleCells) {
-                for (let i = 0; i < rippleCells.length; i++) {
-                    MDCRipple.attachTo(rippleCells[i]);
-                }
-            }
-        }
 
         // *** Store
         this.persistState();

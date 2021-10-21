@@ -80,7 +80,7 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * When enabled displays Material's ripple effect on item headers.
-          * @default null
+          * @default true
          */
         "ripple": boolean;
         /**
@@ -2421,6 +2421,11 @@ export namespace Components {
          */
         "refresh": () => Promise<void>;
         /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default true
+         */
+        "ripple": boolean;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
@@ -2786,6 +2791,11 @@ export namespace Components {
           * This method is invoked by KupManager whenever the component changes size.
          */
         "resizeCallback": () => Promise<void>;
+        /**
+          * When enabled displays Material's ripple effect on nodes (only when no columns are displayed).
+          * @default true
+         */
+        "ripple": boolean;
         /**
           * Activates the scroll on hover function.
          */
@@ -3215,7 +3225,7 @@ declare namespace LocalJSX {
         "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
         /**
           * When enabled displays Material's ripple effect on item headers.
-          * @default null
+          * @default true
          */
         "ripple"?: boolean;
     }
@@ -5190,6 +5200,11 @@ declare namespace LocalJSX {
           * Triggered when the tab is focused.
          */
         "onKup-tabbar-focus"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default true
+         */
+        "ripple"?: boolean;
     }
     interface KupTextField {
         /**
@@ -5538,6 +5553,11 @@ declare namespace LocalJSX {
           * Sets the possibility to remove the selected column.
          */
         "removableColumns"?: boolean;
+        /**
+          * When enabled displays Material's ripple effect on nodes (only when no columns are displayed).
+          * @default true
+         */
+        "ripple"?: boolean;
         /**
           * Activates the scroll on hover function.
          */
