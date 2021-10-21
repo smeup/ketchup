@@ -100,6 +100,8 @@ Type: `Promise<void>`
 
 - [kup-button](../kup-button)
 - [kup-card](../kup-card)
+- [kup-box](../kup-box)
+- [kup-list](../kup-list)
 - [kup-tree](../kup-tree)
 
 ### Graph
@@ -107,6 +109,8 @@ Type: `Promise<void>`
 graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
   kup-tooltip --> kup-tree
   kup-button --> kup-badge
   kup-badge --> kup-badge

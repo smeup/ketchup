@@ -131,6 +131,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -150,6 +151,7 @@ graph TD;
   kup-data-table --> kup-list
   kup-dropdown-button --> kup-list
   kup-time-picker --> kup-list
+  kup-tooltip --> kup-list
   kup-tree --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
