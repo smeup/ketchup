@@ -2405,7 +2405,6 @@ export class KupTree {
             const rippleCells = root.querySelectorAll(
                 '.mdc-ripple-surface:not(.mdc-ripple-upgraded)'
             );
-            console.log(rippleCells);
             if (rippleCells) {
                 for (let i = 0; i < rippleCells.length; i++) {
                     MDCRipple.attachTo(rippleCells[i]);
