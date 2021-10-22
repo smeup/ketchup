@@ -4,6 +4,7 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
+    getAssetPath,
     h,
     Host,
     Method,
@@ -46,7 +47,6 @@ import {
     isChart,
     getCellValueForDisplay,
     getColumnByName,
-    isRating,
 } from '../../utils/cell-utils';
 
 import {
@@ -377,6 +377,7 @@ export class KupBox {
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
     private boxContainer: KupScrollOnHoverElement;
+    private iconPaths: [{ icon: string; path: string }] = undefined;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -1513,6 +1514,7 @@ export class KupBox {
             'box-object': true,
         };
         let boContent = null;
+        let boContentIcon = null;
 
         let boStyle = {};
         //let boInnerHTML = null;
@@ -1548,6 +1550,7 @@ export class KupBox {
                 if (cell.cssClass) {
                     classObj[cell.cssClass] = true;
                 }
+
                 let props: any = { ...cell.data };
 
                 if (this.kupManager.objects.isButton(cell.obj)) {
@@ -1672,6 +1675,25 @@ export class KupBox {
                     );
                 } else {
                     boContent = getCellValueForDisplay(column, cell);
+                    if (column.icon || cell.icon) {
+                        let svg: string = '';
+                        if (cell.icon) {
+                            svg = cell.icon;
+                        } else {
+                            svg = column.icon;
+                        }
+                        svg = this.getIconPath(svg);
+                        const iconStyle = {
+                            mask: svg,
+                            webkitMask: svg,
+                        };
+                        boContentIcon = (
+                            <span
+                                style={iconStyle}
+                                class="kup-icon obj-icon"
+                            ></span>
+                        );
+                    }
                 }
             }
         } else if (boxObject.value) {
@@ -1719,10 +1741,46 @@ export class KupBox {
                 title={title}
                 {...tipEvents}
             >
-                <span>{boContent}</span>
+                <span>
+                    {boContentIcon}
+                    {boContent}
+                </span>
             </div>
         );
     }
+
+    private getIconPath(icon: string) {
+        let svg: string = '';
+        if (this.iconPaths) {
+            for (
+                let index = 0;
+                index < this.iconPaths.length || svg !== '';
+                index++
+            ) {
+                if (this.iconPaths[index].icon === icon) {
+                    return this.iconPaths[index].path;
+                }
+            }
+        }
+
+        svg = `url('${getAssetPath(
+            `./assets/svg/${icon}.svg`
+        )}') no-repeat center`;
+
+        if (!this.iconPaths) {
+            this.iconPaths = [
+                {
+                    icon: icon,
+                    path: svg,
+                },
+            ];
+        } else {
+            this.iconPaths.push({ icon: icon, path: svg });
+        }
+
+        return svg;
+    }
+
     /**
      * Prepares the kanban sections by sorting the boxlist's data.
      * @returns {{jsx: VNode[], style: { [index: string]: string }}} jsx contains the virtual nodes of the Kanban sections, style contains the grid CSS settings.
