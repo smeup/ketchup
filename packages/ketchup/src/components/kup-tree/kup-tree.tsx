@@ -514,21 +514,6 @@ export class KupTree {
         }
     }
 
-    @Watch('ripple')
-    applyRipple() {
-        const root = this.rootElement.shadowRoot;
-        if (root && this.ripple) {
-            const rippleCells = root.querySelectorAll(
-                '.mdc-ripple-surface:not(.mdc-ripple-upgraded)'
-            );
-            if (rippleCells) {
-                for (let i = 0; i < rippleCells.length; i++) {
-                    MDCRipple.attachTo(rippleCells[i]);
-                }
-            }
-        }
-    }
-
     @Watch('selectedNode')
     selectedNodeToStr(newData) {
         if (Array.isArray(newData)) {
@@ -2399,7 +2384,6 @@ export class KupTree {
             }
         }
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
-        this.applyRipple();
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
@@ -2416,6 +2400,18 @@ export class KupTree {
     }
 
     componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+        if (root && this.ripple) {
+            const rippleCells = root.querySelectorAll(
+                '.mdc-ripple-surface:not(.mdc-ripple-upgraded)'
+            );
+            console.log(rippleCells);
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
+        }
         if (this.preventXScroll) {
             this.setEllipsis();
         }

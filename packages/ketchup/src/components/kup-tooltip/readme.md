@@ -8,6 +8,7 @@
 | Property        | Attribute        | Description                      | Type                   | Default     |
 | --------------- | ---------------- | -------------------------------- | ---------------------- | ----------- |
 | `cellOptions`   | --               | Data for cell options            | `TooltipCellOptions`   | `undefined` |
+| `customStyle`   | `custom-style`   | Custom style of the component.   | `string`               | `''`        |
 | `data`          | --               | Data for top section             | `TooltipData`          | `undefined` |
 | `detailData`    | --               | Data for the detail              | `TooltipDetailData`    | `undefined` |
 | `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`               | `800`       |

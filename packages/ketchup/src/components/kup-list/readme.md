@@ -105,20 +105,21 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                           | Description                                                                       |
-| ------------------------------ | --------------------------------------------------------------------------------- |
-| `--kup-list-background`        | Sets background of the list.                                                      |
-| `--kup-list-color`             | Sets text color of the list.                                                      |
-| `--kup-list-font-family`       | Sets font family of the component.                                                |
-| `--kup-list-font-size`         | Sets font size of the component.                                                  |
-| `--kup-list-font-weight`       | Sets font weight of the component.                                                |
-| `--kup-list-group-item-height` | Sets height of each list item when the list contains radio buttons or checkboxes. |
-| `--kup-list-item-height`       | Sets height of each list item.                                                    |
-| `--kup-list-item-padding`      | Sets padding of each list item.                                                   |
-| `--kup-list-primary-color`     | Sets the primary color of the component.                                          |
-| `--kup-list-primary-color-rgb` | Sets the RGB values of the primary color of the component (used for shaders).     |
-| `--kup-list-separator-color`   | Sets the color of separators.                                                     |
-| `--kup-list-transition`        | Transitions duration for text and background colors.                              |
+| Name                            | Description                                                                       |
+| ------------------------------- | --------------------------------------------------------------------------------- |
+| `--kup-list-background`         | Sets background of the list.                                                      |
+| `--kup-list-color`              | Sets text color of the list.                                                      |
+| `--kup-list-font-family`        | Sets font family of the component.                                                |
+| `--kup-list-font-size`          | Sets font size of the component.                                                  |
+| `--kup-list-font-weight`        | Sets font weight of the component.                                                |
+| `--kup-list-group-item-height`  | Sets height of each list item when the list contains radio buttons or checkboxes. |
+| `--kup-list-item-height`        | Sets height of each list item.                                                    |
+| `--kup-list-item-padding`       | Sets padding of each list item.                                                   |
+| `--kup-list-max-height-as-menu` | Sets max height when list is menu.                                                |
+| `--kup-list-primary-color`      | Sets the primary color of the component.                                          |
+| `--kup-list-primary-color-rgb`  | Sets the RGB values of the primary color of the component (used for shaders).     |
+| `--kup-list-separator-color`    | Sets the color of separators.                                                     |
+| `--kup-list-transition`         | Transitions duration for text and background colors.                              |
 
 
 ## Dependencies

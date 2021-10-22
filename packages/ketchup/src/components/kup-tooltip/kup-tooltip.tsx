@@ -5,6 +5,7 @@ import {
     EventEmitter,
     forceUpdate,
     h,
+    Host,
     Method,
     Prop,
     State,
@@ -39,10 +40,11 @@ import {
     KupDynamicPositionElement,
     KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-tooltip',
@@ -57,6 +59,12 @@ export class KupTooltip {
      * Data for cell options
      */
     @Prop({ mutable: true }) cellOptions: TooltipCellOptions;
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = '';
     /**
      * Data for top section
      */
@@ -720,12 +728,12 @@ export class KupTooltip {
                     showSelection={false}
                     showTooltipOnRightClick={false}
                     tooltipEnabled={false}
-                    class="kup-left-aligned kup-top-aligned kup-borderless"
+                    class="kup-left-aligned kup-top-aligned kup-borderless kup-paddingless"
                 />
             );
         }
         if (listMenuData != null) {
-            items.push(<kup-list is-menu menu-visible data={listMenuData} />);
+            items.push(<kup-list data={listMenuData} />);
         }
         return items;
     }
@@ -982,28 +990,37 @@ export class KupTooltip {
         if (this.isCardLayout()) {
             return this.getCardLayoutContent();
         }
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
         return (
-            <div
-                id="wrapper"
-                onMouseEnter={(ev) => {
-                    this.onMouseEnter();
-                    ev.stopPropagation();
-                }}
-                onMouseLeave={(ev) => {
-                    this.onMouseLeave();
-                    ev.stopPropagation();
-                }}
-            >
-                <div
-                    id="tooltip"
-                    hidden={!this.visible}
-                    onClick={(e: MouseEvent) => e.stopPropagation()}
-                >
-                    {this.layout == '5'
-                        ? this.getLayout5()
-                        : this.createTooltip()}
+            <Host>
+                {customStyle ? <style>{customStyle}</style> : null}
+                <div id={componentWrapperId}>
+                    <div
+                        id="wrapper"
+                        onMouseEnter={(ev) => {
+                            this.onMouseEnter();
+                            ev.stopPropagation();
+                        }}
+                        onMouseLeave={(ev) => {
+                            this.onMouseLeave();
+                            ev.stopPropagation();
+                        }}
+                    >
+                        <div
+                            id="tooltip"
+                            hidden={!this.visible}
+                            onClick={(e: MouseEvent) => e.stopPropagation()}
+                        >
+                            {this.layout == '5'
+                                ? this.getLayout5()
+                                : this.createTooltip()}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </Host>
         );
     }
 

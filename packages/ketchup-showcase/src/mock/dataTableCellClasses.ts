@@ -81,6 +81,35 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'link',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Cell will be rendered as a link.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'link',
+          cssClass: 'link',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'shaped',
         },
         DESCR: {
