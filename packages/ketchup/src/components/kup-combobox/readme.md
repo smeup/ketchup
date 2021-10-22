@@ -18,16 +18,15 @@
 
 ## Events
 
-| Event                          | Description | Type                                   |
-| ------------------------------ | ----------- | -------------------------------------- |
-| `kup-combobox-blur`            |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-change`          |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-click`           |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-focus`           |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-iconclick`       |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-input`           |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-itemclick`       |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-textfieldsubmit` |             | `CustomEvent<KupComboboxEventPayload>` |
+| Event                    | Description | Type                                   |
+| ------------------------ | ----------- | -------------------------------------- |
+| `kup-combobox-blur`      |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-change`    |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-click`     |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-focus`     |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-iconclick` |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-input`     |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-itemclick` |             | `CustomEvent<KupComboboxEventPayload>` |
 
 
 ## Methods

@@ -8,7 +8,6 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-
 import {
     KupPaginatorPageChangedEventPayload,
     KupPaginatorRowsPerPageChangedEventPayload,
@@ -213,33 +212,6 @@ export class KupPaginator {
         return rowsPerPageItems;
     }
 
-    // private setEvents(): void {
-    //     const root: ShadowRoot = this.rootElement.shadowRoot;
-
-    //     if (root) {
-    //         const nextButton: HTMLElement = root.querySelector(
-    //             '.f-button--wrapper.next-page'
-    //         );
-    //         const prevButton: HTMLElement = root.querySelector(
-    //             '.f-button--wrapper.prev-page'
-    //         );
-    //         if (nextButton) {
-    //             const buttonEl: HTMLButtonElement =
-    //                 nextButton.querySelector('button');
-    //             if (buttonEl) {
-    //                 buttonEl.onclick = () => this.onNextPage();
-    //             }
-    //         }
-    //         if (prevButton) {
-    //             const buttonEl: HTMLButtonElement =
-    //                 prevButton.querySelector('button');
-    //             if (buttonEl) {
-    //                 buttonEl.onclick = () => this.onPrevPage();
-    //             }
-    //         }
-    //     }
-    // }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -316,7 +288,7 @@ export class KupPaginator {
                             icon="chevron_left"
                             disabled={this.isPrevPageDisabled()}
                             wrapperClass="prev-page"
-                            onClick={()=>this.onPrevPage()}
+                            onClick={() => this.onPrevPage()}
                         />
                         <kup-combobox
                             class="page-selector"
@@ -335,7 +307,7 @@ export class KupPaginator {
                             icon="chevron_right"
                             disabled={this.isNextPageDisabled()}
                             wrapperClass="next-page"
-                            onClick={()=>this.onNextPage()}
+                            onClick={() => this.onNextPage()}
                         />
                     </div>
                     <div class="tot-section">

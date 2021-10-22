@@ -9,7 +9,6 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -230,7 +229,7 @@ export class KupImage {
         let feedback: HTMLElement;
         let spinnerLayout: number;
 
-        let props: FImageProps = {
+        const props: FImageProps = {
             badgeData: this.badgeData,
             color: this.color,
             data: this.data,
@@ -288,12 +287,7 @@ export class KupImage {
             <Host style={elStyle}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 {feedback}
-                <div
-                    id={componentWrapperId}
-                    onClick={(e) => this.onKupClick(e)}
-                >
-                    {el}
-                </div>
+                <div id={componentWrapperId}>{el}</div>
             </Host>
         );
     }

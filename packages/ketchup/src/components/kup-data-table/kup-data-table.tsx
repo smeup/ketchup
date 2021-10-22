@@ -1590,138 +1590,6 @@ export class KupDataTable {
         return count;
     }
 
-    private setEvents() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-
-        if (root) {
-            //Row checkboxes
-            const checkboxes: NodeListOf<HTMLElement> = root.querySelectorAll(
-                'td .f-checkbox--wrapper'
-            );
-            for (let index = 0; index < checkboxes.length; index++) {
-                const inputEl: HTMLInputElement =
-                    checkboxes[index].querySelector('input');
-                if (inputEl) {
-                    inputEl.onchange = (e: Event) =>
-                        this.cellUpdate(
-                            e,
-                            (e.target as HTMLInputElement).value,
-                            checkboxes[index]['data-cell'],
-                            checkboxes[index]['data-column'],
-                            checkboxes[index]['data-row']
-                        );
-                }
-            }
-            //Row textfields
-            const textfields: NodeListOf<HTMLElement> = root.querySelectorAll(
-                'td .f-text-field--wrapper'
-            );
-            for (let index = 0; index < textfields.length; index++) {
-                const inputEl: HTMLInputElement =
-                    textfields[index].querySelector('input');
-                if (inputEl) {
-                    inputEl.onblur = (e: FocusEvent) =>
-                        this.cellUpdate(
-                            e,
-                            (e.target as HTMLInputElement).value,
-                            textfields[index]['data-cell'],
-                            textfields[index]['data-column'],
-                            textfields[index]['data-row']
-                        );
-                    inputEl.onchange = (e: Event) =>
-                        this.cellUpdate(
-                            e,
-                            (e.target as HTMLInputElement).value,
-                            textfields[index]['data-cell'],
-                            textfields[index]['data-column'],
-                            textfields[index]['data-row']
-                        );
-                }
-                FTextFieldMDC(textfields[index]);
-            }
-            //Row multiselection checkboxes
-            const multiselectionCheckboxes: NodeListOf<HTMLElement> =
-                root.querySelectorAll(
-                    'td[row-select-cell] .f-checkbox--wrapper'
-                );
-            for (
-                let index = 0;
-                index < multiselectionCheckboxes.length;
-                index++
-            ) {
-                const checkboxEl: HTMLInputElement =
-                    multiselectionCheckboxes[index].querySelector('input');
-                if (checkboxEl) {
-                    checkboxEl.onchange = () =>
-                        this.handleRowSelect(
-                            multiselectionCheckboxes[index]['data-row']
-                        );
-                }
-            }
-            //Row actions: expander
-            const expanderRowActions: NodeListOf<HTMLElement> =
-                root.querySelectorAll(
-                    '[row-action-cell] .f-image--wrapper.expander'
-                );
-            for (let index = 0; index < expanderRowActions.length; index++) {
-                (expanderRowActions[index] as HTMLElement).onclick = (
-                    e: MouseEvent
-                ) =>
-                    this.onRowActionExpanderClick(
-                        e,
-                        expanderRowActions[index]['data-row']
-                    );
-            }
-            //Row actions: actions
-            const rowActions: NodeListOf<HTMLElement> = root.querySelectorAll(
-                '[row-action-cell] .f-image--wrapper.action'
-            );
-            for (let index = 0; index < rowActions.length; index++) {
-                rowActions[index].onclick = () =>
-                    this.onDefaultRowActionClick(
-                        rowActions[index]['data-action']
-                    );
-            }
-            //Groups chip set
-            const groupChip: HTMLElement = root.querySelector(
-                '#group-chips.f-chip--wrapper'
-            );
-            if (groupChip) {
-                const chips: NodeListOf<HTMLElement> =
-                    groupChip.querySelectorAll('.chip');
-                for (let index = 0; index < chips.length; index++) {
-                    const cancelIcon: HTMLElement = chips[index].querySelector(
-                        `.chip__icon.${KupThemeIconValues.CLEAR.replace(
-                            '--',
-                            ''
-                        )}`
-                    );
-                    if (cancelIcon) {
-                        cancelIcon.onclick = () => this.removeGroup(index);
-                    }
-                }
-            }
-            //Global filter text field
-            const globalFilter: HTMLElement = root.querySelector(
-                '#global-filter .f-text-field--wrapper'
-            );
-            if (globalFilter) {
-                const globalFilterInput: HTMLInputElement =
-                    globalFilter.querySelector('input');
-                globalFilterInput.oninput = (event) => {
-                    const t: EventTarget = event.target;
-                    window.clearTimeout(this.globalFilterTimeout);
-                    this.globalFilterTimeout = window.setTimeout(
-                        () => this.onGlobalFilterChange(t),
-                        600,
-                        t
-                    );
-                };
-                FTextFieldMDC(globalFilter);
-            }
-        }
-    }
-
     private setDynPosElements() {
         // Column menu
         if (this.columnMenuCard && this.columnMenuCard.data) {
@@ -1789,6 +1657,15 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fs: NodeListOf<HTMLElement> = root.querySelectorAll(
+                '.f-text-field--wrapper'
+            );
+            for (let index = 0; index < fs.length; index++) {
+                FTextFieldMDC(fs[index]);
+            }
+        }
         if (this.showCustomization) {
             this.customizePanelPosition();
         }
@@ -1796,21 +1673,6 @@ export class KupDataTable {
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnDropArea(false);
-        //this.setEvents();
-        const textfields: NodeListOf<HTMLElement> =
-            this.rootElement.shadowRoot.querySelectorAll(
-                'td .f-text-field--wrapper'
-            );
-        for (let index = 0; index < textfields.length; index++) {
-            FTextFieldMDC(textfields[index]);
-        }
-        const globalFilter: HTMLElement =
-            this.rootElement.shadowRoot.querySelector(
-                '#global-filter .f-text-field--wrapper'
-            );
-
-        FTextFieldMDC(globalFilter);
-
         this.setDynPosElements();
 
         if (
@@ -4912,7 +4774,6 @@ export class KupDataTable {
                         fullWidth={true}
                         inputType="number"
                         value={stringToNumber(cell.value).toString()}
-                        //onClick={}
                         onBlur={(e: FocusEvent) =>
                             this.cellUpdate(
                                 e,

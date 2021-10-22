@@ -11,7 +11,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
@@ -155,14 +154,6 @@ export class KupCombobox {
         bubbles: true,
     })
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
-
-    @Event({
-        eventName: 'kup-combobox-textfieldsubmit',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupTextFieldSubmit: EventEmitter<KupComboboxEventPayload>;
 
     onKupBlur() {
         this.closeList();
@@ -406,44 +397,6 @@ export class KupCombobox {
         );
     }
 
-    // private setEvents() {
-    //     const root: ShadowRoot = this.rootElement.shadowRoot;
-    //     if (root) {
-    //         const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
-    //         if (f) {
-    //             const inputEl: HTMLInputElement | HTMLTextAreaElement =
-    //                 root.querySelector('.mdc-text-field__input');
-    //             const icon: HTMLElement = root.querySelector(
-    //                 '.mdc-text-field__icon'
-    //             );
-    //             if (inputEl) {
-    //                 inputEl.onchange = (
-    //                     e: UIEvent & { target: HTMLInputElement }
-    //                 ) => this.onKupChange(e);
-    //                 inputEl.onclick = (
-    //                     e: MouseEvent & { target: HTMLInputElement }
-    //                 ) => this.onKupClick(e);
-    //                 inputEl.onfocus = (
-    //                     e: FocusEvent & { target: HTMLInputElement }
-    //                 ) => this.onKupFocus(e);
-    //                 inputEl.oninput = (
-    //                     e: UIEvent & { target: HTMLInputElement }
-    //                 ) => this.onKupInput(e);
-    //                 this.textfieldWrapper = inputEl.closest(
-    //                     '.f-text-field--wrapper'
-    //                 );
-    //                 this.textfieldEl = inputEl;
-    //             }
-    //             if (icon) {
-    //                 icon.onclick = (
-    //                     e: MouseEvent & { target: HTMLInputElement }
-    //                 ) => this.onKupIconClick(e);
-    //             }
-    //             FTextFieldMDC(f);
-    //         }
-    //     }
-    // }
-
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -471,18 +424,17 @@ export class KupCombobox {
 
     componentDidRender() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
-
-        const inputEl: HTMLInputElement | HTMLTextAreaElement =
-            root.querySelector('.mdc-text-field__input');
-        this.textfieldWrapper = inputEl.closest('.f-text-field--wrapper');
-        this.textfieldEl = inputEl;
-        FTextFieldMDC(f);
-
-        this.kupManager.dynamicPosition.register(
-            this.listEl,
-            this.textfieldWrapper
-        );
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            if (f) {
+                this.textfieldWrapper = f;
+                FTextFieldMDC(f);
+                this.kupManager.dynamicPosition.register(
+                    this.listEl,
+                    this.textfieldWrapper
+                );
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 

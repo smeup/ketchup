@@ -3756,7 +3756,6 @@ declare namespace LocalJSX {
         "onKup-combobox-iconclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-input"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-itemclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
-        "onKup-combobox-textfieldsubmit"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */

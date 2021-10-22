@@ -87,10 +87,6 @@ export default {
           name: 'kup-combobox-itemclick',
           type: 'click',
         },
-        {
-          name: 'kup-combobox-textfieldsubmit',
-          type: 'click',
-        },
       ],
       demoMethods: [
         {

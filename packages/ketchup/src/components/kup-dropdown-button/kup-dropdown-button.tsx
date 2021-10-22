@@ -12,7 +12,6 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-
 import {
     KupManager,
     kupManagerInstance,
@@ -392,36 +391,6 @@ export class KupDropdownButton {
         );
         this.value = ret.value;
     }
-    /**
-     * Set the events of the component and instantiates Material Design.
-     */
-    // private setEvents(): void {
-    //     const root: ShadowRoot = this.rootElement.shadowRoot;
-    //     if (root) {
-    //         const fPrimary: HTMLElement = root.querySelector(
-    //             '.dropdown-button__primary-action'
-    //         );
-    //         if (fPrimary) {
-    //             const buttonEl: HTMLButtonElement =
-    //                 fPrimary.querySelector('button');
-    //             if (buttonEl) {
-    //                 buttonEl.onblur = () => this.onKupBlur();
-    //                 buttonEl.onclick = () => this.onKupClick();
-    //                 buttonEl.onfocus = () => this.onKupFocus();
-    //             }
-    //         }
-    //         const fDropdown: HTMLElement = root.querySelector(
-    //             '.dropdown-button__dropdown-action'
-    //         );
-    //         if (fDropdown) {
-    //             const buttonEl: HTMLButtonElement =
-    //                 fDropdown.querySelector('button');
-    //             if (buttonEl) {
-    //                 buttonEl.onclick = () => this.onDropDownClick();
-    //             }
-    //         }
-    //     }
-    // }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -457,7 +426,6 @@ export class KupDropdownButton {
                 '.dropdown-button__dropdown-action'
             );
         }
-        this.renderButtons();
         this.kupManager.dynamicPosition.register(
             this.listEl as KupDynamicPositionElement,
             this.wrapperEl
