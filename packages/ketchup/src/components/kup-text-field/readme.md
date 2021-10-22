@@ -128,8 +128,6 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-date-picker](../kup-date-picker)
- - [kup-form](../kup-form)
- - [kup-search](../kup-search)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
 
@@ -139,8 +137,6 @@ graph TD;
   kup-box --> kup-text-field
   kup-card --> kup-text-field
   kup-date-picker --> kup-text-field
-  kup-form --> kup-text-field
-  kup-search --> kup-text-field
   kup-time-picker --> kup-text-field
   kup-tree --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px

@@ -173,11 +173,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/chart/Chart.vue`),
   },
   {
-    path: `/crud`,
-    name: 'crud',
-    component: () => import(`@/views/advanced/crud/Crud.vue`),
-  },
-  {
     path: `/dash`,
     name: 'dash',
     component: () => import(`@/views/advanced/dash/Dash.vue`),
@@ -196,16 +191,6 @@ let advancedRoutes = [
     path: `/field`,
     name: 'field',
     component: () => import(`@/views/advanced/field/Field.vue`),
-  },
-  {
-    path: `/form`,
-    name: 'form',
-    component: () => import(`@/views/advanced/form/Form.vue`),
-  },
-  {
-    path: `/search`,
-    name: 'search',
-    component: () => import(`@/views/advanced/search/Search.vue`),
   },
   {
     path: `/tooltip`,

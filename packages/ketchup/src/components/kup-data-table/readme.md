@@ -243,7 +243,6 @@ Type: `Promise<void>`
 
  - [kup-card](../kup-card)
  - [kup-magic-box](../kup-magic-box)
- - [kup-search](../kup-search)
 
 ### Depends on
 
@@ -341,7 +340,6 @@ graph TD;
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
   kup-magic-box --> kup-data-table
-  kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
