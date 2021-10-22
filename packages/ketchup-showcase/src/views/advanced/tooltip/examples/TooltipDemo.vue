@@ -152,7 +152,8 @@ export default {
           description: 'Sets the props to the component.',
         },
         {
-          name: 'setTooltipInfo(relatedObject: TooltipRelatedObject) => Promise<void>',
+          name:
+            'setTooltipInfo(relatedObject: TooltipRelatedObject) => Promise<void>',
           description: '',
         },
         {
@@ -171,20 +172,20 @@ function createComp() {
   comp.classList.add('badge-anchor');
   compSurface.innerText = 'Right click me!';
   compEl.id = 'demo-component';
-  comp.addEventListener('contextmenu', function (event) {
+  comp.addEventListener('contextmenu', function(event) {
     event.preventDefault();
     if (event.button === 2) {
       compEl.relatedObject = { element: comp };
       compEl.loadTimeout = 250;
     }
   });
-  compEl.addEventListener('kup-tooltip-loadcelloptions', function ({ detail }) {
+  compEl.addEventListener('kup-tooltip-loadcelloptions', function({ detail }) {
     setTimeout(() => (compEl.cellOptions = cellOptionsTree), 250);
   });
-  compEl.addEventListener('kup-tooltip-loaddetail', function (event) {
+  compEl.addEventListener('kup-tooltip-loaddetail', function(event) {
     setTimeout(() => (compEl.detailData = bornToDie), 250);
   });
-  compEl.addEventListener('kup-tooltip-loaddata', function (event) {
+  compEl.addEventListener('kup-tooltip-loaddata', function(event) {
     compEl.data = {
       image: imageUrls.bornToDie,
       title: 'Born to die',
