@@ -1,6 +1,4 @@
 :host {
-  --kup-box-font-size: 10px;
-  --kup-list-font-size: 10px;
   outline: none;
   #wrapper {
     display: block;
@@ -159,4 +157,20 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+kup-list {
+  --kup-list-font-size: 10px;
+  --kup-list-item-height: 2em;
+  --kup-list-item-padding: 0 1em;
+  border-top: 1px solid var(--kup-border-color);
+  max-height: 15vh;
+  overflow-y: auto;
+}
+
+kup-box {
+  --kup-box-font-size: 10px;
+  max-height: 25vh;
+  overflow-y: auto;
+  padding: 1em;
 }

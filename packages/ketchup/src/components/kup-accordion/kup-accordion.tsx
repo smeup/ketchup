@@ -312,6 +312,15 @@ export class KupAccordion {
     }
 
     componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            const rippleCells = root.querySelectorAll('.mdc-ripple-surface');
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 

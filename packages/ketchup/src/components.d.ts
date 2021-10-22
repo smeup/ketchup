@@ -2471,6 +2471,12 @@ export namespace Components {
          */
         "cellOptions": TooltipCellOptions;
         /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * Data for top section
          */
         "data": TooltipData;
@@ -5051,6 +5057,12 @@ declare namespace LocalJSX {
           * Data for cell options
          */
         "cellOptions"?: TooltipCellOptions;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         /**
           * Data for top section
          */

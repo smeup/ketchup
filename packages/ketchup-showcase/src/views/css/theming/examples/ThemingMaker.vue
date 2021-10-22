@@ -760,6 +760,19 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-ACCORDION</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-accordion"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-AUTOCOMPLETE</span>
                 </td>
                 <td class="text-cell">
@@ -786,19 +799,6 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">KUP-BUTTON</span>
-                </td>
-                <td class="text-cell">
-                  <kup-text-field
-                    text-area
-                    full-width
-                    id="kup-button"
-                    @kup-textfield-input="updateCustomStyles"
-                  ></kup-text-field
-                ></td>
-              </tr>
-              <tr>
-                <td class="prevent-cr">
                   <span class="code-word">KUP-BOX</span>
                 </td>
                 <td class="text-cell">
@@ -806,6 +806,19 @@
                     text-area
                     full-width
                     id="kup-box"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-BUTTON</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-button"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -845,6 +858,19 @@
                     text-area
                     full-width
                     id="kup-card"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-CHART</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-chart"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -1027,6 +1053,19 @@
                     text-area
                     full-width
                     id="kup-list"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-MAGIC-BOX</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-magic-box"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
