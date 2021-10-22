@@ -5047,7 +5047,7 @@ export class KupDataTable {
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">
-                        {content}
+                        {cell.value}
                     </a>
                 );
             case 'number':

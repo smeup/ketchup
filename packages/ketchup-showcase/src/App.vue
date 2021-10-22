@@ -288,15 +288,6 @@ export default {
               {
                 cells: {
                   ROUTE: {
-                    value: 'bpmn.io',
-                  },
-                },
-                value: 'Bpmn.io',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
                     value: 'buttonlist',
                   },
                 },
@@ -355,15 +346,6 @@ export default {
                   },
                 },
                 value: 'Data table',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
-                    value: 'echart',
-                  },
-                },
-                value: 'Echart',
                 visible: true,
               },
               {

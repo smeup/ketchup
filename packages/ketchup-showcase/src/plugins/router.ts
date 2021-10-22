@@ -153,11 +153,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/box/Box.vue`),
   },
   {
-    path: `/bpmn.io`,
-    name: 'bpmn.io',
-    component: () => import(`@/views/advanced/bpmn.io/Bpmn.vue`),
-  },
-  {
     path: `/buttonlist`,
     name: 'buttonlist',
     component: () => import(`@/views/advanced/buttonlist/Buttonlist.vue`),
@@ -178,16 +173,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/chart/Chart.vue`),
   },
   {
-    path: `/echart`,
-    name: 'echart',
-    component: () => import(`@/views/advanced/echart/Echart.vue`),
-  },
-  {
-    path: `/crud`,
-    name: 'crud',
-    component: () => import(`@/views/advanced/crud/Crud.vue`),
-  },
-  {
     path: `/dash`,
     name: 'dash',
     component: () => import(`@/views/advanced/dash/Dash.vue`),
@@ -206,16 +191,6 @@ let advancedRoutes = [
     path: `/field`,
     name: 'field',
     component: () => import(`@/views/advanced/field/Field.vue`),
-  },
-  {
-    path: `/form`,
-    name: 'form',
-    component: () => import(`@/views/advanced/form/Form.vue`),
-  },
-  {
-    path: `/search`,
-    name: 'search',
-    component: () => import(`@/views/advanced/search/Search.vue`),
   },
   {
     path: `/tooltip`,

@@ -2,11 +2,6 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
-    bundles: [
-        { components: ['kup-bpmn'] },
-        { components: ['kup-calendar'] },
-        { components: ['kup-echart'] },
-    ],
     namespace: 'ketchup',
     outputTargets: [
         { type: 'dist' },
@@ -18,7 +13,6 @@ export const config: Config = {
                 { src: 'autocomplete.html' },
                 { src: 'box.html' },
                 { src: 'box-performance.html' },
-                { src: 'bpmn.html' },
                 { src: 'button.html' },
                 { src: 'button-list.html' },
                 { src: 'calendar.html' },
@@ -38,7 +32,6 @@ export const config: Config = {
                 { src: 'debug.html' },
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
-                { src: 'echart.html' },
                 { src: 'gauge.html' },
                 { src: 'image.html' },
                 { src: 'layout.html' },

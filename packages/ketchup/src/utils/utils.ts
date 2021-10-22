@@ -1,6 +1,4 @@
-import get from 'lodash/get';
 import numeral from 'numeral';
-
 import { GenericObject, Identifiable } from '../types/GenericTypes';
 import { KupDates } from './kup-dates/kup-dates';
 import { KupDom } from './kup-manager/kup-manager-declarations';
@@ -58,61 +56,6 @@ export function eventFromElement(
         eventSource = eventSource.parentElement;
     }
     return false;
-}
-
-/**
- * Given an event and an element, returns if that event was generated within that element or one of its children.
- * @param event
- * @param element
- */
-export function isEventFromElement(
-    event: Event,
-    element: HTMLElement
-): boolean {
-    try {
-        if (event.composedPath().indexOf(element) >= 0) {
-            return true;
-        }
-    } catch (e) {
-        if (eventFromElement(element, event.target as HTMLElement)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * Given a camelCase formatted string, returns the same string in kebab-case.
- * @param str - the string to convert.
- * @returns the converted string.
- */
-export function toKebabCase(str: string): string {
-    return (str || '').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-}
-
-export function replacePlaceHolders(template: any, data: any) {
-    template = typeof template === 'function' ? template() : template;
-    if (['string', 'number'].indexOf(typeof template) === -1)
-        throw 'please provide a valid template';
-
-    if (!data) return template;
-
-    template = template.replace(/\{\{([^}]+)\}\}/g, function (match) {
-        match = match.slice(2, -2);
-        var val = get(data, match, match);
-        if (!val) return '{{' + match + '}}';
-        return val;
-    });
-
-    return template;
-}
-
-export function formatSize(size: any) {
-    if (isNaN(size)) {
-        return size;
-    } else {
-        return size + 'px';
-    }
 }
 
 export function getCurrentLocale(): string {
