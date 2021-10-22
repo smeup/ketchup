@@ -622,8 +622,7 @@
             "--kup-search-icon": "search"
         },
         "customStyles": {
-            "KUP-DATA-TABLE": "#kup-component th { --kup_datatable_th_border: none; font-weight: normal; }",
-            "KUP-TOOLTIP": "#kup-component #wrapper { max-height: 40vh; overflow: auto; }"
+            "KUP-DATA-TABLE": "#kup-component th { --kup_datatable_th_border: none; font-weight: normal; }"
         }
     },
     "teal": {

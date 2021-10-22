@@ -728,12 +728,12 @@ export class KupTooltip {
                     showSelection={false}
                     showTooltipOnRightClick={false}
                     tooltipEnabled={false}
-                    class="kup-left-aligned kup-top-aligned kup-borderless"
+                    class="kup-left-aligned kup-top-aligned kup-borderless kup-paddingless"
                 />
             );
         }
         if (listMenuData != null) {
-            items.push(<kup-list is-menu menu-visible data={listMenuData} />);
+            items.push(<kup-list data={listMenuData} />);
         }
         return items;
     }
