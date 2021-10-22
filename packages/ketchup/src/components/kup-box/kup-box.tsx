@@ -1675,7 +1675,7 @@ export class KupBox {
                     );
                 } else {
                     boContent = getCellValueForDisplay(column, cell);
-                    if (column.icon || cell.icon) {
+                    if ((column && column.icon) || cell.icon) {
                         let svg: string = '';
                         if (cell.icon) {
                             svg = cell.icon;
