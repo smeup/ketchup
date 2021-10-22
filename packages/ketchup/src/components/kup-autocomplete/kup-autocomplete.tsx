@@ -33,6 +33,7 @@ import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { constant } from 'lodash';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -467,43 +468,43 @@ export class KupAutocomplete {
         );
     }
 
-    private setEvents() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
-            if (f) {
-                const inputEl: HTMLInputElement | HTMLTextAreaElement =
-                    f.querySelector('.mdc-text-field__input');
-                const icon: HTMLElement = f.querySelector(
-                    '.mdc-text-field__icon'
-                );
-                if (inputEl) {
-                    inputEl.onchange = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupChange(e);
-                    inputEl.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupClick(e);
-                    inputEl.onfocus = (
-                        e: FocusEvent & { target: HTMLInputElement }
-                    ) => this.onKupFocus(e);
-                    inputEl.oninput = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupInput(e);
-                    this.textfieldWrapper = inputEl.closest(
-                        '.f-text-field--wrapper'
-                    );
-                    this.textfieldEl = inputEl;
-                }
-                if (icon) {
-                    icon.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupIconClick(e);
-                }
-                FTextFieldMDC(f);
-            }
-        }
-    }
+    // private setEvents() {
+    //     const root: ShadowRoot = this.rootElement.shadowRoot;
+    //     if (root) {
+    //         const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+    //         if (f) {
+    //             const inputEl: HTMLInputElement | HTMLTextAreaElement =
+    //                 f.querySelector('.mdc-text-field__input');
+    //             const icon: HTMLElement = f.querySelector(
+    //                 '.mdc-text-field__icon'
+    //             );
+    //             if (inputEl) {
+    //                 inputEl.onchange = (
+    //                     e: UIEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupChange(e);
+    //                 inputEl.onclick = (
+    //                     e: MouseEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupClick(e);
+    //                 inputEl.onfocus = (
+    //                     e: FocusEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupFocus(e);
+    //                 inputEl.oninput = (
+    //                     e: UIEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupInput(e);
+    //                 this.textfieldWrapper = inputEl.closest(
+    //                     '.f-text-field--wrapper'
+    //                 );
+    //                 this.textfieldEl = inputEl;
+    //             }
+    //             if (icon) {
+    //                 icon.onclick = (
+    //                     e: MouseEvent & { target: HTMLInputElement }
+    //                 ) => this.onKupIconClick(e);
+    //             }
+    //             FTextFieldMDC(f);
+    //         }
+    //     }
+    // }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -532,7 +533,16 @@ export class KupAutocomplete {
     }
 
     componentDidRender() {
-        this.setEvents();
+        const f: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '.f-text-field--wrapper'
+        );
+        if (f) {
+            const inputEl: HTMLInputElement | HTMLTextAreaElement =
+                f.querySelector('.mdc-text-field__input');
+            this.textfieldWrapper = inputEl.closest('.f-text-field--wrapper');
+            this.textfieldEl = inputEl;
+            FTextFieldMDC(f);
+        }
         this.kupManager.dynamicPosition.register(
             this.listEl,
             this.textfieldWrapper
@@ -567,6 +577,21 @@ export class KupAutocomplete {
                         icon={KupThemeIconValues.DROPDOWN}
                         trailingIcon={true}
                         value={this.displayedValue}
+                        onClick={(
+                            e: MouseEvent & { target: HTMLInputElement }
+                        ) => this.onKupClick(e)}
+                        onChange={(e: UIEvent & { target: HTMLInputElement }) =>
+                            this.onKupChange(e)
+                        }
+                        onFocus={(
+                            e: FocusEvent & { target: HTMLInputElement }
+                        ) => this.onKupFocus(e)}
+                        onInput={(e: UIEvent & { target: HTMLInputElement }) =>
+                            this.onKupInput(e)
+                        }
+                        onIconClick={(
+                            e: MouseEvent & { target: HTMLInputElement }
+                        ) => this.onKupIconClick(e)}
                     />
                     {this.prepList()}
                 </div>

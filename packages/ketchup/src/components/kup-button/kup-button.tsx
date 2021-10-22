@@ -262,8 +262,6 @@ export class KupButton {
     }
 
     componentDidRender() {
-        //this.setEvents();
-        this.render();
         this.kupManager.debug.logRender(this, true);
     }
 

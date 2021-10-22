@@ -301,7 +301,6 @@ export class KupChip {
     }
 
     componentDidRender() {
-        this.render();
         this.kupManager.debug.logRender(this, true);
     }
 

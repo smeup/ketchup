@@ -1792,7 +1792,21 @@ export class KupDataTable {
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnDropArea(false);
-        this.setEvents();
+        //this.setEvents();
+        const textfields: NodeListOf<HTMLElement> =
+            this.rootElement.shadowRoot.querySelectorAll(
+                'td .f-text-field--wrapper'
+            );
+        for (let index = 0; index < textfields.length; index++) {
+            FTextFieldMDC(textfields[index]);
+        }
+        const globalFilter: HTMLElement =
+            this.rootElement.shadowRoot.querySelector(
+                '#global-filter .f-text-field--wrapper'
+            );
+
+        FTextFieldMDC(globalFilter);
+
         this.setDynPosElements();
 
         if (
@@ -4187,8 +4201,8 @@ export class KupDataTable {
 
                 const props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
-                    dataSet: {
-                        'data-row': row,
+                    onChange: () => {
+                        this.handleRowSelect(row);
                     },
                 };
 
@@ -4244,9 +4258,6 @@ export class KupDataTable {
                     // adding expander
                     const props: FImageProps = {
                         color: `var(${KupThemeColorValues.PRIMARY})`,
-                        dataSet: {
-                            'data-row': row,
-                        },
                         resource: 'chevron-right',
                         sizeX: '1.5em',
                         sizeY: '1.5em',
@@ -4254,6 +4265,9 @@ export class KupDataTable {
                             KupLanguageGeneric.EXPAND
                         ),
                         wrapperClass: 'expander',
+                        onClick: (e: MouseEvent) => {
+                            this.onRowActionExpanderClick(e, row);
+                        },
                     };
                     rowActionsCount++;
                     rowActionExpander = <FImage {...props} />;
@@ -4542,19 +4556,18 @@ export class KupDataTable {
         return actions.map((action, index) => {
             const props: FImageProps = {
                 color: `var(${KupThemeColorValues.PRIMARY})`,
-                dataSet: {
-                    'data-action': {
-                        action,
-                        index,
-                        row,
-                        type,
-                    },
-                },
                 resource: action.icon,
                 sizeX: '1.5em',
                 sizeY: '1.5em',
                 title: action.text,
                 wrapperClass: 'action',
+                onClick: () =>
+                    this.onDefaultRowActionClick({
+                        action,
+                        row,
+                        index,
+                        type,
+                    }),
             };
             return <FImage {...props} />;
         });
@@ -4840,11 +4853,15 @@ export class KupDataTable {
                 return (
                     <FCheckbox
                         checked={cell.data['checked']}
-                        dataSet={{
-                            'data-cell': cell,
-                            'data-column': column,
-                            'data-row': row,
-                        }}
+                        onChange={(e: Event) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
                     />
                 );
             case 'date':
@@ -4870,11 +4887,6 @@ export class KupDataTable {
             case 'number':
                 return (
                     <FTextField
-                        dataSet={{
-                            'data-cell': cell,
-                            'data-column': column,
-                            'data-row': row,
-                        }}
                         icon={
                             cell.icon
                                 ? cell.icon
@@ -4885,16 +4897,30 @@ export class KupDataTable {
                         fullWidth={true}
                         inputType="number"
                         value={stringToNumber(cell.value).toString()}
+                        //onClick={}
+                        onBlur={(e: FocusEvent) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
+                        onChange={(e: Event) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
                     />
                 );
             case 'string':
                 return (
                     <FTextField
-                        dataSet={{
-                            'data-cell': cell,
-                            'data-column': column,
-                            'data-row': row,
-                        }}
                         icon={
                             cell.icon
                                 ? cell.icon
@@ -4904,6 +4930,24 @@ export class KupDataTable {
                         }
                         fullWidth={true}
                         value={cell.value}
+                        onBlur={(e: FocusEvent) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
+                        onChange={(e: Event) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
                     />
                 );
         }
@@ -5873,7 +5917,11 @@ export class KupDataTable {
                     data: chipsData,
                     id: 'group-chips',
                     type: FChipType.INPUT,
+                    onClick: [],
                 };
+                for (let i = 0; i < chipsData.length; i++) {
+                    props.onClick.push(() => this.removeGroup(i));
+                }
                 groupChips = <FChip {...props}></FChip>;
             }
         }
@@ -5962,6 +6010,21 @@ export class KupDataTable {
                                         KupLanguageSearch.SEARCH
                                     )}
                                     value={this.globalFilterValue}
+                                    onInput={(event) => {
+                                        const t: EventTarget = event.target;
+                                        window.clearTimeout(
+                                            this.globalFilterTimeout
+                                        );
+                                        this.globalFilterTimeout =
+                                            window.setTimeout(
+                                                () =>
+                                                    this.onGlobalFilterChange(
+                                                        t
+                                                    ),
+                                                600,
+                                                t
+                                            );
+                                    }}
                                 />
                             </div>
                         ) : null}

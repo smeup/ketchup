@@ -466,7 +466,6 @@ export class KupTextField {
     }
 
     componentDidRender() {
-        this.render();
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
