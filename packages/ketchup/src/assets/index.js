@@ -31,10 +31,6 @@ components.data = [
         value: 'box.html',
     },
     {
-        text: 'Bpmn.io',
-        value: 'bpmn.html',
-    },
-    {
         text: 'Button',
         value: 'button.html',
     },
