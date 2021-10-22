@@ -225,39 +225,6 @@ export class KupChip {
     }
 
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    /**
-     * Sets the events of the component and instantiates Material Design.
-     */
-    // private setEvents(): void {
-    //     const root: ShadowRoot = this.rootElement.shadowRoot;
-    //     if (root) {
-    //         const f: HTMLElement = root.querySelector('.f-chip--wrapper');
-    //         if (f) {
-    //             const chips: NodeListOf<HTMLElement> =
-    //                 f.querySelectorAll('.chip');
-    //             for (let j = 0; j < chips.length; j++) {
-    //                 const primaryEl: HTMLElement = chips[j].querySelector(
-    //                     '.chip__primary-action'
-    //                 );
-    //                 primaryEl.onblur = () => this.onKupBlur(j);
-    //                 primaryEl.onfocus = () => this.onKupFocus(j);
-
-    //                 const cancelIcon: HTMLElement =
-    //                     chips[j].querySelector('.chip__icon.clear');
-    //                 if (cancelIcon) {
-    //                     cancelIcon.onclick = () => this.onKupIconClick(j);
-    //                 }
-
-    //                 chips[j].onclick = () => this.onKupClick(j);
-    //             }
-    //         }
-    //     }
-    // }
-
-    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
