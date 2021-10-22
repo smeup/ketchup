@@ -216,7 +216,6 @@ export class KupCheckbox {
     }
 
     componentDidRender() {
-        this.render();
         this.kupManager.debug.logRender(this, true);
     }
 

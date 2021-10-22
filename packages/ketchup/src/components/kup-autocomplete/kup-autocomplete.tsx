@@ -202,7 +202,7 @@ export class KupAutocomplete {
         });
     }
 
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+    onKupClick(e: MouseEvent & { target: HTMLInputElement }) {
         const { target } = e;
         this.kupClick.emit({
             comp: this,
@@ -233,7 +233,7 @@ export class KupAutocomplete {
         });
     }
 
-    onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
+    onKupIconClick(event: MouseEvent & { target: HTMLInputElement }) {
         const { target } = event;
 
         if (this.textfieldWrapper.classList.contains('toggled')) {
@@ -467,44 +467,6 @@ export class KupAutocomplete {
         );
     }
 
-    private setEvents() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
-            if (f) {
-                const inputEl: HTMLInputElement | HTMLTextAreaElement =
-                    f.querySelector('.mdc-text-field__input');
-                const icon: HTMLElement = f.querySelector(
-                    '.mdc-text-field__icon'
-                );
-                if (inputEl) {
-                    inputEl.onchange = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupChange(e);
-                    inputEl.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupClick(e);
-                    inputEl.onfocus = (
-                        e: FocusEvent & { target: HTMLInputElement }
-                    ) => this.onKupFocus(e);
-                    inputEl.oninput = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupInput(e);
-                    this.textfieldWrapper = inputEl.closest(
-                        '.f-text-field--wrapper'
-                    );
-                    this.textfieldEl = inputEl;
-                }
-                if (icon) {
-                    icon.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupIconClick(e);
-                }
-                FTextFieldMDC(f);
-            }
-        }
-    }
-
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -532,11 +494,18 @@ export class KupAutocomplete {
     }
 
     componentDidRender() {
-        this.setEvents();
-        this.kupManager.dynamicPosition.register(
-            this.listEl,
-            this.textfieldWrapper
-        );
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            if (f) {
+                this.textfieldWrapper = f;
+                FTextFieldMDC(f);
+                this.kupManager.dynamicPosition.register(
+                    this.listEl,
+                    this.textfieldWrapper
+                );
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -567,6 +536,21 @@ export class KupAutocomplete {
                         icon={KupThemeIconValues.DROPDOWN}
                         trailingIcon={true}
                         value={this.displayedValue}
+                        onClick={(
+                            e: MouseEvent & { target: HTMLInputElement }
+                        ) => this.onKupClick(e)}
+                        onChange={(e: UIEvent & { target: HTMLInputElement }) =>
+                            this.onKupChange(e)
+                        }
+                        onFocus={(
+                            e: FocusEvent & { target: HTMLInputElement }
+                        ) => this.onKupFocus(e)}
+                        onInput={(e: UIEvent & { target: HTMLInputElement }) =>
+                            this.onKupInput(e)
+                        }
+                        onIconClick={(
+                            e: MouseEvent & { target: HTMLInputElement }
+                        ) => this.onKupIconClick(e)}
                     />
                     {this.prepList()}
                 </div>

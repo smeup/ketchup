@@ -9,7 +9,6 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-
 import {
     KupManager,
     kupManagerInstance,
@@ -301,7 +300,6 @@ export class KupChip {
     }
 
     componentDidRender() {
-        this.render();
         this.kupManager.debug.logRender(this, true);
     }
 

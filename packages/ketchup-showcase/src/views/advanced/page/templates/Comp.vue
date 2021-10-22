@@ -277,6 +277,7 @@ export default {
 
     &__nav {
       margin-bottom: 4em;
+      max-height: unset;
       padding: 0;
       position: relative;
       right: unset;

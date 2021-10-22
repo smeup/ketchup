@@ -204,7 +204,6 @@ export class KupSwitch {
     }
 
     componentDidRender() {
-        this.render();
         this.kupManager.debug.logRender(this, true);
     }
 
