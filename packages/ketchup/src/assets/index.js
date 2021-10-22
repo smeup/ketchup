@@ -87,10 +87,6 @@ components.data = [
         value: 'dropdown-button.html',
     },
     {
-        text: 'Echart',
-        value: 'echart.html',
-    },
-    {
         text: 'Gauge',
         value: 'gauge.html',
     },

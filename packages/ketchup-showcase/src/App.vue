@@ -351,15 +351,6 @@ export default {
               {
                 cells: {
                   ROUTE: {
-                    value: 'echart',
-                  },
-                },
-                value: 'Echart',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
                     value: 'field',
                   },
                 },

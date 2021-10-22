@@ -2,7 +2,6 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
-    bundles: [{ components: ['kup-calendar'] }, { components: ['kup-echart'] }],
     namespace: 'ketchup',
     outputTargets: [
         { type: 'dist' },
@@ -33,7 +32,6 @@ export const config: Config = {
                 { src: 'debug.html' },
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
-                { src: 'echart.html' },
                 { src: 'gauge.html' },
                 { src: 'image.html' },
                 { src: 'layout.html' },

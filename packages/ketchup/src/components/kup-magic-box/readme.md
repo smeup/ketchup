@@ -52,7 +52,6 @@ Type: `Promise<void>`
 
 - [kup-box](../kup-box)
 - [kup-chart](../kup-chart)
-- [kup-echart](../kup-echart)
 - [kup-data-table](../kup-data-table)
 - [kup-combobox](../kup-combobox)
 - [kup-button](../kup-button)
@@ -63,7 +62,6 @@ Type: `Promise<void>`
 graph TD;
   kup-magic-box --> kup-box
   kup-magic-box --> kup-chart
-  kup-magic-box --> kup-echart
   kup-magic-box --> kup-data-table
   kup-magic-box --> kup-combobox
   kup-magic-box --> kup-button
