@@ -142,5 +142,6 @@ export enum KupThemeIconValues {
     DROPDOWN = '--kup-dropdown-icon',
     EXPANDED = '--kup-expanded-icon',
     FILTER_REMOVE = '--kup-filter-remove-icon',
+    KEY = '--kup-key-icon',
     SEARCH = '--kup-search-icon',
 }

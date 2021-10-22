@@ -31,10 +31,6 @@ components.data = [
         value: 'box.html',
     },
     {
-        text: 'Bpmn.io',
-        value: 'bpmn.html',
-    },
-    {
         text: 'Button',
         value: 'button.html',
     },
@@ -89,10 +85,6 @@ components.data = [
     {
         text: 'Dropdown button',
         value: 'dropdown-button.html',
-    },
-    {
-        text: 'Echart',
-        value: 'echart.html',
     },
     {
         text: 'Gauge',

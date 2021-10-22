@@ -3,7 +3,7 @@ export default JSON.parse(`
     "type": "EXB",
     "key": "i123",
     "title": "la mia matice ",
-    "options": {
+    "options": { 
       "EXB": {
         "": {
           "enableSort": true

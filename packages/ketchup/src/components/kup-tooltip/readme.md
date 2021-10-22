@@ -8,6 +8,7 @@
 | Property        | Attribute        | Description                      | Type                   | Default     |
 | --------------- | ---------------- | -------------------------------- | ---------------------- | ----------- |
 | `cellOptions`   | --               | Data for cell options            | `TooltipCellOptions`   | `undefined` |
+| `customStyle`   | `custom-style`   | Custom style of the component.   | `string`               | `''`        |
 | `data`          | --               | Data for top section             | `TooltipData`          | `undefined` |
 | `detailData`    | --               | Data for the detail              | `TooltipDetailData`    | `undefined` |
 | `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`               | `800`       |
@@ -100,6 +101,8 @@ Type: `Promise<void>`
 
 - [kup-button](../kup-button)
 - [kup-card](../kup-card)
+- [kup-box](../kup-box)
+- [kup-list](../kup-list)
 - [kup-tree](../kup-tree)
 
 ### Graph
@@ -107,6 +110,8 @@ Type: `Promise<void>`
 graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
   kup-tooltip --> kup-tree
   kup-button --> kup-badge
   kup-badge --> kup-badge

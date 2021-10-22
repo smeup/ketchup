@@ -83,7 +83,7 @@ function createIcon(props: FImageProps): HTMLDivElement {
     if (props.resource.indexOf('--kup') > -1) {
         let themeIcon: string = props.resource.replace('--kup-', '');
         themeIcon = themeIcon.replace('-icon', '');
-        classObj['icon-container'] = true;
+        classObj['kup-icon'] = true;
         classObj[themeIcon] = true;
     } else {
         const path: string = getAssetPath(`./assets/svg/${props.resource}.svg`);

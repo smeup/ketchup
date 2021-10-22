@@ -1,16 +1,13 @@
-// Box and datatables cells utils functions
-
 import get from 'lodash/get';
+import numeral from 'numeral';
 import {
     Cell,
     Column,
     SortMode,
 } from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
-import numeral from 'numeral';
 import {
     stringToNumber,
-    toKebabCase,
     unformattedStringToFormattedStringNumber,
     unformattedStringToFormattedStringTime,
     unformattedStringToFormattedStringTimestamp,
@@ -85,57 +82,6 @@ export function isChip(cell: Cell, boxObject: BoxObject) {
         (!shape && cell && cell.obj && kupObjects.isKupObjList(cell.obj))
     );
 }
-/**
- * These are the camelCase javascript suffixes of the CSS vars of kup-progress-bar.
- * They always must be equal to those you can find inside the file kup-progress-bar.scss in the first section,
- * save for the prefix (--kup-pb_), which will be added directly inside the [buildProgressBarConfig function]{@link buildProgressBarConfig}
- */
-const progressbarCssVars = [
-    'backgroundColor',
-    'borderRadius',
-    'foregroundColor',
-    'textColor',
-];
-
-/**
- * Given a Cell object (from data-talbe or box component), a value and an optional isSmall flag,
- * returns the jsx to create a progressbar.
- * @param cell - The cell to render as a progressbar.
- * @param value - The value the progressbar must set.
- * @param [isSmall] - flag to specify if the progressbar must be rendered as small one.
- */
-export function buildProgressBarConfig(
-    cell: Cell,
-    boxObject: BoxObject,
-    isSmall: boolean = false,
-    value: string
-) {
-    const wrapperStyle = {};
-
-    for (let i = 0; i < progressbarCssVars.length; i++) {
-        let progressbarCssVar = getFromConfig(
-            cell,
-            boxObject,
-            progressbarCssVars[i]
-        );
-
-        if (progressbarCssVar) {
-            wrapperStyle['--kup-pb_' + toKebabCase(progressbarCssVars[i])] =
-                progressbarCssVar;
-        }
-    }
-
-    let hideLabel = getFromConfig(cell, boxObject, 'hideLabel');
-    let labelText = getFromConfig(cell, boxObject, 'labelText');
-
-    return {
-        isSmall: isSmall,
-        labelText: labelText,
-        hideLabel: !!hideLabel,
-        style: wrapperStyle,
-        value: numeral(value).value(),
-    };
-}
 
 // -------------
 // IMAGE
@@ -147,39 +93,6 @@ export function isImage(cell: Cell, boxObject: BoxObject) {
         'IMG' === shape ||
         (!shape && cell && cell.obj && kupObjects.isImage(cell.obj))
     );
-}
-
-// -------------
-// ICON
-// -------------
-
-export function buildIconConfig(cell: Cell, value: string) {
-    let badgeData = undefined;
-    let color = undefined;
-    let customStyle = undefined;
-    let data = undefined;
-    let sizeX = undefined;
-    let sizeY = undefined;
-
-    if (cell && cell.data) {
-        const config = cell.data;
-        badgeData = config.badgeData;
-        color = config.color;
-        customStyle = config.customStyle;
-        data = config.data;
-        sizeX = config.sizeX;
-        sizeY = config.sizeY;
-    }
-
-    return {
-        badgeData: badgeData,
-        color: color,
-        customStyle: customStyle,
-        data: data,
-        resource: value,
-        sizeX: sizeX,
-        sizeY: sizeY,
-    };
 }
 
 // -------------
@@ -198,29 +111,6 @@ export function isCombo(cell: Cell, boxObject: BoxObject) {
 export function isAutocomplete(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'ACP' === shape;
-}
-
-// -------------
-// SEARCH
-// -------------
-
-export function isSearch(cell: Cell, boxObject: BoxObject) {
-    let shape = getShape(cell, boxObject);
-    return 'SRC' === shape;
-}
-
-// -------------
-// CRUD
-// -------------
-
-export function isConfigurator(cell: Cell, boxObject: BoxObject) {
-    let shape = getShape(cell, boxObject);
-    return 'CFG' === shape;
-}
-
-export function isMultipleConfigurator(cell: Cell, boxObject: BoxObject) {
-    let shape = getShape(cell, boxObject);
-    return 'CFM' === shape;
 }
 
 // -------------
@@ -390,6 +280,14 @@ export function getValueForDisplay2(
         );
     }
     return values.displayedValue;
+}
+
+export function formatToNumber(cell: Cell): number {
+    if (cell.obj) {
+        return numeral(cell.obj.k).value();
+    }
+
+    return numeral(cell.value).value();
 }
 
 function _getCellValueForDisplay(value, column: Column, cell: Cell): string {

@@ -84,7 +84,6 @@
   border-left: var(--kup_accordion_border);
   border-right: var(--kup_accordion_border);
   box-sizing: border-box;
-  display: none;
   width: 100%;
 
   &--visible {
@@ -157,12 +156,43 @@
   }
 
   &__content {
-    animation: fadeInFromNone 0.25s ease-out;
+    animation: fade-in 0.25s ease-out;
     display: none;
     overflow: hidden;
 
     &--selected {
       display: block;
     }
+  }
+}
+
+.mdc-ripple-surface {
+  --mdc-ripple-fg-opacity: 0.24;
+
+  &:before,
+  &:after {
+    background-color: var(--kup_accordion_primary_color);
+  }
+}
+
+.#{$kup-icon}.#{$kup-icon-dropdown} {
+  -webkit-mask: var(--kup-dropdown-icon);
+  mask: var(--kup-dropdown-icon);
+}
+
+@keyframes fade-in {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
   }
 }

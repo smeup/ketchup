@@ -1054,7 +1054,7 @@ export class KupDataTable {
             this.columnMenuCard.onclick = (e) => e.stopPropagation();
             this.columnMenuCard.addEventListener('blur', () => {
                 if (
-                    this.kupManager.utilities.lastMouseDownPath.includes(
+                    this.kupManager.utilities.lastPointerDownPath.includes(
                         this.columnMenuCard
                     )
                 ) {
@@ -1690,8 +1690,12 @@ export class KupDataTable {
                 const chips: NodeListOf<HTMLElement> =
                     groupChip.querySelectorAll('.chip');
                 for (let index = 0; index < chips.length; index++) {
-                    const cancelIcon: HTMLElement =
-                        chips[index].querySelector('.chip__icon.clear');
+                    const cancelIcon: HTMLElement = chips[index].querySelector(
+                        `.chip__icon.${KupThemeIconValues.CLEAR.replace(
+                            '--',
+                            ''
+                        )}`
+                    );
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.removeGroup(index);
                     }
@@ -3056,7 +3060,15 @@ export class KupDataTable {
         // check if column in sort array
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
-                return 'A' === sortObj.sortMode ? 'descending' : 'ascending';
+                return 'A' === sortObj.sortMode
+                    ? `kup-icon ${KupThemeIconValues.DESCENDING.replace(
+                          '--',
+                          ''
+                      )}`
+                    : `kup-icon ${KupThemeIconValues.ASCENDING.replace(
+                          '--',
+                          ''
+                      )}`;
             }
         }
 
@@ -3338,7 +3350,10 @@ export class KupDataTable {
                     filter = (
                         <span
                             title={svgLabel}
-                            class="icon-container filter-remove"
+                            class={`kup-icon ${KupThemeIconValues.FILTER_REMOVE.replace(
+                                '--',
+                                ''
+                            )}`}
                         ></span>
                     );
                 }
@@ -3352,7 +3367,6 @@ export class KupDataTable {
 
                 let iconClass = this.getSortIcon(column.name);
                 if (iconClass !== '') {
-                    iconClass += ' icon-container';
                     sortIcon = (
                         <span
                             class={iconClass}
@@ -3368,7 +3382,10 @@ export class KupDataTable {
                 if (column.isKey) {
                     keyIcon = (
                         <span
-                            class="key icon-container"
+                            class={`kup-icon ${KupThemeIconValues.KEY.replace(
+                                '--',
+                                ''
+                            )}`}
                             title={this.kupManager.language.translate(
                                 KupLanguageRow.KEY
                             )}
@@ -4017,8 +4034,8 @@ export class KupDataTable {
             }
 
             const iconClass = row.group.expanded
-                ? 'icon-container expanded'
-                : 'icon-container collapsed';
+                ? `kup-icon ${KupThemeIconValues.EXPANDED.replace('--', '')}`
+                : `kup-icon ${KupThemeIconValues.COLLAPSED.replace('--', '')}`;
 
             const jsxRows = [];
 
@@ -4670,9 +4687,7 @@ export class KupDataTable {
                 mask: svg,
                 webkitMask: svg,
             };
-            icon = (
-                <span style={iconStyle} class="icon-container obj-icon"></span>
-            );
+            icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
         }
 
         let cellTitle = null;
@@ -4824,10 +4839,10 @@ export class KupDataTable {
             case 'chips':
                 if (cell.style) {
                     if (!cell.style.height) {
-                        cell.style['minHeight'] = '53px';
+                        cell.style['minHeight'] = '40px';
                     }
                 } else {
-                    cell.style = { minHeight: '53px' };
+                    cell.style = { minHeight: '40px' };
                 }
                 break;
             case 'radio':
@@ -5076,7 +5091,7 @@ export class KupDataTable {
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">
-                        {content}
+                        {cell.value}
                     </a>
                 );
             case 'number':

@@ -255,10 +255,10 @@ table#customstyle-tab kup-text-field {
   position: absolute;
   z-index: 1;
   display: none;
-  -webkit-animation: fadeInFromNone 0.25s ease-out;
-  -moz-animation: fadeInFromNone 0.25s ease-out;
-  -o-animation: fadeInFromNone 0.25s ease-out;
-  animation: fadeInFromNone 0.25s ease-out;
+  -webkit-animation: fade-in 0.25s ease-out;
+  -moz-animation: fade-in 0.25s ease-out;
+  -o-animation: fade-in 0.25s ease-out;
+  animation: fade-in 0.25s ease-out;
 }
 
 #json-setter,
@@ -322,10 +322,10 @@ table#customstyle-tab kup-text-field {
   opacity: 0.85;
   width: 100%;
   height: 100%;
-  -webkit-animation: fadeInFromNone 0.25s ease-out;
-  -moz-animation: fadeInFromNone 0.25s ease-out;
-  -o-animation: fadeInFromNone 0.25s ease-out;
-  animation: fadeInFromNone 0.25s ease-out;
+  -webkit-animation: fade-in 0.25s ease-out;
+  -moz-animation: fade-in 0.25s ease-out;
+  -o-animation: fade-in 0.25s ease-out;
+  animation: fade-in 0.25s ease-out;
 }
 
 #sample-wrapper.full #sample-modal {
@@ -391,10 +391,10 @@ table#customstyle-tab kup-text-field {
   height: 100%;
   position: relative;
   padding: 1em 0.5em;
-  -webkit-animation: fadeInFromNone 0.25s ease-out;
-  -moz-animation: fadeInFromNone 0.25s ease-out;
-  -o-animation: fadeInFromNone 0.25s ease-out;
-  animation: fadeInFromNone 0.25s ease-out;
+  -webkit-animation: fade-in 0.25s ease-out;
+  -moz-animation: fade-in 0.25s ease-out;
+  -o-animation: fade-in 0.25s ease-out;
+  animation: fade-in 0.25s ease-out;
 }
 
 .sample-section.visible {
@@ -517,12 +517,11 @@ table#customstyle-tab kup-text-field {
   }
 
   .kup-container {
-    display: block;
     margin: 3em 0;
   }
 }
 
-@-webkit-keyframes fadeInFromNone {
+@-webkit-keyframes fade-in {
   0% {
     display: none;
     opacity: 0;
@@ -539,7 +538,7 @@ table#customstyle-tab kup-text-field {
   }
 }
 
-@-moz-keyframes fadeInFromNone {
+@-moz-keyframes fade-in {
   0% {
     display: none;
     opacity: 0;
@@ -556,7 +555,7 @@ table#customstyle-tab kup-text-field {
   }
 }
 
-@-o-keyframes fadeInFromNone {
+@-o-keyframes fade-in {
   0% {
     display: none;
     opacity: 0;
@@ -573,7 +572,7 @@ table#customstyle-tab kup-text-field {
   }
 }
 
-@keyframes fadeInFromNone {
+@keyframes fade-in {
   0% {
     display: none;
     opacity: 0;
@@ -598,10 +597,10 @@ table#customstyle-tab kup-text-field {
   padding: 12px;
   border-radius: 8px;
   box-shadow: var(--kup-box-shadow);
-  -webkit-animation: fadeInFromNone 0.25s ease-out;
-  -moz-animation: fadeInFromNone 0.25s ease-out;
-  -o-animation: fadeInFromNone 0.25s ease-out;
-  animation: fadeInFromNone 0.25s ease-out;
+  -webkit-animation: fade-in 0.25s ease-out;
+  -moz-animation: fade-in 0.25s ease-out;
+  -o-animation: fade-in 0.25s ease-out;
+  animation: fade-in 0.25s ease-out;
 }
 
 #sample-tooltip strong {

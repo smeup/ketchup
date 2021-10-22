@@ -760,6 +760,19 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-ACCORDION</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-accordion"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-AUTOCOMPLETE</span>
                 </td>
                 <td class="text-cell">
@@ -786,19 +799,6 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">KUP-BUTTON</span>
-                </td>
-                <td class="text-cell">
-                  <kup-text-field
-                    text-area
-                    full-width
-                    id="kup-button"
-                    @kup-textfield-input="updateCustomStyles"
-                  ></kup-text-field
-                ></td>
-              </tr>
-              <tr>
-                <td class="prevent-cr">
                   <span class="code-word">KUP-BOX</span>
                 </td>
                 <td class="text-cell">
@@ -806,6 +806,19 @@
                     text-area
                     full-width
                     id="kup-box"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-BUTTON</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-button"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -845,6 +858,19 @@
                     text-area
                     full-width
                     id="kup-card"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-CHART</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-chart"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -955,19 +981,6 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">KUP-ECHART</span>
-                </td>
-                <td class="text-cell">
-                  <kup-text-field
-                    text-area
-                    full-width
-                    id="kup-echart"
-                    @kup-textfield-input="updateCustomStyles"
-                  ></kup-text-field
-                ></td>
-              </tr>
-              <tr>
-                <td class="prevent-cr">
                   <span class="code-word">KUP-FIELD</span>
                 </td>
                 <td class="text-cell">
@@ -1040,6 +1053,19 @@
                     text-area
                     full-width
                     id="kup-list"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-MAGIC-BOX</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-magic-box"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -1212,7 +1238,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">--kup-expanded-icon</span>
                 </td>
-                <td>Used when a node or a group are expanded.</td>
+                <td>Used when a node/group is expanded.</td>
                 <td class="text-cell">
                   <kup-text-field
                     full-width
@@ -1225,7 +1251,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">--kup-collapsed-icon</span>
                 </td>
-                <td>Used when a node or a group are collapsed.</td>
+                <td>Used when a node/group is collapsed.</td>
                 <td class="text-cell">
                   <kup-text-field
                     full-width
@@ -1456,9 +1482,7 @@ export default {
         e.detail.value;
       dom.ketchup.theme.set(null, list);
       e.detail.comp.customStyle =
-        '#kup-component .icon-container { background-color: ' +
-        e.detail.value +
-        ' }';
+        '#kup-component .kup-icon { background-color: ' + e.detail.value + ' }';
       this.refreshTheme();
     },
     /**
@@ -1617,7 +1641,10 @@ export default {
         '#css-variables-tab kup-color-picker, #css-variables-tab kup-text-field, #customstyle-tab kup-color-picker, #customstyle-tab kup-text-field, #icons-tab kup-color-picker, #icons-tab kup-text-field'
       );
       for (let index = 0; index < fields.length; index++) {
-        (fields[index] as HTMLKupTextFieldElement).setValue('');
+        const field = fields[index];
+        if (document.activeElement.id !== field.id) {
+          (field as HTMLKupTextFieldElement).setValue('');
+        }
       }
       // Sets the variables components.
       for (let key in theme.cssVariables) {
@@ -1626,7 +1653,9 @@ export default {
           '#' + variable
         );
         try {
-          field.setValue(theme.cssVariables[key]);
+          if (document.activeElement.id !== field.id) {
+            field.setValue(theme.cssVariables[key]);
+          }
         } catch (error) {
           console.warn("Couldn't set field for variable '" + key + "'.");
         }
@@ -1637,7 +1666,9 @@ export default {
           '#' + key.toLowerCase()
         );
         try {
-          field.setValue(theme.customStyles[key]);
+          if (document.activeElement.id !== field.id) {
+            field.setValue(theme.customStyles[key]);
+          }
         } catch (error) {
           console.warn("Couldn't set field for customStyle '" + key + "'.");
         }
@@ -1649,8 +1680,10 @@ export default {
           '#' + variable
         );
         try {
-          field.icon = theme.icons[key];
-          field.setValue(theme.icons[key]);
+          if (document.activeElement.id !== field.id) {
+            field.icon = theme.icons[key];
+            field.setValue(theme.icons[key]);
+          }
         } catch (error) {
           console.warn("Couldn't set field for icon '" + key + "'.");
         }

@@ -7,6 +7,7 @@
 * @prop --kup-list-group-item-height: Sets height of each list item when the list contains radio buttons or checkboxes.
 * @prop --kup-list-item-height: Sets height of each list item.
 * @prop --kup-list-item-padding: Sets padding of each list item.
+* @prop --kup-list-max-height-as-menu: Sets max height when list is menu.
 * @prop --kup-list-primary-color: Sets the primary color of the component.
 * @prop --kup-list-primary-color-rgb: Sets the RGB values of the primary color of the component (used for shaders).
 * @prop --kup-list-separator-color: Sets the color of separators.
@@ -25,6 +26,7 @@
   --kup_list_group_item_height: var(--kup-list-group-item-height, 3em);
   --kup_list_item_height: var(--kup-list-item-height, 2.5em);
   --kup_list_item_padding: var(--kup-list-item-padding, 0 0.75em);
+  --kup_list_max_height_as_menu: var(--kup-list-max-height-as-menu, 33vh);
   --kup_list_primary_color: var(
     --kup-list-primary-color,
     var(--kup-primary-color)
@@ -139,7 +141,7 @@
       opacity: 0.75;
     }
 
-    .icon-container {
+    .kup-icon {
       margin: 0;
       margin-right: 0.75em;
     }
@@ -191,5 +193,41 @@
     .list-item__text {
       display: none;
     }
+  }
+}
+
+.kup-menu {
+  animation: fade-in 0.25s ease-out;
+  background-color: var(--kup-background-color);
+  box-shadow: var(--kup-box-shadow);
+  color: var(--kup-text-color);
+  display: none;
+  max-height: var(--kup_list_max_height_as_menu);
+  overflow: auto;
+  position: relative;
+  transform: none;
+  transform-origin: unset;
+  transition: height 0.2s;
+  will-change: unset;
+
+  &.visible {
+    display: block;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
   }
 }

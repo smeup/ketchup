@@ -40,7 +40,6 @@ export const FButton: FunctionalComponent<FButtonProps> = (
             } ${props.warning ? 'kup-warning' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
-            part="kup-button"
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -73,7 +72,7 @@ function renderButton(props: FButtonProps): VNode {
         resource: props.icon,
         sizeX: isFloating ? '1.75em' : '1.475em',
         sizeY: isFloating ? '1.75em' : '1.475em',
-        wrapperClass: 'button__icon icon-container material-icons',
+        wrapperClass: 'button__icon kup-icon',
     };
     if (props.showSpinner) propsFImage.wrapperClass += ' content--hidden';
 
@@ -167,14 +166,14 @@ function renderIconButton(props: FButtonProps): VNode {
                     resource={
                         props.toggable && !props.checked ? iconOff : props.icon
                     }
-                    wrapperClass={`icon-button__icon icon-container material-icons`}
+                    wrapperClass={`icon-button__icon kup-icon`}
                 />
             ) : null}
             {props.toggable && !props.showSpinner ? (
                 <FImage
                     {...propsFImage}
                     resource={props.icon}
-                    wrapperClass={`icon-button__icon icon-button__icon--on icon-container material-icons`}
+                    wrapperClass={`icon-button__icon icon-button__icon--on kup-icon`}
                 />
             ) : null}
             {props.showSpinner && !props.disabled ? (

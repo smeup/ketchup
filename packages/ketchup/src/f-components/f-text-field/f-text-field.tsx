@@ -1,5 +1,6 @@
 import type { FTextFieldProps } from './f-text-field-declarations';
 import { FunctionalComponent, getAssetPath, h } from '@stencil/core';
+import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -64,9 +65,12 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             [key: string]: string;
         };
         let iconClass: string = '';
-        if (props.icon.indexOf('--kup') > -1) {
-            iconClass = props.icon.replace('--kup-', '');
-            iconClass = iconClass.replace('-icon', '');
+        if (
+            Object.values(KupThemeIconValues).indexOf(
+                props.icon as KupThemeIconValues
+            ) > -1
+        ) {
+            iconClass = props.icon.replace('--', '');
         } else {
             let svg: string = `url('${getAssetPath(
                 `./assets/svg/${props.icon}.svg`
@@ -81,7 +85,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 tabindex="0"
                 style={iconStyle}
                 onClick={props.onIconClick}
-                class={`material-icons mdc-text-field__icon icon-container action ${iconClass}`}
+                class={`mdc-text-field__icon kup-icon action ${iconClass}`}
             ></span>
         );
     }
@@ -146,7 +150,10 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             {props.isClearable ? (
                 <span
                     tabindex="1"
-                    class="material-icons mdc-text-field__icon icon-container clear"
+                    class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
+                        '--',
+                        ''
+                    )}`}
                     onClick={props.onClearIconClick}
                 ></span>
             ) : undefined}

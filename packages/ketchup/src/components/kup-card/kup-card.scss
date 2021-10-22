@@ -1,4 +1,5 @@
 @import '@material/ripple/mdc-ripple';
+@import 'f-image/f-image.scss';
 @import 'collapsible/kup-card-collapsible';
 @import 'dialog/kup-card-dialog';
 @import 'scalable/kup-card-scalable';
@@ -26,7 +27,7 @@
 
 :host([is-menu]) {
   #kup-component {
-    animation: fadeInFromNone 0.25s ease-out;
+    animation: fade-in 0.25s ease-out;
     display: none;
   }
 }
@@ -56,9 +57,26 @@
 }
 
 .card-view {
-  animation: fadeInFromNone 0.25s ease-out;
+  animation: fade-in 0.25s ease-out;
   display: none;
   &.visible {
     display: block;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
   }
 }

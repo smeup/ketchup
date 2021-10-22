@@ -422,7 +422,6 @@ const demoTypes: DemoTypeJson = {
   KupAccordionData: {
     keys: {
       columns: 'Column[]',
-      rows: ' Row[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -517,15 +516,6 @@ const demoTypes: DemoTypeJson = {
   KupChartTrendlines: {
     keys: {
       '[index: string]': '{ color: string }',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-  KupEchartTitle: {
-    keys: {
-      value: 'string',
-      'color?': 'string',
-      'position?': 'string',
-      'size?': 'number',
     },
     type: DemoTypeFeature.INTERFACE,
   },
