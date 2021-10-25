@@ -499,6 +499,7 @@ export class KupAutocomplete {
             const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
             if (f) {
                 this.textfieldWrapper = f;
+                this.textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
                 this.kupManager.dynamicPosition.register(
                     this.listEl,
