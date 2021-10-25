@@ -25,6 +25,7 @@ export class KupDialog {
     /**
      * Initializes KupDialog.
      * @param {number} zIndex - The starting z-index assigned to dialogs.
+     * @param {RectResolvable<[number, number, Interaction<keyof ActionMap>]>} restrictContainer - The container setting the restriction's boundary.
      */
     constructor(
         zIndex?: number,
@@ -56,7 +57,6 @@ export class KupDialog {
         interact(el)
             .draggable({
                 allowFrom: handleEl ? handleEl : null,
-                inertia: true,
                 listeners: {
                     move(e: InteractEvent) {
                         const el = e.target as HTMLElement;
@@ -86,7 +86,6 @@ export class KupDialog {
             el.classList.add(kupDialogResizableClass);
             interact(el).resizable({
                 edges: { left: true, right: true, bottom: true, top: true },
-                inertia: true,
                 listeners: {
                     move(e: ResizeEvent) {
                         const el = e.target;

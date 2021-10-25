@@ -1924,8 +1924,11 @@ export class KupDataTable {
         }
         this.detailCard.data = cardData;
         this.detailCard.style.position = 'fixed';
-        this.detailCard.style.left = x + 'px';
-        this.detailCard.style.top = y + 'px';
+        this.detailCard.style.left = '0';
+        this.detailCard.style.top = '0';
+        this.detailCard.setAttribute('data-x', x.toString());
+        this.detailCard.setAttribute('data-y', y.toString());
+        this.detailCard.style.transform = 'translate(' + x + 'px,' + y + 'px)';
         this.rootElement.shadowRoot.append(this.detailCard);
     }
 

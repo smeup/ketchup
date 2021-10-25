@@ -636,6 +636,7 @@ th.obj:hover span:not(.overlay-action) {
 }
 
 [kup-dialog] {
+  animation: fade-in 0.25s ease-out;
   background-color: var(--kup_datatable_background_color);
   margin: 0;
   position: fixed;
