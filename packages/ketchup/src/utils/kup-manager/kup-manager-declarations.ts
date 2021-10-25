@@ -1,3 +1,6 @@
+import type { Interaction } from '@interactjs/core/Interaction';
+import type { ActionMap } from '@interactjs/core/scope';
+import type { RectResolvable } from '@interactjs/types/index';
 import type { KupDates } from '../kup-dates/kup-dates';
 import type { KupDebug } from '../kup-debug/kup-debug';
 import type { KupDialog } from '../kup-dialog/kup-dialog';
@@ -78,6 +81,9 @@ export interface KupManagerDebugSettings {
  * KupDialog initialization settings.
  */
 export interface KupManagerDialogSettings {
+    restrictContainer?: RectResolvable<
+        [number, number, Interaction<keyof ActionMap>]
+    >;
     zIndex?: number;
 }
 /**

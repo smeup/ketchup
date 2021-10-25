@@ -2,7 +2,7 @@
 /*                    D e b u g                    */
 /*-------------------------------------------------*/
 #kup-debug-widget {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 200;
@@ -13,10 +13,10 @@
 [kup-dialog] {
     background-color: var(--kup-background-color);
     margin: 0;
-    position: fixed;
+    position: absolute;
+    -ms-touch-action: none;
+    touch-action: none;
     transition: none;
-    max-height: 95vh;
-    max-width: 95vw;
 }
 
 [kup-dialog].kup-resizable {

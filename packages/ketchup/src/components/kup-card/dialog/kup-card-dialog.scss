@@ -5,6 +5,9 @@
 @import 'kup-card-dialog-5.scss';
 
 #drag-handle {
+  -ms-touch-action: none;
+  touch-action: none;
+
   &.header-bar {
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);
@@ -13,6 +16,7 @@
     height: 2em;
     position: relative;
     width: 100%;
+
     .dialog-title {
       font-weight: bold;
       line-height: 2em;
@@ -22,6 +26,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     #dialog-close {
       cursor: pointer;
       margin-right: 0;

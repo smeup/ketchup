@@ -1,3 +1,6 @@
+import type { Interaction } from '@interactjs/core/Interaction';
+import type { ActionMap } from '@interactjs/core/scope';
+import type { RectResolvable } from '@interactjs/types/index';
 import type {
     KupDom,
     KupManagerDatesSettings,
@@ -59,6 +62,9 @@ export class KupManager {
             debugActive: boolean = null,
             debugAutoprint: boolean = null,
             debugLogLimit: number = null,
+            dialogRestrictContainer: RectResolvable<
+                [number, number, Interaction<keyof ActionMap>]
+            > = null,
             dialogZIndex: number = null,
             languageList: KupLanguageJSON = null,
             languageName: string = null,
@@ -85,6 +91,9 @@ export class KupManager {
                 debugLogLimit = debug.logLimit ? debug.logLimit : null;
             }
             if (dialog) {
+                dialogRestrictContainer = dialog.restrictContainer
+                    ? dialogRestrictContainer
+                    : null;
                 dialogZIndex = dialog.zIndex ? dialog.zIndex : null;
             }
             if (language) {
@@ -109,7 +118,7 @@ export class KupManager {
         }
         this.dates = new KupDates(datesLocale);
         this.debug = new KupDebug(debugActive, debugAutoprint, debugLogLimit);
-        this.dialog = new KupDialog(dialogZIndex);
+        this.dialog = new KupDialog(dialogZIndex, dialogRestrictContainer);
         this.dynamicPosition = new KupDynamicPosition();
         this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
