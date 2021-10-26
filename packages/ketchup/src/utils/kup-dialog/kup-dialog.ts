@@ -52,23 +52,22 @@ export class KupDialog {
             [number, number, Interaction<keyof ActionMap>]
         >
     ): void {
-        const fixedInViewport = (
+        const isInViewport = (
             el: HTMLElement,
             oldTransform: string,
             delta: Point
         ) => {
             const style = window.getComputedStyle(el);
-            if (style.position === 'fixed') {
-                const rect = el.getBoundingClientRect();
-                if (
-                    rect.left < 0 ||
-                    rect.top < 0 ||
-                    (rect.right > window.innerWidth && delta.x >= 0) ||
-                    (rect.bottom > window.innerHeight && delta.y >= 0)
-                ) {
-                    el.style.transform = oldTransform;
-                    return false;
-                }
+            const isFixed = !!(style.position === 'fixed');
+            const rect = el.getBoundingClientRect();
+            if (
+                rect.left < 0 ||
+                rect.top < 0 ||
+                (isFixed && rect.right > window.innerWidth && delta.x >= 0) ||
+                (isFixed && rect.bottom > window.innerHeight && delta.y >= 0)
+            ) {
+                el.style.transform = oldTransform;
+                return false;
             }
             return true;
         };
@@ -86,7 +85,7 @@ export class KupDialog {
                         x = x + e.dx;
                         y = y + e.dy;
                         el.style.transform = `translate(${x}px, ${y}px)`;
-                        if (fixedInViewport(el, oldTransform, e.delta)) {
+                        if (isInViewport(el, oldTransform, e.delta)) {
                             el.setAttribute('data-x', x.toString());
                             el.setAttribute('data-y', y.toString());
                         }
@@ -121,7 +120,7 @@ export class KupDialog {
                         y += e.deltaRect.top;
                         el.style.transform =
                             'translate(' + x + 'px,' + y + 'px)';
-                        if (fixedInViewport(el, oldTransform, e.delta)) {
+                        if (isInViewport(el, oldTransform, e.delta)) {
                             el.setAttribute('data-x', x.toString());
                             el.setAttribute('data-y', y.toString());
                         }
