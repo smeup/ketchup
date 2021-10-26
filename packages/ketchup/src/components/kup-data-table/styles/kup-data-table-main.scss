@@ -165,7 +165,7 @@ table {
   width: 100%;
 }
 
-.kup-icon:not(.f-image--wrapper) {
+.#{$kup-icon}:not(.f-image--wrapper) {
   background-color: var(--kup-title-color);
   margin: 0 0.25em;
   height: 1.25em;
@@ -551,14 +551,14 @@ tbody td > * {
   border: none !important;
 }
 
-.kup-icon.overlay-action {
+.#{$kup-icon}.overlay-action {
   display: none;
   position: absolute;
   top: 0.5em;
   left: calc(50% - 0.625em);
 }
 
-th:hover .kup-icon.overlay-action {
+th:hover .#{$kup-icon}.overlay-action {
   display: block;
 }
 
