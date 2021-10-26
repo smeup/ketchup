@@ -163,6 +163,7 @@ import {
 } from '../../utils/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
+import interact from 'interactjs';
 
 @Component({
     tag: 'kup-data-table',
@@ -1715,6 +1716,33 @@ export class KupDataTable {
         this.lazyLoadCells = true;
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);
+        interact(this.tableRef).on('hold', (e: PointerEvent) => {
+            if (e.type === 'pen' || e.type === 'touch') {
+                const details = this.getEventDetails(e.target as HTMLElement);
+                if (details.area === 'body') {
+                    const _hasTooltip: boolean = details.cell.obj
+                        ? this.kupManager.objects.hasTooltip(details.cell.obj)
+                        : false;
+                    if (
+                        _hasTooltip &&
+                        this.showTooltipOnRightClick &&
+                        details.td &&
+                        details.cell
+                    ) {
+                        const columnName = details.column
+                            ? details.column.name
+                            : null;
+                        setTooltip(
+                            e,
+                            details.row.id,
+                            columnName,
+                            details.cell,
+                            this.tooltip
+                        );
+                    }
+                }
+            }
+        });
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -1936,11 +1964,9 @@ export class KupDataTable {
         const isHeader: boolean = !!el.closest('thead'),
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
-            td: HTMLTableDataCellElement = el.closest('td'),
-            textfield: HTMLTableDataCellElement = el.closest(
-                '.f-text-field--wrapper'
-            ),
-            th: HTMLTableHeaderCellElement = el.closest('th'),
+            td = el.closest('td'),
+            textfield: HTMLElement = el.closest('.f-text-field--wrapper'),
+            th = el.closest('th'),
             tr: HTMLTableRowElement = el.closest('tr'),
             filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
         let cell: Cell = null,
