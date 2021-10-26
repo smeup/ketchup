@@ -164,6 +164,7 @@ import {
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 import interact from 'interactjs';
+import { PointerEvent } from '@interactjs/types/index';
 
 @Component({
     tag: 'kup-data-table',
@@ -842,6 +843,7 @@ export class KupDataTable {
     private clickTimeout: ReturnType<typeof setTimeout>[] = [];
     private rowsRefs: HTMLElement[] = [];
     private oldWidth: number = null;
+    private hold: boolean = false;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -1716,33 +1718,79 @@ export class KupDataTable {
         this.lazyLoadCells = true;
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);
-        interact(this.tableRef).on('hold', (e: PointerEvent) => {
-            if (e.type === 'pen' || e.type === 'touch') {
-                const details = this.getEventDetails(e.target as HTMLElement);
-                if (details.area === 'body') {
-                    const _hasTooltip: boolean = details.cell.obj
-                        ? this.kupManager.objects.hasTooltip(details.cell.obj)
-                        : false;
-                    if (
-                        _hasTooltip &&
-                        this.showTooltipOnRightClick &&
-                        details.td &&
-                        details.cell
-                    ) {
-                        const columnName = details.column
-                            ? details.column.name
-                            : null;
-                        setTooltip(
-                            e,
-                            details.row.id,
-                            columnName,
-                            details.cell,
-                            this.tooltip
-                        );
-                    }
+        interact(this.tableRef)
+            .on('tap', (e: PointerEvent) => {
+                if (this.hold) {
+                    this.hold = false;
+                    return;
                 }
-            }
-        });
+                switch (e.button) {
+                    // left click
+                    case 0:
+                        // Note: event must be cloned
+                        // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
+                        const clone: GenericObject = {};
+                        for (const key in e) {
+                            clone[key] = e[key];
+                        }
+                        this.clickTimeout.push(
+                            setTimeout(() => {
+                                this.kupDataTableClick.emit({
+                                    comp: this,
+                                    id: this.rootElement.id,
+                                    details: this.clickHandler(
+                                        clone as PointerEvent
+                                    ),
+                                });
+                            }, 300)
+                        );
+                        break;
+                    // right click
+                    case 2:
+                        this.kupDataTableContextMenu.emit({
+                            comp: this,
+                            id: this.rootElement.id,
+                            details: this.contextMenuHandler(e),
+                        });
+                        break;
+                }
+            })
+            .on('doubletap', (e: PointerEvent) => {
+                switch (e.button) {
+                    // left click
+                    case 0:
+                        for (
+                            let index = 0;
+                            index < this.clickTimeout.length;
+                            index++
+                        ) {
+                            clearTimeout(this.clickTimeout[index]);
+                            this.kupManager.debug.logMessage(
+                                this,
+                                'Cleared clickHandler timeout(' +
+                                    this.clickTimeout[index] +
+                                    ').'
+                            );
+                        }
+                        this.clickTimeout = [];
+                        this.kupDataTableDblClick.emit({
+                            comp: this,
+                            id: this.rootElement.id,
+                            details: this.dblClickHandler(e),
+                        });
+                        break;
+                }
+            })
+            .on('hold', (e: PointerEvent) => {
+                if (e.pointerType === 'pen' || e.pointerType === 'touch') {
+                    this.hold = true;
+                    this.kupDataTableContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.contextMenuHandler(e),
+                    });
+                }
+            });
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -2020,7 +2068,7 @@ export class KupDataTable {
         };
     }
 
-    private clickHandler(e: MouseEvent): EventHandlerDetails {
+    private clickHandler(e: PointerEvent): EventHandlerDetails {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
@@ -2063,8 +2111,7 @@ export class KupDataTable {
         return details;
     }
 
-    private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
-        e.preventDefault();
+    private contextMenuHandler(e: PointerEvent): EventHandlerDetails {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
@@ -2085,7 +2132,7 @@ export class KupDataTable {
             ) {
                 const columnName = details.column ? details.column.name : null;
                 setTooltip(
-                    e,
+                    e as any,
                     details.row.id,
                     columnName,
                     details.cell,
@@ -2103,7 +2150,7 @@ export class KupDataTable {
         return details;
     }
 
-    private dblClickHandler(e: MouseEvent): EventHandlerDetails {
+    private dblClickHandler(e: PointerEvent): EventHandlerDetails {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
@@ -2465,7 +2512,7 @@ export class KupDataTable {
     }
 
     //======== Event Listeners ========
-    private onColumnSort({ ctrlKey }: MouseEvent, columnName: string) {
+    private onColumnSort({ ctrlKey }: PointerEvent, columnName: string) {
         // check if columnName is already in sort array
         let i = 0;
         for (; i < this.sort.length; i++) {
@@ -2542,7 +2589,7 @@ export class KupDataTable {
         this.adjustPaginator();
     }
 
-    private onRowClick(event: MouseEvent, row: Row, emitEvent?: boolean) {
+    private onRowClick(event: PointerEvent, row: Row, emitEvent?: boolean) {
         // checking target
         const target = event.target;
 
@@ -5971,52 +6018,8 @@ export class KupDataTable {
                                 ev.stopPropagation();
                                 unsetTooltip(this.tooltip);
                             }}
-                            onClick={(e: MouseEvent) => {
-                                // Note: event must be cloned
-                                // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
-                                const clone: GenericObject = {};
-                                for (const key in e) {
-                                    clone[key] = e[key];
-                                }
-                                this.clickTimeout.push(
-                                    setTimeout(() => {
-                                        this.kupDataTableClick.emit({
-                                            comp: this,
-                                            id: this.rootElement.id,
-                                            details: this.clickHandler(
-                                                clone as MouseEvent
-                                            ),
-                                        });
-                                    }, 300)
-                                );
-                            }}
                             onContextMenu={(e: MouseEvent) => {
-                                this.kupDataTableContextMenu.emit({
-                                    comp: this,
-                                    id: this.rootElement.id,
-                                    details: this.contextMenuHandler(e),
-                                });
-                            }}
-                            onDblClick={(e: MouseEvent) => {
-                                for (
-                                    let index = 0;
-                                    index < this.clickTimeout.length;
-                                    index++
-                                ) {
-                                    clearTimeout(this.clickTimeout[index]);
-                                    this.kupManager.debug.logMessage(
-                                        this,
-                                        'Cleared clickHandler timeout(' +
-                                            this.clickTimeout[index] +
-                                            ').'
-                                    );
-                                }
-                                this.clickTimeout = [];
-                                this.kupDataTableDblClick.emit({
-                                    comp: this,
-                                    id: this.rootElement.id,
-                                    details: this.dblClickHandler(e),
-                                });
+                                e.preventDefault();
                             }}
                             onMouseMove={(e: MouseEvent) =>
                                 this.mouseMoveHandler(e)
@@ -6064,6 +6067,7 @@ export class KupDataTable {
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
         }
+        interact(this.tableRef).unset();
         this.kupManager.resize.unobserve(this.rootElement);
         this.kupDidUnload.emit({ comp: this, id: this.rootElement.id });
     }
