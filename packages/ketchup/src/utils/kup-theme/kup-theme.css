@@ -2,10 +2,9 @@
 /*                    D e b u g                    */
 /*-------------------------------------------------*/
 #kup-debug-widget {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 200;
 }
 /*-------------------------------------------------*/
 /*                   D i a l o g                   */
@@ -17,6 +16,7 @@
     -ms-touch-action: none;
     touch-action: none;
     transition: none;
+    will-change: transform;
 }
 
 [kup-dialog].kup-resizable {

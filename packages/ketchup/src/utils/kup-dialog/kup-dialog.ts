@@ -2,7 +2,7 @@ import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import type { InteractEvent } from '@interactjs/core/InteractEvent';
 import type { Interaction } from '@interactjs/core/Interaction';
 import type { ActionMap } from '@interactjs/core/scope';
-import type { RectResolvable } from '@interactjs/types/index';
+import type { Point, RectResolvable } from '@interactjs/types/index';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import interact from 'interactjs';
 import {
@@ -35,7 +35,7 @@ export class KupDialog {
     ) {
         this.managedElements = new Set();
         this.zIndex = zIndex ? zIndex : 200;
-        this.restrictContainer = restrictContainer ? restrictContainer : 'body';
+        this.restrictContainer = restrictContainer ? restrictContainer : null;
     }
     /**
      * Watches the element handled as dialog.
@@ -52,6 +52,26 @@ export class KupDialog {
             [number, number, Interaction<keyof ActionMap>]
         >
     ): void {
+        const fixedInViewport = (
+            el: HTMLElement,
+            oldTransform: string,
+            delta: Point
+        ) => {
+            const style = window.getComputedStyle(el);
+            if (style.position === 'fixed') {
+                const rect = el.getBoundingClientRect();
+                if (
+                    rect.left < 0 ||
+                    rect.top < 0 ||
+                    (rect.right > window.innerWidth && delta.x >= 0) ||
+                    (rect.bottom > window.innerHeight && delta.y >= 0)
+                ) {
+                    el.style.transform = oldTransform;
+                    return false;
+                }
+            }
+            return true;
+        };
         el.setAttribute(kupDialogAttribute, '');
         el.style.zIndex = (this.zIndex++).toString();
         interact(el)
@@ -60,13 +80,16 @@ export class KupDialog {
                 listeners: {
                     move(e: InteractEvent) {
                         const el = e.target as HTMLElement;
+                        const oldTransform = e.target.style.transform;
                         let x = parseFloat(el.getAttribute('data-x')) || 0;
                         let y = parseFloat(el.getAttribute('data-y')) || 0;
                         x = x + e.dx;
                         y = y + e.dy;
-                        e.target.style.transform = `translate(${x}px, ${y}px)`;
-                        el.setAttribute('data-x', x.toString());
-                        el.setAttribute('data-y', y.toString());
+                        el.style.transform = `translate(${x}px, ${y}px)`;
+                        if (fixedInViewport(el, oldTransform, e.delta)) {
+                            el.setAttribute('data-x', x.toString());
+                            el.setAttribute('data-y', y.toString());
+                        }
                     },
                 },
                 modifiers: [
@@ -88,7 +111,8 @@ export class KupDialog {
                 edges: { left: true, right: true, bottom: true, top: true },
                 listeners: {
                     move(e: ResizeEvent) {
-                        const el = e.target;
+                        const el = e.target as HTMLElement;
+                        const oldTransform = e.target.style.transform;
                         let x = parseFloat(el.getAttribute('data-x')) || 0;
                         let y = parseFloat(el.getAttribute('data-y')) || 0;
                         el.style.width = e.rect.width + 'px';
@@ -97,8 +121,10 @@ export class KupDialog {
                         y += e.deltaRect.top;
                         el.style.transform =
                             'translate(' + x + 'px,' + y + 'px)';
-                        el.setAttribute('data-x', x.toString());
-                        el.setAttribute('data-y', y.toString());
+                        if (fixedInViewport(el, oldTransform, e.delta)) {
+                            el.setAttribute('data-x', x.toString());
+                            el.setAttribute('data-y', y.toString());
+                        }
                     },
                 },
                 margin: 5,
@@ -119,6 +145,7 @@ export class KupDialog {
         if (this.managedElements) {
             for (let index = 0; index < elements.length; index++) {
                 this.managedElements.delete(elements[index]);
+                interact(elements[index]).unset();
             }
         }
     }
