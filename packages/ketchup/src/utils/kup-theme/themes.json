@@ -341,7 +341,7 @@
             "--kup-drawer-color": "#4c4c4d",
             "--kup-navbar-height": "64px",
             "--kup-drawer-width": "300px",
-            "--kup-font-family": "Arial, Helvetica, sans-serif",
+            "--kup-font-family": "Open Sans, arial, helvatica",
             "--kup-font-family-monospace": "Courier New, Courier, monospace",
             "--kup-font-size": "13px",
             "--kup-text-color": "#4c4c4d",
@@ -360,7 +360,7 @@
             "--kup-success-color": "#4d9f02",
             "--kup-warning-color": "#ffc107",
             "--kup-danger-color": "#A6192E",
-            "--kup-spinner-color": "#eaa710",
+            "--kup-spinner-color": "#a6192e",
             "--kup-chart-color-1": "#735DED",
             "--kup-chart-color-2": "#00B2CB",
             "--kup-chart-color-3": "#EDC900",
@@ -385,7 +385,10 @@
             "--kup-filter-remove-icon": "filter-remove",
             "--kup-key-icon": "key-variant",
             "--kup-search-icon": "search"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap')"
+        ]
     },
     "ocean": {
         "cssVariables": {
