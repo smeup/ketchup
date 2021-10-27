@@ -1,19 +1,33 @@
+/**
+* @prop --kup-lazy-animation-time: Sets the duration of the animation.
+* @prop --kup-lazy-placeholder-color: Sets color of the placeholder icon.
+*/
+
 :host {
+  --kup_lazy_animation_time: var(--kup-lazy-animation-time, 2s);
+  --kup_lazy_placeholder_color: var(
+    --kup-lazy-placeholder-color,
+    var(--kup-icon-color)
+  );
+
   display: block;
   height: 100%;
   width: 100%;
   position: relative;
+}
 
-  #kup-component {
-    display: flex;
-    height: 100%;
-    width: 100%;
-  }
+#kup-component {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 svg {
-  fill: var(--kup-icon-color);
-  animation: shine ease 2s infinite;
+  fill: var(--kup_lazy_placeholder_color);
+  animation: shine ease var(--kup_lazy_animation_time) infinite;
 }
 
 @keyframes shine {

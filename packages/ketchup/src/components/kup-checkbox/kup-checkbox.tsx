@@ -194,32 +194,6 @@ export class KupCheckbox {
     }
 
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    /**
-     * Set the events of the component and instantiates Material Design.
-     */
-    private setEvents(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-checkbox--wrapper');
-            if (f) {
-                const inputEl: HTMLInputElement = f.querySelector('input');
-                const labelEl: HTMLElement = f.querySelector('label');
-                if (inputEl) {
-                    inputEl.onblur = () => this.onKupBlur();
-                    inputEl.onchange = () => this.onKupChange();
-                    inputEl.onfocus = () => this.onKupFocus();
-                }
-                if (labelEl) {
-                    labelEl.onclick = () => this.onKupChange();
-                }
-            }
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
@@ -242,17 +216,34 @@ export class KupCheckbox {
     }
 
     componentDidRender() {
-        this.setEvents();
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         const props: FCheckboxProps = {
             checked: this.checked,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
             disabled: this.disabled,
             indeterminate: this.indeterminate,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
+            onBlur: () => this.onKupBlur(),
+            onChange: () => this.onKupChange(),
+            onFocus: () => this.onKupFocus(),
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

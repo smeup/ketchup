@@ -5,22 +5,18 @@
 
 ## Properties
 
-| Property         | Attribute          | Description                                                              | Type                                                                                                          | Default                     |
-| ---------------- | ------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| `customStyle`    | `custom-style`     | Custom style of the component.                                           | `string`                                                                                                      | `''`                        |
-| `image`          | --                 | Image displayed by the nav bar, uses the kup-image component's props.    | `FImageProps`                                                                                                 | `null`                      |
-| `label`          | `label`            | Text displayed by the nav bar.                                           | `string`                                                                                                      | `null`                      |
-| `showMenuButton` | `show-menu-button` | When true, the menu button will be displayed on the left of the nav bar. | `boolean`                                                                                                     | `true`                      |
-| `styling`        | `styling`          | Defines the style of the nav bar.                                        | `KupNavBarStyling.DENSE \| KupNavBarStyling.PROMINENT \| KupNavBarStyling.SHORT \| KupNavBarStyling.STANDARD` | `KupNavBarStyling.STANDARD` |
+| Property      | Attribute      | Description                       | Type                                                  | Default                     |
+| ------------- | -------------- | --------------------------------- | ----------------------------------------------------- | --------------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.    | `string`                                              | `''`                        |
+| `styling`     | `styling`      | Defines the style of the nav bar. | `KupNavBarStyling.SHORT \| KupNavBarStyling.STANDARD` | `KupNavBarStyling.STANDARD` |
 
 
 ## Events
 
-| Event                  | Description                                | Type                           |
-| ---------------------- | ------------------------------------------ | ------------------------------ |
-| `kup-navbar-menuclick` | Triggered when the menu button is clicked. | `CustomEvent<KupEventPayload>` |
-| `kup-navbar-ready`     | Triggered when the component is ready.     | `CustomEvent<KupEventPayload>` |
-| `kup-navbar-resize`    | Triggered when the component is resize.    | `CustomEvent<KupEventPayload>` |
+| Event               | Description                             | Type                           |
+| ------------------- | --------------------------------------- | ------------------------------ |
+| `kup-navbar-ready`  | Triggered when the component is ready.  | `CustomEvent<KupEventPayload>` |
+| `kup-navbar-resize` | Triggered when the component is resize. | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
@@ -33,7 +29,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -66,19 +62,19 @@ Type: `Promise<void>`
 
 
 
-## Dependencies
+## CSS Custom Properties
 
-### Depends on
+| Name                               | Description                                        |
+| ---------------------------------- | -------------------------------------------------- |
+| `--kup-navbar-box-shadow`          | Box shadow of the component.                       |
+| `--kup-navbar-padding`             | Padding of the component.                          |
+| `--kup-navbar-position`            | CSS positioning of the component.                  |
+| `--kup-navbar-short-border-radius` | Border radius of the component when in short mode. |
+| `--kup-navbar-short-box-shadow`    | Box shadow of the component when in short mode.    |
+| `--kup-navbar-short-width`         | Width of the component when in short mode.         |
+| `--kup-navbar-transition`          | Transition time of the component.                  |
+| `--kup-navbar-width`               | Width of the component.                            |
 
-- [kup-badge](../kup-badge)
-
-### Graph
-```mermaid
-graph TD;
-  kup-nav-bar --> kup-badge
-  kup-badge --> kup-badge
-  style kup-nav-bar fill:#f9f,stroke:#333,stroke-width:4px
-```
 
 ----------------------------------------------
 

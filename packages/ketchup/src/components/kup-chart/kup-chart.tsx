@@ -399,9 +399,16 @@ export class KupChart {
                     serieType = 'area';
                 }
 
+                let idx = '';
+                if (
+                    (this.vAxes && this.vAxes.length > 0) ||
+                    (this.hAxes && this.hAxes.length > 0)
+                ) {
+                    idx = index.toString();
+                }
                 opts.series[index.toString()] = {
                     type: serieType,
-                    targetAxisIndex: index.toString(),
+                    targetAxisIndex: idx,
                 };
             });
         }
@@ -462,7 +469,7 @@ export class KupChart {
             const c = tableColumns[i];
 
             dataTableColumns.push({
-                label: getSerieDecode(c.name, this.series),
+                label: getSerieDecode(c.name, this.data.columns),
             });
 
             if (i > 0 && this.showMarks) {

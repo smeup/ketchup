@@ -399,54 +399,6 @@ export class KupTextField {
     }
 
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    /**
-     * Set the events of the component and instantiates Material Design.
-     */
-    private setEvents(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
-            if (f) {
-                const inputEl: HTMLInputElement | HTMLTextAreaElement =
-                    f.querySelector('.mdc-text-field__input');
-                const icon: HTMLElement = f.querySelector('.action');
-                const clearIcon: HTMLElement = f.querySelector('.clear');
-                if (inputEl) {
-                    inputEl.onblur = (
-                        e: FocusEvent & { target: HTMLInputElement }
-                    ) => this.onKupBlur(e);
-                    inputEl.onchange = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupChange(e);
-                    inputEl.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupClick(e);
-                    inputEl.onfocus = (
-                        e: FocusEvent & { target: HTMLInputElement }
-                    ) => this.onKupFocus(e);
-                    inputEl.oninput = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupInput(e);
-                    inputEl.onkeydown = (e: KeyboardEvent) => this.onKeyDown(e);
-                    this.inputEl = inputEl;
-                }
-                if (icon) {
-                    icon.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupIconClick(e);
-                }
-                if (clearIcon) {
-                    clearIcon.onclick = () => this.onKupClearIconClick();
-                }
-                FTextFieldMDC(f);
-            }
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
@@ -465,12 +417,26 @@ export class KupTextField {
     }
 
     componentDidRender() {
-        this.setEvents();
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            if (f) {
+                const inputEl: HTMLInputElement | HTMLTextAreaElement =
+                    f.querySelector('.mdc-text-field__input');
+                if (inputEl) {
+                    this.inputEl = inputEl;
+                }
+                FTextFieldMDC(f);
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         const props: FTextFieldProps = {
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
@@ -479,7 +445,9 @@ export class KupTextField {
             helper: this.helper,
             helperWhenFocused: this.helperWhenFocused,
             icon: this.icon,
-            initialValue: this.initialValue,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
             inputType: this.inputType,
             isClearable: this.isClearable,
             label: this.label,
@@ -489,14 +457,37 @@ export class KupTextField {
             min: this.min,
             outlined: this.outlined,
             readOnly: this.readOnly,
+            secondary: this.rootElement.classList.contains('kup-secondary')
+                ? true
+                : false,
             shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
             step: this.step,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
             textArea: this.textArea,
             trailingIcon: this.trailingIcon,
             trailingLabel: this.trailingLabel,
             value: this.value,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
+            onBlur: (e: FocusEvent & { target: HTMLInputElement }) =>
+                this.onKupBlur(e),
+            onChange: (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupChange(e),
+            onClick: (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupClick(e),
+            onFocus: (e: FocusEvent & { target: HTMLInputElement }) =>
+                this.onKupFocus(e),
+            onInput: (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupInput(e),
+            onKeyDown: (e: KeyboardEvent) => this.onKeyDown(e),
+            onIconClick: (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupIconClick(e),
+            onClearIconClick: () => this.onKupClearIconClick(),
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

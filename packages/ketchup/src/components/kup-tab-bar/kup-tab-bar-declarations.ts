@@ -1,4 +1,4 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-tab-bar component.
@@ -7,6 +7,7 @@ import { KupEventPayload } from "../../types/GenericTypes";
 export enum KupTabBarProps {
     customStyle = 'Custom style of the component.',
     data = 'List of elements.',
+    ripple = "When enabled displays Material's ripple effect on item headers.",
 }
 /**
  * The object of a single radio.
@@ -25,5 +26,5 @@ export interface KupTabBarEventPayload extends KupEventPayload {
 }
 
 export interface KupTabBarClickEventPayload extends KupTabBarEventPayload {
-    value: string,
+    value: string;
 }

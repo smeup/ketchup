@@ -1,5 +1,6 @@
 const applyButton = document.getElementById('apply-button');
 const columnField = document.getElementById('column-field');
+const label = document.getElementById('navbar-label');
 const navBar = document.getElementById('nav-bar');
 const rowField = document.getElementById('row-field');
 const tableField = document.getElementById('table-field');
@@ -50,7 +51,7 @@ function refreshTables() {
             table.rowsPerPage = 100000;
             wrapper.appendChild(table);
         }
-        navBar.label = `Created ${nTables} tables.`;
+        label.innerText = `Created ${nTables} tables.`;
     });
 }
 

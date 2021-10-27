@@ -1,7 +1,6 @@
 <template>
   <div>
     <demo
-      :demoClasses="demoClasses"
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoMethods="demoMethods"
@@ -20,33 +19,6 @@ export default {
   name: 'CalendarDemo',
   data() {
     return {
-      demoClasses: [
-        {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
-        },
-      ],
       demoComp: createComp(),
       demoEvents: [
         {
@@ -76,6 +48,11 @@ export default {
           name: 'refresh',
           description:
             'This method is used to trigger a new render of the component.',
+        },
+        {
+          name: 'resizeCallback',
+          description:
+            'This method is invoked by KupManager whenever the component changes size.',
         },
         {
           name: 'setProps',

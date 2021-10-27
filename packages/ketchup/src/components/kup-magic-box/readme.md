@@ -23,7 +23,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -52,7 +52,6 @@ Type: `Promise<void>`
 
 - [kup-box](../kup-box)
 - [kup-chart](../kup-chart)
-- [kup-echart](../kup-echart)
 - [kup-data-table](../kup-data-table)
 - [kup-combobox](../kup-combobox)
 - [kup-button](../kup-button)
@@ -63,7 +62,6 @@ Type: `Promise<void>`
 graph TD;
   kup-magic-box --> kup-box
   kup-magic-box --> kup-chart
-  kup-magic-box --> kup-echart
   kup-magic-box --> kup-data-table
   kup-magic-box --> kup-combobox
   kup-magic-box --> kup-button
@@ -129,6 +127,8 @@ graph TD;
   kup-data-table --> kup-badge
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
   kup-tooltip --> kup-tree
   kup-tree --> kup-card
   kup-tree --> kup-image
@@ -146,7 +146,6 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list

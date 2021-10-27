@@ -13,8 +13,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-
-import moment from 'moment';
 import {
     Cell,
     Column,
@@ -89,9 +87,6 @@ import {
     numberToFormattedStringNumber,
     identify,
     deepEqual,
-    unformattedStringToFormattedStringDate,
-    isValidStringDate,
-    ISO_DEFAULT_DATE_FORMAT,
     getProps,
     setProps,
 } from '../../utils/utils';
@@ -167,6 +162,7 @@ import {
     KupThemeIconValues,
 } from '../../utils/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1058,7 +1054,7 @@ export class KupDataTable {
             this.columnMenuCard.onclick = (e) => e.stopPropagation();
             this.columnMenuCard.addEventListener('blur', () => {
                 if (
-                    this.kupManager.utilities.lastMouseDownPath.includes(
+                    this.kupManager.utilities.lastPointerDownPath.includes(
                         this.columnMenuCard
                     )
                 ) {
@@ -1241,10 +1237,13 @@ export class KupDataTable {
                 if (!totalValue) {
                     totalValue = row.group.id;
                 }
-                if (isValidStringDate(totalValue, ISO_DEFAULT_DATE_FORMAT)) {
-                    totalValue = moment(totalValue).format(
-                        ISO_DEFAULT_DATE_FORMAT
-                    );
+                if (
+                    this.kupManager.dates.isValid(
+                        totalValue,
+                        KupDatesFormats.ISO_DATE
+                    )
+                ) {
+                    totalValue = this.kupManager.dates.format(totalValue);
                 }
                 cells[id] = {
                     value: String(totalValue),
@@ -1591,134 +1590,6 @@ export class KupDataTable {
         return count;
     }
 
-    private setEvents() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-
-        if (root) {
-            //Row checkboxes
-            const checkboxes: NodeListOf<HTMLElement> = root.querySelectorAll(
-                'td .f-checkbox--wrapper'
-            );
-            for (let index = 0; index < checkboxes.length; index++) {
-                const inputEl: HTMLInputElement =
-                    checkboxes[index].querySelector('input');
-                if (inputEl) {
-                    inputEl.onchange = (e: Event) =>
-                        this.cellUpdate(
-                            e,
-                            (e.target as HTMLInputElement).value,
-                            checkboxes[index]['data-cell'],
-                            checkboxes[index]['data-column'],
-                            checkboxes[index]['data-row']
-                        );
-                }
-            }
-            //Row textfields
-            const textfields: NodeListOf<HTMLElement> = root.querySelectorAll(
-                'td .f-text-field--wrapper'
-            );
-            for (let index = 0; index < textfields.length; index++) {
-                const inputEl: HTMLInputElement =
-                    textfields[index].querySelector('input');
-                if (inputEl) {
-                    inputEl.onblur = (e: FocusEvent) =>
-                        this.cellUpdate(
-                            e,
-                            (e.target as HTMLInputElement).value,
-                            textfields[index]['data-cell'],
-                            textfields[index]['data-column'],
-                            textfields[index]['data-row']
-                        );
-                    inputEl.onchange = (e: Event) =>
-                        this.cellUpdate(
-                            e,
-                            (e.target as HTMLInputElement).value,
-                            textfields[index]['data-cell'],
-                            textfields[index]['data-column'],
-                            textfields[index]['data-row']
-                        );
-                }
-                FTextFieldMDC(textfields[index]);
-            }
-            //Row multiselection checkboxes
-            const multiselectionCheckboxes: NodeListOf<HTMLElement> =
-                root.querySelectorAll(
-                    'td[row-select-cell] .f-checkbox--wrapper'
-                );
-            for (
-                let index = 0;
-                index < multiselectionCheckboxes.length;
-                index++
-            ) {
-                const checkboxEl: HTMLInputElement =
-                    multiselectionCheckboxes[index].querySelector('input');
-                if (checkboxEl) {
-                    checkboxEl.onchange = () =>
-                        this.handleRowSelect(
-                            multiselectionCheckboxes[index]['data-row']
-                        );
-                }
-            }
-            //Row actions: expander
-            const expanderRowActions: NodeListOf<HTMLElement> =
-                root.querySelectorAll(
-                    '[row-action-cell] .f-image--wrapper.expander'
-                );
-            for (let index = 0; index < expanderRowActions.length; index++) {
-                (expanderRowActions[index] as HTMLElement).onclick = (
-                    e: MouseEvent
-                ) =>
-                    this.onRowActionExpanderClick(
-                        e,
-                        expanderRowActions[index]['data-row']
-                    );
-            }
-            //Row actions: actions
-            const rowActions: NodeListOf<HTMLElement> = root.querySelectorAll(
-                '[row-action-cell] .f-image--wrapper.action'
-            );
-            for (let index = 0; index < rowActions.length; index++) {
-                rowActions[index].onclick = () =>
-                    this.onDefaultRowActionClick(
-                        rowActions[index]['data-action']
-                    );
-            }
-            //Groups chip set
-            const groupChip: HTMLElement = root.querySelector(
-                '#group-chips.f-chip--wrapper'
-            );
-            if (groupChip) {
-                const chips: NodeListOf<HTMLElement> =
-                    groupChip.querySelectorAll('.chip');
-                for (let index = 0; index < chips.length; index++) {
-                    const cancelIcon: HTMLElement =
-                        chips[index].querySelector('.chip__icon.clear');
-                    if (cancelIcon) {
-                        cancelIcon.onclick = () => this.removeGroup(index);
-                    }
-                }
-            }
-            //Global filter text field
-            const globalFilter: HTMLElement = root.querySelector(
-                '#global-filter .f-text-field--wrapper'
-            );
-            if (globalFilter) {
-                const globalFilterInput: HTMLInputElement =
-                    globalFilter.querySelector('input');
-                globalFilterInput.oninput = (event) => {
-                    const t: EventTarget = event.target;
-                    window.clearTimeout(this.globalFilterTimeout);
-                    this.globalFilterTimeout = window.setTimeout(
-                        () => this.onGlobalFilterChange(t),
-                        600,
-                        t
-                    );
-                };
-                FTextFieldMDC(globalFilter);
-            }
-        }
-    }
-
     private setDynPosElements() {
         // Column menu
         if (this.columnMenuCard && this.columnMenuCard.data) {
@@ -1786,6 +1657,15 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const fs: NodeListOf<HTMLElement> = root.querySelectorAll(
+                '.f-text-field--wrapper'
+            );
+            for (let index = 0; index < fs.length; index++) {
+                FTextFieldMDC(fs[index]);
+            }
+        }
         if (this.showCustomization) {
             this.customizePanelPosition();
         }
@@ -1793,7 +1673,6 @@ export class KupDataTable {
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnDropArea(false);
-        this.setEvents();
         this.setDynPosElements();
 
         if (
@@ -3043,7 +2922,15 @@ export class KupDataTable {
         // check if column in sort array
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
-                return 'A' === sortObj.sortMode ? 'descending' : 'ascending';
+                return 'A' === sortObj.sortMode
+                    ? `kup-icon ${KupThemeIconValues.DESCENDING.replace(
+                          '--',
+                          ''
+                      )}`
+                    : `kup-icon ${KupThemeIconValues.ASCENDING.replace(
+                          '--',
+                          ''
+                      )}`;
             }
         }
 
@@ -3325,7 +3212,10 @@ export class KupDataTable {
                     filter = (
                         <span
                             title={svgLabel}
-                            class="icon-container filter-remove"
+                            class={`kup-icon ${KupThemeIconValues.FILTER_REMOVE.replace(
+                                '--',
+                                ''
+                            )}`}
                         ></span>
                     );
                 }
@@ -3339,7 +3229,6 @@ export class KupDataTable {
 
                 let iconClass = this.getSortIcon(column.name);
                 if (iconClass !== '') {
-                    iconClass += ' icon-container';
                     sortIcon = (
                         <span
                             class={iconClass}
@@ -3355,7 +3244,10 @@ export class KupDataTable {
                 if (column.isKey) {
                     keyIcon = (
                         <span
-                            class="key icon-container"
+                            class={`kup-icon ${KupThemeIconValues.KEY.replace(
+                                '--',
+                                ''
+                            )}`}
                             title={this.kupManager.language.translate(
                                 KupLanguageRow.KEY
                             )}
@@ -3923,20 +3815,7 @@ export class KupDataTable {
                     this.kupManager.objects.isDate(column.obj)
                 ) {
                     if (footerValue) {
-                        if (
-                            isValidStringDate(
-                                footerValue,
-                                ISO_DEFAULT_DATE_FORMAT
-                            )
-                        ) {
-                            value = unformattedStringToFormattedStringDate(
-                                footerValue,
-                                null,
-                                column.obj.t + column.obj.p
-                            );
-                        } else {
-                            console.warn(`invalid date: ${footerValue}`);
-                        }
+                        value = footerValue;
                     }
                 } else {
                     value = numberToFormattedStringNumber(
@@ -4017,8 +3896,8 @@ export class KupDataTable {
             }
 
             const iconClass = row.group.expanded
-                ? 'icon-container expanded'
-                : 'icon-container collapsed';
+                ? `kup-icon ${KupThemeIconValues.EXPANDED.replace('--', '')}`
+                : `kup-icon ${KupThemeIconValues.COLLAPSED.replace('--', '')}`;
 
             const jsxRows = [];
 
@@ -4065,16 +3944,14 @@ export class KupDataTable {
                         if (this.kupManager.objects.isDate(column.obj)) {
                             if (totalValue) {
                                 if (
-                                    isValidStringDate(
+                                    this.kupManager.dates.isValid(
                                         totalValue,
-                                        ISO_DEFAULT_DATE_FORMAT
+                                        KupDatesFormats.ISO_DATE
                                     )
                                 ) {
                                     value =
-                                        unformattedStringToFormattedStringDate(
-                                            totalValue,
-                                            null,
-                                            column.obj.t + column.obj.p
+                                        this.kupManager.dates.format(
+                                            totalValue
                                         );
                                 } else {
                                     console.warn(`invalid date: ${totalValue}`);
@@ -4203,8 +4080,8 @@ export class KupDataTable {
 
                 const props: FCheckboxProps = {
                     checked: this.selectedRows.includes(row),
-                    dataSet: {
-                        'data-row': row,
+                    onChange: () => {
+                        this.handleRowSelect(row);
                     },
                 };
 
@@ -4260,9 +4137,6 @@ export class KupDataTable {
                     // adding expander
                     const props: FImageProps = {
                         color: `var(${KupThemeColorValues.PRIMARY})`,
-                        dataSet: {
-                            'data-row': row,
-                        },
                         resource: 'chevron-right',
                         sizeX: '1.5em',
                         sizeY: '1.5em',
@@ -4270,6 +4144,9 @@ export class KupDataTable {
                             KupLanguageGeneric.EXPAND
                         ),
                         wrapperClass: 'expander',
+                        onClick: (e: MouseEvent) => {
+                            this.onRowActionExpanderClick(e, row);
+                        },
                     };
                     rowActionsCount++;
                     rowActionExpander = <FImage {...props} />;
@@ -4526,7 +4403,7 @@ export class KupDataTable {
             };
 
             const style: GenericObject = {
-                '--row-actions': rowActionsCount,
+                '--kup_datatable_row_actions': rowActionsCount,
             };
 
             return (
@@ -4558,19 +4435,18 @@ export class KupDataTable {
         return actions.map((action, index) => {
             const props: FImageProps = {
                 color: `var(${KupThemeColorValues.PRIMARY})`,
-                dataSet: {
-                    'data-action': {
-                        action,
-                        index,
-                        row,
-                        type,
-                    },
-                },
                 resource: action.icon,
                 sizeX: '1.5em',
                 sizeY: '1.5em',
                 title: action.text,
                 wrapperClass: 'action',
+                onClick: () =>
+                    this.onDefaultRowActionClick({
+                        action,
+                        row,
+                        index,
+                        type,
+                    }),
             };
             return <FImage {...props} />;
         });
@@ -4673,9 +4549,7 @@ export class KupDataTable {
                 mask: svg,
                 webkitMask: svg,
             };
-            icon = (
-                <span style={iconStyle} class="icon-container obj-icon"></span>
-            );
+            icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
         }
 
         let cellTitle = null;
@@ -4827,10 +4701,10 @@ export class KupDataTable {
             case 'chips':
                 if (cell.style) {
                     if (!cell.style.height) {
-                        cell.style['minHeight'] = '53px';
+                        cell.style['minHeight'] = '40px';
                     }
                 } else {
-                    cell.style = { minHeight: '53px' };
+                    cell.style = { minHeight: '40px' };
                 }
                 break;
             case 'radio':
@@ -4856,11 +4730,15 @@ export class KupDataTable {
                 return (
                     <FCheckbox
                         checked={cell.data['checked']}
-                        dataSet={{
-                            'data-cell': cell,
-                            'data-column': column,
-                            'data-row': row,
-                        }}
+                        onChange={(e: Event) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
                     />
                 );
             case 'date':
@@ -4886,11 +4764,6 @@ export class KupDataTable {
             case 'number':
                 return (
                     <FTextField
-                        dataSet={{
-                            'data-cell': cell,
-                            'data-column': column,
-                            'data-row': row,
-                        }}
                         icon={
                             cell.icon
                                 ? cell.icon
@@ -4901,16 +4774,29 @@ export class KupDataTable {
                         fullWidth={true}
                         inputType="number"
                         value={stringToNumber(cell.value).toString()}
+                        onBlur={(e: FocusEvent) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
+                        onChange={(e: Event) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
                     />
                 );
             case 'string':
                 return (
                     <FTextField
-                        dataSet={{
-                            'data-cell': cell,
-                            'data-column': column,
-                            'data-row': row,
-                        }}
                         icon={
                             cell.icon
                                 ? cell.icon
@@ -4920,6 +4806,24 @@ export class KupDataTable {
                         }
                         fullWidth={true}
                         value={cell.value}
+                        onBlur={(e: FocusEvent) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
+                        onChange={(e: Event) =>
+                            this.cellUpdate(
+                                e,
+                                (e.target as HTMLInputElement).value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
                     />
                 );
         }
@@ -5048,7 +4952,7 @@ export class KupDataTable {
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">
-                        {content}
+                        {cell.value}
                     </a>
                 );
             case 'number':
@@ -5567,7 +5471,6 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(
                 KupLanguageFontsize.LABEL
@@ -5638,7 +5541,6 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageDensity.LABEL),
             icon: 'arrow_drop_down',
@@ -5750,7 +5652,6 @@ export class KupDataTable {
         const listData = { data: listItems, showIcons: true };
 
         const textfieldData = {
-            customStyle: `:host{${KupThemeColorValues.FIELD_BACKGROUND}: transparent}`,
             trailingIcon: true,
             label: this.kupManager.language.translate(KupLanguageGrid.LABEL),
             icon: 'arrow_drop_down',
@@ -5892,7 +5793,11 @@ export class KupDataTable {
                     data: chipsData,
                     id: 'group-chips',
                     type: FChipType.INPUT,
+                    onClick: [],
                 };
+                for (let i = 0; i < chipsData.length; i++) {
+                    props.onClick.push(() => this.removeGroup(i));
+                }
                 groupChips = <FChip {...props}></FChip>;
             }
         }
@@ -5981,6 +5886,21 @@ export class KupDataTable {
                                         KupLanguageSearch.SEARCH
                                     )}
                                     value={this.globalFilterValue}
+                                    onInput={(event) => {
+                                        const t: EventTarget = event.target;
+                                        window.clearTimeout(
+                                            this.globalFilterTimeout
+                                        );
+                                        this.globalFilterTimeout =
+                                            window.setTimeout(
+                                                () =>
+                                                    this.onGlobalFilterChange(
+                                                        t
+                                                    ),
+                                                600,
+                                                t
+                                            );
+                                    }}
                                 />
                             </div>
                         ) : null}

@@ -25,12 +25,13 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@sme.up/ketchup": "^3.1.0-rc",
+    "@sme.up/ketchup": "^4.0.0-rc",
     "caniuse-lite": "^1.0.30001239",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.17",
+    "vue-cli-plugin-webpack-bundle-analyzer": "^4.0.0",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {

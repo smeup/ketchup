@@ -1,13 +1,38 @@
 .f-switch--wrapper {
+  --kup_switch_font_family: var(
+    --kup-switch-font-family,
+    var(--kup-font-family)
+  );
+  --kup_switch_font_size: var(--kup-switch-font-size, var(--kup-font-size));
+  --kup_switch_font_weight: var(--kup-switch-font-weight, 400);
+  --kup_switch_label_color: var(
+    --kup-switch-label-color,
+    var(--kup-text-color)
+  );
+  --kup_switch_primary_color: var(
+    --kup-switch-primary-color,
+    var(--kup-primary-color)
+  );
+  --kup_switch_primary_color_rgb: var(
+    --kup-switch-primary-color-rgb,
+    var(--kup-primary-color-rgb)
+  );
+  --kup_switch_thumb_color: var(
+    --kup-switch-thumb-color,
+    var(--kup-border-color)
+  );
+
+  font-family: var(--kup_switch_font_family);
+  font-size: var(--kup_switch_font_size);
+
   .form-field {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-family: var(--kup-font-family);
     font-size: 0.875em;
     line-height: 2em;
-    font-weight: 400;
+    font-weight: var(--kup_switch_font_weight);
     letter-spacing: 0.0178571429em;
-    color: var(--kup-text-color);
+    color: var(--kup_switch_label_color);
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
@@ -21,7 +46,7 @@
     }
 
     & > label {
-      color: var(--kup-text-color);
+      color: var(--kup_switch_label_color);
       font-family: var(--kup-font-family);
       margin-left: 0px;
       margin-right: auto;
@@ -66,7 +91,7 @@
         height: 48px;
 
         &:hover {
-          background-color: rgba(var(--kup-primary-color-rgb), 0.125);
+          background-color: rgba(var(--kup_switch_primary_color_rgb), 0.125);
         }
 
         .switch__thumb {
@@ -99,11 +124,11 @@
 
       &:not(.switch--checked) {
         .switch__track {
-          background-color: var(--kup-text-color);
+          background-color: var(--kup_switch_label_color);
         }
         .switch__thumb {
-          background-color: var(--kup-border-color);
-          border-color: var(--kup-border-color);
+          background-color: var(--kup_switch_thumb_color);
+          border-color: var(--kup_switch_thumb_color);
         }
       }
 
@@ -115,7 +140,7 @@
 
       &.switch--checked {
         .switch__track {
-          background-color: var(--kup-primary-color);
+          background-color: var(--kup_switch_primary_color);
           opacity: 0.54;
         }
         .switch__thumb-underlay {
@@ -123,8 +148,8 @@
         }
 
         .switch__thumb {
-          background-color: var(--kup-primary-color);
-          border-color: var(--kup-primary-color);
+          background-color: var(--kup_switch_primary_color);
+          border-color: var(--kup_switch_primary_color);
 
           .switch__native-control {
             transform: translateX(-16px);
@@ -132,5 +157,30 @@
         }
       }
     }
+  }
+
+  &.#{$kup-class-danger} {
+    --kup-switch-primary-color: var(--kup-danger-color);
+    --kup-switch-primary-color-rgb: var(--kup-danger-color-rgb);
+  }
+
+  &.#{$kup-class-info} {
+    --kup-switch-primary-color: var(--kup-info-color);
+    --kup-switch-primary-color-rgb: var(--kup-info-color-rgb);
+  }
+
+  &.#{$kup-class-secondary} {
+    --kup-switch-primary-color: var(--kup-secondary-color);
+    --kup-switch-primary-color-rgb: var(--kup-secondary-color-rgb);
+  }
+
+  &.#{$kup-class-success} {
+    --kup-switch-primary-color: var(--kup-success-color);
+    --kup-switch-primary-color-rgb: var(--kup-success-color-rgb);
+  }
+
+  &.#{$kup-class-warning} {
+    --kup-switch-primary-color: var(--kup-warning-color);
+    --kup-switch-primary-color-rgb: var(--kup-warning-color-rgb);
   }
 }

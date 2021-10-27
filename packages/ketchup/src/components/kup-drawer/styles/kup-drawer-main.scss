@@ -1,14 +1,36 @@
+/**
+* @prop --kup-drawer-backdrop: Backdrop of the component when in slide mode.
+* @prop --kup-drawer-box-shadow: Box shadow of the component when in slide mode.
+* @prop --kup-drawer-permanent-border: Border of the drawer in permanent mode.
+* @prop --kup-drawer-slide-transition: Horizontal transition's duration when in slide mode.
+* @prop --kup-drawer-transition: Transitions duration.
+*/
+
 :host {
-  box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.2),
-    0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12);
+  --kup_drawer_backdrop: var(--kup-drawer-backdrop, rgba(0, 0, 0, 0.32));
+  --kup_drawer_box_shadow: var(
+    --kup-drawer-box-shadow,
+    0 8px 10px -5px rgba(0, 0, 0, 0.2),
+    0 16px 24px 2px rgba(0, 0, 0, 0.14),
+    0 6px 30px 5px rgba(0, 0, 0, 0.12)
+  );
+  --kup_drawer_permanent_border: var(
+    --kup-drawer-permanent-border,
+    1px solid var(--kup-border-color)
+  );
+  --kup_drawer_slide_transition: var(--kup-drawer-slide-transition, 750ms);
+  --kup_drawer_transition: var(--kup-drawer-transition, 250ms);
+
+  box-shadow: var(--kup_drawer_box_shadow);
   display: block;
   font-size: var(--kup-font-size);
   height: 100vh;
   left: calc(var(--kup-drawer-width) * -1);
   position: fixed;
   top: 0;
-  transition: left 0.75s cubic-bezier(0.4, 0, 0.2, 1),
-    right 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: left var(--kup_drawer_slide_transition)
+      cubic-bezier(0.4, 0, 0.2, 1),
+    right var(--kup_drawer_slide_transition) cubic-bezier(0.4, 0, 0.2, 1);
   width: var(--kup-drawer-width);
   z-index: var(--kup-drawer-zindex);
 }
@@ -24,10 +46,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.32);
+  background: var(--kup_drawer_backdrop);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease-in;
+  transition: opacity var(--kup_drawer_transition) ease-in;
   z-index: var(--kup-drawer-zindex);
 }
 
@@ -37,24 +59,6 @@
   width: var(--kup-drawer-width);
   z-index: calc(var(--kup-drawer-zindex) + 1);
 
-  &__header {
-    padding: 1em;
-    background-color: var(--kup-primary-color);
-    position: relative;
-  }
-
-  &__subtitle {
-    color: var(--kup-text-on-primary-color);
-    font-size: 0.75em;
-    margin: 0;
-  }
-
-  &__title {
-    color: var(--kup-text-on-primary-color);
-    font-size: 1.5em;
-    margin: 0;
-  }
-
   &__content {
     background-color: var(--kup-drawer-background-color);
     box-sizing: border-box;
@@ -62,10 +66,32 @@
     overflow-y: auto;
     width: 100%;
   }
+
+  ::slotted(*) {
+    --kup-button-primary-color: var(--kup-drawer-color);
+    --kup-button-primary-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-button-primary-color-h: var(--kup-drawer-color-h);
+    --kup-button-primary-color-s: var(--kup-drawer-color-s);
+    --kup-button-primary-color-l: var(--kup-drawer-color-l);
+    --kup-switch-label-color: var(--kup-drawer-color);
+    --kup-switch-primary-color: var(--kup-drawer-color);
+    --kup-switch-primary-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-textfield-color: var(--kup-drawer-color);
+    --kup-textfield-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-textfield-primary-color: var(--kup-drawer-color);
+    --kup-textfield-primary-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-tree-color: var(--kup-drawer-color);
+    --kup-tree-color-rgb: var(--kup-drawer-color-rgb);
+    --kup-tree-icon-color: var(--kup-drawer-color);
+
+    color: var(--kup-drawer-color);
+    fill: var(--kup-drawer-color);
+  }
 }
 
 :host([kup-opened]) {
   left: 0;
+
   .backdrop {
     opacity: 1;
     pointer-events: all;

@@ -28,34 +28,9 @@ export default {
             'The selected cell will be highlighted by a cross-selection between its row and its column.',
         },
         {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
-        },
-        {
           class: 'kup-layout-fixed',
           description:
             'Sets a fixed layout to improve performances (specifically when using Google Chrome, becasue every scroll triggers a repaint).',
-        },
-        {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
         },
       ],
       demoComp: createComp(),

@@ -218,6 +218,7 @@ import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-ma
 import type { KupDynamicPositionElement } from '@sme.up/ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type {
   GenericObject,
+  KupComponent,
   KupEventPayload,
 } from '@sme.up/ketchup/dist/types/types/GenericTypes';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
@@ -421,7 +422,6 @@ const demoTypes: DemoTypeJson = {
   KupAccordionData: {
     keys: {
       columns: 'Column[]',
-      rows: ' Row[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -519,15 +519,6 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
-  KupEchartTitle: {
-    keys: {
-      value: 'string',
-      'color?': 'string',
-      'position?': 'string',
-      'size?': 'number',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
   KupGlobalFilterMode: {
     keys: {
       HIGHLIGHT: 'highlight',
@@ -548,8 +539,6 @@ const demoTypes: DemoTypeJson = {
   },
   KupNavBarStyling: {
     keys: {
-      DENSE: 'dense',
-      PROMINENT: 'prominent',
       SHORT: 'short',
       STANDARD: 'standard',
     },
@@ -959,6 +948,7 @@ export default {
       } else {
         demoComponent.classList.remove(e.detail.id);
       }
+      (demoComponent as KupComponent).refresh();
     },
     /**
      * Enables/disables the specified boolean prop on DemoComponent.

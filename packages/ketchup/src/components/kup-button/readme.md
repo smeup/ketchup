@@ -13,6 +13,7 @@
 | `icon`         | `icon`          | When set, the button will show this icon.                                                                                   | `string`                                                                                                                    | `null`                  |
 | `iconOff`      | `icon-off`      | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                                                                                    | `null`                  |
 | `label`        | `label`         | When set, the button will show this text.                                                                                   | `string`                                                                                                                    | `null`                  |
+| `showSpinner`  | `show-spinner`  | When set to true, the button show a spinner received in slot.                                                               | `boolean`                                                                                                                   | `false`                 |
 | `styling`      | `styling`       | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.               | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED` |
 | `toggable`     | `toggable`      | When set to true, the icon button will be toggable on/off.                                                                  | `boolean`                                                                                                                   | `false`                 |
 | `trailingIcon` | `trailing-icon` | When set, the icon will be shown after the text.                                                                            | `boolean`                                                                                                                   | `false`                 |
@@ -37,7 +38,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -60,19 +61,35 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                 | Description                                                                           |
+| ------------------------------------ | ------------------------------------------------------------------------------------- |
+| `--kup-button-border-radius`         | Sets border radius of the button.                                                     |
+| `--kup-button-disabled-color`        | Sets disabled color of the button.                                                    |
+| `--kup-button-font-family`           | Sets font family of the button.                                                       |
+| `--kup-button-font-size`             | Sets font size of the button.                                                         |
+| `--kup-button-font-weight`           | Sets font weight of the button.                                                       |
+| `--kup-button-height`                | Sets height of the button.                                                            |
+| `--kup-button-padding`               | Sets padding of the button.                                                           |
+| `--kup-button-primary-color`         | Sets the primary color of the button.                                                 |
+| `--kup-button-primary-color-h`       | Sets the primary color Hue value of the button (used for focus/hover effects).        |
+| `--kup-button-primary-color-l`       | Sets the primary color Lightness value of the button (used for focus/hover effects).  |
+| `--kup-button-primary-color-rgb`     | Sets the primary color RGB values of the button (used for shaders).                   |
+| `--kup-button-primary-color-s`       | Sets the primary color Saturation value of the button (used for focus/hover effects). |
+| `--kup-button-text-on-primary-color` | Sets text and icon color for raised buttons.                                          |
+
+
 ## Dependencies
 
 ### Used by
 
  - [kup-card](../kup-card)
- - [kup-crud](../kup-crud)
  - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
  - [kup-field](../kup-field)
- - [kup-form](../kup-form)
  - [kup-iframe](../kup-iframe)
  - [kup-magic-box](../kup-magic-box)
- - [kup-search](../kup-search)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
@@ -87,14 +104,11 @@ graph TD;
   kup-button --> kup-badge
   kup-badge --> kup-badge
   kup-card --> kup-button
-  kup-crud --> kup-button
   kup-data-table --> kup-button
   kup-date-picker --> kup-button
   kup-field --> kup-button
-  kup-form --> kup-button
   kup-iframe --> kup-button
   kup-magic-box --> kup-button
-  kup-search --> kup-button
   kup-time-picker --> kup-button
   kup-tooltip --> kup-button
   kup-tree --> kup-button

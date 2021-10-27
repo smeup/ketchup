@@ -9,7 +9,7 @@
         >
         <li
           ><span class="code-word">kup-permanent</span> in order to make the
-          drawer permanent on the screen</li
+          drawer permanent on the screen (usually for desktop applications)</li
         >
       </ul>
       <br />

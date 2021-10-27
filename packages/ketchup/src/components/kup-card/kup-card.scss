@@ -1,24 +1,34 @@
 @import '@material/ripple/mdc-ripple';
+@import 'f-image/f-image.scss';
 @import 'collapsible/kup-card-collapsible';
 @import 'dialog/kup-card-dialog';
 @import 'scalable/kup-card-scalable';
 @import 'standard/kup-card-standard';
 
+/**
+* @prop --kup-card-ripple-color: Sets color of ripple effect (for Material layouts).
+*/
+
 :host {
+  --kup_card_ripple_color: var(
+    --kup-card-ripple-color,
+    var(--kup-primary-color)
+  );
+
   display: block;
   font-size: var(--kup-font-size);
+  height: var(--kup_card_height);
+  min-height: var(--kup_card_height);
+  min-width: var(--kup_card_width);
   outline: none;
   position: relative;
-  min-height: var(--kup-card-height);
-  height: var(--kup-card-height);
-  min-width: var(--kup-card-width);
-  width: var(--kup-card-width);
+  width: var(--kup_card_width);
 }
 
 :host([is-menu]) {
   #kup-component {
+    animation: fade-in 0.25s ease-out;
     display: none;
-    animation: fadeInFromNone 0.25s ease-out;
   }
 }
 
@@ -42,14 +52,31 @@
 
   &:before,
   &:after {
-    background-color: var(--kup-primary-color);
+    background-color: var(--kup_card_ripple_color);
   }
 }
 
 .card-view {
-  animation: fadeInFromNone 0.25s ease-out;
+  animation: fade-in 0.25s ease-out;
   display: none;
   &.visible {
     display: block;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
   }
 }

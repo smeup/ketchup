@@ -1,8 +1,45 @@
+/**
+* @prop --kup-box-background-color: Sets background of the component.
+* @prop --kup-box-color: Sets text color of the component.
+* @prop --kup-box-font-family: Sets font family of the component.
+* @prop --kup-box-font-size: Sets font size of the component.
+* @prop --kup-box-grid-gap: Sets gap between each box.
+* @prop --kup-box-hover-box-shadow: Sets box shadow for the hover effect.
+* @prop --kup-box-primary-color-rgb: Sets RGB values of primary color (used for box selection) .
+* @prop --kup-box-transition: Sets transition duration for box-shadow and background-color.
+*/
+
+:host {
+  --kup_box_background_color: var(
+    --kup-box-background-color,
+    var(--kup-background-color)
+  );
+  --kup_box_color: var(--kup-box-color, var(--kup-text-color));
+  --kup_box_font_family: var(--kup-box-font-family, var(--kup-font-family));
+  --kup_box_font_size: var(--kup-box-font-size, var(--kup-font-size));
+  --kup_box_grid_gap: var(--kup-box-grid-gap, 1em);
+  --kup_box_hover_box_shadow: var(
+    --kup-box-hover-box-shadow,
+    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
+  );
+  --kup_box_primary_color_rgb: var(
+    --kup-box-primary-color-rgb,
+    var(--kup-primary-color-rgb)
+  );
+  --kup_box_transition: var(--kup-box-transition, 0.25s);
+
+  display: block;
+  font-family: var(--kup_box_font_family);
+  font-size: var(--kup_box_font_size);
+}
+
 .box-section {
   text-align: center;
 }
 
 .box-component {
+  background: var(--kup_box_background_color);
+
   &.component-dropover {
     position: relative;
     border: 3px solid var(--kup-border-color);
@@ -12,8 +49,8 @@
 
 #box-container {
   display: grid;
-  grid-gap: 1em;
-  color: var(--kup-text-color);
+  grid-gap: var(--kup_box_grid_gap);
+  color: var(--kup_box_color);
   overflow: auto;
 
   &.is-kanban {
@@ -41,7 +78,8 @@
       cursor: pointer;
       position: relative;
       display: flex;
-      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+      transition: background-color var(--kup_box_transition) ease,
+        box-shadow var(--kup_box_transition) ease;
 
       &.column {
         flex-direction: column;
@@ -55,11 +93,12 @@
       }
 
       &:hover {
-        box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+        box-shadow: var(--kup_box_hover_box_shadow);
       }
 
       &.selected {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+        background-color: rgba(var(--kup_box_primary_color_rgb), 0.175);
+
         & .box-section.titled > h3 {
           background-color: transparent;
         }
@@ -246,4 +285,19 @@
 #sort-panel,
 #global-filter {
   margin-bottom: 1em;
+}
+
+.kup-icon:not(.f-image--wrapper) {
+  background-color: var(--kup-title-color);
+  margin: 0 0.25em;
+  height: 1.25em;
+  width: 1.25em;
+
+  &.obj-icon {
+    cursor: var(--kup-obj-cursor);
+    display: inline-block;
+    background-color: rgba(var(--kup-text-color-rgb), 0.375);
+    margin: auto 0.5em auto 0;
+    vertical-align: sub;
+  }
 }

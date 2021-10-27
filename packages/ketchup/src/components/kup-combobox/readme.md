@@ -18,16 +18,15 @@
 
 ## Events
 
-| Event                          | Description | Type                                   |
-| ------------------------------ | ----------- | -------------------------------------- |
-| `kup-combobox-blur`            |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-change`          |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-click`           |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-focus`           |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-iconclick`       |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-input`           |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-itemclick`       |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-textfieldsubmit` |             | `CustomEvent<KupComboboxEventPayload>` |
+| Event                    | Description | Type                                   |
+| ------------------------ | ----------- | -------------------------------------- |
+| `kup-combobox-blur`      |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-change`    |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-click`     |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-focus`     |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-iconclick` |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-input`     |             | `CustomEvent<KupComboboxEventPayload>` |
+| `kup-combobox-itemclick` |             | `CustomEvent<KupComboboxEventPayload>` |
 
 
 ## Methods
@@ -40,7 +39,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `getValue() => Promise<string>`
 
@@ -50,7 +49,7 @@ Retrieves the component's value.
 
 Type: `Promise<string>`
 
-
+Value of the component.
 
 ### `refresh() => Promise<void>`
 
@@ -100,7 +99,6 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
- - [kup-form](../kup-form)
  - [kup-magic-box](../kup-magic-box)
  - [kup-paginator](../kup-paginator)
 
@@ -118,7 +116,6 @@ graph TD;
   kup-box --> kup-combobox
   kup-card --> kup-combobox
   kup-data-table --> kup-combobox
-  kup-form --> kup-combobox
   kup-magic-box --> kup-combobox
   kup-paginator --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px

@@ -54,7 +54,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `getValue() => Promise<string>`
 
@@ -107,30 +107,36 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                   | Description                                                                                                                                                                                                            |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--kup-textfield-background-color-rgb` | Sets the background shader of the field, must be a set of RGB values.                                                                                                                                                  |
+| `--kup-textfield-color`                | Sets text color of the text field.                                                                                                                                                                                     |
+| `--kup-textfield-color-rgb`            | Sets text color RGB values of the text field (used for shaders).                                                                                                                                                       |
+| `--kup-textfield-font-family`          | Sets font family of the component.                                                                                                                                                                                     |
+| `--kup-textfield-font-size`            | Sets font size of the component.                                                                                                                                                                                       |
+| `--kup-textfield-icon-color`           | Sets icon color of the component.                                                                                                                                                                                      |
+| `--kup-textfield-primary-color`        | Sets primary color of the text field.                                                                                                                                                                                  |
+| `--kup-textfield-primary-color-rgb`    | Sets primary color RGB values of the text field (used for shaders). NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+
+
 ## Dependencies
 
 ### Used by
 
- - [kup-accordion](../kup-accordion)
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
- - [kup-color-picker](../kup-color-picker)
  - [kup-date-picker](../kup-date-picker)
- - [kup-form](../kup-form)
- - [kup-search](../kup-search)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-accordion --> kup-text-field
   kup-box --> kup-text-field
   kup-card --> kup-text-field
-  kup-color-picker --> kup-text-field
   kup-date-picker --> kup-text-field
-  kup-form --> kup-text-field
-  kup-search --> kup-text-field
   kup-time-picker --> kup-text-field
   kup-tree --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px

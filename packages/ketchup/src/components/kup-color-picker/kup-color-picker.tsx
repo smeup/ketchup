@@ -17,7 +17,6 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { KupTextField } from '../kup-text-field/kup-text-field';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
@@ -28,9 +27,11 @@ import {
     KupColorPickerProps,
 } from './kup-color-picker-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
 @Component({
     tag: 'kup-color-picker',
@@ -92,7 +93,7 @@ export class KupColorPicker {
     private anchorEl: HTMLElement;
     dropdownEl: HTMLElement;
     private picker: Picker;
-    private textfieldEl: KupTextField;
+    private textfieldEl: HTMLElement;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -105,25 +106,6 @@ export class KupColorPicker {
         bubbles: true,
     })
     kupChange: EventEmitter<KupColorPickerEventPayload>;
-
-    @Event({
-        eventName: 'kup-colorpicker-input',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<KupColorPickerEventPayload>;
-
-    private onKupInput(e: CustomEvent): void {
-        this.value = e.detail.value;
-        this.setHexValue();
-
-        this.kupInput.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-        });
-    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -151,7 +133,7 @@ export class KupColorPicker {
      */
     @Method()
     async setFocus(): Promise<void> {
-        this.textfieldEl.setFocus();
+        this.textfieldEl.querySelector('input').focus();
     }
     /**
      * Sets the props to the component.
@@ -168,7 +150,6 @@ export class KupColorPicker {
     @Method()
     async setValue(value: string): Promise<void> {
         this.value = value;
-        this.textfieldEl.setValue(value);
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -201,19 +182,20 @@ export class KupColorPicker {
     }
 
     private prepTextField(): VNode {
-        let initialValue = undefined;
-        let textfieldData = { ...this.data['kup-text-field'] };
-        let customStyle: string = ` #kup-component .icon-container{box-sizing: border-box; border: 3px solid rgba(var(${KupThemeColorValues.TEXT}-rgb), .575); border-radius: 50%; background-color:${this.value}!important;}`;
-        if (!textfieldData['icon']) {
-            textfieldData['icon'] = 'brightness-1';
+        let value: string = null;
+        let textfieldProps: FTextFieldProps = {
+            ...this.data['kup-text-field'],
+        };
+        if (!textfieldProps.icon) {
+            textfieldProps.icon = 'brightness-1';
         }
-        if (textfieldData['trailingIcon'] === undefined) {
-            textfieldData['trailingIcon'] = true;
+        if (textfieldProps.trailingIcon === undefined) {
+            textfieldProps.trailingIcon = true;
         }
 
         if (this.value === '') {
-            initialValue = this.value;
-            textfieldData['icon'] = '';
+            value = this.value;
+            textfieldProps.icon = '';
         } else if (!this.value) {
             const message: string =
                 this.kupManager.language.translate(
@@ -221,28 +203,33 @@ export class KupColorPicker {
                 ) +
                 ': ' +
                 this.value;
-            initialValue = message;
-            textfieldData['icon'] = 'warning';
-            textfieldData['title'] = message;
+            value = message;
+            textfieldProps.icon = 'warning';
+            textfieldProps.title = message;
         } else {
-            initialValue = this.value;
-            if (textfieldData['icon'] === 'brightness-1') {
-                if (!textfieldData['customStyle']) {
-                    textfieldData['customStyle'] = customStyle;
-                } else {
-                    textfieldData['customStyle'] += customStyle;
-                }
-            }
+            value = this.value;
         }
 
         return (
-            <kup-text-field
-                {...textfieldData}
+            <FTextField
+                {...textfieldProps}
                 disabled={this.disabled}
-                initialValue={initialValue}
-                onkup-textfield-input={(e: any) => this.onKupInput(e)}
-                ref={(el) => (this.textfieldEl = el as any)}
-            ></kup-text-field>
+                fullHeight={
+                    this.rootElement.classList.contains('kup-full-height')
+                        ? true
+                        : false
+                }
+                fullWidth={
+                    this.rootElement.classList.contains('kup-full-width')
+                        ? true
+                        : false
+                }
+                readOnly={true}
+                value={value}
+                wrapperClass={
+                    textfieldProps.icon === 'brightness-1' ? 'thumb-icon' : ''
+                }
+            />
         );
     }
 
@@ -318,11 +305,17 @@ export class KupColorPicker {
     }
 
     componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            this.textfieldEl = root.querySelector('.f-text-field--wrapper');
+            if (this.textfieldEl) {
+                FTextFieldMDC(this.textfieldEl);
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
-        const hostClass: Record<string, boolean> = {};
         let widget: VNode = null;
         if (this.swatchOnly) {
             widget = (
@@ -339,36 +332,18 @@ export class KupColorPicker {
             widget = this.prepTextField();
         }
 
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf(
-                'kup-full-height'
-            ) > -1
-        ) {
-            hostClass['kup-full-height'] = true;
-        }
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['fullWidth']
-        ) {
-            hostClass['kup-full-width'] = true;
-        }
+        const style: GenericObject = {
+            ['--kup_colorpicker_thumb_color']: this.value ? this.value : '',
+        };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(
             this.rootElement as KupComponent
         );
 
         return (
-            <Host class={hostClass}>
+            <Host style={style}>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div
-                    id={componentWrapperId}
-                    ref={(el) => (this.anchorEl = el as any)}
-                >
+                <div id={componentWrapperId} ref={(el) => (this.anchorEl = el)}>
                     {widget}
                 </div>
             </Host>

@@ -8,6 +8,7 @@
 | Property        | Attribute        | Description                      | Type                   | Default     |
 | --------------- | ---------------- | -------------------------------- | ---------------------- | ----------- |
 | `cellOptions`   | --               | Data for cell options            | `TooltipCellOptions`   | `undefined` |
+| `customStyle`   | `custom-style`   | Custom style of the component.   | `string`               | `''`        |
 | `data`          | --               | Data for top section             | `TooltipData`          | `undefined` |
 | `detailData`    | --               | Data for the detail              | `TooltipDetailData`    | `undefined` |
 | `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`               | `800`       |
@@ -45,7 +46,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -100,6 +101,8 @@ Type: `Promise<void>`
 
 - [kup-button](../kup-button)
 - [kup-card](../kup-card)
+- [kup-box](../kup-box)
+- [kup-list](../kup-list)
 - [kup-tree](../kup-tree)
 
 ### Graph
@@ -107,6 +110,8 @@ Type: `Promise<void>`
 graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
   kup-tooltip --> kup-tree
   kup-button --> kup-badge
   kup-badge --> kup-badge
@@ -144,7 +149,6 @@ graph TD;
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge

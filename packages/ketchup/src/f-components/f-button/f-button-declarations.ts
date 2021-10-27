@@ -12,10 +12,13 @@ export interface FButtonProps extends FComponent {
     label?: string;
     large?: boolean;
     onClick?: (event: MouseEvent) => void;
+    onBlur?: (event: FocusEvent) =>void;
+    onFocus?:(event: FocusEvent)=>void;
     pulsating?: boolean;
     shaped?: boolean;
     slim?: boolean;
     styling?: FButtonStyling;
+    showSpinner?: boolean;
     toggable?: boolean;
     trailingIcon?: boolean;
 }

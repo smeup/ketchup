@@ -11,7 +11,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
@@ -77,7 +76,7 @@ export class KupCombobox {
     /**
      * Lets the combobox behave as a select element.
      */
-    @Prop() isSelect: boolean = false;
+    @Prop({ reflect: true }) isSelect: boolean = false;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
@@ -155,14 +154,6 @@ export class KupCombobox {
         bubbles: true,
     })
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
-
-    @Event({
-        eventName: 'kup-combobox-textfieldsubmit',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupTextFieldSubmit: EventEmitter<KupComboboxEventPayload>;
 
     onKupBlur() {
         this.closeList();
@@ -406,44 +397,6 @@ export class KupCombobox {
         );
     }
 
-    private setEvents() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
-            if (f) {
-                const inputEl: HTMLInputElement | HTMLTextAreaElement =
-                    root.querySelector('.mdc-text-field__input');
-                const icon: HTMLElement = root.querySelector(
-                    '.mdc-text-field__icon'
-                );
-                if (inputEl) {
-                    inputEl.onchange = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupChange(e);
-                    inputEl.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupClick(e);
-                    inputEl.onfocus = (
-                        e: FocusEvent & { target: HTMLInputElement }
-                    ) => this.onKupFocus(e);
-                    inputEl.oninput = (
-                        e: UIEvent & { target: HTMLInputElement }
-                    ) => this.onKupInput(e);
-                    this.textfieldWrapper = inputEl.closest(
-                        '.f-text-field--wrapper'
-                    );
-                    this.textfieldEl = inputEl;
-                }
-                if (icon) {
-                    icon.onclick = (
-                        e: MouseEvent & { target: HTMLInputElement }
-                    ) => this.onKupIconClick(e);
-                }
-                FTextFieldMDC(f);
-            }
-        }
-    }
-
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -470,11 +423,19 @@ export class KupCombobox {
     }
 
     componentDidRender() {
-        this.setEvents();
-        this.kupManager.dynamicPosition.register(
-            this.listEl,
-            this.textfieldWrapper
-        );
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            if (f) {
+                this.textfieldWrapper = f;
+                this.textfieldEl = f.querySelector('input');
+                FTextFieldMDC(f);
+                this.kupManager.dynamicPosition.register(
+                    this.listEl,
+                    this.textfieldWrapper
+                );
+            }
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -504,8 +465,24 @@ export class KupCombobox {
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
                         icon={KupThemeIconValues.DROPDOWN}
+                        readOnly={this.isSelect}
                         trailingIcon={true}
                         value={this.displayedValue}
+                        onChange={(e: UIEvent & { target: HTMLInputElement }) =>
+                            this.onKupChange(e)
+                        }
+                        onClick={(
+                            e: MouseEvent & { target: HTMLInputElement }
+                        ) => this.onKupClick(e)}
+                        onFocus={(
+                            e: FocusEvent & { target: HTMLInputElement }
+                        ) => this.onKupFocus(e)}
+                        onInput={(e: UIEvent & { target: HTMLInputElement }) =>
+                            this.onKupInput(e)
+                        }
+                        onIconClick={(
+                            e: MouseEvent & { target: HTMLInputElement }
+                        ) => this.onKupIconClick(e)}
                     />
                     {this.prepList()}
                 </div>

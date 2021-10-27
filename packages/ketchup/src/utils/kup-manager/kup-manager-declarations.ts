@@ -1,3 +1,4 @@
+import type { KupDates } from '../kup-dates/kup-dates';
 import type { KupDebug } from '../kup-debug/kup-debug';
 import type { KupDialog } from '../kup-dialog/kup-dialog';
 import type { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
@@ -21,6 +22,7 @@ export interface KupDom extends HTMLHtmlElement {
  * Interface for the KupManager class
  */
 export interface KupManager {
+    dates: KupDates;
     debug: KupDebug;
     dialog: KupDialog;
     dynamicPosition: KupDynamicPosition;
@@ -36,24 +38,33 @@ export interface KupManager {
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
+    setLibraryLocalization: (locale: string) => void;
 }
 /**
  * Interface for the KupManager utilities.
  */
 export interface KupManagerUtilities {
-    lastMouseDownPath: EventTarget[];
+    lastPointerDownPath?: EventTarget[];
+    lastPointerDownString?: string;
 }
 
 /**
  * Interface for the KupManager override settings.
  */
 export interface KupManagerInitialization {
+    dates?: KupManagerDatesSettings;
     debug?: KupManagerDebugSettings;
     dialog?: KupManagerDialogSettings;
     language?: KupManagerLanguageSettings;
     objects?: KupManagerObjectsSettings;
     scrollOnHover?: KupManagerScrollOnHoverSettings;
     theme?: KupManagerThemeSettings;
+}
+/**
+ * KupDates initialization settings.
+ */
+export interface KupManagerDatesSettings {
+    locale?: string;
 }
 /**
  * KupDebug initialization settings.

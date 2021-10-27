@@ -42,7 +42,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `getValue() => Promise<string>`
 
@@ -52,7 +52,7 @@ Used to retrieve the value of the component.
 
 Type: `Promise<string>`
 
-
+Value of the component.
 
 ### `refresh() => Promise<void>`
 
@@ -100,7 +100,6 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-card](../kup-card)
- - [kup-form](../kup-form)
 
 ### Depends on
 
@@ -114,7 +113,6 @@ graph TD;
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-card --> kup-autocomplete
-  kup-form --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

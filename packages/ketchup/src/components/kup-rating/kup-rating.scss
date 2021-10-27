@@ -1,5 +1,17 @@
+/**
+* @prop --kup-rating-color: Sets color of the component.
+* @prop --kup-rating-font-size: Sets font size of the component.
+*/
+
+:host {
+  --kup_rating_color: var(--kup-rating-color, orange);
+  --kup_rating_font_size: var(--kup-rating-font-size, 30px);
+
+  display: block;
+}
+
 .rating {
-  color: orange;
+  color: var(--kup_rating_color);
   cursor: pointer;
-  font-size: 30px;
+  font-size: var(--kup_rating_font_size);
 }

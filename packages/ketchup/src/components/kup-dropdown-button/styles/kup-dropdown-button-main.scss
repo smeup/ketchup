@@ -1,6 +1,5 @@
 :host {
   display: block;
-  font-size: var(--kup-font-size);
   width: max-content;
 }
 
@@ -42,6 +41,10 @@
         0px 2px 2px 0px rgba(var(--kup-text-color-rgb), 0.1),
         0px 1px 5px 0px rgba(var(--kup-text-color-rgb), 0.075),
         var(--kup-text-on-primary-color) -2px 0px 2px -2px;
+    }
+
+    &.button--disabled {
+      box-shadow: none;
     }
 
     &.button--outlined {

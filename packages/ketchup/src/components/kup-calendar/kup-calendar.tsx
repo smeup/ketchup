@@ -9,18 +9,28 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import { Calendar, EventInput, EventSourceInput } from '@fullcalendar/core';
+import {
+    Calendar,
+    EventInput,
+    EventSourceInput,
+    LocaleInput,
+} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import enLocale from '@fullcalendar/core/locales/en-gb';
+import esLocale from '@fullcalendar/core/locales/es';
+import frLocale from '@fullcalendar/core/locales/fr';
+import itLocale from '@fullcalendar/core/locales/it';
+import plLocale from '@fullcalendar/core/locales/pl';
+import ruLocale from '@fullcalendar/core/locales/ru';
+import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {
     Row,
     Column,
     TableData,
 } from '../kup-data-table/kup-data-table-declarations';
-import { formatToMomentDate } from '../../utils/cell-formatter';
-import moment from 'moment';
 import {
     KupManager,
     kupManagerInstance,
@@ -45,6 +55,7 @@ import {
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupDatesLocales } from '../../utils/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -132,6 +143,7 @@ export class KupCalendar {
     private calendarContainer: HTMLDivElement = null;
     private kupManager: KupManager = kupManagerInstance();
     private navTitle: HTMLDivElement = null;
+    private resizeTimeout: number = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -199,6 +211,16 @@ export class KupCalendar {
         forceUpdate(this);
     }
     /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            this.refresh();
+        }, 300);
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
@@ -223,6 +245,25 @@ export class KupCalendar {
         }
 
         return [];
+    }
+
+    private getLocale(): LocaleInput {
+        switch (this.kupManager.dates.locale) {
+            case KupDatesLocales.CHINESE:
+                return zhLocale;
+            case KupDatesLocales.FRENCH:
+                return frLocale;
+            case KupDatesLocales.ITALIAN:
+                return itLocale;
+            case KupDatesLocales.POLISH:
+                return plLocale;
+            case KupDatesLocales.RUSSIAN:
+                return ruLocale;
+            case KupDatesLocales.SPANISH:
+                return esLocale;
+            default:
+                return enLocale;
+        }
     }
 
     private getRows(): Row[] {
@@ -254,7 +295,7 @@ export class KupCalendar {
         }
         return props;
     }
-
+    
     private getEvents(): EventSourceInput {
         const isHourRange =
             this.startCol &&
@@ -263,24 +304,31 @@ export class KupCalendar {
             getColumnByName(this.getColumns(), this.endCol);
 
         return this.getRows().map((row) => {
-            const startDate = formatToMomentDate(row.cells[this.dateCol]);
-            const endDate = formatToMomentDate(row.cells[this.dateCol]);
+            const cell = row.cells[this.dateCol];
+            let startDate = this.kupManager.dates.toDayjs(cell.value);
+            let endDate = this.kupManager.dates.toDayjs(cell.value);
 
             if (isHourRange) {
                 const startCell = row.cells[this.startCol];
                 const endCell = row.cells[this.endCol];
 
                 if (startCell && endCell) {
-                    const momentStart = moment(startCell.value, 'HH:mm:ss');
-                    const momentEnd = moment(endCell.value, 'HH:mm:ss');
+                    const dayjsStart = this.kupManager.dates.toDayjs(
+                        startCell.value,
+                        'HH:mm:ss'
+                    );
+                    const dayjsEnd = this.kupManager.dates.toDayjs(
+                        endCell.value,
+                        'HH:mm:ss'
+                    );
 
-                    startDate.hours(momentStart.hours());
-                    startDate.minutes(momentStart.minutes());
-                    startDate.seconds(momentStart.seconds());
+                    startDate = startDate.hour(dayjsStart.hour());
+                    startDate = startDate.minute(dayjsStart.minute());
+                    startDate = startDate.second(dayjsStart.second());
 
-                    endDate.hours(momentEnd.hours());
-                    endDate.minutes(momentEnd.minutes());
-                    endDate.seconds(momentEnd.seconds());
+                    endDate = endDate.hour(dayjsEnd.hour());
+                    endDate = endDate.minute(dayjsEnd.minute());
+                    endDate = endDate.second(dayjsEnd.second());
                 }
             }
 
@@ -300,24 +348,25 @@ export class KupCalendar {
 
     private onPrev() {
         this.calendar.prev();
-        this.updateTitle();
+        this.updateCalendar();
         this.emitNavEvent();
     }
 
     private onNext() {
         this.calendar.next();
-        this.updateTitle();
+        this.updateCalendar();
         this.emitNavEvent();
     }
 
     private onToday() {
         this.calendar.today();
-        this.updateTitle();
+        this.updateCalendar();
     }
 
     private emitNavEvent() {
-        const to: Date = moment(this.calendar.view.currentEnd)
-            .subtract(1, 'day')
+        // see https://fullcalendar.io/docs/view-object
+        const to: Date = this.kupManager.dates
+            .subtract(this.calendar.view.currentEnd, 1, 'day')
             .toDate();
 
         this.kupCalendarViewChanged.emit({
@@ -328,8 +377,9 @@ export class KupCalendar {
         });
     }
 
-    private updateTitle() {
+    private updateCalendar() {
         if (this.calendar) {
+            this.calendar.setOption('locale', this.getLocale());
             this.navTitle.innerText = this.calendar.currentData.viewTitle;
             this.calendar.updateSize();
         }
@@ -347,9 +397,6 @@ export class KupCalendar {
 
     componentDidLoad() {
         this.calendar = new Calendar(this.calendarContainer, {
-            editable: true,
-            events: this.getEvents(),
-            headerToolbar: false,
             dateClick: ({ date }) => {
                 this.kupCalendarDateClicked.emit({
                     comp: this,
@@ -357,8 +404,13 @@ export class KupCalendar {
                     date: date,
                 });
             },
+            editable: true,
             eventClick: ({ event }) => {
-                this.kupCalendarEventClicked.emit(event.extendedProps.row);
+                this.kupCalendarEventClicked.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    row: event.extendedProps.row,
+                });
             },
             eventDidMount: (info) => {
                 if (this.styleCol) {
@@ -425,8 +477,19 @@ export class KupCalendar {
                     },
                 });
             },
+            events: this.getEvents(),
+            headerToolbar: false,
             initialDate: this.initialDate,
             initialView: this.viewType,
+            locale: this.getLocale(),
+            locales: [
+                esLocale,
+                frLocale,
+                itLocale,
+                plLocale,
+                ruLocale,
+                zhLocale,
+            ],
             plugins: [
                 dayGridPlugin,
                 interactionPlugin,
@@ -435,7 +498,8 @@ export class KupCalendar {
             ],
         });
         this.calendar.render();
-        this.updateTitle();
+        this.updateCalendar();
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -444,7 +508,7 @@ export class KupCalendar {
     }
 
     componentDidRender() {
-        this.updateTitle();
+        this.updateCalendar();
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -509,6 +573,7 @@ export class KupCalendar {
             this.calendar.destroy();
         }
         this.kupManager.language.unregister(this);
+        this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);
     }
 }

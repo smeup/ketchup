@@ -1,12 +1,32 @@
 :host {
   display: block;
   font-size: var(--kup-font-size);
+  width: max-content;
 }
 
-.icon-container {
+:host([is-select]) {
+  #kup-component {
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: rgba(var(--kup-text-color-rgb), 0.1);
+    }
+  }
+
+  .mdc-text-field:not(.mdc-text-field--disabled) input {
+    cursor: pointer;
+  }
+}
+
+.kup-icon {
   transition: transform 0.15s;
 }
 
-.toggled .icon-container.expanded {
+.toggled .#{$kup-icon}.#{$kup-icon-dropdown} {
   transform: rotate(-180deg);
+}
+
+.#{$kup-icon}.#{$kup-icon-dropdown} {
+  -webkit-mask: var(--kup-dropdown-icon);
+  mask: var(--kup-dropdown-icon);
 }

@@ -60,7 +60,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -103,6 +103,25 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                            | Description                                                                       |
+| ------------------------------- | --------------------------------------------------------------------------------- |
+| `--kup-list-background`         | Sets background of the list.                                                      |
+| `--kup-list-color`              | Sets text color of the list.                                                      |
+| `--kup-list-font-family`        | Sets font family of the component.                                                |
+| `--kup-list-font-size`          | Sets font size of the component.                                                  |
+| `--kup-list-font-weight`        | Sets font weight of the component.                                                |
+| `--kup-list-group-item-height`  | Sets height of each list item when the list contains radio buttons or checkboxes. |
+| `--kup-list-item-height`        | Sets height of each list item.                                                    |
+| `--kup-list-item-padding`       | Sets padding of each list item.                                                   |
+| `--kup-list-max-height-as-menu` | Sets max height when list is menu.                                                |
+| `--kup-list-primary-color`      | Sets the primary color of the component.                                          |
+| `--kup-list-primary-color-rgb`  | Sets the RGB values of the primary color of the component (used for shaders).     |
+| `--kup-list-separator-color`    | Sets the color of separators.                                                     |
+| `--kup-list-transition`         | Transitions duration for text and background colors.                              |
+
+
 ## Dependencies
 
 ### Used by
@@ -113,6 +132,7 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -132,6 +152,7 @@ graph TD;
   kup-data-table --> kup-list
   kup-dropdown-button --> kup-list
   kup-time-picker --> kup-list
+  kup-tooltip --> kup-list
   kup-tree --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

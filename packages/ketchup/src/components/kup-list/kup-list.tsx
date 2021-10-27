@@ -529,7 +529,7 @@ export class KupList {
             <FImage
                 {...propsFImage}
                 resource={icon}
-                wrapperClass={`icon-button__icon icon-container`}
+                wrapperClass={`icon-button__icon kup-icon`}
             />
         );
     }

@@ -36,7 +36,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -57,6 +57,19 @@ Sets the props to the component.
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                                              | Description                                                      |
+| ------------------------------------------------- | ---------------------------------------------------------------- |
+| `--kup-buttonlist-grid-gap`                       | Sets gap between each button.                                    |
+| `--kup-buttonlist-selected-primary-color`         | Sets the primary color of a selected button.                     |
+| `--kup-buttonlist-selected-primary-color-h`       | Sets the hue value of primary color of a selected button.        |
+| `--kup-buttonlist-selected-primary-color-l`       | Sets the lightness value of primary color of a selected button.  |
+| `--kup-buttonlist-selected-primary-color-rgb`     | Sets the RGB values of primary color of a selected button.       |
+| `--kup-buttonlist-selected-primary-color-s`       | Sets the saturation value of primary color of a selected button. |
+| `--kup-buttonlist-selected-text-on-primary-color` | Sets the text on primary color of a selected button.             |
 
 
 ## Dependencies

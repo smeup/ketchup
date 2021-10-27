@@ -31,10 +31,6 @@ components.data = [
         value: 'box.html',
     },
     {
-        text: 'Bpmn.io',
-        value: 'bpmn.html',
-    },
-    {
         text: 'Button',
         value: 'button.html',
     },
@@ -91,12 +87,12 @@ components.data = [
         value: 'dropdown-button.html',
     },
     {
-        text: 'Echart',
-        value: 'echart.html',
-    },
-    {
         text: 'Gauge',
         value: 'gauge.html',
+    },
+    {
+        text: 'Image',
+        value: 'image.html',
     },
     {
         text: 'Layout',
@@ -163,9 +159,9 @@ performances.data = [
         value: 'data-table-performance.html',
     },
     {
-      text: 'Tree',
-      value: 'tree-performance.html',
-  },
+        text: 'Tree',
+        value: 'tree-performance.html',
+    },
 ];
 // Setting up events
 var ctrlKey = false;

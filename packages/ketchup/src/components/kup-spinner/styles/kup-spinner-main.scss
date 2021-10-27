@@ -1,4 +1,13 @@
+/**
+* @prop --kup-spinner-border-color: Sets borders color of the component.
+*/
+
 :host {
+  --kup_spinner_border_color: var(
+    --kup-spinner-border-color,
+    var(--kup-border-color)
+  );
+
   display: block;
 }
 
@@ -72,9 +81,9 @@
 }
 
 .spinner-v1 {
-  border-top: 1em solid var(--kup-border-color);
-  border-right: 1em solid var(--kup-border-color);
-  border-bottom: 1em solid var(--kup-border-color);
+  border-top: 1em solid var(--kup_spinner_border_color);
+  border-right: 1em solid var(--kup_spinner_border_color);
+  border-bottom: 1em solid var(--kup_spinner_border_color);
   border-left: 1em solid var(--kup-spinner-color);
   transform: translatez(0);
   animation: sk-spinner-v1 1.1s infinite linear;
@@ -270,7 +279,7 @@
 }
 
 .spinner-v5:after {
-  background: var(--kup-border-color);
+  background: var(--kup_spinner_border_color);
   width: 75%;
   height: 75%;
   border-radius: 50%;

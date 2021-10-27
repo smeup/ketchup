@@ -3,19 +3,7 @@
 /*-------------------------------------------------*/
 
 :host(.#{$kup-class-borderless}) {
-  .accordion {
-    border-radius: 0;
-    border-bottom: none;
-    border-top: none;
-  }
-  .accordion-item {
-    border-left: none;
-    border-right: none;
-
-    &:not(:first-of-type) {
-      border-top: none;
-    }
-  }
+  --kup-accordion-border: none;
 }
 
 :host(.#{$kup-class-full-height}) {
@@ -24,4 +12,34 @@
 
 :host(.#{$kup-class-full-width}) {
   width: 100%;
+}
+
+:host(.#{$kup-class-danger}) {
+  --kup-accordion-primary-color: var(--kup-danger-color);
+  --kup-accordion-primary-color-rgb: var(--kup-danger-color-rgb);
+  --kup-accordion-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-accordion-primary-color: var(--kup-info-color);
+  --kup-accordion-primary-color-rgb: var(--kup-info-color-rgb);
+  --kup-accordion-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-accordion-primary-color: var(--kup-secondary-color);
+  --kup-accordion-primary-color-rgb: var(--kup-secondary-color-rgb);
+  --kup-accordion-text-on-primary-color: var(--kup-text-on-secondary-color);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-accordion-primary-color: var(--kup-success-color);
+  --kup-accordion-primary-color-rgb: var(--kup-success-color-rgb);
+  --kup-accordion-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-accordion-primary-color: var(--kup-warning-color);
+  --kup-accordion-primary-color-rgb: var(--kup-warning-color-rgb);
+  --kup-accordion-text-on-primary-color: white;
 }

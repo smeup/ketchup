@@ -1,5 +1,6 @@
 const barEl = document.querySelector('kup-nav-bar');
 const drawerEl = document.querySelector('kup-drawer');
+const drawerButtonEl = document.querySelector('#drawer-button');
 const dropdownEl = document.querySelector('kup-dropdown-button');
 const switchEl = document.querySelector('kup-switch');
 
@@ -11,14 +12,6 @@ dropdownEl.data = {
     'kup-list': {
         data: [
             {
-                text: 'Dense',
-                value: 'dense',
-            },
-            {
-                text: 'Prominent',
-                value: 'prominent',
-            },
-            {
                 text: 'Short',
                 value: 'short',
             },
@@ -29,10 +22,6 @@ dropdownEl.data = {
         ],
     },
 };
-barEl.addEventListener('kup-navbar-menuclick', (e) => {
-    console.log(e.type, e);
-    drawerEl.toggle();
-});
 drawerEl.addEventListener('kup-drawer-close', (e) => {
     console.log(e.type, e);
     barEl.classList.remove('padded');
@@ -40,6 +29,10 @@ drawerEl.addEventListener('kup-drawer-close', (e) => {
 drawerEl.addEventListener('kup-drawer-open', (e) => {
     console.log(e.type, e);
     barEl.classList.add('padded');
+});
+drawerButtonEl.addEventListener('kup-button-click', (e) => {
+    console.log(e.type, e);
+    drawerEl.toggle();
 });
 dropdownEl.addEventListener('kup-dropdownbutton-itemclick', (e) => {
     console.log(e.type, e);

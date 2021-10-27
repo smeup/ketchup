@@ -17,9 +17,9 @@
 
 ## Events
 
-| Event            | Description | Type                                      |
-| ---------------- | ----------- | ----------------------------------------- |
-| `kupRatingClick` |             | `CustomEvent<KupRatingClickEventPayload>` |
+| Event              | Description | Type                                      |
+| ------------------ | ----------- | ----------------------------------------- |
+| `kup-rating-click` |             | `CustomEvent<KupRatingClickEventPayload>` |
 
 
 ## Methods
@@ -32,7 +32,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -53,6 +53,14 @@ Sets the props to the component.
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                     | Description                      |
+| ------------------------ | -------------------------------- |
+| `--kup-rating-color`     | Sets color of the component.     |
+| `--kup-rating-font-size` | Sets font size of the component. |
 
 
 ## Dependencies

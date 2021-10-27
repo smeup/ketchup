@@ -1,18 +1,13 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p> The drawer is a very useful web component. </p>
       <p>
-        For example it allows you to navigate around the various sections of a
-        web page. Thus, basic drawer, looks like a side menu, with title,
-        subtitle and a list of links in order to navigate through the various
-        sections of a web app.
+        The drawer is a very useful web component, it allows you to navigate
+        around the various sections of a web page.
       </p>
       <p>
-        The Ketch.UP drawer works using slots, thus the component itself
-        contains only the main structure. The user can pass the children
-        components through the slot, like the title, the subtitle and the main
-        content.
+        The Ketch.UP drawer itself contains only the main structure. The user
+        can append any child component through the usage of slots.
       </p>
       <br />
       <br />
@@ -25,7 +20,9 @@
       <br />
       <br />
       <div>
-        These are the types of slots that can be used with the drawer:
+        These are two possible slot names presets, which will give a specific
+        style (any other slot's style must be set by the application using
+        kup-drawer):
         <kup-list
           show-icons
           class="handles-custom-style hydrated"
@@ -55,9 +52,9 @@ export default {
       markupBasic: '<kup-drawer>',
       markupBasic2: '  <span slot="title">Title</span> ',
       markupBasic3: '  <span slot="subtitle">Subtitle</span>',
-      markupBasic4: '  <div slot="main-content">',
-      markupBasic5: '    <kup-list></kup-list>',
-      markupBasic6: ' </div>',
+      markupBasic4: '  <div>',
+      markupBasic5: '     <kup-list></kup-list>',
+      markupBasic6: '  </div>',
       markupBasic7: '</kup-drawer>',
 
       listdata: [
@@ -71,13 +68,6 @@ export default {
           text: "slot with the name 'subtitle' to set the subtitle of drawer.",
           value: '2',
 
-          icon: 'trending_flat',
-        },
-
-        {
-          text:
-            "a section with the name 'main-content' which contains the main content of the drawer; for example, a list.",
-          value: '3',
           icon: 'trending_flat',
         },
       ],

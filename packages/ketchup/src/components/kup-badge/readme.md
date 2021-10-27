@@ -29,7 +29,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -52,6 +52,19 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                | Description                              |
+| ----------------------------------- | ---------------------------------------- |
+| `--kup-badge-border-radius`         | Sets border radius of the badge.         |
+| `--kup-badge-font-family`           | Sets font family of the badge.           |
+| `--kup-badge-font-size`             | Sets font size of the badge.             |
+| `--kup-badge-min-size`              | Sets minimum size of the badge.          |
+| `--kup-badge-padding`               | Sets padding of the badge.               |
+| `--kup-badge-primary-color`         | Sets primary color of the badge.         |
+| `--kup-badge-text-on-primary-color` | Sets text on primary color of the badge. |
+
+
 ## Dependencies
 
 ### Used by
@@ -69,7 +82,6 @@ Type: `Promise<void>`
  - [kup-image](../kup-image)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
- - [kup-nav-bar](../kup-nav-bar)
  - [kup-paginator](../kup-paginator)
  - [kup-tab-bar](../kup-tab-bar)
 
@@ -93,7 +105,6 @@ graph TD;
   kup-image --> kup-badge
   kup-list --> kup-badge
   kup-magic-box --> kup-badge
-  kup-nav-bar --> kup-badge
   kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px

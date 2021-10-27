@@ -63,10 +63,6 @@ export default {
           name: 'kup-colorpicker-change',
           type: 'change',
         },
-        {
-          name: 'kup-colorpicker-input',
-          type: 'input',
-        },
       ],
       demoMethods: [
         {

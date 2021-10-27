@@ -1,12 +1,14 @@
-import get from 'lodash/get';
 import numeral from 'numeral';
-import moment from 'moment';
-
+import { GenericObject, Identifiable } from '../types/GenericTypes';
+import { KupDates } from './kup-dates/kup-dates';
+import { KupDom } from './kup-manager/kup-manager-declarations';
 import {
-    GenericObject,
-    Identifiable,
-    KupComponent,
-} from '../types/GenericTypes';
+    KupDatesFormats,
+    KupDatesNormalize,
+} from './kup-dates/kup-dates-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
+const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 
 export enum DateTimeFormatOptionsMonth {
     NUMERIC = 'numeric',
@@ -14,10 +16,6 @@ export enum DateTimeFormatOptionsMonth {
     LONG = 'long',
     SHORT = 'short',
     NARROW = 'narrow',
-}
-
-export function formatExtendedDate(date: Date): string {
-    return moment(date).format('dddd D MMMM YYYY');
 }
 
 export function identify(array: Array<Identifiable>) {
@@ -60,69 +58,14 @@ export function eventFromElement(
     return false;
 }
 
-/**
- * Given an event and an element, returns if that event was generated within that element or one of its children.
- * @param event
- * @param element
- */
-export function isEventFromElement(
-    event: Event,
-    element: HTMLElement
-): boolean {
-    try {
-        if (event.composedPath().indexOf(element) >= 0) {
-            return true;
-        }
-    } catch (e) {
-        if (eventFromElement(element, event.target as HTMLElement)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * Given a camelCase formatted string, returns the same string in kebab-case.
- * @param str - the string to convert.
- * @returns the converted string.
- */
-export function toKebabCase(str: string): string {
-    return (str || '').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-}
-
-export function replacePlaceHolders(template: any, data: any) {
-    template = typeof template === 'function' ? template() : template;
-    if (['string', 'number'].indexOf(typeof template) === -1)
-        throw 'please provide a valid template';
-
-    if (!data) return template;
-
-    template = template.replace(/\{\{([^}]+)\}\}/g, function (match) {
-        match = match.slice(2, -2);
-        var val = get(data, match, match);
-        if (!val) return '{{' + match + '}}';
-        return val;
-    });
-
-    return template;
-}
-
-export function formatSize(size: any) {
-    if (isNaN(size)) {
-        return size;
-    } else {
-        return size + 'px';
-    }
-}
-
-export function getCurrentLocale(suffix?: string): string {
+export function getCurrentLocale(): string {
     if (navigator == null || navigator.language == null) {
-        return 'en-US' + (suffix != null ? suffix : '');
+        return 'en-US';
     }
-    return navigator.language + (suffix != null ? suffix : '');
+    return navigator.language;
 }
 
-export function getSeparator(locale, separatorType) {
+function getSeparator(locale, separatorType) {
     const numberWithGroupAndDecimalSeparator = 1000.1;
     return Intl.NumberFormat(locale)
         .formatToParts(numberWithGroupAndDecimalSeparator)
@@ -130,9 +73,9 @@ export function getSeparator(locale, separatorType) {
 }
 
 export function getCurrentDateFormatFromBrowserLocale(): string {
-    const formatObj = new Intl.DateTimeFormat(getCurrentLocale()).formatToParts(
-        new Date()
-    );
+    const formatObj = new Intl.DateTimeFormat(
+        kupDates.getLocale()
+    ).formatToParts(new Date());
 
     let dateFormat = formatObj
         .map((obj) => {
@@ -161,7 +104,7 @@ function getCurrentTimeFormatFromBrowserLocale(manageSeconds: boolean): string {
         options.second = '2-digit';
     }
     const formatObj = new Intl.DateTimeFormat(
-        getCurrentLocale('-u-hc-h23'),
+        kupDates.getLocale() + '-u-hc-h23',
         options
     ).formatToParts(new Date());
     let timeFormat = formatObj
@@ -374,7 +317,7 @@ function numberStringToNumberString(
     return _numberToString(unf, -1, 'en-US', false);
 }
 
-function getDecimalSeparator(locale) {
+export function getDecimalSeparator(locale) {
     return getSeparator(locale, 'decimal');
 }
 
@@ -412,62 +355,6 @@ export function _numberToString(
     return n.toLocaleString(locale, f);
 }
 
-export const ISO_DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
-export const ISO_DEFAULT_TIME_FORMAT = 'HH:mm:ss';
-export const ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS = 'HH:mm';
-export const ISO_DEFAULT_DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
-
-/**
- *
- * @param value date as string
- * @param inputFormat date format
- * @param outputFormat date format to return
- * @returns date as string with format changed
- */
-export function changeDateTimeFormat(
-    value: string,
-    inputFormat: string,
-    outputFormat: string
-): string {
-    let m = moment(value, inputFormat);
-    if (m.isValid()) {
-        let str = m.format(outputFormat);
-        return str;
-    } else {
-        return '';
-    }
-}
-
-/**
- * @param value date as string
- * @param defaultValueFormat
- * @param valueDateFormat date format (default ISO)
- * @return Date object
- **/
-export function unformatDateTime(
-    value: string,
-    defaultValueFormat: string,
-    valueFormat?: string
-): Date {
-    if (valueFormat == null || valueFormat.trim() == '') {
-        valueFormat = defaultValueFormat;
-    }
-    return moment(value, valueFormat).toDate();
-}
-
-/**
- * @param date date as Date object
- * @return date as string, formatted by actual browser locale
- **/
-export function formatDate(date: Date): string {
-    const options: Intl.DateTimeFormatOptions = {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-    };
-    return date.toLocaleDateString(getCurrentLocale(), options);
-}
-
 /**
  * @param time time as Date object
  * @param manageSeconds flag to set seconds managing
@@ -482,35 +369,7 @@ export function formatTime(time: Date, manageSeconds: boolean): string {
     if (manageSeconds == true) {
         options.second = '2-digit';
     }
-    return time.toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
-}
-
-/**
- * @param value date string, formatted by actual browser locale
- * @returns true if date string in input is a valid date
- */
-export function isValidFormattedStringDate(value: string): boolean {
-    return isValidStringDate(value, null, false);
-}
-
-/**
- * @param value date string
- * @param valueDateFormat date format (default actual browser locale)
- * @returns true if date string in input is a valid date
- */
-export function isValidStringDate(
-    value: string | object, // TODO check why with the moment object and the toString the method return that the value is invalid
-    valueDateFormat?: string,
-    strictValidation?: boolean
-): boolean {
-    if (valueDateFormat == null) {
-        valueDateFormat = getCurrentDateFormatFromBrowserLocale();
-    }
-    if (strictValidation == undefined) {
-        strictValidation = true;
-    }
-    let m = moment(value, valueDateFormat, strictValidation);
-    return m.isValid();
+    return time.toLocaleTimeString(kupDates.getLocale() + '-u-hc-h23', options);
 }
 
 /**
@@ -522,21 +381,7 @@ export function isValidFormattedStringTime(
     manageSeconds: boolean
 ): boolean {
     let format = getCurrentTimeFormatFromBrowserLocale(manageSeconds);
-    let m = moment(value, format, true);
-    return m.isValid();
-}
-
-/**
- * @param value date as string, formatted by actual browser locale
- * @returns date as string, formatted ISO
- **/
-export function formattedStringToDefaultUnformattedStringDate(
-    value: string
-): string {
-    return formattedStringToCustomUnformattedStringDate(
-        value,
-        ISO_DEFAULT_DATE_FORMAT
-    );
+    return kupDates.isValid(value, format, true);
 }
 
 /**
@@ -546,7 +391,7 @@ export function formattedStringToDefaultUnformattedStringDate(
 export function formattedStringToDefaultUnformattedStringTime(value: string) {
     return formattedStringToCustomUnformattedStringTime(
         value,
-        ISO_DEFAULT_TIME_FORMAT,
+        KupDatesFormats.ISO_TIME,
         true
     );
 }
@@ -560,24 +405,8 @@ export function formattedStringToDefaultUnformattedStringTimestamp(
 ) {
     return formattedStringToCustomUnformattedStringTime(
         value,
-        ISO_DEFAULT_DATE_TIME_FORMAT,
+        KupDatesFormats.ISO_DATE_TIME,
         true
-    );
-}
-
-/**
- * @param value date as string, formatted by actual browser locale
- * @param outputFormat date format to return
- * @returns date as string, formatted
- **/
-export function formattedStringToCustomUnformattedStringDate(
-    value: string,
-    outputFormat: string
-): string {
-    return changeDateTimeFormat(
-        value,
-        getCurrentDateFormatFromBrowserLocale(),
-        outputFormat
     );
 }
 
@@ -592,81 +421,16 @@ export function formattedStringToCustomUnformattedStringTime(
     outputFormat: string,
     manageSeconds: boolean
 ): string {
-    return changeDateTimeFormat(
-        value,
-        getCurrentTimeFormatFromBrowserLocale(manageSeconds),
-        outputFormat
-    );
-}
-
-/**
- * @param value date as string, formatted ISO
- * @param valueDateFormat date format (default ISO)
- * @param _customedFormat date format from smeupObject
- * @returns date as string, formatted by actual browser locale
- **/
-export function unformattedStringToFormattedStringDate(
-    value: string,
-    valueDateFormat?: string,
-    _customedFormat?: string
-): string {
-    const options: Intl.DateTimeFormatOptions = {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-    };
-
-    let date = unformatDateTime(
-        value,
-        ISO_DEFAULT_DATE_FORMAT,
-        valueDateFormat
-    );
-
-    // disabled manage of customedOutputFormat
-    //return formatByCustomedOutputDateFormat(date, options, customedFormat);
-    return formatByCustomedOutputDateFormat(date, options, null);
-}
-
-function formatByCustomedOutputDateFormat(
-    date: Date,
-    options: Intl.DateTimeFormatOptions,
-    customedFormat: string
-): string {
-    if (customedFormat == null) {
-        return date.toLocaleDateString(getCurrentLocale(), options);
+    let inputFormat: string =
+        getCurrentTimeFormatFromBrowserLocale(manageSeconds);
+    if (kupDates.isValid(value, inputFormat)) {
+        return kupDates.format(
+            kupDates.normalize(value, KupDatesNormalize.TIME),
+            outputFormat
+        );
+    } else {
+        return '';
     }
-
-    switch (customedFormat) {
-        case 'D8*YYMD': {
-            options.year = '2-digit';
-            break;
-        }
-        case 'D8*YMD': {
-            return moment(date).format('YYMMDD');
-        }
-        case 'D8*DMY': {
-            return moment(date).format('DDMMYY');
-        }
-        case 'D8*DMYY': {
-            return moment(date).format('DDMMYYYY');
-        }
-        case 'D8*CYMD': {
-            return moment(date).format('EYYMMDD');
-        }
-        case 'D8*ODETTE': {
-            //???
-            break;
-        }
-        case 'D8*JULY': {
-            //???
-            break;
-        }
-        case 'D8*JULYY': {
-            //???
-            break;
-        }
-    }
-    return date.toLocaleDateString(getCurrentLocale(), options);
 }
 
 /**
@@ -679,7 +443,6 @@ function formatByCustomedOutputDateFormat(
 export function unformattedStringToFormattedStringTime(
     value: string,
     manageSeconds: boolean,
-    valueTimeFormat?: string,
     customedFormat?: string
 ): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -690,10 +453,8 @@ export function unformattedStringToFormattedStringTime(
     if (manageSeconds == true) {
         options.second = '2-digit';
     }
-    let date = unformatDateTime(
-        value,
-        ISO_DEFAULT_TIME_FORMAT,
-        valueTimeFormat
+    let date = kupDates.toDate(
+        kupDates.normalize(value, KupDatesNormalize.TIME)
     );
 
     return formatByCustomedOutputTimeFormat(
@@ -711,7 +472,10 @@ function formatByCustomedOutputTimeFormat(
     customedFormat: string
 ): string {
     if (customedFormat == null) {
-        return date.toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
+        return date.toLocaleTimeString(
+            kupDates.getLocale() + '-u-hc-h23',
+            options
+        );
     }
 
     switch (customedFormat) {
@@ -782,7 +546,7 @@ function formatByCustomedOutputTimeFormat(
         }
     }
 
-    return date.toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
+    return date.toLocaleTimeString(kupDates.getLocale() + '-u-hc-h23', options);
 }
 
 /**
@@ -790,10 +554,7 @@ function formatByCustomedOutputTimeFormat(
  * @param valueDateFormat date/time format (default ISO)
  * @returns date/time as string, formatted by actual browser locale
  **/
-export function unformattedStringToFormattedStringTimestamp(
-    value: string,
-    valueDateFormat?: string
-) {
+export function unformattedStringToFormattedStringTimestamp(value: string) {
     const options: Intl.DateTimeFormatOptions = {
         day: '2-digit',
         month: '2-digit',
@@ -803,11 +564,10 @@ export function unformattedStringToFormattedStringTimestamp(
         second: '2-digit',
         hour12: false,
     };
-    return unformatDateTime(
-        value,
-        ISO_DEFAULT_DATE_TIME_FORMAT,
-        valueDateFormat
-    ).toLocaleString(getCurrentLocale('-u-hc-h23'), options);
+    let date = kupDates.toDate(
+        kupDates.normalize(value, KupDatesNormalize.TIMESTAMP)
+    );
+    return date.toLocaleString(kupDates.getLocale() + '-u-hc-h23', options);
 }
 
 export function getMonthAsStringByLocale(
@@ -823,7 +583,10 @@ export function getMonthAsStringByLocale(
     const options: Intl.DateTimeFormatOptions = {
         month: format,
     };
-    const dateTimeFormat = new Intl.DateTimeFormat(getCurrentLocale(), options);
+    const dateTimeFormat = new Intl.DateTimeFormat(
+        kupDates.getLocale(),
+        options
+    );
     return dateTimeFormat.format(dateTmp);
 }
 
@@ -849,7 +612,10 @@ export function getDayAsStringByLocale(date: Date): string {
         weekday: 'narrow',
         /** weekday: 'narrow' 'short' 'long' */
     };
-    const dateTimeFormat = new Intl.DateTimeFormat(getCurrentLocale(), options);
+    const dateTimeFormat = new Intl.DateTimeFormat(
+        kupDates.getLocale(),
+        options
+    );
     return dateTimeFormat.format(date);
 }
 

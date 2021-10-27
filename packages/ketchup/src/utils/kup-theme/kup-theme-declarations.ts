@@ -27,6 +27,7 @@ export interface KupThemeCSSVariables {
     [KupThemeColorValues.SECONDARY]: string;
     [KupThemeColorValues.BACKGROUND]: string;
     [KupThemeColorValues.NAV_BAR_BACKGROUND]: string;
+    [KupThemeColorValues.NAV_BAR]: string;
     [KupThemeColorValues.DRAWER_BACKGROUND]: string;
     '--kup-navbar-height': string;
     '--kup-drawer-width': string;
@@ -43,7 +44,6 @@ export interface KupThemeCSSVariables {
     [KupThemeColorValues.ICON]: string;
     [KupThemeColorValues.BORDER]: string;
     '--kup-box-shadow': string;
-    [KupThemeColorValues.FIELD_BACKGROUND]: string;
     [KupThemeColorValues.INFO]: string;
     [KupThemeColorValues.SUCCESS]: string;
     [KupThemeColorValues.WARNING]: string;
@@ -107,6 +107,7 @@ export enum KupThemeColorValues {
     PRIMARY = '--kup-primary-color',
     SECONDARY = '--kup-secondary-color',
     BACKGROUND = '--kup-background-color',
+    NAV_BAR = '--kup-navbar-color',
     NAV_BAR_BACKGROUND = '--kup-navbar-background-color',
     DRAWER_BACKGROUND = '--kup-drawer-background-color',
     TEXT = '--kup-text-color',
@@ -120,7 +121,6 @@ export enum KupThemeColorValues {
     TITLE = '--kup-title-color',
     ICON = '--kup-icon-color',
     BORDER = '--kup-border-color',
-    FIELD_BACKGROUND = '--kup-field-background-color',
     INFO = '--kup-info-color',
     SUCCESS = '--kup-success-color',
     WARNING = '--kup-warning-color',
@@ -142,5 +142,6 @@ export enum KupThemeIconValues {
     DROPDOWN = '--kup-dropdown-icon',
     EXPANDED = '--kup-expanded-icon',
     FILTER_REMOVE = '--kup-filter-remove-icon',
+    KEY = '--kup-key-icon',
     SEARCH = '--kup-search-icon',
 }

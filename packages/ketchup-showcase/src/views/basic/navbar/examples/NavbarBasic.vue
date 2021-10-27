@@ -4,21 +4,14 @@
       <p
         >The nav bar provides content and actions related to the current screen.
         It’s used for branding, screen titles, navigation, and actions.<br />
-        There should be only one nav bar for page.<br />
-      </p>
-      <p>
-        The left section of the nav bar is static and can be filled with the
-        following optional elements:
-        <br />
-        <br />
-        <span class="code-word">- menu button</span>: by default this is
-        visible, it can be switched off by setting to false the prop
-        <span class="code-word">showMenuButton</span>;
-        <br />
-        <span class="code-word">- image</span>: icon or image;
-        <br />
-        <span class="code-word">- label</span>: text.
-        <br />
+        There should be only one nav bar in a document.<br /><br />
+        The nav bar is divided into two sections (left and right). <br />These
+        sections can be filled with any HTML element through the use of
+        slots.<br /><br />
+        Slots named <span class="code-word">left</span> will be displayed inside
+        the left section, while slots named
+        <span class="code-word">right</span> will be placed in the right
+        section.
       </p>
       <br />
       <p class="centered">Sample markup</p>
