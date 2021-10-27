@@ -42,7 +42,6 @@ In this way we can specify which event handlers we have to execute and/or merge 
 //         }
 //     );
 // }
-
 // DragHandlers
 export interface DragHandlers {
     onDragStart: (e: DragEvent) => void;

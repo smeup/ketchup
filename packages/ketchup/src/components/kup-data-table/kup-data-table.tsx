@@ -3707,6 +3707,7 @@ export class KupDataTable {
         let extraCells = 0;
 
         // Composes initial cells if necessary
+        let actionRowCell = null;
         let selectRowCell = null;
         if (this.selection === SelectionMode.MULTIPLE_CHECKBOX) {
             extraCells++;
@@ -3717,6 +3718,25 @@ export class KupDataTable {
             );
 
             selectRowCell = (
+                <td
+                    class={
+                        fixedCellStyle ? fixedCellStyle.fixedCellClasses : null
+                    }
+                    style={
+                        fixedCellStyle ? fixedCellStyle.fixedCellStyle : null
+                    }
+                />
+            );
+        }
+        if (this.rowActions) {
+            extraCells++;
+            const fixedCellStyle = this.composeFixedCellStyleAndClass(
+                extraCells,
+                0,
+                extraCells
+            );
+
+            actionRowCell = (
                 <td
                     class={
                         fixedCellStyle ? fixedCellStyle.fixedCellClasses : null
