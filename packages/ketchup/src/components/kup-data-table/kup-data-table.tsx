@@ -1705,8 +1705,6 @@ export class KupDataTable {
             if (globalFilter) {
                 const globalFilterInput: HTMLInputElement =
                     globalFilter.querySelector('input');
-                const globalFilterClear: HTMLElement =
-                    globalFilter.querySelector('.clear');
                 globalFilterInput.oninput = (event) => {
                     const t: EventTarget = event.target;
                     window.clearTimeout(this.globalFilterTimeout);
@@ -1716,10 +1714,6 @@ export class KupDataTable {
                         t
                     );
                 };
-                if (globalFilterClear) {
-                    globalFilterClear.onclick = () =>
-                        this.onGlobalFilterChange(null);
-                }
                 FTextFieldMDC(globalFilter);
             }
         }
@@ -2205,14 +2199,16 @@ export class KupDataTable {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
-        if (this.selection == SelectionMode.MULTIPLE) {
-            this.resetSelectedRows();
-        }
-        if (
-            this.selection == SelectionMode.SINGLE ||
-            this.selection == SelectionMode.MULTIPLE
-        ) {
-            this.onRowClick(e, details.row, false);
+        if (details.area === 'body') {
+            if (this.selection == SelectionMode.MULTIPLE) {
+                this.resetSelectedRows();
+            }
+            if (
+                this.selection == SelectionMode.SINGLE ||
+                this.selection == SelectionMode.MULTIPLE
+            ) {
+                this.onRowClick(e, details.row, false);
+            }
         }
         return details;
     }
@@ -6001,7 +5997,6 @@ export class KupDataTable {
                                 <FTextField
                                     fullWidth={true}
                                     icon={KupThemeIconValues.SEARCH}
-                                    isClearable={true}
                                     label={this.kupManager.language.translate(
                                         KupLanguageSearch.SEARCH
                                     )}

@@ -38,6 +38,7 @@ import {
     KupTreeContextMenuEventPayload,
     KupTreeColumnMenuEventPayload,
     KupTreeDynamicMassExpansionEventPayload,
+    KupTreeExpansionMode,
 } from './kup-tree-declarations';
 
 import { MDCRipple } from '@material/ripple';
@@ -197,6 +198,11 @@ export class KupTree {
     /*-------------------------------------------------*/
 
     /**
+     * When enabled, the first level of depth will give an accordion look to nodes.
+     * @default false
+     */
+    @Prop({ reflect: true }) asAccordion: boolean = false;
+    /**
      * Auto select programmatic selectic node
      */
     @Prop() autoSelectionNodeMode: boolean = true;
@@ -242,6 +248,11 @@ export class KupTree {
      */
     @Prop() expanded: boolean = false;
     /**
+     * Behavior of nodes' expansion: it can be chosen between expanding a node by clicking on the dropdown icon, or by clicking on the whole node.
+     * @default KupTreeExpansionMode.DROPDOWN
+     */
+    @Prop() expansionMode: KupTreeExpansionMode = KupTreeExpansionMode.DROPDOWN;
+    /**
      * List of filters set by the user.
      */
     @Prop({ mutable: true }) filters: GenericFilter = {};
@@ -258,7 +269,12 @@ export class KupTree {
      * The mode of the global filter (default SIMPLE)
      */
     @Prop() globalFilterMode: KupGlobalFilterMode = KupGlobalFilterMode.SIMPLE;
-
+    /**
+     * Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells.
+     * It works only on cells of the main column.
+     * @default false;
+     */
+    @Prop({ reflect: true }) preventXScroll: boolean = false;
     /**
      * Sets the possibility to remove the selected column.
      */
@@ -355,6 +371,12 @@ export class KupTree {
     private filtersTreeItemsInstance: FiltersTreeItems = new FiltersTreeItems();
     private totalMenuCoords: KupDynamicPositionCoordinates = null;
     private visibleNodes: number;
+    private contentRefs: HTMLElement[] = [];
+    private oldWidth: number = null;
+    /**
+     * Used to prevent too many resizes callbacks at once.
+     */
+    private resizeTimeout: number;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -645,6 +667,16 @@ export class KupTree {
         forceUpdate(this);
     }
     /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        if (this.rootElement.clientWidth !== this.oldWidth) {
+            window.clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+        }
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
@@ -805,7 +837,12 @@ export class KupTree {
                     treeNodePath = treeNodePath.slice(1);
                     this.launchNodeEvent(treeNodePath, tn);
                 } else {
-                    this.hdlTreeNodeClick(tn, this.selectedNodeString, true);
+                    this.hdlTreeNodeClick(
+                        null,
+                        tn,
+                        this.selectedNodeString,
+                        true
+                    );
                 }
             }
         }
@@ -914,30 +951,47 @@ export class KupTree {
 
     // When a TreeNode can be selected
     hdlTreeNodeClick(
+        e: MouseEvent,
         treeNodeData: TreeNode,
         treeNodePath: string,
         auto: boolean
     ) {
         unsetTooltip(this.tooltip);
-        // If this TreeNode is not disabled, then it can be selected and an event is emitted
-        if (treeNodeData && !treeNodeData.disabled) {
-            if (this.autoSelectionNodeMode)
-                this.selectedNode = treeNodePath
-                    .split(',')
-                    .map((treeNodeIndex) => parseInt(treeNodeIndex));
+        if (
+            this.expansionMode.toLowerCase() ===
+                KupTreeExpansionMode.DROPDOWN ||
+            (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE &&
+                !treeNodeData.expandable)
+        ) {
+            // If this TreeNode is not disabled, then it can be selected and an event is emitted
+            if (treeNodeData && !treeNodeData.disabled) {
+                if (this.autoSelectionNodeMode)
+                    this.selectedNode = treeNodePath
+                        .split(',')
+                        .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
-            this.kupTreeNodeSelected.emit({
-                comp: this,
-                id: this.rootElement.id,
-                treeNodePath: treeNodePath
-                    .split(',')
-                    .map((treeNodeIndex) => parseInt(treeNodeIndex)),
-                treeNode: treeNodeData,
-                columnName: this.selectedColumn,
-                auto: auto,
-            });
+                this.kupTreeNodeSelected.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    treeNodePath: treeNodePath
+                        .split(',')
+                        .map((treeNodeIndex) => parseInt(treeNodeIndex)),
+                    treeNode: treeNodeData,
+                    columnName: this.selectedColumn,
+                    auto: auto,
+                });
+            }
+            this.selectedColumn = '';
         }
-        this.selectedColumn = '';
+
+        // If KupTreeExpansionMode.NODE then click is a collapse/expand click
+        if (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE) {
+            this.hdlTreeNodeExpanderClick(
+                treeNodeData,
+                treeNodePath,
+                e ? e.ctrlKey : false
+            );
+        }
     }
 
     // When a TreeNode must be expanded or closed.
@@ -1750,7 +1804,15 @@ export class KupTree {
         } else {
             contentSlices.push(content);
         }
-        return <span class={styleClass}>{contentSlices}</span>;
+        return (
+            <span
+                class={styleClass}
+                ref={(el: HTMLElement) => this.contentRefs.push(el)}
+                title={this.preventXScroll ? content : null}
+            >
+                {contentSlices}
+            </span>
+        );
     }
 
     /**
@@ -1770,7 +1832,11 @@ export class KupTree {
         let indent = treeNodeDepth ? (
             <span
                 class="kup-tree__indent"
-                style={{ ['--tree-node_depth']: treeNodeDepth.toString() }}
+                style={{
+                    ['--tree-node_depth']: this.asAccordion
+                        ? (treeNodeDepth - 1).toString()
+                        : treeNodeDepth.toString(),
+                }}
             />
         ) : null;
 
@@ -1785,7 +1851,9 @@ export class KupTree {
         let expandClass = 'expand-icon kup-tree__icon kup-tree__node__expander';
         if (hasExpandIcon) {
             expandClass += ' icon-container';
-            if (treeNodeData[treeExpandedPropName]) {
+            if (this.asAccordion) {
+                expandClass += ' dropdown';
+            } else if (treeNodeData[treeExpandedPropName]) {
                 expandClass += ' expanded';
             } else {
                 expandClass += ' collapsed';
@@ -1805,7 +1873,8 @@ export class KupTree {
                 }
                 class={expandClass}
                 onClick={
-                    !treeNodeData.disabled
+                    this.expansionMode.toLowerCase() ===
+                        KupTreeExpansionMode.DROPDOWN && !treeNodeData.disabled
                         ? (event: MouseEvent) => {
                               event.stopPropagation();
                               this.hdlTreeNodeExpanderClick(
@@ -1854,8 +1923,9 @@ export class KupTree {
             treeNodeOptions['onClick'] = () => {
                 this.clickTimeout.push(
                     setTimeout(
-                        () =>
+                        (e: MouseEvent) =>
                             this.hdlTreeNodeClick(
+                                e,
                                 treeNodeData,
                                 treeNodePath,
                                 false
@@ -1913,7 +1983,13 @@ export class KupTree {
                 );
             } else {
                 content = (
-                    <span class="cell-content">{treeNodeData.value}</span>
+                    <span
+                        ref={(el: HTMLElement) => this.contentRefs.push(el)}
+                        class="cell-content"
+                        title={this.preventXScroll ? treeNodeData.value : null}
+                    >
+                        {treeNodeData.value}
+                    </span>
                 );
             }
 
@@ -1938,10 +2014,9 @@ export class KupTree {
                         _hasTooltip
                     )}
                 >
-                    {indent}
-                    {treeExpandIcon}
-                    {treeNodeIcon}
-                    {content}
+                    {this.asAccordion && !treeNodeDepth
+                        ? [treeNodeIcon, content, treeExpandIcon]
+                        : [indent, treeExpandIcon, treeNodeIcon, content]}
                 </td>
             );
         }
@@ -1952,6 +2027,7 @@ export class KupTree {
                     'kup-tree__node': true,
                     'with-dyn': !treeNodeData.disabled,
                     'kup-tree__node--disabled': treeNodeData.disabled,
+                    'kup-tree__node--first': treeNodeDepth ? false : true,
                     'kup-tree__node--selected':
                         !treeNodeData.disabled &&
                         treeNodePath === this.selectedNodeString,
@@ -2226,6 +2302,32 @@ export class KupTree {
         return treeNodes;
     }
 
+    private setEllipsis(): void {
+        const treeRect: DOMRect = this.rootElement.getBoundingClientRect();
+        for (let index = 0; index < this.contentRefs.length; index++) {
+            const content: HTMLElement = this.contentRefs[index];
+            if (content) {
+                const cell = content.parentNode as HTMLElement;
+                if (this.asAccordion && cell.classList.contains('first-node')) {
+                    cell.style.width = treeRect.width + 'px';
+                } else {
+                    content.classList.remove('cell-content--ellipsis');
+                    content.style.setProperty('--content_width', ``);
+                    const rect: DOMRect = content.getBoundingClientRect();
+                    if (rect.right > treeRect.right) {
+                        const failsafeOffset: number = 5;
+                        const delta: number = rect.right - treeRect.right;
+                        content.classList.add('cell-content--ellipsis');
+                        content.style.setProperty(
+                            '--content_width',
+                            `${rect.width - delta - failsafeOffset}px`
+                        );
+                    }
+                }
+            }
+        }
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -2257,10 +2359,11 @@ export class KupTree {
                 path = path.slice(1);
                 this.launchNodeEvent(path, tn);
             } else {
-                this.hdlTreeNodeClick(tn, this.selectedNodeString, true);
+                this.hdlTreeNodeClick(null, tn, this.selectedNodeString, true);
             }
         }
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -2277,6 +2380,9 @@ export class KupTree {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
+        if (this.preventXScroll) {
+            this.setEllipsis();
+        }
         this.totalMenuPosition();
         this.checkScrollOnHover();
         this.setDynPosElements();
@@ -2293,10 +2399,12 @@ export class KupTree {
         // *** Store
         this.persistState();
         // ***
+        this.oldWidth = this.rootElement.clientWidth;
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
+        this.contentRefs = [];
         const tooltip = this.renderTooltip();
 
         this.sizedColumns = this.getSizedColumns();
@@ -2345,7 +2453,6 @@ export class KupTree {
                 <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
-                        isClearable={true}
                         label={this.kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
@@ -2358,9 +2465,6 @@ export class KupTree {
                                 600
                             );
                         }}
-                        onkup-textfield-cleariconclick={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
                     ></kup-text-field>
                 </div>
             );
@@ -2417,6 +2521,7 @@ export class KupTree {
 
     disconnectedCallback() {
         this.kupManager.language.register(this);
+        this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
             this.rootElement.shadowRoot.querySelectorAll(

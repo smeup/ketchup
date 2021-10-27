@@ -31,7 +31,12 @@
         <h3>Layout 2</h3>
         <kup-dash id="layout2" layout="2">
           <div slot="icon">
-            <i class="mdi mdi-menu-up" style="color: green" />
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="arrow_drop_up"
+              color="green"
+            ></kup-image>
           </div>
           <div slot="value-int">15,</div>
           <div slot="value-dec">86</div>
@@ -89,7 +94,12 @@
         <h3>Layout 4</h3>
         <kup-dash id="layout4" layout="4">
           <div slot="icon">
-            <i class="mdi mdi-menu-down" style="color: red" />
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="arrow_drop_down"
+              color="red"
+            ></kup-image>
           </div>
           <div slot="value-int" style="color: red">15,</div>
           <div slot="value-dec" style="color: red">86</div>
@@ -124,7 +134,12 @@
         <h3>Layout 5</h3>
         <kup-dash id="layout5" layout="5">
           <div slot="icon">
-            <i class="mdi mdi-chart-bar" style="color: deepskyblue" />
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="chart-bar"
+              color="deepskyblue"
+            ></kup-image>
           </div>
           <div slot="value">34,678</div>
           <div slot="descr">Admissions Count</div>
@@ -155,7 +170,12 @@
         <h3>Layout 6</h3>
         <kup-dash id="layout6" layout="6">
           <div slot="icon">
-            <i class="mdi mdi-account-outline" style="color: #ffef3c" />
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="show_chart"
+              color="#ffef3c"
+            ></kup-image>
           </div>
           <div slot="value">12</div>
           <div slot="descr">Admissions Count</div>
@@ -186,7 +206,12 @@
         <h3>Layout 7</h3>
         <kup-dash id="layout7" layout="7">
           <div slot="icon">
-            <i class="mdi mdi-chart-bar" style="color: pink" />
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="chart-bar"
+              color="pink"
+            ></kup-image>
           </div>
           <div slot="value">34,678</div>
           <div slot="descr">Admissions Count</div>
@@ -217,7 +242,12 @@
         <h3>Layout 8</h3>
         <kup-dash id="layout8" layout="8">
           <div slot="icon">
-            <i class="mdi mdi-checkbox-blank-circle" style="color: green" />
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="check_circle"
+              color="green"
+            ></kup-image>
           </div>
           <div slot="value">35</div>
           <div slot="descr">TASKS DONE</div>
@@ -265,8 +295,7 @@ export default {
     return {
       listdata1: [
         {
-          text:
-            "slot with the name 'descr' to set the description of the dash.",
+          text: "slot with the name 'descr' to set the description of the dash.",
           value: '1',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -298,8 +327,7 @@ export default {
           icon: 'trending_flat',
         },
         {
-          text:
-            "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
+          text: "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
           value: '4',
           icon: 'trending_flat',
         },
@@ -307,8 +335,7 @@ export default {
 
       listdata3: [
         {
-          text:
-            "slot with the name 'descr' to set the description of the dash.",
+          text: "slot with the name 'descr' to set the description of the dash.",
           value: '1',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -341,14 +368,12 @@ export default {
           icon: 'trending_flat',
         },
         {
-          text:
-            "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
+          text: "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
           value: '4',
           icon: 'trending_flat',
         },
         {
-          text:
-            "slot with the name 'descr' to set the description of the dash.",
+          text: "slot with the name 'descr' to set the description of the dash.",
           value: '5',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -368,8 +393,7 @@ export default {
           trailingIcon: true,
         },
         {
-          text:
-            "slot with the name 'descr' to set the description of the dash.",
+          text: "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -389,8 +413,7 @@ export default {
           trailingIcon: true,
         },
         {
-          text:
-            "slot with the name 'descr' to set the description of the dash.",
+          text: "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -410,8 +433,7 @@ export default {
           trailingIcon: true,
         },
         {
-          text:
-            "slot with the name 'descr' to set the description of the dash.",
+          text: "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -431,8 +453,7 @@ export default {
           trailingIcon: true,
         },
         {
-          text:
-            "slot with the name 'descr' to set the description of the dash.",
+          text: "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -446,7 +467,8 @@ export default {
       //Layout 2
       markupBasic5: '<kup-dash id="layout2" layout="2">',
       markupBasic6: '   <div slot="icon">',
-      markupBasic7: '     <i class="mdi mdi-menu-up" style="color: green" />',
+      markupBasic7:
+        '     <kup-image size-x="48px" size-y="48px"resource="arrow_drop_up" color="green"></kup-image>',
       markupBasic8: '   </div>',
       markupBasic9: '   <div slot="value-int">15,</div>',
       markupBasic10: '   <div slot="value-dec">86</div>',
@@ -460,7 +482,8 @@ export default {
       //Layout 4
       markupBasic17: '<kup-dash id="layout4" layout="4">',
       markupBasic18: '  <div slot="icon">',
-      markupBasic19: '    <i class="mdi mdi-menu-down" style="color: red" />',
+      markupBasic19:
+        '    <kup-image size-x="48px" size-y="48px"resource="arrow_drop_down" color="red"></kup-image>',
       markupBasic20: '  </div>',
       markupBasic21: '  <div slot="value-int" style="color: red">15,</div>',
       markupBasic22: '  <div slot="value-dec" style="color: red">86</div>',
@@ -471,7 +494,7 @@ export default {
       markupBasic26: '<kup-dash id="layout5" layout="5">',
       markupBasic27: '  <div slot="icon">',
       markupBasic28:
-        '    <i class="mdi mdi-chart-bar" style="color: deepskyblue" />',
+        '    <kup-image size-x="48px" size-y="48px" resource="chart-bar" color="deepskyblue"></kup-image>',
       markupBasic29: '  </div>',
       markupBasic30: '  <div slot="value">34,678</div>',
       markupBasic31: '  <div slot="descr">Admissions Count</div>',
@@ -480,7 +503,7 @@ export default {
       markupBasic33: '<kup-dash id="layout6" layout="6">',
       markupBasic34: '  <div slot="icon">',
       markupBasic35:
-        '    <i class="mdi mdi-account-outline" style="color: #ffef3c" />',
+        '    <kup-image size-x="48px" size-y="48px"resource="timeline" color="#ffef3c"></kup-image>',
       markupBasic36: '  </div>',
       markupBasic37: '  <div slot="value">12</div>',
       markupBasic38: '  <div slot="descr">Admissions Count</div>',
@@ -488,7 +511,7 @@ export default {
       //Layout 7
       markupBasic40: '<kup-dash id="layout7" layout="7">',
       markupBasic41: '  <div slot="icon">',
-      markupBasic42: '    <i class="mdi mdi-chart-bar" style="color: pink" />',
+      markupBasic42: '    <kup-image size-x="48px" size-y="48px" resource="chart-bar" color="pink"></kup-image>',
       markupBasic43: '  </div>',
       markupBasic44: '  <div slot="value">34,678</div>',
       markupBasic45: '  <div slot="descr">Admissions Count</div>',
@@ -497,7 +520,7 @@ export default {
       markupBasic47: '<kup-dash id="layout8" layout="8">',
       markupBasic48: '  <div slot="icon">',
       markupBasic49:
-        '    <i class="mdi mdi-checkbox-blank-circle" style="color: green" />',
+        '    <kup-image size-x="48px" size-y="48px" resource="check_circle" color="green"></kup-image>',
       markupBasic50: '  </div>',
       markupBasic51: '  <div slot="value">35</div>',
       markupBasic52: '  <div slot="descr">TASKS DONE</div>',

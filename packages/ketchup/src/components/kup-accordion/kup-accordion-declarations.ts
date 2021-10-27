@@ -15,6 +15,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupAccordionProps {
     customStyle = 'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
     data = 'Data of the accordion.',
+    expansionMode = "The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.",
     globalFilter = 'When set to true it activates the global filter.',
     globalFilterMode = 'The mode of the global filter.',
     globalFilterValue = 'The value of the global filter.',
@@ -26,6 +27,11 @@ export enum KupAccordionProps {
 export interface KupAccordionData {
     columns: Column[];
     rows: Row[];
+}
+
+export enum KupAccordionExpansionMode {
+    SINGLE = 'single',
+    MULTIPLE = 'multiple',
 }
 
 export interface KupAccordionItemSelectedEventPayload extends KupEventPayload {

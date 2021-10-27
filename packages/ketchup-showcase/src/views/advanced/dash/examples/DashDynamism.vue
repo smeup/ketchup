@@ -4,7 +4,12 @@
       <h3>With dynamism</h3>
       <kup-dash id="layoutdyn" layout="8" active>
         <div slot="icon">
-          <i class="mdi mdi-facebook" style="color: blue" />
+          <kup-image
+            size-x="48px"
+            size-y="48px"
+            resource="account-circle"
+            color="blue"
+          ></kup-image>
         </div>
         <div slot="value">35</div>
         <div slot="descr">Users</div>
@@ -51,8 +56,7 @@ export default {
           trailingIcon: true,
         },
         {
-          text:
-            "slot with the name 'descr' to set the description of the dash.",
+          text: "slot with the name 'descr' to set the description of the dash.",
           value: '3',
           icon: 'trending_flat',
           trailingIcon: true,
@@ -60,7 +64,7 @@ export default {
       ],
       markupBasic: '<kup-dash id="layoutdyn" layout="8" active>',
       markupBasic2: ' <div slot="icon">',
-      markupBasic3: '   <i class="mdi mdi-facebook" style="color: blue" />',
+      markupBasic3: '   <kup-image size-x="48px" size-y="48px" resource="account-circle" color="blue></kup-image>',
       markupBasic4: ' </div>',
       markupBasic5: ' <div slot="value">35</div>',
       markupBasic6: ' <div slot="descr">Users</div>',

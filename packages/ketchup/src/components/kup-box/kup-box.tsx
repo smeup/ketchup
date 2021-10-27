@@ -1941,7 +1941,6 @@ export class KupBox {
                 <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
-                        isClearable={true}
                         label={this.kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
@@ -1954,9 +1953,6 @@ export class KupBox {
                                 600
                             );
                         }}
-                        onkup-textfield-cleariconclick={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
                     ></kup-text-field>
                 </div>
             );

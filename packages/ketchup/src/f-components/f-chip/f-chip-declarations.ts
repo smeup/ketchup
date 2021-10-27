@@ -7,6 +7,7 @@ import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 export interface FChipsProps extends FComponent {
     data?: FChipData[];
     dataNew?: TreeNode[];
+    onClick?: ((event: MouseEvent) => void)[];
     type?: FChipType;
 }
 /**

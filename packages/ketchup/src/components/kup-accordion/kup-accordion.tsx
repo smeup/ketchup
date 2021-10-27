@@ -28,6 +28,7 @@ import {
     KupAccordionTreeNodeExpandedEventPayload,
     KupAccordionTreeNodeCollapsedEventPayload,
     KupAccordionItemCollapsedEventPayload,
+    KupAccordionExpansionMode,
 } from './kup-accordion-declarations';
 import {
     KupTreeNodeCollapseEventPayload,
@@ -39,7 +40,6 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { KupGlobalFilterMode } from '../../utils/filters/filters-declarations';
-import { KupTextField } from '../kup-text-field/kup-text-field';
 
 @Component({
     tag: 'kup-accordion',
@@ -67,6 +67,12 @@ export class KupAccordion {
      * @default null
      */
     @Prop() data: KupAccordionData = null;
+    /**
+     * The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.
+     * @default KupAccordionExpansionMode.SINGLE
+     */
+    @Prop() expansionMode: KupAccordionExpansionMode =
+        KupAccordionExpansionMode.SINGLE;
     /**
      * When set to true it activates the global filter.
      * @default false
@@ -240,7 +246,9 @@ export class KupAccordion {
                 ids.splice(ids.indexOf(itemName), 1);
             }
         } else {
-            ids.splice(0, ids.length);
+            if (KupAccordionExpansionMode.SINGLE === this.expansionMode) {
+                ids.splice(0, ids.length);
+            }
             ids.push(itemName);
         }
         this.selectedItemsNames = ids;
@@ -334,7 +342,9 @@ export class KupAccordion {
 
         // if tree node is selected then item must be selected (useful when filter)
         const ids: string[] = [...this.selectedItemsNames];
-        ids.splice(0, ids.length);
+        if (KupAccordionExpansionMode.SINGLE === this.expansionMode) {
+            ids.splice(0, ids.length);
+        }
         ids.push(itemName);
         this.selectedItemsNames = ids;
 
@@ -407,6 +417,7 @@ export class KupAccordion {
                 return (
                     <kup-tree
                         class="kup-full-width"
+                        preventXScroll={true}
                         {...cell.data}
                         {...(cell.data.selectedNode
                             ? { selectedNode: cell.data.selectedNode }
@@ -629,7 +640,6 @@ export class KupAccordion {
                 <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
-                        isClearable={true}
                         label={this.kupManager.language.translate(
                             KupLanguageSearch.SEARCH
                         )}
@@ -644,9 +654,6 @@ export class KupAccordion {
                                 600
                             );
                         }}
-                        onkup-textfield-cleariconclick={(
-                            event: CustomEvent<KupTextFieldEventPayload>
-                        ) => this.onGlobalFilterChange(event)}
                         ref={(el: HTMLKupTextFieldElement) =>
                             (this.textfieldEl = el)
                         }

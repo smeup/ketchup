@@ -37,9 +37,29 @@ export default {
             'The component will be rendered using the informational color of the app.',
         },
         {
+          class: 'kup-large',
+          description:
+            'The button will have an increased size (needs a new render to be effective).',
+        },
+        {
+          class: 'kup-pulsating',
+          description:
+            'In case of a toggable button, when it is toggled the button will feature a pulsating effect (needs a new render to be effective).',
+        },
+        {
           class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-shaped',
+          description:
+            'The borders of the button will be shaped (needs a new render to be effective).',
+        },
+        {
+          class: 'kup-slim',
+          description:
+            'The button will have a decreased size (needs a new render to be effective).',
         },
         {
           class: 'kup-success',

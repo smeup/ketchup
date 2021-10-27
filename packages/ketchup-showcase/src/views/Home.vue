@@ -37,29 +37,6 @@
       link for more information.
     </p>
 
-    <h2>Future development</h2>
-    <p
-      >This library is currently in its early stages of development and it's
-      being regularly updated with additional features.</p
-    >
-    <p
-      >The following is a list of components which will be added to the
-      project.</p
-    >
-    <p
-      >We will update this list when new components will be built and others
-      will be planned to be added to the project.</p
-    >
-    <ul>
-      <li>Tree viewer</li>
-      <li>Tree map</li>
-      <li>Input panel</li>
-      <li>Timeline</li>
-      <li>Gantt</li>
-      <li>Calendar</li>
-      <li>Mind map</li>
-    </ul>
-
     <h3>Credits</h3>
     <p>
       This showcase was built using
