@@ -234,7 +234,9 @@ export class KupTooltip {
                 this.rootElement as KupDynamicPositionElement,
                 this.relatedObject.element,
                 0,
-                KupDynamicPositionPlacement.AUTO
+                KupDynamicPositionPlacement.AUTO,
+                false,
+                true
             );
         } else {
             this.kupManager.dynamicPosition.changeAnchor(
@@ -246,7 +248,6 @@ export class KupTooltip {
             this.rootElement as KupDynamicPositionElement
         );
         this.visible = true;
-        this.rootElement.focus();
         this.startLoadDetail(true);
     }
 
@@ -400,7 +401,6 @@ export class KupTooltip {
             this.resetAll();
             return;
         }
-        this.rootElement.focus();
         if (this.isViewModeTooltip()) {
             this.cellOptions = null;
             this.kupTooltipLoadDetail.emit({

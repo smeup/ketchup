@@ -1053,19 +1053,6 @@ export class KupDataTable {
             this.columnMenuCard.layoutNumber = 12;
             this.columnMenuCard.sizeX = 'auto';
             this.columnMenuCard.sizeY = 'auto';
-            this.columnMenuCard.tabIndex = -1;
-            this.columnMenuCard.onclick = (e) => e.stopPropagation();
-            this.columnMenuCard.addEventListener('blur', () => {
-                if (
-                    this.kupManager.utilities.lastPointerDownPath.includes(
-                        this.columnMenuCard
-                    )
-                ) {
-                    this.columnMenuCard.focus();
-                } else {
-                    this.closeColumnMenu();
-                }
-            });
             this.columnMenuCard.addEventListener(
                 'kup-card-click',
                 (e: CustomEvent<KupEventPayload>) => {
@@ -3612,12 +3599,8 @@ export class KupDataTable {
                         ? 0
                         : this.tooltipLoadTimeout
                 }
-                onBlur={() => {
-                    this.tooltip.data = null;
-                }}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
-                tabindex={0}
             ></kup-tooltip>
         );
     }
@@ -3660,7 +3643,6 @@ export class KupDataTable {
                     menu as KupDynamicPositionElement
                 );
                 menu.classList.add('visible');
-                setTimeout(() => menu.focus(), 0);
             }
         }
     }
