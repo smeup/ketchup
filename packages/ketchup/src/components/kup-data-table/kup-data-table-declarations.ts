@@ -35,6 +35,7 @@ export enum KupDataTableProps {
     pageSelected = 'Current selected page set on component load',
     paginatorPos = 'Sets the position of the paginator. Available positions: top, bottom or both.',
     removableColumns = 'Sets the possibility to remove the selected column.',
+    resizableColumns = 'Gives the possibility to resize columns by dragging on their right edge.',
     rowActions = 'Sets the actions of the rows.',
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',

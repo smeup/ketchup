@@ -210,7 +210,6 @@ export function setKetchupDroppable(
                     targetElement,
                 },
             });
-            console.log('kup-drop event', ketchupDropEvent);
             dispatcherElement.dispatchEvent(ketchupDropEvent);
             // this is mandatory
             e.preventDefault();

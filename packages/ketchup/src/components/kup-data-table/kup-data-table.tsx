@@ -164,7 +164,8 @@ import {
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 import interact from 'interactjs';
-import { PointerEvent } from '@interactjs/types/index';
+import type { PointerEvent } from '@interactjs/types/index';
+import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 
 @Component({
     tag: 'kup-data-table',
@@ -535,6 +536,10 @@ export class KupDataTable {
      */
     @Prop() removableColumns: boolean = false;
     /**
+     * Gives the possibility to resize columns by dragging on their right edge.
+     */
+    @Prop() resizableColumns: boolean = true;
+    /**
      * Sets the actions of the rows.
      */
     @Prop() rowActions: Array<RowAction>;
@@ -841,9 +846,11 @@ export class KupDataTable {
     private totalMenuCoords: KupDynamicPositionCoordinates = null;
     columnFilterTimeout: number;
     private clickTimeout: ReturnType<typeof setTimeout>[] = [];
+    private thRefs: HTMLElement[] = [];
     private rowsRefs: HTMLElement[] = [];
     private oldWidth: number = null;
     private hold: boolean = false;
+    private interactable: HTMLElement[] = [];
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -1655,6 +1662,34 @@ export class KupDataTable {
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
             }
+            if (this.resizableColumns) {
+                for (let index = 0; index < this.thRefs.length; index++) {
+                    const th = this.thRefs[index];
+                    if (!this.interactable.includes(th)) {
+                        this.interactable.push(th);
+                        interact(th).resizable({
+                            allowFrom: '.header-cell__drag-handler',
+                            edges: {
+                                left: false,
+                                right: true,
+                                bottom: false,
+                                top: false,
+                            },
+                            listeners: {
+                                move(e: ResizeEvent) {
+                                    const el = e.target as HTMLElement;
+                                    el.style.width = e.rect.width + 'px';
+                                },
+                            },
+                            modifiers: [
+                                interact.modifiers.restrictSize({
+                                    min: { width: 10, height: 10 },
+                                }),
+                            ],
+                        });
+                    }
+                }
+            }
         }
         if (this.showCustomization) {
             this.customizePanelPosition();
@@ -1705,6 +1740,7 @@ export class KupDataTable {
         this.lazyLoadCells = true;
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);
+        this.interactable.push(this.tableRef);
         interact(this.tableRef)
             .on('tap', (e: PointerEvent) => {
                 if (this.hold) {
@@ -3037,7 +3073,7 @@ export class KupDataTable {
         columnClass: GenericObject;
         thStyle: GenericObject;
     } {
-        let columnClass: GenericObject = {},
+        let columnClass: GenericObject = { ['header-cell']: true },
             thStyle: GenericObject = {};
 
         if (
@@ -3319,7 +3355,7 @@ export class KupDataTable {
                             const overElement = this.getThElement(
                                 e.target as HTMLElement
                             );
-                            if (overElement) {
+                            if (overElement && e.target === overElement) {
                                 overElement.removeAttribute(
                                     this.dragOverAttribute
                                 );
@@ -3366,19 +3402,11 @@ export class KupDataTable {
 
                 return (
                     <th
+                        ref={(el: HTMLElement) => this.thRefs.push(el)}
                         data-cell={column}
                         data-column={column.name}
                         class={columnClass}
                         style={thStyle}
-                        {...(this.enableSortableColumns
-                            ? setKetchupDraggable(dragHandlers, {
-                                  [KupDataTableColumnDragType]: column,
-                                  'kup-drag-source-element': {
-                                      column: column,
-                                      id: this.rootElement.id,
-                                  },
-                              })
-                            : {})}
                         {...(this.enableSortableColumns
                             ? setKetchupDroppable(
                                   dropHandlers,
@@ -3391,13 +3419,29 @@ export class KupDataTable {
                               )
                             : {})}
                     >
-                        <span class="column-title">
-                            {this.applyLineBreaks(column.title)}
-                        </span>
-                        {overlay}
-                        {keyIcon}
-                        {sortIcon}
-                        {filter}
+                        <div
+                            class="header-cell__content"
+                            {...(this.enableSortableColumns
+                                ? setKetchupDraggable(dragHandlers, {
+                                      [KupDataTableColumnDragType]: column,
+                                      'kup-drag-source-element': {
+                                          column: column,
+                                          id: this.rootElement.id,
+                                      },
+                                  })
+                                : {})}
+                        >
+                            <span class="column-title">
+                                {this.applyLineBreaks(column.title)}
+                            </span>
+                            {overlay}
+                            {keyIcon}
+                            {sortIcon}
+                            {filter}
+                        </div>
+                        {this.resizableColumns ? (
+                            <span class="header-cell__drag-handler"></span>
+                        ) : null}
                     </th>
                 );
             }
@@ -5647,6 +5691,7 @@ export class KupDataTable {
     }
 
     render() {
+        this.thRefs = [];
         this.rowsRefs = [];
         this.renderedRows = [];
         let elStyle = undefined;
@@ -5946,7 +5991,10 @@ export class KupDataTable {
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
         }
-        interact(this.tableRef).unset();
+        for (let index = 0; index < this.interactable.length; index++) {
+            const el = this.interactable[index];
+            interact(el).unset();
+        }
         this.kupManager.resize.unobserve(this.rootElement);
         this.kupDidUnload.emit({ comp: this, id: this.rootElement.id });
     }
