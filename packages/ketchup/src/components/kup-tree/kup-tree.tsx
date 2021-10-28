@@ -2210,17 +2210,15 @@ export class KupTree {
 
                 totalMenu = (
                     <kup-list
-                        class={`kup-menu total-menu`}
+                        class={`total-menu`}
                         data={...listData}
                         id="totals-menu"
                         is-menu
                         keyboardNavigation={true}
                         menu-visible
-                        onBlur={() => this.closeTotalMenu()}
                         onkup-list-click={(event) =>
                             this.onTotalsChange(event, column)
                         }
-                        tabindex={0}
                     ></kup-list>
                 );
             }
@@ -2261,20 +2259,23 @@ export class KupTree {
 
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement =
+            const menu: HTMLKupListElement =
                 this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
                 this.kupManager.dynamicPosition.register(
-                    menu as KupDynamicPositionElement,
+                    menu as unknown as KupDynamicPositionElement,
                     this.totalMenuCoords,
                     0,
-                    KupDynamicPositionPlacement.TOP_RIGHT
+                    KupDynamicPositionPlacement.AUTO,
+                    null,
+                    () => {
+                        this.closeTotalMenu();
+                    }
                 );
                 this.kupManager.dynamicPosition.start(
-                    menu as KupDynamicPositionElement
+                    menu as unknown as KupDynamicPositionElement
                 );
-                menu.classList.add('visible');
-                setTimeout(() => menu.focus(), 0);
+                menu.menuVisible = true;
             }
         }
     }
