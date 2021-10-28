@@ -1,5 +1,4 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupThemeCSSVariables } from '../kup-theme/kup-theme-declarations';
 import {
     kupDynamicPositionActiveClass,
     KupDynamicPositionAnchor,
@@ -26,7 +25,7 @@ export class KupDynamicPosition {
         this.container.setAttribute('kup-dynamic-position', '');
         document.body.appendChild(this.container);
         this.managedElements = new Set();
-        document.addEventListener('click', (e) => this.closeOnBlur(e));
+        document.addEventListener('click', (e) => this.blurCallback(e));
     }
     /**
      * Function used to check whether the anchor point is an HTMLElement or a set of coordinates.
@@ -39,30 +38,18 @@ export class KupDynamicPosition {
         return (anchor as HTMLElement).tagName !== undefined;
     }
     /**
-     * Stops the positioning of all currently active elements and hides them.
+     * Stops the positioning of all currently active elements and invokes the related callback.
      */
-    closeOnBlur(e: MouseEvent): void {
+    blurCallback(e: MouseEvent): void {
         const eventPath = e.composedPath();
         this.managedElements.forEach(function (el: KupDynamicPositionElement) {
             if (
                 el.isConnected &&
                 !eventPath.includes(el) &&
-                el.kupDynamicPosition.closeOnBlur &&
+                el.kupDynamicPosition.blurCallback &&
                 el.classList.contains(kupDynamicPositionActiveClass)
             ) {
-                switch (el.tagName) {
-                    case 'KUP-CARD':
-                        (el as unknown as HTMLKupCardElement).menuVisible =
-                            false;
-                        break;
-                    case 'KUP-LIST':
-                        (el as unknown as HTMLKupListElement).menuVisible =
-                            false;
-                        break;
-                    case 'KUP-TOOLTIP':
-                        (el as unknown as HTMLKupTooltipElement).data = null;
-                        break;
-                }
+                el.kupDynamicPosition.blurCallback();
                 dom.ketchup.dynamicPosition.stop(el);
             }
         });
@@ -74,7 +61,7 @@ export class KupDynamicPosition {
      * @param {number} margin - "el" distance from its parent in pixels.
      * @param {KupDynamicPositionPlacement} placement - "el" placement.
      * @param {boolean} detach - When true, the function won't be recursive but it will be executed only once. "el" will be detached from its original parent and it will be appended to this.container.
-     * @param {boolean} closeOnBlur - When true, the "el" will be closed when a click is performed outside its bounds.
+     * @param {Function} blurCallback - Callback invoked when "el" is blurred.
      */
     register(
         el: KupDynamicPositionElement,
@@ -82,7 +69,7 @@ export class KupDynamicPosition {
         margin?: number,
         placement?: KupDynamicPositionPlacement,
         detach?: boolean,
-        closeOnBlur?: boolean
+        blurCallback?: Function
     ): void {
         if (this.isRegistered(el)) {
             if (this.anchorIsHTMLElement(anchorEl)) {
@@ -103,7 +90,7 @@ export class KupDynamicPosition {
         el.style.zIndex = `calc(var(--kup-navbar-zindex) - 1)`;
         el.kupDynamicPosition = {
             anchor: anchorEl,
-            closeOnBlur: closeOnBlur,
+            blurCallback: blurCallback,
             detach: detach ? true : false,
             margin: margin ? margin : 0,
             placement: placement ? placement : KupDynamicPositionPlacement.AUTO,

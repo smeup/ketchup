@@ -8,6 +8,15 @@
   -ms-touch-action: none;
   touch-action: none;
 
+  &:not(.header-bar) {
+    display: flex;
+    height: 100%;
+
+    .f-image--wrapper {
+      margin: auto;
+    }
+  }
+
   &.header-bar {
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);

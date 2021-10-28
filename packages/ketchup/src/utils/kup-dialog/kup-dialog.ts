@@ -107,7 +107,7 @@ export class KupDialog {
         if (!unresizable) {
             el.classList.add(kupDialogResizableClass);
             interact(el).resizable({
-                edges: { left: true, right: true, bottom: true, top: true },
+                edges: { left: true, right: true, bottom: true, top: false },
                 listeners: {
                     move(e: ResizeEvent) {
                         const el = e.target as HTMLElement;
@@ -126,7 +126,6 @@ export class KupDialog {
                         }
                     },
                 },
-                margin: 5,
                 modifiers: [
                     interact.modifiers.restrictSize({
                         min: { width: 100, height: 100 },

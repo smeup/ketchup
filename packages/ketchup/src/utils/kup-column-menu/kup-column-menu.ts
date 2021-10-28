@@ -98,7 +98,9 @@ export class KupColumnMenu {
                         0,
                         KupDynamicPositionPlacement.BOTTOM,
                         true,
-                        true
+                        () => {
+                            this.close(card);
+                        }
                     );
                 }
                 dom.ketchup.dynamicPosition.start(card as any);

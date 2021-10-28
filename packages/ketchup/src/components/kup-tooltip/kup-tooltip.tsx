@@ -236,7 +236,9 @@ export class KupTooltip {
                 0,
                 KupDynamicPositionPlacement.AUTO,
                 false,
-                true
+                () => {
+                    this.data = null;
+                }
             );
         } else {
             this.kupManager.dynamicPosition.changeAnchor(

@@ -2777,91 +2777,12 @@ export class KupDataTable {
         this.openedTotalMenu = null;
     }
 
-    /* TODO
-    private openGroupMenu(column: Column) {
-        this.openedGroupMenu = column.name;
-    }
-
-    private closeGroupMenu() {
-        this.openedGroupMenu = null;
-    }
-    */
-
     private closeMenuAndTooltip() {
         unsetTooltip(this.tooltip);
     }
 
-    private isOpenedTotalMenu(): boolean {
-        return this.openedTotalMenu != null;
-    }
-
     private isOpenedTotalMenuForColumn(column: string): boolean {
         return this.openedTotalMenu === column;
-    }
-
-    private isOpenedGroupMenu(): boolean {
-        return this.openedGroupMenu != null;
-    }
-
-    private isOpenedGroupMenuForColumn(column: string): boolean {
-        return this.openedGroupMenu === column;
-    }
-
-    /**
-     * Type guard needed to be sure that an object returned from composePath() is an HTMLElement with classes
-     * @param node
-     */
-    private isHTMLElementFromEventTarget(
-        node: EventTarget
-    ): node is HTMLElement {
-        return (node as HTMLElement).classList !== undefined;
-    }
-
-    private hasOverlayActions(column: Column): boolean {
-        if (column == null || column.obj == null) {
-            return false;
-        }
-        return this.kupManager.objects.canHaveAutomaticDerivedColumn(
-            column.obj
-        );
-    }
-
-    private onHeaderCellContextMenuClose(event: MouseEvent) {
-        // Gets the path of the event (does not work in IE11 or previous)
-        const eventPath = event.composedPath();
-        let fromTotalMenu = false;
-        let fromSameTable = false;
-
-        // Examine the path
-        for (let elem of eventPath) {
-            // TODO When the footer is considered stable please do this in another dedicated method
-            // check if is the open menu button the element which fired the event
-            // TODO Maybe a better approach would be to use the blur event in order to hide the menu
-            if ((elem as HTMLElement).id === totalMenuOpenID) {
-                return;
-            }
-
-            // If we encounter our table we can stop looping the elements
-            if (elem === this.tableAreaRef) {
-                fromSameTable = true;
-                break;
-            }
-
-            // TODO When the footer is considered stable please do this in another dedicated method
-            // If the event comes from a menu of the table footer
-            if (
-                this.isHTMLElementFromEventTarget(elem) &&
-                elem.classList &&
-                elem.classList.contains('total-menu')
-            ) {
-                fromTotalMenu = true;
-            }
-        }
-
-        // TODO When the footer is considered stable please do this in another dedicated method
-        if (this.isOpenedTotalMenu() && !(fromTotalMenu && fromSameTable)) {
-            this.closeTotalMenu();
-        }
     }
 
     private onJ4btnClicked(row, column, cell) {
@@ -3630,19 +3551,23 @@ export class KupDataTable {
 
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            const menu: HTMLElement =
+            const menu: HTMLKupListElement =
                 this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
                 this.kupManager.dynamicPosition.register(
-                    menu as KupDynamicPositionElement,
+                    menu as unknown as KupDynamicPositionElement,
                     this.totalMenuCoords,
                     0,
-                    KupDynamicPositionPlacement.TOP_RIGHT
+                    KupDynamicPositionPlacement.AUTO,
+                    null,
+                    () => {
+                        this.closeTotalMenu();
+                    }
                 );
                 this.kupManager.dynamicPosition.start(
-                    menu as KupDynamicPositionElement
+                    menu as unknown as KupDynamicPositionElement
                 );
-                menu.classList.add('visible');
+                menu.menuVisible = true;
             }
         }
     }
@@ -3844,13 +3769,12 @@ export class KupDataTable {
 
                     totalMenu = (
                         <kup-list
-                            class={`kup-menu total-menu`}
+                            class={`total-menu`}
                             data={...listData}
                             id="totals-menu"
                             is-menu
                             keyboardNavigation={true}
                             menu-visible
-                            onBlur={() => this.closeTotalMenu()}
                             onkup-list-click={(event) =>
                                 this.onTotalsChange(event, column)
                             }
@@ -4023,33 +3947,6 @@ export class KupDataTable {
                             );
                         }
                     }
-                    /*
-                    TODO Group Menu
-                    const groupMenu = undefined;
-                    if (this.isOpenedGroupMenuForColumn(column.name)) {
-                        const listData: KupListData[] = [
-                            {
-                                text: 'Matrice dei totali',
-                                value: 'MATTOT',
-                                selected: false,
-                            },
-                        ];
-
-                        groupMenu = (
-                            <kup-list
-                                class={`kup-menu group-menu`}
-                                data={...listData}
-                                id="group-menu"
-                                is-menu
-                                menu-visible
-                                onBlur={() => this.closeGroupMenu()}
-                                onkup-list-click={(event) => console.log(event)}
-                                tabindex={0}
-                            ></kup-list>
-                        );
-                    }
-                    {groupMenu}
-                    */
                     cells.push(<td class={totalClass}>{value}</td>);
                 }
 
