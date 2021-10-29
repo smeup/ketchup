@@ -30,6 +30,7 @@
 * @prop --kup-datatable-font-family-monospace: Sets monospace font family of the component (for numbers).
 * @prop --kup-datatable-font-size: Sets font size of the component.
 * @prop --kup-datatable-th-border: Sets border of the th elements.
+* @prop --kup-datatable-th-resize-handle-width: Sets the width of the handle used to resize columns.
 */
 
 :host {
@@ -57,6 +58,10 @@
   --kup_datatable_th_border: var(
     --kup-datatable-th-border,
     1px solid var(--kup-border-color)
+  );
+  --kup_datatable_th_resize_handle_width: var(
+    --kup-datatable-th-resize-handle-width,
+    3px
   );
 
   display: block;
@@ -297,7 +302,7 @@ thead {
       top: 0;
       touch-action: none;
       user-select: none;
-      width: 3px;
+      width: var(--kup_datatable_th_resize_handle_width);
       z-index: 1;
 
       &:hover {
