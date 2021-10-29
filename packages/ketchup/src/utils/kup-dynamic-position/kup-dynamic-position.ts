@@ -25,7 +25,7 @@ export class KupDynamicPosition {
         this.container.setAttribute('kup-dynamic-position', '');
         document.body.appendChild(this.container);
         this.managedElements = new Set();
-        document.addEventListener('click', (e) => this.blurCallback(e));
+        document.addEventListener('pointerdown', (e) => this.blurCallback(e));
     }
     /**
      * Function used to check whether the anchor point is an HTMLElement or a set of coordinates.
@@ -50,7 +50,6 @@ export class KupDynamicPosition {
                 el.classList.contains(kupDynamicPositionActiveClass)
             ) {
                 el.kupDynamicPosition.blurCallback();
-                dom.ketchup.dynamicPosition.stop(el);
             }
         });
     }

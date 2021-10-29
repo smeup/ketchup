@@ -9,9 +9,12 @@
 
   .section-1 {
     text-align: center;
+    touch-action: none;
     padding-bottom: 1em;
+
     .text {
       padding-top: 0.75em;
+
       &:not(.label) {
         font-weight: bold;
       }
@@ -27,8 +30,11 @@
     height: 100%;
     padding: 0.5em;
     overflow: auto;
+    touch-action: none;
+
     .text {
       min-width: max-content;
+
       &:not(.label) {
         font-weight: bold;
       }

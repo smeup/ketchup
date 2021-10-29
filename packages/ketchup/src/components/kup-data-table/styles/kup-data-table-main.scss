@@ -271,7 +271,7 @@ table {
 }
 
 thead {
-  .header-cell {
+  th {
     background-color: var(--kup-title-background-color);
     border: var(--kup_datatable_th_border);
     border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
@@ -279,8 +279,9 @@ thead {
     box-sizing: border-box;
     top: 0;
     transition: background-color 0.25s ease;
+    user-select: none;
 
-    &__content {
+    .header-cell__content {
       color: var(--kup-title-color);
       padding: 0.5em 0.3125em;
       text-overflow: ellipsis;
@@ -288,12 +289,14 @@ thead {
       white-space: nowrap;
     }
 
-    &__drag-handler {
+    .header-cell__drag-handler {
       background: rgba(var(--kup-title-color-rgb), 0.25);
       height: 100%;
       position: absolute;
       right: 0;
       top: 0;
+      touch-action: none;
+      user-select: none;
       width: 3px;
       z-index: 1;
 
