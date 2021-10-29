@@ -4,7 +4,10 @@ import type { KupDataTable } from '../../components/kup-data-table/kup-data-tabl
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
-import { KupDynamicPositionPlacement } from '../kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../kup-dynamic-position/kup-dynamic-position-declarations';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import type {
     Column,
@@ -73,6 +76,9 @@ export class KupColumnMenu {
      */
     close(card: HTMLKupCardElement): void {
         card.menuVisible = false;
+        dom.ketchup.dynamicPosition.stop(
+            card as unknown as KupDynamicPositionElement
+        );
     }
     /**
      * Function called to reposition the column menu card to the appropriate column.

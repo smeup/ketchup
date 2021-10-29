@@ -610,19 +610,6 @@ export class KupTree {
             this.columnMenuCard.layoutNumber = 12;
             this.columnMenuCard.sizeX = 'auto';
             this.columnMenuCard.sizeY = 'auto';
-            this.columnMenuCard.tabIndex = -1;
-            this.columnMenuCard.onblur = () => {
-                if (
-                    this.kupManager.utilities.lastPointerDownPath.includes(
-                        this.columnMenuCard
-                    )
-                ) {
-                    this.columnMenuCard.focus();
-                } else {
-                    this.closeColumnMenu();
-                }
-            };
-            this.columnMenuCard.onclick = (e) => e.stopPropagation();
             this.columnMenuCard.addEventListener(
                 'kup-card-click',
                 (e: CustomEvent<KupEventPayload>) => {
@@ -2270,6 +2257,9 @@ export class KupTree {
                     null,
                     () => {
                         this.closeTotalMenu();
+                        this.kupManager.dynamicPosition.stop(
+                            menu as unknown as KupDynamicPositionElement
+                        );
                     }
                 );
                 this.kupManager.dynamicPosition.start(

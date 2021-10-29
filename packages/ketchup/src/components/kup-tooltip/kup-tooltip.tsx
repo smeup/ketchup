@@ -238,6 +238,9 @@ export class KupTooltip {
                 false,
                 () => {
                     this.data = null;
+                    this.kupManager.dynamicPosition.stop(
+                        this.rootElement as unknown as KupDynamicPositionElement
+                    );
                 }
             );
         } else {

@@ -208,6 +208,7 @@
   transform: none;
   transform-origin: unset;
   transition: height 0.2s;
+  user-select: none;
   will-change: unset;
 
   &.visible {

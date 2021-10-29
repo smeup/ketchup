@@ -3606,6 +3606,9 @@ export class KupDataTable {
                     null,
                     () => {
                         this.closeTotalMenu();
+                        this.kupManager.dynamicPosition.stop(
+                            menu as unknown as KupDynamicPositionElement
+                        );
                     }
                 );
                 this.kupManager.dynamicPosition.start(
