@@ -1678,7 +1678,32 @@ export class KupDataTable {
                             listeners: {
                                 move(e: ResizeEvent) {
                                     const el = e.target as HTMLElement;
+                                    el.style.maxWidth = e.rect.width + 'px';
+                                    el.style.minWidth = e.rect.width + 'px';
                                     el.style.width = e.rect.width + 'px';
+                                    const title = el.querySelector(
+                                        '.column-title'
+                                    ) as HTMLElement;
+                                    const thStyle = getComputedStyle(el);
+                                    const thInnerWidth =
+                                        parseFloat(thStyle.width) -
+                                        (parseFloat(thStyle.paddingLeft) +
+                                            parseFloat(thStyle.paddingRight) +
+                                            parseFloat(
+                                                thStyle.borderLeftWidth
+                                            ) +
+                                            parseFloat(
+                                                thStyle.borderRightWidth
+                                            ));
+                                    if (title && e.rect.width >= thInnerWidth) {
+                                        const parentStyle = getComputedStyle(
+                                            title.parentElement
+                                        );
+                                        const widthForEllipsis = `calc(${thInnerWidth}px - ${parentStyle.paddingLeft} - ${parentStyle.paddingRight})`;
+                                        title.style.maxWidth = widthForEllipsis;
+                                        title.style.minWidth = widthForEllipsis;
+                                        title.style.width = widthForEllipsis;
+                                    }
                                 },
                             },
                             modifiers: [
