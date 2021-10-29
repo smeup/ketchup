@@ -1312,7 +1312,7 @@ export class KupTree {
             icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
         }
 
-        const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
             cell.obj
         );
         let title: string = undefined;
@@ -1956,7 +1956,7 @@ export class KupTree {
             }
         }
 
-        const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
             treeNodeData.obj
         );
         let title: string = undefined;
@@ -2003,7 +2003,7 @@ export class KupTree {
                             this.ripple &&
                             !this.showColumns &&
                             !treeNodeData.disabled,
-                        'is-obj': this.kupManager.objects.hasTooltip(
+                        'is-obj': !this.kupManager.objects.isEmptyKupObj(
                             treeNodeData.obj
                         ),
                     }}

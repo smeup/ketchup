@@ -359,7 +359,7 @@ export class KupColumnMenu {
     prepSwitch(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [];
         if (!FiltersColumnMenu.isTree(comp)) {
-            if (!dom.ketchup.objects.isEmptySmeupObject(column.obj)) {
+            if (!dom.ketchup.objects.isEmptyKupObj(column.obj)) {
                 props.push({
                     'data-storage': {
                         columnName: column.name,
