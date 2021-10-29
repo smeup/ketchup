@@ -2170,7 +2170,7 @@ export class KupDataTable {
             }
         } else if (details.area === 'body') {
             const _hasTooltip: boolean = details.cell.obj
-                ? this.kupManager.objects.hasTooltip(details.cell.obj)
+                ? !this.kupManager.objects.isEmptyKupObj(details.cell.obj)
                 : false;
             if (
                 _hasTooltip &&
@@ -4288,9 +4288,8 @@ export class KupDataTable {
                  * Controls if current cell needs a tooltip and eventually adds it.
                  * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
                  */
-                const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
-                    cell.obj
-                );
+                const _hasTooltip: boolean =
+                    !this.kupManager.objects.isEmptyKupObj(cell.obj);
                 let eventHandlers = undefined;
                 let title: string = undefined;
                 if (_hasTooltip) {

@@ -57,12 +57,11 @@ export class KupObjects {
      * @returns {boolean} True when the object has extra columns.
      */
     canObjHaveExtraColumns(obj: KupObj): boolean {
-        if (!obj) return false;
-        if (
-            !obj.t ||
-            (obj.t as string).trim() == '' ||
-            (obj.t as string).trim() == '**'
-        ) {
+        if (this.isEmptyKupObj(obj)) {
+            return false;
+        }
+
+        if ((obj.t as string).trim() == '**') {
             return false;
         }
         return (
@@ -78,29 +77,7 @@ export class KupObjects {
             !this.isChart(obj)
         );
     }
-    /**
-     * Checks whether the object can have a related tooltip or not.
-     * @param {KupObj} obj - Object to check.
-     * @returns {boolean} True when the object can have a related tooltip.
-     */
-    hasTooltip(obj: KupObj): boolean {
-        if (!obj) return false;
-        if (obj.t == null || (obj.t as string).trim() == '') return false;
-        return (
-            !this.isBar(obj) &&
-            !this.isButton(obj) &&
-            !this.isCheckbox(obj) &&
-            !this.isIcon(obj) &&
-            !this.isImage(obj) &&
-            !this.isLink(obj) &&
-            !this.isNumber(obj) &&
-            !this.isPercentage(obj) &&
-            !this.isProgressBar(obj) &&
-            !this.isRadio(obj) &&
-            !this.isVoCodver(obj) &&
-            !this.isChart(obj)
-        );
-    }
+
     /**
      * Checks whether the object represents a bar or not.
      * @param {KupObj} obj - Object to check.
@@ -305,9 +282,13 @@ export class KupObjects {
      * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is null or empty.
      */
-    isEmptySmeupObject(obj: KupObj): boolean {
+    isEmptyKupObj(obj: KupObj): boolean {
         if (!obj) return true;
-        return obj.t.trim() == '' && obj.p.trim() == '' && obj.k.trim() == '';
+        return (
+            (!obj.t || obj.t.trim() == '') &&
+            (!obj.p || obj.p.trim() == '') &&
+            (!obj.k || obj.k.trim() == '')
+        );
     }
     /**
      * Parses a date depending on the object's type.

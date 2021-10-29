@@ -1525,7 +1525,7 @@ export class KupBox {
             cell = row.cells[boxObject.column];
             column = null;
             if (cell) {
-                _hasTooltip = this.kupManager.objects.hasTooltip(cell.obj);
+                _hasTooltip = !this.kupManager.objects.isEmptyKupObj(cell.obj);
                 // removing column from visibleColumns
                 let index = -1;
 
