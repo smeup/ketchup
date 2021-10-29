@@ -1699,6 +1699,8 @@ export class KupDataTable {
                                         const parentStyle = getComputedStyle(
                                             title.parentElement
                                         );
+                                        title.parentElement.style.overflow =
+                                            'hidden';
                                         const widthForEllipsis = `calc(${thInnerWidth}px - ${parentStyle.paddingLeft} - ${parentStyle.paddingRight})`;
                                         title.style.maxWidth = widthForEllipsis;
                                         title.style.minWidth = widthForEllipsis;
