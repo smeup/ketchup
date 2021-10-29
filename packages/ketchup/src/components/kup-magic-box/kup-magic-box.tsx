@@ -31,7 +31,6 @@ import {
     MagicBoxData,
 } from './kup-magic-box-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -309,10 +308,7 @@ export class KupMagicBox {
         );
         this.dragHandler =
             this.rootElement.shadowRoot.querySelector('#drag-handle');
-        this.kupManager.dialog.register(
-            this.rootElement as DialogElement,
-            this.dragHandler
-        );
+        this.kupManager.dialog.register(this.rootElement, this.dragHandler);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -388,7 +384,7 @@ export class KupMagicBox {
     }
 
     disconnectedCallback() {
-        this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
+        this.kupManager.dialog.unregister([this.rootElement]);
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
     }

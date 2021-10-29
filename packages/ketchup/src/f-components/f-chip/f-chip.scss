@@ -106,7 +106,7 @@
         stroke: var(--kup_chip_text_color);
       }
 
-      .kup-icon {
+      .#{$kup-icon} {
         background: var(--kup_chip_text_color);
         display: block;
         width: 18px;

@@ -161,7 +161,7 @@
         cursor: pointer;
       }
 
-      &:not(.kup-tree__node--disabled) .kup-icon.kup-tree__node__expander {
+      &:not(.kup-tree__node--disabled) .#{$kup-icon}.kup-tree__node__expander {
         cursor: pointer;
       }
 
@@ -173,15 +173,15 @@
         }
       }
 
-      .kup-icon:not(.is-image) {
+      .#{$kup-icon}:not(.is-image) {
         background-color: var(--kup_tree_icon_color);
       }
 
-      .kup-icon.kup-tree__node__expander:not(.is-image) {
+      .#{$kup-icon}.kup-tree__node__expander:not(.is-image) {
         background-color: var(--kup_tree_color);
       }
 
-      .kup-icon.is-image img {
+      .#{$kup-icon}.is-image img {
         display: block;
         height: auto;
         width: 100%;
@@ -191,7 +191,7 @@
         background-color: var(--kup_tree_hover_background_color);
         color: var(--kup_tree_hover_color);
 
-        .kup-icon {
+        .#{$kup-icon} {
           background-color: var(--kup_tree_hover_color);
         }
       }
@@ -201,7 +201,7 @@
         color: var(--kup_tree_color);
       }
 
-      .cell-content .kup-icon.obj-icon {
+      .cell-content .#{$kup-icon}.obj-icon {
         cursor: var(--kup-obj-cursor);
         display: inline-block;
         vertical-align: sub;
@@ -257,8 +257,8 @@
 
 tfoot {
   td {
-    border-bottom: var(--kup_tree_border-color);
-    border-right: var(--kup_tree_border-color);
+    border-bottom: var(--kup_tree_border);
+    border-right: var(--kup_tree_border);
     box-sizing: border-box;
     height: 36px;
     text-align: right;
@@ -269,7 +269,7 @@ tfoot {
     }
     &:first-of-type {
       border: none;
-      border-right: var(--kup_tree_border-color);
+      border-right: var(--kup_tree_border);
     }
   }
 }
@@ -295,8 +295,8 @@ tfoot {
     display: table-header-group;
 
     tr {
-      border-left: var(--kup_tree_border-color);
-      border-right: var(--kup_tree_border-color);
+      border-left: var(--kup_tree_border);
+      border-right: var(--kup_tree_border);
     }
   }
 
@@ -331,7 +331,7 @@ tfoot {
         color: var(--kup_tree_hover_color);
       }
 
-      .kup-icon {
+      .#{$kup-icon} {
         background-color: var(--kup_tree_hover_color);
       }
     }
@@ -351,7 +351,7 @@ tfoot {
       .first-node {
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
-        border-top: var(--kup_tree_border-color);
+        border-top: var(--kup_tree_border);
       }
     }
 
@@ -364,9 +364,9 @@ tfoot {
 
     .first-node {
       align-items: center;
-      border-bottom: var(--kup_tree_border-color);
-      border-left: var(--kup_tree_border-color);
-      border-right: var(--kup_tree_border-color);
+      border-bottom: var(--kup_tree_border);
+      border-left: var(--kup_tree_border);
+      border-right: var(--kup_tree_border);
       box-sizing: border-box;
       color: var(--kup_tree_color);
       cursor: pointer;
@@ -404,7 +404,7 @@ tfoot {
 
   // First accordion item right below a tree item
   .kup-tree__node:not(.kup-tree__node--first) + .kup-tree__node--first {
-    border-top: var(--kup_tree_border-color);
+    border-top: var(--kup_tree_border);
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
   }

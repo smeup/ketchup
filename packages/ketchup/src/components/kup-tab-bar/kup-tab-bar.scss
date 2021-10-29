@@ -104,7 +104,7 @@
         font-size: 24px;
         z-index: 2;
 
-        &.kup-icon {
+        &.#{$kup-icon} {
           background-color: var(--kup_tabbar_primary_color);
           height: 24px;
           width: 24px;

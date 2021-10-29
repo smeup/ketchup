@@ -1125,6 +1125,10 @@ export namespace Components {
          */
         "removableColumns": boolean;
         /**
+          * Gives the possibility to resize columns by dragging on their right edge.
+         */
+        "resizableColumns": boolean;
+        /**
           * This method is invoked by KupManager whenever the component changes size.
          */
         "resizeCallback": () => Promise<void>;
@@ -3965,6 +3969,10 @@ declare namespace LocalJSX {
           * Sets the possibility to remove the selected column.
          */
         "removableColumns"?: boolean;
+        /**
+          * Gives the possibility to resize columns by dragging on their right edge.
+         */
+        "resizableColumns"?: boolean;
         /**
           * Sets the actions of the rows.
          */

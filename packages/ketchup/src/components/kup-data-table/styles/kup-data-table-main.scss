@@ -165,7 +165,7 @@ table {
   width: 100%;
 }
 
-.kup-icon:not(.f-image--wrapper) {
+.#{$kup-icon}:not(.f-image--wrapper) {
   background-color: var(--kup-title-color);
   margin: 0 0.25em;
   height: 1.25em;
@@ -271,19 +271,36 @@ table {
 }
 
 thead {
-  th {
+  .header-cell {
     background-color: var(--kup-title-background-color);
-    color: var(--kup-title-color);
     border: var(--kup_datatable_th_border);
     border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
     border-bottom-width: 2px;
     box-sizing: border-box;
-    padding: 0.5em 0.3125em;
-    text-overflow: ellipsis;
     top: 0;
-    vertical-align: middle;
-    white-space: nowrap;
     transition: background-color 0.25s ease;
+
+    &__content {
+      color: var(--kup-title-color);
+      padding: 0.5em 0.3125em;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    &__drag-handler {
+      background: rgba(var(--kup-title-color-rgb), 0.25);
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 3px;
+      z-index: 1;
+
+      &:hover {
+        background: rgba(var(--kup-title-color-rgb), 0.5);
+      }
+    }
 
     // The first cell must have border left to simulate table border.
     &:first-of-type {
@@ -551,14 +568,14 @@ tbody td > * {
   border: none !important;
 }
 
-.kup-icon.overlay-action {
+.#{$kup-icon}.overlay-action {
   display: none;
   position: absolute;
   top: 0.5em;
   left: calc(50% - 0.625em);
 }
 
-th:hover .kup-icon.overlay-action {
+th:hover .#{$kup-icon}.overlay-action {
   display: block;
 }
 
@@ -636,12 +653,14 @@ th.obj:hover span:not(.overlay-action) {
 }
 
 [kup-dialog] {
+  animation: fade-in 0.25s ease-out;
   background-color: var(--kup_datatable_background_color);
   margin: 0;
   position: fixed;
   transition: none;
-  max-height: 95vh;
-  max-width: 95vw;
+  -ms-touch-action: none;
+  touch-action: none;
+  will-change: transform;
 
   &.kup-resizable {
     border: 3px outset var(--kup-title-background-color);

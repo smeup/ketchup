@@ -34,7 +34,6 @@ import {
 } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { layoutSpecificEvents } from './kup-card-helper';
 import { getProps, setProps } from '../../utils/utils';
@@ -329,9 +328,9 @@ export class KupCard {
             const unresizable: boolean = !!root.querySelector(
                 '.' + KupCardCSSClasses.DIALOG_UNRESIZABLE
             );
-            if (!this.kupManager.dialog.isRegistered(card as DialogElement)) {
+            if (!this.kupManager.dialog.isRegistered(card)) {
                 this.kupManager.dialog.register(
-                    card as DialogElement,
+                    card,
                     dragHandle ? dragHandle : null,
                     unresizable
                 );
@@ -547,7 +546,7 @@ export class KupCard {
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
+        this.kupManager.dialog.unregister([this.rootElement]);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }
