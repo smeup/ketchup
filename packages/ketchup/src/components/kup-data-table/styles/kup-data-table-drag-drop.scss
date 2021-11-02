@@ -1,17 +1,18 @@
 [columns-dragging] {
-  // When the drag is over a valid target
+  th {
+    cursor: grabbing !important;
+  }
+
   [drag-over] {
     background-color: rgba(var(--kup-success-color-rgb), 0.25);
 
-    // Mandatory to allow a correct drop effect when dragging
     > * {
       pointer-events: none;
     }
   }
 
-  // When the drag is over but it is the starting element
-  [drag-over][drag-starter] {
-    background-color: rgba(var(--kup-danger-color-rgb), 0.25);
+  [drag-starter] {
+    opacity: 0.5;
   }
 }
 

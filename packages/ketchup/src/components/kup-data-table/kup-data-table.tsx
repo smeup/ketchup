@@ -164,7 +164,11 @@ import {
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 import interact from 'interactjs';
-import type { PointerEvent } from '@interactjs/types/index';
+import type {
+    DropEvent,
+    InteractEvent,
+    PointerEvent,
+} from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 
 @Component({
@@ -850,7 +854,9 @@ export class KupDataTable {
     private rowsRefs: HTMLElement[] = [];
     private oldWidth: number = null;
     private hold: boolean = false;
-    private interactable: HTMLElement[] = [];
+    private interactableDragDrop: HTMLElement[] = [];
+    private interactableResize: HTMLElement[] = [];
+    private interactableTouch: HTMLElement[] = [];
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -1494,11 +1500,216 @@ export class KupDataTable {
         this.intObserver = new IntersectionObserver(callback, options);
     }
 
-    private didRenderObservers() {
-        if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
-            this.intObserver.observe(
-                this.rowsRefs[this.paginatedRowsLength - 1]
-            );
+    private didLoadInteractables() {
+        this.interactableTouch.push(this.tableRef);
+        interact(this.tableRef)
+            .on('tap', (e: PointerEvent) => {
+                if (this.hold) {
+                    this.hold = false;
+                    return;
+                }
+                switch (e.button) {
+                    // left click
+                    case 0:
+                        // Note: event must be cloned
+                        // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
+                        const clone: GenericObject = {};
+                        for (const key in e) {
+                            clone[key] = e[key];
+                        }
+                        this.clickTimeout.push(
+                            setTimeout(() => {
+                                this.kupDataTableClick.emit({
+                                    comp: this,
+                                    id: this.rootElement.id,
+                                    details: this.clickHandler(
+                                        clone as PointerEvent
+                                    ),
+                                });
+                            }, 300)
+                        );
+                        break;
+                    // right click
+                    case 2:
+                        this.kupDataTableContextMenu.emit({
+                            comp: this,
+                            id: this.rootElement.id,
+                            details: this.contextMenuHandler(e),
+                        });
+                        break;
+                }
+            })
+            .on('doubletap', (e: PointerEvent) => {
+                switch (e.button) {
+                    // left click
+                    case 0:
+                        for (
+                            let index = 0;
+                            index < this.clickTimeout.length;
+                            index++
+                        ) {
+                            clearTimeout(this.clickTimeout[index]);
+                            this.kupManager.debug.logMessage(
+                                this,
+                                'Cleared clickHandler timeout(' +
+                                    this.clickTimeout[index] +
+                                    ').'
+                            );
+                        }
+                        this.clickTimeout = [];
+                        this.kupDataTableDblClick.emit({
+                            comp: this,
+                            id: this.rootElement.id,
+                            details: this.dblClickHandler(e),
+                        });
+                        break;
+                }
+            })
+            .on('hold', (e: PointerEvent) => {
+                if (e.pointerType === 'pen' || e.pointerType === 'touch') {
+                    this.hold = true;
+                    this.kupDataTableContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.contextMenuHandler(e),
+                    });
+                }
+            });
+    }
+
+    private didRenderInteractables() {
+        if (this.enableSortableColumns) {
+            for (let index = 0; index < this.thRefs.length; index++) {
+                const th = this.thRefs[index];
+                if (!this.interactableDragDrop.includes(th)) {
+                    this.interactableDragDrop.push(th);
+                    const that = this;
+                    interact(th)
+                        .dropzone({
+                            allowFrom: '.header-cell',
+                            listeners: {
+                                drop(e: DropEvent) {
+                                    const sorted = getColumnByName(
+                                        that.getColumns(),
+                                        e.relatedTarget.dataset.column
+                                    );
+                                    const receiving = getColumnByName(
+                                        that.getColumns(),
+                                        e.target.dataset.column
+                                    );
+                                    that.handleColumnSort(receiving, sorted);
+                                    (e.target as HTMLElement).removeAttribute(
+                                        that.dragOverAttribute
+                                    );
+                                    (
+                                        e.target as HTMLElement
+                                    ).parentElement.removeAttribute(
+                                        that.dragFlagAttribute
+                                    );
+                                },
+                                enter(e: DropEvent) {
+                                    (e.target as HTMLElement).setAttribute(
+                                        that.dragOverAttribute,
+                                        ''
+                                    );
+                                },
+                                leave(e: DropEvent) {
+                                    (e.target as HTMLElement).removeAttribute(
+                                        that.dragOverAttribute
+                                    );
+                                },
+                            },
+                        })
+                        .draggable({
+                            cursorChecker() {
+                                return null;
+                            },
+                            ignoreFrom: '.header-cell__drag-handler',
+                            listeners: {
+                                start(e: InteractEvent) {
+                                    (e.target as HTMLElement).setAttribute(
+                                        that.dragStarterAttribute,
+                                        ''
+                                    );
+                                    (
+                                        e.target as HTMLElement
+                                    ).parentElement.setAttribute(
+                                        that.dragFlagAttribute,
+                                        ''
+                                    );
+                                    that.columnsAreBeingDragged = true;
+                                    that.hideShowColumnDropArea(
+                                        true,
+                                        e.target as HTMLElement
+                                    );
+                                },
+                                end(e: InteractEvent) {
+                                    (e.target as HTMLElement).removeAttribute(
+                                        that.dragStarterAttribute
+                                    );
+                                    (
+                                        e.target as HTMLElement
+                                    ).parentElement.removeAttribute(
+                                        that.dragFlagAttribute
+                                    );
+                                    that.columnsAreBeingDragged = false;
+                                    that.hideShowColumnDropArea(false);
+                                },
+                            },
+                        });
+                }
+            }
+        }
+        if (this.resizableColumns) {
+            for (let index = 0; index < this.thRefs.length; index++) {
+                const th = this.thRefs[index];
+                if (!this.interactableResize.includes(th)) {
+                    this.interactableResize.push(th);
+                    interact(th).resizable({
+                        allowFrom: '.header-cell__drag-handler',
+                        edges: {
+                            left: false,
+                            right: true,
+                            bottom: false,
+                            top: false,
+                        },
+                        listeners: {
+                            move(e: ResizeEvent) {
+                                const el = e.target as HTMLElement;
+                                el.style.maxWidth = e.rect.width + 'px';
+                                el.style.minWidth = e.rect.width + 'px';
+                                el.style.width = e.rect.width + 'px';
+                                const title = el.querySelector(
+                                    '.column-title'
+                                ) as HTMLElement;
+                                const thStyle = getComputedStyle(el);
+                                const thInnerWidth =
+                                    parseFloat(thStyle.width) -
+                                    (parseFloat(thStyle.paddingLeft) +
+                                        parseFloat(thStyle.paddingRight) +
+                                        parseFloat(thStyle.borderLeftWidth) +
+                                        parseFloat(thStyle.borderRightWidth));
+                                if (title && e.rect.width >= thInnerWidth) {
+                                    const parentStyle = getComputedStyle(
+                                        title.parentElement
+                                    );
+                                    title.parentElement.style.overflow =
+                                        'hidden';
+                                    const widthForEllipsis = `calc(${thInnerWidth}px - ${parentStyle.paddingLeft} - ${parentStyle.paddingRight})`;
+                                    title.style.maxWidth = widthForEllipsis;
+                                    title.style.minWidth = widthForEllipsis;
+                                    title.style.width = widthForEllipsis;
+                                }
+                            },
+                        },
+                        modifiers: [
+                            interact.modifiers.restrictSize({
+                                min: { width: 10, height: 10 },
+                            }),
+                        ],
+                    });
+                }
+            }
         }
     }
 
@@ -1510,6 +1721,14 @@ export class KupDataTable {
         ) {
             this.intObserver.observe(this.tableRef);
             this.intObserver.observe(this.theadRef);
+        }
+    }
+
+    private didRenderObservers() {
+        if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
+            this.intObserver.observe(
+                this.rowsRefs[this.paginatedRowsLength - 1]
+            );
         }
     }
 
@@ -1662,61 +1881,6 @@ export class KupDataTable {
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
             }
-            if (this.resizableColumns) {
-                for (let index = 0; index < this.thRefs.length; index++) {
-                    const th = this.thRefs[index];
-                    if (!this.interactable.includes(th)) {
-                        this.interactable.push(th);
-                        interact(th).resizable({
-                            allowFrom: '.header-cell__drag-handler',
-                            edges: {
-                                left: false,
-                                right: true,
-                                bottom: false,
-                                top: false,
-                            },
-                            listeners: {
-                                move(e: ResizeEvent) {
-                                    const el = e.target as HTMLElement;
-                                    el.style.maxWidth = e.rect.width + 'px';
-                                    el.style.minWidth = e.rect.width + 'px';
-                                    el.style.width = e.rect.width + 'px';
-                                    const title = el.querySelector(
-                                        '.column-title'
-                                    ) as HTMLElement;
-                                    const thStyle = getComputedStyle(el);
-                                    const thInnerWidth =
-                                        parseFloat(thStyle.width) -
-                                        (parseFloat(thStyle.paddingLeft) +
-                                            parseFloat(thStyle.paddingRight) +
-                                            parseFloat(
-                                                thStyle.borderLeftWidth
-                                            ) +
-                                            parseFloat(
-                                                thStyle.borderRightWidth
-                                            ));
-                                    if (title && e.rect.width >= thInnerWidth) {
-                                        const parentStyle = getComputedStyle(
-                                            title.parentElement
-                                        );
-                                        title.parentElement.style.overflow =
-                                            'hidden';
-                                        const widthForEllipsis = `calc(${thInnerWidth}px - ${parentStyle.paddingLeft} - ${parentStyle.paddingRight})`;
-                                        title.style.maxWidth = widthForEllipsis;
-                                        title.style.minWidth = widthForEllipsis;
-                                        title.style.width = widthForEllipsis;
-                                    }
-                                },
-                            },
-                            modifiers: [
-                                interact.modifiers.restrictSize({
-                                    min: { width: 10, height: 10 },
-                                }),
-                            ],
-                        });
-                    }
-                }
-            }
         }
         if (this.showCustomization) {
             this.customizePanelPosition();
@@ -1724,6 +1888,7 @@ export class KupDataTable {
         this.totalMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
+        this.didRenderInteractables();
         this.hideShowColumnDropArea(false);
         this.setDynPosElements();
 
@@ -1748,8 +1913,6 @@ export class KupDataTable {
     componentDidLoad() {
         this.didLoadObservers();
         this.didLoadEventHandling();
-
-        // automatic row selection
         if (this.selectRowsById) {
             this.setSelectedRows(this.selectRowsById);
         } else if (this.selectRow && this.selectRow > 0) {
@@ -1763,84 +1926,9 @@ export class KupDataTable {
                 });
             }
         }
-
         this.lazyLoadCells = true;
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);
-        this.interactable.push(this.tableRef);
-        interact(this.tableRef)
-            .on('tap', (e: PointerEvent) => {
-                if (this.hold) {
-                    this.hold = false;
-                    return;
-                }
-                switch (e.button) {
-                    // left click
-                    case 0:
-                        // Note: event must be cloned
-                        // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
-                        const clone: GenericObject = {};
-                        for (const key in e) {
-                            clone[key] = e[key];
-                        }
-                        this.clickTimeout.push(
-                            setTimeout(() => {
-                                this.kupDataTableClick.emit({
-                                    comp: this,
-                                    id: this.rootElement.id,
-                                    details: this.clickHandler(
-                                        clone as PointerEvent
-                                    ),
-                                });
-                            }, 300)
-                        );
-                        break;
-                    // right click
-                    case 2:
-                        this.kupDataTableContextMenu.emit({
-                            comp: this,
-                            id: this.rootElement.id,
-                            details: this.contextMenuHandler(e),
-                        });
-                        break;
-                }
-            })
-            .on('doubletap', (e: PointerEvent) => {
-                switch (e.button) {
-                    // left click
-                    case 0:
-                        for (
-                            let index = 0;
-                            index < this.clickTimeout.length;
-                            index++
-                        ) {
-                            clearTimeout(this.clickTimeout[index]);
-                            this.kupManager.debug.logMessage(
-                                this,
-                                'Cleared clickHandler timeout(' +
-                                    this.clickTimeout[index] +
-                                    ').'
-                            );
-                        }
-                        this.clickTimeout = [];
-                        this.kupDataTableDblClick.emit({
-                            comp: this,
-                            id: this.rootElement.id,
-                            details: this.dblClickHandler(e),
-                        });
-                        break;
-                }
-            })
-            .on('hold', (e: PointerEvent) => {
-                if (e.pointerType === 'pen' || e.pointerType === 'touch') {
-                    this.hold = true;
-                    this.kupDataTableContextMenu.emit({
-                        comp: this,
-                        id: this.rootElement.id,
-                        details: this.contextMenuHandler(e),
-                    });
-                }
-            });
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -3319,110 +3407,6 @@ export class KupDataTable {
                         }
                     }
                 }
-
-                // Reference for drag events and what they permit or not
-                // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
-                const dragHandlers: DragHandlers = {
-                    onDragStart: (e: DragEvent) => {
-                        // Sets the type of drag
-                        setDragEffectAllowed(e, 'move');
-                        const overElement = this.getThElement(
-                            e.target as HTMLElement
-                        );
-                        // Remember that the current target is different from the one print out in the console
-                        // Sets which element has started the drag
-                        overElement.setAttribute(this.dragStarterAttribute, '');
-                        this.theadRef.setAttribute(this.dragFlagAttribute, '');
-                        this.columnsAreBeingDragged = true;
-                        this.hideShowColumnDropArea(true, overElement);
-                        // TODO set drag payload and get it in the other methods when need it
-                        // setDragDropPayload
-                        // getDragDropPayload
-                        // replace the used flags set with attribute
-                    },
-                    onDragEnd: (e: DragEvent) => {
-                        // When the drag has ended, checks if the element still exists or it was destroyed by JSX
-                        const overElement = this.getThElement(
-                            e.target as HTMLElement
-                        );
-                        if (overElement) {
-                            // If it still exists, removes the attribute so that it can perform a new drag again
-                            overElement.removeAttribute(
-                                this.dragStarterAttribute
-                            );
-                        }
-                        // Remove the over attribute
-                        const dragDropPayload = getDragDropPayload();
-                        if (dragDropPayload && dragDropPayload.overElement) {
-                            dragDropPayload.overElement.removeAttribute(
-                                this.dragOverAttribute
-                            );
-                        }
-                        this.theadRef.removeAttribute(this.dragFlagAttribute);
-                        this.columnsAreBeingDragged = false;
-                        this.hideShowColumnDropArea(false);
-                    },
-                };
-                const dropHandlers: DropHandlers = {
-                    onDrop: (e: DragEvent) => {
-                        const transferredData = JSON.parse(
-                            e.dataTransfer.getData(KupDataTableColumnDragType)
-                        ) as Column;
-                        // We are sure the tables have been dropped in a valid location -> starts sorting the columns
-                        this.handleColumnSort(column, transferredData);
-
-                        return KupDataTableColumnDragType;
-                    },
-                    onDragLeave: (e: DragEvent) => {
-                        if (
-                            e.dataTransfer.types.indexOf(
-                                KupDataTableColumnDragType
-                            ) >= 0
-                        ) {
-                            const overElement = this.getThElement(
-                                e.target as HTMLElement
-                            );
-                            if (overElement && e.target === overElement) {
-                                overElement.removeAttribute(
-                                    this.dragOverAttribute
-                                );
-                            }
-                        }
-                    },
-                    onDragOver: (e: DragEvent) => {
-                        if (
-                            e.dataTransfer.types.indexOf(
-                                KupDataTableColumnDragType
-                            ) >= 0
-                        ) {
-                            const overElement = this.getThElement(
-                                e.target as HTMLElement
-                            );
-                            overElement.setAttribute(
-                                this.dragOverAttribute,
-                                ''
-                            );
-                            // TODO do it without using the element but with data like id, etc.
-                            setDragDropPayload({
-                                overElement,
-                            });
-                            // If element can have a drop effect
-                            if (
-                                !overElement.hasAttribute(
-                                    this.dragStarterAttribute
-                                ) &&
-                                this.columnsAreBeingDragged
-                            ) {
-                                setDragEffectAllowed(e, 'move');
-                                return true;
-                            } else {
-                                setDragEffectAllowed(e, 'none');
-                                return false;
-                            }
-                        }
-                    },
-                };
-
                 columnClass.number = this.kupManager.objects.isNumber(
                     column.obj
                 );
@@ -3434,30 +3418,8 @@ export class KupDataTable {
                         data-column={column.name}
                         class={columnClass}
                         style={thStyle}
-                        {...(this.enableSortableColumns
-                            ? setKetchupDroppable(
-                                  dropHandlers,
-                                  [KupDataTableColumnDragType],
-                                  this.rootElement,
-                                  {
-                                      column: column,
-                                      id: this.rootElement.id,
-                                  }
-                              )
-                            : {})}
                     >
-                        <div
-                            class="header-cell__content"
-                            {...(this.enableSortableColumns
-                                ? setKetchupDraggable(dragHandlers, {
-                                      [KupDataTableColumnDragType]: column,
-                                      'kup-drag-source-element': {
-                                          column: column,
-                                          id: this.rootElement.id,
-                                      },
-                                  })
-                                : {})}
-                        >
+                        <div class="header-cell__content">
                             <span class="column-title">
                                 {this.applyLineBreaks(column.title)}
                             </span>
@@ -6020,8 +5982,16 @@ export class KupDataTable {
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
         }
-        for (let index = 0; index < this.interactable.length; index++) {
-            const el = this.interactable[index];
+        for (let index = 0; index < this.interactableDragDrop.length; index++) {
+            const el = this.interactableDragDrop[index];
+            interact(el).unset();
+        }
+        for (let index = 0; index < this.interactableResize.length; index++) {
+            const el = this.interactableResize[index];
+            interact(el).unset();
+        }
+        for (let index = 0; index < this.interactableTouch.length; index++) {
+            const el = this.interactableTouch[index];
             interact(el).unset();
         }
         this.kupManager.resize.unobserve(this.rootElement);
