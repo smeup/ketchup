@@ -2195,7 +2195,9 @@ export class KupDataTable {
             textfield: HTMLElement = el.closest('.f-text-field--wrapper'),
             th = el.closest('th'),
             tr: HTMLTableRowElement = el.closest('tr'),
-            filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
+            filterRemove: HTMLSpanElement = el.closest(
+                `.${KupThemeIconValues.FILTER_REMOVE.replace('--', '')}`
+            );
         let cell: Cell = null,
             column: Column = null,
             isGroupRow: boolean = false,
