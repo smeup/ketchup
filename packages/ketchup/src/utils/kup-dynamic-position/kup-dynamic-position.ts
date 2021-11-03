@@ -71,9 +71,7 @@ export class KupDynamicPosition {
         blurCallback?: Function
     ): void {
         if (this.isRegistered(el)) {
-            if (this.anchorIsHTMLElement(anchorEl)) {
-                this.changeAnchor(el, anchorEl);
-            }
+            this.changeAnchor(el, anchorEl);
             return;
         }
         el.setAttribute(kupDynamicPositionAttribute, '');
@@ -119,9 +117,12 @@ export class KupDynamicPosition {
     /**
      * Changes the anchor point of the given element.
      * @param {KupDynamicPositionElement} elements - Dynamically positioned element previously registered.
-     * @param {HTMLElement} anchorEl - New anchor point.
+     * @param {KupDynamicPositionAnchor} anchorEl - New anchor point.
      */
-    changeAnchor(el: KupDynamicPositionElement, anchorEl: HTMLElement): void {
+    changeAnchor(
+        el: KupDynamicPositionElement,
+        anchorEl: KupDynamicPositionAnchor
+    ): void {
         el.kupDynamicPosition.anchor = anchorEl;
     }
     /**

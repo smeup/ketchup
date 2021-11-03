@@ -20,9 +20,7 @@ import {
     FixedCellsCSSVarsBase,
     GroupLabelDisplayMode,
     GroupObject,
-    KupDataTableColumnDragType,
     KupDataTableRowDragType,
-    KupDataTableColumnDragRemoveType,
     LoadMoreMode,
     PaginatorPos,
     Row,
@@ -33,7 +31,6 @@ import {
     TableData,
     TotalsMap,
     TotalMode,
-    totalMenuOpenID,
     TotalLabel,
     EventHandlerDetails,
     KupDataTableProps,
@@ -43,7 +40,6 @@ import {
     keyColumn,
     SelectionMode,
     KupCellInfo,
-    KupDataTableColumnDragGroupType,
     KupDatatableAutoRowSelectEventPayload,
     KupDatatableRowSelectedEventPayload,
     KupDatatableCellUpdateEventPayload,
@@ -110,8 +106,6 @@ import {
     setKetchupDraggable,
     setKetchupDroppable,
     DragHandlers,
-    DropHandlers,
-    setDragDropPayload,
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
@@ -675,12 +669,6 @@ export class KupDataTable {
     @State()
     private openedTotalMenu: string = null;
 
-    /**
-     * name of the column with the opened group menu
-     */
-    @State()
-    private openedGroupMenu: string = null;
-
     @State()
     private openedCustomSettings: boolean = false;
 
@@ -857,6 +845,8 @@ export class KupDataTable {
     private interactableDragDrop: HTMLElement[] = [];
     private interactableResize: HTMLElement[] = [];
     private interactableTouch: HTMLElement[] = [];
+    private removeDropareaRef: HTMLElement = null;
+    private groupsDropareaRef: HTMLElement = null;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -1578,15 +1568,89 @@ export class KupDataTable {
     }
 
     private didRenderInteractables() {
+        const that = this;
+        if (this.showGroups) {
+            if (!this.interactableDragDrop.includes(this.groupsDropareaRef)) {
+                this.interactableDragDrop.push(this.groupsDropareaRef);
+                interact(this.groupsDropareaRef).dropzone({
+                    accept: '.header-cell',
+                    listeners: {
+                        drop(e: DropEvent) {
+                            const draggedTh = e.relatedTarget as HTMLElement;
+                            const grouped = getColumnByName(
+                                that.getColumns(),
+                                draggedTh.dataset.column
+                            );
+                            (e.target as HTMLElement).removeAttribute(
+                                that.dragOverAttribute
+                            );
+                            (
+                                draggedTh as HTMLElement
+                            ).parentElement.removeAttribute(
+                                that.dragFlagAttribute
+                            );
+                            that.handleColumnGroup(grouped);
+                        },
+                        enter(e: DropEvent) {
+                            (e.target as HTMLElement).setAttribute(
+                                that.dragOverAttribute,
+                                ''
+                            );
+                        },
+                        leave(e: DropEvent) {
+                            (e.target as HTMLElement).removeAttribute(
+                                that.dragOverAttribute
+                            );
+                        },
+                    },
+                });
+            }
+        }
+        if (this.removableColumns) {
+            if (!this.interactableDragDrop.includes(this.removeDropareaRef)) {
+                this.interactableDragDrop.push(this.removeDropareaRef);
+                interact(this.removeDropareaRef).dropzone({
+                    accept: '.header-cell',
+                    listeners: {
+                        drop(e: DropEvent) {
+                            const draggedTh = e.relatedTarget as HTMLElement;
+                            const deleted = getColumnByName(
+                                that.getColumns(),
+                                draggedTh.dataset.column
+                            );
+                            (e.target as HTMLElement).removeAttribute(
+                                that.dragOverAttribute
+                            );
+                            (
+                                draggedTh as HTMLElement
+                            ).parentElement.removeAttribute(
+                                that.dragFlagAttribute
+                            );
+                            that.handleColumnRemove(deleted);
+                        },
+                        enter(e: DropEvent) {
+                            (e.target as HTMLElement).setAttribute(
+                                that.dragOverAttribute,
+                                ''
+                            );
+                        },
+                        leave(e: DropEvent) {
+                            (e.target as HTMLElement).removeAttribute(
+                                that.dragOverAttribute
+                            );
+                        },
+                    },
+                });
+            }
+        }
         if (this.enableSortableColumns) {
             for (let index = 0; index < this.thRefs.length; index++) {
                 const th = this.thRefs[index];
-                if (!this.interactableDragDrop.includes(th)) {
+                if (th && !this.interactableDragDrop.includes(th)) {
                     this.interactableDragDrop.push(th);
-                    const that = this;
                     interact(th)
                         .dropzone({
-                            allowFrom: '.header-cell',
+                            accept: '.header-cell',
                             listeners: {
                                 drop(e: DropEvent) {
                                     const sorted = getColumnByName(
@@ -1638,10 +1702,7 @@ export class KupDataTable {
                                         ''
                                     );
                                     that.columnsAreBeingDragged = true;
-                                    that.hideShowColumnDropArea(
-                                        true,
-                                        e.target as HTMLElement
-                                    );
+                                    that.hideShowColumnDropArea(true);
                                 },
                                 end(e: InteractEvent) {
                                     (e.target as HTMLElement).removeAttribute(
@@ -1663,7 +1724,7 @@ export class KupDataTable {
         if (this.resizableColumns) {
             for (let index = 0; index < this.thRefs.length; index++) {
                 const th = this.thRefs[index];
-                if (!this.interactableResize.includes(th)) {
+                if (th && !this.interactableResize.includes(th)) {
                     this.interactableResize.push(th);
                     interact(th).resizable({
                         allowFrom: '.header-cell__drag-handler',
@@ -1913,6 +1974,7 @@ export class KupDataTable {
     componentDidLoad() {
         this.didLoadObservers();
         this.didLoadEventHandling();
+        this.didLoadInteractables();
         if (this.selectRowsById) {
             this.setSelectedRows(this.selectRowsById);
         } else if (this.selectRow && this.selectRow > 0) {
@@ -5109,49 +5171,10 @@ export class KupDataTable {
     }
 
     private columnRemoveArea(): HTMLDivElement {
-        const dropHandlersRemoveCols: DropHandlers = {
-            onDrop: (e: DragEvent) => {
-                const transferredData = JSON.parse(
-                    e.dataTransfer.getData(KupDataTableColumnDragType)
-                ) as Column;
-                const overElement = this.getElementById(
-                    e.target as HTMLElement,
-                    'remove-column-area'
-                );
-                overElement.removeAttribute(this.dragOverAttribute);
-                // We are sure the tables have been dropped in a valid location -> starts ...
-                this.handleColumnRemove(transferredData);
-                return KupDataTableColumnDragRemoveType;
-            },
-            onDragOver: (e: DragEvent) => {
-                const overElement = this.getElementById(
-                    e.target as HTMLElement,
-                    'remove-column-area'
-                );
-                overElement.setAttribute(this.dragOverAttribute, '');
-                return true;
-            },
-            onDragLeave: (e: DragEvent) => {
-                const overElement = this.getElementById(
-                    e.target as HTMLElement,
-                    'remove-column-area'
-                );
-                overElement.removeAttribute(this.dragOverAttribute);
-                return true;
-            },
-        };
         return (
             <div
                 id="remove-column-area"
-                {...setKetchupDroppable(
-                    dropHandlersRemoveCols,
-                    [
-                        KupDataTableColumnDragType,
-                        KupDataTableColumnDragRemoveType,
-                    ],
-                    this.rootElement,
-                    {}
-                )}
+                ref={(el) => (this.removeDropareaRef = el)}
             >
                 <FImage
                     resource="delete"
@@ -5170,49 +5193,10 @@ export class KupDataTable {
     }
 
     private columnGroupArea(): HTMLDivElement {
-        const dropHandlersGroupCols: DropHandlers = {
-            onDrop: (e: DragEvent) => {
-                const transferredData = JSON.parse(
-                    e.dataTransfer.getData(KupDataTableColumnDragType)
-                ) as Column;
-                const overElement = this.getElementById(
-                    e.target as HTMLElement,
-                    'group-column-area'
-                );
-                overElement.removeAttribute(this.dragOverAttribute);
-                // We are sure the tables have been dropped in a valid location -> starts ...
-                this.handleColumnGroup(transferredData);
-                return KupDataTableColumnDragGroupType;
-            },
-            onDragOver: (e: DragEvent) => {
-                const overElement = this.getElementById(
-                    e.target as HTMLElement,
-                    'group-column-area'
-                );
-                overElement.setAttribute(this.dragOverAttribute, '');
-                return true;
-            },
-            onDragLeave: (e: DragEvent) => {
-                const overElement = this.getElementById(
-                    e.target as HTMLElement,
-                    'group-column-area'
-                );
-                overElement.removeAttribute(this.dragOverAttribute);
-                return true;
-            },
-        };
         return (
             <div
                 id="group-column-area"
-                {...setKetchupDroppable(
-                    dropHandlersGroupCols,
-                    [
-                        KupDataTableColumnDragType,
-                        KupDataTableColumnDragGroupType,
-                    ],
-                    this.rootElement,
-                    {}
-                )}
+                ref={(el) => (this.groupsDropareaRef = el)}
             >
                 <FImage
                     resource="bookmark"
@@ -5230,40 +5214,6 @@ export class KupDataTable {
         );
     }
 
-    private startDynamicPositioning(
-        dropArea: KupDynamicPositionElement,
-        th: HTMLElement
-    ) {
-        if (this.kupManager.dynamicPosition.isRegistered(dropArea)) {
-            this.kupManager.dynamicPosition.changeAnchor(
-                dropArea as KupDynamicPositionElement,
-                th
-            );
-        } else {
-            this.kupManager.dynamicPosition.register(
-                dropArea as KupDynamicPositionElement,
-                th,
-                10,
-                KupDynamicPositionPlacement.TOP
-            );
-        }
-
-        this.kupManager.dynamicPosition.start(
-            dropArea as KupDynamicPositionElement
-        );
-        dropArea.classList.add('visible');
-    }
-
-    private stopDynamicPositioning(dropArea: KupDynamicPositionElement) {
-        dropArea.classList.remove('visible');
-        this.kupManager.dynamicPosition.stop(
-            dropArea as KupDynamicPositionElement
-        );
-        // Chrome workaround: dropArea is draggable even with the display:none rule
-        dropArea.style.top = '-50px';
-        dropArea.style.left = '-50px';
-    }
-
     private getElementById(target: HTMLElement, id: string): HTMLElement {
         let element: HTMLElement = target as HTMLElement;
         if (element) {
@@ -5277,60 +5227,30 @@ export class KupDataTable {
         return element;
     }
 
-    private getThElement(target: HTMLElement): HTMLElement {
-        let element: HTMLElement = target as HTMLElement;
-        if (element) {
-            if (element.nodeType == Node.TEXT_NODE) {
-                element = element.parentNode as HTMLElement;
-            }
-            if (element.tagName !== 'TH') {
-                element = element.closest('th');
-            }
-        }
-        return element;
+    private hideShowColumnDropArea(show: boolean) {
+        this.hideShowColumnRemoveDropArea(show);
+        this.hideShowColumnGroupDropArea(show);
     }
 
-    private hideShowColumnDropArea(show: boolean, th?: HTMLElement) {
-        this.hideShowColumnRemoveDropArea(show, th);
-        this.hideShowColumnGroupDropArea(show, th);
-    }
-
-    private hideShowColumnRemoveDropArea(show: boolean, th?: HTMLElement) {
+    private hideShowColumnRemoveDropArea(show: boolean) {
         if (!this.removableColumns) {
             return;
         }
-        const dropArea: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '#remove-column-area'
-        );
         if (show) {
-            const offset: string = this.showGroups ? '0px' : '25px';
-            dropArea.style.marginLeft =
-                'calc(' + th.clientWidth / 2 + 'px - ' + offset + ')';
-            this.startDynamicPositioning(
-                dropArea as KupDynamicPositionElement,
-                th
-            );
+            this.removeDropareaRef.classList.add('visible');
         } else {
-            this.stopDynamicPositioning(dropArea as KupDynamicPositionElement);
+            this.removeDropareaRef.classList.remove('visible');
         }
     }
 
-    private hideShowColumnGroupDropArea(show: boolean, th?: HTMLElement) {
+    private hideShowColumnGroupDropArea(show: boolean) {
         if (!this.showGroups) {
             return;
         }
-        const dropArea: HTMLElement =
-            this.rootElement.shadowRoot.querySelector('#group-column-area');
         if (show) {
-            const offset: string = this.removableColumns ? '51px' : '25px';
-            dropArea.style.marginLeft =
-                'calc(' + th.clientWidth / 2 + 'px - ' + offset + ')';
-            this.startDynamicPositioning(
-                dropArea as KupDynamicPositionElement,
-                th
-            );
+            this.groupsDropareaRef.classList.add('visible');
         } else {
-            this.stopDynamicPositioning(dropArea as KupDynamicPositionElement);
+            this.groupsDropareaRef.classList.remove('visible');
         }
     }
 
@@ -5898,6 +5818,10 @@ export class KupDataTable {
                         {paginatorTop}
                     </div>
                     <div class="group-wrapper">{groupChips}</div>
+                    <div class="droparea-wrapper">
+                        {this.showGroups ? this.columnGroupArea() : null}
+                        {this.removableColumns ? this.columnRemoveArea() : null}
+                    </div>
                     <div
                         style={elStyle}
                         class={belowClass}
@@ -5957,8 +5881,6 @@ export class KupDataTable {
                     {tooltip}
                     {paginatorBottom}
                 </div>
-                {this.showGroups ? this.columnGroupArea() : null}
-                {this.removableColumns ? this.columnRemoveArea() : null}
             </Host>
         );
         return compCreated;
