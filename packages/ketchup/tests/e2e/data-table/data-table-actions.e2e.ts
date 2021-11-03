@@ -87,7 +87,7 @@ describe('renders actions', () => {
         expect(headerCells[0].innerHTML).toBe('');
 
         for (let i = 1; i < headerCells.length; i++) {
-            const title = await headerCells[i].find('.column-title');
+            const title = await headerCells[i].find('.header-cell__title');
 
             expect(title).toEqualText(`Column ${i - 1}`);
         }
@@ -162,7 +162,7 @@ describe('renders actions', () => {
         expect(headerCells[0].innerHTML).toBe('');
 
         for (let i = 1; i < headerCells.length; i++) {
-            const title = await headerCells[i].find('.column-title');
+            const title = await headerCells[i].find('.header-cell__title');
 
             expect(title).toEqualText(`Column ${i - 1}`);
         }

@@ -1740,27 +1740,6 @@ export class KupDataTable {
                                 el.style.maxWidth = e.rect.width + 'px';
                                 el.style.minWidth = e.rect.width + 'px';
                                 el.style.width = e.rect.width + 'px';
-                                const title = el.querySelector(
-                                    '.column-title'
-                                ) as HTMLElement;
-                                const thStyle = getComputedStyle(el);
-                                const thInnerWidth =
-                                    parseFloat(thStyle.width) -
-                                    (parseFloat(thStyle.paddingLeft) +
-                                        parseFloat(thStyle.paddingRight) +
-                                        parseFloat(thStyle.borderLeftWidth) +
-                                        parseFloat(thStyle.borderRightWidth));
-                                if (title && e.rect.width >= thInnerWidth) {
-                                    const parentStyle = getComputedStyle(
-                                        title.parentElement
-                                    );
-                                    title.parentElement.style.overflow =
-                                        'hidden';
-                                    const widthForEllipsis = `calc(${thInnerWidth}px - ${parentStyle.paddingLeft} - ${parentStyle.paddingRight})`;
-                                    title.style.maxWidth = widthForEllipsis;
-                                    title.style.minWidth = widthForEllipsis;
-                                    title.style.width = widthForEllipsis;
-                                }
                             },
                         },
                         modifiers: [
@@ -3264,15 +3243,15 @@ export class KupDataTable {
             this.kupManager.objects.isRadio(column.obj) ||
             this.kupManager.objects.isVoCodver(column.obj)
         ) {
-            columnClass.centered = true;
+            columnClass['header-cell--centered'] = true;
         }
 
         if (this.kupManager.objects.isNumber(column.obj)) {
-            columnClass.number = true;
+            columnClass['header-cell--is-number'] = true;
         }
 
         if (this.kupManager.objects.isIcon(column.obj)) {
-            columnClass.icon = true;
+            columnClass['header-cell--is-icon'] = true;
         }
         // For fixed cells styles and classes
         const fixedCellStyle = this.composeFixedCellStyleAndClass(
@@ -3378,7 +3357,6 @@ export class KupDataTable {
         // Renders normal cells
         const dataColumns = this.getVisibleColumns().map(
             (column, columnIndex) => {
-                // Composes column cell style and classes
                 const { columnClass, thStyle } =
                     this.composeHeaderCellClassAndStyle(
                         columnIndex,
@@ -3386,9 +3364,6 @@ export class KupDataTable {
                         column
                     );
 
-                const overlay = null;
-
-                //---- Filter ----
                 let filter = null;
 
                 if (
@@ -3401,11 +3376,6 @@ export class KupDataTable {
                         this.kupManager.language.translate(
                             KupLanguageGeneric.REMOVE_FILTERS
                         ) + `: '${this.getFilterValueForTooltip(column)}'`;
-                    /**
-                     * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
-                     * Upon click, the filter gets removed.
-                     * The payload event is simulated here.
-                     */
                     filter = (
                         <span
                             title={svgLabel}
@@ -3417,12 +3387,7 @@ export class KupDataTable {
                     );
                 }
 
-                //---- Sort ----
                 let sortIcon = null;
-
-                // When sorting is enabled, there are two things to do:
-                // 1 - Add correct icon to the table
-                // 2 - stores the handler to be later set onto the whole cell
 
                 let iconClass = this.getSortIcon(column.name);
                 if (iconClass !== '') {
@@ -3433,8 +3398,6 @@ export class KupDataTable {
                         ></span>
                     );
                 }
-
-                // Adds the sortable class to the header cell
                 columnClass['header-cell--sortable'] = true;
 
                 let keyIcon: HTMLSpanElement = null;
@@ -3469,9 +3432,6 @@ export class KupDataTable {
                         }
                     }
                 }
-                columnClass.number = this.kupManager.objects.isNumber(
-                    column.obj
-                );
 
                 return (
                     <th
@@ -3482,13 +3442,14 @@ export class KupDataTable {
                         style={thStyle}
                     >
                         <div class="header-cell__content">
-                            <span class="column-title">
+                            <span class="header-cell__title">
                                 {this.applyLineBreaks(column.title)}
                             </span>
-                            {overlay}
-                            {keyIcon}
-                            {sortIcon}
-                            {filter}
+                            <span class="header-cell__icons">
+                                {keyIcon}
+                                {sortIcon}
+                                {filter}
+                            </span>
                         </div>
                         {this.resizableColumns ? (
                             <span class="header-cell__drag-handler"></span>
@@ -3590,16 +3551,17 @@ export class KupDataTable {
 
                 return (
                     <th-sticky class={columnClass} style={thStyle}>
-                        <span class="column-title">
-                            {this.applyLineBreaks(column.title)}
-                        </span>
+                        <div class="header-cell__content">
+                            <span class="header-cell__title">
+                                {this.applyLineBreaks(column.title)}
+                            </span>
+                        </div>
                     </th-sticky>
                 );
             }
         );
 
         return [multiSelectColumn, actionsColumn, ...dataColumns];
-        //return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     renderTooltip() {

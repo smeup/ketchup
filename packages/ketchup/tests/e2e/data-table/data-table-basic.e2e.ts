@@ -32,7 +32,9 @@ describe('kup-data-table', () => {
         );
         expect(headerRows).toHaveLength(1);
 
-        const headerCells = await headerRows[0].findAll('th .column-title');
+        const headerCells = await headerRows[0].findAll(
+            'th .header-cell__title'
+        );
         expect(headerCells).toHaveLength(1);
         expect(headerCells[0]).toEqualText('');
 
@@ -77,7 +79,9 @@ describe('kup-data-table', () => {
         );
         expect(headerRows).toHaveLength(1);
 
-        const headerCells = await headerRows[0].findAll('th .column-title');
+        const headerCells = await headerRows[0].findAll(
+            'th .header-cell__title'
+        );
         expect(headerCells).toHaveLength(staticData.columns.length);
         for (let i = 0; i < headerCells.length; i++) {
             expect(headerCells[i]).toEqualText(staticData.columns[i].title);
@@ -120,7 +124,9 @@ describe('kup-data-table', () => {
         );
         expect(headerRows).toHaveLength(1);
 
-        const headerCells = await headerRows[0].findAll('th .column-title');
+        const headerCells = await headerRows[0].findAll(
+            'th .header-cell__title'
+        );
         expect(headerCells).toHaveLength(1);
         expect(headerCells[0]).toEqualText(hiddenColumns.columns[1].title);
 
@@ -261,7 +267,7 @@ describe('kup-data-table', () => {
                     const tableHeaderCellTitle = await page.find(
                         `kup-data-table >>> ${selector}:nth-of-type(${
                             columnsWithLineBreaks[i].colIndex + 1
-                        }) .column-title`
+                        }) .header-cell__title`
                     );
                     let textNodes = 0;
                     let breakNodes = 0;
