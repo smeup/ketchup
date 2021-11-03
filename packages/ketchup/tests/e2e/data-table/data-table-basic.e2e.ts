@@ -272,7 +272,6 @@ describe('kup-data-table', () => {
                     let textNodes = 0;
                     let breakNodes = 0;
 
-                    // console.log(tableHeaderCellTitle);
                     for (let node of tableHeaderCellTitle.childNodes) {
                         // For node types
                         // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
