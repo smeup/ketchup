@@ -16,13 +16,16 @@
   }
 }
 
-.droparea-wrapper {
+.droparea {
   display: flex;
   justify-content: center;
+  position: absolute;
+  top: -10px;
   width: 100%;
+  z-index: 1;
 
-  > div {
-    animation: fade-in 0.25s ease-out;
+  &__groups,
+  &__remove {
     background: var(--kup_datatable_background_color);
     border: 2px dashed var(--kup-danger-color);
     box-shadow: var(--kup-box-shadow);
@@ -34,7 +37,7 @@
     transition: opacity 0.25s;
     width: 50px;
 
-    &.visible {
+    &--visible {
       display: block;
     }
 

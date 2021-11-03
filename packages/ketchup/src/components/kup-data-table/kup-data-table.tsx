@@ -5173,7 +5173,7 @@ export class KupDataTable {
     private columnRemoveArea(): HTMLDivElement {
         return (
             <div
-                id="remove-column-area"
+                class="droparea__remove"
                 ref={(el) => (this.removeDropareaRef = el)}
             >
                 <FImage
@@ -5195,7 +5195,7 @@ export class KupDataTable {
     private columnGroupArea(): HTMLDivElement {
         return (
             <div
-                id="group-column-area"
+                class="droparea__groups"
                 ref={(el) => (this.groupsDropareaRef = el)}
             >
                 <FImage
@@ -5214,43 +5214,28 @@ export class KupDataTable {
         );
     }
 
-    private getElementById(target: HTMLElement, id: string): HTMLElement {
-        let element: HTMLElement = target as HTMLElement;
-        if (element) {
-            if (element.nodeType == Node.TEXT_NODE) {
-                element = element.parentNode as HTMLElement;
-            }
-            if (element.id !== id) {
-                element = element.closest('#' + id);
-            }
-        }
-        return element;
-    }
-
     private hideShowColumnDropArea(show: boolean) {
-        this.hideShowColumnRemoveDropArea(show);
-        this.hideShowColumnGroupDropArea(show);
-    }
-
-    private hideShowColumnRemoveDropArea(show: boolean) {
-        if (!this.removableColumns) {
-            return;
+        if (this.removableColumns) {
+            if (show) {
+                this.removeDropareaRef.classList.add(
+                    'droparea__remove--visible'
+                );
+            } else {
+                this.removeDropareaRef.classList.remove(
+                    'droparea__remove--visible'
+                );
+            }
         }
-        if (show) {
-            this.removeDropareaRef.classList.add('visible');
-        } else {
-            this.removeDropareaRef.classList.remove('visible');
-        }
-    }
-
-    private hideShowColumnGroupDropArea(show: boolean) {
-        if (!this.showGroups) {
-            return;
-        }
-        if (show) {
-            this.groupsDropareaRef.classList.add('visible');
-        } else {
-            this.groupsDropareaRef.classList.remove('visible');
+        if (this.showGroups) {
+            if (show) {
+                this.groupsDropareaRef.classList.add(
+                    'droparea__groups--visible'
+                );
+            } else {
+                this.groupsDropareaRef.classList.remove(
+                    'droparea__groups--visible'
+                );
+            }
         }
     }
 
@@ -5425,13 +5410,6 @@ export class KupDataTable {
         'reorder-horizontal',
         'view-sequential',
     ];
-    private getDensityDecodeFromCode(code: string): string {
-        return this.transcodeItem(
-            code,
-            this.DENSITY_CODES,
-            this.DENSITY_DECODES
-        );
-    }
 
     private getDensityCodeFromDecode(decode: string): string {
         return this.transcodeItem(
@@ -5818,7 +5796,7 @@ export class KupDataTable {
                         {paginatorTop}
                     </div>
                     <div class="group-wrapper">{groupChips}</div>
-                    <div class="droparea-wrapper">
+                    <div class="droparea">
                         {this.showGroups ? this.columnGroupArea() : null}
                         {this.removableColumns ? this.columnRemoveArea() : null}
                     </div>
