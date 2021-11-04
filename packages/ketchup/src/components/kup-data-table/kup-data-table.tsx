@@ -1736,10 +1736,12 @@ export class KupDataTable {
                         },
                         listeners: {
                             move(e: ResizeEvent) {
-                                const el = e.target as HTMLElement;
-                                el.style.maxWidth = e.rect.width + 'px';
-                                el.style.minWidth = e.rect.width + 'px';
-                                el.style.width = e.rect.width + 'px';
+                                const column = getColumnByName(
+                                    that.getVisibleColumns(),
+                                    (e.target as HTMLElement).dataset.column
+                                );
+                                column.size = e.rect.width + "px";
+                                that.refresh();
                             },
                         },
                         modifiers: [
