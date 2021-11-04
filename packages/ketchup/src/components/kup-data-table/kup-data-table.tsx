@@ -115,6 +115,7 @@ import { FChip } from '../../f-components/f-chip/f-chip';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import {
     FChipData,
+    FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
@@ -5681,14 +5682,14 @@ export class KupDataTable {
                 }
             });
             if (chipsData.length > 0) {
-                const props = {
+                const props: FChipsProps = {
                     data: chipsData,
                     id: 'group-chips',
                     type: FChipType.INPUT,
-                    onClick: [],
+                    onIconClick: [],
                 };
                 for (let i = 0; i < chipsData.length; i++) {
-                    props.onClick.push(() => this.removeGroup(i));
+                    props.onIconClick.push(() => this.removeGroup(i));
                 }
                 groupChips = <FChip {...props}></FChip>;
             }
