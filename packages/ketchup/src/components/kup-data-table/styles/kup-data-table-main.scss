@@ -180,7 +180,7 @@ table {
   &.#{$kup-icon-descending},
   &.#{$kup-icon-key},
   &.#{$kup-icon-filter-remove} {
-    float: right;
+    height: auto;
   }
 
   &.#{$kup-icon-collapsed},
@@ -275,81 +275,71 @@ table {
   }
 }
 
-thead {
-  th {
-    background-color: var(--kup-title-background-color);
-    border: var(--kup_datatable_th_border);
-    border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
-    border-bottom-width: 2px;
-    box-sizing: border-box;
+th {
+  background-color: var(--kup-title-background-color);
+  border: var(--kup_datatable_th_border);
+  border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
+  border-bottom-width: 2px;
+  box-sizing: border-box;
+  top: 0;
+  touch-action: none;
+  transition: background-color 0.25s ease;
+  user-select: none;
+  // The first cell must have border left to simulate table border.
+  &:first-of-type {
+    border-left: var(--kup_datatable_th_border);
+  }
+}
+
+.header-cell {
+  &__content {
+    color: var(--kup-title-color);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 0.3125em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .header-cell--centered & {
+      justify-content: center;
+    }
+
+    .header-cell--is-number & {
+      justify-content: flex-end;
+    }
+  }
+
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__icons {
+    display: flex;
+  }
+
+  &__drag-handler {
+    background: rgba(var(--kup-title-color-rgb), 0.25);
+    height: 100%;
+    position: absolute;
+    right: 0;
     top: 0;
-    transition: background-color 0.25s ease;
+    touch-action: none;
     user-select: none;
+    width: var(--kup_datatable_th_resize_handle_width);
+    z-index: 1;
 
-    .header-cell__content {
-      color: var(--kup-title-color);
-      padding: 0.5em 0.3125em;
-      text-overflow: ellipsis;
-      vertical-align: middle;
-      white-space: nowrap;
+    &:hover {
+      background: rgba(var(--kup-title-color-rgb), 0.5);
     }
+  }
 
-    .header-cell__drag-handler {
-      background: rgba(var(--kup-title-color-rgb), 0.25);
-      height: 100%;
-      position: absolute;
-      right: 0;
-      top: 0;
-      touch-action: none;
-      user-select: none;
-      width: var(--kup_datatable_th_resize_handle_width);
-      z-index: 1;
+  &--sortable {
+    cursor: pointer;
+  }
 
-      &:hover {
-        background: rgba(var(--kup-title-color-rgb), 0.5);
-      }
-    }
-
-    // The first cell must have border left to simulate table border.
-    &:first-of-type {
-      border-left: var(--kup_datatable_th_border);
-    }
-
-    //---- Column name container ----
-    $column-sort-margin: 0.5em;
-
-    .column-title {
-      display: inline-block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      vertical-align: bottom;
-    }
-
-    &.icon {
-      width: 30px;
-    }
-
-    &.number {
-      text-align: right;
-    }
-
-    &.centered {
-      text-align: center;
-    }
-
-    //---- Sort and remove-filter icons ----
-    // Base for an header cell
-    &.header-cell {
-      // When column is sortable
-      &--sortable {
-        cursor: pointer;
-      }
-    }
-
-    .column-sort {
-      float: left;
-      margin: 0 $column-sort-margin;
-    }
+  &--is-icon {
+    width: 30px;
   }
 }
 
@@ -419,6 +409,7 @@ tbody {
 
     > td {
       box-sizing: border-box;
+      overflow: hidden;
       padding: 0.5em 0.3125em;
       word-break: break-all;
       word-wrap: break-word;

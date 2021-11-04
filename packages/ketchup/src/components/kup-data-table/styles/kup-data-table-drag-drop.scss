@@ -1,85 +1,66 @@
 [columns-dragging] {
-  // When the drag is over a valid target
   [drag-over] {
     background-color: rgba(var(--kup-success-color-rgb), 0.25);
-
-    // Mandatory to allow a correct drop effect when dragging
-    > * {
-      pointer-events: none;
-    }
   }
 
-  // When the drag is over but it is the starting element
-  [drag-over][drag-starter] {
-    background-color: rgba(var(--kup-danger-color-rgb), 0.25);
+  [drag-starter] {
+    cursor: grabbing !important;
+    opacity: 0.5;
   }
 }
 
-#group-column-area {
+.droparea {
+  animation: fade-in 0.25s ease-out;
   background: var(--kup_datatable_background_color);
-  border: 2px dashed var(--kup-danger-color);
+  border-radius: 8px;
   box-shadow: var(--kup-box-shadow);
   display: none;
-  height: 50px;
-  opacity: 0.5;
-  width: 50px;
-  transition: opacity 0.25s;
-  &.visible {
-    display: block;
-  }
-  .f-image--wrapper {
-    width: 100%;
-    position: absolute;
-    &:first-of-type {
-      opacity: 1;
-    }
-    &:last-of-type {
-      opacity: 0;
-    }
-  }
-  &[drag-over] {
-    opacity: 1;
-    .f-image--wrapper {
-      &:first-of-type {
-        opacity: 0;
-      }
-      &:last-of-type {
-        opacity: 1;
-      }
-    }
-  }
-}
+  padding: 1em 0.5em;
 
-#remove-column-area {
-  background: var(--kup_datatable_background_color);
-  border: 2px dashed var(--kup-danger-color);
-  box-shadow: var(--kup-box-shadow);
-  display: none;
-  height: 50px;
-  opacity: 0.5;
-  width: 50px;
-  transition: opacity 0.25s;
-  &.visible {
+  &--visible {
+    display: flex;
+  }
+
+  &__groups {
+    border: 2px dashed var(--kup-text-color);
+  }
+
+  &__remove {
+    border: 2px dashed var(--kup-danger-color);
+  }
+
+  &__groups,
+  &__remove {
+    background: var(--kup_datatable_background_color);
+    box-shadow: var(--kup-box-shadow);
     display: block;
-  }
-  .f-image--wrapper {
-    width: 100%;
-    position: absolute;
-    &:first-of-type {
-      opacity: 1;
-    }
-    &:last-of-type {
-      opacity: 0;
-    }
-  }
-  &[drag-over] {
-    opacity: 1;
+    height: 50px;
+    margin: 0 0.5em;
+    opacity: 0.5;
+    position: relative;
+    transition: opacity 0.25s;
+    width: 50px;
+
     .f-image--wrapper {
+      width: 100%;
+      position: absolute;
       &:first-of-type {
-        opacity: 0;
+        opacity: 1;
       }
       &:last-of-type {
-        opacity: 1;
+        opacity: 0;
+      }
+    }
+
+    &[drag-over] {
+      opacity: 1;
+      .f-image--wrapper {
+        &:first-of-type {
+          opacity: 0;
+        }
+        &:last-of-type {
+          opacity: 1;
+        }
       }
     }
   }

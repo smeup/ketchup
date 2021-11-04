@@ -2,9 +2,10 @@
 /*                    D e b u g                    */
 /*-------------------------------------------------*/
 #kup-debug-widget {
+    left: 0;
     position: fixed;
     top: 0;
-    left: 0;
+    z-index: calc(var(--kup-navbar-zindex) + 1) !important;
 }
 /*-------------------------------------------------*/
 /*                   D i a l o g                   */

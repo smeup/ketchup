@@ -33,28 +33,11 @@ sticky-header {
     th-sticky {
       box-sizing: border-box;
       display: inline-flex;
-      padding: 0.5em 0.3125em;
+      padding: 0 0.3125em;
 
-      &.icon {
-        width: 30px;
+      .header-cell__content {
+        width: 100%;
       }
-
-      &.number {
-        text-align: right;
-      }
-
-      &.centered {
-        text-align: center;
-      }
-    }
-
-    .column-title {
-      width: 100%;
-      font-weight: bold;
-      margin: auto;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
 }
