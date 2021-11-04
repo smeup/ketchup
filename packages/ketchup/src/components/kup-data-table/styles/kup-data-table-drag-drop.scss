@@ -10,21 +10,15 @@
 }
 
 .droparea {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  z-index: 1;
+  animation: fade-in 0.25s ease-out;
+  background: var(--kup_datatable_background_color);
+  border-radius: 8px;
+  box-shadow: var(--kup-box-shadow);
+  display: none;
+  padding: 1em 0.5em;
 
   &--visible {
-    .droparea__container {
-      background: var(--kup_datatable_background_color);
-      box-shadow: var(--kup-box-shadow);
-      border-radius: 8px;
-      display: flex;
-      padding: 1em 0.5em;
-    }
+    display: flex;
   }
 
   &__groups {
@@ -39,17 +33,13 @@
   &__remove {
     background: var(--kup_datatable_background_color);
     box-shadow: var(--kup-box-shadow);
-    display: none;
+    display: block;
     height: 50px;
     margin: 0 0.5em;
     opacity: 0.5;
     position: relative;
     transition: opacity 0.25s;
     width: 50px;
-
-    &--visible {
-      display: block;
-    }
 
     .f-image--wrapper {
       width: 100%;

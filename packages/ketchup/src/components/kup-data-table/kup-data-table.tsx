@@ -1492,6 +1492,7 @@ export class KupDataTable {
     }
 
     private didLoadInteractables() {
+        interact.dynamicDrop(true);
         this.interactableTouch.push(this.tableRef);
         interact(this.tableRef)
             .on('tap', (e: PointerEvent) => {
@@ -1728,7 +1729,8 @@ export class KupDataTable {
                                     clone.style.width =
                                         (e.target as HTMLElement).clientWidth +
                                         'px';
-                                    clone.style.zIndex = '2';
+                                    clone.style.zIndex =
+                                        'calc(var(--kup-navbar-zindex) + 1)';
                                     that.rootElement.shadowRoot.appendChild(
                                         clone
                                     );
@@ -1737,7 +1739,10 @@ export class KupDataTable {
                                         ''
                                     );
                                     that.columnsAreBeingDragged = true;
-                                    that.hideShowColumnDropArea(true);
+                                    that.hideShowColumnDropArea(
+                                        true,
+                                        e.target as HTMLElement
+                                    );
                                 },
                                 end(e: InteractEvent) {
                                     (e.target as HTMLElement).removeAttribute(
@@ -5215,31 +5220,25 @@ export class KupDataTable {
         );
     }
 
-    private hideShowColumnDropArea(show: boolean) {
-        if (show && (this.removableColumns || this.showGroups)) {
+    private hideShowColumnDropArea(show: boolean, th?: HTMLElement) {
+        if (show && th && (this.removableColumns || this.showGroups)) {
             this.dropareaRef.classList.add('droparea--visible');
-            if (this.removableColumns) {
-                this.removeDropareaRef.classList.add(
-                    'droparea__remove--visible'
-                );
-            }
-            if (this.showGroups) {
-                this.groupsDropareaRef.classList.add(
-                    'droparea__groups--visible'
-                );
-            }
+            +this.kupManager.dynamicPosition.register(
+                this.dropareaRef as KupDynamicPositionElement,
+                th,
+                10,
+                KupDynamicPositionPlacement.TOP
+            );
+            this.kupManager.dynamicPosition.start(
+                this.dropareaRef as KupDynamicPositionElement
+            );
+            this.dropareaRef.style.marginLeft =
+                th.clientWidth / 2 - this.dropareaRef.clientWidth / 2 + 'px';
         } else {
             this.dropareaRef.classList.remove('droparea--visible');
-            if (this.removableColumns) {
-                this.removeDropareaRef.classList.remove(
-                    'droparea__remove--visible'
-                );
-            }
-            if (this.showGroups) {
-                this.groupsDropareaRef.classList.remove(
-                    'droparea__groups--visible'
-                );
-            }
+            +this.kupManager.dynamicPosition.stop(
+                this.dropareaRef as KupDynamicPositionElement
+            );
         }
     }
 
@@ -5798,21 +5797,12 @@ export class KupDataTable {
                             </div>
                         ) : null}
                         {paginatorTop}
-                        <div
-                            class="droparea"
-                            ref={(el) => (this.dropareaRef = el)}
-                        >
-                            <div class="droparea__container">
-                                {this.showGroups
-                                    ? this.columnGroupArea()
-                                    : null}
-                                {this.removableColumns
-                                    ? this.columnRemoveArea()
-                                    : null}
-                            </div>
-                        </div>
                     </div>
                     <div class="group-wrapper">{groupChips}</div>
+                    <div class="droparea" ref={(el) => (this.dropareaRef = el)}>
+                        {this.showGroups ? this.columnGroupArea() : null}
+                        {this.removableColumns ? this.columnRemoveArea() : null}
+                    </div>
                     <div
                         style={elStyle}
                         class={belowClass}
