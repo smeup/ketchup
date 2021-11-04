@@ -845,6 +845,7 @@ export class KupDataTable {
     private interactableDragDrop: HTMLElement[] = [];
     private interactableResize: HTMLElement[] = [];
     private interactableTouch: HTMLElement[] = [];
+    private dropareaRef: HTMLElement = null;
     private removeDropareaRef: HTMLElement = null;
     private groupsDropareaRef: HTMLElement = null;
     /**
@@ -1679,7 +1680,6 @@ export class KupDataTable {
                             },
                         })
                         .draggable({
-                            allowFrom: '.header-cell__content',
                             cursorChecker() {
                                 return null;
                             },
@@ -5216,23 +5216,26 @@ export class KupDataTable {
     }
 
     private hideShowColumnDropArea(show: boolean) {
-        if (this.removableColumns) {
-            if (show) {
+        if (show && (this.removableColumns || this.showGroups)) {
+            this.dropareaRef.classList.add('droparea--visible');
+            if (this.removableColumns) {
                 this.removeDropareaRef.classList.add(
                     'droparea__remove--visible'
                 );
-            } else {
+            }
+            if (this.showGroups) {
+                this.groupsDropareaRef.classList.add(
+                    'droparea__groups--visible'
+                );
+            }
+        } else {
+            this.dropareaRef.classList.remove('droparea--visible');
+            if (this.removableColumns) {
                 this.removeDropareaRef.classList.remove(
                     'droparea__remove--visible'
                 );
             }
-        }
-        if (this.showGroups) {
-            if (show) {
-                this.groupsDropareaRef.classList.add(
-                    'droparea__groups--visible'
-                );
-            } else {
+            if (this.showGroups) {
                 this.groupsDropareaRef.classList.remove(
                     'droparea__groups--visible'
                 );
@@ -5795,12 +5798,21 @@ export class KupDataTable {
                             </div>
                         ) : null}
                         {paginatorTop}
+                        <div
+                            class="droparea"
+                            ref={(el) => (this.dropareaRef = el)}
+                        >
+                            <div class="droparea__container">
+                                {this.showGroups
+                                    ? this.columnGroupArea()
+                                    : null}
+                                {this.removableColumns
+                                    ? this.columnRemoveArea()
+                                    : null}
+                            </div>
+                        </div>
                     </div>
                     <div class="group-wrapper">{groupChips}</div>
-                    <div class="droparea">
-                        {this.showGroups ? this.columnGroupArea() : null}
-                        {this.removableColumns ? this.columnRemoveArea() : null}
-                    </div>
                     <div
                         style={elStyle}
                         class={belowClass}
