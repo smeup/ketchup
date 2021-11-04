@@ -1679,15 +1679,58 @@ export class KupDataTable {
                             },
                         })
                         .draggable({
+                            allowFrom: '.header-cell__content',
                             cursorChecker() {
                                 return null;
                             },
                             ignoreFrom: '.header-cell__drag-handler',
                             listeners: {
+                                move(e: InteractEvent) {
+                                    const clone = e.target[
+                                        'kupDragClone'
+                                    ] as HTMLElement;
+                                    let x =
+                                        parseFloat(
+                                            clone.getAttribute('data-x')
+                                        ) || 0;
+                                    let y =
+                                        parseFloat(
+                                            clone.getAttribute('data-y')
+                                        ) || 0;
+                                    x = x + e.dx;
+                                    y = y + e.dy;
+                                    clone.style.transform = `translate(${x}px, ${y}px)`;
+                                    clone.setAttribute('data-x', x.toString());
+                                    clone.setAttribute('data-y', y.toString());
+                                },
                                 start(e: InteractEvent) {
-                                    (e.target as HTMLElement).setAttribute(
+                                    const clone = (
+                                        e.target as HTMLElement
+                                    ).cloneNode(true) as HTMLElement;
+                                    e.target['kupDragClone'] = clone;
+                                    e.target.setAttribute(
                                         that.dragStarterAttribute,
                                         ''
+                                    );
+                                    clone.style.cursor = 'grabbing';
+                                    clone.style.left =
+                                        e.clientX -
+                                        (e.target as HTMLElement).clientWidth /
+                                            2 +
+                                        'px';
+                                    clone.style.opacity = '0.75';
+                                    clone.style.position = 'fixed';
+                                    clone.style.top =
+                                        e.clientY -
+                                        (e.target as HTMLElement).clientHeight /
+                                            2 +
+                                        'px';
+                                    clone.style.width =
+                                        (e.target as HTMLElement).clientWidth +
+                                        'px';
+                                    clone.style.zIndex = '2';
+                                    that.rootElement.shadowRoot.appendChild(
+                                        clone
                                     );
                                     that.tableRef.setAttribute(
                                         that.dragFlagAttribute,
@@ -1703,6 +1746,7 @@ export class KupDataTable {
                                     that.tableRef.removeAttribute(
                                         that.dragFlagAttribute
                                     );
+                                    e.target['kupDragClone'].remove();
                                     that.columnsAreBeingDragged = false;
                                     that.hideShowColumnDropArea(false);
                                 },
@@ -1724,6 +1768,7 @@ export class KupDataTable {
                             bottom: false,
                             top: false,
                         },
+                        ignoreFrom: '.header-cell__content',
                         listeners: {
                             move(e: ResizeEvent) {
                                 const column = getColumnByName(

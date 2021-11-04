@@ -1,9 +1,6 @@
 [columns-dragging] {
-  cursor: grabbing;
-
   [drag-over] {
     background-color: rgba(var(--kup-success-color-rgb), 0.25);
-    cursor: grabbing !important;
   }
 
   [drag-starter] {
