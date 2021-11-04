@@ -1584,9 +1584,7 @@ export class KupDataTable {
                             (e.target as HTMLElement).removeAttribute(
                                 that.dragOverAttribute
                             );
-                            (
-                                draggedTh as HTMLElement
-                            ).parentElement.removeAttribute(
+                            that.tableRef.removeAttribute(
                                 that.dragFlagAttribute
                             );
                             that.handleColumnGroup(grouped);
@@ -1621,9 +1619,7 @@ export class KupDataTable {
                             (e.target as HTMLElement).removeAttribute(
                                 that.dragOverAttribute
                             );
-                            (
-                                draggedTh as HTMLElement
-                            ).parentElement.removeAttribute(
+                            that.tableRef.removeAttribute(
                                 that.dragFlagAttribute
                             );
                             that.handleColumnRemove(deleted);
@@ -1665,9 +1661,7 @@ export class KupDataTable {
                                     (e.target as HTMLElement).removeAttribute(
                                         that.dragOverAttribute
                                     );
-                                    (
-                                        e.target as HTMLElement
-                                    ).parentElement.removeAttribute(
+                                    that.tableRef.removeAttribute(
                                         that.dragFlagAttribute
                                     );
                                 },
@@ -1695,9 +1689,7 @@ export class KupDataTable {
                                         that.dragStarterAttribute,
                                         ''
                                     );
-                                    (
-                                        e.target as HTMLElement
-                                    ).parentElement.setAttribute(
+                                    that.tableRef.setAttribute(
                                         that.dragFlagAttribute,
                                         ''
                                     );
@@ -1708,9 +1700,7 @@ export class KupDataTable {
                                     (e.target as HTMLElement).removeAttribute(
                                         that.dragStarterAttribute
                                     );
-                                    (
-                                        e.target as HTMLElement
-                                    ).parentElement.removeAttribute(
+                                    that.tableRef.removeAttribute(
                                         that.dragFlagAttribute
                                     );
                                     that.columnsAreBeingDragged = false;
@@ -1740,7 +1730,7 @@ export class KupDataTable {
                                     that.getVisibleColumns(),
                                     (e.target as HTMLElement).dataset.column
                                 );
-                                column.size = e.rect.width + "px";
+                                column.size = e.rect.width + 'px';
                                 that.refresh();
                             },
                         },
@@ -5166,13 +5156,13 @@ export class KupDataTable {
             >
                 <FImage
                     resource="bookmark"
-                    color={`var(${KupThemeColorValues.DANGER})`}
+                    color={`var(${KupThemeColorValues.TEXT})`}
                     sizeX="30px"
                     sizeY="50px"
                 />
                 <FImage
                     resource="book"
-                    color={`var(${KupThemeColorValues.DANGER})`}
+                    color={`var(${KupThemeColorValues.TEXT})`}
                     sizeX="30px"
                     sizeY="50px"
                 />

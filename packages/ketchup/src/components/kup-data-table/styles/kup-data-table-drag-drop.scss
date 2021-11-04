@@ -1,17 +1,13 @@
 [columns-dragging] {
-  th {
-    cursor: grabbing !important;
-  }
+  cursor: grabbing;
 
   [drag-over] {
     background-color: rgba(var(--kup-success-color-rgb), 0.25);
-
-    > * {
-      pointer-events: none;
-    }
+    cursor: grabbing !important;
   }
 
   [drag-starter] {
+    cursor: grabbing !important;
     opacity: 0.5;
   }
 }
@@ -24,10 +20,17 @@
   width: 100%;
   z-index: 1;
 
+  &__groups {
+    border: 2px dashed var(--kup-text-color);
+  }
+
+  &__remove {
+    border: 2px dashed var(--kup-danger-color);
+  }
+
   &__groups,
   &__remove {
     background: var(--kup_datatable_background_color);
-    border: 2px dashed var(--kup-danger-color);
     box-shadow: var(--kup-box-shadow);
     display: none;
     height: 50px;
