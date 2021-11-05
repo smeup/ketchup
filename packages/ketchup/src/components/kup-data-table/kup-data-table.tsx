@@ -1660,7 +1660,12 @@ export class KupDataTable {
                                         that.getColumns(),
                                         e.target.dataset.column
                                     );
-                                    that.handleColumnSort(receiving, sorted);
+                                    if (receiving && sorted) {
+                                        that.handleColumnSort(
+                                            receiving,
+                                            sorted
+                                        );
+                                    }
                                     (e.target as HTMLElement).removeAttribute(
                                         that.dragOverAttribute
                                     );
