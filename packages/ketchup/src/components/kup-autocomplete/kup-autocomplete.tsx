@@ -183,7 +183,6 @@ export class KupAutocomplete {
     kupFilterChanged: EventEmitter<kupAutocompleteFilterChangedEventPayload>;
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        this.closeList();
         const { target } = e;
         this.kupBlur.emit({
             comp: this,
@@ -424,9 +423,6 @@ export class KupAutocomplete {
     private closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.kupManager.dynamicPosition.stop(
-            this.rootElement as KupDynamicPositionElement
-        );
     }
 
     private isListOpened(): boolean {
@@ -503,7 +499,13 @@ export class KupAutocomplete {
                 FTextFieldMDC(f);
                 this.kupManager.dynamicPosition.register(
                     this.listEl,
-                    this.textfieldWrapper
+                    this.textfieldWrapper,
+                    null,
+                    null,
+                    true,
+                    () => {
+                        this.closeList();
+                    }
                 );
             }
         }
@@ -524,7 +526,6 @@ export class KupAutocomplete {
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
                     fullWidth ? 'kup-full-width' : ''
                 }`}
-                onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}
             >
                 {customStyle ? <style>{customStyle}</style> : null}
@@ -537,6 +538,7 @@ export class KupAutocomplete {
                         icon={KupThemeIconValues.DROPDOWN}
                         trailingIcon={true}
                         value={this.displayedValue}
+                        onBlur={(e: any) => this.onKupBlur(e)}
                         onClick={(
                             e: MouseEvent & { target: HTMLInputElement }
                         ) => this.onKupClick(e)}

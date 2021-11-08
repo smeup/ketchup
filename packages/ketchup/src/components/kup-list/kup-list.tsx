@@ -98,11 +98,10 @@ export class KupList {
      */
     @Prop() isMenu: boolean = false;
     /**
-     * When true, enables items' navigation through keys.
-     * Defaults to false when the component's isMenu prop is set to true.
-     * @default undefined
+     * When true, enables items' navigation through arrow keys.
+     * @default true
      */
-    @Prop({ mutable: true }) keyboardNavigation: boolean = undefined;
+    @Prop() keyboardNavigation: boolean = true;
     /**
      * Sets the status of the menu, when false it's hidden otherwise it's visible.
      * @default false
@@ -627,13 +626,6 @@ export class KupList {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        if (this.keyboardNavigation === undefined) {
-            if (this.isMenu) {
-                this.keyboardNavigation = false;
-            } else {
-                this.keyboardNavigation = true;
-            }
-        }
         for (let index = 0; index < this.data.length; index++) {
             const el: KupListData = this.data[index];
             if (el.selected) {
