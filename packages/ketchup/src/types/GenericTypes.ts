@@ -1,3 +1,8 @@
+import {
+    Cell,
+    Row,
+} from '../components/kup-data-table/kup-data-table-declarations';
+
 /**
  * Generic KupComponent.
  */
@@ -54,4 +59,21 @@ export interface Identifiable {
 export interface KupEventPayload {
     comp: any;
     id: string;
+}
+/**
+ * Interface for drag & drop elements.
+ */
+export interface KupDraggableElement extends HTMLElement {
+    kupDragDrop: KupDraggablePayload;
+}
+/**
+ * Drag and drop payload.
+ */
+export interface KupDraggablePayload {
+    cell?: Cell;
+    clone?: HTMLElement;
+    column?: string;
+    id?: string;
+    row?: Row;
+    selectedRows?: Row[];
 }

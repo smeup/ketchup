@@ -70,6 +70,7 @@ import {
 import {
     GenericObject,
     KupComponent,
+    KupDraggableElement,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
@@ -1630,9 +1631,11 @@ export class KupDataTable {
                             accept: '.header-cell',
                             listeners: {
                                 drop(e: DropEvent) {
+                                    const draggable =
+                                        e.relatedTarget as KupDraggableElement;
                                     const sorted = getColumnByName(
                                         that.getColumns(),
-                                        e.relatedTarget.dataset.column
+                                        draggable.kupDragDrop.column
                                     );
                                     const receiving = getColumnByName(
                                         that.getColumns(),
@@ -1671,9 +1674,9 @@ export class KupDataTable {
                             ignoreFrom: '.header-cell__drag-handler',
                             listeners: {
                                 move(e: InteractEvent) {
-                                    const clone = e.target[
-                                        'kupDragClone'
-                                    ] as HTMLElement;
+                                    const draggable =
+                                        e.target as KupDraggableElement;
+                                    const clone = draggable.kupDragDrop.clone;
                                     let x =
                                         parseFloat(
                                             clone.getAttribute('data-x')
@@ -1689,30 +1692,32 @@ export class KupDataTable {
                                     clone.setAttribute('data-y', y.toString());
                                 },
                                 start(e: InteractEvent) {
-                                    const clone = (
-                                        e.target as HTMLElement
-                                    ).cloneNode(true) as HTMLElement;
-                                    e.target['kupDragClone'] = clone;
-                                    e.target.setAttribute(
+                                    const draggable =
+                                        e.target as KupDraggableElement;
+                                    const clone = draggable.cloneNode(
+                                        true
+                                    ) as HTMLElement;
+                                    draggable.kupDragDrop = {
+                                        clone: clone,
+                                        column: draggable.dataset.column,
+                                    };
+                                    draggable.setAttribute(
                                         that.dragStarterAttribute,
                                         ''
                                     );
                                     clone.style.cursor = 'grabbing';
                                     clone.style.left =
                                         e.clientX -
-                                        (e.target as HTMLElement).clientWidth /
-                                            2 +
+                                        draggable.clientWidth / 2 +
                                         'px';
                                     clone.style.opacity = '0.75';
                                     clone.style.position = 'fixed';
                                     clone.style.top =
                                         e.clientY -
-                                        (e.target as HTMLElement).clientHeight /
-                                            2 +
+                                        draggable.clientHeight / 2 +
                                         'px';
                                     clone.style.width =
-                                        (e.target as HTMLElement).clientWidth +
-                                        'px';
+                                        draggable.clientWidth + 'px';
                                     clone.style.zIndex =
                                         'calc(var(--kup-navbar-zindex) + 1)';
                                     that.rootElement.shadowRoot.appendChild(
@@ -1724,17 +1729,19 @@ export class KupDataTable {
                                     );
                                     that.hideShowColumnDropArea(
                                         true,
-                                        e.target as HTMLElement
+                                        draggable
                                     );
                                 },
                                 end(e: InteractEvent) {
-                                    (e.target as HTMLElement).removeAttribute(
+                                    const draggable =
+                                        e.target as KupDraggableElement;
+                                    draggable.removeAttribute(
                                         that.dragStarterAttribute
                                     );
                                     that.tableRef.removeAttribute(
                                         that.dragFlagAttribute
                                     );
-                                    e.target['kupDragClone'].remove();
+                                    draggable.kupDragDrop.clone.remove();
                                     that.hideShowColumnDropArea(false);
                                 },
                             },
@@ -1781,14 +1788,15 @@ export class KupDataTable {
                 if (row && !this.interactableDrag.includes(row)) {
                     this.interactableDrag.push(row);
                     interact(row).draggable({
+                        allowFrom: 'td',
                         cursorChecker() {
                             return null;
                         },
                         listeners: {
                             move(e: InteractEvent) {
-                                const clone = e.target[
-                                    'kupDragClone'
-                                ] as HTMLElement;
+                                const draggable =
+                                    e.target as KupDraggableElement;
+                                const clone = draggable.kupDragDrop.clone;
                                 let x =
                                     parseFloat(clone.getAttribute('data-x')) ||
                                     0;
@@ -1802,14 +1810,22 @@ export class KupDataTable {
                                 clone.setAttribute('data-y', y.toString());
                             },
                             start(e: InteractEvent) {
+                                const draggable =
+                                    e.target as KupDraggableElement;
                                 const clone =
                                     document.createElement('kup-badge');
-                                e.target['kupDragClone'] = clone;
-                                e.target['kupDragId'] = that.rootElement.id;
-                                e.target['kupDragTd'] =
+                                const cellEl =
                                     that.rootElement.shadowRoot.querySelector(
                                         'td:hover'
-                                    );
+                                    ) as HTMLElement;
+                                draggable.kupDragDrop = {
+                                    cell: cellEl['data-cell'],
+                                    clone: clone,
+                                    column: cellEl.dataset.column,
+                                    id: that.rootElement.id,
+                                    row: cellEl['data-row'],
+                                    selectedRows: that.selectedRows,
+                                };
                                 if (
                                     that.selection === SelectionMode.MULTIPLE ||
                                     that.selection ===
@@ -1821,7 +1837,6 @@ export class KupDataTable {
                                 } else {
                                     clone.text = '1';
                                 }
-                                clone.style.cursor = 'grabbing';
                                 clone.style.left =
                                     e.clientX - clone.clientWidth / 2 + 'px';
                                 clone.style.pointerEvents = 'none';
@@ -1837,10 +1852,13 @@ export class KupDataTable {
                                 );
                             },
                             end(e: InteractEvent) {
+                                const draggable =
+                                    e.target as KupDraggableElement;
+                                const clone = draggable.kupDragDrop.clone;
                                 that.tableRef.removeAttribute(
                                     that.dragFlagAttribute
                                 );
-                                e.target['kupDragClone'].remove();
+                                clone.remove();
                             },
                         },
                     });
@@ -1856,9 +1874,9 @@ export class KupDataTable {
                         accept: 'tr',
                         listeners: {
                             drop(e: DropEvent) {
-                                const draggedDetails = that.getEventDetails(
-                                    e.relatedTarget['kupDragTd']
-                                );
+                                const draggableDetails = (
+                                    e.relatedTarget as KupDraggableElement
+                                ).kupDragDrop;
                                 const receivingDetails = that.getEventDetails(
                                     that.rootElement.shadowRoot.querySelector(
                                         'td:hover'
@@ -1873,13 +1891,12 @@ export class KupDataTable {
                                             dataType:
                                                 'text/kup-data-table-row-drag',
                                             sourceElement: {
-                                                id: e.relatedTarget[
-                                                    'kupDragId'
-                                                ],
-                                                row: draggedDetails.row,
-                                                selectedRows: that.selectedRows,
-                                                cell: draggedDetails.cell,
-                                                column: draggedDetails.column,
+                                                id: draggableDetails.id,
+                                                row: draggableDetails.row,
+                                                selectedRows:
+                                                    draggableDetails.selectedRows,
+                                                cell: draggableDetails.cell,
+                                                column: draggableDetails.column,
                                             },
                                             targetElement: {
                                                 id: that.rootElement.id,

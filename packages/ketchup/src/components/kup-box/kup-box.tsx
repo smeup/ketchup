@@ -72,6 +72,7 @@ import {
 import {
     GenericObject,
     KupComponent,
+    KupDraggableElement,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
@@ -696,11 +697,14 @@ export class KupBox {
         column: string;
         cell: Cell;
     } {
-        const boxObject: HTMLDivElement =
-            el.closest('.box-object') || el.querySelector('.box-object');
+        let boxObject = null;
         let cell: Cell = null;
         let row: KupBoxRow = null;
         let column: string = null;
+        if (el) {
+            boxObject =
+                el.closest('.box-object') || el.querySelector('.box-object');
+        }
         if (boxObject) {
             cell = boxObject['data-cell'];
             row = boxObject['data-row'];
@@ -1827,9 +1831,9 @@ export class KupBox {
                         },
                         listeners: {
                             move(e: InteractEvent) {
-                                const clone = e.target[
-                                    'kupDragClone'
-                                ] as HTMLElement;
+                                const draggable =
+                                    e.target as KupDraggableElement;
+                                const clone = draggable.kupDragDrop.clone;
                                 let x =
                                     parseFloat(clone.getAttribute('data-x')) ||
                                     0;
@@ -1843,15 +1847,23 @@ export class KupBox {
                                 clone.setAttribute('data-y', y.toString());
                             },
                             start(e: InteractEvent) {
+                                const draggable =
+                                    e.target as KupDraggableElement;
                                 const clone =
                                     document.createElement('kup-badge');
-                                e.target['kupDragClone'] = clone;
-                                e.target['kupDragId'] = that.rootElement.id;
-                                e.target['kupDragCell'] =
+                                const cellEl =
                                     that.rootElement.shadowRoot.querySelector(
                                         '.box-object:hover'
-                                    );
-                                e.target.classList.add('item-dragged');
+                                    ) as HTMLElement;
+                                draggable.kupDragDrop = {
+                                    cell: cellEl['data-cell'],
+                                    clone: clone,
+                                    column: cellEl.dataset.column,
+                                    id: that.rootElement.id,
+                                    row: cellEl['data-row'],
+                                    selectedRows: that.selectedRows,
+                                };
+                                draggable.classList.add('item-dragged');
                                 if (that.multiSelection) {
                                     clone.text = that.selectedRows
                                         ? that.selectedRows.length.toString()
@@ -1859,7 +1871,6 @@ export class KupBox {
                                 } else {
                                     clone.text = '1';
                                 }
-                                clone.style.cursor = 'grabbing';
                                 clone.style.left =
                                     e.clientX - clone.clientWidth / 2 + 'px';
                                 clone.style.pointerEvents = 'none';
@@ -1871,8 +1882,10 @@ export class KupBox {
                                 that.rootElement.shadowRoot.appendChild(clone);
                             },
                             end(e: InteractEvent) {
-                                e.target.classList.remove('item-dragged');
-                                e.target['kupDragClone'].remove();
+                                const draggable =
+                                    e.target as KupDraggableElement;
+                                draggable.classList.remove('item-dragged');
+                                draggable.kupDragDrop.clone.remove();
                             },
                         },
                     });
@@ -1880,52 +1893,57 @@ export class KupBox {
             }
         }
         if (this.dropEnabled) {
-            if (!this.interactableDrop.includes(this.sectionRef))
+            if (!this.interactableDrop.includes(this.sectionRef)) {
                 this.interactableDrop.push(this.sectionRef);
-            interact(this.sectionRef).dropzone({
-                accept: '.box',
-                listeners: {
-                    drop(e: DropEvent) {
-                        const draggedDetails = that.getEventDetails(
-                            e.relatedTarget['kupDragCell']
-                        );
-                        const ketchupDropEvent = new CustomEvent('kup-drop', {
-                            bubbles: true,
-                            cancelable: true,
-                            detail: {
-                                dataType: 'text/kup-box-drag',
-                                sourceElement: {
-                                    id: e.relatedTarget['kupDragId'],
-                                    row: draggedDetails.row,
-                                    selectedRows: that.selectedRows,
-                                    cell: draggedDetails.cell,
-                                    column: draggedDetails.column,
-                                },
-                                targetElement: {
-                                    id: that.rootElement.id,
-                                    row: null,
-                                    cell: null,
-                                    column: null,
-                                },
-                            },
-                        });
-                        that.rootElement.dispatchEvent(ketchupDropEvent);
-                        (e.target as HTMLElement).classList.remove(
-                            'component-dropover'
-                        );
+                interact(this.sectionRef).dropzone({
+                    accept: '.box',
+                    listeners: {
+                        drop(e: DropEvent) {
+                            const draggableDetails = (
+                                e.relatedTarget as KupDraggableElement
+                            ).kupDragDrop;
+                            const ketchupDropEvent = new CustomEvent(
+                                'kup-drop',
+                                {
+                                    bubbles: true,
+                                    cancelable: true,
+                                    detail: {
+                                        dataType: 'text/kup-box-drag',
+                                        sourceElement: {
+                                            id: draggableDetails.id,
+                                            row: draggableDetails.row,
+                                            selectedRows:
+                                                draggableDetails.selectedRows,
+                                            cell: draggableDetails.cell,
+                                            column: draggableDetails.column,
+                                        },
+                                        targetElement: {
+                                            id: that.rootElement.id,
+                                            row: null,
+                                            cell: null,
+                                            column: null,
+                                        },
+                                    },
+                                }
+                            );
+                            that.rootElement.dispatchEvent(ketchupDropEvent);
+                            (e.target as HTMLElement).classList.remove(
+                                'component-dropover'
+                            );
+                        },
+                        enter(e: DropEvent) {
+                            (e.target as HTMLElement).classList.add(
+                                'component-dropover'
+                            );
+                        },
+                        leave(e: DropEvent) {
+                            (e.target as HTMLElement).classList.remove(
+                                'component-dropover'
+                            );
+                        },
                     },
-                    enter(e: DropEvent) {
-                        (e.target as HTMLElement).classList.add(
-                            'component-dropover'
-                        );
-                    },
-                    leave(e: DropEvent) {
-                        (e.target as HTMLElement).classList.remove(
-                            'component-dropover'
-                        );
-                    },
-                },
-            });
+                });
+            }
             for (let index = 0; index < this.rowsRefs.length; index++) {
                 const row = this.rowsRefs[index];
                 if (row && !this.interactableDrop.includes(row)) {
@@ -1934,9 +1952,9 @@ export class KupBox {
                         accept: '.box',
                         listeners: {
                             drop(e: DropEvent) {
-                                const draggedDetails = that.getEventDetails(
-                                    e.relatedTarget['kupDragCell']
-                                );
+                                const draggableDetails = (
+                                    e.relatedTarget as KupDraggableElement
+                                ).kupDragDrop;
                                 const receivingDetails = that.getEventDetails(
                                     that.rootElement.shadowRoot.querySelector(
                                         '.box:hover'
@@ -1950,13 +1968,12 @@ export class KupBox {
                                         detail: {
                                             dataType: 'text/kup-box-drag',
                                             sourceElement: {
-                                                id: e.relatedTarget[
-                                                    'kupDragId'
-                                                ],
-                                                row: draggedDetails.row,
-                                                selectedRows: that.selectedRows,
-                                                cell: draggedDetails.cell,
-                                                column: draggedDetails.column,
+                                                id: draggableDetails.id,
+                                                row: draggableDetails.row,
+                                                selectedRows:
+                                                    draggableDetails.selectedRows,
+                                                cell: draggableDetails.cell,
+                                                column: draggableDetails.column,
                                             },
                                             targetElement: {
                                                 id: that.rootElement.id,
@@ -2024,6 +2041,7 @@ export class KupBox {
                 return selectedIds.indexOf(r.id) >= 0;
             });
         }
+        interact.dynamicDrop(true);
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.debug.logLoad(this, true);
     }
