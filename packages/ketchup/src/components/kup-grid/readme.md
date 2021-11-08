@@ -55,6 +55,19 @@ Type: `Promise<void>`
 | `--kup-grid-padding`    | Sets padding of the outer layer.            |
 
 
+## Dependencies
+
+### Used by
+
+ - [kup-dash-list](../kup-dash-list)
+
+### Graph
+```mermaid
+graph TD;
+  kup-dash-list --> kup-grid
+  style kup-grid fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

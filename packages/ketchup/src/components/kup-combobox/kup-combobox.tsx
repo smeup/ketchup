@@ -156,7 +156,6 @@ export class KupCombobox {
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
 
     onKupBlur() {
-        this.closeList();
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
@@ -362,9 +361,6 @@ export class KupCombobox {
     closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.kupManager.dynamicPosition.stop(
-            this.listEl as KupDynamicPositionElement
-        );
     }
 
     isListOpened(): boolean {
@@ -432,7 +428,13 @@ export class KupCombobox {
                 FTextFieldMDC(f);
                 this.kupManager.dynamicPosition.register(
                     this.listEl,
-                    this.textfieldWrapper
+                    this.textfieldWrapper,
+                    null,
+                    null,
+                    true,
+                    () => {
+                        this.closeList();
+                    }
                 );
             }
         }
@@ -454,7 +456,6 @@ export class KupCombobox {
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
                     fullWidth ? 'kup-full-width' : ''
                 }`}
-                onBlur={() => this.onKupBlur()}
                 style={this.elStyle}
             >
                 {customStyle ? <style>{customStyle}</style> : null}
@@ -468,6 +469,7 @@ export class KupCombobox {
                         readOnly={this.isSelect}
                         trailingIcon={true}
                         value={this.displayedValue}
+                        onBlur={() => this.onKupBlur()}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
                             this.onKupChange(e)
                         }

@@ -1795,8 +1795,8 @@ export namespace Components {
          */
         "isMenu": boolean;
         /**
-          * When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.
-          * @default undefined
+          * When true, enables items' navigation through arrow keys.
+          * @default true
          */
         "keyboardNavigation": boolean;
         /**
@@ -4468,8 +4468,8 @@ declare namespace LocalJSX {
          */
         "isMenu"?: boolean;
         /**
-          * When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.
-          * @default undefined
+          * When true, enables items' navigation through arrow keys.
+          * @default true
          */
         "keyboardNavigation"?: boolean;
         /**
