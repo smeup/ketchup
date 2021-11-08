@@ -20,7 +20,6 @@ import {
     FixedCellsCSSVarsBase,
     GroupLabelDisplayMode,
     GroupObject,
-    KupDataTableRowDragType,
     LoadMoreMode,
     PaginatorPos,
     Row,
@@ -50,7 +49,6 @@ import {
     KupDataTableCellButtonClickEventPayload,
     KupDataTableCellTextFieldInputEventPayload,
 } from './kup-data-table-declarations';
-
 import {
     isRating,
     isGauge,
@@ -59,7 +57,6 @@ import {
     getColumnByName,
     getCellValueForDisplay,
 } from '../../utils/cell-utils';
-
 import {
     calcTotals,
     normalizeRows,
@@ -69,15 +66,12 @@ import {
     sortRows,
     styleHasBorderRadius,
     styleHasWritingMode,
-    dropHandlersCell,
 } from './kup-data-table-helper';
-
 import {
     GenericObject,
     KupComponent,
     KupEventPayload,
 } from '../../types/GenericTypes';
-
 import {
     stringToNumber,
     numberToFormattedStringNumber,
@@ -86,7 +80,6 @@ import {
     getProps,
     setProps,
 } from '../../utils/utils';
-
 import {
     KupListData,
     ItemsDisplayMode,
@@ -95,7 +88,6 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
