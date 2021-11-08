@@ -9,10 +9,8 @@ import {
     TotalsMap,
     Column,
     RowGroup,
-    KupDataTableRowDragType,
 } from './kup-data-table-declarations';
 import { isEmpty, stringToNumber } from '../../utils/utils';
-import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
@@ -1083,33 +1081,3 @@ export function styleHasWritingMode(cell: Cell): boolean {
         (cell.style.writingMode || cell.style['writing-mode'])
     );
 }
-
-export const dropHandlersCell: DropHandlers = {
-    onDragLeave: (e: DragEvent) => {
-        // console.log('onDragLeave', e);
-        if (e.dataTransfer.types.indexOf(KupDataTableRowDragType) >= 0) {
-            (e.target as HTMLElement)
-                .closest('tr')
-                .classList.remove('selected');
-        }
-    },
-    onDragOver: (e: DragEvent) => {
-        // console.log('onDragOver', e);
-        if (e.dataTransfer.types.indexOf(KupDataTableRowDragType) >= 0) {
-            let overElement = e.target as HTMLElement;
-            if (overElement.tagName !== 'TD') {
-                overElement = overElement.closest('td');
-            }
-            overElement = overElement.closest('tr');
-            overElement.classList.add('selected');
-            // TODO do it without using the element but with data like id, etc.
-            setDragDropPayload({
-                overElement,
-            });
-        }
-        return true;
-    },
-    onDrop: (_e: DragEvent) => {
-        return KupDataTableRowDragType;
-    },
-};
