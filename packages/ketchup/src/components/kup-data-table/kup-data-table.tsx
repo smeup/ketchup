@@ -100,15 +100,6 @@ import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-
-import {
-    setDragEffectAllowed,
-    setKetchupDraggable,
-    setKetchupDroppable,
-    DragHandlers,
-    getDragDropPayload,
-} from '../../utils/drag-and-drop';
-import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FChip } from '../../f-components/f-chip/f-chip';
@@ -774,12 +765,6 @@ export class KupDataTable {
     private loadMoreEventPreviousQuantity: number = 0;
 
     /**
-     * Internal not reactive state used to keep track if a column is being dragged.
-     * @private
-     */
-    private columnsAreBeingDragged: boolean = false;
-
-    /**
      * Attribute to set when a column is being dragged on the whole thead element
      * @const
      * @default 'columns-dragging'
@@ -843,7 +828,8 @@ export class KupDataTable {
     private rowsRefs: HTMLElement[] = [];
     private oldWidth: number = null;
     private hold: boolean = false;
-    private interactableDragDrop: HTMLElement[] = [];
+    private interactableDrag: HTMLElement[] = [];
+    private interactableDrop: HTMLElement[] = [];
     private interactableResize: HTMLElement[] = [];
     private interactableTouch: HTMLElement[] = [];
     private dropareaRef: HTMLElement = null;
@@ -1573,8 +1559,8 @@ export class KupDataTable {
     private didRenderInteractables() {
         const that = this;
         if (this.showGroups) {
-            if (!this.interactableDragDrop.includes(this.groupsDropareaRef)) {
-                this.interactableDragDrop.push(this.groupsDropareaRef);
+            if (!this.interactableDrop.includes(this.groupsDropareaRef)) {
+                this.interactableDrop.push(this.groupsDropareaRef);
                 interact(this.groupsDropareaRef).dropzone({
                     accept: '.header-cell',
                     listeners: {
@@ -1608,8 +1594,8 @@ export class KupDataTable {
             }
         }
         if (this.removableColumns) {
-            if (!this.interactableDragDrop.includes(this.removeDropareaRef)) {
-                this.interactableDragDrop.push(this.removeDropareaRef);
+            if (!this.interactableDrop.includes(this.removeDropareaRef)) {
+                this.interactableDrop.push(this.removeDropareaRef);
                 interact(this.removeDropareaRef).dropzone({
                     accept: '.header-cell',
                     listeners: {
@@ -1645,8 +1631,8 @@ export class KupDataTable {
         if (this.enableSortableColumns) {
             for (let index = 0; index < this.thRefs.length; index++) {
                 const th = this.thRefs[index];
-                if (th && !this.interactableDragDrop.includes(th)) {
-                    this.interactableDragDrop.push(th);
+                if (th && !this.interactableDrag.includes(th)) {
+                    this.interactableDrag.push(th);
                     interact(th)
                         .dropzone({
                             accept: '.header-cell',
@@ -1744,7 +1730,6 @@ export class KupDataTable {
                                         that.dragFlagAttribute,
                                         ''
                                     );
-                                    that.columnsAreBeingDragged = true;
                                     that.hideShowColumnDropArea(
                                         true,
                                         e.target as HTMLElement
@@ -1758,7 +1743,6 @@ export class KupDataTable {
                                         that.dragFlagAttribute
                                     );
                                     e.target['kupDragClone'].remove();
-                                    that.columnsAreBeingDragged = false;
                                     that.hideShowColumnDropArea(false);
                                 },
                             },
@@ -1795,6 +1779,146 @@ export class KupDataTable {
                                 min: { width: 10, height: 10 },
                             }),
                         ],
+                    });
+                }
+            }
+        }
+        if (this.dragEnabled) {
+            for (let index = 0; index < this.rowsRefs.length; index++) {
+                const row = this.rowsRefs[index];
+                if (row && !this.interactableDrag.includes(row)) {
+                    this.interactableDrag.push(row);
+                    interact(row).draggable({
+                        cursorChecker() {
+                            return null;
+                        },
+                        listeners: {
+                            move(e: InteractEvent) {
+                                const clone = e.target[
+                                    'kupDragClone'
+                                ] as HTMLElement;
+                                let x =
+                                    parseFloat(clone.getAttribute('data-x')) ||
+                                    0;
+                                let y =
+                                    parseFloat(clone.getAttribute('data-y')) ||
+                                    0;
+                                x = x + e.dx;
+                                y = y + e.dy;
+                                clone.style.transform = `translate(${x}px, ${y}px)`;
+                                clone.setAttribute('data-x', x.toString());
+                                clone.setAttribute('data-y', y.toString());
+                            },
+                            start(e: InteractEvent) {
+                                const clone =
+                                    document.createElement('kup-badge');
+                                e.target['kupDragClone'] = clone;
+                                e.target['kupDragId'] = that.rootElement.id;
+                                e.target['kupDragTd'] =
+                                    that.rootElement.shadowRoot.querySelector(
+                                        'td:hover'
+                                    );
+                                if (
+                                    that.selection === SelectionMode.MULTIPLE ||
+                                    that.selection ===
+                                        SelectionMode.MULTIPLE_CHECKBOX
+                                ) {
+                                    clone.text = that.selectedRows
+                                        ? that.selectedRows.length.toString()
+                                        : '0';
+                                } else {
+                                    clone.text = '1';
+                                }
+                                clone.style.cursor = 'grabbing';
+                                clone.style.left =
+                                    e.clientX - clone.clientWidth / 2 + 'px';
+                                clone.style.pointerEvents = 'none';
+                                clone.style.position = 'fixed';
+                                clone.style.top =
+                                    e.clientY - clone.clientHeight / 2 + 'px';
+                                clone.style.zIndex =
+                                    'calc(var(--kup-navbar-zindex) + 1)';
+                                that.rootElement.shadowRoot.appendChild(clone);
+                                that.tableRef.setAttribute(
+                                    that.dragFlagAttribute,
+                                    ''
+                                );
+                            },
+                            end(e: InteractEvent) {
+                                that.tableRef.removeAttribute(
+                                    that.dragFlagAttribute
+                                );
+                                e.target['kupDragClone'].remove();
+                            },
+                        },
+                    });
+                }
+            }
+        }
+        if (this.dropEnabled) {
+            for (let index = 0; index < this.rowsRefs.length; index++) {
+                const row = this.rowsRefs[index];
+                if (row && !this.interactableDrop.includes(row)) {
+                    this.interactableDrop.push(row);
+                    interact(row).dropzone({
+                        accept: 'tr',
+                        listeners: {
+                            drop(e: DropEvent) {
+                                const draggedDetails = that.getEventDetails(
+                                    e.relatedTarget['kupDragTd']
+                                );
+                                const receivingDetails = that.getEventDetails(
+                                    that.rootElement.shadowRoot.querySelector(
+                                        'td:hover'
+                                    )
+                                );
+                                const ketchupDropEvent = new CustomEvent(
+                                    'kup-drop',
+                                    {
+                                        bubbles: true,
+                                        cancelable: true,
+                                        detail: {
+                                            dataType:
+                                                'text/kup-data-table-row-drag',
+                                            sourceElement: {
+                                                id: e.relatedTarget[
+                                                    'kupDragId'
+                                                ],
+                                                row: draggedDetails.row,
+                                                selectedRows: that.selectedRows,
+                                                cell: draggedDetails.cell,
+                                                column: draggedDetails.column,
+                                            },
+                                            targetElement: {
+                                                id: that.rootElement.id,
+                                                row: receivingDetails.row,
+                                                cell: receivingDetails.cell,
+                                                column: receivingDetails.column,
+                                            },
+                                        },
+                                    }
+                                );
+                                that.rootElement.dispatchEvent(
+                                    ketchupDropEvent
+                                );
+                                that.tableRef.removeAttribute(
+                                    that.dragFlagAttribute
+                                );
+                                (e.target as HTMLElement).classList.remove(
+                                    'focus'
+                                );
+                            },
+                            enter(e: DropEvent) {
+                                (e.target as HTMLElement).classList.add(
+                                    'focus'
+                                );
+                            },
+                            leave(e: DropEvent) {
+                                (e.target as HTMLElement).classList.remove(
+                                    'focus'
+                                );
+                            },
+                        },
                     });
                 }
             }
@@ -2483,13 +2607,6 @@ export class KupDataTable {
 
     getRows(): Array<Row> {
         return this.data && this.data.rows ? this.data.rows : [];
-    }
-
-    // TODO if is not shared, move this in the third parameter of setKetchupDraggable method
-    private addMultiSelectDragImageToEvent(event: DragEvent) {
-        const dragImage = document.createElement('img');
-        dragImage.src = dragMultipleImg;
-        event.dataTransfer.setDragImage(dragImage, 0, 0);
     }
 
     private initRows(): void {
@@ -4361,19 +4478,6 @@ export class KupDataTable {
 
                 return (
                     <td
-                        {...(this.dropEnabled
-                            ? setKetchupDroppable(
-                                  dropHandlersCell,
-                                  [KupDataTableRowDragType],
-                                  this.rootElement,
-                                  {
-                                      row: row,
-                                      cell: cell,
-                                      column: currentColumn,
-                                      id: this.rootElement.id,
-                                  }
-                              )
-                            : {})}
                         title={title}
                         data-cell={cell}
                         data-column={name}
@@ -4397,75 +4501,6 @@ export class KupDataTable {
                 rowClass[row.cssClass] = true;
             }
 
-            const dragHandlersRow: DragHandlers = {
-                onDragStart: (e: DragEvent) => {
-                    // get the tr tag
-                    const trElement = e.target as HTMLTableRowElement;
-                    let cell = {};
-                    let column = {};
-                    if (trElement) {
-                        // get the elements inside the row that were touched
-                        const hoverElements =
-                            trElement.querySelectorAll(':hover');
-                        if (hoverElements) {
-                            // the td in position 0 is ALWAYS the last td touched
-                            const tdElement =
-                                hoverElements[0] as HTMLTableCellElement;
-                            if (tdElement) {
-                                // get the column name in td element
-                                const columnName =
-                                    tdElement.getAttribute('data-column');
-                                if (columnName) {
-                                    // finally get the cell
-                                    cell = row.cells[columnName];
-                                    // and the column
-                                    column = getColumnByName(
-                                        this.getColumns(),
-                                        columnName
-                                    );
-                                }
-                            }
-                        }
-                    }
-
-                    // because I found the cell and the column inside this method I have to set here the event data
-                    // in this scenario it is not necessary pass the data parameter in setKetchupDraggable method
-                    const sourceElementData = {
-                        id: this.rootElement.id,
-                        row,
-                        selectedRows: this.selectedRows,
-                        cell,
-                        column,
-                    };
-                    // set event data
-                    // this is mandatory in order to add the source element data in the kup drop event
-                    e.dataTransfer.setData(
-                        'kup-drag-source-element',
-                        JSON.stringify(sourceElementData)
-                    );
-
-                    // Sets the type of drag
-                    setDragEffectAllowed(e, 'move');
-
-                    if (
-                        this.selectedRows.length > 1 ||
-                        (this.selectedRows.length == 1 &&
-                            !this.selectedRows.includes(row))
-                    ) {
-                        this.addMultiSelectDragImageToEvent(e);
-                    }
-                },
-                onDragEnd: (_e: DragEvent) => {
-                    // Remove the over class
-                    const dragDropPayload = getDragDropPayload();
-                    if (dragDropPayload && dragDropPayload.overElement) {
-                        dragDropPayload.overElement.classList.remove(
-                            'selected'
-                        );
-                    }
-                },
-            };
-
             const style: GenericObject = {
                 '--kup_datatable_row_actions': rowActionsCount,
             };
@@ -4476,12 +4511,6 @@ export class KupDataTable {
                     data-row={row}
                     class={rowClass}
                     style={style}
-                    {...(this.dragEnabled
-                        ? setKetchupDraggable(dragHandlersRow, {
-                              [KupDataTableRowDragType]: row,
-                              'kup-drag-source-element': {}, // I put nothing in there because I overwrite the content inside the onDragStart method
-                          })
-                        : {})}
                 >
                     {selectRowCell}
                     {rowActionsCell}
@@ -5599,22 +5628,7 @@ export class KupDataTable {
         if (this.paginatedRowsLength === 0) {
             rows = (
                 <tr ref={(el: HTMLElement) => this.rowsRefs.push(el)}>
-                    <td
-                        {...(this.dropEnabled
-                            ? setKetchupDroppable(
-                                  dropHandlersCell,
-                                  [KupDataTableRowDragType],
-                                  this.rootElement,
-                                  {
-                                      row: null,
-                                      cell: null,
-                                      column: null,
-                                      id: this.rootElement.id,
-                                  }
-                              )
-                            : {})}
-                        colSpan={this.calculateColspan()}
-                    >
+                    <td colSpan={this.calculateColspan()}>
                         {this.emptyDataLabel}
                     </td>
                 </tr>
@@ -5891,8 +5905,12 @@ export class KupDataTable {
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
         }
-        for (let index = 0; index < this.interactableDragDrop.length; index++) {
-            const el = this.interactableDragDrop[index];
+        for (let index = 0; index < this.interactableDrag.length; index++) {
+            const el = this.interactableDrag[index];
+            interact(el).unset();
+        }
+        for (let index = 0; index < this.interactableDrop.length; index++) {
+            const el = this.interactableDrop[index];
             interact(el).unset();
         }
         for (let index = 0; index < this.interactableResize.length; index++) {
