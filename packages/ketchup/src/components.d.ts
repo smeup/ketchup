@@ -1705,24 +1705,6 @@ export namespace Components {
          */
         "sizeY": string;
     }
-    interface KupLayout {
-        /**
-          * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
-         */
-        "columnsNumber": number;
-        /**
-          * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
-         */
-        "contentBasedColumnsWidth": boolean;
-        /**
-          * When true, the layout and its contents will try to take all the available horizontal space.
-         */
-        "fillSpace": boolean;
-        /**
-          * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
-         */
-        "horizontal": boolean;
-    }
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
@@ -2854,12 +2836,6 @@ declare global {
         prototype: HTMLKupImageElement;
         new (): HTMLKupImageElement;
     };
-    interface HTMLKupLayoutElement extends Components.KupLayout, HTMLStencilElement {
-    }
-    var HTMLKupLayoutElement: {
-        prototype: HTMLKupLayoutElement;
-        new (): HTMLKupLayoutElement;
-    };
     interface HTMLKupLazyElement extends Components.KupLazy, HTMLStencilElement {
     }
     var HTMLKupLazyElement: {
@@ -2988,7 +2964,6 @@ declare global {
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
-        "kup-layout": HTMLKupLayoutElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
@@ -4432,24 +4407,6 @@ declare namespace LocalJSX {
          */
         "sizeY"?: string;
     }
-    interface KupLayout {
-        /**
-          * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
-         */
-        "columnsNumber"?: number;
-        /**
-          * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
-         */
-        "contentBasedColumnsWidth"?: boolean;
-        /**
-          * When true, the layout and its contents will try to take all the available horizontal space.
-         */
-        "fillSpace"?: boolean;
-        /**
-          * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
-         */
-        "horizontal"?: boolean;
-    }
     interface KupLazy {
         /**
           * Sets the tag name of the component to be lazy loaded.
@@ -5313,7 +5270,6 @@ declare namespace LocalJSX {
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
-        "kup-layout": KupLayout;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
@@ -5362,7 +5318,6 @@ declare module "@stencil/core" {
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
-            "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;

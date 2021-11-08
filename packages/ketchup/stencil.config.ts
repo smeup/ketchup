@@ -34,7 +34,6 @@ export const config: Config = {
                 { src: 'dropdown-button.html' },
                 { src: 'gauge.html' },
                 { src: 'image.html' },
-                { src: 'layout.html' },
                 { src: 'list.html' },
                 { src: 'magic-box.html' },
                 { src: 'nav-bar.html' },
