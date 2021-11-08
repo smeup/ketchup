@@ -140,7 +140,13 @@ import {
     KupThemeColorValues,
     KupThemeIconValues,
 } from '../../utils/kup-theme/kup-theme-declarations';
-import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    componentWrapperId,
+    kupDragActiveAttr,
+    kupDraggableAttr,
+    kupDragOverAttr,
+    kupDropEvent,
+} from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 import interact from 'interactjs';
 import type {
@@ -756,30 +762,6 @@ export class KupDataTable {
     private loadMoreEventCounter: number = 0;
 
     private loadMoreEventPreviousQuantity: number = 0;
-
-    /**
-     * Attribute to set when a column is being dragged on the whole thead element
-     * @const
-     * @default 'columns-dragging'
-     * @private
-     */
-    private dragFlagAttribute: string = 'columns-dragging';
-
-    /**
-     * The string representing the drag over attribute
-     * @const
-     * @default 'drag-over'
-     * @private
-     */
-    private dragOverAttribute: string = 'drag-over';
-
-    /**
-     * The string representing the drag starter attribute to set onto the element
-     * @const
-     * @default 'drag-starter'
-     * @private
-     */
-    private dragStarterAttribute: string = 'drag-starter';
 
     /**
      * Reference for the thead element
@@ -1564,22 +1546,20 @@ export class KupDataTable {
                                 draggedTh.dataset.column
                             );
                             (e.target as HTMLElement).removeAttribute(
-                                that.dragOverAttribute
+                                kupDragOverAttr
                             );
-                            that.tableRef.removeAttribute(
-                                that.dragFlagAttribute
-                            );
+                            that.tableRef.removeAttribute(kupDragActiveAttr);
                             that.handleColumnGroup(grouped);
                         },
                         enter(e: DropEvent) {
                             (e.target as HTMLElement).setAttribute(
-                                that.dragOverAttribute,
+                                kupDragOverAttr,
                                 ''
                             );
                         },
                         leave(e: DropEvent) {
                             (e.target as HTMLElement).removeAttribute(
-                                that.dragOverAttribute
+                                kupDragOverAttr
                             );
                         },
                     },
@@ -1599,22 +1579,20 @@ export class KupDataTable {
                                 draggedTh.dataset.column
                             );
                             (e.target as HTMLElement).removeAttribute(
-                                that.dragOverAttribute
+                                kupDragOverAttr
                             );
-                            that.tableRef.removeAttribute(
-                                that.dragFlagAttribute
-                            );
+                            that.tableRef.removeAttribute(kupDragActiveAttr);
                             that.handleColumnRemove(deleted);
                         },
                         enter(e: DropEvent) {
                             (e.target as HTMLElement).setAttribute(
-                                that.dragOverAttribute,
+                                kupDragOverAttr,
                                 ''
                             );
                         },
                         leave(e: DropEvent) {
                             (e.target as HTMLElement).removeAttribute(
-                                that.dragOverAttribute
+                                kupDragOverAttr
                             );
                         },
                     },
@@ -1645,21 +1623,21 @@ export class KupDataTable {
                                         );
                                     }
                                     (e.target as HTMLElement).removeAttribute(
-                                        that.dragOverAttribute
+                                        kupDragOverAttr
                                     );
                                     that.tableRef.removeAttribute(
-                                        that.dragFlagAttribute
+                                        kupDragActiveAttr
                                     );
                                 },
                                 enter(e: DropEvent) {
                                     (e.target as HTMLElement).setAttribute(
-                                        that.dragOverAttribute,
+                                        kupDragOverAttr,
                                         ''
                                     );
                                 },
                                 leave(e: DropEvent) {
                                     (e.target as HTMLElement).removeAttribute(
-                                        that.dragOverAttribute
+                                        kupDragOverAttr
                                     );
                                 },
                             },
@@ -1694,6 +1672,10 @@ export class KupDataTable {
                                     const clone = draggable.cloneNode(
                                         true
                                     ) as HTMLElement;
+                                    draggable.setAttribute(
+                                        kupDraggableAttr,
+                                        ''
+                                    );
                                     draggable.kupDragDrop = {
                                         clone: clone,
                                         column: getColumnByName(
@@ -1701,10 +1683,6 @@ export class KupDataTable {
                                             draggable.dataset.column
                                         ),
                                     };
-                                    draggable.setAttribute(
-                                        that.dragStarterAttribute,
-                                        ''
-                                    );
                                     clone.style.cursor = 'grabbing';
                                     clone.style.left =
                                         e.clientX -
@@ -1724,7 +1702,7 @@ export class KupDataTable {
                                         clone
                                     );
                                     that.tableRef.setAttribute(
-                                        that.dragFlagAttribute,
+                                        kupDragActiveAttr,
                                         ''
                                     );
                                     that.hideShowColumnDropArea(
@@ -1735,11 +1713,9 @@ export class KupDataTable {
                                 end(e: InteractEvent) {
                                     const draggable =
                                         e.target as KupDraggableElement;
-                                    draggable.removeAttribute(
-                                        that.dragStarterAttribute
-                                    );
+                                    draggable.removeAttribute(kupDraggableAttr);
                                     that.tableRef.removeAttribute(
-                                        that.dragFlagAttribute
+                                        kupDragActiveAttr
                                     );
                                     draggable.kupDragDrop.clone.remove();
                                     that.hideShowColumnDropArea(false);
@@ -1818,6 +1794,7 @@ export class KupDataTable {
                                     that.rootElement.shadowRoot.querySelector(
                                         'td:hover'
                                     ) as HTMLElement;
+                                draggable.setAttribute(kupDraggableAttr, '');
                                 draggable.kupDragDrop = {
                                     cell: cellEl['data-cell'],
                                     clone: clone,
@@ -1850,7 +1827,7 @@ export class KupDataTable {
                                     'calc(var(--kup-navbar-zindex) + 1)';
                                 that.rootElement.shadowRoot.appendChild(clone);
                                 that.tableRef.setAttribute(
-                                    that.dragFlagAttribute,
+                                    kupDragActiveAttr,
                                     ''
                                 );
                             },
@@ -1858,8 +1835,9 @@ export class KupDataTable {
                                 const draggable =
                                     e.target as KupDraggableElement;
                                 const clone = draggable.kupDragDrop.clone;
+                                draggable.removeAttribute(kupDraggableAttr);
                                 that.tableRef.removeAttribute(
-                                    that.dragFlagAttribute
+                                    kupDragActiveAttr
                                 );
                                 clone.remove();
                             },
@@ -1886,7 +1864,7 @@ export class KupDataTable {
                                     )
                                 );
                                 const ketchupDropEvent = new CustomEvent(
-                                    'kup-drop',
+                                    kupDropEvent,
                                     {
                                         bubbles: true,
                                         cancelable: true,
@@ -1914,7 +1892,7 @@ export class KupDataTable {
                                     ketchupDropEvent
                                 );
                                 that.tableRef.removeAttribute(
-                                    that.dragFlagAttribute
+                                    kupDragActiveAttr
                                 );
                                 (e.target as HTMLElement).classList.remove(
                                     'focus'

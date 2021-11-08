@@ -1,9 +1,9 @@
-[columns-dragging] {
-  [drag-over] {
+[#{$kup-dd-active}] {
+  [#{$kup-dd-drag-over}] {
     background-color: rgba(var(--kup-success-color-rgb), 0.25);
   }
 
-  [drag-starter] {
+  [#{$kup-dd-draggable}] {
     cursor: grabbing !important;
     opacity: 0.5;
   }
@@ -52,7 +52,7 @@
       }
     }
 
-    &[drag-over] {
+    &[#{$kup-dd-drag-over}] {
       opacity: 1;
       .f-image--wrapper {
         &:first-of-type {

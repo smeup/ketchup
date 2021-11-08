@@ -33,7 +33,12 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
-import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    componentWrapperId,
+    kupDraggableAttr,
+    kupDragOverAttr,
+    kupDropEvent,
+} from '../../variables/GenericVariables';
 import interact from 'interactjs';
 import type { DropEvent } from '@interactjs/types/index';
 
@@ -305,7 +310,7 @@ export class KupMagicBox {
 
     componentDidLoad() {
         const that = this;
-        this.rootElement.addEventListener('kup-drop', (e: CustomEvent) =>
+        this.rootElement.addEventListener(kupDropEvent, (e: CustomEvent) =>
             this.updateData(e)
         );
         this.dragHandler =
@@ -313,14 +318,14 @@ export class KupMagicBox {
         this.kupManager.dialog.register(this.rootElement, this.dragHandler);
         interact.dynamicDrop(true);
         interact(this.wrapperRef).dropzone({
-            allowFrom: 'tr, .box',
+            accept: '[' + kupDraggableAttr + ']',
             listeners: {
                 drop(e: DropEvent) {
                     const draggableDetails = (
                         e.relatedTarget as KupDraggableElement
                     ).kupDragDrop;
                     if (draggableDetails) {
-                        const ketchupDropEvent = new CustomEvent('kup-drop', {
+                        const ketchupDropEvent = new CustomEvent(kupDropEvent, {
                             bubbles: true,
                             cancelable: true,
                             detail: {
@@ -340,8 +345,17 @@ export class KupMagicBox {
                                 },
                             },
                         });
+                        (e.target as HTMLElement).removeAttribute(
+                            kupDragOverAttr
+                        );
                         that.rootElement.dispatchEvent(ketchupDropEvent);
                     }
+                },
+                enter(e: DropEvent) {
+                    (e.target as HTMLElement).setAttribute(kupDragOverAttr, '');
+                },
+                leave(e: DropEvent) {
+                    (e.target as HTMLElement).removeAttribute(kupDragOverAttr);
                 },
             },
         });

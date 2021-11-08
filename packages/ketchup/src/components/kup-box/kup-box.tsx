@@ -84,7 +84,12 @@ import {
     KupLanguageGeneric,
     KupLanguageSearch,
 } from '../../utils/kup-language/kup-language-declarations';
-import { componentWrapperId } from '../../variables/GenericVariables';
+import {
+    componentWrapperId,
+    kupDraggableAttr,
+    kupDragOverAttr,
+    kupDropEvent,
+} from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import interact from 'interactjs';
 import type { DropEvent, InteractEvent } from '@interactjs/types/index';
@@ -1854,6 +1859,7 @@ export class KupBox {
                                     that.rootElement.shadowRoot.querySelector(
                                         '.box-object:hover'
                                     ) as HTMLElement;
+                                draggable.setAttribute(kupDraggableAttr, '');
                                 draggable.kupDragDrop = {
                                     cell: cellEl['data-cell'],
                                     clone: clone,
@@ -1865,7 +1871,6 @@ export class KupBox {
                                     row: cellEl['data-row'],
                                     selectedRows: that.selectedRows,
                                 };
-                                draggable.classList.add('item-dragged');
                                 if (that.multiSelection) {
                                     clone.text = that.selectedRows
                                         ? that.selectedRows.length.toString()
@@ -1886,7 +1891,7 @@ export class KupBox {
                             end(e: InteractEvent) {
                                 const draggable =
                                     e.target as KupDraggableElement;
-                                draggable.classList.remove('item-dragged');
+                                draggable.removeAttribute(kupDraggableAttr);
                                 draggable.kupDragDrop.clone.remove();
                             },
                         },
@@ -1905,7 +1910,7 @@ export class KupBox {
                                 e.relatedTarget as KupDraggableElement
                             ).kupDragDrop;
                             const ketchupDropEvent = new CustomEvent(
-                                'kup-drop',
+                                kupDropEvent,
                                 {
                                     bubbles: true,
                                     cancelable: true,
@@ -1930,18 +1935,19 @@ export class KupBox {
                                 }
                             );
                             that.rootElement.dispatchEvent(ketchupDropEvent);
-                            (e.target as HTMLElement).classList.remove(
-                                'component-dropover'
+                            (e.target as HTMLElement).removeAttribute(
+                                kupDragOverAttr
                             );
                         },
                         enter(e: DropEvent) {
-                            (e.target as HTMLElement).classList.add(
-                                'component-dropover'
+                            (e.target as HTMLElement).setAttribute(
+                                kupDragOverAttr,
+                                ''
                             );
                         },
                         leave(e: DropEvent) {
-                            (e.target as HTMLElement).classList.remove(
-                                'component-dropover'
+                            (e.target as HTMLElement).removeAttribute(
+                                kupDragOverAttr
                             );
                         },
                     },
@@ -1964,7 +1970,7 @@ export class KupBox {
                                     )
                                 );
                                 const ketchupDropEvent = new CustomEvent(
-                                    'kup-drop',
+                                    kupDropEvent,
                                     {
                                         bubbles: true,
                                         cancelable: true,
@@ -1991,18 +1997,19 @@ export class KupBox {
                                 that.rootElement.dispatchEvent(
                                     ketchupDropEvent
                                 );
-                                (e.target as HTMLElement).classList.remove(
-                                    'item-dropover'
+                                (e.target as HTMLElement).removeAttribute(
+                                    kupDragOverAttr
                                 );
                             },
                             enter(e: DropEvent) {
-                                (e.target as HTMLElement).classList.add(
-                                    'item-dropover'
+                                (e.target as HTMLElement).setAttribute(
+                                    kupDragOverAttr,
+                                    ''
                                 );
                             },
                             leave(e: DropEvent) {
-                                (e.target as HTMLElement).classList.remove(
-                                    'item-dropover'
+                                (e.target as HTMLElement).removeAttribute(
+                                    kupDragOverAttr
                                 );
                             },
                         },

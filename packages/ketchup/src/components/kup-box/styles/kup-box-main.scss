@@ -41,7 +41,7 @@
   background: var(--kup_box_background_color);
   transition: border var(--kup_box_transition) ease;
 
-  &.component-dropover {
+  &[#{$kup-dd-drag-over}] {
     position: relative;
     border: 3px dashed var(--kup-border-color);
   }
@@ -105,11 +105,11 @@
         }
       }
 
-      &.item-dragged {
+      &[#{$kup-dd-draggable}] {
         opacity: 0.5;
       }
 
-      &.item-dropover {
+      &[#{$kup-dd-drag-over}] {
         border: 3px dashed var(--kup-border-color);
         position: relative;
         z-index: 2;
