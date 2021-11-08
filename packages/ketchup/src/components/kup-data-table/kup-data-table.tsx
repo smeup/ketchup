@@ -1633,10 +1633,7 @@ export class KupDataTable {
                                 drop(e: DropEvent) {
                                     const draggable =
                                         e.relatedTarget as KupDraggableElement;
-                                    const sorted = getColumnByName(
-                                        that.getColumns(),
-                                        draggable.kupDragDrop.column
-                                    );
+                                    const sorted = draggable.kupDragDrop.column;
                                     const receiving = getColumnByName(
                                         that.getColumns(),
                                         e.target.dataset.column
@@ -1699,7 +1696,10 @@ export class KupDataTable {
                                     ) as HTMLElement;
                                     draggable.kupDragDrop = {
                                         clone: clone,
-                                        column: draggable.dataset.column,
+                                        column: getColumnByName(
+                                            that.getVisibleColumns(),
+                                            draggable.dataset.column
+                                        ),
                                     };
                                     draggable.setAttribute(
                                         that.dragStarterAttribute,
@@ -1821,7 +1821,10 @@ export class KupDataTable {
                                 draggable.kupDragDrop = {
                                     cell: cellEl['data-cell'],
                                     clone: clone,
-                                    column: cellEl.dataset.column,
+                                    column: getColumnByName(
+                                        that.getVisibleColumns(),
+                                        cellEl.dataset.column
+                                    ),
                                     id: that.rootElement.id,
                                     row: cellEl['data-row'],
                                     selectedRows: that.selectedRows,

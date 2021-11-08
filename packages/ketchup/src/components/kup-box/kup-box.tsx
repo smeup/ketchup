@@ -51,7 +51,6 @@ import {
     sortRows,
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
-import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { KupCardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
@@ -1858,7 +1857,10 @@ export class KupBox {
                                 draggable.kupDragDrop = {
                                     cell: cellEl['data-cell'],
                                     clone: clone,
-                                    column: cellEl.dataset.column,
+                                    column: getColumnByName(
+                                        that.visibleColumns,
+                                        cellEl.dataset.column
+                                    ),
                                     id: that.rootElement.id,
                                     row: cellEl['data-row'],
                                     selectedRows: that.selectedRows,
@@ -1915,7 +1917,8 @@ export class KupBox {
                                             selectedRows:
                                                 draggableDetails.selectedRows,
                                             cell: draggableDetails.cell,
-                                            column: draggableDetails.column,
+                                            column: draggableDetails.column
+                                                .name,
                                         },
                                         targetElement: {
                                             id: that.rootElement.id,
@@ -1973,7 +1976,8 @@ export class KupBox {
                                                 selectedRows:
                                                     draggableDetails.selectedRows,
                                                 cell: draggableDetails.cell,
-                                                column: draggableDetails.column,
+                                                column: draggableDetails.column
+                                                    .name,
                                             },
                                             targetElement: {
                                                 id: that.rootElement.id,

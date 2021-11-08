@@ -1,5 +1,6 @@
 import {
     Cell,
+    Column,
     Row,
 } from '../components/kup-data-table/kup-data-table-declarations';
 
@@ -72,7 +73,7 @@ export interface KupDraggableElement extends HTMLElement {
 export interface KupDraggablePayload {
     cell?: Cell;
     clone?: HTMLElement;
-    column?: string;
+    column?: Column;
     id?: string;
     row?: Row;
     selectedRows?: Row[];
