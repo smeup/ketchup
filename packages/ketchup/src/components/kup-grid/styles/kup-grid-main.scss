@@ -36,10 +36,11 @@
     );
 
     .layout-grid__cell {
+      box-sizing: border-box;
       display: flex;
+      justify-content: center;
       margin: 0px;
       width: auto;
-      box-sizing: border-box;
 
       @for $span from 1 through 24 {
         @at-root .layout-grid__cell--span-#{$span} {
