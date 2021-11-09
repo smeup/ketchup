@@ -58,6 +58,15 @@ export class KupInteract {
         this.zIndex = zIndex ? zIndex : 200;
         this.restrictContainer = restrictContainer ? restrictContainer : null;
     }
+    /**
+     * Sets up a new draggable element.
+     * @param {HTMLElement} el - The draggable element.
+     * @param {Partial<DraggableOptions>} options - Options of the draggable element.
+     * @param {KupDragEventData} eventData - Property used to transfer data for the drop event. The callback is used to return information of the starting item - such as cell, column and row info.
+     * @param {KupDragEffect} effect - Visual effect of the drag action.
+     * @param {KupDragCallbacks} callbacks - Additional callbacks to invoke.
+     * @see https://interactjs.io/docs/action-options/ For more options
+     */
     draggable(
         el: HTMLElement,
         options?: Partial<DraggableOptions>,
@@ -94,7 +103,7 @@ export class KupInteract {
                 const draggable = e.target as KupDraggableElement;
                 draggable.setAttribute(kupDraggableAttr, '');
                 const draggableDetails = eventData.callback
-                    ? eventData.callback()
+                    ? eventData.callback(e)
                     : {};
                 draggable.kupDragDrop = draggableDetails;
                 let ghostImage = null;
@@ -120,6 +129,28 @@ export class KupInteract {
                         dom.ketchup.interact.container.appendChild(ghostImage);
                         draggable.kupDragDrop.ghostImage = ghostImage;
                         break;
+                    case KupDragEffect.CLONE:
+                        ghostImage = draggable.cloneNode(true) as HTMLElement;
+                        ghostImage.style.cursor = 'grabbing';
+                        ghostImage.style.height = draggable.clientHeight + 'px';
+                        ghostImage.style.left =
+                            e.clientX - draggable.clientWidth / 2 + 'px';
+                        ghostImage.style.opacity = '0.75';
+                        ghostImage.style.position = 'fixed';
+                        ghostImage.style.top =
+                            e.clientY - draggable.clientHeight / 2 + 'px';
+                        ghostImage.style.width = draggable.clientWidth + 'px';
+                        ghostImage.style.zIndex =
+                            'calc(var(--kup-navbar-zindex) + 1)';
+                        if (draggable.parentElement) {
+                            draggable.parentElement.appendChild(ghostImage);
+                        } else {
+                            dom.ketchup.interact.container.appendChild(
+                                ghostImage
+                            );
+                        }
+                        draggable.kupDragDrop.ghostImage = ghostImage;
+                        break;
                 }
             },
             end(e: InteractEvent) {
@@ -139,7 +170,7 @@ export class KupInteract {
      * Sets up a new dropzone.
      * @param {HTMLElement} el - The dropzone element.
      * @param {DropzoneOptions} options - Options of the dropzone.
-     * @param {KupDropEventData} eventData - Additional data used to trigger the drop event. The callback is used to return cell, column and row info.
+     * @param {KupDropEventData} eventData - Argument used to transfer data for the drop event. The callback is used to return information of the receiving item - such as cell, column and row info.
      * @param {KupDropCallbacks} callbacks - Additional callbacks to invoke.
      * @see https://interactjs.io/docs/action-options/ For more options
      */

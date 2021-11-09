@@ -88,9 +88,11 @@ import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations
 import interact from 'interactjs';
 import type { InteractEvent } from '@interactjs/types/index';
 import {
+    KupDragDataTransferCallback,
     KupDragEffect,
     kupDraggableAttr,
     KupDraggableElement,
+    KupDropDataTransferCallback,
     KupDropEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
 
@@ -1828,7 +1830,7 @@ export class KupBox {
         if (this.dragEnabled) {
             for (let index = 0; index < this.rowsRefs.length; index++) {
                 const row = this.rowsRefs[index];
-                const callback = () => {
+                const dataCb: KupDragDataTransferCallback = () => {
                     const cellEl = this.rootElement.shadowRoot.querySelector(
                         '.box-object:hover'
                     ) as HTMLElement;
@@ -1855,7 +1857,7 @@ export class KupBox {
                             },
                         },
                         {
-                            callback: callback,
+                            callback: dataCb,
                         },
                         KupDragEffect.BADGE
                     );
@@ -1863,7 +1865,7 @@ export class KupBox {
             }
         }
         if (this.dropEnabled) {
-            const callback = () => {
+            const dataCb: KupDropDataTransferCallback = () => {
                 const receivingDetails = this.getEventDetails(
                     this.rootElement.shadowRoot.querySelector('.box:hover')
                 );
@@ -1897,7 +1899,7 @@ export class KupBox {
                             accept: '.box',
                         },
                         {
-                            callback: callback,
+                            callback: dataCb,
                             dispatcher: this.rootElement,
                             type: KupDropEventTypes.BOX,
                         }

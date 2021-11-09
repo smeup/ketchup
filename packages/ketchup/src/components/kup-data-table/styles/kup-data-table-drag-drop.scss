@@ -1,12 +1,10 @@
-[#{$kup-dd-active}] {
-  [#{$kup-dd-drag-over}] {
-    background-color: rgba(var(--kup-success-color-rgb), 0.25);
-  }
+th[#{$kup-dd-drag-over}] {
+  background-color: rgba(var(--kup-success-color-rgb), 0.25);
+}
 
-  [#{$kup-dd-draggable}] {
-    cursor: grabbing !important;
-    opacity: 0.5;
-  }
+th[#{$kup-dd-draggable}] {
+  cursor: grabbing !important;
+  opacity: 0.5;
 }
 
 .droparea {

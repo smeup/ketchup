@@ -150,10 +150,14 @@ import type {
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import {
     kupDragActiveAttr,
+    KupDragCallbacks,
+    KupDragDataTransferCallback,
     KupDragEffect,
     kupDraggableAttr,
     KupDraggableElement,
     kupDragOverAttr,
+    KupDropCallbacks,
+    KupDropDataTransferCallback,
     kupDropEvent,
     KupDropEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
@@ -1579,95 +1583,70 @@ export class KupDataTable {
             }
         }
         if (this.enableSortableColumns) {
+            const dataCb: KupDragDataTransferCallback = (e) => {
+                const draggable = e.target as KupDraggableElement;
+                return {
+                    cell: null,
+                    column: getColumnByName(
+                        that.getVisibleColumns(),
+                        draggable.dataset.column
+                    ),
+                    id: this.rootElement.id,
+                    multiple: !!(
+                        this.selection === SelectionMode.MULTIPLE ||
+                        this.selection === SelectionMode.MULTIPLE_CHECKBOX
+                    ),
+                    row: null,
+                    selectedRows: this.selectedRows,
+                };
+            };
+            const dropCallbacks: KupDropCallbacks = {
+                drop: (e: DropEvent) => {
+                    const draggable = e.relatedTarget as KupDraggableElement;
+                    const sorted = draggable.kupDragDrop.column;
+                    const receiving = getColumnByName(
+                        this.getColumns(),
+                        e.target.dataset.column
+                    );
+                    if (receiving && sorted) {
+                        this.handleColumnSort(receiving, sorted);
+                    }
+                    this.tableRef.removeAttribute(kupDragActiveAttr);
+                },
+            };
+            const dragCallbacks: KupDragCallbacks = {
+                start: (e) => {
+                    const draggable = e.target as KupDraggableElement;
+                    this.hideShowColumnDropArea(true, draggable);
+                },
+                end: () => {
+                    this.hideShowColumnDropArea(false);
+                },
+            };
             for (let index = 0; index < this.thRefs.length; index++) {
                 const th = this.thRefs[index];
                 if (th && !this.interactableDrag.includes(th)) {
                     this.interactableDrag.push(th);
-                    this.kupManager.interact.dropzone(th, null, null, {
-                        drop: (e: DropEvent) => {
-                            const draggable =
-                                e.relatedTarget as KupDraggableElement;
-                            const sorted = draggable.kupDragDrop.column;
-                            const receiving = getColumnByName(
-                                this.getColumns(),
-                                e.target.dataset.column
-                            );
-                            if (receiving && sorted) {
-                                this.handleColumnSort(receiving, sorted);
-                            }
-                            this.tableRef.removeAttribute(kupDragActiveAttr);
-                        },
-                    });
-                    interact(th).draggable({
-                        cursorChecker() {
-                            return null;
-                        },
-                        ignoreFrom: '.header-cell__drag-handler',
-                        listeners: {
-                            move(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                const clone = draggable.kupDragDrop.ghostImage;
-                                let x =
-                                    parseFloat(clone.getAttribute('data-x')) ||
-                                    0;
-                                let y =
-                                    parseFloat(clone.getAttribute('data-y')) ||
-                                    0;
-                                x = x + e.dx;
-                                y = y + e.dy;
-                                clone.style.transform = `translate(${x}px, ${y}px)`;
-                                clone.setAttribute('data-x', x.toString());
-                                clone.setAttribute('data-y', y.toString());
+                    this.kupManager.interact.dropzone(
+                        th,
+                        null,
+                        null,
+                        dropCallbacks
+                    );
+                    this.kupManager.interact.draggable(
+                        th,
+                        {
+                            cursorChecker() {
+                                return null;
                             },
-                            start(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                const clone = draggable.cloneNode(
-                                    true
-                                ) as HTMLElement;
-                                draggable.setAttribute(kupDraggableAttr, '');
-                                draggable.kupDragDrop = {
-                                    ghostImage: clone,
-                                    column: getColumnByName(
-                                        that.getVisibleColumns(),
-                                        draggable.dataset.column
-                                    ),
-                                };
-                                clone.style.cursor = 'grabbing';
-                                clone.style.left =
-                                    e.clientX -
-                                    draggable.clientWidth / 2 +
-                                    'px';
-                                clone.style.opacity = '0.75';
-                                clone.style.position = 'fixed';
-                                clone.style.top =
-                                    e.clientY -
-                                    draggable.clientHeight / 2 +
-                                    'px';
-                                clone.style.width =
-                                    draggable.clientWidth + 'px';
-                                clone.style.zIndex =
-                                    'calc(var(--kup-navbar-zindex) + 1)';
-                                that.rootElement.shadowRoot.appendChild(clone);
-                                that.tableRef.setAttribute(
-                                    kupDragActiveAttr,
-                                    ''
-                                );
-                                that.hideShowColumnDropArea(true, draggable);
-                            },
-                            end(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                draggable.removeAttribute(kupDraggableAttr);
-                                that.tableRef.removeAttribute(
-                                    kupDragActiveAttr
-                                );
-                                draggable.kupDragDrop.ghostImage.remove();
-                                that.hideShowColumnDropArea(false);
-                            },
+                            ignoreFrom: '.header-cell__drag-handler',
                         },
-                    });
+                        {
+                            callback: dataCb,
+                        },
+                        KupDragEffect.CLONE,
+                        dragCallbacks
+                    );
                 }
             }
         }
@@ -1707,7 +1686,7 @@ export class KupDataTable {
         if (this.dragEnabled) {
             for (let index = 0; index < this.rowsRefs.length; index++) {
                 const row = this.rowsRefs[index];
-                const callback = () => {
+                const dataCb: KupDragDataTransferCallback = () => {
                     const cellEl = this.rootElement.shadowRoot.querySelector(
                         'td:hover'
                     ) as HTMLElement;
@@ -1737,7 +1716,7 @@ export class KupDataTable {
                             },
                         },
                         {
-                            callback: callback,
+                            callback: dataCb,
                         },
                         KupDragEffect.BADGE
                     );
@@ -1745,7 +1724,7 @@ export class KupDataTable {
             }
         }
         if (this.dropEnabled) {
-            const callback = () => {
+            const dataCb: KupDropDataTransferCallback = () => {
                 const receivingDetails = this.getEventDetails(
                     this.rootElement.shadowRoot.querySelector('td:hover')
                 );
@@ -1766,7 +1745,7 @@ export class KupDataTable {
                             accept: 'tr',
                         },
                         {
-                            callback: callback,
+                            callback: dataCb,
                             dispatcher: this.rootElement,
                             type: KupDropEventTypes.DATATABLE,
                         }

@@ -62,14 +62,18 @@ export interface KupDropCallbacks {
 /**
  * Defines the additional data of the drag event.
  */
+export type KupDragDataTransferCallback = (
+    e?: InteractEvent
+) => KupDropEventSource;
 export interface KupDragEventData {
-    callback?: (e?: InteractEvent) => KupDropEventSource;
+    callback?: KupDragDataTransferCallback;
 }
 /**
  * Defines the additional data of the drop event.
  */
+export type KupDropDataTransferCallback = (e?: DropEvent) => KupDropEventTarget;
 export interface KupDropEventData {
-    callback?: (e?: DropEvent) => KupDropEventTarget;
+    callback?: KupDropDataTransferCallback;
     dispatcher: HTMLElement;
     type: KupDropEventTypes;
 }
