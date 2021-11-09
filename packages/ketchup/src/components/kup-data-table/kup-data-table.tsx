@@ -70,7 +70,6 @@ import {
 import {
     GenericObject,
     KupComponent,
-    KupDraggableElement,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
@@ -140,13 +139,7 @@ import {
     KupThemeColorValues,
     KupThemeIconValues,
 } from '../../utils/kup-theme/kup-theme-declarations';
-import {
-    componentWrapperId,
-    kupDragActiveAttr,
-    kupDraggableAttr,
-    kupDragOverAttr,
-    kupDropEvent,
-} from '../../variables/GenericVariables';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 import interact from 'interactjs';
 import type {
@@ -155,6 +148,15 @@ import type {
     PointerEvent,
 } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
+import {
+    kupDragActiveAttr,
+    kupDraggableAttr,
+    KupDraggableElement,
+    kupDragOverAttr,
+    kupDropEvent,
+    KupDropEventTypes,
+} from '../../utils/kup-interact/kup-interact-declarations';
+import { KupInteract } from '../../utils/kup-interact/kup-interact';
 
 @Component({
     tag: 'kup-data-table',
@@ -1851,65 +1853,30 @@ export class KupDataTable {
                 const row = this.rowsRefs[index];
                 if (row && !this.interactableDrop.includes(row)) {
                     this.interactableDrop.push(row);
-                    interact(row).dropzone({
-                        accept: 'tr',
-                        listeners: {
-                            drop(e: DropEvent) {
-                                const draggableDetails = (
-                                    e.relatedTarget as KupDraggableElement
-                                ).kupDragDrop;
-                                const receivingDetails = that.getEventDetails(
-                                    that.rootElement.shadowRoot.querySelector(
+                    const test = new KupInteract();
+                    test.dropzone(
+                        row,
+                        {
+                            accept: 'tr',
+                        },
+                        {
+                            callback: () => {
+                                const receivingDetails = this.getEventDetails(
+                                    this.rootElement.shadowRoot.querySelector(
                                         'td:hover'
                                     )
                                 );
-                                const ketchupDropEvent = new CustomEvent(
-                                    kupDropEvent,
-                                    {
-                                        bubbles: true,
-                                        cancelable: true,
-                                        detail: {
-                                            dataType:
-                                                'text/kup-data-table-row-drag',
-                                            sourceElement: {
-                                                id: draggableDetails.id,
-                                                row: draggableDetails.row,
-                                                selectedRows:
-                                                    draggableDetails.selectedRows,
-                                                cell: draggableDetails.cell,
-                                                column: draggableDetails.column,
-                                            },
-                                            targetElement: {
-                                                id: that.rootElement.id,
-                                                row: receivingDetails.row,
-                                                cell: receivingDetails.cell,
-                                                column: receivingDetails.column,
-                                            },
-                                        },
-                                    }
-                                );
-                                that.rootElement.dispatchEvent(
-                                    ketchupDropEvent
-                                );
-                                that.tableRef.removeAttribute(
-                                    kupDragActiveAttr
-                                );
-                                (e.target as HTMLElement).classList.remove(
-                                    'focus'
-                                );
+                                return {
+                                    cell: receivingDetails.cell,
+                                    column: receivingDetails.column,
+                                    id: this.rootElement.id,
+                                    row: receivingDetails.row,
+                                };
                             },
-                            enter(e: DropEvent) {
-                                (e.target as HTMLElement).classList.add(
-                                    'focus'
-                                );
-                            },
-                            leave(e: DropEvent) {
-                                (e.target as HTMLElement).classList.remove(
-                                    'focus'
-                                );
-                            },
-                        },
-                    });
+                            dispatcher: this.rootElement,
+                            type: KupDropEventTypes.DATATABLE,
+                        }
+                    );
                 }
             }
         }

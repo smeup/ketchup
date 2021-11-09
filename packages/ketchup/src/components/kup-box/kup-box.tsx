@@ -71,7 +71,6 @@ import {
 import {
     GenericObject,
     KupComponent,
-    KupDraggableElement,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
@@ -84,15 +83,16 @@ import {
     KupLanguageGeneric,
     KupLanguageSearch,
 } from '../../utils/kup-language/kup-language-declarations';
-import {
-    componentWrapperId,
-    kupDraggableAttr,
-    kupDragOverAttr,
-    kupDropEvent,
-} from '../../variables/GenericVariables';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import interact from 'interactjs';
 import type { DropEvent, InteractEvent } from '@interactjs/types/index';
+import {
+    kupDraggableAttr,
+    KupDraggableElement,
+    kupDragOverAttr,
+    kupDropEvent,
+} from '../../utils/kup-interact/kup-interact-declarations';
 
 @Component({
     tag: 'kup-box',

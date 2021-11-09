@@ -98,7 +98,8 @@ table {
 
   // By default, since border has been moved to the cells themselves, the first and last cell must always simulate the table border
   > tbody > tr {
-    &.focus {
+    &.focus,
+    &[#{$kup-dd-drag-over}] {
       td {
         &:first-of-type {
           box-shadow: inset 4px 0px 0px 0px var(--kup-secondary-color);
