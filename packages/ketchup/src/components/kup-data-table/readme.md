@@ -249,7 +249,6 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-card](../kup-card)
-- [kup-badge](../kup-badge)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
@@ -266,12 +265,12 @@ Type: `Promise<void>`
 - [kup-paginator](../kup-paginator)
 - [kup-switch](../kup-switch)
 - [kup-combobox](../kup-combobox)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-data-table --> kup-card
-  kup-data-table --> kup-badge
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
@@ -288,6 +287,7 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
   kup-card --> kup-data-table
   kup-chip --> kup-badge
   kup-badge --> kup-badge

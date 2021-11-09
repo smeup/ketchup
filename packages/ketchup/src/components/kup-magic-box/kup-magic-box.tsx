@@ -9,12 +9,7 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-
-import type {
-    GenericObject,
-    KupComponent,
-    KupDraggableElement,
-} from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -33,14 +28,14 @@ import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declar
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { componentWrapperId } from '../../variables/GenericVariables';
 import {
-    componentWrapperId,
     kupDraggableAttr,
-    kupDragOverAttr,
+    kupDraggableColumnAttr,
+    kupDraggableRowAttr,
     kupDropEvent,
-} from '../../variables/GenericVariables';
-import interact from 'interactjs';
-import type { DropEvent } from '@interactjs/types/index';
+    KupDropEventTypes,
+} from '../../utils/kup-interact/kup-interact-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -77,7 +72,7 @@ export class KupMagicBox {
      * Sets the data that will be used to display different components.
      * @default null
      */
-    @Prop() data: MagicBoxData = null;
+    @Prop({ mutable: true }) data: MagicBoxData = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -309,56 +304,22 @@ export class KupMagicBox {
     }
 
     componentDidLoad() {
-        const that = this;
         this.rootElement.addEventListener(kupDropEvent, (e: CustomEvent) =>
             this.updateData(e)
         );
         this.dragHandler =
             this.rootElement.shadowRoot.querySelector('#drag-handle');
-        this.kupManager.dialog.register(this.rootElement, this.dragHandler);
-        interact.dynamicDrop(true);
-        interact(this.wrapperRef).dropzone({
-            accept: '[' + kupDraggableAttr + ']',
-            listeners: {
-                drop(e: DropEvent) {
-                    const draggableDetails = (
-                        e.relatedTarget as KupDraggableElement
-                    ).kupDragDrop;
-                    if (draggableDetails) {
-                        const ketchupDropEvent = new CustomEvent(kupDropEvent, {
-                            bubbles: true,
-                            cancelable: true,
-                            detail: {
-                                dataType: 'text/kup-magic-box-drag',
-                                sourceElement: {
-                                    id: draggableDetails.id,
-                                    row: draggableDetails.row,
-                                    selectedRows: draggableDetails.selectedRows,
-                                    cell: draggableDetails.cell,
-                                    column: draggableDetails.column,
-                                },
-                                targetElement: {
-                                    id: that.rootElement.id,
-                                    row: null,
-                                    cell: null,
-                                    column: null,
-                                },
-                            },
-                        });
-                        (e.target as HTMLElement).removeAttribute(
-                            kupDragOverAttr
-                        );
-                        that.rootElement.dispatchEvent(ketchupDropEvent);
-                    }
-                },
-                enter(e: DropEvent) {
-                    (e.target as HTMLElement).setAttribute(kupDragOverAttr, '');
-                },
-                leave(e: DropEvent) {
-                    (e.target as HTMLElement).removeAttribute(kupDragOverAttr);
-                },
+        this.kupManager.interact.dialogify(this.rootElement, this.dragHandler);
+        this.kupManager.interact.dropzone(
+            this.wrapperRef,
+            {
+                accept: `[${kupDraggableColumnAttr}],[${kupDraggableRowAttr}]`,
             },
-        });
+            {
+                dispatcher: this.rootElement,
+                type: KupDropEventTypes.MAGICBOX,
+            }
+        );
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -412,9 +373,11 @@ export class KupMagicBox {
     }
 
     disconnectedCallback() {
-        this.kupManager.dialog.unregister([this.rootElement]);
+        this.kupManager.interact.unregister([
+            this.rootElement,
+            this.wrapperRef,
+        ]);
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        interact(this.wrapperRef).unset();
     }
 }

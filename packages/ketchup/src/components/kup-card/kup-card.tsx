@@ -328,8 +328,8 @@ export class KupCard {
             const unresizable: boolean = !!root.querySelector(
                 '.' + KupCardCSSClasses.DIALOG_UNRESIZABLE
             );
-            if (!this.kupManager.dialog.isRegistered(card)) {
-                this.kupManager.dialog.register(
+            if (!this.kupManager.interact.isRegistered(card)) {
+                this.kupManager.interact.dialogify(
                     card,
                     dragHandle ? dragHandle : null,
                     unresizable
@@ -544,9 +544,9 @@ export class KupCard {
     }
 
     disconnectedCallback() {
+        this.kupManager.interact.unregister([this.rootElement]);
         this.kupManager.language.unregister(this);
-        this.kupManager.theme.unregister(this);
-        this.kupManager.dialog.unregister([this.rootElement]);
         this.kupManager.resize.unobserve(this.rootElement);
+        this.kupManager.theme.unregister(this);
     }
 }
