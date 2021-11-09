@@ -329,7 +329,7 @@ export class KupCard {
                 '.' + KupCardCSSClasses.DIALOG_UNRESIZABLE
             );
             if (!this.kupManager.interact.isRegistered(card)) {
-                this.kupManager.interact.register(
+                this.kupManager.interact.dialogify(
                     card,
                     dragHandle ? dragHandle : null,
                     unresizable

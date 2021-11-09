@@ -8,6 +8,7 @@ import type {
     DropzoneOptions,
     Point,
     RectResolvable,
+    ResizableOptions,
 } from '@interactjs/types/index';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import interact from 'interactjs';
@@ -24,6 +25,7 @@ import {
     kupDropEvent,
     KupDropEventData,
     KupDropEventPayload,
+    KupResizeCallbacks,
 } from './kup-interact-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -87,24 +89,39 @@ export class KupInteract {
                 }
                 if (effect.toLowerCase() !== KupDragEffect.NONE) {
                     const draggable = e.target as KupDraggableElement;
-                    const ghostImage = draggable.kupDragDrop
-                        ? draggable.kupDragDrop.ghostImage
-                        : e.target;
+                    const ghostImage =
+                        draggable.kupDragDrop &&
+                        draggable.kupDragDrop.ghostImage
+                            ? draggable.kupDragDrop.ghostImage
+                            : e.target;
+                    const oldTransform = ghostImage.style.transform;
                     let x = parseFloat(ghostImage.getAttribute('data-x')) || 0;
                     let y = parseFloat(ghostImage.getAttribute('data-y')) || 0;
                     x = x + e.dx;
                     y = y + e.dy;
                     ghostImage.style.transform = `translate(${x}px, ${y}px)`;
-                    ghostImage.setAttribute('data-x', x.toString());
-                    ghostImage.setAttribute('data-y', y.toString());
+                    if (
+                        dom.ketchup.interact.isInViewport(
+                            el,
+                            oldTransform,
+                            e.delta
+                        )
+                    ) {
+                        ghostImage.setAttribute('data-x', x.toString());
+                        ghostImage.setAttribute('data-y', y.toString());
+                    }
                 }
             },
             start(e: InteractEvent) {
+                if (callbacks && callbacks.start) {
+                    callbacks.start(e);
+                }
                 const draggable = e.target as KupDraggableElement;
                 draggable.setAttribute(kupDraggableAttr, '');
-                const draggableDetails = eventData.callback
-                    ? eventData.callback(e)
-                    : {};
+                const draggableDetails =
+                    eventData && eventData.callback
+                        ? eventData.callback(e)
+                        : {};
                 draggable.kupDragDrop = draggableDetails;
                 let ghostImage = null;
                 switch (effect) {
@@ -154,6 +171,9 @@ export class KupInteract {
                 }
             },
             end(e: InteractEvent) {
+                if (callbacks && callbacks.end) {
+                    callbacks.end(e);
+                }
                 const draggable = e.target as KupDraggableElement;
                 const ghostImage = draggable.kupDragDrop
                     ? draggable.kupDragDrop.ghostImage
@@ -165,6 +185,7 @@ export class KupInteract {
             },
         };
         interact(el).draggable(options);
+        this.managedElements.add(el);
     }
     /**
      * Sets up a new dropzone.
@@ -262,15 +283,85 @@ export class KupInteract {
             },
         };
         interact(el).dropzone(options);
+        this.managedElements.add(el);
     }
     /**
-     * Watches the element handled as dialog.
+     * Sets up a new resizable element.
+     * @param {HTMLElement} el - The resizable element.
+     * @param {Partial<ResizableOptions>} options - Options of the resize action.
+     * @param {KupResizeCallbacks} callbacks - Additional callbacks to invoke.
+     * @param {boolean} moveOnResize - When true, the element will be moved when resizing in order to keep its position.
+     * @see https://interactjs.io/docs/action-options/ For more options
+     */
+    resizable(
+        el: HTMLElement,
+        options?: Partial<ResizableOptions>,
+        callbacks?: KupResizeCallbacks,
+        moveOnResize?: boolean
+    ) {
+        if (!options) {
+            options = {};
+        }
+        options.listeners = {
+            move(e: ResizeEvent) {
+                if (callbacks && callbacks.move) {
+                    callbacks.move(e);
+                }
+                if (moveOnResize) {
+                    const el = e.target as HTMLElement;
+                    const oldTransform = e.target.style.transform;
+                    let x = parseFloat(el.getAttribute('data-x')) || 0;
+                    let y = parseFloat(el.getAttribute('data-y')) || 0;
+                    el.style.width = e.rect.width + 'px';
+                    el.style.height = e.rect.height + 'px';
+                    x += e.deltaRect.left;
+                    y += e.deltaRect.top;
+                    el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+                    if (
+                        dom.ketchup.interact.isInViewport(
+                            el,
+                            oldTransform,
+                            e.delta
+                        )
+                    ) {
+                        el.setAttribute('data-x', x.toString());
+                        el.setAttribute('data-y', y.toString());
+                    }
+                }
+            },
+        };
+        interact(el).resizable(options);
+        this.managedElements.add(el);
+    }
+    /**
+     * This method checks whether the element is breaking the viewport boundaries.
+     * @param {HTMLElement} el - Element to check.
+     * @param {string} oldTransform - Previously set transform, used to rollback in case element breaks viewport boundaries.
+     * @param {Point} delta - X and Y delta values of the last movement.
+     */
+    isInViewport(el: HTMLElement, oldTransform: string, delta: Point) {
+        const style = window.getComputedStyle(el);
+        const isFixed = !!(style.position === 'fixed');
+        const rect = el.getBoundingClientRect();
+        if (
+            rect.left < 0 ||
+            rect.top < 0 ||
+            (isFixed && rect.right > window.innerWidth && delta.x >= 0) ||
+            (isFixed && rect.bottom > window.innerHeight && delta.y >= 0)
+        ) {
+            el.style.transform = oldTransform;
+            return false;
+        }
+        return true;
+    }
+    /**
+     * This method treats the given element as a dialog, by activating moving-on-drag and, optionally, its resize.
      * @param {HTMLElement} el - Dialog element.
      * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger movement. When not provided, dragging anywhere on "el" will move it.
      * @param {boolean} unresizable - When true, the dialog can't be resized.
      * @param {RectResolvable<[number, number, Interaction<keyof ActionMap>]>} restrictContainer - When present, it will set the constraint of "el": it can't be moved outside this container.
      */
-    register(
+    dialogify(
         el: HTMLElement,
         handleEl?: HTMLElement,
         unresizable?: boolean,
@@ -278,45 +369,18 @@ export class KupInteract {
             [number, number, Interaction<keyof ActionMap>]
         >
     ): void {
-        const isInViewport = (
-            el: HTMLElement,
-            oldTransform: string,
-            delta: Point
-        ) => {
-            const style = window.getComputedStyle(el);
-            const isFixed = !!(style.position === 'fixed');
-            const rect = el.getBoundingClientRect();
-            if (
-                rect.left < 0 ||
-                rect.top < 0 ||
-                (isFixed && rect.right > window.innerWidth && delta.x >= 0) ||
-                (isFixed && rect.bottom > window.innerHeight && delta.y >= 0)
-            ) {
-                el.style.transform = oldTransform;
-                return false;
-            }
-            return true;
-        };
         el.setAttribute(kupDialogAttribute, '');
         el.style.zIndex = (this.zIndex++).toString();
-        interact(el)
-            .draggable({
+        const callbacks = {
+            start(e: InteractEvent) {
+                const el = e.currentTarget as HTMLElement;
+                el.style.zIndex = (dom.ketchup.interact.zIndex++).toString();
+            },
+        };
+        this.draggable(
+            el,
+            {
                 allowFrom: handleEl ? handleEl : null,
-                listeners: {
-                    move(e: InteractEvent) {
-                        const el = e.target as HTMLElement;
-                        const oldTransform = e.target.style.transform;
-                        let x = parseFloat(el.getAttribute('data-x')) || 0;
-                        let y = parseFloat(el.getAttribute('data-y')) || 0;
-                        x = x + e.dx;
-                        y = y + e.dy;
-                        el.style.transform = `translate(${x}px, ${y}px)`;
-                        if (isInViewport(el, oldTransform, e.delta)) {
-                            el.setAttribute('data-x', x.toString());
-                            el.setAttribute('data-y', y.toString());
-                        }
-                    },
-                },
                 modifiers: [
                     interact.modifiers.restrictRect({
                         restriction: restrictContainer
@@ -325,41 +389,32 @@ export class KupInteract {
                         endOnly: true,
                     }),
                 ],
-            })
-            .on('pointerdown', function (e: PointerEvent) {
-                const el = e.currentTarget as HTMLElement;
-                el.style.zIndex = (dom.ketchup.interact.zIndex++).toString();
-            });
+            },
+            null,
+            KupDragEffect.MOVE,
+            callbacks
+        );
         if (!unresizable) {
             el.classList.add(kupDialogResizableClass);
-            interact(el).resizable({
-                edges: { left: true, right: true, bottom: true, top: false },
-                listeners: {
-                    move(e: ResizeEvent) {
-                        const el = e.target as HTMLElement;
-                        const oldTransform = e.target.style.transform;
-                        let x = parseFloat(el.getAttribute('data-x')) || 0;
-                        let y = parseFloat(el.getAttribute('data-y')) || 0;
-                        el.style.width = e.rect.width + 'px';
-                        el.style.height = e.rect.height + 'px';
-                        x += e.deltaRect.left;
-                        y += e.deltaRect.top;
-                        el.style.transform =
-                            'translate(' + x + 'px,' + y + 'px)';
-                        if (isInViewport(el, oldTransform, e.delta)) {
-                            el.setAttribute('data-x', x.toString());
-                            el.setAttribute('data-y', y.toString());
-                        }
+            this.resizable(
+                el,
+                {
+                    edges: {
+                        left: true,
+                        right: true,
+                        bottom: true,
+                        top: false,
                     },
+                    modifiers: [
+                        interact.modifiers.restrictSize({
+                            min: { width: 100, height: 100 },
+                        }),
+                    ],
                 },
-                modifiers: [
-                    interact.modifiers.restrictSize({
-                        min: { width: 100, height: 100 },
-                    }),
-                ],
-            });
+                null,
+                true
+            );
         }
-        this.managedElements.add(el);
     }
     /**
      * Removes the elements from the MoveOnDrag class watchlist.

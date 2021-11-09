@@ -1,4 +1,5 @@
 import type { DropEvent, InteractEvent } from '@interactjs/types/index';
+import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import { KupBoxRow } from '../../components/kup-box/kup-box-declarations';
 import {
     Cell,
@@ -58,6 +59,12 @@ export interface KupDropCallbacks {
     drop?: (e?: DropEvent) => void;
     enter?: (e?: DropEvent) => void;
     leave?: (e?: DropEvent) => void;
+}
+/**
+ * Additional callbacks to be made when the related resize event fires.
+ */
+export interface KupResizeCallbacks {
+    move?: (e?: ResizeEvent) => void;
 }
 /**
  * Defines the additional data of the drag event.

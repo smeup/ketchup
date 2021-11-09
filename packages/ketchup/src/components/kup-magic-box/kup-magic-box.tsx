@@ -29,7 +29,6 @@ import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declaration
 import { getProps, setProps } from '../../utils/utils';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import interact from 'interactjs';
 import {
     kupDraggableAttr,
     kupDropEvent,
@@ -308,11 +307,11 @@ export class KupMagicBox {
         );
         this.dragHandler =
             this.rootElement.shadowRoot.querySelector('#drag-handle');
-        this.kupManager.interact.register(this.rootElement, this.dragHandler);
+        this.kupManager.interact.dialogify(this.rootElement, this.dragHandler);
         this.kupManager.interact.dropzone(
             this.wrapperRef,
             {
-                accept: '[' + kupDraggableAttr + ']',
+                accept: '[' + kupDraggableAttr + ']:not(kup-magic-box)',
             },
             {
                 dispatcher: this.rootElement,
@@ -372,9 +371,11 @@ export class KupMagicBox {
     }
 
     disconnectedCallback() {
-        this.kupManager.interact.unregister([this.rootElement]);
+        this.kupManager.interact.unregister([
+            this.rootElement,
+            this.wrapperRef,
+        ]);
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        interact(this.wrapperRef).unset();
     }
 }

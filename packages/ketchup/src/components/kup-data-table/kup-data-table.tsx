@@ -13,6 +13,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
+import type { InteractEvent } from '@interactjs/types/index';
 import {
     Cell,
     Column,
@@ -142,26 +143,19 @@ import {
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 import interact from 'interactjs';
-import type {
-    DropEvent,
-    InteractEvent,
-    PointerEvent,
-} from '@interactjs/types/index';
+import type { DropEvent, PointerEvent } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import {
     kupDragActiveAttr,
     KupDragCallbacks,
     KupDragDataTransferCallback,
     KupDragEffect,
-    kupDraggableAttr,
     KupDraggableElement,
-    kupDragOverAttr,
     KupDropCallbacks,
     KupDropDataTransferCallback,
-    kupDropEvent,
     KupDropEventTypes,
+    KupResizeCallbacks,
 } from '../../utils/kup-interact/kup-interact-declarations';
-import { KupInteract } from '../../utils/kup-interact/kup-interact';
 
 @Component({
     tag: 'kup-data-table',
@@ -1539,7 +1533,6 @@ export class KupDataTable {
     }
 
     private didRenderInteractables() {
-        const that = this;
         if (this.showGroups) {
             if (!this.interactableDrop.includes(this.groupsDropareaRef)) {
                 this.interactableDrop.push(this.groupsDropareaRef);
@@ -1588,7 +1581,7 @@ export class KupDataTable {
                 return {
                     cell: null,
                     column: getColumnByName(
-                        that.getVisibleColumns(),
+                        this.getVisibleColumns(),
                         draggable.dataset.column
                     ),
                     id: this.rootElement.id,
@@ -1600,28 +1593,31 @@ export class KupDataTable {
                     selectedRows: this.selectedRows,
                 };
             };
+            const dropCb = (e: DropEvent) => {
+                const draggable = e.relatedTarget as KupDraggableElement;
+                const sorted = draggable.kupDragDrop.column;
+                const receiving = getColumnByName(
+                    this.getColumns(),
+                    e.target.dataset.column
+                );
+                if (receiving && sorted) {
+                    this.handleColumnSort(receiving, sorted);
+                }
+                this.tableRef.removeAttribute(kupDragActiveAttr);
+            };
+            const startCb = (e: InteractEvent) => {
+                const draggable = e.target as KupDraggableElement;
+                this.hideShowColumnDropArea(true, draggable);
+            };
+            const endCb = () => {
+                this.hideShowColumnDropArea(false);
+            };
             const dropCallbacks: KupDropCallbacks = {
-                drop: (e: DropEvent) => {
-                    const draggable = e.relatedTarget as KupDraggableElement;
-                    const sorted = draggable.kupDragDrop.column;
-                    const receiving = getColumnByName(
-                        this.getColumns(),
-                        e.target.dataset.column
-                    );
-                    if (receiving && sorted) {
-                        this.handleColumnSort(receiving, sorted);
-                    }
-                    this.tableRef.removeAttribute(kupDragActiveAttr);
-                },
+                drop: dropCb,
             };
             const dragCallbacks: KupDragCallbacks = {
-                start: (e) => {
-                    const draggable = e.target as KupDraggableElement;
-                    this.hideShowColumnDropArea(true, draggable);
-                },
-                end: () => {
-                    this.hideShowColumnDropArea(false);
-                },
+                start: startCb,
+                end: endCb,
             };
             for (let index = 0; index < this.thRefs.length; index++) {
                 const th = this.thRefs[index];
@@ -1651,35 +1647,40 @@ export class KupDataTable {
             }
         }
         if (this.resizableColumns) {
+            const moveCb = (e: ResizeEvent) => {
+                const column = getColumnByName(
+                    this.getVisibleColumns(),
+                    (e.target as HTMLElement).dataset.column
+                );
+                column.size = e.rect.width + 'px';
+                this.refresh();
+            };
+            const callbacks: KupResizeCallbacks = {
+                move: moveCb,
+            };
             for (let index = 0; index < this.thRefs.length; index++) {
                 const th = this.thRefs[index];
                 if (th && !this.interactableResize.includes(th)) {
                     this.interactableResize.push(th);
-                    interact(th).resizable({
-                        allowFrom: '.header-cell__drag-handler',
-                        edges: {
-                            left: false,
-                            right: true,
-                            bottom: false,
-                            top: false,
-                        },
-                        ignoreFrom: '.header-cell__content',
-                        listeners: {
-                            move(e: ResizeEvent) {
-                                const column = getColumnByName(
-                                    that.getVisibleColumns(),
-                                    (e.target as HTMLElement).dataset.column
-                                );
-                                column.size = e.rect.width + 'px';
-                                that.refresh();
+                    this.kupManager.interact.resizable(
+                        th,
+                        {
+                            allowFrom: '.header-cell__drag-handler',
+                            edges: {
+                                left: false,
+                                right: true,
+                                bottom: false,
+                                top: false,
                             },
+                            ignoreFrom: '.header-cell__content',
+                            modifiers: [
+                                interact.modifiers.restrictSize({
+                                    min: { width: 10, height: 10 },
+                                }),
+                            ],
                         },
-                        modifiers: [
-                            interact.modifiers.restrictSize({
-                                min: { width: 10, height: 10 },
-                            }),
-                        ],
-                    });
+                        callbacks
+                    );
                 }
             }
         }
@@ -5718,6 +5719,13 @@ export class KupDataTable {
     }
 
     disconnectedCallback() {
+        this.kupManager.interact.unregister(
+            this.interactableDrag.concat(
+                this.interactableDrop,
+                this.interactableResize,
+                this.interactableTouch
+            )
+        );
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
@@ -5734,22 +5742,6 @@ export class KupDataTable {
         }
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
-        }
-        for (let index = 0; index < this.interactableDrag.length; index++) {
-            const el = this.interactableDrag[index];
-            interact(el).unset();
-        }
-        for (let index = 0; index < this.interactableDrop.length; index++) {
-            const el = this.interactableDrop[index];
-            interact(el).unset();
-        }
-        for (let index = 0; index < this.interactableResize.length; index++) {
-            const el = this.interactableResize[index];
-            interact(el).unset();
-        }
-        for (let index = 0; index < this.interactableTouch.length; index++) {
-            const el = this.interactableTouch[index];
-            interact(el).unset();
         }
         this.kupManager.resize.unobserve(this.rootElement);
         this.kupDidUnload.emit({ comp: this, id: this.rootElement.id });

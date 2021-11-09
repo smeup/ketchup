@@ -85,13 +85,9 @@ import {
 } from '../../utils/kup-language/kup-language-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
-import interact from 'interactjs';
-import type { InteractEvent } from '@interactjs/types/index';
 import {
     KupDragDataTransferCallback,
     KupDragEffect,
-    kupDraggableAttr,
-    KupDraggableElement,
     KupDropDataTransferCallback,
     KupDropEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
@@ -2120,18 +2116,13 @@ export class KupBox {
     }
 
     disconnectedCallback() {
+        this.kupManager.interact.unregister(
+            this.interactableDrag.concat(this.interactableDrop)
+        );
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.boxContainer);
-        }
-        for (let index = 0; index < this.interactableDrag.length; index++) {
-            const el = this.interactableDrag[index];
-            interact(el).unset();
-        }
-        for (let index = 0; index < this.interactableDrop.length; index++) {
-            const el = this.interactableDrop[index];
-            interact(el).unset();
         }
         // When component is destroyed, then the listener is removed. @See clickFunction for more details
         document.removeEventListener('click', this.clickFunction.bind(this));
