@@ -13,6 +13,7 @@ import {
     VNode,
     Watch,
 } from '@stencil/core';
+import type { PointerEvent } from '@interactjs/types/index';
 import {
     Column,
     SortObject,
@@ -34,6 +35,7 @@ import {
     KupBoxRowActionClickEventPayload,
     KupBoxContextMenuEventPayload,
     KupBoxData,
+    KupBoxEventHandlerDetails,
 } from './kup-box-declarations';
 import {
     isEditor,
@@ -91,6 +93,7 @@ import {
     kupDraggableCellAttr,
     KupDropDataTransferCallback,
     KupDropEventTypes,
+    KupPointerEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
 
 @Component({
@@ -372,8 +375,10 @@ export class KupBox {
     private iconPaths: [{ icon: string; path: string }] = undefined;
     private sectionRef: HTMLElement = null;
     private rowsRefs: HTMLElement[] = [];
+    private hold: boolean = false;
     private interactableDrag: HTMLElement[] = [];
     private interactableDrop: HTMLElement[] = [];
+    private interactableTouch: HTMLElement[] = [];
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -694,12 +699,7 @@ export class KupBox {
         }
     }
 
-    private getEventDetails(el: HTMLElement): {
-        boxObject: HTMLElement;
-        row: KupBoxRow;
-        column: Column;
-        cell: Cell;
-    } {
+    private getEventDetails(el: HTMLElement): KupBoxEventHandlerDetails {
         let boxObject = null;
         let cell: Cell = null;
         let row: KupBoxRow = null;
@@ -725,29 +725,18 @@ export class KupBox {
         };
     }
 
-    private contextMenuHandler(e: MouseEvent): void {
-        const details: {
-            boxObject: HTMLElement;
-            row: KupBoxRow;
-            column: Column;
-            cell: Cell;
-        } = this.getEventDetails(e.target as HTMLElement);
-        this.kupBoxContextMenu.emit({
-            comp: this,
-            id: this.rootElement.id,
-            details: details,
-        });
+    private contextMenuHandler(e: PointerEvent): KupBoxEventHandlerDetails {
+        const details = this.getEventDetails(e.target as HTMLElement);
         if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
-            e.preventDefault();
             setTooltip(
-                e,
+                e as any,
                 details.row.id,
                 details.column.name,
                 details.cell,
                 this.tooltip
             );
-            return;
         }
+        return details;
     }
 
     /**
@@ -1158,11 +1147,7 @@ export class KupBox {
         if (this.multiSelection) {
             multiSel = (
                 <div class="box-selection">
-                    <kup-checkbox
-                        checked={isSelected}
-                        /*TODO Improvement: Listener removed, the event passes through, and is managed by the box itself !!! */
-                        /*onClick={(e) => e.stopPropagation()}*/
-                    />
+                    <kup-checkbox checked={isSelected} />
                 </div>
             );
         }
@@ -1823,6 +1808,46 @@ export class KupBox {
         );
     }
 
+    didLoadInteractables() {
+        this.interactableTouch.push(this.boxContainer);
+        const tapCb = (e: PointerEvent) => {
+            if (this.hold) {
+                this.hold = false;
+                return;
+            }
+            switch (e.button) {
+                // right click
+                case 2:
+                    this.kupBoxContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.contextMenuHandler(e),
+                    });
+                    break;
+            }
+        };
+        const holdCb = (e: PointerEvent) => {
+            if (e.pointerType === 'pen' || e.pointerType === 'touch') {
+                this.hold = true;
+                this.kupBoxContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.contextMenuHandler(e),
+                });
+            }
+        };
+        this.kupManager.interact.on(
+            this.boxContainer,
+            KupPointerEventTypes.TAP,
+            tapCb
+        );
+        this.kupManager.interact.on(
+            this.boxContainer,
+            KupPointerEventTypes.HOLD,
+            holdCb
+        );
+    }
+
     didRenderInteractables() {
         if (this.dragEnabled) {
             for (let index = 0; index < this.rowsRefs.length; index++) {
@@ -1939,6 +1964,7 @@ export class KupBox {
                 return selectedIds.indexOf(r.id) >= 0;
             });
         }
+        this.didLoadInteractables();
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.debug.logLoad(this, true);
     }
@@ -2086,9 +2112,6 @@ export class KupBox {
                 <div id={componentWrapperId}>
                     <div
                         class={'box-component'}
-                        onContextMenu={(e: MouseEvent) =>
-                            this.contextMenuHandler(e)
-                        }
                         ref={(el) => (this.sectionRef = el)}
                     >
                         {sortPanel}
@@ -2098,6 +2121,9 @@ export class KupBox {
                             class={isKanban ? 'is-kanban' : ''}
                             id={'box-container'}
                             style={containerStyle}
+                            onContextMenu={(e: MouseEvent) => {
+                                e.preventDefault();
+                            }}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
                                 unsetTooltip(this.tooltip);

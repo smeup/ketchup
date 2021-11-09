@@ -87,14 +87,14 @@ export const treeMainColumnName = 'TREE_COLUMN';
 /**
  * Contains all the data of an event.
  */
-export interface EventHandlerDetails {
+export interface KupTreeEventHandlerDetails {
     area: string;
     cell: Cell;
     column: Column;
     filterRemove: HTMLSpanElement;
     row: Row;
-    td: HTMLTableDataCellElement;
-    th: HTMLTableHeaderCellElement;
+    td: HTMLElement;
+    th: HTMLElement;
     tr: HTMLTableRowElement;
 }
 
@@ -128,7 +128,7 @@ export interface KupTreeNodeButtonClickEventPayload
 }
 
 export interface KupTreeContextMenuEventPayload extends KupEventPayload {
-    details: EventHandlerDetails;
+    details: KupTreeEventHandlerDetails;
 }
 
 export interface KupTreeColumnMenuEventPayload extends KupEventPayload {

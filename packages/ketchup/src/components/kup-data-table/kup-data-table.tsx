@@ -37,7 +37,7 @@ import {
     TotalsMap,
     TotalMode,
     TotalLabel,
-    EventHandlerDetails,
+    KupDatatableEventHandlerDetails,
     KupDataTableProps,
     CellsHolder,
     fieldColumn,
@@ -2209,7 +2209,7 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.detailCard);
     }
 
-    private getEventDetails(el: HTMLElement): EventHandlerDetails {
+    private getEventDetails(el: HTMLElement): KupDatatableEventHandlerDetails {
         const isHeader: boolean = !!el.closest('thead'),
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
@@ -2271,8 +2271,8 @@ export class KupDataTable {
         };
     }
 
-    private clickHandler(e: PointerEvent): EventHandlerDetails {
-        const details: EventHandlerDetails = this.getEventDetails(
+    private clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        const details: KupDatatableEventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
         if (details.area === 'header') {
@@ -2314,8 +2314,10 @@ export class KupDataTable {
         return details;
     }
 
-    private contextMenuHandler(e: PointerEvent): EventHandlerDetails {
-        const details: EventHandlerDetails = this.getEventDetails(
+    private contextMenuHandler(
+        e: PointerEvent
+    ): KupDatatableEventHandlerDetails {
+        const details: KupDatatableEventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
         if (details.area === 'header') {
@@ -2353,8 +2355,8 @@ export class KupDataTable {
         return details;
     }
 
-    private dblClickHandler(e: PointerEvent): EventHandlerDetails {
-        const details: EventHandlerDetails = this.getEventDetails(
+    private dblClickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
+        const details: KupDatatableEventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
         if (details.area === 'body') {
@@ -2372,7 +2374,7 @@ export class KupDataTable {
     }
 
     private mouseMoveHandler(e: MouseEvent): void {
-        const details: EventHandlerDetails = this.getEventDetails(
+        const details: KupDatatableEventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
 

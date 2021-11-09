@@ -290,16 +290,16 @@ export const totalMenuOpenID = 'TOMEOPID';
 /**
  * Contains all the data of an event.
  */
-export interface EventHandlerDetails {
+export interface KupDatatableEventHandlerDetails {
     area: string;
     cell: Cell;
     column: Column;
     filterRemove: HTMLSpanElement;
     isGroupRow: boolean;
     row: Row;
-    td: HTMLTableDataCellElement;
+    td: HTMLElement;
     textfield: HTMLElement;
-    th: HTMLTableHeaderCellElement;
+    th: HTMLElement;
     tr: HTMLTableRowElement;
 }
 /**
@@ -334,7 +334,7 @@ export interface KupDatatableCellUpdateEventPayload extends KupEventPayload {
 }
 
 export interface KupDatatableClickEventPayload extends KupEventPayload {
-    details: EventHandlerDetails;
+    details: KupDatatableEventHandlerDetails;
 }
 
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
