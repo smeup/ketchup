@@ -6,6 +6,8 @@ import type {
     DraggableOptions,
     DropEvent,
     DropzoneOptions,
+    EventTypes,
+    ListenersArg,
     Point,
     RectResolvable,
     ResizableOptions,
@@ -19,12 +21,16 @@ import {
     KupDragEffect,
     KupDragEventData,
     kupDraggableAttr,
+    kupDraggableCellAttr,
+    kupDraggableColumnAttr,
     KupDraggableElement,
+    kupDraggableRowAttr,
     kupDragOverAttr,
     KupDropCallbacks,
     kupDropEvent,
     KupDropEventData,
     KupDropEventPayload,
+    KupPointerEventTypes,
     KupResizeCallbacks,
 } from './kup-interact-declarations';
 
@@ -117,12 +123,21 @@ export class KupInteract {
                     callbacks.start(e);
                 }
                 const draggable = e.target as KupDraggableElement;
-                draggable.setAttribute(kupDraggableAttr, '');
                 const draggableDetails =
                     eventData && eventData.callback
                         ? eventData.callback(e)
                         : {};
                 draggable.kupDragDrop = draggableDetails;
+                draggable.setAttribute(kupDraggableAttr, '');
+                if (draggableDetails.cell) {
+                    draggable.setAttribute(kupDraggableCellAttr, '');
+                }
+                if (draggableDetails.column) {
+                    draggable.setAttribute(kupDraggableColumnAttr, '');
+                }
+                if (draggableDetails.row) {
+                    draggable.setAttribute(kupDraggableRowAttr, '');
+                }
                 let ghostImage = null;
                 switch (effect) {
                     case KupDragEffect.BADGE:
@@ -182,6 +197,9 @@ export class KupInteract {
                     ghostImage.remove();
                 }
                 draggable.removeAttribute(kupDraggableAttr);
+                draggable.removeAttribute(kupDraggableCellAttr);
+                draggable.removeAttribute(kupDraggableColumnAttr);
+                draggable.removeAttribute(kupDraggableRowAttr);
             },
         };
         interact(el).draggable(options);
@@ -331,6 +349,16 @@ export class KupInteract {
             },
         };
         interact(el).resizable(options);
+        this.managedElements.add(el);
+    }
+    /**
+     * Adds a new interact.js event listener to the given argument.
+     * @param {HTMLElement} el - The element on which the event listener will be added.
+     * @param {KupPointerEventTypes} event - Supported events.
+     * @param {KupResizeCallbacks} callback - Callback to invoke when the event fires.
+     */
+    on(el: HTMLElement, event: KupPointerEventTypes, callback: ListenersArg) {
+        interact(el).on(event, callback);
         this.managedElements.add(el);
     }
     /**

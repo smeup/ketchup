@@ -88,6 +88,7 @@ import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations
 import {
     KupDragDataTransferCallback,
     KupDragEffect,
+    kupDraggableCellAttr,
     KupDropDataTransferCallback,
     KupDropEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
@@ -1877,7 +1878,7 @@ export class KupBox {
                 this.kupManager.interact.dropzone(
                     this.sectionRef,
                     {
-                        accept: '.box',
+                        accept: `[${kupDraggableCellAttr}]`,
                     },
                     {
                         dispatcher: this.rootElement,
@@ -1892,7 +1893,7 @@ export class KupBox {
                     this.kupManager.interact.dropzone(
                         row,
                         {
-                            accept: '.box',
+                            accept: `[${kupDraggableCellAttr}]`,
                         },
                         {
                             callback: dataCb,

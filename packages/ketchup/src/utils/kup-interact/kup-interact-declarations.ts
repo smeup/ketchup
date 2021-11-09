@@ -21,8 +21,11 @@ export const kupDialogResizableClass = 'kup-resizable';
  */
 export const kupDropEvent: string = 'kup-drop';
 export const kupDragActiveAttr: string = 'kup-drag-active';
-export const kupDraggableAttr: string = 'kup-draggable';
 export const kupDragOverAttr: string = 'kup-drag-over';
+export const kupDraggableAttr: string = 'kup-draggable';
+export const kupDraggableCellAttr: string = 'kup-draggable-cell';
+export const kupDraggableColumnAttr: string = 'kup-draggable-column';
+export const kupDraggableRowAttr: string = 'kup-draggable-row';
 /**
  * Interface for drag & drop elements.
  */
@@ -43,6 +46,14 @@ export enum KupDragEffect {
     CLONE = 'clone',
     MOVE = 'move',
     NONE = 'none',
+}
+/**
+ * Supported types of pointer events.
+ */
+export enum KupPointerEventTypes {
+    DOUBLETAP = 'doubletap',
+    HOLD = 'hold',
+    TAP = 'tap',
 }
 /**
  * Additional callbacks to be made when the related drag event fires.

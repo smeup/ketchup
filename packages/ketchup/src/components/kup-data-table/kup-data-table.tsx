@@ -13,7 +13,12 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import type { InteractEvent } from '@interactjs/types/index';
+import type {
+    DropEvent,
+    InteractEvent,
+    PointerEvent,
+} from '@interactjs/types/index';
+import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import {
     Cell,
     Column,
@@ -142,18 +147,18 @@ import {
 } from '../../utils/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
-import interact from 'interactjs';
-import type { DropEvent, PointerEvent } from '@interactjs/types/index';
-import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import {
     kupDragActiveAttr,
     KupDragCallbacks,
     KupDragDataTransferCallback,
     KupDragEffect,
+    kupDraggableCellAttr,
+    kupDraggableColumnAttr,
     KupDraggableElement,
     KupDropCallbacks,
     KupDropDataTransferCallback,
     KupDropEventTypes,
+    KupPointerEventTypes,
     KupResizeCallbacks,
 } from '../../utils/kup-interact/kup-interact-declarations';
 
@@ -1455,81 +1460,94 @@ export class KupDataTable {
     }
 
     private didLoadInteractables() {
-        interact.dynamicDrop(true);
         this.interactableTouch.push(this.tableRef);
-        interact(this.tableRef)
-            .on('tap', (e: PointerEvent) => {
-                if (this.hold) {
-                    this.hold = false;
-                    return;
-                }
-                switch (e.button) {
-                    // left click
-                    case 0:
-                        // Note: event must be cloned
-                        // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
-                        const clone: GenericObject = {};
-                        for (const key in e) {
-                            clone[key] = e[key];
-                        }
-                        this.clickTimeout.push(
-                            setTimeout(() => {
-                                this.kupDataTableClick.emit({
-                                    comp: this,
-                                    id: this.rootElement.id,
-                                    details: this.clickHandler(
-                                        clone as PointerEvent
-                                    ),
-                                });
-                            }, 300)
-                        );
-                        break;
-                    // right click
-                    case 2:
-                        this.kupDataTableContextMenu.emit({
-                            comp: this,
-                            id: this.rootElement.id,
-                            details: this.contextMenuHandler(e),
-                        });
-                        break;
-                }
-            })
-            .on('doubletap', (e: PointerEvent) => {
-                switch (e.button) {
-                    // left click
-                    case 0:
-                        for (
-                            let index = 0;
-                            index < this.clickTimeout.length;
-                            index++
-                        ) {
-                            clearTimeout(this.clickTimeout[index]);
-                            this.kupManager.debug.logMessage(
-                                this,
-                                'Cleared clickHandler timeout(' +
-                                    this.clickTimeout[index] +
-                                    ').'
-                            );
-                        }
-                        this.clickTimeout = [];
-                        this.kupDataTableDblClick.emit({
-                            comp: this,
-                            id: this.rootElement.id,
-                            details: this.dblClickHandler(e),
-                        });
-                        break;
-                }
-            })
-            .on('hold', (e: PointerEvent) => {
-                if (e.pointerType === 'pen' || e.pointerType === 'touch') {
-                    this.hold = true;
+        const tapCb = (e: PointerEvent) => {
+            if (this.hold) {
+                this.hold = false;
+                return;
+            }
+            switch (e.button) {
+                // left click
+                case 0:
+                    // Note: event must be cloned
+                    // otherwise inside setTimeout will be exiting the Shadow DOM scope(causing loss of information, including target).
+                    const clone: GenericObject = {};
+                    for (const key in e) {
+                        clone[key] = e[key];
+                    }
+                    this.clickTimeout.push(
+                        setTimeout(() => {
+                            this.kupDataTableClick.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                                details: this.clickHandler(
+                                    clone as PointerEvent
+                                ),
+                            });
+                        }, 300)
+                    );
+                    break;
+                // right click
+                case 2:
                     this.kupDataTableContextMenu.emit({
                         comp: this,
                         id: this.rootElement.id,
                         details: this.contextMenuHandler(e),
                     });
-                }
-            });
+                    break;
+            }
+        };
+        const doubletapCb = (e: PointerEvent) => {
+            switch (e.button) {
+                // left click
+                case 0:
+                    for (
+                        let index = 0;
+                        index < this.clickTimeout.length;
+                        index++
+                    ) {
+                        clearTimeout(this.clickTimeout[index]);
+                        this.kupManager.debug.logMessage(
+                            this,
+                            'Cleared clickHandler timeout(' +
+                                this.clickTimeout[index] +
+                                ').'
+                        );
+                    }
+                    this.clickTimeout = [];
+                    this.kupDataTableDblClick.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.dblClickHandler(e),
+                    });
+                    break;
+            }
+        };
+        const holdCb = (e: PointerEvent) => {
+            if (e.pointerType === 'pen' || e.pointerType === 'touch') {
+                this.hold = true;
+                this.kupDataTableContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.contextMenuHandler(e),
+                });
+            }
+        };
+        this.kupManager.interact.on(
+            this.tableRef,
+            KupPointerEventTypes.TAP,
+            tapCb
+        );
+        this.kupManager.interact.on(
+            this.tableRef,
+            KupPointerEventTypes.DOUBLETAP,
+            doubletapCb
+        );
+        this.kupManager.interact.on(
+            this.tableRef,
+            KupPointerEventTypes.HOLD,
+            holdCb
+        );
     }
 
     private didRenderInteractables() {
@@ -1538,7 +1556,9 @@ export class KupDataTable {
                 this.interactableDrop.push(this.groupsDropareaRef);
                 this.kupManager.interact.dropzone(
                     this.groupsDropareaRef,
-                    null,
+                    {
+                        accept: `[${kupDraggableColumnAttr}]`,
+                    },
                     null,
                     {
                         drop: (e: DropEvent) => {
@@ -1559,7 +1579,9 @@ export class KupDataTable {
                 this.interactableDrop.push(this.removeDropareaRef);
                 this.kupManager.interact.dropzone(
                     this.removeDropareaRef,
-                    null,
+                    {
+                        accept: `[${kupDraggableColumnAttr}]`,
+                    },
                     null,
                     {
                         drop: (e: DropEvent) => {
@@ -1625,7 +1647,9 @@ export class KupDataTable {
                     this.interactableDrag.push(th);
                     this.kupManager.interact.dropzone(
                         th,
-                        null,
+                        {
+                            accept: `[${kupDraggableColumnAttr}]`,
+                        },
                         null,
                         dropCallbacks
                     );
@@ -1673,11 +1697,6 @@ export class KupDataTable {
                                 top: false,
                             },
                             ignoreFrom: '.header-cell__content',
-                            modifiers: [
-                                interact.modifiers.restrictSize({
-                                    min: { width: 10, height: 10 },
-                                }),
-                            ],
                         },
                         callbacks
                     );
@@ -1743,7 +1762,7 @@ export class KupDataTable {
                     this.kupManager.interact.dropzone(
                         row,
                         {
-                            accept: 'tr',
+                            accept: `[${kupDraggableCellAttr}]`,
                         },
                         {
                             callback: dataCb,

@@ -31,6 +31,8 @@ import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declaratio
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     kupDraggableAttr,
+    kupDraggableColumnAttr,
+    kupDraggableRowAttr,
     kupDropEvent,
     KupDropEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
@@ -311,7 +313,7 @@ export class KupMagicBox {
         this.kupManager.interact.dropzone(
             this.wrapperRef,
             {
-                accept: '[' + kupDraggableAttr + ']:not(kup-magic-box)',
+                accept: `[${kupDraggableColumnAttr}],[${kupDraggableRowAttr}]`,
             },
             {
                 dispatcher: this.rootElement,
