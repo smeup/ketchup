@@ -3,6 +3,7 @@ import type { InteractEvent } from '@interactjs/core/InteractEvent';
 import type { Interaction } from '@interactjs/core/Interaction';
 import type { ActionMap } from '@interactjs/core/scope';
 import type {
+    DraggableOptions,
     DropEvent,
     DropzoneOptions,
     Point,
@@ -13,8 +14,13 @@ import interact from 'interactjs';
 import {
     kupDialogAttribute,
     kupDialogResizableClass,
+    KupDragCallbacks,
+    KupDragEffect,
+    KupDragEventData,
+    kupDraggableAttr,
     KupDraggableElement,
     kupDragOverAttr,
+    KupDropCallbacks,
     kupDropEvent,
     KupDropEventData,
     KupDropEventPayload,
@@ -27,6 +33,7 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupInteract
  */
 export class KupInteract {
+    container: HTMLElement;
     managedElements: Set<HTMLElement>;
     restrictContainer: RectResolvable<
         [number, number, Interaction<keyof ActionMap>]
@@ -44,21 +51,112 @@ export class KupInteract {
         >
     ) {
         interact.dynamicDrop(true);
+        this.container = document.createElement('div');
+        this.container.setAttribute('kup-interact', '');
+        document.body.appendChild(this.container);
         this.managedElements = new Set();
         this.zIndex = zIndex ? zIndex : 200;
         this.restrictContainer = restrictContainer ? restrictContainer : null;
     }
-    draggable() {}
+    draggable(
+        el: HTMLElement,
+        options?: Partial<DraggableOptions>,
+        eventData?: KupDragEventData,
+        effect?: KupDragEffect,
+        callbacks?: KupDragCallbacks
+    ) {
+        if (!options) {
+            options = {};
+        }
+        if (!effect) {
+            effect = KupDragEffect.MOVE;
+        }
+        options.listeners = {
+            move(e: InteractEvent) {
+                if (callbacks && callbacks.move) {
+                    callbacks.move(e);
+                }
+                if (effect.toLowerCase() !== KupDragEffect.NONE) {
+                    const draggable = e.target as KupDraggableElement;
+                    const ghostImage = draggable.kupDragDrop
+                        ? draggable.kupDragDrop.ghostImage
+                        : e.target;
+                    let x = parseFloat(ghostImage.getAttribute('data-x')) || 0;
+                    let y = parseFloat(ghostImage.getAttribute('data-y')) || 0;
+                    x = x + e.dx;
+                    y = y + e.dy;
+                    ghostImage.style.transform = `translate(${x}px, ${y}px)`;
+                    ghostImage.setAttribute('data-x', x.toString());
+                    ghostImage.setAttribute('data-y', y.toString());
+                }
+            },
+            start(e: InteractEvent) {
+                const draggable = e.target as KupDraggableElement;
+                draggable.setAttribute(kupDraggableAttr, '');
+                const draggableDetails = eventData.callback
+                    ? eventData.callback()
+                    : {};
+                draggable.kupDragDrop = draggableDetails;
+                let ghostImage = null;
+                switch (effect) {
+                    case KupDragEffect.BADGE:
+                        ghostImage = document.createElement('kup-badge');
+                        if (draggable.kupDragDrop.multiple) {
+                            ghostImage.text = draggable.kupDragDrop.selectedRows
+                                ? draggable.kupDragDrop.selectedRows.length.toString()
+                                : '0';
+                        } else {
+                            ghostImage.text = '1';
+                        }
+                        ghostImage.style.left =
+                            e.clientX - ghostImage.clientWidth / 2 + 'px';
+                        ghostImage.style.pointerEvents = 'none';
+                        ghostImage.style.position = 'fixed';
+                        ghostImage.style.top =
+                            e.clientY - ghostImage.clientHeight / 2 + 'px';
+                        ghostImage.style.transition = 'none';
+                        ghostImage.style.zIndex =
+                            'calc(var(--kup-navbar-zindex) + 1)';
+                        dom.ketchup.interact.container.appendChild(ghostImage);
+                        draggable.kupDragDrop.ghostImage = ghostImage;
+                        break;
+                }
+            },
+            end(e: InteractEvent) {
+                const draggable = e.target as KupDraggableElement;
+                const ghostImage = draggable.kupDragDrop
+                    ? draggable.kupDragDrop.ghostImage
+                    : null;
+                if (ghostImage) {
+                    ghostImage.remove();
+                }
+                draggable.removeAttribute(kupDraggableAttr);
+            },
+        };
+        interact(el).draggable(options);
+    }
+    /**
+     * Sets up a new dropzone.
+     * @param {HTMLElement} el - The dropzone element.
+     * @param {DropzoneOptions} options - Options of the dropzone.
+     * @param {KupDropEventData} eventData - Additional data used to trigger the drop event. The callback is used to return cell, column and row info.
+     * @param {KupDropCallbacks} callbacks - Additional callbacks to invoke.
+     * @see https://interactjs.io/docs/action-options/ For more options
+     */
     dropzone(
         el: HTMLElement,
         options?: DropzoneOptions,
-        eventData?: KupDropEventData
+        eventData?: KupDropEventData,
+        callbacks?: KupDropCallbacks
     ) {
         if (!options) {
             options = {};
         }
         options.listeners = {
             drop(e: DropEvent) {
+                if (callbacks && callbacks.drop) {
+                    callbacks.drop(e);
+                }
                 if (eventData) {
                     const draggableDetails =
                         (e.relatedTarget as KupDraggableElement).kupDragDrop ||
@@ -66,7 +164,6 @@ export class KupInteract {
                     const dropzoneDetails = eventData.callback
                         ? eventData.callback()
                         : {};
-                    console.log('here');
                     const ketchupDropEvent =
                         new CustomEvent<KupDropEventPayload>(kupDropEvent, {
                             bubbles: true,
@@ -116,12 +213,18 @@ export class KupInteract {
                 );
             },
             enter(e: DropEvent) {
+                if (callbacks && callbacks.enter) {
+                    callbacks.enter(e);
+                }
                 (e.currentTarget as HTMLElement).setAttribute(
                     kupDragOverAttr,
                     ''
                 );
             },
             leave(e: DropEvent) {
+                if (callbacks && callbacks.leave) {
+                    callbacks.leave(e);
+                }
                 (e.currentTarget as HTMLElement).removeAttribute(
                     kupDragOverAttr
                 );

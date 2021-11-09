@@ -86,12 +86,12 @@ import {
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import interact from 'interactjs';
-import type { DropEvent, InteractEvent } from '@interactjs/types/index';
+import type { InteractEvent } from '@interactjs/types/index';
 import {
+    KupDragEffect,
     kupDraggableAttr,
     KupDraggableElement,
-    kupDragOverAttr,
-    kupDropEvent,
+    KupDropEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
 
 @Component({
@@ -698,13 +698,13 @@ export class KupBox {
     private getEventDetails(el: HTMLElement): {
         boxObject: HTMLElement;
         row: KupBoxRow;
-        column: string;
+        column: Column;
         cell: Cell;
     } {
         let boxObject = null;
         let cell: Cell = null;
         let row: KupBoxRow = null;
-        let column: string = null;
+        let column: Column = null;
         if (el) {
             boxObject =
                 el.closest('.box-object') || el.querySelector('.box-object');
@@ -712,7 +712,10 @@ export class KupBox {
         if (boxObject) {
             cell = boxObject['data-cell'];
             row = boxObject['data-row'];
-            column = boxObject.dataset.column;
+            column = getColumnByName(
+                this.visibleColumns,
+                boxObject.dataset.column
+            );
         }
 
         return {
@@ -727,7 +730,7 @@ export class KupBox {
         const details: {
             boxObject: HTMLElement;
             row: KupBoxRow;
-            column: string;
+            column: Column;
             cell: Cell;
         } = this.getEventDetails(e.target as HTMLElement);
         this.kupBoxContextMenu.emit({
@@ -740,7 +743,7 @@ export class KupBox {
             setTooltip(
                 e,
                 details.row.id,
-                details.column,
+                details.column.name,
                 details.cell,
                 this.tooltip
             );
@@ -1828,192 +1831,78 @@ export class KupBox {
                 const row = this.rowsRefs[index];
                 if (row && !this.interactableDrag.includes(row)) {
                     this.interactableDrag.push(row);
-                    interact(row).draggable({
-                        allowFrom: '.box-object',
-                        cursorChecker() {
-                            return null;
-                        },
-                        listeners: {
-                            move(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                const clone = draggable.kupDragDrop.clone;
-                                let x =
-                                    parseFloat(clone.getAttribute('data-x')) ||
-                                    0;
-                                let y =
-                                    parseFloat(clone.getAttribute('data-y')) ||
-                                    0;
-                                x = x + e.dx;
-                                y = y + e.dy;
-                                clone.style.transform = `translate(${x}px, ${y}px)`;
-                                clone.setAttribute('data-x', x.toString());
-                                clone.setAttribute('data-y', y.toString());
+                    this.kupManager.interact.draggable(
+                        row,
+                        {
+                            allowFrom: '.box-object',
+                            cursorChecker() {
+                                return null;
                             },
-                            start(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                const clone =
-                                    document.createElement('kup-badge');
+                        },
+                        {
+                            callback: () => {
                                 const cellEl =
                                     that.rootElement.shadowRoot.querySelector(
                                         '.box-object:hover'
                                     ) as HTMLElement;
-                                draggable.setAttribute(kupDraggableAttr, '');
-                                draggable.kupDragDrop = {
+                                return {
                                     cell: cellEl['data-cell'],
-                                    clone: clone,
                                     column: getColumnByName(
                                         that.visibleColumns,
                                         cellEl.dataset.column
                                     ),
                                     id: that.rootElement.id,
+                                    multiple: this.multiSelection,
                                     row: cellEl['data-row'],
                                     selectedRows: that.selectedRows,
                                 };
-                                if (that.multiSelection) {
-                                    clone.text = that.selectedRows
-                                        ? that.selectedRows.length.toString()
-                                        : '0';
-                                } else {
-                                    clone.text = '1';
-                                }
-                                clone.style.left =
-                                    e.clientX - clone.clientWidth / 2 + 'px';
-                                clone.style.pointerEvents = 'none';
-                                clone.style.position = 'fixed';
-                                clone.style.top =
-                                    e.clientY - clone.clientHeight / 2 + 'px';
-                                clone.style.zIndex =
-                                    'calc(var(--kup-navbar-zindex) + 1)';
-                                that.rootElement.shadowRoot.appendChild(clone);
-                            },
-                            end(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                draggable.removeAttribute(kupDraggableAttr);
-                                draggable.kupDragDrop.clone.remove();
                             },
                         },
-                    });
+                        KupDragEffect.BADGE
+                    );
                 }
             }
         }
         if (this.dropEnabled) {
+            const callback = () => {
+                const receivingDetails = this.getEventDetails(
+                    this.rootElement.shadowRoot.querySelector('.box:hover')
+                );
+                return {
+                    cell: receivingDetails.cell,
+                    column: receivingDetails.column,
+                    id: this.rootElement.id,
+                    row: receivingDetails.row,
+                };
+            };
             if (!this.interactableDrop.includes(this.sectionRef)) {
                 this.interactableDrop.push(this.sectionRef);
-                interact(this.sectionRef).dropzone({
-                    accept: '.box',
-                    listeners: {
-                        drop(e: DropEvent) {
-                            const draggableDetails = (
-                                e.relatedTarget as KupDraggableElement
-                            ).kupDragDrop;
-                            const ketchupDropEvent = new CustomEvent(
-                                kupDropEvent,
-                                {
-                                    bubbles: true,
-                                    cancelable: true,
-                                    detail: {
-                                        dataType: 'text/kup-box-drag',
-                                        sourceElement: {
-                                            id: draggableDetails.id,
-                                            row: draggableDetails.row,
-                                            selectedRows:
-                                                draggableDetails.selectedRows,
-                                            cell: draggableDetails.cell,
-                                            column: draggableDetails.column
-                                                .name,
-                                        },
-                                        targetElement: {
-                                            id: that.rootElement.id,
-                                            row: null,
-                                            cell: null,
-                                            column: null,
-                                        },
-                                    },
-                                }
-                            );
-                            that.rootElement.dispatchEvent(ketchupDropEvent);
-                            (e.target as HTMLElement).removeAttribute(
-                                kupDragOverAttr
-                            );
-                        },
-                        enter(e: DropEvent) {
-                            (e.target as HTMLElement).setAttribute(
-                                kupDragOverAttr,
-                                ''
-                            );
-                        },
-                        leave(e: DropEvent) {
-                            (e.target as HTMLElement).removeAttribute(
-                                kupDragOverAttr
-                            );
-                        },
+                this.kupManager.interact.dropzone(
+                    this.sectionRef,
+                    {
+                        accept: '.box',
                     },
-                });
+                    {
+                        dispatcher: this.rootElement,
+                        type: KupDropEventTypes.BOX,
+                    }
+                );
             }
             for (let index = 0; index < this.rowsRefs.length; index++) {
                 const row = this.rowsRefs[index];
                 if (row && !this.interactableDrop.includes(row)) {
                     this.interactableDrop.push(row);
-                    interact(row).dropzone({
-                        accept: '.box',
-                        listeners: {
-                            drop(e: DropEvent) {
-                                const draggableDetails = (
-                                    e.relatedTarget as KupDraggableElement
-                                ).kupDragDrop;
-                                const receivingDetails = that.getEventDetails(
-                                    that.rootElement.shadowRoot.querySelector(
-                                        '.box:hover'
-                                    )
-                                );
-                                const ketchupDropEvent = new CustomEvent(
-                                    kupDropEvent,
-                                    {
-                                        bubbles: true,
-                                        cancelable: true,
-                                        detail: {
-                                            dataType: 'text/kup-box-drag',
-                                            sourceElement: {
-                                                id: draggableDetails.id,
-                                                row: draggableDetails.row,
-                                                selectedRows:
-                                                    draggableDetails.selectedRows,
-                                                cell: draggableDetails.cell,
-                                                column: draggableDetails.column
-                                                    .name,
-                                            },
-                                            targetElement: {
-                                                id: that.rootElement.id,
-                                                row: receivingDetails.row,
-                                                cell: receivingDetails.cell,
-                                                column: receivingDetails.column,
-                                            },
-                                        },
-                                    }
-                                );
-                                that.rootElement.dispatchEvent(
-                                    ketchupDropEvent
-                                );
-                                (e.target as HTMLElement).removeAttribute(
-                                    kupDragOverAttr
-                                );
-                            },
-                            enter(e: DropEvent) {
-                                (e.target as HTMLElement).setAttribute(
-                                    kupDragOverAttr,
-                                    ''
-                                );
-                            },
-                            leave(e: DropEvent) {
-                                (e.target as HTMLElement).removeAttribute(
-                                    kupDragOverAttr
-                                );
-                            },
+                    this.kupManager.interact.dropzone(
+                        row,
+                        {
+                            accept: '.box',
                         },
-                    });
+                        {
+                            callback: callback,
+                            dispatcher: this.rootElement,
+                            type: KupDropEventTypes.BOX,
+                        }
+                    );
                 }
             }
         }
@@ -2052,7 +1941,6 @@ export class KupBox {
                 return selectedIds.indexOf(r.id) >= 0;
             });
         }
-        interact.dynamicDrop(true);
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.debug.logLoad(this, true);
     }

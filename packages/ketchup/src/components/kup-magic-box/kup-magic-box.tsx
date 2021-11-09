@@ -30,12 +30,8 @@ import { getProps, setProps } from '../../utils/utils';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import interact from 'interactjs';
-import type { DropEvent } from '@interactjs/types/index';
-import { KupInteract } from '../../utils/kup-interact/kup-interact';
 import {
     kupDraggableAttr,
-    KupDraggableElement,
-    kupDragOverAttr,
     kupDropEvent,
     KupDropEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
@@ -75,7 +71,7 @@ export class KupMagicBox {
      * Sets the data that will be used to display different components.
      * @default null
      */
-    @Prop() data: MagicBoxData = null;
+    @Prop({ mutable: true }) data: MagicBoxData = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -313,9 +309,7 @@ export class KupMagicBox {
         this.dragHandler =
             this.rootElement.shadowRoot.querySelector('#drag-handle');
         this.kupManager.interact.register(this.rootElement, this.dragHandler);
-        interact.dynamicDrop(true);
-        const test = new KupInteract();
-        test.dropzone(
+        this.kupManager.interact.dropzone(
             this.wrapperRef,
             {
                 accept: '[' + kupDraggableAttr + ']',

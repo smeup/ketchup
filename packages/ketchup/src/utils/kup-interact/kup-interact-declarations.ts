@@ -1,3 +1,5 @@
+import type { DropEvent, InteractEvent } from '@interactjs/types/index';
+import { KupBoxRow } from '../../components/kup-box/kup-box-declarations';
 import {
     Cell,
     Column,
@@ -30,13 +32,44 @@ export interface KupDraggableElement extends HTMLElement {
  * Drag and drop data transfer.
  */
 export interface KupDraggablePayload extends KupDropEventSource {
-    clone?: HTMLElement;
+    ghostImage?: HTMLElement;
+}
+/**
+ * Available effects fro dragging.
+ */
+export enum KupDragEffect {
+    BADGE = 'badge',
+    CLONE = 'clone',
+    MOVE = 'move',
+    NONE = 'none',
+}
+/**
+ * Additional callbacks to be made when the related drag event fires.
+ */
+export interface KupDragCallbacks {
+    end?: (e?: InteractEvent) => void;
+    move?: (e?: InteractEvent) => void;
+    start?: (e?: InteractEvent) => void;
+}
+/**
+ * Additional callbacks to be made when the related drop event fires.
+ */
+export interface KupDropCallbacks {
+    drop?: (e?: DropEvent) => void;
+    enter?: (e?: DropEvent) => void;
+    leave?: (e?: DropEvent) => void;
+}
+/**
+ * Defines the additional data of the drag event.
+ */
+export interface KupDragEventData {
+    callback?: (e?: InteractEvent) => KupDropEventSource;
 }
 /**
  * Defines the additional data of the drop event.
  */
 export interface KupDropEventData {
-    callback?: () => KupDropEventTarget;
+    callback?: (e?: DropEvent) => KupDropEventTarget;
     dispatcher: HTMLElement;
     type: KupDropEventTypes;
 }
@@ -60,18 +93,19 @@ export interface KupDropEventPayload {
  * Source of the drop event payload.
  */
 export interface KupDropEventSource {
-    id?: string;
-    row?: Row;
-    selectedRows?: Row[];
     cell?: Cell;
     column?: Column;
+    id?: string;
+    multiple?: boolean;
+    row?: Row | KupBoxRow;
+    selectedRows?: Row[] | KupBoxRow[];
 }
 /**
  * Target of the drop event payload.
  */
 export interface KupDropEventTarget {
     id?: string;
-    row?: Row;
+    row?: Row | KupBoxRow;
     cell?: Cell;
     column?: Column;
 }
