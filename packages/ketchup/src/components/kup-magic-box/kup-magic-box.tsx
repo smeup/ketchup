@@ -312,7 +312,7 @@ export class KupMagicBox {
         );
         this.dragHandler =
             this.rootElement.shadowRoot.querySelector('#drag-handle');
-        this.kupManager.dialog.register(this.rootElement, this.dragHandler);
+        this.kupManager.interact.register(this.rootElement, this.dragHandler);
         interact.dynamicDrop(true);
         const test = new KupInteract();
         test.dropzone(
@@ -378,7 +378,7 @@ export class KupMagicBox {
     }
 
     disconnectedCallback() {
-        this.kupManager.dialog.unregister([this.rootElement]);
+        this.kupManager.interact.unregister([this.rootElement]);
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         interact(this.wrapperRef).unset();

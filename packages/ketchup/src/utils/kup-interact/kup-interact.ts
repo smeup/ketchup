@@ -5,7 +5,6 @@ import type { ActionMap } from '@interactjs/core/scope';
 import type {
     DropEvent,
     DropzoneOptions,
-    Listeners,
     Point,
     RectResolvable,
 } from '@interactjs/types/index';
@@ -19,7 +18,6 @@ import {
     kupDropEvent,
     KupDropEventData,
     KupDropEventPayload,
-    KupDropEventTarget,
 } from './kup-interact-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -189,14 +187,14 @@ export class KupInteract {
                     interact.modifiers.restrictRect({
                         restriction: restrictContainer
                             ? restrictContainer
-                            : dom.ketchup.dialog.restrictContainer,
+                            : dom.ketchup.interact.restrictContainer,
                         endOnly: true,
                     }),
                 ],
             })
             .on('pointerdown', function (e: PointerEvent) {
                 const el = e.currentTarget as HTMLElement;
-                el.style.zIndex = (dom.ketchup.dialog.zIndex++).toString();
+                el.style.zIndex = (dom.ketchup.interact.zIndex++).toString();
             });
         if (!unresizable) {
             el.classList.add(kupDialogResizableClass);

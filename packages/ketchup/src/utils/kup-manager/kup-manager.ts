@@ -5,8 +5,8 @@ import type {
     KupDom,
     KupManagerDatesSettings,
     KupManagerDebugSettings,
-    KupManagerDialogSettings,
     KupManagerInitialization,
+    KupManagerInteractSettings,
     KupManagerLanguageSettings,
     KupManagerObjectsSettings,
     KupManagerScrollOnHoverSettings,
@@ -16,8 +16,8 @@ import type {
 import type { ResizableKupComponent } from '../../types/GenericTypes';
 import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { KupDebug } from '../kup-debug/kup-debug';
-import { KupDialog } from '../kup-dialog/kup-dialog';
 import { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
+import { KupInteract } from '../kup-interact/kup-interact';
 import { KupLanguage } from '../kup-language/kup-language';
 import { KupObjects } from '../kup-objects/kup-objects';
 import { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
@@ -43,8 +43,8 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupManager {
     dates: KupDates;
     debug: KupDebug;
-    dialog: KupDialog;
     dynamicPosition: KupDynamicPosition;
+    interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
     objects: KupObjects;
@@ -76,7 +76,7 @@ export class KupManager {
         if (overrides) {
             const dates: KupManagerDatesSettings = overrides.dates;
             const debug: KupManagerDebugSettings = overrides.debug;
-            const dialog: KupManagerDialogSettings = overrides.dialog;
+            const interact: KupManagerInteractSettings = overrides.interact;
             const language: KupManagerLanguageSettings = overrides.language;
             const objects: KupManagerObjectsSettings = overrides.objects;
             const scrollOnHover: KupManagerScrollOnHoverSettings =
@@ -90,11 +90,11 @@ export class KupManager {
                 debugAutoprint = debug.autoPrint ? debug.autoPrint : null;
                 debugLogLimit = debug.logLimit ? debug.logLimit : null;
             }
-            if (dialog) {
-                dialogRestrictContainer = dialog.restrictContainer
+            if (interact) {
+                dialogRestrictContainer = interact.restrictContainer
                     ? dialogRestrictContainer
                     : null;
-                dialogZIndex = dialog.zIndex ? dialog.zIndex : null;
+                dialogZIndex = interact.zIndex ? interact.zIndex : null;
             }
             if (language) {
                 languageList = language.list ? language.list : null;
@@ -118,8 +118,8 @@ export class KupManager {
         }
         this.dates = new KupDates(datesLocale);
         this.debug = new KupDebug(debugActive, debugAutoprint, debugLogLimit);
-        this.dialog = new KupDialog(dialogZIndex, dialogRestrictContainer);
         this.dynamicPosition = new KupDynamicPosition();
+        this.interact = new KupInteract(dialogZIndex, dialogRestrictContainer);
         this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
         this.overrides = overrides ? overrides : null;

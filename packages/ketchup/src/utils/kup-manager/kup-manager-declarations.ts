@@ -3,8 +3,8 @@ import type { ActionMap } from '@interactjs/core/scope';
 import type { RectResolvable } from '@interactjs/types/index';
 import type { KupDates } from '../kup-dates/kup-dates';
 import type { KupDebug } from '../kup-debug/kup-debug';
-import type { KupDialog } from '../kup-dialog/kup-dialog';
 import type { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
+import type { KupInteract } from '../kup-interact/kup-interact';
 import type { KupLanguage } from '../kup-language/kup-language';
 import type { KupLanguageJSON } from '../kup-language/kup-language-declarations';
 import type { KupObjects } from '../kup-objects/kup-objects';
@@ -27,8 +27,8 @@ export interface KupDom extends HTMLHtmlElement {
 export interface KupManager {
     dates: KupDates;
     debug: KupDebug;
-    dialog: KupDialog;
     dynamicPosition: KupDynamicPosition;
+    interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
     objects: KupObjects;
@@ -57,7 +57,7 @@ export interface KupManagerUtilities {
 export interface KupManagerInitialization {
     dates?: KupManagerDatesSettings;
     debug?: KupManagerDebugSettings;
-    dialog?: KupManagerDialogSettings;
+    interact?: KupManagerInteractSettings;
     language?: KupManagerLanguageSettings;
     objects?: KupManagerObjectsSettings;
     scrollOnHover?: KupManagerScrollOnHoverSettings;
@@ -80,7 +80,7 @@ export interface KupManagerDebugSettings {
 /**
  * KupDialog initialization settings.
  */
-export interface KupManagerDialogSettings {
+export interface KupManagerInteractSettings {
     restrictContainer?: RectResolvable<
         [number, number, Interaction<keyof ActionMap>]
     >;
