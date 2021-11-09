@@ -1825,10 +1825,25 @@ export class KupBox {
     }
 
     didRenderInteractables() {
-        const that = this;
         if (this.dragEnabled) {
             for (let index = 0; index < this.rowsRefs.length; index++) {
                 const row = this.rowsRefs[index];
+                const callback = () => {
+                    const cellEl = this.rootElement.shadowRoot.querySelector(
+                        '.box-object:hover'
+                    ) as HTMLElement;
+                    return {
+                        cell: cellEl['data-cell'],
+                        column: getColumnByName(
+                            this.visibleColumns,
+                            cellEl.dataset.column
+                        ),
+                        id: this.rootElement.id,
+                        multiple: this.multiSelection,
+                        row: cellEl['data-row'],
+                        selectedRows: this.selectedRows,
+                    };
+                };
                 if (row && !this.interactableDrag.includes(row)) {
                     this.interactableDrag.push(row);
                     this.kupManager.interact.draggable(
@@ -1840,23 +1855,7 @@ export class KupBox {
                             },
                         },
                         {
-                            callback: () => {
-                                const cellEl =
-                                    that.rootElement.shadowRoot.querySelector(
-                                        '.box-object:hover'
-                                    ) as HTMLElement;
-                                return {
-                                    cell: cellEl['data-cell'],
-                                    column: getColumnByName(
-                                        that.visibleColumns,
-                                        cellEl.dataset.column
-                                    ),
-                                    id: that.rootElement.id,
-                                    multiple: this.multiSelection,
-                                    row: cellEl['data-row'],
-                                    selectedRows: that.selectedRows,
-                                };
-                            },
+                            callback: callback,
                         },
                         KupDragEffect.BADGE
                     );

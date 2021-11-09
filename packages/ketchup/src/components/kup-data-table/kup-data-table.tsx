@@ -150,6 +150,7 @@ import type {
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import {
     kupDragActiveAttr,
+    KupDragEffect,
     kupDraggableAttr,
     KupDraggableElement,
     kupDragOverAttr,
@@ -1706,88 +1707,40 @@ export class KupDataTable {
         if (this.dragEnabled) {
             for (let index = 0; index < this.rowsRefs.length; index++) {
                 const row = this.rowsRefs[index];
+                const callback = () => {
+                    const cellEl = this.rootElement.shadowRoot.querySelector(
+                        'td:hover'
+                    ) as HTMLElement;
+                    return {
+                        cell: cellEl['data-cell'],
+                        column: getColumnByName(
+                            this.getVisibleColumns(),
+                            cellEl.dataset.column
+                        ),
+                        id: this.rootElement.id,
+                        multiple: !!(
+                            this.selection === SelectionMode.MULTIPLE ||
+                            this.selection === SelectionMode.MULTIPLE_CHECKBOX
+                        ),
+                        row: cellEl['data-row'],
+                        selectedRows: this.selectedRows,
+                    };
+                };
                 if (row && !this.interactableDrag.includes(row)) {
                     this.interactableDrag.push(row);
-                    interact(row).draggable({
-                        allowFrom: 'td',
-                        cursorChecker() {
-                            return null;
-                        },
-                        listeners: {
-                            move(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                const clone = draggable.kupDragDrop.ghostImage;
-                                let x =
-                                    parseFloat(clone.getAttribute('data-x')) ||
-                                    0;
-                                let y =
-                                    parseFloat(clone.getAttribute('data-y')) ||
-                                    0;
-                                x = x + e.dx;
-                                y = y + e.dy;
-                                clone.style.transform = `translate(${x}px, ${y}px)`;
-                                clone.setAttribute('data-x', x.toString());
-                                clone.setAttribute('data-y', y.toString());
-                            },
-                            start(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                const clone =
-                                    document.createElement('kup-badge');
-                                const cellEl =
-                                    that.rootElement.shadowRoot.querySelector(
-                                        'td:hover'
-                                    ) as HTMLElement;
-                                draggable.setAttribute(kupDraggableAttr, '');
-                                draggable.kupDragDrop = {
-                                    cell: cellEl['data-cell'],
-                                    ghostImage: clone,
-                                    column: getColumnByName(
-                                        that.getVisibleColumns(),
-                                        cellEl.dataset.column
-                                    ),
-                                    id: that.rootElement.id,
-                                    row: cellEl['data-row'],
-                                    selectedRows: that.selectedRows,
-                                };
-                                if (
-                                    that.selection === SelectionMode.MULTIPLE ||
-                                    that.selection ===
-                                        SelectionMode.MULTIPLE_CHECKBOX
-                                ) {
-                                    clone.text = that.selectedRows
-                                        ? that.selectedRows.length.toString()
-                                        : '0';
-                                } else {
-                                    clone.text = '1';
-                                }
-                                clone.style.left =
-                                    e.clientX - clone.clientWidth / 2 + 'px';
-                                clone.style.pointerEvents = 'none';
-                                clone.style.position = 'fixed';
-                                clone.style.top =
-                                    e.clientY - clone.clientHeight / 2 + 'px';
-                                clone.style.zIndex =
-                                    'calc(var(--kup-navbar-zindex) + 1)';
-                                that.rootElement.shadowRoot.appendChild(clone);
-                                that.tableRef.setAttribute(
-                                    kupDragActiveAttr,
-                                    ''
-                                );
-                            },
-                            end(e: InteractEvent) {
-                                const draggable =
-                                    e.target as KupDraggableElement;
-                                const clone = draggable.kupDragDrop.ghostImage;
-                                draggable.removeAttribute(kupDraggableAttr);
-                                that.tableRef.removeAttribute(
-                                    kupDragActiveAttr
-                                );
-                                clone.remove();
+                    this.kupManager.interact.draggable(
+                        row,
+                        {
+                            allowFrom: 'td',
+                            cursorChecker() {
+                                return null;
                             },
                         },
-                    });
+                        {
+                            callback: callback,
+                        },
+                        KupDragEffect.BADGE
+                    );
                 }
             }
         }
