@@ -11,16 +11,11 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-
 import Picker from 'vanilla-picker';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import {
-    kupDynamicPositionAttribute,
-    KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupColorPickerEventPayload,
@@ -91,7 +86,6 @@ export class KupColorPicker {
      */
     kupManager: KupManager = kupManagerInstance();
     private anchorEl: HTMLElement;
-    dropdownEl: HTMLElement;
     private picker: Picker;
     private textfieldEl: HTMLElement;
 
@@ -251,46 +245,27 @@ export class KupColorPicker {
     }
 
     componentDidLoad() {
-        const root = this.rootElement.shadowRoot;
-
+        const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
+            const that = this;
             this.picker = new Picker({
                 alpha: false,
                 color: this.value,
                 parent: this.anchorEl,
             });
-            this.picker['kupColorPicker'] = this;
             this.picker['onClose'] = function (color) {
-                let colorPicker = this['kupColorPicker'];
-                colorPicker.setValue(color.hex.substr(0, 7));
-                colorPicker.kupManager.dynamicPosition.stop(
-                    colorPicker.dropdownEl as KupDynamicPositionElement
-                );
-                colorPicker.kupChange.emit({
-                    comp: colorPicker,
-                    id: colorPicker.rootElement.id,
-                    value: colorPicker.value,
+                that.setValue(color.hex.substr(0, 7));
+                that.kupChange.emit({
+                    comp: that,
+                    id: that.rootElement.id,
+                    value: that.value,
                 });
             };
             this.picker['onOpen'] = function () {
-                let colorPicker = this['kupColorPicker'];
-                if (!colorPicker.dropdownEl) {
-                    colorPicker.dropdownEl =
-                        this[
-                            'kupColorPicker'
-                        ].rootElement.shadowRoot.querySelector(
-                            '.picker_wrapper'
-                        );
-                    colorPicker.kupManager.dynamicPosition.register(
-                        colorPicker.dropdownEl,
-                        colorPicker.anchorEl
-                    );
-                }
-                if (!colorPicker.disabled) {
-                    colorPicker.kupManager.dynamicPosition.start(
-                        colorPicker.dropdownEl as KupDynamicPositionElement
-                    );
-                }
+                that.rootElement.style.setProperty(
+                    '--kup_colorpicker_picker_width',
+                    that.rootElement.clientWidth.toString()
+                );
             };
         }
         this.kupManager.debug.logLoad(this, true);
@@ -353,14 +328,5 @@ export class KupColorPicker {
     disconnectedCallback() {
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll(
-                '[' + kupDynamicPositionAttribute + ']'
-            );
-        if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.unregister(
-                Array.prototype.slice.call(dynamicPositionElements)
-            );
-        }
     }
 }
