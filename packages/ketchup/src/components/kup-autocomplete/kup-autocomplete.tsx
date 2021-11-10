@@ -13,10 +13,6 @@ import {
 } from '@stencil/core';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
-    kupDynamicPositionAttribute,
-    KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
@@ -411,12 +407,10 @@ export class KupAutocomplete {
         }
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.kupManager.dynamicPosition.start(
-            this.listEl as KupDynamicPositionElement
-        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
+        this.listEl.focus();
         return true;
     }
 
@@ -456,6 +450,7 @@ export class KupAutocomplete {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 isMenu={true}
+                onBlur={() => this.closeList()}
                 onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
                 tabindex={-1}
@@ -497,16 +492,6 @@ export class KupAutocomplete {
                 this.textfieldWrapper = f;
                 this.textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
-                this.kupManager.dynamicPosition.register(
-                    this.listEl,
-                    this.textfieldWrapper,
-                    null,
-                    null,
-                    true,
-                    () => {
-                        this.closeList();
-                    }
-                );
             }
         }
         this.kupManager.debug.logRender(this, true);
@@ -554,8 +539,9 @@ export class KupAutocomplete {
                         onIconClick={(
                             e: MouseEvent & { target: HTMLInputElement }
                         ) => this.onKupIconClick(e)}
-                    />
-                    {this.prepList()}
+                    >
+                        {this.prepList()}
+                    </FTextField>
                 </div>
             </Host>
         );
@@ -563,14 +549,5 @@ export class KupAutocomplete {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll(
-                '[' + kupDynamicPositionAttribute + ']'
-            );
-        if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.unregister(
-                Array.prototype.slice.call(dynamicPositionElements)
-            );
-        }
     }
 }

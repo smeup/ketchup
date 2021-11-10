@@ -30,3 +30,12 @@
   -webkit-mask: var(--kup-dropdown-icon);
   mask: var(--kup-dropdown-icon);
 }
+
+.f-textfield--wrapper {
+  position: relative;
+}
+
+kup-list {
+  position: absolute;
+  z-index: 1;
+}
