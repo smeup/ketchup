@@ -1,5 +1,5 @@
 import type { FTextFieldProps } from './f-text-field-declarations';
-import { FunctionalComponent, getAssetPath, h } from '@stencil/core';
+import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 /*-------------------------------------------------*/
@@ -7,7 +7,8 @@ import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations
 /*-------------------------------------------------*/
 
 export const FTextField: FunctionalComponent<FTextFieldProps> = (
-    props: FTextFieldProps
+    props: FTextFieldProps,
+    children: VNode[]
 ) => {
     return (
         <div
@@ -39,6 +40,7 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
             ) : (
                 [setContent(props), setHelper(props)]
             )}
+            {children}
         </div>
     );
 };

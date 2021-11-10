@@ -62,5 +62,8 @@ $kup-icon-search: 'kup-search-icon'; // Used in search-related fields.
 //-----------------------------------------------------//
 
 $kup-dd-active: 'kup-drag-active'; // Attached to a parent of the dragged element
-$kup-dd-draggable: 'kup-draggable'; // Attached to the element being dragged
 $kup-dd-drag-over: 'kup-drag-over'; // Attached to the element on mouse over
+$kup-dd-draggable: 'kup-draggable'; // Attached to the element being dragged
+$kup-dd-draggable-cell: 'kup-draggable-cell'; // Attached to the element being dragged when a cell is present in the payload
+$kup-dd-draggable-column: 'kup-draggable-column'; // Attached to the element being dragged when a column is present in the payload
+$kup-dd-draggable-row: 'kup-draggable-row'; // Attached to the element being dragged when a row is present in the payload

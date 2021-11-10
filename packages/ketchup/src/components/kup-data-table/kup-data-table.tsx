@@ -414,11 +414,11 @@ export class KupDataTable {
     /**
      * Enables drag.
      */
-    @Prop() dragEnabled: boolean = false;
+    @Prop({ reflect: true }) dragEnabled: boolean = false;
     /**
      * Enables drop.
      */
-    @Prop() dropEnabled: boolean = false;
+    @Prop({ reflect: true }) dropEnabled: boolean = false;
     /**
      * When set to true, editable cells will be rendered using input components.
      * @default false

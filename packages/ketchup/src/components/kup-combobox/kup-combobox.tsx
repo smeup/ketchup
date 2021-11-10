@@ -11,10 +11,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import {
-    kupDynamicPositionAttribute,
-    KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -350,12 +346,10 @@ export class KupCombobox {
     openList() {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.kupManager.dynamicPosition.start(
-            this.listEl as KupDynamicPositionElement
-        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
+        this.listEl.focus();
     }
 
     closeList() {
@@ -386,6 +380,7 @@ export class KupCombobox {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 is-menu
+                onBlur={() => this.closeList()}
                 onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
                 tabindex={-1}
@@ -426,16 +421,6 @@ export class KupCombobox {
                 this.textfieldWrapper = f;
                 this.textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
-                this.kupManager.dynamicPosition.register(
-                    this.listEl,
-                    this.textfieldWrapper,
-                    null,
-                    null,
-                    true,
-                    () => {
-                        this.closeList();
-                    }
-                );
             }
         }
         this.kupManager.debug.logRender(this, true);
@@ -485,8 +470,9 @@ export class KupCombobox {
                         onIconClick={(
                             e: MouseEvent & { target: HTMLInputElement }
                         ) => this.onKupIconClick(e)}
-                    />
-                    {this.prepList()}
+                    >
+                        {this.prepList()}
+                    </FTextField>
                 </div>
             </Host>
         );
@@ -494,14 +480,5 @@ export class KupCombobox {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll(
-                '[' + kupDynamicPositionAttribute + ']'
-            );
-        if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.unregister(
-                Array.prototype.slice.call(dynamicPositionElements)
-            );
-        }
     }
 }

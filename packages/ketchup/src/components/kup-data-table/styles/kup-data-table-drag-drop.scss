@@ -1,3 +1,9 @@
+:host([drag-enabled]) {
+  tr {
+    touch-action: none;
+  }
+}
+
 th[#{$kup-dd-drag-over}] {
   background-color: rgba(var(--kup-success-color-rgb), 0.25);
 }

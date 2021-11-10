@@ -695,7 +695,7 @@ export class KupColumnMenu {
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
         const card: HTMLKupCardElement = cardEvent.detail.card
             ? cardEvent.detail.card
-            : cardEvent.detail.comp;
+            : cardEvent.detail.comp.rootElement;
         const compEvent: CustomEvent = cardEvent.detail.event;
         const compID: string = compEvent.detail.id;
         const subcomp: HTMLElement = compEvent.target as HTMLElement;

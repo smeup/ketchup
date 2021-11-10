@@ -102,14 +102,12 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-text-field](../kup-text-field)
 - [kup-button](../kup-button)
 - [kup-list](../kup-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
   kup-button --> kup-badge

@@ -15,3 +15,12 @@
   -webkit-mask: var(--kup-dropdown-icon);
   mask: var(--kup-dropdown-icon);
 }
+
+.f-text-field--wrapper {
+  position: relative;
+}
+
+kup-list {
+  position: absolute;
+  z-index: 1;
+}

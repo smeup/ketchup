@@ -6,6 +6,8 @@
 #time-picker-div {
   display: none;
   outline: none;
+  position: absolute;
+  z-index: 1;
 
   &.visible {
     display: block;
@@ -523,4 +525,8 @@
 
 .unit:nth-child(1):after {
   transform: rotate(0deg);
+}
+
+.f-text-field--wrapper {
+  position: relative;
 }
