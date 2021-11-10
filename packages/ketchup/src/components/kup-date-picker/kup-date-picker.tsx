@@ -462,18 +462,14 @@ export class KupDatePicker {
         let containerEl = this.pickerContainerEl;
         this.pickerOpened = true;
         this.refreshPickerComponentValue(this.getValueForPickerComponent());
-
-        let textFieldWidth = null;
         if (textfieldEl != null) {
             textfieldEl.classList.add('toggled');
         }
         if (containerEl != null) {
             containerEl.classList.add('visible');
-            let elStyle = containerEl.style;
+            const elStyle = containerEl.style;
             elStyle.height = 'auto';
-            if (textFieldWidth != null) {
-                elStyle.minWidth = textfieldEl.clientWidth + 'px';
-            }
+            elStyle.minWidth = textfieldEl.clientWidth + 'px';
         }
     }
 

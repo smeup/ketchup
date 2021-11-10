@@ -2,12 +2,3 @@
 @import 'f-text-field/f-text-field.scss';
 @import 'styles/kup-date-picker-main.scss';
 @import 'styles/kup-date-picker-classes.scss';
-
-.f-text-field--wrapper {
-  position: relative;
-}
-
-#date-picker-div {
-  position: absolute;
-  z-index: 1;
-}

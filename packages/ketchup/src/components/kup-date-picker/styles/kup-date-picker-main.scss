@@ -4,14 +4,6 @@
 }
 
 #date-picker-div {
-  display: none;
-
-  &.visible {
-    display: block;
-  }
-}
-
-#date-picker-div {
   outline: none;
   pointer-events: all;
   background-color: var(--kup-background-color);
@@ -21,11 +13,12 @@
   overflow: hidden;
   padding: 10px;
   box-sizing: border-box;
-  position: relative;
   flex-direction: column;
   justify-content: center;
   height: 22em;
   width: 22em;
+  position: absolute;
+  z-index: 1;
 
   &.visible {
     display: block;
@@ -105,4 +98,8 @@
     transition: background-color 0.25s;
     text-transform: capitalize;
   }
+}
+
+.f-text-field--wrapper {
+  position: relative;
 }
