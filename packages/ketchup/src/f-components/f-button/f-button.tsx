@@ -11,7 +11,8 @@ const dom: KupDom = document.documentElement as KupDom;
 /*-------------------------------------------------*/
 
 export const FButton: FunctionalComponent<FButtonProps> = (
-    props: FButtonProps
+    props: FButtonProps,
+    children: VNode[]
 ) => {
     if (!props.styling) {
         props.styling = FButtonStyling.RAISED;
@@ -45,6 +46,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
             title={props.title}
         >
             {isIconButton ? renderIconButton(props) : renderButton(props)}
+            {children}
         </div>
     );
 };
