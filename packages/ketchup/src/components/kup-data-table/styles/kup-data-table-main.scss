@@ -214,8 +214,10 @@ table {
 }
 
 .below-wrapper {
+  backface-visibility: hidden;
   height: auto;
   overflow: auto;
+
   &.custom-size {
     overflow: unset;
   }
