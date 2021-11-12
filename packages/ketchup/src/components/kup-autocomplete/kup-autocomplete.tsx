@@ -410,6 +410,13 @@ export class KupAutocomplete {
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
+        this.kupManager.utilities.pointerDownCallbacks.add({
+            cb: () => {
+                this.closeList();
+            },
+            onlyOnce: true,
+            el: this.listEl,
+        });
         return true;
     }
 
@@ -451,7 +458,6 @@ export class KupAutocomplete {
                 isMenu={true}
                 onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
-                tabindex={-1}
             ></kup-list>
         );
     }
@@ -510,7 +516,6 @@ export class KupAutocomplete {
                     fullWidth ? 'kup-full-width' : ''
                 }`}
                 style={this.elStyle}
-                onBlur={() => this.closeList()}
             >
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id={componentWrapperId} style={this.elStyle}>

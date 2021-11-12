@@ -10,6 +10,7 @@ import {
     Method,
     Prop,
     State,
+    VNode,
     Watch,
 } from '@stencil/core';
 import type {
@@ -41,6 +42,7 @@ import {
 } from '../../utils/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -228,7 +230,6 @@ export class KupDatePicker {
     }
 
     onKupBlur() {
-        this.closePicker();
         this.kupBlur.emit({
             id: this.rootElement.id,
             value: this.value,
@@ -471,6 +472,13 @@ export class KupDatePicker {
             elStyle.height = 'auto';
             elStyle.minWidth = textfieldEl.clientWidth + 'px';
         }
+        this.kupManager.utilities.pointerDownCallbacks.add({
+            cb: () => {
+                this.closePicker();
+            },
+            onlyOnce: true,
+            el: this.pickerContainerEl,
+        });
     }
 
     closePicker() {
@@ -496,23 +504,26 @@ export class KupDatePicker {
         return this.textfieldEl.id;
     }
 
-    prepTextfield(initialValue: string): any {
-        let textfieldData = { ...this.data['kup-text-field'] };
+    prepTextfield(initialValue: string): VNode {
+        const textfieldData: FTextFieldProps = {
+            ...this.data['kup-text-field'],
+        };
 
-        if (!textfieldData['icon']) {
-            textfieldData['icon'] = 'calendar';
+        if (!textfieldData.icon) {
+            textfieldData.icon = 'calendar';
         }
 
-        if (textfieldData['icon']) {
-            textfieldData['trailingIcon'] = true;
+        if (textfieldData.icon) {
+            textfieldData.trailingIcon = true;
         }
 
-        let comp: HTMLElement = (
+        return (
             <FTextField
                 {...textfieldData}
                 disabled={this.disabled}
                 id={this.rootElement.id + '_text-field'}
                 value={initialValue}
+                onBlur={() => this.onKupBlur()}
                 onChange={(e: InputEvent) => this.onKupChange(e)}
                 onClearIconClick={() => this.onKupClearIconClick()}
                 onClick={() => this.onKupClick()}
@@ -524,8 +535,6 @@ export class KupDatePicker {
                 {this.prepDatePicker()}
             </FTextField>
         );
-
-        return comp;
     }
 
     getInitEndYear(curYear: number): { initYear: number; endYear: number } {
@@ -597,14 +606,8 @@ export class KupDatePicker {
 
         return (
             <div
-                tabindex="0"
                 id="date-picker-div"
                 ref={(el) => (this.pickerContainerEl = el as any)}
-                onBlur={(e: any) => {
-                    if (!this.isRelatedTargetInThisComponent(e)) {
-                        this.onKupBlur();
-                    }
-                }}
             >
                 <div class="section-1">
                     <div class="sub-1 nav">
@@ -1000,7 +1003,7 @@ export class KupDatePicker {
         );
 
         return (
-            <Host class={hostClass} onBlur={() => this.onKupBlur()}>
+            <Host class={hostClass}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id={componentWrapperId}>
                     {this.prepTextfield(this.getDateForOutput())}

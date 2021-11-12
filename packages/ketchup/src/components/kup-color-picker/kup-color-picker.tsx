@@ -264,8 +264,15 @@ export class KupColorPicker {
             this.picker['onOpen'] = function () {
                 that.rootElement.style.setProperty(
                     '--kup_colorpicker_picker_width',
-                    that.rootElement.clientWidth.toString()
+                    that.textfieldEl.clientWidth + 'px'
                 );
+                that.kupManager.utilities.pointerDownCallbacks.add({
+                    cb: () => {
+                        that.picker.closeHandler(null);
+                    },
+                    onlyOnce: true,
+                    el: that.picker['domElement'],
+                });
             };
         }
         this.kupManager.debug.logLoad(this, true);

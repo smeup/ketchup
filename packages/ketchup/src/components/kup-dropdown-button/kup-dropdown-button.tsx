@@ -128,11 +128,7 @@ export class KupDropdownButton {
     /**
      * List element (dropdown menu).
      */
-    private listEl: Partial<HTMLKupListElement> = null;
-    /**
-     * List anchor point.
-     */
-    private wrapperEl: HTMLElement = null;
+    private listEl: HTMLKupListElement = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -358,6 +354,13 @@ export class KupDropdownButton {
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = buttonWidth + 'px';
+        this.kupManager.utilities.pointerDownCallbacks.add({
+            cb: () => {
+                this.closeList();
+            },
+            onlyOnce: true,
+            el: this.listEl,
+        });
     }
     /**
      * Closes the dropdown menu.
@@ -475,12 +478,9 @@ export class KupDropdownButton {
         );
 
         return (
-            <Host onBlur={() => this.onKupBlur()}>
+            <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div
-                    id={componentWrapperId}
-                    ref={(el) => (this.wrapperEl = el as any)}
-                >
+                <div id={componentWrapperId}>
                     <div class="dropdown-button--wrapper">
                         {this.renderButtons()}
                     </div>
@@ -490,8 +490,7 @@ export class KupDropdownButton {
                         isMenu={true}
                         onkup-list-click={(e) => this.onKupItemClick(e)}
                         id={this.rootElement.id + '_list'}
-                        ref={(el) => (this.listEl = el as any)}
-                        tabindex={-1}
+                        ref={(el) => (this.listEl = el)}
                     ></kup-list>
                 </div>
             </Host>

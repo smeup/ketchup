@@ -349,6 +349,13 @@ export class KupCombobox {
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
+        this.kupManager.utilities.pointerDownCallbacks.add({
+            cb: () => {
+                this.closeList();
+            },
+            onlyOnce: true,
+            el: this.listEl,
+        });
     }
 
     closeList() {
@@ -381,7 +388,6 @@ export class KupCombobox {
                 is-menu
                 onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
-                tabindex={-1}
             ></kup-list>
         );
     }
@@ -439,7 +445,6 @@ export class KupCombobox {
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
                     fullWidth ? 'kup-full-width' : ''
                 }`}
-                onBlur={() => this.closeList()}
                 style={this.elStyle}
             >
                 {customStyle ? <style>{customStyle}</style> : null}

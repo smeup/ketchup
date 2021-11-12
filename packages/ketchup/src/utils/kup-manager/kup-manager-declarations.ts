@@ -49,6 +49,15 @@ export interface KupManager {
 export interface KupManagerUtilities {
     lastPointerDownPath?: EventTarget[];
     lastPointerDownString?: string;
+    pointerDownCallbacks?: Set<KupManagerPointerDownCb>;
+}
+/**
+ * Interface to declare callbacks automatically invoked on pointer down events.
+ */
+export interface KupManagerPointerDownCb {
+    cb: () => unknown;
+    onlyOnce?: boolean;
+    el?: HTMLElement;
 }
 
 /**

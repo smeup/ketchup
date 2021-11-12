@@ -464,6 +464,13 @@ export class KupTimePicker {
             elStyle.height = 'auto';
             elStyle.minWidth = textfieldEl.clientWidth + 'px';
         }
+        this.kupManager.utilities.pointerDownCallbacks.add({
+            cb: () => {
+                this.closePicker();
+            },
+            onlyOnce: true,
+            el: this.pickerContainerEl,
+        });
         this.refresh();
     }
 
@@ -819,7 +826,6 @@ export class KupTimePicker {
 
         return (
             <div
-                tabindex="-1"
                 id="time-picker-div"
                 ref={(el) => (this.pickerContainerEl = el as any)}
                 onBlur={(e: any) => {
@@ -965,7 +971,7 @@ export class KupTimePicker {
         );
 
         return (
-            <Host class={hostClass} onBlur={() => this.onKupBlur()}>
+            <Host class={hostClass}>
                 {customStyle ? <style>{customStyle}</style> : null}
                 <div id={componentWrapperId}>
                     {this.prepTextfield(this.getTimeForOutput())}
