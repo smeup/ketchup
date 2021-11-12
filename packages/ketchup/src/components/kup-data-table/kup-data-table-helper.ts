@@ -761,14 +761,16 @@ export function normalizeRows(
         const normalizedrows = Object.assign(rows);
         rows.forEach((row: Row) => {
             columns.forEach((column) => {
-                const cell = row.cells[column.name];
-                if (cell && column.obj && !cell.obj) {
-                    // cell.obj = Object.assign(column.obj);
-                    cell.obj = {
-                        t: column.obj.t,
-                        p: column.obj.p,
-                        k: cell.value,
-                    };
+                if (row.cells) {
+                    const cell = row.cells[column.name];
+                    if (cell && column.obj && !cell.obj) {
+                        // cell.obj = Object.assign(column.obj);
+                        cell.obj = {
+                            t: column.obj.t,
+                            p: column.obj.p,
+                            k: cell.value,
+                        };
+                    }
                 }
             });
         });

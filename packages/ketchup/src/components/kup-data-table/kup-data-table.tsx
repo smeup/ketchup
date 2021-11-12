@@ -3249,7 +3249,7 @@ export class KupDataTable {
         thStyle: GenericObject;
     } {
         let columnClass: GenericObject = { ['header-cell']: true },
-            thStyle: GenericObject = {};
+            thStyle: GenericObject = column.style ? { ...column.style } : {};
 
         if (
             this.kupManager.objects.isBar(column.obj) ||
@@ -4218,6 +4218,9 @@ export class KupDataTable {
                 }
 
                 const cell = row.cells[name];
+                if (!cell) {
+                    return null;
+                }
 
                 const jsxCell = this.renderCell(
                     indend,
@@ -4241,6 +4244,8 @@ export class KupDataTable {
                 };
                 if (cell.cssClass) {
                     cellClass[cell.cssClass] = true;
+                } else if (currentColumn.cssClass) {
+                    cellClass[currentColumn.cssClass] = true;
                 }
 
                 let cellStyle: GenericObject = null;
@@ -4331,6 +4336,12 @@ export class KupDataTable {
                 return (
                     <td
                         title={title}
+                        colSpan={
+                            cell.span && cell.span.col ? cell.span.col : null
+                        }
+                        rowSpan={
+                            cell.span && cell.span.row ? cell.span.row : null
+                        }
                         data-cell={cell}
                         data-column={name}
                         data-row={row}
