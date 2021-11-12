@@ -85,8 +85,14 @@ export interface Cell {
         k: string;
     };
     shape?: string;
+    span?: KupDatatableCellSpan;
     style?: GenericMap;
     title?: string;
+}
+
+export interface KupDatatableCellSpan {
+    col: number;
+    row: number;
 }
 /**
  * Information about the cell, displayed before the content.
@@ -125,6 +131,8 @@ export interface Column {
     valuesForFilter?: string[];
     isKey?: boolean;
     children?: ColumnChild[];
+    cssClass?: string;
+    style?: GenericMap;
 }
 export interface ColumnChild {
     name: string;
@@ -138,13 +146,9 @@ export interface ColumnChild {
 
 export interface Row extends Identifiable {
     cells: CellsHolder;
-
     actions?: Array<RowAction>;
-
     group?: RowGroup;
-
     readOnly?: boolean;
-
     cssClass?: string;
     name?: string;
     unselectable?: boolean;

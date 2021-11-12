@@ -108,7 +108,8 @@ table {
     }
 
     > td {
-      &:first-of-type {
+      &:first-of-type,
+      &.placeholder ~ td:not(.placeholder) {
         border-left: var(--kup_datatable_border);
       }
 
