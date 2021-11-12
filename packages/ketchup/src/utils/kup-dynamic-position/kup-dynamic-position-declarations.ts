@@ -22,7 +22,6 @@ export type KupDynamicPositionAnchor =
 export interface KupDynamicPositionElement extends HTMLElement {
     kupDynamicPosition: {
         anchor: KupDynamicPositionAnchor;
-        blurCallback: Function;
         detach: boolean;
         margin: number;
         placement: KupDynamicPositionPlacement;

@@ -103,12 +103,16 @@ export class KupColumnMenu {
                         wrapper,
                         0,
                         KupDynamicPositionPlacement.BOTTOM,
-                        true,
-                        () => {
-                            this.close(card);
-                        }
+                        true
                     );
                 }
+                dom.ketchup.utilities.pointerDownCallbacks.add({
+                    cb: () => {
+                        this.close(card);
+                    },
+                    onlyOnce: true,
+                    el: card,
+                });
                 dom.ketchup.dynamicPosition.start(card as any);
                 card.menuVisible = true;
             }
