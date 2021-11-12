@@ -349,7 +349,6 @@ export class KupCombobox {
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
-        this.listEl.focus();
     }
 
     closeList() {
@@ -380,7 +379,6 @@ export class KupCombobox {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 is-menu
-                onBlur={() => this.closeList()}
                 onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
                 tabindex={-1}
@@ -441,6 +439,7 @@ export class KupCombobox {
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
                     fullWidth ? 'kup-full-width' : ''
                 }`}
+                onBlur={() => this.closeList()}
                 style={this.elStyle}
             >
                 {customStyle ? <style>{customStyle}</style> : null}
