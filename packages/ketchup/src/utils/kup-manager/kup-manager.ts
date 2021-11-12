@@ -150,6 +150,7 @@ export class KupManager {
         this.utilities = {
             lastPointerDownPath: null,
             lastPointerDownString: null,
+            pointerDownCallbacks: new Set(),
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
@@ -159,6 +160,14 @@ export class KupManager {
                 paths[0].innerText || (paths[0] as HTMLInputElement).value;
             this.utilities.lastPointerDownPath = paths;
             this.utilities.lastPointerDownString = lastString;
+            this.utilities.pointerDownCallbacks.forEach((obj) => {
+                if (obj.el.isConnected && !paths.includes(obj.el)) {
+                    obj.cb();
+                    if (obj.onlyOnce) {
+                        this.utilities.pointerDownCallbacks.delete(obj);
+                    }
+                }
+            });
             if (lastString) {
                 document.dispatchEvent(
                     new CustomEvent('kup-manager-stringfinder', {
