@@ -81,8 +81,7 @@ function createIcon(props: FImageProps): HTMLDivElement {
             : `var(${KupThemeColorValues.ICON})`,
     };
     if (props.resource.indexOf('--kup') > -1) {
-        let themeIcon: string = props.resource.replace('--kup-', '');
-        themeIcon = themeIcon.replace('-icon', '');
+        let themeIcon: string = props.resource.replace('--', '');
         classObj['kup-icon'] = true;
         classObj[themeIcon] = true;
     } else {

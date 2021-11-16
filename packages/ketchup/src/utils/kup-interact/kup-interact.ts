@@ -82,6 +82,8 @@ export class KupInteract {
         effect?: KupDragEffect,
         callbacks?: KupDragCallbacks
     ) {
+        el.style.touchAction = 'none';
+        el.style.userSelect = 'none';
         if (!options) {
             options = {};
         }

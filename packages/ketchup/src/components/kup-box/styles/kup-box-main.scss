@@ -158,6 +158,20 @@
               margin: 0.5em;
               display: flex;
               align-items: center;
+
+              .f-image--wrapper {
+                transition: transform 0.15s;
+
+                &.toggled {
+                  transform: rotate(-180deg);
+                }
+              }
+
+              .#{$kup-icon}.#{$kup-icon-dropdown} {
+                margin: 0;
+                -webkit-mask: var(--kup-dropdown-icon);
+                mask: var(--kup-dropdown-icon);
+              }
             }
           }
 

@@ -1369,7 +1369,12 @@ export class KupBox {
                     >
                         <div class="header-content">
                             <span>{headerTitle}</span>
-                            <FImage resource="chevron-down" />
+                            <FImage
+                                resource={`${KupThemeIconValues.DROPDOWN}`}
+                                sizeX="1.25em"
+                                sizeY="1.25em"
+                                wrapperClass={sectionExpanded ? 'toggled' : ''}
+                            />
                         </div>
                     </div>
                 </div>
