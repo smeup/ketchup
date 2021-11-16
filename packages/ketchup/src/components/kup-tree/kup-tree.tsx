@@ -2291,17 +2291,18 @@ export class KupTree {
             if (menu) {
                 this.kupManager.dynamicPosition.register(
                     menu as unknown as KupDynamicPositionElement,
-                    this.totalMenuCoords,
-                    0,
-                    KupDynamicPositionPlacement.AUTO,
-                    null,
-                    () => {
+                    this.totalMenuCoords
+                );
+                this.kupManager.utilities.pointerDownCallbacks.add({
+                    cb: () => {
                         this.closeTotalMenu();
                         this.kupManager.dynamicPosition.stop(
                             menu as unknown as KupDynamicPositionElement
                         );
-                    }
-                );
+                    },
+                    onlyOnce: true,
+                    el: menu,
+                });
                 this.kupManager.dynamicPosition.start(
                     menu as unknown as KupDynamicPositionElement
                 );

@@ -59,7 +59,6 @@ export interface KupManagerPointerDownCb {
     onlyOnce?: boolean;
     el?: HTMLElement;
 }
-
 /**
  * Interface for the KupManager override settings.
  */

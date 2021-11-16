@@ -25,7 +25,6 @@ export class KupDynamicPosition {
         this.container.setAttribute('kup-dynamic-position', '');
         document.body.appendChild(this.container);
         this.managedElements = new Set();
-        document.addEventListener('pointerdown', (e) => this.blurCallback(e));
     }
     /**
      * Function used to check whether the anchor point is an HTMLElement or a set of coordinates.
@@ -38,37 +37,19 @@ export class KupDynamicPosition {
         return (anchor as HTMLElement).tagName !== undefined;
     }
     /**
-     * Stops the positioning of all currently active elements and invokes the related callback.
-     */
-    blurCallback(e: MouseEvent): void {
-        const eventPath = e.composedPath();
-        this.managedElements.forEach(function (el: KupDynamicPositionElement) {
-            if (
-                el.isConnected &&
-                !eventPath.includes(el) &&
-                el.kupDynamicPosition.blurCallback &&
-                el.classList.contains(kupDynamicPositionActiveClass)
-            ) {
-                el.kupDynamicPosition.blurCallback();
-            }
-        });
-    }
-    /**
      * Watches the element eligible to dynamic positioning.
      * @param {KupDynamicPositionElement} el - Element to reposition.
      * @param {KupDynamicPositionAnchor} anchorEl - "el" position will be anchored to this element or to these coordinates.
      * @param {number} margin - "el" distance from its parent in pixels.
      * @param {KupDynamicPositionPlacement} placement - "el" placement.
      * @param {boolean} detach - When true, the function won't be recursive but it will be executed only once. "el" will be detached from its original parent and it will be appended to this.container.
-     * @param {Function} blurCallback - Callback invoked when "el" is blurred.
      */
     register(
         el: KupDynamicPositionElement,
         anchorEl: KupDynamicPositionAnchor,
         margin?: number,
         placement?: KupDynamicPositionPlacement,
-        detach?: boolean,
-        blurCallback?: Function
+        detach?: boolean
     ): void {
         if (this.isRegistered(el)) {
             this.changeAnchor(el, anchorEl);
@@ -87,7 +68,6 @@ export class KupDynamicPosition {
         el.style.zIndex = `calc(var(--kup-navbar-zindex) - 1)`;
         el.kupDynamicPosition = {
             anchor: anchorEl,
-            blurCallback: blurCallback,
             detach: detach ? true : false,
             margin: margin ? margin : 0,
             placement: placement ? placement : KupDynamicPositionPlacement.AUTO,
