@@ -40,7 +40,6 @@
         "@fullcalendar/interaction": "^5.9.0",
         "@fullcalendar/list": "^5.9.0",
         "@fullcalendar/timegrid": "^5.9.0",
-        "@justinribeiro/html5-dragdroptouch-shim": "^0.1.2",
         "@material/form-field": "^11.0.0",
         "@material/ripple": "^11.0.0",
         "@material/textfield": "^11.0.0",
