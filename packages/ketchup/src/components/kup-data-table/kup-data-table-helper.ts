@@ -797,7 +797,7 @@ export function calcTotals(
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
     } else {
         let distinctObj = {};
-        rows.forEach((r) => {
+        rows.forEach((r, index, array) => {
             keys.filter(
                 (key) =>
                     TotalMode.COUNT !== totals[key] &&
@@ -823,11 +823,6 @@ export function calcTotals(
                         } else {
                             // update the list
                             distinctList.push(cellValue);
-                            if (distinctList.length === rows.length) {
-                                // last round
-                                footerRow[key] = new Set(distinctList).size;
-                                distinctObj[key] = [];
-                            }
                         }
                     } else if (kupObjects.isNumber(cell.obj)) {
                         const cellValue = numeral(stringToNumber(cell.value));
@@ -903,6 +898,14 @@ export function calcTotals(
                             }
                         }
                     }
+                }
+                if (
+                    index === array.length - 1 &&
+                    totals[key] === TotalMode.DISTINCT
+                ) {
+                    // last round
+                    footerRow[key] = new Set(distinctObj[key]).size;
+                    distinctObj[key] = [];
                 }
             });
         });
