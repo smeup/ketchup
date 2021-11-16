@@ -316,6 +316,7 @@ th {
   &__title {
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: none;
   }
 
   &__icons {
