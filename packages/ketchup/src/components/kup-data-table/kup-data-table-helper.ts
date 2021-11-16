@@ -139,8 +139,16 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
     const cell1: Cell = r1.cells[sortObj.column];
     const cell2: Cell = r2.cells[sortObj.column];
 
-    if (!cell1 || !cell2) {
+    if (!cell1 && !cell2) {
         return 0;
+    }
+
+    if (!cell1) {
+        return 1;
+    }
+
+    if (!cell2) {
+        return -1;
     }
 
     return compareCell(cell1, cell2, sortObj.sortMode);
