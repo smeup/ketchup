@@ -82,15 +82,13 @@
         box-shadow var(--kup_box_transition) ease,
         border var(--kup_box_transition) ease;
 
-      &.column {
-        flex-direction: column;
+      &.draggable {
+        touch-action: none;
+        user-select: none;
       }
 
-      &:hover,
-      &.selected {
-        .box-drag-handler {
-          display: inline;
-        }
+      &.column {
+        flex-direction: column;
       }
 
       &:hover {
@@ -199,14 +197,6 @@
         top: 0.5em;
         right: 0.5em;
         z-index: 1;
-      }
-
-      .box-drag-handler {
-        position: absolute;
-        bottom: 0.5em;
-        right: 0.5em;
-        cursor: grab;
-        display: none;
       }
     }
 

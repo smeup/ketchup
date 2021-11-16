@@ -214,6 +214,10 @@
   &.visible {
     display: block;
   }
+
+  .list-item__text {
+    user-select: none;
+  }
 }
 
 @keyframes fade-in {

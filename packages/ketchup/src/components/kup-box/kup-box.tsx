@@ -1213,11 +1213,6 @@ export class KupBox {
             ));
         }
 
-        let dragHandler = null;
-        if (this.dragEnabled) {
-            dragHandler = <span class="box-drag-handler mdi mdi-drag"></span>;
-        }
-
         const boxClass = {
             box: true,
             draggable: this.dragEnabled,
@@ -1235,7 +1230,6 @@ export class KupBox {
                     {multiSel}
                     {boxContent}
                     {badges}
-                    {dragHandler}
                 </div>
                 {rowObject}
             </div>
@@ -1375,7 +1369,7 @@ export class KupBox {
                     >
                         <div class="header-content">
                             <span>{headerTitle}</span>
-                            <span class="mdi mdi-chevron-down" />
+                            <FImage resource="chevron-down" />
                         </div>
                     </div>
                 </div>
