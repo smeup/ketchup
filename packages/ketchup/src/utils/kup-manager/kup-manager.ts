@@ -1,9 +1,12 @@
+import type { Interaction } from '@interactjs/core/Interaction';
+import type { ActionMap } from '@interactjs/core/scope';
+import type { RectResolvable } from '@interactjs/types/index';
 import type {
     KupDom,
     KupManagerDatesSettings,
     KupManagerDebugSettings,
-    KupManagerDialogSettings,
     KupManagerInitialization,
+    KupManagerInteractSettings,
     KupManagerLanguageSettings,
     KupManagerObjectsSettings,
     KupManagerScrollOnHoverSettings,
@@ -13,8 +16,8 @@ import type {
 import type { ResizableKupComponent } from '../../types/GenericTypes';
 import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { KupDebug } from '../kup-debug/kup-debug';
-import { KupDialog } from '../kup-dialog/kup-dialog';
 import { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
+import { KupInteract } from '../kup-interact/kup-interact';
 import { KupLanguage } from '../kup-language/kup-language';
 import { KupObjects } from '../kup-objects/kup-objects';
 import { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
@@ -40,8 +43,8 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupManager {
     dates: KupDates;
     debug: KupDebug;
-    dialog: KupDialog;
     dynamicPosition: KupDynamicPosition;
+    interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
     objects: KupObjects;
@@ -59,6 +62,9 @@ export class KupManager {
             debugActive: boolean = null,
             debugAutoprint: boolean = null,
             debugLogLimit: number = null,
+            dialogRestrictContainer: RectResolvable<
+                [number, number, Interaction<keyof ActionMap>]
+            > = null,
             dialogZIndex: number = null,
             languageList: KupLanguageJSON = null,
             languageName: string = null,
@@ -70,7 +76,7 @@ export class KupManager {
         if (overrides) {
             const dates: KupManagerDatesSettings = overrides.dates;
             const debug: KupManagerDebugSettings = overrides.debug;
-            const dialog: KupManagerDialogSettings = overrides.dialog;
+            const interact: KupManagerInteractSettings = overrides.interact;
             const language: KupManagerLanguageSettings = overrides.language;
             const objects: KupManagerObjectsSettings = overrides.objects;
             const scrollOnHover: KupManagerScrollOnHoverSettings =
@@ -84,8 +90,11 @@ export class KupManager {
                 debugAutoprint = debug.autoPrint ? debug.autoPrint : null;
                 debugLogLimit = debug.logLimit ? debug.logLimit : null;
             }
-            if (dialog) {
-                dialogZIndex = dialog.zIndex ? dialog.zIndex : null;
+            if (interact) {
+                dialogRestrictContainer = interact.restrictContainer
+                    ? dialogRestrictContainer
+                    : null;
+                dialogZIndex = interact.zIndex ? interact.zIndex : null;
             }
             if (language) {
                 languageList = language.list ? language.list : null;
@@ -109,8 +118,8 @@ export class KupManager {
         }
         this.dates = new KupDates(datesLocale);
         this.debug = new KupDebug(debugActive, debugAutoprint, debugLogLimit);
-        this.dialog = new KupDialog(dialogZIndex);
         this.dynamicPosition = new KupDynamicPosition();
+        this.interact = new KupInteract(dialogZIndex, dialogRestrictContainer);
         this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
         this.overrides = overrides ? overrides : null;
@@ -141,6 +150,7 @@ export class KupManager {
         this.utilities = {
             lastPointerDownPath: null,
             lastPointerDownString: null,
+            pointerDownCallbacks: new Set(),
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
@@ -150,6 +160,14 @@ export class KupManager {
                 paths[0].innerText || (paths[0] as HTMLInputElement).value;
             this.utilities.lastPointerDownPath = paths;
             this.utilities.lastPointerDownString = lastString;
+            this.utilities.pointerDownCallbacks.forEach((obj) => {
+                if (obj.el.isConnected && !paths.includes(obj.el)) {
+                    obj.cb();
+                    if (obj.onlyOnce) {
+                        this.utilities.pointerDownCallbacks.delete(obj);
+                    }
+                }
+            });
             if (lastString) {
                 document.dispatchEvent(
                     new CustomEvent('kup-manager-stringfinder', {

@@ -50,7 +50,7 @@
     }
 
     .mdc-text-field {
-      .kup-icon {
+      .#{$kup-icon} {
         background-color: var(--kup_textfield_icon_color);
         cursor: pointer;
         height: 24px;

@@ -1,6 +1,6 @@
 {
     "name": "@sme.up/ketchup",
-    "version": "4.0.0-rc",
+    "version": "4.1.0-rc",
     "keywords": [
         "smeup",
         "KetchUP",
@@ -40,13 +40,13 @@
         "@fullcalendar/interaction": "^5.9.0",
         "@fullcalendar/list": "^5.9.0",
         "@fullcalendar/timegrid": "^5.9.0",
-        "@justinribeiro/html5-dragdroptouch-shim": "^0.1.2",
         "@material/form-field": "^11.0.0",
         "@material/ripple": "^11.0.0",
         "@material/textfield": "^11.0.0",
         "d3-shape": "^1.3.7",
         "dayjs": "^1.10.6",
         "diagram-js": "^5.0.0",
+        "interactjs": "^1.10.11",
         "jquery": "^3.3.1",
         "lodash": "^4.17.19",
         "numeral": "^2.0.6",
@@ -54,7 +54,7 @@
         "vanilla-picker": "^2.11.0"
     },
     "devDependencies": {
-        "@stencil/core": "^2.9.0",
+        "@stencil/core": "^2.10.0",
         "@stencil/sass": "^1.4.1",
         "@types/d3-shape": "^2.1.0",
         "@types/jest": "^26.0.24",

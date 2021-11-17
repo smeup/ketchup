@@ -145,9 +145,9 @@ export default {
         {
           prop: 'keyboardNavigation',
           description:
-            "When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.",
+            "When true, enables items' navigation through arrow keys.",
           type: 'boolean',
-          default: 'undefined',
+          default: 'true',
           try: 'switch',
         },
         {

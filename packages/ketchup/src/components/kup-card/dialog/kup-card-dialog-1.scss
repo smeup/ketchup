@@ -17,6 +17,8 @@
     height: 100%;
     padding: 0.5em;
     overflow: auto;
+    touch-action: none;
+
     .text {
       min-width: max-content;
       &:not(.label) {

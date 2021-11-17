@@ -93227,3 +93227,2295 @@ export const dataTableDateTime = {
     },
   ],
 };
+
+export const reportDatatable = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Number',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
+    },
+    {
+      icon: 'calendar',
+      name: 'FLD2',
+      obj: {
+        t: 'D8',
+        p: '',
+        k: '',
+      },
+      title: 'Event',
+    },
+    {
+      name: 'FLD3',
+      title: 'Type',
+    },
+    {
+      name: 'FLD4',
+      title: 'Topography',
+    },
+    {
+      name: 'FLD5',
+      title: 'Dimension',
+    },
+    {
+      name: 'FLD6',
+      title: 'Description',
+      style: {
+        display: 'none',
+      },
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD6: {
+          span: {
+            col: 5,
+          },
+          style: {
+            fontStyle: 'italic',
+            height: '2.5em',
+            justifyContent: 'center',
+            lineHeight: '2.5em',
+          },
+          value: 'Avalanches at the Vallée de la Sionne Site',
+        },
+      },
+      id: '0',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-01-30',
+          },
+          value: '1999-01-30',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'mixed',
+        },
+        FLD5: {
+          value: 'large',
+        },
+      },
+      id: '1',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '2',
+          },
+          value: '2',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-02-10',
+          },
+          value: '1999-02-10',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'mixed',
+        },
+        FLD5: {
+          value: 'large',
+        },
+      },
+      id: '2',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3',
+          },
+          value: '3',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-02-25',
+          },
+          value: '1999-02-25',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'mixed',
+        },
+        FLD5: {
+          value: 'large',
+        },
+      },
+      id: '3',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '2003-01-31',
+          },
+          value: '2003-01-31',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'mixed',
+        },
+        FLD5: {
+          value: 'large',
+        },
+      },
+      id: '4',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '2003-02-05',
+          },
+          value: '2003-02-05',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'mixed',
+        },
+        FLD5: {
+          value: 'medium',
+        },
+      },
+      id: '5',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '2003-02-07',
+          },
+          value: '2003-02-07',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'mixed',
+        },
+        FLD5: {
+          value: 'medium',
+        },
+      },
+      id: '6',
+    },
+    {
+      cells: {
+        FLD6: {
+          span: {
+            col: 5,
+          },
+          style: {
+            fontStyle: 'italic',
+            height: '2.5em',
+            justifyContent: 'center',
+            lineHeight: '2.5em',
+          },
+          value: 'Avalanches at the Mount Pizzac Site',
+        },
+      },
+      id: '7',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '7',
+          },
+          value: '7',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '2003-12-05',
+          },
+          value: '2003-12-05',
+        },
+        FLD3: {
+          value: 'dense',
+        },
+        FLD4: {
+          value: 'channeled',
+        },
+        FLD5: {
+          value: 'small',
+        },
+      },
+      id: '8',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8',
+          },
+          value: '8',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1997-12-21',
+          },
+          value: '1997-12-21',
+        },
+        FLD3: {
+          value: 'dense',
+        },
+        FLD4: {
+          value: 'channeled',
+        },
+        FLD5: {
+          value: 'small',
+        },
+      },
+      id: '9',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '9',
+          },
+          value: '9',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1998-04-14',
+          },
+          value: '1998-04-14',
+        },
+        FLD3: {
+          value: 'dense',
+        },
+        FLD4: {
+          value: 'channeled',
+        },
+        FLD5: {
+          value: 'small',
+        },
+      },
+      id: '10',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1998-04-28',
+          },
+          value: '1998-04-28',
+        },
+        FLD3: {
+          value: 'dense',
+        },
+        FLD4: {
+          value: 'channeled',
+        },
+        FLD5: {
+          value: 'small',
+        },
+      },
+      id: '11',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '11',
+          },
+          value: '11',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-01-11',
+          },
+          value: '1999-01-11',
+        },
+        FLD3: {
+          value: 'dense',
+        },
+        FLD4: {
+          value: 'channeled',
+        },
+        FLD5: {
+          value: 'small',
+        },
+      },
+      id: '12',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '12',
+          },
+          value: '12',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-03-05',
+          },
+          value: '1999-03-05',
+        },
+        FLD3: {
+          value: 'dense',
+        },
+        FLD4: {
+          value: 'channeled',
+        },
+        FLD5: {
+          value: 'small',
+        },
+      },
+      id: '13',
+    },
+    {
+      cells: {
+        FLD6: {
+          span: {
+            col: 5,
+          },
+          style: {
+            fontStyle: 'italic',
+            height: '2.5em',
+            justifyContent: 'center',
+            lineHeight: '2.5em',
+          },
+          value: 'Extreme avalanches of Winter 1998-1999',
+        },
+      },
+      id: '14',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '13',
+          },
+          value: '13',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-02-09',
+          },
+          value: '1999-02-09',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'channeled',
+        },
+        FLD5: {
+          value: 'large',
+        },
+      },
+      id: '15',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '14',
+          },
+          value: '14',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-02-22',
+          },
+          value: '1999-02-22',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'open slope',
+        },
+        FLD5: {
+          value: 'large',
+        },
+      },
+      id: '15',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '15',
+          },
+          value: '15',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-02-23',
+          },
+          value: '1999-02-23',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'open slope',
+        },
+        FLD5: {
+          value: 'large',
+        },
+      },
+      id: '16',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '16',
+          },
+          value: '16',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-02-23',
+          },
+          value: '1999-02-23',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'mixed',
+        },
+        FLD5: {
+          value: 'medium',
+        },
+      },
+      id: '17',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '17',
+          },
+          value: '17',
+        },
+        FLD2: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '1999-02-25',
+          },
+          value: '1999-02-25',
+        },
+        FLD3: {
+          value: 'mixed',
+        },
+        FLD4: {
+          value: 'mixed',
+        },
+        FLD5: {
+          value: 'large',
+        },
+      },
+      id: '17',
+    },
+    {
+      cells: {
+        FLD6: {
+          span: {
+            col: 5,
+          },
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '1px',
+            padding: 0,
+          },
+        },
+      },
+      id: '18',
+    },
+    {
+      cells: {
+        FLD6: {
+          span: {
+            col: 5,
+          },
+          style: {
+            fontStyle: 'italic',
+            fontWeight: 'bold',
+            justifyContent: 'center',
+            lineHeight: '2.5em',
+          },
+          value: '*Footer note',
+        },
+      },
+      id: '19',
+    },
+  ],
+};
+
+export const documentDatatable = {
+  columns: [
+    {
+      name: '1',
+      title: 'Column 1',
+    },
+    {
+      name: '2',
+      title: 'Column 2',
+    },
+    {
+      name: '3',
+      title: 'Column 3',
+    },
+    {
+      name: '4',
+      title: 'Column 4',
+    },
+    {
+      name: '5',
+      title: 'Column 5',
+    },
+    {
+      name: '6',
+      title: 'Column 6',
+    },
+    {
+      name: '7',
+      title: 'Column 7',
+    },
+    {
+      name: '8',
+      title: 'Column 8',
+    },
+    {
+      name: '9',
+      title: 'Column 9',
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        1: {
+          value: 'SOMETHING.COM',
+          span: {
+            col: 9,
+          },
+          cssClass: 'c-centered strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '5px',
+          },
+          span: {
+            col: 9,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'CONSOLIDATED BALANCE SHEETS',
+          span: {
+            col: 9,
+          },
+          cssClass: 'c-centered strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '(in millions, except per share data)',
+          span: {
+            col: 9,
+          },
+          cssClass: 'c-centered strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '5px',
+          },
+          span: {
+            col: 9,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: 'December 31,',
+          cssClass: 'c-centered strong-text',
+          span: {
+            col: 5,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 5,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '2016',
+          cssClass: 'c-centered strong-text',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            padding: 0,
+          },
+        },
+        4: {
+          value: '2017',
+          cssClass: 'c-centered strong-text',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'ASSETS',
+          cssClass: 'strong-text c-centered',
+          style: {
+            textDecoration: 'underline',
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          span: {
+            col: 5,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'Current assets:',
+          span: {
+            col: 9,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Cash and cash equivalents',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          value: '$',
+        },
+        4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '19,334',
+          },
+          value: '19,334',
+        },
+        5: {
+          value: '',
+        },
+        6: {
+          value: '$',
+        },
+        7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20,552',
+          },
+          value: '20,552',
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Marketable securities',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '19,334',
+          },
+          value: '6,647',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10,464',
+          },
+          value: '10,464',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Inventories',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '11,461',
+          },
+          value: '11,461',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '16,047',
+          },
+          value: '16,047',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Accounts receivable, net and other',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8,338',
+          },
+          value: '8,339',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '13,164',
+          },
+          value: '13,164',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 2,
+          },
+        },
+        2: {
+          value: 'Total current assets',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '45,781',
+          },
+          value: '45,781',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60,197',
+          },
+          value: '60,197',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'Property and equipment, net',
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '29,114',
+          },
+          value: '29,114',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+        },
+        4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '48,866',
+          },
+          value: '48,866',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'Goodwill',
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3,784',
+          },
+          value: '3,784',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+        },
+        4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '13,350',
+          },
+          value: '13,350',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'Other assets',
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4,723',
+          },
+          value: '4,723',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+        },
+        4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8,897',
+          },
+          value: '8,897',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 3,
+          },
+        },
+        2: {
+          value: 'Total assets',
+        },
+        3: {
+          value: '$',
+        },
+        4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '83,402',
+          },
+          value: '83,402',
+        },
+        5: {
+          value: '',
+        },
+        6: {
+          value: '$',
+        },
+        7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '131,310',
+          },
+          value: '131,310',
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: "LIABILITIES AND STOCKHOLDERS' EQUITIES",
+          cssClass: 'strong-text c-centered',
+          style: {
+            textDecoration: 'underline',
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          span: {
+            col: 5,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'Current liabilities:',
+          span: {
+            col: 9,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Accounts payable',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          value: '$',
+        },
+        4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '25,309',
+          },
+          value: '25,309',
+        },
+        5: {
+          value: '',
+        },
+        6: {
+          value: '$',
+        },
+        7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '34,616',
+          },
+          value: '34,616',
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Accounts payable',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '13,739',
+          },
+          value: '13,739',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '18,170',
+          },
+          value: '18,170',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Unearned revenue',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4,768',
+          },
+          value: '4,768',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5,097',
+          },
+          value: '5,097',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 2,
+          },
+        },
+        2: {
+          value: 'Total current liabilities',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43,816',
+          },
+          value: '43,816',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '57,883',
+          },
+          value: '57,883',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'Long-term debt',
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '7,694',
+          },
+          value: '7,694',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+        },
+        4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '24,743',
+          },
+          value: '24,743',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'Other long-term liabilities',
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '12,607',
+          },
+          value: '12,607',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+        },
+        4: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20,975',
+          },
+          value: '20,975',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'Commitment and contingencies (Note 7)',
+          span: {
+            col: 9,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: "Stockholders' equity",
+          span: {
+            col: 9,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Preferred stock, $0.01 par value:',
+          span: {
+            col: 8,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 2,
+          },
+        },
+        2: {
+          value: 'Authorized shares --- 500',
+          span: {
+            col: 7,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 2,
+          },
+        },
+        2: {
+          value: 'Issued and outstanding shares --- none',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '---',
+          span: {
+            col: 2,
+          },
+          cssClass: 'c-right-aligned',
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          value: '---',
+          span: {
+            col: 2,
+          },
+          cssClass: 'c-right-aligned',
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Common stock, $0.01 par value:',
+          span: {
+            col: 8,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 2,
+          },
+        },
+        2: {
+          value: 'Authorized shares --- 5000',
+          span: {
+            col: 7,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 2,
+          },
+        },
+        2: {
+          value: 'Issued shares --- 500 and 507',
+          span: {
+            col: 7,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 2,
+          },
+        },
+        2: {
+          value: 'Outstanding shares --- 477 and 484',
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Treasury stock, at cost',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '(1,837)',
+          },
+          value: '(1,837)',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '(1,837)',
+          },
+          value: '(1,837)',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Additional paid-in capital',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '17,186',
+          },
+          value: '17,186',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '21,389',
+          },
+          value: '21,389',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Accumulated other comprehensive loss',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '(985)',
+          },
+          value: '(985)',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '(484)',
+          },
+          value: '(484)',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+        },
+        2: {
+          value: 'Retained earnings',
+          span: {
+            col: 3,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4916',
+          },
+          value: '4916',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8636',
+          },
+          value: '8636',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          span: {
+            col: 2,
+          },
+        },
+        2: {
+          value: "Total stockholders' equity",
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '19,285',
+          },
+          value: '19,285',
+          span: {
+            col: 2,
+          },
+        },
+        4: {
+          value: '',
+        },
+        5: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '27,709',
+          },
+          value: '27,709',
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            width: '2em',
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            width: '2em',
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            width: '2em',
+          },
+        },
+        4: {
+          value: "Total liabilities and stockholders' equity",
+        },
+        5: {
+          value: '',
+        },
+        6: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '83,402',
+          },
+          value: '83,402',
+        },
+        7: {
+          value: '',
+          style: {
+            width: '.1em',
+          },
+        },
+        8: {
+          value: '',
+        },
+        9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '131,310',
+          },
+          value: '131,310',
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 4,
+          },
+        },
+        2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+        3: {
+          value: '',
+          style: {
+            height: '2px',
+            padding: 0,
+          },
+        },
+        4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-text-color)',
+            height: '2px',
+            padding: 0,
+          },
+          span: {
+            col: 2,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        1: {
+          value: 'See accompanying notes to consolidated financial statements.',
+          span: {
+            col: 9,
+          },
+          cssClass: 'c-centered',
+          style: {
+            height: '30px',
+            lineHeight: '30px',
+          },
+        },
+      },
+    },
+  ],
+};

@@ -35,6 +35,7 @@ export enum KupDataTableProps {
     pageSelected = 'Current selected page set on component load',
     paginatorPos = 'Sets the position of the paginator. Available positions: top, bottom or both.',
     removableColumns = 'Sets the possibility to remove the selected column.',
+    resizableColumns = 'Gives the possibility to resize columns by dragging on their right edge.',
     rowActions = 'Sets the actions of the rows.',
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',
@@ -84,8 +85,14 @@ export interface Cell {
         k: string;
     };
     shape?: string;
+    span?: KupDatatableCellSpan;
     style?: GenericMap;
     title?: string;
+}
+
+export interface KupDatatableCellSpan {
+    col: number;
+    row: number;
 }
 /**
  * Information about the cell, displayed before the content.
@@ -124,6 +131,8 @@ export interface Column {
     valuesForFilter?: string[];
     isKey?: boolean;
     children?: ColumnChild[];
+    cssClass?: string;
+    style?: GenericMap;
 }
 export interface ColumnChild {
     name: string;
@@ -137,13 +146,9 @@ export interface ColumnChild {
 
 export interface Row extends Identifiable {
     cells: CellsHolder;
-
     actions?: Array<RowAction>;
-
     group?: RowGroup;
-
     readOnly?: boolean;
-
     cssClass?: string;
     name?: string;
     unselectable?: boolean;
@@ -289,16 +294,16 @@ export const totalMenuOpenID = 'TOMEOPID';
 /**
  * Contains all the data of an event.
  */
-export interface EventHandlerDetails {
+export interface KupDatatableEventHandlerDetails {
     area: string;
     cell: Cell;
     column: Column;
     filterRemove: HTMLSpanElement;
     isGroupRow: boolean;
     row: Row;
-    td: HTMLTableDataCellElement;
+    td: HTMLElement;
     textfield: HTMLElement;
-    th: HTMLTableHeaderCellElement;
+    th: HTMLElement;
     tr: HTMLTableRowElement;
 }
 /**
@@ -333,7 +338,7 @@ export interface KupDatatableCellUpdateEventPayload extends KupEventPayload {
 }
 
 export interface KupDatatableClickEventPayload extends KupEventPayload {
-    details: EventHandlerDetails;
+    details: KupDatatableEventHandlerDetails;
 }
 
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {

@@ -81,6 +81,12 @@
     <template v-slot:26>
       <datatable-jl></datatable-jl>
     </template>
+    <template v-slot:27>
+      <datatable-report-like></datatable-report-like>
+    </template>
+    <template v-slot:28>
+      <datatable-document-like></datatable-document-like>
+    </template>
   </comp>
 </template>
 
@@ -119,6 +125,8 @@ import DatatableTooltip from '@/views/advanced/datatable/examples/DatatableToolt
 import DatatableTotal from '@/views/advanced/datatable/examples/DatatableTotal';
 import DatatableShapes from '@/views/advanced/datatable/examples/DatatableShapes';
 import DatatableCellClasses from '@/views/advanced/datatable/examples/DatatableCellClasses';
+import DatatableReportLike from '@/views/advanced/datatable/examples/DatatableReportLike';
+import DatatableDocumentLike from '@/views/advanced/datatable/examples/DatatableDocumentLike';
 
 import Comp from '@/views/advanced/page/templates/Comp';
 
@@ -151,6 +159,8 @@ export default {
     DatatableCellClasses,
     DatatableJ1col,
     DatatableJl,
+    DatatableReportLike,
+    DatatableDocumentLike,
     Comp,
   },
   data() {
@@ -186,6 +196,8 @@ export default {
         'Cell classes',
         'With color objects',
         'With JL objects',
+        'Report-like',
+        'Document-like',
       ],
     };
   },

@@ -33,13 +33,13 @@
 ### Depends on
 
 - [kup-dash](../kup-dash)
-- [kup-layout](../kup-layout)
+- [kup-grid](../kup-grid)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-dash-list --> kup-dash
-  kup-dash-list --> kup-layout
+  kup-dash-list --> kup-grid
   style kup-dash-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
