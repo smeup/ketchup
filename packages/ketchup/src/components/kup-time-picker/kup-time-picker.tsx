@@ -409,10 +409,10 @@ export class KupTimePicker {
         this.setTextFieldInitalValue(this.getTimeForOutput());
     }
 
+
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
-
     getFormattedValue(value: string): string {
         return formattedStringToCustomUnformattedStringTime(
             value,
