@@ -187,6 +187,7 @@ td.c-vertical-text {
 td.c-right-aligned {
   & * {
     flex-flow: row-reverse;
+    margin: 0;
   }
 }
 
