@@ -171,7 +171,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `openColumnMenu(column: string) => Promise<void>`
 
@@ -224,13 +224,25 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                    | Description                                                |
+| --------------------------------------- | ---------------------------------------------------------- |
+| `--kup-datatable-background-color`      | Sets background color of the component.                    |
+| `--kup-datatable-border`                | Sets border of the component.                              |
+| `--kup-datatable-color`                 | Sets text color of the component.                          |
+| `--kup-datatable-font-family`           | Sets font family of the component.                         |
+| `--kup-datatable-font-family-monospace` | Sets monospace font family of the component (for numbers). |
+| `--kup-datatable-font-size`             | Sets font size of the component.                           |
+| `--kup-datatable-th-border`             | Sets border of the th elements.                            |
+
+
 ## Dependencies
 
 ### Used by
 
  - [kup-card](../kup-card)
  - [kup-magic-box](../kup-magic-box)
- - [kup-search](../kup-search)
 
 ### Depends on
 
@@ -304,18 +316,30 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
   kup-tooltip --> kup-tree
+  kup-box --> kup-card
+  kup-box --> kup-checkbox
+  kup-box --> kup-badge
+  kup-box --> kup-chart
+  kup-box --> kup-editor
+  kup-box --> kup-text-field
+  kup-box --> kup-progress-bar
+  kup-box --> kup-radio
+  kup-box --> kup-gauge
+  kup-box --> kup-tooltip
+  kup-box --> kup-combobox
+  kup-box --> kup-paginator
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-magic-box --> kup-data-table
-  kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

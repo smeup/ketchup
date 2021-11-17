@@ -57,10 +57,20 @@
         <kup-button icon="favorite"></kup-button>
 
         <!-- -->
-        <kup-button label="Flat" flat></kup-button>
+        <kup-button label="Flat" styling="flat"></kup-button>
         <kup-button label="Raised"></kup-button>
-        <kup-button label="Flat & disabled" flat disabled></kup-button>
-        <kup-button label="Outlined & disabled" disabled outlined></kup-button>
+        <kup-button class="kup-large" label="Raised & large"></kup-button>
+        <kup-button class="kup-large" icon="favorite"></kup-button>
+        <kup-button class="kup-slim" label="Raised & slim"></kup-button>
+        <kup-button class="kup-slim" icon="favorite"></kup-button>
+        <kup-button label="Floating" styling="floating"></kup-button>
+        <kup-button icon="favorite" styling="floating"></kup-button>
+        <kup-button label="Flat & disabled" styling="flat" disabled></kup-button>
+        <kup-button
+            label="Outlined & disabled"
+            disabled
+            styling="outlined"
+        ></kup-button>
         <kup-button disabled label="Raised & disabled"></kup-button>
         <kup-button icon="favorite" label="Raised favorite"></kup-button>
         <kup-button
@@ -68,10 +78,18 @@
             icon="favorite"
             label="Raised trailing favorite"
         ></kup-button>
-        <kup-button outlined label="Outlined"></kup-button>
-        <kup-button shaped disabled label="Shaped & disabled"></kup-button>
-        <kup-button shaped label="Shaped & raised"></kup-button>
-        <kup-button shaped outlined label="Shaped & outlined"></kup-button>
+        <kup-button styling="outlined" label="Outlined"></kup-button>
+        <kup-button
+            class="shaped"
+            disabled
+            label="Shaped & disabled"
+        ></kup-button>
+        <kup-button class="shaped" label="Shaped & raised"></kup-button>
+        <kup-button
+            class="shaped"
+            styling="outlined"
+            label="Shaped & outlined"
+        ></kup-button>
         <kup-image color="red" resource="favorite"></kup-image>
         <kup-image resource="favorite"></kup-image>
 
@@ -81,5 +99,45 @@
             label="With tooltip"
             icon="favorite"
         ></kup-button>
+        <kup-button
+            label="With Spinner"
+            icon="favorite"
+            show-spinner="true">
+            <kup-spinner slot="spinner" dimensions="0.8em" layout="2" active="true"></kup-spinner>
+        </kup-button>
+        <kup-button
+            styling="outlined"
+            label="With Spinner & Outlined"
+            icon="favorite"
+            show-spinner="true">
+            <kup-spinner slot="spinner" dimensions="0.6em" layout="3" active="true"></kup-spinner>
+        </kup-button>
+        <kup-button
+            label="With Spinner & Disabled"
+            icon="favorite"
+            show-spinner="true"
+            disabled>
+            <kup-spinner slot="spinner" dimensions="0.8em" layout="2" active="true"></kup-spinner>
+        </kup-button>
+        <kup-button
+            title="Only Spinner"
+            icon="favorite"
+            show-spinner="true">
+                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+        </kup-button>
+        <kup-button
+            title="Only Spinner & Floating"
+            styling="floating"
+            icon="favorite"
+            show-spinner="true">
+                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+        </kup-button>
+        <kup-button
+            title="Only Spinner & Disabled"
+            icon="favorite"
+            show-spinner="true"
+            disabled>
+                <kup-spinner slot="spinner" dimensions="0.65em" layout="1" active="true"></kup-spinner>
+        </kup-button>
     </body>
 </html>

@@ -15,10 +15,18 @@
 
 1. Must be written following the kebab-case style and prefixed with `kup-componentname` (i.e.: `kup-buttonlist-click`).
 
-#### Theme variables
+#### Theme CSS variables
 
 1. Must be written following the kebab-case style and prefixed with `--kup-` (i.e.: `--kup-drawer-width`);
-2. Color variables must always have the `-color`suffix.
+2. Color variables must always have the `-color` suffix: this way RGB, hue, saturation and lightness variables (used for shaders) will be automatically created by `KupTheme`.
+
+#### Component CSS variables
+
+1. Variables for internal use or created dynamically by the component must be written following this syntax: `--kup_` + component + "\_variable-name" (i.e.: `--kup_card_height`);
+2. Variables for internal use should be declared as the following example: `--kup_radio_font_family: var(--kup-radio-font-family, var(--kup-font-family))`;
+3. Public variables must be written mirroring internal variables, but in kebab-case (i.e.: `--kup-radio-font-family`);
+
+Important note about variables: CSS variables declared theme-wide are variables that have an impact on the whole UI and which should be available globally. For instance, --kup-navbar-height is a component specific variable (related to kup-nav-bar) but it's handy for the application to set paddings, margins, etc, for this reason it makes sense for it to be a theme variable.
 
 ## Code structure
 

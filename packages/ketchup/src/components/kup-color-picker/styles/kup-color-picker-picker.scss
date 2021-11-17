@@ -333,6 +333,10 @@ $color-bg: var(--kup-background-color);
 }
 
 //Kup edits.
+.picker_wrapper.popup[kup-dynamic-position]:not(.kup-dynamic-position-active) {
+  display: none;
+}
+
 .picker_done,
 .picker_arrow {
   display: none;

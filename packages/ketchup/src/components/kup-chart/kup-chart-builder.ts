@@ -4,20 +4,22 @@ import {
     DataTable,
 } from '../kup-data-table/kup-data-table-declarations';
 
-import { formatToNumber, formatToMomentDate } from '../../utils/cell-formatter';
+import { formatToNumber } from '../../utils/cell-utils';
 import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import { KupObjects } from '../../utils/kup-objects/kup-objects';
+import { KupDates } from '../../utils/kup-dates/kup-dates';
+import { KupDatesNormalize } from '../../utils/kup-dates/kup-dates-declarations';
 
-export function getSerieDecode(serie: string, series: ChartSerie[]): string {
+export function getSerieDecode(serie: string, series: Column[]): string {
     if (serie == null || series == null) {
         return null;
     }
 
     for (let i = 0; i < series.length; i++) {
         let serieObj = series[i];
-        if (serieObj != null && serieObj.code == serie) {
-            return serieObj.decode;
+        if (serieObj != null && serieObj.name == serie) {
+            return serieObj.title;
         }
     }
     return serie;
@@ -62,6 +64,8 @@ export const convertRows = (
     const rows = [];
 
     if (data.rows) {
+        const kupDates: KupDates = new KupDates();
+        const kupObjects: KupObjects = new KupObjects();
         data.rows.forEach((r: Row) => {
             const cells = r.cells;
 
@@ -80,10 +84,30 @@ export const convertRows = (
                             currentRow.push(value.toString());
                         }
                     } else if (kupObjects.isDate(cell.obj)) {
-                        const value = formatToMomentDate(cell).toDate();
+                        const value = kupDates.toDate(
+                            kupObjects.parseDate(cell.obj)
+                        );
                         currentRow.push(value);
                         if (addMark) {
                             currentRow.push(value.toString());
+                        }
+                    } else if (kupObjects.isTime(cell.obj)) {
+                        const datetime = kupDates.normalize(
+                            cell.obj.k,
+                            KupDatesNormalize.TIME
+                        );
+                        currentRow.push(datetime.toDate());
+                        if (addMark) {
+                            currentRow.push(datetime.toDate());
+                        }
+                    } else if (kupObjects.isTimestamp(cell.obj)) {
+                        const datetime = kupDates.normalize(
+                            cell.obj.k,
+                            KupDatesNormalize.TIMESTAMP
+                        );
+                        currentRow.push(datetime.toDate());
+                        if (addMark) {
+                            currentRow.push(datetime.toDate());
                         }
                     } else {
                         currentRow.push(cell.obj.k);

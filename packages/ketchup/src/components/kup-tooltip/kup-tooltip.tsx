@@ -5,6 +5,7 @@ import {
     EventEmitter,
     forceUpdate,
     h,
+    Host,
     Method,
     Prop,
     State,
@@ -39,10 +40,11 @@ import {
     KupDynamicPositionElement,
     KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
+import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({
     tag: 'kup-tooltip',
@@ -57,6 +59,12 @@ export class KupTooltip {
      * Data for cell options
      */
     @Prop({ mutable: true }) cellOptions: TooltipCellOptions;
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = '';
     /**
      * Data for top section
      */
@@ -335,7 +343,7 @@ export class KupTooltip {
     }
 
     private startLoadDetail(withTimeout: boolean) {
-        if (this.isCardLayout()) {
+        if (!this.hasDetail()) {
             return;
         }
         this.waitingServerResponse = true;
@@ -698,6 +706,38 @@ export class KupTooltip {
         }
     }
 
+    private getLayout5() {
+        var content = this.getContent();
+        var asBoxData = null;
+        var listMenuData = null;
+        if (content) {
+            var asBoxContent = content[`asBoxContent`];
+            if (asBoxContent) {
+                asBoxData = asBoxContent[`data`];
+            }
+            var listMenu = content[`listMenu`];
+            if (listMenu) {
+                listMenuData = listMenu[`data`];
+            }
+        }
+        var items = [];
+        if (asBoxData != null) {
+            items.push(
+                <kup-box
+                    data={asBoxData}
+                    showSelection={false}
+                    showTooltipOnRightClick={false}
+                    tooltipEnabled={false}
+                    class="kup-left-aligned kup-top-aligned kup-borderless kup-paddingless"
+                />
+            );
+        }
+        if (listMenuData != null) {
+            items.push(<kup-list data={listMenuData} />);
+        }
+        return items;
+    }
+
     private getInfos() {
         let infos = null;
 
@@ -722,6 +762,20 @@ export class KupTooltip {
         }
 
         return infos;
+    }
+
+    private hasDetail(): boolean {
+        switch (this.layout) {
+            case '4': {
+                return false;
+            }
+            case '5': {
+                return false;
+            }
+            default: {
+                return true;
+            }
+        }
     }
 
     private isCardLayout(): boolean {
@@ -766,6 +820,10 @@ export class KupTooltip {
                 break;
             }
             case '4': {
+                /** why are you here??? */
+                break;
+            }
+            case '5': {
                 /** why are you here??? */
                 break;
             }
@@ -862,26 +920,20 @@ export class KupTooltip {
             'detail-loaded': this.firstLoad,
         };
 
-        return (
+        return [
+            <div id="main-content" class={mainContentClass}>
+                {mainContent}
+            </div>,
+            <div id="detail" class={detailClass}>
+                {detailContent}
+            </div>,
             <div
-                id="tooltip"
-                hidden={!this.visible}
-                onClick={(e: MouseEvent) => e.stopPropagation()}
+                id="detail-actions"
+                hidden={detailActions == null || detailActions.length == 0}
             >
-                <div id="main-content" class={mainContentClass}>
-                    {mainContent}
-                </div>
-                <div id="detail" class={detailClass}>
-                    {detailContent}
-                </div>
-                <div
-                    id="detail-actions"
-                    hidden={detailActions == null || detailActions.length == 0}
-                >
-                    {detailActions}
-                </div>
-            </div>
-        );
+                {detailActions}
+            </div>,
+        ];
     }
 
     getTooltipForShowOptionsButton(): string {
@@ -938,20 +990,37 @@ export class KupTooltip {
         if (this.isCardLayout()) {
             return this.getCardLayoutContent();
         }
+
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
         return (
-            <div
-                id="wrapper"
-                onMouseEnter={(ev) => {
-                    this.onMouseEnter();
-                    ev.stopPropagation();
-                }}
-                onMouseLeave={(ev) => {
-                    this.onMouseLeave();
-                    ev.stopPropagation();
-                }}
-            >
-                {this.createTooltip()}
-            </div>
+            <Host>
+                {customStyle ? <style>{customStyle}</style> : null}
+                <div id={componentWrapperId}>
+                    <div
+                        id="wrapper"
+                        onMouseEnter={(ev) => {
+                            this.onMouseEnter();
+                            ev.stopPropagation();
+                        }}
+                        onMouseLeave={(ev) => {
+                            this.onMouseLeave();
+                            ev.stopPropagation();
+                        }}
+                    >
+                        <div
+                            id="tooltip"
+                            hidden={!this.visible}
+                            onClick={(e: MouseEvent) => e.stopPropagation()}
+                        >
+                            {this.layout == '5'
+                                ? this.getLayout5()
+                                : this.createTooltip()}
+                        </div>
+                    </div>
+                </div>
+            </Host>
         );
     }
 

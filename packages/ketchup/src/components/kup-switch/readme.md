@@ -33,7 +33,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -54,6 +54,19 @@ Sets the props to the component.
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                             | Description                                     |
+| -------------------------------- | ----------------------------------------------- |
+| `--kup-switch-font-family`       | Sets font family of the switch's label.         |
+| `--kup-switch-font-size`         | Sets font size of the switch's label.           |
+| `--kup-switch-font-weight`       | Sets font weight of the switch's label.         |
+| `--kup-switch-label-color`       | Sets text color of the switch's label.          |
+| `--kup-switch-primary-color`     | Sets primary color of the component.            |
+| `--kup-switch-primary-color-rgb` | Sets primary color RGB values of the component. |
+| `--kup-switch-thumb-color`       | Sets thumb color.                               |
 
 
 ## Dependencies

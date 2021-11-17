@@ -25,3 +25,28 @@
   left: 0;
   transform: translate(-50%, 50%);
 }
+
+:host(.#{$kup-class-danger}) {
+  --kup-badge-primary-color: var(--kup-danger-color);
+  --kup-badge-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-badge-primary-color: var(--kup-info-color);
+  --kup-badge-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-badge-primary-color: var(--kup-secondary-color);
+  --kup-badge-text-on-primary-color: var(--kup-text-on-secondary-color);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-badge-primary-color: var(--kup-success-color);
+  --kup-badge-text-on-primary-color: white;
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-badge-primary-color: var(--kup-warning-color);
+  --kup-badge-text-on-primary-color: white;
+}

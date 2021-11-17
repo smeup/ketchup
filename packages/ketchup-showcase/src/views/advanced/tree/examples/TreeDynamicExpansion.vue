@@ -106,8 +106,9 @@ export default {
       useCallbackTable = DynamicExpansionFaker(3, 3),
       // TODO horrible name, change it
       useCallbackCallback = kupTreeDynamicCallbackFactory(useCallback),
-      useCallbackTableCallback =
-        kupTreeDynamicCallbackFactory(useCallbackTable);
+      useCallbackTableCallback = kupTreeDynamicCallbackFactory(
+        useCallbackTable
+      );
 
     return {
       callbacks: {

@@ -5,14 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { KupAccordionData, KupAccordionExpansionMode, KupAccordionItemCollapsedEventPayload, KupAccordionItemExpandedEventPayload, KupAccordionItemSelectedEventPayload, KupAccordionTreeNodeCollapsedEventPayload, KupAccordionTreeNodeExpandedEventPayload, KupAccordionTreeNodeSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
-import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
+import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -25,15 +24,12 @@ import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations"
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
-import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
-import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
+import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
-import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
-import { FImageData, FImageProps } from "./f-components/f-image/f-image-declarations";
+import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
@@ -50,7 +46,7 @@ import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload
 export namespace Components {
     interface KupAccordion {
         /**
-          * This method collapse all items
+          * This method collapses all expandible items.
          */
         "collapseAll": () => Promise<void>;
         /**
@@ -65,14 +61,9 @@ export namespace Components {
          */
         "data": KupAccordionData;
         /**
-          * This method expand all items
+          * This method expands all expandible items.
          */
         "expandAll": () => Promise<void>;
-        /**
-          * The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.
-          * @default KupAccordionExpansionMode.SINGLE
-         */
-        "expansionMode": KupAccordionExpansionMode;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -80,29 +71,14 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * When set to true it activates the global filter.
-          * @default false
-         */
-        "globalFilter": boolean;
-        /**
-          * The mode of the global filter.
-          * @default KupGlobalFilterMode.SIMPLE
-         */
-        "globalFilterMode": KupGlobalFilterMode;
-        /**
-          * The value of the global filter.
-          * @default ""
-         */
-        "globalFilterValue": string;
-        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
-          * The names of the selected items.
-          * @default []
+          * When enabled displays Material's ripple effect on item headers.
+          * @default true
          */
-        "selectedItemsNames": string[];
+        "ripple": boolean;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -381,29 +357,6 @@ export namespace Components {
          */
         "tooltipLoadTimeout": number;
     }
-    interface KupBpmn {
-        /**
-          * When set to true, the diagram won't be interactive but it will displayed as an image.
-          * @default false
-         */
-        "asImage": boolean;
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        "openDiagram": () => Promise<void>;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
-    }
     interface KupButton {
         /**
           * When set to true, the icon button state will be on.
@@ -451,6 +404,11 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * When set to true, the button show a spinner received in slot.
+          * @default false
+         */
+        "showSpinner": boolean;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -572,6 +530,10 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -982,33 +944,6 @@ export namespace Components {
          */
         "setValue": (value: string) => Promise<void>;
     }
-    interface KupCrud {
-        "actions": FormActions;
-        "autocompleteCallBackOnFilterUpdate": (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined;
-        "closeForm": () => Promise<void>;
-        "config": CrudConfig;
-        "crudCallBackOnFormActionSubmitted": (
-        detail: FormActionEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "crudCallBackOnFormFieldChanged": (
-        detail: FormFieldEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "disabled": boolean;
-        "extra": any;
-        "extraMessages": FormMessage[];
-        "fields": FormFields;
-        "openForm": () => Promise<void>;
-        "records": CrudRecord[];
-        "refid": string;
-        "searchCallBackOnFilterSubmitted": (
-        detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-        "sections": FormSection;
-    }
     interface KupDash {
         /**
           * The component can be clicked.
@@ -1322,7 +1257,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * First day number (0 - sunday, 1 - monday, ...)
+          * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
          */
         "firstDayIndex": number;
@@ -1477,68 +1412,6 @@ export namespace Components {
          */
         "trailingIcon": boolean;
     }
-    interface KupEchart {
-        /**
-          * Sets the axis of the chart.
-          * @default ""
-         */
-        "axis": string;
-        /**
-          * Title of the graph.
-          * @default undefined
-         */
-        "chartTitle": KupEchartTitle;
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        /**
-          * The actual data of the chart.
-          * @default {}
-         */
-        "data": object;
-        /**
-          * Used to retrieve component's props values.
-          * @param descriptions - When provided and true, the result will be the list of props with their description.
-          * @returns List of props as object, each key will be a prop.
-         */
-        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
-        /**
-          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
-          * @default undefined
-         */
-        "legend": string;
-        /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
-          * @default undefined
-         */
-        "mapType": any;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        /**
-          * This method is invoked by KupManager whenever the component changes size.
-         */
-        "resizeCallback": () => Promise<void>;
-        /**
-          * The data series to be displayed. They must be of the same type.
-          * @default undefined
-         */
-        "series": string[];
-        /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
-         */
-        "setProps": (props: GenericObject) => Promise<void>;
-        /**
-          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
-          * @default ['Line']
-         */
-        "types": String[];
-    }
     interface KupEditor {
         /**
           * The html to be rendered and edited
@@ -1603,32 +1476,6 @@ export namespace Components {
           * @default undefined
          */
         "type": string;
-    }
-    interface KupForm {
-        "actions": FormActions;
-        "autocompleteCallBackOnFilterUpdate": (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined;
-        "cells": FormCells;
-        "config": FormConfig;
-        "crudCallBackOnFormActionSubmitted": (
-        detail: FormActionEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "crudCallBackOnFormFieldChanged": (
-        detail: FormFieldEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "extra": any;
-        "extraMessages": FormMessage[];
-        "fields": FormFields;
-        "getActualCells": () => Promise<FormCells>;
-        "getOldCells": () => Promise<FormCells>;
-        "refid": string;
-        "searchCallBackOnFilterSubmitted": (
-        detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-        "sections": FormSection;
     }
     interface KupGauge {
         /**
@@ -2039,10 +1886,6 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
     }
-    interface KupModal {
-        "header": string;
-        "visible": boolean;
-    }
     interface KupNavBar {
         /**
           * Custom style of the component.
@@ -2057,16 +1900,6 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Image displayed by the nav bar, uses the kup-image component's props.
-          * @default null
-         */
-        "image": FImageProps;
-        /**
-          * Text displayed by the nav bar.
-          * @default null
-         */
-        "label": string;
-        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
@@ -2079,11 +1912,6 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
-        /**
-          * When true, the menu button will be displayed on the left of the nav bar.
-          * @default null
-         */
-        "showMenuButton": boolean;
         /**
           * Defines the style of the nav bar.
           * @default KupNavBarStyling.STANDARD
@@ -2303,26 +2131,6 @@ export namespace Components {
          */
         "value": number;
     }
-    interface KupSearch {
-        "data": TableData;
-        "disabled": boolean;
-        "extra": any;
-        "initialValue": string;
-        /**
-          * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
-         */
-        "searchCallBackOnFilterSubmitted": (
-        detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-        /**
-          * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
-         */
-        "serverHandledFilter": boolean;
-        /**
-          * The field used to obtain value
-         */
-        "valueField": string;
-    }
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
@@ -2446,6 +2254,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default true
+         */
+        "ripple": boolean;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -2658,6 +2471,12 @@ export namespace Components {
          */
         "cellOptions": TooltipCellOptions;
         /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * Data for top section
          */
         "data": TooltipData;
@@ -2813,6 +2632,11 @@ export namespace Components {
          */
         "resizeCallback": () => Promise<void>;
         /**
+          * When enabled displays Material's ripple effect on nodes (only when no columns are displayed).
+          * @default true
+         */
+        "ripple": boolean;
+        /**
           * Activates the scroll on hover function.
          */
         "scrollOnHover": boolean;
@@ -2900,12 +2724,6 @@ declare global {
         prototype: HTMLKupBoxElement;
         new (): HTMLKupBoxElement;
     };
-    interface HTMLKupBpmnElement extends Components.KupBpmn, HTMLStencilElement {
-    }
-    var HTMLKupBpmnElement: {
-        prototype: HTMLKupBpmnElement;
-        new (): HTMLKupBpmnElement;
-    };
     interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {
     }
     var HTMLKupButtonElement: {
@@ -2960,12 +2778,6 @@ declare global {
         prototype: HTMLKupComboboxElement;
         new (): HTMLKupComboboxElement;
     };
-    interface HTMLKupCrudElement extends Components.KupCrud, HTMLStencilElement {
-    }
-    var HTMLKupCrudElement: {
-        prototype: HTMLKupCrudElement;
-        new (): HTMLKupCrudElement;
-    };
     interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {
     }
     var HTMLKupDashElement: {
@@ -3002,12 +2814,6 @@ declare global {
         prototype: HTMLKupDropdownButtonElement;
         new (): HTMLKupDropdownButtonElement;
     };
-    interface HTMLKupEchartElement extends Components.KupEchart, HTMLStencilElement {
-    }
-    var HTMLKupEchartElement: {
-        prototype: HTMLKupEchartElement;
-        new (): HTMLKupEchartElement;
-    };
     interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
     }
     var HTMLKupEditorElement: {
@@ -3019,12 +2825,6 @@ declare global {
     var HTMLKupFieldElement: {
         prototype: HTMLKupFieldElement;
         new (): HTMLKupFieldElement;
-    };
-    interface HTMLKupFormElement extends Components.KupForm, HTMLStencilElement {
-    }
-    var HTMLKupFormElement: {
-        prototype: HTMLKupFormElement;
-        new (): HTMLKupFormElement;
     };
     interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {
     }
@@ -3074,12 +2874,6 @@ declare global {
         prototype: HTMLKupMagicBoxElement;
         new (): HTMLKupMagicBoxElement;
     };
-    interface HTMLKupModalElement extends Components.KupModal, HTMLStencilElement {
-    }
-    var HTMLKupModalElement: {
-        prototype: HTMLKupModalElement;
-        new (): HTMLKupModalElement;
-    };
     interface HTMLKupNavBarElement extends Components.KupNavBar, HTMLStencilElement {
     }
     var HTMLKupNavBarElement: {
@@ -3121,12 +2915,6 @@ declare global {
     var HTMLKupRatingElement: {
         prototype: HTMLKupRatingElement;
         new (): HTMLKupRatingElement;
-    };
-    interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {
-    }
-    var HTMLKupSearchElement: {
-        prototype: HTMLKupSearchElement;
-        new (): HTMLKupSearchElement;
     };
     interface HTMLKupSpinnerElement extends Components.KupSpinner, HTMLStencilElement {
     }
@@ -3175,7 +2963,6 @@ declare global {
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
         "kup-box": HTMLKupBoxElement;
-        "kup-bpmn": HTMLKupBpmnElement;
         "kup-button": HTMLKupButtonElement;
         "kup-button-list": HTMLKupButtonListElement;
         "kup-calendar": HTMLKupCalendarElement;
@@ -3185,17 +2972,14 @@ declare global {
         "kup-chip": HTMLKupChipElement;
         "kup-color-picker": HTMLKupColorPickerElement;
         "kup-combobox": HTMLKupComboboxElement;
-        "kup-crud": HTMLKupCrudElement;
         "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-date-picker": HTMLKupDatePickerElement;
         "kup-drawer": HTMLKupDrawerElement;
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
-        "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
-        "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
@@ -3204,7 +2988,6 @@ declare global {
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
-        "kup-modal": HTMLKupModalElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
         "kup-probe": HTMLKupProbeElement;
@@ -3212,7 +2995,6 @@ declare global {
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
         "kup-rating": HTMLKupRatingElement;
-        "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
         "kup-tab-bar": HTMLKupTabBarElement;
@@ -3236,54 +3018,14 @@ declare namespace LocalJSX {
          */
         "data"?: KupAccordionData;
         /**
-          * The mode of the expansion. If single you can't find more than one item expanded at a given time, if multiple you could.
-          * @default KupAccordionExpansionMode.SINGLE
-         */
-        "expansionMode"?: KupAccordionExpansionMode;
-        /**
-          * When set to true it activates the global filter.
-          * @default false
-         */
-        "globalFilter"?: boolean;
-        /**
-          * The mode of the global filter.
-          * @default KupGlobalFilterMode.SIMPLE
-         */
-        "globalFilterMode"?: KupGlobalFilterMode;
-        /**
-          * The value of the global filter.
-          * @default ""
-         */
-        "globalFilterValue"?: string;
-        /**
-          * Fired when an item is collapsed.
-         */
-        "onKup-accordion-itemcollapsed"?: (event: CustomEvent<KupAccordionItemCollapsedEventPayload>) => void;
-        /**
-          * Fired when an item is expanded.
-         */
-        "onKup-accordion-itemexpanded"?: (event: CustomEvent<KupAccordionItemExpandedEventPayload>) => void;
-        /**
           * Fired when an item is selected.
          */
         "onKup-accordion-itemselected"?: (event: CustomEvent<KupAccordionItemSelectedEventPayload>) => void;
         /**
-          * Fired when a TreeNode is collapsed.
+          * When enabled displays Material's ripple effect on item headers.
+          * @default true
          */
-        "onKup-accordion-treenodecollapsed"?: (event: CustomEvent<KupAccordionTreeNodeCollapsedEventPayload>) => void;
-        /**
-          * Fired when a TreeNode is expanded.
-         */
-        "onKup-accordion-treenodeexpanded"?: (event: CustomEvent<KupAccordionTreeNodeExpandedEventPayload>) => void;
-        /**
-          * Fired when a TreeNode is selected.
-         */
-        "onKup-accordion-treenodeselected"?: (event: CustomEvent<KupAccordionTreeNodeSelectedEventPayload>) => void;
-        /**
-          * The names of the selected items.
-          * @default []
-         */
-        "selectedItemsNames"?: string[];
+        "ripple"?: boolean;
     }
     interface KupAutocomplete {
         /**
@@ -3530,13 +3272,6 @@ declare namespace LocalJSX {
          */
         "tooltipLoadTimeout"?: number;
     }
-    interface KupBpmn {
-        /**
-          * When set to true, the diagram won't be interactive but it will displayed as an image.
-          * @default false
-         */
-        "asImage"?: boolean;
-    }
     interface KupButton {
         /**
           * When set to true, the icon button state will be on.
@@ -3581,6 +3316,11 @@ declare namespace LocalJSX {
           * Triggered when the button is focused.
          */
         "onKup-button-focus"?: (event: CustomEvent<KupButtonClickEventPayload>) => void;
+        /**
+          * When set to true, the button show a spinner received in slot.
+          * @default false
+         */
+        "showSpinner"?: boolean;
         /**
           * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
           * @default FButtonStyling.RAISED
@@ -3976,7 +3716,6 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         "onKup-colorpicker-change"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
-        "onKup-colorpicker-input"?: (event: CustomEvent<KupColorPickerEventPayload>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
           * @default false
@@ -4017,41 +3756,10 @@ declare namespace LocalJSX {
         "onKup-combobox-iconclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-input"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-itemclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
-        "onKup-combobox-textfieldsubmit"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
-    }
-    interface KupCrud {
-        "actions"?: FormActions;
-        "autocompleteCallBackOnFilterUpdate"?: (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined;
-        "config"?: CrudConfig;
-        "crudCallBackOnFormActionSubmitted"?: (
-        detail: FormActionEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "crudCallBackOnFormFieldChanged"?: (
-        detail: FormFieldEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "disabled"?: boolean;
-        "extra"?: any;
-        "extraMessages"?: FormMessage[];
-        "fields"?: FormFields;
-        "onKupCrudBlurred"?: (event: CustomEvent<any>) => void;
-        "onKupCrudFocused"?: (event: CustomEvent<any>) => void;
-        "onKupCrudFormActionSubmitted"?: (event: CustomEvent<FormActionEventDetail>) => void;
-        "onKupCrudFormFieldChanged"?: (event: CustomEvent<FormFieldEventDetail>) => void;
-        "onKupCrudRecordsChanged"?: (event: CustomEvent<CrudRecordsChanged>) => void;
-        "records"?: CrudRecord[];
-        "refid"?: string;
-        "searchCallBackOnFilterSubmitted"?: (
-        detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-        "sections"?: FormSection;
     }
     interface KupDash {
         /**
@@ -4375,7 +4083,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * First day number (0 - sunday, 1 - monday, ...)
+          * First day number (0 - sunday, 1 - monday, ...) TODO: manage with kupDates.locale, remove prop
           * @default 1
          */
         "firstDayIndex"?: number;
@@ -4492,50 +4200,6 @@ declare namespace LocalJSX {
          */
         "trailingIcon"?: boolean;
     }
-    interface KupEchart {
-        /**
-          * Sets the axis of the chart.
-          * @default ""
-         */
-        "axis"?: string;
-        /**
-          * Title of the graph.
-          * @default undefined
-         */
-        "chartTitle"?: KupEchartTitle;
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
-        /**
-          * The actual data of the chart.
-          * @default {}
-         */
-        "data"?: object;
-        /**
-          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
-          * @default undefined
-         */
-        "legend"?: string;
-        /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
-          * @default undefined
-         */
-        "mapType"?: any;
-        "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
-        /**
-          * The data series to be displayed. They must be of the same type.
-          * @default undefined
-         */
-        "series"?: string[];
-        /**
-          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
-          * @default ['Line']
-         */
-        "types"?: String[];
-    }
     interface KupEditor {
         /**
           * The html to be rendered and edited
@@ -4592,34 +4256,6 @@ declare namespace LocalJSX {
           * @default undefined
          */
         "type"?: string;
-    }
-    interface KupForm {
-        "actions"?: FormActions;
-        "autocompleteCallBackOnFilterUpdate"?: (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined;
-        "cells"?: FormCells;
-        "config"?: FormConfig;
-        "crudCallBackOnFormActionSubmitted"?: (
-        detail: FormActionEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "crudCallBackOnFormFieldChanged"?: (
-        detail: FormFieldEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "extra"?: any;
-        "extraMessages"?: FormMessage[];
-        "fields"?: FormFields;
-        "onKup-form-actionsubmitted"?: (event: CustomEvent<FormActionEventDetail>) => void;
-        "onKup-form-fieldblurred"?: (event: CustomEvent<FormFieldEventDetail>) => void;
-        "onKup-form-fieldchanged"?: (event: CustomEvent<FormFieldEventDetail>) => void;
-        "onKup-form-fieldfocused"?: (event: CustomEvent<FormFieldEventDetail>) => void;
-        "refid"?: string;
-        "searchCallBackOnFilterSubmitted"?: (
-        detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-        "sections"?: FormSection;
     }
     interface KupGauge {
         /**
@@ -4913,11 +4549,6 @@ declare namespace LocalJSX {
          */
         "data"?: MagicBoxData;
     }
-    interface KupModal {
-        "header"?: string;
-        "onKupModalCancel"?: (event: CustomEvent<any>) => void;
-        "visible"?: boolean;
-    }
     interface KupNavBar {
         /**
           * Custom style of the component.
@@ -4926,20 +4557,6 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Image displayed by the nav bar, uses the kup-image component's props.
-          * @default null
-         */
-        "image"?: FImageProps;
-        /**
-          * Text displayed by the nav bar.
-          * @default null
-         */
-        "label"?: string;
-        /**
-          * Triggered when the menu button is clicked.
-         */
-        "onKup-navbar-menuclick"?: (event: CustomEvent<KupEventPayload>) => void;
-        /**
           * Triggered when the component is ready.
          */
         "onKup-navbar-ready"?: (event: CustomEvent<KupEventPayload>) => void;
@@ -4947,11 +4564,6 @@ declare namespace LocalJSX {
           * Triggered when the component is resize.
          */
         "onKup-navbar-resize"?: (event: CustomEvent<KupEventPayload>) => void;
-        /**
-          * When true, the menu button will be displayed on the left of the nav bar.
-          * @default null
-         */
-        "showMenuButton"?: boolean;
         /**
           * Defines the style of the nav bar.
           * @default KupNavBarStyling.STANDARD
@@ -5128,37 +4740,12 @@ declare namespace LocalJSX {
           * @default 5
          */
         "maxValue"?: number;
-        "onKupRatingClick"?: (event: CustomEvent<KupRatingClickEventPayload>) => void;
+        "onKup-rating-click"?: (event: CustomEvent<KupRatingClickEventPayload>) => void;
         /**
           * Rated stars.
           * @default 0
          */
         "value"?: number;
-    }
-    interface KupSearch {
-        "data"?: TableData;
-        "disabled"?: boolean;
-        "extra"?: any;
-        "initialValue"?: string;
-        /**
-          * Fired when the filter is submitted but only if in serverHandledFilter mode.
-         */
-        "onKupSearchFilterSubmitted"?: (event: CustomEvent<SearchFilterSubmittedEventDetail>) => void;
-        "onKupSearchSelectionUpdated"?: (event: CustomEvent<SearchSelectionUpdatedEventDetail>) => void;
-        /**
-          * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
-         */
-        "searchCallBackOnFilterSubmitted"?: (
-        detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-        /**
-          * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
-         */
-        "serverHandledFilter"?: boolean;
-        /**
-          * The field used to obtain value
-         */
-        "valueField"?: string;
     }
     interface KupSpinner {
         /**
@@ -5271,6 +4858,11 @@ declare namespace LocalJSX {
           * Triggered when the tab is focused.
          */
         "onKup-tabbar-focus"?: (event: CustomEvent<KupTabBarEventPayload>) => void;
+        /**
+          * When enabled displays Material's ripple effect on item headers.
+          * @default true
+         */
+        "ripple"?: boolean;
     }
     interface KupTextField {
         /**
@@ -5465,6 +5057,12 @@ declare namespace LocalJSX {
          */
         "cellOptions"?: TooltipCellOptions;
         /**
+          * Custom style of the component.
+          * @default ""
+          * @see https ://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
           * Data for top section
          */
         "data"?: TooltipData;
@@ -5620,6 +5218,11 @@ declare namespace LocalJSX {
          */
         "removableColumns"?: boolean;
         /**
+          * When enabled displays Material's ripple effect on nodes (only when no columns are displayed).
+          * @default true
+         */
+        "ripple"?: boolean;
+        /**
           * Activates the scroll on hover function.
          */
         "scrollOnHover"?: boolean;
@@ -5681,7 +5284,6 @@ declare namespace LocalJSX {
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
         "kup-box": KupBox;
-        "kup-bpmn": KupBpmn;
         "kup-button": KupButton;
         "kup-button-list": KupButtonList;
         "kup-calendar": KupCalendar;
@@ -5691,17 +5293,14 @@ declare namespace LocalJSX {
         "kup-chip": KupChip;
         "kup-color-picker": KupColorPicker;
         "kup-combobox": KupCombobox;
-        "kup-crud": KupCrud;
         "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
         "kup-date-picker": KupDatePicker;
         "kup-drawer": KupDrawer;
         "kup-dropdown-button": KupDropdownButton;
-        "kup-echart": KupEchart;
         "kup-editor": KupEditor;
         "kup-field": KupField;
-        "kup-form": KupForm;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
@@ -5710,7 +5309,6 @@ declare namespace LocalJSX {
         "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
-        "kup-modal": KupModal;
         "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
         "kup-probe": KupProbe;
@@ -5718,7 +5316,6 @@ declare namespace LocalJSX {
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
         "kup-rating": KupRating;
-        "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
         "kup-tab-bar": KupTabBar;
@@ -5736,7 +5333,6 @@ declare module "@stencil/core" {
             "kup-autocomplete": LocalJSX.KupAutocomplete & JSXBase.HTMLAttributes<HTMLKupAutocompleteElement>;
             "kup-badge": LocalJSX.KupBadge & JSXBase.HTMLAttributes<HTMLKupBadgeElement>;
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;
-            "kup-bpmn": LocalJSX.KupBpmn & JSXBase.HTMLAttributes<HTMLKupBpmnElement>;
             "kup-button": LocalJSX.KupButton & JSXBase.HTMLAttributes<HTMLKupButtonElement>;
             "kup-button-list": LocalJSX.KupButtonList & JSXBase.HTMLAttributes<HTMLKupButtonListElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
@@ -5746,17 +5342,14 @@ declare module "@stencil/core" {
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
             "kup-color-picker": LocalJSX.KupColorPicker & JSXBase.HTMLAttributes<HTMLKupColorPickerElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
-            "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
-            "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
-            "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
@@ -5765,7 +5358,6 @@ declare module "@stencil/core" {
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
-            "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
@@ -5773,7 +5365,6 @@ declare module "@stencil/core" {
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
             "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
-            "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;

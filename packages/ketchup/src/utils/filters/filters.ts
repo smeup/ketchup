@@ -1,26 +1,22 @@
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
+import { KupDates } from '../kup-dates/kup-dates';
+import {
+    KupDatesFormats,
+    KupDatesNormalize,
+} from '../kup-dates/kup-dates-declarations';
+import { KupManager, kupManagerInstance } from '../kup-manager/kup-manager';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { KupObjects } from '../kup-objects/kup-objects';
 import {
     formattedStringToCustomUnformattedStringTime,
-    formattedStringToDefaultUnformattedStringDate,
     formattedStringToDefaultUnformattedStringTimestamp,
     formattedStringToUnformattedStringNumber,
-    ISO_DEFAULT_TIME_FORMAT,
-    ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
-    isValidFormattedStringDate,
     isValidFormattedStringNumber,
     isValidFormattedStringTime,
     stringToNumber,
     unformattedStringNumberToNumber,
     isNumber as isNumberThisString,
-    ISO_DEFAULT_DATE_FORMAT,
-    ISO_DEFAULT_DATE_TIME_FORMAT,
-    isValidStringDate,
-    unformatDateTime,
-    changeDateTimeFormat,
-    getCurrentDateFormatFromBrowserLocale,
 } from '../utils';
 import {
     FilterInterval,
@@ -29,6 +25,7 @@ import {
 } from './filters-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
+const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 const kupObjects: KupObjects = dom.ketchup
     ? dom.ketchup.objects
     : new KupObjects();
@@ -70,21 +67,40 @@ export class Filters {
             return newValue;
         }
         if (kupObjects.isDate(smeupObj)) {
-            if (isValidFormattedStringDate(value)) {
-                return formattedStringToDefaultUnformattedStringDate(value);
+            if (kupDates.isValid(value, KupDatesFormats.ISO_DATE)) {
+                return newValue;
+            }
+            if (kupDates.isValid(value)) {
+                return kupDates.format(
+                    kupDates.normalize(value, KupDatesNormalize.DATE),
+                    KupDatesFormats.ISO_DATE
+                );
             }
         } else if (kupObjects.isTime(smeupObj)) {
             let manageSeconds = kupObjects.isTimeWithSeconds(smeupObj);
-            if (isValidFormattedStringTime(value, manageSeconds)) {
-                formattedStringToCustomUnformattedStringTime(
+            if (
+                kupDates.isValid(
                     value,
                     manageSeconds
-                        ? ISO_DEFAULT_TIME_FORMAT
-                        : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
+                )
+            ) {
+                return newValue;
+            }
+            if (isValidFormattedStringTime(value, manageSeconds)) {
+                return formattedStringToCustomUnformattedStringTime(
+                    value,
+                    manageSeconds
+                        ? KupDatesFormats.ISO_TIME
+                        : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
                     manageSeconds
                 );
             }
         } else if (kupObjects.isTimestamp(smeupObj)) {
+            if (kupDates.isValid(value, KupDatesFormats.ISO_DATE_TIME)) {
+                return newValue;
+            }
             if (isValidFormattedStringTime(value, true)) {
                 return formattedStringToDefaultUnformattedStringTimestamp(
                     value
@@ -274,27 +290,28 @@ export class Filters {
         ) {
             let valueDate: Date = null;
 
-            let defaultFormat = ISO_DEFAULT_DATE_FORMAT;
+            let defaultFormat = KupDatesFormats.ISO_DATE;
             if (kupObjects.isDate(obj)) {
-                defaultFormat = ISO_DEFAULT_DATE_FORMAT;
+                defaultFormat = KupDatesFormats.ISO_DATE;
             } else if (kupObjects.isTime(obj)) {
                 defaultFormat = kupObjects.isTimeWithSeconds(obj)
-                    ? ISO_DEFAULT_TIME_FORMAT
-                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS;
+                    ? KupDatesFormats.ISO_TIME
+                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
             } else if (kupObjects.isTimestamp(obj)) {
-                defaultFormat = ISO_DEFAULT_DATE_TIME_FORMAT;
+                defaultFormat = KupDatesFormats.ISO_DATE_TIME;
             }
 
-            if (isValidStringDate(value, defaultFormat)) {
-                valueDate = unformatDateTime(value, defaultFormat);
+            if (kupDates.isValid(value, defaultFormat, true)) {
+                valueDate = kupDates.toDate(value, defaultFormat);
             }
+
             if (from != '') {
                 if (
                     valueDate != null &&
-                    isValidStringDate(from, defaultFormat)
+                    kupDates.isValid(from, defaultFormat, true)
                 ) {
                     checkByRegularExpression = false;
-                    let fromDate: Date = unformatDateTime(from, defaultFormat);
+                    let fromDate: Date = kupDates.toDate(from, defaultFormat);
                     if (valueDate < fromDate) {
                         return false;
                     }
@@ -303,9 +320,12 @@ export class Filters {
                 }
             }
             if (to != '') {
-                if (valueDate != null && isValidStringDate(to, defaultFormat)) {
+                if (
+                    valueDate != null &&
+                    kupDates.isValid(to, defaultFormat, true)
+                ) {
                     checkByRegularExpression = false;
-                    let toDate: Date = unformatDateTime(to, defaultFormat);
+                    let toDate: Date = kupDates.toDate(to, defaultFormat);
                     if (valueDate > toDate) {
                         return false;
                     }
@@ -314,14 +334,10 @@ export class Filters {
                 }
             }
             if (
-                !isValidStringDate(filterValue, defaultFormat) &&
-                !isValidStringDate(filterValue)
+                !kupDates.isValid(filterValue, defaultFormat) &&
+                !kupDates.isValid(filterValue)
             ) {
-                value = changeDateTimeFormat(
-                    value,
-                    defaultFormat,
-                    getCurrentDateFormatFromBrowserLocale()
-                );
+                value = kupDates.format(value);
             }
         }
         if (checkByRegularExpression) {

@@ -127,10 +127,6 @@ export default {
               value: 'kup-dropdown-button',
             },
             {
-              text: 'kup-echart',
-              value: 'kup-echart',
-            },
-            {
               text: 'kup-editor',
               value: 'kup-editor',
             },

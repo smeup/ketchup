@@ -24,6 +24,5 @@ export enum MagicBoxDisplay {
     BOX = 'Box',
     CHART = 'Chart',
     DATATABLE = 'Datatable',
-    ECHART = 'Echart',
     JSON = 'JSON',
 }

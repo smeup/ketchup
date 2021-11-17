@@ -16,7 +16,11 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
 
     return (
         <div
-            class={`f-switch--wrapper ${
+            class={`f-switch--wrapper ${props.danger ? 'kup-danger' : ''} ${
+                props.info ? 'kup-info' : ''
+            } ${props.secondary ? 'kup-secondary' : ''} ${
+                props.success ? 'kup-success' : ''
+            } ${props.warning ? 'kup-warning' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
             {...props.dataSet}
@@ -43,11 +47,14 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
                                 checked={props.checked}
                                 disabled={props.disabled}
                                 value={props.checked ? 'on' : 'off'}
+                                onBlur={props.onBlur}
+                                onChange={props.onChange}
+                                onFocus={props.onFocus}
                             ></input>
                         </div>
                     </div>
                 </div>
-                <label>{props.label}</label>
+                <label onClick={props.onChange}>{props.label}</label>
             </div>
         </div>
     );

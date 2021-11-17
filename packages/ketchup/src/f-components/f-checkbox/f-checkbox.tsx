@@ -22,7 +22,11 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
 
     return (
         <div
-            class={`f-checkbox--wrapper ${
+            class={`f-checkbox--wrapper ${props.danger ? 'kup-danger' : ''} ${
+                props.info ? 'kup-info' : ''
+            } ${props.secondary ? 'kup-secondary' : ''} ${
+                props.success ? 'kup-success' : ''
+            } ${props.warning ? 'kup-warning' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
             {...props.dataSet}
@@ -40,10 +44,13 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                         class="checkbox__native-control"
                         checked={props.checked}
                         disabled={props.disabled}
+                        onBlur={props.onBlur}
+                        onChange={props.onChange}
+                        onFocus={props.onFocus}
                         {...indeterminateAttr}
                         value={props.checked ? 'on' : 'off'}
                     />
-                    <div class="checkbox__background">
+                    <div class="checkbox__background" onClick={props.onChange}>
                         <svg class="checkbox__checkmark" viewBox="0 0 24 24">
                             <path
                                 class="checkbox__checkmark-path"

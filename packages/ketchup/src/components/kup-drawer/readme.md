@@ -41,7 +41,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `isOpened() => Promise<boolean>`
 
@@ -51,7 +51,7 @@ Returns the state of the drawer.
 
 Type: `Promise<boolean>`
 
-
+True when opened, false when closed.
 
 ### `open() => Promise<void>`
 
@@ -92,6 +92,17 @@ Opens the drawer when closed and vice-versa.
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                            | Description                                          |
+| ------------------------------- | ---------------------------------------------------- |
+| `--kup-drawer-backdrop`         | Backdrop of the component when in slide mode.        |
+| `--kup-drawer-box-shadow`       | Box shadow of the component when in slide mode.      |
+| `--kup-drawer-permanent-border` | Border of the drawer in permanent mode.              |
+| `--kup-drawer-slide-transition` | Horizontal transition's duration when in slide mode. |
+| `--kup-drawer-transition`       | Transitions duration.                                |
 
 
 ----------------------------------------------

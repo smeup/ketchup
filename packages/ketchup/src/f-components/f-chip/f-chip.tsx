@@ -9,7 +9,10 @@ import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
 import { FImageProps } from '../f-image/f-image-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import {
+    KupThemeColorValues,
+    KupThemeIconValues,
+} from '../../utils/kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -34,7 +37,11 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
 
     return (
         <div
-            class={`f-chip--wrapper ${
+            class={`f-chip--wrapper ${props.danger ? 'kup-danger' : ''} ${
+                props.info ? 'kup-info' : ''
+            } ${props.secondary ? 'kup-secondary' : ''} ${
+                props.success ? 'kup-success' : ''
+            } ${props.warning ? 'kup-warning' : ''} ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
             {...props.dataSet}
@@ -131,6 +138,16 @@ function createChipList(
                         // @ts-ignore
                         value={props.data[i].value}
                         checked={props.data[i].checked}
+                        onBlur={
+                            props.onBlur && props.onBlur[i]
+                                ? props.onBlur[i]
+                                : null
+                        }
+                        onFocus={
+                            props.onFocus && props.onFocus[i]
+                                ? props.onFocus[i]
+                                : null
+                        }
                     >
                         <span class="chip__text">{props.data[i].label}</span>
                     </span>
@@ -139,7 +156,15 @@ function createChipList(
                     <span role="gridcell">
                         <span
                             tabindex="-1"
-                            class="icon-container material-icons chip__icon clear"
+                            class={`kup-icon chip__icon ${KupThemeIconValues.CLEAR.replace(
+                                '--',
+                                ''
+                            )}`}
+                            onClick={
+                                props.onIconClick && props.onIconClick[i]
+                                    ? props.onIconClick[i]
+                                    : null
+                            }
                         ></span>
                     </span>
                 ) : undefined}

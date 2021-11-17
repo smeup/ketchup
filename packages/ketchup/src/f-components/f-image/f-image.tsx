@@ -13,8 +13,8 @@ export const FImage: FunctionalComponent<FImageProps> = (
 ) => {
     let el: HTMLImageElement | HTMLDivElement;
     let style: {
-        '--f-image-height': string;
-        '--f-image-width': string;
+        '--kup_image_height': string;
+        '--kup_image_width': string;
     };
 
     if (props.resource) {
@@ -24,21 +24,21 @@ export const FImage: FunctionalComponent<FImageProps> = (
             props.resource.indexOf('\\') > -1
         ) {
             style = {
-                '--f-image-height': props.sizeY ? props.sizeY : 'auto',
-                '--f-image-width': props.sizeX ? props.sizeX : '100%',
+                '--kup_image_height': props.sizeY ? props.sizeY : 'auto',
+                '--kup_image_width': props.sizeX ? props.sizeX : '100%',
             };
             el = createImage(props.resource);
         } else {
             style = {
-                '--f-image-height': props.sizeY ? props.sizeY : '100%',
-                '--f-image-width': props.sizeX ? props.sizeX : '100%',
+                '--kup_image_height': props.sizeY ? props.sizeY : '100%',
+                '--kup_image_width': props.sizeX ? props.sizeX : '100%',
             };
             el = createIcon(props);
         }
     } else if (props.data) {
         style = {
-            '--f-image-height': props.sizeY ? props.sizeY : '100%',
-            '--f-image-width': props.sizeX ? props.sizeX : '100%',
+            '--kup_image_height': props.sizeY ? props.sizeY : '100%',
+            '--kup_image_width': props.sizeX ? props.sizeX : '100%',
         };
         el = createBar(props.data);
     }
@@ -59,6 +59,7 @@ export const FImage: FunctionalComponent<FImageProps> = (
             id={props.id}
             style={style}
             title={props.title}
+            onClick={props.onClick}
         >
             {el}
             {...badgeCollection}
@@ -82,7 +83,7 @@ function createIcon(props: FImageProps): HTMLDivElement {
     if (props.resource.indexOf('--kup') > -1) {
         let themeIcon: string = props.resource.replace('--kup-', '');
         themeIcon = themeIcon.replace('-icon', '');
-        classObj['icon-container'] = true;
+        classObj['kup-icon'] = true;
         classObj[themeIcon] = true;
     } else {
         const path: string = getAssetPath(`./assets/svg/${props.resource}.svg`);

@@ -80,7 +80,13 @@ export class KupRating {
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
-    @Event() kupRatingClick: EventEmitter<KupRatingClickEventPayload>;
+    @Event({
+        eventName: 'kup-rating-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupRatingClick: EventEmitter<KupRatingClickEventPayload>;
 
     onStarClick(newValue: number) {
         if (!this.disabled) {

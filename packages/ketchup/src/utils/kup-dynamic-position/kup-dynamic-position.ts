@@ -51,6 +51,12 @@ export class KupDynamicPosition {
         placement?: KupDynamicPositionPlacement,
         detach?: boolean
     ): void {
+        if (this.isRegistered(el)) {
+            if (this.anchorIsHTMLElement(anchorEl)) {
+                this.changeAnchor(el, anchorEl);
+            }
+            return;
+        }
         el.setAttribute(kupDynamicPositionAttribute, '');
         if (this.anchorIsHTMLElement(anchorEl)) {
             anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');

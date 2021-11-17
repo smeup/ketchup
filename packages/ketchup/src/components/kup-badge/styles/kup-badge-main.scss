@@ -1,6 +1,31 @@
+/**
+* @prop --kup-badge-border-radius: Sets border radius of the badge.
+* @prop --kup-badge-font-family: Sets font family of the badge.
+* @prop --kup-badge-font-size: Sets font size of the badge.
+* @prop --kup-badge-min-size: Sets minimum size of the badge.
+* @prop --kup-badge-padding: Sets padding of the badge.
+* @prop --kup-badge-primary-color: Sets primary color of the badge.
+* @prop --kup-badge-text-on-primary-color: Sets text on primary color of the badge.
+*/
+
 :host {
+  --kup_badge_border_radius: var(--kup-badge-border-radius, 30px);
+  --kup_badge_font_family: var(--kup-badge-font-family, var(--kup-font-family));
+  --kup_badge_font_size: var(--kup-badge-font-size, var(--kup-font-size));
+  --kup_badge_min_size: var(--kup-badge-min-size, 1.5em);
+  --kup_badge_padding: var(--kup-badge-padding, 0.25em);
+  --kup_badge_primary_color: var(
+    --kup-badge-primary-color,
+    var(--kup-primary-color)
+  );
+  --kup_badge_text_on_primary_color: var(
+    --kup-badge-text-on-primary-color,
+    var(--kup-text-on-primary-color)
+  );
+
   display: block;
-  font-size: var(--kup-font-size);
+  font-family: var(--kup_badge_font_family);
+  font-size: var(--kup_badge_font_size);
   position: absolute;
   top: 0;
   left: 0;
@@ -8,13 +33,13 @@
 }
 
 #kup-component {
-  background-color: var(--kup-primary-color);
-  border-radius: 30px;
-  color: var(--kup-text-on-primary-color);
+  background-color: var(--kup_badge_primary_color);
+  border-radius: var(--kup_badge_border_radius);
+  color: var(--kup_badge_text_on_primary_color);
   font-size: 0.875em;
-  min-height: 1.5em;
-  min-width: 1.5em;
-  padding: 0.25em;
+  min-height: var(--kup_badge_min_size);
+  min-width: var(--kup_badge_min_size);
+  padding: var(--kup_badge_padding);
   text-align: center;
 }
 

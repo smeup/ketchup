@@ -1,4 +1,17 @@
+@import 'f-switch/f-switch.scss';
+
+/**
+* NOTE: These variables are used in the related f-component.
+*
+* @prop --kup-switch-font-family: Sets font family of the switch's label.
+* @prop --kup-switch-font-size: Sets font size of the switch's label.
+* @prop --kup-switch-font-weight: Sets font weight of the switch's label.
+* @prop --kup-switch-label-color: Sets text color of the switch's label.
+* @prop --kup-switch-primary-color: Sets primary color of the component.
+* @prop --kup-switch-primary-color-rgb: Sets primary color RGB values of the component.
+* @prop --kup-switch-thumb-color: Sets thumb color.
+*/
+
 :host {
   display: block;
-  font-size: var(--kup-font-size);
 }

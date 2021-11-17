@@ -280,6 +280,11 @@ export class KupTree {
      */
     @Prop() removableColumns: boolean = true;
     /**
+     * When enabled displays Material's ripple effect on nodes (only when no columns are displayed).
+     * @default true
+     */
+    @Prop() ripple: boolean = true;
+    /**
      * Activates the scroll on hover function.
      */
     @Prop() scrollOnHover: boolean = false;
@@ -608,7 +613,7 @@ export class KupTree {
             this.columnMenuCard.tabIndex = -1;
             this.columnMenuCard.onblur = () => {
                 if (
-                    this.kupManager.utilities.lastMouseDownPath.includes(
+                    this.kupManager.utilities.lastPointerDownPath.includes(
                         this.columnMenuCard
                     )
                 ) {
@@ -1223,7 +1228,7 @@ export class KupTree {
             let svg: string = `url('${getAssetPath(
                 `./assets/svg/${icon}.svg`
             )}') no-repeat center`;
-            CSSClass += ' icon-container material-icons';
+            CSSClass += ' kup-icon';
             let iconStyle = {
                 ...(iconColor ? { background: iconColor } : {}),
                 mask: svg,
@@ -1317,9 +1322,7 @@ export class KupTree {
                 mask: svg,
                 webkitMask: svg,
             };
-            icon = (
-                <span style={iconStyle} class="icon-container obj-icon"></span>
-            );
+            icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
         }
 
         const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
@@ -1745,7 +1748,10 @@ export class KupTree {
                 filter = (
                     <span
                         title={svgLabel}
-                        class="icon-container filter-remove"
+                        class={`kup-icon ${KupThemeIconValues.FILTER_REMOVE.replace(
+                            '--',
+                            ''
+                        )}`}
                         onClick={(e: MouseEvent) => {
                             e.stopPropagation();
                             this.onRemoveFilter(column);
@@ -1833,7 +1839,7 @@ export class KupTree {
             <span
                 class="kup-tree__indent"
                 style={{
-                    ['--tree-node_depth']: this.asAccordion
+                    ['--kup_tree_node_depth']: this.asAccordion
                         ? (treeNodeDepth - 1).toString()
                         : treeNodeDepth.toString(),
                 }}
@@ -1850,13 +1856,22 @@ export class KupTree {
         );
         let expandClass = 'expand-icon kup-tree__icon kup-tree__node__expander';
         if (hasExpandIcon) {
-            expandClass += ' icon-container';
-            if (this.asAccordion) {
-                expandClass += ' dropdown';
+            expandClass += ' kup-icon';
+            if (this.asAccordion && treeNodeDepth === 0) {
+                expandClass += ` ${KupThemeIconValues.DROPDOWN.replace(
+                    '--',
+                    ''
+                )}`;
             } else if (treeNodeData[treeExpandedPropName]) {
-                expandClass += ' expanded';
+                expandClass += ` ${KupThemeIconValues.EXPANDED.replace(
+                    '--',
+                    ''
+                )}`;
             } else {
-                expandClass += ' collapsed';
+                expandClass += ` ${KupThemeIconValues.COLLAPSED.replace(
+                    '--',
+                    ''
+                )}`;
             }
         }
         let treeExpandIcon = (
@@ -1896,7 +1911,7 @@ export class KupTree {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
                     treeNodeIcon = this.createIconElement(
-                        'kup-tree__icon icon-container',
+                        'kup-tree__icon',
                         treeNodeData.icon,
                         treeNodeData.iconColor
                     );
@@ -1998,7 +2013,9 @@ export class KupTree {
                     class={{
                         'first-node': treeNodeDepth === 0 ? true : false,
                         'mdc-ripple-surface':
-                            !this.showColumns && !treeNodeData.disabled,
+                            this.ripple &&
+                            !this.showColumns &&
+                            !treeNodeData.disabled,
                         'is-obj': this.kupManager.objects.hasTooltip(
                             treeNodeData.obj
                         ),
@@ -2015,7 +2032,11 @@ export class KupTree {
                     )}
                 >
                     {this.asAccordion && !treeNodeDepth
-                        ? [treeNodeIcon, content, treeExpandIcon]
+                        ? [
+                              treeNodeIcon,
+                              content,
+                              hasExpandIcon ? treeExpandIcon : null,
+                          ]
                         : [indent, treeExpandIcon, treeNodeIcon, content]}
                 </td>
             );
@@ -2312,14 +2333,14 @@ export class KupTree {
                     cell.style.width = treeRect.width + 'px';
                 } else {
                     content.classList.remove('cell-content--ellipsis');
-                    content.style.setProperty('--content_width', ``);
+                    content.style.setProperty('--kup_tree_content_width', ``);
                     const rect: DOMRect = content.getBoundingClientRect();
                     if (rect.right > treeRect.right) {
                         const failsafeOffset: number = 5;
                         const delta: number = rect.right - treeRect.right;
                         content.classList.add('cell-content--ellipsis');
                         content.style.setProperty(
-                            '--content_width',
+                            '--kup_tree_content_width',
                             `${rect.width - delta - failsafeOffset}px`
                         );
                     }
@@ -2380,21 +2401,22 @@ export class KupTree {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-        if (this.preventXScroll) {
-            this.setEllipsis();
-        }
-        this.totalMenuPosition();
-        this.checkScrollOnHover();
-        this.setDynPosElements();
-
-        if (root) {
-            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
+        if (root && this.ripple) {
+            const rippleCells = root.querySelectorAll(
+                '.mdc-ripple-surface:not(.mdc-ripple-upgraded)'
+            );
             if (rippleCells) {
                 for (let i = 0; i < rippleCells.length; i++) {
                     MDCRipple.attachTo(rippleCells[i]);
                 }
             }
         }
+        if (this.preventXScroll) {
+            this.setEllipsis();
+        }
+        this.totalMenuPosition();
+        this.checkScrollOnHover();
+        this.setDynPosElements();
 
         // *** Store
         this.persistState();

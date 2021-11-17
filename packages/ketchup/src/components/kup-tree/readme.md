@@ -77,6 +77,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `globalFilterValue`        | `global-filter-value`         | The value of the global filter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                          | `''`                            |
 | `preventXScroll`           | `prevent-x-scroll`            | Experimental feature: when active, the tree will try to prevent horizontal overflowing elements by setting a width on the content of the table cells. It works only on cells of the main column.                                                                                                                                                                                                                                                                                                                                                                                                                                             | `boolean`                                                                         | `false`                         |
 | `removableColumns`         | `removable-columns`           | Sets the possibility to remove the selected column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                         | `true`                          |
+| `ripple`                   | `ripple`                      | When enabled displays Material's ripple effect on nodes (only when no columns are displayed).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `boolean`                                                                         | `true`                          |
 | `scrollOnHover`            | `scroll-on-hover`             | Activates the scroll on hover function.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `boolean`                                                                         | `false`                         |
 | `selectedNode`             | --                            | An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `number[]`                                                                        | `[]`                            |
 | `showColumns`              | `show-columns`                | Shows the tree data as a table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `boolean`                                                                         | `false`                         |
@@ -150,7 +151,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `isEmpty() => Promise<boolean>`
 
@@ -203,11 +204,28 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                | Description                                                            |
+| ----------------------------------- | ---------------------------------------------------------------------- |
+| `--kup-tree-border`                 | Sets border of the component.                                          |
+| `--kup-tree-color`                  | Sets text color of the component.                                      |
+| `--kup-tree-color-rgb`              | Sets text color RGB values of the component (used for shaders).        |
+| `--kup-tree-font-family`            | Sets font family of the component.                                     |
+| `--kup-tree-font-family-monospace`  | Sets monospace font family of the component (for number cells).        |
+| `--kup-tree-font-size`              | Sets font size of the component.                                       |
+| `--kup-tree-hover-background-color` | Sets hover background color of the component.                          |
+| `--kup-tree-hover-color`            | Sets hover color of the component.                                     |
+| `--kup-tree-icon-color`             | Sets icons color.                                                      |
+| `--kup-tree-primary-color`          | Sets the primary color of the component.                               |
+| `--kup-tree-primary-color-rgb`      | Sets the primary color RGB values of the component (used for shaders). |
+| `--kup-tree-text-on-primary-color`  | Sets the text on primary color of the component.                       |
+
+
 ## Dependencies
 
 ### Used by
 
- - [kup-accordion](../kup-accordion)
  - [kup-card](../kup-card)
  - [kup-tooltip](../kup-tooltip)
 
@@ -277,17 +295,27 @@ graph TD;
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-tooltip --> kup-tree
+  kup-box --> kup-card
+  kup-box --> kup-checkbox
+  kup-box --> kup-badge
+  kup-box --> kup-chart
+  kup-box --> kup-editor
+  kup-box --> kup-text-field
+  kup-box --> kup-progress-bar
+  kup-box --> kup-radio
+  kup-box --> kup-gauge
+  kup-box --> kup-tooltip
+  kup-box --> kup-combobox
+  kup-box --> kup-paginator
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-color-picker --> kup-text-field
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
-  kup-accordion --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

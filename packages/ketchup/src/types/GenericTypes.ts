@@ -26,9 +26,14 @@ export interface ResizableKupComponent extends KupComponent {
  * Props in common with every f-component.
  */
 export interface FComponent {
+    danger?: boolean;
     dataSet?: GenericObject;
     id?: string;
+    info?: boolean;
+    secondary?: boolean;
+    success?: boolean;
     title?: string;
+    warning?: boolean;
     wrapperClass?: string;
 }
 /**

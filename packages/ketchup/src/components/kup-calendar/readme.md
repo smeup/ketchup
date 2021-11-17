@@ -43,11 +43,21 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `resizeCallback() => Promise<void>`
+
+This method is invoked by KupManager whenever the component changes size.
 
 #### Returns
 
@@ -70,20 +80,20 @@ Type: `Promise<void>`
 
 | Name                                          | Description                                         |
 | --------------------------------------------- | --------------------------------------------------- |
-| `--kup-calendar_background-color`             | Background of the component.                        |
-| `--kup-calendar_border-color`                 | Sets borders color of the calendar.                 |
-| `--kup-calendar_event-background-color`       | Sets background color of events.                    |
-| `--kup-calendar_event-border-color`           | Sets border color of events.                        |
-| `--kup-calendar_event-border-radius`          | Sets border radius of events.                       |
-| `--kup-calendar_event-color`                  | Sets text color of events.                          |
-| `--kup-calendar_font-family`                  | Sets the font family of the component.              |
-| `--kup-calendar_font-size`                    | Sets the font size of the component.                |
-| `--kup-calendar_header-background-color`      | Sets background color of the header cell.           |
-| `--kup-calendar_header-color`                 | Sets text color of the header cell.                 |
-| `--kup-calendar_navigator-border`             | Sets the border of the navigator.                   |
-| `--kup-calendar_no-work-day-background-color` | Sets background color of sunday and saturday cells. |
-| `--kup-calendar_no-work-day-color`            | Sets text color of sunday and saturday cells.       |
-| `--kup-calendar_today-background-color`       | Sets background color of today's cell.              |
+| `--kup-calendar-background-color`             | Background of the component.                        |
+| `--kup-calendar-border-color`                 | Sets borders color of the calendar.                 |
+| `--kup-calendar-event-background-color`       | Sets background color of events.                    |
+| `--kup-calendar-event-border-color`           | Sets border color of events.                        |
+| `--kup-calendar-event-border-radius`          | Sets border radius of events.                       |
+| `--kup-calendar-event-color`                  | Sets text color of events.                          |
+| `--kup-calendar-font-family`                  | Sets the font family of the component.              |
+| `--kup-calendar-font-size`                    | Sets the font size of the component.                |
+| `--kup-calendar-header-background-color`      | Sets background color of the header cell.           |
+| `--kup-calendar-header-color`                 | Sets text color of the header cell.                 |
+| `--kup-calendar-navigator-border`             | Sets the border of the navigator.                   |
+| `--kup-calendar-no-work-day-background-color` | Sets background color of sunday and saturday cells. |
+| `--kup-calendar-no-work-day-color`            | Sets text color of sunday and saturday cells.       |
+| `--kup-calendar-today-background-color`       | Sets background color of today's cell.              |
 
 
 ## Dependencies

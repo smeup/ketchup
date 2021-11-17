@@ -1,8 +1,11 @@
+import type { Dayjs } from 'dayjs';
+import { KupDates } from '../kup-dates/kup-dates';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupObj, KupObjectsJSON } from './kup-objects-declarations';
 import * as objJson from './obj.json';
 
 const dom: KupDom = document.documentElement as KupDom;
+const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 
 /**
  * Handles objects definition and validation.
@@ -297,14 +300,24 @@ export class KupObjects {
         if (!obj) return false;
         return 'VO' === obj.t && 'COD_VER' === obj.p;
     }
-
     /**
      * Checks whether the object is null or empty
-     * @param obj - Object to check.
+     * @param {KupObj} obj - Object to check.
      * @returns {boolean} True when the object is null or empty.
      */
     isEmptySmeupObject(obj: KupObj): boolean {
         if (!obj) return true;
         return obj.t.trim() == '' && obj.p.trim() == '' && obj.k.trim() == '';
+    }
+    /**
+     * Parses a date depending on the object's type.
+     * @param {KupObj} obj - Object to check.
+     * @returns {Dayjs} Dayjs object.
+     */
+    parseDate(obj: KupObj): Dayjs {
+        if (obj.t === 'D8' && obj.p === '*DMYY') {
+            return kupDates.toDayjs(obj.k, 'DDMMYYYY');
+        }
+        return kupDates.toDayjs(obj.k);
     }
 }

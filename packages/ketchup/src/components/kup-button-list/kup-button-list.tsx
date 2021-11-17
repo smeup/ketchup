@@ -174,27 +174,6 @@ export class KupButtonList {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    /**
-     * Set the events of the component and instantiates Material Design.
-     */
-    private setEvents(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const fs: NodeListOf<HTMLElement> =
-                root.querySelectorAll('.f-button--wrapper');
-            if (fs != null) {
-                for (let i = 0; i < fs.length; i++) {
-                    let f: HTMLElement = fs[i];
-                    const buttonEl: HTMLButtonElement =
-                        f.querySelector('button');
-                    if (buttonEl) {
-                        buttonEl.onclick = () => this.onKupClick(f.id, '-1');
-                    }
-                }
-            }
-        }
-    }
-
     private renderButton(node: TreeNode, index: number): VNode {
         if (node === null) {
             this.kupManager.debug.logMessage(
@@ -229,6 +208,7 @@ export class KupButtonList {
             trailingIcon: data.trailingIcon,
             title: data.title,
             wrapperClass: this.rootElement.className + ' ' + data.wrapperClass,
+            onClick: () => this.onKupClick(data.id, '-1'),
         };
         return <FButton {...props} />;
     }
@@ -383,7 +363,6 @@ export class KupButtonList {
     }
 
     componentDidRender() {
-        this.setEvents();
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -395,7 +374,7 @@ export class KupButtonList {
         }
 
         const hostStyle: GenericObject = {
-            '--grid-columns': `repeat(${nrOfColumns}, auto)`,
+            '--kup_buttonlist_grid_columns': `repeat(${nrOfColumns}, auto)`,
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

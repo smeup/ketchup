@@ -35,7 +35,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -66,6 +66,13 @@ Sets the props to the component.
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                      | Description                                         |
+| ------------------------- | --------------------------------------------------- |
+| `--kup-card-ripple-color` | Sets color of ripple effect (for Material layouts). |
 
 
 ## Dependencies
@@ -131,18 +138,17 @@ graph TD;
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
   kup-tooltip --> kup-card
+  kup-box --> kup-card
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-color-picker --> kup-text-field
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
-  kup-box --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

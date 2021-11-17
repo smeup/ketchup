@@ -90,6 +90,11 @@ export class KupButton {
      */
     @Prop() styling: FButtonStyling = FButtonStyling.RAISED;
     /**
+     * When set to true, the button show a spinner received in slot.
+     * @default false
+     */
+    @Prop() showSpinner: boolean = false;
+    /**
      * When set to true, the icon button will be toggable on/off.
      * @default false
      */
@@ -209,28 +214,6 @@ export class KupButton {
     }
 
     /*-------------------------------------------------*/
-    /*           P r i v a t e   M e t h o d s         */
-    /*-------------------------------------------------*/
-
-    /**
-     * Set the events of the component and instantiates Material Design.
-     */
-    private setEvents(): void {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const f: HTMLElement = root.querySelector('.f-button--wrapper');
-            if (f) {
-                const buttonEl: HTMLButtonElement = f.querySelector('button');
-                if (buttonEl) {
-                    buttonEl.onblur = () => this.onKupBlur();
-                    buttonEl.onclick = () => this.onKupClick();
-                    buttonEl.onfocus = () => this.onKupFocus();
-                }
-            }
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
@@ -257,13 +240,15 @@ export class KupButton {
     }
 
     componentDidRender() {
-        this.setEvents();
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         const props: FButtonProps = {
             checked: this.checked,
+            danger: this.rootElement.classList.contains('kup-danger')
+                ? true
+                : false,
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
@@ -273,11 +258,17 @@ export class KupButton {
                 : false,
             icon: this.icon,
             iconOff: this.iconOff,
+            info: this.rootElement.classList.contains('kup-info')
+                ? true
+                : false,
             label: this.label,
             large: this.rootElement.classList.contains('kup-large')
                 ? true
                 : false,
             pulsating: this.rootElement.classList.contains('kup-pulsating')
+                ? true
+                : false,
+            secondary: this.rootElement.classList.contains('kup-secondary')
                 ? true
                 : false,
             shaped: this.rootElement.classList.contains('kup-shaped')
@@ -286,9 +277,19 @@ export class KupButton {
             slim: this.rootElement.classList.contains('kup-slim')
                 ? true
                 : false,
+            success: this.rootElement.classList.contains('kup-success')
+                ? true
+                : false,
             styling: this.styling,
+            showSpinner: this.showSpinner,
             toggable: this.toggable,
             trailingIcon: this.trailingIcon,
+            warning: this.rootElement.classList.contains('kup-warning')
+                ? true
+                : false,
+            onBlur: () => this.onKupBlur(),
+            onClick: () => this.onKupClick(),
+            onFocus: () => this.onKupFocus(),
         };
 
         if (!this.label && !this.icon) {

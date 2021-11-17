@@ -49,15 +49,15 @@ var sections: NodeListOf<HTMLElement> = null;
 var title: NodeListOf<HTMLElement> = null;
 
 export default {
-  beforeMount: function () {
+  beforeMount: function() {
     document.addEventListener('scroll', this.checkNav);
     document.addEventListener('resize', this.checkNav);
   },
-  destroyed: function () {
+  destroyed: function() {
     document.removeEventListener('scroll', this.checkNav);
     document.removeEventListener('resize', this.checkNav);
   },
-  mounted: function () {
+  mounted: function() {
     labels = document.querySelectorAll('.page__nav-element');
     sections = document.querySelectorAll('.page__section');
     title = document.querySelectorAll('.page__section-header');
@@ -68,8 +68,8 @@ export default {
       if (labels.length === 0) {
         return;
       }
-      const offset: number =
-        document.querySelector('#app__nav-bar').clientHeight;
+      const offset: number = document.querySelector('#app__nav-bar')
+        .clientHeight;
       for (let i = 0; i < labels.length; i++) {
         labels[i].classList.remove('active');
       }
@@ -135,7 +135,7 @@ export default {
       if (currentPos < pos) {
         if (pos - currentPos < 3000) {
           for (let i = currentPos; i <= pos; i += 1) {
-            setTimeout(function () {
+            setTimeout(function() {
               window.scrollTo(0, i);
             }, 100);
           }
@@ -145,7 +145,7 @@ export default {
       } else {
         if (currentPos - pos < 3000) {
           for (let i = currentPos; i >= pos; i -= 1) {
-            setTimeout(function () {
+            setTimeout(function() {
               window.scrollTo(0, i);
             }, 100);
           }
@@ -277,6 +277,7 @@ export default {
 
     &__nav {
       margin-bottom: 4em;
+      max-height: unset;
       padding: 0;
       position: relative;
       right: unset;

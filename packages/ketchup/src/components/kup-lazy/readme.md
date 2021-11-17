@@ -26,7 +26,7 @@ Used to retrieve component's props values.
 
 Type: `Promise<GenericObject>`
 
-
+List of props as object, each key will be a prop.
 
 ### `refresh() => Promise<void>`
 
@@ -47,6 +47,14 @@ Sets the props to the component.
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                           | Description                         |
+| ------------------------------ | ----------------------------------- |
+| `--kup-lazy-animation-time`    | Sets the duration of the animation. |
+| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon. |
 
 
 ----------------------------------------------

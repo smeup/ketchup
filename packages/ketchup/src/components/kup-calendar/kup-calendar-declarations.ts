@@ -20,7 +20,7 @@ export enum KupCalendarProps {
     viewType = 'Type of the view.',
 }
 /**
- * Props of the kup-calendar component.
+ * Available view types.
  */
 export enum KupCalendarViewTypes {
     DAY = 'timeGridDay',

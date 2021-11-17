@@ -123,7 +123,7 @@ export class KupProgressBar {
             this.icon.indexOf('\\') > -1
         ) {
             return (
-                <span class="label icon-container is-image">
+                <span class="label kup-icon is-image">
                     <img src={this.icon}></img>
                 </span>
             );
@@ -135,7 +135,7 @@ export class KupProgressBar {
                 mask: svg,
                 webkitMask: svg,
             };
-            return <span style={iconStyle} class="label icon-container"></span>;
+            return <span style={iconStyle} class="label kup-icon"></span>;
         }
     }
 
