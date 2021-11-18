@@ -270,4 +270,25 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
     ) {
         component.refresh();
     }
+
+    /*-------------------------------------------------*/
+    /*      1 5t h   S t a n d a r d  L a y o u t     */
+    /*-------------------------------------------------*/
+    // Tab change: when a tab is clicked, the corresponding view will be activated while the others will become hidden.
+    if (
+        root &&
+        e.type === KupCardSubEvents.BUTTON_CLICK &&
+        e.detail.id === KupCardIds.VIEW_SELECTOR
+    ) {
+        const views: NodeListOf<HTMLElement> = root.querySelectorAll(
+            '.' + KupCardCSSClasses.CARD_VIEW
+        );
+        if (e.detail.value === 'on') {
+            views[0].classList.remove(KupCardCSSClasses.VISIBLE);
+            views[1].classList.add(KupCardCSSClasses.VISIBLE);
+        } else {
+            views[1].classList.remove(KupCardCSSClasses.VISIBLE);
+            views[0].classList.add(KupCardCSSClasses.VISIBLE);
+        }
+    }
 }
