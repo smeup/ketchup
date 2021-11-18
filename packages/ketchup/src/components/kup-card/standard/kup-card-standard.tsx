@@ -1289,28 +1289,22 @@ export function create15(component: KupCard): VNode {
     // Setting up section 2
     const sectionTwoArray: string[] = textArray.slice(5);
     const sectionTwoDetails: VNode[] = [];
-    const lables: string[] = [];
+    const labels: string[] = [];
     const values: string[] = [];
-    if (sectionTwoArray.length % 2 === 0) {
-        for (let index = 0; index < sectionTwoArray.length; index++) {
-            if (index % 2 === 0) {
-                lables.push(sectionTwoArray[index]);
-            } else {
-                values.push(sectionTwoArray[index]);
-            }
+    for (let index = 0; index < sectionTwoArray.length; index++) {
+        if (index % 2 === 0) {
+            labels.push(sectionTwoArray[index]);
+        } else {
+            values.push(sectionTwoArray[index]);
         }
-        for (let index = 0; index < lables.length; index++) {
-            sectionTwoDetails.push(
-                <div class="detail-row">
-                    <div class="detail-row__label ellipsis">
-                        {lables[index]}
-                    </div>
-                    <div class="detail-row__value ellipsis">
-                        {values[index]}
-                    </div>
-                </div>
-            );
-        }
+    }
+    for (let index = 0; index < labels.length; index++) {
+        sectionTwoDetails.push(
+            <div class="detail-row">
+                <div class="detail-row__label ellipsis">{labels[index]}</div>
+                <div class="detail-row__value ellipsis">{values[index]}</div>
+            </div>
+        );
     }
 
     // Setting up buttons.
@@ -1322,7 +1316,7 @@ export function create15(component: KupCard): VNode {
         }
     }
     return (
-        <div class={`standard-layout-${component.layoutNumber} `}>
+        <div class={`standard-layout-${component.layoutNumber}`}>
             <div class="section-1">
                 {imageArray[0] ? (
                     <FImage
@@ -1392,7 +1386,9 @@ export function create15(component: KupCard): VNode {
                     class={`${KupCardCSSClasses.CARD_VIEW} ${KupCardCSSClasses.VIEW_PREFIX}${viewIndex} ${KupCardCSSClasses.VISIBLE}`}
                 >
                     <div class="info">
-                        {textArray[0] ? sectionTwoDetails : null}
+                        {sectionTwoDetails.length > 0
+                            ? sectionTwoDetails
+                            : null}
                     </div>
                 </div>
                 <div
