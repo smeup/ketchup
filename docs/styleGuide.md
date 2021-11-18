@@ -1,4 +1,4 @@
-# Ketch.UP Style Guide
+# Ketchup Style Guide
 
 ## Naming conventions
 
@@ -224,7 +224,7 @@ Ideally, component classes should be structured like this:
 
 ### Common features
 
-Almost all Ketch.UP components should include these features:
+Almost all Ketchup components should include these features:
 
 -   customStyle
 -   debugging

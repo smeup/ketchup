@@ -4,7 +4,7 @@
 
 Stencil web components library is tested with unit and e2e test. For unit is used [Jest](https://jestjs.io). For e2e is used [Stencil e2e Testing](https://stenciljs.com/docs/end-to-end-testing).
 
-Ketch.UP Showcase is tested with unit and e2e test. For unit is used [Jest](https://jestjs.io). For e2e is used [Cypress](https://www.cypress.io/).
+Ketchup Showcase is tested with unit and e2e test. For unit is used [Jest](https://jestjs.io). For e2e is used [Cypress](https://www.cypress.io/).
 
 ## Useful commands
 
@@ -20,32 +20,32 @@ npm run k:test:unit
 npm run k:test:e2e
 ```
 
--   Ketch.UP Showcase unit test
+-   Ketchup Showcase unit test
 
 ```
 npm run ksc:test:unit
 ```
 
--   Ketch.UP Showcase e2e test with a served app
+-   Ketchup Showcase e2e test with a served app
 
 ```
 npm run ksc:test:cy:open
 ```
 
--   Ketch.UP Showcase e2e test with a served app headlessly
+-   Ketchup Showcase e2e test with a served app headlessly
 
 ```
 npm run ksc:test:cy:run
 ```
 
--   Ketch.UP Showcase start the server and run your e2e tests
+-   Ketchup Showcase start the server and run your e2e tests
 
 ```
 npm run ksc:test:e2e:open
 
 ```
 
--   Ketch.UP Showcase start ther server and run your e2e headlessly
+-   Ketchup Showcase start ther server and run your e2e headlessly
 
 ```
 npm run ksc:test:e2e:run

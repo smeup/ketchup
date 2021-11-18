@@ -2,7 +2,7 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        Images are used in many Ketch.UP components. The default behavior will
+        Images are used in many Ketchup components. The default behavior will
         be fetching SVG icons contained inside this folder, placed in the root
         of your app:
         <br />

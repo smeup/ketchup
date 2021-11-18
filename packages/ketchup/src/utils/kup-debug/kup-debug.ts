@@ -13,7 +13,7 @@ import {
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
- * Debugging suite, used to log messages and statuses from the Ketch.UP components.
+ * Debugging suite, used to log messages and statuses from the Ketchup components.
  * @module KupDebug
  */
 export class KupDebug {

@@ -55,7 +55,7 @@
       improved, !important is the only way to go. <br />In this particular case,
       a more elegant solution would be to get the
       <span class="code-word">id</span> of the component and get rid of
-      !important notations (almost every Ketch.UP component wrap its content
+      !important notations (almost every Ketchup component wrap its content
       inside a <span class="code-word">#kup-component</span> element):
     </p>
     <div class="demo-container" style="padding: 3rem 0">
