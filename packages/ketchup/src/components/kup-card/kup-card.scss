@@ -59,6 +59,9 @@
 .card-view {
   animation: fade-in 0.25s ease-out;
   display: none;
+  height: 100%;
+  width: 100%;
+
   &.visible {
     display: block;
   }
@@ -78,109 +81,5 @@
   100% {
     display: block;
     opacity: 1;
-  }
-}
-
-.standard-layout-15 {
-  outline: none;
-  display: block;
-  font-size: var(--kup-font-size);
-  background: var(--kup-background-color);
-  color: var(--kup-text-color);
-  box-shadow: var(--kup-box-shadow);
-  border-radius: 3px;
-  min-width: 350px;
-  max-width: 700px;
-  writing-mode: horizontal-tb;
-
-  .section-1 {
-    padding: 10px 20px;
-    display: flex;
-
-    // .left {
-    //   width: 75px;
-    //   margin-right: 15px;
-    // }
-
-    // .title {
-    //   display: inline-block;
-    //   max-width: 440px;
-
-    //   &:hover {
-    //     text-decoration: underline;
-    //     cursor: pointer;
-    //   }
-    // }
-    #image1 {
-      display: block;
-      height: 75px;
-      width: 75px;
-      padding-top: 8px;
-      margin-left: 0;
-      margin-right: 15px;
-    }
-    & kup-button {
-      display: inline-block;
-    }
-  }
-
-  .section-2 {
-    transition: height 250ms ease-out, opacity 250ms ease-out;
-
-    border-top: 1px solid var(--kup-border-color);
-    box-sizing: border-box;
-    padding: 20px;
-    height: 180px;
-    overflow: auto;
-    opacity: 1;
-
-    &.cellopt {
-      padding: 5px 0;
-    }
-
-    &.detail-loaded {
-      height: 180px;
-      min-height: 180px;
-    }
-
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-
-      &:not(:last-child) {
-        margin-bottom: 6px;
-      }
-
-      &__label {
-        color: rgba(var(--kup-text-color-rgb), 0.5);
-        margin-top: 0.175em;
-        max-width: 320px;
-      }
-
-      &__value {
-        color: var(--kup-text-color);
-        font-size: 120%;
-        max-width: 320px;
-      }
-    }
-    .sub-tree {
-      max-height: 25vh;
-      overflow: auto;
-    }
-  }
-  .section-3 {
-    display:flex;
-
-    border-top: 1px solid var(--kup-border-color);
-    padding: 6px {
-      top: 2px;
-      bottom: 2px;
-    }
-
-    justify-content: flex-end;
-
-  }
-  #detail-actions[hidden] {
-    display: none;
   }
 }

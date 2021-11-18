@@ -1263,63 +1263,34 @@ export function create14(component: KupCard): VNode {
     );
 }
 /**
- * 15th standard card layout,
+ * 15th standard card layout, it can be used as a tooltip.
  * @param {KupCard} component - Card component.
- * @returns {VNode} 14th standard layout virtual node.
+ * @returns {VNode} 15th standard layout virtual node.
  */
 export function create15(component: KupCard): VNode {
-    const autocompleteArray: GenericObject[] = component.data['autocomplete']
-        ? component.data['autocomplete']
-        : [];
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
-        : [];
-    const checkboxArray: GenericObject[] = component.data['checkbox']
-        ? component.data['checkbox']
-        : [];
-    const chipArray: GenericObject[] = component.data['chip']
-        ? component.data['chip']
-        : [];
-    const datepickerArray: GenericObject[] = component.data['datepicker']
-        ? component.data['datepicker']
         : [];
     const imageArray: GenericObject[] = component.data['image']
         ? component.data['image']
         : [];
-    const objectArray: GenericObject[] = component.data['object']
-        ? component.data['object']
-        : [];
-    const switchArray: GenericObject[] = component.data['switch']
-        ? component.data['switch']
-        : [];
-    const tabbarArray: GenericObject[] = component.data['tabbar']
-        ? component.data['tabbar']
-        : [];
     const textArray: string[] = component.data['text']
         ? component.data['text']
-        : [];
-    const textfieldArray: GenericObject[] = component.data['textfield']
-        ? component.data['textfield']
-        : [];
-    const timepickerArray: GenericObject[] = component.data['timepicker']
-        ? component.data['timepicker']
         : [];
     const treeArray: GenericObject[] = component.data['tree']
         ? component.data['tree']
         : [];
+
     // Setting up currently visible view.
-    const tabsValues: string[] = [];
-    let viewIndex: number = 1;
-    let visibleView: number = 1;
+    const viewIndex: number = 1;
 
     const sectionOneArray: string[] = textArray.slice(0, 5);
 
-    //Setting up section 2
+    // Setting up section 2
     const sectionTwoArray: string[] = textArray.slice(5);
     const sectionTwoDetails: VNode[] = [];
-    const lables = [];
-    const values = [];
-    //let contentSectionTwo: { label: string[]; value: string[] };
+    const lables: string[] = [];
+    const values: string[] = [];
     if (sectionTwoArray.length % 2 === 0) {
         for (let index = 0; index < sectionTwoArray.length; index++) {
             if (index % 2 === 0) {
@@ -1342,15 +1313,6 @@ export function create15(component: KupCard): VNode {
         }
     }
 
-    if (tabbarArray[0] && tabbarArray[0].data) {
-        for (let index = 0; index < tabbarArray[0].data.length; index++) {
-            const tab: KupTabBarData = tabbarArray[0].data[index];
-            tabsValues.push(tab.value);
-            if (tab.active) {
-                visibleView = index + 1;
-            }
-        }
-    }
     // Setting up buttons.
     const buttonsIds: string[] = [];
     for (let index = 0; index < buttonArray.length; index++) {
@@ -1359,19 +1321,16 @@ export function create15(component: KupCard): VNode {
             buttonsIds.push(button['id']);
         }
     }
-    // Setting up switches.
-    const switchesIds: string[] = [];
-    for (let index = 0; index < switchArray.length; index++) {
-        const switchEl: GenericObject = switchArray[index];
-        if (switchEl['id']) {
-            switchesIds.push(switchEl['id']);
-        }
-    }
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
             <div class="section-1">
                 {imageArray[0] ? (
-                    <FImage id="image1" {...imageArray[0]}></FImage>
+                    <FImage
+                        id="image1"
+                        {...imageArray[0]}
+                        sizeX="84px"
+                        sizeY="84px"
+                    ></FImage>
                 ) : (
                     <div class="sub-spinner">
                         <kup-spinner
@@ -1414,14 +1373,12 @@ export function create15(component: KupCard): VNode {
                             ) : null}
                         </div>
                     ) : null}
-
                     {sectionOneArray[1] && sectionOneArray[2] ? (
                         <div class="info">
                             <span class="label">{sectionOneArray[1]}</span>
                             <span class="value">{sectionOneArray[2]}</span>
                         </div>
                     ) : null}
-
                     {sectionOneArray[3] && sectionOneArray[4] ? (
                         <div class="info">
                             <span class="label">{sectionOneArray[3]}</span>
@@ -1443,19 +1400,13 @@ export function create15(component: KupCard): VNode {
                         KupCardCSSClasses.VIEW_PREFIX
                     }${viewIndex + 1}`}
                 >
-                    <div class="sub-tree">
-                        <kup-tree class="kup-full-width" {...treeArray[0]} />
-                    </div>
+                    <kup-tree class="kup-full-width" {...treeArray[0]} />
                 </div>
             </div>
             {buttonArray.length > 0 ? (
                 <div class="section-3">
                     {compList(buttonArray.slice(0, 4), 'button')}
-                    <kup-button
-                        title="tree-button"
-                        id="view-selector"
-                        icon="view-sequential"
-                    ></kup-button>
+                    <kup-button id="view-selector" icon="menu"></kup-button>
                 </div>
             ) : null}
         </div>
