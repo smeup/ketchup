@@ -242,6 +242,7 @@ function createComp() {
       'Text #4',
       'Text #5',
       'Text #6',
+      'Text #7',
     ],
     textfield: [
       {
@@ -250,6 +251,1002 @@ function createComp() {
         isClearable: true,
         label: 'textfield[0]',
         title: 'textfield[0]',
+      },
+    ],
+    tree: [
+      {
+        data: [
+          {
+            cells: {
+              Mat: {
+                obj: {
+                  t: 'NR',
+                  p: '',
+                  k: '00Mat',
+                },
+                value: '00Mat',
+                options: true,
+              },
+              Program: {
+                obj: {
+                  t: 'NR',
+                  p: '',
+                  k: '00Program',
+                },
+                value: '00Program',
+                options: false,
+              },
+              Attack: {
+                obj: {
+                  t: 'NR',
+                  p: '',
+                  k: '00Attack',
+                },
+                value: '00Attack',
+                options: true,
+              },
+            },
+            children: [
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Mat',
+                    },
+                    value: '10Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Program',
+                    },
+                    value: '10Program',
+                    options: false,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '10Attack',
+                    },
+                    value: '10Attack',
+                    options: true,
+                  },
+                },
+                children: [],
+                disabled: false,
+                expandable: false,
+                icon: 'filter_1',
+                id: '00100',
+                isExpanded: false,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'First column',
+                },
+                options: false,
+                value: 'First column',
+                visible: true,
+              },
+              {
+                cells: {
+                  Mat: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '11Mat',
+                    },
+                    value: '11Mat',
+                    options: false,
+                  },
+                  Program: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '11Program',
+                    },
+                    value: '11Program',
+                    options: true,
+                  },
+                  Attack: {
+                    obj: {
+                      t: 'NR',
+                      p: '',
+                      k: '11Attack',
+                    },
+                    value: '11Attack',
+                    options: false,
+                  },
+                },
+                disabled: false,
+                expandable: true,
+                icon: 'filter_2',
+                id: '00111',
+                isExpanded: true,
+                obj: {
+                  t: 'TN',
+                  p: '',
+                  k: 'Second column',
+                },
+                options: false,
+                value: 'Second column',
+                visible: true,
+              },
+            ],
+            disabled: false,
+            expandable: true,
+            icon: 'widgets',
+            id: '0005',
+            isExpanded: true,
+            obj: {
+              t: '',
+              p: '',
+              k: 'Favorites',
+            },
+            options: true,
+            value: 'Favorites',
+            visible: true,
+          },
+        ],
       },
     ],
   };

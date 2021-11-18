@@ -1262,3 +1262,202 @@ export function create14(component: KupCard): VNode {
         </div>
     );
 }
+/**
+ * 15th standard card layout,
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 14th standard layout virtual node.
+ */
+export function create15(component: KupCard): VNode {
+    const autocompleteArray: GenericObject[] = component.data['autocomplete']
+        ? component.data['autocomplete']
+        : [];
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    const checkboxArray: GenericObject[] = component.data['checkbox']
+        ? component.data['checkbox']
+        : [];
+    const chipArray: GenericObject[] = component.data['chip']
+        ? component.data['chip']
+        : [];
+    const datepickerArray: GenericObject[] = component.data['datepicker']
+        ? component.data['datepicker']
+        : [];
+    const imageArray: GenericObject[] = component.data['image']
+        ? component.data['image']
+        : [];
+    const objectArray: GenericObject[] = component.data['object']
+        ? component.data['object']
+        : [];
+    const switchArray: GenericObject[] = component.data['switch']
+        ? component.data['switch']
+        : [];
+    const tabbarArray: GenericObject[] = component.data['tabbar']
+        ? component.data['tabbar']
+        : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    const textfieldArray: GenericObject[] = component.data['textfield']
+        ? component.data['textfield']
+        : [];
+    const timepickerArray: GenericObject[] = component.data['timepicker']
+        ? component.data['timepicker']
+        : [];
+    const treeArray: GenericObject[] = component.data['tree']
+        ? component.data['tree']
+        : [];
+    // Setting up currently visible view.
+    const tabsValues: string[] = [];
+    let viewIndex: number = 1;
+    let visibleView: number = 1;
+
+    const sectionOneArray: string[] = textArray.slice(0, 5);
+
+    //Setting up section 2
+    const sectionTwoArray: string[] = textArray.slice(5);
+    const sectionTwoDetails: VNode[] = [];
+    const lables = [];
+    const values = [];
+    //let contentSectionTwo: { label: string[]; value: string[] };
+    if (sectionTwoArray.length % 2 === 0) {
+        for (let index = 0; index < sectionTwoArray.length; index++) {
+            if (index % 2 === 0) {
+                lables.push(sectionTwoArray[index]);
+            } else {
+                values.push(sectionTwoArray[index]);
+            }
+        }
+        for (let index = 0; index < lables.length; index++) {
+            sectionTwoDetails.push(
+                <div class="detail-row">
+                    <div class="detail-row__label ellipsis">
+                        {lables[index]}
+                    </div>
+                    <div class="detail-row__value ellipsis">
+                        {values[index]}
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    if (tabbarArray[0] && tabbarArray[0].data) {
+        for (let index = 0; index < tabbarArray[0].data.length; index++) {
+            const tab: KupTabBarData = tabbarArray[0].data[index];
+            tabsValues.push(tab.value);
+            if (tab.active) {
+                visibleView = index + 1;
+            }
+        }
+    }
+    // Setting up buttons.
+    const buttonsIds: string[] = [];
+    for (let index = 0; index < buttonArray.length; index++) {
+        const button: GenericObject = buttonArray[index];
+        if (button['id']) {
+            buttonsIds.push(button['id']);
+        }
+    }
+    // Setting up switches.
+    const switchesIds: string[] = [];
+    for (let index = 0; index < switchArray.length; index++) {
+        const switchEl: GenericObject = switchArray[index];
+        if (switchEl['id']) {
+            switchesIds.push(switchEl['id']);
+        }
+    }
+    return (
+        <div class={`standard-layout-${component.layoutNumber} `}>
+            <div class="section-1">
+                {imageArray[0] ? (
+                    <FImage id="image1" {...imageArray[0]}></FImage>
+                ) : (
+                    <div class="sub-spinner">
+                        <kup-spinner
+                            active={true}
+                            dimensions="7px"
+                            layout={14}
+                        />
+                    </div>
+                )}
+                <div class="sub-1">
+                    {textArray[0] ? (
+                        <div class="title">
+                            <span
+                                class={`label ${KupCardCSSClasses.CLICKABLE_LINK}`}
+                                id="title-link"
+                            >
+                                {textArray[0]}
+                            </span>
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_OPEN_IN_NEW
+                                    )}
+                                />
+                            ) : null}
+                            {buttonsIds.includes(
+                                KupColumnMenuIds.BUTTON_SEARCH
+                            ) ? (
+                                <kup-button
+                                    {...buttonArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.BUTTON_SEARCH
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                    ) : null}
+
+                    {sectionOneArray[1] && sectionOneArray[2] ? (
+                        <div class="info">
+                            <span class="label">{sectionOneArray[1]}</span>
+                            <span class="value">{sectionOneArray[2]}</span>
+                        </div>
+                    ) : null}
+
+                    {sectionOneArray[3] && sectionOneArray[4] ? (
+                        <div class="info">
+                            <span class="label">{sectionOneArray[3]}</span>
+                            <span class="value">{sectionOneArray[4]}</span>
+                        </div>
+                    ) : null}
+                </div>
+            </div>
+            <div class="section-2">
+                <div
+                    class={`${KupCardCSSClasses.CARD_VIEW} ${KupCardCSSClasses.VIEW_PREFIX}${viewIndex} ${KupCardCSSClasses.VISIBLE}`}
+                >
+                    <div class="info">
+                        {textArray[0] ? sectionTwoDetails : null}
+                    </div>
+                </div>
+                <div
+                    class={`${KupCardCSSClasses.CARD_VIEW} ${
+                        KupCardCSSClasses.VIEW_PREFIX
+                    }${viewIndex + 1}`}
+                >
+                    <div class="sub-tree">
+                        <kup-tree class="kup-full-width" {...treeArray[0]} />
+                    </div>
+                </div>
+            </div>
+            {buttonArray.length > 0 ? (
+                <div class="section-3">
+                    {compList(buttonArray.slice(0, 4), 'button')}
+                    <kup-button
+                        title="tree-button"
+                        id="view-selector"
+                        icon="view-sequential"
+                    ></kup-button>
+                </div>
+            ) : null}
+        </div>
+    );
+}
