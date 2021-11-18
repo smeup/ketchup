@@ -68,7 +68,7 @@
         button's meaning, you can use the attribute
         <span class="code-word">icon</span> and specify a value supported by the
         <a href="https://ketchup.smeup.com/ketchup-showcase/#/image"
-          >Ketch.UP Icon component</a
+          >Ketchup Icon component</a
         >.
       </p>
       <div class="demo-container">

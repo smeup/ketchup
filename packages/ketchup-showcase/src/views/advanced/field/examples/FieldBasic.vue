@@ -4,7 +4,7 @@
       <p>
         The field component is designed to work as a simple form or to be used
         inside the Form component. Its layout is composed by an optional label,
-        an optional submit button and, more importantly, another Ketch.UP
+        an optional submit button and, more importantly, another Ketchup
         component.
         <br />This is the list of all the components currently supported (with
         their prefix).

@@ -11,7 +11,7 @@
         Dash List renders all the objects in the JSON file
         <br />
         <br />
-        The Ketch.UP dash works using slots, thus the component itself contains
+        The Ketchup dash works using slots, thus the component itself contains
         only the main structure. The user can pass the children components
         through the slot, like the title, the subtitle, and the main content.
       </p>

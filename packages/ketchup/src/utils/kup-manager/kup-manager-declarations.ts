@@ -15,7 +15,7 @@ import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { ResizeObserver } from 'resize-observer';
 /**
- * Interface used to define the HTML element with Ketch.UP specific properties.
+ * Interface used to define the HTML element with Ketchup specific properties.
  */
 export interface KupDom extends HTMLHtmlElement {
     ketchup: KupManager;

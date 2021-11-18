@@ -7,7 +7,7 @@
         as an embedded window or as a button that lets the user open the link in
         a new tab. In order to do so, the
         <span class="code-word">isButton</span> prop must be set to true.
-        <br />Considering the nature of the button, which is another Ketch.UP
+        <br />Considering the nature of the button, which is another Ketchup
         component, you can use the
         <span class="code-word">buttonData</span> prop to style it as you need.
         By default, <span class="code-word">label</span> will be set to "Open in

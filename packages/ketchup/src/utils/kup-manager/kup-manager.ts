@@ -38,7 +38,7 @@ import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
- * This class controls every other Ketch.UP utility suite.
+ * This class controls every other Ketchup utility suite.
  * @module KupManager
  */
 export class KupManager {
@@ -263,7 +263,7 @@ export class KupManager {
     }
 }
 /**
- * Called by the Ketch.UP components to retrieve the instance of KupManager (or creating a new one when missing).
+ * Called by the Ketchup components to retrieve the instance of KupManager (or creating a new one when missing).
  * @returns {KupManager} KupManager instance.
  */
 export function kupManagerInstance(): KupManager {
