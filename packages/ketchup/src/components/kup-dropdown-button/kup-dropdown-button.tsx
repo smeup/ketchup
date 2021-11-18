@@ -30,6 +30,7 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -129,6 +130,7 @@ export class KupDropdownButton {
      * List element (dropdown menu).
      */
     private listEl: HTMLKupListElement = null;
+    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -354,13 +356,15 @@ export class KupDropdownButton {
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = buttonWidth + 'px';
-        this.kupManager.utilities.pointerDownCallbacks.add({
-            cb: () => {
-                this.closeList();
-            },
-            onlyOnce: true,
-            el: this.listEl,
-        });
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.closeList();
+                },
+                el: this.listEl,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
     }
     /**
      * Closes the dropdown menu.
@@ -369,6 +373,7 @@ export class KupDropdownButton {
         this.buttonEl?.classList.remove('toggled');
         this.dropdownEl.classList.remove('toggled');
         this.listEl.menuVisible = false;
+        this.kupManager.removeClickCallback(this.clickCb);
     }
     /**
      * Checks the consistency of the list.

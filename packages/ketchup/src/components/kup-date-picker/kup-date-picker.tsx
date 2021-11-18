@@ -43,6 +43,7 @@ import {
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -107,6 +108,7 @@ export class KupDatePicker {
         date: new Date(),
     };
     private pickerOpened: boolean = false;
+    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -472,16 +474,19 @@ export class KupDatePicker {
             elStyle.height = 'auto';
             elStyle.minWidth = textfieldEl.clientWidth + 'px';
         }
-        this.kupManager.utilities.pointerDownCallbacks.add({
-            cb: () => {
-                this.closePicker();
-            },
-            onlyOnce: true,
-            el: this.pickerContainerEl,
-        });
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.closePicker();
+                },
+                el: this.pickerContainerEl,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
     }
 
     closePicker() {
+        this.kupManager.removeClickCallback(this.clickCb);
         if (!this.isPickerOpened()) {
             return;
         }

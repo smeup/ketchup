@@ -27,6 +27,7 @@ import {
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -90,6 +91,7 @@ export class KupCombobox {
     private listEl: any = undefined;
     private textfieldWrapper: HTMLElement = undefined;
     private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
+    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -349,18 +351,21 @@ export class KupCombobox {
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
-        this.kupManager.utilities.pointerDownCallbacks.add({
-            cb: () => {
-                this.closeList();
-            },
-            onlyOnce: true,
-            el: this.listEl,
-        });
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.closeList();
+                },
+                el: this.listEl,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
     }
 
     closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
+        this.kupManager.removeClickCallback(this.clickCb);
     }
 
     isListOpened(): boolean {

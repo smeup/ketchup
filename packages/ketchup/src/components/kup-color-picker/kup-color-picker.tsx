@@ -27,6 +27,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -88,6 +89,7 @@ export class KupColorPicker {
     private anchorEl: HTMLElement;
     private picker: Picker;
     private textfieldEl: HTMLElement;
+    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -266,13 +268,16 @@ export class KupColorPicker {
                     '--kup_colorpicker_picker_width',
                     that.textfieldEl.clientWidth + 'px'
                 );
-                that.kupManager.utilities.pointerDownCallbacks.add({
-                    cb: () => {
-                        that.picker.closeHandler(null);
-                    },
-                    onlyOnce: true,
-                    el: that.picker['domElement'],
-                });
+                if (!that.clickCb) {
+                    that.clickCb = {
+                        cb: () => {
+                            that.picker.closeHandler(null);
+                            that.kupManager.removeClickCallback(that.clickCb);
+                        },
+                        el: that.picker['domElement'],
+                    };
+                }
+                that.kupManager.addClickCallback(this.clickCb, true);
             };
         }
         this.kupManager.debug.logLoad(this, true);
