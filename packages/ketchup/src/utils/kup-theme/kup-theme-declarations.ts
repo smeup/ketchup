@@ -28,6 +28,7 @@ export interface KupThemeCSSVariables {
     [KupThemeColorValues.BACKGROUND]: string;
     [KupThemeColorValues.NAV_BAR_BACKGROUND]: string;
     [KupThemeColorValues.NAV_BAR]: string;
+    [KupThemeColorValues.DRAWER]: string;
     [KupThemeColorValues.DRAWER_BACKGROUND]: string;
     '--kup-navbar-height': string;
     '--kup-drawer-width': string;
@@ -109,6 +110,7 @@ export enum KupThemeColorValues {
     BACKGROUND = '--kup-background-color',
     NAV_BAR = '--kup-navbar-color',
     NAV_BAR_BACKGROUND = '--kup-navbar-background-color',
+    DRAWER = '--kup-drawer-color',
     DRAWER_BACKGROUND = '--kup-drawer-background-color',
     TEXT = '--kup-text-color',
     TEXT_ON_PRIMARY = '--kup-text-on-primary-color',
