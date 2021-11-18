@@ -99,6 +99,7 @@ import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { KupPointerEventTypes } from '../../utils/kup-interact/kup-interact-declarations';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -380,6 +381,7 @@ export class KupTree {
     private oldWidth: number = null;
     private hold: boolean = false;
     private interactableTouch: HTMLElement[] = [];
+    private clickCb: KupManagerClickCb = null;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -2051,6 +2053,7 @@ export class KupTree {
 
     private closeTotalMenu() {
         this.openedTotalMenu = null;
+        this.kupManager.removeClickCallback(this.clickCb);
     }
 
     private isOpenedTotalMenuForColumn(column: string): boolean {
@@ -2293,16 +2296,18 @@ export class KupTree {
                     menu as unknown as KupDynamicPositionElement,
                     this.totalMenuCoords
                 );
-                this.kupManager.utilities.pointerDownCallbacks.add({
-                    cb: () => {
-                        this.closeTotalMenu();
-                        this.kupManager.dynamicPosition.stop(
-                            menu as unknown as KupDynamicPositionElement
-                        );
-                    },
-                    onlyOnce: true,
-                    el: menu,
-                });
+                if (!this.clickCb) {
+                    this.clickCb = {
+                        cb: () => {
+                            this.closeTotalMenu();
+                            this.kupManager.dynamicPosition.stop(
+                                menu as unknown as KupDynamicPositionElement
+                            );
+                        },
+                        el: menu,
+                    };
+                }
+                this.kupManager.addClickCallback(this.clickCb, true);
                 this.kupManager.dynamicPosition.start(
                     menu as unknown as KupDynamicPositionElement
                 );
