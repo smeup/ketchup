@@ -1,10 +1,10 @@
 <template>
   <div class="max-width-container">
-    <h1>Ketch.UP showcase</h1>
+    <h1>Ketchup showcase</h1>
 
-    <h2>About Ketch.UP</h2>
+    <h2>About Ketchup</h2>
     <p>
-      Ketch.UP is a
+      Ketchup is a
       <a href="https://www.webcomponents.org/" target="_blank" rel="noopener"
         >web components</a
       >
@@ -14,7 +14,7 @@
       >, a small TypeScript based web component compiler.
     </p>
     <p
-      >The primary focus of Ketch.UP consists in providing a suite of powerful
+      >The primary focus of Ketchup consists in providing a suite of powerful
       and customizable web components, whose main objective is abstracting
       complex, yet very recurrent, programming patterns.</p
     >
@@ -24,10 +24,10 @@
         href="https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components"
         target="_blank"
         rel="noopener"
-        >Ketch.UP repo</a
+        >Ketchup repo</a
       >
       you can find all the documentation concerning these components. <br />You
-      can install the Ketch.UP library using npm, check
+      can install the Ketchup library using npm, check
       <a
         href="https://www.npmjs.com/package/@sme.up/ketchup"
         target="_blank"

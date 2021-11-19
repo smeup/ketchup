@@ -21,15 +21,9 @@ import {
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { kupManagerInstance } from '../../utils/kup-manager/kup-manager';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupObjects } from '../../utils/kup-objects/kup-objects';
 import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
-import { KupDates } from '../../utils/kup-dates/kup-dates';
 
 const dom: KupDom = document.documentElement as KupDom;
-const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
-const kupObjects: KupObjects = dom.ketchup
-    ? dom.ketchup.objects
-    : new KupObjects();
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -343,7 +337,7 @@ function updateGroupTotal(
         const cell = addedRow.cells[key];
 
         if (cell) {
-            let _isNumber = kupObjects.isNumber(cell.obj);
+            let _isNumber = dom.ketchup.objects.isNumber(cell.obj);
 
             const totalMode = totals[key];
 
@@ -467,23 +461,25 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
-                    } else if (kupObjects.isDate(cell.obj)) {
+                    } else if (dom.ketchup.objects.isDate(cell.obj)) {
                         const momentValue = cell.obj
-                            ? kupObjects.parseDate(cell.obj)
-                            : kupDates.toDayjs(cell.value);
-                        if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(momentValue);
+                            ? dom.ketchup.objects.parseDate(cell.obj)
+                            : dom.ketchup.dates.toDayjs(cell.value);
+                        if (dom.ketchup.dates.isValid(momentValue)) {
+                            const cellValue =
+                                dom.ketchup.dates.toDate(momentValue);
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
                                 let moments = [];
                                 moments.push(cellValue);
                                 moments.push(
-                                    kupDates.format(currentTotalValue)
+                                    dom.ketchup.dates.format(currentTotalValue)
                                 );
-                                groupRow.group.totals[key] = kupDates.format(
-                                    kupDates.min(moments)
-                                );
+                                groupRow.group.totals[key] =
+                                    dom.ketchup.dates.format(
+                                        dom.ketchup.dates.min(moments)
+                                    );
                             } else {
                                 groupRow.group.totals[key] = cellValue;
                             }
@@ -496,11 +492,14 @@ function updateGroupTotal(
                                     let moments = [];
                                     moments.push(cellValue);
                                     moments.push(
-                                        kupDates.format(currentParentMin)
+                                        dom.ketchup.dates.format(
+                                            currentParentMin
+                                        )
                                     );
-                                    parent.group.totals[key] = kupDates.format(
-                                        kupDates.min(moments)
-                                    );
+                                    parent.group.totals[key] =
+                                        dom.ketchup.dates.format(
+                                            dom.ketchup.dates.min(moments)
+                                        );
                                 } else {
                                     // first round
                                     parent.group.totals[key] = cellValue;
@@ -541,23 +540,25 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
-                    } else if (kupObjects.isDate(cell.obj)) {
+                    } else if (dom.ketchup.objects.isDate(cell.obj)) {
                         const momentValue = cell.obj
-                            ? kupObjects.parseDate(cell.obj)
-                            : kupDates.toDayjs(cell.value);
-                        if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(momentValue);
+                            ? dom.ketchup.objects.parseDate(cell.obj)
+                            : dom.ketchup.dates.toDayjs(cell.value);
+                        if (dom.ketchup.dates.isValid(momentValue)) {
+                            const cellValue =
+                                dom.ketchup.dates.toDate(momentValue);
                             const currentTotalValue =
                                 groupRow.group.totals[key];
                             if (currentTotalValue) {
                                 let moments = [];
                                 moments.push(cellValue);
                                 moments.push(
-                                    kupDates.format(currentTotalValue)
+                                    dom.ketchup.dates.format(currentTotalValue)
                                 );
-                                groupRow.group.totals[key] = kupDates.format(
-                                    kupDates.max(moments)
-                                );
+                                groupRow.group.totals[key] =
+                                    dom.ketchup.dates.format(
+                                        dom.ketchup.dates.max(moments)
+                                    );
                             } else {
                                 groupRow.group.totals[key] = cellValue;
                             }
@@ -570,11 +571,14 @@ function updateGroupTotal(
                                     let moments = [];
                                     moments.push(cellValue);
                                     moments.push(
-                                        kupDates.format(currentParentMin)
+                                        dom.ketchup.dates.format(
+                                            currentParentMin
+                                        )
                                     );
-                                    parent.group.totals[key] = kupDates.format(
-                                        kupDates.max(moments)
-                                    );
+                                    parent.group.totals[key] =
+                                        dom.ketchup.dates.format(
+                                            dom.ketchup.dates.max(moments)
+                                        );
                                 } else {
                                     // first round
                                     parent.group.totals[key] = cellValue;
@@ -816,7 +820,7 @@ export function calcTotals(
                 if (cell) {
                     if (totals[key] === TotalMode.DISTINCT) {
                         let cellValue;
-                        if (kupObjects.isNumber(cell.obj)) {
+                        if (dom.ketchup.objects.isNumber(cell.obj)) {
                             cellValue = numeral(
                                 stringToNumber(cell.value)
                             ).value();
@@ -832,7 +836,7 @@ export function calcTotals(
                             // update the list
                             distinctList.push(cellValue);
                         }
-                    } else if (kupObjects.isNumber(cell.obj)) {
+                    } else if (dom.ketchup.objects.isNumber(cell.obj)) {
                         const cellValue = numeral(stringToNumber(cell.value));
                         let currentFooterValue = footerRow[key];
                         switch (true) {
@@ -865,12 +869,13 @@ export function calcTotals(
                                     .value();
                         }
                         // TODO DRY the MIN and MAX functions
-                    } else if (kupObjects.isDate(cell.obj)) {
+                    } else if (dom.ketchup.objects.isDate(cell.obj)) {
                         const momentValue = cell.obj
-                            ? kupObjects.parseDate(cell.obj)
-                            : kupDates.toDayjs(cell.value);
-                        if (kupDates.isValid(momentValue)) {
-                            const cellValue = kupDates.toDate(momentValue);
+                            ? dom.ketchup.objects.parseDate(cell.obj)
+                            : dom.ketchup.dates.toDayjs(cell.value);
+                        if (dom.ketchup.dates.isValid(momentValue)) {
+                            const cellValue =
+                                dom.ketchup.dates.toDate(momentValue);
                             const currentFooterValue = footerRow[key];
                             switch (true) {
                                 case totals[key] === TotalMode.MIN:
@@ -878,11 +883,14 @@ export function calcTotals(
                                         let moments = [];
                                         moments.push(cellValue);
                                         moments.push(
-                                            kupDates.format(currentFooterValue)
+                                            dom.ketchup.dates.format(
+                                                currentFooterValue
+                                            )
                                         );
-                                        footerRow[key] = kupDates.format(
-                                            kupDates.min(moments)
-                                        );
+                                        footerRow[key] =
+                                            dom.ketchup.dates.format(
+                                                dom.ketchup.dates.min(moments)
+                                            );
                                     } else {
                                         footerRow[key] = cellValue;
                                     }
@@ -892,11 +900,14 @@ export function calcTotals(
                                         let moments = [];
                                         moments.push(cellValue);
                                         moments.push(
-                                            kupDates.format(currentFooterValue)
+                                            dom.ketchup.dates.format(
+                                                currentFooterValue
+                                            )
                                         );
-                                        footerRow[key] = kupDates.format(
-                                            kupDates.max(moments)
-                                        );
+                                        footerRow[key] =
+                                            dom.ketchup.dates.format(
+                                                dom.ketchup.dates.max(moments)
+                                            );
                                     } else {
                                         footerRow[key] = cellValue;
                                     }

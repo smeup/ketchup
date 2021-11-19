@@ -1,13 +1,10 @@
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
-import { KupDates } from '../kup-dates/kup-dates';
 import {
     KupDatesFormats,
     KupDatesNormalize,
 } from '../kup-dates/kup-dates-declarations';
-import { KupManager, kupManagerInstance } from '../kup-manager/kup-manager';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupObjects } from '../kup-objects/kup-objects';
 import {
     formattedStringToCustomUnformattedStringTime,
     formattedStringToDefaultUnformattedStringTimestamp,
@@ -25,10 +22,6 @@ import {
 } from './filters-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
-const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
-const kupObjects: KupObjects = dom.ketchup
-    ? dom.ketchup.objects
-    : new KupObjects();
 
 /**
  * Filtering algorithms.
@@ -46,16 +39,16 @@ export class Filters {
     }
 
     isObjFiltrableByInterval(obj): boolean {
-        if (kupObjects.isDate(obj)) {
+        if (dom.ketchup.objects.isDate(obj)) {
             return true;
         }
-        if (kupObjects.isTime(obj)) {
+        if (dom.ketchup.objects.isTime(obj)) {
             return true;
         }
-        if (kupObjects.isTimestamp(obj)) {
+        if (dom.ketchup.objects.isTimestamp(obj)) {
             return true;
         }
-        if (kupObjects.isNumber(obj)) {
+        if (dom.ketchup.objects.isNumber(obj)) {
             return true;
         }
         return false;
@@ -66,20 +59,20 @@ export class Filters {
         if (newValue == null || newValue == '' || smeupObj == null) {
             return newValue;
         }
-        if (kupObjects.isDate(smeupObj)) {
-            if (kupDates.isValid(value, KupDatesFormats.ISO_DATE)) {
+        if (dom.ketchup.objects.isDate(smeupObj)) {
+            if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
                 return newValue;
             }
-            if (kupDates.isValid(value)) {
-                return kupDates.format(
-                    kupDates.normalize(value, KupDatesNormalize.DATE),
+            if (dom.ketchup.dates.isValid(value)) {
+                return dom.ketchup.dates.format(
+                    dom.ketchup.dates.normalize(value, KupDatesNormalize.DATE),
                     KupDatesFormats.ISO_DATE
                 );
             }
-        } else if (kupObjects.isTime(smeupObj)) {
-            let manageSeconds = kupObjects.isTimeWithSeconds(smeupObj);
+        } else if (dom.ketchup.objects.isTime(smeupObj)) {
+            let manageSeconds = dom.ketchup.objects.isTimeWithSeconds(smeupObj);
             if (
-                kupDates.isValid(
+                dom.ketchup.dates.isValid(
                     value,
                     manageSeconds
                         ? KupDatesFormats.ISO_TIME
@@ -97,8 +90,10 @@ export class Filters {
                     manageSeconds
                 );
             }
-        } else if (kupObjects.isTimestamp(smeupObj)) {
-            if (kupDates.isValid(value, KupDatesFormats.ISO_DATE_TIME)) {
+        } else if (dom.ketchup.objects.isTimestamp(smeupObj)) {
+            if (
+                dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE_TIME)
+            ) {
                 return newValue;
             }
             if (isValidFormattedStringTime(value, true)) {
@@ -106,7 +101,7 @@ export class Filters {
                     value
                 );
             }
-        } else if (kupObjects.isNumber(smeupObj)) {
+        } else if (dom.ketchup.objects.isNumber(smeupObj)) {
             if (
                 isValidFormattedStringNumber(value, smeupObj ? smeupObj.p : '')
             ) {
@@ -257,7 +252,7 @@ export class Filters {
             to = interval[FilterInterval.TO];
         }
         let checkByRegularExpression = true;
-        if (kupObjects.isNumber(obj)) {
+        if (dom.ketchup.objects.isNumber(obj)) {
             value = unformattedStringNumberToNumber(value, obj ? obj.p : '');
             let valueNumber: number = stringToNumber(value);
             if (from != '') {
@@ -284,34 +279,37 @@ export class Filters {
             }
         }
         if (
-            kupObjects.isDate(obj) ||
-            kupObjects.isTime(obj) ||
-            kupObjects.isTimestamp(obj)
+            dom.ketchup.objects.isDate(obj) ||
+            dom.ketchup.objects.isTime(obj) ||
+            dom.ketchup.objects.isTimestamp(obj)
         ) {
             let valueDate: Date = null;
 
             let defaultFormat = KupDatesFormats.ISO_DATE;
-            if (kupObjects.isDate(obj)) {
+            if (dom.ketchup.objects.isDate(obj)) {
                 defaultFormat = KupDatesFormats.ISO_DATE;
-            } else if (kupObjects.isTime(obj)) {
-                defaultFormat = kupObjects.isTimeWithSeconds(obj)
+            } else if (dom.ketchup.objects.isTime(obj)) {
+                defaultFormat = dom.ketchup.objects.isTimeWithSeconds(obj)
                     ? KupDatesFormats.ISO_TIME
                     : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS;
-            } else if (kupObjects.isTimestamp(obj)) {
+            } else if (dom.ketchup.objects.isTimestamp(obj)) {
                 defaultFormat = KupDatesFormats.ISO_DATE_TIME;
             }
 
-            if (kupDates.isValid(value, defaultFormat, true)) {
-                valueDate = kupDates.toDate(value, defaultFormat);
+            if (dom.ketchup.dates.isValid(value, defaultFormat, true)) {
+                valueDate = dom.ketchup.dates.toDate(value, defaultFormat);
             }
 
             if (from != '') {
                 if (
                     valueDate != null &&
-                    kupDates.isValid(from, defaultFormat, true)
+                    dom.ketchup.dates.isValid(from, defaultFormat, true)
                 ) {
                     checkByRegularExpression = false;
-                    let fromDate: Date = kupDates.toDate(from, defaultFormat);
+                    let fromDate: Date = dom.ketchup.dates.toDate(
+                        from,
+                        defaultFormat
+                    );
                     if (valueDate < fromDate) {
                         return false;
                     }
@@ -322,10 +320,13 @@ export class Filters {
             if (to != '') {
                 if (
                     valueDate != null &&
-                    kupDates.isValid(to, defaultFormat, true)
+                    dom.ketchup.dates.isValid(to, defaultFormat, true)
                 ) {
                     checkByRegularExpression = false;
-                    let toDate: Date = kupDates.toDate(to, defaultFormat);
+                    let toDate: Date = dom.ketchup.dates.toDate(
+                        to,
+                        defaultFormat
+                    );
                     if (valueDate > toDate) {
                         return false;
                     }
@@ -334,10 +335,10 @@ export class Filters {
                 }
             }
             if (
-                !kupDates.isValid(filterValue, defaultFormat) &&
-                !kupDates.isValid(filterValue)
+                !dom.ketchup.dates.isValid(filterValue, defaultFormat) &&
+                !dom.ketchup.dates.isValid(filterValue)
             ) {
-                value = kupDates.format(value);
+                value = dom.ketchup.dates.format(value);
             }
         }
         if (checkByRegularExpression) {

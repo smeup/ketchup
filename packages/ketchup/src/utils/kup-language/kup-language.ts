@@ -77,7 +77,7 @@ export class KupLanguage {
         }
     }
     /**
-     * Changes the current Ketch.UP language to the one provided. If the language argument contains a "_", a combo of language and variant will be assumed.
+     * Changes the current Ketchup language to the one provided. If the language argument contains a "_", a combo of language and variant will be assumed.
      * @param {string} language - The new language. If not present in this.list, this function will keep the previous language.
      */
     set(language: string): void {

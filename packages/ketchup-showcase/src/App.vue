@@ -238,7 +238,7 @@
         class="footer__icon--leading"
         target="_blank"
         rel="noopener"
-        title="View Ketch.UP on GitHub"
+        title="View Ketchup on GitHub"
         href="https://github.com/smeup/ketchup"
       >
         <kup-image
@@ -254,7 +254,7 @@
         class="footer__icon--trailing"
         target="_blank"
         rel="noopener"
-        title="View Ketch.UP on npm"
+        title="View Ketchup on npm"
         href="https://www.npmjs.com/package/@sme.up/ketchup"
       >
         <kup-image
@@ -985,7 +985,8 @@ label {
 }
 
 .navbar__logo {
-  height: 100%;
+  height: 85%;
+  margin-left: 10px;
 }
 
 .drawer-grid {
