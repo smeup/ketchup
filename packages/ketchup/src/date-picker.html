@@ -36,9 +36,17 @@
         </style>
     </head>
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
         <h1>Date picker</h1>
         <h4>init on Monday</h4>
-        <kup-date-picker id="date-picker1"></kup-date-picker>
+        <kup-date-picker
+            id="date-picker1"
+            initial-value="2021-11-01"
+        ></kup-date-picker>
         <h4>init on Sunday</h4>
         <kup-date-picker
             id="date-picker2"

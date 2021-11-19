@@ -1,14 +1,13 @@
 import numeral from 'numeral';
 import { GenericObject, Identifiable } from '../types/GenericTypes';
-import { KupDates } from './kup-dates/kup-dates';
 import { KupDom } from './kup-manager/kup-manager-declarations';
 import {
     KupDatesFormats,
     KupDatesNormalize,
 } from './kup-dates/kup-dates-declarations';
+import { KupDates } from './kup-dates/kup-dates';
 
 const dom: KupDom = document.documentElement as KupDom;
-const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 
 export enum DateTimeFormatOptionsMonth {
     NUMERIC = 'numeric',
@@ -58,13 +57,6 @@ export function eventFromElement(
     return false;
 }
 
-export function getCurrentLocale(): string {
-    if (navigator == null || navigator.language == null) {
-        return 'en-US';
-    }
-    return navigator.language;
-}
-
 function getSeparator(locale, separatorType) {
     const numberWithGroupAndDecimalSeparator = 1000.1;
     return Intl.NumberFormat(locale)
@@ -74,7 +66,7 @@ function getSeparator(locale, separatorType) {
 
 export function getCurrentDateFormatFromBrowserLocale(): string {
     const formatObj = new Intl.DateTimeFormat(
-        kupDates.getLocale()
+        dom.ketchup.dates.getLocale()
     ).formatToParts(new Date());
 
     let dateFormat = formatObj
@@ -104,7 +96,7 @@ function getCurrentTimeFormatFromBrowserLocale(manageSeconds: boolean): string {
         options.second = '2-digit';
     }
     const formatObj = new Intl.DateTimeFormat(
-        kupDates.getLocale() + '-u-hc-h23',
+        dom.ketchup.dates.getLocale() + '-u-hc-h23',
         options
     ).formatToParts(new Date());
     let timeFormat = formatObj
@@ -202,7 +194,12 @@ export function numberToString(input: number, decimals: number): string {
     if (input == null) {
         return '';
     }
-    return _numberToString(input, decimals, getCurrentLocale(), true);
+    return _numberToString(
+        input,
+        decimals,
+        dom.ketchup.dates.getLocale(),
+        true
+    );
 }
 
 /**
@@ -269,7 +266,7 @@ export function formattedStringToUnformattedStringNumber(
     return numberStringToNumberString(
         input,
         type,
-        getDecimalSeparator(getCurrentLocale())
+        getDecimalSeparator(dom.ketchup.dates.getLocale())
     );
 }
 
@@ -369,7 +366,10 @@ export function formatTime(time: Date, manageSeconds: boolean): string {
     if (manageSeconds == true) {
         options.second = '2-digit';
     }
-    return time.toLocaleTimeString(kupDates.getLocale() + '-u-hc-h23', options);
+    return time.toLocaleTimeString(
+        dom.ketchup.dates.getLocale() + '-u-hc-h23',
+        options
+    );
 }
 
 /**
@@ -381,7 +381,7 @@ export function isValidFormattedStringTime(
     manageSeconds: boolean
 ): boolean {
     let format = getCurrentTimeFormatFromBrowserLocale(manageSeconds);
-    return kupDates.isValid(value, format, true);
+    return dom.ketchup.dates.isValid(value, format, true);
 }
 
 /**
@@ -423,9 +423,9 @@ export function formattedStringToCustomUnformattedStringTime(
 ): string {
     let inputFormat: string =
         getCurrentTimeFormatFromBrowserLocale(manageSeconds);
-    if (kupDates.isValid(value, inputFormat)) {
-        return kupDates.format(
-            kupDates.normalize(value, KupDatesNormalize.TIME),
+    if (dom.ketchup.dates.isValid(value, inputFormat)) {
+        return dom.ketchup.dates.format(
+            dom.ketchup.dates.normalize(value, KupDatesNormalize.TIME),
             outputFormat
         );
     } else {
@@ -453,8 +453,8 @@ export function unformattedStringToFormattedStringTime(
     if (manageSeconds == true) {
         options.second = '2-digit';
     }
-    let date = kupDates.toDate(
-        kupDates.normalize(value, KupDatesNormalize.TIME)
+    let date = dom.ketchup.dates.toDate(
+        dom.ketchup.dates.normalize(value, KupDatesNormalize.TIME)
     );
 
     return formatByCustomedOutputTimeFormat(
@@ -473,7 +473,7 @@ function formatByCustomedOutputTimeFormat(
 ): string {
     if (customedFormat == null) {
         return date.toLocaleTimeString(
-            kupDates.getLocale() + '-u-hc-h23',
+            dom.ketchup.dates.getLocale() + '-u-hc-h23',
             options
         );
     }
@@ -546,7 +546,10 @@ function formatByCustomedOutputTimeFormat(
         }
     }
 
-    return date.toLocaleTimeString(kupDates.getLocale() + '-u-hc-h23', options);
+    return date.toLocaleTimeString(
+        dom.ketchup.dates.getLocale() + '-u-hc-h23',
+        options
+    );
 }
 
 /**
@@ -564,10 +567,13 @@ export function unformattedStringToFormattedStringTimestamp(value: string) {
         second: '2-digit',
         hour12: false,
     };
-    let date = kupDates.toDate(
-        kupDates.normalize(value, KupDatesNormalize.TIMESTAMP)
+    let date = dom.ketchup.dates.toDate(
+        dom.ketchup.dates.normalize(value, KupDatesNormalize.TIMESTAMP)
     );
-    return date.toLocaleString(kupDates.getLocale() + '-u-hc-h23', options);
+    return date.toLocaleString(
+        dom.ketchup.dates.getLocale() + '-u-hc-h23',
+        options
+    );
 }
 
 export function getMonthAsStringByLocale(
@@ -584,7 +590,7 @@ export function getMonthAsStringByLocale(
         month: format,
     };
     const dateTimeFormat = new Intl.DateTimeFormat(
-        kupDates.getLocale(),
+        dom.ketchup.dates.getLocale(),
         options
     );
     return dateTimeFormat.format(dateTmp);
@@ -613,7 +619,7 @@ export function getDayAsStringByLocale(date: Date): string {
         /** weekday: 'narrow' 'short' 'long' */
     };
     const dateTimeFormat = new Intl.DateTimeFormat(
-        kupDates.getLocale(),
+        dom.ketchup.dates.getLocale(),
         options
     );
     return dateTimeFormat.format(date);

@@ -8,7 +8,7 @@ import 'dayjs/locale/it';
 import 'dayjs/locale/pl';
 import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
-import { KupDatesNormalize } from './kup-dates-declarations';
+import { KupDatesLocales, KupDatesNormalize } from './kup-dates-declarations';
 
 /**
  * Handles operations and formatting of dates.
@@ -55,6 +55,16 @@ export class KupDates {
      */
     getLocale(): string {
         return this.locale;
+    }
+    /**
+     * Gets the available locale.
+     * @returns {Array<string>} Array of locale' names.
+     */
+    getLocales(): Array<string> {
+        const items: Array<string> = Object.keys(KupDatesLocales)
+            .map((key) => KupDatesLocales[key])
+            .filter((value) => typeof value === 'string') as Array<string>;
+        return items;
     }
     /**
      * Formats the given date.
