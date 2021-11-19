@@ -80,6 +80,7 @@ export enum KupLanguageDebug {
     DL_PROPS = 'debugDLProps',
     DL_PROPS_COMP = 'debugDLPropsComp',
     LANGUAGE_CHANGER = 'debugLanguageChanger',
+    LOCALE_CHANGER = 'debugLocaleChanger',
     LOG_LIMIT = 'debugLogLimit',
     MAGIC_BOX = 'debugMagicBox',
     OFF = 'debugOff',

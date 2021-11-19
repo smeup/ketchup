@@ -11,6 +11,8 @@ import {
 
 import { GroupLabelDisplayMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import { unformattedStringToFormattedStringNumber } from '../../../src/utils/utils';
+import { KupDom } from '../../../src/utils/kup-manager/kup-manager-declarations';
+import { KupManager } from '../../../src/utils/kup-manager/kup-manager';
 
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 
@@ -18,6 +20,9 @@ const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 //const expandIcon = 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z';
 const expandClass = 'collapsed';
 const collapseClass = 'expanded';
+
+const dom: KupDom = document.documentElement as KupDom;
+dom.ketchup = new KupManager();
 
 describe.skip('kup-data-table with single grouping', () => {
     it('visible group and expansion', async () => {

@@ -1,7 +1,11 @@
 import { Component, Prop, Event, h, EventEmitter } from '@stencil/core';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
-import { getCurrentLocale, getDecimalSeparator } from '../../utils/utils';
+import { getDecimalSeparator } from '../../utils/utils';
 
 import { Row, TableData } from '../kup-data-table/kup-data-table-declarations';
 
@@ -40,6 +44,15 @@ export class KupDashList {
 
     @Prop()
     data: TableData;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     @Event({
         eventName: 'kup-dash-click',
@@ -135,7 +148,8 @@ export class KupDashList {
                     r.cells[this.data.columns[6].name].obj.k
                 ) {
                     newValue =
-                        newValue + getDecimalSeparator(getCurrentLocale());
+                        newValue +
+                        getDecimalSeparator(this.kupManager.dates.getLocale());
                 }
                 valueInt = (
                     <div slot="value-int" style={valueColor}>

@@ -1,4 +1,6 @@
 import { filterRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
+import { KupManager } from '../../../src/utils/kup-manager/kup-manager';
+import { KupDom } from '../../../src/utils/kup-manager/kup-manager-declarations';
 import { MockedRowsFactory } from './mocked-data';
 
 const mockedRows = MockedRowsFactory();
@@ -12,6 +14,9 @@ const displayedColumns = mockedRows.columns;
 type FilterCompareFunction = (cellValue: string, filterText: string) => boolean;
 
 describe('kup-data-table filters rows', () => {
+    const dom: KupDom = document.documentElement as KupDom;
+    dom.ketchup = new KupManager();
+
     it('filter without parameters', () => {
         const filtered = filterRows();
         expect(filtered).toEqual([]);
@@ -217,26 +222,32 @@ describe('kup-data-table filters rows', () => {
                         displayedColumns
                     );
 
-                    const filterProofRowsCount = mockedRowsWithEmptyValues.rows.reduce(
-                        (displayedRowsCount, { cells }) => {
-                            let compareResult = compareFunction(
-                                cells[columnToFilterOn].value,
-                                filterText
-                            );
-                            if (!compareResult && cells[columnToFilterOn].obj) {
-                                compareResult = compareFunction(
-                                    cells[columnToFilterOn].obj.k,
+                    const filterProofRowsCount =
+                        mockedRowsWithEmptyValues.rows.reduce(
+                            (displayedRowsCount, { cells }) => {
+                                let compareResult = compareFunction(
+                                    cells[columnToFilterOn].value,
                                     filterText
                                 );
-                            }
-                            return (displayedRowsCount += (
-                                isAffirmative ? compareResult : !compareResult
-                            )
-                                ? 1
-                                : 0); // [1]
-                        },
-                        0
-                    );
+                                if (
+                                    !compareResult &&
+                                    cells[columnToFilterOn].obj
+                                ) {
+                                    compareResult = compareFunction(
+                                        cells[columnToFilterOn].obj.k,
+                                        filterText
+                                    );
+                                }
+                                return (displayedRowsCount += (
+                                    isAffirmative
+                                        ? compareResult
+                                        : !compareResult
+                                )
+                                    ? 1
+                                    : 0); // [1]
+                            },
+                            0
+                        );
                     expect(filtered).toHaveLength(filterProofRowsCount);
 
                     filtered.forEach((row) => {
@@ -265,19 +276,20 @@ describe('kup-data-table filters rows', () => {
                         displayedColumns
                     );
 
-                    const filterProofRowsCount = mockedRowsWithEmptyValues.rows.reduce(
-                        (displayedRowsCount, { cells }) => {
-                            let foundItem = false;
-                            for (
-                                let i = 0;
-                                i < displayedColumns.length && !foundItem;
-                                i++
-                            ) {
-                                foundItem = compareFunction(
-                                    cells[displayedColumns[i].name].value,
-                                    filterText
-                                );
-                                /*if (
+                    const filterProofRowsCount =
+                        mockedRowsWithEmptyValues.rows.reduce(
+                            (displayedRowsCount, { cells }) => {
+                                let foundItem = false;
+                                for (
+                                    let i = 0;
+                                    i < displayedColumns.length && !foundItem;
+                                    i++
+                                ) {
+                                    foundItem = compareFunction(
+                                        cells[displayedColumns[i].name].value,
+                                        filterText
+                                    );
+                                    /*if (
                                     !foundItem &&
                                     cells[displayedColumns[i].name].obj
                                 ) {
@@ -286,16 +298,16 @@ describe('kup-data-table filters rows', () => {
                                         filterText
                                     );
                                 }*/
-                            }
+                                }
 
-                            return (displayedRowsCount +=
-                                (foundItem && isAffirmative) ||
-                                (!foundItem && !isAffirmative)
-                                    ? 1
-                                    : 0); // [1]
-                        },
-                        0
-                    );
+                                return (displayedRowsCount +=
+                                    (foundItem && isAffirmative) ||
+                                    (!foundItem && !isAffirmative)
+                                        ? 1
+                                        : 0); // [1]
+                            },
+                            0
+                        );
 
                     // Expect to match the given number of items
                     expect(filtered).toHaveLength(filterProofRowsCount);

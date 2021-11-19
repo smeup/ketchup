@@ -88,6 +88,16 @@ export class KupDebug {
                     themes[index] === dom.ketchup.theme.name ? true : false,
             });
         }
+        const locales: string[] = dom.ketchup.dates.getLocales();
+        const localesListData: KupListData[] = [];
+        for (let index = 0; index < locales.length; index++) {
+            localesListData.push({
+                text: locales[index],
+                value: locales[index],
+                selected:
+                    locales[index] === dom.ketchup.dates.locale ? true : false,
+            });
+        }
         debugWidget.data = {
             button: [
                 {
@@ -209,6 +219,26 @@ export class KupDebug {
                     initialValue: dom.ketchup.language.name,
                     isSelect: true,
                 },
+                {
+                    className: 'kup-full-height',
+                    data: {
+                        'kup-list': {
+                            data: localesListData,
+                            id: 'kup-debug-locale-changer-list',
+                        },
+                        'kup-text-field': {
+                            className: 'kup-full-height',
+                            emitSubmitEventOnEnter: false,
+                            inputType: 'text',
+                            label: dom.ketchup.language.translate(
+                                KupLanguageDebug.LOCALE_CHANGER
+                            ),
+                        },
+                    },
+                    id: 'kup-debug-locale-changer',
+                    initialValue: dom.ketchup.dates.locale,
+                    isSelect: true,
+                },
             ],
             textfield: [
                 {
@@ -224,7 +254,7 @@ export class KupDebug {
             ],
         };
         debugWidget.customStyle =
-            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;} #kup-debug-language-changer {width: 190px;}';
+            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;} #kup-debug-language-changer {width: 190px;} #kup-debug-locale-changer {width: 190px;}';
         debugWidget.id = 'kup-debug-widget';
         debugWidget.layoutFamily = KupCardFamily.DIALOG;
         debugWidget.layoutNumber = 3;
@@ -233,6 +263,7 @@ export class KupDebug {
         debugWidget.addEventListener('kup-card-event', (e: CustomEvent) =>
             this.handleEvents(e)
         );
+
         this.container.append(debugWidget);
         this.#debugWidget = debugWidget;
     }
@@ -463,6 +494,9 @@ export class KupDebug {
                 switch (compID) {
                     case 'kup-debug-language-changer':
                         dom.ketchup.language.set(compEvent.detail.value);
+                        break;
+                    case 'kup-debug-locale-changer':
+                        dom.ketchup.dates.setLocale(compEvent.detail.value);
                         break;
                     case 'kup-debug-theme-changer':
                         dom.ketchup.theme.set(compEvent.detail.value);
