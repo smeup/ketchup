@@ -41,6 +41,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 @Component({
     tag: 'kup-time-picker',
     styleUrl: 'kup-time-picker.scss',
@@ -120,6 +121,7 @@ export class KupTimePicker {
     private pickerContainerEl: HTMLElement = undefined;
     private pickerEl: HTMLElement = undefined;
     private pickerOpened: boolean = false;
+    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -464,13 +466,15 @@ export class KupTimePicker {
             elStyle.height = 'auto';
             elStyle.minWidth = textfieldEl.clientWidth + 'px';
         }
-        this.kupManager.utilities.pointerDownCallbacks.add({
-            cb: () => {
-                this.closePicker();
-            },
-            onlyOnce: true,
-            el: this.pickerContainerEl,
-        });
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.closePicker();
+                },
+                el: this.pickerContainerEl,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
         this.refresh();
     }
 
@@ -485,6 +489,7 @@ export class KupTimePicker {
         if (containerEl != null) {
             containerEl.classList.remove('visible');
         }
+        this.kupManager.removeClickCallback(this.clickCb);
     }
 
     isPickerOpened(): boolean {

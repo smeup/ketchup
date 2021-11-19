@@ -118,7 +118,7 @@
         their container and resize their content accordingly (8 layouts).
         <br />
         <span class="code-word">standard</span>: consists of static layouts
-        without additional features for common use cases (14 layouts).
+        without additional features for common use cases (15 layouts).
       </p>
       <br />
       <p class="centered">Sample markup</p>

@@ -15,7 +15,7 @@ import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { ResizeObserver } from 'resize-observer';
 /**
- * Interface used to define the HTML element with Ketch.UP specific properties.
+ * Interface used to define the HTML element with Ketchup specific properties.
  */
 export interface KupDom extends HTMLHtmlElement {
     ketchup: KupManager;
@@ -42,21 +42,21 @@ export interface KupManager {
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
     setLibraryLocalization: (locale: string) => void;
+    addClickCallback: (cb: KupManagerClickCb, async?: boolean) => void;
+    removeClickCallback: (cb: KupManagerClickCb) => void;
 }
 /**
  * Interface for the KupManager utilities.
  */
 export interface KupManagerUtilities {
-    lastPointerDownPath?: EventTarget[];
+    clickCallbacks?: Set<KupManagerClickCb>;
     lastPointerDownString?: string;
-    pointerDownCallbacks?: Set<KupManagerPointerDownCb>;
 }
 /**
  * Interface to declare callbacks automatically invoked on pointer down events.
  */
-export interface KupManagerPointerDownCb {
+export interface KupManagerClickCb {
     cb: () => unknown;
-    onlyOnce?: boolean;
     el?: HTMLElement;
 }
 /**

@@ -346,7 +346,7 @@ table#customstyle-tab kup-text-field {
 }
 
 #sample-wrapper.detached #sample-dynamic {
-  padding-top: 50px;
+  padding-top: calc(1em * 3.25);
   padding-bottom: 0;
 }
 

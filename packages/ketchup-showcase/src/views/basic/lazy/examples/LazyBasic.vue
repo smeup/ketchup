@@ -2,7 +2,7 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        The lazy component wraps another Ketch.UP component, which must be
+        The lazy component wraps another Ketchup component, which must be
         defined in the
         <span class="code-word">componentName</span> prop, loading it when it
         enters the viewport. This component will be loaded using the

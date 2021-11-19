@@ -153,7 +153,7 @@ function createComp() {
   slotFLD3.sizeY = '300px';
   slotFLD3.slot = 'FLD3';
   const slotFLD4 = document.createElement('div');
-  slotFLD4.innerText = 'This is a simple div which uses Ketch.UP theme colors.';
+  slotFLD4.innerText = 'This is a simple div which uses Ketchup theme colors.';
   slotFLD4.slot = 'FLD4';
   slotFLD4.style.background = 'var(--kup-primary-color)';
   slotFLD4.style.color = 'var(--kup-text-on-primary-color)';

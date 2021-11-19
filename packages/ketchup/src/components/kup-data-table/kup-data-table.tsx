@@ -161,6 +161,7 @@ import {
     KupPointerEventTypes,
     KupResizeCallbacks,
 } from '../../utils/kup-interact/kup-interact-declarations';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -816,6 +817,7 @@ export class KupDataTable {
     private dropareaRef: HTMLElement = null;
     private removeDropareaRef: HTMLElement = null;
     private groupsDropareaRef: HTMLElement = null;
+    private clickCb: KupManagerClickCb = null;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -2986,6 +2988,7 @@ export class KupDataTable {
 
     private closeTotalMenu() {
         this.openedTotalMenu = null;
+        this.kupManager.removeClickCallback(this.clickCb);
     }
 
     private closeMenuAndTooltip() {
@@ -3634,16 +3637,13 @@ export class KupDataTable {
                     menu as unknown as KupDynamicPositionElement,
                     this.totalMenuCoords
                 );
-                this.kupManager.utilities.pointerDownCallbacks.add({
+                this.clickCb = {
                     cb: () => {
                         this.closeTotalMenu();
-                        this.kupManager.dynamicPosition.stop(
-                            menu as unknown as KupDynamicPositionElement
-                        );
                     },
-                    onlyOnce: true,
                     el: menu,
-                });
+                };
+                this.kupManager.addClickCallback(this.clickCb, true);
                 this.kupManager.dynamicPosition.start(
                     menu as unknown as KupDynamicPositionElement
                 );
