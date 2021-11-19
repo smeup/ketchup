@@ -985,7 +985,8 @@ label {
 }
 
 .navbar__logo {
-  height: 100%;
+  height: 85%;
+  margin-left: 10px;
 }
 
 .drawer-grid {

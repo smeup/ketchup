@@ -22,7 +22,9 @@ const expandClass = 'collapsed';
 const collapseClass = 'expanded';
 
 const dom: KupDom = document.documentElement as KupDom;
-dom.ketchup = new KupManager();
+if (!dom.ketchup) {
+    dom.ketchup = new KupManager();
+}
 
 describe.skip('kup-data-table with single grouping', () => {
     it('visible group and expansion', async () => {

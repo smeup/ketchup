@@ -14,6 +14,7 @@ import type { KupTheme } from '../kup-theme/kup-theme';
 import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { ResizeObserver } from 'resize-observer';
+import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -41,7 +42,7 @@ export interface KupManager {
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
-    setLibraryLocalization: (locale: string) => void;
+    setLibraryLocalization: (locale: KupDatesLocales) => void;
     addClickCallback: (cb: KupManagerClickCb, async?: boolean) => void;
     removeClickCallback: (cb: KupManagerClickCb) => void;
 }
@@ -75,7 +76,7 @@ export interface KupManagerInitialization {
  * KupDates initialization settings.
  */
 export interface KupManagerDatesSettings {
-    locale?: string;
+    locale?: KupDatesLocales;
 }
 /**
  * KupDebug initialization settings.

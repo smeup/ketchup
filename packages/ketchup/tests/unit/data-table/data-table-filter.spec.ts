@@ -4,19 +4,17 @@ import { KupDom } from '../../../src/utils/kup-manager/kup-manager-declarations'
 import { MockedRowsFactory } from './mocked-data';
 
 const mockedRows = MockedRowsFactory();
-
 const mockedRowsWithEmptyValues = MockedRowsFactory();
 mockedRowsWithEmptyValues.rows[0].cells.FLD1.value = '';
 mockedRowsWithEmptyValues.rows[2].cells.FLD1.value = '';
-
 const displayedColumns = mockedRows.columns;
-
 type FilterCompareFunction = (cellValue: string, filterText: string) => boolean;
+const dom: KupDom = document.documentElement as KupDom;
+if (!dom.ketchup) {
+    dom.ketchup = new KupManager();
+}
 
 describe('kup-data-table filters rows', () => {
-    const dom: KupDom = document.documentElement as KupDom;
-    dom.ketchup = new KupManager();
-
     it('filter without parameters', () => {
         const filtered = filterRows();
         expect(filtered).toEqual([]);
