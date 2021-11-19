@@ -115,6 +115,7 @@ graph TD;
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
+  kup-data-table --> kup-editor
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-rating

@@ -235,6 +235,8 @@ export function getCellType(cell: Cell) {
         return 'rating';
     } else if (isChip(cell, null)) {
         return 'chips';
+    } else if (isEditor(cell, null)) {
+        return 'editor';
     } else if (kupObjects.isNumber(obj)) {
         return 'number';
     } else if (kupObjects.isDate(obj)) {

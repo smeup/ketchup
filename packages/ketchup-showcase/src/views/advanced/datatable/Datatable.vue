@@ -13,78 +13,81 @@
       <datatable-filters></datatable-filters>
     </template>
     <template v-slot:4>
-      <datatable-graphic-cell></datatable-graphic-cell>
+      <datatable-html-cell></datatable-html-cell>
     </template>
     <template v-slot:5>
-      <datatable-date-time-number-cell></datatable-date-time-number-cell>
+      <datatable-graphic-cell></datatable-graphic-cell>
     </template>
     <template v-slot:6>
-      <datatable-chart-cell></datatable-chart-cell>
+      <datatable-date-time-number-cell></datatable-date-time-number-cell>
     </template>
     <template v-slot:7>
-      <datatable-groups></datatable-groups>
+      <datatable-chart-cell></datatable-chart-cell>
     </template>
     <template v-slot:8>
-      <datatable-fixed-columns-rows />
+      <datatable-groups></datatable-groups>
     </template>
     <template v-slot:9>
-      <datatable-j4btn></datatable-j4btn>
+      <datatable-fixed-columns-rows />
     </template>
     <template v-slot:10>
-      <datatable-pagination></datatable-pagination>
+      <datatable-j4btn></datatable-j4btn>
     </template>
     <template v-slot:11>
-      <datatable-progressbar></datatable-progressbar>
+      <datatable-pagination></datatable-pagination>
     </template>
     <template v-slot:12>
-      <datatable-radio></datatable-radio>
+      <datatable-progressbar></datatable-progressbar>
     </template>
     <template v-slot:13>
-      <datatable-row-actions></datatable-row-actions>
+      <datatable-radio></datatable-radio>
     </template>
     <template v-slot:14>
-      <datatable-row-selection></datatable-row-selection>
+      <datatable-row-actions></datatable-row-actions>
     </template>
     <template v-slot:15>
-      <datatable-without-row-selection></datatable-without-row-selection>
+      <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:16>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-without-row-selection></datatable-without-row-selection>
     </template>
     <template v-slot:17>
-      <datatable-sort></datatable-sort>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:18>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:19>
-      <datatable-tooltip></datatable-tooltip>
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:20>
-      <datatable-total></datatable-total>
+      <datatable-tooltip></datatable-tooltip>
     </template>
     <template v-slot:21>
-      <datatable-j4ico></datatable-j4ico>
+      <datatable-total></datatable-total>
     </template>
     <template v-slot:22>
-      <datatable-images-and-badges />
+      <datatable-j4ico></datatable-j4ico>
     </template>
     <template v-slot:23>
-      <datatable-shapes></datatable-shapes>
+      <datatable-images-and-badges />
     </template>
     <template v-slot:24>
-      <datatable-cell-classes></datatable-cell-classes>
+      <datatable-shapes></datatable-shapes>
     </template>
     <template v-slot:25>
-      <datatable-j1col></datatable-j1col>
+      <datatable-cell-classes></datatable-cell-classes>
     </template>
     <template v-slot:26>
-      <datatable-jl></datatable-jl>
+      <datatable-j1col></datatable-j1col>
     </template>
     <template v-slot:27>
-      <datatable-report-like></datatable-report-like>
+      <datatable-jl></datatable-jl>
     </template>
     <template v-slot:28>
+      <datatable-report-like></datatable-report-like>
+    </template>
+    <template v-slot:29>
       <datatable-document-like></datatable-document-like>
     </template>
   </comp>
@@ -127,6 +130,7 @@ import DatatableShapes from '@/views/advanced/datatable/examples/DatatableShapes
 import DatatableCellClasses from '@/views/advanced/datatable/examples/DatatableCellClasses';
 import DatatableReportLike from '@/views/advanced/datatable/examples/DatatableReportLike';
 import DatatableDocumentLike from '@/views/advanced/datatable/examples/DatatableDocumentLike';
+import DatatableHtmlCell from '@/views/advanced/datatable/examples/DatatableHtmlCell';
 
 import Comp from '@/views/advanced/page/templates/Comp';
 
@@ -161,6 +165,7 @@ export default {
     DatatableJl,
     DatatableReportLike,
     DatatableDocumentLike,
+    DatatableHtmlCell,
     Comp,
   },
   data() {
@@ -173,6 +178,7 @@ export default {
         'Basic usage',
         'With checkboxes',
         'With filters',
+        'Html Cell',
         'Graphic cells',
         'Date, time, timestamp, number cells',
         'Chart cells',
