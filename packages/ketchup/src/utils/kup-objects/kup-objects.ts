@@ -5,7 +5,6 @@ import type { KupObj, KupObjectsJSON } from './kup-objects-declarations';
 import * as objJson from './obj.json';
 
 const dom: KupDom = document.documentElement as KupDom;
-const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
 
 /**
  * Handles objects definition and validation.
@@ -297,8 +296,8 @@ export class KupObjects {
      */
     parseDate(obj: KupObj): Dayjs {
         if (obj.t === 'D8' && obj.p === '*DMYY') {
-            return kupDates.toDayjs(obj.k, 'DDMMYYYY');
+            return dom.ketchup.dates.toDayjs(obj.k, 'DDMMYYYY');
         }
-        return kupDates.toDayjs(obj.k);
+        return dom.ketchup.dates.toDayjs(obj.k);
     }
 }

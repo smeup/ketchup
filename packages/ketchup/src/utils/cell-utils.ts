@@ -13,16 +13,10 @@ import {
     unformattedStringToFormattedStringTimestamp,
 } from './utils';
 import { ValueDisplayedValue } from './filters/filters-declarations';
-import { KupObjects } from './kup-objects/kup-objects';
 import { KupDom } from './kup-manager/kup-manager-declarations';
-import { KupDates } from './kup-dates/kup-dates';
 import { KupDatesFormats } from './kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
-const kupDates: KupDates = dom.ketchup ? dom.ketchup.dates : new KupDates();
-const kupObjects: KupObjects = dom.ketchup
-    ? dom.ketchup.objects
-    : new KupObjects();
 
 // -------------
 // COMMONS
@@ -67,7 +61,10 @@ export function isProgressBar(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
         'PGB' === shape ||
-        (!shape && cell && cell.obj && kupObjects.isProgressBar(cell.obj))
+        (!shape &&
+            cell &&
+            cell.obj &&
+            dom.ketchup.objects.isProgressBar(cell.obj))
     );
 }
 
@@ -79,7 +76,10 @@ export function isChip(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
         'CHI' === shape ||
-        (!shape && cell && cell.obj && kupObjects.isKupObjList(cell.obj))
+        (!shape &&
+            cell &&
+            cell.obj &&
+            dom.ketchup.objects.isKupObjList(cell.obj))
     );
 }
 
@@ -91,7 +91,7 @@ export function isImage(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
         'IMG' === shape ||
-        (!shape && cell && cell.obj && kupObjects.isImage(cell.obj))
+        (!shape && cell && cell.obj && dom.ketchup.objects.isImage(cell.obj))
     );
 }
 
@@ -148,7 +148,7 @@ export function isColor(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
         'CLP' === shape ||
-        (!shape && cell && cell.obj && kupObjects.isColor(cell.obj))
+        (!shape && cell && cell.obj && dom.ketchup.objects.isColor(cell.obj))
     );
 }
 
@@ -160,7 +160,7 @@ export function isChart(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
         'GRA' === shape ||
-        (!shape && cell && cell.obj && kupObjects.isChart(cell.obj))
+        (!shape && cell && cell.obj && dom.ketchup.objects.isChart(cell.obj))
     );
 }
 
@@ -172,7 +172,7 @@ export function isRadio(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
         'RAD' === shape ||
-        (!shape && cell && cell.obj && kupObjects.isRadio(cell.obj))
+        (!shape && cell && cell.obj && dom.ketchup.objects.isRadio(cell.obj))
     );
 }
 
@@ -207,13 +207,13 @@ export function getCellType(cell: Cell) {
     let obj = cell.obj;
     if (isButtonList(cell)) {
         return 'btn';
-    } else if (kupObjects.isBar(obj)) {
+    } else if (dom.ketchup.objects.isBar(obj)) {
         return 'bar';
-    } else if (kupObjects.isButton(obj)) {
+    } else if (dom.ketchup.objects.isButton(obj)) {
         return 'button';
-    } else if (kupObjects.isChart(obj)) {
+    } else if (dom.ketchup.objects.isChart(obj)) {
         return 'chart';
-    } else if (kupObjects.isCheckbox(obj)) {
+    } else if (dom.ketchup.objects.isCheckbox(obj)) {
         return 'checkbox';
     } else if (isColor(cell, null)) {
         return 'color-picker';
@@ -221,11 +221,11 @@ export function getCellType(cell: Cell) {
         return 'gauge';
     } else if (isKnob(cell, null)) {
         return 'knob';
-    } else if (kupObjects.isIcon(obj)) {
+    } else if (dom.ketchup.objects.isIcon(obj)) {
         return 'icon';
     } else if (isImage(cell, null)) {
         return 'image';
-    } else if (kupObjects.isLink(obj)) {
+    } else if (dom.ketchup.objects.isLink(obj)) {
         return 'link';
     } else if (isProgressBar(cell, null)) {
         return 'progress-bar';
@@ -235,17 +235,17 @@ export function getCellType(cell: Cell) {
         return 'rating';
     } else if (isChip(cell, null)) {
         return 'chips';
-    } else if (kupObjects.isNumber(obj)) {
+    } else if (dom.ketchup.objects.isNumber(obj)) {
         return 'number';
-    } else if (kupObjects.isDate(obj)) {
+    } else if (dom.ketchup.objects.isDate(obj)) {
         return 'date';
-    } else if (kupObjects.isTimestamp(obj)) {
+    } else if (dom.ketchup.objects.isTimestamp(obj)) {
         return 'datetime';
-    } else if (kupObjects.isTime(obj)) {
+    } else if (dom.ketchup.objects.isTime(obj)) {
         return 'time';
-    } else if (kupObjects.isTextField(obj)) {
+    } else if (dom.ketchup.objects.isTextField(obj)) {
         return 'text-field';
-    } else if (kupObjects.isVoCodver(obj)) {
+    } else if (dom.ketchup.objects.isVoCodver(obj)) {
         return 'icon';
     } else {
         return 'string';
@@ -306,7 +306,7 @@ export function getValueForDisplay(value, obj, decimals: number): string {
     if (value == null || value.trim() == '') {
         return value;
     }
-    if (kupObjects.isNumber(obj)) {
+    if (dom.ketchup.objects.isNumber(obj)) {
         return unformattedStringToFormattedStringNumber(
             value,
             decimals ? decimals : -1,
@@ -314,19 +314,19 @@ export function getValueForDisplay(value, obj, decimals: number): string {
         );
     }
     if (
-        kupObjects.isDate(obj) &&
-        kupDates.isValid(value, KupDatesFormats.ISO_DATE)
+        dom.ketchup.objects.isDate(obj) &&
+        dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)
     ) {
-        return kupDates.format(value);
+        return dom.ketchup.dates.format(value);
     }
-    if (kupObjects.isTime(obj)) {
+    if (dom.ketchup.objects.isTime(obj)) {
         return unformattedStringToFormattedStringTime(
             value,
-            kupObjects.isTimeWithSeconds(obj),
+            dom.ketchup.objects.isTimeWithSeconds(obj),
             obj.t + obj.p
         );
     }
-    if (kupObjects.isTimestamp(obj)) {
+    if (dom.ketchup.objects.isTimestamp(obj)) {
         return unformattedStringToFormattedStringTimestamp(value);
     }
     return value;
@@ -398,36 +398,40 @@ export function compareValues(
 
     let v1: any = s1;
     let v2: any = s2;
-    if (kupObjects.isNumber(obj1)) {
+    if (dom.ketchup.objects.isNumber(obj1)) {
         v1 = stringToNumber(s1);
         v2 = stringToNumber(s2);
-    } else if (kupObjects.isDate(obj1)) {
-        v1 = kupDates.toDate(kupDates.format(s1, KupDatesFormats.ISO_DATE));
-        v2 = kupDates.toDate(kupDates.format(s2, KupDatesFormats.ISO_DATE));
-    } else if (kupObjects.isTime(obj1)) {
-        let manageSeconds = kupObjects.isTimeWithSeconds(obj1);
-        v1 = kupDates.toDate(
-            kupDates.format(
+    } else if (dom.ketchup.objects.isDate(obj1)) {
+        v1 = dom.ketchup.dates.toDate(
+            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE)
+        );
+        v2 = dom.ketchup.dates.toDate(
+            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE)
+        );
+    } else if (dom.ketchup.objects.isTime(obj1)) {
+        let manageSeconds = dom.ketchup.objects.isTimeWithSeconds(obj1);
+        v1 = dom.ketchup.dates.toDate(
+            dom.ketchup.dates.format(
                 s1,
                 manageSeconds
                     ? KupDatesFormats.ISO_TIME
                     : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             )
         );
-        v2 = kupDates.toDate(
-            kupDates.format(
+        v2 = dom.ketchup.dates.toDate(
+            dom.ketchup.dates.format(
                 s2,
                 manageSeconds
                     ? KupDatesFormats.ISO_TIME
                     : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
             )
         );
-    } else if (kupObjects.isTimestamp(obj1)) {
-        v1 = kupDates.toDate(
-            kupDates.format(s1, KupDatesFormats.ISO_DATE_TIME)
+    } else if (dom.ketchup.objects.isTimestamp(obj1)) {
+        v1 = dom.ketchup.dates.toDate(
+            dom.ketchup.dates.format(s1, KupDatesFormats.ISO_DATE_TIME)
         );
-        v2 = kupDates.toDate(
-            kupDates.format(s2, KupDatesFormats.ISO_DATE_TIME)
+        v2 = dom.ketchup.dates.toDate(
+            dom.ketchup.dates.format(s2, KupDatesFormats.ISO_DATE_TIME)
         );
     }
     if (v1 > v2) {

@@ -16,11 +16,11 @@ import { KupDatesLocales, KupDatesNormalize } from './kup-dates-declarations';
  */
 export class KupDates {
     dayjs: Function;
-    locale: string;
+    locale: KupDatesLocales;
     /**
      * Initializes KupDates.
      */
-    constructor(locale?: string) {
+    constructor(locale?: KupDatesLocales) {
         this.setLocale(locale);
         this.dayjs = dayjs;
         dayjs.extend(customParseFormat);
@@ -32,7 +32,7 @@ export class KupDates {
      * @returns {string} Locale string.
      * @see https://github.com/iamkun/dayjs/issues/732
      */
-    setLocale(locale?: string): string {
+    setLocale(locale?: KupDatesLocales): string {
         if (locale) {
             // Sets locale from string
             this.locale = locale;
@@ -44,7 +44,9 @@ export class KupDates {
             if (!navLangs || !navLangs.length) {
                 return 'en';
             }
-            this.locale = navLangs[0].split('-')[0].toLowerCase();
+            this.locale = navLangs[0]
+                .split('-')[0]
+                .toLowerCase() as KupDatesLocales;
         }
         dayjs.locale(this.locale);
         document.dispatchEvent(new CustomEvent('kup-dates-localechange'));
@@ -57,13 +59,13 @@ export class KupDates {
         return this.locale;
     }
     /**
-     * Gets the available locale.
-     * @returns {Array<string>} Array of locale' names.
+     * Gets the available locales.
+     * @returns {Array<KupDatesLocales>} Array of locales' names.
      */
-    getLocales(): Array<string> {
-        const items: Array<string> = Object.keys(KupDatesLocales)
+    getLocales(): Array<KupDatesLocales> {
+        const items: Array<KupDatesLocales> = Object.keys(KupDatesLocales)
             .map((key) => KupDatesLocales[key])
-            .filter((value) => typeof value === 'string') as Array<string>;
+            .filter((value) => typeof value === 'string');
         return items;
     }
     /**

@@ -1,7 +1,11 @@
 import { calcTotals } from '../../../src/components/kup-data-table/kup-data-table-helper';
 import { TotalMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
-
-console.log(document.documentElement as any);
+import { KupDom } from '../../../src/utils/kup-manager/kup-manager-declarations';
+import { KupManager } from '../../../src/utils/kup-manager/kup-manager';
+const dom: KupDom = document.documentElement as KupDom;
+if (!dom.ketchup) {
+    dom.ketchup = new KupManager();
+}
 const mockedRows = [
     {
         cells: {

@@ -59,7 +59,7 @@ export class KupManager {
      * Initializes KupManager.
      */
     constructor(overrides?: KupManagerInitialization) {
-        let datesLocale: string = null,
+        let datesLocale: KupDatesLocales = null,
             debugActive: boolean = null,
             debugAutoprint: boolean = null,
             debugLogLimit: number = null,
