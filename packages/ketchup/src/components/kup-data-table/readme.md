@@ -258,6 +258,7 @@ Type: `Promise<void>`
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-color-picker](../kup-color-picker)
+- [kup-editor](../kup-editor)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-rating](../kup-rating)
@@ -280,6 +281,7 @@ graph TD;
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
+  kup-data-table --> kup-editor
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-rating
