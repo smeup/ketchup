@@ -4470,7 +4470,7 @@ export class KupDataTable {
                 cell,
                 column
             );
-        } else if (cell.data  || cellType === 'editor') {
+        } else if (cell.data || cellType === 'editor') {
             this.setCellSizeKup(cellType, props, cell);
             if (!this.lazyLoadCells) {
                 content = this.setLazyKupCell(cellType, props);
@@ -4839,7 +4839,7 @@ export class KupDataTable {
                     ></kup-color-picker>
                 );
             case 'editor':
-                return <kup-editor text={cell.value}></kup-editor>;
+                return <div innerHTML={cell.value}></div>;
             case 'gauge':
                 return (
                     <kup-gauge

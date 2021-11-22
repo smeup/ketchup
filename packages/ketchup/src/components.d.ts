@@ -1416,12 +1416,6 @@ export namespace Components {
          */
         "trailingIcon": boolean;
     }
-    interface KupEditor {
-        /**
-          * The html to be rendered and edited
-         */
-        "text": string;
-    }
     interface KupField {
         /**
           * Custom style of the component.
@@ -2800,12 +2794,6 @@ declare global {
         prototype: HTMLKupDropdownButtonElement;
         new (): HTMLKupDropdownButtonElement;
     };
-    interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
-    }
-    var HTMLKupEditorElement: {
-        prototype: HTMLKupEditorElement;
-        new (): HTMLKupEditorElement;
-    };
     interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
     }
     var HTMLKupFieldElement: {
@@ -2958,7 +2946,6 @@ declare global {
         "kup-date-picker": HTMLKupDatePickerElement;
         "kup-drawer": HTMLKupDrawerElement;
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
-        "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
@@ -4183,12 +4170,6 @@ declare namespace LocalJSX {
          */
         "trailingIcon"?: boolean;
     }
-    interface KupEditor {
-        /**
-          * The html to be rendered and edited
-         */
-        "text"?: string;
-    }
     interface KupField {
         /**
           * Custom style of the component.
@@ -5264,7 +5245,6 @@ declare namespace LocalJSX {
         "kup-date-picker": KupDatePicker;
         "kup-drawer": KupDrawer;
         "kup-dropdown-button": KupDropdownButton;
-        "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
@@ -5312,7 +5292,6 @@ declare module "@stencil/core" {
             "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
-            "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
