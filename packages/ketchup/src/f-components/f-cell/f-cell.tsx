@@ -1,16 +1,18 @@
-import { FCellInfo, FCellProps, FCellTypes } from './f-cell-declarations';
-import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { getCellType, getCellValueForDisplay } from '../../utils/cell-utils';
-import {
+import type {
     Cell,
     Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
+import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
+import type { FImageProps } from '../f-image/f-image-declarations';
+import type { FButtonProps } from '../f-button/f-button-declarations';
+import type { KupChart } from '../../components/kup-chart/kup-chart';
+import { FCellInfo, FCellProps, FCellTypes } from './f-cell-declarations';
+import { FunctionalComponent, h, VNode } from '@stencil/core';
+import { getCellType, getCellValueForDisplay } from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
-import { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
 import { FTextField } from '../f-text-field/f-text-field';
 import { stringToNumber } from '../../utils/utils';
-import { FImageProps } from '../f-image/f-image-declarations';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { styleHasWritingMode } from '../../components/kup-data-table/kup-data-table-helper';
@@ -29,10 +31,12 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const cellType = getCellType(cell);
     const subcomponentProps: unknown = { ...cell.data };
     const classObj: Record<string, boolean> = {
-        'cell-content': true,
+        'f-cell--wrapper': true,
         clickable: !!column.clickable,
-        'force-one-line': props.oneLine == true ? true : null,
+        'force-one-line': props.oneLine == true ? true : false,
         [cellType + '-cell']: true,
+        [cell.cssClass]: cell.cssClass ? true : false,
+        [props.wrapperClass]: props.wrapperClass ? true : false,
     };
     let content: unknown = valueToDisplay;
 
@@ -55,6 +59,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         cellType === FCellTypes.NUMBER ||
         cellType === FCellTypes.STRING
     ) {
+        setCellSize(cellType, subcomponentProps, cell);
         content = setCell(
             cellType,
             subcomponentProps,
@@ -64,11 +69,19 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
             column
         );
     } else if (cell.data || cellType === 'editor') {
+        setCellSizeKup(cellType, subcomponentProps, cell);
         if (!props.lazy) {
             const lazyClass = 'cell-' + cellType + ' placeholder';
             content = <span class={lazyClass}></span>;
         } else {
-            content = setKupCell(cellType, classObj, props, cell, row, column);
+            content = setKupCell(
+                cellType,
+                classObj,
+                subcomponentProps,
+                cell,
+                row,
+                column
+            );
         }
     }
 
@@ -80,13 +93,14 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
 
     let icon: VNode = undefined;
     if (!isEditable && (column.icon || cell.icon) && content) {
-        let svg: string = '';
-        if (cell.icon) {
-            svg = cell.icon;
-        } else {
-            svg = column.icon;
-        }
-        icon = <FImage resource={svg} wrapperClass="obj-icon" />;
+        const fProps: FImageProps = {
+            color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
+            resource: cell.icon ? cell.icon : column.icon,
+            sizeX: '1.25em',
+            sizeY: '1.25em',
+            wrapperClass: 'obj-icon',
+        };
+        icon = <FImage {...fProps} />;
     }
 
     let cellTitle: string = null;
@@ -103,7 +117,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         if (!info.icon) {
             info.icon = 'info';
         }
-        let fProps: FImageProps = {
+        const fProps: FImageProps = {
             color: info.color,
             resource: info.icon,
             sizeX: '1.25em',
@@ -115,20 +129,100 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     }
 
     return (
-        <div
-            class={`f-cell--wrapper ${
-                props.wrapperClass ? props.wrapperClass : ''
-            }`}
-        >
-            <div class={classObj} style={style} title={cellTitle}>
-                {props.indents}
-                {infoEl}
-                {icon}
-                {content}
-            </div>
+        <div class={classObj} style={style} title={cellTitle}>
+            {props.indents}
+            {infoEl}
+            {icon}
+            {content}
         </div>
     );
 };
+
+function setCellSize(cellType: string, subcomponentProps: unknown, cell: Cell) {
+    switch (cellType) {
+        case FCellTypes.CHECKBOX:
+        case FCellTypes.ICON:
+            if (!(subcomponentProps as FImageProps).sizeX) {
+                (subcomponentProps as FImageProps).sizeX = '18px';
+            }
+            if (!(subcomponentProps as FImageProps).sizeY) {
+                (subcomponentProps as FImageProps).sizeY = '18px';
+            }
+            if (cell.style) {
+                if (!cell.style.height) {
+                    cell.style['minHeight'] = (
+                        subcomponentProps as FImageProps
+                    ).sizeY;
+                }
+            } else {
+                cell.style = {
+                    minHeight: (subcomponentProps as FImageProps).sizeY,
+                };
+            }
+            break;
+        case FCellTypes.IMAGE:
+            if (!(subcomponentProps as FImageProps).sizeX) {
+                (subcomponentProps as FImageProps).sizeX = 'auto';
+            }
+            if (!(subcomponentProps as FImageProps).sizeY) {
+                (subcomponentProps as FImageProps).sizeY = '64px';
+            }
+            break;
+    }
+}
+
+function setCellSizeKup(
+    cellType: string,
+    subcomponentProps: unknown,
+    cell: Cell
+) {
+    switch (cellType) {
+        case FCellTypes.BAR:
+            if (!(subcomponentProps as FImageProps).sizeY) {
+                (subcomponentProps as FImageProps).sizeY = '26px';
+            }
+            break;
+        case FCellTypes.BUTTON:
+            let height: string = '';
+            if ((subcomponentProps as FButtonProps).label) {
+                height = '36px';
+            }
+            if (cell.style) {
+                if (!cell.style.height) {
+                    cell.style['minHeight'] = height;
+                }
+            } else {
+                cell.style = { minHeight: height };
+            }
+            break;
+        case FCellTypes.CHART:
+            if (!(subcomponentProps as KupChart).sizeX) {
+                (subcomponentProps as KupChart).sizeX = '100%';
+            }
+            if (!(subcomponentProps as KupChart).sizeY) {
+                (subcomponentProps as KupChart).sizeY = '100%';
+            }
+            break;
+        case FCellTypes.CHIPS:
+            if (cell.style) {
+                if (!cell.style.height) {
+                    cell.style['minHeight'] = '40px';
+                }
+            } else {
+                cell.style = { minHeight: '40px' };
+            }
+            break;
+        case FCellTypes.RADIO:
+            if (cell.style) {
+                if (!cell.style.height) {
+                    cell.style['minHeight'] = '40px';
+                }
+            } else {
+                cell.style = { minHeight: '40px' };
+            }
+            break;
+    }
+}
 
 function setEditableCell(
     cellType: string,
@@ -165,7 +259,11 @@ function setEditableCell(
                     }
                     fullWidth={true}
                     inputType={cellType === FCellTypes.NUMBER ? 'number' : null}
-                    value={stringToNumber(cell.value).toString()}
+                    value={
+                        cellType === FCellTypes.NUMBER
+                            ? stringToNumber(cell.value).toString()
+                            : cell.value
+                    }
                     onChange={props.onUpdate}
                 />
             );
@@ -174,7 +272,7 @@ function setEditableCell(
 
 function setCell(
     cellType: string,
-    props: unknown,
+    subcomponentProps: unknown,
     content: unknown,
     classObj: Record<string, boolean>,
     cell: Cell,
@@ -186,7 +284,7 @@ function setCell(
             return (
                 <FImage
                     resource={
-                        (props as FCheckboxProps).checked
+                        (subcomponentProps as FCheckboxProps).checked
                             ? 'check_box'
                             : 'check_box_outline_blank'
                     }
@@ -209,10 +307,10 @@ function setCell(
         case FCellTypes.ICON:
         case FCellTypes.IMAGE:
             classObj['is-centered'] = true;
-            if ((props as FImageProps).badgeData) {
+            if ((subcomponentProps as FImageProps).badgeData) {
                 classObj['has-padding'] = true;
             }
-            return <FImage {...props} />;
+            return <FImage {...subcomponentProps} />;
         case FCellTypes.LINK:
             return (
                 <a class="cell-link" href={content as string} target="_blank">
@@ -244,52 +342,46 @@ function setCell(
 function setKupCell(
     cellType: string,
     classObj: Record<string, boolean>,
-    props: any,
+    subcomponentProps: unknown,
     cell: Cell,
     row: Row,
     column: Column
 ) {
     switch (cellType) {
         case FCellTypes.BAR:
-            if (!props.data) {
-                return <kup-image {...props} />;
+            if (!(subcomponentProps as FImageProps).data) {
+                return <kup-image {...subcomponentProps} />;
             } else {
                 const barStyle = {
-                    height: props.sizeY,
+                    height: (subcomponentProps as FImageProps).sizeY,
                 };
                 return (
                     <div class="bar-cell-content" style={barStyle}>
-                        <FImage {...props} />
+                        <FImage {...subcomponentProps} />
                     </div>
                 );
             }
         case FCellTypes.BTN:
             classObj['is-centered'] = true;
-            props['data-storage'] = {
+            subcomponentProps['data-storage'] = {
                 cell: cell,
                 row: row,
                 column: column,
             };
-            return <kup-button-list {...props}></kup-button-list>;
+            return <kup-button-list {...subcomponentProps}></kup-button-list>;
         case FCellTypes.BUTTON:
-            classObj['is-centered'] = true; /*
-            props['onkup-button-click'] = this.onJ4btnClicked.bind(
-                this,
-                row,
-                column,
-                cell
-            );*/
-            return <kup-button {...props}></kup-button>;
+            classObj['is-centered'] = true;
+            return <kup-button {...subcomponentProps}></kup-button>;
         case FCellTypes.CHART:
             classObj['is-centered'] = true;
-            return <kup-chart {...props} />;
+            return <kup-chart {...subcomponentProps} />;
         case FCellTypes.CHIPS:
-            return <FChip {...props} />;
+            return <FChip {...subcomponentProps} />;
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker
-                    value={cell.value}
-                    {...props}
+                    initialValue={cell.value}
+                    {...subcomponentProps}
                     disabled
                 ></kup-color-picker>
             );
@@ -300,21 +392,21 @@ function setKupCell(
                 <kup-gauge
                     value={stringToNumber(cell.value)}
                     width-component="100%"
-                    {...props}
+                    {...subcomponentProps}
                 ></kup-gauge>
             );
         case FCellTypes.KNOB:
         case FCellTypes.PROGRESS_BAR:
-            return <kup-progress-bar {...props}></kup-progress-bar>;
+            return <kup-progress-bar {...subcomponentProps}></kup-progress-bar>;
         case FCellTypes.RADIO:
             classObj['is-centered'] = true;
-            props['disabled'] = row.readOnly;
-            return <kup-radio {...props}></kup-radio>;
+            subcomponentProps['disabled'] = row.readOnly;
+            return <kup-radio {...subcomponentProps}></kup-radio>;
         case FCellTypes.RATING:
             return (
                 <kup-rating
                     value={stringToNumber(cell.value)}
-                    {...props}
+                    {...subcomponentProps}
                     disabled
                 ></kup-rating>
             );

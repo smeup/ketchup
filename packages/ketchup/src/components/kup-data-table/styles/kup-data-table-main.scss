@@ -80,7 +80,7 @@
 }
 
 :host([force-one-line]) {
-  .cell-content {
+  .f-cell--wrapper {
     display: inline-block; // [column-width-related][mandatory][3]
     max-width: 100%;
     vertical-align: middle;
@@ -126,6 +126,23 @@
   .f-image--wrapper.cell-info {
     display: inline-block;
     vertical-align: sub;
+  }
+
+  // Overriden force one line behavior for c-centered
+  tbody tr > .c-centered * {
+    display: flex;
+    max-width: max-content;
+    width: max-content;
+  }
+
+  // Overriden force one line behavior for c-fitted
+  tbody tr > .c-fitted * {
+    max-width: max-content;
+  }
+
+  // Overriden force one line behavior for c-right-aligned
+  tbody tr > .c-right-aligned * {
+    text-align: right;
   }
 }
 
@@ -244,17 +261,15 @@ table {
   &.#{$kup-icon-key} {
     margin: 0 0.25em;
   }
+}
 
-  &.obj-icon {
-    cursor: var(--kup-obj-cursor);
-    display: block;
-    background-color: rgba(var(--kup-text-color-rgb), 0.375);
-    margin: auto 0.5em auto 0;
+.obj-icon {
+  cursor: var(--kup-obj-cursor);
+  margin: auto 0.5em auto 0;
 
-    .number & {
-      display: inline-block;
-      vertical-align: text-bottom;
-    }
+  .number & {
+    display: inline-block;
+    vertical-align: text-bottom;
   }
 }
 
@@ -463,7 +478,7 @@ tbody {
       transition: box-shadow 0.1s;
 
       &.number {
-        .cell-content {
+        .f-cell--wrapper {
           font-family: var(--kup_datatable_font_family_monospace);
           justify-content: flex-end;
         }
@@ -484,7 +499,7 @@ tbody {
       }
 
       // The container of the effective cell content
-      .cell-content {
+      .f-cell--wrapper {
         display: flex;
 
         &.has-padding {

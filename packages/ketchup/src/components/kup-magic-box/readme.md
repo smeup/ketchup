@@ -108,20 +108,20 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
+  kup-data-table --> kup-button
+  kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
+  kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
-  kup-data-table --> kup-button
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-rating
   kup-data-table --> kup-radio
-  kup-data-table --> kup-paginator
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-badge
+  kup-data-table --> kup-rating
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
   kup-tooltip --> kup-box
@@ -143,12 +143,12 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
   style kup-magic-box fill:#f9f,stroke:#333,stroke-width:4px
 ```

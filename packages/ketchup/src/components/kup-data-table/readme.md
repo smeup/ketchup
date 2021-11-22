@@ -252,20 +252,20 @@ Type: `Promise<void>`
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
+- [kup-button](../kup-button)
+- [kup-paginator](../kup-paginator)
+- [kup-switch](../kup-switch)
+- [kup-combobox](../kup-combobox)
+- [kup-badge](../kup-badge)
 - [kup-date-picker](../kup-date-picker)
 - [kup-image](../kup-image)
-- [kup-button](../kup-button)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-rating](../kup-rating)
 - [kup-radio](../kup-radio)
-- [kup-paginator](../kup-paginator)
-- [kup-switch](../kup-switch)
-- [kup-combobox](../kup-combobox)
-- [kup-badge](../kup-badge)
+- [kup-rating](../kup-rating)
 
 ### Graph
 ```mermaid
@@ -274,20 +274,20 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
+  kup-data-table --> kup-button
+  kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
+  kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
-  kup-data-table --> kup-button
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-rating
   kup-data-table --> kup-radio
-  kup-data-table --> kup-paginator
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-badge
+  kup-data-table --> kup-rating
   kup-card --> kup-data-table
   kup-chip --> kup-badge
   kup-badge --> kup-badge

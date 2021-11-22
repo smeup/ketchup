@@ -278,20 +278,20 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
+  kup-data-table --> kup-button
+  kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
+  kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
-  kup-data-table --> kup-button
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-rating
   kup-data-table --> kup-radio
-  kup-data-table --> kup-paginator
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-badge
+  kup-data-table --> kup-rating
   kup-tooltip --> kup-tree
   kup-box --> kup-card
   kup-box --> kup-checkbox

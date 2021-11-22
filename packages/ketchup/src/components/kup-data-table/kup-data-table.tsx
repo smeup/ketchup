@@ -2995,24 +2995,6 @@ export class KupDataTable {
         return this.openedTotalMenu === column;
     }
 
-    private onJ4btnClicked(row, column, cell) {
-        // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
-        const buttonEvent = arguments[3] as UIEvent;
-        if (buttonEvent) {
-            // Prevents double events to be fired.
-            buttonEvent.stopPropagation();
-        } else {
-            throw 'kup-data-table error: missing event';
-        }
-        this.kupCellButtonClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            cell: cell,
-            column: column,
-            row: row,
-        });
-    }
-
     // utility methods
     private groupRows(): void {
         if (!this.isGrouping()) {
