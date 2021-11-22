@@ -4,7 +4,6 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
-    getAssetPath,
     h,
     Host,
     JSX,
@@ -44,7 +43,6 @@ import {
     iconColumn,
     keyColumn,
     SelectionMode,
-    KupCellInfo,
     KupDatatableAutoRowSelectEventPayload,
     KupDatatableRowSelectedEventPayload,
     KupDatatableCellUpdateEventPayload,
@@ -59,7 +57,6 @@ import {
     isRating,
     isGauge,
     isKnob,
-    getCellType,
     getColumnByName,
     getCellValueForDisplay,
 } from '../../utils/cell-utils';
@@ -71,7 +68,6 @@ import {
     paginateRows,
     sortRows,
     styleHasBorderRadius,
-    styleHasWritingMode,
 } from './kup-data-table-helper';
 import {
     GenericObject,
@@ -79,7 +75,6 @@ import {
     KupEventPayload,
 } from '../../types/GenericTypes';
 import {
-    stringToNumber,
     numberToFormattedStringNumber,
     identify,
     deepEqual,
@@ -162,6 +157,8 @@ import {
     KupResizeCallbacks,
 } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import { FCell } from '../../f-components/f-cell/f-cell';
 
 @Component({
     tag: 'kup-data-table',
@@ -799,7 +796,6 @@ export class KupDataTable {
     private navBarHeight: number = 0;
     private theadIntersecting: boolean = false;
     private tableIntersecting: boolean = false;
-    private iconPaths: [{ icon: string; path: string }] = undefined;
     private isSafariBrowser: boolean = false;
     private isRestoringState: boolean = false;
     private globalFilterTimeout: number;
@@ -4223,15 +4219,29 @@ export class KupDataTable {
                     return null;
                 }
 
-                const jsxCell = this.renderCell(
-                    indend,
-                    cell,
-                    row,
-                    currentColumn,
-                    hideValuesRepetitions && previousRow
-                        ? previousRow.cells[name].value
-                        : undefined
-                );
+                const cellProps: FCellProps = {
+                    cell: cell,
+                    column: currentColumn,
+                    editable: this.editableData,
+                    indents: indend,
+                    lazy: this.lazyLoadCells,
+                    oneLine: this.forceOneLine,
+                    onUpdate: (e: Event | CustomEvent) => {
+                        let value = null;
+                        if ((e.target as HTMLElement).tagName === 'INPUT') {
+                            value = (e.target as HTMLInputElement).value;
+                        } else {
+                            value = (e as CustomEvent).detail.value;
+                        }
+                        this.cellUpdate(e, value, cell, currentColumn, row);
+                    },
+                    previousValue:
+                        hideValuesRepetitions && previousRow
+                            ? previousRow.cells[name].value
+                            : undefined,
+                    row: row,
+                };
+                const jsxCell = <FCell {...cellProps}></FCell>;
 
                 // Classes which will be set onto the single data-table cell
                 let cellClass = {
@@ -4407,533 +4417,6 @@ export class KupDataTable {
             };
             return <FImage {...props} />;
         });
-    }
-
-    /**
-     * FActory function for cells.
-     * @param cell - cell object
-     * @param column - the cell's column name
-     * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
-     * @param cellData - Additional data for the current cell.
-     * @param cellData.column - The column object to which the cell belongs.
-     * @param cellData.row - The row object to which the cell belongs.
-     */
-    private renderCell(
-        indend: any,
-        cell: Cell,
-        row: Row,
-        column: Column,
-        previousRowCellValue?: string
-    ) {
-        const isEditable: boolean =
-            cell.isEditable && this.editableData ? true : false;
-        const classObj: Record<string, boolean> = {
-            'cell-content': true,
-            clickable: !!column.clickable,
-            'force-one-line': this.forceOneLine == true ? true : null,
-        };
-
-        // When the previous row value is different from the current value, we can show the current value.
-        const valueToDisplay =
-            previousRowCellValue !== cell.value ? cell.value : '';
-
-        // Sets the default value
-        let content: any = valueToDisplay;
-        const cellType: string = this.getCellType(cell);
-        const props: any = { ...cell.data };
-        classObj[cellType + '-cell'] = true;
-        if (
-            isEditable &&
-            (cellType === 'checkbox' ||
-                cellType === 'date' ||
-                cellType === 'number' ||
-                cellType === 'string')
-        ) {
-            content = this.setEditableCell(cellType, cell, column, row);
-        } else if (
-            cellType === 'checkbox' ||
-            cellType === 'date' ||
-            cellType === 'time' ||
-            cellType === 'datetime' ||
-            cellType === 'icon' ||
-            cellType === 'image' ||
-            cellType === 'link' ||
-            cellType === 'number' ||
-            cellType === 'string'
-        ) {
-            this.setCellSize(cellType, props, cell);
-            content = this.setCell(
-                cellType,
-                props,
-                content,
-                classObj,
-                cell,
-                column
-            );
-        } else if (cell.data || cellType === 'editor') {
-            this.setCellSizeKup(cellType, props, cell);
-            if (!this.lazyLoadCells) {
-                content = this.setLazyKupCell(cellType, props);
-            } else {
-                content = this.setKupCell(
-                    cellType,
-                    classObj,
-                    props,
-                    cell,
-                    row,
-                    column
-                );
-            }
-        }
-
-        const style = cell.style;
-
-        if (styleHasWritingMode(cell)) {
-            classObj['is-vertical'] = true;
-        }
-
-        let icon = undefined;
-
-        if (!isEditable && (column.icon || cell.icon) && content) {
-            let svg: string = '';
-            if (cell.icon) {
-                svg = cell.icon;
-            } else {
-                svg = column.icon;
-            }
-            svg = this.getIconPath(svg);
-            const iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
-        }
-
-        let cellTitle = null;
-        if (cell.title != null && cell.title.trim() != '') {
-            cellTitle = cell.title;
-        }
-
-        // Informational icon
-        let infoEl: HTMLElement = null;
-        if (cell.info && cell.info.message) {
-            const info: KupCellInfo = { ...cell.info };
-            if (!info.color) {
-                info.color = `var(${KupThemeColorValues.INFO})`;
-            }
-            if (!info.icon) {
-                info.icon = 'info';
-            }
-            let fProps: FImageProps = {
-                color: info.color,
-                resource: info.icon,
-                sizeX: '1.25em',
-                sizeY: '1.25em',
-                title: info.message,
-                wrapperClass: 'cell-info',
-            };
-            infoEl = <FImage {...fProps} />;
-        }
-
-        return (
-            <span class={classObj} style={style} title={cellTitle}>
-                {indend}
-                {infoEl}
-                {icon}
-                {content}
-            </span>
-        );
-    }
-
-    private getIconPath(icon: string) {
-        let svg: string = '';
-        if (this.iconPaths) {
-            for (
-                let index = 0;
-                index < this.iconPaths.length || svg !== '';
-                index++
-            ) {
-                if (this.iconPaths[index].icon === icon) {
-                    return this.iconPaths[index].path;
-                }
-            }
-        }
-
-        svg = `url('${getAssetPath(
-            `./assets/svg/${icon}.svg`
-        )}') no-repeat center`;
-
-        if (!this.iconPaths) {
-            this.iconPaths = [
-                {
-                    icon: icon,
-                    path: svg,
-                },
-            ];
-        } else {
-            this.iconPaths.push({ icon: icon, path: svg });
-        }
-
-        return svg;
-    }
-
-    // TODO: cell type can depend also from shape (see isRating)
-    // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
-    // TODO: more clear conditions when refactoring...
-    private getCellType(cell: Cell) {
-        return getCellType(cell);
-    }
-
-    private setLazyKupCell(cellType: string, props: any) {
-        const lazyClass = 'cell-' + cellType + ' placeholder';
-        const style = { minHeight: props.sizeY };
-        return <span style={style} class={lazyClass}></span>;
-    }
-
-    private setCellSize(cellType: string, props: any, cell: Cell) {
-        switch (cellType) {
-            case 'checkbox':
-            case 'icon':
-                if (!props.sizeX) {
-                    props['sizeX'] = '18px';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '18px';
-                }
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = props['sizeY'];
-                    }
-                } else {
-                    cell.style = {
-                        minHeight: props['sizeY'],
-                    };
-                }
-                break;
-            case 'image':
-                if (!props.sizeX) {
-                    props['sizeX'] = 'auto';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '64px';
-                }
-                break;
-        }
-    }
-
-    private setCellSizeKup(cellType: string, props: any, cell: Cell) {
-        switch (cellType) {
-            case 'bar':
-                if (!props.sizeY) {
-                    props['sizeY'] = '26px';
-                    if (this.density === 'medium') {
-                        props['sizeY'] = '36px';
-                    }
-                    if (this.density === 'wide') {
-                        props['sizeY'] = '50px';
-                    }
-                }
-                break;
-            case 'button':
-                let height: string = '';
-                if (props.label) {
-                    height = '36px';
-                }
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = height;
-                    }
-                } else {
-                    cell.style = { minHeight: height };
-                }
-                break;
-            case 'chart':
-                if (!props.sizeX) {
-                    props['sizeX'] = '100%';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '100%';
-                }
-                break;
-            case 'chips':
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = '40px';
-                    }
-                } else {
-                    cell.style = { minHeight: '40px' };
-                }
-                break;
-            case 'radio':
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = '40px';
-                    }
-                } else {
-                    cell.style = { minHeight: '40px' };
-                }
-                break;
-        }
-    }
-
-    private setEditableCell(
-        cellType: string,
-        cell: Cell,
-        column: Column,
-        row: Row
-    ) {
-        switch (cellType) {
-            case 'checkbox':
-                return (
-                    <FCheckbox
-                        checked={cell.data['checked']}
-                        onChange={(e: Event) =>
-                            this.cellUpdate(
-                                e,
-                                (e.target as HTMLInputElement).value,
-                                cell,
-                                column,
-                                row
-                            )
-                        }
-                    />
-                );
-            case 'date':
-                return (
-                    <kup-date-picker
-                        onkup-datepicker-change={(e) =>
-                            this.cellUpdate(
-                                e,
-                                e.detail.value,
-                                cell,
-                                column,
-                                row
-                            )
-                        }
-                        data={{
-                            'kup-text-field': {
-                                fullWidth: true,
-                            },
-                        }}
-                        initialValue={cell.value}
-                    />
-                );
-            case 'number':
-                return (
-                    <FTextField
-                        icon={
-                            cell.icon
-                                ? cell.icon
-                                : column.icon
-                                ? column.icon
-                                : null
-                        }
-                        fullWidth={true}
-                        inputType="number"
-                        value={stringToNumber(cell.value).toString()}
-                        onBlur={(e: FocusEvent) =>
-                            this.cellUpdate(
-                                e,
-                                (e.target as HTMLInputElement).value,
-                                cell,
-                                column,
-                                row
-                            )
-                        }
-                        onChange={(e: Event) =>
-                            this.cellUpdate(
-                                e,
-                                (e.target as HTMLInputElement).value,
-                                cell,
-                                column,
-                                row
-                            )
-                        }
-                    />
-                );
-            case 'string':
-                return (
-                    <FTextField
-                        icon={
-                            cell.icon
-                                ? cell.icon
-                                : column.icon
-                                ? column.icon
-                                : null
-                        }
-                        fullWidth={true}
-                        value={cell.value}
-                        onBlur={(e: FocusEvent) =>
-                            this.cellUpdate(
-                                e,
-                                (e.target as HTMLInputElement).value,
-                                cell,
-                                column,
-                                row
-                            )
-                        }
-                        onChange={(e: Event) =>
-                            this.cellUpdate(
-                                e,
-                                (e.target as HTMLInputElement).value,
-                                cell,
-                                column,
-                                row
-                            )
-                        }
-                    />
-                );
-        }
-    }
-
-    private setKupCell(
-        cellType: string,
-        classObj: Record<string, boolean>,
-        props: any,
-        cell: Cell,
-        row: Row,
-        column: Column
-    ) {
-        switch (cellType) {
-            case 'bar':
-                if (!props.data) {
-                    return <kup-image {...props} />;
-                } else {
-                    const barStyle = {
-                        height: props.sizeY,
-                    };
-                    return (
-                        <div class="bar-cell-content" style={barStyle}>
-                            <FImage {...props} />
-                        </div>
-                    );
-                }
-            case 'button':
-                classObj['is-centered'] = true;
-                props['onkup-button-click'] = this.onJ4btnClicked.bind(
-                    this,
-                    row,
-                    column,
-                    cell
-                );
-                return <kup-button {...props}></kup-button>;
-            case 'btn':
-                classObj['is-centered'] = true;
-                props['data-storage'] = {
-                    cell: cell,
-                    row: row,
-                    column: column,
-                };
-                return <kup-button-list {...props}></kup-button-list>;
-            case 'chart':
-                classObj['is-centered'] = true;
-                return <kup-chart {...props} />;
-            case 'chips':
-                return <FChip {...props} />;
-            case 'color-picker':
-                return (
-                    <kup-color-picker
-                        value={cell.value}
-                        {...props}
-                        disabled
-                    ></kup-color-picker>
-                );
-            case 'editor':
-                return <div innerHTML={cell.value}></div>;
-            case 'gauge':
-                return (
-                    <kup-gauge
-                        value={stringToNumber(cell.value)}
-                        width-component="100%"
-                        {...props}
-                    ></kup-gauge>
-                );
-            case 'knob':
-            case 'progress-bar':
-                return <kup-progress-bar {...props}></kup-progress-bar>;
-            case 'rating':
-                return (
-                    <kup-rating
-                        value={stringToNumber(cell.value)}
-                        {...props}
-                        disabled
-                    ></kup-rating>
-                );
-            case 'radio':
-                classObj['is-centered'] = true;
-                props['disabled'] = row.readOnly;
-                return <kup-radio {...props}></kup-radio>;
-            case 'text-field':
-                props['disabled'] = row.readOnly;
-                props['dataSet'] = {
-                    'data-cell': cell,
-                    'data-column': column,
-                    'data-row': row,
-                };
-                return <FTextField {...props}></FTextField>;
-        }
-    }
-
-    private setCell(
-        cellType: string,
-        props: any,
-        content: string,
-        classObj: Record<string, boolean>,
-        cell: Cell,
-        column: Column
-    ) {
-        switch (cellType) {
-            case 'checkbox':
-                classObj['is-centered'] = true;
-                props['resource'] = props.checked
-                    ? 'check_box'
-                    : 'check_box_outline_blank';
-                return <FImage {...props} />;
-            case 'date':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return cellValue;
-                }
-                return content;
-            case 'datetime':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return cellValue;
-                }
-                return content;
-            case 'icon':
-            case 'image':
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                return <FImage {...props} />;
-            case 'link':
-                return (
-                    <a class="cell-link" href={content} target="_blank">
-                        {cell.value}
-                    </a>
-                );
-            case 'number':
-                if (content && content != '') {
-                    const cellValueNumber: number = stringToNumber(cell.value);
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    if (cellValueNumber < 0) {
-                        classObj['negative-number'] = true;
-                    }
-                    return cellValue;
-                }
-                return content;
-            case 'time':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return cellValue;
-                }
-                return content;
-            case 'string':
-            default:
-                return content;
-        }
     }
 
     private renderLoadMoreButton(isSlotted: boolean = true) {

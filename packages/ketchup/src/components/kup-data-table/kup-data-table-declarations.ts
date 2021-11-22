@@ -1,3 +1,4 @@
+import { FCellInfo } from '../../f-components/f-cell/f-cell-declarations';
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
@@ -77,7 +78,7 @@ export interface Cell {
     data?: CellData;
     displayedValue?: string;
     icon?: string;
-    info?: KupCellInfo;
+    info?: FCellInfo;
     isEditable?: boolean;
     obj?: {
         t: string;
@@ -94,18 +95,6 @@ export interface KupDatatableCellSpan {
     col: number;
     row: number;
 }
-/**
- * Information about the cell, displayed before the content.
- *
- * @export
- * @interface KupCellInfo
- */
-export interface KupCellInfo {
-    color?: string;
-    icon?: string;
-    message: string;
-}
-
 export interface CellsHolder {
     [index: string]: Cell;
 }

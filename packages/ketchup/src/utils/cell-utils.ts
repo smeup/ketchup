@@ -15,6 +15,7 @@ import {
 import { ValueDisplayedValue } from './filters/filters-declarations';
 import { KupDom } from './kup-manager/kup-manager-declarations';
 import { KupDatesFormats } from './kup-dates/kup-dates-declarations';
+import { FCellTypes } from '../f-components/f-cell/f-cell-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -204,53 +205,51 @@ export function isButtonList(cell: Cell) {
 }
 
 export function getCellType(cell: Cell) {
-    let obj = cell.obj;
+    const obj = cell.obj;
     if (isButtonList(cell)) {
-        return 'btn';
+        return FCellTypes.BTN;
     } else if (dom.ketchup.objects.isBar(obj)) {
-        return 'bar';
+        return FCellTypes.BAR;
     } else if (dom.ketchup.objects.isButton(obj)) {
-        return 'button';
+        return FCellTypes.BUTTON;
     } else if (dom.ketchup.objects.isChart(obj)) {
-        return 'chart';
+        return FCellTypes.CHART;
     } else if (dom.ketchup.objects.isCheckbox(obj)) {
-        return 'checkbox';
+        return FCellTypes.CHECKBOX;
     } else if (isColor(cell, null)) {
-        return 'color-picker';
+        return FCellTypes.COLOR_PICKER;
     } else if (isGauge(cell, null)) {
-        return 'gauge';
+        return FCellTypes.GAUGE;
     } else if (isKnob(cell, null)) {
-        return 'knob';
+        return FCellTypes.KNOB;
     } else if (dom.ketchup.objects.isIcon(obj)) {
-        return 'icon';
+        return FCellTypes.ICON;
     } else if (isImage(cell, null)) {
-        return 'image';
+        return FCellTypes.IMAGE;
     } else if (dom.ketchup.objects.isLink(obj)) {
-        return 'link';
+        return FCellTypes.LINK;
     } else if (isProgressBar(cell, null)) {
-        return 'progress-bar';
+        return FCellTypes.PROGRESS_BAR;
     } else if (isRadio(cell, null)) {
-        return 'radio';
+        return FCellTypes.RADIO;
     } else if (isRating(cell, null)) {
-        return 'rating';
+        return FCellTypes.RATING;
     } else if (isChip(cell, null)) {
-        return 'chips';
+        return FCellTypes.CHIPS;
     } else if (isEditor(cell, null)) {
-        return 'editor';
+        return FCellTypes.EDITOR;
     } else if (dom.ketchup.objects.isNumber(obj)) {
-        return 'number';
+        return FCellTypes.NUMBER;
     } else if (dom.ketchup.objects.isDate(obj)) {
-        return 'date';
+        return FCellTypes.DATE;
     } else if (dom.ketchup.objects.isTimestamp(obj)) {
-        return 'datetime';
+        return FCellTypes.DATETIME;
     } else if (dom.ketchup.objects.isTime(obj)) {
-        return 'time';
-    } else if (dom.ketchup.objects.isTextField(obj)) {
-        return 'text-field';
+        return FCellTypes.TIME;
     } else if (dom.ketchup.objects.isVoCodver(obj)) {
-        return 'icon';
+        return FCellTypes.ICON;
     } else {
-        return 'string';
+        return FCellTypes.STRING;
     }
 }
 
