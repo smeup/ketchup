@@ -123,7 +123,6 @@ Type: `Promise<void>`
 - [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
 - [kup-chart](../kup-chart)
-- [kup-editor](../kup-editor)
 - [kup-text-field](../kup-text-field)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
@@ -139,7 +138,6 @@ graph TD;
   kup-box --> kup-checkbox
   kup-box --> kup-badge
   kup-box --> kup-chart
-  kup-box --> kup-editor
   kup-box --> kup-text-field
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
@@ -184,7 +182,6 @@ graph TD;
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
-  kup-data-table --> kup-editor
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-rating

@@ -1472,7 +1472,7 @@ export class KupBox {
                         ></kup-checkbox>
                     );
                 } else if (isEditor(cell, boxObject)) {
-                    boContent = <kup-editor text={cell.value}></kup-editor>;
+                    boContent = <div innerHTML={cell.value}></div>;
                 } else if (this.kupManager.objects.isIcon(cell.obj)) {
                     if (props) {
                         if (!props.sizeX) {
