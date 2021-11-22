@@ -79,6 +79,56 @@
   }
 }
 
+:host([force-one-line]) {
+  .cell-content {
+    display: inline-block; // [column-width-related][mandatory][3]
+    max-width: 100%;
+    vertical-align: middle;
+    width: 100%;
+
+    &.is-centered {
+      display: flex;
+    }
+
+    &.is-vertical {
+      display: block;
+      width: auto;
+      margin: auto;
+      min-height: 16px;
+      min-width: 16px;
+      & > * {
+        margin: auto;
+      }
+    }
+
+    &.number-cell {
+      text-align: right;
+    }
+
+    &.string-cell,
+    &.number-cell,
+    &.date-cell,
+    &.time-cell,
+    &.datetime-cell,
+    &.link-cell {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .#{$kup-icon}.obj-icon:not(.f-image--wrapper) {
+    display: inline-block;
+    margin: 0 0.5em 0 0;
+    vertical-align: -0.275em;
+  }
+
+  .f-image--wrapper.cell-info {
+    display: inline-block;
+    vertical-align: sub;
+  }
+}
+
 table {
   // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
   background-color: var(--kup_datatable_background_color);
@@ -200,12 +250,6 @@ table {
     display: block;
     background-color: rgba(var(--kup-text-color-rgb), 0.375);
     margin: auto 0.5em auto 0;
-
-    :host([force-one-line]) & {
-      display: inline-block;
-      margin: 0 0.5em 0 0;
-      vertical-align: -0.275em;
-    }
 
     .number & {
       display: inline-block;
@@ -448,31 +492,11 @@ tbody {
           padding: 1em;
         }
 
-        // When there is the necessity to hide long text
-        :host([force-one-line]) & {
-          display: inline-block; // [column-width-related][mandatory][3]
-          max-width: 100%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          vertical-align: middle;
-          white-space: nowrap;
-          width: 100%;
-
-          &.is-centered {
-            display: flex;
-          }
-
-          &.number-cell {
-            text-align: right;
-          }
-        }
-
         &.is-tooltip {
           position: relative;
         }
 
-        &.is-vertical,
-        :host([force-one-line]) &.is-vertical {
+        &.is-vertical {
           display: block;
           width: auto;
           margin: auto;
@@ -647,11 +671,6 @@ th.obj:hover span:not(.overlay-action) {
 
 .f-image--wrapper.cell-info {
   margin: auto 0.5em auto 0.25em;
-
-  :host([force-one-line]) & {
-    display: inline-block;
-    vertical-align: sub;
-  }
 }
 
 [kup-dialog] {
