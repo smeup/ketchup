@@ -80,13 +80,13 @@
 }
 
 :host([force-one-line]) {
-  .f-cell--wrapper {
+  .f-cell__content {
     display: inline-block; // [column-width-related][mandatory][3]
     max-width: 100%;
     vertical-align: middle;
     width: 100%;
 
-    &.is-centered {
+    &.c-centered {
       display: flex;
     }
 
@@ -115,33 +115,32 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
+    .f-image--wrapper {
+      &.cell-info {
+        display: inline-block;
+        vertical-align: sub;
+      }
+
+      &.obj-icon {
+        display: inline-block;
+        margin: 0 0.5em 0 0;
+        vertical-align: -0.275em;
+      }
+    }
   }
 
-  .#{$kup-icon}.obj-icon:not(.f-image--wrapper) {
-    display: inline-block;
-    margin: 0 0.5em 0 0;
-    vertical-align: -0.275em;
-  }
-
-  .f-image--wrapper.cell-info {
-    display: inline-block;
-    vertical-align: sub;
-  }
-
-  // Overriden force one line behavior for c-centered
-  tbody tr > .c-centered * {
+  tbody tr > .f-cell--wrapper .c-centered * {
     display: flex;
     max-width: max-content;
     width: max-content;
   }
 
-  // Overriden force one line behavior for c-fitted
-  tbody tr > .c-fitted * {
+  tbody tr > .f-cell--wrapper .c-fitted * {
     max-width: max-content;
   }
 
-  // Overriden force one line behavior for c-right-aligned
-  tbody tr > .c-right-aligned * {
+  tbody tr > .f-cell--wrapper .c-right-aligned * {
     text-align: right;
   }
 }
@@ -278,18 +277,18 @@ table {
 
 .density- {
   &dense {
-    tbody > tr > td:not(.is-graphic) {
+    tbody > tr :not(.is-graphic) .f-cell--wrapper {
       padding-top: 0.2em;
       padding-bottom: 0.2em;
     }
-    tbody > tr.group > td {
+    tbody > tr.group td {
       padding-top: 0.25em;
       padding-bottom: 0.25em;
     }
   }
 
   &wide {
-    tbody > tr > td:not(.is-graphic) {
+    tbody > tr :not(.is-graphic) .f-cell--wrapper {
       padding-top: 1em;
       padding-bottom: 1em;
     }
@@ -399,6 +398,14 @@ th {
 tbody {
   cursor: auto;
 
+  td {
+    padding: 0;
+
+    & > * {
+      border: none !important;
+    }
+  }
+
   tr {
     kup-button {
       max-width: max-content;
@@ -460,11 +467,14 @@ tbody {
       }
     }
 
-    > td {
-      box-sizing: border-box;
+    .f-cell--wrapper {
       padding: 0.5em 0.3125em;
       word-break: break-all;
       word-wrap: break-word;
+    }
+
+    > td {
+      box-sizing: border-box;
       transition: box-shadow 0.1s;
 
       .row-expander {
@@ -475,28 +485,26 @@ tbody {
         margin-right: 0.2em;
       }
 
-      &.is-graphic {
+      &.is-graphic .f-cell--wrapper {
         padding: 0 1px;
       }
     }
-  }
-}
 
-tr {
-  [row-select-cell] {
-    min-height: 40px;
-  }
+    [row-select-cell] {
+      min-height: 40px;
+    }
 
-  td[row-action-cell] {
-    width: calc(3em * var(--kup_datatable_row_actions));
-    & .f-image--wrapper {
-      cursor: pointer;
-      margin-left: 0.75em;
-      display: inline-block;
-      opacity: 1;
-      transition: 0.25s ease-in-out;
-      &:hover {
-        opacity: 0.5;
+    td[row-action-cell] {
+      width: calc(3em * var(--kup_datatable_row_actions));
+      & .f-image--wrapper {
+        cursor: pointer;
+        margin-left: 0.75em;
+        display: inline-block;
+        opacity: 1;
+        transition: 0.25s ease-in-out;
+        &:hover {
+          opacity: 0.5;
+        }
       }
     }
   }
@@ -505,12 +513,6 @@ tr {
 .above-wrapper {
   display: flex;
   width: 100%;
-}
-
-//Temporary removal of borders inside cells: they should be applied only to <td> elements
-//TODO: Improve styling interface with data-table inside client apps
-tbody td > * {
-  border: none !important;
 }
 
 .#{$kup-icon}.overlay-action {

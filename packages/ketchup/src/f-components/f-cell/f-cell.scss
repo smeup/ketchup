@@ -1,7 +1,225 @@
 .f-cell--wrapper {
+  box-sizing: border-box;
   display: flex;
+  width: 100%;
 
-  &.number-cell {
+  &.clickable {
+    cursor: pointer;
+  }
+
+  &.display-on-hover {
+    opacity: 0;
+    transition: opacity 0.25s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &.paddingless {
+    padding: 0 !important;
+  }
+
+  &.shaped {
+    border-radius: 4px;
+  }
+
+  &.strong-text {
+    font-weight: 600;
+  }
+
+  &.success-text {
+    color: var(--kup-success-color) !important;
+  }
+
+  &.warning-text {
+    color: var(--kup-warning-color) !important;
+  }
+
+  &.danger-text {
+    color: var(--kup-danger-color) !important;
+  }
+
+  &.purple-text {
+    color: #8e15bf !important;
+  }
+
+  &.success-bg {
+    background: var(--kup-success-color) !important;
+    color: white !important;
+  }
+
+  &.warning-bg {
+    background: var(--kup-warning-color) !important;
+  }
+
+  &.danger-bg {
+    background: var(--kup-danger-color) !important;
+    color: white !important;
+  }
+
+  &.teal-bg {
+    background: #00b4bc !important;
+    color: white !important;
+  }
+
+  &.orange-bg {
+    background: #f59729 !important;
+    color: white !important;
+  }
+
+  &.green-bg {
+    background: #00be67 !important;
+    color: white !important;
+  }
+
+  &.grey-bg {
+    background: #8d8d8d !important;
+    color: white !important;
+  }
+
+  &.purple-bg {
+    background: #b88acc !important;
+    color: white !important;
+  }
+
+  &.top-right-indicator {
+    position: relative !important;
+
+    &.fixed-column,
+    &.fixed-row {
+      position: sticky !important;
+    }
+
+    &:after {
+      content: '';
+      border-width: 0 0 0.5em 0.5em;
+      border-color: transparent transparent var(--kup-secondary-color)
+        transparent;
+      border-style: solid;
+      transform: rotate(270deg);
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  &.link {
+    color: #0000ee;
+    text-decoration: underline;
+  }
+
+  &.c-vertical-text {
+    & * {
+      text-align: center;
+      writing-mode: vertical-lr;
+    }
+  }
+
+  &.c-right-aligned {
+    text-align: right;
+
+    & * {
+      flex-flow: row-reverse;
+      margin: 0;
+    }
+  }
+
+  &.c-centered {
+    & * {
+      margin: auto;
+      max-width: max-content;
+    }
+  }
+
+  &.c-fitted {
+    & * {
+      max-width: max-content;
+    }
+  }
+
+  &.c-shaped {
+    & * {
+      border-radius: 4px;
+    }
+  }
+
+  &.c-hor-padded {
+    & * {
+      box-sizing: border-box;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
+  }
+
+  &.c-ver-padded {
+    & * {
+      box-sizing: border-box;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+  }
+
+  &.c-success-bg {
+    & * {
+      background: var(--kup-success-color) !important;
+      color: white !important;
+    }
+  }
+
+  &.c-warning-bg {
+    & * {
+      background: var(--kup-warning-color) !important;
+    }
+  }
+
+  &.c-danger-bg {
+    & * {
+      background: var(--kup-danger-color) !important;
+      color: white !important;
+    }
+  }
+
+  &.c-teal-bg {
+    & * {
+      background: #00b4bc !important;
+      color: white !important;
+    }
+  }
+
+  &.c-orange-bg {
+    & * {
+      background: #f59729 !important;
+      color: white !important;
+    }
+  }
+
+  &.c-green-bg {
+    & * {
+      background: #00be67 !important;
+      color: white !important;
+    }
+  }
+
+  &.c-grey-bg {
+    & * {
+      background: #8d8d8d !important;
+      color: white !important;
+    }
+  }
+
+  &.c-purple-bg {
+    & * {
+      background: #b88acc !important;
+      color: white !important;
+    }
+  }
+
+  .f-cell__content {
+    display: flex;
+    width: 100%;
+  }
+
+  .number-cell {
     font-family: var(--kup_datatable_font_family_monospace);
     justify-content: flex-end;
 
@@ -11,16 +229,16 @@
     }
   }
 
-  &.negative-number {
+  .negative-number {
     color: var(--kup-danger-color);
   }
 
-  &.has-padding {
+  .has-padding {
     box-sizing: border-box;
     padding: 1em;
   }
 
-  &.is-vertical {
+  .is-vertical {
     display: block;
     width: auto;
     margin: auto;

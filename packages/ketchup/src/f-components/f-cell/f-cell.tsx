@@ -31,11 +31,10 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const cellType = getCellType(cell);
     const subcomponentProps: unknown = { ...cell.data };
     const classObj: Record<string, boolean> = {
-        'f-cell--wrapper': true,
+        'f-cell__content': true,
         clickable: !!column.clickable,
         'force-one-line': props.oneLine == true ? true : false,
         [cellType + '-cell']: true,
-        [cell.cssClass]: cell.cssClass ? true : false,
         [props.wrapperClass]: props.wrapperClass ? true : false,
     };
     let content: unknown = valueToDisplay;
@@ -129,11 +128,30 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     }
 
     return (
-        <div class={classObj} style={style} title={cellTitle}>
-            {props.indents}
-            {infoEl}
-            {icon}
-            {content}
+        <div
+            class={`f-cell--wrapper ${
+                cell.cssClass
+                    ? cell.cssClass
+                    : column.cssClass
+                    ? column.cssClass
+                    : ''
+            }`}
+            style={
+                style &&
+                (style.border !== undefined || style.padding !== undefined)
+                    ? {
+                          border: style.border,
+                          padding: style.padding,
+                      }
+                    : null
+            }
+        >
+            <div class={classObj} style={style} title={cellTitle}>
+                {props.indents}
+                {infoEl}
+                {icon}
+                {content}
+            </div>
         </div>
     );
 };
@@ -280,7 +298,7 @@ function setCell(
 ) {
     switch (cellType) {
         case FCellTypes.CHECKBOX:
-            classObj['is-centered'] = true;
+            classObj['c-centered'] = true;
             return (
                 <FImage
                     resource={
@@ -306,7 +324,7 @@ function setCell(
             return content;
         case FCellTypes.ICON:
         case FCellTypes.IMAGE:
-            classObj['is-centered'] = true;
+            classObj['c-centered'] = true;
             if ((subcomponentProps as FImageProps).badgeData) {
                 classObj['has-padding'] = true;
             }
@@ -362,7 +380,7 @@ function setKupCell(
                 );
             }
         case FCellTypes.BTN:
-            classObj['is-centered'] = true;
+            classObj['c-centered'] = true;
             subcomponentProps['data-storage'] = {
                 cell: cell,
                 row: row,
@@ -370,10 +388,10 @@ function setKupCell(
             };
             return <kup-button-list {...subcomponentProps}></kup-button-list>;
         case FCellTypes.BUTTON:
-            classObj['is-centered'] = true;
+            classObj['c-centered'] = true;
             return <kup-button {...subcomponentProps}></kup-button>;
         case FCellTypes.CHART:
-            classObj['is-centered'] = true;
+            classObj['c-centered'] = true;
             return <kup-chart {...subcomponentProps} />;
         case FCellTypes.CHIPS:
             return <FChip {...subcomponentProps} />;
@@ -399,7 +417,7 @@ function setKupCell(
         case FCellTypes.PROGRESS_BAR:
             return <kup-progress-bar {...subcomponentProps}></kup-progress-bar>;
         case FCellTypes.RADIO:
-            classObj['is-centered'] = true;
+            classObj['c-centered'] = true;
             subcomponentProps['disabled'] = row.readOnly;
             return <kup-radio {...subcomponentProps}></kup-radio>;
         case FCellTypes.RATING:

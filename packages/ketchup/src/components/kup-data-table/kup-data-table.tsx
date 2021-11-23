@@ -4235,11 +4235,6 @@ export class KupDataTable {
                         !isGauge(cell, null) &&
                         !isKnob(cell, null),
                 };
-                if (cell.cssClass) {
-                    cellClass[cell.cssClass] = true;
-                } else if (currentColumn.cssClass) {
-                    cellClass[currentColumn.cssClass] = true;
-                }
 
                 let cellStyle: GenericObject = null;
                 if (!styleHasBorderRadius(cell)) {
