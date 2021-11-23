@@ -122,14 +122,20 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
-- [kup-chart](../kup-chart)
-- [kup-text-field](../kup-text-field)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-radio](../kup-radio)
-- [kup-gauge](../kup-gauge)
 - [kup-tooltip](../kup-tooltip)
 - [kup-combobox](../kup-combobox)
+- [kup-text-field](../kup-text-field)
 - [kup-paginator](../kup-paginator)
+- [kup-date-picker](../kup-date-picker)
+- [kup-image](../kup-image)
+- [kup-button-list](../kup-button-list)
+- [kup-button](../kup-button)
+- [kup-chart](../kup-chart)
+- [kup-color-picker](../kup-color-picker)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-radio](../kup-radio)
+- [kup-rating](../kup-rating)
 
 ### Graph
 ```mermaid
@@ -137,14 +143,20 @@ graph TD;
   kup-box --> kup-card
   kup-box --> kup-checkbox
   kup-box --> kup-badge
-  kup-box --> kup-chart
-  kup-box --> kup-text-field
-  kup-box --> kup-progress-bar
-  kup-box --> kup-radio
-  kup-box --> kup-gauge
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
+  kup-box --> kup-text-field
   kup-box --> kup-paginator
+  kup-box --> kup-date-picker
+  kup-box --> kup-image
+  kup-box --> kup-button-list
+  kup-box --> kup-button
+  kup-box --> kup-chart
+  kup-box --> kup-color-picker
+  kup-box --> kup-gauge
+  kup-box --> kup-progress-bar
+  kup-box --> kup-radio
+  kup-box --> kup-rating
   kup-card --> kup-chip
   kup-card --> kup-badge
   kup-card --> kup-autocomplete

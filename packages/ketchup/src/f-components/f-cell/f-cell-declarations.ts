@@ -13,11 +13,12 @@ export interface FCellProps extends FComponent {
     column?: Column;
     editable?: boolean;
     indents?: VNode[];
-    lazy?: boolean;
     oneLine?: boolean;
     onUpdate?: (event: Event | CustomEvent) => void;
     previousValue?: string;
+    renderKup?: boolean;
     row?: Row;
+    setSizes?: boolean;
 }
 /**
  * Information about the cell, displayed before the content.

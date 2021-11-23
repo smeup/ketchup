@@ -95,6 +95,8 @@ import {
     KupDropEventTypes,
     KupPointerEventTypes,
 } from '../../utils/kup-interact/kup-interact-declarations';
+import { FCell } from '../../f-components/f-cell/f-cell';
+import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -1279,7 +1281,6 @@ export class KupBox {
                     this.renderBoxObject({
                         boxObject: content[cnt++],
                         row,
-                        visibleColumns,
                     })
                 );
             }
@@ -1293,7 +1294,6 @@ export class KupBox {
             sectionContent = this.renderBoxObject({
                 boxObject: { column: column.name },
                 row,
-                visibleColumns,
             });
         }
 
@@ -1396,202 +1396,18 @@ export class KupBox {
     private renderBoxObject({
         boxObject,
         row,
-        visibleColumns,
     }: {
         boxObject: BoxObject;
         row: KupBoxRow;
-        visibleColumns: Column[];
     }) {
         let classObj: Record<string, boolean> = {
             'box-object': true,
         };
-        let boContent = null;
-        let boContentIcon = null;
 
         let boStyle = {};
-        //let boInnerHTML = null;
-        let cell = null;
-        let column: Column = null;
+        const cell = row.cells[boxObject.column];
+        const column = getColumnByName(this.visibleColumns, boxObject.column);
         let _hasTooltip = false;
-        if (boxObject.column) {
-            cell = row.cells[boxObject.column];
-            column = null;
-            if (cell) {
-                _hasTooltip = !this.kupManager.objects.isEmptyKupObj(cell.obj);
-                // removing column from visibleColumns
-                let index = -1;
-
-                for (let i = 0; i < visibleColumns.length; i++) {
-                    const c = visibleColumns[i];
-
-                    if (c.name === boxObject.column) {
-                        index = i;
-                        break;
-                    }
-                }
-
-                if (index >= 0) {
-                    column = visibleColumns[index];
-                    visibleColumns.splice(index, 1);
-                }
-
-                if (cell.style) {
-                    boStyle = { ...cell.style };
-                }
-
-                if (cell.cssClass) {
-                    classObj[cell.cssClass] = true;
-                }
-
-                let props: any = { ...cell.data };
-
-                if (this.kupManager.objects.isButton(cell.obj)) {
-                    if (props) {
-                        boContent = (
-                            <FButton class="cell-button" {...props}></FButton>
-                        );
-                    } else {
-                        boContent = undefined;
-                    }
-                } else if (isChart(cell, boxObject)) {
-                    if (props) {
-                        boContent = <kup-chart class="cell-chart" {...props} />;
-                    } else {
-                        boContent = undefined;
-                    }
-                } else if (this.kupManager.objects.isCheckbox(cell.obj)) {
-                    if (props) {
-                        props['disabled'] = row;
-                    } else {
-                        props = { disabled: row };
-                    }
-                    boContent = (
-                        <kup-checkbox
-                            class="cell-checkbox"
-                            {...props}
-                        ></kup-checkbox>
-                    );
-                } else if (isEditor(cell, boxObject)) {
-                    boContent = <div innerHTML={cell.value}></div>;
-                } else if (this.kupManager.objects.isIcon(cell.obj)) {
-                    if (props) {
-                        if (!props.sizeX) {
-                            props['sizeX'] = '18px';
-                        }
-                        if (!props.sizeY) {
-                            props['sizeY'] = '18px';
-                        }
-                        boContent = (
-                            <FImage wrapperClass="cell-icon" {...props} />
-                        );
-                    } else {
-                        boContent = undefined;
-                    }
-                } else if (isImage(cell, boxObject)) {
-                    if (props) {
-                        if (!props.sizeY) {
-                            props['sizeY'] = 'auto';
-                        }
-                        if (props.fit === undefined) {
-                            props.fit = true;
-                        }
-                        if (props.badgeData) {
-                            classObj['has-padding'] = true;
-                        }
-                        boContent = (
-                            <FImage wrapperClass="cell-image" {...props} />
-                        );
-                    } else {
-                        boContent = undefined;
-                    }
-                } else if (this.kupManager.objects.isPassword(cell.obj)) {
-                    boContent = (
-                        <kup-text-field
-                            input-type="password"
-                            initial-value={cell.value}
-                            disabled={true}
-                        ></kup-text-field>
-                    );
-                } else if (isProgressBar(cell, boxObject)) {
-                    if (props) {
-                        boContent = (
-                            <kup-progress-bar
-                                class="cell-progress-bar"
-                                {...props}
-                            ></kup-progress-bar>
-                        );
-                    } else {
-                        boContent = undefined;
-                    }
-                } else if (isRadio(cell, boxObject)) {
-                    if (props) {
-                        props['disabled'] = true;
-                        boContent = (
-                            <kup-radio
-                                class="cell-radio"
-                                {...props}
-                            ></kup-radio>
-                        );
-                    } else {
-                        boContent = undefined;
-                    }
-                } else if (isGauge(cell, boxObject)) {
-                    if (props) {
-                        boContent = (
-                            <kup-gauge
-                                value={stringToNumber(cell.value)}
-                                width-component="100%"
-                                {...props}
-                            ></kup-gauge>
-                        );
-                    } else {
-                        boContent = undefined;
-                    }
-                } else if (isKnob(cell, boxObject)) {
-                    if (props) {
-                        boContent = (
-                            <kup-progress-bar
-                                class="cell-progress-bar"
-                                value={stringToNumber(cell.value)}
-                                {...props}
-                            ></kup-progress-bar>
-                        );
-                    } else {
-                        boContent = undefined;
-                    }
-                } else if (this.kupManager.objects.isLink(cell.obj)) {
-                    boContent = (
-                        <a class="cell-link" href={cell.obj.k} target="_blank">
-                            {cell.value}
-                        </a>
-                    );
-                } else {
-                    boContent = getCellValueForDisplay(column, cell);
-                    if ((column && column.icon) || cell.icon) {
-                        let svg: string = '';
-                        if (cell.icon) {
-                            svg = cell.icon;
-                        } else {
-                            svg = column.icon;
-                        }
-                        svg = this.getIconPath(svg);
-                        const iconStyle = {
-                            mask: svg,
-                            webkitMask: svg,
-                        };
-                        boContentIcon = (
-                            <span
-                                style={iconStyle}
-                                class="kup-icon obj-icon"
-                            ></span>
-                        );
-                    }
-                }
-            }
-        } else if (boxObject.value) {
-            // fixed value
-            boContent = boxObject.value;
-        }
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
@@ -1623,6 +1439,13 @@ export class KupBox {
                 };
             }
         }
+        const cellProps: FCellProps = {
+            cell: cell,
+            column: column,
+            renderKup: true,
+            row: row,
+            setSizes: false,
+        };
         return (
             <div
                 data-cell={cell}
@@ -1633,10 +1456,11 @@ export class KupBox {
                 title={title}
                 {...tipEvents}
             >
-                <span>
-                    {boContentIcon}
-                    {boContent}
-                </span>
+                {cell && column ? (
+                    <FCell {...cellProps} />
+                ) : (
+                    <span>{boxObject.value}</span>
+                )}
             </div>
         );
     }

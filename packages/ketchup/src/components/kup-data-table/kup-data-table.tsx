@@ -4206,7 +4206,6 @@ export class KupDataTable {
                     column: currentColumn,
                     editable: this.editableData,
                     indents: indend,
-                    lazy: this.lazyLoadCells,
                     oneLine: this.forceOneLine,
                     onUpdate: (e: Event | CustomEvent) => {
                         let value = null;
@@ -4221,7 +4220,9 @@ export class KupDataTable {
                         hideValuesRepetitions && previousRow
                             ? previousRow.cells[name].value
                             : undefined,
+                    renderKup: this.lazyLoadCells,
                     row: row,
+                    setSizes: true,
                 };
                 const jsxCell = <FCell {...cellProps}></FCell>;
 

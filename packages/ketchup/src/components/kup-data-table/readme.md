@@ -324,14 +324,20 @@ graph TD;
   kup-box --> kup-card
   kup-box --> kup-checkbox
   kup-box --> kup-badge
-  kup-box --> kup-chart
-  kup-box --> kup-text-field
-  kup-box --> kup-progress-bar
-  kup-box --> kup-radio
-  kup-box --> kup-gauge
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
+  kup-box --> kup-text-field
   kup-box --> kup-paginator
+  kup-box --> kup-date-picker
+  kup-box --> kup-image
+  kup-box --> kup-button-list
+  kup-box --> kup-button
+  kup-box --> kup-chart
+  kup-box --> kup-color-picker
+  kup-box --> kup-gauge
+  kup-box --> kup-progress-bar
+  kup-box --> kup-radio
+  kup-box --> kup-rating
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-button-list --> kup-dropdown-button

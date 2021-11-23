@@ -58,7 +58,9 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         cellType === FCellTypes.NUMBER ||
         cellType === FCellTypes.STRING
     ) {
-        setCellSize(cellType, subcomponentProps, cell);
+        if (props.setSizes) {
+            setCellSize(cellType, subcomponentProps, cell);
+        }
         content = setCell(
             cellType,
             subcomponentProps,
@@ -68,8 +70,10 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
             column
         );
     } else if (cell.data || cellType === 'editor') {
-        setCellSizeKup(cellType, subcomponentProps, cell);
-        if (!props.lazy) {
+        if (props.setSizes) {
+            setCellSizeKup(cellType, subcomponentProps, cell);
+        }
+        if (!props.renderKup) {
             const lazyClass = 'cell-' + cellType + ' placeholder';
             content = <span class={lazyClass}></span>;
         } else {
