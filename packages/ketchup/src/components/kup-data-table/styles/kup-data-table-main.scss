@@ -263,16 +263,6 @@ table {
   }
 }
 
-.obj-icon {
-  cursor: var(--kup-obj-cursor);
-  margin: auto 0.5em auto 0;
-
-  .number & {
-    display: inline-block;
-    vertical-align: text-bottom;
-  }
-}
-
 .below-wrapper {
   backface-visibility: hidden;
   height: auto;
@@ -477,99 +467,22 @@ tbody {
       word-wrap: break-word;
       transition: box-shadow 0.1s;
 
-      &.number {
-        .f-cell--wrapper {
-          font-family: var(--kup_datatable_font_family_monospace);
-          justify-content: flex-end;
-        }
-      }
-
       .row-expander {
         margin-right: 0.5em;
-      }
-
-      .indent {
-        display: inline-block;
-        height: 1em;
-        width: 2em;
       }
 
       .row-action {
         margin-right: 0.2em;
       }
 
-      // The container of the effective cell content
-      .f-cell--wrapper {
-        display: flex;
-
-        &.has-padding {
-          box-sizing: border-box;
-          padding: 1em;
-        }
-
-        &.is-tooltip {
-          position: relative;
-        }
-
-        &.is-vertical {
-          display: block;
-          width: auto;
-          margin: auto;
-          min-height: 16px;
-          min-width: 16px;
-          & > * {
-            margin: auto;
-          }
-        }
-
-        &.negative-number {
-          color: var(--kup-danger-color);
-        }
-      }
-
       &.is-graphic {
         padding: 0 1px;
-      }
-
-      & .indent ~ kup-image,
-      & .indent ~ kup-button {
-        margin: 0;
-        vertical-align: middle;
       }
     }
   }
 }
 
 tr {
-  kup-checkbox,
-  kup-image {
-    display: flex;
-  }
-
-  kup-button {
-    display: inline-block;
-  }
-
-  kup-button-list {
-    display: flex;
-    margin: auto;
-  }
-
-  kup-progress-bar {
-    display: block;
-  }
-
-  & .indent ~ kup-image {
-    display: inline-block;
-  }
-
-  .indent {
-    & ~ kup-button,
-    & ~ kup-checkbox {
-      display: inline-block;
-    }
-  }
-
   [row-select-cell] {
     min-height: 40px;
   }
@@ -591,15 +504,6 @@ tr {
 
 .above-wrapper {
   display: flex;
-  width: 100%;
-}
-
-.bar-cell-content {
-  overflow: hidden;
-  margin: auto;
-  position: relative;
-  transition: color 0.2s ease;
-  height: 100%;
   width: 100%;
 }
 
@@ -684,10 +588,6 @@ th.obj:hover span:not(.overlay-action) {
   padding-top: 1em;
 }
 
-.f-image--wrapper.cell-info {
-  margin: auto 0.5em auto 0.25em;
-}
-
 [kup-dialog] {
   animation: fade-in 0.25s ease-out;
   background-color: var(--kup_datatable_background_color);
@@ -719,6 +619,29 @@ th.obj:hover span:not(.overlay-action) {
 
   &.visible {
     display: block;
+  }
+}
+
+.indent {
+  display: inline-block;
+  height: 1em;
+  width: 2em;
+}
+
+.indent ~ kup-image,
+.indent ~ kup-button {
+  margin: 0;
+  vertical-align: middle;
+}
+
+.indent ~ kup-image {
+  display: inline-block;
+}
+
+.indent {
+  & ~ kup-button,
+  & ~ kup-checkbox {
+    display: inline-block;
   }
 }
 

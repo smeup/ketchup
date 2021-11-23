@@ -1,0 +1,69 @@
+.f-cell--wrapper {
+  display: flex;
+
+  &.number-cell {
+    font-family: var(--kup_datatable_font_family_monospace);
+    justify-content: flex-end;
+
+    &.obj-icon {
+      display: inline-block;
+      vertical-align: text-bottom;
+    }
+  }
+
+  &.negative-number {
+    color: var(--kup-danger-color);
+  }
+
+  &.has-padding {
+    box-sizing: border-box;
+    padding: 1em;
+  }
+
+  &.is-vertical {
+    display: block;
+    width: auto;
+    margin: auto;
+    min-height: 16px;
+    min-width: 16px;
+    & > * {
+      margin: auto;
+    }
+  }
+
+  .bar-cell-content {
+    overflow: hidden;
+    margin: auto;
+    position: relative;
+    transition: color 0.2s ease;
+    height: 100%;
+    width: 100%;
+  }
+
+  .cell-info {
+    margin: auto 0.5em auto 0.25em;
+  }
+
+  .obj-icon {
+    cursor: var(--kup-obj-cursor);
+    margin: auto 0.5em auto 0;
+  }
+
+  kup-checkbox,
+  kup-image {
+    display: flex;
+  }
+
+  kup-button {
+    display: inline-block;
+  }
+
+  kup-button-list {
+    display: flex;
+    margin: auto;
+  }
+
+  kup-progress-bar {
+    display: block;
+  }
+}

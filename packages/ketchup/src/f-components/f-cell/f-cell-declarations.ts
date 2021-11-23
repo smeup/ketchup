@@ -27,7 +27,6 @@ export interface FCellInfo {
     icon?: string;
     message: string;
 }
-
 /**
  * Supported cell types.
  */
