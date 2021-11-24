@@ -54,9 +54,6 @@ import {
     KupDataTableCellTextFieldInputEventPayload,
 } from './kup-data-table-declarations';
 import {
-    isRating,
-    isGauge,
-    isKnob,
     getColumnByName,
     getCellValueForDisplay,
 } from '../../utils/cell-utils';
@@ -1337,7 +1334,7 @@ export class KupDataTable {
                     cells[cellName].icon = oldColumn.icon;
                 }
                 if (oldColumn.shape && !cells[cellName].shape) {
-                    cells[cellName].shape = oldColumn.icon;
+                    cells[cellName].shape = oldColumn.shape;
                 }
             }
             // If a record is key and no column argument is provided, it will be placed on top
@@ -4229,17 +4226,9 @@ export class KupDataTable {
                 };
                 const jsxCell = <FCell {...cellProps}></FCell>;
 
-                // Classes which will be set onto the single data-table cell
-                let cellClass = {
-                    //    'has-options': !!options,
-                    'is-graphic': this.kupManager.objects.isBar(cell.obj),
-                    number:
-                        this.kupManager.objects.isNumber(cell.obj) &&
-                        !isRating(cell, null) &&
-                        !isGauge(cell, null) &&
-                        !isKnob(cell, null),
-                };
+                // Classes which will be set onto the single data-table cell;
 
+                let cellClass: GenericObject = null;
                 let cellStyle: GenericObject = null;
                 if (!styleHasBorderRadius(cell)) {
                     cellStyle = { ...cell.style };
@@ -4297,7 +4286,6 @@ export class KupDataTable {
                 let eventHandlers = undefined;
                 let title: string = undefined;
                 if (_hasTooltip) {
-                    cellClass['is-obj'] = true;
                     if (this.kupManager.debug.isDebug()) {
                         title =
                             cell.obj.t +

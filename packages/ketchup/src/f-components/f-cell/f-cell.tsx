@@ -7,9 +7,14 @@ import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
 import type { FImageProps } from '../f-image/f-image-declarations';
 import type { FButtonProps } from '../f-button/f-button-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
-import { FCellInfo, FCellProps, FCellTypes } from './f-cell-declarations';
+import {
+    FCellInfo,
+    FCellProps,
+    FCellShapes,
+    FCellTypes,
+} from './f-cell-declarations';
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import { getCellType, getCellValueForDisplay } from '../../utils/cell-utils';
+import { getCellValueForDisplay } from '../../utils/cell-utils';
 import { FCheckbox } from '../f-checkbox/f-checkbox';
 import { FTextField } from '../f-text-field/f-text-field';
 import { stringToNumber } from '../../utils/utils';
@@ -17,6 +22,9 @@ import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { styleHasWritingMode } from '../../components/kup-data-table/kup-data-table-helper';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -26,9 +34,16 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const cell = props.cell;
     const column = props.column;
     const row = props.row;
+    const shape = props.shape
+        ? props.shape
+        : cell.shape
+        ? cell.shape
+        : column.shape
+        ? column.shape
+        : null;
     const isEditable = cell.isEditable && props.editable ? true : false;
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
-    const cellType = getCellType(cell);
+    const cellType = getCellType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
     const classObj: Record<string, boolean> = {
         'f-cell__content': true,
@@ -229,7 +244,7 @@ function setCellSizeKup(
                 (subcomponentProps as KupChart).sizeY = '100%';
             }
             break;
-        case FCellTypes.CHIPS:
+        case FCellTypes.CHIP:
             if (cell.style) {
                 if (!cell.style.height) {
                     cell.style['minHeight'] = '40px';
@@ -387,7 +402,10 @@ function setKupCell(
                     </div>
                 );
             }
-        case FCellTypes.BTN:
+        case FCellTypes.BUTTON:
+            classObj['c-centered'] = true;
+            return <kup-button {...subcomponentProps}></kup-button>;
+        case FCellTypes.BUTTON_LIST:
             classObj['c-centered'] = true;
             subcomponentProps['data-storage'] = {
                 cell: cell,
@@ -395,13 +413,10 @@ function setKupCell(
                 column: column,
             };
             return <kup-button-list {...subcomponentProps}></kup-button-list>;
-        case FCellTypes.BUTTON:
-            classObj['c-centered'] = true;
-            return <kup-button {...subcomponentProps}></kup-button>;
         case FCellTypes.CHART:
             classObj['c-centered'] = true;
             return <kup-chart {...subcomponentProps} />;
-        case FCellTypes.CHIPS:
+        case FCellTypes.CHIP:
             return <FChip {...subcomponentProps} />;
         case FCellTypes.COLOR_PICKER:
             return (
@@ -436,5 +451,77 @@ function setKupCell(
                     disabled
                 ></kup-rating>
             );
+    }
+}
+
+function getCellType(cell: Cell, shape?: FCellShapes) {
+    const obj = cell.obj;
+    if (shape) {
+        switch (shape.toUpperCase()) {
+            case FCellShapes.AUTOCOMPLETE:
+                return FCellTypes.STRING;
+            case FCellShapes.BUTTON_LIST:
+                return FCellTypes.BUTTON_LIST;
+            case FCellShapes.CHART:
+                return FCellTypes.CHART;
+            case FCellShapes.CHIP:
+                return FCellTypes.CHIP;
+            case FCellShapes.COLOR_PICKER:
+                return FCellTypes.COLOR_PICKER;
+            case FCellShapes.COMBOBOX:
+                return FCellTypes.STRING;
+            case FCellShapes.EDITOR:
+                return FCellTypes.EDITOR;
+            case FCellShapes.GAUGE:
+                return FCellTypes.GAUGE;
+            case FCellShapes.IMAGE:
+                return FCellTypes.IMAGE;
+            case FCellShapes.KNOB:
+                return FCellTypes.KNOB;
+            case FCellShapes.PROGRESS_BAR:
+                return FCellTypes.PROGRESS_BAR;
+            case FCellShapes.RADIO:
+                return FCellTypes.RADIO;
+            case FCellShapes.RATING:
+                return FCellTypes.RATING;
+            case FCellShapes.TEXT_FIELD:
+                return FCellTypes.STRING;
+        }
+    }
+
+    if (dom.ketchup.objects.isBar(obj)) {
+        return FCellTypes.BAR;
+    } else if (dom.ketchup.objects.isButton(obj)) {
+        return FCellTypes.BUTTON;
+    } else if (dom.ketchup.objects.isChart(obj)) {
+        return FCellTypes.CHART;
+    } else if (dom.ketchup.objects.isCheckbox(obj)) {
+        return FCellTypes.CHECKBOX;
+    } else if (dom.ketchup.objects.isColor(obj)) {
+        return FCellTypes.COLOR_PICKER;
+    } else if (dom.ketchup.objects.isIcon(obj)) {
+        return FCellTypes.ICON;
+    } else if (dom.ketchup.objects.isImage(obj)) {
+        return FCellTypes.IMAGE;
+    } else if (dom.ketchup.objects.isLink(obj)) {
+        return FCellTypes.LINK;
+    } else if (dom.ketchup.objects.isProgressBar(obj)) {
+        return FCellTypes.PROGRESS_BAR;
+    } else if (dom.ketchup.objects.isRadio(obj)) {
+        return FCellTypes.RADIO;
+    } else if (dom.ketchup.objects.isKupObjList(obj)) {
+        return FCellTypes.CHIP;
+    } else if (dom.ketchup.objects.isNumber(obj)) {
+        return FCellTypes.NUMBER;
+    } else if (dom.ketchup.objects.isDate(obj)) {
+        return FCellTypes.DATE;
+    } else if (dom.ketchup.objects.isTimestamp(obj)) {
+        return FCellTypes.DATETIME;
+    } else if (dom.ketchup.objects.isTime(obj)) {
+        return FCellTypes.TIME;
+    } else if (dom.ketchup.objects.isVoCodver(obj)) {
+        return FCellTypes.ICON;
+    } else {
+        return FCellTypes.STRING;
     }
 }

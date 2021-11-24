@@ -48,7 +48,6 @@
         "diagram-js": "^5.0.0",
         "interactjs": "^1.10.11",
         "jquery": "^3.3.1",
-        "lodash": "^4.17.19",
         "numeral": "^2.0.6",
         "resize-observer": "^1.0.2",
         "vanilla-picker": "^2.11.0"
@@ -59,7 +58,6 @@
         "@types/d3-shape": "^2.1.0",
         "@types/jest": "^26.0.24",
         "@types/jest-cli": "^24.3.0",
-        "@types/lodash": "^4.14.156",
         "@types/node": "^14.5.0",
         "@types/numeral": "0.0.25",
         "@types/puppeteer": "^5.4.3",

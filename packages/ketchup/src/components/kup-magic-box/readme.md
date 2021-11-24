@@ -75,8 +75,8 @@ graph TD;
   kup-box --> kup-paginator
   kup-box --> kup-date-picker
   kup-box --> kup-image
-  kup-box --> kup-button-list
   kup-box --> kup-button
+  kup-box --> kup-button-list
   kup-box --> kup-chart
   kup-box --> kup-color-picker
   kup-box --> kup-gauge
@@ -139,8 +139,8 @@ graph TD;
   kup-tree --> kup-text-field
   kup-tree --> kup-date-picker
   kup-tree --> kup-image
-  kup-tree --> kup-button-list
   kup-tree --> kup-button
+  kup-tree --> kup-button-list
   kup-tree --> kup-chart
   kup-tree --> kup-color-picker
   kup-tree --> kup-gauge

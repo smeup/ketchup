@@ -37,17 +37,7 @@ import {
     KupBoxData,
     KupBoxEventHandlerDetails,
 } from './kup-box-declarations';
-import {
-    isEditor,
-    isImage,
-    isProgressBar,
-    isRadio,
-    isGauge,
-    isKnob,
-    isChart,
-    getCellValueForDisplay,
-    getColumnByName,
-} from '../../utils/cell-utils';
+import { getColumnByName } from '../../utils/cell-utils';
 import {
     filterRows,
     sortRows,
@@ -63,20 +53,13 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import {
-    deepEqual,
-    getProps,
-    identify,
-    setProps,
-    stringToNumber,
-} from '../../utils/utils';
+import { deepEqual, getProps, identify, setProps } from '../../utils/utils';
 import {
     GenericObject,
     KupComponent,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
-import { FButton } from '../../f-components/f-button/f-button';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
@@ -1445,6 +1428,7 @@ export class KupBox {
             renderKup: true,
             row: row,
             setSizes: false,
+            shape: boxObject.shape,
         };
         return (
             <div

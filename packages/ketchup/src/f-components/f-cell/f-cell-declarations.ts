@@ -19,6 +19,7 @@ export interface FCellProps extends FComponent {
     renderKup?: boolean;
     row?: Row;
     setSizes?: boolean;
+    shape?: FCellShapes;
 }
 /**
  * Information about the cell, displayed before the content.
@@ -37,15 +38,34 @@ export enum FCellPadding {
     WIDE = 'wide',
 }
 /**
+ * Supported cell shapes.
+ */
+export enum FCellShapes {
+    AUTOCOMPLETE = 'ACP',
+    BUTTON_LIST = 'BTN',
+    CHART = 'GRA',
+    CHIP = 'CHI',
+    COLOR_PICKER = 'CLP',
+    COMBOBOX = 'CMB',
+    EDITOR = 'EDT',
+    GAUGE = 'GAU',
+    IMAGE = 'IMG',
+    KNOB = 'KNB',
+    PROGRESS_BAR = 'PGB',
+    RADIO = 'RAD',
+    RATING = 'RTG',
+    TEXT_FIELD = 'ITX',
+}
+/**
  * Supported cell types.
  */
 export enum FCellTypes {
     BAR = 'bar',
-    BTN = 'btn',
     BUTTON = 'button',
+    BUTTON_LIST = 'button-list',
     CHART = 'chart',
     CHECKBOX = 'checkbox',
-    CHIPS = 'chips',
+    CHIP = 'chips',
     COLOR_PICKER = 'color-picker',
     DATE = 'date',
     DATETIME = 'datetime',

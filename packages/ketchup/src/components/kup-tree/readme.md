@@ -237,8 +237,8 @@ Type: `Promise<void>`
 - [kup-text-field](../kup-text-field)
 - [kup-date-picker](../kup-date-picker)
 - [kup-image](../kup-image)
-- [kup-button-list](../kup-button-list)
 - [kup-button](../kup-button)
+- [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
 - [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
@@ -256,8 +256,8 @@ graph TD;
   kup-tree --> kup-text-field
   kup-tree --> kup-date-picker
   kup-tree --> kup-image
-  kup-tree --> kup-button-list
   kup-tree --> kup-button
+  kup-tree --> kup-button-list
   kup-tree --> kup-chart
   kup-tree --> kup-color-picker
   kup-tree --> kup-gauge
@@ -304,8 +304,8 @@ graph TD;
   kup-box --> kup-paginator
   kup-box --> kup-date-picker
   kup-box --> kup-image
-  kup-box --> kup-button-list
   kup-box --> kup-button
+  kup-box --> kup-button-list
   kup-box --> kup-chart
   kup-box --> kup-color-picker
   kup-box --> kup-gauge

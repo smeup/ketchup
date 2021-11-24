@@ -1,4 +1,7 @@
-import { FCellInfo } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    FCellInfo,
+    FCellShapes,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
@@ -81,7 +84,7 @@ export interface Cell {
     info?: FCellInfo;
     isEditable?: boolean;
     obj?: KupObj;
-    shape?: string;
+    shape?: FCellShapes;
     span?: KupDatatableCellSpan;
     style?: GenericMap;
     title?: string;
@@ -109,7 +112,7 @@ export interface Column {
     };
     // a column can contain heterogeneous objs
     objs?: KupObj[];
-    shape?: string;
+    shape?: FCellShapes;
     decimals?: number;
     icon?: string;
     formula?: string;
