@@ -213,14 +213,23 @@
   }
 
   &.dense {
+    .mdc-text-field {
+      height: 28px !important;
+    }
     padding: 0.2em 0.3125em;
   }
 
   &.medium {
+    .mdc-text-field {
+      height: 36px !important;
+    }
     padding: 0.5em 0.3125em;
   }
 
   &.wide {
+    .mdc-text-field {
+      height: 50px !important;
+    }
     padding: 1em 0.3125em;
   }
 
@@ -285,6 +294,10 @@
   .obj-icon {
     cursor: var(--kup-obj-cursor);
     margin: auto 0.5em auto 0;
+  }
+
+  .mdc-text-field {
+    padding: 0px;
   }
 
   kup-checkbox,
