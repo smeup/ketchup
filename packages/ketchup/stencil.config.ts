@@ -18,6 +18,7 @@ export const config: Config = {
                 { src: 'calendar.html' },
                 { src: 'card.html' },
                 { src: 'card-performance.html' },
+                { src: 'cell.html' },
                 { src: 'chart.html' },
                 { src: 'checkbox.html' },
                 { src: 'chip.html' },
