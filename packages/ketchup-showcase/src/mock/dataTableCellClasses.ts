@@ -110,35 +110,6 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
-          value: 'paddingless',
-        },
-        DESCR: {
-          obj: {
-            t: '',
-            p: '',
-            k: '',
-          },
-          value: 'Cell will have no padding.',
-        },
-        EXAMPLE: {
-          obj: {
-            t: '',
-            p: '',
-            k: '',
-          },
-          value: 'paddingless',
-          cssClass: 'paddingless',
-        },
-      },
-    },
-    {
-      cells: {
-        CSSCLASS: {
-          obj: {
-            t: '',
-            p: '',
-            k: '',
-          },
           value: 'shaped',
         },
         DESCR: {

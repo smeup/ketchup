@@ -157,7 +157,10 @@ import {
     KupResizeCallbacks,
 } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
-import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    FCellPadding,
+    FCellProps,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 
 @Component({
@@ -408,7 +411,7 @@ export class KupDataTable {
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
-    @Prop() density: string = 'dense';
+    @Prop() density: FCellPadding = FCellPadding.DENSE;
     /**
      * Enables drag.
      */
@@ -4204,6 +4207,7 @@ export class KupDataTable {
                 const cellProps: FCellProps = {
                     cell: cell,
                     column: currentColumn,
+                    density: this.density,
                     editable: this.editableData,
                     indents: indend,
                     onUpdate: (e: Event | CustomEvent) => {
@@ -4767,7 +4771,6 @@ export class KupDataTable {
         );
     }
 
-    private DENSITY_CODES: Array<string> = ['dense', 'medium', 'wide'];
     private DENSITY_DECODES: Array<string> = ['Dense', 'Normal', 'Wide'];
     private DENSITY_ICONS: Array<string> = [
         'format-align-justify',
@@ -4779,13 +4782,13 @@ export class KupDataTable {
         return this.transcodeItem(
             decode,
             this.DENSITY_DECODES,
-            this.DENSITY_CODES
+            Object.values(FCellPadding)
         );
     }
 
     private renderDensityPanel() {
         const listItems: KupListData[] = this.createListData(
-            this.DENSITY_CODES,
+            Object.values(FCellPadding),
             this.DENSITY_ICONS,
             this.density
         );
@@ -4823,7 +4826,7 @@ export class KupDataTable {
                         e.stopPropagation();
                         this.density = this.getDensityCodeFromDecode(
                             e.detail.value
-                        );
+                        ) as FCellPadding;
                     }}
                 />
             </div>

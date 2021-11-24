@@ -133,6 +133,8 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     return (
         <div
             class={`f-cell--wrapper ${
+                props.density ? props.density.toLowerCase() : ''
+            } ${
                 cell.cssClass
                     ? cell.cssClass
                     : column.cssClass
@@ -141,8 +143,11 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
             }`}
             style={
                 style &&
-                (style.border !== undefined || style.padding !== undefined)
+                (style.backgroundColor !== undefined ||
+                    style.border !== undefined ||
+                    style.padding !== undefined)
                     ? {
+                          backgroundColor: style.backgroundColor,
                           border: style.border,
                           padding: style.padding,
                       }

@@ -135,14 +135,6 @@
     max-width: max-content;
     width: max-content;
   }
-
-  tbody tr > .f-cell--wrapper .c-fitted * {
-    max-width: max-content;
-  }
-
-  tbody tr > .f-cell--wrapper .c-right-aligned * {
-    text-align: right;
-  }
 }
 
 table {
@@ -277,10 +269,6 @@ table {
 
 .density- {
   &dense {
-    tbody > tr :not(.is-graphic) .f-cell--wrapper {
-      padding-top: 0.2em;
-      padding-bottom: 0.2em;
-    }
     tbody > tr.group td {
       padding-top: 0.25em;
       padding-bottom: 0.25em;
@@ -288,10 +276,6 @@ table {
   }
 
   &wide {
-    tbody > tr :not(.is-graphic) .f-cell--wrapper {
-      padding-top: 1em;
-      padding-bottom: 1em;
-    }
     tbody > tr.group > td {
       padding-top: 0.75em;
       padding-bottom: 0.75em;
@@ -467,12 +451,6 @@ tbody {
       }
     }
 
-    .f-cell--wrapper {
-      padding: 0.5em 0.3125em;
-      word-break: break-all;
-      word-wrap: break-word;
-    }
-
     > td {
       box-sizing: border-box;
       transition: box-shadow 0.1s;
@@ -483,10 +461,6 @@ tbody {
 
       .row-action {
         margin-right: 0.2em;
-      }
-
-      &.is-graphic .f-cell--wrapper {
-        padding: 0 1px;
       }
     }
 

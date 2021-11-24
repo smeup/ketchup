@@ -11,6 +11,7 @@ import type { FComponent } from '../../types/GenericTypes';
 export interface FCellProps extends FComponent {
     cell?: Cell;
     column?: Column;
+    density?: FCellPadding;
     editable?: boolean;
     indents?: VNode[];
     onUpdate?: (event: Event | CustomEvent) => void;
@@ -26,6 +27,14 @@ export interface FCellInfo {
     color?: string;
     icon?: string;
     message: string;
+}
+/**
+ * Supported cell padding.
+ */
+export enum FCellPadding {
+    DENSE = 'dense',
+    MEDIUM = 'medium',
+    WIDE = 'wide',
 }
 /**
  * Supported cell types.

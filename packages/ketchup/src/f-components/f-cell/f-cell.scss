@@ -2,6 +2,8 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
+  word-break: break-all;
+  word-wrap: break-word;
 
   &.clickable {
     cursor: pointer;
@@ -13,10 +15,6 @@
     &:hover {
       opacity: 1;
     }
-  }
-
-  &.paddingless {
-    padding: 0 !important;
   }
 
   &.shaped {
@@ -214,9 +212,26 @@
     }
   }
 
+  &.dense {
+    padding: 0.2em 0.3125em;
+  }
+
+  &.medium {
+    padding: 0.5em 0.3125em;
+  }
+
+  &.wide {
+    padding: 1em 0.3125em;
+  }
+
   .f-cell__content {
     display: flex;
+    line-height: normal;
     width: 100%;
+  }
+
+  .bar-cell {
+    padding: 0;
   }
 
   .icon-cell {

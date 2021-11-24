@@ -16,7 +16,6 @@ import {
 import type { PointerEvent } from '@interactjs/types/index';
 import {
     Cell,
-    CellData,
     Column,
     Row,
     TotalLabel,
@@ -89,7 +88,10 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { KupPointerEventTypes } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
-import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    FCellPadding,
+    FCellProps,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 @Component({
     tag: 'kup-tree',
@@ -214,7 +216,7 @@ export class KupTree {
     /**
      * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
      */
-    @Prop() density: string = 'medium';
+    @Prop() density: FCellPadding = FCellPadding.MEDIUM;
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      *
@@ -1532,12 +1534,13 @@ export class KupTree {
                 const cellProps: FCellProps = {
                     cell: treeNodeData.cells[column.name],
                     column: column,
+                    density: this.density,
                     renderKup: true,
                     row: treeNodeData,
                     setSizes: true,
                 };
                 treeNodeCells.push(
-                    <td>
+                    <td class="grid-cell">
                         <FCell {...cellProps}></FCell>
                     </td>
                 );
@@ -2056,10 +2059,10 @@ export class KupTree {
         this.sizedColumns = this.getSizedColumns();
         let wrapperClass: string = 'density-medium';
         switch (this.density) {
-            case 'dense':
+            case FCellPadding.DENSE:
                 wrapperClass = 'density-dense';
                 break;
-            case 'wide':
+            case FCellPadding.WIDE:
                 wrapperClass = 'density-wide';
                 break;
         }

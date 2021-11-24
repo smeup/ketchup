@@ -59,8 +59,7 @@
 
 .density-dense .wrapper .kup-tree,
 .density-dense .wrapper .kup-tree {
-  .first-node,
-  .f-cell--wrapper,
+  td:not(.grid-cell),
   th {
     padding: 0 0.5em;
 
@@ -73,8 +72,7 @@
 
 .density-wide .wrapper .kup-tree,
 .density-wide .wrapper .kup-tree {
-  .first-node,
-  .f-cell--wrapper,
+  td:not(.grid-cell),
   th {
     padding: 0.75em 0.5em;
   }
@@ -109,6 +107,9 @@
 
     tr,
     td {
+      font-size: 1em;
+      line-height: 1em;
+
       &.mdc-ripple-surface {
         --mdc-ripple-fg-opacity: 0.24;
 
@@ -121,13 +122,11 @@
       & .kup-tree__icon ~ .cell-content,
       & .kup-tree__icon + .cell-content {
         display: inline-block;
-        line-height: 1em;
         vertical-align: 0.3em;
       }
     }
 
-    .f-cell--wrapper,
-    .first-node,
+    td:not(.grid-cell),
     th {
       padding: 0.4em 0.5em;
     }
@@ -302,19 +301,19 @@ tfoot {
   }
 
   .density-dense {
-    .first-node {
+    .first-node:not(.grid-cell) {
       padding: 0.5em 1em;
     }
   }
 
   .density-medium {
-    .first-node {
+    .first-node:not(.grid-cell) {
       padding: 1em 1.5em;
     }
   }
 
   .density-wide {
-    .first-node {
+    .first-node:not(.grid-cell) {
       padding: 1.75em 1.75em;
     }
   }
