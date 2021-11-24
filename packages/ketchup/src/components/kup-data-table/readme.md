@@ -301,21 +301,20 @@ graph TD;
   kup-time-picker --> kup-list
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
-  kup-tree --> kup-image
-  kup-tree --> kup-button
-  kup-tree --> kup-chart
-  kup-tree --> kup-checkbox
-  kup-tree --> kup-chip
-  kup-tree --> kup-color-picker
-  kup-tree --> kup-gauge
-  kup-tree --> kup-progress-bar
-  kup-tree --> kup-rating
-  kup-tree --> kup-radio
   kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
+  kup-tree --> kup-date-picker
+  kup-tree --> kup-image
+  kup-tree --> kup-button-list
+  kup-tree --> kup-button
+  kup-tree --> kup-chart
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-gauge
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-rating
+  kup-tree --> kup-badge
   kup-tooltip --> kup-button
   kup-tooltip --> kup-card
   kup-tooltip --> kup-box
@@ -340,6 +339,8 @@ graph TD;
   kup-box --> kup-rating
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list

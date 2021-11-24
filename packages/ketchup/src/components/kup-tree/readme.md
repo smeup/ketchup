@@ -232,37 +232,39 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-card](../kup-card)
-- [kup-image](../kup-image)
-- [kup-button](../kup-button)
-- [kup-chart](../kup-chart)
-- [kup-checkbox](../kup-checkbox)
-- [kup-chip](../kup-chip)
-- [kup-color-picker](../kup-color-picker)
-- [kup-gauge](../kup-gauge)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-rating](../kup-rating)
-- [kup-radio](../kup-radio)
 - [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
 - [kup-text-field](../kup-text-field)
+- [kup-date-picker](../kup-date-picker)
+- [kup-image](../kup-image)
+- [kup-button-list](../kup-button-list)
+- [kup-button](../kup-button)
+- [kup-chart](../kup-chart)
+- [kup-color-picker](../kup-color-picker)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-radio](../kup-radio)
+- [kup-rating](../kup-rating)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-tree --> kup-card
-  kup-tree --> kup-image
-  kup-tree --> kup-button
-  kup-tree --> kup-chart
-  kup-tree --> kup-checkbox
-  kup-tree --> kup-chip
-  kup-tree --> kup-color-picker
-  kup-tree --> kup-gauge
-  kup-tree --> kup-progress-bar
-  kup-tree --> kup-rating
-  kup-tree --> kup-radio
   kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-date-picker
+  kup-tree --> kup-image
+  kup-tree --> kup-button-list
+  kup-tree --> kup-button
+  kup-tree --> kup-chart
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-gauge
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-rating
+  kup-tree --> kup-badge
   kup-card --> kup-tree
   kup-chip --> kup-badge
   kup-badge --> kup-badge

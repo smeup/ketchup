@@ -59,7 +59,8 @@
 
 .density-dense .wrapper .kup-tree,
 .density-dense .wrapper .kup-tree {
-  td,
+  .first-node,
+  .f-cell--wrapper,
   th {
     padding: 0 0.5em;
 
@@ -72,7 +73,8 @@
 
 .density-wide .wrapper .kup-tree,
 .density-wide .wrapper .kup-tree {
-  td,
+  .first-node,
+  .f-cell--wrapper,
   th {
     padding: 0.75em 0.5em;
   }
@@ -107,9 +109,6 @@
 
     tr,
     td {
-      font-size: 1em;
-      line-height: 1em;
-
       &.mdc-ripple-surface {
         --mdc-ripple-fg-opacity: 0.24;
 
@@ -127,12 +126,14 @@
       }
     }
 
-    td,
+    .f-cell--wrapper,
+    .first-node,
     th {
       padding: 0.4em 0.5em;
     }
 
     td {
+      padding: 0;
       white-space: nowrap;
     }
 
