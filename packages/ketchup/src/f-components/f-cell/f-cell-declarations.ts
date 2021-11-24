@@ -13,7 +13,6 @@ export interface FCellProps extends FComponent {
     column?: Column;
     editable?: boolean;
     indents?: VNode[];
-    oneLine?: boolean;
     onUpdate?: (event: Event | CustomEvent) => void;
     previousValue?: string;
     renderKup?: boolean;

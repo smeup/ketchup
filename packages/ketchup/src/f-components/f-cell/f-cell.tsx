@@ -33,7 +33,6 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const classObj: Record<string, boolean> = {
         'f-cell__content': true,
         clickable: !!column.clickable,
-        'force-one-line': props.oneLine == true ? true : false,
         [cellType + '-cell']: true,
         [props.wrapperClass]: props.wrapperClass ? true : false,
     };

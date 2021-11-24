@@ -80,11 +80,7 @@ export interface Cell {
     icon?: string;
     info?: FCellInfo;
     isEditable?: boolean;
-    obj?: {
-        t: string;
-        p: string;
-        k: string;
-    };
+    obj?: KupObj;
     shape?: string;
     span?: KupDatatableCellSpan;
     style?: GenericMap;

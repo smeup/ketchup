@@ -4206,7 +4206,6 @@ export class KupDataTable {
                     column: currentColumn,
                     editable: this.editableData,
                     indents: indend,
-                    oneLine: this.forceOneLine,
                     onUpdate: (e: Event | CustomEvent) => {
                         let value = null;
                         if ((e.target as HTMLElement).tagName === 'INPUT') {
