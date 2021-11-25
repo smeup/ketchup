@@ -261,6 +261,10 @@
     color: var(--kup-danger-color);
   }
 
+  .has-obj {
+    cursor: var(--kup-obj-cursor);
+  }
+
   .has-padding {
     box-sizing: border-box;
     padding: 1em;
@@ -292,7 +296,6 @@
   }
 
   .obj-icon {
-    cursor: var(--kup-obj-cursor);
     margin: auto 0.5em auto 0;
   }
 

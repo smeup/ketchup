@@ -76,6 +76,7 @@ Type: `Promise<void>`
  - [kup-button-list](../kup-button-list)
  - [kup-calendar](../kup-calendar)
  - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
@@ -100,6 +101,7 @@ graph TD;
   kup-button-list --> kup-badge
   kup-calendar --> kup-badge
   kup-card --> kup-badge
+  kup-cell --> kup-badge
   kup-chip --> kup-badge
   kup-data-table --> kup-badge
   kup-dropdown-button --> kup-badge

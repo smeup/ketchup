@@ -86,6 +86,7 @@ Type: `Promise<void>`
 
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
  - [kup-field](../kup-field)
@@ -106,6 +107,7 @@ graph TD;
   kup-badge --> kup-badge
   kup-box --> kup-button
   kup-card --> kup-button
+  kup-cell --> kup-button
   kup-data-table --> kup-button
   kup-date-picker --> kup-button
   kup-field --> kup-button
