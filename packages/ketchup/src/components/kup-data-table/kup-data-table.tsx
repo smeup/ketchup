@@ -4286,15 +4286,6 @@ export class KupDataTable {
                 let eventHandlers = undefined;
                 let title: string = undefined;
                 if (_hasTooltip) {
-                    if (this.kupManager.debug.isDebug()) {
-                        title =
-                            cell.obj.t +
-                            '; ' +
-                            cell.obj.p +
-                            '; ' +
-                            cell.obj.k +
-                            ';';
-                    }
                     if (!this.showTooltipOnRightClick) {
                         eventHandlers = {
                             onMouseEnter: (ev) => {

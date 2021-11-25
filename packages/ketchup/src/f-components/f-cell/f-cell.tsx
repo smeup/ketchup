@@ -41,12 +41,14 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         : column.shape
         ? column.shape
         : null;
+    const hasObj = !dom.ketchup.objects.isEmptyKupObj(cell.obj);
     const isEditable = cell.isEditable && props.editable ? true : false;
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = getCellType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
     const classObj: Record<string, boolean> = {
         'f-cell__content': true,
+        'has-obj': hasObj ? true : false,
         clickable: !!column.clickable,
         [cellType + '-cell']: true,
         [props.wrapperClass]: props.wrapperClass ? true : false,
@@ -121,7 +123,9 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     }
 
     let cellTitle: string = null;
-    if (cell.title != null && cell.title.trim() != '') {
+    if (dom.ketchup.debug.isDebug() && hasObj) {
+        cellTitle = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+    } else if (cell.title != null && cell.title.trim() != '') {
         cellTitle = cell.title;
     }
 
@@ -158,11 +162,8 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
             }`}
             style={
                 style &&
-                (style.backgroundColor !== undefined ||
-                    style.border !== undefined ||
-                    style.padding !== undefined)
+                (style.border !== undefined || style.padding !== undefined)
                     ? {
-                          backgroundColor: style.backgroundColor,
                           border: style.border,
                           padding: style.padding,
                       }

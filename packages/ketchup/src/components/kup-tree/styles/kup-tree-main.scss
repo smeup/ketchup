@@ -200,25 +200,6 @@
         background-color: rgba(var(--kup_tree_primary_color_rgb), 0.175);
         color: var(--kup_tree_color);
       }
-
-      .cell-content .#{$kup-icon}.obj-icon {
-        cursor: var(--kup-obj-cursor);
-        display: inline-block;
-        vertical-align: sub;
-        height: 1.25em;
-        width: 1.25em;
-        background-color: rgba(var(--kup_tree_color_rgb), 0.375);
-        margin: auto 0.5em auto 0;
-      }
-
-      .number-cell {
-        font-family: var(--kup_tree_font_family_monospace);
-        float: right;
-      }
-
-      .negative-number {
-        color: var(--kup-danger-color);
-      }
     }
 
     &[data-show-columns] .kup-tree__node {
