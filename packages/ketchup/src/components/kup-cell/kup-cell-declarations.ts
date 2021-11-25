@@ -1,9 +1,17 @@
+import { KupEventPayload } from '../../types/GenericTypes';
+import { Cell } from '../kup-data-table/kup-data-table-declarations';
+
 /**
  * Props of the kup-cell component.
  * Used to export every prop in an object.
  */
- export enum KupCellProps {
+export enum KupCellProps {
     customStyle = 'Custom style of the component.',
     data = 'The data of the cell.',
-    dragEnabled = "When set to true, the component is draggable."
+    dragEnabled = 'When set to true, the component is draggable.',
+}
+
+export interface KupCellEventPayload extends KupEventPayload {
+    cell: Cell;
+    value: string;
 }

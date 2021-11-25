@@ -23,10 +23,20 @@ import {
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { Cell } from '../kup-data-table/kup-data-table-declarations';
-import { KupCellProps } from './kup-cell-declarations';
+import {
+    Cell,
+    Column,
+    Row,
+} from '../kup-data-table/kup-data-table-declarations';
+import { KupCellEventPayload, KupCellProps } from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    KupDragDataTransferCallback,
+    KupDragEffect,
+    KupDraggableElement,
+} from '../../utils/kup-interact/kup-interact-declarations';
+import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-cell',
@@ -57,7 +67,7 @@ export class KupCell {
      * The data of the cell.
      * @default false
      */
-     @Prop() data: Cell = null;
+    @Prop() data: Cell = null;
     /**
      * When set to true, the component is draggable.
      * @default false
@@ -76,6 +86,47 @@ export class KupCell {
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
+
+    /**
+     * Triggered when the element changes.
+     */
+    @Event({
+        eventName: 'kup-cell-change',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<KupCellEventPayload>;
+    /**
+     * Triggered when the element is clicked.
+     */
+    @Event({
+        eventName: 'kup-cell-click',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<KupCellEventPayload>;
+
+    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupChange.emit({
+            cell: this.data,
+            comp: this,
+            id: this.rootElement.id,
+            value: target.value,
+        });
+    }
+
+    onKupClick(event: MouseEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupClick.emit({
+            cell: this.data,
+            comp: this,
+            id: this.rootElement.id,
+            value: target.value,
+        });
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -107,11 +158,78 @@ export class KupCell {
     }
 
     /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    private didRenderInteractables() {
+        if (this.dragEnabled) {
+            const dataCb: KupDragDataTransferCallback = (e) => {
+                const draggable = e.target as KupDraggableElement;
+                return {
+                    cell: this.data,
+                    column: this.generateColumn(),
+                    id: this.rootElement.id,
+                    multiple: false,
+                    row: this.generateRow(),
+                };
+            };
+
+            this.kupManager.interact.draggable(
+                this.rootElement.shadowRoot.querySelector(
+                    '#' + componentWrapperId
+                ),
+                {
+                    cursorChecker() {
+                        return null;
+                    },
+                },
+                {
+                    callback: dataCb,
+                },
+                KupDragEffect.BADGE
+            );
+        }
+
+        this.rootElement.shadowRoot
+            .querySelector('#' + componentWrapperId)
+            .addEventListener(
+                'click',
+                (e: MouseEvent & { target: HTMLInputElement }) =>
+                    this.onKupClick(e)
+            );
+    }
+
+    private generateColumn(): Column {
+        const colname: string =
+            this.data && this.data.obj && this.data.obj.t
+                ? this.data.obj.t + '|' + this.data.obj.p
+                : 'KUPCELL';
+        const coltitle: string =
+            this.data && this.data.obj && this.data.obj.t
+                ? this.data.obj.t + '|' + this.data.obj.p
+                : this.kupManager.language.translate(
+                      KupLanguageGeneric.EMPTY_OBJECT
+                  );
+        return {
+            name: colname,
+            title: coltitle,
+        };
+    }
+
+    private generateRow(): Row {
+        const col: Column = this.generateColumn();
+        const row: Row = { cells: {} };
+        row.cells[col.name] = this.data;
+        return row;
+    }
+
+    /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
     }
 
@@ -125,37 +243,24 @@ export class KupCell {
 
     componentDidRender() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
+        this.didRenderInteractables();
         this.kupManager.debug.logRender(this, true);
     }
 
+    disconnectedCallback() {
+        this.kupManager.language.unregister(this);
+        this.kupManager.theme.unregister(this);
+    }
+
     render() {
-
-        const mockCell: Cell = {
-            obj: {
-                t: "J4",
-                p: "BTN",
-                k: ""
-            },
-            data: {
-                icon: "link",
-                label: "Label"
-            },
-            value: "TEST",
-            displayedValue: "MOD TEST",
-        };
-
         const props: FCellProps = {
-            column: {
-                name: "KC1",
-                title: "Test"
-            },
-            cell: mockCell,
-            row: {
-                cells: {
-                    KC1: mockCell
-                }
-            },
-            renderKup: true
+            cell: this.data,
+            column: this.generateColumn(),
+            editable: this.data.isEditable,
+            renderKup: true,
+            row: this.generateRow(),
+            onUpdate: (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupChange(e),
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(
@@ -170,9 +275,5 @@ export class KupCell {
                 </div>
             </Host>
         );
-    }
-
-    disconnectedCallback() {
-        this.kupManager.theme.unregister(this);
     }
 }
