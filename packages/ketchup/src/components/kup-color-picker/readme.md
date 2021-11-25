@@ -91,6 +91,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
@@ -98,6 +99,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-box --> kup-color-picker
+  kup-cell --> kup-color-picker
   kup-data-table --> kup-color-picker
   kup-tree --> kup-color-picker
   style kup-color-picker fill:#f9f,stroke:#333,stroke-width:4px

@@ -71,6 +71,7 @@ Type: `Promise<void>`
 
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
@@ -79,6 +80,7 @@ Type: `Promise<void>`
 graph TD;
   kup-box --> kup-progress-bar
   kup-card --> kup-progress-bar
+  kup-cell --> kup-progress-bar
   kup-data-table --> kup-progress-bar
   kup-tree --> kup-progress-bar
   style kup-progress-bar fill:#f9f,stroke:#333,stroke-width:4px

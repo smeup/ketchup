@@ -77,6 +77,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
@@ -96,6 +97,7 @@ graph TD;
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-box --> kup-button-list
+  kup-cell --> kup-button-list
   kup-data-table --> kup-button-list
   kup-tree --> kup-button-list
   style kup-button-list fill:#f9f,stroke:#333,stroke-width:4px
