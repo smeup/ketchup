@@ -99,7 +99,11 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
+ - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -112,7 +116,11 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-badge --> kup-badge
+  kup-box --> kup-autocomplete
   kup-card --> kup-autocomplete
+  kup-cell --> kup-autocomplete
+  kup-data-table --> kup-autocomplete
+  kup-tree --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

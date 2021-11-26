@@ -3527,10 +3527,6 @@ declare namespace LocalJSX {
          */
         "dragEnabled"?: boolean;
         /**
-          * Triggered when the element changes.
-         */
-        "onKup-cell-change"?: (event: CustomEvent<KupCellEventPayload>) => void;
-        /**
           * Triggered when the element is clicked.
          */
         "onKup-cell-click"?: (event: CustomEvent<KupCellEventPayload>) => void;

@@ -34,10 +34,10 @@ dateCell.data = {
 
 const editableCell = document.getElementById('editableCell');
 editableCell.data = {
-    value: 'Editable text with change event',
+    value: 'Editable text with update event',
     isEditable: true,
 };
-editableCell.addEventListener('kup-cell-change', (e) => {
+editableCell.addEventListener('kup-cell-update', (e) => {
     console.log(e);
 });
 

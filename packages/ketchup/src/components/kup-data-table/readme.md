@@ -98,7 +98,6 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | --------------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | `kup-datatable-autorowselect`     | When a row is auto selected via selectRow prop                                        | `CustomEvent<KupDatatableAutoRowSelectEventPayload>`      |
 | `kup-datatable-cellbuttonclick`   |                                                                                       | `CustomEvent<KupDataTableCellButtonClickEventPayload>`    |
-| `kup-datatable-cellupdate`        | Emitted when a cell's data has been updated.                                          | `CustomEvent<KupDatatableCellUpdateEventPayload>`         |
 | `kup-datatable-click`             | Generic click event on data table.                                                    | `CustomEvent<KupDatatableClickEventPayload>`              |
 | `kup-datatable-columnmenu`        | Emitted by the column menu card when opened/closed or when a kup-card-event is fired. | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
 | `kup-datatable-contextmenu`       | Generic right click event on data table.                                              | `CustomEvent<KupDatatableClickEventPayload>`              |
@@ -257,6 +256,7 @@ Type: `Promise<void>`
 - [kup-switch](../kup-switch)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
+- [kup-autocomplete](../kup-autocomplete)
 - [kup-date-picker](../kup-date-picker)
 - [kup-image](../kup-image)
 - [kup-button-list](../kup-button-list)
@@ -279,6 +279,7 @@ graph TD;
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
+  kup-data-table --> kup-autocomplete
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
   kup-data-table --> kup-button-list
@@ -304,6 +305,8 @@ graph TD;
   kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-autocomplete
+  kup-tree --> kup-combobox
   kup-tree --> kup-date-picker
   kup-tree --> kup-image
   kup-tree --> kup-button
@@ -327,6 +330,7 @@ graph TD;
   kup-box --> kup-combobox
   kup-box --> kup-text-field
   kup-box --> kup-paginator
+  kup-box --> kup-autocomplete
   kup-box --> kup-date-picker
   kup-box --> kup-image
   kup-box --> kup-button

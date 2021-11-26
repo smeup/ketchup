@@ -459,6 +459,15 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'cell',
+                  },
+                },
+                value: 'Cell',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'chart',
                   },
                 },

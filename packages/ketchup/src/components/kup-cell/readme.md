@@ -16,10 +16,9 @@
 
 ## Events
 
-| Event             | Description                            | Type                               |
-| ----------------- | -------------------------------------- | ---------------------------------- |
-| `kup-cell-change` | Triggered when the element changes.    | `CustomEvent<KupCellEventPayload>` |
-| `kup-cell-click`  | Triggered when the element is clicked. | `CustomEvent<KupCellEventPayload>` |
+| Event            | Description                            | Type                               |
+| ---------------- | -------------------------------------- | ---------------------------------- |
+| `kup-cell-click` | Triggered when the element is clicked. | `CustomEvent<KupCellEventPayload>` |
 
 
 ## Methods
@@ -59,6 +58,8 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
@@ -74,6 +75,8 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-cell --> kup-autocomplete
+  kup-cell --> kup-combobox
   kup-cell --> kup-date-picker
   kup-cell --> kup-image
   kup-cell --> kup-button
@@ -85,17 +88,19 @@ graph TD;
   kup-cell --> kup-radio
   kup-cell --> kup-rating
   kup-cell --> kup-badge
+  kup-autocomplete --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-badge
+  kup-badge --> kup-badge
+  kup-combobox --> kup-list
   kup-date-picker --> kup-button
   kup-button --> kup-badge
-  kup-badge --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-list --> kup-radio
-  kup-list --> kup-badge
   style kup-cell fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
