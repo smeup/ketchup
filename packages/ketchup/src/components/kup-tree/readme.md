@@ -236,17 +236,18 @@ Type: `Promise<void>`
 - [kup-list](../kup-list)
 - [kup-text-field](../kup-text-field)
 - [kup-autocomplete](../kup-autocomplete)
+- [kup-color-picker](../kup-color-picker)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
-- [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
-- [kup-rating](../kup-rating)
 - [kup-badge](../kup-badge)
 
 ### Graph
@@ -257,17 +258,18 @@ graph TD;
   kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-autocomplete
+  kup-tree --> kup-color-picker
   kup-tree --> kup-combobox
   kup-tree --> kup-date-picker
+  kup-tree --> kup-rating
+  kup-tree --> kup-time-picker
   kup-tree --> kup-image
   kup-tree --> kup-button
   kup-tree --> kup-button-list
   kup-tree --> kup-chart
-  kup-tree --> kup-color-picker
   kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
-  kup-tree --> kup-rating
   kup-tree --> kup-badge
   kup-card --> kup-tree
   kup-chip --> kup-badge
@@ -290,15 +292,16 @@ graph TD;
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
+  kup-data-table --> kup-color-picker
   kup-data-table --> kup-date-picker
+  kup-data-table --> kup-rating
+  kup-data-table --> kup-time-picker
   kup-data-table --> kup-image
   kup-data-table --> kup-button-list
   kup-data-table --> kup-chart
-  kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
-  kup-data-table --> kup-rating
   kup-tooltip --> kup-tree
   kup-box --> kup-card
   kup-box --> kup-checkbox
@@ -308,16 +311,17 @@ graph TD;
   kup-box --> kup-text-field
   kup-box --> kup-paginator
   kup-box --> kup-autocomplete
+  kup-box --> kup-color-picker
   kup-box --> kup-date-picker
+  kup-box --> kup-rating
+  kup-box --> kup-time-picker
   kup-box --> kup-image
   kup-box --> kup-button
   kup-box --> kup-button-list
   kup-box --> kup-chart
-  kup-box --> kup-color-picker
   kup-box --> kup-gauge
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
-  kup-box --> kup-rating
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-image --> kup-spinner

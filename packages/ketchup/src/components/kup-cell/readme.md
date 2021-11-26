@@ -59,34 +59,36 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-autocomplete](../kup-autocomplete)
+- [kup-color-picker](../kup-color-picker)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
 - [kup-button-list](../kup-button-list)
 - [kup-chart](../kup-chart)
-- [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
-- [kup-rating](../kup-rating)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-cell --> kup-autocomplete
+  kup-cell --> kup-color-picker
   kup-cell --> kup-combobox
   kup-cell --> kup-date-picker
+  kup-cell --> kup-rating
+  kup-cell --> kup-time-picker
   kup-cell --> kup-image
   kup-cell --> kup-button
   kup-cell --> kup-button-list
   kup-cell --> kup-chart
-  kup-cell --> kup-color-picker
   kup-cell --> kup-gauge
   kup-cell --> kup-progress-bar
   kup-cell --> kup-radio
-  kup-cell --> kup-rating
   kup-cell --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
@@ -95,6 +97,8 @@ graph TD;
   kup-combobox --> kup-list
   kup-date-picker --> kup-button
   kup-button --> kup-badge
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
