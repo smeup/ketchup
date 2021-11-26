@@ -296,7 +296,7 @@ function setEditableCell(
         case FCellTypes.CHECKBOX:
             return (
                 <FCheckbox
-                    checked={(cell.data as FCheckboxProps).checked}
+                    {...cell.data}
                     onChange={(e: InputEvent) => cellUpdate(e, props, cellType)}
                 />
             );
@@ -305,7 +305,6 @@ function setEditableCell(
                 <kup-combobox
                     {...cell.data}
                     class="kup-full-width"
-                    initialValue={cell.value}
                     onkup-combobox-change={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellUpdate(e, props, cellType)}
@@ -314,15 +313,11 @@ function setEditableCell(
         case FCellTypes.DATE:
             return (
                 <kup-date-picker
+                    {...cell.data}
+                    class="kup-full-width"
                     onkup-datepicker-change={(
                         e: CustomEvent<KupDatePickerEventPayload>
                     ) => cellUpdate(e, props, cellType)}
-                    data={{
-                        'kup-text-field': {
-                            fullWidth: true,
-                        },
-                    }}
-                    initialValue={cell.value}
                 />
             );
         case FCellTypes.NUMBER:
@@ -565,6 +560,14 @@ function cellUpdate(
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
     switch (cellType) {
+        case FCellTypes.AUTOCOMPLETE:
+        case FCellTypes.COMBOBOX:
+        case FCellTypes.DATE:
+        case FCellTypes.TIME:
+            if (cell.data) {
+                cell.data['initialValue'] = value;
+            }
+            break;
         case FCellTypes.CHECKBOX:
             if (
                 cell.data &&
@@ -572,11 +575,6 @@ function cellUpdate(
             ) {
                 (cell.data as FCheckboxProps).checked =
                     value === 'on' ? false : true;
-            }
-            break;
-        default:
-            if (cell.data && cell.data['value'] !== undefined) {
-                cell.data['value'] = value;
             }
             break;
     }

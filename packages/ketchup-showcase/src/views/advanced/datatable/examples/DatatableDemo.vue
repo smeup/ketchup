@@ -48,10 +48,6 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-datatable-cellupdate',
-          type: 'CustomEvent',
-        },
-        {
           name: 'kup-datatable-click',
           type: 'click',
         },
