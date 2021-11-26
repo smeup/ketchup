@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -3945,10 +3945,6 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-autorowselect"?: (event: CustomEvent<KupDatatableAutoRowSelectEventPayload>) => void;
         "onKup-datatable-cellbuttonclick"?: (event: CustomEvent<KupDataTableCellButtonClickEventPayload>) => void;
-        /**
-          * Emitted when a cell's data has been updated.
-         */
-        "onKup-datatable-cellupdate"?: (event: CustomEvent<KupDatatableCellUpdateEventPayload>) => void;
         /**
           * Generic click event on data table.
          */

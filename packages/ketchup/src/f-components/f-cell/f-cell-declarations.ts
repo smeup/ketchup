@@ -4,17 +4,19 @@ import type {
     Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import type { FComponent } from '../../types/GenericTypes';
+import type { FComponent, KupEventPayload } from '../../types/GenericTypes';
+
+export const cellUpdateEvent = 'kup-cell-update';
 /**
  * Props of the f-cell component.
  */
 export interface FCellProps extends FComponent {
     cell?: Cell;
     column?: Column;
+    component?: unknown;
     density?: FCellPadding;
     editable?: boolean;
     indents?: VNode[];
-    onUpdate?: (event: Event | CustomEvent) => void;
     previousValue?: string;
     renderKup?: boolean;
     row?: Row;
@@ -83,4 +85,13 @@ export enum FCellTypes {
     RATING = 'rating',
     STRING = 'string',
     TIME = 'time',
+}
+/**
+ * Payload of the event fired when a cell is updated.
+ */
+export interface FCellEventPayload extends KupEventPayload {
+    cell: Cell;
+    column: Column;
+    row: Row;
+    event: CustomEvent | InputEvent;
 }

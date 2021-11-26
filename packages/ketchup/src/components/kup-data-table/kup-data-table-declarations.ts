@@ -318,13 +318,6 @@ export interface KupDatatableRowSelectedEventPayload extends KupEventPayload {
     clickedColumn: string;
 }
 
-export interface KupDatatableCellUpdateEventPayload extends KupEventPayload {
-    cell: Cell;
-    column: Column;
-    row: Row;
-    event: any;
-}
-
 export interface KupDatatableClickEventPayload extends KupEventPayload {
     details: KupDatatableEventHandlerDetails;
 }

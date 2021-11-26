@@ -45,7 +45,6 @@ import {
     SelectionMode,
     KupDatatableAutoRowSelectEventPayload,
     KupDatatableRowSelectedEventPayload,
-    KupDatatableCellUpdateEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
     KupDatatableRowActionClickEventPayload,
@@ -53,10 +52,7 @@ import {
     KupDataTableCellButtonClickEventPayload,
     KupDataTableCellTextFieldInputEventPayload,
 } from './kup-data-table-declarations';
-import {
-    getColumnByName,
-    getCellValueForDisplay,
-} from '../../utils/cell-utils';
+import { getColumnByName } from '../../utils/cell-utils';
 import {
     calcTotals,
     normalizeRows,
@@ -884,16 +880,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupRowSelected: EventEmitter<KupDatatableRowSelectedEventPayload>;
-    /**
-     * Emitted when a cell's data has been updated.
-     */
-    @Event({
-        eventName: 'kup-datatable-cellupdate',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupDataTableCellUpdate: EventEmitter<KupDatatableCellUpdateEventPayload>;
     /**
      * Generic click event on data table.
      */
@@ -2895,39 +2881,6 @@ export class KupDataTable {
         });
     }
 
-    private cellUpdate(
-        e: CustomEvent | Event | FocusEvent,
-        value: string,
-        cell: Cell,
-        column: Column,
-        row: Row
-    ) {
-        if (this.kupManager.objects.isCheckbox(cell.obj)) {
-            if (cell.data && cell.data['checked'] !== undefined) {
-                cell.data['checked'] = value === 'on' ? false : true;
-            }
-        } else {
-            if (cell.obj) {
-                cell.obj.k = value;
-            }
-            cell.value = value;
-            cell.displayedValue = null;
-            cell.displayedValue = getCellValueForDisplay(column, cell);
-            if (cell.data && cell.data['value'] !== undefined) {
-                cell.data['value'] = value;
-            }
-        }
-        this.refresh();
-        this.kupDataTableCellUpdate.emit({
-            comp: this,
-            id: this.rootElement.id,
-            cell: cell,
-            column: column,
-            row: row,
-            event: e,
-        });
-    }
-
     private handleRowSelect(row: Row) {
         const index = this.selectedRows.indexOf(row);
 
@@ -4204,18 +4157,10 @@ export class KupDataTable {
                 const cellProps: FCellProps = {
                     cell: cell,
                     column: currentColumn,
+                    component: this,
                     density: this.density,
                     editable: this.editableData,
                     indents: indend,
-                    onUpdate: (e: Event | CustomEvent) => {
-                        let value = null;
-                        if ((e.target as HTMLElement).tagName === 'INPUT') {
-                            value = (e.target as HTMLInputElement).value;
-                        } else {
-                            value = (e as CustomEvent).detail.value;
-                        }
-                        this.cellUpdate(e, value, cell, currentColumn, row);
-                    },
                     previousValue:
                         hideValuesRepetitions && previousRow
                             ? previousRow.cells[name].value

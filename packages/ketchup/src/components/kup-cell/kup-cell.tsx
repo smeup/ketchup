@@ -256,11 +256,10 @@ export class KupCell {
         const props: FCellProps = {
             cell: this.data,
             column: this.generateColumn(),
+            component: this,
             editable: this.data.isEditable,
             renderKup: true,
             row: this.generateRow(),
-            onUpdate: (e: UIEvent & { target: HTMLInputElement }) =>
-                this.onKupChange(e),
         };
 
         const customStyle: string = this.kupManager.theme.setCustomStyle(

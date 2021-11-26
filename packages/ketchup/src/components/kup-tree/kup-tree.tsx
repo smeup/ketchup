@@ -1534,6 +1534,7 @@ export class KupTree {
                 const cellProps: FCellProps = {
                     cell: treeNodeData.cells[column.name],
                     column: column,
+                    component: this,
                     density: this.density,
                     renderKup: true,
                     row: treeNodeData,

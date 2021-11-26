@@ -1425,6 +1425,7 @@ export class KupBox {
         const cellProps: FCellProps = {
             cell: cell,
             column: column,
+            component: this,
             renderKup: true,
             row: row,
             setSizes: false,
