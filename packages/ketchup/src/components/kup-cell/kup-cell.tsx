@@ -88,16 +88,6 @@ export class KupCell {
     /*-------------------------------------------------*/
 
     /**
-     * Triggered when the element changes.
-     */
-    @Event({
-        eventName: 'kup-cell-change',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupChange: EventEmitter<KupCellEventPayload>;
-    /**
      * Triggered when the element is clicked.
      */
     @Event({
@@ -107,16 +97,6 @@ export class KupCell {
         bubbles: true,
     })
     kupClick: EventEmitter<KupCellEventPayload>;
-
-    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupChange.emit({
-            cell: this.data,
-            comp: this,
-            id: this.rootElement.id,
-            value: target.value,
-        });
-    }
 
     onKupClick(event: MouseEvent & { target: HTMLInputElement }) {
         const { target } = event;
@@ -163,8 +143,7 @@ export class KupCell {
 
     private didRenderInteractables() {
         if (this.dragEnabled) {
-            const dataCb: KupDragDataTransferCallback = (e) => {
-                const draggable = e.target as KupDraggableElement;
+            const dataCb: KupDragDataTransferCallback = () => {
                 return {
                     cell: this.data,
                     column: this.generateColumn(),

@@ -73,6 +73,7 @@ graph TD;
   kup-box --> kup-combobox
   kup-box --> kup-text-field
   kup-box --> kup-paginator
+  kup-box --> kup-autocomplete
   kup-box --> kup-date-picker
   kup-box --> kup-image
   kup-box --> kup-button
@@ -119,6 +120,7 @@ graph TD;
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
+  kup-data-table --> kup-autocomplete
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-image
   kup-data-table --> kup-button-list
@@ -137,6 +139,8 @@ graph TD;
   kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-autocomplete
+  kup-tree --> kup-combobox
   kup-tree --> kup-date-picker
   kup-tree --> kup-image
   kup-tree --> kup-button
