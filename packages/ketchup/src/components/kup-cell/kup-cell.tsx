@@ -30,7 +30,10 @@ import {
 } from '../kup-data-table/kup-data-table-declarations';
 import { KupCellEventPayload, KupCellProps } from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
-import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    FCellPadding,
+    FCellProps,
+} from '../../f-components/f-cell/f-cell-declarations';
 import {
     KupDragDataTransferCallback,
     KupDragEffect,
@@ -68,6 +71,10 @@ export class KupCell {
      * @default false
      */
     @Prop() data: Cell = null;
+    /**
+     * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
+     */
+    @Prop() density: FCellPadding = FCellPadding.DENSE;
     /**
      * When set to true, the component is draggable.
      * @default false
@@ -236,6 +243,7 @@ export class KupCell {
             cell: this.data,
             column: this.generateColumn(),
             component: this,
+            density: this.density,
             editable: this.data.isEditable,
             renderKup: true,
             row: this.generateRow(),

@@ -64,6 +64,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'density',
+          description:
+            'The density of the cell, defaults at "dense" and can be also set to "wide" or "medium".',
+          type: 'string',
+          default: 'dense',
+          try: 'field',
+        },
+        {
           prop: 'dragEnabled',
           description: 'Defines whether the cell is draggable or not.',
           type: 'boolean',
@@ -90,6 +98,7 @@ function createComp() {
     },
     value: 'Text content',
   };
+  comp.density = 'dense';
   comp.id = 'demo-component';
   return comp;
 }

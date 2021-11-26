@@ -18,6 +18,7 @@ import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeD
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
+import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { KupCellEventPayload } from "./components/kup-cell/kup-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
@@ -25,7 +26,6 @@ import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations"
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
@@ -631,6 +631,10 @@ export namespace Components {
           * @default false
          */
         "data": Cell;
+        /**
+          * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
+         */
+        "density": FCellPadding;
         /**
           * When set to true, the component is draggable.
           * @default false
@@ -3521,6 +3525,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "data"?: Cell;
+        /**
+          * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
+         */
+        "density"?: FCellPadding;
         /**
           * When set to true, the component is draggable.
           * @default false
