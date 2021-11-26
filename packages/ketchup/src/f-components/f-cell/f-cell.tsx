@@ -7,13 +7,23 @@ import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
 import type { FImageProps } from '../f-image/f-image-declarations';
 import type { FButtonProps } from '../f-button/f-button-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
+import type { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+import type { KupComponent } from '../../types/GenericTypes';
+import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
+import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
+import type { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
+import type { KupTimePickerEventPayload } from '../../components/kup-time-picker/kup-time-picker-declarations';
+import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
+import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import {
     cellUpdateEvent,
+    editableTypes,
     FCellEventPayload,
     FCellInfo,
     FCellProps,
     FCellShapes,
     FCellTypes,
+    kupTypes,
 } from './f-cell-declarations';
 import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { getCellValueForDisplay } from '../../utils/cell-utils';
@@ -24,11 +34,6 @@ import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { styleHasWritingMode } from '../../components/kup-data-table/kup-data-table-helper';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
-import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
-import { KupComponent } from '../../types/GenericTypes';
-import { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
-import { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
-import { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -61,41 +66,9 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     };
     let content: unknown = valueToDisplay;
 
-    if (
-        isEditable &&
-        (cellType === FCellTypes.AUTOCOMPLETE ||
-            cellType === FCellTypes.CHECKBOX ||
-            cellType === FCellTypes.COMBOBOX ||
-            cellType === FCellTypes.DATE ||
-            cellType === FCellTypes.NUMBER ||
-            cellType === FCellTypes.STRING)
-    ) {
+    if (isEditable && editableTypes.includes(cellType)) {
         content = setEditableCell(cellType, cell, column, props);
-    } else if (
-        cellType === FCellTypes.AUTOCOMPLETE ||
-        cellType === FCellTypes.CHECKBOX ||
-        cellType === FCellTypes.COMBOBOX ||
-        cellType === FCellTypes.DATE ||
-        cellType === FCellTypes.DATETIME ||
-        cellType === FCellTypes.TIME ||
-        cellType === FCellTypes.ICON ||
-        cellType === FCellTypes.IMAGE ||
-        cellType === FCellTypes.LINK ||
-        cellType === FCellTypes.NUMBER ||
-        cellType === FCellTypes.STRING
-    ) {
-        if (props.setSizes) {
-            setCellSize(cellType, subcomponentProps, cell);
-        }
-        content = setCell(
-            cellType,
-            subcomponentProps,
-            content,
-            classObj,
-            cell,
-            column
-        );
-    } else if (cell.data || cellType === 'editor') {
+    } else if (cell.data && kupTypes.includes(cellType)) {
         if (props.setSizes) {
             setCellSizeKup(cellType, subcomponentProps, cell);
         }
@@ -112,6 +85,18 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
                 column
             );
         }
+    } else {
+        if (props.setSizes) {
+            setCellSize(cellType, subcomponentProps, cell);
+        }
+        content = setCell(
+            cellType,
+            subcomponentProps,
+            content,
+            classObj,
+            cell,
+            column
+        );
     }
 
     const style = cell.style;
@@ -300,6 +285,16 @@ function setEditableCell(
                     onChange={(e: InputEvent) => cellUpdate(e, props, cellType)}
                 />
             );
+        case FCellTypes.COLOR_PICKER:
+            return (
+                <kup-color-picker
+                    {...cell.data}
+                    disabled={false}
+                    onkup-colorpicker-change={(
+                        e: CustomEvent<KupColorPickerEventPayload>
+                    ) => cellUpdate(e, props, cellType)}
+                ></kup-color-picker>
+            );
         case FCellTypes.COMBOBOX:
             return (
                 <kup-combobox
@@ -317,6 +312,26 @@ function setEditableCell(
                     class="kup-full-width"
                     onkup-datepicker-change={(
                         e: CustomEvent<KupDatePickerEventPayload>
+                    ) => cellUpdate(e, props, cellType)}
+                />
+            );
+        case FCellTypes.RATING:
+            return (
+                <kup-rating
+                    {...cell.data}
+                    disabled={false}
+                    onkup-rating-click={(
+                        e: CustomEvent<KupRatingClickEventPayload>
+                    ) => cellUpdate(e, props, cellType)}
+                ></kup-rating>
+            );
+        case FCellTypes.TIME:
+            return (
+                <kup-time-picker
+                    {...cell.data}
+                    class="kup-full-width"
+                    onkup-timepicker-change={(
+                        e: CustomEvent<KupTimePickerEventPayload>
                     ) => cellUpdate(e, props, cellType)}
                 />
             );
@@ -372,6 +387,8 @@ function setCell(
                     sizeY="18px"
                 />
             );
+        case FCellTypes.EDITOR:
+            return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
         case FCellTypes.IMAGE:
             classObj['c-centered'] = true;
@@ -441,13 +458,10 @@ function setKupCell(
         case FCellTypes.COLOR_PICKER:
             return (
                 <kup-color-picker
-                    initialValue={cell.value}
                     {...subcomponentProps}
                     disabled
                 ></kup-color-picker>
             );
-        case FCellTypes.EDITOR:
-            return <div innerHTML={cell.value}></div>;
         case FCellTypes.GAUGE:
             return (
                 <kup-gauge
@@ -464,13 +478,7 @@ function setKupCell(
             subcomponentProps['disabled'] = row.readOnly;
             return <kup-radio {...subcomponentProps}></kup-radio>;
         case FCellTypes.RATING:
-            return (
-                <kup-rating
-                    value={stringToNumber(cell.value)}
-                    {...subcomponentProps}
-                    disabled
-                ></kup-rating>
-            );
+            return <kup-rating {...subcomponentProps} disabled></kup-rating>;
     }
 }
 

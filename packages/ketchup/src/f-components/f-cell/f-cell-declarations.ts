@@ -86,6 +86,30 @@ export enum FCellTypes {
     STRING = 'string',
     TIME = 'time',
 }
+export const editableTypes = [
+    FCellTypes.AUTOCOMPLETE,
+    FCellTypes.CHECKBOX,
+    FCellTypes.COLOR_PICKER,
+    FCellTypes.COMBOBOX,
+    FCellTypes.DATE,
+    FCellTypes.NUMBER,
+    FCellTypes.RATING,
+    FCellTypes.STRING,
+    FCellTypes.TIME,
+];
+export const kupTypes = [
+    FCellTypes.BAR,
+    FCellTypes.BUTTON,
+    FCellTypes.BUTTON_LIST,
+    FCellTypes.CHART,
+    FCellTypes.CHIP,
+    FCellTypes.COLOR_PICKER,
+    FCellTypes.GAUGE,
+    FCellTypes.KNOB,
+    FCellTypes.PROGRESS_BAR,
+    FCellTypes.RADIO,
+    FCellTypes.RATING,
+];
 /**
  * Payload of the event fired when a cell is updated.
  */
