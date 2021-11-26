@@ -60,6 +60,7 @@ export enum FCellShapes {
  * Supported cell types.
  */
 export enum FCellTypes {
+    AUTOCOMPLETE = 'autocomplete',
     BAR = 'bar',
     BUTTON = 'button',
     BUTTON_LIST = 'button-list',
@@ -67,6 +68,7 @@ export enum FCellTypes {
     CHECKBOX = 'checkbox',
     CHIP = 'chips',
     COLOR_PICKER = 'color-picker',
+    COMBOBOX = 'combobox',
     DATE = 'date',
     DATETIME = 'datetime',
     EDITOR = 'editor',

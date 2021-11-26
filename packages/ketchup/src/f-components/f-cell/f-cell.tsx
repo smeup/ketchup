@@ -57,14 +57,18 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
 
     if (
         isEditable &&
-        (cellType === FCellTypes.CHECKBOX ||
+        (cellType === FCellTypes.AUTOCOMPLETE ||
+            cellType === FCellTypes.CHECKBOX ||
+            cellType === FCellTypes.COMBOBOX ||
             cellType === FCellTypes.DATE ||
             cellType === FCellTypes.NUMBER ||
             cellType === FCellTypes.STRING)
     ) {
         content = setEditableCell(cellType, cell, column, props);
     } else if (
+        cellType === FCellTypes.AUTOCOMPLETE ||
         cellType === FCellTypes.CHECKBOX ||
+        cellType === FCellTypes.COMBOBOX ||
         cellType === FCellTypes.DATE ||
         cellType === FCellTypes.DATETIME ||
         cellType === FCellTypes.TIME ||
@@ -273,11 +277,27 @@ function setEditableCell(
     props: FCellProps
 ) {
     switch (cellType) {
+        case FCellTypes.AUTOCOMPLETE:
+            return (
+                <kup-autocomplete
+                    class="kup-full-width"
+                    initialValue={cell.value}
+                    onkup-autocomplete-change={props.onUpdate}
+                />
+            );
         case FCellTypes.CHECKBOX:
             return (
                 <FCheckbox
                     checked={(cell.data as FCheckboxProps).checked}
                     onChange={props.onUpdate}
+                />
+            );
+        case FCellTypes.COMBOBOX:
+            return (
+                <kup-combobox
+                    class="kup-full-width"
+                    initialValue={cell.value}
+                    onkup-autocomplete-change={props.onUpdate}
                 />
             );
         case FCellTypes.DATE:
@@ -375,7 +395,6 @@ function setCell(
                 return cellValue;
             }
             return content;
-        case FCellTypes.STRING:
         default:
             return content;
     }
@@ -460,7 +479,7 @@ function getCellType(cell: Cell, shape?: FCellShapes) {
     if (shape) {
         switch (shape.toUpperCase()) {
             case FCellShapes.AUTOCOMPLETE:
-                return FCellTypes.STRING;
+                return FCellTypes.AUTOCOMPLETE;
             case FCellShapes.BUTTON_LIST:
                 return FCellTypes.BUTTON_LIST;
             case FCellShapes.CHART:
@@ -470,7 +489,7 @@ function getCellType(cell: Cell, shape?: FCellShapes) {
             case FCellShapes.COLOR_PICKER:
                 return FCellTypes.COLOR_PICKER;
             case FCellShapes.COMBOBOX:
-                return FCellTypes.STRING;
+                return FCellTypes.COMBOBOX;
             case FCellShapes.EDITOR:
                 return FCellTypes.EDITOR;
             case FCellShapes.GAUGE:
