@@ -56,6 +56,14 @@
     text-decoration: underline;
   }
 
+  &.primary-text {
+    color: var(--kup-primary-color) !important;
+  }
+
+  &.secondary-text {
+    color: var(--kup-secondary-color) !important;
+  }
+
   &.success-text {
     color: var(--kup-success-color) !important;
   }

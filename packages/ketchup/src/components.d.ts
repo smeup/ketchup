@@ -626,6 +626,11 @@ export namespace Components {
     }
     interface KupCell {
         /**
+          * Adds the given CSS classes to the cell's data.
+          * @param classes - Array of CSS classes.
+         */
+        "addCssClasses": (classes?: string[]) => Promise<void>;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -655,6 +660,11 @@ export namespace Components {
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
+        /**
+          * Removes the given CSS classes from the cell's data.
+          * @param classes - Array of CSS classes.
+         */
+        "removeCssClasses": (classes?: string[]) => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.

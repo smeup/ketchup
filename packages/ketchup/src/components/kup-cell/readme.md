@@ -24,6 +24,16 @@
 
 ## Methods
 
+### `addCssClasses(classes?: string[]) => Promise<void>`
+
+Adds the given CSS classes to the cell's data.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
 Used to retrieve component's props values.
@@ -37,6 +47,16 @@ List of props as object, each key will be a prop.
 ### `refresh() => Promise<void>`
 
 This method is used to trigger a new render of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `removeCssClasses(classes?: string[]) => Promise<void>`
+
+Removes the given CSS classes from the cell's data.
 
 #### Returns
 

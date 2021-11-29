@@ -256,6 +256,64 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'primary-text',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Text will be set to the theme's primary color.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'primary-text',
+          cssClass: 'primary-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'secondary-text',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Text will be set to the theme's primary color.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'secondary-text',
+          cssClass: 'secondary-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'underlined',
         },
         DESCR: {

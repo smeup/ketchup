@@ -107,6 +107,25 @@ export class KupCell {
     /*-------------------------------------------------*/
 
     /**
+     * Adds the given CSS classes to the cell's data.
+     * @param {string[]} classes - Array of CSS classes.
+     */
+    @Method()
+    async addCssClasses(classes?: string[]): Promise<void> {
+        if (!this.data.cssClass) {
+            this.data.cssClass = '';
+        }
+        if (classes) {
+            for (let index = 0; index < classes.length; index++) {
+                const cssClass = classes[index];
+                if (this.data.cssClass.indexOf(cssClass) < 0) {
+                    this.data.cssClass += ` ${cssClass}`;
+                }
+            }
+        }
+        this.refresh();
+    }
+    /**
      * Used to retrieve component's props values.
      * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
@@ -121,6 +140,25 @@ export class KupCell {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
+    }
+    /**
+     * Removes the given CSS classes from the cell's data.
+     * @param {string[]} classes - Array of CSS classes.
+     */
+    @Method()
+    async removeCssClasses(classes?: string[]): Promise<void> {
+        if (!this.data.cssClass) {
+            return;
+        }
+        if (classes) {
+            for (let index = 0; index < classes.length; index++) {
+                const cssClass = classes[index];
+                if (this.data.cssClass.indexOf(cssClass) > 0) {
+                    this.data.cssClass.replace(new RegExp(cssClass, 'g'), '');
+                }
+            }
+        }
+        this.refresh();
     }
     /**
      * Sets the props to the component.
