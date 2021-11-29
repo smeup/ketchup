@@ -9,6 +9,10 @@
     cursor: pointer;
   }
 
+  &.monospace {
+    font-family: var(--kup-font-family-monospace);
+  }
+
   &.display-on-hover {
     opacity: 0;
     transition: opacity 0.25s;

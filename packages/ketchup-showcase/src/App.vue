@@ -845,7 +845,7 @@ label {
 
 .navbar__logo {
   height: 85%;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .logo a {

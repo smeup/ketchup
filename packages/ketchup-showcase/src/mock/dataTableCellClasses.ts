@@ -110,6 +110,35 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'monospace',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Cell will be rendered with the theme's monospace font.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'monospace',
+          cssClass: 'monospace',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'shaped',
         },
         DESCR: {
