@@ -36,14 +36,12 @@
         @kup-button-click="menuClick"
         slot="left"
       ></kup-button
-      ><kup-image
+      ><kup-cell
         class="navbar__logo"
-        color="var(--kup-navbar-color)"
+        drag-enabled
+        :data.prop="navbarCellData"
         slot="left"
-        resource="ketchup"
-        size-x="128px"
-      ></kup-image
-    ></kup-nav-bar>
+    /></kup-nav-bar>
     <kup-drawer
       class="kup-full-width kup-permanent"
       custom-style="::-webkit-scrollbar { width: 9px; }::-webkit-scrollbar-thumb {background-color: var(--kup-disabled-color);transition: background-color 0.2s ease-in-out;}::-webkit-scrollbar-track {background-color: var(--kup-background-color);}"
@@ -265,6 +263,19 @@ export default {
     },
   },
   data: () => ({
+    navbarCellData: {
+      data: {
+        color: 'var(--kup-navbar-color)',
+        resource: 'ketchup',
+        sizeX: '128px',
+      },
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: 'smeup',
+      },
+      value: 'smeup',
+    },
     treeData: [
       {
         children: [
@@ -844,8 +855,8 @@ label {
 }
 
 .navbar__logo {
-  height: 85%;
-  margin-left: 12px;
+  height: 100%;
+  width: 128px;
 }
 
 .logo a {

@@ -8,19 +8,12 @@ import {
     Host,
     Method,
     Prop,
-    State,
 } from '@stencil/core';
-
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import {
-    GenericObject,
-    KupComponent,
-    KupEventPayload,
-} from '../../types/GenericTypes';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
@@ -37,7 +30,6 @@ import {
 import {
     KupDragDataTransferCallback,
     KupDragEffect,
-    KupDraggableElement,
 } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 
@@ -51,10 +43,6 @@ export class KupCell {
      * References the root HTML element of the component (<kup-text-field>).
      */
     @Element() rootElement: HTMLElement;
-
-    /*-------------------------------------------------*/
-    /*                   S t a t e s                   */
-    /*-------------------------------------------------*/
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -74,7 +62,7 @@ export class KupCell {
     /**
      * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
      */
-    @Prop() density: FCellPadding = FCellPadding.DENSE;
+    @Prop() density: FCellPadding = FCellPadding.NONE;
     /**
      * When set to true, the component is draggable.
      * @default false
@@ -105,13 +93,12 @@ export class KupCell {
     })
     kupClick: EventEmitter<KupCellEventPayload>;
 
-    onKupClick(event: MouseEvent & { target: HTMLInputElement }) {
+    onKupClick(event: MouseEvent & { target: HTMLElement }) {
         const { target } = event;
         this.kupClick.emit({
             cell: this.data,
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
         });
     }
 
@@ -175,14 +162,6 @@ export class KupCell {
                 KupDragEffect.BADGE
             );
         }
-
-        this.rootElement.shadowRoot
-            .querySelector('#' + componentWrapperId)
-            .addEventListener(
-                'click',
-                (e: MouseEvent & { target: HTMLInputElement }) =>
-                    this.onKupClick(e)
-            );
     }
 
     private generateColumn(): Column {
@@ -228,7 +207,6 @@ export class KupCell {
     }
 
     componentDidRender() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
         this.didRenderInteractables();
         this.kupManager.debug.logRender(this, true);
     }
@@ -256,7 +234,12 @@ export class KupCell {
         return (
             <Host>
                 {customStyle ? <style>{customStyle}</style> : null}
-                <div id={componentWrapperId}>
+                <div
+                    id={componentWrapperId}
+                    onClick={(e: MouseEvent & { target: HTMLElement }) =>
+                        this.onKupClick(e)
+                    }
+                >
                     <FCell {...props}></FCell>
                 </div>
             </Host>

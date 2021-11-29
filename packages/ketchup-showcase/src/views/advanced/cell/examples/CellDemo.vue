@@ -66,9 +66,9 @@ export default {
         {
           prop: 'density',
           description:
-            'The density of the cell, defaults at "dense" and can be also set to "wide" or "medium".',
-          type: 'string',
-          default: 'dense',
+            'The density of the cell, defaults at "none" and can be also set to "dense" or "medium" or "wide".',
+          type: 'FCellPadding',
+          default: 'none',
           try: 'field',
         },
         {

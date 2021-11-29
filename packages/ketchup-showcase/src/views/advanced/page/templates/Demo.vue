@@ -384,6 +384,15 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
+  FCellPadding: {
+    keys: {
+      DENSE: 'dense',
+      MEDIUM: 'medium',
+      NONE: '',
+      WIDE: 'wide',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   FChipData: {
     keys: {
       label: 'string',

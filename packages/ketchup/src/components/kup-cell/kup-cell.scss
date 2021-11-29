@@ -3,3 +3,14 @@
 @import 'f-chip/f-chip.scss';
 @import 'f-text-field/f-text-field.scss';
 @import 'f-cell/f-cell.scss';
+
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+#kup-component {
+  height: 100%;
+  width: 100%;
+}

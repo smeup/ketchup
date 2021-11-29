@@ -14,5 +14,4 @@ export enum KupCellProps {
 
 export interface KupCellEventPayload extends KupEventPayload {
     cell: Cell;
-    value: string;
 }

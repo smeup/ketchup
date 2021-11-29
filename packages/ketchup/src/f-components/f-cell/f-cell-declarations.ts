@@ -37,6 +37,7 @@ export interface FCellInfo {
 export enum FCellPadding {
     DENSE = 'dense',
     MEDIUM = 'medium',
+    NONE = '',
     WIDE = 'wide',
 }
 /**
