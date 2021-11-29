@@ -4,7 +4,6 @@ import {
     Event,
     EventEmitter,
     forceUpdate,
-    getAssetPath,
     h,
     Host,
     Method,
@@ -362,7 +361,6 @@ export class KupBox {
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
     private boxContainer: KupScrollOnHoverElement;
-    private iconPaths: [{ icon: string; path: string }] = undefined;
     private sectionRef: HTMLElement = null;
     private rowsRefs: HTMLElement[] = [];
     private hold: boolean = false;
@@ -1269,19 +1267,16 @@ export class KupBox {
                     this.renderBoxObject({
                         boxObject: content[cnt++],
                         row,
+                        visibleColumns,
                     })
                 );
             }
         } else if (visibleColumns.length > 0) {
-            // getting first column
             const column = visibleColumns[0];
-
-            // removing first column
-            visibleColumns.splice(0, 1);
-
             sectionContent = this.renderBoxObject({
                 boxObject: { column: column.name },
                 row,
+                visibleColumns,
             });
         }
 
@@ -1384,17 +1379,31 @@ export class KupBox {
     private renderBoxObject({
         boxObject,
         row,
+        visibleColumns,
     }: {
         boxObject: BoxObject;
         row: KupBoxRow;
+        visibleColumns: Column[];
     }) {
-        let classObj: Record<string, boolean> = {
+        const classObj: Record<string, boolean> = {
             'box-object': true,
         };
+        const boStyle = {};
+        let column: Column = null;
+        let index = -1;
+        for (let i = 0; i < visibleColumns.length; i++) {
+            const c = visibleColumns[i];
 
-        let boStyle = {};
+            if (c.name === boxObject.column) {
+                index = i;
+                break;
+            }
+        }
+        if (index >= 0) {
+            column = visibleColumns[index];
+            visibleColumns.splice(index, 1);
+        }
         const cell = row.cells[boxObject.column];
-        const column = getColumnByName(this.visibleColumns, boxObject.column);
         let _hasTooltip = false;
         let title: string = undefined;
         if (_hasTooltip) {
@@ -1454,38 +1463,6 @@ export class KupBox {
                 )}
             </div>
         );
-    }
-
-    private getIconPath(icon: string) {
-        let svg: string = '';
-        if (this.iconPaths) {
-            for (
-                let index = 0;
-                index < this.iconPaths.length || svg !== '';
-                index++
-            ) {
-                if (this.iconPaths[index].icon === icon) {
-                    return this.iconPaths[index].path;
-                }
-            }
-        }
-
-        svg = `url('${getAssetPath(
-            `./assets/svg/${icon}.svg`
-        )}') no-repeat center`;
-
-        if (!this.iconPaths) {
-            this.iconPaths = [
-                {
-                    icon: icon,
-                    path: svg,
-                },
-            ];
-        } else {
-            this.iconPaths.push({ icon: icon, path: svg });
-        }
-
-        return svg;
     }
 
     /**
