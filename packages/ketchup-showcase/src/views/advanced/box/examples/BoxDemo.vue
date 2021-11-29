@@ -199,6 +199,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'editableData',
+          description:
+            'When set to true, editable cells will be rendered using input components.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'enableRowActions',
           description:
             'If enabled, a button to load / display the row actions will be displayed on the right of every box.',

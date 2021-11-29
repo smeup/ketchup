@@ -158,6 +158,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'editableData',
+          description:
+            'When set to true, editable cells will be rendered using input components.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'expanded',
           description:
             'Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.',

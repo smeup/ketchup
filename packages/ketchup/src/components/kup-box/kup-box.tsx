@@ -234,6 +234,11 @@ export class KupBox {
      */
     @Prop() dropOnSection: boolean = false;
     /**
+     * When set to true, editable cells will be rendered using input components.
+     * @default false
+     */
+    @Prop() editableData: boolean = false;
+    /**
      * If enabled, a button to load / display the row actions
      * will be displayed on the right of every box
      * @default false
@@ -1426,6 +1431,7 @@ export class KupBox {
             cell: cell,
             column: column,
             component: this,
+            editable: this.editableData,
             renderKup: true,
             row: row,
             setSizes: false,

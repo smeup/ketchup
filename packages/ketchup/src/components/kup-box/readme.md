@@ -14,6 +14,7 @@
 | `dragEnabled`             | `drag-enabled`                | Enable dragging                                                                                    | `boolean`       | `false`     |
 | `dropEnabled`             | `drop-enabled`                | Enable dropping                                                                                    | `boolean`       | `false`     |
 | `dropOnSection`           | `drop-on-section`             | Drop can be done in section                                                                        | `boolean`       | `false`     |
+| `editableData`            | `editable-data`               | When set to true, editable cells will be rendered using input components.                          | `boolean`       | `false`     |
 | `enableRowActions`        | `enable-row-actions`          | If enabled, a button to load / display the row actions will be displayed on the right of every box | `boolean`       | `false`     |
 | `globalFilter`            | `global-filter`               | When set to true it activates the global filter.                                                   | `boolean`       | `false`     |
 | `globalFilterValue`       | `global-filter-value`         | The value of the global filter.                                                                    | `string`        | `''`        |

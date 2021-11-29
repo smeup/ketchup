@@ -233,6 +233,11 @@ export class KupTree {
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined = undefined;
     /**
+     * When set to true, editable cells will be rendered using input components.
+     * @default false
+     */
+    @Prop() editableData: boolean = false;
+    /**
      * Enables the extracolumns add buttons.
      */
     @Prop() enableExtraColumns: boolean = true;
@@ -1536,6 +1541,7 @@ export class KupTree {
                     column: column,
                     component: this,
                     density: this.density,
+                    editable: this.editableData,
                     renderKup: true,
                     row: treeNodeData,
                     setSizes: true,

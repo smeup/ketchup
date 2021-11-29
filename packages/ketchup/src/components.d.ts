@@ -236,6 +236,11 @@ export namespace Components {
          */
         "dropOnSection": boolean;
         /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData": boolean;
+        /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
           * @default false
          */
@@ -2586,6 +2591,11 @@ export namespace Components {
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
         /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData": boolean;
+        /**
           * Enables the extracolumns add buttons.
          */
         "enableExtraColumns": boolean;
@@ -3147,6 +3157,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "dropOnSection"?: boolean;
+        /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData"?: boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
           * @default false
@@ -5156,6 +5171,11 @@ declare namespace LocalJSX {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
+        /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData"?: boolean;
         /**
           * Enables the extracolumns add buttons.
          */
