@@ -81,6 +81,64 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'expand-on-hover',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Cell becomes larger on mouse over.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'expand-on-hover',
+          cssClass: 'expand-on-hover',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'reduce-on-hover',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Cell becomes smaller on mouse over.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'reduce-on-hover',
+          cssClass: 'reduce-on-hover',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'link',
         },
         DESCR: {
@@ -187,6 +245,35 @@ export const cellClassesDataTable = {
           },
           value: 'strong-text',
           cssClass: 'strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'underlined',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Text will be underlined.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'underlined',
+          cssClass: 'underlined',
         },
       },
     },

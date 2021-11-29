@@ -22,12 +22,38 @@
     }
   }
 
+  &.expand-on-hover {
+    .f-cell__content {
+      transition: transform 125ms;
+    }
+    &:hover {
+      .f-cell__content {
+        transform: scale(1.25);
+      }
+    }
+  }
+
+  &.reduce-on-hover {
+    .f-cell__content {
+      transition: transform 125ms;
+    }
+    &:hover {
+      .f-cell__content {
+        transform: scale(0.75);
+      }
+    }
+  }
+
   &.shaped {
     border-radius: 4px;
   }
 
   &.strong-text {
     font-weight: 600;
+  }
+
+  &.underlined {
+    text-decoration: underline;
   }
 
   &.success-text {
