@@ -87,7 +87,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         }
     } else {
         if (props.setSizes) {
-            setCellSize(cellType, subcomponentProps, cell);
+            setCellSize(cellType, subcomponentProps, cell, props);
         }
         content = setCell(
             cellType,
@@ -175,7 +175,12 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     );
 };
 
-function setCellSize(cellType: string, subcomponentProps: unknown, cell: Cell) {
+function setCellSize(
+    cellType: string,
+    subcomponentProps: unknown,
+    cell: Cell,
+    props: FCellProps
+) {
     switch (cellType) {
         case FCellTypes.CHECKBOX:
         case FCellTypes.ICON:
@@ -198,11 +203,23 @@ function setCellSize(cellType: string, subcomponentProps: unknown, cell: Cell) {
             }
             break;
         case FCellTypes.IMAGE:
-            if (!(subcomponentProps as FImageProps).sizeX) {
-                (subcomponentProps as FImageProps).sizeX = 'auto';
+            if (
+                props.component &&
+                (props.component as KupComponent).rootElement &&
+                (props.component as KupComponent).rootElement.tagName ===
+                    'KUP-BOX'
+            ) {
+                if (!(subcomponentProps as FImageProps).sizeY) {
+                    (subcomponentProps as FImageProps).sizeY = 'auto';
+                } else if (!(subcomponentProps as FImageProps).sizeX) {
+                    (subcomponentProps as FImageProps).sizeX = 'auto';
+                }
             }
             if (!(subcomponentProps as FImageProps).sizeY) {
                 (subcomponentProps as FImageProps).sizeY = '64px';
+            }
+            if ((subcomponentProps as FImageProps) === undefined) {
+                (subcomponentProps as FImageProps).fit = true;
             }
             break;
     }

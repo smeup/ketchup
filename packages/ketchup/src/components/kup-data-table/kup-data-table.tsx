@@ -1375,15 +1375,18 @@ export class KupDataTable {
         } else {
             this.navBarHeight = 0;
         }
-        this.stickyTheadRef.style.top = this.navBarHeight + 'px';
-        const widthTable: number = this.tableAreaRef.offsetWidth;
-        this.stickyTheadRef.style.maxWidth = widthTable + 'px';
-        const thCollection: any = this.theadRef.querySelectorAll('th');
-        const thStickyCollection: any =
-            this.stickyTheadRef.querySelectorAll('th-sticky');
-        for (let i = 0; i < thCollection.length; i++) {
-            const widthTH = thCollection[i].offsetWidth;
-            thStickyCollection[i].style.width = widthTH + 'px';
+        if (this.stickyTheadRef) {
+            this.stickyTheadRef.style.top = this.navBarHeight + 'px';
+            const widthTable = this.tableAreaRef.offsetWidth;
+            this.stickyTheadRef.style.maxWidth = widthTable + 'px';
+            const thCollection: NodeListOf<HTMLElement> =
+                this.theadRef.querySelectorAll('th');
+            const thStickyCollection: NodeListOf<HTMLElement> =
+                this.stickyTheadRef.querySelectorAll('th-sticky');
+            for (let i = 0; i < thCollection.length; i++) {
+                const widthTH = thCollection[i].offsetWidth;
+                thStickyCollection[i].style.width = widthTH + 'px';
+            }
         }
     }
 

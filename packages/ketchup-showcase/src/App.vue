@@ -52,12 +52,7 @@
       ><div class="drawer-grid">
         <div class="logo">
           <a title="Sme.UP" target="_blank" href="https://www.smeup.com/">
-            <kup-image
-              color="var(--smeup-logo-color, #a61a2f)"
-              resource="smeup"
-              size-x="calc(var(--kup-drawer-width) / 1.5)"
-              size-y="70px"
-            ></kup-image>
+            <kup-cell drag-enabled :data.prop="drawerCellData" />
           </a>
         </div>
         <kup-tree
@@ -263,6 +258,20 @@ export default {
     },
   },
   data: () => ({
+    drawerCellData: {
+      data: {
+        color: 'var(--smeup-logo-color, #a61a2f)',
+        resource: 'smeup',
+        sizeX: 'calc(var(--kup-drawer-width) / 1.5)',
+        sizeY: '70px',
+      },
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: 'smeup',
+      },
+      value: 'smeup',
+    },
     navbarCellData: {
       data: {
         color: 'var(--kup-navbar-color)',
@@ -272,9 +281,9 @@ export default {
       obj: {
         t: 'J4',
         p: 'IMG',
-        k: 'smeup',
+        k: 'ketchup',
       },
-      value: 'smeup',
+      value: 'ketchup',
     },
     treeData: [
       {
@@ -863,7 +872,7 @@ label {
   display: block;
 }
 
-.logo kup-image {
+.logo kup-cell {
   margin: 32px auto;
 }
 

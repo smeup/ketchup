@@ -1434,7 +1434,7 @@ export class KupBox {
             editable: this.editableData,
             renderKup: true,
             row: row,
-            setSizes: false,
+            setSizes: true,
             shape: boxObject.shape,
         };
         return (
