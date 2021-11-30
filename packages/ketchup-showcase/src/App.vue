@@ -865,6 +865,7 @@ label {
 
 .navbar__logo {
   height: 100%;
+  margin-left: 12px;
   width: 128px;
 }
 
