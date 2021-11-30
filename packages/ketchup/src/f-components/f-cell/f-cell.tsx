@@ -147,7 +147,9 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     return (
         <div
             class={`f-cell--wrapper ${
-                props.density ? props.density.toLowerCase() : ''
+                props.density && cellType !== FCellTypes.BAR
+                    ? props.density.toLowerCase()
+                    : ''
             } ${
                 cell.cssClass
                     ? cell.cssClass
