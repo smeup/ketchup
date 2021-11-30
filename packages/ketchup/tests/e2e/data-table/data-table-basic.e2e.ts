@@ -205,9 +205,8 @@ describe('kup-data-table', () => {
         cellStyle = await cells[2].getComputedStyle();
 
         expect(cellStyle.borderRadius).not.toBe('50px');
-        expect(cellStyle.padding).not.toBe('3px');
 
-        const cellContent = await cells[2].find('.cell-content');
+        const cellContent = await cells[2].find('.f-cell__content');
 
         const contentStyle = await cellContent.getComputedStyle();
 
