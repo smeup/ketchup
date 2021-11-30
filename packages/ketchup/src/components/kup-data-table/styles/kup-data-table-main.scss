@@ -395,6 +395,10 @@ tbody {
       max-width: max-content;
     }
 
+    &[#{$kup-dd-draggable}] {
+      opacity: 0.5;
+    }
+
     &.selected {
       td {
         background-color: rgba(var(--kup-primary-color-rgb), 0.175);
