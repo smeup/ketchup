@@ -1,3 +1,7 @@
+import {
+    FCellInfo,
+    FCellShapes,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
@@ -77,14 +81,10 @@ export interface Cell {
     data?: CellData;
     displayedValue?: string;
     icon?: string;
-    info?: KupCellInfo;
+    info?: FCellInfo;
     isEditable?: boolean;
-    obj?: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    shape?: string;
+    obj?: KupObj;
+    shape?: FCellShapes;
     span?: KupDatatableCellSpan;
     style?: GenericMap;
     title?: string;
@@ -94,18 +94,6 @@ export interface KupDatatableCellSpan {
     col: number;
     row: number;
 }
-/**
- * Information about the cell, displayed before the content.
- *
- * @export
- * @interface KupCellInfo
- */
-export interface KupCellInfo {
-    color?: string;
-    icon?: string;
-    message: string;
-}
-
 export interface CellsHolder {
     [index: string]: Cell;
 }
@@ -124,7 +112,7 @@ export interface Column {
     };
     // a column can contain heterogeneous objs
     objs?: KupObj[];
-    shape?: string;
+    shape?: FCellShapes;
     decimals?: number;
     icon?: string;
     formula?: string;
@@ -328,13 +316,6 @@ export interface KupDatatableRowSelectedEventPayload extends KupEventPayload {
     selectedRows: Array<Row>;
     clickedRow: Row;
     clickedColumn: string;
-}
-
-export interface KupDatatableCellUpdateEventPayload extends KupEventPayload {
-    cell: Cell;
-    column: Column;
-    row: Row;
-    event: any;
 }
 
 export interface KupDatatableClickEventPayload extends KupEventPayload {

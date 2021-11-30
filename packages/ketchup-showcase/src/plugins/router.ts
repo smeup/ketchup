@@ -168,6 +168,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/card/Card.vue`),
   },
   {
+    path: `/cell`,
+    name: 'cell',
+    component: () => import(`@/views/advanced/cell/Cell.vue`),
+  },
+  {
     path: `/chart`,
     name: 'chart',
     component: () => import(`@/views/advanced/chart/Chart.vue`),

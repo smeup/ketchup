@@ -72,7 +72,7 @@ function createChipList(
         props.data = treeNode2Data(props.dataNew);
     }
 
-    for (let i = 0; i < props.data.length; i++) {
+    for (let i = 0; props.data && i < props.data.length; i++) {
         // could happen due to functions that change the data (such as transposition, etc)
         if (!props.data[i]) {
             continue;

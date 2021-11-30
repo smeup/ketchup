@@ -76,6 +76,7 @@ Type: `Promise<void>`
  - [kup-button-list](../kup-button-list)
  - [kup-calendar](../kup-calendar)
  - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
@@ -84,6 +85,7 @@ Type: `Promise<void>`
  - [kup-magic-box](../kup-magic-box)
  - [kup-paginator](../kup-paginator)
  - [kup-tab-bar](../kup-tab-bar)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -99,6 +101,7 @@ graph TD;
   kup-button-list --> kup-badge
   kup-calendar --> kup-badge
   kup-card --> kup-badge
+  kup-cell --> kup-badge
   kup-chip --> kup-badge
   kup-data-table --> kup-badge
   kup-dropdown-button --> kup-badge
@@ -107,6 +110,7 @@ graph TD;
   kup-magic-box --> kup-badge
   kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
+  kup-tree --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

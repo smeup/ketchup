@@ -16,7 +16,6 @@ import {
 import type { PointerEvent } from '@interactjs/types/index';
 import {
     Cell,
-    CellData,
     Column,
     Row,
     TotalLabel,
@@ -39,7 +38,6 @@ import {
     KupTreeDynamicMassExpansionEventPayload,
     KupTreeExpansionMode,
 } from './kup-tree-declarations';
-
 import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
@@ -48,26 +46,17 @@ import {
 import {
     calcTotals,
     normalizeRows,
-    styleHasBorderRadius,
-    styleHasWritingMode,
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
-
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-
-import {
-    getCellType,
-    getCellValueForDisplay,
-    getColumnByName,
-} from '../../utils/cell-utils';
+import { getColumnByName } from '../../utils/cell-utils';
 import {
     deepEqual,
     getProps,
     numberToFormattedStringNumber,
     setProps,
-    stringToNumber,
 } from '../../utils/utils';
 import { KupColumnMenu } from '../../utils/kup-column-menu/kup-column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
@@ -87,7 +76,6 @@ import {
     kupDynamicPositionAttribute,
     KupDynamicPositionCoordinates,
     KupDynamicPositionElement,
-    KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
@@ -100,7 +88,11 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { KupPointerEventTypes } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
-
+import {
+    FCellPadding,
+    FCellProps,
+} from '../../f-components/f-cell/f-cell-declarations';
+import { FCell } from '../../f-components/f-cell/f-cell';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -224,7 +216,7 @@ export class KupTree {
     /**
      * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
      */
-    @Prop() density: string = 'medium';
+    @Prop() density: FCellPadding = FCellPadding.MEDIUM;
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      *
@@ -240,6 +232,11 @@ export class KupTree {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined = undefined;
+    /**
+     * When set to true, editable cells will be rendered using input components.
+     * @default false
+     */
+    @Prop() editableData: boolean = false;
     /**
      * Enables the extracolumns add buttons.
      */
@@ -328,7 +325,6 @@ export class KupTree {
      * @see dynamicExpansionCallback
      */
     @Prop() useDynamicExpansion: boolean = false;
-
     /**
      * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
      */
@@ -365,7 +361,6 @@ export class KupTree {
     private treeWrapperRef: KupScrollOnHoverElement;
     private selectedColumn: string = '';
     private clickTimeout: any[] = [];
-    private iconPaths: [{ icon: string; path: string }] = undefined;
     private globalFilterTimeout: number;
     private footer: { [index: string]: number };
     private sizedColumns: Column[] = undefined;
@@ -924,25 +919,6 @@ export class KupTree {
         return details;
     }
 
-    private onJ4btnClicked(
-        treeNodeData: TreeNode,
-        treeNodePath: string,
-        column: Column,
-        auto: boolean
-    ) {
-        this.kupTreeNodeButtonClick.emit({
-            comp: this,
-            id: this.rootElement.id,
-            treeNodePath: treeNodePath
-                .split(',')
-                .map((treeNodeIndex) => parseInt(treeNodeIndex)),
-            treeNode: treeNodeData,
-            column: column,
-            columnName: column.name,
-            auto: auto,
-        });
-    }
-
     // When a TreeNode can be selected
     hdlTreeNodeClick(
         e: MouseEvent,
@@ -1226,134 +1202,6 @@ export class KupTree {
             return <span style={iconStyle} class={CSSClass}></span>;
         }
     }
-
-    /**
-     * Factory function for cells.
-     * @param cell - cell object
-     * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
-     * @param cellData - Additional data for the current cell.
-     * @param cellData.column - The column object to which the cell belongs.
-     * @param cellData.treeNode - The treeNode object to which the cell belongs.
-     * @param cellData.treeNodePath - The treeNodePath to which the cell belongs.
-     */
-    renderCell(
-        cell: Cell,
-        cellData: {
-            column: Column;
-            treeNode: TreeNode;
-            treeNodePath: string;
-        },
-        previousRowCellValue?: string
-    ) {
-        const classObj: Record<string, boolean> = {
-            'cell-content': true,
-            clickable: !!cellData.column.clickable,
-        };
-
-        // When the previous row value is different from the current value, we can show the current value.
-        const valueToDisplay =
-            previousRowCellValue !== cell.value ? cell.value : '';
-
-        // Sets the default value
-        let content: any = valueToDisplay;
-        let cellType: string = this.getCellType(cell);
-        let props: any = { ...cell.data };
-        classObj[cellType + '-cell'] = true;
-
-        if (cell.data) {
-            this.setCellSize(cellType, props, cell);
-            content = this.setKupCell(
-                cellType,
-                classObj,
-                props,
-                cell,
-                cellData
-            );
-        } else {
-            content = this.setCell(
-                cellType,
-                content,
-                classObj,
-                cell,
-                cellData.column
-            );
-        }
-
-        // Elements of the cell
-        let cellElements = [];
-        let tdStyle = undefined;
-        let style = undefined;
-        if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
-            style = cell.style;
-            if (styleHasBorderRadius(cell) && !style['padding']) {
-                style['padding'] = '5px';
-            }
-            if (style['text-align']) {
-                style['float'] = style['text-align'];
-            }
-        } else {
-            tdStyle = cell.style;
-        }
-
-        tdStyle = this.getCellStyle(cellData.column.name, tdStyle);
-
-        let icon = undefined;
-
-        if ((cellData.column.icon || cell.icon) && content) {
-            let svg: string = '';
-            if (cell.icon) {
-                svg = cell.icon;
-            } else {
-                svg = cellData.column.icon;
-            }
-            svg = this.getIconPath(svg);
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
-        }
-
-        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
-            cell.obj
-        );
-        let title: string = undefined;
-        if (_hasTooltip) {
-            classObj['is-obj'] = true;
-            if (this.kupManager.debug.isDebug()) {
-                title =
-                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
-            }
-        }
-
-        let cellClass = undefined;
-        if (cell.cssClass) {
-            cellClass = cell.cssClass;
-        }
-
-        cellElements.push(
-            <span title={title} style={style} class={classObj}>
-                {icon}
-                {content}
-            </span>
-        );
-
-        return (
-            <td
-                class={cellClass}
-                onClick={() => (this.selectedColumn = cellData.column.name)}
-                style={tdStyle}
-                {...this.getToolTipEventHandlers(
-                    cellData.treeNode,
-                    cell,
-                    _hasTooltip
-                )}
-            >
-                {cellElements}
-            </td>
-        );
-    }
-
     /**
      * Controls if current cell needs a tooltip and eventually adds it.
      * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
@@ -1397,266 +1245,6 @@ export class KupTree {
         }
         return eventHandlers;
     }
-
-    private getIconPath(icon: string) {
-        let svg: string = '';
-        if (this.iconPaths) {
-            for (
-                let index = 0;
-                index < this.iconPaths.length || svg !== '';
-                index++
-            ) {
-                if (this.iconPaths[index].icon === icon) {
-                    return this.iconPaths[index].path;
-                }
-            }
-        }
-
-        svg = `url('${getAssetPath(
-            `./assets/svg/${icon}.svg`
-        )}') no-repeat center`;
-
-        if (!this.iconPaths) {
-            this.iconPaths = [
-                {
-                    icon: icon,
-                    path: svg,
-                },
-            ];
-        } else {
-            this.iconPaths.push({ icon: icon, path: svg });
-        }
-
-        return svg;
-    }
-
-    // TODO: cell type can depend also from shape (see isRating)
-    // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
-    // TODO: more clear conditions when refactoring...
-    private getCellType(cell: Cell) {
-        return getCellType(cell);
-    }
-
-    private setCellSize(cellType: string, props: any, cell: Cell) {
-        switch (cellType) {
-            case 'bar':
-                if (!props.sizeY) {
-                    props['sizeY'] = '26px';
-                    if (this.density === 'medium') {
-                        props['sizeY'] = '36px';
-                    }
-                    if (this.density === 'wide') {
-                        props['sizeY'] = '50px';
-                    }
-                }
-                break;
-            case 'button':
-                let height: string = '';
-                if (props.label) {
-                    height = '36px';
-                } else {
-                    height = '48px';
-                }
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = height;
-                    }
-                } else {
-                    cell.style = { minHeight: height };
-                }
-                break;
-            case 'chart':
-                if (!props.sizeX) {
-                    props['sizeX'] = '100%';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '100%';
-                }
-                break;
-            case 'checkbox':
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = '40px';
-                    }
-                } else {
-                    cell.style = { minHeight: '40px' };
-                }
-                break;
-            case 'chips':
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = '53px';
-                    }
-                } else {
-                    cell.style = { minHeight: '53px' };
-                }
-                break;
-            case 'icon':
-                if (!props.sizeX) {
-                    props['sizeX'] = '18px';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '18px';
-                }
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = props['sizeY'];
-                    }
-                } else {
-                    cell.style = {
-                        minHeight: props['sizeY'],
-                    };
-                }
-                break;
-            case 'image':
-                if (!props.sizeX) {
-                    props['sizeX'] = 'auto';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '64px';
-                }
-                break;
-            case 'radio':
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = '40px';
-                    }
-                } else {
-                    cell.style = { minHeight: '40px' };
-                }
-                break;
-        }
-    }
-
-    private setCell(
-        cellType: string,
-        content: string,
-        classObj: Record<string, boolean>,
-        cell: Cell,
-        column: Column
-    ) {
-        switch (cellType) {
-            case 'link':
-                return (
-                    <a class="cell-link" href={content} target="_blank">
-                        {content}
-                    </a>
-                );
-            case 'number':
-                if (content && content != '') {
-                    const cellValueNumber: number = stringToNumber(cell.value);
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    if (cellValueNumber < 0) {
-                        classObj['negative-number'] = true;
-                    }
-                    return <span class="text">{cellValue}</span>;
-                }
-                return content;
-            case 'date':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return <span class="text">{cellValue}</span>;
-                }
-                return content;
-            case 'datetime':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return <span class="text">{cellValue}</span>;
-                }
-                return content;
-            case 'time':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return <span class="text">{cellValue}</span>;
-                }
-                return content;
-            case 'string':
-            default:
-                return <span class="text">{content}</span>;
-        }
-    }
-
-    private setKupCell(
-        cellType: string,
-        classObj: Record<string, boolean>,
-        props: any,
-        cell: Cell,
-        cellData: CellData
-    ) {
-        switch (cellType) {
-            case 'bar':
-                return <kup-image {...props} />;
-            case 'button':
-                classObj['is-centered'] = true;
-                props['disabled'] = cellData.treeNode.readOnly;
-                props['onkup-button-click'] = this.onJ4btnClicked.bind(
-                    cellData.treeNode,
-                    cellData.treeNodePath,
-                    cellData.column,
-                    false
-                );
-                return <kup-button {...props}></kup-button>;
-            case 'chart':
-                classObj['is-centered'] = true;
-                return <kup-chart {...props} />;
-            case 'checkbox':
-                classObj['is-centered'] = true;
-                if (props) {
-                    props['disabled'] = cellData.treeNode.readOnly;
-                } else {
-                    props = { disabled: cellData.treeNode.readOnly };
-                }
-                return <kup-checkbox {...props}></kup-checkbox>;
-            case 'chips':
-                return <kup-chip {...props}></kup-chip>;
-            case 'color-picker':
-                return (
-                    <kup-color-picker
-                        value={cell.value}
-                        {...props}
-                        disabled
-                    ></kup-color-picker>
-                );
-            case 'gauge':
-                return (
-                    <kup-gauge
-                        value={stringToNumber(cell.value)}
-                        width-component="100%"
-                        {...props}
-                    ></kup-gauge>
-                );
-            case 'knob':
-                return (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        value={stringToNumber(cell.value)}
-                        {...props}
-                    ></kup-progress-bar>
-                );
-            case 'icon':
-            case 'image':
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                return <kup-image {...props} />;
-            case 'progress-bar':
-                return <kup-progress-bar {...props}></kup-progress-bar>;
-            case 'rating':
-                return (
-                    <kup-rating
-                        value={stringToNumber(cell.value)}
-                        {...props}
-                        disabled
-                    ></kup-rating>
-                );
-            case 'radio':
-                classObj['is-centered'] = true;
-                props['disabled'] = cellData.treeNode.readOnly;
-                return <kup-radio {...props}></kup-radio>;
-        }
-    }
-
     private getCellStyle(colName: string, cellStyle: any): any {
         // Controls if there are columns with a specified width
         if (this.sizedColumns) {
@@ -1948,12 +1536,20 @@ export class KupTree {
             // Renders all the cells
             for (let j = 0; j < visibleCols.length; j++) {
                 const column = visibleCols[j];
+                const cellProps: FCellProps = {
+                    cell: treeNodeData.cells[column.name],
+                    column: column,
+                    component: this,
+                    density: this.density,
+                    editable: this.editableData,
+                    renderKup: true,
+                    row: treeNodeData,
+                    setSizes: true,
+                };
                 treeNodeCells.push(
-                    this.renderCell(treeNodeData.cells[column.name], {
-                        column,
-                        treeNode: treeNodeData,
-                        treeNodePath: treeNodePath,
-                    })
+                    <td class="grid-cell">
+                        <FCell {...cellProps}></FCell>
+                    </td>
                 );
             }
         }
@@ -2470,10 +2066,10 @@ export class KupTree {
         this.sizedColumns = this.getSizedColumns();
         let wrapperClass: string = 'density-medium';
         switch (this.density) {
-            case 'dense':
+            case FCellPadding.DENSE:
                 wrapperClass = 'density-dense';
                 break;
-            case 'wide':
+            case FCellPadding.WIDE:
                 wrapperClass = 'density-wide';
                 break;
         }

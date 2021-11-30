@@ -1,3 +1,5 @@
+import { Cell } from
+'@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 <template>
   <div class="page">
     <div class="page__content">
@@ -32,44 +34,58 @@
     <div class="page__nav">
       <div class="page__nav-list">
         <a
+          :data-item="item"
           v-for="item in titles"
           :key="item"
-          @click="scrollToSmoothly"
           class="page__nav-element"
-          >{{ item }}</a
-        >
+          @click="scrollToSmoothly"
+          ><kup-cell :data-item="item" drag-enabled :data.prop="setCell(item)"
+        /></a>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-var labels: NodeListOf<HTMLElement> = null;
+import type { Components } from '@sme.up/ketchup/dist/types/components';
+import type { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
+var labels: NodeListOf<HTMLKupCellElement> = null;
 var sections: NodeListOf<HTMLElement> = null;
 var title: NodeListOf<HTMLElement> = null;
 
 export default {
-  beforeMount: function() {
+  beforeMount: function () {
     document.addEventListener('scroll', this.checkNav);
     document.addEventListener('resize', this.checkNav);
   },
-  destroyed: function() {
+  destroyed: function () {
     document.removeEventListener('scroll', this.checkNav);
     document.removeEventListener('resize', this.checkNav);
   },
-  mounted: function() {
+  mounted: function () {
     labels = document.querySelectorAll('.page__nav-element');
     sections = document.querySelectorAll('.page__section');
     title = document.querySelectorAll('.page__section-header');
     this.checkNav();
   },
   methods: {
+    setCell(item: string): Cell {
+      return {
+        cssClass: 'expand-on-hover c-centered',
+        obj: {
+          t: 'NAVMENU',
+          p: '',
+          k: item,
+        },
+        value: item,
+      };
+    },
     checkNav(): void {
       if (labels.length === 0) {
         return;
       }
-      const offset: number = document.querySelector('#app__nav-bar')
-        .clientHeight;
+      const offset: number =
+        document.querySelector('#app__nav-bar').clientHeight;
       for (let i = 0; i < labels.length; i++) {
         labels[i].classList.remove('active');
       }
@@ -118,11 +134,14 @@ export default {
     },
     scrollToSmoothly(e: MouseEvent): void {
       // pos is the y-position to scroll to (in pixels)
+      console.log('here');
       let pos: number = null;
       const currentPos: number = window.scrollY || window.screenTop;
-      const target: HTMLElement = e.target as HTMLElement;
+      const target: HTMLElement = (e.target as HTMLElement).closest(
+        '.page__nav-element'
+      );
       for (let i = 0; i < labels.length; i++) {
-        if (target.textContent === labels[i].textContent) {
+        if (target.dataset.item === labels[i].dataset.item) {
           pos = title[i].offsetTop;
         }
       }
@@ -135,7 +154,7 @@ export default {
       if (currentPos < pos) {
         if (pos - currentPos < 3000) {
           for (let i = currentPos; i <= pos; i += 1) {
-            setTimeout(function() {
+            setTimeout(function () {
               window.scrollTo(0, i);
             }, 100);
           }
@@ -145,7 +164,7 @@ export default {
       } else {
         if (currentPos - pos < 3000) {
           for (let i = currentPos; i >= pos; i -= 1) {
-            setTimeout(function() {
+            setTimeout(function () {
               window.scrollTo(0, i);
             }, 100);
           }
@@ -198,21 +217,17 @@ export default {
   }
 
   &__nav-element {
-    color: var(--kup-text-color);
     display: block;
     margin-top: 8px;
     max-height: 22px;
     padding-left: 15px;
     padding-top: 7.5px;
     transition: all 0.2s ease-in;
-    white-space: pre;
+    color: var(--kup-text-color);
+    width: max-content;
 
     &.active {
-      color: var(--kup-primary-color);
-    }
-
-    &:hover {
-      font-size: 140%;
+      color: var(--kup-secondary-color);
     }
   }
 
@@ -294,6 +309,7 @@ export default {
       text-align: center;
       padding-top: 15px;
       padding-left: 0;
+      width: 100%;
     }
   }
 }

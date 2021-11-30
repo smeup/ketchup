@@ -81,6 +81,64 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'expand-on-hover',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Cell becomes larger on mouse over.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'expand-on-hover',
+          cssClass: 'expand-on-hover',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'reduce-on-hover',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Cell becomes smaller on mouse over.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'reduce-on-hover',
+          cssClass: 'reduce-on-hover',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'link',
         },
         DESCR: {
@@ -99,6 +157,35 @@ export const cellClassesDataTable = {
           },
           value: 'link',
           cssClass: 'link',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'monospace',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Cell will be rendered with the theme's monospace font.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'monospace',
+          cssClass: 'monospace',
         },
       },
     },
@@ -158,6 +245,93 @@ export const cellClassesDataTable = {
           },
           value: 'strong-text',
           cssClass: 'strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'primary-text',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Text will be set to the theme's primary color.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'primary-text',
+          cssClass: 'primary-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'secondary-text',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Text will be set to the theme's primary color.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'secondary-text',
+          cssClass: 'secondary-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'underlined',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Text will be underlined.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'underlined',
+          cssClass: 'underlined',
         },
       },
     },

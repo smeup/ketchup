@@ -98,9 +98,11 @@ Type: `Promise<void>`
 
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
  - [kup-magic-box](../kup-magic-box)
  - [kup-paginator](../kup-paginator)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -115,9 +117,11 @@ graph TD;
   kup-badge --> kup-badge
   kup-box --> kup-combobox
   kup-card --> kup-combobox
+  kup-cell --> kup-combobox
   kup-data-table --> kup-combobox
   kup-magic-box --> kup-combobox
   kup-paginator --> kup-combobox
+  kup-tree --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

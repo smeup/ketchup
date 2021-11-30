@@ -11,14 +11,16 @@
     background-color: rgba(var(--kup-text-color-rgb), 0.1);
   }
 
-  .mdc-text-field:not(.mdc-text-field--disabled) {
-    cursor: pointer;
-
-    input {
+  .mdc-text-field {
+    &:not(.mdc-text-field--disabled) {
       cursor: pointer;
+
+      input {
+        cursor: pointer;
+      }
     }
 
-    .#{$kup-icon} {
+    .#{$kup-icon}.action {
       background-color: var(
         --kup_colorpicker_thumb_color,
         var(--kup-icon-color)
