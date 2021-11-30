@@ -211,9 +211,9 @@ function setCellSize(
             ) {
                 if (!(subcomponentProps as FImageProps).sizeY) {
                     (subcomponentProps as FImageProps).sizeY = 'auto';
-                } else if (!(subcomponentProps as FImageProps).sizeX) {
-                    (subcomponentProps as FImageProps).sizeX = 'auto';
                 }
+            } else if (!(subcomponentProps as FImageProps).sizeX) {
+                (subcomponentProps as FImageProps).sizeX = 'auto';
             }
             if (!(subcomponentProps as FImageProps).sizeY) {
                 (subcomponentProps as FImageProps).sizeY = '64px';
