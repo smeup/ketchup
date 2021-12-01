@@ -214,14 +214,14 @@ function setCellSize(
                 if (!(subcomponentProps as FImageProps).sizeY) {
                     (subcomponentProps as FImageProps).sizeY = 'auto';
                 }
+                if ((subcomponentProps as FImageProps).fit === undefined) {
+                    (subcomponentProps as FImageProps).fit = true;
+                }
             } else if (!(subcomponentProps as FImageProps).sizeX) {
                 (subcomponentProps as FImageProps).sizeX = 'auto';
             }
             if (!(subcomponentProps as FImageProps).sizeY) {
                 (subcomponentProps as FImageProps).sizeY = '64px';
-            }
-            if ((subcomponentProps as FImageProps) === undefined) {
-                (subcomponentProps as FImageProps).fit = true;
             }
             break;
     }
