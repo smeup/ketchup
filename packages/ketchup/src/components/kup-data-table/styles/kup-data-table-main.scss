@@ -130,10 +130,14 @@
     }
   }
 
-  tbody tr > .f-cell--wrapper .c-centered * {
+  tbody tr .f-cell--wrapper.c-centered * {
     display: flex;
     max-width: max-content;
     width: max-content;
+  }
+
+  tbody tr .f-cell--wrapper.c-fitted * {
+    max-width: max-content;
   }
 }
 
