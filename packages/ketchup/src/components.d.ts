@@ -2117,6 +2117,61 @@ export namespace Components {
          */
         "value": number;
     }
+    interface KupSnackbar {
+        /**
+          * If true the action button appears
+          * @default false
+         */
+        "actionButton": boolean;
+        /**
+          * Set text of the action button
+          * @default 'Action'
+         */
+        "buttonText": string;
+        /**
+          * If true the close button appears
+          * @default false
+         */
+        "closeAction": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Method to close the snackbar
+         */
+        "hide": () => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Method to open the snackbar
+         */
+        "show": () => Promise<void>;
+        /**
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
+         */
+        "styling": FButtonStyling;
+        /**
+          * Gets/sets the textContent of the label element.
+          * @default ''
+         */
+        "text": string;
+        /**
+          * Default at 0. Gets/sets the automatic dismiss timeout in milliseconds.
+          * @default null
+         */
+        "timeout": number;
+    }
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
@@ -2896,6 +2951,12 @@ declare global {
         prototype: HTMLKupRatingElement;
         new (): HTMLKupRatingElement;
     };
+    interface HTMLKupSnackbarElement extends Components.KupSnackbar, HTMLStencilElement {
+    }
+    var HTMLKupSnackbarElement: {
+        prototype: HTMLKupSnackbarElement;
+        new (): HTMLKupSnackbarElement;
+    };
     interface HTMLKupSpinnerElement extends Components.KupSpinner, HTMLStencilElement {
     }
     var HTMLKupSpinnerElement: {
@@ -2974,6 +3035,7 @@ declare global {
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
         "kup-rating": HTMLKupRatingElement;
+        "kup-snackbar": HTMLKupSnackbarElement;
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
         "kup-tab-bar": HTMLKupTabBarElement;
@@ -4712,6 +4774,42 @@ declare namespace LocalJSX {
          */
         "value"?: number;
     }
+    interface KupSnackbar {
+        /**
+          * If true the action button appears
+          * @default false
+         */
+        "actionButton"?: boolean;
+        /**
+          * Set text of the action button
+          * @default 'Action'
+         */
+        "buttonText"?: string;
+        /**
+          * If true the close button appears
+          * @default false
+         */
+        "closeAction"?: boolean;
+        /**
+          * Triggered when close or action button are clicked.
+         */
+        "onKup-snackbar-actionclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
+         */
+        "styling"?: FButtonStyling;
+        /**
+          * Gets/sets the textContent of the label element.
+          * @default ''
+         */
+        "text"?: string;
+        /**
+          * Default at 0. Gets/sets the automatic dismiss timeout in milliseconds.
+          * @default null
+         */
+        "timeout"?: number;
+    }
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
@@ -5280,6 +5378,7 @@ declare namespace LocalJSX {
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
         "kup-rating": KupRating;
+        "kup-snackbar": KupSnackbar;
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
         "kup-tab-bar": KupTabBar;
@@ -5328,6 +5427,7 @@ declare module "@stencil/core" {
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
             "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
+            "kup-snackbar": LocalJSX.KupSnackbar & JSXBase.HTMLAttributes<HTMLKupSnackbarElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
