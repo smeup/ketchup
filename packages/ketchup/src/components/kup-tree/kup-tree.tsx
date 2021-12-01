@@ -1536,8 +1536,20 @@ export class KupTree {
             // Renders all the cells
             for (let j = 0; j < visibleCols.length; j++) {
                 const column = visibleCols[j];
+                const cell = { ...treeNodeData.cells[column.name] };
+                let hasIndicator = false;
+                const indicatorClass = 'top-right-indicator';
+                if (cell.cssClass) {
+                    if (cell.cssClass.indexOf(indicatorClass) > -1) {
+                        hasIndicator = true;
+                        cell.cssClass = cell.cssClass.replace(
+                            new RegExp(indicatorClass, 'g'),
+                            ''
+                        );
+                    }
+                }
                 const cellProps: FCellProps = {
-                    cell: treeNodeData.cells[column.name],
+                    cell: cell,
                     column: column,
                     component: this,
                     density: this.density,
@@ -1547,7 +1559,11 @@ export class KupTree {
                     setSizes: true,
                 };
                 treeNodeCells.push(
-                    <td class="grid-cell">
+                    <td
+                        class={`grid-cell ${
+                            hasIndicator ? indicatorClass : ''
+                        }`}
+                    >
                         <FCell {...cellProps}></FCell>
                     </td>
                 );

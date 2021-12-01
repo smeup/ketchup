@@ -120,12 +120,7 @@
   }
 
   &.top-right-indicator {
-    position: relative !important;
-
-    &.fixed-column,
-    &.fixed-row {
-      position: sticky !important;
-    }
+    position: relative;
 
     &:after {
       content: '';

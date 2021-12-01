@@ -659,6 +659,26 @@ th.obj:hover span:not(.overlay-action) {
   mask: var(--kup-key-icon);
 }
 
+td.top-right-indicator {
+  position: relative !important;
+
+  &.fixed-column,
+  &.fixed-row {
+    position: sticky !important;
+  }
+
+  &:after {
+    content: '';
+    border-width: 0 0 0.5em 0.5em;
+    border-color: transparent transparent var(--kup-secondary-color) transparent;
+    border-style: solid;
+    transform: rotate(270deg);
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
 @keyframes fade-in {
   0% {
     display: none;
