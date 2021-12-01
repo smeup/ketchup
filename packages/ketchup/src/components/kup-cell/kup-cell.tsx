@@ -154,7 +154,10 @@ export class KupCell {
             for (let index = 0; index < classes.length; index++) {
                 const cssClass = classes[index];
                 if (this.data.cssClass.indexOf(cssClass) > 0) {
-                    this.data.cssClass.replace(new RegExp(cssClass, 'g'), '');
+                    this.data.cssClass = this.data.cssClass.replace(
+                        new RegExp(cssClass, 'g'),
+                        ''
+                    );
                 }
             }
         }

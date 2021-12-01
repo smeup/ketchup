@@ -130,10 +130,14 @@
     }
   }
 
-  tbody tr > .f-cell--wrapper .c-centered * {
+  tbody tr .f-cell--wrapper.c-centered * {
     display: flex;
     max-width: max-content;
     width: max-content;
+  }
+
+  tbody tr .f-cell--wrapper.c-fitted * {
+    max-width: max-content;
   }
 }
 
@@ -653,6 +657,26 @@ th.obj:hover span:not(.overlay-action) {
 .#{$kup-icon}.#{$kup-icon-key} {
   -webkit-mask: var(--kup-key-icon);
   mask: var(--kup-key-icon);
+}
+
+td.top-right-indicator {
+  position: relative !important;
+
+  &.fixed-column,
+  &.fixed-row {
+    position: sticky !important;
+  }
+
+  &:after {
+    content: '';
+    border-width: 0 0 0.5em 0.5em;
+    border-color: transparent transparent var(--kup-secondary-color) transparent;
+    border-style: solid;
+    transform: rotate(270deg);
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 @keyframes fade-in {

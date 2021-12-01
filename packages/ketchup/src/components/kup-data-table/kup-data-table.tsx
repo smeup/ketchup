@@ -4157,12 +4157,24 @@ export class KupDataTable {
                     }
                 }
 
-                const cell = row.cells[name];
+                const cell = { ...row.cells[name] };
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
                     } else {
                         return null;
+                    }
+                }
+
+                let hasIndicator = false;
+                const indicatorClass = 'top-right-indicator';
+                if (cell.cssClass) {
+                    if (cell.cssClass.indexOf(indicatorClass) > -1) {
+                        hasIndicator = true;
+                        cell.cssClass = cell.cssClass.replace(
+                            new RegExp(indicatorClass, 'g'),
+                            ''
+                        );
                     }
                 }
 
@@ -4260,6 +4272,11 @@ export class KupDataTable {
                         };
                     }
                 }
+
+                cellClass = {
+                    ...cellClass,
+                    [indicatorClass]: hasIndicator,
+                };
 
                 return (
                     <td
