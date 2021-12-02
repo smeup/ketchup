@@ -87,6 +87,7 @@ export interface Cell {
     shape?: FCellShapes;
     span?: KupDatatableCellSpan;
     style?: GenericMap;
+    styleContent?: GenericMap;
     title?: string;
 }
 
@@ -103,7 +104,6 @@ export interface Column {
     title: string;
     size?: string;
     visible?: boolean;
-    clickable?: boolean;
     hideValuesRepetitions?: boolean;
     obj?: {
         t: string;

@@ -1078,30 +1078,3 @@ function cloneRowGroup(group: RowGroup): RowGroup {
 
     return cloned;
 }
-
-/**
- * Given a cell object, determines if the style object has also a border radius
- * @param cell - The cell to check
- * @returns {boolean} - true if borderRadius is present, false otherwise.
- */
-export function styleHasBorderRadius(cell: Cell): boolean {
-    return !!(
-        cell &&
-        cell.style &&
-        (cell.style.borderRadius || cell.style['border-radius'])
-    );
-}
-
-/**
- * Given a cell object, determines if the style object has also a writing mode
- * @param cell - The cell to check
- * @returns {boolean} - true if writingMode is present, false otherwise.
- */
-
-export function styleHasWritingMode(cell: Cell): boolean {
-    return !!(
-        cell &&
-        cell.style &&
-        (cell.style.writingMode || cell.style['writing-mode'])
-    );
-}

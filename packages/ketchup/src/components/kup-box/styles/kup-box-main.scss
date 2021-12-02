@@ -33,12 +33,14 @@
   font-size: var(--kup_box_font_size);
 }
 
-.box-section {
-  .f-cell__content {
-    justify-content: center;
-  }
+#kup-component {
+  .box-section {
+    .f-cell__content {
+      justify-content: center;
+    }
 
-  text-align: center;
+    text-align: center;
+  }
 }
 
 .box-component {

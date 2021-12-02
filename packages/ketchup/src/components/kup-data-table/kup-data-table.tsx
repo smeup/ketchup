@@ -60,7 +60,6 @@ import {
     groupRows,
     paginateRows,
     sortRows,
-    styleHasBorderRadius,
 } from './kup-data-table-helper';
 import {
     GenericObject,
@@ -4157,7 +4156,7 @@ export class KupDataTable {
                     }
                 }
 
-                const cell = { ...row.cells[name] };
+                const cell = row.cells[name] ? { ...row.cells[name] } : null;
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
@@ -4198,10 +4197,7 @@ export class KupDataTable {
                 // Classes which will be set onto the single data-table cell;
 
                 let cellClass: GenericObject = null;
-                let cellStyle: GenericObject = null;
-                if (!styleHasBorderRadius(cell)) {
-                    cellStyle = { ...cell.style };
-                }
+                let cellStyle: GenericObject = { ...cell.style };
 
                 //-- For fixed cells --
                 const fixedStyles = this.composeFixedCellStyleAndClass(

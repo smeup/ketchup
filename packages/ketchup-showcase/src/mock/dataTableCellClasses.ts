@@ -197,6 +197,35 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'obj',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'It will display the theme cursor set for objects.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'obj',
+          cssClass: 'obj',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'shaped',
         },
         DESCR: {
@@ -843,6 +872,36 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'c-round',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value:
+            "Cell content's borders will be heavily shaped (50px border radius). In the example the background is set to teal just to see the borders.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'c-round',
+          cssClass: 'c-round c-teal-bg',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'c-shaped',
         },
         DESCR: {
@@ -852,7 +911,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            "Cell content's borders will be shaped (4px border radius). In the example the background is set to teal to see the borders.",
+            "Cell content's borders will be shaped (4px border radius). In the example the background is set to teal just to see the borders.",
         },
         EXAMPLE: {
           obj: {
@@ -873,6 +932,36 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'c-padded',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value:
+            "Cell content's will have padding (1em). In the example the background is set to teal just to see the padding.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'c-padded',
+          cssClass: 'c-padded c-teal-bg',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'c-hor-padded',
         },
         DESCR: {
@@ -882,7 +971,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            "Cell content's will have horizontal padding (.5rem). In the example the background is set to teal to see the padding.",
+            "Cell content's will have horizontal padding (.5em). In the example the background is set to teal just to see the padding.",
         },
         EXAMPLE: {
           obj: {
@@ -912,7 +1001,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            "Cell content's will have vertical padding (.5rem). In the example the background is set to teal to see the padding.",
+            "Cell content's will have vertical padding (.5em). In the example the background is set to teal just to see the padding.",
         },
         EXAMPLE: {
           obj: {

@@ -117,6 +117,6 @@ export const kupTypes = [
 export interface FCellEventPayload extends KupEventPayload {
     cell: Cell;
     column: Column;
-    row: Row;
     event: CustomEvent | InputEvent;
+    row: Row;
 }

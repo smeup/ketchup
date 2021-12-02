@@ -32,7 +32,6 @@ import { FTextField } from '../f-text-field/f-text-field';
 import { stringToNumber } from '../../utils/utils';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
-import { styleHasWritingMode } from '../../components/kup-data-table/kup-data-table-helper';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -58,11 +57,14 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const cellType = getCellType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
     const classObj: Record<string, boolean> = {
-        'f-cell__content': true,
-        'has-obj': hasObj ? true : false,
-        clickable: !!column.clickable,
+        'f-cell--wrapper': true,
+        obj: hasObj ? true : false,
         [cellType + '-cell']: true,
         [props.wrapperClass]: props.wrapperClass ? true : false,
+        [props.density]:
+            props.density && cellType !== FCellTypes.BAR ? true : false,
+        [cell.cssClass]: cell.cssClass ? true : false,
+        [column.cssClass]: column.cssClass ? true : false,
     };
     let content: unknown = valueToDisplay;
 
@@ -99,13 +101,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         );
     }
 
-    const style = cell.style;
-
-    if (styleHasWritingMode(cell)) {
-        classObj['is-vertical'] = true;
-    }
-
-    let icon: VNode = undefined;
+    let icon: VNode = null;
     if (!isEditable && (column.icon || cell.icon) && content) {
         const fProps: FImageProps = {
             color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
@@ -145,29 +141,12 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     }
 
     return (
-        <div
-            class={`f-cell--wrapper ${
-                props.density && cellType !== FCellTypes.BAR
-                    ? props.density.toLowerCase()
-                    : ''
-            } ${
-                cell.cssClass
-                    ? cell.cssClass
-                    : column.cssClass
-                    ? column.cssClass
-                    : ''
-            }`}
-            style={
-                style &&
-                (style.border !== undefined || style.padding !== undefined)
-                    ? {
-                          border: style.border,
-                          padding: style.padding,
-                      }
-                    : null
-            }
-        >
-            <div class={classObj} style={style} title={cellTitle}>
+        <div class={classObj} style={cell.style}>
+            <div
+                class="f-cell__content"
+                style={cell.styleContent}
+                title={cellTitle}
+            >
                 {props.indents}
                 {infoEl}
                 {icon}
@@ -412,7 +391,7 @@ function setCell(
         case FCellTypes.IMAGE:
             classObj['c-centered'] = true;
             if ((subcomponentProps as FImageProps).badgeData) {
-                classObj['has-padding'] = true;
+                classObj['c-padded'] = true;
             }
             return <FImage {...subcomponentProps} />;
         case FCellTypes.LINK:
@@ -426,7 +405,7 @@ function setCell(
                 const cellValueNumber = stringToNumber(cell.value);
                 const cellValue = getCellValueForDisplay(column, cell);
                 if (cellValueNumber < 0) {
-                    classObj['negative-number'] = true;
+                    classObj['danger-text'] = true;
                 }
                 return cellValue;
             }

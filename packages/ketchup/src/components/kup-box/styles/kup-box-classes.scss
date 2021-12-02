@@ -3,53 +3,57 @@
 /*-------------------------------------------------*/
 
 :host(.#{$kup-class-left-aligned}) {
-  .box-section {
-    text-align: left;
+  #kup-component {
+    .box-section {
+      text-align: left;
 
-    .f-cell__content {
-      justify-content: flex-start;
-    }
+      .f-cell__content {
+        justify-content: flex-start;
+      }
 
-    .f-image--wrapper {
-      margin-left: 0;
-      margin-right: auto;
-    }
+      .f-image--wrapper {
+        margin-left: 0;
+        margin-right: auto;
+      }
 
-    kup-checkbox {
-      justify-content: flex-start;
-    }
+      kup-checkbox {
+        justify-content: flex-start;
+      }
 
-    kup-button,
-    kup-button-list,
-    kup-chart {
-      margin-left: 0;
-      margin-right: auto;
+      kup-button,
+      kup-button-list,
+      kup-chart {
+        margin-left: 0;
+        margin-right: auto;
+      }
     }
   }
 }
 
 :host(.#{$kup-class-right-aligned}) {
-  .box-section {
-    text-align: right;
+  #kup-component {
+    .box-section {
+      text-align: right;
 
-    .f-cell__content {
-      justify-content: flex-end;
-    }
+      .f-cell__content {
+        justify-content: flex-end;
+      }
 
-    .f-image--wrapper {
-      margin-left: auto;
-      margin-right: 0;
-    }
+      .f-image--wrapper {
+        margin-left: auto;
+        margin-right: 0;
+      }
 
-    kup-checkbox {
-      justify-content: flex-end;
-    }
+      kup-checkbox {
+        justify-content: flex-end;
+      }
 
-    kup-button,
-    kup-button-list,
-    kup-chart {
-      margin-right: 0;
-      margin-left: auto;
+      kup-button,
+      kup-button-list,
+      kup-chart {
+        margin-right: 0;
+        margin-left: auto;
+      }
     }
   }
 }
