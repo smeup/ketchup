@@ -150,6 +150,7 @@ import {
 } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -4166,7 +4167,7 @@ export class KupDataTable {
                 }
 
                 let hasIndicator = false;
-                const indicatorClass = 'top-right-indicator';
+                const indicatorClass = FCellClasses.INDICATOR_TOPRIGHT;
                 if (cell.cssClass) {
                     if (cell.cssClass.indexOf(indicatorClass) > -1) {
                         hasIndicator = true;

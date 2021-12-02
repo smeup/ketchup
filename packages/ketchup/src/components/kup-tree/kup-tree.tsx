@@ -89,6 +89,7 @@ import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations
 import { KupPointerEventTypes } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -1540,7 +1541,7 @@ export class KupTree {
                     ? { ...treeNodeData.cells[column.name] }
                     : null;
                 let hasIndicator = false;
-                const indicatorClass = 'top-right-indicator';
+                const indicatorClass = FCellClasses.INDICATOR_TOPRIGHT;
                 if (cell.cssClass) {
                     if (cell.cssClass.indexOf(indicatorClass) > -1) {
                         hasIndicator = true;
