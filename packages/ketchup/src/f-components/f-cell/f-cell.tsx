@@ -399,7 +399,7 @@ function setCell(
             return <FImage {...subcomponentProps} />;
         case FCellTypes.LINK:
             return (
-                <a class="cell-link" href={content as string} target="_blank">
+                <a href={content as string} target="_blank">
                     {cell.value}
                 </a>
             );
@@ -604,8 +604,9 @@ function cellUpdate(
                     id: (comp as KupComponent).rootElement.id,
                     cell: cell,
                     column: column,
-                    row: row,
                     event: e,
+                    row: row,
+                    type: cellType,
                 },
             }
         );

@@ -167,4 +167,5 @@ export interface FCellEventPayload extends KupEventPayload {
     column: Column;
     event: CustomEvent | InputEvent;
     row: Row;
+    type: FCellTypes;
 }
