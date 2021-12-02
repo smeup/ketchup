@@ -95,6 +95,7 @@ export enum FCellShapes {
     AUTOCOMPLETE = 'ACP',
     BUTTON_LIST = 'BTN',
     CHART = 'GRA',
+    CHECKBOX = 'CHK',
     CHIP = 'CHI',
     COLOR_PICKER = 'CLP',
     COMBOBOX = 'CMB',

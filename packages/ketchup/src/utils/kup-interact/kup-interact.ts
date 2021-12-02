@@ -6,7 +6,6 @@ import type {
     DraggableOptions,
     DropEvent,
     DropzoneOptions,
-    EventTypes,
     ListenersArg,
     Point,
     RectResolvable,
