@@ -493,6 +493,8 @@ function getCellType(cell: Cell, shape?: FCellShapes) {
                 return FCellTypes.BUTTON_LIST;
             case FCellShapes.CHART:
                 return FCellTypes.CHART;
+            case FCellShapes.CHECKBOX:
+                return FCellTypes.CHECKBOX;
             case FCellShapes.CHIP:
                 return FCellTypes.CHIP;
             case FCellShapes.COLOR_PICKER:
