@@ -6,8 +6,8 @@
         around the various sections of a web page.
       </p>
       <p>
-        The Ketchup drawer itself contains only the main structure. The user
-        can append any child component through the usage of slots.
+        The Ketchup drawer itself contains only the main structure. The user can
+        append any child component through the usage of slots.
       </p>
       <br />
       <br />

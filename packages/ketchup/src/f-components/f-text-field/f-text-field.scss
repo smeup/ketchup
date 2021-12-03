@@ -20,6 +20,14 @@
       var(--kup-font-family)
     );
     --kup_textfield_font_size: var(--kup-textfield-font-size, 1em);
+    --kup_textfield_fullwidth_height: var(
+      --kup-textfield-fullwidth-height,
+      40px
+    );
+    --kup_textfield_fullwidth_padding: var(
+      --kup-textfield-fullwidth-padding,
+      16px
+    );
     --kup_textfield_icon_color: var(
       --kup-textfield-icon-color,
       var(--kup-icon-color)
@@ -280,6 +288,10 @@
 
     &.#{$kup-class-full-width} {
       width: 100%;
+      .mdc-text-field {
+        height: var(--kup_textfield_fullwidth_height) !important;
+        padding: 0 var(--kup_textfield_fullwidth_padding);
+      }
     }
 
     &.kup-shaped {
