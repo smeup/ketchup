@@ -278,6 +278,24 @@ enum DemoTypeFeature {
 
 // JSON used to display custom types inside tooltip
 const demoTypes: DemoTypeJson = {
+  Cell: {
+    keys: {
+      value: 'string',
+      'cardID?': 'number',
+      'cssClass?': 'string',
+      'data?': 'CellData',
+      'displayedValue?': 'string',
+      'icon?': 'string',
+      'info?': 'FCellInfo',
+      'isEditable?': 'boolean',
+      'obj?': 'KupObj',
+      'shape?': 'FCellShapes',
+      'span?': 'KupDatatableCellSpan',
+      'style?': 'GenericMap',
+      'title?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   ChartAspect: {
     keys: {
       D2: '2D',
@@ -365,6 +383,15 @@ const demoTypes: DemoTypeJson = {
       RAISED: 'raised',
     },
     type: DemoTypeFeature.ENUM,
+  },
+  FCellPadding: {
+    keys: {
+      DENSE: 'dense',
+      MEDIUM: 'medium',
+      NONE: '',
+      WIDE: 'wide',
+    },
+    type: DemoTypeFeature.INTERFACE,
   },
   FChipData: {
     keys: {

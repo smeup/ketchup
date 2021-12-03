@@ -59,7 +59,7 @@
 
 .density-dense .wrapper .kup-tree,
 .density-dense .wrapper .kup-tree {
-  td,
+  td:not(.grid-cell),
   th {
     padding: 0 0.5em;
 
@@ -72,7 +72,7 @@
 
 .density-wide .wrapper .kup-tree,
 .density-wide .wrapper .kup-tree {
-  td,
+  td:not(.grid-cell),
   th {
     padding: 0.75em 0.5em;
   }
@@ -122,17 +122,17 @@
       & .kup-tree__icon ~ .cell-content,
       & .kup-tree__icon + .cell-content {
         display: inline-block;
-        line-height: 1em;
         vertical-align: 0.3em;
       }
     }
 
-    td,
+    td:not(.grid-cell),
     th {
       padding: 0.4em 0.5em;
     }
 
     td {
+      padding: 0;
       white-space: nowrap;
     }
 
@@ -199,25 +199,6 @@
       &--selected:not(.kup-tree__node--disabled) td {
         background-color: rgba(var(--kup_tree_primary_color_rgb), 0.175);
         color: var(--kup_tree_color);
-      }
-
-      .cell-content .#{$kup-icon}.obj-icon {
-        cursor: var(--kup-obj-cursor);
-        display: inline-block;
-        vertical-align: sub;
-        height: 1.25em;
-        width: 1.25em;
-        background-color: rgba(var(--kup_tree_color_rgb), 0.375);
-        margin: auto 0.5em auto 0;
-      }
-
-      .number-cell {
-        font-family: var(--kup_tree_font_family_monospace);
-        float: right;
-      }
-
-      .negative-number {
-        color: var(--kup-danger-color);
       }
     }
 
@@ -301,19 +282,19 @@ tfoot {
   }
 
   .density-dense {
-    .first-node {
+    .first-node:not(.grid-cell) {
       padding: 0.5em 1em;
     }
   }
 
   .density-medium {
-    .first-node {
+    .first-node:not(.grid-cell) {
       padding: 1em 1.5em;
     }
   }
 
   .density-wide {
-    .first-node {
+    .first-node:not(.grid-cell) {
       padding: 1.75em 1.75em;
     }
   }
@@ -447,6 +428,26 @@ tfoot {
 .#{$kup-icon}.#{$kup-icon-filter-remove} {
   -webkit-mask: var(--kup-filter-remove-icon);
   mask: var(--kup-filter-remove-icon);
+}
+
+td.top-right-indicator {
+  position: relative !important;
+
+  &.fixed-column,
+  &.fixed-row {
+    position: sticky !important;
+  }
+
+  &:after {
+    content: '';
+    border-width: 0 0 0.5em 0.5em;
+    border-color: transparent transparent var(--kup-secondary-color) transparent;
+    border-style: solid;
+    transform: rotate(270deg);
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 @keyframes fade-in {

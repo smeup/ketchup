@@ -11,13 +11,15 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableCellUpdateEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
+import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
+import { KupCellEventPayload } from "./components/kup-cell/kup-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
@@ -233,6 +235,11 @@ export namespace Components {
           * @default false
          */
         "dropOnSection": boolean;
+        /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData": boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
           * @default false
@@ -617,6 +624,53 @@ export namespace Components {
          */
         "sizeY": string;
     }
+    interface KupCell {
+        /**
+          * Adds the given CSS classes to the cell's data.
+          * @param classes - Array of CSS classes.
+         */
+        "addCssClasses": (classes?: string[]) => Promise<void>;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * The data of the cell.
+          * @default false
+         */
+        "data": Cell;
+        /**
+          * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
+         */
+        "density": FCellPadding;
+        /**
+          * When set to true, the component is draggable.
+          * @default false
+         */
+        "dragEnabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Removes the given CSS classes from the cell's data.
+          * @param classes - Array of CSS classes.
+         */
+        "removeCssClasses": (classes?: string[]) => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupChart {
         /**
           * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
@@ -976,6 +1030,11 @@ export namespace Components {
     }
     interface KupDataTable {
         /**
+          * When true and when a row is missing some columns, the missing cells will be autogenerated.
+          * @default false
+         */
+        "autoFillMissingCells": boolean;
+        /**
           * Closes any opened column menu.
          */
         "closeColumnMenu": () => Promise<void>;
@@ -995,7 +1054,7 @@ export namespace Components {
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
-        "density": string;
+        "density": FCellPadding;
         /**
           * Enables drag.
          */
@@ -1415,12 +1474,6 @@ export namespace Components {
           * @default false
          */
         "trailingIcon": boolean;
-    }
-    interface KupEditor {
-        /**
-          * The html to be rendered and edited
-         */
-        "text": string;
     }
     interface KupField {
         /**
@@ -2598,7 +2651,7 @@ export namespace Components {
         /**
           * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
          */
-        "density": string;
+        "density": FCellPadding;
         /**
           * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
@@ -2607,6 +2660,11 @@ export namespace Components {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
+        /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData": boolean;
         /**
           * Enables the extracolumns add buttons.
          */
@@ -2789,6 +2847,12 @@ declare global {
         prototype: HTMLKupCardElement;
         new (): HTMLKupCardElement;
     };
+    interface HTMLKupCellElement extends Components.KupCell, HTMLStencilElement {
+    }
+    var HTMLKupCellElement: {
+        prototype: HTMLKupCellElement;
+        new (): HTMLKupCellElement;
+    };
     interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {
     }
     var HTMLKupChartElement: {
@@ -2854,12 +2918,6 @@ declare global {
     var HTMLKupDropdownButtonElement: {
         prototype: HTMLKupDropdownButtonElement;
         new (): HTMLKupDropdownButtonElement;
-    };
-    interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
-    }
-    var HTMLKupEditorElement: {
-        prototype: HTMLKupEditorElement;
-        new (): HTMLKupEditorElement;
     };
     interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
     }
@@ -3008,6 +3066,7 @@ declare global {
         "kup-button-list": HTMLKupButtonListElement;
         "kup-calendar": HTMLKupCalendarElement;
         "kup-card": HTMLKupCardElement;
+        "kup-cell": HTMLKupCellElement;
         "kup-chart": HTMLKupChartElement;
         "kup-checkbox": HTMLKupCheckboxElement;
         "kup-chip": HTMLKupChipElement;
@@ -3019,7 +3078,6 @@ declare global {
         "kup-date-picker": HTMLKupDatePickerElement;
         "kup-drawer": HTMLKupDrawerElement;
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
-        "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
@@ -3176,6 +3234,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "dropOnSection"?: boolean;
+        /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData"?: boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
           * @default false
@@ -3542,6 +3605,32 @@ declare namespace LocalJSX {
          */
         "sizeY"?: string;
     }
+    interface KupCell {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * The data of the cell.
+          * @default false
+         */
+        "data"?: Cell;
+        /**
+          * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
+         */
+        "density"?: FCellPadding;
+        /**
+          * When set to true, the component is draggable.
+          * @default false
+         */
+        "dragEnabled"?: boolean;
+        /**
+          * Triggered when the element is clicked.
+         */
+        "onKup-cell-click"?: (event: CustomEvent<KupCellEventPayload>) => void;
+    }
     interface KupChart {
         /**
           * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
@@ -3840,6 +3929,11 @@ declare namespace LocalJSX {
     }
     interface KupDataTable {
         /**
+          * When true and when a row is missing some columns, the missing cells will be autogenerated.
+          * @default false
+         */
+        "autoFillMissingCells"?: boolean;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
@@ -3850,7 +3944,7 @@ declare namespace LocalJSX {
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
-        "density"?: string;
+        "density"?: FCellPadding;
         /**
           * Enables drag.
          */
@@ -3952,10 +4046,6 @@ declare namespace LocalJSX {
          */
         "onKup-datatable-autorowselect"?: (event: CustomEvent<KupDatatableAutoRowSelectEventPayload>) => void;
         "onKup-datatable-cellbuttonclick"?: (event: CustomEvent<KupDataTableCellButtonClickEventPayload>) => void;
-        /**
-          * Emitted when a cell's data has been updated.
-         */
-        "onKup-datatable-cellupdate"?: (event: CustomEvent<KupDatatableCellUpdateEventPayload>) => void;
         /**
           * Generic click event on data table.
          */
@@ -4244,12 +4334,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "trailingIcon"?: boolean;
-    }
-    interface KupEditor {
-        /**
-          * The html to be rendered and edited
-         */
-        "text"?: string;
     }
     interface KupField {
         /**
@@ -5196,7 +5280,7 @@ declare namespace LocalJSX {
         /**
           * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
          */
-        "density"?: string;
+        "density"?: FCellPadding;
         /**
           * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:    the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of    a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
@@ -5205,6 +5289,11 @@ declare namespace LocalJSX {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
+        /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData"?: boolean;
         /**
           * Enables the extracolumns add buttons.
          */
@@ -5351,6 +5440,7 @@ declare namespace LocalJSX {
         "kup-button-list": KupButtonList;
         "kup-calendar": KupCalendar;
         "kup-card": KupCard;
+        "kup-cell": KupCell;
         "kup-chart": KupChart;
         "kup-checkbox": KupCheckbox;
         "kup-chip": KupChip;
@@ -5362,7 +5452,6 @@ declare namespace LocalJSX {
         "kup-date-picker": KupDatePicker;
         "kup-drawer": KupDrawer;
         "kup-dropdown-button": KupDropdownButton;
-        "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
@@ -5400,6 +5489,7 @@ declare module "@stencil/core" {
             "kup-button-list": LocalJSX.KupButtonList & JSXBase.HTMLAttributes<HTMLKupButtonListElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
+            "kup-cell": LocalJSX.KupCell & JSXBase.HTMLAttributes<HTMLKupCellElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
@@ -5411,7 +5501,6 @@ declare module "@stencil/core" {
             "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
-            "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;

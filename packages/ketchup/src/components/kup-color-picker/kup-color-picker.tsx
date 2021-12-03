@@ -264,20 +264,26 @@ export class KupColorPicker {
                 });
             };
             this.picker['onOpen'] = function () {
-                that.rootElement.style.setProperty(
-                    '--kup_colorpicker_picker_width',
-                    that.textfieldEl.clientWidth + 'px'
-                );
-                if (!that.clickCb) {
-                    that.clickCb = {
-                        cb: () => {
-                            that.picker.closeHandler(null);
-                            that.kupManager.removeClickCallback(that.clickCb);
-                        },
-                        el: that.picker['domElement'],
-                    };
+                if (that.disabled) {
+                    that.picker.closeHandler(null);
+                } else {
+                    that.rootElement.style.setProperty(
+                        '--kup_colorpicker_picker_width',
+                        that.textfieldEl.clientWidth + 'px'
+                    );
+                    if (!that.clickCb) {
+                        that.clickCb = {
+                            cb: () => {
+                                that.picker.closeHandler(null);
+                                that.kupManager.removeClickCallback(
+                                    that.clickCb
+                                );
+                            },
+                            el: that.picker['domElement'],
+                        };
+                    }
+                    that.kupManager.addClickCallback(this.clickCb, true);
                 }
-                that.kupManager.addClickCallback(this.clickCb, true);
             };
         }
         this.kupManager.debug.logLoad(this, true);

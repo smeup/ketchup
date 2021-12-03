@@ -47,6 +47,10 @@ components.data = [
         value: 'card.html',
     },
     {
+        text: 'Cell',
+        value: 'cell.html',
+    },
+    {
         text: 'Chart',
         value: 'chart.html',
     },

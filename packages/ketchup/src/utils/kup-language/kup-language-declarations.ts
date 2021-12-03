@@ -118,6 +118,7 @@ export enum KupLanguageGeneric {
     EDITABLE = 'genericEditable',
     EDITABLE_FIELD = 'genericEditableField',
     EMPTY_DATA = 'genericEmptyData',
+    EMPTY_OBJECT = 'genericEmptyObject',
     EXPAND = 'genericExpand',
     EXPERIMENTAL_FEAT = 'genericExperimentalFeat',
     FILTERS = 'genericFilters',

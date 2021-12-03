@@ -98,7 +98,11 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
+ - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -114,7 +118,11 @@ graph TD;
   kup-badge --> kup-badge
   kup-list --> kup-radio
   kup-list --> kup-badge
+  kup-box --> kup-time-picker
   kup-card --> kup-time-picker
+  kup-cell --> kup-time-picker
+  kup-data-table --> kup-time-picker
+  kup-tree --> kup-time-picker
   style kup-time-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
