@@ -567,7 +567,7 @@ function cellUpdate(
     const comp = props.component;
     const row = props.row;
     const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
-    const value = isInputEvent
+    let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
     switch (cellType) {
@@ -580,12 +580,10 @@ function cellUpdate(
             }
             break;
         case FCellTypes.CHECKBOX:
-            if (
-                cell.data &&
-                (cell.data as FCheckboxProps).checked !== undefined
-            ) {
+            value = value === 'on' ? '0' : '1';
+            if (cell.data) {
                 (cell.data as FCheckboxProps).checked =
-                    value === 'on' ? false : true;
+                    value === '0' ? false : true;
             }
             break;
     }

@@ -4157,7 +4157,7 @@ export class KupDataTable {
                     }
                 }
 
-                const cell = row.cells[name] ? { ...row.cells[name] } : null;
+                const cell = row.cells[name] ? row.cells[name] : null;
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;

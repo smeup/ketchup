@@ -1538,7 +1538,7 @@ export class KupTree {
             for (let j = 0; j < visibleCols.length; j++) {
                 const column = visibleCols[j];
                 const cell = treeNodeData.cells[column.name]
-                    ? { ...treeNodeData.cells[column.name] }
+                    ? treeNodeData.cells[column.name]
                     : null;
                 let hasIndicator = false;
                 const indicatorClass = FCellClasses.INDICATOR_TOPRIGHT;
