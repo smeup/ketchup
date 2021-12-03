@@ -2393,6 +2393,11 @@ export namespace Components {
          */
         "helper": string;
         /**
+          * When true, the helper will be displayed.
+          * @default true
+         */
+        "helperEnabled": boolean;
+        /**
           * When set, the helper will be shown only when the field is focused.
           * @default false
          */
@@ -5030,6 +5035,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "helper"?: string;
+        /**
+          * When true, the helper will be displayed.
+          * @default true
+         */
+        "helperEnabled"?: boolean;
         /**
           * When set, the helper will be shown only when the field is focused.
           * @default false

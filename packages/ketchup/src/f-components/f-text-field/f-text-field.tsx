@@ -175,30 +175,33 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 }
 
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.helper) {
-        const classObj: Record<string, boolean> = {
-            'mdc-text-field-helper-text': true,
-            'mdc-text-field-helper-text--persistent': !props.helperWhenFocused,
-        };
-        return (
-            <div class="mdc-text-field-helper-line">
-                <div class={classObj}>{props.helper}</div>
-                {props.maxLength && !props.textArea ? (
-                    <div class="mdc-text-field-character-counter">
-                        '0 / ' + {props.maxLength.toString()}
-                    </div>
-                ) : undefined}
-            </div>
-        );
-    } else {
-        if (props.maxLength && !props.textArea) {
+    if (props.helperEnabled) {
+        if (props.helper) {
+            const classObj: Record<string, boolean> = {
+                'mdc-text-field-helper-text': true,
+                'mdc-text-field-helper-text--persistent':
+                    !props.helperWhenFocused,
+            };
             return (
                 <div class="mdc-text-field-helper-line">
-                    <div class="mdc-text-field-character-counter">
-                        '0 / ' + {props.maxLength}
-                    </div>
+                    <div class={classObj}>{props.helper}</div>
+                    {props.maxLength && !props.textArea ? (
+                        <div class="mdc-text-field-character-counter">
+                            '0 / ' + {props.maxLength.toString()}
+                        </div>
+                    ) : undefined}
                 </div>
             );
+        } else {
+            if (props.maxLength && !props.textArea) {
+                return (
+                    <div class="mdc-text-field-helper-line">
+                        <div class="mdc-text-field-character-counter">
+                            '0 / ' + {props.maxLength}
+                        </div>
+                    </div>
+                );
+            }
         }
     }
 }

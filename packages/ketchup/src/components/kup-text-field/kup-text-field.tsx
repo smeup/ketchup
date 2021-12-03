@@ -83,6 +83,11 @@ export class KupTextField {
      */
     @Prop() helper: string = null;
     /**
+     * When true, the helper will be displayed.
+     * @default true
+     */
+    @Prop() helperEnabled: boolean = true;
+    /**
      * When set, the helper will be shown only when the field is focused.
      * @default false
      */
@@ -443,6 +448,7 @@ export class KupTextField {
                 : false,
             fullWidth: this.fullWidth,
             helper: this.helper,
+            helperEnabled: this.helperEnabled,
             helperWhenFocused: this.helperWhenFocused,
             icon: this.icon,
             info: this.rootElement.classList.contains('kup-info')
