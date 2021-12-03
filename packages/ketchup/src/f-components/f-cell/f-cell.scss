@@ -24,6 +24,17 @@
     }
   }
 
+  &.editor-cell {
+    .f-cell__content {
+      overflow: hidden;
+
+      > * {
+        max-width: 100%;
+        word-break: normal;
+      }
+    }
+  }
+
   &.icon-cell {
     .f-cell__content {
       min-height: 18px;
