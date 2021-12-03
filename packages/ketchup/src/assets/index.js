@@ -123,6 +123,10 @@ components.data = [
         value: 'rating.html',
     },
     {
+        text: 'Snackbar',
+        value: 'snackbar.html',
+    },
+    {
         text: 'Switch',
         value: 'switch.html',
     },

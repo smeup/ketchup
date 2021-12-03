@@ -12,7 +12,7 @@ import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload }
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
+import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
@@ -2170,6 +2170,57 @@ export namespace Components {
          */
         "value": number;
     }
+    interface KupSnackbar {
+        /**
+          * Set of FButton props to set the action button.
+          * @default null
+         */
+        "actionButton": FButtonProps;
+        /**
+          * When true, the hide button will be displayed.
+          * @default true
+         */
+        "closeButton": boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Hides the snackbar.
+         */
+        "hide": () => Promise<void>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Displays the snackbar.
+         */
+        "show": () => Promise<void>;
+        /**
+          * Sets the textual content of the snackbar.
+          * @default ''
+         */
+        "text": string;
+        /**
+          * Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds.
+          * @default null
+         */
+        "timeout": number;
+    }
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
@@ -2954,6 +3005,12 @@ declare global {
         prototype: HTMLKupRatingElement;
         new (): HTMLKupRatingElement;
     };
+    interface HTMLKupSnackbarElement extends Components.KupSnackbar, HTMLStencilElement {
+    }
+    var HTMLKupSnackbarElement: {
+        prototype: HTMLKupSnackbarElement;
+        new (): HTMLKupSnackbarElement;
+    };
     interface HTMLKupSpinnerElement extends Components.KupSpinner, HTMLStencilElement {
     }
     var HTMLKupSpinnerElement: {
@@ -3032,6 +3089,7 @@ declare global {
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
         "kup-rating": HTMLKupRatingElement;
+        "kup-snackbar": HTMLKupSnackbarElement;
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
         "kup-tab-bar": HTMLKupTabBarElement;
@@ -4796,6 +4854,38 @@ declare namespace LocalJSX {
          */
         "value"?: number;
     }
+    interface KupSnackbar {
+        /**
+          * Set of FButton props to set the action button.
+          * @default null
+         */
+        "actionButton"?: FButtonProps;
+        /**
+          * When true, the hide button will be displayed.
+          * @default true
+         */
+        "closeButton"?: boolean;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Triggered when action button is clicked.
+         */
+        "onKup-snackbar-actionclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Sets the textual content of the snackbar.
+          * @default ''
+         */
+        "text"?: string;
+        /**
+          * Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds.
+          * @default null
+         */
+        "timeout"?: number;
+    }
     interface KupSpinner {
         /**
           * When set to true the spinner is animating.
@@ -5369,6 +5459,7 @@ declare namespace LocalJSX {
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
         "kup-rating": KupRating;
+        "kup-snackbar": KupSnackbar;
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
         "kup-tab-bar": KupTabBar;
@@ -5417,6 +5508,7 @@ declare module "@stencil/core" {
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
             "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
+            "kup-snackbar": LocalJSX.KupSnackbar & JSXBase.HTMLAttributes<HTMLKupSnackbarElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;

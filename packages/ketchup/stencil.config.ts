@@ -42,6 +42,7 @@ export const config: Config = {
                 { src: 'radio.html' },
                 { src: 'rating.html' },
                 { src: 'switch.html' },
+                { src: 'snackbar.html' },
                 { src: 'tab-bar.html' },
                 { src: 'time-picker.html' },
                 { src: 'text-field.html' },

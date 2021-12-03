@@ -120,6 +120,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/rating/Rating.vue`),
   },
   {
+    path: `/snackbar`,
+    name: 'snackbar',
+    component: () => import(`@/views/basic/snackbar/Snackbar.vue`),
+  },
+  {
     path: `/spinner`,
     name: 'spinner',
     component: () => import(`@/views/basic/spinner/Spinner.vue`),

@@ -598,6 +598,15 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'snackbar',
+                  },
+                },
+                value: 'Snackbar',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'spinner',
                   },
                 },
