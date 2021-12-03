@@ -330,23 +330,21 @@
   }
 
   &.dense {
-    .mdc-text-field {
-      height: 28px !important;
-    }
+    --kup-textfield-fullwidth-height: 28px;
+    --kup-textfield-fullwidth-padding: 0px;
+    --kup-checkbox-padding: 0px;
     padding: 0.2em 0.3125em;
   }
 
   &.medium {
-    .mdc-text-field {
-      height: 36px !important;
-    }
+    --kup-textfield-fullwidth-height: 36px;
+    --kup-textfield-fullwidth-padding: 0px;
     padding: 0.5em 0.3125em;
   }
 
   &.wide {
-    .mdc-text-field {
-      height: 50px !important;
-    }
+    --kup-textfield-fullwidth-height: 50px;
+    --kup-textfield-fullwidth-padding: 0px;
     padding: 1em 0.3125em;
   }
 }
