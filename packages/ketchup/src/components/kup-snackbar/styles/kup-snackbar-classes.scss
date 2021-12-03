@@ -4,5 +4,5 @@
 
 :host(.#{$kup-class-top}) {
   bottom: unset;
-  top: 0;
+  top: var(--kup-navbar-height, 0);
 }
