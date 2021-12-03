@@ -340,6 +340,7 @@ function setEditableCell(
         case FCellTypes.STRING:
             return (
                 <FTextField
+                    {...cell.data}
                     icon={
                         cell.icon ? cell.icon : column.icon ? column.icon : null
                     }
