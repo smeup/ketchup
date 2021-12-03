@@ -1,70 +1,73 @@
 :host {
+  animation: snackbar-show 125ms;
+  bottom: 0;
+  box-sizing: border-box;
+  display: block;
+  left: 0;
   outline: none;
-  #wrapper {
-    display: block;
-    font-size: var(--kup-font-size);
+  position: fixed;
+  transition: opacity 0.15s cubic-bezier(0, 0, 0.2, 1) 0ms,
+    transform 0.15s cubic-bezier(0, 0, 0.2, 1) 0ms,
+    -webkit-transform 0.15s cubic-bezier(0, 0, 0.2, 1) 0ms;
+  width: 100%;
+  z-index: calc(var(--kup-navbar-zindex) + 1);
+}
+
+:host(:not([kup-visible])) {
+  display: none;
+}
+
+#kup-component {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  padding: 8px;
+  width: 100%;
+}
+
+.snackbar {
+  align-items: center;
+  background: var(--kup-navbar-background-color);
+  border-radius: 5px;
+  box-shadow: var(--kup-box-shadow);
+  color: var(--kup-navbar-color);
+  display: flex;
+  justify-content: flex-start;
+  max-width: 672px;
+  min-height: 48px;
+  min-width: 344px;
+
+  &__text {
+    padding: 14px 16px;
+    white-space: nowrap;
   }
-  .snackbar-container {
-    background: var(--kup-background-color);
-    color: var(--kup-text-color);
-    box-shadow: var(--kup-box-shadow);
 
-    display: flex;
-    justify-content: space-between;
+  &__buttons {
+    --kup-button-primary-color: var(--kup-navbar-color);
+    --kup-button-primary-color-rgb: var(--kup-navbar-color-rgb);
+    --kup-button-primary-color-h: var(--kup-navbar-color-h);
+    --kup-button-primary-color-s: var(--kup-navbar-color-s);
+    --kup-button-primary-color-l: var(--kup-navbar-color-l);
     align-items: center;
-    position: fixed;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 8px;
+    width: 100%;
+  }
 
-    border-radius: 5px;
-    writing-mode: horizontal-tb;
-    max-width: 344px;
-    min-height: 48px;
-    padding: 2px;
-
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 30px;
-    z-index: 1;
-
-    animation: snackbar-show 0.2s;
-    .snackbar-text {
-      display: inline;
-      float: left;
-      margin-left: 16px;
-    }
-    .snackbar-action {
-      display: flex;
-      float: right;
-      justify-content: space-between;
-      margin: {
-        right: 8px;
-        left: 8px;
-      }
-      .action-label {
-        display: inline;
-        align-self: center;
-        margin: {
-          top: 2px;
-        }
-      }
-      .action-close {
-        display: inline;
-        align-self: center;
-        margin: {
-          right: 6px;
-          left: 6px;
-        }
-      }
-    }
+  &__close {
+    --kup-button-font-size: 11px;
+    margin-left: 8px;
   }
 }
 
 @keyframes snackbar-show {
   from {
-    transform: scale(0.8), translateX(-50%);
+    transform: scale(0.5);
     opacity: 0;
   }
   to {
-    transform: scale(1), translateX(-50%);
+    transform: scale(1);
     opacity: 1;
   }
 }

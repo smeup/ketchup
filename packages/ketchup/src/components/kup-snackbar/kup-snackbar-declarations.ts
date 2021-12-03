@@ -1,12 +1,12 @@
+export const snackbarClass = 'snackbar';
 /**
  * Props of the kup-snackbar component.
  * Used to export every prop in an object.
  */
 export enum KupSnackbarProps {
-    visible = 'Defaults at false. Status of the snackbar, ckeck if is currently open.',
-    timeout = 'Defaults at 5000. Used to set the timeout in millisecond.',
-    text = "Default at ''. Text displayed in the snackbar",
-    closeAction = 'Default at false. Used to set the close button',
-    actionButton = 'Default at false. If true, enable action button',
-    buttonText = 'Default at "Action". Text in the action button',
+    actionButton = 'Set of FButton props to set the action button.',
+    closeButton = 'When true, the hide button will be displayed.',
+    customStyle = 'Custom style of the component.',
+    text = 'Sets the textual content of the snackbar.',
+    timeout = 'Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds.',
 }

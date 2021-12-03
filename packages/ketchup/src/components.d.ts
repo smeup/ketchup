@@ -12,7 +12,7 @@ import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload }
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
+import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
@@ -2172,20 +2172,21 @@ export namespace Components {
     }
     interface KupSnackbar {
         /**
-          * If true the action button appears
-          * @default false
+          * Set of FButton props to set the action button.
+          * @default null
          */
-        "actionButton": boolean;
+        "actionButton": FButtonProps;
         /**
-          * Set text of the action button
-          * @default 'Action'
+          * When true, the hide button will be displayed.
+          * @default true
          */
-        "buttonText": string;
+        "closeButton": boolean;
         /**
-          * If true the close button appears
-          * @default false
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
-        "closeAction": boolean;
+        "customStyle": string;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2193,7 +2194,7 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Method to close the snackbar
+          * Hides the snackbar.
          */
         "hide": () => Promise<void>;
         /**
@@ -2206,21 +2207,16 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * Method to open the snackbar
+          * Displays the snackbar.
          */
         "show": () => Promise<void>;
         /**
-          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
-          * @default FButtonStyling.RAISED
-         */
-        "styling": FButtonStyling;
-        /**
-          * Gets/sets the textContent of the label element.
+          * Sets the textual content of the snackbar.
           * @default ''
          */
         "text": string;
         /**
-          * Default at 0. Gets/sets the automatic dismiss timeout in milliseconds.
+          * Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds.
           * @default null
          */
         "timeout": number;
@@ -4860,36 +4856,32 @@ declare namespace LocalJSX {
     }
     interface KupSnackbar {
         /**
-          * If true the action button appears
-          * @default false
+          * Set of FButton props to set the action button.
+          * @default null
          */
-        "actionButton"?: boolean;
+        "actionButton"?: FButtonProps;
         /**
-          * Set text of the action button
-          * @default 'Action'
+          * When true, the hide button will be displayed.
+          * @default true
          */
-        "buttonText"?: string;
+        "closeButton"?: boolean;
         /**
-          * If true the close button appears
-          * @default false
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
-        "closeAction"?: boolean;
+        "customStyle"?: string;
         /**
-          * Triggered when close or action button are clicked.
+          * Triggered when action button is clicked.
          */
         "onKup-snackbar-actionclick"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
-          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
-          * @default FButtonStyling.RAISED
-         */
-        "styling"?: FButtonStyling;
-        /**
-          * Gets/sets the textContent of the label element.
+          * Sets the textual content of the snackbar.
           * @default ''
          */
         "text"?: string;
         /**
-          * Default at 0. Gets/sets the automatic dismiss timeout in milliseconds.
+          * Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds.
           * @default null
          */
         "timeout"?: number;

@@ -4,27 +4,9 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Button</title>
-
+        <title>Snackbar</title>
         <script type="module" src="/build/ketchup.esm.js"></script>
         <script nomodule src="/build/ketchup.js"></script>
-
-        <link
-            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
-            rel="stylesheet"
-            type="text/css"
-        />
-
-        <link
-            href="https://fonts.googleapis.com/css?family=Lato"
-            rel="stylesheet"
-        />
-
-        <script
-            type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"
-        ></script>
-
         <style>
             html {
                 background-color: var(--kup-background-color);
@@ -37,14 +19,10 @@
     </head>
     <body>
         <h4>Snackbar</h4>
-        <span>Normal Snackbar</span>
-        <kup-button id="normal" label="Snackbar" styling="flat"></kup-button>
-        <span>Upper Snackbar</span>
-        <kup-button
-            id="upper"
-            label="Upper Snackbar"
-            styling="flat"
-        ></kup-button>
+        <span>Bottom Snackbar</span>
+        <kup-button id="bottom" label="Bottom snackbar"></kup-button>
+        <span>Top Snackbar</span>
+        <kup-button id="top" label="Top Snackbar"></kup-button>
         <kup-snackbar id="snackbar"></kup-snackbar>
         <script src="./assets/snackbar.js"></script>
     </body>

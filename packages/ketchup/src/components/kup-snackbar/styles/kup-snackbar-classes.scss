@@ -3,8 +3,6 @@
 /*-------------------------------------------------*/
 
 :host(.#{$kup-class-top}) {
-  .snackbar-container {
-    bottom: unset;
-    top: 30px;
-  }
+  bottom: unset;
+  top: 0;
 }

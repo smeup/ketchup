@@ -10,21 +10,20 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                   | Type                                                                                                                        | Default                 |
-| -------------- | --------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `actionButton` | `action-button` | If true the action button appears                                                                             | `boolean`                                                                                                                   | `false`                 |
-| `buttonText`   | `button-text`   | Set text of the action button                                                                                 | `string`                                                                                                                    | `'Action'`              |
-| `closeAction`  | `close-action`  | If true the close button appears                                                                              | `boolean`                                                                                                                   | `false`                 |
-| `styling`      | `styling`       | Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default. | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED` |
-| `text`         | `text`          | Gets/sets the textContent of the label element.                                                               | `string`                                                                                                                    | `''`                    |
-| `timeout`      | `timeout`       | Default at 0. Gets/sets the automatic dismiss timeout in milliseconds.                                        | `number`                                                                                                                    | `null`                  |
+| Property       | Attribute      | Description                                                                                                      | Type           | Default |
+| -------------- | -------------- | ---------------------------------------------------------------------------------------------------------------- | -------------- | ------- |
+| `actionButton` | --             | Set of FButton props to set the action button.                                                                   | `FButtonProps` | `null`  |
+| `closeButton`  | `close-button` | When true, the hide button will be displayed.                                                                    | `boolean`      | `true`  |
+| `customStyle`  | `custom-style` | Custom style of the component.                                                                                   | `string`       | `''`    |
+| `text`         | `text`         | Sets the textual content of the snackbar.                                                                        | `string`       | `''`    |
+| `timeout`      | `timeout`      | Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds. | `number`       | `null`  |
 
 
 ## Events
 
-| Event                      | Description                                        | Type                           |
-| -------------------------- | -------------------------------------------------- | ------------------------------ |
-| `kup-snackbar-actionclick` | Triggered when close or action button are clicked. | `CustomEvent<KupEventPayload>` |
+| Event                      | Description                              | Type                           |
+| -------------------------- | ---------------------------------------- | ------------------------------ |
+| `kup-snackbar-actionclick` | Triggered when action button is clicked. | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods
@@ -41,7 +40,7 @@ List of props as object, each key will be a prop.
 
 ### `hide() => Promise<void>`
 
-Method to close the snackbar
+Hides the snackbar.
 
 #### Returns
 
@@ -71,7 +70,7 @@ Type: `Promise<void>`
 
 ### `show() => Promise<void>`
 
-Method to open the snackbar
+Displays the snackbar.
 
 #### Returns
 

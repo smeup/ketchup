@@ -1,19 +1,21 @@
-const normalButton = document.getElementById('normal');
-const upperButton = document.getElementById('upper');
+const bottomButton = document.getElementById('bottom');
+const topButton = document.getElementById('top');
 const snackbar = document.getElementById('snackbar');
 const props = {
     text: 'This is a snackbar demo',
-    closeAction: true
+    actionButton: { label: 'Action', styling: 'flat' },
+    closeButton: true,
+    timeout: 2000,
 };
 
-normalButton.addEventListener('kup-button-click', () => {
-    NormalSnackbar(props);
+bottomButton.addEventListener('kup-button-click', () => {
+    showBottomSnackbar(props);
 });
-upperButton.addEventListener('kup-button-click', () => {
-    UpperSnackbar(props);
+topButton.addEventListener('kup-button-click', () => {
+    showTopSnackbar(props);
 });
 
-function NormalSnackbar(props) {
+function showBottomSnackbar(props) {
     for (const key in props) {
         snackbar[key] = props[key];
     }
@@ -21,7 +23,7 @@ function NormalSnackbar(props) {
     snackbar.show();
 }
 
-function UpperSnackbar(props) {
+function showTopSnackbar(props) {
     for (const key in props) {
         snackbar[key] = props[key];
     }

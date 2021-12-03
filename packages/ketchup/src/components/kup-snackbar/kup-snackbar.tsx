@@ -18,12 +18,9 @@ import { KupEventPayload } from '../../types/GenericTypes';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupSnackbarProps } from './kup-snackbar-declarations';
+import { KupSnackbarProps, snackbarClass } from './kup-snackbar-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
-import {
-    FButtonProps,
-    FButtonStyling,
-} from '../../f-components/f-button/f-button-declarations';
+import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-snackbar',
@@ -49,36 +46,34 @@ export class KupSnackbar {
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
     /*-------------------------------------------------*/
+
     /**
-     * Default at 0. Gets/sets the automatic dismiss timeout in milliseconds.
+     * Set of FButton props to set the action button.
      * @default null
      */
-    @Prop() timeout: number = null;
+    @Prop() actionButton: FButtonProps = null;
     /**
-     * Gets/sets the textContent of the label element.
+     * When true, the hide button will be displayed.
+     * @default true
+     */
+    @Prop() closeButton: boolean = true;
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = '';
+    /**
+     * Sets the textual content of the snackbar.
      * @default ''
      */
     @Prop() text: string = '';
     /**
-     * If true the close button appears
-     * @default false
+     * Defaults at null, when set the snackbar will automatically disappear after the specified amount of milliseconds.
+     * @default null
      */
-    @Prop() closeAction: boolean = false;
-    /**
-     * If true the action button appears
-     * @default false
-     */
-    @Prop() actionButton: boolean = false;
-    /**
-     * Set text of the action button
-     * @default 'Action'
-     */
-    @Prop() buttonText: string = 'Action';
-    /**
-     * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
-     * @default FButtonStyling.RAISED
-     */
-    @Prop({ mutable: false }) styling: FButtonStyling = FButtonStyling.RAISED;
+    @Prop() timeout: number = null;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -93,7 +88,7 @@ export class KupSnackbar {
     /*-------------------------------------------------*/
 
     /**
-     * Triggered when close or action button are clicked.
+     * Triggered when action button is clicked.
      */
     @Event({
         eventName: 'kup-snackbar-actionclick',
@@ -103,7 +98,7 @@ export class KupSnackbar {
     })
     kupActionClick: EventEmitter<KupEventPayload>;
 
-    onKupActionLabelClick() {
+    onKupActionClick() {
         this.hide();
         this.kupActionClick.emit({
             comp: this,
@@ -125,6 +120,13 @@ export class KupSnackbar {
         return getProps(this, KupSnackbarProps, descriptions);
     }
     /**
+     * Hides the snackbar.
+     */
+    @Method()
+    async hide(): Promise<void> {
+        this.visible = false;
+    }
+    /**
      * This method is used to trigger a new render of the component.
      */
     @Method()
@@ -140,19 +142,13 @@ export class KupSnackbar {
         setProps(this, KupSnackbarProps, props);
     }
     /**
-     * Method to open the snackbar
+     * Displays the snackbar.
      */
     @Method()
     async show(): Promise<void> {
         this.visible = true;
     }
-    /**
-     * Method to close the snackbar
-     */
-    @Method()
-    async hide(): Promise<void> {
-        this.visible = false;
-    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -171,52 +167,51 @@ export class KupSnackbar {
     }
 
     componentDidRender() {
+        if (this.timeout && this.visible) {
+            setTimeout(() => {
+                this.hide();
+            }, this.timeout);
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
-        const labelProp: FButtonProps = {
-            label: this.buttonText,
-            styling: this.styling,
-            onClick: () => this.onKupActionLabelClick(),
-        };
-        const actionProp: FButtonProps = {
-            icon: 'close',
-            onClick: () => this.hide(),
-        };
-        if (this.visible) {
-            return (
-                <Host
-                    kup-opened={
-                        this.timeout == null
-                            ? true
-                            : setTimeout(() => {
-                                  this.hide();
-                              }, this.timeout)
-                    }
-                >
-                    <div id={componentWrapperId}>
-                        <div class="snackbar-container">
-                            <div class="snackbar-text">{this.text}</div>
-                            <div class="snackbar-action">
+        const customStyle: string = this.kupManager.theme.setCustomStyle(
+            this.rootElement as KupComponent
+        );
+
+        return (
+            <Host kup-visible={this.visible}>
+                {customStyle ? <style>{customStyle}</style> : null}
+                <div id={componentWrapperId}>
+                    <div class={snackbarClass}>
+                        <div class={`${snackbarClass}__text`}>{this.text}</div>
+                        {this.actionButton || this.closeButton ? (
+                            <div class={`${snackbarClass}__buttons`}>
                                 {this.actionButton ? (
-                                    <div class="snackbar-button action-label">
-                                        <FButton {...labelProp} />
+                                    <div class={`${snackbarClass}__action`}>
+                                        <FButton
+                                            {...this.actionButton}
+                                            onClick={() =>
+                                                this.onKupActionClick()
+                                            }
+                                        />
                                     </div>
                                 ) : null}
-                                {this.closeAction ? (
-                                    <div class="snackbar-button close-action">
-                                        <FButton {...actionProp} />
+                                {this.closeButton ? (
+                                    <div class={`${snackbarClass}__close`}>
+                                        <FButton
+                                            icon="close"
+                                            onClick={() => this.hide()}
+                                        />
                                     </div>
                                 ) : null}
                             </div>
-                        </div>
+                        ) : null}
                     </div>
-                </Host>
-            );
-        } else {
-            return null;
-        }
+                </div>
+            </Host>
+        );
     }
 
     disconnectedCallback() {
