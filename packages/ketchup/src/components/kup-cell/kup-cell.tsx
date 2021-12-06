@@ -267,14 +267,13 @@ export class KupCell {
             renderKup: true,
             row: this.generateRow(),
         };
-
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div
                     id={componentWrapperId}
                     onClick={(e: MouseEvent & { target: HTMLElement }) =>

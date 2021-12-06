@@ -116,7 +116,7 @@
       white-space: nowrap;
     }
 
-    .f-image--wrapper {
+    .f-image {
       &.cell-info {
         display: inline-block;
         vertical-align: sub;
@@ -130,13 +130,13 @@
     }
   }
 
-  tbody tr .f-cell--wrapper.c-centered * {
+  tbody tr .f-cell.c-centered * {
     display: flex;
     max-width: max-content;
     width: max-content;
   }
 
-  tbody tr .f-cell--wrapper.c-fitted * {
+  tbody tr .f-cell.c-fitted * {
     max-width: max-content;
   }
 }
@@ -234,7 +234,7 @@ table {
   width: 100%;
 }
 
-.#{$kup-icon}:not(.f-image--wrapper) {
+.#{$kup-icon}:not(.f-image) {
   background-color: var(--kup-title-color);
   margin: 0 0.25em;
   height: 1.25em;
@@ -478,7 +478,7 @@ tbody {
 
     td[row-action-cell] {
       width: calc(3em * var(--kup_datatable_row_actions));
-      & .f-image--wrapper {
+      & .f-image {
         cursor: pointer;
         margin-left: 0.75em;
         display: inline-block;

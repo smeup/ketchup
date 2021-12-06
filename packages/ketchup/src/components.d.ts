@@ -1959,6 +1959,12 @@ export namespace Components {
     }
     interface KupPaginator {
         "currentPage": number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
         "max": number;
         "mode": PaginatorMode;
         "perPage": number;
@@ -4684,6 +4690,12 @@ declare namespace LocalJSX {
     }
     interface KupPaginator {
         "currentPage"?: number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         "max"?: number;
         "mode"?: PaginatorMode;
         /**

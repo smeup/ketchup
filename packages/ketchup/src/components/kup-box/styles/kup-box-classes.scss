@@ -11,7 +11,7 @@
         justify-content: flex-start;
       }
 
-      .f-image--wrapper {
+      .f-image {
         margin-left: 0;
         margin-right: auto;
       }
@@ -39,7 +39,7 @@
         justify-content: flex-end;
       }
 
-      .f-image--wrapper {
+      .f-image {
         margin-left: auto;
         margin-right: 0;
       }
@@ -146,7 +146,7 @@
   .box-section.left-aligned {
     text-align: left;
 
-    .f-image--wrapper {
+    .f-image {
       margin-left: 0;
       margin-right: auto;
     }
@@ -161,7 +161,7 @@
   .box-section.right-aligned {
     text-align: right;
 
-    .f-image--wrapper {
+    .f-image {
       margin-left: auto;
       margin-right: 0;
     }
@@ -176,7 +176,7 @@
   .box-section.center-aligned {
     text-align: center;
 
-    .f-image--wrapper {
+    .f-image {
       margin: auto;
     }
 

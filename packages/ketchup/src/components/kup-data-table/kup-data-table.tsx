@@ -1929,9 +1929,8 @@ export class KupDataTable {
     componentDidRender() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const fs: NodeListOf<HTMLElement> = root.querySelectorAll(
-                '.f-text-field--wrapper'
-            );
+            const fs: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.f-text-field');
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
             }
@@ -2206,7 +2205,7 @@ export class KupDataTable {
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
             td = el.closest('td'),
-            textfield: HTMLElement = el.closest('.f-text-field--wrapper'),
+            textfield: HTMLElement = el.closest('.f-text-field'),
             th = el.closest('th'),
             tr: HTMLTableRowElement = el.closest('tr'),
             filterRemove: HTMLSpanElement = el.closest(
@@ -5055,13 +5054,13 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         const compCreated = (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div class="above-wrapper">
                         {this.globalFilter ? (

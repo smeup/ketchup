@@ -300,7 +300,7 @@ export class KupColorPicker {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         if (root) {
-            this.textfieldEl = root.querySelector('.f-text-field--wrapper');
+            this.textfieldEl = root.querySelector('.f-text-field');
             if (this.textfieldEl) {
                 FTextFieldMDC(this.textfieldEl);
             }
@@ -329,13 +329,13 @@ export class KupColorPicker {
             ['--kup_colorpicker_thumb_color']: this.value ? this.value : '',
         };
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host style={style}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId} ref={(el) => (this.anchorEl = el)}>
                     {widget}
                 </div>

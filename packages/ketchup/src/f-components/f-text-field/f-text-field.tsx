@@ -12,7 +12,7 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
 ) => {
     return (
         <div
-            class={`f-text-field--wrapper ${props.danger ? 'kup-danger' : ''} ${
+            class={`f-text-field ${props.danger ? 'kup-danger' : ''} ${
                 props.fullHeight ? 'kup-full-height' : ''
             } ${props.fullWidth ? 'kup-full-width' : ''}  ${
                 props.info ? 'kup-info' : ''

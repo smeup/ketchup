@@ -28,7 +28,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     );
     return (
         <div
-            class={`f-button--wrapper ${props.danger ? 'kup-danger' : ''} ${
+            class={`f-button ${props.danger ? 'kup-danger' : ''} ${
                 props.fullHeight ? 'kup-full-height' : ''
             } ${props.fullWidth ? 'kup-full-width' : ''} ${
                 props.info ? 'kup-info' : ''

@@ -322,7 +322,7 @@ export class KupProbe {
         let customStyle: string = null;
 
         if (this.features.theme) {
-            customStyle = this.kupManager.theme.setCustomStyle(
+            customStyle = this.kupManager.theme.setKupStyle(
                 this.rootElement as KupComponent
             );
         }

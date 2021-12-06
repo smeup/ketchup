@@ -8,7 +8,6 @@ import {
     Prop,
     VNode,
 } from '@stencil/core';
-
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
@@ -148,13 +147,13 @@ export class KupGrid {
             ['--kup_grid_columns']: this.columns,
         };
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host style={style}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div
                         class={this.singleLine ? 'flex-layout' : 'layout-grid'}

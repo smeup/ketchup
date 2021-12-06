@@ -377,10 +377,6 @@ export class KupButtonList {
             '--kup_buttonlist_grid_columns': `repeat(${nrOfColumns}, auto)`,
         };
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         const classObj: Record<string, boolean> = {
             'button-list--container': true,
             'show-selection':
@@ -389,7 +385,11 @@ export class KupButtonList {
 
         return (
             <Host style={hostStyle}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div class={classObj}>{buttons}</div>
                 </div>

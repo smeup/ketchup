@@ -496,7 +496,7 @@ export class KupAutocomplete {
     componentDidRender() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            const f: HTMLElement = root.querySelector('.f-text-field');
             if (f) {
                 this.textfieldWrapper = f;
                 this.textfieldEl = f.querySelector('input');
@@ -507,13 +507,9 @@ export class KupAutocomplete {
     }
 
     render() {
-        const fullHeight: boolean =
+        const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
-        const fullWidth: boolean =
-            this.rootElement.classList.contains('kup-full-width');
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
+        const fullWidth = this.rootElement.classList.contains('kup-full-width');
 
         return (
             <Host
@@ -522,7 +518,11 @@ export class KupAutocomplete {
                 }`}
                 style={this.elStyle}
             >
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId} style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}

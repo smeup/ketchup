@@ -225,7 +225,7 @@
   }
 }
 
-.#{$kup-icon}.#{$kup-icon-filter-remove}:not(.f-image--wrapper) {
+.#{$kup-icon}.#{$kup-icon-filter-remove}:not(.f-image) {
   background-color: var(--kup_tree_color);
   margin: 0 0.25em;
   height: 1em;

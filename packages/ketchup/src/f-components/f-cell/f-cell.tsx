@@ -73,7 +73,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         );
     }
     const classObj: Record<string, boolean> = {
-        'f-cell--wrapper': true,
+        'f-cell': true,
         [FCellClasses.OBJ]: hasObj ? true : false,
         [cellType + '-cell']: true,
         [props.wrapperClass]: props.wrapperClass ? true : false,

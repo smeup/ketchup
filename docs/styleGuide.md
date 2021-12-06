@@ -264,7 +264,7 @@ Both these features (among many others) reside in an API called `KupManager`, wh
 3. Define the `customStyle` constant in the `render()` hook, just before returning the JSX of the component:
 
 ```
-const customStyle: string = this.kupManager.theme.setCustomStyle(this.rootElement as KupComponent);
+const customStyle: string = this.kupManager.theme.setKupStyle(this.rootElement as KupComponent);
 ```
 
 4. Use the `customStyle` constant just below the `<Host>` tag:
