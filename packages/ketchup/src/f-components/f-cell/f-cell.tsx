@@ -57,6 +57,21 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = getCellType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
+    let cssClasses = cell.cssClass
+        ? cell.cssClass
+        : column.cssClass
+        ? column.cssClass
+        : '';
+    if (
+        props.density &&
+        cell.cssClass &&
+        cell.cssClass.indexOf(FCellClasses.INDICATOR_TOPRIGHT) > -1
+    ) {
+        cssClasses = cssClasses.replace(
+            new RegExp(FCellClasses.INDICATOR_TOPRIGHT, 'g'),
+            ''
+        );
+    }
     const classObj: Record<string, boolean> = {
         'f-cell--wrapper': true,
         [FCellClasses.OBJ]: hasObj ? true : false,
@@ -64,8 +79,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         [props.wrapperClass]: props.wrapperClass ? true : false,
         [props.density]:
             props.density && cellType !== FCellTypes.BAR ? true : false,
-        [cell.cssClass]: cell.cssClass ? true : false,
-        [column.cssClass]: column.cssClass ? true : false,
+        [cssClasses]: cssClasses ? true : false,
     };
     let content: unknown = valueToDisplay;
 

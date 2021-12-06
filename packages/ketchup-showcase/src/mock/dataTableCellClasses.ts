@@ -734,7 +734,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            'A triangle-shaped indicator will be displayed on the top right of the cell.',
+            'A triangle-shaped indicator will be displayed on the top right of the cell (this class will be omitted when the cell has a density).',
         },
         EXAMPLE: {
           obj: {

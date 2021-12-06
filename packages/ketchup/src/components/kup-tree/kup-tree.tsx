@@ -1545,10 +1545,6 @@ export class KupTree {
                 if (cell.cssClass) {
                     if (cell.cssClass.indexOf(indicatorClass) > -1) {
                         hasIndicator = true;
-                        cell.cssClass = cell.cssClass.replace(
-                            new RegExp(indicatorClass, 'g'),
-                            ''
-                        );
                     }
                 }
                 const cellProps: FCellProps = {
