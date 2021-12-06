@@ -572,21 +572,6 @@ th.obj:hover span:not(.overlay-action) {
   padding-top: 1em;
 }
 
-[kup-dialog] {
-  animation: fade-in 0.25s ease-out;
-  background-color: var(--kup_datatable_background_color);
-  margin: 0;
-  position: fixed;
-  transition: none;
-  -ms-touch-action: none;
-  touch-action: none;
-  will-change: transform;
-
-  &.kup-resizable {
-    border: 3px outset var(--kup-title-background-color);
-  }
-}
-
 .kup-menu {
   animation: fade-in 0.25s ease-out;
   background-color: var(--kup-background-color);
@@ -676,22 +661,5 @@ td.top-right-indicator {
     position: absolute;
     right: 0;
     top: 0;
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-
-  1% {
-    display: block;
-    opacity: 0;
-  }
-
-  100% {
-    display: block;
-    opacity: 1;
   }
 }

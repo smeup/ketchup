@@ -484,7 +484,7 @@ export default {
                     value: 'datepicker',
                   },
                 },
-                value: 'Datepicker',
+                value: 'Date picker',
                 visible: true,
               },
               {
