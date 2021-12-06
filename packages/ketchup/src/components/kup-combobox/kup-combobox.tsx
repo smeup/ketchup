@@ -174,7 +174,7 @@ export class KupCombobox {
         const { target } = e;
 
         if (this.isSelect) {
-            if (this.textfieldEl.classList.contains('toggled')) {
+            if (this.textfieldWrapper.classList.contains('toggled')) {
                 this.closeList();
             } else {
                 this.openList();
