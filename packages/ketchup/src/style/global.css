@@ -522,6 +522,7 @@
 .f-cell.c-right-aligned .f-cell__content {
     flex-flow: row-reverse;
     margin: 0;
+    margin-left: auto;
     text-align: right;
 }
 .f-cell.c-centered .f-cell__content {
