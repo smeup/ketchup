@@ -98,7 +98,6 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | Event                             | Description                                                                           | Type                                                      |
 | --------------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | `kup-datatable-autorowselect`     | When a row is auto selected via selectRow prop                                        | `CustomEvent<KupDatatableAutoRowSelectEventPayload>`      |
-| `kup-datatable-cellbuttonclick`   |                                                                                       | `CustomEvent<KupDataTableCellButtonClickEventPayload>`    |
 | `kup-datatable-click`             | Generic click event on data table.                                                    | `CustomEvent<KupDatatableClickEventPayload>`              |
 | `kup-datatable-columnmenu`        | Emitted by the column menu card when opened/closed or when a kup-card-event is fired. | `CustomEvent<KupDatatableColumnMenuEventPayload>`         |
 | `kup-datatable-contextmenu`       | Generic right click event on data table.                                              | `CustomEvent<KupDatatableClickEventPayload>`              |

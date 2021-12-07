@@ -15,13 +15,6 @@
 | `dragEnabled` | `drag-enabled` | When set to true, the component is draggable.                                           | `boolean`                                                                             | `false`             |
 
 
-## Events
-
-| Event            | Description                            | Type                               |
-| ---------------- | -------------------------------------- | ---------------------------------- |
-| `kup-cell-click` | Triggered when the element is clicked. | `CustomEvent<KupCellEventPayload>` |
-
-
 ## Methods
 
 ### `addCssClasses(classes?: string[]) => Promise<void>`

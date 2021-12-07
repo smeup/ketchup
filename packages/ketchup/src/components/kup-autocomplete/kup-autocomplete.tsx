@@ -430,7 +430,7 @@ export class KupAutocomplete {
                 true
             );
         }
-        this.kupManager.dynamicPosition.start(this.listEl as any as any);
+        this.kupManager.dynamicPosition.start(this.listEl);
         if (!this.clickCb) {
             this.clickCb = {
                 cb: () => {
@@ -446,6 +446,7 @@ export class KupAutocomplete {
     private closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
+        this.kupManager.dynamicPosition.stop(this.listEl);
         this.kupManager.removeClickCallback(this.clickCb);
     }
 
