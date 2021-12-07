@@ -80,42 +80,21 @@
 }
 
 :host([force-one-line]) {
-  .f-cell__content {
-    display: inline-block; // [column-width-related][mandatory][3]
-    max-width: 100%;
-    vertical-align: middle;
-    width: 100%;
-
-    &.c-centered {
-      display: flex;
-    }
-
-    &.is-vertical {
-      display: block;
-      width: auto;
-      margin: auto;
-      min-height: 16px;
-      min-width: 16px;
-      & > * {
-        margin: auto;
-      }
-    }
-
-    &.number-cell {
-      text-align: right;
-    }
-
-    &.string-cell,
-    &.number-cell,
-    &.date-cell,
-    &.time-cell,
-    &.datetime-cell,
-    &.link-cell {
+  .string-cell,
+  .number-cell,
+  .date-cell,
+  .time-cell,
+  .datetime-cell,
+  .link-cell {
+    .f-cell__content {
+      display: inline-block;
+      max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
+      vertical-align: middle;
       white-space: nowrap;
+      width: 100%;
     }
-
     .f-image {
       &.cell-info {
         display: inline-block;
@@ -128,16 +107,6 @@
         vertical-align: -0.275em;
       }
     }
-  }
-
-  tbody tr .f-cell.c-centered * {
-    display: flex;
-    max-width: max-content;
-    width: max-content;
-  }
-
-  tbody tr .f-cell.c-fitted * {
-    max-width: max-content;
   }
 }
 

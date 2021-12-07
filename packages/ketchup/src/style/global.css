@@ -383,6 +383,7 @@
     font-family: var(--kup_cell_font_family_monospace);
     justify-content: flex-end;
     margin-left: auto;
+    text-align: right;
 }
 .f-cell .cell-info {
     margin: auto 0.5em auto 0.25em;
@@ -524,6 +525,9 @@
     margin: 0;
     margin-left: auto;
     text-align: right;
+}
+.f-cell.c-centered {
+    justify-content: center;
 }
 .f-cell.c-centered .f-cell__content {
     justify-content: center;
