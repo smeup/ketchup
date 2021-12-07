@@ -28,6 +28,7 @@ import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -88,7 +89,7 @@ export class KupCombobox {
      */
     private kupManager: KupManager = kupManagerInstance();
     private elStyle: any = undefined;
-    private listEl: any = undefined;
+    private listEl: HTMLKupListElement = undefined;
     private textfieldWrapper: HTMLElement = undefined;
     private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
     private clickCb: KupManagerClickCb = null;
@@ -348,9 +349,24 @@ export class KupCombobox {
     openList() {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        let elStyle: any = this.listEl.style;
+        let elStyle = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
+        if (this.kupManager.dynamicPosition.isRegistered(this.listEl)) {
+            this.kupManager.dynamicPosition.changeAnchor(
+                this.listEl,
+                this.textfieldWrapper
+            );
+        } else {
+            this.kupManager.dynamicPosition.register(
+                this.listEl,
+                this.textfieldWrapper,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+        }
+        this.kupManager.dynamicPosition.start(this.listEl as any as any);
         if (!this.clickCb) {
             this.clickCb = {
                 cb: () => {
@@ -365,6 +381,7 @@ export class KupCombobox {
     closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
+        this.kupManager.dynamicPosition.stop(this.listEl as any);
         this.kupManager.removeClickCallback(this.clickCb);
     }
 
