@@ -24,12 +24,16 @@ import {
     kupAutocompleteFilterChangedEventPayload,
     KupAutocompleteProps,
 } from './kup-autocomplete-declarations';
-import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListEventPayload,
+} from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -103,7 +107,7 @@ export class KupAutocomplete {
 
     private doConsistencyCheck: boolean = true;
     private elStyle: any = undefined;
-    private listEl: any = undefined;
+    private listEl: HTMLKupListElement = null;
     /**
      * Instance of the KupManager class.
      */
@@ -409,9 +413,24 @@ export class KupAutocomplete {
         }
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        let elStyle: any = this.listEl.style;
+        const elStyle = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
+        if (this.kupManager.dynamicPosition.isRegistered(this.listEl)) {
+            this.kupManager.dynamicPosition.changeAnchor(
+                this.listEl,
+                this.textfieldWrapper
+            );
+        } else {
+            this.kupManager.dynamicPosition.register(
+                this.listEl,
+                this.textfieldWrapper,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+        }
+        this.kupManager.dynamicPosition.start(this.listEl as any as any);
         if (!this.clickCb) {
             this.clickCb = {
                 cb: () => {
@@ -461,7 +480,9 @@ export class KupAutocomplete {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 isMenu={true}
-                onkup-list-click={(e) => this.onKupItemClick(e)}
+                onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
+                    this.onKupItemClick(e)
+                }
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );
@@ -557,6 +578,10 @@ export class KupAutocomplete {
     }
 
     disconnectedCallback() {
+        if (this.listEl) {
+            this.kupManager.dynamicPosition.unregister([this.listEl]);
+            this.listEl.remove();
+        }
         this.kupManager.theme.unregister(this);
     }
 }

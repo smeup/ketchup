@@ -16,7 +16,10 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListEventPayload,
+} from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
@@ -349,7 +352,7 @@ export class KupCombobox {
     openList() {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        let elStyle = this.listEl.style;
+        const elStyle = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
         if (this.kupManager.dynamicPosition.isRegistered(this.listEl)) {
@@ -408,8 +411,10 @@ export class KupCombobox {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 is-menu
-                onkup-list-click={(e) => this.onKupItemClick(e)}
-                ref={(el) => (this.listEl = el as any)}
+                onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
+                    this.onKupItemClick(e)
+                }
+                ref={(el) => (this.listEl = el)}
             ></kup-list>
         );
     }
@@ -505,6 +510,10 @@ export class KupCombobox {
     }
 
     disconnectedCallback() {
+        if (this.listEl) {
+            this.kupManager.dynamicPosition.unregister([this.listEl]);
+            this.listEl.remove();
+        }
         this.kupManager.theme.unregister(this);
     }
 }
