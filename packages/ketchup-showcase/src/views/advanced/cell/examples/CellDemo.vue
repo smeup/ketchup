@@ -23,11 +23,15 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kup-cell-update',
+          name: 'kup-cell-click',
           type: 'custom',
         },
         {
-          name: 'kup-cell-click',
+          name: 'kup-cell-input',
+          type: 'custom',
+        },
+        {
+          name: 'kup-cell-update',
           type: 'custom',
         },
       ],
