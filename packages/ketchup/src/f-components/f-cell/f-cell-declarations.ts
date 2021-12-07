@@ -6,7 +6,6 @@ import type {
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { FComponent, KupEventPayload } from '../../types/GenericTypes';
 
-export const cellUpdateEvent = 'kup-cell-update';
 /**
  * Props of the f-cell component.
  */
@@ -30,6 +29,15 @@ export interface FCellInfo {
     color?: string;
     icon?: string;
     message: string;
+}
+
+/**
+ * Supported cell events.
+ */
+export enum FCellEvents {
+    CLICK = 'kup-cell-click',
+    INPUT = 'kup-cell-input',
+    UPDATE = 'kup-cell-update',
 }
 /**
  * Supported cell padding.
