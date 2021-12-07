@@ -76,10 +76,6 @@ export default {
           type: 'click',
         },
         {
-          name: 'kup-datatable-cellbuttonclick',
-          type: 'click',
-        },
-        {
           name: 'kup-datatable-textfieldinput',
           type: 'input',
         },

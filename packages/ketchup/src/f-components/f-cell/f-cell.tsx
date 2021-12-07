@@ -16,10 +16,10 @@ import type { KupTimePickerEventPayload } from '../../components/kup-time-picker
 import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import {
-    cellUpdateEvent,
     editableTypes,
     FCellClasses,
     FCellEventPayload,
+    FCellEvents,
     FCellInfo,
     FCellProps,
     FCellShapes,
@@ -34,6 +34,7 @@ import { stringToNumber } from '../../utils/utils';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupButtonClickEventPayload } from '../../components/kup-button/kup-button-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -99,7 +100,8 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
                 subcomponentProps,
                 cell,
                 row,
-                column
+                column,
+                props
             );
         }
     } else {
@@ -289,7 +291,10 @@ function setEditableCell(
                     class="kup-full-width"
                     onkup-autocomplete-change={(
                         e: CustomEvent<KupAutocompleteEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    onkup-autocomplete-input={(
+                        e: CustomEvent<KupAutocompleteEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
         case FCellTypes.CHECKBOX:
@@ -297,7 +302,9 @@ function setEditableCell(
             return (
                 <FCheckbox
                     {...cell.data}
-                    onChange={(e: InputEvent) => cellUpdate(e, props, cellType)}
+                    onChange={(e: InputEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                    }
                 />
             );
         case FCellTypes.COLOR_PICKER:
@@ -307,7 +314,7 @@ function setEditableCell(
                     disabled={false}
                     onkup-colorpicker-change={(
                         e: CustomEvent<KupColorPickerEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
                 ></kup-color-picker>
             );
         case FCellTypes.COMBOBOX:
@@ -317,7 +324,10 @@ function setEditableCell(
                     class="kup-full-width"
                     onkup-combobox-change={(
                         e: CustomEvent<KupComboboxEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    onkup-combobox-input={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
         case FCellTypes.DATE:
@@ -327,7 +337,10 @@ function setEditableCell(
                     class="kup-full-width"
                     onkup-datepicker-change={(
                         e: CustomEvent<KupDatePickerEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    onkup-datepicker-input={(
+                        e: CustomEvent<KupDatePickerEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
         case FCellTypes.RATING:
@@ -337,7 +350,7 @@ function setEditableCell(
                     disabled={false}
                     onkup-rating-click={(
                         e: CustomEvent<KupRatingClickEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
                 ></kup-rating>
             );
         case FCellTypes.TIME:
@@ -347,7 +360,10 @@ function setEditableCell(
                     class="kup-full-width"
                     onkup-timepicker-change={(
                         e: CustomEvent<KupTimePickerEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    onkup-timepicker-input={(
+                        e: CustomEvent<KupTimePickerEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
         case FCellTypes.NUMBER:
@@ -365,7 +381,12 @@ function setEditableCell(
                             ? stringToNumber(cell.value).toString()
                             : cell.value
                     }
-                    onChange={(e: InputEvent) => cellUpdate(e, props, cellType)}
+                    onChange={(e: InputEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                    }
+                    onInput={(e: InputEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.INPUT)
+                    }
                 />
             );
     }
@@ -439,7 +460,8 @@ function setKupCell(
     subcomponentProps: unknown,
     cell: Cell,
     row: Row,
-    column: Column
+    column: Column,
+    props: FCellProps
 ): unknown {
     switch (cellType) {
         case FCellTypes.BAR:
@@ -457,7 +479,14 @@ function setKupCell(
             }
         case FCellTypes.BUTTON:
             classObj[FCellClasses.C_CENTERED] = true;
-            return <kup-button {...subcomponentProps}></kup-button>;
+            return (
+                <kup-button
+                    {...subcomponentProps}
+                    onkup-button-click={(
+                        e: CustomEvent<KupButtonClickEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.CLICK)}
+                ></kup-button>
+            );
         case FCellTypes.BUTTON_LIST:
             classObj[FCellClasses.C_CENTERED] = true;
             subcomponentProps['data-storage'] = {
@@ -572,10 +601,11 @@ function getCellType(cell: Cell, shape?: FCellShapes) {
     }
 }
 
-function cellUpdate(
+function cellEvent(
     e: InputEvent | CustomEvent,
     props: FCellProps,
-    cellType: FCellTypes
+    cellType: FCellTypes,
+    cellEventName: string
 ): void {
     const cell = props.cell;
     const column = props.column;
@@ -609,22 +639,19 @@ function cellUpdate(
     cell.displayedValue = null;
     cell.displayedValue = getCellValueForDisplay(column, cell);
     if (comp && (comp as KupComponent).rootElement) {
-        const updateEvent = new CustomEvent<FCellEventPayload>(
-            cellUpdateEvent,
-            {
-                bubbles: true,
-                cancelable: true,
-                detail: {
-                    comp: comp,
-                    id: (comp as KupComponent).rootElement.id,
-                    cell: cell,
-                    column: column,
-                    event: e,
-                    row: row,
-                    type: cellType,
-                },
-            }
-        );
+        const updateEvent = new CustomEvent<FCellEventPayload>(cellEventName, {
+            bubbles: true,
+            cancelable: true,
+            detail: {
+                comp: comp,
+                id: (comp as KupComponent).rootElement.id,
+                cell: cell,
+                column: column,
+                event: e,
+                row: row,
+                type: cellType,
+            },
+        });
         (comp as KupComponent).rootElement.dispatchEvent(updateEvent);
         try {
             (comp as KupComponent).refresh();

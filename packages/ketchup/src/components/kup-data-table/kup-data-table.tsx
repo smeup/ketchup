@@ -946,14 +946,6 @@ export class KupDataTable {
     kupLoadMoreClick: EventEmitter<KupDatatableLoadMoreClickEventPayload>;
 
     @Event({
-        eventName: 'kup-datatable-cellbuttonclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupCellButtonClick: EventEmitter<KupDataTableCellButtonClickEventPayload>;
-
-    @Event({
         eventName: 'kup-datatable-textfieldinput',
         composed: true,
         cancelable: false,
