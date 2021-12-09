@@ -68,13 +68,6 @@ Type: `Promise<void>`
 
 
 
-## CSS Custom Properties
-
-| Name                      | Description                                         |
-| ------------------------- | --------------------------------------------------- |
-| `--kup-card-ripple-color` | Sets color of ripple effect (for Material layouts). |
-
-
 ## Dependencies
 
 ### Used by

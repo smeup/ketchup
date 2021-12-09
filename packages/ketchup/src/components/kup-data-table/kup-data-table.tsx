@@ -49,7 +49,6 @@ import {
     KupDatatableColumnMenuEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
-    KupDataTableCellButtonClickEventPayload,
     KupDataTableCellTextFieldInputEventPayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
