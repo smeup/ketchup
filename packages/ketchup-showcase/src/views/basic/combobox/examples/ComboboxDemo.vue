@@ -174,7 +174,7 @@ export default {
           prop: 'showDropDownIcon',
           description: 'When true shows the drop-down icon, for open list.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
       ],

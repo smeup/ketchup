@@ -89,11 +89,11 @@ export class KupAutocomplete {
      * When true, the items filter is managed server side, otherwise items filter is done client side.
      */
     @Prop({ reflect: true }) serverHandledFilter: boolean = false;
-
     /**
      * When true shows the drop-down icon, for open list.
      */
     @Prop() showDropDownIcon: boolean = true;
+
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/

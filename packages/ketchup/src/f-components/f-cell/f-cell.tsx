@@ -59,7 +59,6 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = getCellType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
-    console.log(props.component);
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column.cssClass
