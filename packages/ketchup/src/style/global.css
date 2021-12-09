@@ -388,10 +388,10 @@
     font-family: var(--kup_cell_font_family_monospace);
 }
 .f-cell .f-cell__content .cell-info {
-    margin: auto 0.5em auto 0.25em;
+    padding: 0 0.5em 0 0.25em;
 }
 .f-cell .f-cell__content .obj-icon {
-    margin: auto 0.5em auto 0;
+    padding: 0 0.5em 0 0;
 }
 .f-cell .mdc-text-field {
     padding: 0px;
@@ -523,7 +523,7 @@
     writing-mode: vertical-lr;
 }
 .f-cell.c-right-aligned .f-cell__content {
-    flex-flow: row-reverse;
+    justify-content: flex-end;
     margin: 0;
     margin-left: auto;
     text-align: right;

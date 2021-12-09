@@ -1293,13 +1293,6 @@ export class KupBox {
             'last-child': !section.sections || section.sections.length === 0,
         };
 
-        if (section.cssClass) {
-            var classes = section.cssClass.split(' ');
-            for (let index = 0; index < classes.length; index++) {
-                sectionClass[classes[index]] = true;
-            }
-        }
-
         const sectionStyle: any = section.style || {};
         if (section.dim && parent) {
             sectionStyle.flex = `0 0 ${section.dim}`;

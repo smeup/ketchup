@@ -70,7 +70,6 @@ export interface Section {
     collapsible?: boolean;
     columns?: number;
     title?: string;
-    cssClass?: string;
 }
 
 export interface BoxObject {
