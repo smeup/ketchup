@@ -5,7 +5,7 @@ import type {
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { FComponent, KupEventPayload } from '../../types/GenericTypes';
-
+export const autoAlignComps = ['KUP-DATA-TABLE', 'KUP-TREE'];
 /**
  * Props of the f-cell component.
  */
@@ -30,7 +30,6 @@ export interface FCellInfo {
     icon?: string;
     message: string;
 }
-
 /**
  * Supported cell events.
  */

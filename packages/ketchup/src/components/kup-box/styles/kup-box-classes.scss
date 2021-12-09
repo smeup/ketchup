@@ -2,29 +2,25 @@
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
 
-:host(.#{$kup-class-left-aligned}) {
+:host(.#{$kup-class-center-aligned}) {
   #kup-component {
     .box-section {
-      text-align: left;
+      text-align: center;
 
-      .f-cell__content {
-        justify-content: flex-start;
-      }
+      .f-cell {
+        justify-content: center;
+        margin: auto;
+        text-align: center;
 
-      .f-image {
-        margin-left: 0;
-        margin-right: auto;
-      }
+        .f-cell__content {
+          justify-content: center;
+          margin: auto;
+          text-align: center;
+        }
 
-      kup-checkbox {
-        justify-content: flex-start;
-      }
-
-      kup-button,
-      kup-button-list,
-      kup-chart {
-        margin-left: 0;
-        margin-right: auto;
+        img {
+          margin: auto;
+        }
       }
     }
   }
@@ -35,24 +31,23 @@
     .box-section {
       text-align: right;
 
-      .f-cell__content {
+      .f-cell {
         justify-content: flex-end;
-      }
-
-      .f-image {
         margin-left: auto;
         margin-right: 0;
-      }
+        text-align: right;
 
-      kup-checkbox {
-        justify-content: flex-end;
-      }
+        .f-cell__content {
+          justify-content: flex-end;
+          margin-left: auto;
+          margin-right: 0;
+          text-align: right;
+        }
 
-      kup-button,
-      kup-button-list,
-      kup-chart {
-        margin-right: 0;
-        margin-left: auto;
+        img {
+          margin-left: auto;
+          margin-right: 0;
+        }
       }
     }
   }

@@ -16,6 +16,7 @@ import type { KupTimePickerEventPayload } from '../../components/kup-time-picker
 import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import {
+    autoAlignComps,
     editableTypes,
     FCellClasses,
     FCellEventPayload,
@@ -58,6 +59,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = getCellType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
+    console.log(props.component);
     let cssClasses = cell.cssClass
         ? cell.cssClass
         : column.cssClass
@@ -114,7 +116,8 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
             content,
             classObj,
             cell,
-            column
+            column,
+            props
         );
     }
 
@@ -202,10 +205,8 @@ function setCellSize(
             break;
         case FCellTypes.IMAGE:
             if (
-                props.component &&
-                (props.component as KupComponent).rootElement &&
                 (props.component as KupComponent).rootElement.tagName ===
-                    'KUP-BOX'
+                'KUP-BOX'
             ) {
                 if (!(subcomponentProps as FImageProps).sizeY) {
                     (subcomponentProps as FImageProps).sizeY = 'auto';
@@ -298,7 +299,13 @@ function setEditableCell(
                 />
             );
         case FCellTypes.CHECKBOX:
-            classObj[FCellClasses.C_CENTERED] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             return (
                 <FCheckbox
                     {...cell.data}
@@ -398,7 +405,8 @@ function setCell(
     content: unknown,
     classObj: Record<string, boolean>,
     cell: Cell,
-    column: Column
+    column: Column,
+    props: FCellProps
 ): unknown {
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
@@ -412,7 +420,13 @@ function setCell(
             }
             return content;
         case FCellTypes.CHECKBOX:
-            classObj[FCellClasses.C_CENTERED] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             return (
                 <FImage
                     resource={
@@ -428,7 +442,13 @@ function setCell(
             return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
         case FCellTypes.IMAGE:
-            classObj[FCellClasses.C_CENTERED] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             if ((subcomponentProps as FImageProps).badgeData) {
                 classObj[FCellClasses.C_PADDED] = true;
             }
@@ -445,6 +465,13 @@ function setCell(
                 const cellValue = getCellValueForDisplay(column, cell);
                 if (cellValueNumber < 0) {
                     classObj[FCellClasses.TEXT_DANGER] = true;
+                }
+                if (
+                    autoAlignComps.includes(
+                        (props.component as KupComponent).rootElement.tagName
+                    )
+                ) {
+                    classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
                 }
                 return cellValue;
             }
@@ -478,7 +505,13 @@ function setKupCell(
                 );
             }
         case FCellTypes.BUTTON:
-            classObj[FCellClasses.C_CENTERED] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             return (
                 <kup-button
                     {...subcomponentProps}
@@ -488,7 +521,13 @@ function setKupCell(
                 ></kup-button>
             );
         case FCellTypes.BUTTON_LIST:
-            classObj[FCellClasses.C_CENTERED] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             subcomponentProps['data-storage'] = {
                 cell: cell,
                 row: row,
@@ -496,7 +535,13 @@ function setKupCell(
             };
             return <kup-button-list {...subcomponentProps}></kup-button-list>;
         case FCellTypes.CHART:
-            classObj[FCellClasses.C_CENTERED] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             return <kup-chart {...subcomponentProps} />;
         case FCellTypes.CHIP:
             return <FChip {...subcomponentProps} />;
@@ -519,7 +564,13 @@ function setKupCell(
         case FCellTypes.PROGRESS_BAR:
             return <kup-progress-bar {...subcomponentProps}></kup-progress-bar>;
         case FCellTypes.RADIO:
-            classObj[FCellClasses.C_CENTERED] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             subcomponentProps['disabled'] = row.readOnly;
             return <kup-radio {...subcomponentProps}></kup-radio>;
         case FCellTypes.RATING:
