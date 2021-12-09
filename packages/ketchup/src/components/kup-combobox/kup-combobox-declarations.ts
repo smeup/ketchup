@@ -1,4 +1,4 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-combobox component.
@@ -12,6 +12,7 @@ export enum KupComboboxProps {
     initialValue = 'Sets the initial value of the component',
     isSelect = 'Lets the combobox behave as a select element.',
     selectMode = 'Sets how to return the selected item value. Suported values: "code", "description", "both".',
+    showDropDownIcon = 'When true shows the drop-down icon, for open list.',
 }
 
 export interface KupComboboxEventPayload extends KupEventPayload {

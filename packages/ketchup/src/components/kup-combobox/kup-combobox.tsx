@@ -82,6 +82,10 @@ export class KupCombobox {
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
+    /**
+     * When true shows the drop-down icon, for open list.
+     */
+    @Prop() showDropDownIcon: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -481,7 +485,11 @@ export class KupCombobox {
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
-                        icon={KupThemeIconValues.DROPDOWN}
+                        icon={
+                            this.showDropDownIcon
+                                ? KupThemeIconValues.DROPDOWN
+                                : null
+                        }
                         readOnly={this.isSelect}
                         trailingIcon={true}
                         value={this.displayedValue}

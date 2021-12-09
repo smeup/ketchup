@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
-import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
+import { KupAutocompleteEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
@@ -93,14 +93,6 @@ export namespace Components {
     }
     interface KupAutocomplete {
         /**
-          * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
-         */
-        "callBackOnFilterUpdate": (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined;
-        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -146,7 +138,7 @@ export namespace Components {
          */
         "selectMode": ItemsDisplayMode;
         /**
-          * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+          * When true, the items filter is managed server side, otherwise items filter is done client side.
          */
         "serverHandledFilter": boolean;
         /**
@@ -163,6 +155,10 @@ export namespace Components {
           * @param value - Value of the component.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * When true shows the drop-down icon, for open list.
+         */
+        "showDropDownIcon": boolean;
     }
     interface KupBadge {
         /**
@@ -996,6 +992,10 @@ export namespace Components {
           * @param value - Value to be set.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * When true shows the drop-down icon, for open list.
+         */
+        "showDropDownIcon": boolean;
     }
     interface KupDash {
         /**
@@ -3134,14 +3134,6 @@ declare namespace LocalJSX {
     }
     interface KupAutocomplete {
         /**
-          * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
-         */
-        "callBackOnFilterUpdate"?: (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined;
-        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -3170,7 +3162,6 @@ declare namespace LocalJSX {
         "onKup-autocomplete-blur"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-change"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-click"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
-        "onKup-autocomplete-filterchanged"?: (event: CustomEvent<kupAutocompleteFilterChangedEventPayload>) => void;
         "onKup-autocomplete-focus"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-iconclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-input"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
@@ -3180,9 +3171,13 @@ declare namespace LocalJSX {
          */
         "selectMode"?: ItemsDisplayMode;
         /**
-          * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+          * When true, the items filter is managed server side, otherwise items filter is done client side.
          */
         "serverHandledFilter"?: boolean;
+        /**
+          * When true shows the drop-down icon, for open list.
+         */
+        "showDropDownIcon"?: boolean;
     }
     interface KupBadge {
         /**
@@ -3892,6 +3887,10 @@ declare namespace LocalJSX {
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
+        /**
+          * When true shows the drop-down icon, for open list.
+         */
+        "showDropDownIcon"?: boolean;
     }
     interface KupDash {
         /**

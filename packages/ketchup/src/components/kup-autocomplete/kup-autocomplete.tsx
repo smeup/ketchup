@@ -11,7 +11,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -21,7 +20,6 @@ import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc'
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupAutocompleteEventPayload,
-    kupAutocompleteFilterChangedEventPayload,
     KupAutocompleteProps,
 } from './kup-autocomplete-declarations';
 import {
@@ -58,14 +56,6 @@ export class KupAutocomplete {
     /*-------------------------------------------------*/
 
     /**
-     * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
-     */
-    @Prop() callBackOnFilterUpdate: (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined = undefined;
-    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -96,11 +86,14 @@ export class KupAutocomplete {
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**
-     * When true, it will emit events to inform the listener of the change of the current filter value.
-     * Also the component builtin filter will be disabled.
+     * When true, the items filter is managed server side, otherwise items filter is done client side.
      */
     @Prop({ reflect: true }) serverHandledFilter: boolean = false;
 
+    /**
+     * When true shows the drop-down icon, for open list.
+     */
+    @Prop() showDropDownIcon: boolean = true;
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
@@ -176,14 +169,6 @@ export class KupAutocomplete {
     })
     kupItemClick: EventEmitter<KupAutocompleteEventPayload>;
 
-    @Event({
-        eventName: 'kup-autocomplete-filterchanged',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupFilterChanged: EventEmitter<kupAutocompleteFilterChangedEventPayload>;
-
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
         const { target } = e;
         this.kupBlur.emit({
@@ -225,13 +210,17 @@ export class KupAutocomplete {
         this.doConsistencyCheck = true;
         this.consistencyCheck(undefined, e.target.value);
         if (this.openList(false)) {
-            this.handleFilterChange(this.displayedValue, e.target);
+            if (this.listEl != null && !this.serverHandledFilter) {
+                this.listEl.resetFilter(this.displayedValue);
+            }
         }
-        this.kupInput.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-        });
+        if (e.target.value.length >= this.minimumChars) {
+            this.kupInput.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+            });
+        }
     }
 
     onKupIconClick(event: MouseEvent & { target: HTMLInputElement }) {
@@ -374,41 +363,9 @@ export class KupAutocomplete {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private handleFilterChange(newFilter: string, eventTarget: EventTarget) {
-        let detail = {
-            comp: this,
-            id: this.rootElement.id,
-            filter: newFilter,
-            matchesMinimumCharsRequired:
-                newFilter && newFilter.length >= this.minimumChars,
-            el: eventTarget,
-        };
-        if (this.serverHandledFilter && this.callBackOnFilterUpdate) {
-            this.callBackOnFilterUpdate(detail)
-                .then((items) => {
-                    this.data['kup-list']['data'] = [...items];
-                    this.kupFilterChanged.emit(detail);
-                })
-                .catch((err) => {
-                    this.kupManager.debug.logMessage(
-                        this,
-                        'Executing callback error',
-                        KupDebugCategory.ERROR
-                    );
-                    this.kupManager.debug.logMessage(
-                        this,
-                        err,
-                        KupDebugCategory.ERROR
-                    );
-                });
-        } else {
-            this.listEl.resetFilter(newFilter);
-            this.kupFilterChanged.emit(detail);
-        }
-    }
-
     private openList(forceOpen: boolean): boolean {
         if (forceOpen != true && this.value.length < this.minimumChars) {
+            this.closeList();
             return false;
         }
         this.textfieldWrapper.classList.add('toggled');
@@ -470,7 +427,7 @@ export class KupAutocomplete {
         this.value = ret.value;
         this.displayedValue = ret.displayedValue;
 
-        if (this.listEl != null) {
+        if (this.listEl != null && !this.serverHandledFilter) {
             this.listEl.resetFilter(this.displayedValue);
         }
     }
@@ -478,8 +435,8 @@ export class KupAutocomplete {
     private prepList() {
         return (
             <kup-list
-                {...this.data['kup-list']}
                 displayMode={this.displayMode}
+                {...this.data['kup-list']}
                 isMenu={true}
                 onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
                     this.onKupItemClick(e)
@@ -551,7 +508,11 @@ export class KupAutocomplete {
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
-                        icon={KupThemeIconValues.DROPDOWN}
+                        icon={
+                            this.showDropDownIcon
+                                ? KupThemeIconValues.DROPDOWN
+                                : null
+                        }
                         trailingIcon={true}
                         value={this.displayedValue}
                         onBlur={(e: any) => this.onKupBlur(e)}
