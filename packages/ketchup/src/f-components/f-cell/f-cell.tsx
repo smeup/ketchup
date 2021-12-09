@@ -340,6 +340,7 @@ function setEditableCell(
         case FCellTypes.DATE:
             return (
                 <kup-date-picker
+                    initialValue={cell.value}
                     {...cell.data}
                     class="kup-full-width"
                     onkup-datepicker-change={(
@@ -363,6 +364,7 @@ function setEditableCell(
         case FCellTypes.TIME:
             return (
                 <kup-time-picker
+                    initialValue={cell.value}
                     {...cell.data}
                     class="kup-full-width"
                     onkup-timepicker-change={(
