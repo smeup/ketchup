@@ -49,6 +49,14 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                           | Description                         |
+| ------------------------------ | ----------------------------------- |
+| `--kup-lazy-animation-time`    | Sets the duration of the animation. |
+| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon. |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

@@ -68,6 +68,17 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                               | Description                                                                                                                                                                         |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--kup-cell-background`            | Sets the background of the cell.                                                                                                                                                    |
+| `--kup-cell-font-family`           | Sets the font family of the cell.                                                                                                                                                   |
+| `--kup-cell-font-family-monospace` | Sets the monospace font family of the cell (for numbers).                                                                                                                           |
+| `--kup-cell-font-size`             | Sets the font size of the cell.                                                                                                                                                     |
+| `--kup-cell-text-color`            | Sets the text color of the cell. NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+
+
 ## Dependencies
 
 ### Depends on

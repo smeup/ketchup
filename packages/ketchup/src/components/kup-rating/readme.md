@@ -55,6 +55,14 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                     | Description                      |
+| ------------------------ | -------------------------------- |
+| `--kup-rating-color`     | Sets color of the component.     |
+| `--kup-rating-font-size` | Sets font size of the component. |
+
+
 ## Dependencies
 
 ### Used by

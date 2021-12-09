@@ -97,6 +97,20 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                          | Description                                                   |
+| ----------------------------- | ------------------------------------------------------------- |
+| `--kup-box-background-color`  | Sets background of the component.                             |
+| `--kup-box-color`             | Sets text color of the component.                             |
+| `--kup-box-font-family`       | Sets font family of the component.                            |
+| `--kup-box-font-size`         | Sets font size of the component.                              |
+| `--kup-box-grid-gap`          | Sets gap between each box.                                    |
+| `--kup-box-hover-box-shadow`  | Sets box shadow for the hover effect.                         |
+| `--kup-box-primary-color-rgb` | Sets RGB values of primary color (used for box selection) .   |
+| `--kup-box-transition`        | Sets transition duration for box-shadow and background-color. |
+
+
 ## Dependencies
 
 ### Used by

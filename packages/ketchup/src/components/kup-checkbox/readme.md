@@ -62,6 +62,23 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                       | Description                                                                |
+| ------------------------------------------ | -------------------------------------------------------------------------- |
+| `--kup-checkbox-disabled-checkmark-color`  | Sets color of the checkmark of a disabled checkbox.                        |
+| `--kup-checkbox-font-family`               | Sets font family of the checkbox's label.                                  |
+| `--kup-checkbox-font-size`                 | Sets font size of the checkbox's label.                                    |
+| `--kup-checkbox-font-weight`               | Sets font weight of the checkbox's label.                                  |
+| `--kup-checkbox-padding`                   | Sets padding of the checkbox.                                              |
+| `--kup-checkbox-primary-color`             | Sets primary color of the component.                                       |
+| `--kup-checkbox-primary-color-rgb`         | Sets primary color RGB values of the component (used for shaders).         |
+| `--kup-checkbox-text-color`                | Sets the text color of the component.                                      |
+| `--kup-checkbox-text-color-rgb`            | Sets the text color RGB values of the component (used for shaders).        |
+| `--kup-checkbox-text-on-primary-color`     | Sets text on primary color of the component.                               |
+| `--kup-checkbox-text-on-primary-color-rgb` | Sets text on primary color RGB values of the component (used for shaders). |
+
+
 ## Dependencies
 
 ### Used by
