@@ -8,22 +8,6 @@
     z-index: calc(var(--kup-navbar-zindex) + 1) !important;
 }
 /*-------------------------------------------------*/
-/*                   D i a l o g                   */
-/*-------------------------------------------------*/
-[kup-dialog] {
-    background-color: var(--kup-background-color);
-    margin: 0;
-    position: absolute;
-    -ms-touch-action: none;
-    touch-action: none;
-    transition: none;
-    will-change: transform;
-}
-
-[kup-dialog].kup-resizable {
-    border: 3px outset var(--kup-title-background-color);
-}
-/*-------------------------------------------------*/
 /*          S c r o l l   o n   h o v e r          */
 /*-------------------------------------------------*/
 #kup-scrolling-arrows {

@@ -1,8 +1,6 @@
 import {
     Component,
     Element,
-    Event,
-    EventEmitter,
     forceUpdate,
     h,
     Host,
@@ -21,7 +19,7 @@ import {
     Column,
     Row,
 } from '../kup-data-table/kup-data-table-declarations';
-import { KupCellEventPayload, KupCellProps } from './kup-cell-declarations';
+import { KupCellProps } from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
     FCellPadding,
@@ -77,30 +75,6 @@ export class KupCell {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-
-    /*-------------------------------------------------*/
-    /*                   E v e n t s                   */
-    /*-------------------------------------------------*/
-
-    /**
-     * Triggered when the element is clicked.
-     */
-    @Event({
-        eventName: 'kup-cell-click',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<KupCellEventPayload>;
-
-    onKupClick(event: MouseEvent & { target: HTMLElement }) {
-        const { target } = event;
-        this.kupClick.emit({
-            cell: this.data,
-            comp: this,
-            id: this.rootElement.id,
-        });
-    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -267,20 +241,14 @@ export class KupCell {
             renderKup: true,
             row: this.generateRow(),
         };
-
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
-                <div
-                    id={componentWrapperId}
-                    onClick={(e: MouseEvent & { target: HTMLElement }) =>
-                        this.onKupClick(e)
-                    }
-                >
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
+                <div id={componentWrapperId}>
                     <FCell {...props}></FCell>
                 </div>
             </Host>

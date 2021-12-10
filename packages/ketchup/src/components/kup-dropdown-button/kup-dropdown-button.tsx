@@ -31,6 +31,7 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -353,9 +354,24 @@ export class KupDropdownButton {
         this.buttonEl?.classList.add('toggled');
         this.dropdownEl.classList.add('toggled');
         this.listEl.menuVisible = true;
-        let elStyle: any = this.listEl.style;
+        const elStyle = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = buttonWidth + 'px';
+        if (this.kupManager.dynamicPosition.isRegistered(this.listEl)) {
+            this.kupManager.dynamicPosition.changeAnchor(
+                this.listEl,
+                this.buttonEl ? this.buttonEl : this.dropdownEl
+            );
+        } else {
+            this.kupManager.dynamicPosition.register(
+                this.listEl,
+                this.buttonEl ? this.buttonEl : this.dropdownEl,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+        }
+        this.kupManager.dynamicPosition.start(this.listEl);
         if (!this.clickCb) {
             this.clickCb = {
                 cb: () => {
@@ -373,6 +389,7 @@ export class KupDropdownButton {
         this.buttonEl?.classList.remove('toggled');
         this.dropdownEl.classList.remove('toggled');
         this.listEl.menuVisible = false;
+        this.kupManager.dynamicPosition.stop(this.listEl);
         this.kupManager.removeClickCallback(this.clickCb);
     }
     /**
@@ -478,13 +495,13 @@ export class KupDropdownButton {
     }
 
     render() {
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div class="dropdown-button--wrapper">
                         {this.renderButtons()}
@@ -503,6 +520,10 @@ export class KupDropdownButton {
     }
 
     disconnectedCallback() {
+        if (this.listEl) {
+            this.kupManager.dynamicPosition.unregister([this.listEl]);
+            this.listEl.remove();
+        }
         this.kupManager.theme.unregister(this);
     }
 }

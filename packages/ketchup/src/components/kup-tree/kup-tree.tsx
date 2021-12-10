@@ -89,6 +89,7 @@ import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations
 import { KupPointerEventTypes } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -1536,16 +1537,14 @@ export class KupTree {
             // Renders all the cells
             for (let j = 0; j < visibleCols.length; j++) {
                 const column = visibleCols[j];
-                const cell = { ...treeNodeData.cells[column.name] };
+                const cell = treeNodeData.cells[column.name]
+                    ? treeNodeData.cells[column.name]
+                    : null;
                 let hasIndicator = false;
-                const indicatorClass = 'top-right-indicator';
+                const indicatorClass = FCellClasses.INDICATOR_TOPRIGHT;
                 if (cell.cssClass) {
                     if (cell.cssClass.indexOf(indicatorClass) > -1) {
                         hasIndicator = true;
-                        cell.cssClass = cell.cssClass.replace(
-                            new RegExp(indicatorClass, 'g'),
-                            ''
-                        );
                     }
                 }
                 const cellProps: FCellProps = {
@@ -2142,13 +2141,13 @@ export class KupTree {
             );
         }
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId} class={wrapperClass}>
                     <div
                         class="wrapper"

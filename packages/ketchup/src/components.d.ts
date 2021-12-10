@@ -8,10 +8,10 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
 import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
-import { KupAutocompleteEventPayload, kupAutocompleteFilterChangedEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
+import { KupAutocompleteEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellButtonClickEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -19,7 +19,6 @@ import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup
 import { KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
-import { KupCellEventPayload } from "./components/kup-cell/kup-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
@@ -94,14 +93,6 @@ export namespace Components {
     }
     interface KupAutocomplete {
         /**
-          * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
-         */
-        "callBackOnFilterUpdate": (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined;
-        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -147,7 +138,7 @@ export namespace Components {
          */
         "selectMode": ItemsDisplayMode;
         /**
-          * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+          * When true, the items filter is managed server side, otherwise items filter is done client side.
          */
         "serverHandledFilter": boolean;
         /**
@@ -164,6 +155,10 @@ export namespace Components {
           * @param value - Value of the component.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * When true shows the drop-down icon, for open list.
+         */
+        "showDropDownIcon": boolean;
     }
     interface KupBadge {
         /**
@@ -997,6 +992,10 @@ export namespace Components {
           * @param value - Value to be set.
          */
         "setValue": (value: string) => Promise<void>;
+        /**
+          * When true shows the drop-down icon, for open list.
+         */
+        "showDropDownIcon": boolean;
     }
     interface KupDash {
         /**
@@ -1959,6 +1958,12 @@ export namespace Components {
     }
     interface KupPaginator {
         "currentPage": number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
         "max": number;
         "mode": PaginatorMode;
         "perPage": number;
@@ -2392,6 +2397,11 @@ export namespace Components {
           * @default null
          */
         "helper": string;
+        /**
+          * When true, the helper will be displayed.
+          * @default true
+         */
+        "helperEnabled": boolean;
         /**
           * When set, the helper will be shown only when the field is focused.
           * @default false
@@ -3124,14 +3134,6 @@ declare namespace LocalJSX {
     }
     interface KupAutocomplete {
         /**
-          * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
-         */
-        "callBackOnFilterUpdate"?: (detail: {
-        filter: string;
-        matchesMinimumCharsRequired: boolean;
-        el: EventTarget;
-    }) => Promise<any[]> | undefined;
-        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -3160,7 +3162,6 @@ declare namespace LocalJSX {
         "onKup-autocomplete-blur"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-change"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-click"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
-        "onKup-autocomplete-filterchanged"?: (event: CustomEvent<kupAutocompleteFilterChangedEventPayload>) => void;
         "onKup-autocomplete-focus"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-iconclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         "onKup-autocomplete-input"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
@@ -3170,9 +3171,13 @@ declare namespace LocalJSX {
          */
         "selectMode"?: ItemsDisplayMode;
         /**
-          * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+          * When true, the items filter is managed server side, otherwise items filter is done client side.
          */
         "serverHandledFilter"?: boolean;
+        /**
+          * When true shows the drop-down icon, for open list.
+         */
+        "showDropDownIcon"?: boolean;
     }
     interface KupBadge {
         /**
@@ -3622,10 +3627,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "dragEnabled"?: boolean;
-        /**
-          * Triggered when the element is clicked.
-         */
-        "onKup-cell-click"?: (event: CustomEvent<KupCellEventPayload>) => void;
     }
     interface KupChart {
         /**
@@ -3886,6 +3887,10 @@ declare namespace LocalJSX {
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
+        /**
+          * When true shows the drop-down icon, for open list.
+         */
+        "showDropDownIcon"?: boolean;
     }
     interface KupDash {
         /**
@@ -4041,7 +4046,6 @@ declare namespace LocalJSX {
           * When a row is auto selected via selectRow prop
          */
         "onKup-datatable-autorowselect"?: (event: CustomEvent<KupDatatableAutoRowSelectEventPayload>) => void;
-        "onKup-datatable-cellbuttonclick"?: (event: CustomEvent<KupDataTableCellButtonClickEventPayload>) => void;
         /**
           * Generic click event on data table.
          */
@@ -4679,6 +4683,12 @@ declare namespace LocalJSX {
     }
     interface KupPaginator {
         "currentPage"?: number;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         "max"?: number;
         "mode"?: PaginatorMode;
         /**
@@ -5030,6 +5040,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "helper"?: string;
+        /**
+          * When true, the helper will be displayed.
+          * @default true
+         */
+        "helperEnabled"?: boolean;
         /**
           * When set, the helper will be shown only when the field is focused.
           * @default false

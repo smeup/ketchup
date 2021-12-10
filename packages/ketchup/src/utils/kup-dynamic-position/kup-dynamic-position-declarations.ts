@@ -20,7 +20,7 @@ export type KupDynamicPositionAnchor =
  * Fixed position element.
  */
 export interface KupDynamicPositionElement extends HTMLElement {
-    kupDynamicPosition: {
+    kupDynamicPosition?: {
         anchor: KupDynamicPositionAnchor;
         detach: boolean;
         margin: number;

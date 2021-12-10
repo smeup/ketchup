@@ -32,6 +32,10 @@ export default {
             "Content will be vertically aligned to section's bottom.",
         },
         {
+          class: 'kup-center-aligned',
+          description: 'Content will be horizontally centered.',
+        },
+        {
           class: 'kup-danger',
           description:
             'The component will be rendered using the danger color of the app.',
@@ -48,11 +52,6 @@ export default {
           class: 'kup-info',
           description:
             'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-left-aligned',
-          description:
-            "Content will be horizontally aligned to section's left.",
         },
         {
           class: 'kup-paddingless',

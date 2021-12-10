@@ -31,11 +31,6 @@
   mask: var(--kup-dropdown-icon);
 }
 
-.f-text-field--wrapper {
+.f-text-field {
   position: relative;
-}
-
-kup-list {
-  position: absolute;
-  z-index: 1;
 }

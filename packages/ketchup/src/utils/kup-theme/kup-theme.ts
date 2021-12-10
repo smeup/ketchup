@@ -2,6 +2,7 @@ import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
+import * as globalCSS from '../../style/global.css';
 import * as themeCSS from './kup-theme.css';
 import {
     KupThemeColor,
@@ -209,13 +210,13 @@ export class KupTheme {
         }
     }
     /**
-     * Combines theme's and component's customStyles, returning the result.
+     * Combines global (style every component should have), theme's and component's customStyles, returning the result.
      * @param comp - The component calling this function.
      * @returns {string} Combined customStyle.
      */
-    setCustomStyle(comp: KupComponent): string {
+    setKupStyle(comp: KupComponent): string {
         const styles: GenericObject = this.list[this.name].customStyles;
-        let completeStyle: string = '';
+        let completeStyle = globalCSS['default'];
         if (styles && styles[masterCustomStyle]) {
             completeStyle += styles[masterCustomStyle];
         }

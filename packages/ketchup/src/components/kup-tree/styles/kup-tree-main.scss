@@ -225,7 +225,7 @@
   }
 }
 
-.#{$kup-icon}.#{$kup-icon-filter-remove}:not(.f-image--wrapper) {
+.#{$kup-icon}.#{$kup-icon-filter-remove}:not(.f-image) {
   background-color: var(--kup_tree_color);
   margin: 0 0.25em;
   height: 1em;
@@ -447,22 +447,5 @@ td.top-right-indicator {
     position: absolute;
     right: 0;
     top: 0;
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-
-  1% {
-    display: block;
-    opacity: 0;
-  }
-
-  100% {
-    display: block;
-    opacity: 1;
   }
 }

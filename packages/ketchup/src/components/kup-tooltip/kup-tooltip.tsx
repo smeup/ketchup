@@ -11,7 +11,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-
 import {
     TooltipData,
     TooltipDetailData,
@@ -1001,13 +1000,13 @@ export class KupTooltip {
         if (this.isCardLayout()) {
             return this.getCardLayoutContent();
         }
-
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div
                         id="wrapper"

@@ -931,7 +931,7 @@ export class KupTimePicker {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            const f: HTMLElement = root.querySelector('.f-text-field');
             if (f) {
                 this.textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
@@ -971,13 +971,13 @@ export class KupTimePicker {
             hostClass['kup-full-width'] = true;
         }
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host class={hostClass}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     {this.prepTextfield(this.getTimeForOutput())}
                 </div>

@@ -10,7 +10,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-
 import {
     KupManager,
     kupManagerInstance,
@@ -82,6 +81,11 @@ export class KupTextField {
      * @default null
      */
     @Prop() helper: string = null;
+    /**
+     * When true, the helper will be displayed.
+     * @default true
+     */
+    @Prop() helperEnabled: boolean = true;
     /**
      * When set, the helper will be shown only when the field is focused.
      * @default false
@@ -419,7 +423,7 @@ export class KupTextField {
     componentDidRender() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            const f: HTMLElement = root.querySelector('.f-text-field');
             if (f) {
                 const inputEl: HTMLInputElement | HTMLTextAreaElement =
                     f.querySelector('.mdc-text-field__input');
@@ -443,6 +447,7 @@ export class KupTextField {
                 : false,
             fullWidth: this.fullWidth,
             helper: this.helper,
+            helperEnabled: this.helperEnabled,
             helperWhenFocused: this.helperWhenFocused,
             icon: this.icon,
             info: this.rootElement.classList.contains('kup-info')
@@ -490,13 +495,13 @@ export class KupTextField {
             onClearIconClick: () => this.onKupClearIconClick(),
         };
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <FTextField {...props} />
                 </div>

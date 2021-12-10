@@ -134,7 +134,6 @@ export default {
     },
     scrollToSmoothly(e: MouseEvent): void {
       // pos is the y-position to scroll to (in pixels)
-      console.log('here');
       let pos: number = null;
       const currentPos: number = window.scrollY || window.screenTop;
       const target: HTMLElement = (e.target as HTMLElement).closest(

@@ -16,9 +16,11 @@ import type { KupTimePickerEventPayload } from '../../components/kup-time-picker
 import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
 import {
-    cellUpdateEvent,
+    autoAlignComps,
     editableTypes,
+    FCellClasses,
     FCellEventPayload,
+    FCellEvents,
     FCellInfo,
     FCellProps,
     FCellShapes,
@@ -32,8 +34,8 @@ import { FTextField } from '../f-text-field/f-text-field';
 import { stringToNumber } from '../../utils/utils';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
-import { styleHasWritingMode } from '../../components/kup-data-table/kup-data-table-helper';
 import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupButtonClickEventPayload } from '../../components/kup-button/kup-button-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -57,17 +59,34 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     const valueToDisplay = props.previousValue !== cell.value ? cell.value : '';
     const cellType = getCellType(cell, shape);
     const subcomponentProps: unknown = { ...cell.data };
+    let cssClasses = cell.cssClass
+        ? cell.cssClass
+        : column.cssClass
+        ? column.cssClass
+        : '';
+    if (
+        props.density &&
+        cell.cssClass &&
+        cell.cssClass.indexOf(FCellClasses.INDICATOR_TOPRIGHT) > -1
+    ) {
+        cssClasses = cssClasses.replace(
+            new RegExp(FCellClasses.INDICATOR_TOPRIGHT, 'g'),
+            ''
+        );
+    }
     const classObj: Record<string, boolean> = {
-        'f-cell__content': true,
-        'has-obj': hasObj ? true : false,
-        clickable: !!column.clickable,
+        'f-cell': true,
+        [FCellClasses.OBJ]: hasObj ? true : false,
         [cellType + '-cell']: true,
         [props.wrapperClass]: props.wrapperClass ? true : false,
+        [props.density]:
+            props.density && cellType !== FCellTypes.BAR ? true : false,
+        [cssClasses]: cssClasses ? true : false,
     };
     let content: unknown = valueToDisplay;
 
     if (isEditable && editableTypes.includes(cellType)) {
-        content = setEditableCell(cellType, cell, column, props);
+        content = setEditableCell(cellType, classObj, cell, column, props);
     } else if (cell.data && kupTypes.includes(cellType)) {
         if (props.setSizes) {
             setCellSizeKup(cellType, subcomponentProps, cell);
@@ -82,7 +101,8 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
                 subcomponentProps,
                 cell,
                 row,
-                column
+                column,
+                props
             );
         }
     } else {
@@ -95,17 +115,12 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
             content,
             classObj,
             cell,
-            column
+            column,
+            props
         );
     }
 
-    const style = cell.style;
-
-    if (styleHasWritingMode(cell)) {
-        classObj['is-vertical'] = true;
-    }
-
-    let icon: VNode = undefined;
+    let icon: VNode = null;
     if (!isEditable && (column.icon || cell.icon) && content) {
         const fProps: FImageProps = {
             color: `rgba(var(${KupThemeColorValues.TEXT}-rgb), 0.375)`,
@@ -145,29 +160,12 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     }
 
     return (
-        <div
-            class={`f-cell--wrapper ${
-                props.density && cellType !== FCellTypes.BAR
-                    ? props.density.toLowerCase()
-                    : ''
-            } ${
-                cell.cssClass
-                    ? cell.cssClass
-                    : column.cssClass
-                    ? column.cssClass
-                    : ''
-            }`}
-            style={
-                style &&
-                (style.border !== undefined || style.padding !== undefined)
-                    ? {
-                          border: style.border,
-                          padding: style.padding,
-                      }
-                    : null
-            }
-        >
-            <div class={classObj} style={style} title={cellTitle}>
+        <div class={classObj} style={cell.style}>
+            <div
+                class="f-cell__content"
+                style={cell.styleContent}
+                title={cellTitle}
+            >
                 {props.indents}
                 {infoEl}
                 {icon}
@@ -206,10 +204,8 @@ function setCellSize(
             break;
         case FCellTypes.IMAGE:
             if (
-                props.component &&
-                (props.component as KupComponent).rootElement &&
                 (props.component as KupComponent).rootElement.tagName ===
-                    'KUP-BOX'
+                'KUP-BOX'
             ) {
                 if (!(subcomponentProps as FImageProps).sizeY) {
                     (subcomponentProps as FImageProps).sizeY = 'auto';
@@ -282,6 +278,7 @@ function setCellSizeKup(
 
 function setEditableCell(
     cellType: string,
+    classObj: Record<string, boolean>,
     cell: Cell,
     column: Column,
     props: FCellProps
@@ -294,14 +291,26 @@ function setEditableCell(
                     class="kup-full-width"
                     onkup-autocomplete-change={(
                         e: CustomEvent<KupAutocompleteEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    onkup-autocomplete-input={(
+                        e: CustomEvent<KupAutocompleteEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
         case FCellTypes.CHECKBOX:
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             return (
                 <FCheckbox
                     {...cell.data}
-                    onChange={(e: InputEvent) => cellUpdate(e, props, cellType)}
+                    onChange={(e: InputEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                    }
                 />
             );
         case FCellTypes.COLOR_PICKER:
@@ -311,7 +320,7 @@ function setEditableCell(
                     disabled={false}
                     onkup-colorpicker-change={(
                         e: CustomEvent<KupColorPickerEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
                 ></kup-color-picker>
             );
         case FCellTypes.COMBOBOX:
@@ -321,17 +330,24 @@ function setEditableCell(
                     class="kup-full-width"
                     onkup-combobox-change={(
                         e: CustomEvent<KupComboboxEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    onkup-combobox-input={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
         case FCellTypes.DATE:
             return (
                 <kup-date-picker
+                    initialValue={cell.value}
                     {...cell.data}
                     class="kup-full-width"
                     onkup-datepicker-change={(
                         e: CustomEvent<KupDatePickerEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    onkup-datepicker-input={(
+                        e: CustomEvent<KupDatePickerEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
         case FCellTypes.RATING:
@@ -341,23 +357,28 @@ function setEditableCell(
                     disabled={false}
                     onkup-rating-click={(
                         e: CustomEvent<KupRatingClickEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
                 ></kup-rating>
             );
         case FCellTypes.TIME:
             return (
                 <kup-time-picker
+                    initialValue={cell.value}
                     {...cell.data}
                     class="kup-full-width"
                     onkup-timepicker-change={(
                         e: CustomEvent<KupTimePickerEventPayload>
-                    ) => cellUpdate(e, props, cellType)}
+                    ) => cellEvent(e, props, cellType, FCellEvents.UPDATE)}
+                    onkup-timepicker-input={(
+                        e: CustomEvent<KupTimePickerEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
                 />
             );
         case FCellTypes.NUMBER:
         case FCellTypes.STRING:
             return (
                 <FTextField
+                    {...cell.data}
                     icon={
                         cell.icon ? cell.icon : column.icon ? column.icon : null
                     }
@@ -368,7 +389,12 @@ function setEditableCell(
                             ? stringToNumber(cell.value).toString()
                             : cell.value
                     }
-                    onChange={(e: InputEvent) => cellUpdate(e, props, cellType)}
+                    onChange={(e: InputEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.UPDATE)
+                    }
+                    onInput={(e: InputEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.INPUT)
+                    }
                 />
             );
     }
@@ -380,7 +406,8 @@ function setCell(
     content: unknown,
     classObj: Record<string, boolean>,
     cell: Cell,
-    column: Column
+    column: Column,
+    props: FCellProps
 ): unknown {
     switch (cellType) {
         case FCellTypes.AUTOCOMPLETE:
@@ -394,7 +421,13 @@ function setCell(
             }
             return content;
         case FCellTypes.CHECKBOX:
-            classObj['c-centered'] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             return (
                 <FImage
                     resource={
@@ -410,14 +443,20 @@ function setCell(
             return <div innerHTML={cell.value}></div>;
         case FCellTypes.ICON:
         case FCellTypes.IMAGE:
-            classObj['c-centered'] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             if ((subcomponentProps as FImageProps).badgeData) {
-                classObj['has-padding'] = true;
+                classObj[FCellClasses.C_PADDED] = true;
             }
             return <FImage {...subcomponentProps} />;
         case FCellTypes.LINK:
             return (
-                <a class="cell-link" href={content as string} target="_blank">
+                <a href={content as string} target="_blank">
                     {cell.value}
                 </a>
             );
@@ -426,7 +465,14 @@ function setCell(
                 const cellValueNumber = stringToNumber(cell.value);
                 const cellValue = getCellValueForDisplay(column, cell);
                 if (cellValueNumber < 0) {
-                    classObj['negative-number'] = true;
+                    classObj[FCellClasses.TEXT_DANGER] = true;
+                }
+                if (
+                    autoAlignComps.includes(
+                        (props.component as KupComponent).rootElement.tagName
+                    )
+                ) {
+                    classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
                 }
                 return cellValue;
             }
@@ -442,7 +488,8 @@ function setKupCell(
     subcomponentProps: unknown,
     cell: Cell,
     row: Row,
-    column: Column
+    column: Column,
+    props: FCellProps
 ): unknown {
     switch (cellType) {
         case FCellTypes.BAR:
@@ -453,16 +500,35 @@ function setKupCell(
                     height: (subcomponentProps as FImageProps).sizeY,
                 };
                 return (
-                    <div class="bar-cell-content" style={barStyle}>
+                    <div style={barStyle}>
                         <FImage {...subcomponentProps} />
                     </div>
                 );
             }
         case FCellTypes.BUTTON:
-            classObj['c-centered'] = true;
-            return <kup-button {...subcomponentProps}></kup-button>;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
+            return (
+                <kup-button
+                    {...subcomponentProps}
+                    onkup-button-click={(
+                        e: CustomEvent<KupButtonClickEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.CLICK)}
+                ></kup-button>
+            );
         case FCellTypes.BUTTON_LIST:
-            classObj['c-centered'] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             subcomponentProps['data-storage'] = {
                 cell: cell,
                 row: row,
@@ -470,7 +536,13 @@ function setKupCell(
             };
             return <kup-button-list {...subcomponentProps}></kup-button-list>;
         case FCellTypes.CHART:
-            classObj['c-centered'] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             return <kup-chart {...subcomponentProps} />;
         case FCellTypes.CHIP:
             return <FChip {...subcomponentProps} />;
@@ -493,7 +565,13 @@ function setKupCell(
         case FCellTypes.PROGRESS_BAR:
             return <kup-progress-bar {...subcomponentProps}></kup-progress-bar>;
         case FCellTypes.RADIO:
-            classObj['c-centered'] = true;
+            if (
+                autoAlignComps.includes(
+                    (props.component as KupComponent).rootElement.tagName
+                )
+            ) {
+                classObj[FCellClasses.C_CENTERED] = true;
+            }
             subcomponentProps['disabled'] = row.readOnly;
             return <kup-radio {...subcomponentProps}></kup-radio>;
         case FCellTypes.RATING:
@@ -511,6 +589,8 @@ function getCellType(cell: Cell, shape?: FCellShapes) {
                 return FCellTypes.BUTTON_LIST;
             case FCellShapes.CHART:
                 return FCellTypes.CHART;
+            case FCellShapes.CHECKBOX:
+                return FCellTypes.CHECKBOX;
             case FCellShapes.CHIP:
                 return FCellTypes.CHIP;
             case FCellShapes.COLOR_PICKER:
@@ -573,17 +653,18 @@ function getCellType(cell: Cell, shape?: FCellShapes) {
     }
 }
 
-function cellUpdate(
+function cellEvent(
     e: InputEvent | CustomEvent,
     props: FCellProps,
-    cellType: FCellTypes
+    cellType: FCellTypes,
+    cellEventName: string
 ): void {
     const cell = props.cell;
     const column = props.column;
     const comp = props.component;
     const row = props.row;
     const isInputEvent = !!((e.target as HTMLElement).tagName === 'INPUT');
-    const value = isInputEvent
+    let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
     switch (cellType) {
@@ -596,12 +677,10 @@ function cellUpdate(
             }
             break;
         case FCellTypes.CHECKBOX:
-            if (
-                cell.data &&
-                (cell.data as FCheckboxProps).checked !== undefined
-            ) {
+            value = value === 'on' ? '0' : '1';
+            if (cell.data) {
                 (cell.data as FCheckboxProps).checked =
-                    value === 'on' ? false : true;
+                    value === '0' ? false : true;
             }
             break;
     }
@@ -612,21 +691,19 @@ function cellUpdate(
     cell.displayedValue = null;
     cell.displayedValue = getCellValueForDisplay(column, cell);
     if (comp && (comp as KupComponent).rootElement) {
-        const updateEvent = new CustomEvent<FCellEventPayload>(
-            cellUpdateEvent,
-            {
-                bubbles: true,
-                cancelable: true,
-                detail: {
-                    comp: comp,
-                    id: (comp as KupComponent).rootElement.id,
-                    cell: cell,
-                    column: column,
-                    row: row,
-                    event: e,
-                },
-            }
-        );
+        const updateEvent = new CustomEvent<FCellEventPayload>(cellEventName, {
+            bubbles: true,
+            cancelable: true,
+            detail: {
+                comp: comp,
+                id: (comp as KupComponent).rootElement.id,
+                cell: cell,
+                column: column,
+                event: e,
+                row: row,
+                type: cellType,
+            },
+        });
         (comp as KupComponent).rootElement.dispatchEvent(updateEvent);
         try {
             (comp as KupComponent).refresh();

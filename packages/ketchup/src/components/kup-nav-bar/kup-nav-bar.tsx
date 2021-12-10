@@ -200,13 +200,13 @@ export class KupNavBar {
     }
 
     render() {
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host class="header">
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <header
                         class={`${navbarClass} ${navbarClass}--${this.styling.toLowerCase()} `}

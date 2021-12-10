@@ -49,7 +49,6 @@ import {
     KupDatatableColumnMenuEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
-    KupDataTableCellButtonClickEventPayload,
     KupDataTableCellTextFieldInputEventPayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
@@ -60,7 +59,6 @@ import {
     groupRows,
     paginateRows,
     sortRows,
-    styleHasBorderRadius,
 } from './kup-data-table-helper';
 import {
     GenericObject,
@@ -151,6 +149,7 @@ import {
 } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 import {
+    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -944,14 +943,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupLoadMoreClick: EventEmitter<KupDatatableLoadMoreClickEventPayload>;
-
-    @Event({
-        eventName: 'kup-datatable-cellbuttonclick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupCellButtonClick: EventEmitter<KupDataTableCellButtonClickEventPayload>;
 
     @Event({
         eventName: 'kup-datatable-textfieldinput',
@@ -1929,9 +1920,8 @@ export class KupDataTable {
     componentDidRender() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const fs: NodeListOf<HTMLElement> = root.querySelectorAll(
-                '.f-text-field--wrapper'
-            );
+            const fs: NodeListOf<HTMLElement> =
+                root.querySelectorAll('.f-text-field');
             for (let index = 0; index < fs.length; index++) {
                 FTextFieldMDC(fs[index]);
             }
@@ -2206,7 +2196,7 @@ export class KupDataTable {
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
             td = el.closest('td'),
-            textfield: HTMLElement = el.closest('.f-text-field--wrapper'),
+            textfield: HTMLElement = el.closest('.f-text-field'),
             th = el.closest('th'),
             tr: HTMLTableRowElement = el.closest('tr'),
             filterRemove: HTMLSpanElement = el.closest(
@@ -4157,7 +4147,7 @@ export class KupDataTable {
                     }
                 }
 
-                const cell = { ...row.cells[name] };
+                const cell = row.cells[name] ? row.cells[name] : null;
                 if (!cell) {
                     if (this.autoFillMissingCells) {
                         return <td data-column={name} data-row={row}></td>;
@@ -4167,14 +4157,10 @@ export class KupDataTable {
                 }
 
                 let hasIndicator = false;
-                const indicatorClass = 'top-right-indicator';
+                const indicatorClass = FCellClasses.INDICATOR_TOPRIGHT;
                 if (cell.cssClass) {
                     if (cell.cssClass.indexOf(indicatorClass) > -1) {
                         hasIndicator = true;
-                        cell.cssClass = cell.cssClass.replace(
-                            new RegExp(indicatorClass, 'g'),
-                            ''
-                        );
                     }
                 }
 
@@ -4198,10 +4184,7 @@ export class KupDataTable {
                 // Classes which will be set onto the single data-table cell;
 
                 let cellClass: GenericObject = null;
-                let cellStyle: GenericObject = null;
-                if (!styleHasBorderRadius(cell)) {
-                    cellStyle = { ...cell.style };
-                }
+                let cellStyle: GenericObject = { ...cell.style };
 
                 //-- For fixed cells --
                 const fixedStyles = this.composeFixedCellStyleAndClass(
@@ -5062,13 +5045,13 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         const compCreated = (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div class="above-wrapper">
                         {this.globalFilter ? (

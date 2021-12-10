@@ -1087,17 +1087,16 @@ export const cellStyleDataTable2 = {
     {
       cells: {
         FLD1: {
+          cssClass: 'c-vertical-text c-round',
           obj: {
             t: 'CN',
             p: 'COL',
             k: 'CASFRA',
           },
           value: 'CASFRA',
-          style: {
+          styleContent: {
             backgroundColor: 'blue',
             color: '#FFF',
-            borderRadius: '50px',
-            writingMode: 'vertical-lr',
           },
         },
         FLD2: {
@@ -1113,17 +1112,16 @@ export const cellStyleDataTable2 = {
           },
         },
         FLD3: {
+          cssClass: 'c-fitted c-round c-hor-padded c-ver-padded',
           obj: {
             t: 'NR',
             p: '',
             k: '100.60',
           },
           value: '100.60',
-          style: {
+          styleContent: {
             backgroundColor: 'blue',
             color: '#FFF',
-            borderRadius: '50px',
-            padding: '3px',
           },
         },
         FLD4: {
@@ -93273,13 +93271,13 @@ export const reportDatatable = {
     {
       cells: {
         FLD6: {
+          cssClass: 'c-centered',
           span: {
             col: 5,
           },
           style: {
             fontStyle: 'italic',
             height: '2.5em',
-            justifyContent: 'center',
             lineHeight: '2.5em',
           },
           value: 'Avalanches at the Vallée de la Sionne Site',
@@ -93470,13 +93468,13 @@ export const reportDatatable = {
     {
       cells: {
         FLD6: {
+          cssClass: 'c-centered',
           span: {
             col: 5,
           },
           style: {
             fontStyle: 'italic',
             height: '2.5em',
-            justifyContent: 'center',
             lineHeight: '2.5em',
           },
           value: 'Avalanches at the Mount Pizzac Site',
@@ -93667,13 +93665,13 @@ export const reportDatatable = {
     {
       cells: {
         FLD6: {
+          cssClass: 'c-centered',
           span: {
             col: 5,
           },
           style: {
             fontStyle: 'italic',
             height: '2.5em',
-            justifyContent: 'center',
             lineHeight: '2.5em',
           },
           value: 'Extreme avalanches of Winter 1998-1999',
@@ -93849,13 +93847,13 @@ export const reportDatatable = {
     {
       cells: {
         FLD6: {
+          cssClass: 'c-centered',
           span: {
             col: 5,
           },
           style: {
             fontStyle: 'italic',
             fontWeight: 'bold',
-            justifyContent: 'center',
             lineHeight: '2.5em',
           },
           value: '*Footer note',

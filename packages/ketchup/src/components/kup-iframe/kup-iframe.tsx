@@ -9,7 +9,6 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-
 import type { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {

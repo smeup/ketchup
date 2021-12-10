@@ -33,14 +33,6 @@
   font-size: var(--kup_box_font_size);
 }
 
-.box-section {
-  .f-cell__content {
-    justify-content: center;
-  }
-
-  text-align: center;
-}
-
 .box-component {
   background: var(--kup_box_background_color);
   transition: border var(--kup_box_transition) ease;
@@ -159,7 +151,7 @@
               display: flex;
               align-items: center;
 
-              .f-image--wrapper {
+              .f-image {
                 transition: transform 0.15s;
 
                 &.toggled {

@@ -176,13 +176,13 @@ export class KupSnackbar {
     }
 
     render() {
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host kup-visible={this.visible}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div class={snackbarClass}>
                         <div class={`${snackbarClass}__text`}>{this.text}</div>

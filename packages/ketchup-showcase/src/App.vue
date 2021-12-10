@@ -259,6 +259,7 @@ export default {
   },
   data: () => ({
     drawerCellData: {
+      cssClass: 'c-centered',
       data: {
         color: 'var(--smeup-logo-color, #a61a2f)',
         resource: 'smeup',
@@ -484,7 +485,7 @@ export default {
                     value: 'datepicker',
                   },
                 },
-                value: 'Datepicker',
+                value: 'Date picker',
                 visible: true,
               },
               {

@@ -33,7 +33,7 @@ export default {
             e
           );
         },
-        onKupCellButtonClicked: (e) => {
+        onKupCellClick: (e) => {
           const cell = JSON.stringify(e.detail.cell),
             row = JSON.stringify(e.detail.row),
             column = JSON.stringify(e.detail.column);
@@ -50,7 +50,7 @@ export default {
             e
           );
         },
-        onKupCellButtonClicked: (e) => {
+        onKupCellClick: (e) => {
           const cell = JSON.stringify(e.detail.cell),
             row = JSON.stringify(e.detail.row),
             column = JSON.stringify(e.detail.column);

@@ -279,13 +279,13 @@ export class KupImage {
             return;
         }
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host style={elStyle}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 {feedback}
                 <div id={componentWrapperId}>{el}</div>
             </Host>
