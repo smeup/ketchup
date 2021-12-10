@@ -2809,7 +2809,7 @@ export class KupDataTable {
         }
 
         // selecting clicked column
-        if (clickedColumn) {
+        if (this.selection !== SelectionMode.NONE && clickedColumn) {
             this.deselectColumn(this.selectedColumn);
             this.selectedColumn = clickedColumn;
             this.selectColumn(this.selectedColumn);
