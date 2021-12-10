@@ -1264,11 +1264,14 @@ export class KupBox {
 
             while (size-- > 0) {
                 sectionContent.push(
-                    this.renderBoxObject({
-                        boxObject: content[cnt++],
-                        row,
-                        visibleColumns,
-                    })
+                    this.renderBoxObject(
+                        {
+                            boxObject: content[cnt++],
+                            row,
+                            visibleColumns,
+                        },
+                        true
+                    )
                 );
             }
         } else if (visibleColumns.length > 0) {
@@ -1369,15 +1372,18 @@ export class KupBox {
         return sectionContainer;
     }
 
-    private renderBoxObject({
-        boxObject,
-        row,
-        visibleColumns,
-    }: {
-        boxObject: BoxObject;
-        row: KupBoxRow;
-        visibleColumns: Column[];
-    }) {
+    private renderBoxObject(
+        {
+            boxObject,
+            row,
+            visibleColumns,
+        }: {
+            boxObject: BoxObject;
+            row: KupBoxRow;
+            visibleColumns: Column[];
+        },
+        fromSection?: boolean
+    ) {
         const classObj: Record<string, boolean> = {
             'box-object': true,
         };
@@ -1395,6 +1401,8 @@ export class KupBox {
         if (index >= 0) {
             column = visibleColumns[index];
             visibleColumns.splice(index, 1);
+        } else if (fromSection) {
+            column = this.data.columns.find((x) => x.name === boxObject.column);
         }
         const cell = row.cells[boxObject.column];
         let _hasTooltip = false;
