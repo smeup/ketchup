@@ -140,7 +140,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
     }
 
     let infoEl: HTMLElement = null;
-    if (cell.info && cell.info.message) {
+    if (cell.info) {
         const info: FCellInfo = { ...cell.info };
         if (!info.color) {
             info.color = `var(${KupThemeColorValues.INFO})`;
@@ -153,7 +153,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
             resource: info.icon,
             sizeX: '1.25em',
             sizeY: '1.25em',
-            title: info.message,
+            title: info.message ? info.message : '',
             wrapperClass: 'cell-info',
         };
         infoEl = <FImage {...fProps} />;
