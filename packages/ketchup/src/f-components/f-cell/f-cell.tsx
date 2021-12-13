@@ -557,7 +557,7 @@ function setKupCell(
             return (
                 <kup-gauge
                     value={stringToNumber(cell.value)}
-                    width-component="100%"
+                    width-component="280px"
                     {...subcomponentProps}
                 ></kup-gauge>
             );
