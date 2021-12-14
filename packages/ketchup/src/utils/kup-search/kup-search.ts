@@ -1,9 +1,15 @@
-import type { KupCardEventPayload } from '../../components/kup-card/kup-card-declarations';
-import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import { KupCard } from '../../components/kup-card/kup-card';
+import {
+    KupCardEventPayload,
+    KupCardFamily,
+} from '../../components/kup-card/kup-card-declarations';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupSearchEventPayload,
     searchStartEvent,
 } from './kup-search-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Handles operations and formatting of dates.
@@ -24,26 +30,23 @@ export class KupSearch {
     /**
      * Starts the search process.
      * @param {Function} callback - The callback that must be invoked when the search is over.
-     * @param {Partial<KupDataTable>} props - The props of the search data table. When missing, the search dialog will be initialized with a spinner and the kup-search-start event will be fired.
+     * @param {Partial<KupCard>} props - The props of the search card. When missing, the search will display a spinner in place of the data table.
      * @returns {HTMLKupCardElement} The search card created by this method.
      */
-    start(
-        callback: Function,
-        props?: Partial<KupDataTable>
-    ): HTMLKupCardElement {
+    start(callback: Function, props?: Partial<KupCard>): HTMLKupCardElement {
         const card = document.createElement('kup-card');
-        card.addEventListener(
-            'kup-card-event',
-            (e: CustomEvent<KupCardEventPayload>) => {
-                if (e.detail.event.type === 'kup-datatable-rowselected') {
-                    callback();
-                    this.activeCards.delete(card);
-                    card.remove();
-                }
-            }
-        );
+        card.data = {};
+        card.isMenu = true;
+        card.layoutFamily = KupCardFamily.DIALOG;
+        card.layoutNumber = 6;
+        card.menuVisible = false;
+        card.sizeX = '50vw';
+        card.sizeY = '50vh';
         if (props) {
-            card.data.datatable = [{ ...props }];
+            for (const key in props) {
+                const prop = props[key];
+                card[key] = prop;
+            }
         } else {
             const e = new CustomEvent<KupSearchEventPayload>(searchStartEvent, {
                 bubbles: true,
@@ -54,7 +57,33 @@ export class KupSearch {
             });
             document.dispatchEvent(e);
         }
+        card.style.position = 'absolute';
+        card.style.left = '0';
+        card.style.top = '0';
         this.activeCards.add(card);
+        card.addEventListener('kup-card-close', () => {
+            this.activeCards.delete(card);
+        });
+        card.addEventListener(
+            'kup-card-event',
+            (e: CustomEvent<KupCardEventPayload>) => {
+                const cardDetail = e.detail;
+                const datatableDetail = cardDetail.event.detail;
+                if (cardDetail.event.type === 'kup-datatable-rowselected') {
+                    callback(datatableDetail);
+                    this.activeCards.delete(card);
+                    card.remove();
+                }
+            }
+        );
+        card.addEventListener('kup-card-ready', () => {
+            const x = card.clientWidth / 2;
+            const y = card.clientHeight / 2;
+            card.setAttribute('data-x', x.toString());
+            card.setAttribute('data-y', y.toString());
+            card.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+            card.menuVisible = true;
+        });
         this.container.appendChild(card);
         return card;
     }

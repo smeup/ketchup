@@ -3598,9 +3598,17 @@ declare namespace LocalJSX {
          */
         "onKup-card-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
+          * Triggered when a dialog card is closed with the "X".
+         */
+        "onKup-card-close"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
           * Triggered when a sub-component of the card emits an event.
          */
         "onKup-card-event"?: (event: CustomEvent<KupCardEventPayload>) => void;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-card-ready"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
