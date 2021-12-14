@@ -57,7 +57,7 @@ export class KupSearch {
             });
             document.dispatchEvent(e);
         }
-        card.style.position = 'absolute';
+        card.style.position = 'fixed';
         card.style.left = '0';
         card.style.top = '0';
         this.activeCards.add(card);
