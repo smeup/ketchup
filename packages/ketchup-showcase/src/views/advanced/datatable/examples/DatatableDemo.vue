@@ -113,6 +113,10 @@ export default {
             'This method is invoked by KupManager whenever the component changes size.',
         },
         {
+          name: 'setFocus',
+          description: 'Sets the focus on an editable table cell.',
+        },
+        {
           name: 'setProps',
           description: 'Sets the props to the component.',
         },

@@ -1215,6 +1215,12 @@ export namespace Components {
          */
         "selection": SelectionMode;
         /**
+          * Sets the focus on an editable table cell.
+          * @param column - Name of the column.
+          * @param rowId - Id of the row.
+         */
+        "setFocus": (column: string, rowId: string) => Promise<void>;
+        /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
          */
