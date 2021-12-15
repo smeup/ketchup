@@ -41,11 +41,14 @@ export interface KupCardData {
 /**
  * Layout families of the kup-card component.
  * @enum {string}
+ * @property {string} BUILTIN - Cards belonging to this family will created automatically by library.
  * @property {string} COLLAPSIBLE - Cards belonging to this family will display an area usable to expand the content of the card.
+ * @property {string} DIALOG - Cards belonging to this family can be moved by mouse or touch inside page body.
  * @property {string} SCALABLE - Content will fit its container, resizing itself automatically.
  * @property {string} STANDARD - Stndard layouts.
  */
 export enum KupCardFamily {
+    BUILTIN = 'builtin',
     COLLAPSIBLE = 'collapsible',
     DIALOG = 'dialog',
     SCALABLE = 'scalable',
@@ -69,6 +72,7 @@ export enum KupCardIds {
  * Recurring CSS classes.
  */
 export enum KupCardCSSClasses {
+    BUILTIN_CARD = 'builtin-card',
     CARD_VIEW = 'card-view',
     CLICKABLE_LINK = 'clickable-link',
     COLLAPSIBLE_ACTIVE = 'collapsible-active',
@@ -95,6 +99,10 @@ export enum KupCardSubEvents {
     CHIP_ICONCLICK = 'kup-chip-iconclick',
     TABBAR_CLICK = 'kup-tabbar-click',
     TREE_NODESELECTED = 'kup-tree-nodeselected',
+}
+
+export interface KupCardClickPayload extends KupEventPayload {
+    value: string;
 }
 
 export interface KupCardEventPayload extends KupEventPayload {
