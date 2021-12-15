@@ -100,7 +100,7 @@ export function dialogHeader(title: string): VNode {
             <FImage
                 color={`var(${KupThemeColorValues.TITLE})`}
                 sizeX="1.25em"
-                sizeY="2em"
+                sizeY="100%"
                 resource="clear"
                 id={KupCardIds.DIALOG_CLOSE}
             />

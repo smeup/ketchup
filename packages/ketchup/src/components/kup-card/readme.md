@@ -22,7 +22,9 @@
 | Event            | Description                                                | Type                               |
 | ---------------- | ---------------------------------------------------------- | ---------------------------------- |
 | `kup-card-click` | Triggered when the card is clicked.                        | `CustomEvent<KupEventPayload>`     |
+| `kup-card-close` | Triggered when a dialog card is closed with the "X".       | `CustomEvent<KupEventPayload>`     |
 | `kup-card-event` | Triggered when a sub-component of the card emits an event. | `CustomEvent<KupCardEventPayload>` |
+| `kup-card-ready` | Triggered when the component is ready.                     | `CustomEvent<KupEventPayload>`     |
 
 
 ## Methods
@@ -97,9 +99,9 @@ Type: `Promise<void>`
 - [kup-time-picker](../kup-time-picker)
 - [kup-data-table](../kup-data-table)
 - [kup-list](../kup-list)
+- [kup-spinner](../kup-spinner)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-chart](../kup-chart)
-- [kup-spinner](../kup-spinner)
 - [kup-tab-bar](../kup-tab-bar)
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
@@ -118,9 +120,9 @@ graph TD;
   kup-card --> kup-time-picker
   kup-card --> kup-data-table
   kup-card --> kup-list
+  kup-card --> kup-spinner
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
-  kup-card --> kup-spinner
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch

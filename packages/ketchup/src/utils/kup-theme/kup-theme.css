@@ -7,6 +7,92 @@
     top: 0;
     z-index: calc(var(--kup-navbar-zindex) + 1) !important;
 }
+
+/*-------------------------------------------------*/
+/*                   D i a l o g                   */
+/*-------------------------------------------------*/
+[kup-dialog] {
+    animation: fade-in 0.25s ease-out;
+    background-color: var(--kup-background-color);
+    margin: 0;
+    position: absolute;
+    -ms-touch-action: none;
+    touch-action: none;
+    transition: none;
+    will-change: transform;
+}
+
+[kup-dialog].kup-resizable {
+    border: 3px outset var(--kup-title-background-color);
+}
+
+@-webkit-keyframes fade-in {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fade-in {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fade-in {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
 /*-------------------------------------------------*/
 /*          S c r o l l   o n   h o v e r          */
 /*-------------------------------------------------*/

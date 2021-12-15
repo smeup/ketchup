@@ -236,6 +236,10 @@
   opacity: 0.5;
 }
 
+.grid-cell {
+  height: 0; // Trick to let the cell' size to adapt to its content
+}
+
 tfoot {
   td {
     border-bottom: var(--kup_tree_border);
@@ -428,24 +432,4 @@ tfoot {
 .#{$kup-icon}.#{$kup-icon-filter-remove} {
   -webkit-mask: var(--kup-filter-remove-icon);
   mask: var(--kup-filter-remove-icon);
-}
-
-td.top-right-indicator {
-  position: relative !important;
-
-  &.fixed-column,
-  &.fixed-row {
-    position: sticky !important;
-  }
-
-  &:after {
-    content: '';
-    border-width: 0 0 0.5em 0.5em;
-    border-color: transparent transparent var(--kup-secondary-color) transparent;
-    border-style: solid;
-    transform: rotate(270deg);
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
 }

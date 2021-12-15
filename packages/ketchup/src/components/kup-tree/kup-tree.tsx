@@ -1540,13 +1540,6 @@ export class KupTree {
                 const cell = treeNodeData.cells[column.name]
                     ? treeNodeData.cells[column.name]
                     : null;
-                let hasIndicator = false;
-                const indicatorClass = FCellClasses.INDICATOR_TOPRIGHT;
-                if (cell.cssClass) {
-                    if (cell.cssClass.indexOf(indicatorClass) > -1) {
-                        hasIndicator = true;
-                    }
-                }
                 const cellProps: FCellProps = {
                     cell: cell,
                     column: column,
@@ -1558,11 +1551,7 @@ export class KupTree {
                     setSizes: true,
                 };
                 treeNodeCells.push(
-                    <td
-                        class={`grid-cell ${
-                            hasIndicator ? indicatorClass : ''
-                        }`}
-                    >
+                    <td class={`grid-cell`}>
                         <FCell {...cellProps}></FCell>
                     </td>
                 );

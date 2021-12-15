@@ -1119,6 +1119,7 @@ export const cellStyleDataTable2 = {
             k: '100.60',
           },
           value: '100.60',
+          style: {padding: "10px"},
           styleContent: {
             backgroundColor: 'blue',
             color: '#FFF',

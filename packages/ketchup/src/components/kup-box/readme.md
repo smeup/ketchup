@@ -173,9 +173,9 @@ graph TD;
   kup-card --> kup-time-picker
   kup-card --> kup-data-table
   kup-card --> kup-list
+  kup-card --> kup-spinner
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
-  kup-card --> kup-spinner
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch

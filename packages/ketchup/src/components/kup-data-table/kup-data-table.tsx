@@ -1067,6 +1067,33 @@ export class KupDataTable {
         }
     }
     /**
+     * Sets the focus on an editable table cell.
+     * @param {string} column - Name of the column.
+     * @param {string} rowId - Id of the row.
+     */
+    @Method()
+    async setFocus(column: string, rowId: string): Promise<void> {
+        const cells = this.rootElement.shadowRoot.querySelectorAll(
+            'td[data-column="' + column + '"]'
+        );
+        for (let index = 0; cells && index < cells.length; index++) {
+            const cell = cells[index];
+            if (cell['data-row'] && cell['data-row'].id == rowId) {
+                const input = cell.querySelector('input');
+                if (input) {
+                    input.focus();
+                } else {
+                    const kupInput = cell.querySelector('.hydrated');
+                    if (kupInput) {
+                        try {
+                            (kupInput as any).setFocus();
+                        } catch (error) {}
+                    }
+                }
+            }
+        }
+    }
+    /**
      * Sets the props to the component.
      * @param {GenericObject} props - Object containing props that will be set to the component.
      */
@@ -4156,14 +4183,6 @@ export class KupDataTable {
                     }
                 }
 
-                let hasIndicator = false;
-                const indicatorClass = FCellClasses.INDICATOR_TOPRIGHT;
-                if (cell.cssClass) {
-                    if (cell.cssClass.indexOf(indicatorClass) > -1) {
-                        hasIndicator = true;
-                    }
-                }
-
                 const cellProps: FCellProps = {
                     cell: cell,
                     column: currentColumn,
@@ -4257,8 +4276,7 @@ export class KupDataTable {
                 }
 
                 cellClass = {
-                    ...cellClass,
-                    [indicatorClass]: hasIndicator,
+                    ...cellClass
                 };
 
                 return (
