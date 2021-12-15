@@ -3625,6 +3625,11 @@
     height: var(--kup_textfield_fullwidth_height) !important;
     padding: 0 var(--kup_textfield_fullwidth_padding);
 }
+#kup-component
+    .f-text-field.kup-full-width
+    .mdc-text-field.mdc-text-field--with-leading-icon {
+    padding-left: 0;
+}
 #kup-component .f-text-field.kup-shaped .mdc-text-field.mdc-text-field--filled {
     border-radius: 16px 16px 0 0;
 }
