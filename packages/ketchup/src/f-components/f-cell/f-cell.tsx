@@ -64,16 +64,6 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
         : column.cssClass
         ? column.cssClass
         : '';
-    if (
-        props.density &&
-        cell.cssClass &&
-        cell.cssClass.indexOf(FCellClasses.INDICATOR_TOPRIGHT) > -1
-    ) {
-        cssClasses = cssClasses.replace(
-            new RegExp(FCellClasses.INDICATOR_TOPRIGHT, 'g'),
-            ''
-        );
-    }
     const classObj: Record<string, boolean> = {
         'f-cell': true,
         [FCellClasses.OBJ]: hasObj ? true : false,
@@ -417,7 +407,7 @@ function setCell(
         case FCellTypes.TIME:
             if (content && content != '') {
                 const cellValue = getCellValueForDisplay(column, cell);
-                return cellValue;
+                return <div class="f-cell__text">{cellValue}</div>;
             }
             return content;
         case FCellTypes.CHECKBOX:
@@ -474,11 +464,11 @@ function setCell(
                 ) {
                     classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
                 }
-                return cellValue;
+                return <div class="f-cell__text">{cellValue}</div>;
             }
-            return content;
+            return <div class="f-cell__text">{content}</div>;
         default:
-            return content;
+            return <div class="f-cell__text">{content}</div>;
     }
 }
 

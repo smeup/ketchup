@@ -4183,14 +4183,6 @@ export class KupDataTable {
                     }
                 }
 
-                let hasIndicator = false;
-                const indicatorClass = FCellClasses.INDICATOR_TOPRIGHT;
-                if (cell.cssClass) {
-                    if (cell.cssClass.indexOf(indicatorClass) > -1) {
-                        hasIndicator = true;
-                    }
-                }
-
                 const cellProps: FCellProps = {
                     cell: cell,
                     column: currentColumn,
@@ -4284,8 +4276,7 @@ export class KupDataTable {
                 }
 
                 cellClass = {
-                    ...cellClass,
-                    [indicatorClass]: hasIndicator,
+                    ...cellClass
                 };
 
                 return (
