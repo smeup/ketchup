@@ -2,8 +2,8 @@ import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
-import * as globalCSS from '../../style/global.css';
-import * as themeCSS from './kup-theme.css';
+import * as componentCSS from './kup-theme-component.css';
+import * as applicationCSS from './kup-theme-application.css';
 import {
     KupThemeColor,
     KupThemeCSSVariables,
@@ -71,7 +71,7 @@ export class KupTheme {
             this.cssVariables() +
             this.icons() +
             '}' +
-            themeCSS['default'];
+            applicationCSS['default'];
         this.customStyle();
 
         document.documentElement.setAttribute('kup-theme', this.name);
@@ -216,7 +216,7 @@ export class KupTheme {
      */
     setKupStyle(comp: KupComponent): string {
         const styles: GenericObject = this.list[this.name].customStyles;
-        let completeStyle = globalCSS['default'];
+        let completeStyle = componentCSS['default'];
         if (styles && styles[masterCustomStyle]) {
             completeStyle += styles[masterCustomStyle];
         }
