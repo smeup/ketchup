@@ -110,8 +110,10 @@ export class KupCard {
     private cardEvent: EventListenerOrEventListenerObject = (
         e: CustomEvent
     ) => {
-        e.stopPropagation();
-        this.onKupEvent(e);
+        if (this.layoutFamily != KupCardFamily.BUILTIN) {
+            e.stopPropagation();
+            this.onKupEvent(e);
+        }
     };
     /**
      * Instance of the KupManager class.
@@ -235,8 +237,10 @@ export class KupCard {
             for (let index = 0; index < links.length; index++) {
                 const link: HTMLElement = links[index];
                 link.onclick = (e) => {
-                    e.stopPropagation();
-                    this.onKupClick(link.id, null);
+                    if (this.layoutFamily == KupCardFamily.BUILTIN) {
+                        e.stopPropagation();
+                        this.onKupClick(link.id, null);
+                    }
                 };
             }
         }

@@ -59,7 +59,7 @@ export function prepareCalendar(component: KupCard) {
     );
 
     return (
-        <div id="date-picker-div">
+        <div id={componentRef.rootElement.id + '_calendar'}>
             <div class="section-1">
                 <div class="sub-1 nav">
                     {prevButtonComp}
