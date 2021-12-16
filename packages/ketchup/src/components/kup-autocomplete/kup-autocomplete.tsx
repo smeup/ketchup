@@ -242,12 +242,14 @@ export class KupAutocomplete {
         this.doConsistencyCheck = true;
         this.consistencyCheck(e);
         this.closeList();
+        if (this.textfieldEl) {
+            this.textfieldEl.focus();
+        }
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
-
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
