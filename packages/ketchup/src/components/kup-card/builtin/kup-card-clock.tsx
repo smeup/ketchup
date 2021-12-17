@@ -2,7 +2,9 @@ import { h, JSX } from '@stencil/core';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
 import { KupDatesFormats } from '../../../utils/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
+import { KupObj } from '../../../utils/kup-objects/kup-objects-declarations';
 import { KupCard } from '../kup-card';
+import { KupCardBuiltinClockOptions } from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 let componentRef: KupCard;
@@ -22,6 +24,20 @@ let manageSeconds = false;
 
 export function prepareClock(component: KupCard) {
     componentRef = component;
+
+    if (componentRef.data && componentRef.data.options) {
+        const opts = componentRef.data.options as KupCardBuiltinClockOptions;
+        const obj = opts.initialValue as KupObj;
+        if (opts.initialValue) {
+            if (obj && obj.k) value = obj.k;
+            else value = opts.initialValue as string;
+        }
+        if (opts.manageSeconds) manageSeconds = opts.manageSeconds;
+        if (opts.hoursActive) hoursActive = opts.hoursActive;
+        if (opts.minutesActive) minutesActive = opts.minutesActive;
+        if (opts.secondsActive) secondsActive = opts.secondsActive;
+    }
+
     return prepTimeArea();
 }
 

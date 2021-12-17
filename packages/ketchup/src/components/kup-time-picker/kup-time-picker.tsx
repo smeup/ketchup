@@ -42,6 +42,11 @@ import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import {
+    KupCardClickPayload,
+    KupCardData,
+} from '../kup-card/kup-card-declarations';
+import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 @Component({
     tag: 'kup-time-picker',
     styleUrl: 'kup-time-picker.scss',
@@ -117,8 +122,10 @@ export class KupTimePicker {
     private hoursActive: boolean = true;
     private minutesActive: boolean = false;
     private secondsActive: boolean = false;
+    private textFieldContainerEl: HTMLElement = undefined;
     private textfieldEl: any = undefined;
     private pickerContainerEl: HTMLElement = undefined;
+    private pickerCardEl: HTMLKupCardElement = undefined;
     private pickerEl: HTMLElement = undefined;
     private pickerOpened: boolean = false;
     private clickCb: KupManagerClickCb = null;
@@ -453,42 +460,86 @@ export class KupTimePicker {
     }
 
     openPicker() {
-        let textfieldEl = this.textfieldEl;
-        let containerEl = this.pickerContainerEl;
         this.pickerOpened = true;
-        this.setClockViewActive(true, false, false);
-        if (textfieldEl != null) {
-            textfieldEl.classList.add('toggled');
+        if (this.clockVariant) {
+            this.pickerCardEl.menuVisible = true;
+            if (this.textfieldEl != null) {
+                this.textfieldEl.classList.add('toggled');
+            }
+            if (
+                this.kupManager.dynamicPosition.isRegistered(this.pickerCardEl)
+            ) {
+                this.kupManager.dynamicPosition.changeAnchor(
+                    this.pickerCardEl,
+                    this.textFieldContainerEl
+                );
+            } else {
+                this.kupManager.dynamicPosition.register(
+                    this.pickerCardEl,
+                    this.textFieldContainerEl,
+                    0,
+                    KupDynamicPositionPlacement.AUTO,
+                    true
+                );
+            }
+            this.kupManager.dynamicPosition.start(this.pickerCardEl);
+            if (!this.clickCb) {
+                this.clickCb = {
+                    cb: () => {
+                        this.closePicker();
+                    },
+                    el: this.pickerCardEl,
+                };
+            }
+            this.kupManager.addClickCallback(this.clickCb, true);
+        } else {
+            let textfieldEl = this.textfieldEl;
+            let containerEl = this.pickerContainerEl;
+            this.setClockViewActive(true, false, false);
+            if (textfieldEl != null) {
+                textfieldEl.classList.add('toggled');
+            }
+            if (containerEl != null) {
+                containerEl.classList.add('visible');
+                const elStyle = containerEl.style;
+                elStyle.height = 'auto';
+                elStyle.minWidth = textfieldEl.clientWidth + 'px';
+            }
+            if (!this.clickCb) {
+                this.clickCb = {
+                    cb: () => {
+                        this.closePicker();
+                    },
+                    el: this.pickerContainerEl,
+                };
+            }
+            this.kupManager.addClickCallback(this.clickCb, true);
+            this.refresh();
         }
-        if (containerEl != null) {
-            containerEl.classList.add('visible');
-            const elStyle = containerEl.style;
-            elStyle.height = 'auto';
-            elStyle.minWidth = textfieldEl.clientWidth + 'px';
-        }
-        if (!this.clickCb) {
-            this.clickCb = {
-                cb: () => {
-                    this.closePicker();
-                },
-                el: this.pickerContainerEl,
-            };
-        }
-        this.kupManager.addClickCallback(this.clickCb, true);
-        this.refresh();
     }
 
     closePicker() {
-        let textfieldEl = this.textfieldEl;
-        let containerEl = this.pickerContainerEl;
         this.pickerOpened = false;
-        if (textfieldEl != null) {
-            textfieldEl.classList.remove('toggled');
-            textfieldEl.emitSubmitEventOnEnter = true;
+        if (this.clockVariant) {
+            this.kupManager.removeClickCallback(this.clickCb);
+            let textfieldEl = this.textfieldEl;
+            if (textfieldEl != null) {
+                textfieldEl.classList.remove('toggled');
+            }
+            this.pickerCardEl.menuVisible = false;
+            this.kupManager.dynamicPosition.stop(this.pickerCardEl);
+        } else {
+            let textfieldEl = this.textfieldEl;
+            let containerEl = this.pickerContainerEl;
+            if (textfieldEl != null) {
+                textfieldEl.classList.remove('toggled');
+                textfieldEl.emitSubmitEventOnEnter = true;
+            }
+            if (containerEl != null) {
+                containerEl.classList.remove('visible');
+            }
         }
-        if (containerEl != null) {
-            containerEl.classList.remove('visible');
-        }
+
         this.kupManager.removeClickCallback(this.clickCb);
     }
 
@@ -565,113 +616,30 @@ export class KupTimePicker {
     }
 
     private createClock() {
-        let selectedTime: Date;
-        if (this.value) {
-            selectedTime = this.kupManager.dates.toDate(
-                this.value,
-                this.manageSeconds
-                    ? KupDatesFormats.ISO_TIME
-                    : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
-            );
-        } else {
-            selectedTime = new Date();
-        }
-
-        let hh: string = selectedTime.getHours().toString();
-        let mm: string = selectedTime.getMinutes().toString();
-        if (hh.length === 1) {
-            hh = '0' + hh;
-        }
-        if (mm.length === 1) {
-            mm = '0' + mm;
-        }
-        let ss: string = '';
-        if (this.manageSeconds) {
-            ss = selectedTime.getSeconds().toString();
-            if (ss.length === 1) {
-                ss = '0' + ss;
-            }
-        }
-        let seconds: HTMLElement;
-        let time: JSX.Element[] = [
-            <span
-                class="h"
-                ref={(el) => (this.hoursEl = el as any)}
-                onClick={() => {
-                    this.setClockViewActive(true, false, false);
-                    this.switchView(this.hoursEl, this.hoursCircleEl);
-                }}
-                innerHTML={hh}
-            ></span>,
-            ':',
-            <span
-                class="m"
-                ref={(el) => (this.minutesEl = el as any)}
-                onClick={() => {
-                    this.setClockViewActive(false, true, false);
-                    this.switchView(this.minutesEl, this.minutesCircleEl);
-                }}
-                innerHTML={mm}
-            ></span>,
-        ];
-        if (this.manageSeconds) {
-            seconds = (
-                <div
-                    class="circle seconds"
-                    ref={(el) => (this.secondsCircleEl = el as any)}
-                >
-                    {this.buildClock(60, 101, 115, 115, 'sec unit', 0, 5, ss)}
-                    <div class="mid"></div>
-                </div>
-            );
-            time.push(
-                ':',
-                <span
-                    class="s"
-                    ref={(el) => (this.secondsEl = el as any)}
-                    onClick={() => {
-                        this.setClockViewActive(false, false, true);
-                        this.switchView(this.secondsEl, this.secondsCircleEl);
-                    }}
-                    innerHTML={ss}
-                ></span>
-            );
-        }
+        const data: KupCardData = {
+            options: {
+                initialValue: this.value,
+                manageSeconds: this.manageSeconds,
+                hoursActive: this.hoursActive,
+                minutesActive: this.minutesActive,
+                secondsActive: this.secondsActive,
+            },
+        };
 
         return (
-            <div
-                class="clock"
-                id={this.rootElement.id + '_clock'}
-                ref={(el) => (this.pickerEl = el as any)}
-            >
-                <div class="top">{time}</div>
-                <div
-                    class="circle hours"
-                    ref={(el) => (this.hoursCircleEl = el as any)}
-                >
-                    {this.buildClock(12, 101, 105, 105, 'hour', 0, 1, hh)}
-                    {this.buildClock(12, 64, 110, 110, 'hour2', 12, 1, hh)}
-                    <div class="mid"></div>
-                </div>
-                <div
-                    class="circle minutes"
-                    ref={(el) => (this.minutesCircleEl = el as any)}
-                >
-                    {this.buildClock(60, 101, 115, 115, 'min unit', 0, 5, mm)}
-                    <div class="mid"></div>
-                </div>
-                {seconds}
-                <div class="actions">
-                    <kup-button
-                        onkup-button-click={(e: any) => {
-                            this.setTimeFromClock(e);
-                        }}
-                        id="confirm"
-                        styling={FButtonStyling.FLAT}
-                        label="Ok"
-                    ></kup-button>
-                </div>
-            </div>
+            <kup-card
+                ref={(el) => (this.pickerCardEl = el)}
+                data={data}
+                layout-family="builtin"
+                layout-number="2"
+                size-x="300px"
+                size-y="300px"
+                is-menu
+                onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
+                    //if (ev.detail.value != null && ev.detail.value != '')
+                    //    this.onKupDatePickerItemClick(ev.detail.value);
+                }}
+            ></kup-card>
         );
     }
 
@@ -698,119 +666,11 @@ export class KupTimePicker {
         this.secondsActive = secondsActive;
     }
 
-    private buildClock(
-        num: number,
-        radius: number,
-        offsetX: number,
-        offsetY: number,
-        className: string,
-        add: number,
-        separator: number,
-        selectedValue: string
-    ) {
-        let x: number, y: number;
-        let divsArray: JSX.Element[] = [];
-
-        for (var n = 0; n < num; n++) {
-            x = radius * Math.cos((n / num) * 2 * Math.PI);
-            y = radius * Math.sin((n / num) * 2 * Math.PI);
-            let text: string;
-            let dataValue: { [key: string]: string } = {};
-            let style: { [key: string]: string } = {};
-            if (separator == 1) {
-                if (n + 3 > 12) {
-                    text = n + 3 - 12 + add + '';
-                } else {
-                    let calc = n + 3 + add;
-                    if (calc !== 24) {
-                        text = n + 3 + add + '';
-                    } else {
-                        text = '00';
-                    }
-                }
-                dataValue['data-value'] = text;
-            } else {
-                if (n % separator == 0) {
-                    if (n + 15 >= 60) {
-                        dataValue['data-value'] = n + 15 - 60 + '';
-                        text = n + 15 - 60 + add + '';
-                    } else {
-                        dataValue['data-value'] = n + 15 + '';
-                        text = n + 15 + add + '';
-                    }
-                } else {
-                    if (n + 15 >= 60) {
-                        dataValue['data-value'] = n + 15 - 60 + '';
-                        text = '⋅';
-                    } else {
-                        dataValue['data-value'] = n + 15 + '';
-                        text = '\u00B7';
-                    }
-                }
-            }
-            style['left'] = x + offsetX + 'px';
-            style['top'] = y + offsetY + 'px';
-
-            if (dataValue['data-value'].length === 1) {
-                dataValue['data-value'] = '0' + dataValue['data-value'];
-            }
-
-            let elClass = className;
-            if (dataValue['data-value'] === selectedValue) {
-                elClass += ' selected';
-            }
-
-            let div: HTMLElement = (
-                <div
-                    class={elClass}
-                    style={style}
-                    {...dataValue}
-                    onClick={(e) => this.setClockTime(e)}
-                >
-                    {text}
-                </div>
-            );
-            divsArray.push(div);
-        }
-
-        return divsArray;
-    }
-
-    private setClockTime(e) {
-        let time = e.target.getAttribute('data-value');
-        if (this.hoursActive) {
-            this.hoursEl.innerText = time;
-            this.hoursCircleEl
-                .querySelector('.selected')
-                .classList.remove('selected');
-            this.setClockViewActive(false, true, false);
-            this.switchView(this.minutesEl, this.minutesCircleEl);
-        } else if (this.minutesActive) {
-            this.minutesEl.innerText = time;
-            this.minutesCircleEl
-                .querySelector('.selected')
-                .classList.remove('selected');
-            if (this.manageSeconds) {
-                this.setClockViewActive(false, false, true);
-                this.switchView(this.secondsEl, this.secondsCircleEl);
-            } else {
-                this.setTimeFromClock(e);
-            }
-        } else {
-            this.secondsEl.innerText = time;
-            this.secondsCircleEl
-                .querySelector('.selected')
-                .classList.remove('selected');
-            this.setTimeFromClock(e);
-        }
-        e.target.classList.add('selected');
-    }
-
     prepTimePicker() {
         let widget: HTMLElement = undefined;
 
         if (this.clockVariant) {
-            widget = this.createClock();
+            return this.createClock();
         } else {
             widget = (
                 <kup-list
@@ -937,15 +797,6 @@ export class KupTimePicker {
                 FTextFieldMDC(f);
             }
         }
-        if (this.clockVariant) {
-            if (this.hoursActive) {
-                this.switchView(this.hoursEl, this.hoursCircleEl);
-            } else if (this.minutesActive) {
-                this.switchView(this.minutesEl, this.minutesCircleEl);
-            } else if (this.secondsActive) {
-                this.switchView(this.secondsEl, this.secondsCircleEl);
-            }
-        }
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -978,7 +829,10 @@ export class KupTimePicker {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
+                <div
+                    id={componentWrapperId}
+                    ref={(el) => (this.textFieldContainerEl = el)}
+                >
                     {this.prepTextfield(this.getTimeForOutput())}
                 </div>
             </Host>
