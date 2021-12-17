@@ -1,12 +1,7 @@
-import { h, forceUpdate, JSX } from '@stencil/core';
+import { h, JSX } from '@stencil/core';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
 import { KupDatesFormats } from '../../../utils/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
-import {
-    formattedStringToCustomUnformattedStringTime,
-    formatTime,
-} from '../../../utils/utils';
-import { KupListData } from '../../kup-list/kup-list-declarations';
 import { KupCard } from '../kup-card';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -23,49 +18,14 @@ let minutesActive: boolean = false;
 let secondsActive: boolean = false;
 
 let value = '';
-const clockVariant = true;
-const manageSeconds = false;
-let timeMinutesStep = 10;
+let manageSeconds = false;
 
 export function prepareClock(component: KupCard) {
     componentRef = component;
-
-    setTimeout(() => {
-        if (clockVariant) {
-            if (hoursActive) {
-                switchView(hoursEl, hoursCircleEl);
-            } else if (minutesActive) {
-                switchView(minutesEl, minutesCircleEl);
-            } else if (secondsActive) {
-                switchView(secondsEl, secondsCircleEl);
-            }
-        }
-    }, 100);
-
     return prepTimeArea();
 }
 
 function prepTimeArea() {
-    let widget: HTMLElement = undefined;
-
-    if (clockVariant) {
-        widget = createClock();
-    } else {
-        widget = (
-            <kup-list
-                data={createTimeListData(value)}
-                is-menu
-                menu-visible
-                onkup-list-click={(e) =>
-                    onKupClockItemClick(e, e.detail.selected.value)
-                }
-                id={componentRef.rootElement.id + '_list'}
-                ref={(el) => (clockEl = el as any)}
-                customStyle=".kup-menu { max-height: var(--kup_card_height); }"
-            ></kup-list>
-        );
-    }
-
     return (
         <div
             id="clock-div"
@@ -75,57 +35,9 @@ function prepTimeArea() {
                 }
             }}
         >
-            {widget}
+            {createClock()}
         </div>
     );
-}
-
-function createTimeListData(value: string) {
-    let listData: KupListData[] = [];
-
-    let selectedTime: Date;
-    if (value == null || value.trim() == '') {
-        selectedTime = new Date();
-    } else {
-        selectedTime = dom.ketchup.dates.toDate(
-            value,
-            manageSeconds
-                ? KupDatesFormats.ISO_TIME
-                : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
-        );
-    }
-
-    let totalDayMinutes: number = 24 * 60;
-    let itemsCount = totalDayMinutes / timeMinutesStep;
-
-    let date: Date = new Date();
-    date.setHours(0, 0, 0);
-    for (let i = 0; i < itemsCount; i++) {
-        let selected: boolean = false;
-        if (
-            date.getHours() == selectedTime.getHours() &&
-            date.getMinutes() == selectedTime.getMinutes()
-        ) {
-            selected = true;
-        }
-        let text: string = formatTime(date, manageSeconds);
-        let value = formattedStringToCustomUnformattedStringTime(
-            text,
-            manageSeconds
-                ? KupDatesFormats.ISO_TIME
-                : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS,
-            manageSeconds
-        );
-        let item: KupListData = {
-            text: text,
-            value: value,
-            selected: selected,
-        };
-        listData[listData.length] = item;
-        date.setMinutes(date.getMinutes() + timeMinutesStep);
-    }
-
-    return listData;
 }
 
 function onKupClockItemClick(e: CustomEvent, value?: string) {
@@ -204,7 +116,7 @@ function createClock() {
     let seconds: HTMLElement;
     let time: JSX.Element[] = [
         <span
-            class="h"
+            class={`h ${hoursActive ? 'active' : ''}`}
             ref={(el) => (hoursEl = el as any)}
             onClick={() => {
                 setClockViewActive(true, false, false);
@@ -214,7 +126,7 @@ function createClock() {
         ></span>,
         ':',
         <span
-            class="m"
+            class={`m ${minutesActive ? 'active' : ''}`}
             ref={(el) => (minutesEl = el as any)}
             onClick={() => {
                 setClockViewActive(false, true, false);
@@ -226,7 +138,7 @@ function createClock() {
     if (manageSeconds) {
         seconds = (
             <div
-                class="circle seconds"
+                class={`circle seconds ${secondsActive ? 'active' : ''}`}
                 ref={(el) => (secondsCircleEl = el as any)}
             >
                 {buildClock(60, 101, 115, 115, 'sec unit', 0, 5, ss)}
@@ -236,7 +148,7 @@ function createClock() {
         time.push(
             ':',
             <span
-                class="s"
+                class={`s ${secondsActive ? 'active' : ''}`}
                 ref={(el) => (secondsEl = el as any)}
                 onClick={() => {
                     setClockViewActive(false, false, true);
@@ -254,13 +166,16 @@ function createClock() {
             ref={(el) => (clockEl = el as any)}
         >
             <div class="top">{time}</div>
-            <div class="circle hours" ref={(el) => (hoursCircleEl = el as any)}>
+            <div
+                class={`circle hours ${hoursActive ? 'active' : ''}`}
+                ref={(el) => (hoursCircleEl = el as any)}
+            >
                 {buildClock(12, 101, 105, 105, 'hour', 0, 1, hh)}
                 {buildClock(12, 64, 110, 110, 'hour2', 12, 1, hh)}
                 <div class="mid"></div>
             </div>
             <div
-                class="circle minutes"
+                class={`circle minutes ${minutesActive ? 'active' : ''}`}
                 ref={(el) => (minutesCircleEl = el as any)}
             >
                 {buildClock(60, 101, 115, 115, 'min unit', 0, 5, mm)}

@@ -16,11 +16,7 @@ import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
-import type {
-    GenericObject,
-    KupComponent,
-    KupEventPayload,
-} from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -110,10 +106,8 @@ export class KupCard {
     private cardEvent: EventListenerOrEventListenerObject = (
         e: CustomEvent
     ) => {
-        if (this.layoutFamily != KupCardFamily.BUILTIN) {
-            e.stopPropagation();
-            this.onKupEvent(e);
-        }
+        e.stopPropagation();
+        this.onKupEvent(e);
     };
     /**
      * Instance of the KupManager class.
@@ -237,10 +231,8 @@ export class KupCard {
             for (let index = 0; index < links.length; index++) {
                 const link: HTMLElement = links[index];
                 link.onclick = (e) => {
-                    if (this.layoutFamily == KupCardFamily.BUILTIN) {
-                        e.stopPropagation();
-                        this.onKupClick(link.id, null);
-                    }
+                    e.stopPropagation();
+                    this.onKupClick(link.id, null);
                 };
             }
         }
@@ -545,11 +537,7 @@ export class KupCard {
                 </style>
                 <div
                     id={componentWrapperId}
-                    onClick={() =>
-                        this.layoutFamily != KupCardFamily.BUILTIN
-                            ? this.onKupClick(null, null)
-                            : null
-                    }
+                    onClick={() => this.onKupClick(null, null)}
                 >
                     {this.getLayout()}
                 </div>

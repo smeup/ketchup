@@ -25,16 +25,12 @@
 }
 
 :host([is-menu]) {
-  #kup-component {
-    animation: fade-in 0.25s ease-out;
-    display: none;
-  }
+  display: none;
+  animation: fade-in 0.25s ease-out;
 }
 
 :host([menu-visible]) {
-  #kup-component {
-    display: block;
-  }
+  display: block;
 }
 
 #kup-component {

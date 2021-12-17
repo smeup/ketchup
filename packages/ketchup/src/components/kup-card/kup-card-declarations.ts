@@ -15,6 +15,23 @@ export enum KupCardProps {
     sizeY = 'The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
 }
 /**
+ * Options prop of the kup-card calendar builtin.
+ */
+export interface KupCardBuiltinCalendarOptions {
+    initialValue?: string | KupObj;
+    firstDayIndex?: number;
+}
+/**
+ * Options prop of the kup-card clock builtin.
+ */
+export interface KupCardBuiltinClockOptions {
+    initialValue?: string | KupObj;
+    manageSeconds?: boolean;
+    hoursActive?: boolean;
+    minutesActive?: boolean;
+    secondsActive?: boolean;
+}
+/**
  * Data prop of the kup-card component.
  */
 export interface KupCardData {
@@ -30,6 +47,7 @@ export interface KupCardData {
     image?: GenericObject[];
     list?: GenericObject[];
     object?: KupObj[];
+    options?: KupCardBuiltinCalendarOptions | KupCardBuiltinClockOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];

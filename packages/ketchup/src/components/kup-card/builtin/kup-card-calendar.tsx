@@ -3,21 +3,35 @@ import internal from 'stream';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
 import { KupDatesFormats } from '../../../utils/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
+import { KupObj } from '../../../utils/kup-objects/kup-objects-declarations';
 import {
     DateTimeFormatOptionsMonth,
     getMonthsAsStringByLocale,
 } from '../../../utils/utils';
+import { LoadMoreMode } from '../../kup-data-table/kup-data-table-declarations';
 import { SourceEvent } from '../../kup-date-picker/kup-date-picker-declarations';
 import { KupCard } from '../kup-card';
+import { KupCardBuiltinCalendarOptions } from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 let calendarView: SourceEvent = SourceEvent.DATE;
-const firstDayIndex = 1;
-let dateRef = new Date();
+let firstDayIndex: number = 1;
+let dateRef: Date = new Date();
 let componentRef: KupCard;
 
 export function prepareCalendar(component: KupCard) {
     componentRef = component;
+
+    //if (componentRef.data && componentRef.data.options) {
+    //    const opts = componentRef.data.options as KupCardBuiltinCalendarOptions;
+    //    const obj = opts.initialValue as KupObj;
+    //    if (opts.initialValue) {
+    //        if (obj && obj.k) dateRef = new Date(obj.k);
+    //        else dateRef = new Date(opts.initialValue as string);
+    //    }
+    //    if (opts.firstDayIndex) firstDayIndex = opts.firstDayIndex;
+    //}
+
     const date: Date = dateRef;
     const months = getMonthsAsStringByLocale();
     const curYear: number = date.getFullYear();
