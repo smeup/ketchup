@@ -1755,9 +1755,9 @@ export class KupDataTable {
         }
         if (this.dropEnabled) {
             const dataCb: KupDropDataTransferCallback = () => {
-                const receivingDetails = this.getEventDetails(
-                    this.rootElement.shadowRoot.querySelector('td:hover')
-                );
+                const receivingDetails = this.getEventDetails([
+                    this.rootElement.shadowRoot.querySelector('td:hover'),
+                ]);
                 return {
                     cell: receivingDetails.cell,
                     column: receivingDetails.column,
@@ -2005,6 +2005,21 @@ export class KupDataTable {
     }
 
     //======== Utility methods ========
+
+    private getEventPath(e: PointerEvent): HTMLElement[] {
+        let path: HTMLElement[] = [];
+
+        let currentEl: unknown = e.target as HTMLElement;
+        while (currentEl !== this.rootElement && currentEl !== document.body) {
+            path.push(currentEl as HTMLElement);
+            currentEl = (currentEl as HTMLElement).parentNode
+                ? (currentEl as HTMLElement).parentNode
+                : (currentEl as ShadowRoot).host;
+        }
+
+        return path;
+    }
+
     private resetSelectedRows() {
         if (!this.data || !this.data.rows || this.data.rows.length === 0)
             return;
@@ -2218,17 +2233,67 @@ export class KupDataTable {
         this.rootElement.shadowRoot.append(this.detailCard);
     }
 
-    private getEventDetails(el: HTMLElement): KupDatatableEventHandlerDetails {
-        const isHeader: boolean = !!el.closest('thead'),
-            isBody: boolean = !!el.closest('tbody'),
-            isFooter: boolean = !!el.closest('tfoot'),
-            td = el.closest('td'),
-            textfield: HTMLElement = el.closest('.f-text-field'),
-            th = el.closest('th'),
-            tr: HTMLTableRowElement = el.closest('tr'),
-            filterRemove: HTMLSpanElement = el.closest(
-                `.${KupThemeIconValues.FILTER_REMOVE.replace('--', '')}`
-            );
+    private getEventDetails(
+        path: HTMLElement[]
+    ): KupDatatableEventHandlerDetails {
+        let isHeader: boolean,
+            isBody: boolean,
+            isFooter: boolean,
+            td: HTMLElement,
+            textfield: HTMLElement,
+            th: HTMLElement,
+            tr: HTMLElement,
+            filterRemove: HTMLSpanElement;
+        if (path) {
+            for (let i = path.length - 1; i >= 0; i--) {
+                let p = path[i];
+                if (!p.tagName) {
+                    continue;
+                }
+                switch (p.tagName.toUpperCase()) {
+                    case 'THEAD': {
+                        isHeader = true;
+                        break;
+                    }
+                    case 'TBODY': {
+                        isBody = true;
+                        break;
+                    }
+                    case 'TFOOT': {
+                        isFooter = true;
+                        break;
+                    }
+                    case 'TD': {
+                        td = p;
+                        break;
+                    }
+                    case 'TH': {
+                        th = p;
+                        break;
+                    }
+                    case 'TR': {
+                        tr = p;
+                        break;
+                    }
+                    default: {
+                        if (p.classList.contains('f-text-field')) {
+                            textfield = p;
+                        } else if (
+                            p.classList.contains(
+                                KupThemeIconValues.FILTER_REMOVE.replace(
+                                    '--',
+                                    ''
+                                )
+                            )
+                        ) {
+                            filterRemove = p;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
         let cell: Cell = null,
             column: Column = null,
             isGroupRow: boolean = false,
@@ -2282,7 +2347,7 @@ export class KupDataTable {
 
     private clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            e.target as HTMLElement
+            this.getEventPath(e)
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2316,7 +2381,7 @@ export class KupDataTable {
                 return details;
             }
             if (details.td && details.row && !details.textfield) {
-                this.onRowClick(e, details.row, true);
+                this.onRowClick(details.row, details.td, true);
                 return details;
             }
         }
@@ -2327,7 +2392,7 @@ export class KupDataTable {
         e: PointerEvent
     ): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            e.target as HTMLElement
+            this.getEventPath(e)
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2366,7 +2431,7 @@ export class KupDataTable {
 
     private dblClickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            e.target as HTMLElement
+            this.getEventPath(e)
         );
         if (details.area === 'body') {
             if (this.selection == SelectionMode.MULTIPLE) {
@@ -2376,37 +2441,10 @@ export class KupDataTable {
                 this.selection == SelectionMode.SINGLE ||
                 this.selection == SelectionMode.MULTIPLE
             ) {
-                this.onRowClick(e, details.row, false);
+                this.onRowClick(details.row, details.td, false);
             }
         }
         return details;
-    }
-
-    private mouseMoveHandler(e: MouseEvent): void {
-        const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            e.target as HTMLElement
-        );
-
-        const hoverEl: HTMLElement =
-            this.rootElement.shadowRoot.querySelector('.hover');
-        if (hoverEl) {
-            hoverEl.classList.remove('hover');
-        }
-
-        if (details.area === 'body') {
-            if (details.tr) {
-                details.tr.classList.add('hover');
-                return;
-            }
-        }
-    }
-
-    private mouseOutHandler(): void {
-        const hoverEl: HTMLElement =
-            this.rootElement.shadowRoot.querySelector('.hover');
-        if (hoverEl) {
-            hoverEl.classList.remove('hover');
-        }
     }
 
     getVisibleColumns(): Array<Column> {
@@ -2796,10 +2834,7 @@ export class KupDataTable {
         this.adjustPaginator();
     }
 
-    private onRowClick(event: PointerEvent, row: Row, emitEvent?: boolean) {
-        // checking target
-        const target = event.target;
-
+    private onRowClick(row: Row, td: HTMLElement, emitEvent?: boolean) {
         // selecting row
         if (!row.unselectable) {
             switch (this.selection) {
@@ -2824,16 +2859,7 @@ export class KupDataTable {
         }
 
         // find clicked column
-        let clickedColumn: string = null;
-        if (target instanceof HTMLElement) {
-            if (target.tagName !== 'TR') {
-                let currentElement = target;
-                while (currentElement.tagName !== 'TD') {
-                    currentElement = currentElement.parentElement;
-                }
-                clickedColumn = currentElement.dataset.column;
-            }
-        }
+        const clickedColumn: string = td.dataset.column;
 
         // selecting clicked column
         if (this.selection !== SelectionMode.NONE && clickedColumn) {
@@ -4276,7 +4302,7 @@ export class KupDataTable {
                 }
 
                 cellClass = {
-                    ...cellClass
+                    ...cellClass,
                 };
 
                 return (
@@ -5144,10 +5170,6 @@ export class KupDataTable {
                             onContextMenu={(e: MouseEvent) => {
                                 e.preventDefault();
                             }}
-                            onMouseMove={(e: MouseEvent) =>
-                                this.mouseMoveHandler(e)
-                            }
-                            onMouseOut={() => this.mouseOutHandler()}
                         >
                             <thead
                                 hidden={!this.showHeader}
