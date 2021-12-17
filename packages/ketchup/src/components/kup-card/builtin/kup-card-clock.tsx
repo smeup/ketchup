@@ -7,77 +7,127 @@ import { KupCard } from '../kup-card';
 import { KupCardBuiltinClockOptions } from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
-let componentRef: KupCard;
-let clockEl: HTMLElement = undefined;
-let hoursEl: HTMLElement = undefined;
-let hoursCircleEl: HTMLElement = undefined;
-let minutesEl: HTMLElement = undefined;
-let minutesCircleEl: HTMLElement = undefined;
-let secondsCircleEl: HTMLElement = undefined;
-let secondsEl: HTMLElement = undefined;
-let hoursActive: boolean = true;
-let minutesActive: boolean = false;
-let secondsActive: boolean = false;
-
-let value = '';
-let manageSeconds = false;
+//let hoursEl: HTMLElement = undefined;
+//let hoursCircleEl: HTMLElement = undefined;
+//let minutesEl: HTMLElement = undefined;
+//let minutesCircleEl: HTMLElement = undefined;
+//let secondsCircleEl: HTMLElement = undefined;
+//let secondsEl: HTMLElement = undefined;
 
 export function prepareClock(component: KupCard) {
-    componentRef = component;
+    //componentRef = component;
+    const el = component.rootElement as any;
+    el.kupData = {};
 
-    if (componentRef.data && componentRef.data.options) {
-        const opts = componentRef.data.options as KupCardBuiltinClockOptions;
+    if (component.data && component.data.options) {
+        const opts = component.data.options as KupCardBuiltinClockOptions;
         const obj = opts.initialValue as KupObj;
         if (opts.initialValue) {
-            if (obj && obj.k) value = obj.k;
-            else value = opts.initialValue as string;
+            if (obj && obj.k) el.kupData.value = obj.k;
+            else el.kupData.value = opts.initialValue as string;
         }
-        if (opts.manageSeconds) manageSeconds = opts.manageSeconds;
-        if (opts.hoursActive) hoursActive = opts.hoursActive;
-        if (opts.minutesActive) minutesActive = opts.minutesActive;
-        if (opts.secondsActive) secondsActive = opts.secondsActive;
+        if (opts.manageSeconds) el.kupData.manageSeconds = opts.manageSeconds;
+        if (opts.hoursActive) el.kupData.hoursActive = opts.hoursActive;
+        if (opts.minutesActive) el.kupData.minutesActive = opts.minutesActive;
+        if (opts.secondsActive) el.kupData.secondsActive = opts.secondsActive;
     }
 
-    return prepTimeArea();
+    return prepTimeArea(component);
 }
 
-function prepTimeArea() {
+function isManageSeconds(component: KupCard): boolean {
+    const el = component.rootElement as any;
+    if (el.kupData.manageSeconds) return el.kupData.manageSeconds;
+    return false;
+}
+
+function getValue(component: KupCard): string {
+    const el = component.rootElement as any;
+    if (el.kupData.value) return el.kupData.value;
+    return '';
+}
+
+function setValue(component: KupCard, value: string) {
+    const el = component.rootElement as any;
+    el.kupData.value = value;
+}
+
+function getHoursActive(component: KupCard): boolean {
+    const el = component.rootElement as any;
+    if (el.kupData.hoursActive) return el.kupData.hoursActive;
+    return false;
+}
+
+function getMinutesActive(component: KupCard): boolean {
+    const el = component.rootElement as any;
+    if (el.kupData.minutesActive) return el.kupData.minutesActive;
+    return false;
+}
+
+function getSecondsActive(component: KupCard): boolean {
+    const el = component.rootElement as any;
+    if (el.kupData.secondsActive) return el.kupData.secondsActive;
+    return false;
+}
+
+function getElementId(component: KupCard, elemName: string): string {
+    const el = component.rootElement as any;
+    if (el.kupData[elemName]) return el.kupData[elemName];
+    return null;
+}
+
+function setElementId(component: KupCard, elemName: string, id: string) {
+    const el = component.rootElement as any;
+    el.kupData[elemName] = id;
+}
+
+function getElement(component: KupCard, elemName: string): HTMLElement {
+    return component.rootElement.shadowRoot.getElementById(
+        getElementId(component, elemName)
+    );
+}
+
+function prepTimeArea(component: KupCard) {
     return (
         <div
             id="clock-div"
             onBlur={(e: any) => {
-                if (!isRelatedTargetInThisComponent(e)) {
-                    onKupBlur();
+                if (!isRelatedTargetInThisComponent(e, component)) {
+                    onKupBlur(component);
                 }
             }}
         >
-            {createClock()}
+            {createClock(component)}
         </div>
     );
 }
 
-function onKupClockItemClick(e: CustomEvent, value?: string) {
+function onKupClockItemClick(
+    e: CustomEvent,
+    component: KupCard,
+    value?: string
+) {
     if (e != null) {
         if (value == null) {
             value = e.detail.selected.value;
         }
     }
-    setClockValueSelected(value);
+    setClockValueSelected(component, value);
 
-    componentRef.onKupClick(componentRef.rootElement.id, value);
+    component.onKupClick(component.rootElement.id, value);
 }
 
-function setClockValueSelected(newValue?: string) {
+function setClockValueSelected(component: KupCard, newValue?: string) {
     if (newValue == null) {
-        newValue = value;
+        newValue = getValue(component);
     }
     if (newValue == null) {
         return;
     }
-    value = newValue;
+    setValue(component, newValue);
 }
 
-function isRelatedTargetInThisComponent(e: any): boolean {
+function isRelatedTargetInThisComponent(e: any, component: KupCard): boolean {
     if (!e.relatedTarget) {
         return false;
     }
@@ -85,7 +135,7 @@ function isRelatedTargetInThisComponent(e: any): boolean {
     if (id == null || id.trim() == '') {
         return false;
     }
-    if (id == getClockElId()) {
+    if (id == getElementId(component, 'clockEl')) {
         return true;
     }
 
@@ -93,20 +143,16 @@ function isRelatedTargetInThisComponent(e: any): boolean {
     return idConc.indexOf('#' + id + '#') >= 0;
 }
 
-function getClockElId(): string {
-    return clockEl.id;
+function onKupBlur(component: KupCard) {
+    component.onKupClick(component.rootElement.id, getValue(component));
 }
 
-function onKupBlur() {
-    componentRef.onKupClick(componentRef.rootElement.id, value);
-}
-
-function createClock() {
+function createClock(component: KupCard) {
     let selectedTime: Date;
-    if (value) {
+    if (getValue(component)) {
         selectedTime = dom.ketchup.dates.toDate(
-            value,
-            manageSeconds
+            getValue(component),
+            isManageSeconds(component)
                 ? KupDatesFormats.ISO_TIME
                 : KupDatesFormats.ISO_TIME_WITHOUT_SECONDS
         );
@@ -123,7 +169,7 @@ function createClock() {
         mm = '0' + mm;
     }
     let ss: string = '';
-    if (manageSeconds) {
+    if (isManageSeconds(component)) {
         ss = selectedTime.getSeconds().toString();
         if (ss.length === 1) {
             ss = '0' + ss;
@@ -132,43 +178,57 @@ function createClock() {
     let seconds: HTMLElement;
     let time: JSX.Element[] = [
         <span
-            class={`h ${hoursActive ? 'active' : ''}`}
-            ref={(el) => (hoursEl = el as any)}
+            id={component.rootElement.id + '_hours'}
+            class={`h ${getHoursActive(component) ? 'active' : ''}`}
+            ref={(el) => {
+                setElementId(component, 'hoursEl', el.id);
+            }}
             onClick={() => {
-                setClockViewActive(true, false, false);
-                switchView(hoursEl, hoursCircleEl);
+                setClockViewActive(component, true, false, false);
+                switchView(component, 'hoursEl', 'hoursCircleEl');
             }}
             innerHTML={hh}
         ></span>,
         ':',
         <span
-            class={`m ${minutesActive ? 'active' : ''}`}
-            ref={(el) => (minutesEl = el as any)}
+            id={component.rootElement.id + '_minutes'}
+            class={`m ${getMinutesActive(component) ? 'active' : ''}`}
+            ref={(el) => {
+                setElementId(component, 'minutesEl', el.id);
+            }}
             onClick={() => {
-                setClockViewActive(false, true, false);
-                switchView(minutesEl, minutesCircleEl);
+                setClockViewActive(component, false, true, false);
+                switchView(component, 'minutesEl', 'minutesCircleEl');
             }}
             innerHTML={mm}
         ></span>,
     ];
-    if (manageSeconds) {
+    if (isManageSeconds(component)) {
         seconds = (
             <div
-                class={`circle seconds ${secondsActive ? 'active' : ''}`}
-                ref={(el) => (secondsCircleEl = el as any)}
+                id={component.rootElement.id + '_circleseconds'}
+                class={`circle seconds ${
+                    getSecondsActive(component) ? 'active' : ''
+                }`}
+                ref={(el) => {
+                    setElementId(component, 'secondsCircleEl', el.id);
+                }}
             >
-                {buildClock(60, 101, 115, 115, 'sec unit', 0, 5, ss)}
+                {buildClock(60, 101, 115, 115, 'sec unit', 0, 5, ss, component)}
                 <div class="mid"></div>
             </div>
         );
         time.push(
             ':',
             <span
-                class={`s ${secondsActive ? 'active' : ''}`}
-                ref={(el) => (secondsEl = el as any)}
+                id={component.rootElement.id + '_seconds'}
+                class={`s ${getSecondsActive(component) ? 'active' : ''}`}
+                ref={(el) => {
+                    setElementId(component, 'secondsEl', el.id);
+                }}
                 onClick={() => {
-                    setClockViewActive(false, false, true);
-                    switchView(secondsEl, secondsCircleEl);
+                    setClockViewActive(component, false, false, true);
+                    switchView(component, 'secondsEl', 'secondsCircleEl');
                 }}
                 innerHTML={ss}
             ></span>
@@ -178,30 +238,42 @@ function createClock() {
     return (
         <div
             class="clock"
-            id={componentRef.rootElement.id + '_clock'}
-            ref={(el) => (clockEl = el as any)}
+            id={component.rootElement.id + '_clock'}
+            ref={(el) => {
+                setElementId(component, 'clockEl', el.id);
+            }}
         >
             <div class="top">{time}</div>
             <div
-                class={`circle hours ${hoursActive ? 'active' : ''}`}
-                ref={(el) => (hoursCircleEl = el as any)}
+                id={component.rootElement.id + '_circlehours'}
+                class={`circle hours ${
+                    getHoursActive(component) ? 'active' : ''
+                }`}
+                ref={(el) => {
+                    setElementId(component, 'hoursCircleEl', el.id);
+                }}
             >
-                {buildClock(12, 101, 105, 105, 'hour', 0, 1, hh)}
-                {buildClock(12, 64, 110, 110, 'hour2', 12, 1, hh)}
+                {buildClock(12, 101, 105, 105, 'hour', 0, 1, hh, component)}
+                {buildClock(12, 64, 110, 110, 'hour2', 12, 1, hh, component)}
                 <div class="mid"></div>
             </div>
             <div
-                class={`circle minutes ${minutesActive ? 'active' : ''}`}
-                ref={(el) => (minutesCircleEl = el as any)}
+                id={component.rootElement.id + '_circleminutes'}
+                class={`circle minutes ${
+                    getMinutesActive(component) ? 'active' : ''
+                }`}
+                ref={(el) => {
+                    setElementId(component, 'minutesCircleEl', el.id);
+                }}
             >
-                {buildClock(60, 101, 115, 115, 'min unit', 0, 5, mm)}
+                {buildClock(60, 101, 115, 115, 'min unit', 0, 5, mm, component)}
                 <div class="mid"></div>
             </div>
             {seconds}
             <div class="actions">
                 <kup-button
                     onkup-button-click={(e: any) => {
-                        setTimeFromClock(e);
+                        setTimeFromClock(e, component);
                     }}
                     id="confirm"
                     styling={FButtonStyling.FLAT}
@@ -213,26 +285,28 @@ function createClock() {
 }
 
 function setClockViewActive(
+    component: KupCard,
     hoursAct: boolean,
     minutesAct: boolean,
     secondsAct: boolean
 ) {
-    hoursActive = hoursAct;
-    minutesActive = minutesAct;
-    secondsActive = secondsAct;
+    const el = component.rootElement as any;
+    el.kupData.hoursActive = hoursAct;
+    el.kupData.minutesActive = minutesAct;
+    el.kupData.secondsActive = secondsAct;
 }
 
-function switchView(el: HTMLElement, elCircle: HTMLElement) {
-    hoursEl.classList.remove('active');
-    hoursCircleEl.classList.remove('active');
-    minutesEl.classList.remove('active');
-    minutesCircleEl.classList.remove('active');
-    if (secondsEl) {
-        secondsEl.classList.remove('active');
-        secondsCircleEl.classList.remove('active');
+function switchView(component: KupCard, elId: string, elCircleId: string) {
+    getElement(component, 'hoursEl').classList.remove('active');
+    getElement(component, 'hoursCircleEl').classList.remove('active');
+    getElement(component, 'minutesEl').classList.remove('active');
+    getElement(component, 'minutesCircleEl').classList.remove('active');
+    if (isManageSeconds(component)) {
+        getElement(component, 'secondsEl').classList.remove('active');
+        getElement(component, 'secondsCircleEl').classList.remove('active');
     }
-    el.classList.add('active');
-    elCircle.classList.add('active');
+    getElement(component, elId).classList.add('active');
+    getElement(component, elCircleId).classList.add('active');
 }
 
 function buildClock(
@@ -243,7 +317,8 @@ function buildClock(
     className: string,
     add: number,
     separator: number,
-    selectedValue: string
+    selectedValue: string,
+    component: KupCard
 ) {
     let x: number, y: number;
     let divsArray: JSX.Element[] = [];
@@ -302,7 +377,7 @@ function buildClock(
                 class={elClass}
                 style={style}
                 {...dataValue}
-                onClick={(e) => setClockTime(e)}
+                onClick={(e) => setClockTime(e, component)}
             >
                 {text}
             </div>
@@ -313,34 +388,44 @@ function buildClock(
     return divsArray;
 }
 
-function setTimeFromClock(e: CustomEvent) {
+function setTimeFromClock(e: CustomEvent, component: KupCard) {
+    const hoursEl = getElement(component, 'hoursEl');
+    const minutesEl = getElement(component, 'minutesEl');
+    const secondsEl = getElement(component, 'secondsEl');
     let text: string = hoursEl.innerText + ':' + minutesEl.innerText;
-    if (manageSeconds) {
+    if (isManageSeconds(component)) {
         text += ':' + secondsEl.innerText;
     }
-    onKupClockItemClick(e, text);
+    onKupClockItemClick(e, component, text);
 }
 
-function setClockTime(e) {
+function setClockTime(e, component: KupCard) {
+    const hoursEl = getElement(component, 'hoursEl');
+    const minutesEl = getElement(component, 'minutesEl');
+    const secondsEl = getElement(component, 'secondsEl');
+    const hoursCircleEl = getElement(component, 'hoursCircleEl');
+    const minutesCircleEl = getElement(component, 'minutesCircleEl');
+    const secondsCircleEl = getElement(component, 'secondsCircleEl');
+
     let time = e.target.getAttribute('data-value');
-    if (hoursActive) {
+    if (getHoursActive(component)) {
         hoursEl.innerText = time;
         hoursCircleEl.querySelector('.selected').classList.remove('selected');
-        setClockViewActive(false, true, false);
-        switchView(minutesEl, minutesCircleEl);
-    } else if (minutesActive) {
+        setClockViewActive(component, false, true, false);
+        switchView(component, 'minutesEl', 'minutesCircleEl');
+    } else if (getMinutesActive(component)) {
         minutesEl.innerText = time;
         minutesCircleEl.querySelector('.selected').classList.remove('selected');
-        if (manageSeconds) {
-            setClockViewActive(false, false, true);
-            switchView(secondsEl, secondsCircleEl);
+        if (isManageSeconds(component)) {
+            setClockViewActive(component, false, false, true);
+            switchView(component, 'secondsEl', 'secondsCircleEl');
         } else {
-            setTimeFromClock(e);
+            setTimeFromClock(e, component);
         }
     } else {
         secondsEl.innerText = time;
         secondsCircleEl.querySelector('.selected').classList.remove('selected');
-        setTimeFromClock(e);
+        setTimeFromClock(e, component);
     }
     e.target.classList.add('selected');
 }

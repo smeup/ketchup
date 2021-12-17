@@ -606,15 +606,6 @@ export class KupTimePicker {
         return idConc.indexOf('#' + id + '#') >= 0;
     }
 
-    private setTimeFromClock(e: CustomEvent) {
-        let text: string =
-            this.hoursEl.innerText + ':' + this.minutesEl.innerText;
-        if (this.manageSeconds) {
-            text += ':' + this.secondsEl.innerText;
-        }
-        this.onKupTimePickerItemClick(e, text);
-    }
-
     private createClock() {
         const data: KupCardData = {
             options: {
@@ -633,11 +624,11 @@ export class KupTimePicker {
                 layout-family="builtin"
                 layout-number="2"
                 size-x="300px"
-                size-y="300px"
+                size-y="450px"
                 is-menu
                 onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
-                    //if (ev.detail.value != null && ev.detail.value != '')
-                    //    this.onKupDatePickerItemClick(ev.detail.value);
+                    if (ev.detail.value != null && ev.detail.value != '')
+                        this.onKupTimePickerItemClick(ev, ev.detail.value);
                 }}
             ></kup-card>
         );
