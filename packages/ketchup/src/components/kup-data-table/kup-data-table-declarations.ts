@@ -287,13 +287,13 @@ export interface KupDatatableEventHandlerDetails {
     area: string;
     cell: Cell;
     column: Column;
-    filterRemove: HTMLSpanElement;
+    filterRemove: HTMLElement;
     isGroupRow: boolean;
     row: Row;
     td: HTMLElement;
     textfield: HTMLElement;
     th: HTMLElement;
-    tr: HTMLTableRowElement;
+    tr: HTMLElement;
 }
 /**
  * Constants for mocked/premade columns created by data mutations.
