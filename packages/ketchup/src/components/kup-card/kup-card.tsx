@@ -13,6 +13,7 @@ import {
 import { MDCRipple } from '@material/ripple';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
+import * as freeLayouts from './free/kup-card-free';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import type {
@@ -318,6 +319,9 @@ export class KupCard {
                 }
                 case KupCardFamily.DIALOG: {
                     return dialogLayouts[method](this);
+                }
+                case KupCardFamily.FREE: {
+                    return freeLayouts[method](this);
                 }
                 case KupCardFamily.SCALABLE: {
                     return scalableLayouts[method](this);

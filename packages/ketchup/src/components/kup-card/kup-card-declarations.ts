@@ -42,12 +42,15 @@ export interface KupCardData {
  * Layout families of the kup-card component.
  * @enum {string}
  * @property {string} COLLAPSIBLE - Cards belonging to this family will display an area usable to expand the content of the card.
+ * @property {string} DIALOG - Cards belonging to this family will be movable and usually closable.
+ * @property {string} FREE - This family of card will only receive slots, usually already arranged from the outside style.
  * @property {string} SCALABLE - Content will fit its container, resizing itself automatically.
  * @property {string} STANDARD - Stndard layouts.
  */
 export enum KupCardFamily {
     COLLAPSIBLE = 'collapsible',
     DIALOG = 'dialog',
+    FREE = 'free',
     SCALABLE = 'scalable',
     STANDARD = 'standard',
 }

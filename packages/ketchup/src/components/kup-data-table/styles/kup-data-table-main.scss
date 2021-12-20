@@ -497,45 +497,6 @@ th.obj:hover span:not(.overlay-action) {
   }
 }
 
-.customize-panel {
-  visibility: hidden;
-  background: var(--kup_datatable_background_color);
-  box-shadow: var(--kup-box-shadow);
-  min-width: 200px;
-  width: fit-content;
-  transition: height 0.25s;
-  kup-switch {
-    text-align: center;
-  }
-}
-
-.customize-element {
-  padding: 0 1em 1em 1em;
-}
-
-.customize-element:nth-child(1) {
-  padding-top: 1em;
-}
-
-.kup-menu {
-  animation: fade-in 0.25s ease-out;
-  background-color: var(--kup-background-color);
-  box-shadow: var(--kup-box-shadow);
-  color: var(--kup-text-color);
-  display: none;
-  max-height: 33vh;
-  overflow: auto;
-  position: relative;
-  transform: none;
-  transform-origin: unset;
-  transition: height 0.2s;
-  will-change: unset;
-
-  &.visible {
-    display: block;
-  }
-}
-
 .indent {
   display: inline-block;
   height: 1em;
