@@ -1,5 +1,9 @@
 import { h } from '@stencil/core';
-import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
+import { FButton } from '../../../f-components/f-button/f-button';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../../f-components/f-button/f-button-declarations';
 import { KupDatesFormats } from '../../../utils/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
 import { KupObj } from '../../../utils/kup-objects/kup-objects-declarations';
@@ -60,33 +64,34 @@ export function prepareCalendar(component: KupCard) {
         }
     }
 
-    const prevButtonComp = (
-        <kup-button
-            class="prev-page"
-            icon="chevron_left"
-            onkup-button-click={() => prevPage(component)}
-        ></kup-button>
-    );
-    const nextButtonComp = (
-        <kup-button
-            class="next-page"
-            icon="chevron_right"
-            onkup-button-click={() => nextPage(component)}
-        ></kup-button>
-    );
+    const prevButtonProp: FButtonProps = {
+        icon: 'chevron_left',
+        wrapperClass: 'prev-page',
+        onClick: () => prevPage(component),
+    };
+    const prevButtonComp = <FButton {...prevButtonProp} />;
 
+    const nextButtonProp: FButtonProps = {
+        icon: 'chevron_right',
+        wrapperClass: 'next-page',
+        onClick: () => nextPage(component),
+    };
+    const nextButtonComp = <FButton {...nextButtonProp} />;
+
+    const changeViewButtonProp: FButtonProps = {
+        wrapperClass: 'change-view-button',
+        styling: FButtonStyling.FLAT,
+        label: changeViewButtonLabel,
+        onClick: () => changeView(component),
+        id: 'change-view-button',
+    };
+    //text-transform:capitalize
     return (
         <div id={component.rootElement.id + '_calendar'}>
             <div class="section-1">
                 <div class="sub-1 nav">
                     {prevButtonComp}
-                    <kup-button
-                        customStyle="#kup-component button {text-transform:capitalize}"
-                        class="change-view-button"
-                        styling={FButtonStyling.FLAT}
-                        label={changeViewButtonLabel}
-                        onkup-button-click={() => changeView(component)}
-                    ></kup-button>
+                    <FButton {...changeViewButtonProp} />
                     {nextButtonComp}
                 </div>
             </div>

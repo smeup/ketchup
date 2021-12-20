@@ -1,5 +1,9 @@
 import { h, JSX } from '@stencil/core';
-import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
+import { FButton } from '../../../f-components/f-button/f-button';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../../f-components/f-button/f-button-declarations';
 import { KupDatesFormats } from '../../../utils/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
 import { KupObj } from '../../../utils/kup-objects/kup-objects-declarations';
@@ -72,9 +76,11 @@ function getSecondsActive(component: KupCard): boolean {
     return false;
 }
 
-function setElement(component: KupCard, elemId: string, elem: HTMLElement) {
-    const el = component.rootElement as KupCardBuiltinClock;
-    el.kupData[elemId] = elem;
+function setElement(component: KupCard, elem: HTMLElement) {
+    if (elem) {
+        const el = component.rootElement as KupCardBuiltinClock;
+        el.kupData[elem.id] = elem;
+    }
 }
 
 function getElement(component: KupCard, elemId: string): HTMLElement {
@@ -177,7 +183,7 @@ function createClock(component: KupCard) {
                 getHoursActive(component) ? KupCardCSSClasses.VISIBLE : ''
             }`}
             ref={(el) => {
-                setElement(component, el.id, el);
+                setElement(component, el);
             }}
             onClick={() => {
                 setClockViewActive(component, true, false, false);
@@ -196,7 +202,7 @@ function createClock(component: KupCard) {
                 getMinutesActive(component) ? KupCardCSSClasses.VISIBLE : ''
             }`}
             ref={(el) => {
-                setElement(component, el.id, el);
+                setElement(component, el);
             }}
             onClick={() => {
                 setClockViewActive(component, false, true, false);
@@ -217,7 +223,7 @@ function createClock(component: KupCard) {
                     getSecondsActive(component) ? KupCardCSSClasses.VISIBLE : ''
                 }`}
                 ref={(el) => {
-                    setElement(component, el.id, el);
+                    setElement(component, el);
                 }}
             >
                 {buildClock(60, 101, 115, 115, 'sec unit', 0, 5, ss, component)}
@@ -232,7 +238,7 @@ function createClock(component: KupCard) {
                     getSecondsActive(component) ? KupCardCSSClasses.VISIBLE : ''
                 }`}
                 ref={(el) => {
-                    setElement(component, el.id, el);
+                    setElement(component, el);
                 }}
                 onClick={() => {
                     setClockViewActive(component, false, false, true);
@@ -247,12 +253,20 @@ function createClock(component: KupCard) {
         );
     }
 
+    const confirmButtonProp: FButtonProps = {
+        label: 'Ok',
+        styling: FButtonStyling.FLAT,
+        onClick: (e: any) => {
+            setTimeFromClock(e, component);
+        },
+    };
+
     return (
         <div
             class="clock"
             id={KupCardBuiltinClockElements.CLOCK}
             ref={(el) => {
-                setElement(component, el.id, el);
+                setElement(component, el);
             }}
         >
             <div class="top">{time}</div>
@@ -262,7 +276,7 @@ function createClock(component: KupCard) {
                     getHoursActive(component) ? KupCardCSSClasses.VISIBLE : ''
                 }`}
                 ref={(el) => {
-                    setElement(component, el.id, el);
+                    setElement(component, el);
                 }}
             >
                 {buildClock(12, 101, 105, 105, 'hour', 0, 1, hh, component)}
@@ -275,7 +289,7 @@ function createClock(component: KupCard) {
                     getMinutesActive(component) ? KupCardCSSClasses.VISIBLE : ''
                 }`}
                 ref={(el) => {
-                    setElement(component, el.id, el);
+                    setElement(component, el);
                 }}
             >
                 {buildClock(60, 101, 115, 115, 'min unit', 0, 5, mm, component)}
@@ -283,14 +297,7 @@ function createClock(component: KupCard) {
             </div>
             {seconds}
             <div class="actions">
-                <kup-button
-                    onkup-button-click={(e: any) => {
-                        setTimeFromClock(e, component);
-                    }}
-                    id="confirm"
-                    styling={FButtonStyling.FLAT}
-                    label="Ok"
-                ></kup-button>
+                <FButton {...confirmButtonProp}></FButton>
             </div>
         </div>
     );
@@ -478,6 +485,7 @@ function setClockTime(e, component: KupCard) {
             );
         } else {
             setTimeFromClock(e, component);
+            setClockViewActive(component, true, false, false);
             switchView(
                 component,
                 KupCardBuiltinClockElements.HOURS,
@@ -488,6 +496,7 @@ function setClockTime(e, component: KupCard) {
         secondsEl.innerText = time;
         secondsCircleEl.querySelector('.selected').classList.remove('selected');
         setTimeFromClock(e, component);
+        setClockViewActive(component, true, false, false);
         switchView(
             component,
             KupCardBuiltinClockElements.HOURS,
