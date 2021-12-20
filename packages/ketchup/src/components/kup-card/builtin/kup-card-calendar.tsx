@@ -1,5 +1,4 @@
-import { h, forceUpdate } from '@stencil/core';
-import internal from 'stream';
+import { h } from '@stencil/core';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
 import { KupDatesFormats } from '../../../utils/kup-dates/kup-dates-declarations';
 import { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
@@ -8,31 +7,35 @@ import {
     DateTimeFormatOptionsMonth,
     getMonthsAsStringByLocale,
 } from '../../../utils/utils';
-import { LoadMoreMode } from '../../kup-data-table/kup-data-table-declarations';
 import { SourceEvent } from '../../kup-date-picker/kup-date-picker-declarations';
 import { KupCard } from '../kup-card';
-import { KupCardBuiltinCalendarOptions } from '../kup-card-declarations';
+import {
+    KupCardBuiltinCalendar,
+    KupCardBuiltinCalendarOptions,
+} from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
-let calendarView: SourceEvent = SourceEvent.DATE;
-let firstDayIndex: number = 1;
-let dateRef: Date = new Date();
-let componentRef: KupCard;
 
 export function prepareCalendar(component: KupCard) {
-    componentRef = component;
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    if (!el.kupData) el.kupData = {};
 
-    //if (componentRef.data && componentRef.data.options) {
-    //    const opts = componentRef.data.options as KupCardBuiltinCalendarOptions;
-    //    const obj = opts.initialValue as KupObj;
-    //    if (opts.initialValue) {
-    //        if (obj && obj.k) dateRef = new Date(obj.k);
-    //        else dateRef = new Date(opts.initialValue as string);
-    //    }
-    //    if (opts.firstDayIndex) firstDayIndex = opts.firstDayIndex;
-    //}
+    if (component.data && component.data.options) {
+        const opts = component.data.options as KupCardBuiltinCalendarOptions;
+        if (opts.resetStatus) {
+            el.kupData = {};
+            const obj = opts.initialValue as KupObj;
+            if (opts.initialValue) {
+                if (obj && obj.k) el.kupData.value = new Date(obj.k);
+                else el.kupData.value = new Date(opts.initialValue as string);
+            }
+            if (opts.firstDayIndex)
+                el.kupData.firstDayIndex = opts.firstDayIndex;
+            opts.resetStatus = false;
+        }
+    }
 
-    const date: Date = dateRef;
+    const date: Date = getValue(component);
     const months = getMonthsAsStringByLocale();
     const curYear: number = date.getFullYear();
     const yearRange = getInitEndYear(curYear);
@@ -40,7 +43,7 @@ export function prepareCalendar(component: KupCard) {
     const endYear: number = yearRange.endYear;
 
     let changeViewButtonLabel: string = 'not-set';
-    switch (calendarView) {
+    switch (getView(component)) {
         case SourceEvent.DATE: {
             changeViewButtonLabel =
                 months[date.getMonth()] + ', ' + curYear.toString();
@@ -59,57 +62,85 @@ export function prepareCalendar(component: KupCard) {
 
     const prevButtonComp = (
         <kup-button
-            id="prev-page"
+            class="prev-page"
             icon="chevron_left"
-            onkup-button-click={() => prevPage()}
+            onkup-button-click={() => prevPage(component)}
         ></kup-button>
     );
     const nextButtonComp = (
         <kup-button
-            id="next-page"
+            class="next-page"
             icon="chevron_right"
-            onkup-button-click={() => nextPage()}
+            onkup-button-click={() => nextPage(component)}
         ></kup-button>
     );
 
     return (
-        <div id={componentRef.rootElement.id + '_calendar'}>
+        <div id={component.rootElement.id + '_calendar'}>
             <div class="section-1">
                 <div class="sub-1 nav">
                     {prevButtonComp}
                     <kup-button
                         customStyle="#kup-component button {text-transform:capitalize}"
-                        id="change-view-button"
+                        class="change-view-button"
                         styling={FButtonStyling.FLAT}
                         label={changeViewButtonLabel}
-                        onkup-button-click={() => changeView()}
+                        onkup-button-click={() => changeView(component)}
                     ></kup-button>
                     {nextButtonComp}
                 </div>
             </div>
-            <div class="section-2">{createCalendar()}</div>
+            <div class="section-2">{createCalendar(component)}</div>
         </div>
     );
 }
 
-function createCalendar() {
-    switch (calendarView) {
+function getValue(component: KupCard): Date {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    if (el.kupData.value) return el.kupData.value;
+    return new Date();
+}
+
+function setValue(component: KupCard, value: Date) {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    el.kupData.value = value;
+}
+
+function getFirstDayIndex(component: KupCard): number {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    if (el.kupData.firstDayIndex) return el.kupData.firstDayIndex;
+    return 1;
+}
+
+function getView(component: KupCard): SourceEvent {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    if (el.kupData.calendarView) return el.kupData.calendarView;
+    return SourceEvent.DATE;
+}
+
+function setView(component: KupCard, value: SourceEvent) {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    el.kupData.calendarView = value;
+}
+
+function createCalendar(component: KupCard) {
+    switch (getView(component)) {
         case SourceEvent.DATE: {
-            return createDaysCalendar();
+            return createDaysCalendar(component);
         }
         case SourceEvent.MONTH: {
-            return createMonthsCalendar();
+            return createMonthsCalendar(component);
         }
         case SourceEvent.YEAR: {
-            return createYearsCalendar();
+            return createYearsCalendar(component);
         }
     }
 }
 
-function createDaysCalendar() {
-    const days = getDaysOfWeekAsStringByLocale(firstDayIndex);
+function createDaysCalendar(component: KupCard) {
+    const days = getDaysOfWeekAsStringByLocale(getFirstDayIndex(component));
 
-    const date: Date = dateRef;
+    const date: Date = getValue(component);
     const selecteDate: Date = new Date(date);
 
     const thead = [];
@@ -126,7 +157,7 @@ function createDaysCalendar() {
     const lastMonthDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
     const finish: boolean = false;
-    let currentDayIndex = firstDayIndex;
+    let currentDayIndex = getFirstDayIndex(component);
     const firstMonthDayIndex = firstMonthDay.getDay();
     let row = [];
     let daysForRowAdded = 0;
@@ -166,7 +197,10 @@ function createDaysCalendar() {
                         {...dataIndex}
                         class="item-number"
                         onClick={() => {
-                            onCalendarItemClick(dataIndex['data-index']);
+                            onCalendarItemClick(
+                                component,
+                                dataIndex['data-index']
+                            );
                         }}
                     >
                         {dayCount}
@@ -186,17 +220,17 @@ function createDaysCalendar() {
     }
 
     return (
-        <table id="calendar">
+        <table class="calendar">
             <thead>{thead}</thead>
             <tbody>{tbody}</tbody>
         </table>
     );
 }
 
-function createMonthsCalendar() {
+function createMonthsCalendar(component: KupCard) {
     const months = getMonthsAsStringByLocale(DateTimeFormatOptionsMonth.SHORT);
 
-    const date: Date = dateRef;
+    const date: Date = getValue(component);
     const selecteDate: Date = date;
     const tbody = [];
     let row = [];
@@ -225,6 +259,7 @@ function createMonthsCalendar() {
                         class="item-number"
                         onClick={() => {
                             onCalendarMonthYearItemClick(
+                                component,
                                 dataIndex['data-index']
                             );
                         }}
@@ -242,14 +277,14 @@ function createMonthsCalendar() {
     }
 
     return (
-        <table id="calendar">
+        <table class="calendar">
             <tbody>{tbody}</tbody>
         </table>
     );
 }
 
-function createYearsCalendar() {
-    const date: Date = dateRef;
+function createYearsCalendar(component: KupCard) {
+    const date: Date = getValue(component);
     const curYear: number = date.getFullYear();
     const yearRange = getInitEndYear(curYear);
     const initYear: number = yearRange.initYear;
@@ -280,6 +315,7 @@ function createYearsCalendar() {
                         class="item-number"
                         onClick={() => {
                             onCalendarMonthYearItemClick(
+                                component,
                                 dataIndex['data-index']
                             );
                         }}
@@ -297,7 +333,7 @@ function createYearsCalendar() {
     }
 
     return (
-        <table id="calendar">
+        <table class="calendar">
             <tbody>{tbody}</tbody>
         </table>
     );
@@ -373,12 +409,12 @@ function fillString(
     }
 }
 
-function prevPage() {
-    const date: Date = dateRef;
+function prevPage(component: KupCard) {
+    const date: Date = getValue(component);
     let yy: number = date.getFullYear();
     let mm: number = date.getMonth();
 
-    if (calendarView == SourceEvent.DATE) {
+    if (getView(component) == SourceEvent.DATE) {
         if (mm < 1) {
             mm = 11;
             yy--;
@@ -386,24 +422,24 @@ function prevPage() {
             mm--;
         }
     }
-    if (calendarView == SourceEvent.MONTH) {
+    if (getView(component) == SourceEvent.MONTH) {
         yy--;
     }
-    if (calendarView == SourceEvent.YEAR) {
+    if (getView(component) == SourceEvent.YEAR) {
         let yearRange = getInitEndYear(yy);
         yy = yearRange.initYear - 1;
     }
     date.setFullYear(yy);
     date.setMonth(mm);
-    dateRef = date;
-    refresh();
+    setValue(component, date);
+    refresh(component);
 }
 
-function nextPage() {
-    const date: Date = dateRef;
+function nextPage(component: KupCard) {
+    const date: Date = getValue(component);
     let yy: number = date.getFullYear();
     let mm: number = date.getMonth();
-    if (calendarView == SourceEvent.DATE) {
+    if (getView(component) == SourceEvent.DATE) {
         if (mm > 10) {
             mm = 0;
             yy++;
@@ -411,17 +447,17 @@ function nextPage() {
             mm++;
         }
     }
-    if (calendarView == SourceEvent.MONTH) {
+    if (getView(component) == SourceEvent.MONTH) {
         yy++;
     }
-    if (calendarView == SourceEvent.YEAR) {
+    if (getView(component) == SourceEvent.YEAR) {
         const yearRange = getInitEndYear(yy);
         yy = yearRange.endYear + 1;
     }
     date.setFullYear(yy);
     date.setMonth(mm);
-    dateRef = date;
-    refresh();
+    setValue(component, date);
+    refresh(component);
 }
 
 function getInitEndYear(curYear: number): {
@@ -434,60 +470,61 @@ function getInitEndYear(curYear: number): {
     return { initYear: initYear, endYear: endYear };
 }
 
-function changeView() {
-    switch (calendarView) {
+function changeView(component: KupCard) {
+    switch (getView(component)) {
         case SourceEvent.DATE: {
-            calendarView = SourceEvent.MONTH;
+            setView(component, SourceEvent.MONTH);
             break;
         }
         case SourceEvent.MONTH: {
-            calendarView = SourceEvent.YEAR;
+            setView(component, SourceEvent.YEAR);
             break;
         }
         case SourceEvent.YEAR: {
-            calendarView = SourceEvent.DATE;
+            setView(component, SourceEvent.DATE);
+            break;
         }
     }
-    refresh();
+    refresh(component);
 }
 
-function refresh() {
-    forceUpdate(componentRef);
+function refresh(component: KupCard) {
+    component.refresh();
 }
 
-function refreshComponentValue(value: string) {
+function refreshComponentValue(component: KupCard, value: string) {
     let d: Date;
     if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
         d = new Date(value);
     } else {
         d = new Date();
     }
-    dateRef = d;
-    refresh();
+    setValue(component, d);
+    refresh(component);
 }
 
-function onCalendarMonthYearItemClick(value: string) {
-    switch (calendarView) {
+function onCalendarMonthYearItemClick(component: KupCard, value: string) {
+    switch (getView(component)) {
         case SourceEvent.MONTH: {
-            calendarView = SourceEvent.DATE;
+            setView(component, SourceEvent.DATE);
             break;
         }
         case SourceEvent.YEAR: {
-            calendarView = SourceEvent.MONTH;
+            setView(component, SourceEvent.MONTH);
             break;
         }
     }
-    refreshComponentValue(value);
+    refreshComponentValue(component, value);
 }
 
-function onCalendarItemClick(value: string) {
+function onCalendarItemClick(component: KupCard, value: string) {
     let d: Date;
     if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
         d = new Date(value);
     } else {
         d = new Date();
     }
-    dateRef = d;
-    componentRef.onKupClick(componentRef.rootElement.id, value);
-    refresh();
+    setValue(component, d);
+    component.onKupClick(component.rootElement.id, value);
+    refresh(component);
 }

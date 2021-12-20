@@ -222,6 +222,8 @@ export class KupTimePicker {
             id: this.rootElement.id,
             value: this.value,
         });
+
+        this.setFocus();
     }
 
     onKupClearIconClick() {
@@ -500,7 +502,6 @@ export class KupTimePicker {
         this.pickerKupEl.menuVisible = false;
         this.kupManager.dynamicPosition.stop(this.pickerKupEl);
         this.kupManager.removeClickCallback(this.clickCb);
-        this.setFocus();
     }
 
     isPickerOpened(): boolean {
@@ -700,7 +701,7 @@ export class KupTimePicker {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector('.mdc-text-field');
+            const f: HTMLElement = root.querySelector('.f-text-field');
             if (f) {
                 this.textFieldContainerEl = f;
                 this.textfieldEl = f.querySelector('input');

@@ -203,6 +203,8 @@ export class KupDatePicker {
             id: this.rootElement.id,
             value: this.value,
         });
+
+        this.setFocus();
     }
 
     onKupClearIconClick() {
@@ -569,6 +571,7 @@ export class KupDatePicker {
             options: {
                 initialValue: this.value,
                 firstDayIndex: this.firstDayIndex,
+                resetStatus: true,
             },
         };
 

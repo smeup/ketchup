@@ -1,5 +1,6 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { SourceEvent } from '../kup-date-picker/kup-date-picker-declarations';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -20,6 +21,21 @@ export enum KupCardProps {
 export interface KupCardBuiltinCalendarOptions {
     initialValue?: string | KupObj;
     firstDayIndex?: number;
+    resetStatus: boolean;
+}
+/**
+ * Data prop of the element kup-card calendar builtin.
+ */
+export interface KupCardBuiltinCalendarData {
+    value?: Date;
+    firstDayIndex?: number;
+    calendarView?: SourceEvent;
+}
+/**
+ * Html element of kup-card calendar builtin.
+ */
+export interface KupCardBuiltinCalendar extends HTMLElement {
+    kupData: KupCardBuiltinCalendarData;
 }
 /**
  * Options prop of the kup-card clock builtin.
