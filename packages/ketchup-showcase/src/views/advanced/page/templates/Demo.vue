@@ -520,8 +520,10 @@ const demoTypes: DemoTypeJson = {
   },
   KupCardFamily: {
     keys: {
+      BUILTIN: 'builtin',
       COLLAPSIBLE: 'collapsible',
       DIALOG: 'dialog',
+      FREE: 'free',
       SCALABLE: 'scalable',
       STANDARD: 'standard',
     },
