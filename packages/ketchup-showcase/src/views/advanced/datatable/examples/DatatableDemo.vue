@@ -36,6 +36,18 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
+          name: 'kup-cell-click',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-input',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-update',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-datatable-resetselectedrows',
           type: 'CustomEvent',
         },
@@ -75,10 +87,6 @@ export default {
           name: 'kup-datatable-loadmoreclick',
           type: 'click',
         },
-        {
-          name: 'kup-datatable-textfieldinput',
-          type: 'input',
-        },
       ],
       demoMethods: [
         {
@@ -111,6 +119,10 @@ export default {
           name: 'resizeCallback',
           description:
             'This method is invoked by KupManager whenever the component changes size.',
+        },
+        {
+          name: 'setFocus',
+          description: 'Sets the focus on an editable table cell.',
         },
         {
           name: 'setProps',

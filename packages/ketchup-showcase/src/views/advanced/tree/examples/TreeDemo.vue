@@ -43,6 +43,18 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
+          name: 'kup-cell-click',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-input',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-update',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-tree-nodecollapse',
           type: 'custom',
         },

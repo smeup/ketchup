@@ -27,7 +27,15 @@ export default {
           type: 'click',
         },
         {
+          name: 'kup-card-close',
+          type: 'click',
+        },
+        {
           name: 'kup-card-event',
+          type: 'custom',
+        },
+        {
+          name: 'kup-card-ready',
           type: 'custom',
         },
       ],

@@ -34,6 +34,7 @@ import { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import { KupDates } from '../kup-dates/kup-dates';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import { KupSearch } from '../kup-search/kup-search';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -52,6 +53,7 @@ export class KupManager {
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: KupScrollOnHover;
+    search: KupSearch;
     utilities: KupManagerUtilities;
     theme: KupTheme;
     toolbar: KupToolbar;
@@ -148,6 +150,7 @@ export class KupManager {
             scrollOnHoverDelay,
             scrollOnHoverStep
         );
+        this.search = new KupSearch();
         this.utilities = {
             clickCallbacks: new Set(),
             lastPointerDownString: null,

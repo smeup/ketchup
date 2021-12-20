@@ -15,6 +15,7 @@ import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { ResizeObserver } from 'resize-observer';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
+import { KupSearch } from '../kup-search/kup-search';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -36,6 +37,7 @@ export interface KupManager {
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: KupScrollOnHover;
+    search: KupSearch;
     theme: KupTheme;
     toolbar: KupToolbar;
     utilities: KupManagerUtilities;

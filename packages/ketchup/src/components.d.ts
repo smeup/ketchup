@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDataTableCellTextFieldInputEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -1214,6 +1214,12 @@ export namespace Components {
           * Set the type of the rows selection.
          */
         "selection": SelectionMode;
+        /**
+          * Sets the focus on an editable table cell.
+          * @param column - Name of the column.
+          * @param rowId - Id of the row.
+         */
+        "setFocus": (column: string, rowId: string) => Promise<void>;
         /**
           * Sets the props to the component.
           * @param props - Object containing props that will be set to the component.
@@ -3592,9 +3598,17 @@ declare namespace LocalJSX {
          */
         "onKup-card-click"?: (event: CustomEvent<KupCardClickPayload>) => void;
         /**
+          * Triggered when a dialog card is closed with the "X".
+         */
+        "onKup-card-close"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
           * Triggered when a sub-component of the card emits an event.
          */
         "onKup-card-event"?: (event: CustomEvent<KupCardEventPayload>) => void;
+        /**
+          * Triggered when the component is ready.
+         */
+        "onKup-card-ready"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
@@ -4083,7 +4097,6 @@ declare namespace LocalJSX {
           * When a row is selected
          */
         "onKup-datatable-rowselected"?: (event: CustomEvent<KupDatatableRowSelectedEventPayload>) => void;
-        "onKup-datatable-textfieldinput"?: (event: CustomEvent<KupDataTableCellTextFieldInputEventPayload>) => void;
         /**
           * Current selected page set on component load
          */
