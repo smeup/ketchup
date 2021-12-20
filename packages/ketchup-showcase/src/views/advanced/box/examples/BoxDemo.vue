@@ -109,10 +109,6 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kupBoxDropped',
-          type: 'CustomEvent',
-        },
-        {
           name: 'kup-box-selected',
           type: 'CustomEvent',
         },
@@ -122,6 +118,18 @@ export default {
         },
         {
           name: 'kup-box-rowactionmenuclick',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-click',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-input',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-update',
           type: 'CustomEvent',
         },
       ],
