@@ -32,6 +32,34 @@ export interface KupCardBuiltinClockOptions {
     secondsActive?: boolean;
 }
 /**
+ * Element ids for kup-card clock builtin.
+ */
+export enum KupCardBuiltinClockElements {
+    CLOCK = 'clockEl',
+    HOURS = 'hoursEl',
+    MINUTES = 'minutesEl',
+    SECONDS = 'secondsEl',
+    HOURSCIRCLE = 'hoursCircleEl',
+    MINUTESCIRCLE = 'minutesCircleEl',
+    SECONDSCIRCLE = 'secondsCircleEl',
+}
+/**
+ * Data prop of the element kup-card clock builtin.
+ */
+export interface KupCardBuiltinClockData {
+    value?: string;
+    manageSeconds?: boolean;
+    hoursActive?: boolean;
+    minutesActive?: boolean;
+    secondsActive?: boolean;
+}
+/**
+ * Html element of kup-card clock builtin.
+ */
+export interface KupCardBuiltinClock extends HTMLElement {
+    kupData: KupCardBuiltinClockData;
+}
+/**
  * Data prop of the kup-card component.
  */
 export interface KupCardData {

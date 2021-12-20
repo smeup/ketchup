@@ -20,7 +20,7 @@
       opacity: 0.75;
       transition: 0.25s ease-in-out;
     }
-    .active {
+    .visible {
       opacity: 1;
     }
   }
@@ -36,7 +36,7 @@
     left: 25px;
     box-sizing: border-box;
     display: none;
-    &.active {
+    &.visible {
       display: block;
     }
   }
@@ -172,7 +172,7 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  .clock .actions .action:active {
+  .clock .actions .action:visible {
     background-color: rgba(0, 0, 0, 0.3);
   }
 

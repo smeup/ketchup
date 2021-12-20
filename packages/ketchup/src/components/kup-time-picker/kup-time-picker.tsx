@@ -123,11 +123,8 @@ export class KupTimePicker {
     private minutesActive: boolean = false;
     private secondsActive: boolean = false;
     private textFieldContainerEl: HTMLElement = undefined;
-    private textfieldEl: any = undefined;
-    private pickerContainerEl: HTMLElement = undefined;
-    private pickerCardEl: HTMLKupCardElement = undefined;
-    private pickerEl: HTMLElement = undefined;
-    private pickerOpened: boolean = false;
+    private textfieldEl: HTMLInputElement = undefined;
+    private pickerKupEl: HTMLKupListElement | HTMLKupCardElement = undefined;
     private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
@@ -385,7 +382,7 @@ export class KupTimePicker {
     @Method()
     async setFocus() {
         if (this.textfieldEl != null) {
-            this.textfieldEl.setFocus();
+            this.textfieldEl.focus();
         }
     }
     /**
@@ -460,91 +457,54 @@ export class KupTimePicker {
     }
 
     openPicker() {
-        this.pickerOpened = true;
-        if (this.clockVariant) {
-            this.pickerCardEl.menuVisible = true;
-            if (this.textfieldEl != null) {
-                this.textfieldEl.classList.add('toggled');
-            }
-            if (
-                this.kupManager.dynamicPosition.isRegistered(this.pickerCardEl)
-            ) {
-                this.kupManager.dynamicPosition.changeAnchor(
-                    this.pickerCardEl,
-                    this.textFieldContainerEl
-                );
-            } else {
-                this.kupManager.dynamicPosition.register(
-                    this.pickerCardEl,
-                    this.textFieldContainerEl,
-                    0,
-                    KupDynamicPositionPlacement.AUTO,
-                    true
-                );
-            }
-            this.kupManager.dynamicPosition.start(this.pickerCardEl);
-            if (!this.clickCb) {
-                this.clickCb = {
-                    cb: () => {
-                        this.closePicker();
-                    },
-                    el: this.pickerCardEl,
-                };
-            }
-            this.kupManager.addClickCallback(this.clickCb, true);
-        } else {
-            let textfieldEl = this.textfieldEl;
-            let containerEl = this.pickerContainerEl;
-            this.setClockViewActive(true, false, false);
-            if (textfieldEl != null) {
-                textfieldEl.classList.add('toggled');
-            }
-            if (containerEl != null) {
-                containerEl.classList.add('visible');
-                const elStyle = containerEl.style;
-                elStyle.height = 'auto';
-                elStyle.minWidth = textfieldEl.clientWidth + 'px';
-            }
-            if (!this.clickCb) {
-                this.clickCb = {
-                    cb: () => {
-                        this.closePicker();
-                    },
-                    el: this.pickerContainerEl,
-                };
-            }
-            this.kupManager.addClickCallback(this.clickCb, true);
-            this.refresh();
+        const elStyle = this.pickerKupEl.style;
+        elStyle.height = 'auto';
+        elStyle.minWidth = this.textFieldContainerEl.clientWidth + 'px';
+        this.pickerKupEl.menuVisible = true;
+        if (this.textfieldEl != null) {
+            this.textfieldEl.classList.add('toggled');
         }
+        if (this.kupManager.dynamicPosition.isRegistered(this.pickerKupEl)) {
+            this.kupManager.dynamicPosition.changeAnchor(
+                this.pickerKupEl,
+                this.textFieldContainerEl
+            );
+        } else {
+            this.kupManager.dynamicPosition.register(
+                this.pickerKupEl,
+                this.textFieldContainerEl,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+        }
+        this.kupManager.dynamicPosition.start(this.pickerKupEl);
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.closePicker();
+                },
+                el: this.pickerKupEl,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
     }
 
     closePicker() {
-        this.pickerOpened = false;
-        if (this.clockVariant) {
-            this.kupManager.removeClickCallback(this.clickCb);
-            let textfieldEl = this.textfieldEl;
-            if (textfieldEl != null) {
-                textfieldEl.classList.remove('toggled');
-            }
-            this.pickerCardEl.menuVisible = false;
-            this.kupManager.dynamicPosition.stop(this.pickerCardEl);
-        } else {
-            let textfieldEl = this.textfieldEl;
-            let containerEl = this.pickerContainerEl;
-            if (textfieldEl != null) {
-                textfieldEl.classList.remove('toggled');
-                textfieldEl.emitSubmitEventOnEnter = true;
-            }
-            if (containerEl != null) {
-                containerEl.classList.remove('visible');
-            }
-        }
-
+        this.pickerKupEl.menuVisible = false;
         this.kupManager.removeClickCallback(this.clickCb);
+        let textfieldEl = this.textfieldEl;
+        if (textfieldEl != null) {
+            textfieldEl.classList.remove('toggled');
+        }
+        this.pickerKupEl.menuVisible = false;
+        this.kupManager.dynamicPosition.stop(this.pickerKupEl);
+        this.kupManager.removeClickCallback(this.clickCb);
+        this.setFocus();
     }
 
     isPickerOpened(): boolean {
-        return this.pickerOpened;
+        return this.pickerKupEl.menuVisible == true;
     }
 
     getTextFieldId(): string {
@@ -552,7 +512,7 @@ export class KupTimePicker {
     }
 
     getPickerElId(): string {
-        return this.pickerEl.id;
+        return this.pickerKupEl.id;
     }
 
     prepTextfield(initialValue: string): any {
@@ -606,68 +566,41 @@ export class KupTimePicker {
         return idConc.indexOf('#' + id + '#') >= 0;
     }
 
-    private createClock() {
-        const data: KupCardData = {
-            options: {
-                initialValue: this.value,
-                manageSeconds: this.manageSeconds,
-                hoursActive: this.hoursActive,
-                minutesActive: this.minutesActive,
-                secondsActive: this.secondsActive,
-            },
-        };
-
-        return (
-            <kup-card
-                ref={(el) => (this.pickerCardEl = el)}
-                data={data}
-                layout-family="builtin"
-                layout-number="2"
-                size-x="300px"
-                size-y="450px"
-                is-menu
-                onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
-                    if (ev.detail.value != null && ev.detail.value != '')
-                        this.onKupTimePickerItemClick(ev, ev.detail.value);
-                }}
-            ></kup-card>
-        );
-    }
-
-    private switchView(el: HTMLElement, elCircle: HTMLElement) {
-        this.hoursEl.classList.remove('active');
-        this.hoursCircleEl.classList.remove('active');
-        this.minutesEl.classList.remove('active');
-        this.minutesCircleEl.classList.remove('active');
-        if (this.secondsEl) {
-            this.secondsEl.classList.remove('active');
-            this.secondsCircleEl.classList.remove('active');
-        }
-        el.classList.add('active');
-        elCircle.classList.add('active');
-    }
-
-    private setClockViewActive(
-        hoursActive: boolean,
-        minutesActive: boolean,
-        secondsActive: boolean
-    ) {
-        this.hoursActive = hoursActive;
-        this.minutesActive = minutesActive;
-        this.secondsActive = secondsActive;
-    }
-
     prepTimePicker() {
-        let widget: HTMLElement = undefined;
-
         if (this.clockVariant) {
-            return this.createClock();
+            const data: KupCardData = {
+                options: {
+                    initialValue: this.value,
+                    manageSeconds: this.manageSeconds,
+                    hoursActive: this.hoursActive,
+                    minutesActive: this.minutesActive,
+                    secondsActive: this.secondsActive,
+                },
+            };
+
+            return (
+                <kup-card
+                    ref={(el) => (this.pickerKupEl = el)}
+                    data={data}
+                    layout-family="builtin"
+                    layout-number="2"
+                    size-x="300px"
+                    size-y="450px"
+                    is-menu
+                    onkup-card-click={(
+                        ev: CustomEvent<KupCardClickPayload>
+                    ) => {
+                        if (ev.detail.value != null && ev.detail.value != '')
+                            this.onKupTimePickerItemClick(ev, ev.detail.value);
+                    }}
+                ></kup-card>
+            );
         } else {
-            widget = (
+            return (
                 <kup-list
+                    ref={(el) => (this.pickerKupEl = el)}
                     data={this.createTimeListData(this.value)}
                     is-menu
-                    menu-visible
                     onkup-list-click={(e) =>
                         this.onKupTimePickerItemClick(
                             e,
@@ -675,24 +608,9 @@ export class KupTimePicker {
                         )
                     }
                     id={this.rootElement.id + '_list'}
-                    ref={(el) => (this.pickerEl = el as any)}
                 ></kup-list>
             );
         }
-
-        return (
-            <div
-                id="time-picker-div"
-                ref={(el) => (this.pickerContainerEl = el as any)}
-                onBlur={(e: any) => {
-                    if (!this.isRelatedTargetInThisComponent(e)) {
-                        this.onKupBlur();
-                    }
-                }}
-            >
-                {widget}
-            </div>
-        );
     }
 
     private createTimeListData(value: string) {
@@ -782,8 +700,9 @@ export class KupTimePicker {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field');
+            const f: HTMLElement = root.querySelector('.mdc-text-field');
             if (f) {
+                this.textFieldContainerEl = f;
                 this.textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
             }
@@ -820,10 +739,7 @@ export class KupTimePicker {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div
-                    id={componentWrapperId}
-                    ref={(el) => (this.textFieldContainerEl = el)}
-                >
+                <div id={componentWrapperId}>
                     {this.prepTextfield(this.getTimeForOutput())}
                 </div>
             </Host>
