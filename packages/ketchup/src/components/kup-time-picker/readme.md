@@ -115,12 +115,12 @@ graph TD;
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-card --> kup-time-picker
-  kup-button --> kup-badge
   kup-badge --> kup-badge
   kup-chip --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
+  kup-button --> kup-badge
   kup-combobox --> kup-list
   kup-date-picker --> kup-card
   kup-data-table --> kup-time-picker

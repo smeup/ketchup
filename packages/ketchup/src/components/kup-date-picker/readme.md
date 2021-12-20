@@ -101,12 +101,12 @@ Type: `Promise<void>`
 graph TD;
   kup-date-picker --> kup-card
   kup-card --> kup-date-picker
-  kup-button --> kup-badge
   kup-badge --> kup-badge
   kup-chip --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
+  kup-button --> kup-badge
   kup-combobox --> kup-list
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list

@@ -121,10 +121,10 @@ graph TD;
   kup-badge --> kup-badge
   kup-combobox --> kup-list
   kup-date-picker --> kup-card
-  kup-card --> kup-button
-  kup-card --> kup-chip
   kup-card --> kup-badge
+  kup-card --> kup-chip
   kup-card --> kup-autocomplete
+  kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
@@ -132,14 +132,14 @@ graph TD;
   kup-card --> kup-time-picker
   kup-card --> kup-data-table
   kup-card --> kup-list
+  kup-card --> kup-spinner
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
-  kup-card --> kup-spinner
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch
-  kup-button --> kup-badge
   kup-chip --> kup-badge
+  kup-button --> kup-badge
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
