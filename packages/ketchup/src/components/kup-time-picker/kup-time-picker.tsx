@@ -749,5 +749,8 @@ export class KupTimePicker {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
+        if (this.pickerKupEl) {
+            this.pickerKupEl.remove();
+        }
     }
 }

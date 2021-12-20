@@ -786,9 +786,7 @@ export class KupDataTable {
     private tableAreaRef: KupScrollOnHoverElement;
     private stickyTheadRef: any;
     private customizeTopButtonRef: any;
-    private customizeBottomButtonRef: any;
     private customizeTopPanelRef: HTMLKupCardElement;
-    private customizeBottomPanelRef: any;
     private sizedColumns: Column[] = undefined;
     private intObserver: IntersectionObserver = undefined;
     private navBarHeight: number = 0;
@@ -1839,12 +1837,6 @@ export class KupDataTable {
                 0,
                 KupDynamicPositionPlacement.BOTTOM,
                 true
-            );
-        }
-        if (this.customizeBottomButtonRef) {
-            this.kupManager.dynamicPosition.register(
-                this.customizeBottomPanelRef,
-                this.customizeBottomButtonRef
             );
         }
     }
@@ -4474,8 +4466,7 @@ export class KupDataTable {
 
         return (
             <kup-card
-                customStyle=":host { background: var(--kup-background-color); box-shadow: var(--kup-box-shadow); box-sizing: border-box; overflow: auto; padding: 1em; } ::slotted(kup-switch) { width: max-content; } ::slotted(*) { margin: auto; } ::slotted(.customize-element) { margin: auto; padding: 0 1em 1em 1em; width: max-content; } ::slotted(.customize-element):nth-child(1) { padding-top: 1em; }"
-                data={{}}
+                customStyle="*::slotted(kup-switch) { width: max-content !important; } *::slotted(*) { margin: auto !important; } *::slotted(.customize-element) { margin: auto !important; padding: 0 1em 1em 1em !important; width: max-content !important; } *::slotted(.customize-element):nth-child(1) { padding-top: 1em !important; }"
                 isMenu={true}
                 layoutFamily={KupCardFamily.FREE}
                 ref={(el) => {
@@ -5219,6 +5210,9 @@ export class KupDataTable {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
+        }
+        if (this.customizeTopPanelRef) {
+            this.customizeTopPanelRef.remove();
         }
         if (this.columnMenuCard) {
             this.columnMenuCard.remove();

@@ -561,7 +561,7 @@ export class KupCard {
     }
 
     render() {
-        if (!this.data) {
+        if (!this.data && this.rootElement.children.length < 1) {
             return;
         }
 
