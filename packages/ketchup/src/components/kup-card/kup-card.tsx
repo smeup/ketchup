@@ -11,6 +11,7 @@ import {
     VNode,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
+import * as builtinLayouts from './builtin/kup-card-builtin';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
 import * as freeLayouts from './free/kup-card-free';
@@ -32,6 +33,7 @@ import {
     KupCardEventPayload,
     KupCardIds,
     KupCardProps,
+    KupCardClickPayload,
 } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -142,7 +144,7 @@ export class KupCard {
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<KupEventPayload>;
+    kupClick: EventEmitter<KupCardClickPayload>;
     /**
      * Triggered when a dialog card is closed with the "X".
      */
@@ -174,10 +176,11 @@ export class KupCard {
     })
     kupReady: EventEmitter<KupEventPayload>;
 
-    onKupClick(id: string): void {
+    onKupClick(id: string, value: string): void {
         this.kupClick.emit({
             comp: this,
             id: id,
+            value: value,
         });
     }
 
@@ -263,7 +266,7 @@ export class KupCard {
                 const link: HTMLElement = links[index];
                 link.onclick = (e) => {
                     e.stopPropagation();
-                    this.onKupClick(link.id);
+                    this.onKupClick(link.id, null);
                 };
             }
         }
@@ -314,6 +317,9 @@ export class KupCard {
 
         try {
             switch (family) {
+                case KupCardFamily.BUILTIN: {
+                    return builtinLayouts[method](this);
+                }
                 case KupCardFamily.COLLAPSIBLE: {
                     return collapsibleLayouts[method](this);
                 }
@@ -573,7 +579,7 @@ export class KupCard {
                 </style>
                 <div
                     id={componentWrapperId}
-                    onClick={() => this.onKupClick(null)}
+                    onClick={() => this.onKupClick(null, null)}
                 >
                     {this.getLayout()}
                 </div>
