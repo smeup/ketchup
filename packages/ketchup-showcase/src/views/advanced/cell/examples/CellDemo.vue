@@ -24,15 +24,15 @@ export default {
       demoEvents: [
         {
           name: 'kup-cell-click',
-          type: 'custom',
+          type: 'CustomEvent',
         },
         {
           name: 'kup-cell-input',
-          type: 'custom',
+          type: 'CustomEvent',
         },
         {
           name: 'kup-cell-update',
-          type: 'custom',
+          type: 'CustomEvent',
         },
       ],
       demoMethods: [
