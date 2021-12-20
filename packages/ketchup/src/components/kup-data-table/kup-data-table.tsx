@@ -924,7 +924,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableColumnMenu: EventEmitter<KupDatatableColumnMenuEventPayload>;
-
     /**
      * When a row action is clicked
      */
@@ -935,7 +934,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupRowActionClick: EventEmitter<KupDatatableRowActionClickEventPayload>;
-
     @Event({
         eventName: 'kup-datatable-loadmoreclick',
         composed: true,
@@ -943,14 +941,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupLoadMoreClick: EventEmitter<KupDatatableLoadMoreClickEventPayload>;
-
-    @Event({
-        eventName: 'kup-datatable-textfieldinput',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInputEventPayload>;
     /**
      * Closes any opened column menu.
      */
