@@ -3,13 +3,10 @@ import {
     KupCardEventPayload,
     KupCardFamily,
 } from '../../components/kup-card/kup-card-declarations';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupSearchEventPayload,
     searchStartEvent,
 } from './kup-search-declarations';
-
-const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Handles operations and formatting of dates.

@@ -347,13 +347,6 @@ export interface KupDataTableCellButtonClickEventPayload
     column: Column;
     row: Row;
 }
-
-export interface KupDataTableCellTextFieldInputEventPayload
-    extends KupEventPayload {
-    cell: Cell;
-    column: Column;
-    row: Row;
-}
 export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {
     loadItems: number;
 }

@@ -85,8 +85,8 @@ graph TD;
   kup-box --> kup-gauge
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
-  kup-card --> kup-chip
   kup-card --> kup-badge
+  kup-card --> kup-chip
   kup-card --> kup-autocomplete
   kup-card --> kup-button
   kup-card --> kup-checkbox
@@ -102,15 +102,15 @@ graph TD;
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch
-  kup-chip --> kup-badge
   kup-badge --> kup-badge
+  kup-chip --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list
-  kup-date-picker --> kup-button
-  kup-time-picker --> kup-button
+  kup-date-picker --> kup-card
+  kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
   kup-data-table --> kup-checkbox

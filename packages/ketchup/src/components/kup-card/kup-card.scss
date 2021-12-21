@@ -1,5 +1,7 @@
+@import 'builtin/kup-card-builtin';
 @import 'collapsible/kup-card-collapsible';
 @import 'dialog/kup-card-dialog';
+@import 'free/kup-card-free';
 @import 'scalable/kup-card-scalable';
 @import 'standard/kup-card-standard';
 
@@ -24,16 +26,12 @@
 }
 
 :host([is-menu]) {
-  #kup-component {
-    animation: fade-in 0.25s ease-out;
-    display: none;
-  }
+  display: none;
+  animation: fade-in 0.25s ease-out;
 }
 
 :host([menu-visible]) {
-  #kup-component {
-    display: block;
-  }
+  display: block;
 }
 
 #kup-component {
