@@ -49,7 +49,6 @@ import {
     KupDatatableColumnMenuEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
-    KupDataTableCellTextFieldInputEventPayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -149,7 +148,6 @@ import {
 } from '../../utils/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 import {
-    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -788,9 +786,7 @@ export class KupDataTable {
     private tableAreaRef: KupScrollOnHoverElement;
     private stickyTheadRef: any;
     private customizeTopButtonRef: any;
-    private customizeBottomButtonRef: any;
-    private customizeTopPanelRef: any;
-    private customizeBottomPanelRef: any;
+    private customizeTopPanelRef: HTMLKupCardElement;
     private sizedColumns: Column[] = undefined;
     private intObserver: IntersectionObserver = undefined;
     private navBarHeight: number = 0;
@@ -814,6 +810,7 @@ export class KupDataTable {
     private removeDropareaRef: HTMLElement = null;
     private groupsDropareaRef: HTMLElement = null;
     private clickCb: KupManagerClickCb = null;
+    private clickCbCustomPanel: KupManagerClickCb = null;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -1828,16 +1825,18 @@ export class KupDataTable {
     }
 
     private customizePanelPosition() {
-        if (this.customizeTopButtonRef) {
+        if (
+            this.customizeTopButtonRef &&
+            !this.kupManager.dynamicPosition.isRegistered(
+                this.customizeTopPanelRef
+            )
+        ) {
             this.kupManager.dynamicPosition.register(
                 this.customizeTopPanelRef,
-                this.customizeTopButtonRef
-            );
-        }
-        if (this.customizeBottomButtonRef) {
-            this.kupManager.dynamicPosition.register(
-                this.customizeBottomPanelRef,
-                this.customizeBottomButtonRef
+                this.customizeTopButtonRef,
+                0,
+                KupDynamicPositionPlacement.BOTTOM,
+                true
             );
         }
     }
@@ -4396,12 +4395,21 @@ export class KupDataTable {
     }
 
     private openCustomSettings() {
-        this.customizeTopPanelRef.classList.add('visible');
+        this.customizeTopPanelRef.menuVisible = true;
         this.customizeTopButtonRef.classList.add('toggled');
         this.kupManager.dynamicPosition.start(
             this.customizeTopPanelRef as KupDynamicPositionElement
         );
         this.openedCustomSettings = true;
+        if (!this.clickCbCustomPanel) {
+            this.clickCbCustomPanel = {
+                cb: () => {
+                    this.closeCustomSettings();
+                },
+                el: this.customizeTopPanelRef,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCbCustomPanel, true);
     }
 
     private closeCustomSettings() {
@@ -4409,11 +4417,9 @@ export class KupDataTable {
         if (this.customizeTopPanelRef == null) {
             return;
         }
-        this.customizeTopPanelRef.classList.remove('visible');
-        this.kupManager.dynamicPosition.stop(
-            this.customizeTopPanelRef as KupDynamicPositionElement
-        );
+        this.customizeTopPanelRef.menuVisible = false;
         this.openedCustomSettings = false;
+        this.kupManager.removeClickCallback(this.clickCbCustomPanel);
     }
 
     private renderPaginator(top: boolean) {
@@ -4459,11 +4465,15 @@ export class KupDataTable {
         }
 
         return (
-            <div
-                class="kup-menu customize-panel"
+            <kup-card
+                customStyle="#kup-component ::slotted(kup-switch) { width: max-content; } #kup-component  ::slotted(*) { margin: auto; } #kup-component ::slotted(.customize-element) { margin: auto; padding: 0 1em 1em 1em; width: max-content; } #kup-component  ::slotted(.customize-element):nth-child(1) { padding-top: 1em; }"
+                isMenu={true}
+                layoutFamily={KupCardFamily.FREE}
                 ref={(el) => {
-                    this.customizeTopPanelRef = el as any;
+                    this.customizeTopPanelRef = el;
                 }}
+                sizeX="360px"
+                sizeY="300px"
             >
                 {density}
                 {grid}
@@ -4507,7 +4517,7 @@ export class KupDataTable {
                     onkup-button-click={() => this.kupManager.toggleMagicBox()}
                 />
                 {totalsMatrix}
-            </div>
+            </kup-card>
         );
     }
 
@@ -5200,6 +5210,9 @@ export class KupDataTable {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
+        }
+        if (this.customizeTopPanelRef) {
+            this.customizeTopPanelRef.remove();
         }
         if (this.columnMenuCard) {
             this.columnMenuCard.remove();

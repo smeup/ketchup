@@ -684,6 +684,7 @@ function cellEvent(
         const updateEvent = new CustomEvent<FCellEventPayload>(cellEventName, {
             bubbles: true,
             cancelable: true,
+            composed: true,
             detail: {
                 comp: comp,
                 id: (comp as KupComponent).rootElement.id,
