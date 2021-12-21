@@ -23,17 +23,9 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import {
-    getMonthsAsStringByLocale,
-    getDaysOfWeekAsStringByLocale,
-    fillString,
-    DateTimeFormatOptionsMonth,
-} from '../../utils/utils';
-import {
     KupDatePickerEventPayload,
     KupDatePickerProps,
-    SourceEvent,
 } from './kup-date-picker-declarations';
-import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {

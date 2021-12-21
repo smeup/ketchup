@@ -6,7 +6,6 @@ import {
     forceUpdate,
     h,
     Host,
-    JSX,
     Listen,
     Method,
     Prop,
@@ -26,7 +25,6 @@ import {
     getProps,
     setProps,
 } from '../../utils/utils';
-import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import {
     KupTimePickerEventPayload,
     KupTimePickerProps,

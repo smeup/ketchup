@@ -1,11 +1,8 @@
 import { h, VNode } from '@stencil/core';
-import { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
 import { KupCard } from '../kup-card';
 import { KupCardCSSClasses } from '../kup-card-declarations';
 import { prepareCalendar } from './kup-card-calendar';
 import { prepareClock } from './kup-card-clock';
-
-const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * 1st builtin card layout, calendar view.
