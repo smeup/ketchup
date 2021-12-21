@@ -4466,7 +4466,7 @@ export class KupDataTable {
 
         return (
             <kup-card
-                customStyle="#kup-component ::slotted(kup-switch) { width: max-content; } #kup-component  ::slotted(*) { margin: auto; } #kup-component ::slotted(.customize-element) { margin: auto; padding: 0 1em 1em 1em; width: max-content; } #kup-component  ::slotted(.customize-element):nth-child(1) { padding-top: 1em; }"
+                customStyle="::slotted(kup-switch) { width: max-content !important; } ::slotted(*) { margin: auto !important; } ::slotted(.customize-element) { margin: auto !important; padding: 0 1em 1em 1em !important; width: max-content !important; } ::slotted(.customize-element):nth-child(1) { padding-top: 1em !important; }"
                 isMenu={true}
                 layoutFamily={KupCardFamily.FREE}
                 ref={(el) => {

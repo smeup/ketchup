@@ -647,7 +647,7 @@ function cellEvent(
     e: InputEvent | CustomEvent,
     props: FCellProps,
     cellType: FCellTypes,
-    cellEventName: string
+    cellEventName: FCellEvents
 ): void {
     const cell = props.cell;
     const column = props.column;
@@ -657,29 +657,31 @@ function cellEvent(
     let value = isInputEvent
         ? (e.target as HTMLInputElement).value
         : e.detail.value;
-    switch (cellType) {
-        case FCellTypes.AUTOCOMPLETE:
-        case FCellTypes.COMBOBOX:
-        case FCellTypes.DATE:
-        case FCellTypes.TIME:
-            if (cell.data) {
-                cell.data['initialValue'] = value;
-            }
-            break;
-        case FCellTypes.CHECKBOX:
-            value = value === 'on' ? '0' : '1';
-            if (cell.data) {
-                (cell.data as FCheckboxProps).checked =
-                    value === '0' ? false : true;
-            }
-            break;
+    if (cellEventName === FCellEvents.UPDATE) {
+        switch (cellType) {
+            case FCellTypes.AUTOCOMPLETE:
+            case FCellTypes.COMBOBOX:
+            case FCellTypes.DATE:
+            case FCellTypes.TIME:
+                if (cell.data) {
+                    cell.data['initialValue'] = value;
+                }
+                break;
+            case FCellTypes.CHECKBOX:
+                value = value === 'on' ? '0' : '1';
+                if (cell.data) {
+                    (cell.data as FCheckboxProps).checked =
+                        value === '0' ? false : true;
+                }
+                break;
+        }
+        if (cell.obj) {
+            cell.obj.k = value;
+        }
+        cell.value = value;
+        cell.displayedValue = null;
+        cell.displayedValue = getCellValueForDisplay(column, cell);
     }
-    if (cell.obj) {
-        cell.obj.k = value;
-    }
-    cell.value = value;
-    cell.displayedValue = null;
-    cell.displayedValue = getCellValueForDisplay(column, cell);
     if (comp && (comp as KupComponent).rootElement) {
         const updateEvent = new CustomEvent<FCellEventPayload>(cellEventName, {
             bubbles: true,
