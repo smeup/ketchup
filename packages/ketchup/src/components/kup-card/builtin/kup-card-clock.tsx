@@ -356,9 +356,9 @@ function buildClock(
     component: KupCard
 ) {
     let x: number, y: number;
-    let divsArray: JSX.Element[] = [];
+    const divsArray: JSX.Element[] = [];
 
-    for (var n = 0; n < num; n++) {
+    for (let n = 0; n < num; n++) {
         x = radius * Math.cos((n / num) * 2 * Math.PI);
         y = radius * Math.sin((n / num) * 2 * Math.PI);
         let text: string;
