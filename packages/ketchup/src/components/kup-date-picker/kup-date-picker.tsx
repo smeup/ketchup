@@ -674,5 +674,8 @@ export class KupDatePicker {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
+        if (this.pickerContainerEl) {
+            this.pickerContainerEl.remove();
+        }
     }
 }
