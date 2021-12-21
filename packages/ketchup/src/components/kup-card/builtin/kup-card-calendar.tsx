@@ -30,8 +30,8 @@ export function prepareCalendar(component: KupCard) {
             el.kupData = {};
             const obj = opts.initialValue as KupObj;
             if (opts.initialValue) {
-                if (obj && obj.k) el.kupData.value = new Date(obj.k);
-                else el.kupData.value = new Date(opts.initialValue as string);
+                if (obj && obj.k) setValue(component, new Date(obj.k));
+                else setValue(component, new Date(opts.initialValue as string));
             }
             if (opts.firstDayIndex)
                 el.kupData.firstDayIndex = opts.firstDayIndex;
@@ -39,9 +39,11 @@ export function prepareCalendar(component: KupCard) {
         }
     }
 
-    const date: Date = getValue(component);
+    if (!el.kupData.value) setValue(component, new Date());
+
     const months = getMonthsAsStringByLocale();
-    const curYear: number = date.getFullYear();
+    const curYear: number = getYear(component);
+    const curMonth: number = getMonth(component);
     const yearRange = getInitEndYear(curYear);
     const initYear: number = yearRange.initYear;
     const endYear: number = yearRange.endYear;
@@ -50,7 +52,7 @@ export function prepareCalendar(component: KupCard) {
     switch (getView(component)) {
         case SourceEvent.DATE: {
             changeViewButtonLabel =
-                months[date.getMonth()] + ', ' + curYear.toString();
+                months[curMonth] + ', ' + curYear.toString();
             break;
         }
         case SourceEvent.MONTH: {
@@ -100,15 +102,51 @@ export function prepareCalendar(component: KupCard) {
     );
 }
 
-function getValue(component: KupCard): Date {
-    const el = component.rootElement as KupCardBuiltinCalendar;
-    if (el.kupData.value) return el.kupData.value;
-    return new Date();
-}
-
 function setValue(component: KupCard, value: Date) {
     const el = component.rootElement as KupCardBuiltinCalendar;
     el.kupData.value = value;
+    el.kupData.day = el.kupData.value.getDate();
+    el.kupData.month = el.kupData.value.getMonth();
+    el.kupData.year = el.kupData.value.getFullYear();
+}
+
+function getValue(component: KupCard): Date {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    if (el.kupData.value == null) setValue(component, new Date());
+    return el.kupData.value;
+}
+
+function getDay(component: KupCard): number {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    if (el.kupData.day != null) return el.kupData.day;
+    return null;
+}
+
+function getMonth(component: KupCard): number {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    if (el.kupData.month != null) return el.kupData.month;
+    return null;
+}
+
+function getYear(component: KupCard): number {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    if (el.kupData.year != null) return el.kupData.year;
+    return null;
+}
+
+function setDay(component: KupCard, value: number) {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    el.kupData.day = value;
+}
+
+function setMonth(component: KupCard, value: number) {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    el.kupData.month = value;
+}
+
+function setYear(component: KupCard, value: number) {
+    const el = component.rootElement as KupCardBuiltinCalendar;
+    el.kupData.year = value;
 }
 
 function getFirstDayIndex(component: KupCard): number {
@@ -145,8 +183,10 @@ function createCalendar(component: KupCard) {
 function createDaysCalendar(component: KupCard) {
     const days = getDaysOfWeekAsStringByLocale(getFirstDayIndex(component));
 
-    const date: Date = getValue(component);
-    const selecteDate: Date = new Date(date);
+    const selectedDate: Date = getValue(component);
+    const selectedDay: number = getDay(component);
+    const selectedMonth: number = getMonth(component);
+    const selectedYear: number = getYear(component);
 
     const thead = [];
     const tbody = [];
@@ -158,8 +198,8 @@ function createDaysCalendar(component: KupCard) {
         );
     }
 
-    const firstMonthDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const lastMonthDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const firstMonthDay = new Date(selectedYear, selectedMonth, 1);
+    const lastMonthDay = new Date(selectedYear, selectedMonth + 1, 0);
 
     const finish: boolean = false;
     let currentDayIndex = getFirstDayIndex(component);
@@ -183,16 +223,17 @@ function createDaysCalendar(component: KupCard) {
             let dayClass = 'item';
             let dataIndex = {
                 'data-index':
-                    date.getFullYear().toString() +
+                    selectedYear.toString() +
                     '-' +
-                    fillString((date.getMonth() + 1).toString(), '0', 2, true) +
+                    fillString((selectedMonth + 1).toString(), '0', 2, true) +
                     '-' +
                     fillString(dayCount.toString(), '0', 2, true),
             };
             if (
-                dayCount === selecteDate.getDate() &&
-                date.getMonth() === selecteDate.getMonth() &&
-                date.getFullYear() === selecteDate.getFullYear()
+                (selectedDay != null && dayCount === selectedDay) ||
+                (dayCount === selectedDate.getDate() &&
+                    selectedMonth === selectedDate.getMonth() &&
+                    selectedYear === selectedDate.getFullYear())
             ) {
                 dayClass += ' selected';
             }
@@ -235,8 +276,11 @@ function createDaysCalendar(component: KupCard) {
 function createMonthsCalendar(component: KupCard) {
     const months = getMonthsAsStringByLocale(DateTimeFormatOptionsMonth.SHORT);
 
-    const date: Date = getValue(component);
-    const selecteDate: Date = date;
+    let selectedDay: number = getDay(component);
+    const selectedMonth: number = getMonth(component);
+    const selectedYear: number = getYear(component);
+    if (selectedDay == null) selectedDay = 1;
+
     const tbody = [];
     let row = [];
     let monthCount = 0;
@@ -245,16 +289,13 @@ function createMonthsCalendar(component: KupCard) {
             let monthClass = 'item';
             const dataIndex = {
                 'data-index':
-                    date.getFullYear().toString() +
+                    selectedYear.toString() +
                     '-' +
                     fillString((monthCount + 1).toString(), '0', 2, true) +
                     '-' +
-                    fillString(date.getDate().toString(), '0', 2, true),
+                    fillString(selectedDay.toString(), '0', 2, true),
             };
-            if (
-                monthCount === selecteDate.getMonth() &&
-                date.getFullYear() == selecteDate.getFullYear()
-            ) {
+            if (monthCount === selectedMonth) {
                 monthClass += ' selected';
             }
             row.push(
@@ -289,13 +330,15 @@ function createMonthsCalendar(component: KupCard) {
 }
 
 function createYearsCalendar(component: KupCard) {
-    const date: Date = getValue(component);
-    const curYear: number = date.getFullYear();
-    const yearRange = getInitEndYear(curYear);
+    let selectedDay: number = getDay(component);
+    const selectedMonth: number = getMonth(component);
+    const selectedYear: number = getYear(component);
+    if (selectedDay == null) selectedDay = 1;
+
+    const yearRange = getInitEndYear(selectedYear);
     const initYear: number = yearRange.initYear;
     const endYear: number = yearRange.endYear;
 
-    const selecteDate: Date = date;
     const tbody = [];
     let row = [];
     let yearCount = initYear;
@@ -306,11 +349,11 @@ function createYearsCalendar(component: KupCard) {
                 'data-index':
                     yearCount.toString() +
                     '-' +
-                    fillString((date.getMonth() + 1).toString(), '0', 2, true) +
+                    fillString((selectedMonth + 1).toString(), '0', 2, true) +
                     '-' +
-                    fillString(date.getDate().toString(), '0', 2, true),
+                    fillString(selectedDay.toString(), '0', 2, true),
             };
-            if (yearCount === selecteDate.getFullYear()) {
+            if (yearCount === selectedYear) {
                 yearClass += ' selected';
             }
             row.push(
@@ -415,9 +458,8 @@ function fillString(
 }
 
 function prevPage(component: KupCard) {
-    const date: Date = getValue(component);
-    let yy: number = date.getFullYear();
-    let mm: number = date.getMonth();
+    let mm: number = getMonth(component);
+    let yy: number = getYear(component);
 
     if (getView(component) == SourceEvent.DATE) {
         if (mm < 1) {
@@ -434,16 +476,16 @@ function prevPage(component: KupCard) {
         let yearRange = getInitEndYear(yy);
         yy = yearRange.initYear - 1;
     }
-    date.setFullYear(yy);
-    date.setMonth(mm);
-    setValue(component, date);
+    setDay(component, null);
+    setMonth(component, mm);
+    setYear(component, yy);
     refresh(component);
 }
 
 function nextPage(component: KupCard) {
-    const date: Date = getValue(component);
-    let yy: number = date.getFullYear();
-    let mm: number = date.getMonth();
+    let mm: number = getMonth(component);
+    let yy: number = getYear(component);
+
     if (getView(component) == SourceEvent.DATE) {
         if (mm > 10) {
             mm = 0;
@@ -459,9 +501,10 @@ function nextPage(component: KupCard) {
         const yearRange = getInitEndYear(yy);
         yy = yearRange.endYear + 1;
     }
-    date.setFullYear(yy);
-    date.setMonth(mm);
-    setValue(component, date);
+
+    setDay(component, null);
+    setMonth(component, mm);
+    setYear(component, yy);
     refresh(component);
 }
 
@@ -476,6 +519,7 @@ function getInitEndYear(curYear: number): {
 }
 
 function changeView(component: KupCard) {
+    setDay(component, null);
     switch (getView(component)) {
         case SourceEvent.DATE: {
             setView(component, SourceEvent.MONTH);
@@ -497,18 +541,16 @@ function refresh(component: KupCard) {
     component.refresh();
 }
 
-function refreshComponentValue(component: KupCard, value: string) {
+function onCalendarMonthYearItemClick(component: KupCard, value: string) {
     let d: Date;
     if (dom.ketchup.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
         d = new Date(value);
     } else {
         d = new Date();
     }
-    setValue(component, d);
-    refresh(component);
-}
+    setMonth(component, d.getMonth());
+    setYear(component, d.getFullYear());
 
-function onCalendarMonthYearItemClick(component: KupCard, value: string) {
     switch (getView(component)) {
         case SourceEvent.MONTH: {
             setView(component, SourceEvent.DATE);
@@ -519,7 +561,8 @@ function onCalendarMonthYearItemClick(component: KupCard, value: string) {
             break;
         }
     }
-    refreshComponentValue(component, value);
+
+    refresh(component);
 }
 
 function onCalendarItemClick(component: KupCard, value: string) {

@@ -30,6 +30,9 @@ export interface KupCardBuiltinCalendarData {
     value?: Date;
     firstDayIndex?: number;
     calendarView?: SourceEvent;
+    day?: number;
+    month?: number;
+    year?: number;
 }
 /**
  * Html element of kup-card calendar builtin.
