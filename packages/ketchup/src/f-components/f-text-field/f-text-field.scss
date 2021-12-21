@@ -296,6 +296,10 @@
         &.mdc-text-field--with-leading-icon {
           padding-left: 0;
         }
+
+        &.mdc-text-field--with-trailing-icon input ~ .kup-clear-icon {
+          right: 40px;
+        }
       }
     }
 
