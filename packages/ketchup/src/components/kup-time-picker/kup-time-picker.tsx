@@ -45,6 +45,7 @@ import {
     KupCardData,
 } from '../kup-card/kup-card-declarations';
 import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 @Component({
     tag: 'kup-time-picker',
     styleUrl: 'kup-time-picker.scss',
@@ -515,20 +516,24 @@ export class KupTimePicker {
     }
 
     prepTextfield(initialValue: string): any {
-        let textfieldData = { ...this.data['kup-text-field'] };
-
-        if (!textfieldData['icon']) {
-            textfieldData['icon'] = 'access_time';
+        const fullHeight =
+            this.rootElement.classList.contains('kup-full-height');
+        const fullWidth = this.rootElement.classList.contains('kup-full-width');
+        const textfieldData: FTextFieldProps = {
+            ...this.data['kup-text-field'],
+        };
+        if (!textfieldData.icon) {
+            textfieldData.icon = 'access_time';
         }
-
-        if (textfieldData['icon']) {
-            textfieldData['trailingIcon'] = true;
+        if (textfieldData.icon) {
+            textfieldData.trailingIcon = true;
         }
-
         let comp: HTMLElement = (
             <FTextField
                 {...textfieldData}
                 disabled={this.disabled}
+                fullHeight={fullHeight}
+                fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
                 value={initialValue}
                 onChange={(e: InputEvent) => this.onKupChange(e)}
@@ -710,29 +715,8 @@ export class KupTimePicker {
     }
 
     render() {
-        let hostClass: Record<string, boolean> = {};
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf(
-                'kup-full-height'
-            ) > -1
-        ) {
-            hostClass['kup-full-height'] = true;
-        }
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['fullWidth']
-        ) {
-            hostClass['kup-full-width'] = true;
-        }
-
         return (
-            <Host class={hostClass}>
+            <Host>
                 <style>
                     {this.kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
