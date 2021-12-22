@@ -389,6 +389,7 @@
     min-height: 18px;
 }
 .f-cell.number-cell .f-cell__content {
+    --kup-textfield-font-family: var(--kup_cell_font_family_monospace);
     font-family: var(--kup_cell_font_family_monospace);
 }
 .f-cell .f-cell__content .cell-info {
@@ -418,6 +419,7 @@
     cursor: pointer;
 }
 .f-cell.monospace {
+    --kup-textfield-font-family: var(--kup_cell_font_family_monospace);
     font-family: var(--kup-font-family-monospace);
 }
 .f-cell.display-on-hover {

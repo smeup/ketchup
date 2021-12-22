@@ -365,6 +365,7 @@ function setEditableCell(
                 />
             );
         case FCellTypes.NUMBER:
+            classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
         case FCellTypes.STRING:
             return (
                 <FTextField
