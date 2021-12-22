@@ -527,6 +527,7 @@
     writing-mode: vertical-lr;
 }
 .f-cell.c-right-aligned .f-cell__content {
+    --kup-textfield-text-align: right;
     justify-content: flex-end;
     margin: 0;
     margin-left: auto;
@@ -538,6 +539,7 @@
     margin-right: 0;
 }
 .f-cell.c-centered {
+    --kup-textfield-text-align: center;
     justify-content: center;
 }
 .f-cell.c-centered .f-cell__content {
@@ -3160,6 +3162,7 @@
         --kup-textfield-primary-color-rgb,
         var(--kup-primary-color-rgb)
     );
+    --kup_textfield_text_align: var(--kup-textfield-text-align, start);
     --mdc-theme-primary: var(--kup_textfield_primary_color);
     font-family: var(--kup_textfield_font_family);
     font-size: var(--kup_textfield_font_size);
@@ -3167,6 +3170,9 @@
 #kup-component .f-text-field .mdc-form-field label {
     color: var(--kup_textfield_color);
     margin: auto;
+}
+#kup-component .f-text-field .mdc-text-field__input {
+    text-align: var(--kup_textfield_text_align);
 }
 #kup-component .f-text-field .mdc-form-field .mdc-text-field__input {
     box-sizing: border-box;
