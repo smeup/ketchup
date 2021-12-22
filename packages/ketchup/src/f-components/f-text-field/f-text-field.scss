@@ -40,6 +40,7 @@
       --kup-textfield-primary-color-rgb,
       var(--kup-primary-color-rgb)
     );
+    --kup_textfield_text_align: var(--kup-textfield-text-align, start);
     --mdc-theme-primary: var(--kup_textfield_primary_color);
 
     font-family: var(--kup_textfield_font_family);
@@ -74,6 +75,10 @@
       label {
         font-family: var(--kup_textfield_font_family);
         font-size: 1em;
+      }
+
+      input {
+        text-align: var(--kup_textfield_text_align);
       }
 
       &.mdc-text-field--filled:not(.mdc-text-field--disabled)

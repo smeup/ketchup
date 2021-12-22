@@ -254,6 +254,8 @@
   }
 
   &.c-right-aligned {
+    --kup-textfield-text-align: right;
+
     .f-cell__content {
       justify-content: flex-end;
       margin: 0;
@@ -269,6 +271,7 @@
   }
 
   &.c-centered {
+    --kup-textfield-text-align: center;
     justify-content: center;
 
     .f-cell__content {
