@@ -8,7 +8,7 @@ import { MDCFormField } from '@material/form-field';
 
 /**
  * Instantiates Material Design text field component.
- * @param el - Must be the f-component wrapper (.f-text-field--wrapper)
+ * @param el - Must be the f-component wrapper (.f-text-field)
  * @see https://material-components.github.io/material-components-web-catalog/#/component/text-field
  */
 export function FTextFieldMDC(el: HTMLElement): void {

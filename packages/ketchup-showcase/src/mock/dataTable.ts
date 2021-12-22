@@ -1087,17 +1087,16 @@ export const cellStyleDataTable2 = {
     {
       cells: {
         FLD1: {
+          cssClass: 'c-vertical-text c-round',
           obj: {
             t: 'CN',
             p: 'COL',
             k: 'CASFRA',
           },
           value: 'CASFRA',
-          style: {
+          styleContent: {
             backgroundColor: 'blue',
             color: '#FFF',
-            borderRadius: '50px',
-            writingMode: 'vertical-lr',
           },
         },
         FLD2: {
@@ -1113,17 +1112,17 @@ export const cellStyleDataTable2 = {
           },
         },
         FLD3: {
+          cssClass: 'c-fitted c-round c-hor-padded c-ver-padded',
           obj: {
             t: 'NR',
             p: '',
             k: '100.60',
           },
           value: '100.60',
-          style: {
+          style: {padding: "10px"},
+          styleContent: {
             backgroundColor: 'blue',
             color: '#FFF',
-            borderRadius: '50px',
-            padding: '3px',
           },
         },
         FLD4: {
@@ -93273,13 +93272,13 @@ export const reportDatatable = {
     {
       cells: {
         FLD6: {
+          cssClass: 'c-centered',
           span: {
             col: 5,
           },
           style: {
             fontStyle: 'italic',
             height: '2.5em',
-            justifyContent: 'center',
             lineHeight: '2.5em',
           },
           value: 'Avalanches at the Vallée de la Sionne Site',
@@ -93470,13 +93469,13 @@ export const reportDatatable = {
     {
       cells: {
         FLD6: {
+          cssClass: 'c-centered',
           span: {
             col: 5,
           },
           style: {
             fontStyle: 'italic',
             height: '2.5em',
-            justifyContent: 'center',
             lineHeight: '2.5em',
           },
           value: 'Avalanches at the Mount Pizzac Site',
@@ -93667,13 +93666,13 @@ export const reportDatatable = {
     {
       cells: {
         FLD6: {
+          cssClass: 'c-centered',
           span: {
             col: 5,
           },
           style: {
             fontStyle: 'italic',
             height: '2.5em',
-            justifyContent: 'center',
             lineHeight: '2.5em',
           },
           value: 'Extreme avalanches of Winter 1998-1999',
@@ -93849,19 +93848,8835 @@ export const reportDatatable = {
     {
       cells: {
         FLD6: {
+          cssClass: 'c-centered',
           span: {
             col: 5,
           },
           style: {
             fontStyle: 'italic',
             fontWeight: 'bold',
-            justifyContent: 'center',
             lineHeight: '2.5em',
           },
           value: '*Footer note',
         },
       },
       id: '19',
+    },
+  ],
+};
+
+export const reportDatatable2 = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Posizione',
+    },
+    {
+      name: 'FLD2',
+      title: 'Categoria',
+    },
+    {
+      name: 'FLD3',
+      title: 'Articolo',
+    },
+    {
+      name: 'FLD4',
+      title: 'Descrizione',
+    },
+    {
+      name: 'FLD5',
+      title: 'Stato Art.',
+    },
+    {
+      name: 'FLD6',
+      title: 'Descr stato',
+    },
+    {
+      name: 'FLD7',
+      title: 'Giac.(se 75)',
+    },
+    {
+      name: 'FLD8',
+      title: 'Quantità',
+    },
+    {
+      name: 'FLD9',
+      title: 'Prezzo',
+      decimals: 2,
+    },
+    {
+      name: 'FLD10',
+      title: 'Sconto%',
+    },
+    {
+      name: 'FLD11',
+      title: 'Importo',
+      decimals: 2,
+    },
+    {
+      name: 'FLD12',
+      title: 'Modifica',
+    },
+    {
+      name: 'FLD13',
+      title: 'Cancella',
+    },
+    {
+      name: 'FLD14',
+      title: 'Duplica',
+    },
+    {
+      cssClass: 'strong-text',
+      name: 'FLD15',
+      title: 'Intestazione',
+      style: {
+        display: 'none',
+      },
+    },
+    {
+      name: 'FLD16',
+      title: 'Bottone modifica',
+      obj: {
+        t: 'J4',
+        p: 'BTN',
+        k: '',
+      },
+      style: {
+        display: 'none',
+      },
+    },
+    {
+      name: 'FLD17',
+      title: 'Bottone cancella',
+      obj: {
+        t: 'J4',
+        p: 'BTN',
+        k: '',
+      },
+      style: {
+        display: 'none',
+      },
+    },
+    {
+      name: 'FLD18',
+      title: 'Bottone duplica',
+      obj: {
+        t: 'J4',
+        p: 'BTN',
+        k: '',
+      },
+      style: {
+        display: 'none',
+      },
+    },
+    {
+      name: 'FLD19',
+      title: 'Bottone nuova riga',
+      obj: {
+        t: 'J4',
+        p: 'BTN',
+        k: '',
+      },
+      style: {
+        display: 'none',
+      },
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD15: {
+          span: {
+            col: 10,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano terra',
+        },
+        FLD16: {
+          data: {
+            icon: 'pencil',
+            label: 'Modifica',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Modifica',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Modifica',
+        },
+        FLD17: {
+          data: {
+            icon: 'delete',
+            label: 'Cancella',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Cancella',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Cancella',
+        },
+        FLD18: {
+          data: {
+            icon: 'content_copy',
+            label: 'Duplica',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Duplica',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Duplica',
+        },
+        FLD19: {
+          data: {
+            icon: 'plus',
+            label: 'Nuova riga',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Nuova riga',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Nuova riga',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-centered',
+          value: 'Modifica',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD13: {
+          cssClass: 'strong-text c-centered',
+          value: 'Cancella',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD14: {
+          cssClass: 'strong-text c-centered',
+          value: 'Duplica',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '760',
+          },
+          value: '760',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-LP',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '2',
+          },
+          value: '2',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '180',
+          },
+          value: '180',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD2: {
+          value: 'A',
+        },
+        FLD3: {
+          value: 'VSX13*03',
+        },
+        FLD4: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '124',
+          },
+          value: '124',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD2: {
+          value: 'A',
+        },
+        FLD3: {
+          value: 'MVX52',
+        },
+        FLD4: {
+          value: 'Descrizione MVX52',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '400',
+          },
+          value: '400',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD2: {
+          value: 'DP',
+        },
+        FLD3: {
+          value: 'PROGRAM-10',
+        },
+        FLD4: {
+          value: 'Descrizione PROGRAM-10',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '25',
+          },
+          value: '25',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1808',
+          },
+          value: '1808',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD13: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD14: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD15: {
+          span: {
+            col: 14,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD15: {
+          span: {
+            col: 10,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano primo',
+        },
+        FLD16: {
+          data: {
+            icon: 'pencil',
+            label: 'Modifica',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Modifica',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Modifica',
+        },
+        FLD17: {
+          data: {
+            icon: 'delete',
+            label: 'Cancella',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Cancella',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Cancella',
+        },
+        FLD18: {
+          data: {
+            icon: 'content_copy',
+            label: 'Duplica',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Duplica',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Duplica',
+        },
+        FLD19: {
+          data: {
+            icon: 'plus',
+            label: 'Nuova riga',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Nuova riga',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Nuova riga',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-centered',
+          value: 'Modifica',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD13: {
+          cssClass: 'strong-text c-centered',
+          value: 'Cancella',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD14: {
+          cssClass: 'strong-text c-centered',
+          value: 'Duplica',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8170',
+          },
+          value: '8170',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-LP',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '39',
+          },
+          value: '39',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3510',
+          },
+          value: '3510',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD2: {
+          value: 'A',
+        },
+        FLD3: {
+          value: 'VSX13*03',
+        },
+        FLD4: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1333',
+          },
+          value: '1333',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD2: {
+          value: 'A',
+        },
+        FLD3: {
+          value: 'MVX52',
+        },
+        FLD4: {
+          value: 'Descrizione MVX52',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4300',
+          },
+          value: '4300',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD2: {
+          value: 'DP',
+        },
+        FLD3: {
+          value: 'PROGRAM-5',
+        },
+        FLD4: {
+          value: 'Descrizione PROGRAM-5',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '215',
+          },
+          value: '215',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '17772',
+          },
+          value: '17772',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD13: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD14: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD15: {
+          span: {
+            col: 14,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD15: {
+          span: {
+            col: 10,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano secondo',
+        },
+        FLD16: {
+          data: {
+            icon: 'pencil',
+            label: 'Modifica',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Modifica',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Modifica',
+        },
+        FLD17: {
+          data: {
+            icon: 'delete',
+            label: 'Cancella',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Cancella',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Cancella',
+        },
+        FLD18: {
+          data: {
+            icon: 'content_copy',
+            label: 'Duplica',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Duplica',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Duplica',
+        },
+        FLD19: {
+          data: {
+            icon: 'plus',
+            label: 'Nuova riga',
+          },
+          obj: {
+            t: 'J4',
+            p: 'BTN',
+            k: 'Nuova riga',
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: '12px',
+          },
+          value: 'Nuova riga',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-centered',
+          value: 'Modifica',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD13: {
+          cssClass: 'strong-text c-centered',
+          value: 'Cancella',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD14: {
+          cssClass: 'strong-text c-centered',
+          value: 'Duplica',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8170',
+          },
+          value: '8170',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-LP',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '39',
+          },
+          value: '39',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3510',
+          },
+          value: '3510',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD2: {
+          value: 'A',
+        },
+        FLD3: {
+          value: 'VSX13*03',
+        },
+        FLD4: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1333',
+          },
+          value: '1333',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD2: {
+          value: 'A',
+        },
+        FLD3: {
+          value: 'MVX52',
+        },
+        FLD4: {
+          value: 'Descrizione MVX52',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4300',
+          },
+          value: '4300',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD2: {
+          value: 'I',
+        },
+        FLD3: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD4: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD2: {
+          value: 'DP',
+        },
+        FLD3: {
+          value: 'PROGRAM-5',
+        },
+        FLD4: {
+          value: 'Descrizione PROGRAM-5',
+        },
+        FLD5: {
+          value: '10',
+        },
+        FLD6: {
+          value: 'Attivo',
+        },
+        FLD7: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '215',
+          },
+          value: '215',
+        },
+        FLD12: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'pencil',
+          },
+          data: {
+            resource: 'pencil',
+          },
+          value: 'pencil',
+        },
+        FLD13: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'delete',
+          },
+          data: {
+            resource: 'delete',
+          },
+          value: 'delete',
+        },
+        FLD14: {
+          cssClass: 'clickable',
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'content_copy',
+          },
+          data: {
+            resource: 'content_copy',
+          },
+          value: 'content_copy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '17772',
+          },
+          value: '17772',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD13: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD14: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD15: {
+          span: {
+            col: 14,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
+    },
+  ],
+};
+
+export const reportDatatable3 = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Opzioni',
+    },
+    {
+      name: 'FLD2',
+      title: 'Posizione',
+    },
+    {
+      name: 'FLD3',
+      title: 'Categoria',
+    },
+    {
+      name: 'FLD4',
+      title: 'Articolo',
+    },
+    {
+      name: 'FLD5',
+      title: 'Descrizione',
+    },
+    {
+      name: 'FLD6',
+      title: 'Stato Art.',
+    },
+    {
+      name: 'FLD7',
+      title: 'Descr stato',
+    },
+    {
+      name: 'FLD8',
+      title: 'Giac.(se 75)',
+    },
+    {
+      name: 'FLD9',
+      title: 'Quantità',
+    },
+    {
+      name: 'FLD10',
+      title: 'Prezzo',
+      decimals: 2,
+    },
+    {
+      name: 'FLD11',
+      title: 'Sconto%',
+    },
+    {
+      name: 'FLD12',
+      title: 'Importo',
+      decimals: 2,
+    },
+    {
+      cssClass: 'strong-text',
+      name: 'FLD13',
+      title: 'Intestazione',
+      style: {
+        display: 'none',
+      },
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'plus',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Nuova riga',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                  icon: 'more_vert',
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle:
+              ' #kup-component button { height: 100%; padding: 0; } ',
+            icon: 'more_vert',
+            styling: 'icon',
+          },
+          obj: {
+            t: 'VO',
+            p: 'CODVER',
+            k: 'Modifica',
+          },
+          shape: 'BTN',
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: 'calc(var(--kup-font-size) * 1.25)',
+            ['--kup-button-primary-color']: 'var(--kup-text-on-primary-color)',
+            ['--kup-button-primary-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+          },
+          value: '',
+        },
+        FLD13: {
+          span: {
+            col: 11,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano terra',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-centered',
+          value: 'Op',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '760',
+          },
+          value: '760',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-LP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '2',
+          },
+          value: '2',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '180',
+          },
+          value: '180',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'VSX13*03',
+        },
+        FLD5: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '124',
+          },
+          value: '124',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'MVX52',
+        },
+        FLD5: {
+          value: 'Descrizione MVX52',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '400',
+          },
+          value: '400',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD3: {
+          value: 'DP',
+        },
+        FLD4: {
+          value: 'PROGRAM-10',
+        },
+        FLD5: {
+          value: 'Descrizione PROGRAM-10',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '25',
+          },
+          value: '25',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1808',
+          },
+          value: '1808',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD13: {
+          span: {
+            col: 12,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'plus',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Nuova riga',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                  icon: 'more_vert',
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle:
+              ' #kup-component button { height: 100%; padding: 0; } ',
+            icon: 'more_vert',
+            styling: 'icon',
+          },
+          obj: {
+            t: 'VO',
+            p: 'CODVER',
+            k: 'Modifica',
+          },
+          shape: 'BTN',
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: 'calc(var(--kup-font-size) * 1.25)',
+            ['--kup-button-primary-color']: 'var(--kup-text-on-primary-color)',
+            ['--kup-button-primary-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+          },
+          value: '',
+        },
+        FLD13: {
+          span: {
+            col: 11,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano primo',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-centered',
+          value: 'Op',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8170',
+          },
+          value: '8170',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-LP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '39',
+          },
+          value: '39',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3510',
+          },
+          value: '3510',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'VSX13*03',
+        },
+        FLD5: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1333',
+          },
+          value: '1333',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'MVX52',
+        },
+        FLD5: {
+          value: 'Descrizione MVX52',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4300',
+          },
+          value: '4300',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD3: {
+          value: 'DP',
+        },
+        FLD4: {
+          value: 'PROGRAM-5',
+        },
+        FLD5: {
+          value: 'Descrizione PROGRAM-5',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '215',
+          },
+          value: '215',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '17772',
+          },
+          value: '17772',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD13: {
+          span: {
+            col: 12,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'plus',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Nuova riga',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                  icon: 'more_vert',
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle:
+              ' #kup-component button { height: 100%; padding: 0; } ',
+            icon: 'more_vert',
+            styling: 'icon',
+          },
+          obj: {
+            t: 'VO',
+            p: 'CODVER',
+            k: 'Modifica',
+          },
+          shape: 'BTN',
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-button-font-size']: 'calc(var(--kup-font-size) * 1.25)',
+            ['--kup-button-primary-color']: 'var(--kup-text-on-primary-color)',
+            ['--kup-button-primary-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+          },
+          value: '',
+        },
+        FLD13: {
+          span: {
+            col: 11,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano secondo',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-centered',
+          value: 'Op',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8170',
+          },
+          value: '8170',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-LP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '39',
+          },
+          value: '39',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3510',
+          },
+          value: '3510',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'VSX13*03',
+        },
+        FLD5: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1333',
+          },
+          value: '1333',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'MVX52',
+        },
+        FLD5: {
+          value: 'Descrizione MVX52',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4300',
+          },
+          value: '4300',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text',
+          data: {
+            data: [
+              {
+                children: [
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'pencil',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Modifica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'content_copy',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Duplica',
+                  },
+                  {
+                    children: [],
+                    disabled: false,
+                    expandable: false,
+                    icon: 'delete',
+                    isExpanded: false,
+                    obj: {
+                      k: '000050',
+                      p: 'COD_VER',
+                      t: 'VO',
+                    },
+                    options: false,
+                    value: 'Elimina',
+                  },
+                ],
+                data: {
+                  dropdownOnly: true,
+                },
+                disabled: false,
+                expandable: false,
+                isExpanded: false,
+                options: false,
+              },
+            ],
+            customStyle: ' #kup-component button { padding: 0; } ',
+            icon: 'more_vert',
+            className: 'kup-slim',
+            styling: 'icon',
+          },
+          isEditable: false,
+          obj: {
+            k: '000050',
+            p: 'COD_VER',
+            t: 'VO',
+          },
+          shape: 'BTN',
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD3: {
+          value: 'DP',
+        },
+        FLD4: {
+          value: 'PROGRAM-5',
+        },
+        FLD5: {
+          value: 'Descrizione PROGRAM-5',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '215',
+          },
+          value: '215',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '17772',
+          },
+          value: '17772',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD13: {
+          span: {
+            col: 12,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
+    },
+  ],
+};
+
+export const reportDatatable4 = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Opzioni',
+    },
+    {
+      name: 'FLD2',
+      title: 'Posizione',
+    },
+    {
+      name: 'FLD3',
+      title: 'Categoria',
+    },
+    {
+      name: 'FLD4',
+      title: 'Articolo',
+    },
+    {
+      name: 'FLD5',
+      title: 'Descrizione',
+    },
+    {
+      name: 'FLD6',
+      title: 'Stato Art.',
+    },
+    {
+      name: 'FLD7',
+      title: 'Descr stato',
+    },
+    {
+      name: 'FLD8',
+      title: 'Giac.(se 75)',
+    },
+    {
+      name: 'FLD9',
+      title: 'Quantità',
+    },
+    {
+      name: 'FLD10',
+      title: 'Prezzo',
+      decimals: 2,
+    },
+    {
+      name: 'FLD11',
+      title: 'Sconto%',
+    },
+    {
+      name: 'FLD12',
+      title: 'Importo',
+      decimals: 2,
+    },
+    {
+      cssClass: 'strong-text',
+      name: 'FLD13',
+      title: 'Intestazione',
+      style: {
+        display: 'none',
+      },
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-textfield-background-color']: 'var(--kup-primary-color)',
+            ['--kup-textfield-primary-color']:
+              'var(--kup-text-on-primary-color)',
+            ['--kup-textfield-color']: 'var(--kup-text-on-primary-color)',
+            ['--kup-textfield-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+            ['--kup-textfield-primary-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD13: {
+          span: {
+            col: 11,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano terra',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-centered',
+          value: 'Op',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '760',
+          },
+          value: '760',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-LP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '2',
+          },
+          value: '2',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '180',
+          },
+          value: '180',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'VSX13*03',
+        },
+        FLD5: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '124',
+          },
+          value: '124',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'MVX52',
+        },
+        FLD5: {
+          value: 'Descrizione MVX52',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4',
+          },
+          value: '4',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '400',
+          },
+          value: '400',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD3: {
+          value: 'DP',
+        },
+        FLD4: {
+          value: 'PROGRAM-10',
+        },
+        FLD5: {
+          value: 'Descrizione PROGRAM-10',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '25',
+          },
+          value: '25',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1808',
+          },
+          value: '1808',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD13: {
+          span: {
+            col: 12,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-textfield-background-color']: 'var(--kup-primary-color)',
+            ['--kup-textfield-primary-color']:
+              'var(--kup-text-on-primary-color)',
+            ['--kup-textfield-color']: 'var(--kup-text-on-primary-color)',
+            ['--kup-textfield-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+            ['--kup-textfield-primary-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD13: {
+          span: {
+            col: 11,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano primo',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-centered',
+          value: 'Op',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8170',
+          },
+          value: '8170',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-LP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '39',
+          },
+          value: '39',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3510',
+          },
+          value: '3510',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'VSX13*03',
+        },
+        FLD5: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1333',
+          },
+          value: '1333',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'MVX52',
+        },
+        FLD5: {
+          value: 'Descrizione MVX52',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4300',
+          },
+          value: '4300',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD3: {
+          value: 'DP',
+        },
+        FLD4: {
+          value: 'PROGRAM-5',
+        },
+        FLD5: {
+          value: 'Descrizione PROGRAM-5',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '215',
+          },
+          value: '215',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '17772',
+          },
+          value: '17772',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD13: {
+          span: {
+            col: 12,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            ['--kup-textfield-background-color']: 'var(--kup-primary-color)',
+            ['--kup-textfield-primary-color']:
+              'var(--kup-text-on-primary-color)',
+            ['--kup-textfield-color']: 'var(--kup-text-on-primary-color)',
+            ['--kup-textfield-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+            ['--kup-textfield-primary-color-rgb']:
+              'var(--kup-text-on-primary-color-rgb)',
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD13: {
+          span: {
+            col: 11,
+          },
+          style: {
+            backgroundColor: 'var(--kup-primary-color)',
+            border: 'none',
+            color: 'var(--kup-text-on-primary-color)',
+            fontSize: 'calc(var(--kup-font-size) * 1.25)',
+            textTransform: 'uppercase',
+          },
+          value: 'Piano secondo',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          cssClass: 'strong-text c-centered',
+          value: 'Op',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Posizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD3: {
+          cssClass: 'strong-text',
+          value: 'Categoria',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD4: {
+          cssClass: 'strong-text',
+          value: 'Articolo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD5: {
+          cssClass: 'strong-text',
+          value: 'Descrizione',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD6: {
+          cssClass: 'strong-text',
+          value: 'Stato Art.',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD7: {
+          cssClass: 'strong-text',
+          value: 'Descr stato',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD8: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Giac.(se 75)',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD9: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Quantità',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD10: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Prezzo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD11: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Sconto%',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text c-right-aligned',
+          value: 'Importo',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+            height: '28px',
+            lineHeight: '28px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-FCU-HH',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-FCU-HH',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '190',
+          },
+          value: '190',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8170',
+          },
+          value: '8170',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '20',
+          },
+          value: '20',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-LP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-LP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '39',
+          },
+          value: '39',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '90',
+          },
+          value: '90',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3510',
+          },
+          value: '3510',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '30',
+          },
+          value: '30',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'VSX13*03',
+        },
+        FLD5: {
+          value: 'Descrizione VSX13*03',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '31',
+          },
+          value: '31',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1333',
+          },
+          value: '1333',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '40',
+          },
+          value: '40',
+        },
+        FLD3: {
+          value: 'A',
+        },
+        FLD4: {
+          value: 'MVX52',
+        },
+        FLD5: {
+          value: 'Descrizione MVX52',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '4300',
+          },
+          value: '4300',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+        FLD3: {
+          value: 'I',
+        },
+        FLD4: {
+          value: 'ISMA-B-8I-IP',
+        },
+        FLD5: {
+          value: 'Descrizione ISMA-B-8I-IP',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '244',
+          },
+          value: '244',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          style: {
+            width: '50px',
+          },
+          isEditable: true,
+          value: '',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '60',
+          },
+          value: '60',
+        },
+        FLD3: {
+          value: 'DP',
+        },
+        FLD4: {
+          value: 'PROGRAM-5',
+        },
+        FLD5: {
+          value: 'Descrizione PROGRAM-5',
+        },
+        FLD6: {
+          value: '10',
+        },
+        FLD7: {
+          value: 'Attivo',
+        },
+        FLD8: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD9: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '43',
+          },
+          value: '43',
+        },
+        FLD10: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+        FLD11: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+          },
+          value: '',
+        },
+        FLD12: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '215',
+          },
+          value: '215',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD2: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD3: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD4: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD5: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD6: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD7: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD8: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD9: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD10: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD11: {
+          value: '',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+        FLD12: {
+          cssClass: 'strong-text',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '17772',
+          },
+          value: '17772',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            color: 'var(--kup-title-color)',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD13: {
+          span: {
+            col: 12,
+          },
+          style: {
+            border: 'none',
+            height: '24px',
+          },
+          value: '',
+        },
+      },
     },
   ],
 };

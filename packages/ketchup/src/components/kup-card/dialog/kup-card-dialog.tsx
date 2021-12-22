@@ -210,6 +210,36 @@ export function create5(component: KupCard): VNode {
     );
 }
 /**
+ * 6th dialog card layout, a datatable or a spinner in its place.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
+ */
+export function create6(component: KupCard): VNode {
+    //Datatable
+    const datatableArray: GenericObject[] = component.data['datatable']
+        ? component.data['datatable']
+        : [];
+    //Dialog title
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    return (
+        <div class={`dialog-layout-${component.layoutNumber}`}>
+            {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
+            <div class="section-1">
+                {datatableArray.length > 0 ? (
+                    <kup-data-table
+                        id="datatable1"
+                        {...datatableArray[0]}
+                    ></kup-data-table>
+                ) : (
+                    <kup-spinner active={true} dimensions="7px" layout={14} />
+                )}
+            </div>
+        </div>
+    );
+}
+/**
  * Invoked by 4th layout to switch to the previous record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
  * @param {KupCard} component - Card component.

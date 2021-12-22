@@ -14,6 +14,7 @@
 | `dragEnabled`             | `drag-enabled`                | Enable dragging                                                                                    | `boolean`       | `false`     |
 | `dropEnabled`             | `drop-enabled`                | Enable dropping                                                                                    | `boolean`       | `false`     |
 | `dropOnSection`           | `drop-on-section`             | Drop can be done in section                                                                        | `boolean`       | `false`     |
+| `editableData`            | `editable-data`               | When set to true, editable cells will be rendered using input components.                          | `boolean`       | `false`     |
 | `enableRowActions`        | `enable-row-actions`          | If enabled, a button to load / display the row actions will be displayed on the right of every box | `boolean`       | `false`     |
 | `globalFilter`            | `global-filter`               | When set to true it activates the global filter.                                                   | `boolean`       | `false`     |
 | `globalFilterValue`       | `global-filter-value`         | The value of the global filter.                                                                    | `string`        | `''`        |
@@ -122,15 +123,22 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
-- [kup-chart](../kup-chart)
-- [kup-editor](../kup-editor)
-- [kup-text-field](../kup-text-field)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-radio](../kup-radio)
-- [kup-gauge](../kup-gauge)
 - [kup-tooltip](../kup-tooltip)
 - [kup-combobox](../kup-combobox)
+- [kup-text-field](../kup-text-field)
 - [kup-paginator](../kup-paginator)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-color-picker](../kup-color-picker)
+- [kup-date-picker](../kup-date-picker)
+- [kup-rating](../kup-rating)
+- [kup-time-picker](../kup-time-picker)
+- [kup-image](../kup-image)
+- [kup-button](../kup-button)
+- [kup-button-list](../kup-button-list)
+- [kup-chart](../kup-chart)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-radio](../kup-radio)
 
 ### Graph
 ```mermaid
@@ -138,17 +146,24 @@ graph TD;
   kup-box --> kup-card
   kup-box --> kup-checkbox
   kup-box --> kup-badge
-  kup-box --> kup-chart
-  kup-box --> kup-editor
-  kup-box --> kup-text-field
-  kup-box --> kup-progress-bar
-  kup-box --> kup-radio
-  kup-box --> kup-gauge
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
+  kup-box --> kup-text-field
   kup-box --> kup-paginator
-  kup-card --> kup-chip
+  kup-box --> kup-autocomplete
+  kup-box --> kup-color-picker
+  kup-box --> kup-date-picker
+  kup-box --> kup-rating
+  kup-box --> kup-time-picker
+  kup-box --> kup-image
+  kup-box --> kup-button
+  kup-box --> kup-button-list
+  kup-box --> kup-chart
+  kup-box --> kup-gauge
+  kup-box --> kup-progress-bar
+  kup-box --> kup-radio
   kup-card --> kup-badge
+  kup-card --> kup-chip
   kup-card --> kup-autocomplete
   kup-card --> kup-button
   kup-card --> kup-checkbox
@@ -158,55 +173,61 @@ graph TD;
   kup-card --> kup-time-picker
   kup-card --> kup-data-table
   kup-card --> kup-list
+  kup-card --> kup-spinner
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
-  kup-card --> kup-spinner
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch
-  kup-chip --> kup-badge
   kup-badge --> kup-badge
+  kup-chip --> kup-badge
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list
-  kup-date-picker --> kup-button
-  kup-time-picker --> kup-button
+  kup-date-picker --> kup-card
+  kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
-  kup-data-table --> kup-date-picker
-  kup-data-table --> kup-image
   kup-data-table --> kup-button
-  kup-data-table --> kup-button-list
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-color-picker
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
+  kup-data-table --> kup-autocomplete
+  kup-data-table --> kup-color-picker
+  kup-data-table --> kup-date-picker
+  kup-data-table --> kup-rating
+  kup-data-table --> kup-time-picker
+  kup-data-table --> kup-image
+  kup-data-table --> kup-button-list
+  kup-data-table --> kup-chart
+  kup-data-table --> kup-gauge
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-radio
   kup-tooltip --> kup-box
   kup-tree --> kup-card
-  kup-tree --> kup-image
-  kup-tree --> kup-button
-  kup-tree --> kup-chart
-  kup-tree --> kup-checkbox
-  kup-tree --> kup-chip
-  kup-tree --> kup-color-picker
-  kup-tree --> kup-gauge
-  kup-tree --> kup-progress-bar
-  kup-tree --> kup-rating
-  kup-tree --> kup-radio
   kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-autocomplete
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-combobox
+  kup-tree --> kup-date-picker
+  kup-tree --> kup-rating
+  kup-tree --> kup-time-picker
+  kup-tree --> kup-image
+  kup-tree --> kup-button
+  kup-tree --> kup-button-list
+  kup-tree --> kup-chart
+  kup-tree --> kup-gauge
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button

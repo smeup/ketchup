@@ -170,6 +170,13 @@ export default {
           default: 'description',
           try: 'field',
         },
+        {
+          prop: 'showDropDownIcon',
+          description: 'When true shows the drop-down icon, for open list.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
       ],
     };
   },

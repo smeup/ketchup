@@ -23,13 +23,13 @@ npm install
 npm run lerna bootstrap
 ```
 
--   Compile and minifies Ketch.UP library for production:
+-   Compile and minifies Ketchup library for production:
 
 ```
 npm run k:build
 ```
 
--   Startup Ketch.UP showcase (with hot reload). It responds at http://localhost:4000
+-   Startup Ketchup showcase (with hot reload). It responds at http://localhost:4000
 
 ```
 npm run ksc:serve
@@ -49,7 +49,7 @@ npm run lerna -- clean
 npm run k:start
 ```
 
--   Compile Ketch.UP Showcase for production:
+-   Compile Ketchup Showcase for production:
 
 ```
 npm run ksc:build

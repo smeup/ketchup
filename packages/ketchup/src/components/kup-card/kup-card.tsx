@@ -11,8 +11,10 @@ import {
     VNode,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
+import * as builtinLayouts from './builtin/kup-card-builtin';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
+import * as freeLayouts from './free/kup-card-free';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import type {
@@ -31,6 +33,7 @@ import {
     KupCardEventPayload,
     KupCardIds,
     KupCardProps,
+    KupCardClickPayload,
 } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
@@ -141,7 +144,17 @@ export class KupCard {
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<KupEventPayload>;
+    kupClick: EventEmitter<KupCardClickPayload>;
+    /**
+     * Triggered when a dialog card is closed with the "X".
+     */
+    @Event({
+        eventName: 'kup-card-close',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClose: EventEmitter<KupEventPayload>;
     /**
      * Triggered when a sub-component of the card emits an event.
      */
@@ -152,12 +165,31 @@ export class KupCard {
         bubbles: true,
     })
     kupEvent: EventEmitter<KupCardEventPayload>;
+    /**
+     * Triggered when the component is ready.
+     */
+    @Event({
+        eventName: 'kup-card-ready',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupReady: EventEmitter<KupEventPayload>;
 
-    onKupClick(id: string): void {
+    onKupClick(id: string, value: string): void {
         this.kupClick.emit({
             comp: this,
             id: id,
+            value: value,
         });
+    }
+
+    onKupClose(id: string): void {
+        this.kupClose.emit({
+            comp: this,
+            id: id,
+        });
+        this.rootElement.remove();
     }
 
     onKupEvent(e: CustomEvent): void {
@@ -223,7 +255,8 @@ export class KupCard {
                 '#' + KupCardIds.DIALOG_CLOSE
             );
             if (dialogClose) {
-                dialogClose.onclick = () => this.rootElement.remove();
+                dialogClose.onclick = () =>
+                    this.onKupClose(KupCardIds.DIALOG_CLOSE);
             }
             // When an element can be clicked. Ideally anchors/links.
             const links: NodeListOf<HTMLElement> = root.querySelectorAll(
@@ -233,7 +266,7 @@ export class KupCard {
                 const link: HTMLElement = links[index];
                 link.onclick = (e) => {
                     e.stopPropagation();
-                    this.onKupClick(link.id);
+                    this.onKupClick(link.id, null);
                 };
             }
         }
@@ -284,11 +317,17 @@ export class KupCard {
 
         try {
             switch (family) {
+                case KupCardFamily.BUILTIN: {
+                    return builtinLayouts[method](this);
+                }
                 case KupCardFamily.COLLAPSIBLE: {
                     return collapsibleLayouts[method](this);
                 }
                 case KupCardFamily.DIALOG: {
                     return dialogLayouts[method](this);
+                }
+                case KupCardFamily.FREE: {
+                    return freeLayouts[method](this);
                 }
                 case KupCardFamily.SCALABLE: {
                     return scalableLayouts[method](this);
@@ -389,6 +428,7 @@ export class KupCard {
         root.addEventListener('kup-chip-iconclick', this.cardEvent);
         root.addEventListener('kup-combobox-itemclick', this.cardEvent);
         root.addEventListener('kup-datatable-cellupdate', this.cardEvent);
+        root.addEventListener('kup-datatable-rowselected', this.cardEvent);
         root.addEventListener('kup-datepicker-cleariconclick', this.cardEvent);
         root.addEventListener('kup-datepicker-input', this.cardEvent);
         root.addEventListener('kup-datepicker-itemclick', this.cardEvent);
@@ -493,6 +533,10 @@ export class KupCard {
             MDCRipple.attachTo(rippleEl);
         }
         this.kupManager.resize.observe(this.rootElement);
+        this.kupReady.emit({
+            comp: this,
+            id: this.rootElement.id,
+        });
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -517,7 +561,7 @@ export class KupCard {
     }
 
     render() {
-        if (!this.data) {
+        if (!this.data && this.rootElement.children.length < 1) {
             return;
         }
 
@@ -526,16 +570,16 @@ export class KupCard {
             '--kup_card_width': this.sizeX ? this.sizeX : '100%',
         };
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host style={style}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div
                     id={componentWrapperId}
-                    onClick={() => this.onKupClick(null)}
+                    onClick={() => this.onKupClick(null, null)}
                 >
                     {this.getLayout()}
                 </div>

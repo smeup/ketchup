@@ -1,4 +1,4 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-text-field component.
@@ -10,6 +10,7 @@ export enum KupTextFieldProps {
     emitSubmitEventOnEnter = "When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.",
     fullWidth = 'When set to true, the component will be rendered at full width.',
     helper = 'When set, its content will be shown as a help text below the field.',
+    helperEnabled = 'When true, the helper will be displayed.',
     helperWhenFocused = 'When set, the helper will be shown only when the field is focused.',
     icon = 'When set, the text-field will show this icon.',
     initialValue = 'Sets the initial value of the component',

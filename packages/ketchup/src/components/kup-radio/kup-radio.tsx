@@ -11,7 +11,6 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-
 import type {
     GenericObject,
     KupComponent,
@@ -265,13 +264,13 @@ export class KupRadio {
             'radio-wrapper--grid': hasColumns ? true : false,
         };
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host style={hostStyle}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div class={classObj}>{radioList}</div>
                 </div>

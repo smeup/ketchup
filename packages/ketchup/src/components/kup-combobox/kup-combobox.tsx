@@ -16,7 +16,10 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
+import {
+    ItemsDisplayMode,
+    KupListEventPayload,
+} from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
@@ -27,6 +30,8 @@ import {
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -77,6 +82,10 @@ export class KupCombobox {
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
+    /**
+     * When true shows the drop-down icon, for open list.
+     */
+    @Prop() showDropDownIcon: boolean = true;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -87,9 +96,10 @@ export class KupCombobox {
      */
     private kupManager: KupManager = kupManagerInstance();
     private elStyle: any = undefined;
-    private listEl: any = undefined;
+    private listEl: HTMLKupListElement = undefined;
     private textfieldWrapper: HTMLElement = undefined;
     private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
+    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -172,7 +182,7 @@ export class KupCombobox {
         const { target } = e;
 
         if (this.isSelect) {
-            if (this.textfieldEl.classList.contains('toggled')) {
+            if (this.textfieldWrapper.classList.contains('toggled')) {
                 this.closeList();
             } else {
                 this.openList();
@@ -222,13 +232,14 @@ export class KupCombobox {
     onKupItemClick(e: CustomEvent) {
         this.consistencyCheck(e);
         this.closeList();
-
+        if (this.textfieldEl) {
+            this.textfieldEl.focus();
+        }
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
             value: this.value,
         });
-
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -346,21 +357,40 @@ export class KupCombobox {
     openList() {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        let elStyle: any = this.listEl.style;
+        const elStyle = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
-        this.kupManager.utilities.pointerDownCallbacks.add({
-            cb: () => {
-                this.closeList();
-            },
-            onlyOnce: true,
-            el: this.listEl,
-        });
+        if (this.kupManager.dynamicPosition.isRegistered(this.listEl)) {
+            this.kupManager.dynamicPosition.changeAnchor(
+                this.listEl,
+                this.textfieldWrapper
+            );
+        } else {
+            this.kupManager.dynamicPosition.register(
+                this.listEl,
+                this.textfieldWrapper,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+        }
+        this.kupManager.dynamicPosition.start(this.listEl);
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.closeList();
+                },
+                el: this.listEl,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
     }
 
     closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
+        this.kupManager.dynamicPosition.stop(this.listEl);
+        this.kupManager.removeClickCallback(this.clickCb);
     }
 
     isListOpened(): boolean {
@@ -386,8 +416,10 @@ export class KupCombobox {
                 {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 is-menu
-                onkup-list-click={(e) => this.onKupItemClick(e)}
-                ref={(el) => (this.listEl = el as any)}
+                onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
+                    this.onKupItemClick(e)
+                }
+                ref={(el) => (this.listEl = el)}
             ></kup-list>
         );
     }
@@ -420,7 +452,7 @@ export class KupCombobox {
     componentDidRender() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            const f: HTMLElement = root.querySelector('.f-text-field');
             if (f) {
                 this.textfieldWrapper = f;
                 this.textfieldEl = f.querySelector('input');
@@ -436,10 +468,6 @@ export class KupCombobox {
         const fullWidth: boolean =
             this.rootElement.classList.contains('kup-full-width');
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
@@ -447,14 +475,22 @@ export class KupCombobox {
                 }`}
                 style={this.elStyle}
             >
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId} style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}
                         disabled={this.disabled}
                         fullHeight={fullHeight}
                         fullWidth={fullWidth}
-                        icon={KupThemeIconValues.DROPDOWN}
+                        icon={
+                            this.showDropDownIcon
+                                ? KupThemeIconValues.DROPDOWN
+                                : null
+                        }
                         readOnly={this.isSelect}
                         trailingIcon={true}
                         value={this.displayedValue}
@@ -483,6 +519,10 @@ export class KupCombobox {
     }
 
     disconnectedCallback() {
+        if (this.listEl) {
+            this.kupManager.dynamicPosition.unregister([this.listEl]);
+            this.listEl.remove();
+        }
         this.kupManager.theme.unregister(this);
     }
 }

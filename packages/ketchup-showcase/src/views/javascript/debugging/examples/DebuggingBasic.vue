@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>
-      Debugging in Ketch.UP is handled by the debug manager.
+      Debugging in Ketchup is handled by the debug manager.
       <br />When the attribute <span class="code-word">kupDebug</span> on the
       document element of your app is set to true, console.log that would
       otherwise be hidden will be displayed. <br />When this attribute is

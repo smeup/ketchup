@@ -19,7 +19,6 @@ import {
 } from '../../../src/components/kup-tree/kup-tree-faker';
 import { KupTreeSelectors } from './tree__selectors';
 import { testTreeNodeValue } from './tree__test__helpers';
-import { styleHasBorderRadius } from '../../../src/components/kup-data-table/kup-data-table-helper';
 import { defaultData } from './mocked-data';
 
 const dataTreeConfiguration: {
@@ -199,13 +198,6 @@ describe('kup-tree with data', () => {
                     if (theStyle) {
                         // By default, style which does NOT have border radius is applied only to td element
                         let elementStyleCompare = rowCells[j + 1];
-
-                        // Style DOES have border radius -> is applied only to .cell-content element
-                        if (styleHasBorderRadius(currentCell)) {
-                            elementStyleCompare = await rowCells[j + 1].find(
-                                '.cell-content'
-                            );
-                        }
 
                         await testElementStyle(elementStyleCompare, theStyle);
                     }

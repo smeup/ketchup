@@ -6,8 +6,8 @@
         around the various sections of a web page.
       </p>
       <p>
-        The Ketch.UP drawer itself contains only the main structure. The user
-        can append any child component through the usage of slots.
+        The Ketchup drawer itself contains only the main structure. The user can
+        append any child component through the usage of slots.
       </p>
       <br />
       <br />
@@ -35,7 +35,7 @@
         <div
           >Get a look at the
           <a href="https://ketchup.smeup.com/ketchup-showcase/#/list">
-            Ketch.UP List
+            Ketchup List
           </a>
           documentation</div
         >

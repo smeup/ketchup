@@ -199,6 +199,34 @@
         </div>
       </div>
     </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 6</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- datatable[0]</span>: Displays a datatable.
+        When missing, a spinner will be shown in its place.
+        <br />
+        <span class="code-word">- text[0]</span>: Sets the title inside the
+        header bar.
+        <br />
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            style="position: absolute !important; top: unset; left: unset"
+            size-x="300px"
+            size-y="300px"
+            layout-number="6"
+            layout-family="dialog"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

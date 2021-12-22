@@ -204,15 +204,9 @@ describe('kup-data-table', () => {
         // testing third cell
         cellStyle = await cells[2].getComputedStyle();
 
-        expect(cellStyle.borderRadius).not.toBe('50px');
-        expect(cellStyle.padding).not.toBe('3px');
+        expect(cellStyle.borderRadius).toBe('50px');
 
-        const cellContent = await cells[2].find('.cell-content');
-
-        const contentStyle = await cellContent.getComputedStyle();
-
-        expect(contentStyle.borderRadius).toBe('50px');
-        expect(contentStyle.padding).toBe('3px');
+        expect(cellStyle.padding).toBe('3px');
     });
 
     describe.each([

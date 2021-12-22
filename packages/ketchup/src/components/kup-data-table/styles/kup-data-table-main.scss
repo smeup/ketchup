@@ -79,6 +79,12 @@
   }
 }
 
+:host([force-one-line]) {
+  .f-cell__text {
+    white-space: nowrap;
+  }
+}
+
 table {
   // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
   background-color: var(--kup_datatable_background_color);
@@ -172,7 +178,7 @@ table {
   width: 100%;
 }
 
-.#{$kup-icon}:not(.f-image--wrapper) {
+.#{$kup-icon}:not(.f-image) {
   background-color: var(--kup-title-color);
   margin: 0 0.25em;
   height: 1.25em;
@@ -194,24 +200,6 @@ table {
   &.#{$kup-icon-key} {
     margin: 0 0.25em;
   }
-
-  &.obj-icon {
-    cursor: var(--kup-obj-cursor);
-    display: block;
-    background-color: rgba(var(--kup-text-color-rgb), 0.375);
-    margin: auto 0.5em auto 0;
-
-    :host([force-one-line]) & {
-      display: inline-block;
-      margin: 0 0.5em 0 0;
-      vertical-align: -0.275em;
-    }
-
-    .number & {
-      display: inline-block;
-      vertical-align: text-bottom;
-    }
-  }
 }
 
 .below-wrapper {
@@ -229,21 +217,13 @@ table {
 
 .density- {
   &dense {
-    tbody > tr > td:not(.is-graphic) {
-      padding-top: 0.2em;
-      padding-bottom: 0.2em;
-    }
-    tbody > tr.group > td {
+    tbody > tr.group td {
       padding-top: 0.25em;
       padding-bottom: 0.25em;
     }
   }
 
   &wide {
-    tbody > tr > td:not(.is-graphic) {
-      padding-top: 1em;
-      padding-bottom: 1em;
-    }
     tbody > tr.group > td {
       padding-top: 0.75em;
       padding-bottom: 0.75em;
@@ -350,9 +330,22 @@ th {
 tbody {
   cursor: auto;
 
+  td {
+    height: 0; // Trick to let the cell' size to adapt to its content
+    padding: 0;
+
+    & > * {
+      border: none !important;
+    }
+  }
+
   tr {
     kup-button {
       max-width: max-content;
+    }
+
+    &[#{$kup-dd-draggable}] {
+      opacity: 0.5;
     }
 
     &.selected {
@@ -361,7 +354,7 @@ tbody {
       }
     }
 
-    &.hover:not(.group):not(.selected) {
+    &:hover:not(.group):not(.selected) {
       td {
         color: var(--kup-hover-color);
         background-color: var(--kup-hover-background-color);
@@ -413,139 +406,32 @@ tbody {
 
     > td {
       box-sizing: border-box;
-      overflow: hidden;
-      padding: 0.5em 0.3125em;
-      word-break: break-all;
-      word-wrap: break-word;
       transition: box-shadow 0.1s;
-
-      &.number {
-        .cell-content {
-          font-family: var(--kup_datatable_font_family_monospace);
-          justify-content: flex-end;
-        }
-      }
 
       .row-expander {
         margin-right: 0.5em;
       }
 
-      .indent {
-        display: inline-block;
-        height: 1em;
-        width: 2em;
-      }
-
       .row-action {
         margin-right: 0.2em;
       }
-
-      // The container of the effective cell content
-      .cell-content {
-        display: flex;
-
-        &.has-padding {
-          box-sizing: border-box;
-          padding: 1em;
-        }
-
-        // When there is the necessity to hide long text
-        :host([force-one-line]) & {
-          display: inline-block; // [column-width-related][mandatory][3]
-          max-width: 100%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          vertical-align: middle;
-          white-space: nowrap;
-          width: 100%;
-
-          &.is-centered {
-            display: flex;
-          }
-
-          &.number-cell {
-            text-align: right;
-          }
-        }
-
-        &.is-tooltip {
-          position: relative;
-        }
-
-        &.is-vertical,
-        :host([force-one-line]) &.is-vertical {
-          display: block;
-          width: auto;
-          margin: auto;
-          min-height: 16px;
-          min-width: 16px;
-          & > * {
-            margin: auto;
-          }
-        }
-
-        &.negative-number {
-          color: var(--kup-danger-color);
-        }
-      }
-
-      &.is-graphic {
-        padding: 0 1px;
-      }
-
-      & .indent ~ kup-image,
-      & .indent ~ kup-button {
-        margin: 0;
-        vertical-align: middle;
-      }
     }
-  }
-}
 
-tr {
-  kup-checkbox,
-  kup-image {
-    display: flex;
-  }
-
-  kup-button {
-    display: inline-block;
-  }
-
-  kup-button-list {
-    display: flex;
-    margin: auto;
-  }
-
-  kup-progress-bar {
-    display: block;
-  }
-
-  & .indent ~ kup-image {
-    display: inline-block;
-  }
-
-  .indent {
-    & ~ kup-button,
-    & ~ kup-checkbox {
-      display: inline-block;
+    [row-select-cell] {
+      min-height: 40px;
     }
-  }
 
-  [row-select-cell] {
-    min-height: 40px;
-  }
-
-  td[row-action-cell] {
-    width: calc(3em * var(--kup_datatable_row_actions));
-    & .f-image--wrapper {
-      cursor: pointer;
-      margin-left: 0.75em;
-      display: inline-block;
-      opacity: 1;
-      transition: 0.25s ease-in-out;
-      &:hover {
-        opacity: 0.5;
+    td[row-action-cell] {
+      width: calc(3em * var(--kup_datatable_row_actions));
+      & .f-image {
+        cursor: pointer;
+        margin-left: 0.75em;
+        display: inline-block;
+        opacity: 1;
+        transition: 0.25s ease-in-out;
+        &:hover {
+          opacity: 0.5;
+        }
       }
     }
   }
@@ -554,21 +440,6 @@ tr {
 .above-wrapper {
   display: flex;
   width: 100%;
-}
-
-.bar-cell-content {
-  overflow: hidden;
-  margin: auto;
-  position: relative;
-  transition: color 0.2s ease;
-  height: 100%;
-  width: 100%;
-}
-
-//Temporary removal of borders inside cells: they should be applied only to <td> elements
-//TODO: Improve styling interface with data-table inside client apps
-tbody td > * {
-  border: none !important;
 }
 
 .#{$kup-icon}.overlay-action {
@@ -626,66 +497,26 @@ th.obj:hover span:not(.overlay-action) {
   }
 }
 
-.customize-panel {
-  visibility: hidden;
-  background: var(--kup_datatable_background_color);
-  box-shadow: var(--kup-box-shadow);
-  min-width: 200px;
-  width: fit-content;
-  transition: height 0.25s;
-  kup-switch {
-    text-align: center;
-  }
+.indent {
+  display: inline-block;
+  height: 1em;
+  width: 2em;
 }
 
-.customize-element {
-  padding: 0 1em 1em 1em;
-}
-
-.customize-element:nth-child(1) {
-  padding-top: 1em;
-}
-
-.f-image--wrapper.cell-info {
-  margin: auto 0.5em auto 0.25em;
-
-  :host([force-one-line]) & {
-    display: inline-block;
-    vertical-align: sub;
-  }
-}
-
-[kup-dialog] {
-  animation: fade-in 0.25s ease-out;
-  background-color: var(--kup_datatable_background_color);
+.indent ~ kup-image,
+.indent ~ kup-button {
   margin: 0;
-  position: fixed;
-  transition: none;
-  -ms-touch-action: none;
-  touch-action: none;
-  will-change: transform;
-
-  &.kup-resizable {
-    border: 3px outset var(--kup-title-background-color);
-  }
+  vertical-align: middle;
 }
 
-.kup-menu {
-  animation: fade-in 0.25s ease-out;
-  background-color: var(--kup-background-color);
-  box-shadow: var(--kup-box-shadow);
-  color: var(--kup-text-color);
-  display: none;
-  max-height: 33vh;
-  overflow: auto;
-  position: relative;
-  transform: none;
-  transform-origin: unset;
-  transition: height 0.2s;
-  will-change: unset;
+.indent ~ kup-image {
+  display: inline-block;
+}
 
-  &.visible {
-    display: block;
+.indent {
+  & ~ kup-button,
+  & ~ kup-checkbox {
+    display: inline-block;
   }
 }
 
@@ -717,21 +548,4 @@ th.obj:hover span:not(.overlay-action) {
 .#{$kup-icon}.#{$kup-icon-key} {
   -webkit-mask: var(--kup-key-icon);
   mask: var(--kup-key-icon);
-}
-
-@keyframes fade-in {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-
-  1% {
-    display: block;
-    opacity: 0;
-  }
-
-  100% {
-    display: block;
-    opacity: 1;
-  }
 }

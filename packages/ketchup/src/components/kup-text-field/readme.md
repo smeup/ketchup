@@ -12,6 +12,7 @@
 | `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.                                           | `boolean` | `true`   |
 | `fullWidth`              | `full-width`                 | When set to true, the component will be rendered at full width.                                                                                                            | `boolean` | `false`  |
 | `helper`                 | `helper`                     | When set, its content will be shown as a help text below the field.                                                                                                        | `string`  | `null`   |
+| `helperEnabled`          | `helper-enabled`             | When true, the helper will be displayed.                                                                                                                                   | `boolean` | `true`   |
 | `helperWhenFocused`      | `helper-when-focused`        | When set, the helper will be shown only when the field is focused.                                                                                                         | `boolean` | `false`  |
 | `icon`                   | `icon`                       | When set, the text-field will show this icon.                                                                                                                              | `string`  | `null`   |
 | `initialValue`           | `initial-value`              | Sets the initial value of the component                                                                                                                                    | `string`  | `''`     |
@@ -109,16 +110,19 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                                   | Description                                                                                                                                                                                                            |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--kup-textfield-background-color-rgb` | Sets the background shader of the field, must be a set of RGB values.                                                                                                                                                  |
-| `--kup-textfield-color`                | Sets text color of the text field.                                                                                                                                                                                     |
-| `--kup-textfield-color-rgb`            | Sets text color RGB values of the text field (used for shaders).                                                                                                                                                       |
-| `--kup-textfield-font-family`          | Sets font family of the component.                                                                                                                                                                                     |
-| `--kup-textfield-font-size`            | Sets font size of the component.                                                                                                                                                                                       |
-| `--kup-textfield-icon-color`           | Sets icon color of the component.                                                                                                                                                                                      |
-| `--kup-textfield-primary-color`        | Sets primary color of the text field.                                                                                                                                                                                  |
-| `--kup-textfield-primary-color-rgb`    | Sets primary color RGB values of the text field (used for shaders). NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
+| Name                                   | Description                                                                                                                                                                                   |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--kup-textfield-background-color-rgb` | Sets the background shader of the field, must be a set of RGB values.                                                                                                                         |
+| `--kup-textfield-color`                | Sets text color of the text field.                                                                                                                                                            |
+| `--kup-textfield-color-rgb`            | Sets text color RGB values of the text field (used for shaders).                                                                                                                              |
+| `--kup-textfield-font-family`          | Sets font family of the component.                                                                                                                                                            |
+| `--kup-textfield-font-size`            | Sets font size of the component.                                                                                                                                                              |
+| `--kup-textfield-fullwidth-height`     | Sets height of the component when fullwidth.                                                                                                                                                  |
+| `--kup-textfield-fullwidth-padding`    | Sets padding of the component when fullwidth.                                                                                                                                                 |
+| `--kup-textfield-icon-color`           | Sets icon color of the component.                                                                                                                                                             |
+| `--kup-textfield-primary-color`        | Sets primary color of the text field.                                                                                                                                                         |
+| `--kup-textfield-primary-color-rgb`    | Sets primary color RGB values of the text field (used for shaders).                                                                                                                           |
+| `--kup-textfield-text-align`           | Sets the text alignment of the text field. NOTE: These variables are defined in the "kup-theme.css" file, because they must work even without the kup component (it's a functional component) |
 
 
 ## Dependencies

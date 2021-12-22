@@ -1115,6 +1115,14 @@
             <kup-image size-x="48px" size-y="48px" resource="json"></kup-image>
             <div class="icon-label">json</div>
           </div>
+          <div class="icon-wrapper" title="ketchup">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="ketchup"
+            ></kup-image>
+            <div class="icon-label">ketchup</div>
+          </div>
           <div class="icon-wrapper" title="key">
             <kup-image size-x="48px" size-y="48px" resource="key"></kup-image>
             <div class="icon-label">key</div>
@@ -1510,6 +1518,10 @@
           <div class="icon-wrapper" title="skype">
             <kup-image size-x="48px" size-y="48px" resource="skype"></kup-image>
             <div class="icon-label">skype</div>
+          </div>
+          <div class="icon-wrapper" title="smeup">
+            <kup-image size-x="48px" size-y="48px" resource="smeup"></kup-image>
+            <div class="icon-label">smeup</div>
           </div>
           <div class="icon-wrapper" title="solid">
             <kup-image size-x="48px" size-y="48px" resource="solid"></kup-image>

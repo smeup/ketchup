@@ -5,6 +5,7 @@ import {
     EventEmitter,
     forceUpdate,
     h,
+    Host,
     Method,
     Prop,
 } from '@stencil/core';
@@ -24,6 +25,7 @@ import {
     KupLanguageRow,
 } from '../../utils/kup-language/kup-language-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupComponent } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-paginator',
@@ -32,6 +34,12 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 })
 export class KupPaginator {
     @Element() rootElement: HTMLElement;
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = '';
 
     @Prop() currentPage: number = 1;
 
@@ -280,57 +288,73 @@ export class KupPaginator {
             'kup-list': listDataRows,
             'kup-text-field': textfieldDataRows,
         };
-        let compCreated = (
-            <div id={componentWrapperId}>
-                <div class="align-left">
-                    <div class="nav-section">
-                        <FButton
-                            icon="chevron_left"
-                            disabled={this.isPrevPageDisabled()}
-                            wrapperClass="prev-page"
-                            onClick={() => this.onPrevPage()}
-                        />
-                        <kup-combobox
-                            class="page-selector"
-                            data={dataPageSelector}
-                            initialValue={this.currentPage.toString()}
-                            onkup-combobox-itemclick={(e) =>
-                                this.onPageChange(e)
-                            }
-                            onkup-combobox-textfieldsubmit={(e) =>
-                                this.onPageChange(e)
-                            }
-                            onkup-combobox-blur={(e) => this.onPageChange(e)}
-                            ref={(el) => (this.comboPageSelectorEl = el as any)}
-                        />
-                        <FButton
-                            icon="chevron_right"
-                            disabled={this.isNextPageDisabled()}
-                            wrapperClass="next-page"
-                            onClick={() => this.onNextPage()}
-                        />
-                    </div>
-                    <div class="tot-section">
-                        <slot name="more-results" />
-                        <kup-combobox
-                            class="rows-selector"
-                            data={dataRowsSelector}
-                            initialValue={this.perPage.toString()}
-                            onkup-combobox-itemclick={(e) =>
-                                this.onRowsPerPage(e)
-                            }
-                            onkup-combobox-textfieldsubmit={(e) =>
-                                this.onRowsPerPage(e)
-                            }
-                            onkup-combobox-blur={(e) => this.onRowsPerPage(e)}
-                            ref={(el) => (this.comboRowsSelectorEl = el as any)}
-                        />
-                        <slot name="right" />
-                    </div>
-                </div>
 
-                <div class="align-left"></div>
-            </div>
+        let compCreated = (
+            <Host>
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
+                <div id={componentWrapperId}>
+                    <div class="align-left">
+                        <div class="nav-section">
+                            <FButton
+                                icon="chevron_left"
+                                disabled={this.isPrevPageDisabled()}
+                                wrapperClass="prev-page"
+                                onClick={() => this.onPrevPage()}
+                            />
+                            <kup-combobox
+                                class="page-selector"
+                                data={dataPageSelector}
+                                initialValue={this.currentPage.toString()}
+                                onkup-combobox-itemclick={(e) =>
+                                    this.onPageChange(e)
+                                }
+                                onkup-combobox-textfieldsubmit={(e) =>
+                                    this.onPageChange(e)
+                                }
+                                onkup-combobox-blur={(e) =>
+                                    this.onPageChange(e)
+                                }
+                                ref={(el) =>
+                                    (this.comboPageSelectorEl = el as any)
+                                }
+                            />
+                            <FButton
+                                icon="chevron_right"
+                                disabled={this.isNextPageDisabled()}
+                                wrapperClass="next-page"
+                                onClick={() => this.onNextPage()}
+                            />
+                        </div>
+                        <div class="tot-section">
+                            <slot name="more-results" />
+                            <kup-combobox
+                                class="rows-selector"
+                                data={dataRowsSelector}
+                                initialValue={this.perPage.toString()}
+                                onkup-combobox-itemclick={(e) =>
+                                    this.onRowsPerPage(e)
+                                }
+                                onkup-combobox-textfieldsubmit={(e) =>
+                                    this.onRowsPerPage(e)
+                                }
+                                onkup-combobox-blur={(e) =>
+                                    this.onRowsPerPage(e)
+                                }
+                                ref={(el) =>
+                                    (this.comboRowsSelectorEl = el as any)
+                                }
+                            />
+                            <slot name="right" />
+                        </div>
+                    </div>
+
+                    <div class="align-left"></div>
+                </div>
+            </Host>
         );
 
         return compCreated;

@@ -6,6 +6,7 @@ import {
     forceUpdate,
     getAssetPath,
     h,
+    Host,
     Method,
     Prop,
 } from '@stencil/core';
@@ -39,7 +40,7 @@ import { getColumnByName } from '../../utils/cell-utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
-import { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupCalendarDateClickEventPayload,
     KupCalendarEventClickEventPayload,
@@ -295,7 +296,7 @@ export class KupCalendar {
         }
         return props;
     }
-    
+
     private getEvents(): EventSourceInput {
         const isHourRange =
             this.startCol &&
@@ -514,57 +515,64 @@ export class KupCalendar {
 
     render() {
         return (
-            <div id={componentWrapperId}>
-                <div class="navigation">
-                    {!this.hideNavigation ? (
-                        <div class="navigation__left">
-                            <FButton
-                                icon="chevron_left"
-                                onClick={() => this.onPrev()}
-                                title={this.kupManager.language.translate(
-                                    KupLanguageGeneric.PREVIOUS
-                                )}
-                                wrapperClass="navigation__prev"
-                            />
-                            <FButton
-                                icon="calendar"
-                                onClick={() => this.onToday()}
-                                title={this.kupManager.language.translate(
-                                    KupLanguageGeneric.TODAY
-                                )}
-                                wrapperClass="navigation__today"
-                            />
-                            <FButton
-                                icon="chevron_right"
-                                onClick={() => this.onNext()}
-                                title={this.kupManager.language.translate(
-                                    KupLanguageGeneric.NEXT
-                                )}
-                                wrapperClass="navigation__next"
-                            />
-                        </div>
-                    ) : null}
+            <Host>
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
+                <div id={componentWrapperId}>
+                    <div class="navigation">
+                        {!this.hideNavigation ? (
+                            <div class="navigation__left">
+                                <FButton
+                                    icon="chevron_left"
+                                    onClick={() => this.onPrev()}
+                                    title={this.kupManager.language.translate(
+                                        KupLanguageGeneric.PREVIOUS
+                                    )}
+                                    wrapperClass="navigation__prev"
+                                />
+                                <FButton
+                                    icon="calendar"
+                                    onClick={() => this.onToday()}
+                                    title={this.kupManager.language.translate(
+                                        KupLanguageGeneric.TODAY
+                                    )}
+                                    wrapperClass="navigation__today"
+                                />
+                                <FButton
+                                    icon="chevron_right"
+                                    onClick={() => this.onNext()}
+                                    title={this.kupManager.language.translate(
+                                        KupLanguageGeneric.NEXT
+                                    )}
+                                    wrapperClass="navigation__next"
+                                />
+                            </div>
+                        ) : null}
+                        <div
+                            class={`navigation__title ${
+                                this.hideNavigation
+                                    ? 'navigation__title--centered'
+                                    : ''
+                            }`}
+                            ref={(el) => {
+                                this.navTitle = el;
+                            }}
+                        ></div>
+                        {!this.hideNavigation ? (
+                            <div class="navigation__right">
+                                <FChip {...this.setChipProps()}></FChip>
+                            </div>
+                        ) : null}
+                    </div>
                     <div
-                        class={`navigation__title ${
-                            this.hideNavigation
-                                ? 'navigation__title--centered'
-                                : ''
-                        }`}
-                        ref={(el) => {
-                            this.navTitle = el;
-                        }}
+                        class="calendar"
+                        ref={(el) => (this.calendarContainer = el)}
                     ></div>
-                    {!this.hideNavigation ? (
-                        <div class="navigation__right">
-                            <FChip {...this.setChipProps()}></FChip>
-                        </div>
-                    ) : null}
                 </div>
-                <div
-                    class="calendar"
-                    ref={(el) => (this.calendarContainer = el)}
-                ></div>
-            </div>
+            </Host>
         );
     }
 

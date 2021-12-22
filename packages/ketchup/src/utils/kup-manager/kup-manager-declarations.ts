@@ -14,8 +14,10 @@ import type { KupTheme } from '../kup-theme/kup-theme';
 import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { ResizeObserver } from 'resize-observer';
+import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
+import { KupSearch } from '../kup-search/kup-search';
 /**
- * Interface used to define the HTML element with Ketch.UP specific properties.
+ * Interface used to define the HTML element with Ketchup specific properties.
  */
 export interface KupDom extends HTMLHtmlElement {
     ketchup: KupManager;
@@ -35,28 +37,29 @@ export interface KupManager {
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: KupScrollOnHover;
+    search: KupSearch;
     theme: KupTheme;
     toolbar: KupToolbar;
     utilities: KupManagerUtilities;
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
-    setLibraryLocalization: (locale: string) => void;
+    setLibraryLocalization: (locale: KupDatesLocales) => void;
+    addClickCallback: (cb: KupManagerClickCb, async?: boolean) => void;
+    removeClickCallback: (cb: KupManagerClickCb) => void;
 }
 /**
  * Interface for the KupManager utilities.
  */
 export interface KupManagerUtilities {
-    lastPointerDownPath?: EventTarget[];
+    clickCallbacks?: Set<KupManagerClickCb>;
     lastPointerDownString?: string;
-    pointerDownCallbacks?: Set<KupManagerPointerDownCb>;
 }
 /**
  * Interface to declare callbacks automatically invoked on pointer down events.
  */
-export interface KupManagerPointerDownCb {
+export interface KupManagerClickCb {
     cb: () => unknown;
-    onlyOnce?: boolean;
     el?: HTMLElement;
 }
 /**
@@ -75,7 +78,7 @@ export interface KupManagerInitialization {
  * KupDates initialization settings.
  */
 export interface KupManagerDatesSettings {
-    locale?: string;
+    locale?: KupDatesLocales;
 }
 /**
  * KupDebug initialization settings.

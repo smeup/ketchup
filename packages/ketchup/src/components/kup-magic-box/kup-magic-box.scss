@@ -1,19 +1,15 @@
-@import 'f-image/f-image.scss';
-
 :host {
   background-color: var(--kup-background-color);
   color: var(--kup-text-color);
   display: block;
   height: 300px;
   min-width: 700px;
-  overflow: auto;
   width: 700px;
 }
 
 #kup-component,
 .magic-box-wrapper {
   height: 100%;
-  overflow: auto;
   width: 100%;
 }
 
@@ -25,8 +21,10 @@
 }
 
 .actions {
+  align-items: center;
   background-color: var(--kup-title-background-color);
   display: inline-flex;
+  height: 52px;
   justify-content: center;
   left: 0;
   position: absolute;
@@ -55,6 +53,7 @@
   box-sizing: border-box;
   height: 100%;
   margin-top: 52px;
+  overflow: auto;
   transition: background-color 125ms ease;
 }
 
@@ -67,7 +66,7 @@
   width: 100%;
   opacity: 0.5;
   transition: opacity 0.25s ease-out;
-  .f-image--wrapper {
+  .f-image {
     margin: 0;
   }
 }

@@ -86,21 +86,48 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-card](../kup-card)
+ - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
-- [kup-button](../kup-button)
+- [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-date-picker --> kup-button
-  kup-button --> kup-badge
-  kup-badge --> kup-badge
+  kup-date-picker --> kup-card
   kup-card --> kup-date-picker
+  kup-badge --> kup-badge
+  kup-chip --> kup-badge
+  kup-autocomplete --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-badge
+  kup-button --> kup-badge
+  kup-combobox --> kup-list
+  kup-time-picker --> kup-card
+  kup-time-picker --> kup-list
   kup-data-table --> kup-date-picker
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
+  kup-tooltip --> kup-tree
+  kup-box --> kup-date-picker
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-badge
+  kup-tree --> kup-date-picker
+  kup-tab-bar --> kup-badge
+  kup-cell --> kup-date-picker
   style kup-date-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

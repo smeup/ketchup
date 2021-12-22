@@ -16,7 +16,7 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
 
     return (
         <div
-            class={`f-switch--wrapper ${props.danger ? 'kup-danger' : ''} ${
+            class={`f-switch ${props.danger ? 'kup-danger' : ''} ${
                 props.info ? 'kup-info' : ''
             } ${props.secondary ? 'kup-secondary' : ''} ${
                 props.success ? 'kup-success' : ''
