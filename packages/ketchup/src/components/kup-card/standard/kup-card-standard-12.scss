@@ -29,6 +29,7 @@
   }
 
   .section-3 {
+    backface-visibility: hidden;
     display: flex;
     flex-direction: column;
     max-height: 20vh;

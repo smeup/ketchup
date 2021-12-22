@@ -13,7 +13,7 @@ export enum KupListProps {
     filter = 'Keeps string for filtering elements when filter mode is active',
     hideText = "Hides rows' text, ideally to display a list of icons only.",
     isMenu = 'Defines whether the list is a menu or not.',
-    keyboardNavigation = "When true, enables items' navigation through keys. Defaults to false when the component's isMenu prop is set to true.",
+    keyboardNavigation = "When true, enables items' navigation through arrow keys.",
     menuVisible = "Sets the status of the menu, when false it's hidden otherwise it's visible.",
     roleType = 'Defines the type of selection. Values accepted: listbox, radiogroup or group.',
     selectable = 'Defines whether items are selectable or not.',

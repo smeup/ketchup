@@ -11,10 +11,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import {
-    kupDynamicPositionAttribute,
-    KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -156,7 +152,6 @@ export class KupCombobox {
     kupItemClick: EventEmitter<KupComboboxEventPayload>;
 
     onKupBlur() {
-        this.closeList();
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
@@ -351,20 +346,21 @@ export class KupCombobox {
     openList() {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.kupManager.dynamicPosition.start(
-            this.listEl as KupDynamicPositionElement
-        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
+        this.kupManager.utilities.pointerDownCallbacks.add({
+            cb: () => {
+                this.closeList();
+            },
+            onlyOnce: true,
+            el: this.listEl,
+        });
     }
 
     closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.kupManager.dynamicPosition.stop(
-            this.listEl as KupDynamicPositionElement
-        );
     }
 
     isListOpened(): boolean {
@@ -392,7 +388,6 @@ export class KupCombobox {
                 is-menu
                 onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
-                tabindex={-1}
             ></kup-list>
         );
     }
@@ -430,10 +425,6 @@ export class KupCombobox {
                 this.textfieldWrapper = f;
                 this.textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
-                this.kupManager.dynamicPosition.register(
-                    this.listEl,
-                    this.textfieldWrapper
-                );
             }
         }
         this.kupManager.debug.logRender(this, true);
@@ -454,7 +445,6 @@ export class KupCombobox {
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
                     fullWidth ? 'kup-full-width' : ''
                 }`}
-                onBlur={() => this.onKupBlur()}
                 style={this.elStyle}
             >
                 {customStyle ? <style>{customStyle}</style> : null}
@@ -468,6 +458,7 @@ export class KupCombobox {
                         readOnly={this.isSelect}
                         trailingIcon={true}
                         value={this.displayedValue}
+                        onBlur={() => this.onKupBlur()}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
                             this.onKupChange(e)
                         }
@@ -483,8 +474,9 @@ export class KupCombobox {
                         onIconClick={(
                             e: MouseEvent & { target: HTMLInputElement }
                         ) => this.onKupIconClick(e)}
-                    />
-                    {this.prepList()}
+                    >
+                        {this.prepList()}
+                    </FTextField>
                 </div>
             </Host>
         );
@@ -492,14 +484,5 @@ export class KupCombobox {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll(
-                '[' + kupDynamicPositionAttribute + ']'
-            );
-        if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.unregister(
-                Array.prototype.slice.call(dynamicPositionElements)
-            );
-        }
     }
 }

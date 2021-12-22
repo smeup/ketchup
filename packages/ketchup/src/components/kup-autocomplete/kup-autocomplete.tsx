@@ -13,10 +13,6 @@ import {
 } from '@stencil/core';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
-    kupDynamicPositionAttribute,
-    KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
@@ -183,7 +179,6 @@ export class KupAutocomplete {
     kupFilterChanged: EventEmitter<kupAutocompleteFilterChangedEventPayload>;
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        this.closeList();
         const { target } = e;
         this.kupBlur.emit({
             comp: this,
@@ -412,21 +407,22 @@ export class KupAutocomplete {
         }
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.kupManager.dynamicPosition.start(
-            this.listEl as KupDynamicPositionElement
-        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
+        this.kupManager.utilities.pointerDownCallbacks.add({
+            cb: () => {
+                this.closeList();
+            },
+            onlyOnce: true,
+            el: this.listEl,
+        });
         return true;
     }
 
     private closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.kupManager.dynamicPosition.stop(
-            this.rootElement as KupDynamicPositionElement
-        );
     }
 
     private isListOpened(): boolean {
@@ -462,7 +458,6 @@ export class KupAutocomplete {
                 isMenu={true}
                 onkup-list-click={(e) => this.onKupItemClick(e)}
                 ref={(el) => (this.listEl = el as any)}
-                tabindex={-1}
             ></kup-list>
         );
     }
@@ -501,10 +496,6 @@ export class KupAutocomplete {
                 this.textfieldWrapper = f;
                 this.textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
-                this.kupManager.dynamicPosition.register(
-                    this.listEl,
-                    this.textfieldWrapper
-                );
             }
         }
         this.kupManager.debug.logRender(this, true);
@@ -524,7 +515,6 @@ export class KupAutocomplete {
                 class={`${fullHeight ? 'kup-full-height' : ''} ${
                     fullWidth ? 'kup-full-width' : ''
                 }`}
-                onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}
             >
                 {customStyle ? <style>{customStyle}</style> : null}
@@ -537,6 +527,7 @@ export class KupAutocomplete {
                         icon={KupThemeIconValues.DROPDOWN}
                         trailingIcon={true}
                         value={this.displayedValue}
+                        onBlur={(e: any) => this.onKupBlur(e)}
                         onClick={(
                             e: MouseEvent & { target: HTMLInputElement }
                         ) => this.onKupClick(e)}
@@ -552,8 +543,9 @@ export class KupAutocomplete {
                         onIconClick={(
                             e: MouseEvent & { target: HTMLInputElement }
                         ) => this.onKupIconClick(e)}
-                    />
-                    {this.prepList()}
+                    >
+                        {this.prepList()}
+                    </FTextField>
                 </div>
             </Host>
         );
@@ -561,14 +553,5 @@ export class KupAutocomplete {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
-        const dynamicPositionElements: NodeListOf<KupDynamicPositionElement> =
-            this.rootElement.shadowRoot.querySelectorAll(
-                '[' + kupDynamicPositionAttribute + ']'
-            );
-        if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.unregister(
-                Array.prototype.slice.call(dynamicPositionElements)
-            );
-        }
     }
 }

@@ -11,6 +11,7 @@ import {
     KupCardSubEvents,
 } from './kup-card-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
+import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
 /**
  * This function returns a list of components.
  * @param {GenericObject[]} compArray - Components' props.
@@ -97,6 +98,7 @@ export function dialogHeader(title: string): VNode {
                 <div class={KupCardCSSClasses.DIALOG_TITLE}>{title}</div>
             ) : null}
             <FImage
+                color={`var(${KupThemeColorValues.TITLE})`}
                 sizeX="1.25em"
                 sizeY="2em"
                 resource="clear"

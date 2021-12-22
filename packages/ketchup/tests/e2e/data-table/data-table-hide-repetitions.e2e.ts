@@ -60,29 +60,6 @@ describe('kup-data-table with hide repetitions active', () => {
                                     'it-IT',
                                     true
                                 );
-
-                                /*
-                                console.log(
-                                    ' cells[columnIndex].textContent=' +
-                                        cells[columnIndex].textContent +
-                                        ' <> cellValue=' +
-                                        cellValue
-                                );
-                                console.log(
-                                    'istrue: [' +
-                                        (cells[columnIndex].textContent ==
-                                            cellValue.replace(
-                                                RegExp(/\./g),
-                                                ','
-                                            ) ||
-                                            cells[columnIndex].textContent ==
-                                                cellValue.replace(
-                                                    RegExp(/,/g),
-                                                    '.'
-                                                )) +
-                                        ']'
-                                );*/
-
                                 expect(
                                     cells[columnIndex].textContent ==
                                         cellValue.replace(RegExp(/\./g), ',') ||

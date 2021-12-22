@@ -52,9 +52,7 @@ export class KupDynamicPosition {
         detach?: boolean
     ): void {
         if (this.isRegistered(el)) {
-            if (this.anchorIsHTMLElement(anchorEl)) {
-                this.changeAnchor(el, anchorEl);
-            }
+            this.changeAnchor(el, anchorEl);
             return;
         }
         el.setAttribute(kupDynamicPositionAttribute, '');
@@ -67,7 +65,7 @@ export class KupDynamicPosition {
         } else {
             el.style.position = 'fixed';
         }
-        el.style.zIndex = '1000';
+        el.style.zIndex = `calc(var(--kup-navbar-zindex) - 1)`;
         el.kupDynamicPosition = {
             anchor: anchorEl,
             detach: detach ? true : false,
@@ -99,9 +97,12 @@ export class KupDynamicPosition {
     /**
      * Changes the anchor point of the given element.
      * @param {KupDynamicPositionElement} elements - Dynamically positioned element previously registered.
-     * @param {HTMLElement} anchorEl - New anchor point.
+     * @param {KupDynamicPositionAnchor} anchorEl - New anchor point.
      */
-    changeAnchor(el: KupDynamicPositionElement, anchorEl: HTMLElement): void {
+    changeAnchor(
+        el: KupDynamicPositionElement,
+        anchorEl: KupDynamicPositionAnchor
+    ): void {
         el.kupDynamicPosition.anchor = anchorEl;
     }
     /**

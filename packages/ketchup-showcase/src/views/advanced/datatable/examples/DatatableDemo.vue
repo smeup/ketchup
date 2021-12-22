@@ -343,6 +343,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'resizableColumns',
+          description:
+            'Gives the possibility to resize columns by dragging on their right edge.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'rowActions',
           description: 'Sets the actions of the rows.',
           type: 'RowAction',

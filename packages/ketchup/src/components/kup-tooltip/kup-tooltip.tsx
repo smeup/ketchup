@@ -232,9 +232,7 @@ export class KupTooltip {
         ) {
             this.kupManager.dynamicPosition.register(
                 this.rootElement as KupDynamicPositionElement,
-                this.relatedObject.element,
-                0,
-                KupDynamicPositionPlacement.AUTO
+                this.relatedObject.element
             );
         } else {
             this.kupManager.dynamicPosition.changeAnchor(
@@ -242,11 +240,20 @@ export class KupTooltip {
                 this.relatedObject.element
             );
         }
+        this.kupManager.utilities.pointerDownCallbacks.add({
+            cb: () => {
+                this.data = null;
+                this.kupManager.dynamicPosition.stop(
+                    this.rootElement as unknown as KupDynamicPositionElement
+                );
+            },
+            onlyOnce: true,
+            el: this.rootElement,
+        });
         this.kupManager.dynamicPosition.start(
             this.rootElement as KupDynamicPositionElement
         );
         this.visible = true;
-        this.rootElement.focus();
         this.startLoadDetail(true);
     }
 
@@ -400,7 +407,6 @@ export class KupTooltip {
             this.resetAll();
             return;
         }
-        this.rootElement.focus();
         if (this.isViewModeTooltip()) {
             this.cellOptions = null;
             this.kupTooltipLoadDetail.emit({

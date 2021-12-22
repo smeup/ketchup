@@ -13,7 +13,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-
+import type { PointerEvent } from '@interactjs/types/index';
 import {
     Cell,
     CellData,
@@ -23,14 +23,13 @@ import {
     TotalMode,
     TotalsMap,
 } from './../kup-data-table/kup-data-table-declarations';
-
 import {
     KupTreeProps,
     treeExpandedPropName,
     TreeNode,
     TreeNodePath,
     treeMainColumnName,
-    EventHandlerDetails,
+    KupTreeEventHandlerDetails,
     KupTreeNodeCollapseEventPayload,
     KupTreeNodeExpandEventPayload,
     KupTreeNodeSelectedEventPayload,
@@ -99,6 +98,7 @@ import {
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupPointerEventTypes } from '../../utils/kup-interact/kup-interact-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -378,6 +378,8 @@ export class KupTree {
     private visibleNodes: number;
     private contentRefs: HTMLElement[] = [];
     private oldWidth: number = null;
+    private hold: boolean = false;
+    private interactableTouch: HTMLElement[] = [];
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -610,19 +612,6 @@ export class KupTree {
             this.columnMenuCard.layoutNumber = 12;
             this.columnMenuCard.sizeX = 'auto';
             this.columnMenuCard.sizeY = 'auto';
-            this.columnMenuCard.tabIndex = -1;
-            this.columnMenuCard.onblur = () => {
-                if (
-                    this.kupManager.utilities.lastPointerDownPath.includes(
-                        this.columnMenuCard
-                    )
-                ) {
-                    this.columnMenuCard.focus();
-                } else {
-                    this.closeColumnMenu();
-                }
-            };
-            this.columnMenuCard.onclick = (e) => e.stopPropagation();
             this.columnMenuCard.addEventListener(
                 'kup-card-click',
                 (e: CustomEvent<KupEventPayload>) => {
@@ -867,14 +856,14 @@ export class KupTree {
         this.openTotalMenu(column);
     }
 
-    private getEventDetails(el: HTMLElement): EventHandlerDetails {
+    private getEventDetails(el: HTMLElement): KupTreeEventHandlerDetails {
         const isHeader: boolean = !!el.closest('thead'),
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
-            td: HTMLTableDataCellElement = el.closest('td'),
-            th: HTMLTableHeaderCellElement = el.closest('th'),
-            tr: HTMLTableRowElement = el.closest('tr'),
-            filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
+            td = el.closest('td'),
+            th = el.closest('th'),
+            tr = el.closest('tr'),
+            filterRemove: HTMLElement = el.closest('th .filter-remove');
         let cell: Cell = null,
             column: Column = null,
             row: Row = null;
@@ -915,11 +904,9 @@ export class KupTree {
         };
     }
 
-    private contextMenuHandler(e: MouseEvent): EventHandlerDetails {
+    private contextMenuHandler(e: PointerEvent): KupTreeEventHandlerDetails {
         e.preventDefault();
-        const details: EventHandlerDetails = this.getEventDetails(
-            e.target as HTMLElement
-        );
+        const details = this.getEventDetails(e.target as HTMLElement);
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.openColumnMenu(details.column.name);
@@ -1325,7 +1312,7 @@ export class KupTree {
             icon = <span style={iconStyle} class="kup-icon obj-icon"></span>;
         }
 
-        const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
             cell.obj
         );
         let title: string = undefined;
@@ -1969,7 +1956,7 @@ export class KupTree {
             }
         }
 
-        const _hasTooltip: boolean = this.kupManager.objects.hasTooltip(
+        const _hasTooltip: boolean = !this.kupManager.objects.isEmptyKupObj(
             treeNodeData.obj
         );
         let title: string = undefined;
@@ -2016,7 +2003,7 @@ export class KupTree {
                             this.ripple &&
                             !this.showColumns &&
                             !treeNodeData.disabled,
-                        'is-obj': this.kupManager.objects.hasTooltip(
+                        'is-obj': !this.kupManager.objects.isEmptyKupObj(
                             treeNodeData.obj
                         ),
                     }}
@@ -2210,17 +2197,15 @@ export class KupTree {
 
                 totalMenu = (
                     <kup-list
-                        class={`kup-menu total-menu`}
+                        class={`total-menu`}
                         data={...listData}
                         id="totals-menu"
                         is-menu
                         keyboardNavigation={true}
                         menu-visible
-                        onBlur={() => this.closeTotalMenu()}
                         onkup-list-click={(event) =>
                             this.onTotalsChange(event, column)
                         }
-                        tabindex={0}
                     ></kup-list>
                 );
             }
@@ -2259,22 +2244,69 @@ export class KupTree {
         );
     }
 
+    didLoadInteractables() {
+        this.interactableTouch.push(this.treeWrapperRef);
+        const tapCb = (e: PointerEvent) => {
+            if (this.hold) {
+                this.hold = false;
+                return;
+            }
+            switch (e.button) {
+                // right click
+                case 2:
+                    this.kupTreeContextMenu.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        details: this.contextMenuHandler(e),
+                    });
+                    break;
+            }
+        };
+        const holdCb = (e: PointerEvent) => {
+            if (e.pointerType === 'pen' || e.pointerType === 'touch') {
+                this.hold = true;
+                this.kupTreeContextMenu.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    details: this.contextMenuHandler(e),
+                });
+            }
+        };
+        this.kupManager.interact.on(
+            this.treeWrapperRef,
+            KupPointerEventTypes.TAP,
+            tapCb
+        );
+        this.kupManager.interact.on(
+            this.treeWrapperRef,
+            KupPointerEventTypes.HOLD,
+            holdCb
+        );
+    }
+
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement =
+            const menu: HTMLKupListElement =
                 this.rootElement.shadowRoot.querySelector('#totals-menu');
             if (menu) {
                 this.kupManager.dynamicPosition.register(
-                    menu as KupDynamicPositionElement,
-                    this.totalMenuCoords,
-                    0,
-                    KupDynamicPositionPlacement.TOP_RIGHT
+                    menu as unknown as KupDynamicPositionElement,
+                    this.totalMenuCoords
                 );
+                this.kupManager.utilities.pointerDownCallbacks.add({
+                    cb: () => {
+                        this.closeTotalMenu();
+                        this.kupManager.dynamicPosition.stop(
+                            menu as unknown as KupDynamicPositionElement
+                        );
+                    },
+                    onlyOnce: true,
+                    el: menu,
+                });
                 this.kupManager.dynamicPosition.start(
-                    menu as KupDynamicPositionElement
+                    menu as unknown as KupDynamicPositionElement
                 );
-                menu.classList.add('visible');
-                setTimeout(() => menu.focus(), 0);
+                menu.menuVisible = true;
             }
         }
     }
@@ -2383,6 +2415,7 @@ export class KupTree {
                 this.hdlTreeNodeClick(null, tn, this.selectedNodeString, true);
             }
         }
+        this.didLoadInteractables();
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
@@ -2511,13 +2544,9 @@ export class KupTree {
                         <table
                             class="kup-tree"
                             data-show-columns={this.showColumns}
-                            onContextMenu={(e: MouseEvent) =>
-                                this.kupTreeContextMenu.emit({
-                                    comp: this,
-                                    id: this.rootElement.id,
-                                    details: this.contextMenuHandler(e),
-                                })
-                            }
+                            onContextMenu={(e: MouseEvent) => {
+                                e.preventDefault();
+                            }}
                         >
                             <thead
                                 class={{

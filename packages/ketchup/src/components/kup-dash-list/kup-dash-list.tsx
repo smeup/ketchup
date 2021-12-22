@@ -160,6 +160,7 @@ export class KupDashList {
                     fontsize={this.fontsize}
                     index={count}
                     active={this.active}
+                    slot={String(count)}
                 >
                     {icon}
                     {unit}
@@ -179,13 +180,13 @@ export class KupDashList {
                     rel="stylesheet"
                     type="text/css"
                 />
-                <kup-layout
-                    columnsNumber={this.columnsNumber}
-                    horizontal={this.horizontal}
-                    fillSpace={this.fullWidth}
+                <kup-grid
+                    columns={this.columnsNumber}
+                    singleLine={this.horizontal}
+                    class={`${this.fullWidth ? 'kup-full-width' : ''}`}
                 >
                     {rows}
-                </kup-layout>
+                </kup-grid>
             </div>
         );
     }

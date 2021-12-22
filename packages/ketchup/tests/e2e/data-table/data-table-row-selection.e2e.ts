@@ -14,7 +14,9 @@ describe('row selection', () => {
 
         const element = await page.find('kup-data-table');
 
-        const kupAutoRowSelect = await element.spyOnEvent('kup-datatable-autorowselect');
+        const kupAutoRowSelect = await element.spyOnEvent(
+            'kup-datatable-autorowselect'
+        );
 
         element.setProperty('data', staticData);
         element.setProperty('selectRow', 1);
@@ -32,29 +34,19 @@ describe('row selection', () => {
         await page.setContent(`<kup-data-table></kup-data-table>`);
 
         const element = await page.find('kup-data-table');
-        console.log("stop1");
-        const a = await page.spyOnEvent("kup-datatable-rowselected");
-        const b = await element.spyOnEvent("kup-datatable-rowselected");
+        const a = await page.spyOnEvent('kup-datatable-rowselected');
+        const b = await element.spyOnEvent('kup-datatable-rowselected');
         element.setProperty('data', staticData);
         await page.waitForChanges();
         const cells = await page.findAll(cellsSelector);
-
-        console.log("stop2");
-        const c = element.waitForEvent("kup-datatable-rowselected");
+        const c = element.waitForEvent('kup-datatable-rowselected');
         await cells[0].click();
         await c;
         await page.waitForChanges();
         await page.waitForTimeout(2500);
         await page.waitForChanges();
-        console.log("stop3 a=" + a.length + " b=" + b.length);
-        console.log("c=");
-        console.log(c);
-        await element.waitForEvent("kup-datatable-rowselected");
-        //await page.waitForEvent("kup-datatable-rowselected");
-        console.log("stop4 a=" + a.length + " b=" + b.length);
+        await element.waitForEvent('kup-datatable-rowselected');
         expect(a.length == 1).toBeTruthy();
-        console.log("stop5");
-        
     });
 
     it.skip('single selection', async () => {
@@ -63,7 +55,9 @@ describe('row selection', () => {
         await page.setContent(`<kup-data-table></kup-data-table>`);
         const element = await page.find('kup-data-table');
 
-        const kupRowSelected = await element.spyOnEvent('kup-datatable-rowselected');
+        const kupRowSelected = await element.spyOnEvent(
+            'kup-datatable-rowselected'
+        );
         element.setProperty('data', staticData);
         await page.waitForChanges();
 
@@ -99,7 +93,9 @@ describe('row selection', () => {
         dataTable.setProperty('data', staticData);
         dataTable.setProperty('multiSelection', true);
 
-        const kupRowSelected = await dataTable.spyOnEvent('kup-datatable-rowselected');
+        const kupRowSelected = await dataTable.spyOnEvent(
+            'kup-datatable-rowselected'
+        );
 
         await page.waitForChanges();
 
