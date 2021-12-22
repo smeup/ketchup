@@ -361,12 +361,6 @@ describe('kup-tree with data', () => {
                         selectedTreeNode.value
                     );
                     if (!selectedTreeNode.disabled) {
-                        console.log(
-                            'tmp log: selected node cycle n. ' +
-                                i +
-                                ' ' +
-                                JSON.stringify(selectedE2ENode.outerHTML)
-                        );
                         expect(selectedE2ENode).toHaveClass(
                             'kup-tree__node--selected'
                         );
@@ -594,12 +588,4 @@ describe('kup-tree with data', () => {
             });
         });
     });
-
-    // console.log("tnc", tnc.childNodes.length);
-    // console.log(KupTreeSelectors, treeNodeCells);
-    // console.log("contenuto", Object.keys(treeRows[0]));
-    // console.log("figli", treeRows[0].childNodes);
-    // console.log(data[i].value, flatTree[j].value, treeNodeCells.length);
-    // await page.screenshot({path: `screenshot_${displayMode}_${j}.png`});
-    // console.log("afterlunghezza", flattenTree(data).length, data.map((node) => node[treeExpandedPropName]));
 });

@@ -94,8 +94,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v4.0.0"
-            >v4.0.0</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v4.1.0"
+            >v4.1.0</a
           ></div
         ></div
       >
@@ -965,7 +965,7 @@ a.footer__icon--trailing {
 
 @media only screen and (max-width: 960px) {
   #app__container {
-    padding: 0.5em;
+    padding: 0.5em 2em;
     padding-bottom: 2.5em;
   }
 

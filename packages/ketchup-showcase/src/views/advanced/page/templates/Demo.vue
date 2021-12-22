@@ -179,7 +179,6 @@
           @kup-button-click="menuTrigger"
           id="menu-trigger"
           toggable
-          style="--kup-primary-color: var(--kup-text-on-primary-color)"
           icon="last_page"
           icon-off="menu_open"
           title="Open/close side panel"
@@ -188,7 +187,6 @@
           @kup-button-click="swapView"
           id="view-swapper"
           toggable
-          style="--kup-primary-color: var(--kup-text-on-primary-color)"
           icon="fullscreen_exit"
           icon-off="fullscreen"
           title="Toggle/disable full screen"
@@ -197,11 +195,7 @@
           @kup-button-click="splitView"
           id="view-splitter"
           toggable
-          style="
-            --kup-primary-color: var(--kup-text-on-primary-color);
-            width: fit-content;
-            margin: auto;
-          "
+          style="width: fit-content; margin: auto"
           icon="view_agenda"
           icon-off="flip"
           title="Split/detach view"
@@ -1085,3 +1079,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#split-container kup-button {
+  --kup-button-primary-color: var(--kup-text-on-primary-color);
+  --kup-button-primary-color-rgb: var(--kup-text-on-primary-color-rgb);
+  --kup-button-primary-color-h: var(--kup-text-on-primary-color-h);
+  --kup-button-primary-color-s: var(--kup-text-on-primary-color-s);
+  --kup-button-primary-color-l: var(--kup-text-on-primary-color-l);
+}
+</style>

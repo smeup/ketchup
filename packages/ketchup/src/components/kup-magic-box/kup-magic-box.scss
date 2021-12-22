@@ -6,15 +6,15 @@
   display: block;
   height: 300px;
   min-width: 700px;
-  width: 700px;
   overflow: auto;
+  width: 700px;
 }
 
 #kup-component,
 .magic-box-wrapper {
   height: 100%;
-  width: 100%;
   overflow: auto;
+  width: 100%;
 }
 
 .magic-box-wrapper {
@@ -26,11 +26,11 @@
 
 .actions {
   background-color: var(--kup-title-background-color);
-  position: absolute;
-  top: 0;
-  left: 0;
   display: inline-flex;
   justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
   width: 100%;
   z-index: 1;
 
@@ -54,7 +54,8 @@
 .content {
   box-sizing: border-box;
   height: 100%;
-  padding-top: 52px;
+  margin-top: 52px;
+  transition: background-color 125ms ease;
 }
 
 .empty {
@@ -74,4 +75,8 @@
 .json {
   font-family: var(--kup-font-family-monospace);
   margin: 0;
+}
+
+[#{$kup-dd-drag-over}] {
+  background-color: rgba(var(--kup-success-color-rgb), 0.25);
 }

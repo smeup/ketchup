@@ -91,13 +91,11 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-text-field](../kup-text-field)
 - [kup-button](../kup-button)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-button --> kup-badge
   kup-badge --> kup-badge

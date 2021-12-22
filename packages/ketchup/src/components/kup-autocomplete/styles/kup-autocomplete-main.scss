@@ -3,7 +3,7 @@
   width: max-content;
 }
 
-.kup-icon {
+.#{$kup-icon} {
   transition: transform 0.15s;
 }
 
@@ -14,4 +14,13 @@
 .#{$kup-icon}.#{$kup-icon-dropdown} {
   -webkit-mask: var(--kup-dropdown-icon);
   mask: var(--kup-dropdown-icon);
+}
+
+.f-text-field--wrapper {
+  position: relative;
+}
+
+kup-list {
+  position: absolute;
+  z-index: 1;
 }

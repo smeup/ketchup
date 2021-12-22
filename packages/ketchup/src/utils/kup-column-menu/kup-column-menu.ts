@@ -4,7 +4,10 @@ import type { KupDataTable } from '../../components/kup-data-table/kup-data-tabl
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
-import { KupDynamicPositionPlacement } from '../kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    KupDynamicPositionElement,
+    KupDynamicPositionPlacement,
+} from '../kup-dynamic-position/kup-dynamic-position-declarations';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import type {
     Column,
@@ -73,6 +76,9 @@ export class KupColumnMenu {
      */
     close(card: HTMLKupCardElement): void {
         card.menuVisible = false;
+        dom.ketchup.dynamicPosition.stop(
+            card as unknown as KupDynamicPositionElement
+        );
     }
     /**
      * Function called to reposition the column menu card to the appropriate column.
@@ -100,6 +106,13 @@ export class KupColumnMenu {
                         true
                     );
                 }
+                dom.ketchup.utilities.pointerDownCallbacks.add({
+                    cb: () => {
+                        this.close(card);
+                    },
+                    onlyOnce: true,
+                    el: card,
+                });
                 dom.ketchup.dynamicPosition.start(card as any);
                 card.menuVisible = true;
             }
@@ -350,7 +363,7 @@ export class KupColumnMenu {
     prepSwitch(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         const props: GenericObject[] = [];
         if (!FiltersColumnMenu.isTree(comp)) {
-            if (!dom.ketchup.objects.isEmptySmeupObject(column.obj)) {
+            if (!dom.ketchup.objects.isEmptyKupObj(column.obj)) {
                 props.push({
                     'data-storage': {
                         columnName: column.name,
@@ -686,7 +699,7 @@ export class KupColumnMenu {
     eventHandlers(cardEvent: CustomEvent, comp: KupDataTable | KupTree): void {
         const card: HTMLKupCardElement = cardEvent.detail.card
             ? cardEvent.detail.card
-            : cardEvent.detail.comp;
+            : cardEvent.detail.comp.rootElement;
         const compEvent: CustomEvent = cardEvent.detail.event;
         const compID: string = compEvent.detail.id;
         const subcomp: HTMLElement = compEvent.target as HTMLElement;

@@ -63,6 +63,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `pageSelected`              | `page-selected`                | Current selected page set on component load                                                                                                                                                                                    | `number`                                                                                                  | `-1`                                 |
 | `paginatorPos`              | `paginator-pos`                | Sets the position of the paginator. Available positions: top, bottom or both.                                                                                                                                                  | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP`                                            | `PaginatorPos.TOP`                   |
 | `removableColumns`          | `removable-columns`            | Sets the possibility to remove the selected column.                                                                                                                                                                            | `boolean`                                                                                                 | `false`                              |
+| `resizableColumns`          | `resizable-columns`            | Gives the possibility to resize columns by dragging on their right edge.                                                                                                                                                       | `boolean`                                                                                                 | `true`                               |
 | `rowActions`                | --                             | Sets the actions of the rows.                                                                                                                                                                                                  | `RowAction[]`                                                                                             | `undefined`                          |
 | `rowsPerPage`               | `rows-per-page`                | Sets the number of rows per page to display.                                                                                                                                                                                   | `number`                                                                                                  | `10`                                 |
 | `scrollOnHover`             | `scroll-on-hover`              | Activates the scroll on hover function.                                                                                                                                                                                        | `boolean`                                                                                                 | `false`                              |
@@ -226,15 +227,16 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                                    | Description                                                |
-| --------------------------------------- | ---------------------------------------------------------- |
-| `--kup-datatable-background-color`      | Sets background color of the component.                    |
-| `--kup-datatable-border`                | Sets border of the component.                              |
-| `--kup-datatable-color`                 | Sets text color of the component.                          |
-| `--kup-datatable-font-family`           | Sets font family of the component.                         |
-| `--kup-datatable-font-family-monospace` | Sets monospace font family of the component (for numbers). |
-| `--kup-datatable-font-size`             | Sets font size of the component.                           |
-| `--kup-datatable-th-border`             | Sets border of the th elements.                            |
+| Name                                     | Description                                                |
+| ---------------------------------------- | ---------------------------------------------------------- |
+| `--kup-datatable-background-color`       | Sets background color of the component.                    |
+| `--kup-datatable-border`                 | Sets border of the component.                              |
+| `--kup-datatable-color`                  | Sets text color of the component.                          |
+| `--kup-datatable-font-family`            | Sets font family of the component.                         |
+| `--kup-datatable-font-family-monospace`  | Sets monospace font family of the component (for numbers). |
+| `--kup-datatable-font-size`              | Sets font size of the component.                           |
+| `--kup-datatable-th-border`              | Sets border of the th elements.                            |
+| `--kup-datatable-th-resize-handle-width` | Sets the width of the handle used to resize columns.       |
 
 
 ## Dependencies
@@ -294,9 +296,7 @@ graph TD;
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list
-  kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
-  kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
   kup-tab-bar --> kup-badge

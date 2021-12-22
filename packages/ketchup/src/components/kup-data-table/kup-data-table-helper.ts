@@ -9,10 +9,8 @@ import {
     TotalsMap,
     Column,
     RowGroup,
-    KupDataTableRowDragType,
 } from './kup-data-table-declarations';
 import { isEmpty, stringToNumber } from '../../utils/utils';
-import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
@@ -141,8 +139,16 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
     const cell1: Cell = r1.cells[sortObj.column];
     const cell2: Cell = r2.cells[sortObj.column];
 
-    if (!cell1 || !cell2) {
+    if (!cell1 && !cell2) {
         return 0;
+    }
+
+    if (!cell1) {
+        return 1;
+    }
+
+    if (!cell2) {
+        return -1;
     }
 
     return compareCell(cell1, cell2, sortObj.sortMode);
@@ -763,14 +769,16 @@ export function normalizeRows(
         const normalizedrows = Object.assign(rows);
         rows.forEach((row: Row) => {
             columns.forEach((column) => {
-                const cell = row.cells[column.name];
-                if (cell && column.obj && !cell.obj) {
-                    // cell.obj = Object.assign(column.obj);
-                    cell.obj = {
-                        t: column.obj.t,
-                        p: column.obj.p,
-                        k: cell.value,
-                    };
+                if (row.cells) {
+                    const cell = row.cells[column.name];
+                    if (cell && column.obj && !cell.obj) {
+                        // cell.obj = Object.assign(column.obj);
+                        cell.obj = {
+                            t: column.obj.t,
+                            p: column.obj.p,
+                            k: cell.value,
+                        };
+                    }
                 }
             });
         });
@@ -797,7 +805,7 @@ export function calcTotals(
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
     } else {
         let distinctObj = {};
-        rows.forEach((r) => {
+        rows.forEach((r, index, array) => {
             keys.filter(
                 (key) =>
                     TotalMode.COUNT !== totals[key] &&
@@ -823,11 +831,6 @@ export function calcTotals(
                         } else {
                             // update the list
                             distinctList.push(cellValue);
-                            if (distinctList.length === rows.length) {
-                                // last round
-                                footerRow[key] = new Set(distinctList).size;
-                                distinctObj[key] = [];
-                            }
                         }
                     } else if (kupObjects.isNumber(cell.obj)) {
                         const cellValue = numeral(stringToNumber(cell.value));
@@ -903,6 +906,14 @@ export function calcTotals(
                             }
                         }
                     }
+                }
+                if (
+                    index === array.length - 1 &&
+                    totals[key] === TotalMode.DISTINCT
+                ) {
+                    // last round
+                    footerRow[key] = new Set(distinctObj[key]).size;
+                    distinctObj[key] = [];
                 }
             });
         });
@@ -1083,33 +1094,3 @@ export function styleHasWritingMode(cell: Cell): boolean {
         (cell.style.writingMode || cell.style['writing-mode'])
     );
 }
-
-export const dropHandlersCell: DropHandlers = {
-    onDragLeave: (e: DragEvent) => {
-        // console.log('onDragLeave', e);
-        if (e.dataTransfer.types.indexOf(KupDataTableRowDragType) >= 0) {
-            (e.target as HTMLElement)
-                .closest('tr')
-                .classList.remove('selected');
-        }
-    },
-    onDragOver: (e: DragEvent) => {
-        // console.log('onDragOver', e);
-        if (e.dataTransfer.types.indexOf(KupDataTableRowDragType) >= 0) {
-            let overElement = e.target as HTMLElement;
-            if (overElement.tagName !== 'TD') {
-                overElement = overElement.closest('td');
-            }
-            overElement = overElement.closest('tr');
-            overElement.classList.add('selected');
-            // TODO do it without using the element but with data like id, etc.
-            setDragDropPayload({
-                overElement,
-            });
-        }
-        return true;
-    },
-    onDrop: (_e: DragEvent) => {
-        return KupDataTableRowDragType;
-    },
-};

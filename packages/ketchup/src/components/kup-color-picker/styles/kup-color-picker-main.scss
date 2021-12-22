@@ -18,7 +18,7 @@
       cursor: pointer;
     }
 
-    .kup-icon {
+    .#{$kup-icon} {
       background-color: var(
         --kup_colorpicker_thumb_color,
         var(--kup-icon-color)
@@ -27,7 +27,7 @@
   }
 
   .thumb-icon {
-    .kup-icon {
+    .#{$kup-icon} {
       border: 3px solid rgba(var(--kup-text-color-rgb), 0.575);
       border-radius: 50%;
       box-sizing: border-box;

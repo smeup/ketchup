@@ -333,20 +333,19 @@ $color-bg: var(--kup-background-color);
 }
 
 //Kup edits.
-.picker_wrapper.popup[kup-dynamic-position]:not(.kup-dynamic-position-active) {
-  display: none;
-}
-
 .picker_done,
 .picker_arrow {
   display: none;
 }
 
 .layout_default.picker_wrapper {
-  top: unset;
-  left: unset;
   bottom: unset;
+  font-size: var(--kup-font-size);
+  left: unset;
+  padding: 0.25em;
   right: unset;
+  top: unset;
+  width: var(--kup_colorpicker_picker_width, 25em);
 }
 
 .layout_default .picker_editor input {
@@ -356,9 +355,7 @@ $color-bg: var(--kup-background-color);
   font-size: var(--kup-font-size);
 }
 
-.picker_wrapper.popup,
-.picker_wrapper.popup .picker_arrow::before,
-.picker_wrapper.popup .picker_arrow::after {
+.picker_wrapper.popup {
   box-shadow: var(--kup-box-shadow);
   margin: 0;
   outline: none;

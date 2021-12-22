@@ -102,9 +102,7 @@ graph TD;
   kup-list --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list
-  kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
-  kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
