@@ -25,7 +25,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@sme.up/ketchup": "^4.2.0-SNAPSHOT",
+    "@sme.up/ketchup": "^4.3.0-SNAPSHOT",
     "caniuse-lite": "^1.0.30001239",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
