@@ -75,6 +75,7 @@
 
   &.number-cell {
     .f-cell__content {
+      --kup-textfield-font-family: var(--kup_cell_font_family_monospace);
       font-family: var(--kup_cell_font_family_monospace);
     }
   }
@@ -106,6 +107,7 @@
   }
 
   &.monospace {
+    --kup-textfield-font-family: var(--kup_cell_font_family_monospace);
     font-family: var(--kup-font-family-monospace);
   }
 
