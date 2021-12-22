@@ -502,22 +502,24 @@ export class KupDatePicker {
     }
 
     prepTextfield(initialValue: string): VNode {
+        const fullHeight =
+            this.rootElement.classList.contains('kup-full-height');
+        const fullWidth = this.rootElement.classList.contains('kup-full-width');
         const textfieldData: FTextFieldProps = {
             ...this.data['kup-text-field'],
         };
-
         if (!textfieldData.icon) {
             textfieldData.icon = 'calendar';
         }
-
         if (textfieldData.icon) {
             textfieldData.trailingIcon = true;
         }
-
         return (
             <FTextField
                 {...textfieldData}
                 disabled={this.disabled}
+                fullHeight={fullHeight}
+                fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
                 value={initialValue}
                 onBlur={() => this.onKupBlur()}
@@ -629,29 +631,8 @@ export class KupDatePicker {
     }
 
     render() {
-        const hostClass: Record<string, boolean> = {};
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf(
-                'kup-full-height'
-            ) > -1
-        ) {
-            hostClass['kup-full-height'] = true;
-        }
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['fullWidth']
-        ) {
-            hostClass['kup-full-width'] = true;
-        }
-
         return (
-            <Host class={hostClass}>
+            <Host>
                 <style>
                     {this.kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
