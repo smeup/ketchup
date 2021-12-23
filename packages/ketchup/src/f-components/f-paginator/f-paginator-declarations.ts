@@ -7,6 +7,7 @@ export interface FPaginatorProps extends FComponent {
     max?: number;
     mode?: FPaginatorMode;
     perPage?: number;
+    onLoadMore?: () => void;
     onNextPage?: () => void;
     onPageChange?: (event: CustomEvent) => void;
     onPrevPage?: () => void;

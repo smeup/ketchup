@@ -4393,23 +4393,6 @@ export class KupDataTable {
         });
     }
 
-    private renderLoadMoreButton(isSlotted: boolean = true) {
-        return (
-            <kup-button
-                styling={FButtonStyling.FLAT}
-                class="load-more-button"
-                label={this.kupManager.language.translate(
-                    KupLanguageGeneric.LOAD_MORE
-                )}
-                icon="plus"
-                slot={isSlotted ? 'more-results' : null}
-                onkup-button-click={() => {
-                    this.onLoadMoreClick();
-                }}
-            />
-        );
-    }
-
     private onCustomSettingsClick() {
         if (!this.openedCustomSettings) {
             this.openCustomSettings();
@@ -4461,6 +4444,13 @@ export class KupDataTable {
                                     ? this.currentRowsPerPage
                                     : this.rowsPerPage
                             }
+                            onLoadMore={
+                                this.showLoadMore
+                                    ? () => {
+                                          this.onLoadMoreClick();
+                                      }
+                                    : null
+                            }
                             onNextPage={() =>
                                 this.handlePageChanged(this.currentPage + 1)
                             }
@@ -4475,7 +4465,6 @@ export class KupDataTable {
                             ) => this.handleRowsPerPageChanged(e.detail.value)}
                         />
                     ) : null}
-                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
         );

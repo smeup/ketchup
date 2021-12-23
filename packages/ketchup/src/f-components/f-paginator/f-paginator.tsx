@@ -1,12 +1,14 @@
 import { FunctionalComponent, h } from '@stencil/core';
 import { KupListData } from '../../components/kup-list/kup-list-declarations';
 import {
+    KupLanguageGeneric,
     KupLanguagePage,
     KupLanguageRow,
 } from '../../utils/kup-language/kup-language-declarations';
 import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
 import { FButton } from '../f-button/f-button';
-import type { FPaginatorProps } from './f-paginator-declarations';
+import { FButtonStyling } from '../f-button/f-button-declarations';
+import { FPaginatorMode, FPaginatorProps } from './f-paginator-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -62,38 +64,45 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
             id={props.id}
             title={props.title}
         >
-            <div class="align-left">
-                <div class="nav-section">
-                    <FButton
-                        icon="chevron_left"
-                        disabled={isPrevPageDisabled(props)}
-                        wrapperClass="prev-page"
-                        onClick={props.onPrevPage}
-                    />
-                    <kup-combobox
-                        class="page-selector"
-                        data={dataPageSelector}
-                        initialValue={props.currentPage.toString()}
-                        onkup-combobox-change={props.onPageChange}
-                    />
-                    <FButton
-                        icon="chevron_right"
-                        disabled={isNextPageDisabled(props)}
-                        wrapperClass="next-page"
-                        onClick={props.onNextPage}
-                    />
-                </div>
-                <div class="tot-section">
-                    <slot name="more-results" />
-                    <kup-combobox
-                        class="rows-selector"
-                        data={dataRowsSelector}
-                        initialValue={props.perPage.toString()}
-                        onkup-combobox-change={props.onRowsChange}
-                    />
-                    <slot name="right" />
-                </div>
-            </div>
+            {props.mode !== FPaginatorMode.SIMPLE ? (
+                <FButton
+                    icon="chevron_left"
+                    disabled={isPrevPageDisabled(props)}
+                    onClick={props.onPrevPage}
+                    wrapperClass="prev-page"
+                />
+            ) : null}
+            <kup-combobox
+                class="page-selector"
+                data={dataPageSelector}
+                initialValue={props.currentPage.toString()}
+                onkup-combobox-change={props.onPageChange}
+            />
+            {props.mode !== FPaginatorMode.SIMPLE ? (
+                <FButton
+                    icon="chevron_right"
+                    disabled={isNextPageDisabled(props)}
+                    onClick={props.onNextPage}
+                    wrapperClass="next-page"
+                />
+            ) : null}
+            <kup-combobox
+                class="rows-selector"
+                data={dataRowsSelector}
+                initialValue={props.perPage.toString()}
+                onkup-combobox-change={props.onRowsChange}
+            />
+            {props.onLoadMore ? (
+                <FButton
+                    icon="plus"
+                    onClick={props.onLoadMore}
+                    label={dom.ketchup.language.translate(
+                        KupLanguageGeneric.LOAD_MORE
+                    )}
+                    styling={FButtonStyling.FLAT}
+                    wrapperClass="load-more-button"
+                />
+            ) : null}
         </div>
     );
 };
