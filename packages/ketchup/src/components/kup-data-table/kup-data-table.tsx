@@ -70,6 +70,7 @@ import {
     deepEqual,
     getProps,
     setProps,
+    isNumber,
 } from '../../utils/utils';
 import {
     KupListData,
@@ -152,6 +153,8 @@ import {
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
+import { FPaginator } from '../../f-components/f-paginator/f-paginator';
+import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -2617,11 +2620,11 @@ export class KupDataTable {
 
     private adjustPaginator() {
         const numberOfRows = this.rowsLength;
-
         // check if current page is valid
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
         if (this.currentPage > numberOfPages) {
             // reset page
+            this.currentPage = 1;
             this.resetCurrentPage();
         }
     }
@@ -2814,13 +2817,34 @@ export class KupDataTable {
         }
     }
 
-    private handlePageChanged({ detail }) {
-        this.currentPage = detail.newPage;
+    private handlePageChanged(pageNumber: number) {
+        if (isNumber(pageNumber)) {
+            const numberOfPages = Math.ceil(
+                this.rowsLength / this.currentRowsPerPage
+            );
+            let tmpNewPage: number = pageNumber;
+            if (tmpNewPage > numberOfPages) {
+                tmpNewPage = numberOfPages;
+            }
+            if (tmpNewPage < 1) {
+                tmpNewPage = 1;
+            }
+            this.currentPage = tmpNewPage;
+        }
     }
 
-    private handleRowsPerPageChanged({ detail }) {
-        this.currentRowsPerPage = detail.newRowsPerPage;
-        this.adjustPaginator();
+    private handleRowsPerPageChanged(rowsNumber: number) {
+        if (isNumber(rowsNumber)) {
+            let tmpRowsPerPage: number = rowsNumber;
+            if (tmpRowsPerPage > this.rowsLength) {
+                tmpRowsPerPage = this.rowsLength;
+            }
+            if (tmpRowsPerPage < 1) {
+                tmpRowsPerPage = 1;
+            }
+            this.currentRowsPerPage = tmpRowsPerPage;
+            this.adjustPaginator();
+        }
     }
 
     private onRowClick(row: Row, td: HTMLElement, emitEvent?: boolean) {
@@ -4428,18 +4452,27 @@ export class KupDataTable {
                 <div class="paginator-tabs">
                     {!this.lazyLoadRows &&
                     this.rowsLength > this.rowsPerPage ? (
-                        <kup-paginator
+                        <FPaginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
-                            max={this.rowsLength}
-                            perPage={this.rowsPerPage}
-                            selectedPerPage={this.currentRowsPerPage}
                             currentPage={this.currentPage}
-                            onkup-paginator-pagechanged={(e) =>
-                                this.handlePageChanged(e)
+                            max={this.rowsLength}
+                            perPage={
+                                this.currentRowsPerPage
+                                    ? this.currentRowsPerPage
+                                    : this.rowsPerPage
                             }
-                            onkup-paginator-rowsperpagechanged={(e) =>
-                                this.handleRowsPerPageChanged(e)
+                            onNextPage={() =>
+                                this.handlePageChanged(this.currentPage + 1)
                             }
+                            onPrevPage={() =>
+                                this.handlePageChanged(this.currentPage - 1)
+                            }
+                            onPageChange={(
+                                e: CustomEvent<KupComboboxEventPayload>
+                            ) => this.handlePageChanged(e.detail.value)}
+                            onRowsChange={(
+                                e: CustomEvent<KupComboboxEventPayload>
+                            ) => this.handleRowsPerPageChanged(e.detail.value)}
                         />
                     ) : null}
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
