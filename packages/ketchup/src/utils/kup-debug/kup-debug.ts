@@ -258,7 +258,7 @@ export class KupDebug {
         debugWidget.id = 'kup-debug-widget';
         debugWidget.layoutFamily = KupCardFamily.DIALOG;
         debugWidget.layoutNumber = 3;
-        debugWidget.sizeX = 'auto';
+        debugWidget.sizeX = 'max-content';
         debugWidget.sizeY = 'auto';
         debugWidget.addEventListener('kup-card-event', (e: CustomEvent) =>
             this.handleEvents(e)
