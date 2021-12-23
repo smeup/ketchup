@@ -175,7 +175,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 }
 
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.helperEnabled) {
+    if (props.helperEnabled !== false) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,
