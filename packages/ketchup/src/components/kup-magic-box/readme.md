@@ -72,7 +72,6 @@ graph TD;
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
   kup-box --> kup-text-field
-  kup-box --> kup-paginator
   kup-box --> kup-autocomplete
   kup-box --> kup-color-picker
   kup-box --> kup-date-picker
@@ -161,8 +160,6 @@ graph TD;
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
   kup-tab-bar --> kup-badge
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   style kup-magic-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

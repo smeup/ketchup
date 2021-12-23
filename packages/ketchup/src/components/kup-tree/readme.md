@@ -309,7 +309,6 @@ graph TD;
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
   kup-box --> kup-text-field
-  kup-box --> kup-paginator
   kup-box --> kup-autocomplete
   kup-box --> kup-color-picker
   kup-box --> kup-date-picker
@@ -322,8 +321,6 @@ graph TD;
   kup-box --> kup-gauge
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button

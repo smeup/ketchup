@@ -126,7 +126,6 @@ Type: `Promise<void>`
 - [kup-tooltip](../kup-tooltip)
 - [kup-combobox](../kup-combobox)
 - [kup-text-field](../kup-text-field)
-- [kup-paginator](../kup-paginator)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-color-picker](../kup-color-picker)
 - [kup-date-picker](../kup-date-picker)
@@ -149,7 +148,6 @@ graph TD;
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
   kup-box --> kup-text-field
-  kup-box --> kup-paginator
   kup-box --> kup-autocomplete
   kup-box --> kup-color-picker
   kup-box --> kup-date-picker
@@ -234,8 +232,6 @@ graph TD;
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
   kup-tab-bar --> kup-badge
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-magic-box --> kup-box
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```

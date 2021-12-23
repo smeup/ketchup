@@ -150,8 +150,6 @@ graph TD;
   kup-tab-bar --> kup-badge
   kup-tree --> kup-tooltip
   kup-box --> kup-tooltip
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
