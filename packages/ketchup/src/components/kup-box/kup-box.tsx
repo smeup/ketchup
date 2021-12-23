@@ -43,7 +43,6 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 import { KupCardData } from '../kup-card/kup-card-declarations';
-import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -52,7 +51,13 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { deepEqual, getProps, identify, setProps } from '../../utils/utils';
+import {
+    deepEqual,
+    getProps,
+    identify,
+    isNumber,
+    setProps,
+} from '../../utils/utils';
 import {
     GenericObject,
     KupComponent,
@@ -79,6 +84,9 @@ import {
 } from '../../utils/kup-interact/kup-interact-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import { FPaginator } from '../../f-components/f-paginator/f-paginator';
+import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { FPaginatorMode } from '../../f-components/f-paginator/f-paginator-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -904,13 +912,34 @@ export class KupBox {
         this.rowActionMenuOpened = null;
     }
 
-    private handlePageChanged({ detail }) {
-        this.currentPage = detail.newPage;
+    private handlePageChanged(pageNumber: number) {
+        if (isNumber(pageNumber)) {
+            const numberOfPages = Math.ceil(
+                this.filteredRows.length / this.currentRowsPerPage
+            );
+            let tmpNewPage: number = pageNumber;
+            if (tmpNewPage > numberOfPages) {
+                tmpNewPage = numberOfPages;
+            }
+            if (tmpNewPage < 1) {
+                tmpNewPage = 1;
+            }
+            this.currentPage = tmpNewPage;
+        }
     }
 
-    private handleRowsPerPageChanged({ detail }) {
-        this.currentRowsPerPage = detail.newRowsPerPage;
-        this.adjustPaginator();
+    private handleRowsPerPageChanged(rowsNumber: number) {
+        if (isNumber(rowsNumber)) {
+            let tmpRowsPerPage: number = rowsNumber;
+            if (tmpRowsPerPage > this.filteredRows.length) {
+                tmpRowsPerPage = this.filteredRows.length;
+            }
+            if (tmpRowsPerPage < 1) {
+                tmpRowsPerPage = 1;
+            }
+            this.currentRowsPerPage = tmpRowsPerPage;
+            this.adjustPaginator();
+        }
     }
 
     private adjustPaginator() {
@@ -1840,18 +1869,22 @@ export class KupBox {
         let paginator = null;
         if (this.pagination) {
             paginator = (
-                <kup-paginator
-                    max={this.filteredRows.length}
-                    perPage={this.pageSize}
+                <FPaginator
+                    id={top ? 'top-paginator' : 'bottom-paginator'}
                     currentPage={this.currentPage}
-                    selectedPerPage={this.currentRowsPerPage}
-                    onkup-paginator-pagechanged={(e) =>
-                        this.handlePageChanged(e)
+                    max={this.filteredRows.length}
+                    mode={FPaginatorMode.SIMPLE}
+                    perPage={
+                        this.currentRowsPerPage
+                            ? this.currentRowsPerPage
+                            : this.pageSize
                     }
-                    onkup-paginator-rowsperpagechanged={(e) =>
-                        this.handleRowsPerPageChanged(e)
+                    onPageChange={(e: CustomEvent<KupComboboxEventPayload>) =>
+                        this.handlePageChanged(e.detail.value)
                     }
-                    mode={PaginatorMode.SIMPLE}
+                    onRowsChange={(e: CustomEvent<KupComboboxEventPayload>) =>
+                        this.handleRowsPerPageChanged(e.detail.value)
+                    }
                 />
             );
         }
