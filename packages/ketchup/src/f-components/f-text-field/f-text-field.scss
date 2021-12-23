@@ -41,6 +41,7 @@
       var(--kup-primary-color-rgb)
     );
     --kup_textfield_text_align: var(--kup-textfield-text-align, start);
+    --kup_textfield_width: var(--kup-textfield-width, 100%);
     --mdc-theme-primary: var(--kup_textfield_primary_color);
 
     font-family: var(--kup_textfield_font_family);
@@ -59,6 +60,8 @@
     }
 
     .mdc-text-field {
+      width: var(--kup_textfield_width);
+
       .#{$kup-icon} {
         background-color: var(--kup_textfield_icon_color);
         cursor: pointer;

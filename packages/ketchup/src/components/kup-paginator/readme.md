@@ -43,7 +43,6 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
- - [kup-data-table](../kup-data-table)
 
 ### Depends on
 
@@ -60,7 +59,6 @@ graph TD;
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-box --> kup-paginator
-  kup-data-table --> kup-paginator
   style kup-paginator fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

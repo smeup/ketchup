@@ -260,9 +260,8 @@ Type: `Promise<void>`
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
-- [kup-button](../kup-button)
-- [kup-paginator](../kup-paginator)
 - [kup-switch](../kup-switch)
+- [kup-button](../kup-button)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
@@ -284,9 +283,8 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
-  kup-data-table --> kup-button
-  kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
+  kup-data-table --> kup-button
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
