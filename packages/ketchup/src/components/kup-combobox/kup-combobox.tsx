@@ -10,6 +10,7 @@ import {
     Method,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
@@ -245,6 +246,15 @@ export class KupCombobox {
             id: this.rootElement.id,
             value: this.value,
         });
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('initialValue')
+    initialValueChange(newValue: string) {
+        this.setValue(newValue);
     }
 
     /*-------------------------------------------------*/
