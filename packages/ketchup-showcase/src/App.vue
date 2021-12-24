@@ -25,11 +25,6 @@
         slot="right"
         toggable
         @kup-button-click="toggleDebug"
-      ></kup-button>
-      <kup-button
-        icon="home"
-        @kup-button-click="$router.push('/').catch(() => {})"
-        slot="right"
       ></kup-button
       ><kup-button
         icon="menu"
@@ -41,6 +36,8 @@
         drag-enabled
         :data.prop="navbarCellData"
         slot="left"
+        @click="$router.push('/').catch(() => {})"
+        title="Ketchup home"
     /></kup-nav-bar>
     <kup-drawer
       class="kup-full-width kup-permanent"
@@ -874,9 +871,15 @@ label {
 }
 
 .navbar__logo {
+  --kup-obj-cursor: pointer;
   height: 100%;
   margin-left: 12px;
+  transition: opacity 120ms ease;
   width: 128px;
+
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
 .logo a {
