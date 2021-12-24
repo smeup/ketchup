@@ -122,6 +122,7 @@ export interface Column {
     children?: ColumnChild[];
     cssClass?: string;
     style?: GenericMap;
+    mergedFrom?: string[];
 }
 export interface ColumnChild {
     name: string;

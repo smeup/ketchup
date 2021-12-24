@@ -1076,6 +1076,10 @@ export namespace Components {
          */
         "enableExtraColumns": boolean;
         /**
+          * Enables the merging of columns by dragging them into different columns.
+         */
+        "enableMergeColumns": boolean;
+        /**
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns": boolean;
@@ -1161,6 +1165,11 @@ export namespace Components {
           * @see loadMoreLimit
          */
         "loadMoreStep": number;
+        /**
+          * This method is used to merge two columns
+          * @param columns - Title of the first column
+         */
+        "mergeColumns": (columns: string[]) => Promise<void>;
         /**
           * Opens the column menu of the given column.
           * @param column - Name of the column.
@@ -3981,6 +3990,10 @@ declare namespace LocalJSX {
           * Enables the extracolumns add buttons.
          */
         "enableExtraColumns"?: boolean;
+        /**
+          * Enables the merging of columns by dragging them into different columns.
+         */
+        "enableMergeColumns"?: boolean;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */

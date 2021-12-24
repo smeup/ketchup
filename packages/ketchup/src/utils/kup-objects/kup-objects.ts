@@ -300,4 +300,14 @@ export class KupObjects {
         }
         return dom.ketchup.dates.toDayjs(obj.k);
     }
+    /**
+     * Checks whether the two objects are same
+     * @param {KupObj} obj - list of Objects to check.
+     * @returns {boolean} True when the objects are same.
+     */
+    areSameKupObj(obj: KupObj[]): boolean {
+        return obj.every(
+            (vall, _, arr) => vall.t == arr[0].t && vall.p == arr[0].p
+        );
+    }
 }
