@@ -38,7 +38,7 @@ import { Cell } from
           v-for="item in titles"
           :key="item"
           class="page__nav-element"
-          @click="scrollToSmoothly"
+          @click="scrollTo"
           ><kup-cell :data-item="item" drag-enabled :data.prop="setCell(item)"
         /></a>
       </div>
@@ -132,10 +132,9 @@ export default {
         rect.left <= windowWidth && rect.left + rect.width >= 0;
       return vertInView && horInView;
     },
-    scrollToSmoothly(e: MouseEvent): void {
+    scrollTo(e: MouseEvent): void {
       // pos is the y-position to scroll to (in pixels)
       let pos: number = null;
-      const currentPos: number = window.scrollY || window.screenTop;
       const target: HTMLElement = (e.target as HTMLElement).closest(
         '.page__nav-element'
       );
@@ -150,27 +149,7 @@ export default {
       if (pos < 0) {
         throw 'Position can not be negative';
       }
-      if (currentPos < pos) {
-        if (pos - currentPos < 3000) {
-          for (let i = currentPos; i <= pos; i += 1) {
-            setTimeout(function () {
-              window.scrollTo(0, i);
-            }, 100);
-          }
-        } else {
-          window.scrollTo(0, pos);
-        }
-      } else {
-        if (currentPos - pos < 3000) {
-          for (let i = currentPos; i >= pos; i -= 1) {
-            setTimeout(function () {
-              window.scrollTo(0, i);
-            }, 100);
-          }
-        } else {
-          window.scrollTo(0, pos);
-        }
-      }
+      window.scrollTo(0, pos);
     },
   },
   props: {
