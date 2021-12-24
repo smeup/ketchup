@@ -87,6 +87,10 @@ import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import { FPaginatorMode } from '../../f-components/f-paginator/f-paginator-declarations';
+import {
+    pageChange,
+    rowsPerPageChange,
+} from '../../f-components/f-paginator/f-paginator-utils';
 
 @Component({
     tag: 'kup-box',
@@ -912,32 +916,21 @@ export class KupBox {
         this.rowActionMenuOpened = null;
     }
 
-    private handlePageChanged(pageNumber: number) {
-        if (isNumber(pageNumber)) {
-            const numberOfPages = Math.ceil(
-                this.filteredRows.length / this.currentRowsPerPage
-            );
-            let tmpNewPage: number = pageNumber;
-            if (tmpNewPage > numberOfPages) {
-                tmpNewPage = numberOfPages;
-            }
-            if (tmpNewPage < 1) {
-                tmpNewPage = 1;
-            }
-            this.currentPage = tmpNewPage;
+    private handlePageChange(pageNumber: number) {
+        const newPage = pageChange(
+            pageNumber,
+            this.filteredRows.length,
+            this.currentRowsPerPage
+        );
+        if (newPage) {
+            this.currentPage = newPage;
         }
     }
 
-    private handleRowsPerPageChanged(rowsNumber: number) {
-        if (isNumber(rowsNumber)) {
-            let tmpRowsPerPage: number = rowsNumber;
-            if (tmpRowsPerPage > this.filteredRows.length) {
-                tmpRowsPerPage = this.filteredRows.length;
-            }
-            if (tmpRowsPerPage < 1) {
-                tmpRowsPerPage = 1;
-            }
-            this.currentRowsPerPage = tmpRowsPerPage;
+    private handleRowsPerPageChange(rowsNumber: number) {
+        const newRows = rowsPerPageChange(rowsNumber, this.filteredRows.length);
+        if (newRows) {
+            this.currentRowsPerPage = newRows;
             this.adjustPaginator();
         }
     }
@@ -1758,11 +1751,17 @@ export class KupBox {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
+        }
+        if (
+            this.data &&
+            this.data.rows &&
+            this.currentRowsPerPage > this.data.rows.length
+        ) {
+            this.currentRowsPerPage = this.data.rows.length;
         }
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
@@ -1880,10 +1879,10 @@ export class KupBox {
                             : this.pageSize
                     }
                     onPageChange={(e: CustomEvent<KupComboboxEventPayload>) =>
-                        this.handlePageChanged(e.detail.value)
+                        this.handlePageChange(e.detail.value)
                     }
                     onRowsChange={(e: CustomEvent<KupComboboxEventPayload>) =>
-                        this.handleRowsPerPageChanged(e.detail.value)
+                        this.handleRowsPerPageChange(e.detail.value)
                     }
                 />
             );

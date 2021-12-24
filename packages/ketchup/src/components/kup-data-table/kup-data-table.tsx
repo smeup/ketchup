@@ -155,6 +155,7 @@ import {
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { pageChange, rowsPerPageChange } from '../../f-components/f-paginator/f-paginator-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -2817,32 +2818,24 @@ export class KupDataTable {
         }
     }
 
-    private handlePageChanged(pageNumber: number) {
-        if (isNumber(pageNumber)) {
-            const numberOfPages = Math.ceil(
-                this.rowsLength / this.currentRowsPerPage
-            );
-            let tmpNewPage: number = pageNumber;
-            if (tmpNewPage > numberOfPages) {
-                tmpNewPage = numberOfPages;
-            }
-            if (tmpNewPage < 1) {
-                tmpNewPage = 1;
-            }
-            this.currentPage = tmpNewPage;
+    private handlePageChange(pageNumber: number) {
+        const newPage = pageChange(
+            pageNumber,
+            this.rowsLength,
+            this.currentRowsPerPage
+        );
+        if (newPage) {
+            this.currentPage = newPage;
         }
     }
 
-    private handleRowsPerPageChanged(rowsNumber: number) {
-        if (isNumber(rowsNumber)) {
-            let tmpRowsPerPage: number = rowsNumber;
-            if (tmpRowsPerPage > this.rowsLength) {
-                tmpRowsPerPage = this.rowsLength;
-            }
-            if (tmpRowsPerPage < 1) {
-                tmpRowsPerPage = 1;
-            }
-            this.currentRowsPerPage = tmpRowsPerPage;
+    private handleRowsPerPageChange(rowsNumber: number) {
+        const newRows = rowsPerPageChange(
+            rowsNumber,
+            this.rowsLength,
+        );
+        if (newRows) {
+            this.currentRowsPerPage = newRows;
             this.adjustPaginator();
         }
     }
@@ -4452,17 +4445,17 @@ export class KupDataTable {
                                     : null
                             }
                             onNextPage={() =>
-                                this.handlePageChanged(this.currentPage + 1)
+                                this.handlePageChange(this.currentPage + 1)
                             }
                             onPrevPage={() =>
-                                this.handlePageChanged(this.currentPage - 1)
+                                this.handlePageChange(this.currentPage - 1)
                             }
                             onPageChange={(
                                 e: CustomEvent<KupComboboxEventPayload>
-                            ) => this.handlePageChanged(e.detail.value)}
+                            ) => this.handlePageChange(e.detail.value)}
                             onRowsChange={(
                                 e: CustomEvent<KupComboboxEventPayload>
-                            ) => this.handleRowsPerPageChanged(e.detail.value)}
+                            ) => this.handleRowsPerPageChange(e.detail.value)}
                         />
                     ) : null}
                 </div>
