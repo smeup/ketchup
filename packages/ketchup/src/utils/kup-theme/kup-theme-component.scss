@@ -9,7 +9,9 @@
 @import '@material/ripple/mdc-ripple';
 
 /* [sass]TODO: It would be nice to setup @f-components instead of importing through the ../../ path  */
+/*             I tried to setup a couple bu then i found this related issue, though: https://github.com/ionic-team/stencil/issues/2319*/
 /* [sass]TODO: The CSS output of this file should be minified */
+/* [sass]TODO: f-comps CSS files should be stand-alone to be included on-demand only inside the components that need them */
 
 /*-------------------------------------------------*/
 /*                   D i a l o g                   */
