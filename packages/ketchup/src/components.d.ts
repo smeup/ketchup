@@ -1072,6 +1072,10 @@ export namespace Components {
          */
         "emptyDataLabel": string;
         /**
+          * Enable the formulas on columns.
+         */
+        "enableColumnsFormula": boolean;
+        /**
           * Enables the extracolumns add buttons.
          */
         "enableExtraColumns": boolean;
@@ -1109,6 +1113,11 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
+        /**
+          * This method is used to merge two columns
+          * @param columns - Title of the first column param {string} formula - formula to render
+         */
+        "formulaOnColumns": (columns?: string[]) => Promise<string>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
         /**
           * Used to retrieve component's props values.
@@ -3986,6 +3995,10 @@ declare namespace LocalJSX {
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel"?: string;
+        /**
+          * Enable the formulas on columns.
+         */
+        "enableColumnsFormula"?: boolean;
         /**
           * Enables the extracolumns add buttons.
          */

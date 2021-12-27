@@ -449,6 +449,7 @@ export class KupCard {
         root.addEventListener('kup-tree-nodedblclick', this.cardEvent);
         root.addEventListener('kup-tree-nodeexpand', this.cardEvent);
         root.addEventListener('kup-tree-nodeselected', this.cardEvent);
+        root.addEventListener('kup-dropdownbutton-itemclick', this.cardEvent);
     }
     /**
      * This method is invoked by the layout manager when the layout family is scalable.
