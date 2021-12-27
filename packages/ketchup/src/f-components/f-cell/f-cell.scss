@@ -255,7 +255,7 @@
     }
   }
 
-  &.c-right-aligned {
+  &.c-right-aligned:not(.c-centered) {
     --kup-textfield-text-align: right;
 
     .f-cell__content {
