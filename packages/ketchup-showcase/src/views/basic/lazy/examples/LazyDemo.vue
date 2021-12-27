@@ -21,14 +21,8 @@ export default {
     return {
       demoClasses: [
         {
-          class: 'kup-danger',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'kup-info',
-          description:
-            'The component will be rendered using the informational color of the app.',
+          class: 'kup-bottom-aligned',
+          description: 'Content will be vertically aligned to the bottom.',
         },
         {
           class: 'kup-left-aligned',
@@ -39,19 +33,8 @@ export default {
           description: 'Content will be horizontally aligned to the right.',
         },
         {
-          class: 'kup-secondary',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'kup-success',
-          description:
-            'The component will be rendered using the success color of the app.',
-        },
-        {
-          class: 'kup-warning',
-          description:
-            'The component will be rendered using the warning color of the app.',
+          class: 'kup-top-aligned',
+          description: 'Content will be vertically aligned to the top.',
         },
       ],
       demoComp: createComp(),
