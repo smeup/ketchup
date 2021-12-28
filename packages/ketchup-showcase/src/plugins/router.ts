@@ -232,23 +232,11 @@ let cssRoutes = [
   },
 ];
 
-let javascriptRoutes = [
+let frameworkRoutes = [
   {
-    path: `/debugging`,
-    name: 'debugging',
-    component: () => import(`@/views/javascript/debugging/Debugging.vue`),
-  },
-  {
-    path: `/scrollonhover`,
-    name: 'scrollonhover',
-    component: () =>
-      import(`@/views/javascript/scrollonhover/Scrollonhover.vue`),
-  },
-  {
-    path: `/dynamicposition`,
-    name: 'dynamicposition',
-    component: () =>
-      import(`@/views/javascript/dynamicposition/DynamicPosition.vue`),
+    path: `/kup-manager`,
+    name: 'kup-manager',
+    component: () => import(`@/views/framework/kup-manager/KupManager.vue`),
   },
 ];
 
@@ -294,7 +282,7 @@ const routes = [
   ...baseRoutes,
   ...advancedRoutes,
   ...cssRoutes,
-  ...javascriptRoutes,
+  ...frameworkRoutes,
   ...basicRoutes,
   ...testRoutes,
 ];

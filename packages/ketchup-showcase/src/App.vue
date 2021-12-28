@@ -709,35 +709,17 @@ export default {
           {
             cells: {
               ROUTE: {
-                value: 'debugging',
+                value: 'kup-manager',
               },
             },
-            value: 'Debugging',
-            visible: true,
-          },
-          {
-            cells: {
-              ROUTE: {
-                value: 'dynamicposition',
-              },
-            },
-            value: 'Dynamic position',
-            visible: true,
-          },
-          {
-            cells: {
-              ROUTE: {
-                value: 'scrollonhover',
-              },
-            },
-            value: 'Scroll on hover',
+            value: 'KupManager',
             visible: true,
           },
         ],
         expandable: true,
         icon: 'json',
         isExpanded: false,
-        value: 'Javascript',
+        value: 'Framework',
         visible: true,
       },
     ],
