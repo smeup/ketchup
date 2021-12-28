@@ -8,6 +8,7 @@ import 'dayjs/locale/it';
 import 'dayjs/locale/pl';
 import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
+import { KupComponent } from '../../types/GenericTypes';
 import { KupDatesLocales, KupDatesNormalize } from './kup-dates-declarations';
 
 /**
@@ -17,10 +18,12 @@ import { KupDatesLocales, KupDatesNormalize } from './kup-dates-declarations';
 export class KupDates {
     dayjs: Function;
     locale: KupDatesLocales;
+    managedComponents: Set<KupComponent>;
     /**
      * Initializes KupDates.
      */
     constructor(locale?: KupDatesLocales) {
+        this.managedComponents = new Set();
         this.setLocale(locale);
         this.dayjs = dayjs;
         dayjs.extend(customParseFormat);
@@ -49,6 +52,11 @@ export class KupDates {
                 .toLowerCase() as KupDatesLocales;
         }
         dayjs.locale(this.locale);
+        this.managedComponents.forEach(function (comp) {
+            if (comp.isConnected) {
+                comp.refresh();
+            }
+        });
         document.dispatchEvent(new CustomEvent('kup-dates-localechange'));
     }
     /**
@@ -303,5 +311,22 @@ export class KupDates {
         unit?: dayjs.OpUnitType
     ): dayjs.Dayjs {
         return dayjs(input).subtract(value, unit);
+    }
+    /**
+     * Registers a KupComponent in KupDates, in order to be properly handled whenever the locale changes.
+     * @param {any} component - The component calling this function.
+     */
+    register(component: any): void {
+        this.managedComponents.add(component.rootElement);
+    }
+    /**
+     * Unregisters a KupComponent, so it won't be handled when the locale changes.
+     *
+     * @param {any} component - The component calling this function.
+     */
+    unregister(component: any): void {
+        if (this.managedComponents) {
+            this.managedComponents.delete(component.rootElement);
+        }
     }
 }

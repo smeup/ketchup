@@ -166,7 +166,7 @@ export class KupLanguage {
         this.managedComponents.add(component.rootElement);
     }
     /**
-     * Unregisters a KupComponent, so it won't be handled when the theme changes.
+     * Unregisters a KupComponent, so it won't be handled when the language changes.
      *
      * @param {any} component - The component calling this function.
      */

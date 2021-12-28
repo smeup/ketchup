@@ -681,6 +681,7 @@ export class KupTimePicker {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
         this.watchTimeMinutesStep();
@@ -730,6 +731,7 @@ export class KupTimePicker {
     }
 
     disconnectedCallback() {
+        this.kupManager.dates.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.pickerKupEl) {
             this.pickerKupEl.remove();
