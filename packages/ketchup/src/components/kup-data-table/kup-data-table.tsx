@@ -2868,7 +2868,11 @@ export class KupDataTable {
         const clickedColumn: string = td.dataset.column;
 
         // selecting clicked column
-        if (this.selection !== SelectionMode.NONE && clickedColumn) {
+        if (
+            !row.unselectable &&
+            this.selection !== SelectionMode.NONE &&
+            clickedColumn
+        ) {
             this.deselectColumn(this.selectedColumn);
             this.selectedColumn = clickedColumn;
             this.selectColumn(this.selectedColumn);
