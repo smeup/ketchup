@@ -10,7 +10,7 @@
         <span class="code-word">ketchupInit</span> before the
         <span class="code-word">body</span> of the document.<br /><br />
         For example, let's say you wish to load ketchup with the "Dark" theme
-        enabled. This is all you need to do in the
+        enabled. <br />This is everything you need to do in a script inside the
         <span class="code-word">head</span> tag:
         <code style="margin: 2em auto" class="flat"
           >{{ darkThemeExample1 }}<br /><br />{{ darkThemeExample2 }}<br />{{
@@ -27,10 +27,27 @@
         widget automatically print new logs.<br />-
         <strong>logLimit(number)</strong>: sets the maximum number of debug logs
         to store.<br /><br />
-        interact?: KupManagerInteractSettings; language?:
-        KupManagerLanguageSettings; objects?: KupManagerObjectsSettings;
-        scrollOnHover?: KupManagerScrollOnHoverSettings; theme?:
-        KupManagerThemeSettings;
+        <span class="code-word">interact</span><br />
+        - <strong>restrictContainer(HTMLElement)</strong>: sets the container of
+        which boundaries can't be crossed by dialogs.<br />
+        - <strong>zIndex(number)</strong>: sets the initial zIndex of
+        dialogs.<br /><br />
+        <span class="code-word">language</span><br />
+        - <strong>list(JSON)</strong>: sets a custom list of languages.<br />
+        - <strong>name(string)</strong>: sets the initial language of the
+        library.<br /><br />
+        <span class="code-word">objects</span><br />
+        - <strong>list(JSON)</strong>: sets a custom list of objects (this
+        feature is currently not used).<br /><br />
+        <span class="code-word">scrollOnHover</span><br />
+        - <strong>delay(number)</strong>: sets the delay after which the scroll
+        on hover starts.<br />
+        - <strong>step(number)</strong>: sets the step size in pixel of each
+        scroll.<br /><br />
+        <span class="code-word">theme</span><br />
+        - <strong>list(JSON)</strong>: sets a custom list of themes.<br />
+        - <strong>name(string)</strong>: sets the initial theme of the
+        library.<br /><br />
       </p>
     </div>
   </div>

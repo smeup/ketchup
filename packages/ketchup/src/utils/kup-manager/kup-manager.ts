@@ -11,6 +11,7 @@ import type {
     KupManagerLanguageSettings,
     KupManagerObjectsSettings,
     KupManagerScrollOnHoverSettings,
+    KupManagerStringFinderPayload,
     KupManagerThemeSettings,
     KupManagerUtilities,
 } from './kup-manager-declarations';
@@ -163,12 +164,17 @@ export class KupManager {
                 paths[0].innerText || (paths[0] as HTMLInputElement).value;
             this.utilities.lastPointerDownString = lastString;
             if (lastString) {
-                document.dispatchEvent(
-                    new CustomEvent('kup-manager-stringfinder', {
+                const e = new CustomEvent<KupManagerStringFinderPayload>(
+                    'kup-manager-stringfinder',
+                    {
                         bubbles: true,
-                        detail: { string: lastString },
-                    })
+                        cancelable: true,
+                        detail: {
+                            string: lastString,
+                        },
+                    }
                 );
+                document.dispatchEvent(e);
             }
         });
         document.addEventListener('click', (e) => {

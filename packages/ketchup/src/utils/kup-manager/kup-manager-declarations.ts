@@ -124,3 +124,9 @@ export interface KupManagerThemeSettings {
     list?: KupThemeJSON;
     name?: string;
 }
+/**
+ * KupTheme initialization settings.
+ */
+export interface KupManagerStringFinderPayload {
+    string: string;
+}
