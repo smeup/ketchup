@@ -187,8 +187,8 @@ export class KupDates {
                 case 3:
                 //input = '0' + input; // continue into case 4
                 case 4:
-                    sub1 = parseInt(input.substr(0, 2));
-                    sub2 = parseInt(input.substr(2));
+                    sub1 = parseInt(input.substring(0, 2));
+                    sub2 = parseInt(input.substring(2, 4));
                     if (mIndex === 0) {
                         today.setDate(sub2);
                         today.setMonth(sub1 - 1); // -1 because it's 0 based
@@ -200,10 +200,10 @@ export class KupDates {
                 case 5:
                 //input = '0' + input; // continue into case 6
                 case 6:
-                    sub1 = parseInt(input.substr(0, 2));
-                    sub2 = parseInt(input.substr(2, 2));
+                    sub1 = parseInt(input.substring(0, 2));
+                    sub2 = parseInt(input.substring(2, 4));
                     year = today.getFullYear().toString();
-                    year = year.substr(0, 2) + input.substr(4);
+                    year = year.substring(0, 2) + input.substring(4);
                     if (mIndex === 0) {
                         today.setFullYear(parseInt(year), sub1 - 1, sub2);
                     } else if (dIndex === 0) {
@@ -213,9 +213,9 @@ export class KupDates {
                 case 7:
                 //input = '0' + input; // continue into case 8
                 case 8:
-                    sub1 = parseInt(input.substr(0, 2));
-                    sub2 = parseInt(input.substr(2, 2));
-                    year = input.substr(4);
+                    sub1 = parseInt(input.substring(0, 2));
+                    sub2 = parseInt(input.substring(2, 4));
+                    year = input.substring(4);
                     if (mIndex === 0) {
                         today.setFullYear(parseInt(year), sub1 - 1, sub2);
                     } else if (dIndex === 0) {
@@ -243,25 +243,25 @@ export class KupDates {
                 case 3:
                 //input = '0' + input; // continue into case 4
                 case 4:
-                    hh = parseInt(input.substr(0, 2));
-                    mm = parseInt(input.substr(2));
+                    hh = parseInt(input.substring(0, 2));
+                    mm = parseInt(input.substring(2, 4));
                     today.setHours(hh, mm, 0, 0);
                     break;
                 case 5:
                 //input = '0' + input; // continue into case 6
                 case 6:
-                    hh = parseInt(input.substr(0, 2));
-                    mm = parseInt(input.substr(2, 2));
-                    ss = parseInt(input.substr(4));
+                    hh = parseInt(input.substring(0, 2));
+                    mm = parseInt(input.substring(2, 4));
+                    ss = parseInt(input.substring(4, 6));
                     today.setHours(hh, mm, ss, 0);
                     break;
                 case 7:
                 //input = '0' + input; // continue into case 8
                 case 8:
-                    hh = parseInt(input.substr(0, 2));
-                    mm = parseInt(input.substr(2, 2));
-                    ss = parseInt(input.substr(4, 2));
-                    ms = parseInt(input.substr(6));
+                    hh = parseInt(input.substring(0, 2));
+                    mm = parseInt(input.substring(2, 4));
+                    ss = parseInt(input.substring(4, 6));
+                    ms = parseInt(input.substring(6, 8));
                     today.setHours(hh, mm, ss, ms);
                     break;
                 default:

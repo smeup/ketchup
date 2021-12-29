@@ -2,6 +2,16 @@
   <div>
     <div class="demo-wrapper">
       <p>
+        <span class="code-word">register(component: any): void</span><br />
+        Registers a KupComponent in KupDates, in order to be automatically
+        refreshed whenever the locale changes.<br /><br />
+      </p>
+      <p>
+        <span class="code-word">unregister(component: any): void</span><br />
+        Unregisters a KupComponent, so it won't be handled when the locale
+        changes.<br /><br />
+      </p>
+      <p>
         <span class="code-word">setLocale(locale: string): void</span><br />
         You can change the current locale of the library by invoking the
         <span class="code-word">setLocale</span> method. It receives as an
@@ -40,7 +50,7 @@
         <span class="code-word"
           >format(input: dayjs.ConfigType, format?: string): string</span
         ><br />
-        Formats the given input date to the specified output.<br /><br />
+        Formats the given input date to the specified output.
       </p>
       <div class="demo-container">
         <div class="kup-container">
@@ -61,6 +71,76 @@
           ></kup-text-field>
         </div>
       </div>
+      <p>
+        <span class="code-word"
+          >isValid(date: dayjs.ConfigType, format?: string, strict?: boolean):
+          boolean</span
+        ><br />
+        Returns a boolean value which indicates whether the given argument is a
+        valid date or not.<br /><br />
+      </p>
+      <p>
+        <span class="code-word"
+          >toDate(input: dayjs.ConfigType, format?: string): Date</span
+        ><br />
+        Returns a <span class="code-word">Date</span> object from the given
+        argument. The format optional argument describes the format of the input
+        if it's a string.<br /><br />
+      </p>
+      <p>
+        <span class="code-word"
+          >toDate(input: dayjs.ConfigType, format?: string): Date</span
+        ><br />
+        This method is equivalent to <span class="code-word">toDate</span>, but
+        in returns a <span class="code-word">dayjs</span> object instead.<br /><br />
+      </p>
+      <p>
+        <span class="code-word"
+          >normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs</span
+        ><br />
+        Returns a <span class="code-word">dayjs</span> object obtained by
+        processing the input string.<br />
+        For example, usually 6 digits dates are not valid. The normalize method
+        will treat it to make it valid.The
+        <span class="code-word">type</span> can be
+        <span class="code-word">date</span>,
+        <span class="code-word">time</span> or
+        <span class="code-word">timestamp</span>.
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-text-field
+            id="normalize-field"
+            initial-value="010101"
+            label="Date"
+            @kup-textfield-input="(e) => normalizeResult(e.detail.value, null)"
+          ></kup-text-field>
+          <kup-text-field
+            disabled
+            id="normalize-result-field"
+            label="Normalized result"
+          ></kup-text-field>
+        </div>
+      </div>
+      <p>
+        <span class="code-word"
+          >min(dates: dayjs.ConfigType[]): dayjs.Dayjs</span
+        ><br />
+        Returns the minimum date from an array of dates.<br /><br />
+      </p>
+      <p>
+        <span class="code-word"
+          >max(dates: dayjs.ConfigType[]): dayjs.Dayjs</span
+        ><br />
+        Returns the maximum date from an array of dates.<br /><br />
+      </p>
+      <p>
+        <span class="code-word"
+          >subtract(input: dayjs.ConfigType, value: number, unit?:
+          dayjs.OpUnitType): dayjs.Dayjs</span
+        ><br />
+        Subtracts the given amount of time from the input date.<br /><br />
+      </p>
     </div>
   </div>
 </template>
@@ -75,6 +155,8 @@ var combobox: HTMLKupComboboxElement = null;
 var localesChip: HTMLKupChipElement = null;
 var dateField: HTMLKupTextFieldElement = null;
 var formatField: HTMLKupTextFieldElement = null;
+var normalizeField: HTMLKupTextFieldElement = null;
+var normalizeResultField: HTMLKupTextFieldElement = null;
 var resultField: HTMLKupTextFieldElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -92,6 +174,8 @@ export default {
       combobox = document.querySelector('#language-selector');
       dateField = document.querySelector('#date-field');
       formatField = document.querySelector('#format-field');
+      normalizeField = document.querySelector('#normalize-field');
+      normalizeResultField = document.querySelector('#normalize-result-field');
       resultField = document.querySelector('#result-field');
       localesChip = document.querySelector('#locales');
     },
@@ -124,10 +208,13 @@ export default {
       dateField.initialValue = this.getToday();
       formatField.initialValue = this.getLocaleFormat();
       this.formatResult();
+      this.normalizeResult(normalizeField.initialValue);
     },
     /**
-     * Gets the values from text fields and the formats the output field.
-     *  @returns {string} Locale format as string.
+     * Sets the value of the result field.
+     * @param {string} dateValue - Present when this method is invoked by typing in the date field.
+     * @param {string} formatValue - Present when this method is invoked by typing in the format field.
+     * @returns {string} Locale format as string.
      */
     async formatResult(
       dateValue?: string,
@@ -140,7 +227,7 @@ export default {
     },
     /**
      * Gets the format of the date from the locale.
-     *  @returns {string} Locale format as string.
+     * @returns {string} Locale format as string.
      */
     getLocaleFormat(): string {
       return (dom.ketchup.dates.dayjs as any).Ls[dom.ketchup.dates.locale]
@@ -153,6 +240,14 @@ export default {
     getToday(): string {
       const today = new Date();
       return today.toISOString();
+    },
+    /**
+     * Gets the values from text fields and the formats the output field.
+     *  @returns {string} Locale format as string.
+     */
+    async normalizeResult(value?: string): Promise<void> {
+      const result = dom.ketchup.dates.normalize(value).toISOString();
+      normalizeResultField.setValue(result);
     },
     /**
      * Updates the library localization.

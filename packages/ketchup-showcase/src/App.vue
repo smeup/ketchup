@@ -709,21 +709,21 @@ export default {
           {
             cells: {
               ROUTE: {
-                value: 'kup-dates',
-              },
-            },
-            icon: 'calendar',
-            value: 'KupDates',
-            visible: true,
-          },
-          {
-            cells: {
-              ROUTE: {
                 value: 'kup-manager',
               },
             },
             icon: 'settings',
             value: 'KupManager',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-dates',
+              },
+            },
+            icon: 'calendar',
+            value: 'KupDates',
             visible: true,
           },
         ],
