@@ -30,6 +30,30 @@
         </div>
       </div>
       <p>
+        <span class="code-word">Magic Box</span><br />
+        Magic box is a component that basically works as a drop area for
+        objects.<br />This component will be created by invoking the method
+        <span class="code-word">showMagicBox</span> and destroyed by invoking
+        the method <span class="code-word">hideMagicBox</span>. It's also
+        possible to use the <span class="code-word">toggleMagicBox</span> method
+        to just invert its current state. <br />Click on the button below to
+        enable the magic box!
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-button
+            id="toggle-magic-box"
+            label="Toggle Magic Box"
+            @kup-button-click="toggleMagicBox"
+          ></kup-button>
+        </div>
+        <div>Drag us inside the Magic Box!</div>
+        <div class="cells-container">
+          <kup-cell drag-enabled :data.prop="cellData0"></kup-cell>
+          <kup-cell drag-enabled :data.prop="cellData1"></kup-cell
+        ></div>
+      </div>
+      <p>
         <span class="code-word">String Finder</span><br />
         When a pointer event occurs,
         <span class="code-word">KupManager</span> analyzes whether the element
@@ -38,13 +62,13 @@
         You can try it yourself by clicking anywhere and checking the card below
         (remember, a paragraph is a single HTML entity so expect a long text by
         clicking on one of them)!<br />
-        <kup-card
-          id="string-finder-card"
-          layout-family="free"
-          size-x="300px"
-          size-y="auto"
-        ></kup-card>
       </p>
+      <kup-card
+        id="string-finder-card"
+        layout-family="free"
+        size-x="300px"
+        size-y="auto"
+      ></kup-card>
     </div>
   </div>
 </template>
@@ -64,7 +88,29 @@ const dom: KupDom = document.documentElement as KupDom;
 export default {
   name: 'KupManagerFeatures',
   data() {
-    return {};
+    return {
+      cellData0: {
+        obj: {
+          t: 'D8',
+          p: '*YYMD',
+          k: '20211101',
+        },
+        icon: 'calendar',
+        value: '2021-11-01',
+        title: 'Drag me!',
+      },
+      cellData1: {
+        cssClass: 'c-right-aligned',
+        obj: {
+          t: 'NR',
+          p: '',
+          k: '500',
+        },
+        icon: 'chart-bar',
+        value: '500',
+        title: 'Drag me!',
+      },
+    };
   },
   methods: {
     /**
@@ -116,6 +162,12 @@ export default {
       card.appendChild(div);
       card.refresh();
     },
+    /**
+     * Toggles the kup-manager Magic Box.
+     */
+    toggleMagicBox() {
+      dom.ketchup.toggleMagicBox();
+    },
   },
   mounted() {
     this.initVariables();
@@ -136,6 +188,16 @@ export default {
 </script>
 
 <style lang="scss">
+.cells-container {
+  display: flex;
+  margin: auto;
+  width: 24em;
+
+  kup-cell {
+    margin: 1em;
+  }
+}
+
 #language-selector {
   margin-bottom: 1em;
 }

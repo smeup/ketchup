@@ -36,7 +36,13 @@ export function consistencyCheck(
     if (e != null) {
         selected = e.detail.selected;
     }
-    if (selected == null && valueIn != null && listData && listData['data']) {
+    if (
+        selected == null &&
+        valueIn != null &&
+        listEl &&
+        listData &&
+        listData['data']
+    ) {
         selected = getItemByDisplayMode(listData, valueIn, displayMode, true);
         listEl.data = [...listData['data']];
     }
