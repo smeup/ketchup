@@ -1,6 +1,9 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupCardFamily } from '../../components/kup-card/kup-card-declarations';
+import {
+    KupCardEventPayload,
+    KupCardFamily,
+} from '../../components/kup-card/kup-card-declarations';
 import { KupListData } from '../../components/kup-list/kup-list-declarations';
 import { KupLanguageDebug } from '../kup-language/kup-language-declarations';
 import {
@@ -260,12 +263,83 @@ export class KupDebug {
         debugWidget.layoutNumber = 3;
         debugWidget.sizeX = 'max-content';
         debugWidget.sizeY = 'auto';
+        const handler = this.handleEvents;
         debugWidget.addEventListener('kup-card-event', (e: CustomEvent) =>
-            this.handleEvents(e)
+            handler(e)
         );
 
         this.container.append(debugWidget);
         this.#debugWidget = debugWidget;
+    }
+    /**
+     * Listens the card events and handles the related actions.
+     * @param {CustomEvent<KupCardEventPayload>} e - kup-card-event.
+     */
+    private handleEvents(e: CustomEvent<KupCardEventPayload>): void {
+        const compEvent: CustomEvent = e.detail.event;
+        const compID: string = compEvent.detail.id;
+        switch (compEvent.type) {
+            case 'kup-button-click':
+                switch (compID) {
+                    case 'kup-debug-autoprint':
+                        this.autoPrint = !this.autoPrint;
+                        break;
+                    case 'kup-debug-clear':
+                        this.widgetClear();
+                        this.#debugWidget.refresh();
+                        break;
+                    case 'kup-debug-dl-props':
+                        this.getProps().then((res: GenericObject) => {
+                            this.downloadProps(res);
+                        });
+                        break;
+                    case 'kup-debug-dl-all':
+                        this.getProps(true).then((res: GenericObject) => {
+                            this.downloadProps(res);
+                        });
+                        break;
+                    case 'kup-debug-delete':
+                        this.dump();
+                        break;
+                    case 'kup-debug-magic-box':
+                        dom.ketchup.toggleMagicBox();
+                        break;
+                    case 'kup-debug-off':
+                        this.toggle();
+                        break;
+                    case 'kup-debug-print':
+                        this.widgetClear();
+                        this.widgetPrint();
+                        this.#debugWidget.refresh();
+                        break;
+                }
+                break;
+            case 'kup-combobox-itemclick':
+                switch (compID) {
+                    case 'kup-debug-language-changer':
+                        dom.ketchup.language.set(compEvent.detail.value);
+                        break;
+                    case 'kup-debug-locale-changer':
+                        dom.ketchup.dates.setLocale(compEvent.detail.value);
+                        break;
+                    case 'kup-debug-theme-changer':
+                        dom.ketchup.theme.set(compEvent.detail.value);
+                        break;
+                }
+            case 'kup-textfield-input':
+                switch (compID) {
+                    case 'kup-debug-log-limit':
+                        if (
+                            compEvent.detail.value === '' ||
+                            compEvent.detail.value < 1
+                        ) {
+                            this.logLimit = 1;
+                        } else {
+                            this.logLimit = compEvent.detail.value;
+                        }
+                        break;
+                }
+        }
     }
     /**
      * Closes the debug widget.
@@ -379,7 +453,7 @@ export class KupDebug {
                 printLog[type] = [];
             }
             printLog[type].push({
-                date: this.formatDate(this.logs[index].date),
+                date: dom.ketchup.dates.format(this.logs[index].date, 'LLL:ms'),
                 element: isComponent
                     ? (this.logs[index].element as KupComponent)
                     : this.logs[index].id,
@@ -448,78 +522,7 @@ export class KupDebug {
         }
     }
     /**
-     * Listens the card events and handles the related actions.
-     * @param {CustomEvent} e - kup-card-event.
-     */
-    handleEvents(e: CustomEvent): void {
-        const compEvent: CustomEvent = e.detail.event;
-        const compID: string = compEvent.detail.id;
-        switch (compEvent.type) {
-            case 'kup-button-click':
-                switch (compID) {
-                    case 'kup-debug-autoprint':
-                        this.autoPrint = !this.autoPrint;
-                        break;
-                    case 'kup-debug-clear':
-                        this.widgetClear();
-                        this.#debugWidget.refresh();
-                        break;
-                    case 'kup-debug-dl-props':
-                        this.getProps().then((res: GenericObject) => {
-                            this.downloadProps(res);
-                        });
-                        break;
-                    case 'kup-debug-dl-all':
-                        this.getProps(true).then((res: GenericObject) => {
-                            this.downloadProps(res);
-                        });
-                        break;
-                    case 'kup-debug-delete':
-                        this.dump();
-                        break;
-                    case 'kup-debug-magic-box':
-                        dom.ketchup.toggleMagicBox();
-                        break;
-                    case 'kup-debug-off':
-                        this.toggle();
-                        break;
-                    case 'kup-debug-print':
-                        this.widgetClear();
-                        this.widgetPrint();
-                        this.#debugWidget.refresh();
-                        break;
-                }
-                break;
-            case 'kup-combobox-itemclick':
-                switch (compID) {
-                    case 'kup-debug-language-changer':
-                        dom.ketchup.language.set(compEvent.detail.value);
-                        break;
-                    case 'kup-debug-locale-changer':
-                        dom.ketchup.dates.setLocale(compEvent.detail.value);
-                        break;
-                    case 'kup-debug-theme-changer':
-                        dom.ketchup.theme.set(compEvent.detail.value);
-                        break;
-                }
-            case 'kup-textfield-input':
-                switch (compID) {
-                    case 'kup-debug-log-limit':
-                        if (
-                            compEvent.detail.value === '' ||
-                            compEvent.detail.value < 1
-                        ) {
-                            this.logLimit = 1;
-                        } else {
-                            this.logLimit = compEvent.detail.value;
-                        }
-                        break;
-                }
-        }
-    }
-    /**
      * Function used to check whether the debug is active or not.
-     * If kupDebug on documentElement's type is not a boolean, it will be set to false.
      * @returns {boolean} Status of the debug.
      */
     isDebug(): boolean {
@@ -651,7 +654,7 @@ export class KupDebug {
             };
             if (this.logs.length > this.logLimit) {
                 console.warn(
-                    this.formatDate(date) +
+                    dom.ketchup.dates.format(date, 'LLL:ms') +
                         ' kup-debug => ' +
                         'Too many logs (> ' +
                         this.logLimit +
@@ -669,76 +672,24 @@ export class KupDebug {
 
         switch (category) {
             case KupDebugCategory.ERROR:
-                console.error(this.formatDate(date) + id + message, obj);
+                console.error(
+                    dom.ketchup.dates.format(date, 'LLL:ms') + id + message,
+                    obj
+                );
                 window.dispatchEvent(
-                    new CustomEvent('kupError', {
+                    new CustomEvent('kup-debug-error', {
                         bubbles: true,
                         detail: { comp, date, message },
                     })
                 );
                 break;
             case KupDebugCategory.WARNING:
-                console.warn(this.formatDate(date) + id + message, obj);
+                console.warn(
+                    dom.ketchup.dates.format(date, 'LLL:ms') + id + message,
+                    obj
+                );
                 break;
         }
-    }
-    /**
-     * Function used to format a date.
-     * Example: "Sun Mar 14 2021 13:50:56,329pm"
-     * @param {Date} date - Date to be formatted.
-     * @returns {string} Formatted
-     */
-    formatDate(date: Date): string {
-        let minutes =
-                date.getMinutes().toString().length == 1
-                    ? '0' + date.getMinutes()
-                    : date.getMinutes(),
-            hours =
-                date.getHours().toString().length == 1
-                    ? '0' + date.getHours()
-                    : date.getHours(),
-            seconds =
-                date.getSeconds().toString().length == 1
-                    ? '0' + date.getSeconds()
-                    : date.getSeconds(),
-            milliseconds =
-                date.getMilliseconds().toString().length == 1
-                    ? '0' + date.getMilliseconds()
-                    : date.getMilliseconds(),
-            ampm = date.getHours() >= 12 ? 'pm' : 'am',
-            months = [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
-            ],
-            days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        return (
-            days[date.getDay()] +
-            ' ' +
-            months[date.getMonth()] +
-            ' ' +
-            date.getDate() +
-            ' ' +
-            date.getFullYear() +
-            ' ' +
-            hours +
-            ':' +
-            minutes +
-            ':' +
-            seconds +
-            ',' +
-            milliseconds +
-            ampm
-        );
     }
     /**
      * Function used to time the loading times of a component.

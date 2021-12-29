@@ -726,6 +726,16 @@ export default {
             value: 'KupDates',
             visible: true,
           },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-debug',
+              },
+            },
+            icon: 'bug',
+            value: 'KupDebug',
+            visible: true,
+          },
         ],
         expandable: true,
         icon: 'json',

@@ -239,6 +239,11 @@ let frameworkRoutes = [
     component: () => import(`@/views/framework/kup-dates/KupDates.vue`),
   },
   {
+    path: `/kup-debug`,
+    name: 'kup-debug',
+    component: () => import(`@/views/framework/kup-debug/KupDebug.vue`),
+  },
+  {
     path: `/kup-manager`,
     name: 'kup-manager',
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),
