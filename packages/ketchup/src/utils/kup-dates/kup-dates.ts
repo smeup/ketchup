@@ -60,8 +60,7 @@ export class KupDates {
         document.dispatchEvent(new CustomEvent('kup-dates-localechange'));
     }
     /**
-     *
-     * @returns the current locale
+     * @returns {string} The current locale.
      */
     getLocale(): string {
         return this.locale;

@@ -3,7 +3,7 @@
     <div class="demo-wrapper">
       <p
         >Button lists are a set of
-        <a href="https://ketchup.smeup.com/ketchup-showcase/#/textfield"
+        <a href="https://ketchup.smeup.com/ketchup-showcase/#/button"
           >kup-button</a
         >
         elements. </p

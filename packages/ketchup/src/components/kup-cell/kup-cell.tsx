@@ -208,6 +208,7 @@ export class KupCell {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
@@ -224,11 +225,6 @@ export class KupCell {
     componentDidRender() {
         this.didRenderInteractables();
         this.kupManager.debug.logRender(this, true);
-    }
-
-    disconnectedCallback() {
-        this.kupManager.language.unregister(this);
-        this.kupManager.theme.unregister(this);
     }
 
     render() {
@@ -253,5 +249,11 @@ export class KupCell {
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.dates.unregister(this);
+        this.kupManager.language.unregister(this);
+        this.kupManager.theme.unregister(this);
     }
 }

@@ -80,6 +80,7 @@ import {
 } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
+
 var card: HTMLKupCardElement = null;
 var combobox: HTMLKupComboboxElement = null;
 

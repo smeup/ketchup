@@ -234,6 +234,11 @@ let cssRoutes = [
 
 let frameworkRoutes = [
   {
+    path: `/kup-dates`,
+    name: 'kup-dates',
+    component: () => import(`@/views/framework/kup-dates/KupDates.vue`),
+  },
+  {
     path: `/kup-manager`,
     name: 'kup-manager',
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),
