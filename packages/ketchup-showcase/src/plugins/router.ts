@@ -256,51 +256,12 @@ let frameworkRoutes = [
   },
 ];
 
-let testRoutes = [
-  {
-    path: `/test/`,
-    name: 'test',
-    component: () => import(`@/views/test/Test.vue`),
-  },
-  {
-    path: `/test/performance`,
-    name: 'testPerformance',
-    component: () => import(`@/views/test/Performance.vue`),
-  },
-  {
-    path: `/test/performance-autocomplete`,
-    name: 'testPerformanceAutocomplete',
-    component: () => import(`@/views/test/PerformanceAutocomplete.vue`),
-  },
-  {
-    path: `/test/performance-grid`,
-    name: 'testPerformanceGrid',
-    component: () => import(`@/views/test/PerformanceGrid.vue`),
-  },
-  {
-    path: `/test/performance-tree`,
-    name: 'testPerformanceTree',
-    component: () => import(`@/views/test/PerformanceTree.vue`),
-  },
-  {
-    path: `/test/graphic-cells`,
-    name: 'testGraphicCells',
-    component: () => import(`@/views/test/GraphicCells.vue`),
-  },
-  {
-    path: `/test/tree-columns`,
-    name: 'testTreeColumns',
-    component: () => import(`@/views/test/TreeColumns.vue`),
-  },
-];
-
 const routes = [
   ...baseRoutes,
   ...advancedRoutes,
   ...cssRoutes,
   ...frameworkRoutes,
   ...basicRoutes,
-  ...testRoutes,
 ];
 
 export default new Router({

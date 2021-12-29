@@ -200,7 +200,7 @@ export default {
       combobox.data = {
         'kup-list': { data: localesListData },
         'kup-text-field': {
-          label: 'Set the localization',
+          label: 'Set locale',
         },
       };
       combobox.initialValue = dom.ketchup.dates.locale;
@@ -254,7 +254,7 @@ export default {
      * @param {CustomEvent<KupComboboxEventPayload>} e - Event fired when a new localization is set.
      */
     updateLocale(e: CustomEvent<KupComboboxEventPayload>) {
-      dom.ketchup.setLibraryLocalization(e.detail.value);
+      dom.ketchup.dates.setLocale(e.detail.value);
     },
   },
   mounted() {
