@@ -42,6 +42,25 @@
         ><br />
         Formats the given input date to the specified output.<br /><br />
       </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-text-field
+            id="date-field"
+            label="Date"
+            @kup-textfield-input="(e) => formatResult(e.detail.value, null)"
+          ></kup-text-field>
+          <kup-text-field
+            id="format-field"
+            label="Format"
+            @kup-textfield-input="(e) => formatResult(null, e.detail.value)"
+          ></kup-text-field>
+          <kup-text-field
+            disabled
+            id="result-field"
+            label="Result"
+          ></kup-text-field>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +73,9 @@ import { FChipData } from '@sme.up/ketchup/dist/types/f-components/f-chip/f-chip
 
 var combobox: HTMLKupComboboxElement = null;
 var localesChip: HTMLKupChipElement = null;
+var dateField: HTMLKupTextFieldElement = null;
+var formatField: HTMLKupTextFieldElement = null;
+var resultField: HTMLKupTextFieldElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -68,6 +90,9 @@ export default {
      */
     initVariables(): void {
       combobox = document.querySelector('#language-selector');
+      dateField = document.querySelector('#date-field');
+      formatField = document.querySelector('#format-field');
+      resultField = document.querySelector('#result-field');
       localesChip = document.querySelector('#locales');
     },
     /**
@@ -96,6 +121,30 @@ export default {
       };
       combobox.initialValue = dom.ketchup.dates.locale;
       localesChip.data = localesChipData;
+      dateField.initialValue = this.getToday();
+      formatField.initialValue = this.getLocaleFormat();
+      this.formatResult();
+    },
+    /**
+     * Gets the values from text fields and the formats the output field.
+     *  @returns {string} Locale format as string.
+     */
+    async formatResult(
+      dateValue?: string,
+      formatValue?: string
+    ): Promise<void> {
+      const date = dateValue ? dateValue : await dateField.getValue();
+      const format = formatValue ? formatValue : await formatField.getValue();
+      const result = dom.ketchup.dates.format(date, format);
+      resultField.setValue(result);
+    },
+    /**
+     * Gets the format of the date from the locale.
+     *  @returns {string} Locale format as string.
+     */
+    getLocaleFormat(): string {
+      return (dom.ketchup.dates.dayjs as any).Ls[dom.ketchup.dates.locale]
+        .formats.L;
     },
     /**
      * Gets today's date.
@@ -129,6 +178,12 @@ export default {
 </script>
 
 <style lang="scss">
+#format-field,
+#date-field,
+#result-field {
+  margin: 0.5em;
+}
+
 #language-selector {
   margin-right: 1em;
 }
