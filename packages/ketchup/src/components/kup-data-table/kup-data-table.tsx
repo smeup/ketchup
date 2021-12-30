@@ -1196,7 +1196,6 @@ export class KupDataTable {
                     }
                 }
             }
-            console.log('here');
             if (values.length > 0) {
                 cells[newName] = {
                     ...base,
@@ -1280,7 +1279,6 @@ export class KupDataTable {
                 });
                 finalColumnValue.push(evaluateFormula(formula, row).toString());
             });
-            console.log(finalColumnValue);
             this.data.rows.forEach((_, i) => {
                 const base = { ...this.data.rows[i].cells[columns[0]] };
                 base.value = finalColumnValue[i];
