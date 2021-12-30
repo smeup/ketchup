@@ -1537,24 +1537,28 @@ export class KupTree {
             // Renders all the cells
             for (let j = 0; j < visibleCols.length; j++) {
                 const column = visibleCols[j];
-                const cell = treeNodeData.cells[column.name]
-                    ? treeNodeData.cells[column.name]
-                    : null;
-                const cellProps: FCellProps = {
-                    cell: cell,
-                    column: column,
-                    component: this,
-                    density: this.density,
-                    editable: this.editableData,
-                    renderKup: true,
-                    row: treeNodeData,
-                    setSizes: true,
-                };
-                treeNodeCells.push(
-                    <td class={`grid-cell`}>
-                        <FCell {...cellProps}></FCell>
-                    </td>
-                );
+                if (treeNodeData.cells && treeNodeData.cells[column.name]) {
+                    const cell = treeNodeData.cells[column.name]
+                        ? treeNodeData.cells[column.name]
+                        : null;
+                    const cellProps: FCellProps = {
+                        cell: cell,
+                        column: column,
+                        component: this,
+                        density: this.density,
+                        editable: this.editableData,
+                        renderKup: true,
+                        row: treeNodeData,
+                        setSizes: true,
+                    };
+                    treeNodeCells.push(
+                        <td class={`grid-cell`}>
+                            <FCell {...cellProps}></FCell>
+                        </td>
+                    );
+                } else {
+                    treeNodeCells.push(<td class={`grid-cell`}></td>);
+                }
             }
         }
 
