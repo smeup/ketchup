@@ -26,6 +26,7 @@ import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupObj } from "./utils/kup-objects/kup-objects-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
@@ -1072,9 +1073,19 @@ export namespace Components {
          */
         "emptyDataLabel": string;
         /**
+          * Enables the choice to set formulas on columns by dragging them into different columns.
+          * @default true
+         */
+        "enableColumnsFormula": boolean;
+        /**
           * Enables the extracolumns add buttons.
          */
         "enableExtraColumns": boolean;
+        /**
+          * Enables the merging of columns by dragging them into different columns.
+          * @default true
+         */
+        "enableMergeColumns": boolean;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */
@@ -1105,6 +1116,12 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
+        /**
+          * This method is used to merge two columns
+          * @param columns - Title of the first column
+          * @param mode - Mathematical operator to applay on columns param {string} formula - formula to render
+         */
+        "formulaOnColumns": (columns: string[], mode: string) => Promise<string>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
         /**
           * Used to retrieve component's props values.
@@ -1161,6 +1178,13 @@ export namespace Components {
           * @see loadMoreLimit
          */
         "loadMoreStep": number;
+        /**
+          * This method merges all the columns specified in the argument into a single one.
+          * @param columns - Array of column names.
+          * @param separator - Characters used to separate values.
+          * @returns The column resulting from the merge
+         */
+        "mergeColumns": (columns: string[], separator?: string) => Promise<Column>;
         /**
           * Opens the column menu of the given column.
           * @param column - Name of the column.
@@ -1780,6 +1804,11 @@ export namespace Components {
           * @default null
          */
         "data": GenericObject;
+        /**
+          * Returns the HTMLElement of the component to lazy load.
+          * @returns Lazy loaded component.
+         */
+        "getComponent": () => Promise<HTMLElement>;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -3978,9 +4007,19 @@ declare namespace LocalJSX {
          */
         "emptyDataLabel"?: string;
         /**
+          * Enables the choice to set formulas on columns by dragging them into different columns.
+          * @default true
+         */
+        "enableColumnsFormula"?: boolean;
+        /**
           * Enables the extracolumns add buttons.
          */
         "enableExtraColumns"?: boolean;
+        /**
+          * Enables the merging of columns by dragging them into different columns.
+          * @default true
+         */
+        "enableMergeColumns"?: boolean;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */
@@ -4583,6 +4622,10 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: GenericObject;
+        /**
+          * Triggered when the component is loaded.
+         */
+        "onKup-lazy-loaded"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Decides when the sub-component should be rendered. By default when both the component props exist and the component is in the viewport.
           * @default KupLazyRender.BOTH

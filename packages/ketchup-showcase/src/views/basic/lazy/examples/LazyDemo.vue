@@ -3,6 +3,7 @@
     <demo
       :demoClasses="demoClasses"
       :demoComp="demoComp"
+      :demoEvents="demoEvents"
       :demoMethods="demoMethods"
       :demoProps="demoProps"
     ></demo>
@@ -55,11 +56,21 @@ export default {
         },
       ],
       demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kup-lazy-loaded',
+          type: 'custom',
+        },
+      ],
       demoMethods: [
         {
           name: 'getProps',
           description:
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
+        },
+        {
+          name: 'getComponent',
+          description: 'Returns the HTMLElement of the component to lazy load.',
         },
         {
           name: 'refresh',

@@ -196,8 +196,24 @@ export default {
           try: 'field',
         },
         {
+          prop: 'enableColumnsFormula',
+          description:
+            'Enables the choice to set formulas on columns by dragging them into different columns.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'enableExtraColumns',
           description: 'Enables adding extra columns button.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'enableMergeColumns',
+          description:
+            'Enables the merging of columns by dragging them into different columns.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
