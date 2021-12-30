@@ -36,6 +36,10 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
+          name: 'kup-card-event',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-cell-click',
           type: 'CustomEvent',
         },
@@ -208,6 +212,22 @@ export default {
             'Enables the sorting of columns by dragging them into different columns.',
           type: 'boolean',
           default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'enableMergeColumns',
+          description:
+            'Enables to merge columns by dragging them into different columns.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'enableColumnsFormula',
+          description:
+            'Enables to applay predefined formulas on columns by dragging them into different columns.',
+          type: 'boolean',
+          default: 'false',
           try: 'switch',
         },
         {

@@ -26,6 +26,7 @@ import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
+import { KupObj } from "./utils/kup-objects/kup-objects-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
@@ -1115,9 +1116,10 @@ export namespace Components {
         "forceOneLine": boolean;
         /**
           * This method is used to merge two columns
-          * @param columns - Title of the first column param {string} formula - formula to render
+          * @param columns - Title of the first column
+          * @param mode - Mathematical operator to applay on columns param {string} formula - formula to render
          */
-        "formulaOnColumns": (columns?: string[]) => Promise<string>;
+        "formulaOnColumns": (columns: string[], mode: string) => Promise<string>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
         /**
           * Used to retrieve component's props values.
