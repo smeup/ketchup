@@ -18,8 +18,10 @@ export enum KupDataTableProps {
     dropEnabled = 'Enables drop.',
     editableData = 'When set to true, editable cells will be rendered using input components.',
     emptyDataLabel = 'Defines the label to show when the table is empty.',
-    enableSortableColumns = 'Enables the sorting of columns by dragging them into different columns.',
+    enableColumnsFormula = 'Enables the choice to set formulas on columns by dragging them into different columns.',
+    enableMergeColumns = 'Enables the merging of columns by dragging them into different columns.',
     enableExtraColumns = 'Enables adding extra columns.',
+    enableSortableColumns = 'Enables the sorting of columns by dragging them into different columns.',
     expandGroups = 'Expands groups when set to true.',
     filters = 'List of filters set by the user.',
     fixedColumns = 'Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.',
@@ -106,13 +108,8 @@ export interface Column {
     size?: string;
     visible?: boolean;
     hideValuesRepetitions?: boolean;
-    obj?: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    // a column can contain heterogeneous objs
-    objs?: KupObj[];
+    obj?: KupObj;
+    objs?: KupObj[]; // A column could contain multiple objs
     shape?: FCellShapes;
     decimals?: number;
     icon?: string;

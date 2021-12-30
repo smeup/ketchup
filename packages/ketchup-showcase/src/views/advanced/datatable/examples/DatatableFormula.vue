@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>Formulas applied to columns</h3>
     <kup-lazy
       component-name="kup-data-table"
       :data.prop="defaultData"
@@ -18,7 +17,6 @@ export default {
     return {
       defaultData: {
         data: defaultDataTable,
-        enableColumnsFormula: true,
       },
     };
   },

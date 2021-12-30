@@ -433,6 +433,7 @@ export class KupCard {
         root.addEventListener('kup-datepicker-input', this.cardEvent);
         root.addEventListener('kup-datepicker-itemclick', this.cardEvent);
         root.addEventListener('kup-datepicker-textfieldsubmit', this.cardEvent);
+        root.addEventListener('kup-dropdownbutton-itemclick', this.cardEvent);
         root.addEventListener('kup-list-click', this.cardEvent);
         root.addEventListener('kup-switch-change', this.cardEvent);
         root.addEventListener('kup-tabbar-click', this.cardEvent);
@@ -449,7 +450,6 @@ export class KupCard {
         root.addEventListener('kup-tree-nodedblclick', this.cardEvent);
         root.addEventListener('kup-tree-nodeexpand', this.cardEvent);
         root.addEventListener('kup-tree-nodeselected', this.cardEvent);
-        root.addEventListener('kup-dropdownbutton-itemclick', this.cardEvent);
     }
     /**
      * This method is invoked by the layout manager when the layout family is scalable.

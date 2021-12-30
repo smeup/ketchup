@@ -16,7 +16,24 @@
 | `showPlaceholder` | `show-placeholder` | Displays an animated SVG placeholder until the component is loaded.                                                                     | `boolean`                                                             | `true`               |
 
 
+## Events
+
+| Event             | Description                             | Type                           |
+| ----------------- | --------------------------------------- | ------------------------------ |
+| `kup-lazy-loaded` | Triggered when the component is loaded. | `CustomEvent<KupEventPayload>` |
+
+
 ## Methods
+
+### `getComponent() => Promise<HTMLElement>`
+
+Returns the HTMLElement of the component to lazy load.
+
+#### Returns
+
+Type: `Promise<HTMLElement>`
+
+Lazy loaded component.
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 

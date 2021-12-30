@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h3>Merge Columns</h3>
     <kup-lazy
       component-name="kup-data-table"
       :data.prop="defaultData"
+      @kup-lazy-loaded="mergeColumns"
     ></kup-lazy>
   </div>
 </template>
@@ -12,15 +12,21 @@
 import { defaultDataTable } from '@/mock/dataTable';
 
 export default {
-  name: 'dataTableMerge',
+  name: 'DatatableMerge',
 
   data() {
     return {
       defaultData: {
         data: defaultDataTable,
-        enableMergeColumns: true,
       },
     };
+  },
+  methods: {
+    mergeColumns(e) {
+      e.detail.comp.getComponent().then((res) => {
+        res.mergeColumns(['FLD1', 'FLD2', 'FLD3', 'FLD4']);
+      });
+    },
   },
 };
 </script>

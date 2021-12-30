@@ -429,21 +429,23 @@ export class KupDataTable {
      */
     @Prop({ mutable: true }) emptyDataLabel: string = null;
     /**
+     * Enables the choice to set formulas on columns by dragging them into different columns.
+     * @default true
+     */
+    @Prop() enableColumnsFormula: boolean = true;
+    /**
      * Enables the extracolumns add buttons.
      */
     @Prop() enableExtraColumns: boolean = true;
     /**
+     * Enables the merging of columns by dragging them into different columns.
+     * @default true
+     */
+    @Prop() enableMergeColumns: boolean = true;
+    /**
      * Enables the sorting of columns by dragging them into different columns.
      */
     @Prop() enableSortableColumns: boolean = true;
-    /**
-     * Enables the merging of columns by dragging them into different columns.
-     */
-    @Prop() enableMergeColumns: boolean = false;
-    /**
-     * Enable the formulas on columns.
-     */
-    @Prop() enableColumnsFormula: boolean = false;
     /**
      * Expands groups when set to true.
      */
@@ -680,19 +682,6 @@ export class KupDataTable {
     @State()
     private fontsize: string = 'medium';
 
-    /**
-     * This is a flag to be used for the draggable columns to force rerender
-     * by changing the internal state.
-     */
-    @State()
-    private triggerColumnSortRerender = false;
-
-    @State()
-    private triggerColumnMergeRender = false;
-
-    @State()
-    private triggerColumnFormulaRender = false;
-
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
@@ -844,16 +833,14 @@ export class KupDataTable {
      * Reference to the column menu card.
      */
     private columnMenuCard: HTMLKupCardElement = null;
-
     /**
-     * Reference to the column menu card.
+     * Reference to the card created after a column drop action.
      */
-    private columnOptionsCard: HTMLKupCardElement = null;
-
+    private columnDropCard: HTMLKupCardElement = null;
     /**
      * Column options card anchor element
      */
-    private columnOptionCardAnchor: Element = null;
+    private columnDropCardAnchor: HTMLElement = null;
 
     /**
      * When component unload is complete
@@ -1146,119 +1133,89 @@ export class KupDataTable {
         }
     }
     /**
-     * This method is used to merge two columns
-     * @param {string[]} columns - Title of the first column
+     * This method merges all the columns specified in the argument into a single one.
+     * @param {string[]} columns - Array of column names.
+     * @param {string} separator - Characters used to separate values.
+     * @returns {Column} The column resulting from the merge
      */
     @Method()
-    async mergeColumns(columns: string[]) {
-        // ===== check if the merged column exist
-        let mergedColExist: boolean = false;
-        this.data.columns.forEach((element) => {
-            if (element.mergedFrom) {
-                for (var i = 0; i < element.mergedFrom.length; i++) {
-                    if (element.mergedFrom[i] == columns[i]) {
-                        mergedColExist = true;
-                    }
-                }
+    async mergeColumns(columns: string[], separator?: string): Promise<Column> {
+        if (!columns || columns.length === 0) {
+            this.kupManager.debug.logMessage(
+                this,
+                'Invalid array, interrupting column merging!(' + columns + ')',
+                KupDebugCategory.ERROR
+            );
+            return;
+        }
+        let firstColumn: Column = null;
+        const titles: string[] = [];
+        const objs: KupObj[] = [];
+        separator = separator ? separator : ' ';
+        this.data.columns.forEach((col) => {
+            if (columns.includes(col.name)) {
+                objs.push(col.obj);
+                titles.push(col.title);
+            }
+            if (columns[0] === col.name) {
+                firstColumn = col;
+            }
+            if (
+                col.mergedFrom &&
+                col.mergedFrom.toString() === columns.toString()
+            ) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'The product of these columns in the same order already exists!(' +
+                        columns.toString() +
+                        ')',
+                    KupDebugCategory.ERROR
+                );
+                return;
             }
         });
-
-        console.log(mergedColExist);
-        if (!mergedColExist) {
-            const newColumnValues: string[] = [];
-            let newColumnType: KupObj = null;
-            const newColumnCells: Cell[] = [];
-            const columnsValue: { [index: string]: string[] } = {};
-
-            let columnType: { [index: string]: KupObj } = {};
-            let onlyObj: KupObj[] = [];
-
-            // Initialized name and title of the new merged column and the data list
-            let columnsTitle = [];
-            for (let i = 0; i <= columns.length; i++) {
-                this.data.columns.forEach((element) => {
-                    if (element.name == columns[i]) {
-                        columnsTitle.push(element.title);
-                    }
-                });
-            }
-            const newColumnTitle: string = columnsTitle.join('|');
-
-            const newColumnName: string = columns.join('-');
-
-            // ==== create new column object
-            this.data.columns.forEach((element) => {
-                for (let i = 0; i <= columns.length; i++) {
-                    if (element.name == columns[i]) {
-                        // check if the object of the column is not empty
-                        if (
-                            !this.kupManager.objects.isEmptyKupObj(element.obj)
-                        ) {
-                            columnType[columns[i]] = element.obj;
-                            onlyObj.push(element.obj);
+        const newName = columns.join('_');
+        const newObj =
+            objs.length > 0 && this.kupManager.objects.isSameKupObj(objs)
+                ? objs[0]
+                : null;
+        const newTitle = titles.join(separator);
+        this.data.rows.forEach((row) => {
+            const cells = row.cells;
+            const values: string[] = [];
+            let base: Cell = null;
+            if (cells) {
+                for (let index = 0; index < columns.length; index++) {
+                    const column = columns[index];
+                    const cell = cells[column];
+                    if (cell) {
+                        if (!base) {
+                            base = cell;
                         }
+                        values.push(cell.value);
                     }
                 }
-            });
-
-            if (onlyObj.length > 0) {
-                if (this.kupManager.objects.areSameKupObj(onlyObj)) {
-                    newColumnType = onlyObj[0];
-                } else {
-                    newColumnType = null;
-                }
-            } else {
-                newColumnType = null;
             }
-
-            // create new column data
-            columns.forEach((colName) => {
-                columnsValue[colName] = [];
-                this.data.rows.forEach((element) => {
-                    columnsValue[colName].push(element.cells[colName].value);
-                });
-            });
-
-            this.data.rows.forEach((_, i) => {
-                let finalValue: string[] = [];
-                columns.forEach((element) => {
-                    finalValue.push(columnsValue[element][i]);
-                });
-                newColumnValues.push(finalValue.join('|'));
-            });
-
-            // === create new column cell data
-            this.data.rows.forEach((_, i) => {
-                const base: Cell = { ...this.data.rows[i].cells[columns[0]] };
-                base.value = newColumnValues[i];
-                base.displayedValue = newColumnValues[i];
-                base.obj = newColumnType;
-                newColumnCells.push(base);
-            });
-            // create json for the new column
-            const newColumnJson: Column = {
-                name: newColumnName,
-                title: newColumnTitle,
-                size: '',
-                obj: newColumnType,
-                mergedFrom: columns,
-            };
-            this.data.columns.push(newColumnJson);
-
-            // create json for the data of the new column
-            this.data.rows.forEach((_, i) => {
-                this.data.rows[i].cells[newColumnName] = newColumnCells[i];
-            });
-            this.formulaOnColumnsRender();
-        }
-    }
-
-    private mergeColumnsRender() {
-        this.triggerColumnMergeRender = !this.triggerColumnMergeRender;
-    }
-
-    private formulaOnColumnsRender() {
-        this.triggerColumnFormulaRender = !this.triggerColumnFormulaRender;
+            console.log('here');
+            if (values.length > 0) {
+                cells[newName] = {
+                    ...base,
+                    displayedValue: null,
+                    obj: newObj,
+                    value: values.join(separator),
+                };
+            }
+        });
+        const newColumn: Column = {
+            ...firstColumn,
+            name: newName,
+            title: newTitle,
+            obj: newObj,
+            mergedFrom: columns,
+        };
+        this.data.columns.push(newColumn);
+        this.refresh();
+        return newColumn;
     }
     /**
      * This method is used to merge two columns
@@ -1344,7 +1301,7 @@ export class KupDataTable {
             this.data.rows.forEach((_, i) => {
                 this.data.rows[i].cells[formula] = newColumnCells[i];
             });
-            this.mergeColumnsRender();
+            this.refresh();
         } else {
             return '';
         }
@@ -1352,21 +1309,21 @@ export class KupDataTable {
     /**
      * Closes opened column option card.
      */
-    private closeOptionCard() {
+    private closeDropCard() {
         this.kupManager.dynamicPosition.stop(
-            this.columnOptionsCard as KupDynamicPositionElement
+            this.columnDropCard as KupDynamicPositionElement
         );
         this.kupManager.removeClickCallback(this.clickCb);
-        this.columnOptionsCard.remove();
+        this.columnDropCard.remove();
     }
 
     private createCard(sorted: Column, receiving: Column, areNumeric: boolean) {
-        this.columnOptionsCard = document.createElement('kup-card');
-        this.columnOptionsCard.id = 'merge-formulas';
-        this.columnOptionsCard.layoutNumber = 1;
-        this.columnOptionsCard.layoutFamily = KupCardFamily.FREE;
-        this.columnOptionsCard.sizeX = '300px';
-        this.columnOptionsCard.sizeY = '300px';
+        this.columnDropCard = document.createElement('kup-card');
+        this.columnDropCard.id = 'merge-formulas';
+        this.columnDropCard.layoutNumber = 1;
+        this.columnDropCard.layoutFamily = KupCardFamily.FREE;
+        this.columnDropCard.sizeX = '300px';
+        this.columnDropCard.sizeY = '300px';
         if (this.enableSortableColumns && this.enableMergeColumns) {
             let listData;
             listData = [
@@ -1388,7 +1345,7 @@ export class KupDataTable {
                 document.createElement('kup-list');
             actionList.data = listData;
             actionList.showIcons = true;
-            this.columnOptionsCard.appendChild(actionList);
+            this.columnDropCard.appendChild(actionList);
         }
         if (
             this.enableSortableColumns &&
@@ -1426,28 +1383,28 @@ export class KupDataTable {
             //const textField : HTMLKupTextFieldElement = document.createElement('kup-text-field');
             // textField.label = 'Insert formula';
 
-            this.columnOptionsCard.appendChild(dropDown);
-            //this.columnOptionsCard.appendChild(textField);
+            this.columnDropCard.appendChild(dropDown);
+            //this.columnDropCard.appendChild(textField);
         }
         this.kupManager.dynamicPosition.register(
-            this.columnOptionsCard,
-            this.columnOptionCardAnchor as KupDynamicPositionAnchor,
+            this.columnDropCard,
+            this.columnDropCardAnchor as KupDynamicPositionAnchor,
             0,
             KupDynamicPositionPlacement.BOTTOM
         );
         this.kupManager.dynamicPosition.start(
-            this.columnOptionsCard as unknown as KupDynamicPositionElement
+            this.columnDropCard as unknown as KupDynamicPositionElement
         );
         this.clickCb = {
             cb: () => {
-                this.closeOptionCard();
+                this.closeDropCard();
             },
-            el: this.columnOptionsCard,
+            el: this.columnDropCard,
         };
         this.kupManager.addClickCallback(this.clickCb, true);
-        this.rootElement.shadowRoot.append(this.columnOptionsCard);
+        this.rootElement.shadowRoot.append(this.columnDropCard);
 
-        this.columnOptionsCard.addEventListener(
+        this.columnDropCard.addEventListener(
             'kup-card-event',
             (event: CustomEvent<KupCardEventPayload>) => {
                 switch (event.detail.event.type) {
@@ -1480,7 +1437,7 @@ export class KupDataTable {
                         break;
                     }
                 }
-                this.closeOptionCard();
+                this.closeDropCard();
             }
         );
     }
@@ -1992,7 +1949,7 @@ export class KupDataTable {
                     this.getColumns(),
                     e.target.dataset.column
                 );
-                this.columnOptionCardAnchor = e.target;
+                this.columnDropCardAnchor = e.target as HTMLElement;
                 const numeric: boolean =
                     this.kupManager.objects.isNumber(receiving.obj) &&
                     this.kupManager.objects.isNumber(sorted.obj);
@@ -3574,7 +3531,7 @@ export class KupDataTable {
     ) {
         const remove = columns.splice(sortedColumnIndex, 1);
         columns.splice(receivingColumnIndex, 0, remove[0]);
-        this.triggerColumnSortRerender = !this.triggerColumnSortRerender;
+        this.refresh();
     }
 
     @Method() async defaultSortingFunction(
@@ -4987,7 +4944,7 @@ export class KupDataTable {
         );
         if (columnX) {
             columnX.visible = false;
-            this.triggerColumnSortRerender = !this.triggerColumnSortRerender;
+            this.refresh();
         }
     }
 
@@ -5010,8 +4967,7 @@ export class KupDataTable {
             if (!found) {
                 this.groups.push({ column: columnX.name, visible: true });
                 this.groups = [...this.groups];
-                this.triggerColumnSortRerender =
-                    !this.triggerColumnSortRerender;
+                this.refresh();
             }
         }
     }

@@ -43,9 +43,9 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `dropEnabled`               | `drop-enabled`                 | Enables drop.                                                                                                                                                                                                                  | `boolean`                                                                                                 | `false`                              |
 | `editableData`              | `editable-data`                | When set to true, editable cells will be rendered using input components.                                                                                                                                                      | `boolean`                                                                                                 | `false`                              |
 | `emptyDataLabel`            | `empty-data-label`             | Defines the label to show when the table is empty.                                                                                                                                                                             | `string`                                                                                                  | `null`                               |
-| `enableColumnsFormula`      | `enable-columns-formula`       | Enable the formulas on columns.                                                                                                                                                                                                | `boolean`                                                                                                 | `false`                              |
+| `enableColumnsFormula`      | `enable-columns-formula`       | Enables the choice to set formulas on columns by dragging them into different columns.                                                                                                                                         | `boolean`                                                                                                 | `true`                               |
 | `enableExtraColumns`        | `enable-extra-columns`         | Enables the extracolumns add buttons.                                                                                                                                                                                          | `boolean`                                                                                                 | `true`                               |
-| `enableMergeColumns`        | `enable-merge-columns`         | Enables the merging of columns by dragging them into different columns.                                                                                                                                                        | `boolean`                                                                                                 | `false`                              |
+| `enableMergeColumns`        | `enable-merge-columns`         | Enables the merging of columns by dragging them into different columns.                                                                                                                                                        | `boolean`                                                                                                 | `true`                               |
 | `enableSortableColumns`     | `enable-sortable-columns`      | Enables the sorting of columns by dragging them into different columns.                                                                                                                                                        | `boolean`                                                                                                 | `true`                               |
 | `expandGroups`              | `expand-groups`                | Expands groups when set to true.                                                                                                                                                                                               | `boolean`                                                                                                 | `false`                              |
 | `filters`                   | --                             | List of filters set by the user.                                                                                                                                                                                               | `GenericFilter`                                                                                           | `{}`                                 |
@@ -184,15 +184,15 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
-### `mergeColumns(columns: string[]) => Promise<void>`
+### `mergeColumns(columns: string[], separator?: string) => Promise<Column>`
 
-This method is used to merge two columns
+This method merges all the columns specified in the argument into a single one.
 
 #### Returns
 
-Type: `Promise<void>`
+Type: `Promise<Column>`
 
-
+The column resulting from the merge
 
 ### `openColumnMenu(column: string) => Promise<void>`
 
