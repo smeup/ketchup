@@ -6,11 +6,16 @@
         Function used to check whether the debug is active or not.<br /><br />
       </p>
       <p>
-        <span class="code-word"
-          >logMessage(comp: any, message: string, category?: KupDebugCategory):
-          void</span
+        <span class="code-word">logMessage(comp, message, category?): void</span
         ><br />
         Stores a new log in KupDebug with the given arguments.<br /><br />
+        - <strong>comp (any)</strong> - The component who wants to store the log
+        (can also be a string).<br />
+        - <strong>message (string)</strong> - The text of the log.<br />
+        - <strong>category (KupDebugCategory)</strong> - The log's gravity:
+        <span class="code-word">log</span>,
+        <span class="code-word">warning</span> or
+        <span class="code-word">error</span>.<br /><br />
       </p>
       <p>
         <span class="code-word">print(): void</span><br />
@@ -21,9 +26,11 @@
         Dumps the stored logs.<br /><br />
       </p>
       <p>
-        <span class="code-word">toggle(value?: boolean): void</span><br />
+        <span class="code-word">toggle(value?): void</span><br />
         Function used to set the status of the debug. <br />If no argument is
         provided, this method will work as a toggler.<br /><br />
+        - <strong>value (boolean)</strong> - Forces the active state to this
+        value.<br /><br />
       </p>
       <div class="demo-container">
         <div class="kup-container">
@@ -36,10 +43,12 @@
       </div>
       <p>
         <span class="code-word"
-          >getProps(detail?: boolean): Promise - GenericObject</span
+          >getProps(detail?): Promise&lt;GenericObject&gt;</span
         ><br />
         Retrieves the information for every component contained in stored logs
         by invoking the getProps public method of each component.<br /><br />
+        - <strong>detail (boolean)</strong> - Adds additional information about
+        the components' HTML entities.<br /><br />
       </p>
     </div>
   </div>

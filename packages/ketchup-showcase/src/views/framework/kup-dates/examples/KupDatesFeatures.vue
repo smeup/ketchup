@@ -2,17 +2,14 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">register(component: any): void</span><br />
+        <span class="code-word">register(component): void</span><br />
         Registers a KupComponent in KupDates, in order to be automatically
         refreshed whenever the locale changes.<br /><br />
+        - <strong>component (any)</strong> - The Ketchup component to be
+        registered.<br />
       </p>
       <p>
-        <span class="code-word">unregister(component: any): void</span><br />
-        Unregisters a KupComponent, so it won't be handled when the locale
-        changes.<br /><br />
-      </p>
-      <p>
-        <span class="code-word">setLocale(locale: string): void</span><br />
+        <span class="code-word">setLocale(locale): void</span><br />
         You can change the current locale of the library by invoking the
         <span class="code-word">setLocale</span> method. It receives as an
         argument one of the supported locales, which are: <br /><br />-
@@ -47,10 +44,10 @@
         </div>
       </div>
       <p>
-        <span class="code-word"
-          >format(input: dayjs.ConfigType, format?: string): string</span
-        ><br />
-        Formats the given input date to the specified output.
+        <span class="code-word">format(input, format?): string</span><br />
+        Formats the given input date to the specified output.<br /><br />
+        - <strong>input (dayjs.ConfigType)</strong> - Date to be formatted.<br />
+        - <strong>format (string)</strong> - Output format.<br />
       </p>
       <div class="demo-container">
         <div class="kup-container">
@@ -72,31 +69,32 @@
         </div>
       </div>
       <p>
-        <span class="code-word"
-          >isValid(date: dayjs.ConfigType, format?: string, strict?: boolean):
-          boolean</span
+        <span class="code-word">isValid(date, format?, strict?): boolean</span
         ><br />
         Returns a boolean value which indicates whether the given argument is a
         valid date or not.<br /><br />
+        - <strong>date (dayjs.ConfigType)</strong> - Date to be validated.<br />
+        - <strong>format (string)</strong> - Format of the input date.<br />
+        - <strong>strict (boolean)</strong> - Strict parsing requires that the
+        format and input match exactly, including delimiters.<br /><br />
       </p>
       <p>
-        <span class="code-word"
-          >toDate(input: dayjs.ConfigType, format?: string): Date</span
-        ><br />
+        <span class="code-word">toDate(input, format?): Date</span><br />
         Returns a <span class="code-word">Date</span> object from the given
         argument. The format optional argument describes the format of the input
         if it's a string.<br /><br />
+        - <strong>input (dayjs.ConfigType)</strong> - Input date.<br />
+        - <strong>format (string)</strong> - Format of the input date.<br /><br />
       </p>
       <p>
-        <span class="code-word"
-          >toDate(input: dayjs.ConfigType, format?: string): Date</span
-        ><br />
+        <span class="code-word">toDate(input, format?): Date</span><br />
         This method is equivalent to <span class="code-word">toDate</span>, but
         in returns a <span class="code-word">dayjs</span> object instead.<br /><br />
+        - <strong>input (dayjs.ConfigType)</strong> - Input date.<br />
+        - <strong>format (string)</strong> - Format of the input date.<br /><br />
       </p>
       <p>
-        <span class="code-word"
-          >normalize(input: string, type?: KupDatesNormalize): dayjs.Dayjs</span
+        <span class="code-word">normalize(input, type?): dayjs.Dayjs</span
         ><br />
         Returns a <span class="code-word">dayjs</span> object obtained by
         processing the input string.<br />
@@ -123,23 +121,31 @@
         </div>
       </div>
       <p>
-        <span class="code-word"
-          >min(dates: dayjs.ConfigType[]): dayjs.Dayjs</span
-        ><br />
+        <span class="code-word">min(dates): dayjs.Dayjs</span><br />
         Returns the minimum date from an array of dates.<br /><br />
+        - <strong>dates (dayjs.ConfigType[])</strong> - Array of dates.<br /><br />
       </p>
       <p>
-        <span class="code-word"
-          >max(dates: dayjs.ConfigType[]): dayjs.Dayjs</span
-        ><br />
+        <span class="code-word">max(dates): dayjs.Dayjs</span><br />
         Returns the maximum date from an array of dates.<br /><br />
+        - <strong>dates (dayjs.ConfigType[])</strong> - Array of dates.<br /><br />
       </p>
       <p>
-        <span class="code-word"
-          >subtract(input: dayjs.ConfigType, value: number, unit?:
-          dayjs.OpUnitType): dayjs.Dayjs</span
+        <span class="code-word">subtract(input, value, unit?): dayjs.Dayjs</span
         ><br />
         Subtracts the given amount of time from the input date.<br /><br />
+        - <strong>input (dayjs.ConfigType)</strong> - Input date.<br />
+        - <strong>value (number)</strong> - The value of the subtraction (i.e.:
+        7).<br />
+        - <strong>unit (dayjs.OpUnitType)</strong> - The unit of the subtraction
+        (i.e.: "year").<br /><br />
+      </p>
+      <p>
+        <span class="code-word">unregister(component): void</span><br />
+        Unregisters a KupComponent, so it won't be handled when the locale
+        changes.<br /><br />
+        - <strong>component (any)</strong> - The Ketchup component to be
+        unregistered.<br />
       </p>
     </div>
   </div>

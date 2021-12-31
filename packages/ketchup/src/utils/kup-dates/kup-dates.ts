@@ -91,6 +91,7 @@ export class KupDates {
      * Validates the given date.
      * @param {dayjs.ConfigType} date - Date to be validated.
      * @param {string} format - Format of the input date.
+     * @param {boolean} strict - Strict parsing requires that the format and input match exactly, including delimiters.
      * @returns {boolean} Returns whether the argument is a valid date or not.
      */
     isValid(
@@ -313,7 +314,7 @@ export class KupDates {
     }
     /**
      * Registers a KupComponent in KupDates, in order to be properly handled whenever the locale changes.
-     * @param {any} component - The component calling this function.
+     * @param {any} component - The Ketchup component to be registered.
      */
     register(component: any): void {
         this.managedComponents.add(component.rootElement);

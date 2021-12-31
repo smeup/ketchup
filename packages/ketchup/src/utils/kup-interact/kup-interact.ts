@@ -386,7 +386,7 @@ export class KupInteract {
     /**
      * Adds a new interact.js event listener to the given argument.
      * @param {HTMLElement} el - The element on which the event listener will be added.
-     * @param {KupPointerEventTypes} event - Supported events.
+     * @param {KupPointerEventTypes} event - Name of the event.
      * @param {KupResizeCallbacks} callback - Callback to invoke when the event fires.
      */
     on(el: HTMLElement, event: KupPointerEventTypes, callback: ListenersArg) {
@@ -415,7 +415,7 @@ export class KupInteract {
         return true;
     }
     /**
-     * This method treats the given element as a dialog, by activating moving-on-drag and, optionally, its resize.
+     * This method gives the element dialog-like features, by activating moving on drag and, optionally, the resize.
      * @param {HTMLElement} el - Dialog element.
      * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger movement. When not provided, dragging anywhere on "el" will move it.
      * @param {boolean} unresizable - When true, the dialog can't be resized.
@@ -478,8 +478,8 @@ export class KupInteract {
         }
     }
     /**
-     * Removes the elements from the MoveOnDrag class watchlist.
-     * @param {HTMLElement[]} elements - Elements to remove.
+     * Removes all event listeners from the elements in the array.
+     * @param {HTMLElement[]} elements - Elements to handle.
      */
     unregister(elements: HTMLElement[]): void {
         if (this.managedElements) {
@@ -490,7 +490,7 @@ export class KupInteract {
         }
     }
     /**
-     * Returns whether an element was previously registered or not.
+     * Checks whether an element is currently registered or not.
      * @param {HTMLElement} el - Element to test.
      * @returns {boolean} True if the element was registered.
      */

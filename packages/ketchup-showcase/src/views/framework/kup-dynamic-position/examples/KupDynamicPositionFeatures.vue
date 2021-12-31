@@ -3,9 +3,7 @@
     <div class="demo-wrapper">
       <p>
         <span class="code-word"
-          >register(el: KupDynamicPositionElement, anchorEl:
-          KupDynamicPositionAnchor, margin?: number, placement?:
-          KupDynamicPositionPlacement, detach?: boolean): void </span
+          >register(el, anchorEl, margin?, placement?, detach?): void </span
         ><br />
         Watches the element eligible to be positioned dynamically.<br />When
         this happens, the attribute
@@ -16,8 +14,18 @@
         If the <span class="code-word">detach</span> argument is falsy, then the
         element will have fixed position. Otherwise, the element will be
         detached from its current DOM location to be appended in a container
-        placed in the document's body, in order to be positioned absolutely.<br /><br />Try
-        it yourself with the widget below. You will notice that when the
+        placed in the document's body, in order to be positioned absolutely.<br /><br />
+        - <strong>el (KupDynamicPositionElement)</strong> - Element to be
+        positioned.<br />-
+        <strong>anchorEl (KupDynamicPositionAnchor)</strong> - Element to which
+        <span class="code-word">el</span> will be anchored.<br />
+        - <strong>margin (number)</strong> - Offset in pixels.<br />-
+        <strong>placement (KupDynamicPositionPlacement)</strong> - Where to
+        place <span class="code-word">el</span> relatively to its anchor.<br />-
+        <strong>detach (boolean)</strong> - Position absolute instead of fixed,
+        <span class="code-word">el</span> will be detached from its current DOM
+        position to be moved inside the body of the document.<br /><br />Try it
+        yourself with the widget below. You will notice that when the
         positioning isn't started the element will disappear. This happens
         because the element is styled to behave like a tooltip.<br /><br />
       </p>
@@ -35,14 +43,7 @@
         <div id="anchor" class="anchor-point"><div>Anchor point</div></div>
       </div>
       <p>
-        <span class="code-word"
-          >unregister(elements: KupDynamicPositionElement[]): void</span
-        ><br />
-        Removes the elements from dynamic position management.<br /><br />
-      </p>
-      <p>
-        <span class="code-word">start(el: KupDynamicPositionElement): void</span
-        ><br />
+        <span class="code-word">start(el): void</span><br />
         Starts the process of dynamically reposition the element (which must be
         firstly registered).<br />
         When the start method is invoked, the class
@@ -50,6 +51,8 @@
         to the class list of the element. You can use this class to style it as
         you wish.<br />
         for example, to hide the element until this class is present.<br /><br />
+        - <strong>el (KupDynamicPositionElement)</strong> - Element to be
+        positioned.<br /><br />
       </p>
       <div class="demo-container">
         <div class="kup-container">
@@ -65,9 +68,10 @@
         </div>
       </div>
       <p>
-        <span class="code-word">stop(el: KupDynamicPositionElement): void</span
-        ><br />
+        <span class="code-word">stop(el): void</span><br />
         Ends the process of dynamically reposition the element.<br /><br />
+        - <strong>el (KupDynamicPositionElement)</strong> - Element to be
+        positioned.<br /><br />
       </p>
       <div class="demo-container">
         <div class="kup-container">
@@ -83,11 +87,12 @@
         </div>
       </div>
       <p>
-        <span class="code-word"
-          >changeAnchor(el: KupDynamicPositionElement, anchorEl:
-          KupDynamicPositionAnchor): void</span
-        ><br />
+        <span class="code-word">changeAnchor(el, anchorEl): void</span><br />
         Changes the anchor point of the given element.<br /><br />
+        - <strong>el (KupDynamicPositionElement)</strong> - Element to be
+        positioned.<br />
+        - <strong>anchorEl (KupDynamicPositionAnchor)</strong> - New anchor
+        element.<br /><br />
       </p>
       <div class="demo-container">
         <div id="change-anchor" class="anchor-point" @click="changeAnchor"
@@ -95,10 +100,16 @@
         >
       </div>
       <p>
-        <span class="code-word"
-          >isRegistered(el: KupDynamicPositionElement): boolean</span
-        ><br />
+        <span class="code-word">isRegistered(el): boolean</span><br />
         Checks whether an element is currently registered or not.<br /><br />
+        - <strong>el (KupDynamicPositionElement)</strong> - Element to be
+        positioned.<br /><br />
+      </p>
+      <p>
+        <span class="code-word">unregister(elements): void</span><br />
+        Removes the elements from dynamic position management.<br /><br />
+        - <strong>elements (KupDynamicPositionElement[])</strong> - Elements to
+        be unregistered.<br /><br />
       </p>
     </div>
   </div>
@@ -146,6 +157,7 @@ export default {
       buttonRegister.label = 'Registered!';
       buttonStart.disabled = false;
       buttonStart.label = 'Start!';
+      anchorChange.classList.add('visible');
     },
     /**
      * Changes the anchor point.
@@ -180,6 +192,7 @@ export default {
   },
   destroyed() {
     dom.ketchup.dynamicPosition.unregister(buttonRegister as any);
+    buttonRegister.remove();
   },
 };
 </script>
@@ -207,6 +220,13 @@ export default {
 }
 
 #change-anchor {
+  border-style: solid;
+  border-radius: 16px;
   cursor: pointer;
+  display: none;
+
+  &.visible {
+    display: flex;
+  }
 }
 </style>
