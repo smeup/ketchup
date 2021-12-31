@@ -255,6 +255,11 @@ let frameworkRoutes = [
     component: () => import(`@/views/framework/kup-interact/KupInteract.vue`),
   },
   {
+    path: `/kup-language`,
+    name: 'kup-language',
+    component: () => import(`@/views/framework/kup-language/KupLanguage.vue`),
+  },
+  {
     path: `/kup-manager`,
     name: 'kup-manager',
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),

@@ -753,6 +753,16 @@ export default {
             value: 'KupInteract',
             visible: true,
           },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-language',
+              },
+            },
+            icon: 'translate',
+            value: 'KupLanguage',
+            visible: true,
+          },
         ],
         expandable: true,
         icon: 'json',
