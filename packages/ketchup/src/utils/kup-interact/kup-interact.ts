@@ -296,9 +296,6 @@ export class KupInteract {
                                 },
                             },
                         });
-                    (e.currentTarget as HTMLElement).removeAttribute(
-                        kupDragOverAttr
-                    );
                     eventData.dispatcher.dispatchEvent(ketchupDropEvent);
                 }
                 (e.currentTarget as HTMLElement).removeAttribute(
@@ -332,29 +329,41 @@ export class KupInteract {
      * @param {Partial<ResizableOptions>} options - Options of the resize action.
      * @param {KupResizeCallbacks} callbacks - Additional callbacks to invoke.
      * @param {boolean} moveOnResize - When true, the element will be moved when resizing in order to keep its position.
+     * @param {boolean} autoResize - When true, the element will be automatically resized (usually the behavior is specified in a callback).
      * @see https://interactjs.io/docs/action-options/ For more options
      */
     resizable(
         el: HTMLElement,
         options?: Partial<ResizableOptions>,
         callbacks?: KupResizeCallbacks,
-        moveOnResize?: boolean
+        moveOnResize?: boolean,
+        autoResize?: boolean
     ) {
-        if (!options) {
-            options = {};
+        if (!options || !options.edges) {
+            options = {
+                ...options,
+                edges: {
+                    left: true,
+                    right: true,
+                    bottom: true,
+                    top: true,
+                },
+            };
         }
         options.listeners = {
             move(e: ResizeEvent) {
                 if (callbacks && callbacks.move) {
                     callbacks.move(e);
                 }
+                if (autoResize) {
+                    el.style.width = e.rect.width + 'px';
+                    el.style.height = e.rect.height + 'px';
+                }
                 if (moveOnResize) {
                     const el = e.target as HTMLElement;
                     const oldTransform = e.target.style.transform;
                     let x = parseFloat(el.getAttribute('data-x')) || 0;
                     let y = parseFloat(el.getAttribute('data-y')) || 0;
-                    el.style.width = e.rect.width + 'px';
-                    el.style.height = e.rect.height + 'px';
                     x += e.deltaRect.left;
                     y += e.deltaRect.top;
                     el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
@@ -463,6 +472,7 @@ export class KupInteract {
                     ],
                 },
                 null,
+                true,
                 true
             );
         }
