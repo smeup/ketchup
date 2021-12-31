@@ -250,6 +250,11 @@ let frameworkRoutes = [
       import(`@/views/framework/kup-dynamic-position/KupDynamicPosition.vue`),
   },
   {
+    path: `/kup-interact`,
+    name: 'kup-interact',
+    component: () => import(`@/views/framework/kup-interact/KupInteract.vue`),
+  },
+  {
     path: `/kup-manager`,
     name: 'kup-manager',
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),

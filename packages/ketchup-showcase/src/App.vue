@@ -743,6 +743,16 @@ export default {
             value: 'KupDynamicPosition',
             visible: true,
           },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-interact',
+              },
+            },
+            icon: 'tablet',
+            value: 'KupInteract',
+            visible: true,
+          },
         ],
         expandable: true,
         icon: 'json',

@@ -143,8 +143,6 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
