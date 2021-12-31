@@ -16,7 +16,10 @@
         If the <span class="code-word">detach</span> argument is falsy, then the
         element will have fixed position. Otherwise, the element will be
         detached from its current DOM location to be appended in a container
-        placed in the document's body, in order to be positioned absolutely.<br /><br />
+        placed in the document's body, in order to be positioned absolutely.<br /><br />Try
+        it yourself with the widget below. You will notice that when the
+        positioning isn't started the element will disappear. This happens
+        because the element is styled to behave like a tooltip.<br /><br />
       </p>
       <div class="demo-container">
         <div class="kup-container">
@@ -29,26 +32,13 @@
             styling="outlined"
           ></kup-button>
         </div>
-        <div id="anchor-point"><div>Anchor point</div></div>
+        <div id="anchor" class="anchor-point"><div>Anchor point</div></div>
       </div>
       <p>
         <span class="code-word"
           >unregister(elements: KupDynamicPositionElement[]): void</span
         ><br />
         Removes the elements from dynamic position management.<br /><br />
-      </p>
-      <p>
-        <span class="code-word"
-          >changeAnchor(el: KupDynamicPositionElement, anchorEl:
-          KupDynamicPositionAnchor): void</span
-        ><br />
-        Changes the anchor point of the given element.<br /><br />
-      </p>
-      <p>
-        <span class="code-word"
-          >isRegistered(el: KupDynamicPositionElement): boolean</span
-        ><br />
-        Checks whether an element is currently registered or not.<br /><br />
       </p>
       <p>
         <span class="code-word">start(el: KupDynamicPositionElement): void</span
@@ -92,6 +82,24 @@
           ></kup-button>
         </div>
       </div>
+      <p>
+        <span class="code-word"
+          >changeAnchor(el: KupDynamicPositionElement, anchorEl:
+          KupDynamicPositionAnchor): void</span
+        ><br />
+        Changes the anchor point of the given element.<br /><br />
+      </p>
+      <div class="demo-container">
+        <div id="change-anchor" class="anchor-point" @click="changeAnchor"
+          ><div>Change anchor</div></div
+        >
+      </div>
+      <p>
+        <span class="code-word"
+          >isRegistered(el: KupDynamicPositionElement): boolean</span
+        ><br />
+        Checks whether an element is currently registered or not.<br /><br />
+      </p>
     </div>
   </div>
 </template>
@@ -100,6 +108,7 @@
 import { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
 
 var anchor: HTMLElement = null;
+var anchorChange: HTMLElement = null;
 var buttonRegister: HTMLKupButtonElement = null;
 var buttonStart: HTMLKupButtonElement = null;
 var buttonStop: HTMLKupButtonElement = null;
@@ -116,7 +125,8 @@ export default {
      * Initializes Vue component's variables.
      */
     initVariables(): void {
-      anchor = document.querySelector('#anchor-point');
+      anchor = document.querySelector('#anchor');
+      anchorChange = document.querySelector('#change-anchor');
       buttonRegister = document.querySelector('#register-button');
       buttonStart = document.querySelector('#start-button');
       buttonStop = document.querySelector('#stop-button');
@@ -125,11 +135,24 @@ export default {
      * Registers the button in the KupDynamicPosition class.
      */
     register() {
-      dom.ketchup.dynamicPosition.register(buttonRegister, anchor);
+      dom.ketchup.dynamicPosition.register(
+        buttonRegister,
+        anchor,
+        null,
+        null,
+        true
+      );
       buttonRegister.disabled = true;
       buttonRegister.label = 'Registered!';
       buttonStart.disabled = false;
       buttonStart.label = 'Start!';
+    },
+    /**
+     * Changes the anchor point.
+     */
+    changeAnchor() {
+      dom.ketchup.dynamicPosition.changeAnchor(buttonRegister, anchorChange);
+      dom.ketchup.dynamicPosition.start(buttonRegister);
     },
     /**
      * Starts the dynamic positioning.
@@ -155,11 +178,14 @@ export default {
   mounted() {
     this.initVariables();
   },
+  destroyed() {
+    dom.ketchup.dynamicPosition.unregister(buttonRegister as any);
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-#anchor-point {
+.anchor-point {
   align-items: center;
   border: 2px var(--kup-border-color);
   border-style: inset;
@@ -171,15 +197,16 @@ export default {
   width: 6em;
 }
 
-#register-button {
-  transition: opacity 200ms ease-in;
-}
-
 #register-button[kup-dynamic-position] {
   opacity: 0;
+
+  &.kup-dynamic-position-active {
+    opacity: 1;
+    transition: opacity 200ms ease-in;
+  }
 }
 
-#register-button[kup-dynamic-position].kup-dynamic-position-active {
-  opacity: 1;
+#change-anchor {
+  cursor: pointer;
 }
 </style>

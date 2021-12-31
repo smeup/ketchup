@@ -209,7 +209,7 @@ export default {
         'Report-like',
         'Document-like',
         'Merge columns',
-        'Formulas on Columns'
+        'Formulas on Columns',
       ],
     };
   },
