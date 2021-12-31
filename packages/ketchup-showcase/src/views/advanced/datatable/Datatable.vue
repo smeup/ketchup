@@ -87,6 +87,12 @@
     <template v-slot:28>
       <datatable-document-like></datatable-document-like>
     </template>
+    <template v-slot:29>
+      <datatable-merge></datatable-merge>
+    </template>
+    <template v-slot:30>
+      <datatable-formula></datatable-formula>
+    </template>
   </comp>
 </template>
 
@@ -127,6 +133,8 @@ import DatatableShapes from '@/views/advanced/datatable/examples/DatatableShapes
 import DatatableCellClasses from '@/views/advanced/datatable/examples/DatatableCellClasses';
 import DatatableReportLike from '@/views/advanced/datatable/examples/DatatableReportLike';
 import DatatableDocumentLike from '@/views/advanced/datatable/examples/DatatableDocumentLike';
+import DatatableMerge from '@/views/advanced/datatable/examples/DatatableMerge';
+import DatatableFormula from '@/views/advanced/datatable/examples/DatatableFormula';
 
 import Comp from '@/views/advanced/page/templates/Comp';
 
@@ -161,6 +169,8 @@ export default {
     DatatableJl,
     DatatableReportLike,
     DatatableDocumentLike,
+    DatatableMerge,
+    DatatableFormula,
     Comp,
   },
   data() {
@@ -198,6 +208,8 @@ export default {
         'With JL objects',
         'Report-like',
         'Document-like',
+        'Merge columns',
+        'Formulas on Columns'
       ],
     };
   },

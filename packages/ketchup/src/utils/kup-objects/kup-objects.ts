@@ -290,6 +290,20 @@ export class KupObjects {
         );
     }
     /**
+     * Checks whether the arguments have the same object or not.
+     * @param {KupObj[]} objs - Array of KupObj.
+     * @returns {boolean} True when it's the same object.
+     */
+    isSameKupObj(objs: KupObj[]): boolean {
+        return objs.every((obj, _, array) => {
+            if (!this.isEmptyKupObj(obj)) {
+                return obj.t == array[0].t && obj.p == array[0].p;
+            } else {
+                return false;
+            }
+        });
+    }
+    /**
      * Parses a date depending on the object's type.
      * @param {KupObj} obj - Object to check.
      * @returns {Dayjs} Dayjs object.
