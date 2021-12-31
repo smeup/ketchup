@@ -86,7 +86,7 @@ export class KupInteract {
         if (!options) {
             options = {};
         }
-        if (!effect) {
+        if (effect === undefined || effect === null) {
             effect = KupDragEffect.MOVE;
         }
         options.listeners = {
@@ -169,10 +169,12 @@ export class KupInteract {
                         ghostImage.style.height = draggable.clientHeight + 'px';
                         ghostImage.style.left =
                             e.clientX - draggable.clientWidth / 2 + 'px';
+                        ghostImage.style.margin = '0';
                         ghostImage.style.opacity = '0.75';
                         ghostImage.style.position = 'fixed';
                         ghostImage.style.top =
                             e.clientY - draggable.clientHeight / 2 + 'px';
+                        ghostImage.style.transform = '';
                         ghostImage.style.width = draggable.clientWidth + 'px';
                         ghostImage.style.zIndex =
                             'calc(var(--kup-navbar-zindex) + 1)';
