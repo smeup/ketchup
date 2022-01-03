@@ -1437,7 +1437,8 @@ export class KupDataTable {
                     },
                 ];
                 const combobox = document.createElement('kup-combobox');
-                combobox.customStyle = ':host { margin: 0 0.5em 0.5em 0.5em; }';
+                combobox.customStyle =
+                    ':host { margin: 0 0.5em 0.5em 0.5em !important; }';
                 combobox.data = {
                     'kup-list': { data: comboListData },
                     'kup-text-field': {
@@ -1452,7 +1453,7 @@ export class KupDataTable {
             }
             const textField = document.createElement('kup-text-field');
             textField.customStyle =
-                ':host { margin: 0 0.5em 0.5em 0.5em; width: max-content; }';
+                ':host { margin: 0 0.5em 0.5em 0.5em !important; }';
             textField.helper = 'i.e.: [COL1] * [COL2] + 1';
             textField.label = this.kupManager.language.translate(
                 KupLanguageTotals.FORMULA
