@@ -158,6 +158,7 @@ import {
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1390,45 +1391,51 @@ export class KupDataTable {
             actionsList.showIcons = true;
             this.columnDropCard.appendChild(actionsList);
         }
-        if (this.enableColumnsFormula && numeric) {
-            const comboListData: KupListData[] = [
-                {
-                    text: this.kupManager.language.translate(
-                        KupLanguageTotals.AVERAGE
-                    ),
-                    value: KupLanguageTotals.AVERAGE,
-                },
-                {
-                    text: this.kupManager.language.translate(
-                        KupLanguageTotals.DIFFERENCE
-                    ),
-                    value: KupLanguageTotals.DIFFERENCE,
-                },
-                {
-                    text: this.kupManager.language.translate(
-                        KupLanguageTotals.SUM
-                    ),
-                    value: KupLanguageTotals.SUM,
-                },
-            ];
-            const combobox = document.createElement('kup-combobox');
-            combobox.customStyle = ':host { margin: 0 auto 0.5em auto; }';
-            combobox.data = {
-                'kup-list': { data: comboListData },
-                'kup-text-field': {
-                    label: this.kupManager.language.translate(
-                        KupLanguageTotals.CALCULATE
-                    ),
-                    outlined: true,
-                },
-            };
-            combobox.isSelect = true;
-            this.columnDropCard.appendChild(combobox);
+        if (this.enableColumnsFormula) {
+            if (numeric) {
+                const comboListData: KupListData[] = [
+                    {
+                        text: this.kupManager.language.translate(
+                            KupLanguageTotals.AVERAGE
+                        ),
+                        value: KupLanguageTotals.AVERAGE,
+                    },
+                    {
+                        text: this.kupManager.language.translate(
+                            KupLanguageTotals.DIFFERENCE
+                        ),
+                        value: KupLanguageTotals.DIFFERENCE,
+                    },
+                    {
+                        text: this.kupManager.language.translate(
+                            KupLanguageTotals.SUM
+                        ),
+                        value: KupLanguageTotals.SUM,
+                    },
+                ];
+                const combobox = document.createElement('kup-combobox');
+                combobox.customStyle = ':host { margin: 0 auto 0.5em auto; }';
+                combobox.data = {
+                    'kup-list': { data: comboListData },
+                    'kup-text-field': {
+                        label: this.kupManager.language.translate(
+                            KupLanguageTotals.CALCULATE
+                        ),
+                        outlined: true,
+                    },
+                };
+                combobox.isSelect = true;
+                this.columnDropCard.appendChild(combobox);
+            }
+            const textField = document.createElement('kup-text-field');
+            textField.customStyle =
+                ':host { margin: 0 auto 0.5em auto; width: max-content; }';
+            textField.helper = 'i.e.: [COL1] * [COL2] + 1';
+            textField.label = this.kupManager.language.translate(
+                KupLanguageTotals.FORMULA
+            );
+            this.columnDropCard.appendChild(textField);
         }
-
-        //const textField : HTMLKupTextFieldElement = document.createElement('kup-text-field');
-        // textField.label = 'Insert formula';
-        //this.columnDropCard.appendChild(textField);
         this.kupManager.dynamicPosition.start(
             this.columnDropCard as unknown as KupDynamicPositionElement
         );
@@ -1474,11 +1481,13 @@ export class KupDataTable {
                         this.closeDropCard();
                         break;
                     }
-                    case 'kup-textfield-submit': {
-                        // this.formulaOnColumns(
-                        //     [receiving.name, sorted.name],
-                        //     event.detail.event.detail.value
-                        // );
+                    case 'kup-textfield-change': {
+                        this.formulaOnColumns(
+                            (
+                                subcompEvent as CustomEvent<KupTextFieldEventPayload>
+                            ).detail.value
+                        );
+                        this.closeDropCard();
                         break;
                     }
                 }

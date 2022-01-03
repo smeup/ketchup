@@ -439,6 +439,7 @@ export class KupCard {
         root.addEventListener('kup-switch-change', this.cardEvent);
         root.addEventListener('kup-tabbar-click', this.cardEvent);
         root.addEventListener('kup-textfield-cleariconclick', this.cardEvent);
+        root.addEventListener('kup-textfield-change', this.cardEvent);
         root.addEventListener('kup-textfield-input', this.cardEvent);
         root.addEventListener('kup-textfield-submit', this.cardEvent);
         root.addEventListener('kup-timepicker-cleariconclick', this.cardEvent);
