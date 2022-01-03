@@ -426,6 +426,7 @@ export class KupCard {
         root.addEventListener('kup-chip-blur', this.cardEvent);
         root.addEventListener('kup-chip-click', this.cardEvent);
         root.addEventListener('kup-chip-iconclick', this.cardEvent);
+        root.addEventListener('kup-combobox-change', this.cardEvent);
         root.addEventListener('kup-combobox-itemclick', this.cardEvent);
         root.addEventListener('kup-datatable-cellupdate', this.cardEvent);
         root.addEventListener('kup-datatable-rowselected', this.cardEvent);
@@ -438,6 +439,7 @@ export class KupCard {
         root.addEventListener('kup-switch-change', this.cardEvent);
         root.addEventListener('kup-tabbar-click', this.cardEvent);
         root.addEventListener('kup-textfield-cleariconclick', this.cardEvent);
+        root.addEventListener('kup-textfield-change', this.cardEvent);
         root.addEventListener('kup-textfield-input', this.cardEvent);
         root.addEventListener('kup-textfield-submit', this.cardEvent);
         root.addEventListener('kup-timepicker-cleariconclick', this.cardEvent);

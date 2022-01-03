@@ -1116,11 +1116,12 @@ export namespace Components {
          */
         "forceOneLine": boolean;
         /**
-          * This method is used to merge two columns
-          * @param columns - Title of the first column
-          * @param mode - Mathematical operator to applay on columns param {string} formula - formula to render
+          * This method is used to apply math formulas to columns.
+          * @param operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
+          * @param columns - Column names. If missing, they will be extracted from the formula.
+          * @returns Returns the new column created or a string containing the error message if something went wrong.
          */
-        "formulaOnColumns": (columns: string[], mode: string) => Promise<string>;
+        "formulaOnColumns": (operation: string, columns?: string[]) => Promise<string | Column>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
         /**
           * Used to retrieve component's props values.
@@ -1181,9 +1182,9 @@ export namespace Components {
           * This method merges all the columns specified in the argument into a single one.
           * @param columns - Array of column names.
           * @param separator - Characters used to separate values.
-          * @returns The column resulting from the merge
+          * @returns Returns the new column created or a string containing the error message if something went wrong.
          */
-        "mergeColumns": (columns: string[], separator?: string) => Promise<Column>;
+        "mergeColumns": (columns: string[], separator?: string) => Promise<string | Column>;
         /**
           * Opens the column menu of the given column.
           * @param column - Name of the column.

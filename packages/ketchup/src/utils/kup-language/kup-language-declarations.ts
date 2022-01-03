@@ -68,6 +68,8 @@ export enum KupLanguageColumn {
     ADD_DESCRIPTION = 'columnAddDescription',
     COLUMNS = 'columnColumns',
     HIDE = 'columnHide',
+    MERGE = 'columnMerge',
+    SWAP = 'columnSwap',
 }
 /**
  * Debug widget decodes.
@@ -127,6 +129,7 @@ export enum KupLanguageGeneric {
     LAYOUT_NYI = 'genericLayoutNotYetImplemented',
     LIST = 'genericList',
     LOAD_MORE = 'genericLoadMoreData',
+    MERGE = 'genericMerge',
     MENU = 'genericMenu',
     MONTH = 'genericMonth',
     NEXT = 'genericNext',
@@ -140,6 +143,7 @@ export enum KupLanguageGeneric {
     SHOW_ROW_OPTIONS = 'genericShowRowOptions',
     SHOW_TOOLTIP_INFO = 'genericShowTooltipInfo',
     SORT_BY = 'genericSortBy',
+    SWAP = 'genericSwap',
     TOGGLE = 'genericToggle',
     TODAY = 'genericToday',
     TOTALS_TABLE = 'genericTotalsTable',
@@ -202,6 +206,7 @@ export enum KupLanguageTotals {
     CALCULATE = 'totalsCalculate',
     CANCEL = 'totalsCancel',
     COUNT = 'totalsCount',
+    DIFFERENCE = 'totalsDifference',
     DISTINCT = 'totalsDistinct',
     FORMULA = 'totalsFormula',
     MAXIMUM = 'totalsMaximum',
