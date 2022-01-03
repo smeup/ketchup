@@ -3,8 +3,15 @@ import {
     FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
+import { KupLanguageTotals } from '../../utils/kup-language/kup-language-declarations';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
+
+export const premadeFormulas = [
+    KupLanguageTotals.AVERAGE,
+    KupLanguageTotals.DIFFERENCE,
+    KupLanguageTotals.SUM,
+];
 /**
  * Props of the kup-data-table component.
  * Used to export every prop in an object.
@@ -123,11 +130,7 @@ export interface Column {
 }
 export interface ColumnChild {
     name: string;
-    obj: {
-        t: string;
-        p: string;
-        k: string;
-    };
+    obj: KupObj;
     icon?: string;
 }
 

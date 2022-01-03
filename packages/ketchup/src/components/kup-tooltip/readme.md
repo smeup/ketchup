@@ -141,14 +141,14 @@ graph TD;
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-tooltip
-  kup-dropdown-button --> kup-list
-  kup-dropdown-button --> kup-badge
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-badge
   kup-tab-bar --> kup-badge
   kup-tree --> kup-tooltip
   kup-box --> kup-tooltip

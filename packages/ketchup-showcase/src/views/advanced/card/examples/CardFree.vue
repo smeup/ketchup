@@ -24,6 +24,25 @@
         </div>
       </div>
     </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 2</span> is similar to layout 1 but
+        without padding:
+        <br />
+        <br />
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            layout-family="free"
+            layout-number="2"
+            size-x="300px"
+            :data.prop="data"
+            ><div style="margin: auto">Generic slot</div></kup-card
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

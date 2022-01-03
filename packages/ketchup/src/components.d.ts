@@ -1117,11 +1117,11 @@ export namespace Components {
          */
         "forceOneLine": boolean;
         /**
-          * This method is used to merge two columns
-          * @param columns - Title of the first column
-          * @param mode - Mathematical operator to applay on columns param {string} formula - formula to render
+          * This method is used to apply math formulas to columns.
+          * @param columns - Column names.
+          * @param operation - Mathematical operation to apply.
          */
-        "formulaOnColumns": (columns: string[], mode: string) => Promise<string>;
+        "formulaOnColumns": (columns: string[], operation: string) => Promise<void>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
         /**
           * Used to retrieve component's props values.

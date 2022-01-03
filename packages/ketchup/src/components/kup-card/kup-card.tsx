@@ -426,6 +426,7 @@ export class KupCard {
         root.addEventListener('kup-chip-blur', this.cardEvent);
         root.addEventListener('kup-chip-click', this.cardEvent);
         root.addEventListener('kup-chip-iconclick', this.cardEvent);
+        root.addEventListener('kup-combobox-change', this.cardEvent);
         root.addEventListener('kup-combobox-itemclick', this.cardEvent);
         root.addEventListener('kup-datatable-cellupdate', this.cardEvent);
         root.addEventListener('kup-datatable-rowselected', this.cardEvent);

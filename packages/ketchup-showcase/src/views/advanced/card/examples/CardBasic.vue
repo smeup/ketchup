@@ -119,7 +119,7 @@
         <br />
         <span class="code-word">free</span>: features cards which accept only
         slots as content, useful to quickly set-up a generic container or a
-        dropdown menu (1 layout).
+        dropdown menu (2 layouts).
         <br />
         <span class="code-word">scalable</span>: features cards that can fit
         their container and resize their content accordingly (8 layouts).

@@ -154,13 +154,13 @@ Type: `Promise<void>`
 
 
 
-### `formulaOnColumns(columns: string[], mode: string) => Promise<string>`
+### `formulaOnColumns(columns: string[], operation: string) => Promise<void>`
 
-This method is used to merge two columns
+This method is used to apply math formulas to columns.
 
 #### Returns
 
-Type: `Promise<string>`
+Type: `Promise<void>`
 
 
 
@@ -280,13 +280,12 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-list](../kup-list)
-- [kup-dropdown-button](../kup-dropdown-button)
+- [kup-combobox](../kup-combobox)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-button](../kup-button)
 - [kup-paginator](../kup-paginator)
 - [kup-switch](../kup-switch)
-- [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-color-picker](../kup-color-picker)
@@ -305,13 +304,12 @@ Type: `Promise<void>`
 graph TD;
   kup-data-table --> kup-card
   kup-data-table --> kup-list
-  kup-data-table --> kup-dropdown-button
+  kup-data-table --> kup-combobox
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-button
   kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
-  kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
   kup-data-table --> kup-color-picker
