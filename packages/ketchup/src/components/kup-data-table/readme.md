@@ -154,15 +154,15 @@ Type: `Promise<void>`
 
 
 
-### `formulaOnColumns(columns: string[], operation: string) => Promise<void>`
+### `formulaOnColumns(operation: string, columns?: string[]) => Promise<string | Column>`
 
 This method is used to apply math formulas to columns.
 
 #### Returns
 
-Type: `Promise<void>`
+Type: `Promise<string | Column>`
 
-
+Returns the new column created or a string containing the error message if something went wrong.
 
 ### `getInternalState() => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>`
 
@@ -184,15 +184,15 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
-### `mergeColumns(columns: string[], separator?: string) => Promise<Column>`
+### `mergeColumns(columns: string[], separator?: string) => Promise<string | Column>`
 
 This method merges all the columns specified in the argument into a single one.
 
 #### Returns
 
-Type: `Promise<Column>`
+Type: `Promise<string | Column>`
 
-The column resulting from the merge
+Returns the new column created or a string containing the error message if something went wrong.
 
 ### `openColumnMenu(column: string) => Promise<void>`
 
@@ -281,6 +281,7 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-list](../kup-list)
 - [kup-combobox](../kup-combobox)
+- [kup-text-field](../kup-text-field)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-button](../kup-button)
@@ -305,6 +306,7 @@ graph TD;
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-button
