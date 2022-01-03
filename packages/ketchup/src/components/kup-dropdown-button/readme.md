@@ -91,7 +91,6 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-button-list](../kup-button-list)
- - [kup-data-table](../kup-data-table)
 
 ### Depends on
 
@@ -107,7 +106,6 @@ graph TD;
   kup-list --> kup-badge
   kup-badge --> kup-badge
   kup-button-list --> kup-dropdown-button
-  kup-data-table --> kup-dropdown-button
   style kup-dropdown-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -154,15 +154,15 @@ Type: `Promise<void>`
 
 
 
-### `formulaOnColumns(columns: string[], mode: string) => Promise<string>`
+### `formulaOnColumns(operation: string, columns?: string[]) => Promise<string | Column>`
 
-This method is used to merge two columns
+This method is used to apply math formulas to columns.
 
 #### Returns
 
-Type: `Promise<string>`
+Type: `Promise<string | Column>`
 
-
+Returns the new column created or a string containing the error message if something went wrong.
 
 ### `getInternalState() => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>`
 
@@ -184,15 +184,15 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
-### `mergeColumns(columns: string[], separator?: string) => Promise<Column>`
+### `mergeColumns(columns: string[], separator?: string) => Promise<string | Column>`
 
 This method merges all the columns specified in the argument into a single one.
 
 #### Returns
 
-Type: `Promise<Column>`
+Type: `Promise<string | Column>`
 
-The column resulting from the merge
+Returns the new column created or a string containing the error message if something went wrong.
 
 ### `openColumnMenu(column: string) => Promise<void>`
 
@@ -280,13 +280,13 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-list](../kup-list)
-- [kup-dropdown-button](../kup-dropdown-button)
+- [kup-combobox](../kup-combobox)
+- [kup-text-field](../kup-text-field)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-button](../kup-button)
 - [kup-paginator](../kup-paginator)
 - [kup-switch](../kup-switch)
-- [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-color-picker](../kup-color-picker)
@@ -305,13 +305,13 @@ Type: `Promise<void>`
 graph TD;
   kup-data-table --> kup-card
   kup-data-table --> kup-list
-  kup-data-table --> kup-dropdown-button
+  kup-data-table --> kup-combobox
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-button
   kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
-  kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
   kup-data-table --> kup-color-picker
