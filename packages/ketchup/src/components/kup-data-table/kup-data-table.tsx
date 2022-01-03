@@ -1154,7 +1154,8 @@ export class KupDataTable {
         const titles: string[] = [];
         const objs: KupObj[] = [];
         separator = separator ? separator : ' ';
-        this.data.columns.forEach((col) => {
+        for (let index = 0; index < this.data.columns.length; index++) {
+            const col = this.data.columns[index];
             if (columns.includes(col.name)) {
                 objs.push(col.obj);
                 titles[columns.indexOf(col.name)] = col.title;
@@ -1175,7 +1176,7 @@ export class KupDataTable {
                 );
                 return;
             }
-        });
+        }
         const newName = columns.join('_');
         const newObj =
             objs.length > 0 && this.kupManager.objects.isSameKupObj(objs)
@@ -1220,16 +1221,34 @@ export class KupDataTable {
     }
     /**
      * This method is used to apply math formulas to columns.
-     * @param {string[]} columns - Column names.
-     * @param {string} operation - Mathematical operation to apply.
+     * @param {string} operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
+     * @param {string[]} columns - Column names. If missing, they will be extracted from the formula.
      */
     @Method()
-    async formulaOnColumns(columns: string[], operation: string) {
+    async formulaOnColumns(operation: string, columns?: string[]) {
+        if (!columns) {
+            columns = [];
+        }
+        if (columns.length === 0) {
+            const names = operation.split('[');
+            for (let i = 1; i < names.length; i++) {
+                columns.push(names[i].split(']')[0]);
+            }
+        }
+        if (columns.length === 0) {
+            this.kupManager.debug.logMessage(
+                this,
+                "Can't apply math formulas without columns!(" + columns + ')',
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
         const titles: string[] = [];
         const formulaRow: { [index: string]: number } = {};
         let firstColumn: Column = null;
         let formula = '';
-        this.data.columns.forEach((col) => {
+        for (let index = 0; index < this.data.columns.length; index++) {
+            const col = this.data.columns[index];
             if (columns.includes(col.name)) {
                 titles[columns.indexOf(col.name)] = col.title;
                 if (!this.kupManager.objects.isNumber(col.obj)) {
@@ -1246,7 +1265,7 @@ export class KupDataTable {
             if (columns[0] === col.name) {
                 firstColumn = col;
             }
-        });
+        }
         const newObj = { t: 'NR', p: '', k: '' };
         let newTitle = '';
         switch (operation) {
@@ -1262,6 +1281,14 @@ export class KupDataTable {
                 formula = columns.join('-');
                 newTitle = titles.join('-');
                 break;
+            default:
+                formula = operation;
+                newTitle = formula;
+                for (let i = 0; i < columns.length; i++) {
+                    const column = columns[i];
+                    let re: RegExp = new RegExp(column, 'g');
+                    newTitle = newTitle.replace(re, titles[i]);
+                }
         }
         this.data.rows.forEach((row) => {
             const cells = row.cells;
@@ -1294,9 +1321,7 @@ export class KupDataTable {
         this.data.columns.push(newColumn);
         this.refresh();
     }
-    /**
-     * Closes opened column option card.
-     */
+
     private closeDropCard() {
         this.kupManager.dynamicPosition.stop(
             this.columnDropCard as KupDynamicPositionElement
@@ -1428,10 +1453,10 @@ export class KupDataTable {
                     }
                     case 'kup-combobox-change': {
                         this.formulaOnColumns(
-                            [receiving.name, starter.name],
                             (
                                 subcompEvent as CustomEvent<KupComboboxEventPayload>
-                            ).detail.value
+                            ).detail.value,
+                            [receiving.name, starter.name]
                         );
                         this.closeDropCard();
                         break;

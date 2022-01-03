@@ -1118,10 +1118,10 @@ export namespace Components {
         "forceOneLine": boolean;
         /**
           * This method is used to apply math formulas to columns.
-          * @param columns - Column names.
-          * @param operation - Mathematical operation to apply.
+          * @param operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
+          * @param columns - Column names. If missing, they will be extracted from the formula.
          */
-        "formulaOnColumns": (columns: string[], operation: string) => Promise<void>;
+        "formulaOnColumns": (operation: string, columns?: string[]) => Promise<void>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
         /**
           * Used to retrieve component's props values.

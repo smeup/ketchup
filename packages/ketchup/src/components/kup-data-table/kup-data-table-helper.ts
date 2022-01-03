@@ -754,7 +754,7 @@ export function evaluateFormula(
     } catch (e) {
         kupManager.debug.logMessage(
             'kup-data-table-helper',
-            'Error during evaluate formula [' + formula1 + ']',
+            'Error when evaluating formula [' + formula1 + ']',
             KupDebugCategory.ERROR
         );
         return NaN;
