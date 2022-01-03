@@ -159,6 +159,7 @@ import { FCell } from '../../f-components/f-cell/f-cell';
 import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
+import { KupTextField } from '../kup-text-field/kup-text-field';
 
 @Component({
     tag: 'kup-data-table',
@@ -1139,17 +1140,22 @@ export class KupDataTable {
      * This method merges all the columns specified in the argument into a single one.
      * @param {string[]} columns - Array of column names.
      * @param {string} separator - Characters used to separate values.
-     * @returns {Column} The column resulting from the merge
+     * @returns {string|Column} Returns the new column created or a string containing the error message if something went wrong.
      */
     @Method()
-    async mergeColumns(columns: string[], separator?: string): Promise<Column> {
+    async mergeColumns(
+        columns: string[],
+        separator?: string
+    ): Promise<string | Column> {
         if (!columns || columns.length === 0) {
+            const message =
+                'Invalid array, interrupting column merging!(' + columns + ')';
             this.kupManager.debug.logMessage(
                 this,
-                'Invalid array, interrupting column merging!(' + columns + ')',
+                message,
                 KupDebugCategory.WARNING
             );
-            return;
+            return message;
         }
         let firstColumn: Column = null;
         const titles: string[] = [];
@@ -1168,14 +1174,16 @@ export class KupDataTable {
                 col.mergedFrom &&
                 col.mergedFrom.toString() === columns.toString()
             ) {
+                const message =
+                    'The product of these columns in the same order already exists!(' +
+                    columns.toString() +
+                    ')';
                 this.kupManager.debug.logMessage(
                     this,
-                    'The product of these columns in the same order already exists!(' +
-                        columns.toString() +
-                        ')',
+                    message,
                     KupDebugCategory.WARNING
                 );
-                return;
+                return message;
             }
         }
         const newName = columns.join('_');
@@ -1224,9 +1232,13 @@ export class KupDataTable {
      * This method is used to apply math formulas to columns.
      * @param {string} operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
      * @param {string[]} columns - Column names. If missing, they will be extracted from the formula.
+     * @returns {string|Column} Returns the new column created or a string containing the error message if something went wrong.
      */
     @Method()
-    async formulaOnColumns(operation: string, columns?: string[]) {
+    async formulaOnColumns(
+        operation: string,
+        columns?: string[]
+    ): Promise<string | Column> {
         if (!columns) {
             columns = [];
         }
@@ -1237,12 +1249,14 @@ export class KupDataTable {
             }
         }
         if (columns.length === 0) {
+            const message =
+                "Can't apply math formulas without columns!(" + columns + ')';
             this.kupManager.debug.logMessage(
                 this,
-                "Can't apply math formulas without columns!(" + columns + ')',
+                message,
                 KupDebugCategory.WARNING
             );
-            return;
+            return message;
         }
         const titles: string[] = [];
         const formulaRow: { [index: string]: number } = {};
@@ -1266,28 +1280,32 @@ export class KupDataTable {
             if (columns.includes(col.name)) {
                 titles[columns.indexOf(col.name)] = col.title;
                 if (!this.kupManager.objects.isNumber(col.obj)) {
+                    const message =
+                        "Can't apply math formulas on non-numerical columns!(" +
+                        columns +
+                        ')';
                     this.kupManager.debug.logMessage(
                         this,
-                        "Can't apply math formulas on non-numerical columns!(" +
-                            columns +
-                            ')',
+                        message,
                         KupDebugCategory.WARNING
                     );
-                    return;
+                    return message;
                 }
             }
             if (columns[0] === col.name) {
                 firstColumn = col;
             }
             if (col.resultOf && col.resultOf === formula) {
+                const message =
+                    'This mathematical operation on these columns was already performed!(' +
+                    formula +
+                    ')';
                 this.kupManager.debug.logMessage(
                     this,
-                    'This mathematical operation on these columns was already performed!(' +
-                        formula +
-                        ')',
+                    message,
                     KupDebugCategory.WARNING
                 );
-                return;
+                return message;
             }
         }
         let prog = 0;
@@ -1334,6 +1352,7 @@ export class KupDataTable {
         };
         this.data.columns.push(newColumn);
         this.refresh();
+        return newColumn;
     }
 
     private closeDropCard() {
@@ -1353,7 +1372,7 @@ export class KupDataTable {
         this.columnDropCard.layoutFamily = KupCardFamily.FREE;
         this.columnDropCard.layoutNumber = 2;
         this.columnDropCard.isMenu = true;
-        this.columnDropCard.sizeX = '20em';
+        this.columnDropCard.sizeX = 'auto';
         this.columnDropCard.sizeY = 'auto';
         this.kupManager.dynamicPosition.register(
             this.columnDropCard,
@@ -1414,7 +1433,7 @@ export class KupDataTable {
                     },
                 ];
                 const combobox = document.createElement('kup-combobox');
-                combobox.customStyle = ':host { margin: 0 auto 0.5em auto; }';
+                combobox.customStyle = ':host { margin: 0 0.5em 0.5em 0.5em; }';
                 combobox.data = {
                     'kup-list': { data: comboListData },
                     'kup-text-field': {
@@ -1429,7 +1448,7 @@ export class KupDataTable {
             }
             const textField = document.createElement('kup-text-field');
             textField.customStyle =
-                ':host { margin: 0 auto 0.5em auto; width: max-content; }';
+                ':host { margin: 0 0.5em 0.5em 0.5em; width: max-content; }';
             textField.helper = 'i.e.: [COL1] * [COL2] + 1';
             textField.label = this.kupManager.language.translate(
                 KupLanguageTotals.FORMULA
@@ -1486,8 +1505,22 @@ export class KupDataTable {
                             (
                                 subcompEvent as CustomEvent<KupTextFieldEventPayload>
                             ).detail.value
-                        );
-                        this.closeDropCard();
+                        ).then((res) => {
+                            if (
+                                typeof res === 'string' ||
+                                res instanceof String
+                            ) {
+                                const textField = (
+                                    subcompEvent as CustomEvent<KupTextFieldEventPayload>
+                                ).detail.comp as KupTextField;
+                                textField.rootElement.classList.add(
+                                    'kup-danger'
+                                );
+                                textField.helper = res as string;
+                            } else {
+                                this.closeDropCard();
+                            }
+                        });
                         break;
                     }
                 }
