@@ -1247,6 +1247,19 @@ export class KupDataTable {
         const formulaRow: { [index: string]: number } = {};
         let firstColumn: Column = null;
         let formula = '';
+        switch (operation) {
+            case KupLanguageTotals.SUM:
+                formula = columns.join(' + ');
+                break;
+            case KupLanguageTotals.AVERAGE:
+                formula = `(${columns.join(' + ')}) / ${columns.length}`;
+                break;
+            case KupLanguageTotals.DIFFERENCE:
+                formula = columns.join(' - ');
+                break;
+            default:
+                formula = operation;
+        }
         for (let index = 0; index < this.data.columns.length; index++) {
             const col = this.data.columns[index];
             if (columns.includes(col.name)) {
@@ -1265,30 +1278,29 @@ export class KupDataTable {
             if (columns[0] === col.name) {
                 firstColumn = col;
             }
+            if (col.resultOf && col.resultOf === formula) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'This mathematical operation on these columns was already performed!(' +
+                        formula +
+                        ')',
+                    KupDebugCategory.WARNING
+                );
+                return;
+            }
         }
+        let prog = 0;
+        let newName = 'MATH_';
+        while (getColumnByName(this.data.columns, newName + prog)) {
+            prog++;
+        }
+        newName = newName + prog;
         const newObj = { t: 'NR', p: '', k: '' };
-        let newTitle = '';
-        switch (operation) {
-            case KupLanguageTotals.SUM:
-                formula = columns.join('+');
-                newTitle = titles.join('+');
-                break;
-            case KupLanguageTotals.AVERAGE:
-                formula = `(${columns.join('+')})/${columns.length}`;
-                newTitle = `(${titles.join('+')})/${titles.length}`;
-                break;
-            case KupLanguageTotals.DIFFERENCE:
-                formula = columns.join('-');
-                newTitle = titles.join('-');
-                break;
-            default:
-                formula = operation;
-                newTitle = formula;
-                for (let i = 0; i < columns.length; i++) {
-                    const column = columns[i];
-                    let re: RegExp = new RegExp(column, 'g');
-                    newTitle = newTitle.replace(re, titles[i]);
-                }
+        let newTitle = formula;
+        for (let i = 0; i < columns.length; i++) {
+            const column = columns[i];
+            let re: RegExp = new RegExp(column, 'g');
+            newTitle = newTitle.replace(re, titles[i]);
         }
         this.data.rows.forEach((row) => {
             const cells = row.cells;
@@ -1305,7 +1317,7 @@ export class KupDataTable {
                     }
                 }
             }
-            cells[formula] = {
+            cells[newName] = {
                 ...base,
                 displayedValue: null,
                 obj: newObj,
@@ -1314,9 +1326,10 @@ export class KupDataTable {
         });
         const newColumn: Column = {
             ...firstColumn,
-            name: formula,
+            name: newName,
             title: newTitle,
             obj: newObj,
+            resultOf: formula,
         };
         this.data.columns.push(newColumn);
         this.refresh();
