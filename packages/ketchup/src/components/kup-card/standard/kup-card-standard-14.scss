@@ -114,6 +114,8 @@
 
   #apply {
     display: none;
+    margin: auto;
+
     &.visible {
       display: block;
     }
