@@ -1022,6 +1022,14 @@ export function create14(component: KupCard): VNode {
             switchesIds.push(switchEl['id']);
         }
     }
+    // Setting up text fields.
+    const textfieldsIds: string[] = [];
+    for (let index = 0; index < textfieldArray.length; index++) {
+        const textfield: GenericObject = textfieldArray[index];
+        if (textfield['id']) {
+            textfieldsIds.push(textfield['id']);
+        }
+    }
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
             {objectArray[0] ? (
@@ -1086,14 +1094,12 @@ export function create14(component: KupCard): VNode {
                                 ) : null}
                             </div>
                         ) : null}
-
                         {textArray[1] && textArray[2] ? (
                             <div class="info">
                                 <span class="label">{textArray[1]}</span>
                                 <span class="value">{textArray[2]}</span>
                             </div>
                         ) : null}
-
                         {textArray[3] && textArray[4] ? (
                             <div class="info">
                                 <span class="label">{textArray[3]}</span>
@@ -1134,9 +1140,39 @@ export function create14(component: KupCard): VNode {
                             {datepickerArray.length > 0
                                 ? compList(datepickerArray, 'datepicker')
                                 : null}
-                            {textfieldArray.length > 0
-                                ? compList(textfieldArray, 'textfield')
-                                : null}
+                            {textfieldsIds.includes(
+                                KupColumnMenuIds.TEXTFIELD_FILTER
+                            ) ? (
+                                <kup-text-field
+                                    {...textfieldArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.TEXTFIELD_FILTER
+                                    )}
+                                />
+                            ) : null}
+                            {textfieldsIds.includes(
+                                KupColumnMenuIds.TEXTFIELD_FROM
+                            ) ? (
+                                <kup-text-field
+                                    {...textfieldArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.TEXTFIELD_FROM
+                                    )}
+                                />
+                            ) : null}
+                            {textfieldsIds.includes(
+                                KupColumnMenuIds.TEXTFIELD_TO
+                            ) ? (
+                                <kup-text-field
+                                    {...textfieldArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.TEXTFIELD_TO
+                                    )}
+                                />
+                            ) : null}
                             {timepickerArray.length > 0
                                 ? compList(timepickerArray, 'timepicker')
                                 : null}
@@ -1178,6 +1214,19 @@ export function create14(component: KupCard): VNode {
                                         (x) =>
                                             x.id ===
                                             KupColumnMenuIds.BUTTON_GROUP
+                                    )}
+                                />
+                            ) : null}
+                        </div>
+                        <div class="sub-formula">
+                            {textfieldsIds.includes(
+                                KupColumnMenuIds.TEXTFIELD_FORMULA
+                            ) ? (
+                                <kup-text-field
+                                    {...textfieldArray.find(
+                                        (x) =>
+                                            x.id ===
+                                            KupColumnMenuIds.TEXTFIELD_FORMULA
                                     )}
                                 />
                             ) : null}

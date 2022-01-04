@@ -1460,6 +1460,7 @@ export class KupDataTable {
             textField.customStyle =
                 ':host { margin: 0 0.5em 0.5em 0.5em; width: max-content; }';
             textField.helper = 'i.e.: [COL1] * [COL2] + 1';
+            textField.icon = "functions";
             textField.label = this.kupManager.language.translate(
                 KupLanguageTotals.FORMULA
             );
