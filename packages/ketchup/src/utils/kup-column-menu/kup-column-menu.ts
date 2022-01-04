@@ -240,7 +240,7 @@ export class KupColumnMenu {
                 className: 'printable',
                 label: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
                 id: KupColumnMenuIds.BUTTON_APPLY,
-                styling: FButtonStyling.FLAT,
+                styling: FButtonStyling.OUTLINED,
                 title: dom.ketchup.language.translate(KupLanguageGeneric.APPLY),
             });
         }
