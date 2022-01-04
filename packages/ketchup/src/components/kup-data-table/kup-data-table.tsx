@@ -1224,7 +1224,11 @@ export class KupDataTable {
             obj: newObj,
             mergedFrom: columns,
         };
-        this.data.columns.push(newColumn);
+        this.data.columns.splice(
+            this.data.columns.indexOf(firstColumn) + 1,
+            0,
+            newColumn
+        );
         this.refresh();
         return newColumn;
     }
@@ -1314,7 +1318,7 @@ export class KupDataTable {
             prog++;
         }
         newName = newName + prog;
-        const newObj = { t: 'NR', p: '', k: '' };
+        const newObj = firstColumn.obj;
         let newTitle = formula;
         for (let i = 0; i < columns.length; i++) {
             const column = columns[i];
@@ -1350,7 +1354,12 @@ export class KupDataTable {
             obj: newObj,
             resultOf: formula,
         };
-        this.data.columns.push(newColumn);
+        this.data.columns.splice(
+            this.data.columns.indexOf(firstColumn) + 1,
+            0,
+            newColumn
+        );
+        console.log('here');
         this.refresh();
         return newColumn;
     }
@@ -1397,9 +1406,9 @@ export class KupDataTable {
         if (this.enableSortableColumns) {
             listData.push({
                 text: this.kupManager.language.translate(
-                    KupLanguageGeneric.SWAP
+                    KupLanguageGeneric.MOVE
                 ),
-                value: KupLanguageGeneric.SWAP,
+                value: KupLanguageGeneric.MOVE,
                 icon: 'swap_horiz',
             });
         }
@@ -1483,7 +1492,7 @@ export class KupDataTable {
                                     starter.name,
                                 ]);
                                 break;
-                            case KupLanguageGeneric.SWAP:
+                            case KupLanguageGeneric.MOVE:
                                 this.handleColumnSort(receiving, starter);
                                 break;
                         }
@@ -2432,7 +2441,11 @@ export class KupDataTable {
         let path: HTMLElement[] = [];
 
         let currentEl: unknown = e.target as HTMLElement;
-        while (currentEl !== this.rootElement && currentEl !== document.body) {
+        while (
+            currentEl &&
+            currentEl !== this.rootElement &&
+            currentEl !== document.body
+        ) {
             path.push(currentEl as HTMLElement);
             currentEl = (currentEl as HTMLElement).parentNode
                 ? (currentEl as HTMLElement).parentNode
@@ -3870,6 +3883,7 @@ export class KupDataTable {
                         data-column={column.name}
                         class={columnClass}
                         style={thStyle}
+                        title={column.name}
                     >
                         <div class="header-cell__content">
                             <span class="header-cell__title">

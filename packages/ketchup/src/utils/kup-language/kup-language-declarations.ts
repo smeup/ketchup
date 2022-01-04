@@ -132,6 +132,7 @@ export enum KupLanguageGeneric {
     MERGE = 'genericMerge',
     MENU = 'genericMenu',
     MONTH = 'genericMonth',
+    MOVE = 'genericMove',
     NEXT = 'genericNext',
     OPEN_NAVIGATION_MENU = 'genericOpenNavigationMenu',
     OPEN_IN_NEW_TAB = 'genericOpenInNewTab',
