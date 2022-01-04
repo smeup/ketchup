@@ -1208,12 +1208,13 @@ export class KupDataTable {
                     }
                 }
             }
+            const value = values.join(separator);
             if (values.length > 0) {
                 cells[newName] = {
                     ...base,
                     displayedValue: null,
-                    obj: newObj,
-                    value: values.join(separator),
+                    obj: newObj ?  { ...newObj, k: value } : null,
+                    value: value,
                 };
             }
         });
@@ -1340,11 +1341,12 @@ export class KupDataTable {
                     }
                 }
             }
+            const value = evaluateFormula(formula, formulaRow).toString();
             cells[newName] = {
                 ...base,
                 displayedValue: null,
-                obj: newObj,
-                value: evaluateFormula(formula, formulaRow).toString(),
+                obj: { ...newObj, k: value },
+                value: value,
             };
         });
         const newColumn: Column = {
@@ -1359,7 +1361,6 @@ export class KupDataTable {
             0,
             newColumn
         );
-        console.log('here');
         this.refresh();
         return newColumn;
     }

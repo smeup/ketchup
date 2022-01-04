@@ -8,20 +8,32 @@
             content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
         />
 
-        <title>Ketchup card</title>
+        <title>Debug</title>
 
         <script type="module" src="/build/ketchup.esm.js"></script>
         <script nomodule src="/build/ketchup.js"></script>
-
-        <link
-            href="https://fonts.googleapis.com/css?family=Lato"
-            rel="stylesheet"
-        />
 
         <script
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"
         ></script>
+
+        <script>
+            if (google) {
+                google.charts.load('45.2', {
+                    packages: [
+                        'corechart',
+                        'gantt',
+                        'gauge',
+                        'geochart',
+                        'calendar',
+                        'sankey',
+                        'treemap',
+                    ],
+                    language: 'en',
+                });
+            }
+        </script>
         <style>
             * {
                 box-sizing: border-box;
