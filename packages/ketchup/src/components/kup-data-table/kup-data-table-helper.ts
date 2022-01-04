@@ -749,6 +749,7 @@ export function evaluateFormula(
             formula1 = formula1.replace(re, value.toString());
         }
     }
+    formula1 = formula1.replace(/[\[\]']+/g, '');
     try {
         return evaluateString(formula1);
     } catch (e) {
