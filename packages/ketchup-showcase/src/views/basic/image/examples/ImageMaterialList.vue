@@ -5328,6 +5328,14 @@
             ></kup-image>
             <div class="icon-label">school</div>
           </div>
+          <div class="icon-wrapper" title="science">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="science"
+            ></kup-image>
+            <div class="icon-label">science</div>
+          </div>
           <div class="icon-wrapper" title="screen_lock_landscape">
             <kup-image
               size-x="48px"

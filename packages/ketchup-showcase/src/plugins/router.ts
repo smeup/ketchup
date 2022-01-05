@@ -264,6 +264,26 @@ let frameworkRoutes = [
     name: 'kup-manager',
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),
   },
+  {
+    path: `/kup-objects`,
+    name: 'kup-objects',
+    component: () => import(`@/views/framework/kup-objects/KupObjects.vue`),
+  },
+  {
+    path: `/kup-search`,
+    name: 'kup-search',
+    component: () => import(`@/views/framework/kup-search/KupSearch.vue`),
+  },
+  {
+    path: `/kup-theme`,
+    name: 'kup-theme',
+    component: () => import(`@/views/framework/kup-theme/KupTheme.vue`),
+  },
+  {
+    path: `/kup-toolbar`,
+    name: 'kup-toolbar',
+    component: () => import(`@/views/framework/kup-toolbar/KupToolbar.vue`),
+  },
 ];
 
 const routes = [

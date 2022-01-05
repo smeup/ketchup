@@ -749,7 +749,7 @@ export default {
                 value: 'kup-interact',
               },
             },
-            icon: 'tablet',
+            icon: 'touch_app',
             value: 'KupInteract',
             visible: true,
           },
@@ -763,9 +763,49 @@ export default {
             value: 'KupLanguage',
             visible: true,
           },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-objects',
+              },
+            },
+            icon: 'tag',
+            value: 'KupObjects',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-search',
+              },
+            },
+            icon: 'magnify',
+            value: 'KupSearch',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-theme',
+              },
+            },
+            icon: 'style',
+            value: 'KupTheme',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-toolbar',
+              },
+            },
+            icon: 'wrench',
+            value: 'KupToolbar',
+            visible: true,
+          },
         ],
         expandable: true,
-        icon: 'json',
+        icon: 'web',
         isExpanded: false,
         value: 'Framework',
         visible: true,
