@@ -320,7 +320,7 @@ export class KupDates {
         this.managedComponents.add(component.rootElement);
     }
     /**
-     * Unregisters a KupComponent, so it won't be handled when the locale changes.
+     * Unregisters a KupComponent, so it won't be refreshed when the locale changes.
      *
      * @param {any} component - The component calling this function.
      */

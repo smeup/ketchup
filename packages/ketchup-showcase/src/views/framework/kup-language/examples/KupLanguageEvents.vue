@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p> </p>
+      <p>
+        <span class="code-word">kup-language-change</span> - fired when the
+        language is changed.</p
+      >
     </div>
   </div>
 </template>

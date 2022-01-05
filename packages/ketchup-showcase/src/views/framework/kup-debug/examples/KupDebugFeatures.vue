@@ -37,6 +37,7 @@
           <kup-button
             icon="bug"
             label="Toggle debug"
+            styling="outlined"
             @kup-button-click="toggleDebug()"
           ></kup-button>
         </div>

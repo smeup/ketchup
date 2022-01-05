@@ -23,7 +23,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-combobox
-            id="language-selector"
+            id="locale-selector"
             is-select
             @kup-combobox-change="updateLocale"
           ></kup-combobox>
@@ -142,7 +142,7 @@
       </p>
       <p>
         <span class="code-word">unregister(component): void</span><br />
-        Unregisters a KupComponent, so it won't be handled when the locale
+        Unregisters a KupComponent, so it won't be refreshed when the locale
         changes.<br /><br />
         - <strong>component (any)</strong> - The Ketchup component to be
         unregistered.<br />
@@ -177,7 +177,7 @@ export default {
      * Initializes Vue component's variables.
      */
     initVariables(): void {
-      combobox = document.querySelector('#language-selector');
+      combobox = document.querySelector('#locale-selector');
       dateField = document.querySelector('#date-field');
       formatField = document.querySelector('#format-field');
       normalizeField = document.querySelector('#normalize-field');
@@ -285,7 +285,7 @@ export default {
   margin: 0.5em;
 }
 
-#language-selector {
+#locale-selector {
   margin-right: 1em;
 }
 </style>
