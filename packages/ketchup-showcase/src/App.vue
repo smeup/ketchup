@@ -771,7 +771,7 @@ export default {
             },
             icon: 'tag',
             value: 'KupObjects',
-            visible: true,
+            visible: false,
           },
           {
             cells: {
@@ -781,7 +781,7 @@ export default {
             },
             icon: 'magnify',
             value: 'KupSearch',
-            visible: true,
+            visible: false,
           },
           {
             cells: {
@@ -801,7 +801,7 @@ export default {
             },
             icon: 'wrench',
             value: 'KupToolbar',
-            visible: true,
+            visible: false,
           },
         ],
         expandable: true,

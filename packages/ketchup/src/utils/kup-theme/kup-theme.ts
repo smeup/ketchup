@@ -40,6 +40,81 @@ export class KupTheme {
             .appendChild(document.createElement('style'));
     }
     /**
+     * Sets the CSS variables of the theme.
+     */
+    private imports(): string {
+        const imports: string[] = this.list[this.name].imports
+            ? this.list[this.name].imports
+            : [];
+        let css: string = '';
+        for (let index = 0; index < imports.length; index++) {
+            css += '@import ' + imports[index] + ';';
+        }
+        return css;
+    }
+    /**
+     * Sets the CSS variables of the theme.
+     */
+    private cssVariables(): string {
+        const variables: KupThemeCSSVariables =
+            this.list[this.name].cssVariables;
+        let css: string = '';
+        for (let key in variables) {
+            if (variables.hasOwnProperty(key)) {
+                const val: string = variables[key];
+                this.cssVars[key] = val;
+                css += key + ': ' + val + ';';
+                if (key.indexOf('color') > -1) {
+                    const computedColor: KupThemeColor = this.colorCheck(val);
+                    const rgbKey: string = key + '-rgb';
+                    const hKey: string = key + '-h';
+                    const sKey: string = key + '-s';
+                    const lKey: string = key + '-l';
+                    const rgbVal: string = computedColor.rgbValues;
+                    const hue: string = computedColor.hue;
+                    const saturation: string = computedColor.saturation;
+                    const lightness: string = computedColor.lightness;
+                    this.cssVars[rgbKey] = rgbVal;
+                    this.cssVars[hKey] = hue;
+                    this.cssVars[lKey] = lightness;
+                    this.cssVars[sKey] = saturation;
+                    css += rgbKey + ': ' + rgbVal + ';';
+                    css += hKey + ': ' + hue + ';';
+                    css += lKey + ': ' + lightness + ';';
+                    css += sKey + ': ' + saturation + ';';
+                }
+            }
+        }
+        return css;
+    }
+    /**
+     * Sets the icon variables of the theme.
+     */
+    private icons(): string {
+        const icons: KupThemeIcons = this.list[this.name].icons;
+        let css: string = '';
+        for (var key in icons) {
+            if (icons.hasOwnProperty(key)) {
+                const val = `url('${getAssetPath(
+                    `./assets/svg/${icons[key]}.svg`
+                )}') no-repeat center`;
+                this.cssVars[key] = val;
+                css += key + ': ' + val + ';';
+            }
+        }
+        return css;
+    }
+    /**
+     * Refreshed managed components to apply theme customStyles.
+     */
+    private customStyle(): void {
+        this.managedComponents.forEach(function (comp) {
+            if (comp.isConnected) {
+                comp.refresh();
+            }
+        });
+    }
+    /**
      * Sets the theme using this.name or the function's argument.
      * @param {string} name - When present, this theme will be set.
      */
@@ -78,94 +153,17 @@ export class KupTheme {
         document.dispatchEvent(new CustomEvent('kup-theme-change'));
     }
     /**
-     * Gets the name of available themes (filters out themes named "test").
+     * Gets the name of available themes.
      * @returns {Array<string>} Array of themes' names.
      */
     getThemes(): Array<string> {
         const themes: Array<string> = [];
         for (var key in this.list) {
             if (this.list.hasOwnProperty(key)) {
-                if (key !== 'test') {
-                    themes.push(key);
-                }
+                themes.push(key);
             }
         }
         return themes;
-    }
-    /**
-     * Sets the CSS variables of the theme.
-     */
-    imports(): string {
-        const imports: string[] = this.list[this.name].imports
-            ? this.list[this.name].imports
-            : [];
-        let css: string = '';
-        for (let index = 0; index < imports.length; index++) {
-            css += '@import ' + imports[index] + ';';
-        }
-        return css;
-    }
-    /**
-     * Sets the CSS variables of the theme.
-     */
-    cssVariables(): string {
-        const variables: KupThemeCSSVariables =
-            this.list[this.name].cssVariables;
-        let css: string = '';
-        for (let key in variables) {
-            if (variables.hasOwnProperty(key)) {
-                const val: string = variables[key];
-                this.cssVars[key] = val;
-                css += key + ': ' + val + ';';
-                if (key.indexOf('color') > -1) {
-                    const computedColor: KupThemeColor = this.colorCheck(val);
-                    const rgbKey: string = key + '-rgb';
-                    const hKey: string = key + '-h';
-                    const sKey: string = key + '-s';
-                    const lKey: string = key + '-l';
-                    const rgbVal: string = computedColor.rgbValues;
-                    const hue: string = computedColor.hue;
-                    const saturation: string = computedColor.saturation;
-                    const lightness: string = computedColor.lightness;
-                    this.cssVars[rgbKey] = rgbVal;
-                    this.cssVars[hKey] = hue;
-                    this.cssVars[lKey] = lightness;
-                    this.cssVars[sKey] = saturation;
-                    css += rgbKey + ': ' + rgbVal + ';';
-                    css += hKey + ': ' + hue + ';';
-                    css += lKey + ': ' + lightness + ';';
-                    css += sKey + ': ' + saturation + ';';
-                }
-            }
-        }
-        return css;
-    }
-    /**
-     * Sets the icon variables of the theme.
-     */
-    icons(): string {
-        const icons: KupThemeIcons = this.list[this.name].icons;
-        let css: string = '';
-        for (var key in icons) {
-            if (icons.hasOwnProperty(key)) {
-                const val = `url('${getAssetPath(
-                    `./assets/svg/${icons[key]}.svg`
-                )}') no-repeat center`;
-                this.cssVars[key] = val;
-                css += key + ': ' + val + ';';
-            }
-        }
-        return css;
-    }
-    /**
-     * Refreshed managed components to apply theme customStyles.
-     */
-    customStyle(): void {
-        this.managedComponents.forEach(function (comp) {
-            if (comp.isConnected) {
-                comp.refresh();
-            }
-        });
     }
     /**
      * This method will just refresh the current theme.
@@ -194,14 +192,14 @@ export class KupTheme {
         }
     }
     /**
-     * Registers a KupComponent in KupTheme, in order to be properly handled whenever the theme changes.
+     * Registers a KupComponent in KupTheme, in order to be properly refreshed whenever the theme changes.
      * @param {any} comp - The component calling this function.
      */
     register(comp: any): void {
         this.managedComponents.add(comp.rootElement);
     }
     /**
-     * Unregisters a KupComponent, so it won't be handled when the theme changes.
+     * Unregisters a KupComponent, so it won't be refreshed when the theme changes.
      * @param {any} comp - The component calling this function.
      */
     unregister(comp: any): void {
