@@ -10,7 +10,7 @@
 
 <script>
 import KupToolbarBasic from '@/views/framework/kup-toolbar/examples/KupToolbarBasic';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupToolbarBasic,

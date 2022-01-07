@@ -10,7 +10,7 @@
 
 <script>
 import KupSearchBasic from '@/views/framework/kup-search/examples/KupSearchBasic';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupSearchBasic,

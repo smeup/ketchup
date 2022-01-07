@@ -18,7 +18,7 @@
 import KupDatesBasic from '@/views/framework/kup-dates/examples/KupDatesBasic';
 import KupDatesEvents from '@/views/framework/kup-dates/examples/KupDatesEvents';
 import KupDatesFeatures from '@/views/framework/kup-dates/examples/KupDatesFeatures';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupDatesBasic,

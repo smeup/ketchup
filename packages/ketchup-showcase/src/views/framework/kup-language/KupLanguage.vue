@@ -18,7 +18,7 @@
 import KupLanguageBasic from '@/views/framework/kup-language/examples/KupLanguageBasic';
 import KupLanguageEvents from '@/views/framework/kup-language/examples/KupLanguageEvents';
 import KupLanguageFeatures from '@/views/framework/kup-language/examples/KupLanguageFeatures';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupLanguageBasic,

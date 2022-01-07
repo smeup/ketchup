@@ -16,7 +16,7 @@
 import ThemingBasic from '@/views/css/theming/examples/ThemingBasic';
 import ThemingTemplates from '@/views/css/theming/examples/ThemingTemplates';
 import ThemingMaker from '@/views/css/theming/examples/ThemingMaker';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 
 export default {
   components: {

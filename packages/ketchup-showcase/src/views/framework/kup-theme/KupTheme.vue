@@ -18,7 +18,7 @@
 import KupThemeBasic from '@/views/framework/kup-theme/examples/KupThemeBasic';
 import KupThemeEvents from '@/views/framework/kup-theme/examples/KupThemeEvents';
 import KupThemeFeatures from '@/views/framework/kup-theme/examples/KupThemeFeatures';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupThemeBasic,

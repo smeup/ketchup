@@ -16,7 +16,7 @@
 import CustomizationBasic from '@/views/css/customization/examples/CustomizationBasic';
 import CustomizationVariables from '@/views/css/customization/examples/CustomizationVariables';
 import CustomizationExamples from '@/views/css/customization/examples/CustomizationExamples';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 
 export default {
   components: {

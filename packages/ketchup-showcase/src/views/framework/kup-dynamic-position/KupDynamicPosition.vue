@@ -14,7 +14,7 @@
 <script>
 import KupDynamicPositionBasic from '@/views/framework/kup-dynamic-position/examples/KupDynamicPositionBasic';
 import KupDynamicPositionFeatures from '@/views/framework/kup-dynamic-position/examples/KupDynamicPositionFeatures';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupDynamicPositionBasic,

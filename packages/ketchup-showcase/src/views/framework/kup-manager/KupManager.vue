@@ -22,7 +22,7 @@ import KupManagerBasic from '@/views/framework/kup-manager/examples/KupManagerBa
 import KupManagerInit from '@/views/framework/kup-manager/examples/KupManagerInit';
 import KupManagerFeatures from '@/views/framework/kup-manager/examples/KupManagerFeatures';
 import KupManagerEvents from '@/views/framework/kup-manager/examples/KupManagerEvents';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupManagerBasic,

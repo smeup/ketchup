@@ -18,7 +18,7 @@
 import KupInteractBasic from '@/views/framework/kup-interact/examples/KupInteractBasic';
 import KupInteractEvents from '@/views/framework/kup-interact/examples/KupInteractEvents';
 import KupInteractFeatures from '@/views/framework/kup-interact/examples/KupInteractFeatures';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupInteractBasic,

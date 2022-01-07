@@ -10,7 +10,7 @@
 
 <script>
 import KupObjectsBasic from '@/views/framework/kup-objects/examples/KupObjectsBasic';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupObjectsBasic,

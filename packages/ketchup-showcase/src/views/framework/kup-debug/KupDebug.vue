@@ -18,7 +18,7 @@
 import KupDebugBasic from '@/views/framework/kup-debug/examples/KupDebugBasic';
 import KupDebugEvents from '@/views/framework/kup-debug/examples/KupDebugEvents';
 import KupDebugFeatures from '@/views/framework/kup-debug/examples/KupDebugFeatures';
-import Comp from '@/views/advanced/page/templates/Comp';
+import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupDebugBasic,
