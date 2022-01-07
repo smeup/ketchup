@@ -34,5 +34,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Single line'],
     };
   },
+  title: 'Ketchup | Grid',
 };
 </script>

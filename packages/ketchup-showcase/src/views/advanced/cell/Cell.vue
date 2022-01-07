@@ -39,5 +39,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Standard', 'Cell classes'],
     };
   },
+  title: 'Ketchup | Cell',
 };
 </script>

@@ -80,5 +80,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | Card',
 };
 </script>

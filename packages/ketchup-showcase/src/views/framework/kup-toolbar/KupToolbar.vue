@@ -24,5 +24,6 @@ export default {
       titles: ['Under development'],
     };
   },
+  title: 'Ketchup | KupToolbar',
 };
 </script>

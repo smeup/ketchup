@@ -34,5 +34,6 @@ export default {
       titles: ['What is it?', 'Features', 'Events'],
     };
   },
+  title: 'Ketchup | KupDates',
 };
 </script>

@@ -31,5 +31,6 @@ export default {
       titles: ['Playground', 'Basic Usage'],
     };
   },
+  title: 'Ketchup | Dash list',
 };
 </script>

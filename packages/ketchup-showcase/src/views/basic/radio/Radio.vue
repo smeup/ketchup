@@ -37,5 +37,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Styling', 'Disabled'],
     };
   },
+  title: 'Ketchup | Radio',
 };
 </script>

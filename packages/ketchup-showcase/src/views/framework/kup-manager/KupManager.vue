@@ -39,5 +39,6 @@ export default {
       titles: ['What is it?', 'Initialization', 'Features', 'Events'],
     };
   },
+  title: 'Ketchup | KupManager',
 };
 </script>

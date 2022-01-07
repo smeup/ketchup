@@ -115,5 +115,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | Chart',
 };
 </script>

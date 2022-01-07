@@ -37,5 +37,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Adding labels', 'Disabled'],
     };
   },
+  title: 'Ketchup | Switch',
 };
 </script>

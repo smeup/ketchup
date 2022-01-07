@@ -103,5 +103,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | Box',
 };
 </script>

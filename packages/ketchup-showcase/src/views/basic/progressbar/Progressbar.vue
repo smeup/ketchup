@@ -38,5 +38,6 @@ export default {
       titles: ['Playground', ' Basic usage', 'Styling', 'Radial variant'],
     };
   },
+  title: 'Ketchup | Progress bar',
 };
 </script>

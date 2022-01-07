@@ -54,5 +54,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | Button',
 };
 </script>

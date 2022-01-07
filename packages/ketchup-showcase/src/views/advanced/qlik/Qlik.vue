@@ -34,5 +34,6 @@ export default {
       titles: ['Examples', 'Basic usage', 'Properties'],
     };
   },
+  title: 'Ketchup | Qlik',
 };
 </script>

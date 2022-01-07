@@ -50,5 +50,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | List',
 };
 </script>

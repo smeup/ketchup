@@ -56,5 +56,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | Image',
 };
 </script>

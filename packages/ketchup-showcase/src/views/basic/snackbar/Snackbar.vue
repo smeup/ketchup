@@ -26,5 +26,6 @@ export default {
       titles: ['Playground', 'Basic usage'],
     };
   },
+  title: 'Ketchup | Snackbar',
 };
 </script>

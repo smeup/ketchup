@@ -32,5 +32,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Disabled'],
     };
   },
+  title: 'Ketchup | Rating',
 };
 </script>

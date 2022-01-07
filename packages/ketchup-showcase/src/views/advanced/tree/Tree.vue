@@ -43,5 +43,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | Tree',
 };
 </script>

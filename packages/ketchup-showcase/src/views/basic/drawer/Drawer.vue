@@ -39,5 +39,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Classes', 'Events'],
     };
   },
+  title: 'Ketchup | Drawer',
 };
 </script>

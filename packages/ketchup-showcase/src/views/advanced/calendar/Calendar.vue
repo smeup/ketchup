@@ -38,5 +38,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Styling', 'Event customization'],
     };
   },
+  title: 'Ketchup | Calendar',
 };
 </script>

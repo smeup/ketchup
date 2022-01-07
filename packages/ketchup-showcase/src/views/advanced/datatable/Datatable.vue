@@ -213,5 +213,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | Data table',
 };
 </script>

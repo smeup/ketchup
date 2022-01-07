@@ -29,5 +29,6 @@ export default {
       titles: ['What is it?', 'Features'],
     };
   },
+  title: 'Ketchup | KupDynamicPosition',
 };
 </script>

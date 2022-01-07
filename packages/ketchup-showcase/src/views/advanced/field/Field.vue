@@ -48,5 +48,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Styling', 'Cmb', 'Itx', 'Rad'],
     };
   },
+  title: 'Ketchup | Field',
 };
 </script>

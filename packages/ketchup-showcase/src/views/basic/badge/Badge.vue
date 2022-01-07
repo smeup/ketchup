@@ -34,5 +34,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Styling'],
     };
   },
+  title: 'Ketchup | Badge',
 };
 </script>

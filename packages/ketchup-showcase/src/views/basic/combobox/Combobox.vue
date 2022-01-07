@@ -29,5 +29,6 @@ export default {
       titles: ['Playground', 'Basic usage'],
     };
   },
+  title: 'Ketchup | Combobox',
 };
 </script>

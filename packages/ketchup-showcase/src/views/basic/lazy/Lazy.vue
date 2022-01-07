@@ -34,5 +34,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Placeholder example'],
     };
   },
+  title: 'Ketchup | Lazy',
 };
 </script>

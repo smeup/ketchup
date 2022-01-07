@@ -48,5 +48,6 @@ export default {
       ],
     };
   },
+  title: 'Ketchup | Chip',
 };
 </script>

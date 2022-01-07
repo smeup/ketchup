@@ -43,5 +43,6 @@ export default {
       titles: ['Playground', 'Basic usage', 'Box', 'Tree', 'Data Table'],
     };
   },
+  title: 'Ketchup | Tooltip',
 };
 </script>

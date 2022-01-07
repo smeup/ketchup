@@ -43,5 +43,6 @@ export default {
       titles: ['Basic usage', 'Properties', 'Layouts', 'Events', 'Dynamism'],
     };
   },
+  title: 'Ketchup | Dash',
 };
 </script>
