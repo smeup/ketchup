@@ -749,6 +749,16 @@ export default {
           {
             cells: {
               ROUTE: {
+                value: 'kup-scroll-on-hover',
+              },
+            },
+            icon: 'compare_arrows',
+            value: 'KupScrollOnHover',
+            visible: false,
+          },
+          {
+            cells: {
+              ROUTE: {
                 value: 'kup-search',
               },
             },

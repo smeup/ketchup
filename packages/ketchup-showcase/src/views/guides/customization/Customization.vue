@@ -31,5 +31,6 @@ export default {
       titles: ['customStyle prop', 'Using variables', 'Additional examples'],
     };
   },
+  title: 'Ketchup | CSS Customization',
 };
 </script>

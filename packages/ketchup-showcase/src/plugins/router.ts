@@ -282,6 +282,12 @@ const frameworkRoutes = [
     component: () => import(`@/views/framework/kup-search/KupSearch.vue`),
   },
   {
+    path: `/kup-scroll-on-hover`,
+    name: 'kup-scroll-on-hover',
+    component: () =>
+      import(`@/views/framework/kup-scroll-on-hover/KupScrollOnHover.vue`),
+  },
+  {
     path: `/kup-theme`,
     name: 'kup-theme',
     component: () => import(`@/views/framework/kup-theme/KupTheme.vue`),
