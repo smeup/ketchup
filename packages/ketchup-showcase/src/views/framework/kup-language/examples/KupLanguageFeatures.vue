@@ -1,74 +1,83 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p>
-        <span class="code-word">register(component): void</span><br />
-        Registers a KupComponent in KupLanguage, in order to be automatically
-        refreshed whenever the language changes.<br /><br />
-        - <strong>component (any)</strong> - The Ketchup component to be
-        registered.<br />
-      </p>
-      <p>
-        <span class="code-word">getLanguages(): string[]</span><br />
-        Gets the name of all available languages and variants.<br />
-      </p>
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-chip id="languages"></kup-chip>
-        </div>
-      </div>
-      <p>
-        <span class="code-word">set(language): void</span><br />
-        Changes the current Ketchup language to the one provided.<br />
-        If the language argument contains a "_", a combo of language and variant
-        will be assumed.<br /><br />
-        - <strong>language (string)</strong> - The new language. If not present
-        in the languages JSON, this function will keep the previous language.<br />
-      </p>
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-combobox
-            id="language-selector"
-            is-select
-            @kup-combobox-change="updateLanguage"
-          ></kup-combobox>
-        </div>
-      </div>
-      <p>
-        <span class="code-word"
-          >decodeLanguage(language): KupLanguageDecode</span
-        ><br />
-        Checks whether the language is a combination of main language and
-        variant (separated by "_"), returning them splitted in an object.<br /><br />
-        - <strong>language (string)</strong> - Language to check.<br />
-      </p>
-      <p>
-        <span class="code-word">translate(key, language?): string</span><br />
-        Translates the string to the given language. When translation fails, the
-        key will be displayed in place of the string - this way it will be
-        easier to correct missing string-key bounds.<br /><br />
-        - <strong>key (KupLanguageKey)</strong> - Key of a string to be
-        translated.<br />
-        - <strong>language (string)</strong> - Language to translate the string
-        to. When not provided, KupLanguage current language will be used.<br /><br />Below
-        a table with every possible key-language combination available.<br />Note
-        that only italian and english translations are accurate and not
-        machine-made.<br />
-        You're welcome to send us a pull request with your own corrections on
-        GitHub!
-      </p>
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-data-table id="translations"></kup-data-table>
-        </div>
-      </div>
-      <p>
-        <span class="code-word">unregister(component): void</span><br />
-        Unregisters a KupComponent, so it won't be refreshed when the language
-        changes.<br /><br />
-        - <strong>component (any)</strong> - The Ketchup component to be
-        unregistered.<br />
-      </p>
+      <kup-accordion id="accordion">
+        <div class="accordion-slot" slot="1">
+          <p>
+            <span class="code-word">register(component): void</span><br />
+            Registers a KupComponent in KupLanguage, in order to be
+            automatically refreshed whenever the language changes.<br /><br />
+            - <strong>component (any)</strong> - The Ketchup component to be
+            registered.<br /> </p
+        ></div>
+        <div class="accordion-slot" slot="2">
+          <p>
+            <span class="code-word">getLanguages(): string[]</span><br />
+            Gets the name of all available languages and variants.<br />
+          </p>
+          <div class="demo-container">
+            <div class="kup-container">
+              <kup-chip id="languages"></kup-chip>
+            </div> </div
+        ></div>
+        <div class="accordion-slot" slot="3">
+          <p>
+            <span class="code-word">set(language): void</span><br />
+            Changes the current Ketchup language to the one provided.<br />
+            If the language argument contains a "_", a combo of language and
+            variant will be assumed.<br /><br />
+            - <strong>language (string)</strong> - The new language. If not
+            present in the languages JSON, this function will keep the previous
+            language.<br />
+          </p>
+          <div class="demo-container">
+            <div class="kup-container">
+              <kup-combobox
+                id="language-selector"
+                is-select
+                @kup-combobox-change="updateLanguage"
+              ></kup-combobox>
+            </div> </div
+        ></div>
+        <div class="accordion-slot" slot="4">
+          <p>
+            <span class="code-word"
+              >decodeLanguage(language): KupLanguageDecode</span
+            ><br />
+            Checks whether the language is a combination of main language and
+            variant (separated by "_"), returning them splitted in an object.<br /><br />
+            - <strong>language (string)</strong> - Language to check.<br /> </p
+        ></div>
+        <div class="accordion-slot" slot="5">
+          <p>
+            <span class="code-word">translate(key, language?): string</span
+            ><br />
+            Translates the string to the given language. When translation fails,
+            the key will be displayed in place of the string - this way it will
+            be easier to correct missing string-key bounds.<br /><br />
+            - <strong>key (KupLanguageKey)</strong> - Key of a string to be
+            translated.<br />
+            - <strong>language (string)</strong> - Language to translate the
+            string to. When not provided, KupLanguage current language will be
+            used.<br /><br />Below a table with every possible key-language
+            combination available.<br />Note that only italian and english
+            translations are accurate and not machine-made.<br />
+            You're welcome to send us a pull request with your own corrections
+            on GitHub!
+          </p>
+          <div class="demo-container">
+            <div class="kup-container">
+              <kup-data-table id="translations"></kup-data-table>
+            </div> </div
+        ></div>
+        <div class="accordion-slot" slot="6">
+          <p>
+            <span class="code-word">unregister(component): void</span><br />
+            Unregisters a KupComponent, so it won't be refreshed when the
+            language changes.<br /><br />
+            - <strong>component (any)</strong> - The Ketchup component to be
+            unregistered.<br /> </p></div
+      ></kup-accordion>
     </div>
   </div>
 </template>
@@ -84,6 +93,7 @@ import {
   Row,
 } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 
+var accordion: HTMLKupAccordionElement = null;
 var combobox: HTMLKupComboboxElement = null;
 var languagesChip: HTMLKupChipElement = null;
 var translations: HTMLKupDataTableElement = null;
@@ -100,6 +110,7 @@ export default {
      * Initializes Vue component's variables.
      */
     initVariables(): void {
+      accordion = document.querySelector('#accordion');
       combobox = document.querySelector('#language-selector');
       languagesChip = document.querySelector('#languages');
       translations = document.querySelector('#translations');
@@ -108,6 +119,34 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
+      accordion.data = {
+        columns: [
+          {
+            name: '1',
+            title: 'register',
+          },
+          {
+            name: '2',
+            title: 'getLanguages',
+          },
+          {
+            name: '3',
+            title: 'set',
+          },
+          {
+            name: '4',
+            title: 'decodeLanguage',
+          },
+          {
+            name: '5',
+            title: 'translate',
+          },
+          {
+            name: '6',
+            title: 'unregister',
+          },
+        ],
+      };
       const languages: string[] = dom.ketchup.language.getLanguages();
       const keys = Object.keys(dom.ketchup.language.list['english'].keys);
       const languagesChipData: FChipData[] = [];
@@ -192,6 +231,7 @@ export default {
       translations.showFilters = true;
       translations.showFooter = true;
       translations.showGrid = 'None' as any;
+      accordion.expandAll();
     },
     /**
      * Updates the library language.

@@ -10,6 +10,9 @@
       <template v-slot:2>
         <kup-theme-events></kup-theme-events>
       </template>
+      <template v-slot:3>
+        <kup-theme-maker></kup-theme-maker>
+      </template>
     </comp>
   </div>
 </template>
@@ -18,12 +21,14 @@
 import KupThemeBasic from '@/views/framework/kup-theme/examples/KupThemeBasic';
 import KupThemeEvents from '@/views/framework/kup-theme/examples/KupThemeEvents';
 import KupThemeFeatures from '@/views/framework/kup-theme/examples/KupThemeFeatures';
+import KupThemeMaker from '@/views/framework/kup-theme/examples/KupThemeMaker';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupThemeBasic,
     KupThemeEvents,
     KupThemeFeatures,
+    KupThemeMaker,
     Comp,
   },
   data() {
@@ -31,7 +36,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-theme',
       headtitle: 'KupTheme',
-      titles: ['What is it?', 'Features', 'Events'],
+      titles: ['What is it?', 'Features', 'Events', 'Theme maker'],
     };
   },
   title: 'Ketchup | KupTheme',

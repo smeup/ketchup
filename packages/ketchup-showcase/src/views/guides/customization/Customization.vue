@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import CustomizationBasic from '@/views/css/customization/examples/CustomizationBasic';
-import CustomizationVariables from '@/views/css/customization/examples/CustomizationVariables';
-import CustomizationExamples from '@/views/css/customization/examples/CustomizationExamples';
+import CustomizationBasic from '@/views/guides/customization/examples/CustomizationBasic';
+import CustomizationVariables from '@/views/guides/customization/examples/CustomizationVariables';
+import CustomizationExamples from '@/views/guides/customization/examples/CustomizationExamples';
 import Comp from '@/views/templates/Comp';
 
 export default {
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       headtitle: 'Customization',
-      titles: ['Basic usage', 'Using variables', 'Additional examples'],
+      titles: ['customStyle prop', 'Using variables', 'Additional examples'],
     };
   },
 };

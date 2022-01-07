@@ -101,6 +101,7 @@ export interface KupDropEventData {
 export enum KupDropEventTypes {
     BOX = 'text/kup-box-drag',
     DATATABLE = 'text/kup-data-table-row-drag',
+    GENERIC = 'text/generic',
     MAGICBOX = 'text/kup-magic-box-drag',
 }
 /**

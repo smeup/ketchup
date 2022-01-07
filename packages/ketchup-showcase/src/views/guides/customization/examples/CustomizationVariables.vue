@@ -31,7 +31,7 @@
     <div class="demo-container">
       <div class="kup-container">
         <kup-button
-          custom-style=":host { --kup-primary-color: blue; --kup-text-on-primary-color: yellow; }"
+          custom-style=":host { --kup-button-primary-color: #0000ff; --kup-button-primary-color-rgb: 0,0,255; --kup-button-text-on-primary-color: #ffff00; --kup-button-primary-color-h: 240; --kup-button-primary-color-s: 100%; --kup-button-primary-color-l: 50%;}"
           label="Your button with variables"
         ></kup-button>
       </div>
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       markupVariable:
-        ':host { --kup-primary-color: blue; --kup-text-on-primary-color: yellow; }',
+        ':host { --kup-button-primary-color: #0000ff; --kup-button-primary-color-rgb: 0,0,255; --kup-button-text-on-primary-color: #ffff00; --kup-button-primary-color-h: 240; --kup-button-primary-color-s: 100%; --kup-button-primary-color-l: 50%;}',
     };
   },
 };

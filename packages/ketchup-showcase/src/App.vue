@@ -679,33 +679,6 @@ export default {
           {
             cells: {
               ROUTE: {
-                value: 'customization',
-              },
-            },
-            value: 'Customization',
-            visible: true,
-          },
-          {
-            cells: {
-              ROUTE: {
-                value: 'theming',
-              },
-            },
-            value: 'Theming',
-            visible: true,
-          },
-        ],
-        expandable: true,
-        icon: 'style',
-        isExpanded: false,
-        value: 'CSS',
-        visible: true,
-      },
-      {
-        children: [
-          {
-            cells: {
-              ROUTE: {
                 value: 'kup-manager',
               },
             },
@@ -739,7 +712,7 @@ export default {
                 value: 'kup-dynamic-position',
               },
             },
-            icon: 'assistant',
+            icon: 'location_on',
             value: 'KupDynamicPosition',
             visible: true,
           },
@@ -779,7 +752,7 @@ export default {
                 value: 'kup-search',
               },
             },
-            icon: 'magnify',
+            icon: 'pageview',
             value: 'KupSearch',
             visible: false,
           },
@@ -808,6 +781,25 @@ export default {
         icon: 'web',
         isExpanded: false,
         value: 'Framework',
+        visible: true,
+      },
+      {
+        children: [
+          {
+            cells: {
+              ROUTE: {
+                value: 'customization',
+              },
+            },
+            icon: 'style',
+            value: 'Style customization',
+            visible: true,
+          },
+        ],
+        expandable: true,
+        icon: 'library_books',
+        isExpanded: false,
+        value: 'Guides',
         visible: true,
       },
     ],
@@ -1038,6 +1030,10 @@ a.footer__icon--trailing {
 
 .has-padding {
   padding-left: var(--kup-drawer-width);
+}
+
+.accordion-slot {
+  padding: 1em;
 }
 
 ::-webkit-scrollbar {

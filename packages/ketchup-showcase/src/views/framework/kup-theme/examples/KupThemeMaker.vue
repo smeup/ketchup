@@ -752,7 +752,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="master"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -765,7 +764,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-accordion"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -778,7 +776,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-autocomplete"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -791,7 +788,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-badge"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -804,7 +800,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-box"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -817,7 +812,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-button"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -830,7 +824,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-button-list"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -843,7 +836,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-calendar"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -856,7 +848,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-card"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -869,7 +860,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-chart"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -882,7 +872,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-checkbox"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -895,7 +884,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-chip"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -908,7 +896,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-color-picker"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -921,7 +908,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-combobox"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -934,7 +920,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-data-table"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -947,7 +932,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-date-picker"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -960,7 +944,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-drawer"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -973,7 +956,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-dropdown-button"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -986,7 +968,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-field"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -999,7 +980,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-gauge"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1012,7 +992,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-grid"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1025,7 +1004,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-image"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1038,7 +1016,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-lazy"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1051,7 +1028,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-list"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1064,7 +1040,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-magic-box"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1077,7 +1052,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-nav-bar"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1090,7 +1064,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-progress-bar"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1103,7 +1076,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-radio"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1116,7 +1088,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-rating"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1129,7 +1100,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-spinner"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1142,7 +1112,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-switch"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1155,7 +1124,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-tab-bar"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1168,7 +1136,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-text-field"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1181,7 +1148,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-time-picker"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field
@@ -1194,7 +1160,6 @@
                 <td class="text-cell">
                   <kup-text-field
                     text-area
-                    full-width
                     id="kup-tree"
                     @kup-textfield-input="updateCustomStyles"
                   ></kup-text-field

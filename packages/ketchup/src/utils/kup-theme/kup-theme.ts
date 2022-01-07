@@ -262,7 +262,7 @@ export class KupTheme {
         );
     }
     /**
-     * Sets a random theme between those specified in this.list (excludes "print" and "test").
+     * Sets a random theme between those specified in this.list (excludes "print" and "test") and different from the currently used one.
      */
     randomTheme(): void {
         let themes: string[] = [];
@@ -274,9 +274,11 @@ export class KupTheme {
             }
         }
         if (themes.length > 0) {
-            this.set(
-                themes[Math.floor(Math.random() * Math.floor(themes.length))]
-            );
+            let index = null;
+            while (index === null || themes[index] === this.name) {
+                index = Math.floor(Math.random() * Math.floor(themes.length));
+            }
+            this.set(themes[index]);
         } else {
             dom.ketchup.debug.logMessage(
                 'kup-theme',
@@ -286,8 +288,8 @@ export class KupTheme {
         }
     }
     /**
-     * Returns HEX, RGB and RGB values from a given color.
-     * @param {string} color - Color.
+     * Returns HEX, RGB, HSL, HSL values and RGB values from a given color.
+     * @param {string} color - Input color.
      * @returns {KupThemeColor} Object of color values: hexColor ("#ffffff"), hslColor ("hsl(255,100%,100%)"), hslValues ("255,100%,100%"), rgbColor ("rgb(255,255,255)") and rgbValues ("255,255,255").
      */
     colorCheck(color: string): KupThemeColor {

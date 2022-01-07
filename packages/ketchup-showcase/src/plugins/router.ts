@@ -231,16 +231,11 @@ const thirdPartiesRoutes = [
   },
 ];
 
-const cssRoutes = [
+const guidesRoutes = [
   {
     path: `/customization`,
     name: 'customization',
-    component: () => import(`@/views/css/customization/Customization.vue`),
-  },
-  {
-    path: `/theming`,
-    name: 'theming',
-    component: () => import(`@/views/css/theming/Theming.vue`),
+    component: () => import(`@/views/guides/customization/Customization.vue`),
   },
 ];
 
@@ -303,7 +298,7 @@ const routes = [
   ...advancedRoutes,
   ...basicRoutes,
   ...thirdPartiesRoutes,
-  ...cssRoutes,
+  ...guidesRoutes,
   ...frameworkRoutes,
 ];
 
