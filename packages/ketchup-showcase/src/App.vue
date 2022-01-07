@@ -460,7 +460,7 @@ export default {
                     value: 'checkbox',
                   },
                 },
-                icon: 'checkbox-marked-outline',
+                icon: 'check_box',
                 value: 'Checkbox',
                 visible: true,
               },

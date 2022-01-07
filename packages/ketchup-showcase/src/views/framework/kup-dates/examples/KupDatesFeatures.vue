@@ -211,7 +211,7 @@ export default {
         columns: [
           {
             name: '1',
-            title: 'Register',
+            title: 'register',
           },
           {
             name: '2',

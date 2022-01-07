@@ -10,6 +10,9 @@
       <template v-slot:2>
         <kup-debug-events></kup-debug-events>
       </template>
+      <template v-slot:3>
+        <kup-debug-tester></kup-debug-tester>
+      </template>
     </comp>
   </div>
 </template>
@@ -18,12 +21,14 @@
 import KupDebugBasic from '@/views/framework/kup-debug/examples/KupDebugBasic';
 import KupDebugEvents from '@/views/framework/kup-debug/examples/KupDebugEvents';
 import KupDebugFeatures from '@/views/framework/kup-debug/examples/KupDebugFeatures';
+import KupDebugTester from '@/views/framework/kup-debug/examples/KupDebugTester';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupDebugBasic,
     KupDebugEvents,
     KupDebugFeatures,
+    KupDebugTester,
     Comp,
   },
   data() {
@@ -31,7 +36,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-debug',
       headtitle: 'KupDebug',
-      titles: ['What is it?', 'Features', 'Events'],
+      titles: ['What is it?', 'Features', 'Events', 'Tester'],
     };
   },
   title: 'Ketchup | KupDebug',

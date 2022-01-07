@@ -223,6 +223,8 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
+      accordion.customStyle =
+        '#kup-component .accordion-item__content { overflow: visible; }';
       accordion.data = {
         columns: [
           {
