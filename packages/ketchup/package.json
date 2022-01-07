@@ -25,6 +25,7 @@
         "dist/"
     ],
     "scripts": {
+        "build:fcomponents-scss": "node scripts/fcomponentsSassParse.js",
         "buildnodocs": "stencil build",
         "build": "stencil build --docs",
         "start": "stencil build --dev --watch --serve",
@@ -65,7 +66,7 @@
         "jest-cli": "^26.6.3",
         "jest-environment-node": "^26.6.2",
         "module-alias": "^2.2.2",
-        "puppeteer": "~10.0.0"
+        "sass": "^1.46.0"
     },
     "_moduleAliases": {
         "@f-components": "src/f-components",
