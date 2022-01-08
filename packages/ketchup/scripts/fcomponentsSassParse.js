@@ -26,29 +26,10 @@ for (const componentName of componentsFolders) {
 
         if (fs.existsSync(componentScssFilePath)) {
             try {
-                // This is the first method I tried, but it cannot read variables since they are declared in the global file but are not imported.
-                // Thus this cannot work for our use case.
-                // const parsedStyle = sass.compile(componentScssFilePath,{
-                //     style: "compressed"
-                // });
-
                 const parsedStyle = sass.compileString(`
                     @import 'global.scss';
                     @import '${componentName}.scss';
                 `, {
-                    // importers: [
-                    //     {
-                    //         // https://sass-lang.com/documentation/js-api/interfaces/FileImporter
-                    //         findFileUrl(urlToResolve) {
-                    //             if (!urlToResolve.startsWith('@')) {
-                    //                 return null;
-                    //             }
-                    //             const oo = new URL(urlToResolve + '.scss', NODE_MODULES_PATH);
-                    //             console.log("eccourl", oo);
-                    //             return oo;
-                    //         }
-                    //     }
-                    // ],
                     loadPaths: [
                         globalStyleDirPath,
                         componentFolder,
