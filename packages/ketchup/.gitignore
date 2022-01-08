@@ -26,3 +26,6 @@ UserInterfaceState.xcuserstate
 .env
 
 /dist
+
+# Ignores auto generated css files for f-components
+/src/f-components/**/*.css

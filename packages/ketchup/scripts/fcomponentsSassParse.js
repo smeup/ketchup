@@ -2,6 +2,14 @@ const fs = require("fs");
 const path = require("path");
 const sass = require("sass");
 
+/**
+ * Logs error written in red text.
+ * @param {string} message
+ */
+function logError(message) {
+    console.error(`\x1b[31m${message}\x1b[0m`);
+}
+
 console.log("Build FComponents SCSS");
 
 const NODE_MODULES_PATH = path.join(__dirname, '../node_modules');
@@ -39,8 +47,25 @@ for (const componentName of componentsFolders) {
                 });
 
                 console.log("parsed", parsedStyle.css.substr(0,10));
+
+                const parsedComponentScssFilePath = path.join(componentFolder, `${componentName}.css`)
+
+                try {
+                    fs.writeFileSync(
+                        parsedComponentScssFilePath,
+                        parsedStyle.css,
+                        {
+                            encoding: "utf-8"
+                        }
+                    );
+                } catch(e) {
+                    logError("Could not write to file");
+                    console.error(e);
+                }
+
             } catch(e) {
-                console.error("Failed to parse file " + componentScssFilePath, e);
+                logError("Failed to parse file " + componentScssFilePath);
+                console.error(e);
             }
         }
     }
