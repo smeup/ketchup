@@ -69,5 +69,3 @@ $kup-dd-draggable: 'kup-draggable'; // Attached to the element being dragged
 $kup-dd-draggable-cell: 'kup-draggable-cell'; // Attached to the element being dragged when a cell is present in the payload
 $kup-dd-draggable-column: 'kup-draggable-column'; // Attached to the element being dragged when a column is present in the payload
 $kup-dd-draggable-row: 'kup-draggable-row'; // Attached to the element being dragged when a row is present in the payload
-/* [sass]TODO: the import should be removed, in this file only variables should remain */
-@import '../utils/kup-theme/kup-theme-component.scss';
