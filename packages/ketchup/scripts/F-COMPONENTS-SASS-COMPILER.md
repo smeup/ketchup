@@ -19,6 +19,14 @@ This best practice is very common.
 Changing the location of the `scripts` folder means that we need to update all the variables described above since all of them contains a relative path.  
 
 
+## Commands
+
+In order to run the parser for the SCSS, for now we must run:
+```bash
+npm run build:fcomponents-scss
+```
+
+
 ## Q & A
 
 ### Why adding a script before the actual Stencil.js compilation? 
