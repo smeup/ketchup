@@ -4,8 +4,15 @@ const sass = require("sass");
 
 //================ CONFIGURATION ================
 const NODE_MODULES_PATH = path.join(__dirname, '../node_modules');
-const FCOMPONENTS_FOLDER_PATH = "../src/f-components";
 const GLOBAL_STYLE_FOLDER_PATH = "../src/style";
+
+// For FComponents
+const FCOMPONENTS_FOLDER_PATH = "../src/f-components";
+
+// For the kup-theme
+const KUP_THEME_FOLDER_PATH = "../src/utils/kup-theme";
+const KUP_THEME_FILES_TO_PARSE = Object.freeze(["kup-theme-application", "kup-theme-component"]);
+const MDC_RIPPLE_ENTRY_FILE = "@material/ripple/mdc-ripple";
 
 //================ GLOBAL UTILS ================
 const EXIT_CODES = Object.freeze({
@@ -86,7 +93,7 @@ for (const componentName of componentsFolders) {
                         }
                     );
                 } catch(e) {
-                    logError("Could not write to file", e);
+                    logError("Could not write to file " + parsedComponentScssFilePath, e);
                     foundErrors = true;
                 }
 
@@ -105,4 +112,82 @@ if (!foundErrors) {
     process.exit(EXIT_CODES.PARSE_FAILED);
 }
 
-// @import '@material/ripple/mdc-ripple';
+//================ Parse SCSS of the kup-theme ================
+const kupThemeDirPath = path.join(__dirname, KUP_THEME_FOLDER_PATH);
+
+const sassParserOptions = {
+    loadPaths: [
+        globalStyleDirPath, // This should be not necessary here. Unless the files of KUP_THEME_FILES_TO_PARSE need to use globally declared variables
+        kupThemeDirPath,
+        NODE_MODULES_PATH,
+    ],
+    style: "compressed",
+};
+
+for (const fileName of KUP_THEME_FILES_TO_PARSE) {
+    const filePathToParse = path.join(kupThemeDirPath, fileName + ".scss");
+    if (fs.existsSync(filePathToParse)) {
+        try {
+            const parsedStyle = sass.compileString(`
+                    @import 'global.scss';
+                    @import '${fileName}.scss';
+                `,
+                sassParserOptions
+            );
+
+            const parsedScssFilePath = path.join(kupThemeDirPath, `${fileName}.css`)
+
+            try {
+                fs.writeFileSync(
+                    parsedScssFilePath,
+                    parsedStyle.css,
+                    {
+                        encoding: "utf-8"
+                    }
+                );
+            } catch(e) {
+                logError("Could not write to file " + parsedScssFilePath, e);
+                foundErrors = true;
+            }
+        } catch(e) {
+            logError("Failed to parse file " + filePathToParse, e);
+            foundErrors = true;
+        }
+    }
+}
+
+//==== Parses only MDC ripple stylesheet ====
+try {
+    const parsedStyle = sass.compileString(`
+            @import '${MDC_RIPPLE_ENTRY_FILE}';
+        `,
+        sassParserOptions
+    );
+    const parsedScssFilePath = path.join(kupThemeDirPath, "mdc-ripple.css")
+
+    try {
+        fs.writeFileSync(
+            parsedScssFilePath,
+            parsedStyle.css,
+            {
+                encoding: "utf-8"
+            }
+        );
+    } catch(e) {
+        logError("Could not write to file " + parsedScssFilePath, e);
+        foundErrors = true;
+    }
+} catch(e) {
+    logError("Could not find Material ripple scss file", e);
+    foundErrors = true;
+}
+
+if (!foundErrors) {
+    logSuccess("Kup-theme SASS parsed successfully!");
+} else {
+    logError(`Exit with code ${EXIT_CODES.PARSE_FAILED}: Failed to parse some SCSS files. Look into the output above for more information.`);
+    process.exit(EXIT_CODES.PARSE_FAILED);
+}
+
+//================ Finish compilation ================
+logSuccess("All precompiled SASS files parsed successfully!");

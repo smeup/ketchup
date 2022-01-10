@@ -26,14 +26,15 @@
     ],
     "scripts": {
         "build:fcomponents-scss": "node scripts/fcomponentsSassParse.js",
-        "buildnodocs": "rimraf dist && stencil build",
-        "build": "rimraf dist && stencil build --docs",
-        "start": "rimraf dist && stencil build --dev --watch --serve",
-        "start--es5": "rimraf dist && stencil build --dev --watch --serve --es5",
-        "test:spec": "rimraf dist stencil test --spec",
-        "test:e2e": "rimraf dist stencil test --e2e",
-        "test": "rimraf dist stencil test --spec --e2e",
-        "test.watch": "rimraf dist stencil test --spec --e2e --watchAll"
+        "build:setup": "rimraf dist && npm run build:fcomponents-scss",
+        "buildnodocs": "npm run build:setup && stencil build",
+        "build": "npm run build:setup && stencil build --docs",
+        "start": "npm run build:setup && stencil build --dev --watch --serve",
+        "start--es5": "npm run build:setup && stencil build --dev --watch --serve --es5",
+        "test:spec": "npm run build:setup && stencil test --spec",
+        "test:e2e": "npm run build:setup && stencil test --e2e",
+        "test": "npm run build:setup && stencil test --spec --e2e",
+        "test.watch": "npm run build:setup && stencil test --spec --e2e --watchAll"
     },
     "dependencies": {
         "@fullcalendar/core": "^5.9.0",

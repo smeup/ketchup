@@ -11,6 +11,9 @@ Please take notice of them and update them consequently when and if some of thos
 * _NODE_MODULES_PATH_: should be updated only if the _scripts_ folder location changes.
 * _FCOMPONENTS_FOLDER_PATH_: should be updated only if the folder containing the `f-components` changes.
 * _GLOBAL_STYLE_FOLDER_PATH_: should be updated only if the path to the folder containing `global.scss` file changes.
+* _KUP_THEME_FOLDER_PATH_: should be updated only if the path to the folder `src/utils/kup-theme` changes.
+* _KUP_THEME_FILES_TO_PARSE_: should be updated only if the files contained inside _KUP_THEME_FOLDER_PATH_ which need to be parsed are renamed or a new file is added.
+* _MDC_RIPPLE_ENTRY_FILE_: should be updated only if the MDC library changes how imports are treated.
 
 **Note:** I highly recommend to **not** change the location of the `scripts` folder.
 It is usually considered a special folder which should not be placed inside the `src` folder, but at root level of the project since it holds commands used to work with said project. 
