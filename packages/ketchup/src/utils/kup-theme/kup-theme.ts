@@ -16,6 +16,7 @@ import * as fImageCSS from '../../f-components/f-image/f-image.css';
 import * as fPaginatorCSS from '../../f-components/f-paginator/f-paginator.css';
 import * as fSwitchCSS from '../../f-components/f-switch/f-switch.css';
 import * as fTextFieldCSS from '../../f-components/f-text-field/f-text-field.css';
+import * as rippleCSS from './mdc-ripple.css';
 import {
     fButtonUsers,
     fCellUsers,
@@ -32,6 +33,7 @@ import {
     KupThemeJSON,
     KupThemeRGBValues,
     masterCustomStyle,
+    rippleUsers,
 } from './kup-theme-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
@@ -269,6 +271,9 @@ export class KupTheme {
             }
             if (fTextFieldUsers.includes(tagName)) {
                 completeStyle += fTextFieldCSS['default'];
+            }
+            if (rippleUsers.includes(tagName)) {
+                completeStyle += rippleCSS['default'];
             }
         }
         return completeStyle ? completeStyle : null;

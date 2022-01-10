@@ -94,6 +94,15 @@ export const fTextFieldUsers = [
     KupTagNames.TREE,
 ];
 /**
+ * Components using the MDC ripple effect.
+ */
+export const rippleUsers = [
+    KupTagNames.ACCORDION,
+    KupTagNames.CARD,
+    KupTagNames.TAB_BAR,
+    KupTagNames.TREE,
+];
+/**
  * Interface of the themes JSON.
  */
 export interface KupThemeJSON {
