@@ -212,5 +212,6 @@ export enum KupLanguageTotals {
     FORMULA = 'totalsFormula',
     MAXIMUM = 'totalsMaximum',
     MINIMUM = 'totalsMinimum',
+    PRODUCT = 'totalsProduct',
     SUM = 'totalsSum',
 }
