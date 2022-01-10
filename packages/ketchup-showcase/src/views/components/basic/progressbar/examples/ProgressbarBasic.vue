@@ -10,7 +10,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto"
+          style="margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar value="100"></kup-progress-bar>
         </div>
@@ -31,3 +31,16 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.kup-container {
+  width: 50%;
+}
+
+@media screen and (max-width: 767px) {
+  .kup-container {
+    margin: 3em 0;
+    width: 80vw;
+  }
+}
+</style>

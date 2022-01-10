@@ -18,10 +18,9 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .kup-container {
   height: 300px;
-  width: 300px;
 }
 </style>
 

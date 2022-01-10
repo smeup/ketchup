@@ -15,7 +15,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto"
+          style="margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar
             centered-label="false"
@@ -37,7 +37,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto"
+          style="margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar
             label="Custom label, here!"
@@ -57,7 +57,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto"
+          style="margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar hide-label value="35"></kup-progress-bar>
         </div>
@@ -81,7 +81,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto"
+          style="margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar icon="widgets" value="50"></kup-progress-bar>
         </div>
@@ -99,9 +99,9 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto"
+          style="margin-left: auto; margin-right: auto"
         >
-          <kup-progress-bar value="60" class="padded"></kup-progress-bar>
+          <kup-progress-bar value="60" class="kup-padded"></kup-progress-bar>
         </div>
         <p class="centered">Padding sample markup</p>
         <code class="flat">{{ markupPadding }}</code>
@@ -118,16 +118,16 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto"
+          style="margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar
             value="75"
-            class="striped"
+            class="kup-striped"
             style="margin-bottom: 1rem"
           ></kup-progress-bar>
           <kup-progress-bar
             value="90"
-            class="striped animated"
+            class="kup-striped kup-animated"
           ></kup-progress-bar>
         </div>
         <p class="centered">Stripes sample markup</p>
@@ -146,9 +146,9 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto"
+          style="margin-left: auto; margin-right: auto"
         >
-          <kup-progress-bar class="slim" value="100"></kup-progress-bar>
+          <kup-progress-bar class="kup-slim" value="100"></kup-progress-bar>
         </div>
         <p class="centered">Padding sample markup</p>
         <code class="flat">{{ markupSlim }}</code>
@@ -171,14 +171,26 @@ export default {
       markupHiddenLabel:
         '<kup-progress-bar hide-label value="your_value"></kup-progress-bar>',
       markupSlim:
-        '<kup-progress-bar class="slim" value="your_value"></kup-progress-bar>',
+        '<kup-progress-bar class="kup-slim" value="your_value"></kup-progress-bar>',
       markupPadding:
-        '<kup-progress-bar class="padded" value="your_value"></kup-progress-bar>',
+        '<kup-progress-bar class="kup-padded" value="your_value"></kup-progress-bar>',
       markupStripes:
-        '<kup-progress-bar class="striped" value="your_value"></kup-progress-bar>',
+        '<kup-progress-bar class="kup-striped" value="your_value"></kup-progress-bar>',
       markupAnimatedStripes:
-        '<kup-progress-bar class="striped animated" value="your_value"></kup-progress-bar>',
+        '<kup-progress-bar class="kup-striped kup-animated" value="your_value"></kup-progress-bar>',
     };
   },
 };
 </script>
+<style scoped lang="scss">
+.kup-container {
+  width: 50%;
+}
+
+@media screen and (max-width: 767px) {
+  .kup-container {
+    margin: 3em 0;
+    width: 80vw;
+  }
+}
+</style>

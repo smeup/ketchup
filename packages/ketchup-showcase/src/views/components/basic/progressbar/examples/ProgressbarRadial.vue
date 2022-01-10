@@ -10,18 +10,13 @@
       </p>
       <br />
       <div class="demo-container">
-        <div class="kup-container" style="width: 100%; margin: 2rem 0">
+        <div class="kup-container">
           <kup-progress-bar
             icon="widgets"
             is-radial
             value="0.1"
-            style="width: 25%; margin: auto"
           ></kup-progress-bar>
-          <kup-progress-bar
-            is-radial
-            value="99.9"
-            style="width: 25%; margin: auto"
-          ></kup-progress-bar>
+          <kup-progress-bar is-radial value="99.9"></kup-progress-bar>
         </div>
         <p class="centered">Sample radial markup</p>
         <code class="flat">{{ markupRadial }}</code>
@@ -41,3 +36,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.kup-container {
+  margin: 2rem 0;
+  padding: 2em 0;
+  width: 100%;
+}
+
+kup-progress-bar {
+  margin: 0 0.5em;
+  width: max-content;
+}
+</style>

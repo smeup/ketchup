@@ -39,3 +39,10 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+kup-dropdown-button {
+  margin: auto;
+  padding: 0.5em;
+}
+</style>

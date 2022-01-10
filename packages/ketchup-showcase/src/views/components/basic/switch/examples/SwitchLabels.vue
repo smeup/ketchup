@@ -35,3 +35,10 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+kup-switch {
+  margin: auto;
+  padding: 0.5em;
+}
+</style>
