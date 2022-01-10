@@ -265,7 +265,7 @@ export class KupDebug {
         debugWidget.sizeY = 'auto';
         const handler = this.handleEvents;
         debugWidget.addEventListener('kup-card-event', (e: CustomEvent) =>
-            handler(e)
+            handler(e, this)
         );
 
         this.container.append(debugWidget);
@@ -274,43 +274,47 @@ export class KupDebug {
     /**
      * Listens the card events and handles the related actions.
      * @param {CustomEvent<KupCardEventPayload>} e - kup-card-event.
+     * @param {KupDebug} kupDebug - Instance of the KupDebug class.
      */
-    private handleEvents(e: CustomEvent<KupCardEventPayload>): void {
+    private handleEvents(
+        e: CustomEvent<KupCardEventPayload>,
+        kupDebug: KupDebug
+    ): void {
         const compEvent: CustomEvent = e.detail.event;
         const compID: string = compEvent.detail.id;
         switch (compEvent.type) {
             case 'kup-button-click':
                 switch (compID) {
                     case 'kup-debug-autoprint':
-                        this.autoPrint = !this.autoPrint;
+                        kupDebug.autoPrint = !kupDebug.autoPrint;
                         break;
                     case 'kup-debug-clear':
-                        this.widgetClear();
-                        this.#debugWidget.refresh();
+                        kupDebug.widgetClear();
+                        kupDebug.#debugWidget.refresh();
                         break;
                     case 'kup-debug-dl-props':
-                        this.getProps().then((res: GenericObject) => {
-                            this.downloadProps(res);
+                        kupDebug.getProps().then((res: GenericObject) => {
+                            kupDebug.downloadProps(res);
                         });
                         break;
                     case 'kup-debug-dl-all':
-                        this.getProps(true).then((res: GenericObject) => {
-                            this.downloadProps(res);
+                        kupDebug.getProps(true).then((res: GenericObject) => {
+                            kupDebug.downloadProps(res);
                         });
                         break;
                     case 'kup-debug-delete':
-                        this.dump();
+                        kupDebug.dump();
                         break;
                     case 'kup-debug-magic-box':
                         dom.ketchup.toggleMagicBox();
                         break;
                     case 'kup-debug-off':
-                        this.toggle();
+                        kupDebug.toggle();
                         break;
                     case 'kup-debug-print':
-                        this.widgetClear();
-                        this.widgetPrint();
-                        this.#debugWidget.refresh();
+                        kupDebug.widgetClear();
+                        kupDebug.widgetPrint();
+                        kupDebug.#debugWidget.refresh();
                         break;
                 }
                 break;
@@ -333,9 +337,9 @@ export class KupDebug {
                             compEvent.detail.value === '' ||
                             compEvent.detail.value < 1
                         ) {
-                            this.logLimit = 1;
+                            kupDebug.logLimit = 1;
                         } else {
-                            this.logLimit = compEvent.detail.value;
+                            kupDebug.logLimit = compEvent.detail.value;
                         }
                         break;
                 }
