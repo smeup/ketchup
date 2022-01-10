@@ -281,7 +281,6 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-list](../kup-list)
 - [kup-combobox](../kup-combobox)
-- [kup-text-field](../kup-text-field)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-switch](../kup-switch)
@@ -305,7 +304,6 @@ graph TD;
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-text-field
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-switch

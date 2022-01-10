@@ -114,7 +114,6 @@ graph TD;
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-text-field
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-switch

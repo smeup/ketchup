@@ -132,7 +132,6 @@ Type: `Promise<void>`
 
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
- - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
 ### Graph
@@ -140,7 +139,6 @@ Type: `Promise<void>`
 graph TD;
   kup-box --> kup-text-field
   kup-card --> kup-text-field
-  kup-data-table --> kup-text-field
   kup-tree --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
