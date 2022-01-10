@@ -18,6 +18,8 @@ import type {
     PointerEvent,
 } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
+import type { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import type { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import {
     Cell,
     Column,
@@ -49,6 +51,7 @@ import {
     KupDatatableColumnMenuEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
+    premadeFormulas,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -95,7 +98,6 @@ import {
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import {
@@ -156,10 +158,12 @@ import {
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
-import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
-import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
-import { KupTextField } from '../kup-text-field/kup-text-field';
+import { FPaginator } from '../../f-components/f-paginator/f-paginator';
+import {
+    pageChange,
+    rowsPerPageChange,
+} from '../../f-components/f-paginator/f-paginator-utils';
+import { KupCombobox } from 'components/kup-combobox/kup-combobox';
 
 @Component({
     tag: 'kup-data-table',
@@ -1213,7 +1217,7 @@ export class KupDataTable {
                 cells[newName] = {
                     ...base,
                     displayedValue: null,
-                    obj: newObj ?  { ...newObj, k: value } : null,
+                    obj: newObj ? { ...newObj, k: value } : null,
                     value: value,
                 };
             }
@@ -1268,14 +1272,17 @@ export class KupDataTable {
         let firstColumn: Column = null;
         let formula = '';
         switch (operation) {
-            case KupLanguageTotals.SUM:
-                formula = columns.join(' + ');
-                break;
             case KupLanguageTotals.AVERAGE:
                 formula = `(${columns.join(' + ')}) / ${columns.length}`;
                 break;
             case KupLanguageTotals.DIFFERENCE:
                 formula = columns.join(' - ');
+                break;
+            case KupLanguageTotals.PRODUCT:
+                formula = columns.join(' * ');
+                break;
+            case KupLanguageTotals.SUM:
+                formula = columns.join(' + ');
                 break;
             default:
                 formula = operation;
@@ -1421,8 +1428,9 @@ export class KupDataTable {
             this.columnDropCard.appendChild(actionsList);
         }
         if (this.enableColumnsFormula) {
+            const comboListData: KupListData[] = [];
             if (numeric) {
-                const comboListData: KupListData[] = [
+                comboListData.push(
                     {
                         text: this.kupManager.language.translate(
                             KupLanguageTotals.AVERAGE
@@ -1437,34 +1445,40 @@ export class KupDataTable {
                     },
                     {
                         text: this.kupManager.language.translate(
+                            KupLanguageTotals.PRODUCT
+                        ),
+                        value: KupLanguageTotals.PRODUCT,
+                    },
+                    {
+                        text: this.kupManager.language.translate(
                             KupLanguageTotals.SUM
                         ),
                         value: KupLanguageTotals.SUM,
                     },
-                ];
-                const combobox = document.createElement('kup-combobox');
-                combobox.customStyle = ':host { margin: 0 0.5em 0.5em 0.5em; }';
-                combobox.data = {
-                    'kup-list': { data: comboListData },
-                    'kup-text-field': {
-                        label: this.kupManager.language.translate(
-                            KupLanguageTotals.CALCULATE
-                        ),
-                        outlined: true,
+                    {
+                        text: `[${starter.name}] / [${receiving.name}] * 100`,
+                        value: `([${starter.name}]/[${receiving.name}])*100`,
                     },
-                };
-                combobox.isSelect = true;
-                this.columnDropCard.appendChild(combobox);
+                    {
+                        text: `[${receiving.name}] / [${starter.name}] * 100`,
+                        value: `([${receiving.name}]/[${starter.name}])*100`,
+                    }
+                );
             }
-            const textField = document.createElement('kup-text-field');
-            textField.customStyle =
-                ':host { margin: 0 0.5em 0.5em 0.5em; width: max-content; }';
-            textField.helper = 'i.e.: [COL1] * [COL2] + 1';
-            textField.icon = "functions";
-            textField.label = this.kupManager.language.translate(
-                KupLanguageTotals.FORMULA
-            );
-            this.columnDropCard.appendChild(textField);
+            const combobox = document.createElement('kup-combobox');
+            combobox.customStyle =
+                ':host { margin: 0 0.5em 0.5em 0.5em !important; }';
+            combobox.data = {
+                'kup-list': { data: comboListData },
+                'kup-text-field': {
+                    helper: `i.e.: [${receiving.name}] - [${starter.name}] + 1`,
+                    label: this.kupManager.language.translate(
+                        KupLanguageTotals.FORMULA
+                    ),
+                    outlined: true,
+                },
+            };
+            this.columnDropCard.appendChild(combobox);
         }
         this.kupManager.dynamicPosition.start(
             this.columnDropCard as unknown as KupDynamicPositionElement
@@ -1502,37 +1516,35 @@ export class KupDataTable {
                         break;
                     }
                     case 'kup-combobox-change': {
-                        this.formulaOnColumns(
-                            (
-                                subcompEvent as CustomEvent<KupComboboxEventPayload>
-                            ).detail.value,
-                            [receiving.name, starter.name]
-                        );
-                        this.closeDropCard();
-                        break;
-                    }
-                    case 'kup-textfield-change': {
-                        this.formulaOnColumns(
-                            (
-                                subcompEvent as CustomEvent<KupTextFieldEventPayload>
-                            ).detail.value
-                        ).then((res) => {
-                            if (
-                                typeof res === 'string' ||
-                                res instanceof String
-                            ) {
-                                const textField = (
-                                    subcompEvent as CustomEvent<KupTextFieldEventPayload>
-                                ).detail.comp as KupTextField;
-                                textField.rootElement.classList.add(
-                                    'kup-danger'
-                                );
-                                textField.helper = res as string;
-                            } else {
-                                this.closeDropCard();
-                            }
-                        });
-                        break;
+                        const value = (
+                            subcompEvent as CustomEvent<KupComboboxEventPayload>
+                        ).detail.value;
+                        if (premadeFormulas.includes(value)) {
+                            this.formulaOnColumns(value, [
+                                receiving.name,
+                                starter.name,
+                            ]);
+                            this.closeDropCard();
+                        } else {
+                            this.formulaOnColumns(value).then((res) => {
+                                if (
+                                    typeof res === 'string' ||
+                                    res instanceof String
+                                ) {
+                                    const combobox = (
+                                        subcompEvent as CustomEvent<KupComboboxEventPayload>
+                                    ).detail.comp as KupCombobox;
+                                    combobox.rootElement.classList.add(
+                                        'kup-danger'
+                                    );
+                                    combobox.data['kup-text-field'].helper =
+                                        res as string;
+                                    combobox.refresh();
+                                } else {
+                                    this.closeDropCard();
+                                }
+                            });
+                        }
                     }
                 }
             }
@@ -3065,11 +3077,11 @@ export class KupDataTable {
 
     private adjustPaginator() {
         const numberOfRows = this.rowsLength;
-
         // check if current page is valid
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
         if (this.currentPage > numberOfPages) {
             // reset page
+            this.currentPage = 1;
             this.resetCurrentPage();
         }
     }
@@ -3262,13 +3274,23 @@ export class KupDataTable {
         }
     }
 
-    private handlePageChanged({ detail }) {
-        this.currentPage = detail.newPage;
+    private handlePageChange(pageNumber: number) {
+        const newPage = pageChange(
+            pageNumber,
+            this.rowsLength,
+            this.currentRowsPerPage
+        );
+        if (newPage) {
+            this.currentPage = newPage;
+        }
     }
 
-    private handleRowsPerPageChanged({ detail }) {
-        this.currentRowsPerPage = detail.newRowsPerPage;
-        this.adjustPaginator();
+    private handleRowsPerPageChange(rowsNumber: number) {
+        const newRows = rowsPerPageChange(rowsNumber, this.rowsLength);
+        if (newRows) {
+            this.currentRowsPerPage = newRows;
+            this.adjustPaginator();
+        }
     }
 
     private onRowClick(row: Row, td: HTMLElement, emitEvent?: boolean) {
@@ -4822,23 +4844,6 @@ export class KupDataTable {
         });
     }
 
-    private renderLoadMoreButton(isSlotted: boolean = true) {
-        return (
-            <kup-button
-                styling={FButtonStyling.FLAT}
-                class="load-more-button"
-                label={this.kupManager.language.translate(
-                    KupLanguageGeneric.LOAD_MORE
-                )}
-                icon="plus"
-                slot={isSlotted ? 'more-results' : null}
-                onkup-button-click={() => {
-                    this.onLoadMoreClick();
-                }}
-            />
-        );
-    }
-
     private onCustomSettingsClick() {
         if (!this.openedCustomSettings) {
             this.openCustomSettings();
@@ -4881,21 +4886,36 @@ export class KupDataTable {
                 <div class="paginator-tabs">
                     {!this.lazyLoadRows &&
                     this.rowsLength > this.rowsPerPage ? (
-                        <kup-paginator
+                        <FPaginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
-                            max={this.rowsLength}
-                            perPage={this.rowsPerPage}
-                            selectedPerPage={this.currentRowsPerPage}
                             currentPage={this.currentPage}
-                            onkup-paginator-pagechanged={(e) =>
-                                this.handlePageChanged(e)
+                            max={this.rowsLength}
+                            perPage={
+                                this.currentRowsPerPage
+                                    ? this.currentRowsPerPage
+                                    : this.rowsPerPage
                             }
-                            onkup-paginator-rowsperpagechanged={(e) =>
-                                this.handleRowsPerPageChanged(e)
+                            onLoadMore={
+                                this.showLoadMore
+                                    ? () => {
+                                          this.onLoadMoreClick();
+                                      }
+                                    : null
                             }
+                            onNextPage={() =>
+                                this.handlePageChange(this.currentPage + 1)
+                            }
+                            onPrevPage={() =>
+                                this.handlePageChange(this.currentPage - 1)
+                            }
+                            onPageChange={(
+                                e: CustomEvent<KupComboboxEventPayload>
+                            ) => this.handlePageChange(e.detail.value)}
+                            onRowsChange={(
+                                e: CustomEvent<KupComboboxEventPayload>
+                            ) => this.handleRowsPerPageChange(e.detail.value)}
                         />
                     ) : null}
-                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
         );

@@ -86,7 +86,7 @@ export class KupInteract {
         if (!options) {
             options = {};
         }
-        if (!effect) {
+        if (effect === undefined || effect === null) {
             effect = KupDragEffect.MOVE;
         }
         options.listeners = {
@@ -169,10 +169,12 @@ export class KupInteract {
                         ghostImage.style.height = draggable.clientHeight + 'px';
                         ghostImage.style.left =
                             e.clientX - draggable.clientWidth / 2 + 'px';
+                        ghostImage.style.margin = '0';
                         ghostImage.style.opacity = '0.75';
                         ghostImage.style.position = 'fixed';
                         ghostImage.style.top =
                             e.clientY - draggable.clientHeight / 2 + 'px';
+                        ghostImage.style.transform = '';
                         ghostImage.style.width = draggable.clientWidth + 'px';
                         ghostImage.style.zIndex =
                             'calc(var(--kup-navbar-zindex) + 1)';
@@ -294,9 +296,6 @@ export class KupInteract {
                                 },
                             },
                         });
-                    (e.currentTarget as HTMLElement).removeAttribute(
-                        kupDragOverAttr
-                    );
                     eventData.dispatcher.dispatchEvent(ketchupDropEvent);
                 }
                 (e.currentTarget as HTMLElement).removeAttribute(
@@ -330,29 +329,41 @@ export class KupInteract {
      * @param {Partial<ResizableOptions>} options - Options of the resize action.
      * @param {KupResizeCallbacks} callbacks - Additional callbacks to invoke.
      * @param {boolean} moveOnResize - When true, the element will be moved when resizing in order to keep its position.
+     * @param {boolean} autoResize - When true, the element will be automatically resized (usually the behavior is specified in a callback).
      * @see https://interactjs.io/docs/action-options/ For more options
      */
     resizable(
         el: HTMLElement,
         options?: Partial<ResizableOptions>,
         callbacks?: KupResizeCallbacks,
-        moveOnResize?: boolean
+        moveOnResize?: boolean,
+        autoResize?: boolean
     ) {
-        if (!options) {
-            options = {};
+        if (!options || !options.edges) {
+            options = {
+                ...options,
+                edges: {
+                    left: true,
+                    right: true,
+                    bottom: true,
+                    top: true,
+                },
+            };
         }
         options.listeners = {
             move(e: ResizeEvent) {
                 if (callbacks && callbacks.move) {
                     callbacks.move(e);
                 }
+                if (autoResize) {
+                    el.style.width = e.rect.width + 'px';
+                    el.style.height = e.rect.height + 'px';
+                }
                 if (moveOnResize) {
                     const el = e.target as HTMLElement;
                     const oldTransform = e.target.style.transform;
                     let x = parseFloat(el.getAttribute('data-x')) || 0;
                     let y = parseFloat(el.getAttribute('data-y')) || 0;
-                    el.style.width = e.rect.width + 'px';
-                    el.style.height = e.rect.height + 'px';
                     x += e.deltaRect.left;
                     y += e.deltaRect.top;
                     el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
@@ -375,7 +386,7 @@ export class KupInteract {
     /**
      * Adds a new interact.js event listener to the given argument.
      * @param {HTMLElement} el - The element on which the event listener will be added.
-     * @param {KupPointerEventTypes} event - Supported events.
+     * @param {KupPointerEventTypes} event - Name of the event.
      * @param {KupResizeCallbacks} callback - Callback to invoke when the event fires.
      */
     on(el: HTMLElement, event: KupPointerEventTypes, callback: ListenersArg) {
@@ -404,7 +415,7 @@ export class KupInteract {
         return true;
     }
     /**
-     * This method treats the given element as a dialog, by activating moving-on-drag and, optionally, its resize.
+     * This method gives the element dialog-like features, by activating moving on drag and, optionally, the resize.
      * @param {HTMLElement} el - Dialog element.
      * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger movement. When not provided, dragging anywhere on "el" will move it.
      * @param {boolean} unresizable - When true, the dialog can't be resized.
@@ -461,13 +472,14 @@ export class KupInteract {
                     ],
                 },
                 null,
+                true,
                 true
             );
         }
     }
     /**
-     * Removes the elements from the MoveOnDrag class watchlist.
-     * @param {HTMLElement[]} elements - Elements to remove.
+     * Removes all event listeners from the elements in the array.
+     * @param {HTMLElement[]} elements - Elements to handle.
      */
     unregister(elements: HTMLElement[]): void {
         if (this.managedElements) {
@@ -478,7 +490,7 @@ export class KupInteract {
         }
     }
     /**
-     * Returns whether an element was previously registered or not.
+     * Checks whether an element is currently registered or not.
      * @param {HTMLElement} el - Element to test.
      * @returns {boolean} True if the element was registered.
      */

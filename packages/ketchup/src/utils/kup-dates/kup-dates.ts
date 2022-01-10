@@ -8,6 +8,7 @@ import 'dayjs/locale/it';
 import 'dayjs/locale/pl';
 import 'dayjs/locale/ru';
 import 'dayjs/locale/zh';
+import { KupComponent } from '../../types/GenericTypes';
 import { KupDatesLocales, KupDatesNormalize } from './kup-dates-declarations';
 
 /**
@@ -17,10 +18,12 @@ import { KupDatesLocales, KupDatesNormalize } from './kup-dates-declarations';
 export class KupDates {
     dayjs: Function;
     locale: KupDatesLocales;
+    managedComponents: Set<KupComponent>;
     /**
      * Initializes KupDates.
      */
     constructor(locale?: KupDatesLocales) {
+        this.managedComponents = new Set();
         this.setLocale(locale);
         this.dayjs = dayjs;
         dayjs.extend(customParseFormat);
@@ -49,11 +52,15 @@ export class KupDates {
                 .toLowerCase() as KupDatesLocales;
         }
         dayjs.locale(this.locale);
+        this.managedComponents.forEach(function (comp) {
+            if (comp.isConnected) {
+                comp.refresh();
+            }
+        });
         document.dispatchEvent(new CustomEvent('kup-dates-localechange'));
     }
     /**
-     *
-     * @returns the current locale
+     * @returns {string} The current locale.
      */
     getLocale(): string {
         return this.locale;
@@ -84,6 +91,7 @@ export class KupDates {
      * Validates the given date.
      * @param {dayjs.ConfigType} date - Date to be validated.
      * @param {string} format - Format of the input date.
+     * @param {boolean} strict - Strict parsing requires that the format and input match exactly, including delimiters.
      * @returns {boolean} Returns whether the argument is a valid date or not.
      */
     isValid(
@@ -180,8 +188,8 @@ export class KupDates {
                 case 3:
                 //input = '0' + input; // continue into case 4
                 case 4:
-                    sub1 = parseInt(input.substr(0, 2));
-                    sub2 = parseInt(input.substr(2));
+                    sub1 = parseInt(input.substring(0, 2));
+                    sub2 = parseInt(input.substring(2, 4));
                     if (mIndex === 0) {
                         today.setDate(sub2);
                         today.setMonth(sub1 - 1); // -1 because it's 0 based
@@ -193,10 +201,10 @@ export class KupDates {
                 case 5:
                 //input = '0' + input; // continue into case 6
                 case 6:
-                    sub1 = parseInt(input.substr(0, 2));
-                    sub2 = parseInt(input.substr(2, 2));
+                    sub1 = parseInt(input.substring(0, 2));
+                    sub2 = parseInt(input.substring(2, 4));
                     year = today.getFullYear().toString();
-                    year = year.substr(0, 2) + input.substr(4);
+                    year = year.substring(0, 2) + input.substring(4);
                     if (mIndex === 0) {
                         today.setFullYear(parseInt(year), sub1 - 1, sub2);
                     } else if (dIndex === 0) {
@@ -206,9 +214,9 @@ export class KupDates {
                 case 7:
                 //input = '0' + input; // continue into case 8
                 case 8:
-                    sub1 = parseInt(input.substr(0, 2));
-                    sub2 = parseInt(input.substr(2, 2));
-                    year = input.substr(4);
+                    sub1 = parseInt(input.substring(0, 2));
+                    sub2 = parseInt(input.substring(2, 4));
+                    year = input.substring(4);
                     if (mIndex === 0) {
                         today.setFullYear(parseInt(year), sub1 - 1, sub2);
                     } else if (dIndex === 0) {
@@ -236,25 +244,25 @@ export class KupDates {
                 case 3:
                 //input = '0' + input; // continue into case 4
                 case 4:
-                    hh = parseInt(input.substr(0, 2));
-                    mm = parseInt(input.substr(2));
+                    hh = parseInt(input.substring(0, 2));
+                    mm = parseInt(input.substring(2, 4));
                     today.setHours(hh, mm, 0, 0);
                     break;
                 case 5:
                 //input = '0' + input; // continue into case 6
                 case 6:
-                    hh = parseInt(input.substr(0, 2));
-                    mm = parseInt(input.substr(2, 2));
-                    ss = parseInt(input.substr(4));
+                    hh = parseInt(input.substring(0, 2));
+                    mm = parseInt(input.substring(2, 4));
+                    ss = parseInt(input.substring(4, 6));
                     today.setHours(hh, mm, ss, 0);
                     break;
                 case 7:
                 //input = '0' + input; // continue into case 8
                 case 8:
-                    hh = parseInt(input.substr(0, 2));
-                    mm = parseInt(input.substr(2, 2));
-                    ss = parseInt(input.substr(4, 2));
-                    ms = parseInt(input.substr(6));
+                    hh = parseInt(input.substring(0, 2));
+                    mm = parseInt(input.substring(2, 4));
+                    ss = parseInt(input.substring(4, 6));
+                    ms = parseInt(input.substring(6, 8));
                     today.setHours(hh, mm, ss, ms);
                     break;
                 default:
@@ -303,5 +311,22 @@ export class KupDates {
         unit?: dayjs.OpUnitType
     ): dayjs.Dayjs {
         return dayjs(input).subtract(value, unit);
+    }
+    /**
+     * Registers a KupComponent in KupDates, in order to be properly handled whenever the locale changes.
+     * @param {any} component - The Ketchup component to be registered.
+     */
+    register(component: any): void {
+        this.managedComponents.add(component.rootElement);
+    }
+    /**
+     * Unregisters a KupComponent, so it won't be refreshed when the locale changes.
+     *
+     * @param {any} component - The component calling this function.
+     */
+    unregister(component: any): void {
+        if (this.managedComponents) {
+            this.managedComponents.delete(component.rootElement);
+        }
     }
 }

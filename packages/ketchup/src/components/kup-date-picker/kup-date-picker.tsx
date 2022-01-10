@@ -599,6 +599,7 @@ export class KupDatePicker {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
         this.watchFirstDayIndex();
@@ -646,6 +647,7 @@ export class KupDatePicker {
     }
 
     disconnectedCallback() {
+        this.kupManager.dates.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.pickerContainerEl) {
             this.pickerContainerEl.remove();

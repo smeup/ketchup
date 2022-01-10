@@ -25,11 +25,6 @@
         slot="right"
         toggable
         @kup-button-click="toggleDebug"
-      ></kup-button>
-      <kup-button
-        icon="home"
-        @kup-button-click="$router.push('/').catch(() => {})"
-        slot="right"
       ></kup-button
       ><kup-button
         icon="menu"
@@ -41,6 +36,8 @@
         drag-enabled
         :data.prop="navbarCellData"
         slot="left"
+        @click="$router.push('/').catch(() => {})"
+        title="Ketchup home"
     /></kup-nav-bar>
     <kup-drawer
       class="kup-full-width kup-permanent"
@@ -173,9 +170,6 @@ export default {
     document.addEventListener('kup-debug-inactive', () => {
       debug.checked = false;
     });
-    document.addEventListener('kup-manager-stringfinder', (e: CustomEvent) => {
-      console.log('[kup-manager-stringfinder] => ' + e.detail.string);
-    });
   },
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
@@ -297,6 +291,7 @@ export default {
                     value: 'box',
                   },
                 },
+                icon: 'view-quilt',
                 value: 'Box',
                 visible: true,
               },
@@ -306,6 +301,7 @@ export default {
                     value: 'buttonlist',
                   },
                 },
+                icon: 'more_horiz',
                 value: 'Button list',
                 visible: true,
               },
@@ -315,6 +311,7 @@ export default {
                     value: 'calendar',
                   },
                 },
+                icon: 'event_note',
                 value: 'Calendar',
                 visible: true,
               },
@@ -324,6 +321,7 @@ export default {
                     value: 'card',
                   },
                 },
+                icon: 'art_track',
                 value: 'Card',
                 visible: true,
               },
@@ -333,6 +331,7 @@ export default {
                     value: 'cell',
                   },
                 },
+                icon: 'extension',
                 value: 'Cell',
                 visible: true,
               },
@@ -342,6 +341,7 @@ export default {
                     value: 'chart',
                   },
                 },
+                icon: 'chart-bar',
                 value: 'Chart',
                 visible: true,
               },
@@ -351,6 +351,7 @@ export default {
                     value: 'dash',
                   },
                 },
+                icon: 'thermostat-box',
                 value: 'Dash',
                 visible: true,
               },
@@ -360,6 +361,7 @@ export default {
                     value: 'dashlist',
                   },
                 },
+                icon: 'recent_actors',
                 value: 'Dash list',
                 visible: true,
               },
@@ -369,6 +371,7 @@ export default {
                     value: 'datatable',
                   },
                 },
+                icon: 'table',
                 value: 'Data table',
                 visible: true,
               },
@@ -378,6 +381,7 @@ export default {
                     value: 'field',
                   },
                 },
+                icon: 'edit',
                 value: 'Field',
                 visible: true,
               },
@@ -387,6 +391,7 @@ export default {
                     value: 'tooltip',
                   },
                 },
+                icon: 'insert_comment',
                 value: 'Tooltip',
                 visible: true,
               },
@@ -396,11 +401,13 @@ export default {
                     value: 'tree',
                   },
                 },
+                icon: 'file-tree',
                 value: 'Tree',
                 visible: true,
               },
             ],
             expandable: true,
+            icon: 'shape-plus',
             isExpanded: false,
             value: 'Advanced',
             visible: true,
@@ -413,6 +420,7 @@ export default {
                     value: 'accordion',
                   },
                 },
+                icon: 'view-sequential',
                 value: 'Accordion',
                 visible: true,
               },
@@ -422,6 +430,7 @@ export default {
                     value: 'autocomplete',
                   },
                 },
+                icon: 'text_format',
                 value: 'Autocomplete',
                 visible: true,
               },
@@ -431,6 +440,7 @@ export default {
                     value: 'badge',
                   },
                 },
+                icon: 'notifications',
                 value: 'Badge',
                 visible: true,
               },
@@ -440,6 +450,7 @@ export default {
                     value: 'button',
                   },
                 },
+                icon: 'brightness-1',
                 value: 'Button',
                 visible: true,
               },
@@ -449,6 +460,7 @@ export default {
                     value: 'checkbox',
                   },
                 },
+                icon: 'check_box',
                 value: 'Checkbox',
                 visible: true,
               },
@@ -458,6 +470,7 @@ export default {
                     value: 'chip',
                   },
                 },
+                icon: 'label',
                 value: 'Chip',
                 visible: true,
               },
@@ -467,6 +480,7 @@ export default {
                     value: 'colorpicker',
                   },
                 },
+                icon: 'colorize',
                 value: 'Color picker',
                 visible: true,
               },
@@ -476,6 +490,7 @@ export default {
                     value: 'combobox',
                   },
                 },
+                icon: 'format-font-size-decrease',
                 value: 'Combobox',
                 visible: true,
               },
@@ -485,6 +500,7 @@ export default {
                     value: 'datepicker',
                   },
                 },
+                icon: 'event',
                 value: 'Date picker',
                 visible: true,
               },
@@ -494,6 +510,7 @@ export default {
                     value: 'drawer',
                   },
                 },
+                icon: 'web',
                 value: 'Drawer',
                 visible: true,
               },
@@ -503,6 +520,7 @@ export default {
                     value: 'dropdownbutton',
                   },
                 },
+                icon: 'play_for_work',
                 value: 'Dropdown button',
                 visible: true,
               },
@@ -512,6 +530,7 @@ export default {
                     value: 'gauge',
                   },
                 },
+                icon: 'gauge',
                 value: 'Gauge',
                 visible: true,
               },
@@ -521,6 +540,7 @@ export default {
                     value: 'grid',
                   },
                 },
+                icon: 'apps',
                 value: 'Grid',
                 visible: true,
               },
@@ -530,6 +550,7 @@ export default {
                     value: 'iframe',
                   },
                 },
+                icon: 'open-in-browser',
                 value: 'Iframe',
                 visible: true,
               },
@@ -539,6 +560,7 @@ export default {
                     value: 'image',
                   },
                 },
+                icon: 'image',
                 value: 'Image',
                 visible: true,
               },
@@ -548,6 +570,7 @@ export default {
                     value: 'lazy',
                   },
                 },
+                icon: 'compare',
                 value: 'Lazy',
                 visible: true,
               },
@@ -557,6 +580,7 @@ export default {
                     value: 'list',
                   },
                 },
+                icon: 'list',
                 value: 'List',
                 visible: true,
               },
@@ -566,6 +590,7 @@ export default {
                     value: 'navbar',
                   },
                 },
+                icon: 'web_asset',
                 value: 'Nav bar',
                 visible: true,
               },
@@ -575,6 +600,7 @@ export default {
                     value: 'progressbar',
                   },
                 },
+                icon: 'data_usage',
                 value: 'Progress bar',
                 visible: true,
               },
@@ -584,6 +610,7 @@ export default {
                     value: 'radio',
                   },
                 },
+                icon: 'radiobox-marked',
                 value: 'Radio',
                 visible: true,
               },
@@ -593,6 +620,7 @@ export default {
                     value: 'rating',
                   },
                 },
+                icon: 'star',
                 value: 'Rating',
                 visible: true,
               },
@@ -602,6 +630,7 @@ export default {
                     value: 'snackbar',
                   },
                 },
+                icon: 'wb_iridescent',
                 value: 'Snackbar',
                 visible: true,
               },
@@ -611,6 +640,7 @@ export default {
                     value: 'spinner',
                   },
                 },
+                icon: 'vanish',
                 value: 'Spinner',
                 visible: true,
               },
@@ -620,6 +650,7 @@ export default {
                     value: 'switch',
                   },
                 },
+                icon: 'toll',
                 value: 'Switch',
                 visible: true,
               },
@@ -629,6 +660,7 @@ export default {
                     value: 'tabbar',
                   },
                 },
+                icon: 'tab',
                 value: 'Tab bar',
                 visible: true,
               },
@@ -638,6 +670,7 @@ export default {
                     value: 'textfield',
                   },
                 },
+                icon: 'text_fields',
                 value: 'Text field',
                 visible: true,
               },
@@ -647,11 +680,13 @@ export default {
                     value: 'timepicker',
                   },
                 },
+                icon: 'access_time',
                 value: 'Time picker',
                 visible: true,
               },
             ],
             expandable: true,
+            icon: 'shape',
             isExpanded: false,
             value: 'Basic',
             visible: true,
@@ -664,11 +699,13 @@ export default {
                     value: 'qlik',
                   },
                 },
+                icon: 'chart-pie',
                 value: 'Qlik',
                 visible: true,
               },
             ],
             expandable: true,
+            icon: 'lightbulb-on',
             isExpanded: false,
             value: '3rd Parties',
             visible: true,
@@ -685,26 +722,118 @@ export default {
           {
             cells: {
               ROUTE: {
-                value: 'customization',
+                value: 'kup-manager',
               },
             },
-            value: 'Customization',
+            icon: 'settings',
+            value: 'KupManager',
             visible: true,
           },
           {
             cells: {
               ROUTE: {
-                value: 'theming',
+                value: 'kup-dates',
               },
             },
-            value: 'Theming',
+            icon: 'calendar',
+            value: 'KupDates',
             visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-debug',
+              },
+            },
+            icon: 'bug',
+            value: 'KupDebug',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-dynamic-position',
+              },
+            },
+            icon: 'location_on',
+            value: 'KupDynamicPosition',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-interact',
+              },
+            },
+            icon: 'touch_app',
+            value: 'KupInteract',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-language',
+              },
+            },
+            icon: 'translate',
+            value: 'KupLanguage',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-objects',
+              },
+            },
+            icon: 'tag',
+            value: 'KupObjects',
+            visible: false,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-scroll-on-hover',
+              },
+            },
+            icon: 'compare_arrows',
+            value: 'KupScrollOnHover',
+            visible: false,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-search',
+              },
+            },
+            icon: 'pageview',
+            value: 'KupSearch',
+            visible: false,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-theme',
+              },
+            },
+            icon: 'style',
+            value: 'KupTheme',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-toolbar',
+              },
+            },
+            icon: 'wrench',
+            value: 'KupToolbar',
+            visible: false,
           },
         ],
         expandable: true,
-        icon: 'style',
+        icon: 'web',
         isExpanded: false,
-        value: 'CSS',
+        value: 'Framework',
         visible: true,
       },
       {
@@ -712,35 +841,18 @@ export default {
           {
             cells: {
               ROUTE: {
-                value: 'debugging',
+                value: 'customization',
               },
             },
-            value: 'Debugging',
-            visible: true,
-          },
-          {
-            cells: {
-              ROUTE: {
-                value: 'dynamicposition',
-              },
-            },
-            value: 'Dynamic position',
-            visible: true,
-          },
-          {
-            cells: {
-              ROUTE: {
-                value: 'scrollonhover',
-              },
-            },
-            value: 'Scroll on hover',
+            icon: 'style',
+            value: 'Style customization',
             visible: true,
           },
         ],
         expandable: true,
-        icon: 'json',
+        icon: 'library_books',
         isExpanded: false,
-        value: 'Javascript',
+        value: 'Guides',
         visible: true,
       },
     ],
@@ -874,9 +986,15 @@ label {
 }
 
 .navbar__logo {
+  --kup-obj-cursor: pointer;
   height: 100%;
   margin-left: 12px;
+  transition: opacity 120ms ease;
   width: 128px;
+
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
 .logo a {
@@ -965,6 +1083,10 @@ a.footer__icon--trailing {
 
 .has-padding {
   padding-left: var(--kup-drawer-width);
+}
+
+.accordion-slot {
+  padding: 1em;
 }
 
 ::-webkit-scrollbar {

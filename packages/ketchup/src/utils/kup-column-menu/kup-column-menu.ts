@@ -491,7 +491,7 @@ export class KupColumnMenu {
                     fullWidth: true,
                     icon: 'functions',
                     id: KupColumnMenuIds.TEXTFIELD_FORMULA,
-                    helper: 'i.e.: [COL1] * [COL2] + 1',
+                    helper: `i.e.: [${column.name}] * 2`,
                     label: dom.ketchup.language.translate(
                         KupLanguageTotals.FORMULA
                     ),

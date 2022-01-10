@@ -3,7 +3,7 @@ import { newE2EPage } from '@stencil/core/testing';
 import { defaultData, createData } from './mocked-data';
 import { boxSelector } from './box-selectors';
 
-const paginatorSelector = 'kup-box >>> kup-paginator';
+const paginatorSelector = 'kup-box >>> .f-paginator';
 
 describe('box pagination', () => {
     it('without pagination', async () => {

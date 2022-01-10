@@ -43,7 +43,6 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 import { KupCardData } from '../kup-card/kup-card-declarations';
-import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -79,6 +78,13 @@ import {
 } from '../../utils/kup-interact/kup-interact-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import { FPaginator } from '../../f-components/f-paginator/f-paginator';
+import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { FPaginatorMode } from '../../f-components/f-paginator/f-paginator-declarations';
+import {
+    pageChange,
+    rowsPerPageChange,
+} from '../../f-components/f-paginator/f-paginator-utils';
 
 @Component({
     tag: 'kup-box',
@@ -904,13 +910,23 @@ export class KupBox {
         this.rowActionMenuOpened = null;
     }
 
-    private handlePageChanged({ detail }) {
-        this.currentPage = detail.newPage;
+    private handlePageChange(pageNumber: number) {
+        const newPage = pageChange(
+            pageNumber,
+            this.filteredRows.length,
+            this.currentRowsPerPage
+        );
+        if (newPage) {
+            this.currentPage = newPage;
+        }
     }
 
-    private handleRowsPerPageChanged({ detail }) {
-        this.currentRowsPerPage = detail.newRowsPerPage;
-        this.adjustPaginator();
+    private handleRowsPerPageChange(rowsNumber: number) {
+        const newRows = rowsPerPageChange(rowsNumber, this.filteredRows.length);
+        if (newRows) {
+            this.currentRowsPerPage = newRows;
+            this.adjustPaginator();
+        }
     }
 
     private adjustPaginator() {
@@ -1729,11 +1745,17 @@ export class KupBox {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
+        }
+        if (
+            this.data &&
+            this.data.rows &&
+            this.currentRowsPerPage > this.data.rows.length
+        ) {
+            this.currentRowsPerPage = this.data.rows.length;
         }
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
@@ -1840,18 +1862,22 @@ export class KupBox {
         let paginator = null;
         if (this.pagination) {
             paginator = (
-                <kup-paginator
-                    max={this.filteredRows.length}
-                    perPage={this.pageSize}
+                <FPaginator
+                    id={top ? 'top-paginator' : 'bottom-paginator'}
                     currentPage={this.currentPage}
-                    selectedPerPage={this.currentRowsPerPage}
-                    onkup-paginator-pagechanged={(e) =>
-                        this.handlePageChanged(e)
+                    max={this.filteredRows.length}
+                    mode={FPaginatorMode.SIMPLE}
+                    perPage={
+                        this.currentRowsPerPage
+                            ? this.currentRowsPerPage
+                            : this.pageSize
                     }
-                    onkup-paginator-rowsperpagechanged={(e) =>
-                        this.handleRowsPerPageChanged(e)
+                    onPageChange={(e: CustomEvent<KupComboboxEventPayload>) =>
+                        this.handlePageChange(e.detail.value)
                     }
-                    mode={PaginatorMode.SIMPLE}
+                    onRowsChange={(e: CustomEvent<KupComboboxEventPayload>) =>
+                        this.handleRowsPerPageChange(e.detail.value)
+                    }
                 />
             );
         }

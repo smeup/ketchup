@@ -117,8 +117,6 @@ graph TD;
   kup-tooltip --> kup-list
   kup-tooltip --> kup-tree
   kup-box --> kup-date-picker
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button

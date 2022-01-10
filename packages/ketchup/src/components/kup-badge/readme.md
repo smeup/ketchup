@@ -83,7 +83,6 @@ Type: `Promise<void>`
  - [kup-image](../kup-image)
  - [kup-list](../kup-list)
  - [kup-magic-box](../kup-magic-box)
- - [kup-paginator](../kup-paginator)
  - [kup-snackbar](../kup-snackbar)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-tree](../kup-tree)
@@ -109,7 +108,6 @@ graph TD;
   kup-image --> kup-badge
   kup-list --> kup-badge
   kup-magic-box --> kup-badge
-  kup-paginator --> kup-badge
   kup-snackbar --> kup-badge
   kup-tab-bar --> kup-badge
   kup-tree --> kup-badge

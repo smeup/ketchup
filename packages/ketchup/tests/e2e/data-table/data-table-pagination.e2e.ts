@@ -2,8 +2,9 @@ import { newE2EPage } from '@stencil/core/testing';
 
 import data from './mocked-data';
 
-const paginatorSelector = 'kup-data-table >>> kup-paginator';
-const paginatorSelectSelector = 'kup-data-table >>> kup-paginator >>> select';
+const paginatorSelector = 'kup-data-table >>> .f-paginator';
+const paginatorSelectSelector =
+    'kup-data-table >>> .f-paginator >>> kup-combobox';
 
 describe('paginator position', () => {
     it('should have paginator top', async () => {

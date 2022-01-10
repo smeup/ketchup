@@ -36,7 +36,6 @@ import { KupImageClickEventPayload } from "./components/kup-image/kup-image-decl
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
-import { KupPaginatorPageChangedEventPayload, KupPaginatorRowsPerPageChangedEventPayload, PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -1992,23 +1991,6 @@ export namespace Components {
          */
         "styling": KupNavBarStyling;
     }
-    interface KupPaginator {
-        "currentPage": number;
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle": string;
-        "max": number;
-        "mode": PaginatorMode;
-        "perPage": number;
-        /**
-          * This method is used to trigger a new render of the component.
-         */
-        "refresh": () => Promise<void>;
-        "selectedPerPage": number;
-    }
     interface KupProbe {
         /**
           * Custom style of the component.
@@ -3015,12 +2997,6 @@ declare global {
         prototype: HTMLKupNavBarElement;
         new (): HTMLKupNavBarElement;
     };
-    interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {
-    }
-    var HTMLKupPaginatorElement: {
-        prototype: HTMLKupPaginatorElement;
-        new (): HTMLKupPaginatorElement;
-    };
     interface HTMLKupProbeElement extends Components.KupProbe, HTMLStencilElement {
     }
     var HTMLKupProbeElement: {
@@ -3129,7 +3105,6 @@ declare global {
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
-        "kup-paginator": HTMLKupPaginatorElement;
         "kup-probe": HTMLKupProbeElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
@@ -4738,27 +4713,6 @@ declare namespace LocalJSX {
          */
         "styling"?: KupNavBarStyling;
     }
-    interface KupPaginator {
-        "currentPage"?: number;
-        /**
-          * Custom style of the component.
-          * @default ""
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-         */
-        "customStyle"?: string;
-        "max"?: number;
-        "mode"?: PaginatorMode;
-        /**
-          * When the current page change
-         */
-        "onKup-paginator-pagechanged"?: (event: CustomEvent<KupPaginatorPageChangedEventPayload>) => void;
-        /**
-          * When the rows per page change
-         */
-        "onKup-paginator-rowsperpagechanged"?: (event: CustomEvent<KupPaginatorRowsPerPageChangedEventPayload>) => void;
-        "perPage"?: number;
-        "selectedPerPage"?: number;
-    }
     interface KupProbe {
         /**
           * Custom style of the component.
@@ -5525,7 +5479,6 @@ declare namespace LocalJSX {
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
-        "kup-paginator": KupPaginator;
         "kup-probe": KupProbe;
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
@@ -5574,7 +5527,6 @@ declare module "@stencil/core" {
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
-            "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;

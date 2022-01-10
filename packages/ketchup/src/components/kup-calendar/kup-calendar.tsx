@@ -391,6 +391,7 @@ export class KupCalendar {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
@@ -580,6 +581,7 @@ export class KupCalendar {
         if (this.calendar) {
             this.calendar.destroy();
         }
+        this.kupManager.dates.unregister(this);
         this.kupManager.language.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);

@@ -68,10 +68,12 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                           | Description                         |
-| ------------------------------ | ----------------------------------- |
-| `--kup-lazy-animation-time`    | Sets the duration of the animation. |
-| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon. |
+| Name                           | Description                                        |
+| ------------------------------ | -------------------------------------------------- |
+| `--kup-lazy-animation-time`    | Sets the duration of the animation.                |
+| `--kup-lazy-hor-alignment`     | Sets the horizontal alignment of the subcomponent. |
+| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon.                |
+| `--kup-lazy-ver-alignment`     | Sets the vertical alignment of the subcomponent.   |
 
 
 ----------------------------------------------

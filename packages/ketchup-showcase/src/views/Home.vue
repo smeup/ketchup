@@ -48,5 +48,6 @@
 <script>
 export default {
   name: 'home',
+  title: 'Ketchup | Showcase',
 };
 </script>

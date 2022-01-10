@@ -103,6 +103,7 @@
             "totalsFormula": "公式",
             "totalsMaximum": "最大",
             "totalsMinimum": "最低限度",
+            "totalsProduct": "产物",
             "totalsSum": "和"
         }
     },
@@ -210,6 +211,7 @@
             "totalsFormula": "Formula",
             "totalsMaximum": "Maximum",
             "totalsMinimum": "Minimum",
+            "totalsProduct": "Product",
             "totalsSum": "Sum"
         }
     },
@@ -317,6 +319,7 @@
             "totalsFormula": "Formule",
             "totalsMaximum": "Maximum",
             "totalsMinimum": "Minimum",
+            "totalsProduct": "Produit",
             "totalsSum": "Somme"
         }
     },
@@ -424,6 +427,7 @@
             "totalsFormula": "Formula",
             "totalsMinimum": "Minimo",
             "totalsMaximum": "Massimo",
+            "totalsProduct": "Prodotto",
             "totalsSum": "Somma"
         },
         "variants": {
@@ -544,6 +548,7 @@
             "totalsFormula": "Formuła",
             "totalsMinimum": "Minimo",
             "totalsMaximum": "Maksymalny",
+            "totalsProduct": "Iloczyn",
             "totalsSum": "Suma"
         }
     },
@@ -651,6 +656,7 @@
             "totalsFormula": "Формула",
             "totalsMinimum": "Минимум",
             "totalsMaximum": "Максимум",
+            "totalsProduct": "Продукт",
             "totalsSum": "Сумма"
         }
     },
@@ -758,6 +764,7 @@
             "totalsFormula": "Fórmula",
             "totalsMaximum": "Máximo",
             "totalsMinimum": "Mínimo",
+            "totalsProduct": "Producto",
             "totalsSum": "Suma"
         }
     }

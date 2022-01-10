@@ -10,6 +10,7 @@ import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 export const premadeFormulas = [
     KupLanguageTotals.AVERAGE,
     KupLanguageTotals.DIFFERENCE,
+    KupLanguageTotals.PRODUCT,
     KupLanguageTotals.SUM,
 ];
 /**

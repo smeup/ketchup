@@ -1,10 +1,31 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import type {
+    GenericObject,
+    KupComponent,
+    KupTagNames,
+} from '../../types/GenericTypes';
 import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
-import * as globalCSS from '../../style/global.css';
-import * as themeCSS from './kup-theme.css';
+import * as applicationCSS from './kup-theme-application.css';
+import * as componentCSS from './kup-theme-component.css';
+import * as fButtonCSS from '../../f-components/f-button/f-button.css';
+import * as fCellCSS from '../../f-components/f-cell/f-cell.css';
+import * as fCheckboxCSS from '../../f-components/f-checkbox/f-checkbox.css';
+import * as fChipCSS from '../../f-components/f-chip/f-chip.css';
+import * as fImageCSS from '../../f-components/f-image/f-image.css';
+import * as fPaginatorCSS from '../../f-components/f-paginator/f-paginator.css';
+import * as fSwitchCSS from '../../f-components/f-switch/f-switch.css';
+import * as fTextFieldCSS from '../../f-components/f-text-field/f-text-field.css';
+import * as rippleCSS from './mdc-ripple.css';
 import {
+    fButtonUsers,
+    fCellUsers,
+    fCheckboxUsers,
+    fChipUsers,
+    fImageUsers,
+    fPaginatorUsers,
+    fSwitchUsers,
+    fTextFieldUsers,
     KupThemeColor,
     KupThemeCSSVariables,
     KupThemeHSLValues,
@@ -12,6 +33,7 @@ import {
     KupThemeJSON,
     KupThemeRGBValues,
     masterCustomStyle,
+    rippleUsers,
 } from './kup-theme-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
@@ -40,62 +62,9 @@ export class KupTheme {
             .appendChild(document.createElement('style'));
     }
     /**
-     * Sets the theme using this.name or the function's argument.
-     * @param {string} name - When present, this theme will be set.
-     */
-    set(name?: string, list?: KupThemeJSON): void {
-        if (name) {
-            this.name = name;
-        }
-        if (list) {
-            this.list = list;
-        }
-        dom.ketchup.debug.logMessage(
-            'theme manager',
-            'Setting theme to: ' + this.name + '.'
-        );
-        if (!this.list[this.name]) {
-            dom.ketchup.debug.logMessage(
-                'theme manager',
-                'Invalid theme name, falling back to default ("ketchup").'
-            );
-            this.name = 'ketchup';
-        }
-
-        this.cssVars = {};
-        this.styleTag.innerText =
-            this.imports() +
-            ' :root[kup-theme="' +
-            this.name +
-            '"]{' +
-            this.cssVariables() +
-            this.icons() +
-            '}' +
-            themeCSS['default'];
-        this.customStyle();
-
-        document.documentElement.setAttribute('kup-theme', this.name);
-        document.dispatchEvent(new CustomEvent('kup-theme-change'));
-    }
-    /**
-     * Gets the name of available themes (filters out themes named "test").
-     * @returns {Array<string>} Array of themes' names.
-     */
-    getThemes(): Array<string> {
-        const themes: Array<string> = [];
-        for (var key in this.list) {
-            if (this.list.hasOwnProperty(key)) {
-                if (key !== 'test') {
-                    themes.push(key);
-                }
-            }
-        }
-        return themes;
-    }
-    /**
      * Sets the CSS variables of the theme.
      */
-    imports(): string {
+    private imports(): string {
         const imports: string[] = this.list[this.name].imports
             ? this.list[this.name].imports
             : [];
@@ -108,7 +77,7 @@ export class KupTheme {
     /**
      * Sets the CSS variables of the theme.
      */
-    cssVariables(): string {
+    private cssVariables(): string {
         const variables: KupThemeCSSVariables =
             this.list[this.name].cssVariables;
         let css: string = '';
@@ -143,7 +112,7 @@ export class KupTheme {
     /**
      * Sets the icon variables of the theme.
      */
-    icons(): string {
+    private icons(): string {
         const icons: KupThemeIcons = this.list[this.name].icons;
         let css: string = '';
         for (var key in icons) {
@@ -160,12 +129,63 @@ export class KupTheme {
     /**
      * Refreshed managed components to apply theme customStyles.
      */
-    customStyle(): void {
+    private customStyle(): void {
         this.managedComponents.forEach(function (comp) {
             if (comp.isConnected) {
                 comp.refresh();
             }
         });
+    }
+    /**
+     * Sets the theme using this.name or the function's argument.
+     * @param {string} name - When present, this theme will be set.
+     */
+    set(name?: string, list?: KupThemeJSON): void {
+        if (name) {
+            this.name = name;
+        }
+        if (list) {
+            this.list = list;
+        }
+        dom.ketchup.debug.logMessage(
+            'theme manager',
+            'Setting theme to: ' + this.name + '.'
+        );
+        if (!this.list[this.name]) {
+            dom.ketchup.debug.logMessage(
+                'theme manager',
+                'Invalid theme name, falling back to default ("ketchup").'
+            );
+            this.name = 'ketchup';
+        }
+
+        this.cssVars = {};
+        this.styleTag.innerText =
+            this.imports() +
+            ' :root[kup-theme="' +
+            this.name +
+            '"]{' +
+            this.cssVariables() +
+            this.icons() +
+            '}' +
+            applicationCSS['default'];
+        this.customStyle();
+
+        document.documentElement.setAttribute('kup-theme', this.name);
+        document.dispatchEvent(new CustomEvent('kup-theme-change'));
+    }
+    /**
+     * Gets the name of available themes.
+     * @returns {Array<string>} Array of themes' names.
+     */
+    getThemes(): Array<string> {
+        const themes: Array<string> = [];
+        for (var key in this.list) {
+            if (this.list.hasOwnProperty(key)) {
+                themes.push(key);
+            }
+        }
+        return themes;
     }
     /**
      * This method will just refresh the current theme.
@@ -194,14 +214,14 @@ export class KupTheme {
         }
     }
     /**
-     * Registers a KupComponent in KupTheme, in order to be properly handled whenever the theme changes.
+     * Registers a KupComponent in KupTheme, in order to be properly refreshed whenever the theme changes.
      * @param {any} comp - The component calling this function.
      */
     register(comp: any): void {
         this.managedComponents.add(comp.rootElement);
     }
     /**
-     * Unregisters a KupComponent, so it won't be handled when the theme changes.
+     * Unregisters a KupComponent, so it won't be refreshed when the theme changes.
      * @param {any} comp - The component calling this function.
      */
     unregister(comp: any): void {
@@ -216,7 +236,8 @@ export class KupTheme {
      */
     setKupStyle(comp: KupComponent): string {
         const styles: GenericObject = this.list[this.name].customStyles;
-        let completeStyle = globalCSS['default'];
+        const tagName: KupTagNames = comp.tagName as KupTagNames;
+        let completeStyle = componentCSS['default'];
         if (styles && styles[masterCustomStyle]) {
             completeStyle += styles[masterCustomStyle];
         }
@@ -225,6 +246,35 @@ export class KupTheme {
         }
         if (comp.customStyle) {
             completeStyle += ' ' + comp.customStyle;
+        }
+        if (tagName) {
+            if (fButtonUsers.includes(tagName)) {
+                completeStyle += fButtonCSS['default'];
+            }
+            if (fCellUsers.includes(tagName)) {
+                completeStyle += fCellCSS['default'];
+            }
+            if (fCheckboxUsers.includes(tagName)) {
+                completeStyle += fCheckboxCSS['default'];
+            }
+            if (fChipUsers.includes(tagName)) {
+                completeStyle += fChipCSS['default'];
+            }
+            if (fImageUsers.includes(tagName)) {
+                completeStyle += fImageCSS['default'];
+            }
+            if (fPaginatorUsers.includes(tagName)) {
+                completeStyle += fPaginatorCSS['default'];
+            }
+            if (fSwitchUsers.includes(tagName)) {
+                completeStyle += fSwitchCSS['default'];
+            }
+            if (fTextFieldUsers.includes(tagName)) {
+                completeStyle += fTextFieldCSS['default'];
+            }
+            if (rippleUsers.includes(tagName)) {
+                completeStyle += rippleCSS['default'];
+            }
         }
         return completeStyle ? completeStyle : null;
     }
@@ -264,7 +314,7 @@ export class KupTheme {
         );
     }
     /**
-     * Sets a random theme between those specified in this.list (excludes "print" and "test").
+     * Sets a random theme between those specified in this.list (excludes "print" and "test") and different from the currently used one.
      */
     randomTheme(): void {
         let themes: string[] = [];
@@ -276,9 +326,11 @@ export class KupTheme {
             }
         }
         if (themes.length > 0) {
-            this.set(
-                themes[Math.floor(Math.random() * Math.floor(themes.length))]
-            );
+            let index = null;
+            while (index === null || themes[index] === this.name) {
+                index = Math.floor(Math.random() * Math.floor(themes.length));
+            }
+            this.set(themes[index]);
         } else {
             dom.ketchup.debug.logMessage(
                 'kup-theme',
@@ -288,8 +340,8 @@ export class KupTheme {
         }
     }
     /**
-     * Returns HEX, RGB and RGB values from a given color.
-     * @param {string} color - Color.
+     * Returns HEX, RGB, HSL, HSL values and RGB values from a given color.
+     * @param {string} color - Input color.
      * @returns {KupThemeColor} Object of color values: hexColor ("#ffffff"), hslColor ("hsl(255,100%,100%)"), hslValues ("255,100%,100%"), rgbColor ("rgb(255,255,255)") and rgbValues ("255,255,255").
      */
     colorCheck(color: string): KupThemeColor {

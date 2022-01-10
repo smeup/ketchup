@@ -2,6 +2,7 @@ import type { Interaction } from '@interactjs/core/Interaction';
 import type { ActionMap } from '@interactjs/core/scope';
 import type { RectResolvable } from '@interactjs/types/index';
 import type { KupDates } from '../kup-dates/kup-dates';
+import type { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import type { KupDebug } from '../kup-debug/kup-debug';
 import type { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
 import type { KupInteract } from '../kup-interact/kup-interact';
@@ -10,12 +11,11 @@ import type { KupLanguageJSON } from '../kup-language/kup-language-declarations'
 import type { KupObjects } from '../kup-objects/kup-objects';
 import type { KupObjectsJSON } from '../kup-objects/kup-objects-declarations';
 import type { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
+import type { KupSearch } from '../kup-search/kup-search';
 import type { KupTheme } from '../kup-theme/kup-theme';
 import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { ResizeObserver } from 'resize-observer';
-import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
-import { KupSearch } from '../kup-search/kup-search';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -123,4 +123,10 @@ export interface KupManagerScrollOnHoverSettings {
 export interface KupManagerThemeSettings {
     list?: KupThemeJSON;
     name?: string;
+}
+/**
+ * KupTheme initialization settings.
+ */
+export interface KupManagerStringFinderPayload {
+    string: string;
 }

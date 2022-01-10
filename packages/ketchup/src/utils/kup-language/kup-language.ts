@@ -142,7 +142,7 @@ export class KupLanguage {
         return result;
     }
     /**
-     * Gets the name of available languages.
+     * Gets the name of available languages and variants.
      * @returns {Array<string>} Array of languages' names.
      */
     getLanguages(): Array<string> {
@@ -159,14 +159,14 @@ export class KupLanguage {
         return languages;
     }
     /**
-     * Registers a KupComponent in KupLanguage, in order to be properly handled whenever the language changes.
+     * Registers a KupComponent in KupLanguage, in order to be automatically refreshed whenever the language changes.
      * @param {any} component - The component calling this function.
      */
     register(component: any): void {
         this.managedComponents.add(component.rootElement);
     }
     /**
-     * Unregisters a KupComponent, so it won't be handled when the theme changes.
+     * Unregisters a KupComponent, so it won't be refreshed when the language changes.
      *
      * @param {any} component - The component calling this function.
      */
