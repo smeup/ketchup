@@ -493,6 +493,7 @@ function setKupCell(
             } else {
                 const barStyle = {
                     height: (subcomponentProps as FImageProps).sizeY,
+                    width: '100%',
                 };
                 return (
                     <div style={barStyle}>
