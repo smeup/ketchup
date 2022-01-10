@@ -51,13 +51,7 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import {
-    deepEqual,
-    getProps,
-    identify,
-    isNumber,
-    setProps,
-} from '../../utils/utils';
+import { deepEqual, getProps, identify, setProps } from '../../utils/utils';
 import {
     GenericObject,
     KupComponent,
