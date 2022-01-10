@@ -8,7 +8,7 @@ import type { FImageProps } from '../f-image/f-image-declarations';
 import type { FButtonProps } from '../f-button/f-button-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import type { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
-import type { KupComponent } from '../../types/GenericTypes';
+import { KupComponent, KupTagNames } from '../../types/GenericTypes';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
 import type { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
@@ -195,7 +195,7 @@ function setCellSize(
         case FCellTypes.IMAGE:
             if (
                 (props.component as KupComponent).rootElement.tagName ===
-                'KUP-BOX'
+                KupTagNames.BOX
             ) {
                 if (!(subcomponentProps as FImageProps).sizeY) {
                     (subcomponentProps as FImageProps).sizeY = 'auto';
@@ -290,7 +290,8 @@ function setEditableCell(
         case FCellTypes.CHECKBOX:
             if (
                 autoAlignComps.includes(
-                    (props.component as KupComponent).rootElement.tagName
+                    (props.component as KupComponent).rootElement
+                        .tagName as KupTagNames
                 )
             ) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -414,7 +415,8 @@ function setCell(
         case FCellTypes.CHECKBOX:
             if (
                 autoAlignComps.includes(
-                    (props.component as KupComponent).rootElement.tagName
+                    (props.component as KupComponent).rootElement
+                        .tagName as KupTagNames
                 )
             ) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -436,7 +438,8 @@ function setCell(
         case FCellTypes.IMAGE:
             if (
                 autoAlignComps.includes(
-                    (props.component as KupComponent).rootElement.tagName
+                    (props.component as KupComponent).rootElement
+                        .tagName as KupTagNames
                 )
             ) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -460,7 +463,8 @@ function setCell(
                 }
                 if (
                     autoAlignComps.includes(
-                        (props.component as KupComponent).rootElement.tagName
+                        (props.component as KupComponent).rootElement
+                            .tagName as KupTagNames
                     )
                 ) {
                     classObj[FCellClasses.C_RIGHT_ALIGNED] = true;
@@ -499,7 +503,8 @@ function setKupCell(
         case FCellTypes.BUTTON:
             if (
                 autoAlignComps.includes(
-                    (props.component as KupComponent).rootElement.tagName
+                    (props.component as KupComponent).rootElement
+                        .tagName as KupTagNames
                 )
             ) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -515,7 +520,8 @@ function setKupCell(
         case FCellTypes.BUTTON_LIST:
             if (
                 autoAlignComps.includes(
-                    (props.component as KupComponent).rootElement.tagName
+                    (props.component as KupComponent).rootElement
+                        .tagName as KupTagNames
                 )
             ) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -529,7 +535,8 @@ function setKupCell(
         case FCellTypes.CHART:
             if (
                 autoAlignComps.includes(
-                    (props.component as KupComponent).rootElement.tagName
+                    (props.component as KupComponent).rootElement
+                        .tagName as KupTagNames
                 )
             ) {
                 classObj[FCellClasses.C_CENTERED] = true;
@@ -558,7 +565,8 @@ function setKupCell(
         case FCellTypes.RADIO:
             if (
                 autoAlignComps.includes(
-                    (props.component as KupComponent).rootElement.tagName
+                    (props.component as KupComponent).rootElement
+                        .tagName as KupTagNames
                 )
             ) {
                 classObj[FCellClasses.C_CENTERED] = true;

@@ -1,10 +1,30 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import type {
+    GenericObject,
+    KupComponent,
+    KupTagNames,
+} from '../../types/GenericTypes';
 import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
-import * as componentCSS from './kup-theme-component.css';
 import * as applicationCSS from './kup-theme-application.css';
+import * as componentCSS from './kup-theme-component.css';
+import * as fButtonCSS from '../../f-components/f-button/f-button.css';
+import * as fCellCSS from '../../f-components/f-cell/f-cell.css';
+import * as fCheckboxCSS from '../../f-components/f-checkbox/f-checkbox.css';
+import * as fChipCSS from '../../f-components/f-chip/f-chip.css';
+import * as fImageCSS from '../../f-components/f-image/f-image.css';
+import * as fPaginatorCSS from '../../f-components/f-paginator/f-paginator.css';
+import * as fSwitchCSS from '../../f-components/f-switch/f-switch.css';
+import * as fTextFieldCSS from '../../f-components/f-text-field/f-text-field.css';
 import {
+    fButtonUsers,
+    fCellUsers,
+    fCheckboxUsers,
+    fChipUsers,
+    fImageUsers,
+    fPaginatorUsers,
+    fSwitchUsers,
+    fTextFieldUsers,
     KupThemeColor,
     KupThemeCSSVariables,
     KupThemeHSLValues,
@@ -214,6 +234,7 @@ export class KupTheme {
      */
     setKupStyle(comp: KupComponent): string {
         const styles: GenericObject = this.list[this.name].customStyles;
+        const tagName: KupTagNames = comp.tagName as KupTagNames;
         let completeStyle = componentCSS['default'];
         if (styles && styles[masterCustomStyle]) {
             completeStyle += styles[masterCustomStyle];
@@ -223,6 +244,32 @@ export class KupTheme {
         }
         if (comp.customStyle) {
             completeStyle += ' ' + comp.customStyle;
+        }
+        if (tagName) {
+            if (fButtonUsers.includes(tagName)) {
+                completeStyle += fButtonCSS['default'];
+            }
+            if (fCellUsers.includes(tagName)) {
+                completeStyle += fCellCSS['default'];
+            }
+            if (fCheckboxUsers.includes(tagName)) {
+                completeStyle += fCheckboxCSS['default'];
+            }
+            if (fChipUsers.includes(tagName)) {
+                completeStyle += fChipCSS['default'];
+            }
+            if (fImageUsers.includes(tagName)) {
+                completeStyle += fImageCSS['default'];
+            }
+            if (fPaginatorUsers.includes(tagName)) {
+                completeStyle += fPaginatorCSS['default'];
+            }
+            if (fSwitchUsers.includes(tagName)) {
+                completeStyle += fSwitchCSS['default'];
+            }
+            if (fTextFieldUsers.includes(tagName)) {
+                completeStyle += fTextFieldCSS['default'];
+            }
         }
         return completeStyle ? completeStyle : null;
     }

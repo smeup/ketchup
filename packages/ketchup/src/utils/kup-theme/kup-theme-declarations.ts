@@ -1,9 +1,98 @@
-import type { GenericObject } from '../../types/GenericTypes';
+import { GenericObject, KupTagNames } from '../../types/GenericTypes';
 
 /**
  * Variable used to fetch the MASTER customStyle (used in every component).
  */
 export const masterCustomStyle = 'MASTER';
+/**
+ * Components using the FButton functional component.
+ */
+export const fButtonUsers = [
+    KupTagNames.BUTTON,
+    KupTagNames.BUTTON_LIST,
+    KupTagNames.BOX,
+    KupTagNames.CALENDAR,
+    KupTagNames.CARD,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.DROPDOWN_BUTTON,
+    KupTagNames.SNACKBAR,
+];
+/**
+ * Components using the FCell functional component.
+ */
+export const fCellUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.TREE,
+];
+/**
+ * Components using the FCheckbox functional component.
+ */
+export const fCheckboxUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.CHECKBOX,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.LIST,
+    KupTagNames.TREE,
+];
+/**
+ * Components using the FChip functional component.
+ */
+export const fChipUsers = [
+    KupTagNames.BOX,
+    KupTagNames.CALENDAR,
+    KupTagNames.CELL,
+    KupTagNames.CHIP,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.TREE,
+];
+/**
+ * Components using the FImage functional component.
+ */
+export const fImageUsers = [
+    KupTagNames.ACCORDION,
+    KupTagNames.BADGE,
+    KupTagNames.BOX,
+    KupTagNames.BUTTON,
+    KupTagNames.BUTTON_LIST,
+    KupTagNames.CALENDAR,
+    KupTagNames.CARD,
+    KupTagNames.CELL,
+    KupTagNames.CHIP,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.DROPDOWN_BUTTON,
+    KupTagNames.IMAGE,
+    KupTagNames.LIST,
+    KupTagNames.MAGIC_BOX,
+    KupTagNames.SNACKBAR,
+    KupTagNames.TAB_BAR,
+    KupTagNames.TREE,
+];
+/**
+ * Components using the FPaginator functional component.
+ */
+export const fPaginatorUsers = [KupTagNames.BOX, KupTagNames.DATA_TABLE];
+/**
+ * Components using the FSwitch functional component.
+ */
+export const fSwitchUsers = [KupTagNames.SWITCH];
+/**
+ * Components using the FTextField functional component.
+ */
+export const fTextFieldUsers = [
+    KupTagNames.AUTOCOMPLETE,
+    KupTagNames.BOX,
+    KupTagNames.CELL,
+    KupTagNames.COLOR_PICKER,
+    KupTagNames.COMBOBOX,
+    KupTagNames.DATA_TABLE,
+    KupTagNames.DATE_PICKER,
+    KupTagNames.TEXT_FIELD,
+    KupTagNames.TIME_PICKER,
+    KupTagNames.TREE,
+];
 /**
  * Interface of the themes JSON.
  */
