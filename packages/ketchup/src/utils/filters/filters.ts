@@ -1,4 +1,4 @@
-import { KupTagNames } from 'types/GenericTypes';
+import { KupTagNames } from '../../types/GenericTypes';
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import {
