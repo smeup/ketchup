@@ -59,6 +59,10 @@
   text-decoration: inherit;
   text-transform: inherit;
 
+  &--empty {
+    padding: 0;
+  }
+
   .list-item {
     display: -ms-flexbox;
     display: flex;

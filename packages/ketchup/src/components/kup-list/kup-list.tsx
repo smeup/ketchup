@@ -683,6 +683,10 @@ export class KupList {
             componentClass += ' text-hidden';
         }
 
+        if (!this.data || this.data.length === 0) {
+            componentClass += ' list--empty';
+        }
+
         let roleAttr = this.roleType;
 
         let ariaMultiSelectable: string = 'false';
@@ -705,7 +709,6 @@ export class KupList {
                     <ul
                         class={componentClass}
                         role={roleAttr}
-                        id={'kup-list_' + this.rootElement.id}
                         aria-multiselectable={ariaMultiSelectable}
                     >
                         {this.data
