@@ -156,6 +156,7 @@ for (const fileName of KUP_THEME_FILES_TO_PARSE) {
     }
 }
 
+//==== Parses only MDC ripple stylesheet ====
 try {
     const parsedStyle = sass.compileString(`
             @import '${MDC_RIPPLE_ENTRY_FILE}';
