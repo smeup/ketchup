@@ -12,7 +12,7 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import {
     FChipData,
@@ -21,8 +21,8 @@ import {
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupChipEventPayload, KupChipProps } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';

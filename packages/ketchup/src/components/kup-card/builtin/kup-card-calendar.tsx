@@ -4,9 +4,9 @@ import {
     FButtonProps,
     FButtonStyling,
 } from '../../../f-components/f-button/f-button-declarations';
-import { KupDatesFormats } from '../../../utils/kup-dates/kup-dates-declarations';
-import { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
-import { KupObj } from '../../../utils/kup-objects/kup-objects-declarations';
+import { KupDatesFormats } from '../../../managers/kup-dates/kup-dates-declarations';
+import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
+import { KupObj } from '../../../managers/kup-objects/kup-objects-declarations';
 import {
     DateTimeFormatOptionsMonth,
     getMonthsAsStringByLocale,

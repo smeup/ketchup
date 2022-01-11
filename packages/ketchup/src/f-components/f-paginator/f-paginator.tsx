@@ -4,8 +4,8 @@ import {
     KupLanguageGeneric,
     KupLanguagePage,
     KupLanguageRow,
-} from '../../utils/kup-language/kup-language-declarations';
-import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+} from '../../managers/kup-language/kup-language-declarations';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { FButton } from '../f-button/f-button';
 import { FButtonStyling } from '../f-button/f-button-declarations';
 import { FPaginatorMode, FPaginatorProps } from './f-paginator-declarations';

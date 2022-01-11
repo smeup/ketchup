@@ -163,7 +163,7 @@
 </template>
 
 <script lang="ts">
-import { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 
@@ -223,8 +223,6 @@ export default {
      * Initializes the widgets by setting all the values to the related components.
      */
     initWidgets(): void {
-      accordion.customStyle =
-        '#kup-component .accordion-item__content { overflow: visible; }';
       accordion.data = {
         columns: [
           {

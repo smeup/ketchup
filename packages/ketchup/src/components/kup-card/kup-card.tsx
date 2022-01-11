@@ -25,7 +25,7 @@ import type {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import {
     KupCardData,
     KupCardFamily,
@@ -36,8 +36,8 @@ import {
     KupCardClickPayload,
 } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { layoutSpecificEvents } from './kup-card-helper';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';

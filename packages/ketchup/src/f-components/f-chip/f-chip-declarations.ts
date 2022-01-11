@@ -1,5 +1,5 @@
 import type { FComponent } from '../../types/GenericTypes';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 /**
  * Props of the f-chip component.

@@ -3,7 +3,7 @@ import type { GenericObject } from '../../types/GenericTypes';
 import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupCard } from './kup-card';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import {
     KupCardCSSClasses,
@@ -11,7 +11,7 @@ import {
     KupCardSubEvents,
 } from './kup-card-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 /**
  * This function returns a list of components.
  * @param {GenericObject[]} compArray - Components' props.

@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-theme',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/managers/kup-theme',
       headtitle: 'KupTheme',
       titles: ['What is it?', 'Features', 'Events', 'Theme maker'],
     };

@@ -7,7 +7,7 @@ import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
 import type { FImageProps } from '../f-image/f-image-declarations';
 import type { FButtonProps } from '../f-button/f-button-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
-import type { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupComponent, KupTagNames } from '../../types/GenericTypes';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
@@ -34,7 +34,7 @@ import { FTextField } from '../f-text-field/f-text-field';
 import { stringToNumber } from '../../utils/utils';
 import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupButtonClickEventPayload } from '../../components/kup-button/kup-button-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;

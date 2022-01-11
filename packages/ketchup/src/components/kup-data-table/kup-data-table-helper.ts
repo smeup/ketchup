@@ -19,9 +19,9 @@ import {
     compareCell,
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import { kupManagerInstance } from '../../utils/kup-manager/kup-manager';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 

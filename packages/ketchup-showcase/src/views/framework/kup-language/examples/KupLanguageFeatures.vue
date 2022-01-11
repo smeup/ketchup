@@ -66,7 +66,7 @@
             on GitHub!
           </p>
           <div class="demo-container">
-            <div class="kup-container">
+            <div class="kup-container" style="padding: 0">
               <kup-data-table id="translations"></kup-data-table>
             </div> </div
         ></div>
@@ -83,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { FChipData } from '@sme.up/ketchup/dist/types/f-components/f-chip/f-chip-declarations';
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';

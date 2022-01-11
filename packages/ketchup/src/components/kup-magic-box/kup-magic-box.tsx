@@ -13,7 +13,7 @@ import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 import { KupListData } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
@@ -23,9 +23,9 @@ import {
     MagicBoxDisplay,
     MagicBoxData,
 } from './kup-magic-box-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -34,7 +34,7 @@ import {
     kupDraggableRowAttr,
     kupDropEvent,
     KupDropEventTypes,
-} from '../../utils/kup-interact/kup-interact-declarations';
+} from '../../managers/kup-interact/kup-interact-declarations';
 
 @Component({
     tag: 'kup-magic-box',

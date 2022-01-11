@@ -42,7 +42,7 @@ import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import {
     calcTotals,
     normalizeRows,
@@ -76,18 +76,18 @@ import {
     kupDynamicPositionAttribute,
     KupDynamicPositionCoordinates,
     KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupScrollOnHoverElement } from '../../managers/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
     KupLanguageGeneric,
     KupLanguageSearch,
     KupLanguageTotals,
-} from '../../utils/kup-language/kup-language-declarations';
+} from '../../managers/kup-language/kup-language-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
-import { KupPointerEventTypes } from '../../utils/kup-interact/kup-interact-declarations';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
+import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellClasses,
     FCellPadding,

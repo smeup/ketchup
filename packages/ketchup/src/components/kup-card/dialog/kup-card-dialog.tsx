@@ -1,14 +1,14 @@
 import { h, VNode } from '@stencil/core';
 import type { KupCard } from '../kup-card';
 import type { GenericObject } from '../../../types/GenericTypes';
-import type { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
+import type { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList, dialogHeader } from '../kup-card-helper';
 import {
     Column,
     TableData,
 } from '../../kup-data-table/kup-data-table-declarations';
-import { KupLanguageRow } from '../../../utils/kup-language/kup-language-declarations';
+import { KupLanguageRow } from '../../../managers/kup-language/kup-language-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;

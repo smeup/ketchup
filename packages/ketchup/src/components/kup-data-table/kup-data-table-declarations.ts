@@ -3,8 +3,8 @@ import {
     FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
-import { KupLanguageTotals } from '../../utils/kup-language/kup-language-declarations';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupLanguageTotals } from '../../managers/kup-language/kup-language-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 
 export const premadeFormulas = [

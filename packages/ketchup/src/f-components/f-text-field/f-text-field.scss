@@ -159,6 +159,8 @@
 
         &.mdc-text-field--disabled {
           color: rgba(var(--kup_textfield_color_rgb), 0.5);
+          -webkit-text-fill-color: rgba(var(--kup_textfield_color_rgb), 0.5);
+          opacity: 1;
 
           & .mdc-text-field__input {
             color: rgba(var(--kup_textfield_color_rgb), 0.5);
@@ -248,8 +250,10 @@
       }
 
       &.mdc-text-field--disabled:not(.mdc-text-field--outlined) {
-        color: var(--kup-disabled-color);
         background: var(--kup-disabled-background-color);
+        color: var(--kup-disabled-color);
+        -webkit-text-fill-color: var(--kup-disabled-color);
+        opacity: 1;
 
         & .mdc-text-field__input {
           color: var(--kup-disabled-color);
@@ -311,7 +315,7 @@
       }
     }
 
-    &.kup-shaped {
+    &.#{$kup-class-shaped} {
       .mdc-text-field.mdc-text-field--filled {
         border-radius: 16px 16px 0 0;
       }

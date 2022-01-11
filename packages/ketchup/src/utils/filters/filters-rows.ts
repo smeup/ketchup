@@ -21,8 +21,8 @@ import {
 import { Filters } from './filters';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
-import { KupObjects } from '../kup-objects/kup-objects';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { KupObjects } from '../../managers/kup-objects/kup-objects';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 const kupObjects: KupObjects = dom.ketchup

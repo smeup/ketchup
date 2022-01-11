@@ -1,5 +1,5 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../kup-date-picker/kup-date-picker-declarations';
 /**
  * Props of the kup-card component.

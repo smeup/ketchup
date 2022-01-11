@@ -35,7 +35,7 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { getColumnByName } from '../../utils/cell-utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
@@ -55,8 +55,8 @@ import {
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
-import { KupDatesLocales } from '../../utils/kup-dates/kup-dates-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { KupDatesLocales } from '../../managers/kup-dates/kup-dates-declarations';
 
 @Component({
     tag: 'kup-calendar',

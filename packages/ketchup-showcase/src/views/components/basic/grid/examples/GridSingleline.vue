@@ -57,3 +57,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.kup-container {
+  overflow: auto;
+}
+</style>

@@ -77,7 +77,7 @@
 import {
   KupDom,
   KupManagerStringFinderPayload,
-} from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+} from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 

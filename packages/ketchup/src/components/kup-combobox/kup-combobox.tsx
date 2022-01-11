@@ -16,7 +16,7 @@ import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import {
     ItemsDisplayMode,
     KupListEventPayload,
@@ -28,11 +28,11 @@ import {
     KupComboboxEventPayload,
     KupComboboxProps,
 } from './kup-combobox-declarations';
-import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
-import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 
 @Component({
     tag: 'kup-combobox',

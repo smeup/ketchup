@@ -9,11 +9,11 @@ import {
 } from '@stencil/core';
 
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import {
     getProps,
     setProps,
@@ -22,7 +22,7 @@ import {
 import { KupGaugeProps } from './kup-gauge-declarations';
 
 import { arc } from 'd3-shape';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({

@@ -127,7 +127,7 @@
 </template>
 
 <script lang="ts">
-import { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var anchor: HTMLElement = null;

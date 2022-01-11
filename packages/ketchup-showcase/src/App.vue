@@ -16,16 +16,7 @@
         leading-label
         slot="right"
         @kup-switch-change="changeTheme"
-      ></kup-switch>
-      <kup-button
-        class="kup-pulsating"
-        icon="bug"
-        icon-off="bug"
-        id="debug-toggler"
-        slot="right"
-        toggable
-        @kup-button-click="toggleDebug"
-      ></kup-button
+      ></kup-switch
       ><kup-button
         icon="menu"
         @kup-button-click="menuClick"
@@ -112,11 +103,10 @@
 <script lang="ts">
 import type { Components } from '@sme.up/ketchup/dist/types/components';
 import type { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
-import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
 import { KupTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tree/kup-tree-declarations';
 
-var debug: HTMLKupButtonElement = null;
 var drawer: HTMLKupDrawerElement = null;
 var main: HTMLElement = null;
 var modal: HTMLElement = null;
@@ -152,7 +142,6 @@ export default {
     });
   },
   mounted: function () {
-    debug = document.getElementById('debug-toggler') as HTMLKupButtonElement;
     drawer = document.getElementById('app__drawer') as HTMLKupDrawerElement;
     main = document.getElementById('app__content') as HTMLElement;
     main.style.padding = '';
@@ -164,12 +153,6 @@ export default {
       dom.ketchup.setLibraryLocalization(dom.ketchup.dates.locale);
     });
     document.addEventListener('kup-drawer-ready', () => this.removeSpinner());
-    document.addEventListener('kup-debug-active', () => {
-      debug.checked = true;
-    });
-    document.addEventListener('kup-debug-inactive', () => {
-      debug.checked = false;
-    });
   },
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
@@ -226,15 +209,6 @@ export default {
           drawer.open();
         }
       });
-    },
-    toggleDebug(): void {
-      if (dom.ketchup.debug.isDebug()) {
-        console.log('Debug deactivated.');
-        dom.ketchup.debug.toggle(false);
-      } else {
-        console.log('Debug activated.');
-        dom.ketchup.debug.toggle(true);
-      }
     },
     treeClick(e: CustomEvent<KupTreeNodeSelectedEventPayload>): void {
       const route: Cell =
@@ -872,6 +846,7 @@ html {
   color: var(--kup-text-color);
   font-family: var(--kup-font-family);
   font-size: var(--kup-font-size);
+  overscroll-behavior: none;
 }
 
 a {
@@ -1108,9 +1083,7 @@ a.footer__icon--trailing {
     padding-bottom: 2.5em;
   }
 
-  #debug-toggler,
-  #app__footer,
-  #theme-switch {
+  #app__footer {
     display: none;
   }
 }

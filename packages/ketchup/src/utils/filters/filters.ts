@@ -4,8 +4,8 @@ import { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     KupDatesFormats,
     KupDatesNormalize,
-} from '../kup-dates/kup-dates-declarations';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
+} from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     formattedStringToCustomUnformattedStringTime,
     formattedStringToDefaultUnformattedStringTimestamp,

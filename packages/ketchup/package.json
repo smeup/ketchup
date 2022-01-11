@@ -66,14 +66,9 @@
         "jest": "^26.6.3",
         "jest-cli": "^26.6.3",
         "jest-environment-node": "^26.6.2",
-        "module-alias": "^2.2.2",
         "puppeteer": "^10.0.0",
         "rimraf": "^3.0.2",
         "sass": "^1.46.0"
-    },
-    "_moduleAliases": {
-        "@f-components": "src/f-components",
-        "@kup-manager": "src/kup-manager"
     },
     "repository": {
         "type": "git",

@@ -6,13 +6,13 @@ import {
 } from '../f-chip/f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { FImageProps } from '../f-image/f-image-declarations';
 import {
     KupThemeColorValues,
     KupThemeIconValues,
-} from '../../utils/kup-theme/kup-theme-declarations';
+} from '../../managers/kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 

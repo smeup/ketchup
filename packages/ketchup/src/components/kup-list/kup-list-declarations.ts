@@ -1,6 +1,6 @@
 import { KupEventPayload } from '../../types/GenericTypes';
 import { ValueDisplayedValue as vdv } from '../../utils/filters/filters-declarations';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 /**
  * Props of the kup-list component.

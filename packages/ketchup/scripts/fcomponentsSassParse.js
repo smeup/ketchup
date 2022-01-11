@@ -1,18 +1,21 @@
-const fs = require("fs");
-const path = require("path");
-const sass = require("sass");
+const fs = require('fs');
+const path = require('path');
+const sass = require('sass');
 
 //================ CONFIGURATION ================
 const NODE_MODULES_PATH = path.join(__dirname, '../node_modules');
-const GLOBAL_STYLE_FOLDER_PATH = "../src/style";
+const GLOBAL_STYLE_FOLDER_PATH = '../src/style';
 
 // For FComponents
-const FCOMPONENTS_FOLDER_PATH = "../src/f-components";
+const FCOMPONENTS_FOLDER_PATH = '../src/f-components';
 
 // For the kup-theme
-const KUP_THEME_FOLDER_PATH = "../src/utils/kup-theme";
-const KUP_THEME_FILES_TO_PARSE = Object.freeze(["kup-theme-application", "kup-theme-component"]);
-const MDC_RIPPLE_ENTRY_FILE = "@material/ripple/mdc-ripple";
+const KUP_THEME_FOLDER_PATH = '../src/managers/kup-theme';
+const KUP_THEME_FILES_TO_PARSE = Object.freeze([
+    'kup-theme-application',
+    'kup-theme-component',
+]);
+const MDC_RIPPLE_ENTRY_FILE = '@material/ripple/mdc-ripple';
 
 //================ GLOBAL UTILS ================
 const EXIT_CODES = Object.freeze({
@@ -56,49 +59,60 @@ let foundErrors = false;
 //================ Parse SCSS of the FComponents ================
 const fcomponentsRootDirPath = path.join(__dirname, FCOMPONENTS_FOLDER_PATH);
 
-console.log("Build FComponents SCSS");
+console.log('Build FComponents SCSS');
 console.log(`Reading FComponents folder: ${fcomponentsRootDirPath}...`);
 const componentsFolders = fs.readdirSync(fcomponentsRootDirPath);
 
 for (const componentName of componentsFolders) {
     const componentFolder = path.join(fcomponentsRootDirPath, componentName);
     if (fs.statSync(componentFolder).isDirectory()) {
-
-        const componentScssFilePath = path.join(componentFolder, `${componentName}.scss`);
+        const componentScssFilePath = path.join(
+            componentFolder,
+            `${componentName}.scss`
+        );
         console.log(`Found component folder ${componentFolder}.`);
         console.log(`Parsing its SCSS `, componentScssFilePath);
 
         if (fs.existsSync(componentScssFilePath)) {
             try {
-                const parsedStyle = sass.compileString(`
+                const parsedStyle = sass.compileString(
+                    `
                     @import 'global.scss';
                     @import '${componentName}.scss';
-                `, {
-                    loadPaths: [
-                        globalStyleDirPath,
-                        componentFolder,
-                        NODE_MODULES_PATH,
-                    ],
-                    style: "compressed",
-                });
+                `,
+                    {
+                        loadPaths: [
+                            globalStyleDirPath,
+                            componentFolder,
+                            NODE_MODULES_PATH,
+                        ],
+                        style: 'compressed',
+                    }
+                );
 
-                const parsedComponentScssFilePath = path.join(componentFolder, `${componentName}.css`)
+                const parsedComponentScssFilePath = path.join(
+                    componentFolder,
+                    `${componentName}.css`
+                );
 
                 try {
                     fs.writeFileSync(
                         parsedComponentScssFilePath,
                         parsedStyle.css,
                         {
-                            encoding: "utf-8"
+                            encoding: 'utf-8',
                         }
                     );
-                } catch(e) {
-                    logError("Could not write to file " + parsedComponentScssFilePath, e);
+                } catch (e) {
+                    logError(
+                        'Could not write to file ' +
+                            parsedComponentScssFilePath,
+                        e
+                    );
                     foundErrors = true;
                 }
-
-            } catch(e) {
-                logError("Failed to parse file " + componentScssFilePath, e);
+            } catch (e) {
+                logError('Failed to parse file ' + componentScssFilePath, e);
                 foundErrors = true;
             }
         }
@@ -106,9 +120,11 @@ for (const componentName of componentsFolders) {
 }
 
 if (!foundErrors) {
-    logSuccess("FComponents SASS parsed successfully!");
+    logSuccess('FComponents SASS parsed successfully!');
 } else {
-    logError(`Exit with code ${EXIT_CODES.PARSE_FAILED}: Failed to parse some SCSS files. Look into the output above for more information.`);
+    logError(
+        `Exit with code ${EXIT_CODES.PARSE_FAILED}: Failed to parse some SCSS files. Look into the output above for more information.`
+    );
     process.exit(EXIT_CODES.PARSE_FAILED);
 }
 
@@ -121,36 +137,36 @@ const sassParserOptions = {
         kupThemeDirPath,
         NODE_MODULES_PATH,
     ],
-    style: "compressed",
+    style: 'compressed',
 };
 
 for (const fileName of KUP_THEME_FILES_TO_PARSE) {
-    const filePathToParse = path.join(kupThemeDirPath, fileName + ".scss");
+    const filePathToParse = path.join(kupThemeDirPath, fileName + '.scss');
     if (fs.existsSync(filePathToParse)) {
         try {
-            const parsedStyle = sass.compileString(`
+            const parsedStyle = sass.compileString(
+                `
                     @import 'global.scss';
                     @import '${fileName}.scss';
                 `,
                 sassParserOptions
             );
 
-            const parsedScssFilePath = path.join(kupThemeDirPath, `${fileName}.css`)
+            const parsedScssFilePath = path.join(
+                kupThemeDirPath,
+                `${fileName}.css`
+            );
 
             try {
-                fs.writeFileSync(
-                    parsedScssFilePath,
-                    parsedStyle.css,
-                    {
-                        encoding: "utf-8"
-                    }
-                );
-            } catch(e) {
-                logError("Could not write to file " + parsedScssFilePath, e);
+                fs.writeFileSync(parsedScssFilePath, parsedStyle.css, {
+                    encoding: 'utf-8',
+                });
+            } catch (e) {
+                logError('Could not write to file ' + parsedScssFilePath, e);
                 foundErrors = true;
             }
-        } catch(e) {
-            logError("Failed to parse file " + filePathToParse, e);
+        } catch (e) {
+            logError('Failed to parse file ' + filePathToParse, e);
             foundErrors = true;
         }
     }
@@ -158,36 +174,35 @@ for (const fileName of KUP_THEME_FILES_TO_PARSE) {
 
 //==== Parses only MDC ripple stylesheet ====
 try {
-    const parsedStyle = sass.compileString(`
+    const parsedStyle = sass.compileString(
+        `
             @import '${MDC_RIPPLE_ENTRY_FILE}';
         `,
         sassParserOptions
     );
-    const parsedScssFilePath = path.join(kupThemeDirPath, "mdc-ripple.css")
+    const parsedScssFilePath = path.join(kupThemeDirPath, 'mdc-ripple.css');
 
     try {
-        fs.writeFileSync(
-            parsedScssFilePath,
-            parsedStyle.css,
-            {
-                encoding: "utf-8"
-            }
-        );
-    } catch(e) {
-        logError("Could not write to file " + parsedScssFilePath, e);
+        fs.writeFileSync(parsedScssFilePath, parsedStyle.css, {
+            encoding: 'utf-8',
+        });
+    } catch (e) {
+        logError('Could not write to file ' + parsedScssFilePath, e);
         foundErrors = true;
     }
-} catch(e) {
-    logError("Could not find Material ripple scss file", e);
+} catch (e) {
+    logError('Could not find Material ripple scss file', e);
     foundErrors = true;
 }
 
 if (!foundErrors) {
-    logSuccess("Kup-theme SASS parsed successfully!");
+    logSuccess('Kup-theme SASS parsed successfully!');
 } else {
-    logError(`Exit with code ${EXIT_CODES.PARSE_FAILED}: Failed to parse some SCSS files. Look into the output above for more information.`);
+    logError(
+        `Exit with code ${EXIT_CODES.PARSE_FAILED}: Failed to parse some SCSS files. Look into the output above for more information.`
+    );
     process.exit(EXIT_CODES.PARSE_FAILED);
 }
 
 //================ Finish compilation ================
-logSuccess("All precompiled SASS files parsed successfully!");
+logSuccess('All precompiled SASS files parsed successfully!');

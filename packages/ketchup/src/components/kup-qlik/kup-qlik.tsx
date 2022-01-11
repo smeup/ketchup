@@ -3,7 +3,7 @@ import { QlikServer, KupQlikGrid } from './kup-qlik-declarations';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-qlik',

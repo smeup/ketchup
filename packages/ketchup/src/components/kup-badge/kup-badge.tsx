@@ -18,8 +18,8 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+} from '../../managers/kup-manager/kup-manager';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupBadgeProps } from './kup-badge-declarations';

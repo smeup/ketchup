@@ -46,7 +46,7 @@ import { KupCardData } from '../kup-card/kup-card-declarations';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
@@ -60,14 +60,14 @@ import {
 import { FImage } from '../../f-components/f-image/f-image';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
-import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupScrollOnHoverElement } from '../../managers/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     KupLanguageGeneric,
     KupLanguageSearch,
-} from '../../utils/kup-language/kup-language-declarations';
+} from '../../managers/kup-language/kup-language-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import {
     KupDragDataTransferCallback,
     KupDragEffect,
@@ -75,7 +75,7 @@ import {
     KupDropDataTransferCallback,
     KupDropEventTypes,
     KupPointerEventTypes,
-} from '../../utils/kup-interact/kup-interact-declarations';
+} from '../../managers/kup-interact/kup-interact-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
 import { FPaginator } from '../../f-components/f-paginator/f-paginator';

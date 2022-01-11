@@ -12,10 +12,6 @@
         "module": "esnext",
         "noUnusedLocals": false,
         "noUnusedParameters": true,
-        "paths": {
-            "@f-components/*": ["f-components/*"],
-            "@kup-manager/*": ["utils/kup-manager/*"]
-        },
         "resolveJsonModule": true,
         "target": "es2017"
     },

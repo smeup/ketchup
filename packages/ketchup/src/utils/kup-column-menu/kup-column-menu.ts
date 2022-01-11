@@ -4,13 +4,13 @@ import type { KupDataTable } from '../../components/kup-data-table/kup-data-tabl
 import type {
     KupDom,
     KupManagerClickCb,
-} from '../kup-manager/kup-manager-declarations';
+} from '../../managers/kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     KupDynamicPositionElement,
     KupDynamicPositionPlacement,
-} from '../kup-dynamic-position/kup-dynamic-position-declarations';
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import type {
     Column,
     ColumnChild,
@@ -37,11 +37,11 @@ import {
     KupLanguageGeneric,
     KupLanguageRow,
     KupLanguageTotals,
-} from '../kup-language/kup-language-declarations';
+} from '../../managers/kup-language/kup-language-declarations';
 import { KupTabBarData } from '../../components/kup-tab-bar/kup-tab-bar-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
-import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     FChipData,
     FChipsProps,

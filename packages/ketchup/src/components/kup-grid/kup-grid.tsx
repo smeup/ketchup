@@ -9,11 +9,11 @@ import {
     VNode,
 } from '@stencil/core';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupGridProps } from './kup-grid-declarations';

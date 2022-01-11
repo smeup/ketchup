@@ -3,7 +3,7 @@ import { getCellValueForDisplay } from '../../utils/cell-utils';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 
 import { getDecimalSeparator } from '../../utils/utils';
 

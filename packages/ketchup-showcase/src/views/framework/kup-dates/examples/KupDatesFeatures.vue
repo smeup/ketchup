@@ -168,7 +168,7 @@
 </template>
 
 <script lang="ts">
-import { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 import { FChipData } from '@sme.up/ketchup/dist/types/f-components/f-chip/f-chip-declarations';
@@ -350,13 +350,9 @@ export default {
 </script>
 
 <style lang="scss">
-#format-field,
-#date-field,
-#result-field {
-  margin: 0.5em;
-}
-
-#locale-selector {
-  margin-right: 1em;
+kup-text-field,
+kup-date-picker,
+kup-combobox {
+  margin: 0.5em !important;
 }
 </style>

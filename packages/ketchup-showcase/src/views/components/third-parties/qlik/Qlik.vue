@@ -37,3 +37,11 @@ export default {
   title: 'Ketchup | Qlik',
 };
 </script>
+
+<style lang="scss">
+img {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+}
+</style>
