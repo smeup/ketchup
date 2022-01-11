@@ -1,7 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { dataTableCheckboxFactory } from './mocked-data';
 import { cellsSelector } from './data-table-selectors';
-import { KupObjects } from '../../../src/utils/kup-objects/kup-objects';
+import { KupObjects } from '../../../src/managers/kup-objects/kup-objects';
 
 describe.each([
     ['checkbox', 'kup-checkbox'],

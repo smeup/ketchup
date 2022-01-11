@@ -4,8 +4,8 @@ import {
     Column,
     Row,
 } from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import { KupDom } from '../../../src/utils/kup-manager/kup-manager-declarations';
-import { KupManager } from '../../../src/utils/kup-manager/kup-manager';
+import { KupDom } from '../../../src/managers/kup-manager/kup-manager-declarations';
+import { KupManager } from '../../../src/managers/kup-manager/kup-manager';
 const dom: KupDom = document.documentElement as KupDom;
 if (!dom.ketchup) {
     dom.ketchup = new KupManager();

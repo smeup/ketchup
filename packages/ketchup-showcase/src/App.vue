@@ -117,6 +117,9 @@ var theme: HTMLKupSwitchElement = null;
 const dom: KupDom = document.documentElement as KupDom;
 
 export default {
+  beforeUpdate: function () {
+    document.documentElement.scrollTop = 0;
+  },
   beforeCreate: function () {
     if (
       window.matchMedia &&
