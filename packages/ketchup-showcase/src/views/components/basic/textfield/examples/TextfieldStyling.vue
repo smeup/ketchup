@@ -223,3 +223,10 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+kup-text-field {
+  margin: auto;
+  padding: 0.5em;
+}
+</style>

@@ -33,9 +33,10 @@
         <div
           class="kup-container"
           style="
-            height: 128px;
-            width: 100%;
             border: 1px solid var(--kup-border-color);
+            height: 128px;
+            padding: 0;
+            width: 100%;
           "
         >
           <kup-image :data.prop="data"></kup-image>
@@ -57,9 +58,11 @@
         <div
           class="kup-container"
           style="
-            height: 100px;
-            width: 150px;
             border: 1px solid var(--kup-border-color);
+            height: 100px;
+            margin: auto;
+            padding: 0;
+            width: 150px;
           "
         >
           <kup-image :data.prop="dataIT"></kup-image>
