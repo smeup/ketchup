@@ -182,11 +182,11 @@ export class KupCell {
     private generateColumn(): Column {
         const colname: string =
             this.data && this.data.obj && this.data.obj.t
-                ? this.data.obj.t + '|' + this.data.obj.p
+                ? this.data.obj.t + ';' + this.data.obj.p
                 : 'KUPCELL';
         const coltitle: string =
             this.data && this.data.obj && this.data.obj.t
-                ? this.data.obj.t + '|' + this.data.obj.p
+                ? this.data.obj.t + ';' + this.data.obj.p
                 : this.kupManager.language.translate(
                       KupLanguageGeneric.EMPTY_OBJECT
                   );

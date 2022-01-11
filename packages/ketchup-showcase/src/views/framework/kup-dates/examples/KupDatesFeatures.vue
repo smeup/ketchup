@@ -350,13 +350,9 @@ export default {
 </script>
 
 <style lang="scss">
-#format-field,
-#date-field,
-#result-field {
-  margin: 0.5em;
-}
-
-#locale-selector {
-  margin-right: 1em;
+kup-text-field,
+kup-date-picker,
+kup-combobox {
+  margin: 0.5em !important;
 }
 </style>

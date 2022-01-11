@@ -16,7 +16,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-gauge
-            widthComponent="300px"
+            width-component="300px"
             min-value="0"
             first-threshold="33"
             second-threshold="66"

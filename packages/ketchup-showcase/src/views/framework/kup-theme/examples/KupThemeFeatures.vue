@@ -93,7 +93,10 @@
             - <strong>color (string)</strong> - Input color.<br />
           </p>
           <div class="demo-container">
-            <div class="kup-container">
+            <div
+              class="kup-container"
+              style="flex-direction: column; overflow: auto"
+            >
               <kup-data-table
                 id="color-check-table"
                 @kup-cell-update="(e) => updateColorTable(e)"
@@ -351,11 +354,16 @@ export default {
   },
 };
 </script>
+
 <style scoped lang="scss">
 #random-area {
   border: 1px solid var(--kup-border-color);
   margin: 0.25em auto 5em auto;
   padding: 1em;
   width: 18em;
+}
+
+#theme-container {
+  padding: 0;
 }
 </style>

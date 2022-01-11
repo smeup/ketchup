@@ -66,7 +66,7 @@
             on GitHub!
           </p>
           <div class="demo-container">
-            <div class="kup-container">
+            <div class="kup-container" style="padding: 0">
               <kup-data-table id="translations"></kup-data-table>
             </div> </div
         ></div>
