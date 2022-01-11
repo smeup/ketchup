@@ -131,3 +131,25 @@
     transform: translate(-10px, -10px);
   }
 }
+/*-------------------------------------------------*/
+/*      D a t a T a b l e   D r o p   M e n u      */
+/*-------------------------------------------------*/
+.column-drop-menu {
+  width: 280px;
+
+  kup-button,
+  kup-combobox {
+    margin: 0 auto 0.75em auto;
+  }
+
+  kup-combobox {
+    max-width: 95%;
+  }
+
+  .chip-wrapper {
+    border-top: 1px solid var(--kup-border-color);
+    max-height: 33vh;
+    overflow: auto;
+    width: 100%;
+  }
+}

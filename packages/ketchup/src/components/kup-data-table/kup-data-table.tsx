@@ -121,6 +121,7 @@ import {
 } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
+    KupLanguageColumn,
     KupLanguageDensity,
     KupLanguageFontsize,
     KupLanguageGeneric,
@@ -164,6 +165,8 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import { KupCombobox } from 'components/kup-combobox/kup-combobox';
+import { KupChipEventPayload } from 'components/kup-chip/kup-chip-declarations';
+import { FButtonStyling } from 'f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -833,21 +836,10 @@ export class KupDataTable {
     private columnMenuInstance: KupColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu;
     private filtersRowsInstance: FiltersRows;
-    /**
-     * Reference to the row detail card.
-     */
     private detailCard: HTMLKupCardElement = null;
-    /**
-     * Reference to the column menu card.
-     */
     private columnMenuCard: HTMLKupCardElement = null;
-    /**
-     * Reference to the card created after a column drop action.
-     */
     private columnDropCard: HTMLKupCardElement = null;
-    /**
-     * Column options card anchor element
-     */
+    private columnDropCombobox: HTMLKupComboboxElement = null;
     private columnDropCardAnchor: HTMLElement = null;
 
     /**
@@ -1398,6 +1390,8 @@ export class KupDataTable {
             KupDynamicPositionPlacement.BOTTOM,
             true
         );
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('column-drop-menu');
         const numeric: boolean =
             this.kupManager.objects.isNumber(receiving.obj) &&
             this.kupManager.objects.isNumber(starter.obj);
@@ -1425,10 +1419,27 @@ export class KupDataTable {
                 document.createElement('kup-list');
             actionsList.data = listData;
             actionsList.showIcons = true;
-            this.columnDropCard.appendChild(actionsList);
+            wrapper.appendChild(actionsList);
         }
         if (this.enableColumnsFormula) {
+            const chipData: FChipData[] = [];
             const comboListData: KupListData[] = [];
+            for (let index = 0; index < this.data.columns.length; index++) {
+                const column = this.data.columns[index];
+                if (
+                    column.visible !== false &&
+                    column.obj &&
+                    this.kupManager.objects.isNumber(column.obj)
+                ) {
+                    chipData.push({
+                        obj: column.obj,
+                        label: column.name,
+                        title: column.title,
+                        value: column.name,
+                    });
+                }
+            }
+            const numericalColumnsExist = !!(chipData.length > 0);
             if (numeric) {
                 comboListData.push(
                     {
@@ -1464,22 +1475,55 @@ export class KupDataTable {
                         value: `([${receiving.name}]/[${starter.name}])*100`,
                     }
                 );
+            } else {
+                comboListData.push({
+                    text: this.kupManager.language.translate(
+                        KupLanguageColumn.NO_FORMULA
+                    ),
+                    value: KupLanguageColumn.NO_FORMULA,
+                });
             }
-            const combobox = document.createElement('kup-combobox');
-            combobox.customStyle =
-                ':host { margin: 0 0.5em 0.5em 0.5em !important; }';
-            combobox.data = {
-                'kup-list': { data: comboListData },
+            this.columnDropCombobox = document.createElement('kup-combobox');
+            this.columnDropCombobox.data = {
+                'kup-list': {
+                    data: comboListData,
+                    selectable: numeric ? true : false,
+                },
                 'kup-text-field': {
-                    helper: `i.e.: [${receiving.name}] - [${starter.name}] + 1`,
+                    helper: !numericalColumnsExist
+                        ? this.kupManager.language.translate(
+                              KupLanguageColumn.NON_NUMERICAL_IN_TABLE
+                          )
+                        : numeric
+                        ? `i.e.: [${receiving.name}] - [${starter.name}] + 1`
+                        : this.kupManager.language.translate(
+                              KupLanguageColumn.NON_NUMERICAL
+                          ),
                     label: this.kupManager.language.translate(
                         KupLanguageTotals.FORMULA
                     ),
                     outlined: true,
                 },
             };
-            this.columnDropCard.appendChild(combobox);
+            wrapper.appendChild(this.columnDropCombobox);
+            if (numericalColumnsExist) {
+                const chipSet = document.createElement('kup-chip');
+                const chipWrapper = document.createElement('div');
+                chipSet.data = chipData;
+                const button = document.createElement('kup-button');
+                button.label = this.kupManager.language.translate(
+                    KupLanguageTotals.CALCULATE
+                );
+                button.styling = FButtonStyling.OUTLINED;
+                wrapper.appendChild(button);
+                chipWrapper.classList.add('chip-wrapper');
+                chipWrapper.appendChild(chipSet);
+                wrapper.appendChild(chipWrapper);
+            } else {
+                this.columnDropCombobox.disabled = true;
+            }
         }
+        this.columnDropCard.appendChild(wrapper);
         this.kupManager.dynamicPosition.start(
             this.columnDropCard as unknown as KupDynamicPositionElement
         );
@@ -1497,6 +1541,81 @@ export class KupDataTable {
                 const cardDetail = event.detail;
                 const subcompEvent = cardDetail.event;
                 switch (subcompEvent.type) {
+                    case 'kup-button-click':
+                        {
+                            this.columnDropCombobox.getValue().then((res) => {
+                                const value = res as KupLanguageTotals;
+                                if (premadeFormulas.includes(value)) {
+                                    this.formulaOnColumns(value, [
+                                        receiving.name,
+                                        starter.name,
+                                    ]);
+                                    this.closeDropCard();
+                                } else {
+                                    this.formulaOnColumns(value).then((res) => {
+                                        if (
+                                            typeof res === 'string' ||
+                                            res instanceof String
+                                        ) {
+                                            this.columnDropCombobox.classList.add(
+                                                'kup-danger'
+                                            );
+                                            this.columnDropCombobox.data[
+                                                'kup-text-field'
+                                            ].helper = res as string;
+                                            this.columnDropCombobox.refresh();
+                                        } else {
+                                            this.closeDropCard();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        break;
+                    case 'kup-chip-click': {
+                        const value = (
+                            subcompEvent as CustomEvent<KupChipEventPayload>
+                        ).detail.value;
+                        this.columnDropCombobox.getValue().then((res) => {
+                            let currentFormula = res;
+                            currentFormula += '[' + value + ']';
+                            this.columnDropCombobox.setValue(currentFormula);
+                        });
+                        break;
+                    }
+                    case 'kup-combobox-itemclick':
+                        {
+                            const value = (
+                                subcompEvent as CustomEvent<KupComboboxEventPayload>
+                            ).detail.value;
+                            if (premadeFormulas.includes(value)) {
+                                this.formulaOnColumns(value, [
+                                    receiving.name,
+                                    starter.name,
+                                ]);
+                                this.closeDropCard();
+                            } else {
+                                this.formulaOnColumns(value).then((res) => {
+                                    if (
+                                        typeof res === 'string' ||
+                                        res instanceof String
+                                    ) {
+                                        const combobox = (
+                                            subcompEvent as CustomEvent<KupComboboxEventPayload>
+                                        ).detail.comp as KupCombobox;
+                                        combobox.rootElement.classList.add(
+                                            'kup-danger'
+                                        );
+                                        combobox.data['kup-text-field'].helper =
+                                            res as string;
+                                        combobox.refresh();
+                                    } else {
+                                        this.closeDropCard();
+                                    }
+                                });
+                            }
+                        }
+                        break;
                     case 'kup-list-click': {
                         switch (
                             (subcompEvent as CustomEvent<KupListEventPayload>)
@@ -1514,37 +1633,6 @@ export class KupDataTable {
                         }
                         this.closeDropCard();
                         break;
-                    }
-                    case 'kup-combobox-change': {
-                        const value = (
-                            subcompEvent as CustomEvent<KupComboboxEventPayload>
-                        ).detail.value;
-                        if (premadeFormulas.includes(value)) {
-                            this.formulaOnColumns(value, [
-                                receiving.name,
-                                starter.name,
-                            ]);
-                            this.closeDropCard();
-                        } else {
-                            this.formulaOnColumns(value).then((res) => {
-                                if (
-                                    typeof res === 'string' ||
-                                    res instanceof String
-                                ) {
-                                    const combobox = (
-                                        subcompEvent as CustomEvent<KupComboboxEventPayload>
-                                    ).detail.comp as KupCombobox;
-                                    combobox.rootElement.classList.add(
-                                        'kup-danger'
-                                    );
-                                    combobox.data['kup-text-field'].helper =
-                                        res as string;
-                                    combobox.refresh();
-                                } else {
-                                    this.closeDropCard();
-                                }
-                            });
-                        }
                     }
                 }
             }

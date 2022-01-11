@@ -128,6 +128,7 @@ function createChipList(
                     props.onClick && props.onClick[i] ? props.onClick[i] : null
                 }
                 role="row"
+                title={props.data[i].title ? props.data[i].title : ''}
             >
                 {iconEl}
                 <span role="gridcell">
