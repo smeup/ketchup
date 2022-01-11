@@ -400,6 +400,7 @@ const demoTypes: DemoTypeJson = {
       'checked?': 'boolean',
       'icon?': 'string',
       'obj?': 'KupObj',
+      'title?': 'string',
     },
     type: DemoTypeFeature.INTERFACE,
   },

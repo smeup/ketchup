@@ -16,6 +16,12 @@
         <span class="code-word">label</span> defines the text to be displayed
         inside the component.
         <br />
+        <span class="code-word">obj</span> defines the
+        <span class="code-word">KupObj</span> tied to that chip.
+        <br />
+        <span class="code-word">title</span> defines the text displayed when
+        hovering on the element with the mouse.
+        <br />
         <span class="code-word">checked</span> defines whether the chip is
         selected or not, this is true for chip set defined as
         <span class="code-word">choice</span> or
