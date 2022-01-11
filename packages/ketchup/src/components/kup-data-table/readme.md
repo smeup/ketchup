@@ -281,10 +281,11 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-list](../kup-list)
 - [kup-combobox](../kup-combobox)
+- [kup-chip](../kup-chip)
+- [kup-button](../kup-button)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-switch](../kup-switch)
-- [kup-button](../kup-button)
 - [kup-badge](../kup-badge)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-color-picker](../kup-color-picker)
@@ -304,10 +305,11 @@ graph TD;
   kup-data-table --> kup-card
   kup-data-table --> kup-list
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-chip
+  kup-data-table --> kup-button
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-switch
-  kup-data-table --> kup-button
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
   kup-data-table --> kup-color-picker
