@@ -25,14 +25,14 @@ import { getValueOfItemByDisplayMode } from './kup-list-helper';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import {
     GenericObject,
     KupComponent,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 

@@ -1,6 +1,6 @@
 import type { FTextFieldProps } from './f-text-field-declarations';
 import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
-import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */

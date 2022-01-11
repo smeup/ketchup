@@ -7,11 +7,11 @@ import { KupTabBarData } from '../../kup-tab-bar/kup-tab-bar-declarations';
 import {
     KupLanguageColumn,
     KupLanguageGeneric,
-} from '../../../utils/kup-language/kup-language-declarations';
+} from '../../../managers/kup-language/kup-language-declarations';
 import { FChipType } from '../../../f-components/f-chip/f-chip-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
 import { KupColumnMenuIds } from '../../../utils/kup-column-menu/kup-column-menu-declarations';
-import { KupThemeColorValues } from '../../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeColorValues } from '../../../managers/kup-theme/kup-theme-declarations';
 
 /**
  * 1st standard card layout, inspired by Material Design.

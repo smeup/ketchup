@@ -7,9 +7,9 @@ import {
 import { formatToNumber } from '../../utils/cell-utils';
 import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
-import { KupObjects } from '../../utils/kup-objects/kup-objects';
-import { KupDates } from '../../utils/kup-dates/kup-dates';
-import { KupDatesNormalize } from '../../utils/kup-dates/kup-dates-declarations';
+import { KupObjects } from '../../managers/kup-objects/kup-objects';
+import { KupDates } from '../../managers/kup-dates/kup-dates';
+import { KupDatesNormalize } from '../../managers/kup-dates/kup-dates-declarations';
 
 export function getSerieDecode(serie: string, series: Column[]): string {
     if (serie == null || series == null) {

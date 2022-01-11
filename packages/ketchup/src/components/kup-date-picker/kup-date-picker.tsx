@@ -21,22 +21,22 @@ import type {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import {
     KupDatePickerEventPayload,
     KupDatePickerProps,
 } from './kup-date-picker-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupDatesFormats,
     KupDatesNormalize,
-} from '../../utils/kup-dates/kup-dates-declarations';
+} from '../../managers/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
-import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupCardClickPayload,
     KupCardData,

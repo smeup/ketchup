@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts">
-import { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
-import { KupScrollOnHoverElement } from '@sme.up/ketchup/dist/types/utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
+import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
+import { KupScrollOnHoverElement } from '@sme.up/ketchup/dist/types/managers/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var scrollingCard: HTMLKupCardElement = null;

@@ -116,7 +116,7 @@
 </template>
 
 <script lang="ts">
-import { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import { FCellEventPayload } from '@sme.up/ketchup/dist/types/f-components/f-cell/f-cell-declarations';
 import {
@@ -124,7 +124,7 @@ import {
   Column,
 } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import { Row } from '@sme.up/ketchup/src/components/kup-data-table/kup-data-table-declarations';
-import { KupThemeColor } from '@sme.up/ketchup/dist/types/utils/kup-theme/kup-theme-declarations';
+import { KupThemeColor } from '@sme.up/ketchup/dist/types/managers/kup-theme/kup-theme-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var brightnessSelector: HTMLKupTextFieldElement = null;

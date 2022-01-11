@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-dynamic-position',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/managers/kup-dynamic-position',
       headtitle: 'KupDynamicPosition',
       titles: ['What is it?', 'Features'],
     };

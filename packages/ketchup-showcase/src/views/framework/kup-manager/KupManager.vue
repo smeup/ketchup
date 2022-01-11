@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-manager',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/managers/kup-manager',
       headtitle: 'KupManager',
       titles: ['What is it?', 'Initialization', 'Features', 'Events'],
     };

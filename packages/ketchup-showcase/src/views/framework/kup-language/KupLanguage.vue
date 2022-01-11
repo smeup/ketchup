@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-language',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/managers/kup-language',
       headtitle: 'KupLanguage',
       titles: ['What is it?', 'Features', 'Events'],
     };

@@ -1,7 +1,7 @@
 import type { KupBadge } from '../../components/kup-badge/kup-badge';
 import { FImageProps, FImageData, FImageShape } from './f-image-declarations';
 import { FunctionalComponent, getAssetPath, h, JSX } from '@stencil/core';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 
 /*-------------------------------------------------*/

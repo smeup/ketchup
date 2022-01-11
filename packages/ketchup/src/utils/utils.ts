@@ -1,11 +1,11 @@
 import numeral from 'numeral';
 import { GenericObject, Identifiable } from '../types/GenericTypes';
-import { KupDom } from './kup-manager/kup-manager-declarations';
+import { KupDom } from '../managers/kup-manager/kup-manager-declarations';
 import {
     KupDatesFormats,
     KupDatesNormalize,
-} from './kup-dates/kup-dates-declarations';
-import { KupDates } from './kup-dates/kup-dates';
+} from '../managers/kup-dates/kup-dates-declarations';
+import { KupDates } from '../managers/kup-dates/kup-dates';
 
 const dom: KupDom = document.documentElement as KupDom;
 

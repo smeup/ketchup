@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-debug',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/managers/kup-debug',
       headtitle: 'KupDebug',
       titles: ['What is it?', 'Features', 'Events', 'Tester'],
     };

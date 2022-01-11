@@ -13,7 +13,7 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';

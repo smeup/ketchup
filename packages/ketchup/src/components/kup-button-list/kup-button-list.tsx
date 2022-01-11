@@ -15,7 +15,7 @@ import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import {
     FButtonProps,
@@ -27,11 +27,11 @@ import {
 } from './kup-button-list-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListData } from '../kup-list/kup-list-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { setProps } from '../../utils/utils';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 @Component({
     tag: 'kup-button-list',

@@ -18,7 +18,7 @@ import type {
     PointerEvent,
 } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
-import type { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import type { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import type { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import {
     Cell,
@@ -84,7 +84,7 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
@@ -112,14 +112,14 @@ import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
     KupDynamicPositionPlacement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
-import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupScrollOnHoverElement } from '../../managers/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
 import {
     KupCardData,
     KupCardFamily,
     KupCardEventPayload,
 } from '../kup-card/kup-card-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     KupLanguageDensity,
     KupLanguageFontsize,
@@ -129,15 +129,15 @@ import {
     KupLanguageRow,
     KupLanguageSearch,
     KupLanguageTotals,
-} from '../../utils/kup-language/kup-language-declarations';
+} from '../../managers/kup-language/kup-language-declarations';
 import { FImageProps } from '../../f-components/f-image/f-image-declarations';
-import { KupDynamicPositionCoordinates } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupDynamicPositionCoordinates } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupThemeColorValues,
     KupThemeIconValues,
-} from '../../utils/kup-theme/kup-theme-declarations';
+} from '../../managers/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import {
     kupDragActiveAttr,
     KupDragCallbacks,
@@ -151,8 +151,8 @@ import {
     KupDropEventTypes,
     KupPointerEventTypes,
     KupResizeCallbacks,
-} from '../../utils/kup-interact/kup-interact-declarations';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+} from '../../managers/kup-interact/kup-interact-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     FCellPadding,
     FCellProps,

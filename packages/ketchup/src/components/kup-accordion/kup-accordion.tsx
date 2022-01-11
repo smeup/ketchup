@@ -17,7 +17,7 @@ import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
 import { Column } from '../kup-data-table/kup-data-table-declarations';
 import {
@@ -30,7 +30,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupThemeColorValues,
     KupThemeIconValues,
-} from '../../utils/kup-theme/kup-theme-declarations';
+} from '../../managers/kup-theme/kup-theme-declarations';
 
 @Component({
     tag: 'kup-accordion',

@@ -73,7 +73,7 @@
     },
     "_moduleAliases": {
         "@f-components": "src/f-components",
-        "@kup-manager": "src/kup-manager"
+        "@managers": "src/managers"
     },
     "repository": {
         "type": "git",

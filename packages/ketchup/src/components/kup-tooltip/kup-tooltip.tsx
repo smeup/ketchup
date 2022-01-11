@@ -32,18 +32,18 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-tooltip',

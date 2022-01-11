@@ -10,7 +10,7 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
@@ -28,8 +28,8 @@ import {
 import {
     KupDragDataTransferCallback,
     KupDragEffect,
-} from '../../utils/kup-interact/kup-interact-declarations';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+} from '../../managers/kup-interact/kup-interact-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-cell',

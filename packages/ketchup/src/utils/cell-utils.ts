@@ -11,8 +11,8 @@ import {
     unformattedStringToFormattedStringTimestamp,
 } from './utils';
 import { ValueDisplayedValue } from './filters/filters-declarations';
-import { KupDom } from './kup-manager/kup-manager-declarations';
-import { KupDatesFormats } from './kup-dates/kup-dates-declarations';
+import { KupDom } from '../managers/kup-manager/kup-manager-declarations';
+import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 

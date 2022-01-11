@@ -208,8 +208,8 @@
 <script lang="ts">
 import type { Components } from '@sme.up/ketchup/dist/types/components';
 import type { KupButtonClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-button/kup-button-declarations';
-import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
-import type { KupDynamicPositionElement } from '@sme.up/ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import type { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
+import type { KupDynamicPositionElement } from '@sme.up/ketchup/dist/types/managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import type {
   GenericObject,
   KupComponent,
@@ -219,7 +219,7 @@ import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/component
 import type { KupTabBarClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTabBarData } from '@sme.up/ketchup/src/components/kup-tab-bar/kup-tab-bar-declarations';
 import type { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
-import type { KupDynamicPosition } from '@sme.up/ketchup/dist/types/utils/kup-dynamic-position/kup-dynamic-position';
+import type { KupDynamicPosition } from '@sme.up/ketchup/dist/types/managers/kup-dynamic-position/kup-dynamic-position';
 
 interface DemoClasses {
   class: string;

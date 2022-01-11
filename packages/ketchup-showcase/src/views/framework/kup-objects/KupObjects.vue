@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/utils/kup-objects',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/managers/kup-objects',
       headtitle: 'KupObjects',
       titles: ['Under development'],
     };
