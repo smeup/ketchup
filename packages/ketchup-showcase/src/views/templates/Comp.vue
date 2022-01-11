@@ -1,5 +1,3 @@
-import { Cell } from
-'@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 <template>
   <div class="page">
     <div class="page__content">

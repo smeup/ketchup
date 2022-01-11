@@ -29,4 +29,4 @@ UserInterfaceState.xcuserstate
 
 # Ignores auto generated css files for f-components and kup-theme
 /src/f-components/**/*.css
-/src/utils/kup-theme/*.css
+/src/managers/kup-theme/*.css
