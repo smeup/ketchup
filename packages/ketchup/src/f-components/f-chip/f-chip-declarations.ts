@@ -26,6 +26,7 @@ export interface FChipData {
     checked?: boolean;
     icon?: string;
     obj?: KupObj;
+    title?: string;
 }
 /**
  * Types of the f-chip component.

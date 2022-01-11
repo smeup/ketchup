@@ -69,6 +69,9 @@ export enum KupLanguageColumn {
     COLUMNS = 'columnColumns',
     HIDE = 'columnHide',
     MERGE = 'columnMerge',
+    NO_FORMULA = 'columnNoFormula',
+    NON_NUMERICAL = 'columnNonNumerical',
+    NON_NUMERICAL_IN_TABLE = 'columnNonNumericalInTable',
     SWAP = 'columnSwap',
 }
 /**
