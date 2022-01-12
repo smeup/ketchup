@@ -56,7 +56,6 @@ import {
 import { getColumnByName } from '../../utils/cell-utils';
 import {
     calcTotals,
-    evaluateFormula,
     normalizeRows,
     filterRows,
     groupRows,
@@ -1241,128 +1240,18 @@ export class KupDataTable {
         operation: string,
         columns?: string[]
     ): Promise<string | Column> {
-        if (!columns) {
-            columns = [];
-        }
-        if (columns.length === 0) {
-            const names = operation.split('[');
-            for (let i = 1; i < names.length; i++) {
-                columns.push(names[i].split(']')[0]);
-            }
-        }
-        if (columns.length === 0) {
-            const message =
-                "Can't apply math formulas without columns!(" + columns + ')';
-            this.kupManager.debug.logMessage(
-                this,
-                message,
-                KupDebugCategory.WARNING
-            );
-            return message;
-        }
-        const titles: string[] = [];
-        const formulaRow: { [index: string]: number } = {};
-        let firstColumn: Column = null;
-        let formula = '';
-        switch (operation) {
-            case KupLanguageTotals.AVERAGE:
-                formula = `(${columns.join(' + ')}) / ${columns.length}`;
-                break;
-            case KupLanguageTotals.DIFFERENCE:
-                formula = columns.join(' - ');
-                break;
-            case KupLanguageTotals.PRODUCT:
-                formula = columns.join(' * ');
-                break;
-            case KupLanguageTotals.SUM:
-                formula = columns.join(' + ');
-                break;
-            default:
-                formula = operation;
-        }
-        for (let index = 0; index < this.data.columns.length; index++) {
-            const col = this.data.columns[index];
-            if (columns.includes(col.name)) {
-                titles[columns.indexOf(col.name)] = col.title;
-                if (!this.kupManager.objects.isNumber(col.obj)) {
-                    const message =
-                        "Can't apply math formulas on non-numerical columns!(" +
-                        columns +
-                        ')';
-                    this.kupManager.debug.logMessage(
-                        this,
-                        message,
-                        KupDebugCategory.WARNING
-                    );
-                    return message;
-                }
-            }
-            if (columns[0] === col.name) {
-                firstColumn = col;
-            }
-            if (col.resultOf && col.resultOf === formula) {
-                const message =
-                    'This mathematical operation on these columns was already performed!(' +
-                    formula +
-                    ')';
-                this.kupManager.debug.logMessage(
-                    this,
-                    message,
-                    KupDebugCategory.WARNING
-                );
-                return message;
-            }
-        }
-        let prog = 0;
-        let newName = 'MATH_';
-        while (getColumnByName(this.data.columns, newName + prog)) {
-            prog++;
-        }
-        newName = newName + prog;
-        const newObj = firstColumn.obj;
-        let newTitle = formula;
-        for (let i = 0; i < columns.length; i++) {
-            const column = columns[i];
-            let re: RegExp = new RegExp(column, 'g');
-            newTitle = newTitle.replace(re, titles[i]);
-        }
-        this.data.rows.forEach((row) => {
-            const cells = row.cells;
-            let base: Cell = null;
-            if (cells) {
-                for (let index = 0; index < columns.length; index++) {
-                    const column = columns[index];
-                    const cell = cells[column];
-                    if (cell) {
-                        if (!base) {
-                            base = cell;
-                        }
-                        formulaRow[column] = stringToNumber(cell.value);
-                    }
-                }
-            }
-            const value = evaluateFormula(formula, formulaRow).toString();
-            cells[newName] = {
-                ...base,
-                displayedValue: null,
-                obj: { ...newObj, k: value },
-                value: value,
-            };
-        });
-        const newColumn: Column = {
-            ...firstColumn,
-            name: newName,
-            title: newTitle,
-            obj: newObj,
-            resultOf: formula,
-        };
-        this.data.columns.splice(
-            this.data.columns.indexOf(firstColumn) + 1,
-            0,
-            newColumn
+        const result = this.kupManager.objects.applyFormulaToColumns(
+            this.data,
+            operation,
+            columns
         );
-        this.refresh();
-        return newColumn;
+        const error = !!(
+            typeof result === 'string' || result instanceof String
+        );
+        if (!error) {
+            this.refresh();
+        }
+        return result;
     }
 
     private closeDropCard() {
