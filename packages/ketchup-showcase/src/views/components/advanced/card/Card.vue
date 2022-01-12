@@ -23,13 +23,13 @@
         <card-scalable></card-scalable>
       </template>
       <template v-slot:7>
-        <card-dialog></card-dialog>
-      </template>
-      <template v-slot:8>
         <card-builtin></card-builtin>
       </template>
-      <template v-slot:9>
+      <template v-slot:8>
         <card-free></card-free>
+      </template>
+      <template v-slot:9>
+        <card-dialog></card-dialog>
       </template>
     </comp>
   </div>
@@ -74,9 +74,9 @@ export default {
         'Standard layouts',
         'Collapsible layouts',
         'Scalable layouts',
-        'Dialog layouts',
-        'Builtin layouts',
+        'Built-in layouts',
         'Free layouts',
+        'Dialog layouts',
       ],
     };
   },

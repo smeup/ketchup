@@ -1285,10 +1285,10 @@ export class KupDataTable {
                 },
             } as KupCardColumnDropMenuOptions,
         };
-        this.columnDropCard.layoutFamily = KupCardFamily.BUILTIN;
+        this.columnDropCard.layoutFamily = KupCardFamily.BUILT_IN;
         this.columnDropCard.layoutNumber = 3;
         this.columnDropCard.isMenu = true;
-        this.columnDropCard.sizeX = 'auto';
+        this.columnDropCard.sizeX = '280px';
         this.columnDropCard.sizeY = 'auto';
         this.kupManager.dynamicPosition.register(
             this.columnDropCard,

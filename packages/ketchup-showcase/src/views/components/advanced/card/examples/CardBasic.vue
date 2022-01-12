@@ -68,6 +68,9 @@
       <span class="code-word">object</span>: array of objects containing
       KupObjects (t,p,k).
       <br />
+      <span class="code-word">options</span>: this property is related to
+      built-in layouts and it contains their settings.
+      <br />
       <span class="code-word">progressbar</span>: array of objects containing
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/progressbar"
         >kup-progress-bar</a
@@ -108,7 +111,7 @@
         Currently, the following layouts families are available.
         <br />
         <br />
-        <span class="code-word">builtin</span>: features cards that offer a
+        <span class="code-word">built-in</span>: features cards that offer a
         premade layout with integrated functionalities (2 layouts).
         <br />
         <span class="code-word">collapsible</span>: features cards that can be

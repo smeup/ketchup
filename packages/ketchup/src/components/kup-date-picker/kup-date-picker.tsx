@@ -40,6 +40,7 @@ import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position
 import {
     KupCardClickPayload,
     KupCardData,
+    KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 
 @Component({
@@ -573,11 +574,10 @@ export class KupDatePicker {
             <kup-card
                 ref={(el) => (this.pickerContainerEl = el)}
                 data={data}
-                layout-family="builtin"
-                layout-number="1"
-                size-x="300px"
-                size-y="300px"
-                is-menu
+                layoutFamily={KupCardFamily.BUILT_IN}
+                sizeX="300px"
+                sizeY="300px"
+                isMenu
                 onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
                     if (ev.detail.value != null && ev.detail.value != '')
                         this.onKupDatePickerItemClick(ev.detail.value);

@@ -2,7 +2,7 @@ import {
     Cell,
     Column,
     DataTable,
-} from 'components/kup-data-table/kup-data-table-declarations';
+} from '../../components/kup-data-table/kup-data-table-declarations';
 import type { Dayjs } from 'dayjs';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../../managers/kup-language/kup-language-declarations';

@@ -1,9 +1,10 @@
-.builtin-layout-3 {
+.built-in-layout-3 {
   background: var(--kup-background-color);
-  box-shadow: var(--kup-box-shadow);
+  box-shadow: rgb(128 128 128 / 10%) 0px 2px 1px -1px,
+    rgb(128 128 128 / 10%) 0px 1px 1px 0px,
+    rgb(128 128 128 / 60%) 0px 1px 3px 0px;
   box-sizing: border-box;
   overflow: auto;
-  width: 280px;
 
   kup-button,
   kup-combobox {

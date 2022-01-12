@@ -1,17 +1,17 @@
 import { h, VNode } from '@stencil/core';
-import { KupChipEventPayload } from 'components/kup-chip/kup-chip-declarations';
+import { KupChipEventPayload } from '../../kup-chip/kup-chip-declarations';
 import {
     KupListData,
     KupListEventPayload,
-} from 'components/kup-list/kup-list-declarations';
-import { FButtonStyling } from 'f-components/f-button/f-button-declarations';
-import { FChipData } from 'f-components/f-chip/f-chip-declarations';
+} from '../../kup-list/kup-list-declarations';
+import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
+import { FChipData } from '../../../f-components/f-chip/f-chip-declarations';
 import {
     KupLanguageColumn,
     KupLanguageGeneric,
     KupLanguageTotals,
-} from 'managers/kup-language/kup-language-declarations';
-import { KupDom } from 'managers/kup-manager/kup-manager-declarations';
+} from '../../../managers/kup-language/kup-language-declarations';
+import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { KupCard } from '../kup-card';
 import { KupCardColumnDropMenuOptions } from '../kup-card-declarations';
 

@@ -14,18 +14,18 @@ import {
 import { SourceEvent } from '../../kup-date-picker/kup-date-picker-declarations';
 import { KupCard } from '../kup-card';
 import {
-    KupCardBuiltinCalendar,
-    KupCardBuiltinCalendarOptions,
+    KupCardBuiltInCalendar,
+    KupCardBuiltInCalendarOptions,
 } from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 export function prepareCalendar(component: KupCard) {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     if (!el.kupData) el.kupData = {};
 
     if (component.data && component.data.options) {
-        const opts = component.data.options as KupCardBuiltinCalendarOptions;
+        const opts = component.data.options as KupCardBuiltInCalendarOptions;
         if (opts.resetStatus) {
             el.kupData = {};
             const obj = opts.initialValue as KupObj;
@@ -103,7 +103,7 @@ export function prepareCalendar(component: KupCard) {
 }
 
 function setValue(component: KupCard, value: Date) {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     el.kupData.value = value;
     el.kupData.day = el.kupData.value.getDate();
     el.kupData.month = el.kupData.value.getMonth();
@@ -111,58 +111,58 @@ function setValue(component: KupCard, value: Date) {
 }
 
 function getValue(component: KupCard): Date {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     if (el.kupData.value == null) setValue(component, new Date());
     return el.kupData.value;
 }
 
 function getDay(component: KupCard): number {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     if (el.kupData.day != null) return el.kupData.day;
     return null;
 }
 
 function getMonth(component: KupCard): number {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     if (el.kupData.month != null) return el.kupData.month;
     return null;
 }
 
 function getYear(component: KupCard): number {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     if (el.kupData.year != null) return el.kupData.year;
     return null;
 }
 
 function setDay(component: KupCard, value: number) {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     el.kupData.day = value;
 }
 
 function setMonth(component: KupCard, value: number) {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     el.kupData.month = value;
 }
 
 function setYear(component: KupCard, value: number) {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     el.kupData.year = value;
 }
 
 function getFirstDayIndex(component: KupCard): number {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     if (el.kupData.firstDayIndex) return el.kupData.firstDayIndex;
     return 1;
 }
 
 function getView(component: KupCard): SourceEvent {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     if (el.kupData.calendarView) return el.kupData.calendarView;
     return SourceEvent.DATE;
 }
 
 function setView(component: KupCard, value: SourceEvent) {
-    const el = component.rootElement as KupCardBuiltinCalendar;
+    const el = component.rootElement as KupCardBuiltInCalendar;
     el.kupData.calendarView = value;
 }
 

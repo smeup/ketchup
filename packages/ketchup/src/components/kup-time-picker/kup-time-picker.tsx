@@ -43,6 +43,7 @@ import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declar
 import {
     KupCardClickPayload,
     KupCardData,
+    KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
@@ -586,11 +587,11 @@ export class KupTimePicker {
                 <kup-card
                     ref={(el) => (this.pickerKupEl = el)}
                     data={data}
-                    layout-family="builtin"
-                    layout-number="2"
-                    size-x="300px"
-                    size-y="450px"
-                    is-menu
+                    layoutFamily={KupCardFamily.BUILT_IN}
+                    layoutNumber={2}
+                    sizeX="300px"
+                    sizeY="450px"
+                    isMenu
                     onkup-card-click={(
                         ev: CustomEvent<KupCardClickPayload>
                     ) => {
