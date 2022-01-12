@@ -401,7 +401,7 @@
         <div class="kup-container">
           <kup-card
             size-x="80%"
-            size-y="300px"
+            size-y="auto"
             layout-number="13"
             :data.prop="data"
           ></kup-card>
@@ -423,7 +423,7 @@
           <kup-card
             style="text-align: left"
             size-x="300px"
-            size-y="300px"
+            size-y="auto"
             layout-number="14"
             :data.prop="data14"
           ></kup-card>

@@ -161,7 +161,6 @@ import {
     pageChange,
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
-import { KupCombobox } from 'components/kup-combobox/kup-combobox';
 
 @Component({
     tag: 'kup-data-table',
