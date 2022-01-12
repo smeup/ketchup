@@ -148,7 +148,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
-            size-x="500px"
+            size-x="80%"
             size-y="300px"
             layout-number="5"
             :data.prop="data"
@@ -178,7 +178,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
-            size-x="500px"
+            size-x="80%"
             size-y="300px"
             layout-number="6"
             :data.prop="data"
@@ -264,7 +264,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
-            size-x="600px"
+            size-x="80%"
             size-y="150px"
             layout-number="9"
             :data.prop="data"
@@ -293,7 +293,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
-            size-x="600px"
+            size-x="80%"
             size-y="150px"
             layout-number="10"
             :data.prop="data"
@@ -330,7 +330,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
-            size-x="600px"
+            size-x="80%"
             size-y="150px"
             layout-number="11"
             :data.prop="data"
@@ -400,8 +400,8 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
-            size-x="600px"
-            size-y="300px"
+            size-x="80%"
+            size-y="auto"
             layout-number="13"
             :data.prop="data"
           ></kup-card>
@@ -423,7 +423,7 @@
           <kup-card
             style="text-align: left"
             size-x="300px"
-            size-y="300px"
+            size-y="auto"
             layout-number="14"
             :data.prop="data14"
           ></kup-card>
@@ -476,7 +476,12 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card layout-number="15" :data.prop="data"></kup-card>
+          <kup-card
+            layout-number="15"
+            :data.prop="data"
+            size-x="300px"
+            size-y="auto"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -1015,12 +1020,12 @@ export default {
           {
             data: [
               {
-                text: 'Filtri',
+                text: 'Filters',
                 value: 'genericFilters',
                 active: true,
               },
               {
-                text: 'Colonne',
+                text: 'Columns',
                 value: 'columnColumns',
                 active: false,
               },

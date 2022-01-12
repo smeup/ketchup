@@ -521,7 +521,7 @@ const demoTypes: DemoTypeJson = {
   },
   KupCardFamily: {
     keys: {
-      BUILTIN: 'builtin',
+      BUILT_IN: 'built-in',
       COLLAPSIBLE: 'collapsible',
       DIALOG: 'dialog',
       FREE: 'free',

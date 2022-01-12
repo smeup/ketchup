@@ -274,23 +274,22 @@ graph TD;
   kup-tree --> kup-badge
   kup-card --> kup-tree
   kup-badge --> kup-badge
+  kup-button --> kup-badge
   kup-chip --> kup-badge
-  kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
-  kup-button --> kup-badge
   kup-combobox --> kup-list
+  kup-autocomplete --> kup-list
   kup-date-picker --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
-  kup-data-table --> kup-list
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-chip
-  kup-data-table --> kup-button
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
+  kup-data-table --> kup-list
   kup-data-table --> kup-switch
+  kup-data-table --> kup-button
+  kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
   kup-data-table --> kup-color-picker

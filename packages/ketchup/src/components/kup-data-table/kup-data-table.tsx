@@ -51,12 +51,10 @@ import {
     KupDatatableColumnMenuEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
-    premadeFormulas,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
     calcTotals,
-    evaluateFormula,
     normalizeRows,
     filterRows,
     groupRows,
@@ -74,7 +72,6 @@ import {
     deepEqual,
     getProps,
     setProps,
-    stringToNumber,
 } from '../../utils/utils';
 import {
     KupListData,
@@ -118,10 +115,10 @@ import {
     KupCardData,
     KupCardFamily,
     KupCardEventPayload,
+    KupCardColumnDropMenuOptions,
 } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
-    KupLanguageColumn,
     KupLanguageDensity,
     KupLanguageFontsize,
     KupLanguageGeneric,
@@ -164,9 +161,6 @@ import {
     pageChange,
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
-import { KupCombobox } from 'components/kup-combobox/kup-combobox';
-import { KupChipEventPayload } from 'components/kup-chip/kup-chip-declarations';
-import { FButtonStyling } from 'f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -829,6 +823,7 @@ export class KupDataTable {
     private groupsDropareaRef: HTMLElement = null;
     private clickCb: KupManagerClickCb = null;
     private clickCbCustomPanel: KupManagerClickCb = null;
+    private clickCbDropCard: KupManagerClickCb = null;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -839,7 +834,6 @@ export class KupDataTable {
     private detailCard: HTMLKupCardElement = null;
     private columnMenuCard: HTMLKupCardElement = null;
     private columnDropCard: HTMLKupCardElement = null;
-    private columnDropCombobox: HTMLKupComboboxElement = null;
     private columnDropCardAnchor: HTMLElement = null;
 
     /**
@@ -1240,135 +1234,25 @@ export class KupDataTable {
         operation: string,
         columns?: string[]
     ): Promise<string | Column> {
-        if (!columns) {
-            columns = [];
-        }
-        if (columns.length === 0) {
-            const names = operation.split('[');
-            for (let i = 1; i < names.length; i++) {
-                columns.push(names[i].split(']')[0]);
-            }
-        }
-        if (columns.length === 0) {
-            const message =
-                "Can't apply math formulas without columns!(" + columns + ')';
-            this.kupManager.debug.logMessage(
-                this,
-                message,
-                KupDebugCategory.WARNING
-            );
-            return message;
-        }
-        const titles: string[] = [];
-        const formulaRow: { [index: string]: number } = {};
-        let firstColumn: Column = null;
-        let formula = '';
-        switch (operation) {
-            case KupLanguageTotals.AVERAGE:
-                formula = `(${columns.join(' + ')}) / ${columns.length}`;
-                break;
-            case KupLanguageTotals.DIFFERENCE:
-                formula = columns.join(' - ');
-                break;
-            case KupLanguageTotals.PRODUCT:
-                formula = columns.join(' * ');
-                break;
-            case KupLanguageTotals.SUM:
-                formula = columns.join(' + ');
-                break;
-            default:
-                formula = operation;
-        }
-        for (let index = 0; index < this.data.columns.length; index++) {
-            const col = this.data.columns[index];
-            if (columns.includes(col.name)) {
-                titles[columns.indexOf(col.name)] = col.title;
-                if (!this.kupManager.objects.isNumber(col.obj)) {
-                    const message =
-                        "Can't apply math formulas on non-numerical columns!(" +
-                        columns +
-                        ')';
-                    this.kupManager.debug.logMessage(
-                        this,
-                        message,
-                        KupDebugCategory.WARNING
-                    );
-                    return message;
-                }
-            }
-            if (columns[0] === col.name) {
-                firstColumn = col;
-            }
-            if (col.resultOf && col.resultOf === formula) {
-                const message =
-                    'This mathematical operation on these columns was already performed!(' +
-                    formula +
-                    ')';
-                this.kupManager.debug.logMessage(
-                    this,
-                    message,
-                    KupDebugCategory.WARNING
-                );
-                return message;
-            }
-        }
-        let prog = 0;
-        let newName = 'MATH_';
-        while (getColumnByName(this.data.columns, newName + prog)) {
-            prog++;
-        }
-        newName = newName + prog;
-        const newObj = firstColumn.obj;
-        let newTitle = formula;
-        for (let i = 0; i < columns.length; i++) {
-            const column = columns[i];
-            let re: RegExp = new RegExp(column, 'g');
-            newTitle = newTitle.replace(re, titles[i]);
-        }
-        this.data.rows.forEach((row) => {
-            const cells = row.cells;
-            let base: Cell = null;
-            if (cells) {
-                for (let index = 0; index < columns.length; index++) {
-                    const column = columns[index];
-                    const cell = cells[column];
-                    if (cell) {
-                        if (!base) {
-                            base = cell;
-                        }
-                        formulaRow[column] = stringToNumber(cell.value);
-                    }
-                }
-            }
-            const value = evaluateFormula(formula, formulaRow).toString();
-            cells[newName] = {
-                ...base,
-                displayedValue: null,
-                obj: { ...newObj, k: value },
-                value: value,
-            };
-        });
-        const newColumn: Column = {
-            ...firstColumn,
-            name: newName,
-            title: newTitle,
-            obj: newObj,
-            resultOf: formula,
-        };
-        this.data.columns.splice(
-            this.data.columns.indexOf(firstColumn) + 1,
-            0,
-            newColumn
+        const result = this.kupManager.objects.applyFormulaToColumns(
+            this.data,
+            operation,
+            columns
         );
-        this.refresh();
-        return newColumn;
+        const error = !!(
+            typeof result === 'string' || result instanceof String
+        );
+        if (!error) {
+            this.refresh();
+        }
+        return result;
     }
 
     private closeDropCard() {
         this.kupManager.dynamicPosition.stop(
             this.columnDropCard as KupDynamicPositionElement
         );
-        this.kupManager.removeClickCallback(this.clickCb);
+        this.kupManager.removeClickCallback(this.clickCbDropCard);
         this.columnDropCard.remove();
         this.columnDropCard = null;
     }
@@ -1378,265 +1262,51 @@ export class KupDataTable {
             this.closeDropCard();
         }
         this.columnDropCard = document.createElement('kup-card');
-        this.columnDropCard.layoutFamily = KupCardFamily.FREE;
-        this.columnDropCard.layoutNumber = 2;
+        this.columnDropCard.data = {
+            options: {
+                data: this.data,
+                enableFormula: this.enableColumnsFormula,
+                enableMerge: this.enableMergeColumns,
+                enableMove: this.enableSortableColumns,
+                receivingColumn: receiving,
+                starterColumn: starter,
+                formulaCb: () => {
+                    this.closeDropCard();
+                    this.refresh();
+                },
+                mergeCb: () => {
+                    this.mergeColumns([receiving.name, starter.name]);
+                    this.closeDropCard();
+                },
+                moveCb: () => {
+                    this.handleColumnSort(receiving, starter);
+                    this.closeDropCard();
+                },
+            } as KupCardColumnDropMenuOptions,
+        };
+        this.columnDropCard.layoutFamily = KupCardFamily.BUILT_IN;
+        this.columnDropCard.layoutNumber = 3;
         this.columnDropCard.isMenu = true;
-        this.columnDropCard.sizeX = 'auto';
+        this.columnDropCard.sizeX = '280px';
         this.columnDropCard.sizeY = 'auto';
         this.kupManager.dynamicPosition.register(
             this.columnDropCard,
             this.columnDropCardAnchor as KupDynamicPositionAnchor,
             0,
-            KupDynamicPositionPlacement.BOTTOM,
+            KupDynamicPositionPlacement.AUTO,
             true
         );
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('column-drop-menu');
-        const numeric: boolean =
-            this.kupManager.objects.isNumber(receiving.obj) &&
-            this.kupManager.objects.isNumber(starter.obj);
-        const listData: KupListData[] = [];
-        if (this.enableMergeColumns) {
-            listData.push({
-                text: this.kupManager.language.translate(
-                    KupLanguageGeneric.MERGE
-                ),
-                value: KupLanguageGeneric.MERGE,
-                icon: 'library_add',
-            });
-        }
-        if (this.enableSortableColumns) {
-            listData.push({
-                text: this.kupManager.language.translate(
-                    KupLanguageGeneric.MOVE
-                ),
-                value: KupLanguageGeneric.MOVE,
-                icon: 'swap_horiz',
-            });
-        }
-        if (listData.length > 0) {
-            const actionsList: HTMLKupListElement =
-                document.createElement('kup-list');
-            actionsList.data = listData;
-            actionsList.showIcons = true;
-            wrapper.appendChild(actionsList);
-        }
-        if (this.enableColumnsFormula) {
-            const chipData: FChipData[] = [];
-            const comboListData: KupListData[] = [];
-            for (let index = 0; index < this.data.columns.length; index++) {
-                const column = this.data.columns[index];
-                if (
-                    column.visible !== false &&
-                    column.obj &&
-                    this.kupManager.objects.isNumber(column.obj)
-                ) {
-                    chipData.push({
-                        obj: column.obj,
-                        label: column.name,
-                        title: column.title,
-                        value: column.name,
-                    });
-                }
-            }
-            const numericalColumnsExist = !!(chipData.length > 0);
-            if (numeric) {
-                comboListData.push(
-                    {
-                        text: this.kupManager.language.translate(
-                            KupLanguageTotals.AVERAGE
-                        ),
-                        value: KupLanguageTotals.AVERAGE,
-                    },
-                    {
-                        text: this.kupManager.language.translate(
-                            KupLanguageTotals.DIFFERENCE
-                        ),
-                        value: KupLanguageTotals.DIFFERENCE,
-                    },
-                    {
-                        text: this.kupManager.language.translate(
-                            KupLanguageTotals.PRODUCT
-                        ),
-                        value: KupLanguageTotals.PRODUCT,
-                    },
-                    {
-                        text: this.kupManager.language.translate(
-                            KupLanguageTotals.SUM
-                        ),
-                        value: KupLanguageTotals.SUM,
-                    },
-                    {
-                        text: `[${starter.name}] / [${receiving.name}] * 100`,
-                        value: `([${starter.name}]/[${receiving.name}])*100`,
-                    },
-                    {
-                        text: `[${receiving.name}] / [${starter.name}] * 100`,
-                        value: `([${receiving.name}]/[${starter.name}])*100`,
-                    }
-                );
-            } else {
-                comboListData.push({
-                    text: this.kupManager.language.translate(
-                        KupLanguageColumn.NO_FORMULA
-                    ),
-                    value: KupLanguageColumn.NO_FORMULA,
-                });
-            }
-            this.columnDropCombobox = document.createElement('kup-combobox');
-            this.columnDropCombobox.data = {
-                'kup-list': {
-                    data: comboListData,
-                    selectable: numeric ? true : false,
-                },
-                'kup-text-field': {
-                    helper: !numericalColumnsExist
-                        ? this.kupManager.language.translate(
-                              KupLanguageColumn.NON_NUMERICAL_IN_TABLE
-                          )
-                        : numeric
-                        ? `i.e.: [${receiving.name}] - [${starter.name}] + 1`
-                        : this.kupManager.language.translate(
-                              KupLanguageColumn.NON_NUMERICAL
-                          ),
-                    label: this.kupManager.language.translate(
-                        KupLanguageTotals.FORMULA
-                    ),
-                    outlined: true,
-                },
-            };
-            wrapper.appendChild(this.columnDropCombobox);
-            if (numericalColumnsExist) {
-                const chipSet = document.createElement('kup-chip');
-                const chipWrapper = document.createElement('div');
-                chipSet.data = chipData;
-                const button = document.createElement('kup-button');
-                button.label = this.kupManager.language.translate(
-                    KupLanguageTotals.CALCULATE
-                );
-                button.styling = FButtonStyling.OUTLINED;
-                wrapper.appendChild(button);
-                chipWrapper.classList.add('chip-wrapper');
-                chipWrapper.appendChild(chipSet);
-                wrapper.appendChild(chipWrapper);
-            } else {
-                this.columnDropCombobox.disabled = true;
-            }
-        }
-        this.columnDropCard.appendChild(wrapper);
         this.kupManager.dynamicPosition.start(
             this.columnDropCard as unknown as KupDynamicPositionElement
         );
-        this.clickCb = {
+        this.clickCbDropCard = {
             cb: () => {
                 this.closeDropCard();
             },
             el: this.columnDropCard,
         };
-        this.kupManager.addClickCallback(this.clickCb, true);
+        this.kupManager.addClickCallback(this.clickCbDropCard, true);
         this.columnDropCard.menuVisible = true;
-        this.columnDropCard.addEventListener(
-            'kup-card-event',
-            (event: CustomEvent<KupCardEventPayload>) => {
-                const cardDetail = event.detail;
-                const subcompEvent = cardDetail.event;
-                switch (subcompEvent.type) {
-                    case 'kup-button-click':
-                        {
-                            this.columnDropCombobox.getValue().then((res) => {
-                                const value = res as KupLanguageTotals;
-                                if (premadeFormulas.includes(value)) {
-                                    this.formulaOnColumns(value, [
-                                        receiving.name,
-                                        starter.name,
-                                    ]);
-                                    this.closeDropCard();
-                                } else {
-                                    this.formulaOnColumns(value).then((res) => {
-                                        if (
-                                            typeof res === 'string' ||
-                                            res instanceof String
-                                        ) {
-                                            this.columnDropCombobox.classList.add(
-                                                'kup-danger'
-                                            );
-                                            this.columnDropCombobox.data[
-                                                'kup-text-field'
-                                            ].helper = res as string;
-                                            this.columnDropCombobox.refresh();
-                                        } else {
-                                            this.closeDropCard();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                        break;
-                    case 'kup-chip-click': {
-                        const value = (
-                            subcompEvent as CustomEvent<KupChipEventPayload>
-                        ).detail.value;
-                        this.columnDropCombobox.getValue().then((res) => {
-                            let currentFormula = res;
-                            currentFormula += '[' + value + ']';
-                            this.columnDropCombobox.setValue(currentFormula);
-                        });
-                        break;
-                    }
-                    case 'kup-combobox-itemclick':
-                        {
-                            const value = (
-                                subcompEvent as CustomEvent<KupComboboxEventPayload>
-                            ).detail.value;
-                            if (premadeFormulas.includes(value)) {
-                                this.formulaOnColumns(value, [
-                                    receiving.name,
-                                    starter.name,
-                                ]);
-                                this.closeDropCard();
-                            } else {
-                                this.formulaOnColumns(value).then((res) => {
-                                    if (
-                                        typeof res === 'string' ||
-                                        res instanceof String
-                                    ) {
-                                        const combobox = (
-                                            subcompEvent as CustomEvent<KupComboboxEventPayload>
-                                        ).detail.comp as KupCombobox;
-                                        combobox.rootElement.classList.add(
-                                            'kup-danger'
-                                        );
-                                        combobox.data['kup-text-field'].helper =
-                                            res as string;
-                                        combobox.refresh();
-                                    } else {
-                                        this.closeDropCard();
-                                    }
-                                });
-                            }
-                        }
-                        break;
-                    case 'kup-list-click': {
-                        switch (
-                            (subcompEvent as CustomEvent<KupListEventPayload>)
-                                .detail.selected.value
-                        ) {
-                            case KupLanguageGeneric.MERGE:
-                                this.mergeColumns([
-                                    receiving.name,
-                                    starter.name,
-                                ]);
-                                break;
-                            case KupLanguageGeneric.MOVE:
-                                this.handleColumnSort(receiving, starter);
-                                break;
-                        }
-                        this.closeDropCard();
-                        break;
-                    }
-                }
-            }
-        );
     }
 
     private calculateData() {

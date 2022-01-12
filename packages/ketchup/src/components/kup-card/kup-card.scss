@@ -1,4 +1,4 @@
-@import 'builtin/kup-card-builtin';
+@import 'built-in/kup-card-built-in';
 @import 'collapsible/kup-card-collapsible';
 @import 'dialog/kup-card-dialog';
 @import 'free/kup-card-free';
@@ -31,6 +31,7 @@
 }
 
 :host([menu-visible]) {
+  box-shadow: var(--kup-box-shadow);
   display: block;
 }
 

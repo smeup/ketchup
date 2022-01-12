@@ -36,6 +36,7 @@ import { KupDates } from '../kup-dates/kup-dates';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupSearch } from '../kup-search/kup-search';
+import { KupDynamicPositionElement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -186,7 +187,34 @@ export class KupManager {
                     obj.el.isConnected &&
                     !paths.includes(obj.el)
                 ) {
-                    obj.cb();
+                    const elAsDynamicPos = obj.el as KupDynamicPositionElement;
+                    let found = false;
+                    if (
+                        elAsDynamicPos.kupDynamicPosition &&
+                        elAsDynamicPos.kupDynamicPosition.detach
+                    ) {
+                        for (let index = 0; index < paths.length; index++) {
+                            const pathEl = paths[index];
+                            const pathElAsDynamicPos =
+                                pathEl as KupDynamicPositionElement;
+                            if (
+                                pathElAsDynamicPos.kupDynamicPosition &&
+                                pathElAsDynamicPos.kupDynamicPosition.detach
+                            ) {
+                                const originalPath =
+                                    pathElAsDynamicPos.kupDynamicPosition
+                                        .originalPath;
+                                if (originalPath.includes(obj.el)) {
+                                    found = true;
+                                }
+                            }
+                        }
+                        if (!found) {
+                            obj.cb();
+                        }
+                    } else {
+                        obj.cb();
+                    }
                 }
             });
         });

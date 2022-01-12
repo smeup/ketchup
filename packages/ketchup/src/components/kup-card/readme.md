@@ -5,16 +5,16 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                     | Type                                                                                                                                                   | Default                  |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------ |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                  | `string`                                                                                                                                               | `''`                     |
-| `data`         | --              | The actual data of the card.                                                                                    | `KupCardData`                                                                                                                                          | `null`                   |
-| `isMenu`       | `is-menu`       | Defines whether the card is a menu or not. Works together with menuVisible.                                     | `boolean`                                                                                                                                              | `false`                  |
-| `layoutFamily` | `layout-family` | Sets the type of the card.                                                                                      | `KupCardFamily.BUILTIN \| KupCardFamily.COLLAPSIBLE \| KupCardFamily.DIALOG \| KupCardFamily.FREE \| KupCardFamily.SCALABLE \| KupCardFamily.STANDARD` | `KupCardFamily.STANDARD` |
-| `layoutNumber` | `layout-number` | Sets the number of the layout.                                                                                  | `number`                                                                                                                                               | `1`                      |
-| `menuVisible`  | `menu-visible`  | Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu. | `boolean`                                                                                                                                              | `false`                  |
-| `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                        | `string`                                                                                                                                               | `'100%'`                 |
-| `sizeY`        | `size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                       | `string`                                                                                                                                               | `'100%'`                 |
+| Property       | Attribute       | Description                                                                                                     | Type                                                                                                                                                    | Default                  |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                  | `string`                                                                                                                                                | `''`                     |
+| `data`         | --              | The actual data of the card.                                                                                    | `KupCardData`                                                                                                                                           | `null`                   |
+| `isMenu`       | `is-menu`       | Defines whether the card is a menu or not. Works together with menuVisible.                                     | `boolean`                                                                                                                                               | `false`                  |
+| `layoutFamily` | `layout-family` | Sets the type of the card.                                                                                      | `KupCardFamily.BUILT_IN \| KupCardFamily.COLLAPSIBLE \| KupCardFamily.DIALOG \| KupCardFamily.FREE \| KupCardFamily.SCALABLE \| KupCardFamily.STANDARD` | `KupCardFamily.STANDARD` |
+| `layoutNumber` | `layout-number` | Sets the number of the layout.                                                                                  | `number`                                                                                                                                                | `1`                      |
+| `menuVisible`  | `menu-visible`  | Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu. | `boolean`                                                                                                                                               | `false`                  |
+| `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                        | `string`                                                                                                                                                | `'100%'`                 |
+| `sizeY`        | `size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                       | `string`                                                                                                                                                | `'100%'`                 |
 
 
 ## Events
@@ -91,16 +91,16 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-badge](../kup-badge)
-- [kup-chip](../kup-chip)
-- [kup-autocomplete](../kup-autocomplete)
 - [kup-button](../kup-button)
-- [kup-checkbox](../kup-checkbox)
+- [kup-chip](../kup-chip)
+- [kup-list](../kup-list)
 - [kup-combobox](../kup-combobox)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-checkbox](../kup-checkbox)
 - [kup-date-picker](../kup-date-picker)
 - [kup-text-field](../kup-text-field)
 - [kup-time-picker](../kup-time-picker)
 - [kup-data-table](../kup-data-table)
-- [kup-list](../kup-list)
 - [kup-spinner](../kup-spinner)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-chart](../kup-chart)
@@ -112,16 +112,16 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-card --> kup-badge
-  kup-card --> kup-chip
-  kup-card --> kup-autocomplete
   kup-card --> kup-button
-  kup-card --> kup-checkbox
+  kup-card --> kup-chip
+  kup-card --> kup-list
   kup-card --> kup-combobox
+  kup-card --> kup-autocomplete
+  kup-card --> kup-checkbox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
   kup-card --> kup-data-table
-  kup-card --> kup-list
   kup-card --> kup-spinner
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
@@ -129,12 +129,12 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-switch
   kup-badge --> kup-badge
+  kup-button --> kup-badge
   kup-chip --> kup-badge
-  kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
-  kup-button --> kup-badge
   kup-combobox --> kup-list
+  kup-autocomplete --> kup-list
   kup-date-picker --> kup-card
   kup-time-picker --> kup-card
   kup-data-table --> kup-card

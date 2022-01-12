@@ -11,7 +11,7 @@ import {
     VNode,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
-import * as builtinLayouts from './builtin/kup-card-builtin';
+import * as builtInLayouts from './built-in/kup-card-built-in';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as dialogLayouts from './dialog/kup-card-dialog';
 import * as freeLayouts from './free/kup-card-free';
@@ -317,8 +317,8 @@ export class KupCard {
 
         try {
             switch (family) {
-                case KupCardFamily.BUILTIN: {
-                    return builtinLayouts[method](this);
+                case KupCardFamily.BUILT_IN: {
+                    return builtInLayouts[method](this);
                 }
                 case KupCardFamily.COLLAPSIBLE: {
                     return collapsibleLayouts[method](this);

@@ -59,21 +59,29 @@ export class KupDynamicPosition {
         if (this.anchorIsHTMLElement(anchorEl)) {
             anchorEl.setAttribute(kupDynamicPositionAnchorAttribute, '');
         }
+        el.style.zIndex = `calc(var(--kup-navbar-zindex) - 1)`;
+        const originalPath: HTMLElement[] = [];
         if (detach) {
+            let currentEl: unknown = el;
+            while (currentEl && currentEl !== document.body) {
+                currentEl = (currentEl as HTMLElement).parentNode
+                    ? (currentEl as HTMLElement).parentNode
+                    : (currentEl as ShadowRoot).host;
+                originalPath.push(currentEl as HTMLElement);
+            }
             el.style.position = 'absolute';
             this.container.appendChild(el);
         } else {
             el.style.position = 'fixed';
         }
-        el.style.zIndex = `calc(var(--kup-navbar-zindex) - 1)`;
         el.kupDynamicPosition = {
             anchor: anchorEl,
             detach: detach ? true : false,
+            originalPath: originalPath,
             margin: margin ? margin : 0,
             placement: placement ? placement : KupDynamicPositionPlacement.AUTO,
             rAF: null,
         };
-
         const mutObserver: MutationObserver = new MutationObserver(function (
             mutations
         ) {

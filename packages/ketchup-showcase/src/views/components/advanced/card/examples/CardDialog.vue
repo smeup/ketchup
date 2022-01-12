@@ -92,7 +92,7 @@
         <div class="kup-container">
           <kup-card
             style="position: absolute !important; top: unset; left: unset"
-            size-x="600px"
+            size-x="80%"
             size-y="300px"
             layout-number="3"
             layout-family="dialog"

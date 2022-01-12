@@ -727,43 +727,14 @@ function adjustGroupAverageOrFormula(
         }
         if (type == TotalMode.MATH) {
             let formula = totals[key].substring(TotalMode.MATH.length);
-            row.group.totals[key] = evaluateFormula(formula, row.group.totals);
+            row.group.totals[key] = dom.ketchup.objects.evaluateFormula(
+                formula,
+                row.group.totals
+            );
         }
     });
 
     return numberOfLeaf;
-}
-
-export function evaluateFormula(
-    formula: string,
-    row: { [index: string]: number }
-): number {
-    const kupManager = kupManagerInstance();
-    let formula1: string = formula;
-    const keys = Object.keys(row);
-    for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        let value: number = row[key];
-        if (value != null && !isNaN(value)) {
-            let re: RegExp = new RegExp(key, 'g');
-            formula1 = formula1.replace(re, value.toString());
-        }
-    }
-    formula1 = formula1.replace(/[\[\]']+/g, '');
-    try {
-        return evaluateString(formula1);
-    } catch (e) {
-        kupManager.debug.logMessage(
-            'kup-data-table-helper',
-            'Error when evaluating formula [' + formula1 + ']',
-            KupDebugCategory.ERROR
-        );
-        return NaN;
-    }
-}
-
-export function evaluateString(f: string) {
-    return Function('"use strict"; return (' + f + ')')();
 }
 
 export function normalizeRows(
@@ -945,7 +916,10 @@ export function calcTotals(
                     break;
                 case totals[key].indexOf(TotalMode.MATH) == 0:
                     let formula = totals[key].substring(TotalMode.MATH.length);
-                    footerRow[key] = evaluateFormula(formula, footerRow);
+                    footerRow[key] = dom.ketchup.objects.evaluateFormula(
+                        formula,
+                        footerRow
+                    );
                     break;
                 default:
                     break;
