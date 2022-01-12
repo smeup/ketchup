@@ -1,6 +1,7 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../kup-date-picker/kup-date-picker-declarations';
+import { Column } from 'components/kup-data-table/kup-data-table-declarations';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -51,6 +52,17 @@ export interface KupCardBuiltinClockOptions {
     secondsActive?: boolean;
 }
 /**
+ * Options prop of the kup-card column drop menu builtin.
+ */
+export interface KupCardColumnDropMenuOptions {
+    columns: Column[];
+    enableFormula: boolean;
+    enableMerge: boolean;
+    enableSort: boolean;
+    receivingColumn?: Column;
+    starterColumn?: Column;
+}
+/**
  * Element ids for kup-card clock builtin.
  */
 export enum KupCardBuiltinClockElements {
@@ -88,13 +100,17 @@ export interface KupCardData {
     checkbox?: GenericObject[];
     chip?: GenericObject[];
     color?: string[];
+    columns?: Column[];
     combobox?: GenericObject[];
     datatable?: GenericObject[];
     datepicker?: GenericObject[];
     image?: GenericObject[];
     list?: GenericObject[];
     object?: KupObj[];
-    options?: KupCardBuiltinCalendarOptions | KupCardBuiltinClockOptions;
+    options?:
+        | KupCardBuiltinCalendarOptions
+        | KupCardBuiltinClockOptions
+        | KupCardColumnDropMenuOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];
