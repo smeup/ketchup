@@ -1,6 +1,9 @@
 import { h, VNode } from '@stencil/core';
 import { KupChipEventPayload } from 'components/kup-chip/kup-chip-declarations';
-import { KupListData } from 'components/kup-list/kup-list-declarations';
+import {
+    KupListData,
+    KupListEventPayload,
+} from 'components/kup-list/kup-list-declarations';
 import { FButtonStyling } from 'f-components/f-button/f-button-declarations';
 import { FChipData } from 'f-components/f-chip/f-chip-declarations';
 import {
@@ -14,12 +17,19 @@ import { KupCardColumnDropMenuOptions } from '../kup-card-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
+const premadeFormulas = [
+    KupLanguageTotals.AVERAGE,
+    KupLanguageTotals.DIFFERENCE,
+    KupLanguageTotals.PRODUCT,
+    KupLanguageTotals.SUM,
+];
+
 export function prepareColumnDropMenu(component: KupCard) {
     const options = component.data.options as KupCardColumnDropMenuOptions;
     const chipData: FChipData[] = [];
     let list: VNode, combobox: VNode, button: VNode, chipSet: VNode;
-    for (let index = 0; index < options.columns.length; index++) {
-        const column = options.columns[index];
+    for (let index = 0; index < options.data.columns.length; index++) {
+        const column = options.data.columns[index];
         if (
             column.visible !== false &&
             column.obj &&
@@ -34,7 +44,7 @@ export function prepareColumnDropMenu(component: KupCard) {
         }
     }
     const numericalColumnsExist = !!(chipData.length > 0);
-    if (options.enableMerge || options.enableSort) {
+    if (options.enableMerge || options.enableMove) {
         list = prepareList(options);
     }
     if (options.enableFormula) {
@@ -75,7 +85,7 @@ function prepareList(options: KupCardColumnDropMenuOptions): VNode {
             icon: 'library_add',
         });
     }
-    if (options.enableSort) {
+    if (options.enableMove) {
         listData.push({
             text: dom.ketchup.language.translate(KupLanguageGeneric.MOVE),
             value: KupLanguageGeneric.MOVE,
@@ -84,7 +94,13 @@ function prepareList(options: KupCardColumnDropMenuOptions): VNode {
     }
 
     return listData.length > 0 ? (
-        <kup-list data={listData} showIcons={true}></kup-list>
+        <kup-list
+            data={listData}
+            showIcons={true}
+            onkup-list-click={(e: CustomEvent<KupListEventPayload>) =>
+                listClick(e, options)
+            }
+        ></kup-list>
     ) : null;
 }
 
@@ -172,11 +188,50 @@ function typeColumn(e: CustomEvent<KupChipEventPayload>, component: KupCard) {
     });
 }
 
+function listClick(
+    e: CustomEvent<KupListEventPayload>,
+    options: KupCardColumnDropMenuOptions
+) {
+    const value = e.detail.selected.value;
+    switch (value) {
+        case KupLanguageGeneric.MERGE:
+            if (options.mergeCb) {
+                options.mergeCb();
+            }
+            break;
+        case KupLanguageGeneric.MOVE:
+            if (options.moveCb) {
+                options.moveCb();
+            }
+            break;
+    }
+}
+
 async function applyFormula(component: KupCard) {
+    const options = component.data.options as KupCardColumnDropMenuOptions;
     const combobox = getCombobox(component);
     if (combobox) {
-        const value = await combobox.getValue();
-        console.log('This is the value', value);
-        component.onKupClick(component.rootElement.id, value);
+        const value = (await combobox.getValue()) as KupLanguageTotals;
+        if (premadeFormulas.includes(value)) {
+            dom.ketchup.objects.applyFormulaToColumns(options.data, value, [
+                options.receivingColumn.name,
+                options.starterColumn.name,
+            ]);
+            if (options.formulaCb !== undefined) {
+                options.formulaCb();
+            }
+        } else {
+            const result = dom.ketchup.objects.applyFormulaToColumns(
+                options.data,
+                value
+            );
+            if (typeof result === 'string' || result instanceof String) {
+                combobox.classList.add('kup-danger');
+                combobox.data['kup-text-field'].helper = result as string;
+                combobox.refresh();
+            } else if (options.formulaCb !== undefined) {
+                options.formulaCb();
+            }
+        }
     }
 }

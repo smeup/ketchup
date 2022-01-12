@@ -1,7 +1,10 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../kup-date-picker/kup-date-picker-declarations';
-import { Column } from 'components/kup-data-table/kup-data-table-declarations';
+import {
+    Column,
+    DataTable,
+} from 'components/kup-data-table/kup-data-table-declarations';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -55,12 +58,15 @@ export interface KupCardBuiltinClockOptions {
  * Options prop of the kup-card column drop menu builtin.
  */
 export interface KupCardColumnDropMenuOptions {
-    columns: Column[];
+    data: DataTable;
     enableFormula: boolean;
     enableMerge: boolean;
-    enableSort: boolean;
+    enableMove: boolean;
     receivingColumn?: Column;
     starterColumn?: Column;
+    formulaCb?: () => void;
+    mergeCb?: () => void;
+    moveCb?: () => void;
 }
 /**
  * Element ids for kup-card clock builtin.

@@ -51,7 +51,6 @@ import {
     KupDatatableColumnMenuEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
-    premadeFormulas,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -73,7 +72,6 @@ import {
     deepEqual,
     getProps,
     setProps,
-    stringToNumber,
 } from '../../utils/utils';
 import {
     KupListData,
@@ -121,7 +119,6 @@ import {
 } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
-    KupLanguageColumn,
     KupLanguageDensity,
     KupLanguageFontsize,
     KupLanguageGeneric,
@@ -165,8 +162,6 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import { KupCombobox } from 'components/kup-combobox/kup-combobox';
-import { KupChipEventPayload } from 'components/kup-chip/kup-chip-declarations';
-import { FButtonStyling } from 'f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -829,6 +824,7 @@ export class KupDataTable {
     private groupsDropareaRef: HTMLElement = null;
     private clickCb: KupManagerClickCb = null;
     private clickCbCustomPanel: KupManagerClickCb = null;
+    private clickCbDropCard: KupManagerClickCb = null;
     /**
      * Used to prevent too many resizes callbacks at once.
      */
@@ -839,7 +835,6 @@ export class KupDataTable {
     private detailCard: HTMLKupCardElement = null;
     private columnMenuCard: HTMLKupCardElement = null;
     private columnDropCard: HTMLKupCardElement = null;
-    private columnDropCombobox: HTMLKupComboboxElement = null;
     private columnDropCardAnchor: HTMLElement = null;
 
     /**
@@ -1258,7 +1253,7 @@ export class KupDataTable {
         this.kupManager.dynamicPosition.stop(
             this.columnDropCard as KupDynamicPositionElement
         );
-        this.kupManager.removeClickCallback(this.clickCb);
+        this.kupManager.removeClickCallback(this.clickCbDropCard);
         this.columnDropCard.remove();
         this.columnDropCard = null;
     }
@@ -1270,12 +1265,24 @@ export class KupDataTable {
         this.columnDropCard = document.createElement('kup-card');
         this.columnDropCard.data = {
             options: {
-                columns: this.data.columns,
+                data: this.data,
                 enableFormula: this.enableColumnsFormula,
                 enableMerge: this.enableMergeColumns,
-                enableSort: this.enableSortableColumns,
+                enableMove: this.enableSortableColumns,
                 receivingColumn: receiving,
                 starterColumn: starter,
+                formulaCb: () => {
+                    this.closeDropCard();
+                    this.refresh();
+                },
+                mergeCb: () => {
+                    this.mergeColumns([receiving.name, starter.name]);
+                    this.closeDropCard();
+                },
+                moveCb: () => {
+                    this.handleColumnSort(receiving, starter);
+                    this.closeDropCard();
+                },
             } as KupCardColumnDropMenuOptions,
         };
         this.columnDropCard.layoutFamily = KupCardFamily.BUILTIN;
@@ -1293,110 +1300,14 @@ export class KupDataTable {
         this.kupManager.dynamicPosition.start(
             this.columnDropCard as unknown as KupDynamicPositionElement
         );
-        this.clickCb = {
+        this.clickCbDropCard = {
             cb: () => {
                 this.closeDropCard();
             },
             el: this.columnDropCard,
         };
-        this.kupManager.addClickCallback(this.clickCb, true);
+        this.kupManager.addClickCallback(this.clickCbDropCard, true);
         this.columnDropCard.menuVisible = true;
-        this.columnDropCard.addEventListener(
-            'kup-card-event',
-            (event: CustomEvent<KupCardEventPayload>) =>
-                this.dropMenuEventsHandler(event)
-        );
-    }
-
-    private dropMenuEventsHandler(event: CustomEvent<KupCardEventPayload>) {
-        const card = event.detail.comp;
-        const receiving = (card.data.options as KupCardColumnDropMenuOptions)
-            .receivingColumn;
-        const starter = (card.data.options as KupCardColumnDropMenuOptions)
-            .starterColumn;
-        const cardDetail = event.detail;
-        const subcompEvent = cardDetail.event;
-        switch (subcompEvent.type) {
-            case 'kup-button-click':
-                {
-                    this.columnDropCombobox.getValue().then((res) => {
-                        const value = res as KupLanguageTotals;
-                        if (premadeFormulas.includes(value)) {
-                            this.formulaOnColumns(value, [
-                                receiving.name,
-                                starter.name,
-                            ]);
-                            this.closeDropCard();
-                        } else {
-                            this.formulaOnColumns(value).then((res) => {
-                                if (
-                                    typeof res === 'string' ||
-                                    res instanceof String
-                                ) {
-                                    this.columnDropCombobox.classList.add(
-                                        'kup-danger'
-                                    );
-                                    this.columnDropCombobox.data[
-                                        'kup-text-field'
-                                    ].helper = res as string;
-                                    this.columnDropCombobox.refresh();
-                                } else {
-                                    this.closeDropCard();
-                                }
-                            });
-                        }
-                    });
-                }
-                break;
-            case 'kup-combobox-itemclick':
-                {
-                    const value = (
-                        subcompEvent as CustomEvent<KupComboboxEventPayload>
-                    ).detail.value;
-                    if (premadeFormulas.includes(value)) {
-                        this.formulaOnColumns(value, [
-                            receiving.name,
-                            starter.name,
-                        ]);
-                        this.closeDropCard();
-                    } else {
-                        this.formulaOnColumns(value).then((res) => {
-                            if (
-                                typeof res === 'string' ||
-                                res instanceof String
-                            ) {
-                                const combobox = (
-                                    subcompEvent as CustomEvent<KupComboboxEventPayload>
-                                ).detail.comp as KupCombobox;
-                                combobox.rootElement.classList.add(
-                                    'kup-danger'
-                                );
-                                combobox.data['kup-text-field'].helper =
-                                    res as string;
-                                combobox.refresh();
-                            } else {
-                                this.closeDropCard();
-                            }
-                        });
-                    }
-                }
-                break;
-            case 'kup-list-click': {
-                switch (
-                    (subcompEvent as CustomEvent<KupListEventPayload>).detail
-                        .selected.value
-                ) {
-                    case KupLanguageGeneric.MERGE:
-                        this.mergeColumns([receiving.name, starter.name]);
-                        break;
-                    case KupLanguageGeneric.MOVE:
-                        this.handleColumnSort(receiving, starter);
-                        break;
-                }
-                this.closeDropCard();
-                break;
-            }
-        }
     }
 
     private calculateData() {

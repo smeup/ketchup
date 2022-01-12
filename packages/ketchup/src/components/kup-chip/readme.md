@@ -79,7 +79,6 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-card](../kup-card)
- - [kup-data-table](../kup-data-table)
 
 ### Depends on
 
@@ -91,7 +90,6 @@ graph TD;
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-card --> kup-chip
-  kup-data-table --> kup-chip
   style kup-chip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
