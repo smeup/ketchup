@@ -91,6 +91,7 @@ function createComp() {
   const comp = document.createElement('kup-cell');
 
   comp.data = {
+    cssClass: 'c-centered',
     obj: {
       t: 'J4',
       p: 'BTN',

@@ -185,7 +185,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="navbar-height"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
@@ -204,7 +203,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="drawer-width"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
@@ -225,7 +223,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="font-family"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
@@ -244,7 +241,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="font-family-monospace"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
@@ -264,7 +260,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="font-size"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
@@ -490,7 +485,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="box-shadow"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
@@ -689,7 +683,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="obj-cursor"
                     @kup-textfield-input="updateVariable"
                   ></kup-text-field>
@@ -708,7 +701,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="drawer-zindex"
                     input-type="number"
                     @kup-textfield-input="updateVariable"
@@ -728,7 +720,6 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="navbar-zindex"
                     input-type="number"
                     @kup-textfield-input="updateVariable"
@@ -1180,7 +1171,6 @@
                 <td> Used for ascending sorts. </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="ascending-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
@@ -1193,7 +1183,6 @@
                 <td> Used for descending sorts. </td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="descending-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
@@ -1206,7 +1195,6 @@
                 <td>Used when a node/group is expanded.</td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="expanded-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
@@ -1219,7 +1207,6 @@
                 <td>Used when a node/group is collapsed.</td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="collapsed-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
@@ -1232,7 +1219,6 @@
                 <td>Used in dropdown fields/items.</td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="dropdown-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
@@ -1245,7 +1231,6 @@
                 <td>Used when an element can be cleared or deleted.</td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="clear-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
@@ -1258,7 +1243,6 @@
                 <td>Used as a button to clear filters previously set.</td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="filter-remove-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
@@ -1271,7 +1255,6 @@
                 <td>Used to identify a key.</td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="key-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
@@ -1284,7 +1267,6 @@
                 <td>Used in search-related fields.</td>
                 <td class="text-cell">
                   <kup-text-field
-                    full-width
                     id="search-icon"
                     @kup-textfield-input="updateIcons"
                   ></kup-text-field>
