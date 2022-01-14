@@ -202,6 +202,7 @@ export class KupCalendar {
     @Watch('endCol')
     @Watch('iconCol')
     @Watch('imageCol')
+    @Watch('initialDate')
     @Watch('startCol')
     @Watch('styleCol')
     setCalendarData() {
