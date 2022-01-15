@@ -298,6 +298,21 @@ export class KupDates {
         return dayjs.max(dayjsDates);
     }
     /**
+     * Adds the given amount of time to the input date.
+     * @param {dayjs.ConfigType} input - Input date.
+     * @param {number} value - The value of the addition (i.e.: 7).
+     * @param {dayjs.OpUnitType} unit - The unit of the addition (i.e.: "year").
+     * @returns {dayjs.Dayjs} Computed date.
+     * @see https://day.js.org/docs/en/manipulate/add
+     */
+    add(
+        input: dayjs.ConfigType,
+        value: number,
+        unit?: dayjs.OpUnitType
+    ): dayjs.Dayjs {
+        return dayjs(input).add(value, unit);
+    }
+    /**
      * Subtracts the given amount of time from the input date.
      * @param {dayjs.ConfigType} input - Input date.
      * @param {number} value - The value of the subtraction (i.e.: 7).

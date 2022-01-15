@@ -145,6 +145,17 @@
         ></div>
         <div class="accordion-slot" slot="11">
           <p>
+            <span class="code-word">add(input, value, unit?): dayjs.Dayjs</span
+            ><br />
+            Adds the given amount of time to the input date.<br /><br />
+            - <strong>input (dayjs.ConfigType)</strong> - Input date.<br />
+            - <strong>value (number)</strong> - The value of the addition (i.e.:
+            7).<br />
+            - <strong>unit (dayjs.OpUnitType)</strong> - The unit of the
+            addition (i.e.: "year").<br /><br /> </p
+        ></div>
+        <div class="accordion-slot" slot="12">
+          <p>
             <span class="code-word"
               >subtract(input, value, unit?): dayjs.Dayjs</span
             ><br />
@@ -155,7 +166,7 @@
             - <strong>unit (dayjs.OpUnitType)</strong> - The unit of the
             subtraction (i.e.: "year").<br /><br /> </p
         ></div>
-        <div class="accordion-slot" slot="12">
+        <div class="accordion-slot" slot="13">
           <p>
             <span class="code-word">unregister(component): void</span><br />
             Unregisters a KupComponent, so it won't be refreshed when the locale
@@ -251,10 +262,14 @@ export default {
           },
           {
             name: '11',
-            title: 'subtract',
+            title: 'add',
           },
           {
             name: '12',
+            title: 'subtract',
+          },
+          {
+            name: '13',
             title: 'unregister',
           },
         ],

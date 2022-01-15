@@ -9,6 +9,7 @@ import {
     Host,
     Method,
     Prop,
+    Watch,
 } from '@stencil/core';
 import {
     Calendar,
@@ -159,7 +160,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarEventClicked: EventEmitter<KupCalendarEventClickEventPayload>;
+    kupCalendarEventClick: EventEmitter<KupCalendarEventClickEventPayload>;
     /**
      * When a date is clicked.
      */
@@ -169,7 +170,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarDateClicked: EventEmitter<KupCalendarDateClickEventPayload>;
+    kupCalendarDateClick: EventEmitter<KupCalendarDateClickEventPayload>;
     /**
      * When a date is dropped.
      */
@@ -179,7 +180,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarEventDropped: EventEmitter<KupCalendarEventDropEventPayload>;
+    kupCalendarEventDrop: EventEmitter<KupCalendarEventDropEventPayload>;
     /**
      * When the navigation change
      */
@@ -189,7 +190,128 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarViewChanged: EventEmitter<KupCalendarViewChangeEventPayload>;
+    kupCalendarViewChange: EventEmitter<KupCalendarViewChangeEventPayload>;
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('data')
+    @Watch('dateCol')
+    @Watch('descrCol')
+    @Watch('endCol')
+    @Watch('iconCol')
+    @Watch('imageCol')
+    @Watch('initialDate')
+    @Watch('startCol')
+    @Watch('styleCol')
+    setCalendarData() {
+        if (this.calendar) {
+            this.calendar.destroy();
+        }
+        this.calendar = new Calendar(this.calendarContainer, {
+            dateClick: ({ date }) => {
+                this.kupCalendarDateClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    date: date,
+                });
+            },
+            editable: true,
+            eventClick: ({ event }) => {
+                this.kupCalendarEventClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    row: event.extendedProps.row,
+                });
+            },
+            eventDidMount: (info) => {
+                if (this.styleCol) {
+                    const row: Row = info.event.extendedProps.row;
+                    const cell = row.cells[this.styleCol];
+                    const eventCell = info.el.children[0] as HTMLElement;
+                    if (cell && cell.style) {
+                        Object.keys(cell.style).forEach((k) => {
+                            eventCell.style[k] = cell.style[k];
+                        });
+                    }
+                }
+
+                if (this.iconCol) {
+                    const row: Row = info.event.extendedProps.row;
+                    const cell = row.cells[this.iconCol];
+                    if (cell && cell.value) {
+                        const wrapper = document.createElement('div');
+                        wrapper.classList.add('icon-wrapper');
+
+                        cell.value.split(';').forEach((icon) => {
+                            const span = document.createElement('span');
+                            span.className = 'custom-icon';
+                            const path: string = getAssetPath(
+                                `./assets/svg/${icon}.svg`
+                            );
+                            span.style.mask = `url('${path}') no-repeat center`;
+                            span.style.webkitMask = `url('${path}') no-repeat center`;
+                            wrapper.appendChild(span);
+                        });
+
+                        info.el.appendChild(wrapper);
+                    }
+                }
+
+                if (this.imageCol) {
+                    const row: Row = info.event.extendedProps.row;
+                    const cell = row.cells[this.imageCol];
+                    if (cell && cell.value) {
+                        const wrapper = document.createElement('div');
+                        wrapper.classList.add('image-wrapper');
+
+                        cell.value.split(';').forEach((icon) => {
+                            const img = document.createElement('img');
+                            img.src = icon;
+                            wrapper.appendChild(img);
+                        });
+
+                        info.el.appendChild(wrapper);
+                    }
+                }
+            },
+            eventDrop: ({ event, oldEvent }) => {
+                this.kupCalendarEventDrop.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    fromDate: {
+                        start: oldEvent.start,
+                        end: oldEvent.end,
+                    },
+                    toDate: {
+                        start: event.start,
+                        end: event.end,
+                    },
+                });
+            },
+            events: this.getEvents(),
+            headerToolbar: false,
+            initialDate: this.initialDate,
+            initialView: this.viewType,
+            locale: this.getLocale(),
+            locales: [
+                esLocale,
+                frLocale,
+                itLocale,
+                plLocale,
+                ruLocale,
+                zhLocale,
+            ],
+            plugins: [
+                dayGridPlugin,
+                interactionPlugin,
+                listPlugin,
+                timeGridPlugin,
+            ],
+        });
+        this.calendar.render();
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -370,7 +492,7 @@ export class KupCalendar {
             .subtract(this.calendar.view.currentEnd, 1, 'day')
             .toDate();
 
-        this.kupCalendarViewChanged.emit({
+        this.kupCalendarViewChange.emit({
             comp: this,
             id: this.rootElement.id,
             from: this.calendar.view.currentStart,
@@ -398,108 +520,7 @@ export class KupCalendar {
     }
 
     componentDidLoad() {
-        this.calendar = new Calendar(this.calendarContainer, {
-            dateClick: ({ date }) => {
-                this.kupCalendarDateClicked.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    date: date,
-                });
-            },
-            editable: true,
-            eventClick: ({ event }) => {
-                this.kupCalendarEventClicked.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    row: event.extendedProps.row,
-                });
-            },
-            eventDidMount: (info) => {
-                if (this.styleCol) {
-                    const row: Row = info.event.extendedProps.row;
-                    const cell = row.cells[this.styleCol];
-                    const eventCell = info.el.children[0] as HTMLElement;
-                    if (cell && cell.style) {
-                        Object.keys(cell.style).forEach((k) => {
-                            eventCell.style[k] = cell.style[k];
-                        });
-                    }
-                }
-
-                if (this.iconCol) {
-                    const row: Row = info.event.extendedProps.row;
-                    const cell = row.cells[this.iconCol];
-                    if (cell && cell.value) {
-                        const wrapper = document.createElement('div');
-                        wrapper.classList.add('icon-wrapper');
-
-                        cell.value.split(';').forEach((icon) => {
-                            const span = document.createElement('span');
-                            span.className = 'custom-icon';
-                            const path: string = getAssetPath(
-                                `./assets/svg/${icon}.svg`
-                            );
-                            span.style.mask = `url('${path}') no-repeat center`;
-                            span.style.webkitMask = `url('${path}') no-repeat center`;
-                            wrapper.appendChild(span);
-                        });
-
-                        info.el.appendChild(wrapper);
-                    }
-                }
-
-                if (this.imageCol) {
-                    const row: Row = info.event.extendedProps.row;
-                    const cell = row.cells[this.imageCol];
-                    if (cell && cell.value) {
-                        const wrapper = document.createElement('div');
-                        wrapper.classList.add('image-wrapper');
-
-                        cell.value.split(';').forEach((icon) => {
-                            const img = document.createElement('img');
-                            img.src = icon;
-                            wrapper.appendChild(img);
-                        });
-
-                        info.el.appendChild(wrapper);
-                    }
-                }
-            },
-            eventDrop: ({ event, oldEvent }) => {
-                this.kupCalendarEventDropped.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    fromDate: {
-                        start: oldEvent.start,
-                        end: oldEvent.end,
-                    },
-                    toDate: {
-                        start: event.start,
-                        end: event.end,
-                    },
-                });
-            },
-            events: this.getEvents(),
-            headerToolbar: false,
-            initialDate: this.initialDate,
-            initialView: this.viewType,
-            locale: this.getLocale(),
-            locales: [
-                esLocale,
-                frLocale,
-                itLocale,
-                plLocale,
-                ruLocale,
-                zhLocale,
-            ],
-            plugins: [
-                dayGridPlugin,
-                interactionPlugin,
-                listPlugin,
-                timeGridPlugin,
-            ],
-        });
-        this.calendar.render();
+        this.setCalendarData();
         this.updateCalendar();
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);

@@ -58,7 +58,6 @@
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
                 <kup-text-field
-                  full-width
                   v-bind:id="propList.prop"
                   @kup-textfield-input="updateDemoField"
                 ></kup-text-field>
