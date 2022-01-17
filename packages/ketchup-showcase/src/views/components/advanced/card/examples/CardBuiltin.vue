@@ -96,6 +96,56 @@
         </div>
       </div>
     </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 4</span> is a color picker creating using
+        the external library
+        <a href="https://vanilla-picker.js.org/">Vanilla Picker</a>
+        <br />
+        <br />
+        <span class="code-word">options</span> <br />
+        <span class="code-word">- color (string)</span>: The initial color which
+        will be displayed by the color picker once created.<br />When not set,
+        it will default to <span class="code-word">#00ccff</span><br />
+        <span class="code-word">- changeCb ((color) => void))</span>: Callback
+        invoked when the color selected changes. The color argument is an object
+        constructed like this: <br />
+        <span class="code-word-container">
+          <span class="code-word">rgba</span>:
+          <span class="code-word">number[]</span>;<br />
+          <span class="code-word">hsla</span>:
+          <span class="code-word">number[]</span>;<br />
+          <span class="code-word">rgbString</span>:
+          <span class="code-word">string</span>;<br />
+          <span class="code-word">rgbaString</span>:
+          <span class="code-word">string</span>;<br />
+          <span class="code-word">hslString</span>:
+          <span class="code-word">string</span>;<br />
+          <span class="code-word">hslaString</span>:
+          <span class="code-word">string</span>;<br />
+          <span class="code-word">hex</span>:
+          <span class="code-word">string</span>; <br
+        /></span>
+        <span class="code-word">- creationCb ((picker) => void)</span>: Callback
+        invoked after the creation of the picker is complete. <br />The picker
+        argument is essentially the instance of the vanilla color picker, on
+        which it's possible to call methods like
+        <span class="code-word">setColor(color: string, silent: boolean)</span
+        >.<br />Documentation about the available APIs
+        <a href="https://vanilla-picker.js.org/gen/Picker.html">here</a>.<br />
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            layout-family="built-in"
+            layout-number="4"
+            size-x="280px"
+            size-y="auto"
+            :data.prop="dataColorPicker"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -118,6 +168,11 @@ export default {
           hoursActive: true,
         },
       },
+      dataColorPicker: {
+        options: {
+          initialValue: '#a61a2f',
+        },
+      },
       dataColumnDropMenu: {
         options: {
           data: defaultDataTable,
@@ -132,3 +187,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.code-word-container {
+  text-align: center;
+  display: block;
+  margin: 1.5em 0;
+}
+</style>

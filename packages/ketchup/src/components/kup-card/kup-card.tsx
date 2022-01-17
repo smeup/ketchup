@@ -22,6 +22,7 @@ import type {
     KupComponent,
     KupEventPayload,
 } from '../../types/GenericTypes';
+import Picker from 'vanilla-picker';
 import {
     KupManager,
     kupManagerInstance,
@@ -34,6 +35,7 @@ import {
     KupCardIds,
     KupCardProps,
     KupCardClickPayload,
+    KupCardColorPickerOptions,
 } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
@@ -130,6 +132,9 @@ export class KupCard {
      * Prevents multiple scaling callbacks when the card is scalable.
      */
     private scalingActive: boolean = false;
+    private componentWrapper: HTMLElement = null;
+    private colorPicker: Picker = null;
+    private firstColorPickerChange: boolean = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -354,8 +359,8 @@ export class KupCard {
         }
     }
     /**
-     * This method will trigger whenever the card's render() hook occurs or when the size changes (through KupManager), in order to manage the more complex layout families.
-     * It will also update any dynamic color handled by the selected layout.
+     * This method is invoked by the layout manager when the layout family is dialog.
+     * It will "dialogify" the card.
      */
     dialog(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
@@ -377,12 +382,61 @@ export class KupCard {
         }
     }
     /**
+     * This method is invoked by the layout manager when the layout family is built-in.
+     */
+    builtIn(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const builtinLayout: HTMLElement = root.querySelector(
+                '.' + KupCardCSSClasses.BUILT_IN_CARD
+            );
+            switch (this.layoutNumber) {
+                case 4:
+                    const colorPickerOptions: KupCardColorPickerOptions =
+                        this.data && this.data.options
+                            ? (this.data.options as KupCardColorPickerOptions)
+                            : null;
+                    const color = colorPickerOptions
+                        ? colorPickerOptions.initialValue
+                        : null;
+                    this.firstColorPickerChange = true;
+                    if (!this.colorPicker) {
+                        this.colorPicker = new Picker({
+                            alpha: false,
+                            color: color,
+                            parent: builtinLayout,
+                            popup: false,
+                            onChange:
+                                colorPickerOptions &&
+                                colorPickerOptions.changeCb
+                                    ? (color) => {
+                                          if (!this.firstColorPickerChange) {
+                                              colorPickerOptions.changeCb(
+                                                  color
+                                              );
+                                          }
+                                          this.firstColorPickerChange = false;
+                                      }
+                                    : null,
+                        });
+                        if (
+                            colorPickerOptions &&
+                            colorPickerOptions.creationCb
+                        ) {
+                            colorPickerOptions.creationCb(this.colorPicker);
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+    /**
      * This method will trigger whenever the card's render() hook occurs or when the size changes (through KupManager), in order to manage the more complex layout families.
      * It will also update any dynamic color handled by the selected layout.
      */
     layoutManager(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root.querySelector('#kup-component')) {
+        if (this.componentWrapper) {
             const family: string = this.layoutFamily.toLowerCase();
             const dynColors: NodeListOf<HTMLElement> =
                 root.querySelectorAll('.dyn-color');
@@ -401,6 +455,9 @@ export class KupCard {
                     break;
                 case KupCardFamily.DIALOG:
                     this.dialog();
+                    break;
+                case KupCardFamily.BUILT_IN:
+                    this.builtIn();
                     break;
                 case KupCardFamily.SCALABLE:
                     if (!this.scalingActive) {
@@ -583,6 +640,7 @@ export class KupCard {
                 <div
                     id={componentWrapperId}
                     onClick={() => this.onKupClick(null, null)}
+                    ref={(el) => (this.componentWrapper = el)}
                 >
                     {this.getLayout()}
                 </div>
