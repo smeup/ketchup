@@ -47,3 +47,16 @@ export function create3(component: KupCard): VNode {
         </div>
     );
 }
+/**
+ * 4th built-in layout, color picker.
+ * This layout is rendered after the render cycle completes.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 4th built-in layout virtual node.
+ */
+export function create4(component: KupCard): VNode {
+    return (
+        <div
+            class={`built-in-layout-${component.layoutNumber} ${KupCardCSSClasses.BUILT_IN_CARD}`}
+        ></div>
+    );
+}

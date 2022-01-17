@@ -5,6 +5,7 @@ import {
     Column,
     DataTable,
 } from '../../components/kup-data-table/kup-data-table-declarations';
+import Picker from 'vanilla-picker';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -20,7 +21,7 @@ export enum KupCardProps {
     sizeY = 'The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
 }
 /**
- * Options prop of the built-in calendar.
+ * Options of the built-in calendar.
  */
 export interface KupCardBuiltInCalendarOptions {
     initialValue?: string | KupObj;
@@ -28,7 +29,7 @@ export interface KupCardBuiltInCalendarOptions {
     resetStatus: boolean;
 }
 /**
- * Data prop of the built-in calendar.
+ * Data of the built-in calendar.
  */
 export interface KupCardBuiltInCalendarData {
     value?: Date;
@@ -45,7 +46,7 @@ export interface KupCardBuiltInCalendar extends HTMLElement {
     kupData: KupCardBuiltInCalendarData;
 }
 /**
- * Options prop of the built-in clock.
+ * Options of the built-in clock.
  */
 export interface KupCardBuiltInClockOptions {
     initialValue?: string | KupObj;
@@ -55,7 +56,7 @@ export interface KupCardBuiltInClockOptions {
     secondsActive?: boolean;
 }
 /**
- * Options prop of the bulit-in column drop menu.
+ * Options of the built-in column drop menu.
  */
 export interface KupCardColumnDropMenuOptions {
     data: DataTable;
@@ -67,6 +68,14 @@ export interface KupCardColumnDropMenuOptions {
     formulaCb?: () => void;
     mergeCb?: () => void;
     moveCb?: () => void;
+}
+/**
+ * Options of the built-in color picker.
+ */
+export interface KupCardColorPickerOptions {
+    initialValue: string;
+    changeCb?: (color: any) => void;
+    creationCb?: (picker: Picker) => void;
 }
 /**
  * Element ids for built-in clock.
@@ -116,7 +125,8 @@ export interface KupCardData {
     options?:
         | KupCardBuiltInCalendarOptions
         | KupCardBuiltInClockOptions
-        | KupCardColumnDropMenuOptions;
+        | KupCardColumnDropMenuOptions
+        | KupCardColorPickerOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];

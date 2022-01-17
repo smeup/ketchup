@@ -954,6 +954,19 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-ECHART</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-echart"
+                    @kup-textfield-input="updateCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-FIELD</span>
                 </td>
                 <td class="text-cell">

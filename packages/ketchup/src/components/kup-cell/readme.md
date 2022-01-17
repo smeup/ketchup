@@ -119,8 +119,7 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-badge --> kup-badge
-  kup-combobox --> kup-list
-  kup-date-picker --> kup-card
+  kup-color-picker --> kup-card
   kup-card --> kup-badge
   kup-card --> kup-button
   kup-card --> kup-chip
@@ -140,6 +139,8 @@ graph TD;
   kup-card --> kup-switch
   kup-button --> kup-badge
   kup-chip --> kup-badge
+  kup-combobox --> kup-list
+  kup-date-picker --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-card

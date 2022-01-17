@@ -225,6 +225,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
+  kup-color-picker --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button

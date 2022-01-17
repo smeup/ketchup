@@ -321,6 +321,7 @@ graph TD;
   kup-box --> kup-gauge
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
+  kup-color-picker --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button

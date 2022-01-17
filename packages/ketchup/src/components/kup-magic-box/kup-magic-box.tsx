@@ -189,6 +189,7 @@ export class KupMagicBox {
                     content.push(<kup-box {...props}></kup-box>);
                     break;
                 case MagicBoxDisplay.CHART:
+                case MagicBoxDisplay.ECHART:
                     props['data'] = this.data;
                     props['series'] = [];
                     for (
@@ -223,7 +224,13 @@ export class KupMagicBox {
                             KupDebugCategory.WARNING
                         );
                     }
-                    content.push(<kup-chart {...props}></kup-chart>);
+                    if (this.display === MagicBoxDisplay.CHART) {
+                        content.push(<kup-chart {...props}></kup-chart>);
+                    } else {
+                        //Echart series broken?
+                        props['series'] = null;
+                        content.push(<kup-echart {...props}></kup-echart>);
+                    }
                     break;
                 case MagicBoxDisplay.DATATABLE:
                     props['data'] = this.data;

@@ -29,6 +29,7 @@ import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 import { KupObj } from "./managers/kup-objects/kup-objects-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
+import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
@@ -1504,6 +1505,68 @@ export namespace Components {
          */
         "trailingIcon": boolean;
     }
+    interface KupEchart {
+        /**
+          * Sets the axis of the chart.
+          * @default ""
+         */
+        "axis": string;
+        /**
+          * Title of the graph.
+          * @default undefined
+         */
+        "chartTitle": KupEchartTitle;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * The actual data of the chart.
+          * @default {}
+         */
+        "data": object;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default undefined
+         */
+        "legend": string;
+        /**
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
+          * @default undefined
+         */
+        "mapType": any;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
+        /**
+          * The data series to be displayed. They must be of the same type.
+          * @default undefined
+         */
+        "series": string[];
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+          * @default ['Line']
+         */
+        "types": String[];
+    }
     interface KupField {
         /**
           * Custom style of the component.
@@ -2943,6 +3006,12 @@ declare global {
         prototype: HTMLKupDropdownButtonElement;
         new (): HTMLKupDropdownButtonElement;
     };
+    interface HTMLKupEchartElement extends Components.KupEchart, HTMLStencilElement {
+    }
+    var HTMLKupEchartElement: {
+        prototype: HTMLKupEchartElement;
+        new (): HTMLKupEchartElement;
+    };
     interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
     }
     var HTMLKupFieldElement: {
@@ -3096,6 +3165,7 @@ declare global {
         "kup-date-picker": HTMLKupDatePickerElement;
         "kup-drawer": HTMLKupDrawerElement;
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
+        "kup-echart": HTMLKupEchartElement;
         "kup-field": HTMLKupFieldElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
@@ -4363,6 +4433,50 @@ declare namespace LocalJSX {
          */
         "trailingIcon"?: boolean;
     }
+    interface KupEchart {
+        /**
+          * Sets the axis of the chart.
+          * @default ""
+         */
+        "axis"?: string;
+        /**
+          * Title of the graph.
+          * @default undefined
+         */
+        "chartTitle"?: KupEchartTitle;
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * The actual data of the chart.
+          * @default {}
+         */
+        "data"?: object;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * @default undefined
+         */
+        "legend"?: string;
+        /**
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
+          * @default undefined
+         */
+        "mapType"?: any;
+        "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * The data series to be displayed. They must be of the same type.
+          * @default undefined
+         */
+        "series"?: string[];
+        /**
+          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+          * @default ['Line']
+         */
+        "types"?: String[];
+    }
     interface KupField {
         /**
           * Custom style of the component.
@@ -5470,6 +5584,7 @@ declare namespace LocalJSX {
         "kup-date-picker": KupDatePicker;
         "kup-drawer": KupDrawer;
         "kup-dropdown-button": KupDropdownButton;
+        "kup-echart": KupEchart;
         "kup-field": KupField;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
@@ -5518,6 +5633,7 @@ declare module "@stencil/core" {
             "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
+            "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;

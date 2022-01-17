@@ -23,6 +23,7 @@ export interface MagicBoxData {
 export enum MagicBoxDisplay {
     BOX = 'Box',
     CHART = 'Chart',
+    ECHART = 'Echart',
     DATATABLE = 'Datatable',
     JSON = 'JSON',
 }

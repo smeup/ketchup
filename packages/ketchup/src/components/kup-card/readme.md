@@ -82,6 +82,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-color-picker](../kup-color-picker)
  - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
  - [kup-time-picker](../kup-time-picker)
@@ -140,6 +141,7 @@ graph TD;
   kup-data-table --> kup-card
   kup-tooltip --> kup-card
   kup-box --> kup-card
+  kup-color-picker --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
