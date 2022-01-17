@@ -48,10 +48,10 @@ export default {
     return {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-echart',
-      headtitle: 'E-chart',
+      headtitle: 'EChart',
       titles: ['Playground', 'Events', 'Bar', 'Line', 'Pie', 'Scatter', 'Map'],
     };
   },
-  title: 'Ketchup | E-chart',
+  title: 'Ketchup | EChart',
 };
 </script>

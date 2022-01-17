@@ -359,7 +359,7 @@ export default {
                   },
                 },
                 icon: 'multiline_chart',
-                value: 'E-chart',
+                value: 'EChart',
                 visible: true,
               },
               {

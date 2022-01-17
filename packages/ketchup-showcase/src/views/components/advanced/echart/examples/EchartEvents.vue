@@ -1,21 +1,25 @@
 <template>
   <div class="wrapper">
-    <div style="width: 580px; height: 400px">
-      <kup-echart
-        :axis.prop="axis"
-        :data.prop="baseData"
-        :types.prop="types"
-        @kupEchartClick="onBarChartClick"
-      />
+    <div class="demo-container">
+      <div class="kup-container">
+        <kup-echart
+          :axis.prop="axis"
+          :data.prop="baseData"
+          :types.prop="types"
+          @kup-echart-click="onBarChartClick"
+        />
+      </div>
     </div>
     <div id="event">click on the graph to trigger the event</div>
-    <div style="width: 580px; height: 400px">
-      <kup-echart
-        :axis.prop="axis"
-        :data.prop="baseData"
-        :types.prop="types1"
-        @kupEchartClick="onPieChartClick()"
-      />
+    <div class="demo-container">
+      <div class="kup-container">
+        <kup-echart
+          :axis.prop="axis"
+          :data.prop="baseData"
+          :types.prop="types1"
+          @kup-echart-click="onPieChartClick()"
+        />
+      </div>
     </div>
     <div id="event1">click on the graph to trigger the event</div>
   </div>
@@ -49,10 +53,9 @@ export default {
 };
 </script>
 
-<style scoped>
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+<style scoped lang="scss">
+.kup-container {
+  height: 300px;
+  padding: 0;
 }
 </style>

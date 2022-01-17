@@ -1,17 +1,25 @@
 <template>
   <div>
     <p>Single series chart.</p>
-    <div style="margin: auto; width: 600px; height: 400px">
-      <kup-echart
-        :axis.prop="axis"
-        :data.prop="singleData"
-        :types.prop="types"
-      />
+    <div class="demo-container">
+      <div class="kup-container">
+        <kup-echart
+          :axis.prop="axis"
+          :data.prop="singleData"
+          :types.prop="types"
+        />
+      </div>
     </div>
     <br />
     <p>Multi series chart.</p>
-    <div style="margin: auto; width: 600px; height: 400px">
-      <kup-echart :axis.prop="axis" :data.prop="baseData" :types.prop="types" />
+    <div class="demo-container">
+      <div class="kup-container">
+        <kup-echart
+          :axis.prop="axis"
+          :data.prop="baseData"
+          :types.prop="types"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -30,3 +38,10 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.kup-container {
+  height: 300px;
+  padding: 0;
+}
+</style>

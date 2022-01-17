@@ -1,24 +1,26 @@
 <template>
   <div>
     <p>World map chart.</p>
-    <div style="margin: auto; width: 1000px; height: 600px">
-      <kup-echart
-        :axis.prop="axis"
-        :data.prop="mapData"
-        :types.prop="types"
-        :mapType.prop="mapType"
-      />
-    </div>
+    <div class="demo-container">
+      <div class="kup-container">
+        <kup-echart
+          :axis.prop="axis"
+          :data.prop="mapData"
+          :types.prop="types"
+          :mapType.prop="mapType"
+        /> </div
+    ></div>
     <br />
     <p>Europe map chart.</p>
-    <div style="margin: auto; width: 1000px; height: 600px">
-      <kup-echart
-        :axis.prop="axis"
-        :data.prop="mapData"
-        :types.prop="types"
-        :mapType.prop="mapType1"
-      />
-    </div>
+    <div class="demo-container">
+      <div class="kup-container">
+        <kup-echart
+          :axis.prop="axis"
+          :data.prop="mapData"
+          :types.prop="types"
+          :mapType.prop="mapType1"
+        /> </div
+    ></div>
   </div>
 </template>
 
@@ -36,3 +38,10 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.kup-container {
+  height: 300px;
+  padding: 0;
+}
+</style>

@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div style="margin: auto; width: 600px; height: 400px">
-      <kup-echart
-        :axis.prop="axis"
-        :data.prop="baseData"
-        :types.prop="types"
-        legend="right"
-      />
+    <div class="demo-container">
+      <div class="kup-container">
+        <kup-echart
+          :axis.prop="axis"
+          :data.prop="baseData"
+          :types.prop="types"
+          legend="right"
+      /></div>
     </div>
   </div>
 </template>
@@ -23,3 +24,10 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.kup-container {
+  height: 300px;
+  padding: 0;
+}
+</style>
