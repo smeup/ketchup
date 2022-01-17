@@ -11,7 +11,6 @@ import {
     State,
     VNode,
 } from '@stencil/core';
-import Picker from 'vanilla-picker';
 import {
     KupManager,
     kupManagerInstance,
@@ -28,6 +27,13 @@ import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import {
+    KupCardColorPickerOptions,
+    KupCardData,
+    KupCardFamily,
+} from '../kup-card/kup-card-declarations';
+import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import Picker from 'vanilla-picker';
 
 @Component({
     tag: 'kup-color-picker',
@@ -86,10 +92,10 @@ export class KupColorPicker {
      * Instance of the KupManager class.
      */
     kupManager: KupManager = kupManagerInstance();
-    private anchorEl: HTMLElement;
+    private card: HTMLKupCardElement;
+    private clickCb: KupManagerClickCb = null;
     private picker: Picker;
     private textfieldEl: HTMLElement;
-    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -146,6 +152,9 @@ export class KupColorPicker {
     @Method()
     async setValue(value: string): Promise<void> {
         this.value = value;
+        if (this.picker && !this.isPickerOpened()) {
+            this.picker.setColor(value, true);
+        }
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -166,15 +175,86 @@ export class KupColorPicker {
                     this.value
                 ).hexColor;
             }
-            if (
-                this.picker &&
-                this.value &&
-                this.value.indexOf('#') > -1 &&
-                this.value.length === 7
-            ) {
-                this.picker.setColour(this.value, true);
-            }
         }
+    }
+
+    private createCard(): HTMLKupCardElement {
+        const card = document.createElement('kup-card');
+        const cardData: KupCardData = {
+            options: {
+                initialValue: this.value,
+                changeCb: (color: any) => {
+                    this.setValue(color.hex.substring(0, 7));
+                    this.kupChange.emit({
+                        comp: this,
+                        id: this.rootElement.id,
+                        value: this.value,
+                    });
+                },
+                creationCb: (picker: Picker) => {
+                    this.picker = picker;
+                },
+            } as KupCardColorPickerOptions,
+        };
+        card.data = cardData;
+        card.isMenu = true;
+        card.layoutFamily = KupCardFamily.BUILT_IN;
+        card.layoutNumber = 4;
+        return card;
+    }
+
+    private openPicker(): void {
+        if (!this.card) {
+            this.card = this.createCard();
+        }
+        const textfieldEl = this.textfieldEl;
+        this.card.menuVisible = true;
+        this.card.sizeX = this.textfieldEl.parentElement.clientWidth + 'px';
+        this.card.sizeY = 'auto';
+        if (textfieldEl != null) {
+            textfieldEl.classList.add('toggled');
+        }
+        if (this.kupManager.dynamicPosition.isRegistered(this.card)) {
+            this.kupManager.dynamicPosition.changeAnchor(
+                this.card,
+                this.textfieldEl.parentElement
+            );
+        } else {
+            this.kupManager.dynamicPosition.register(
+                this.card,
+                this.textfieldEl.parentElement,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
+        }
+        this.kupManager.dynamicPosition.start(this.card);
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.closePicker();
+                },
+                el: this.card,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
+    }
+
+    closePicker(): void {
+        this.kupManager.removeClickCallback(this.clickCb);
+        if (!this.isPickerOpened()) {
+            return;
+        }
+        const textfieldEl = this.textfieldEl;
+        if (textfieldEl != null) {
+            textfieldEl.classList.remove('toggled');
+        }
+        this.card.menuVisible = false;
+        this.kupManager.dynamicPosition.stop(this.card);
+    }
+
+    isPickerOpened(): boolean {
+        return this.card && this.card.menuVisible ? true : false;
     }
 
     private prepTextField(): VNode {
@@ -225,6 +305,7 @@ export class KupColorPicker {
                 wrapperClass={
                     textfieldProps.icon === 'brightness-1' ? 'thumb-icon' : ''
                 }
+                onClick={() => this.openPicker()}
             />
         );
     }
@@ -247,45 +328,6 @@ export class KupColorPicker {
     }
 
     componentDidLoad() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const that = this;
-            this.picker = new Picker({
-                alpha: false,
-                color: this.value,
-                parent: this.anchorEl,
-            });
-            this.picker['onClose'] = function (color) {
-                that.setValue(color.hex.substr(0, 7));
-                that.kupChange.emit({
-                    comp: that,
-                    id: that.rootElement.id,
-                    value: that.value,
-                });
-            };
-            this.picker['onOpen'] = function () {
-                if (that.disabled) {
-                    that.picker.closeHandler(null);
-                } else {
-                    that.rootElement.style.setProperty(
-                        '--kup_colorpicker_picker_width',
-                        that.textfieldEl.clientWidth + 'px'
-                    );
-                    if (!that.clickCb) {
-                        that.clickCb = {
-                            cb: () => {
-                                that.picker.closeHandler(null);
-                                that.kupManager.removeClickCallback(
-                                    that.clickCb
-                                );
-                            },
-                            el: that.picker['domElement'],
-                        };
-                    }
-                    that.kupManager.addClickCallback(this.clickCb, true);
-                }
-            };
-        }
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -313,12 +355,13 @@ export class KupColorPicker {
         if (this.swatchOnly) {
             widget = (
                 <button
-                    type="button"
                     disabled={this.disabled}
                     class="color-picker"
+                    onClick={() => this.openPicker()}
                     style={{
                         backgroundColor: this.value,
                     }}
+                    type="button"
                 />
             );
         } else {
@@ -336,14 +379,16 @@ export class KupColorPicker {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId} ref={(el) => (this.anchorEl = el)}>
-                    {widget}
-                </div>
+                <div id={componentWrapperId}>{widget}</div>
             </Host>
         );
     }
 
     disconnectedCallback() {
+        if (this.card) {
+            this.kupManager.dynamicPosition.unregister([this.card]);
+            this.card.remove();
+        }
         this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
     }
