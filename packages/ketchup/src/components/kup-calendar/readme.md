@@ -76,6 +76,26 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                          | Description                                         |
+| --------------------------------------------- | --------------------------------------------------- |
+| `--kup-calendar-background-color`             | Background of the component.                        |
+| `--kup-calendar-border-color`                 | Sets borders color of the calendar.                 |
+| `--kup-calendar-event-background-color`       | Sets background color of events.                    |
+| `--kup-calendar-event-border-color`           | Sets border color of events.                        |
+| `--kup-calendar-event-border-radius`          | Sets border radius of events.                       |
+| `--kup-calendar-event-color`                  | Sets text color of events.                          |
+| `--kup-calendar-font-family`                  | Sets the font family of the component.              |
+| `--kup-calendar-font-size`                    | Sets the font size of the component.                |
+| `--kup-calendar-header-background-color`      | Sets background color of the header cell.           |
+| `--kup-calendar-header-color`                 | Sets text color of the header cell.                 |
+| `--kup-calendar-navigator-border`             | Sets the border of the navigator.                   |
+| `--kup-calendar-no-work-day-background-color` | Sets background color of sunday and saturday cells. |
+| `--kup-calendar-no-work-day-color`            | Sets text color of sunday and saturday cells.       |
+| `--kup-calendar-today-background-color`       | Sets background color of today's cell.              |
+
+
 ## Dependencies
 
 ### Depends on

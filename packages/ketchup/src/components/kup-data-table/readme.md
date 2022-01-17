@@ -255,6 +255,20 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                     | Description                                                |
+| ---------------------------------------- | ---------------------------------------------------------- |
+| `--kup-datatable-background-color`       | Sets background color of the component.                    |
+| `--kup-datatable-border`                 | Sets border of the component.                              |
+| `--kup-datatable-color`                  | Sets text color of the component.                          |
+| `--kup-datatable-font-family`            | Sets font family of the component.                         |
+| `--kup-datatable-font-family-monospace`  | Sets monospace font family of the component (for numbers). |
+| `--kup-datatable-font-size`              | Sets font size of the component.                           |
+| `--kup-datatable-th-border`              | Sets border of the th elements.                            |
+| `--kup-datatable-th-resize-handle-width` | Sets the width of the handle used to resize columns.       |
+
+
 ## Dependencies
 
 ### Used by

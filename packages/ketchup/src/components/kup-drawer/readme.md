@@ -94,6 +94,17 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                            | Description                                          |
+| ------------------------------- | ---------------------------------------------------- |
+| `--kup-drawer-backdrop`         | Backdrop of the component when in slide mode.        |
+| `--kup-drawer-box-shadow`       | Box shadow of the component when in slide mode.      |
+| `--kup-drawer-permanent-border` | Border of the drawer in permanent mode.              |
+| `--kup-drawer-slide-transition` | Horizontal transition's duration when in slide mode. |
+| `--kup-drawer-transition`       | Transitions duration.                                |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
