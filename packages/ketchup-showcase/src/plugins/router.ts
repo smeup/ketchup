@@ -207,6 +207,11 @@ const advancedRoutes = [
       import(`@/views/components/advanced/datatable/Datatable.vue`),
   },
   {
+    path: `/echart`,
+    name: 'echart',
+    component: () => import(`@/views/components/advanced/echart/Echart.vue`),
+  },
+  {
     path: `/field`,
     name: 'field',
     component: () => import(`@/views/components/advanced/field/Field.vue`),

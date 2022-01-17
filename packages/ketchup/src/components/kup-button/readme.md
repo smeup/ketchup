@@ -61,25 +61,6 @@ Type: `Promise<void>`
 
 
 
-## CSS Custom Properties
-
-| Name                                 | Description                                                                           |
-| ------------------------------------ | ------------------------------------------------------------------------------------- |
-| `--kup-button-border-radius`         | Sets border radius of the button.                                                     |
-| `--kup-button-disabled-color`        | Sets disabled color of the button.                                                    |
-| `--kup-button-font-family`           | Sets font family of the button.                                                       |
-| `--kup-button-font-size`             | Sets font size of the button.                                                         |
-| `--kup-button-font-weight`           | Sets font weight of the button.                                                       |
-| `--kup-button-height`                | Sets height of the button.                                                            |
-| `--kup-button-padding`               | Sets padding of the button.                                                           |
-| `--kup-button-primary-color`         | Sets the primary color of the button.                                                 |
-| `--kup-button-primary-color-h`       | Sets the primary color Hue value of the button (used for focus/hover effects).        |
-| `--kup-button-primary-color-l`       | Sets the primary color Lightness value of the button (used for focus/hover effects).  |
-| `--kup-button-primary-color-rgb`     | Sets the primary color RGB values of the button (used for shaders).                   |
-| `--kup-button-primary-color-s`       | Sets the primary color Saturation value of the button (used for focus/hover effects). |
-| `--kup-button-text-on-primary-color` | Sets text and icon color for raised buttons.                                          |
-
-
 ## Dependencies
 
 ### Used by

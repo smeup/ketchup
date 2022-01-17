@@ -542,6 +542,15 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupEchartTitle: {
+    keys: {
+      value: 'string',
+      'color?': 'string',
+      'position?': 'string',
+      'size?': 'number',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupGlobalFilterMode: {
     keys: {
       HIGHLIGHT: 'highlight',

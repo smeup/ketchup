@@ -355,6 +355,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'echart',
+                  },
+                },
+                icon: 'multiline_chart',
+                value: 'E-chart',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'field',
                   },
                 },

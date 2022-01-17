@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+        <title>Stencil Component Starter</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+    </head>
+
+    <body>
+        <div style="width: 100vw; height: 50vh">
+            <kup-echart
+                id="piechart"
+                graph-title="titolo Prova"
+                graph-title-size="18"
+                legend="bottom"
+                graph-title-color="#ff9933"
+                title-position="right"
+                axis="Col1"
+            >
+            </kup-echart>
+        </div>
+        <div style="width: 100vw; height: 50vh">
+            <kup-echart
+                id="mapchart"
+                data
+                graph-title="titolo Prova2"
+                graph-title-size="18"
+                legend="bottom"
+                graph-title-color="#ff9933"
+                map-type="europe"
+                title-position="right"
+            >
+            </kup-echart>
+        </div>
+        <script>
+            const echart1 = document.getElementById('piechart');
+            const echart2 = document.getElementById('mapchart');
+
+            echart1.series = ['Col3', 'Col4'];
+            echart1.types = ['Line', 'Scatter'];
+            echart2.axis = ['Col1'];
+            echart2.types = ['Map'];
+
+            echart1.data = {
+                columns: [
+                    {
+                        name: 'Col1',
+                        title: 'Person',
+                        size: '10',
+                    },
+                    {
+                        name: 'Col2',
+                        title: 'Value1',
+                        size: '10',
+                    },
+                    {
+                        name: 'Col3',
+                        title: 'Value2',
+                        size: '10',
+                    },
+                    {
+                        name: 'Col4',
+                        title: 'Value3',
+                        size: '10',
+                    },
+                ],
+                rows: [
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: 'CN',
+                                    p: 'COL',
+                                    k: 'CASFRA',
+                                },
+                                value: 'CASFRA',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '10',
+                                },
+                                value: '10',
+                            },
+                            Col3: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '100.60',
+                                },
+                                value: '100.60',
+                            },
+                            Col4: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '55',
+                                },
+                                value: '55',
+                            },
+                        },
+                        id: '0',
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: 'CN',
+                                    p: 'COL',
+                                    k: 'DELGIO',
+                                },
+                                value: 'DELGIO',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '6',
+                                },
+                                value: '6',
+                            },
+                            Col3: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '67.8',
+                                },
+                                value: '67.8',
+                            },
+                            Col4: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '33',
+                                },
+                                value: '33',
+                            },
+                        },
+                        id: '1',
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: 'CN',
+                                    p: 'COL',
+                                    k: 'PARFRA',
+                                },
+                                value: 'PARFRA',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '5',
+                                },
+                                value: '5',
+                            },
+                            Col3: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '120.06',
+                                },
+                                value: '120.06',
+                            },
+                            Col4: {
+                                obj: {
+                                    t: 'NR',
+                                    p: '',
+                                    k: '77',
+                                },
+                                value: '77',
+                            },
+                        },
+                        id: '2',
+                    },
+                ],
+            };
+
+            echart2.data = {
+                columns: [
+                    {
+                        name: 'Col1',
+                        title: 'State',
+                        size: '10',
+                    },
+                    {
+                        name: 'Col2',
+                        title: 'value',
+                        size: '10',
+                    },
+                ],
+                rows: [
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'Germany',
+                                },
+                                value: 'Germany',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'red',
+                                },
+                                value: 'red',
+                            },
+                        },
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'United States',
+                                },
+                                value: 'United States',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'Green',
+                                },
+                                value: 'Green',
+                            },
+                        },
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'Brazil',
+                                },
+                                value: 'Brazil',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'purple',
+                                },
+                                value: 'purple',
+                            },
+                        },
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'Canada',
+                                },
+                                value: 'Canada',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'yellow',
+                                },
+                                value: 'yellow',
+                            },
+                        },
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'France',
+                                },
+                                value: 'France',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'orange',
+                                },
+                                value: 'orange',
+                            },
+                        },
+                    },
+                ],
+            };
+        </script>
+    </body>
+</html>

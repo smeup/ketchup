@@ -33,6 +33,7 @@ export const config: Config = {
                 { src: 'debug.html' },
                 { src: 'drawer.html' },
                 { src: 'dropdown-button.html' },
+                { src: 'echart.html' },
                 { src: 'gauge.html' },
                 { src: 'image.html' },
                 { src: 'list.html' },

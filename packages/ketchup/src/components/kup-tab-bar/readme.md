@@ -54,19 +54,6 @@ Type: `Promise<void>`
 
 
 
-## CSS Custom Properties
-
-| Name                             | Description                                                        |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `--kup-tabbar-font-family`       | Sets font family of the component.                                 |
-| `--kup-tabbar-font-size`         | Sets font size of the component.                                   |
-| `--kup-tabbar-font-weight`       | Sets font weight of the component.                                 |
-| `--kup-tabbar-height`            | Sets height of the component.                                      |
-| `--kup-tabbar-primary-color`     | Sets primary color of the component.                               |
-| `--kup-tabbar-primary-color-rgb` | Sets primary color RGB values of the component (used for shaders). |
-| `--kup-tabbar-tab-padding`       | Sets padding of each tab.                                          |
-
-
 ## Dependencies
 
 ### Used by

@@ -57,13 +57,6 @@ Type: `Promise<void>`
 
 
 
-## CSS Custom Properties
-
-| Name                         | Description                          |
-| ---------------------------- | ------------------------------------ |
-| `--kup-spinner-border-color` | Sets borders color of the component. |
-
-
 ## Dependencies
 
 ### Used by

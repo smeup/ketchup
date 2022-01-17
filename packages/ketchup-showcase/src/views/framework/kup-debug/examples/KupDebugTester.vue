@@ -128,6 +128,10 @@ export default {
               value: 'kup-dropdown-button',
             },
             {
+              text: 'kup-echart',
+              value: 'kup-echart',
+            },
+            {
               text: 'kup-field',
               value: 'kup-field',
             },
