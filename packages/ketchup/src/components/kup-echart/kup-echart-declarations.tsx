@@ -8,7 +8,7 @@ export enum KupEchartProps {
     customStyle = 'Custom style of the component.',
     data = 'The actual data of the chart.',
     legend = 'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.',
-    mapType = 'Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.',
+    mapName = 'Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".',
     series = 'The data series to be displayed. They must be of the same type.',
     types = 'The type of the chart. Supported formats: Line, Pie, Map, Scatter.',
 }
@@ -17,4 +17,28 @@ export interface KupEchartTitle {
     color?: string;
     position?: string;
     size?: number;
+}
+
+export enum KupEchartLegendPlacement {
+    BOTTOM = 'bottom',
+    LEFT = 'left',
+    RIGHT = 'right',
+    TOP = 'top',
+}
+
+export enum KupEchartMaps {
+    AFRICA = 'africa',
+    AMERICA = 'america',
+    ASIA = 'asia',
+    EUROPE = 'europe',
+    OCEANIA = 'oceania',
+    WORLD = 'world',
+}
+
+export enum KupEchartTypes {
+    BAR = 'Bar',
+    LINE = 'Line',
+    MAP = 'Map',
+    PIE = 'Pie',
+    SCATTER = 'Scatter',
 }

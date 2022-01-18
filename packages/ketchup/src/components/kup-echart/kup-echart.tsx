@@ -10,7 +10,14 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
-import { KupEchartTitle, KupEchartProps } from './kup-echart-declarations';
+import * as echarts from 'echarts';
+import {
+    KupEchartLegendPlacement,
+    KupEchartMaps,
+    KupEchartProps,
+    KupEchartTitle,
+    KupEchartTypes,
+} from './kup-echart-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -24,8 +31,7 @@ import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declaration
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { ECharts, EChartsOption, SeriesOption } from 'echarts';
-import * as echarts from 'echarts';
+import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -50,9 +56,9 @@ export class KupEchart {
     @Prop() axis: string = '';
     /**
      * Title of the graph.
-     * @default undefined
+     * @default null
      */
-    @Prop() chartTitle: KupEchartTitle;
+    @Prop() chartTitle: KupEchartTitle = null;
     /**
      * Custom style of the component.
      * @default ""
@@ -61,29 +67,29 @@ export class KupEchart {
     @Prop() customStyle: string = '';
     /**
      * The actual data of the chart.
-     * @default {}
+     * @default null
      */
-    @Prop() data: object = {};
+    @Prop() data: DataTable = null;
     /**
      * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
-     * @default undefined
+     * @default KupEchartLegendPlacement.RIGHT
      */
-    @Prop() legend: string;
+    @Prop() legend: KupEchartLegendPlacement = KupEchartLegendPlacement.RIGHT;
     /**
-     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
-     * @default undefined
+     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".
+     * @default null
      */
-    @Prop() mapType: any;
+    @Prop() mapName: KupEchartMaps = null;
     /**
      * The data series to be displayed. They must be of the same type.
-     * @default undefined
+     * @default []
      */
-    @Prop() series: string[];
+    @Prop() series: string[] = [];
     /**
      * The type of the chart. Supported formats: Line, Pie, Map, Scatter
-     * @default ['Line']
+     * @default [KupEchartTypes.LINE]
      */
-    @Prop() types: String[] = ['Line'];
+    @Prop() types: KupEchartTypes[] = [KupEchartTypes.LINE];
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -98,11 +104,7 @@ export class KupEchart {
      */
     private resizeTimeout: number;
     private chartContainer?: HTMLDivElement;
-    private chartEl: ECharts;
-    private echartOption: EChartsOption;
-    private echartSeries: SeriesOption[];
-    private nameMap: any;
-    private jsonMap: any;
+    private chartEl: echarts.ECharts;
     private themeBorder: string = null;
     private themeColors: string[] = null;
     private themeFont: string = null;
@@ -166,97 +168,74 @@ export class KupEchart {
     /*-------------------------------------------------*/
 
     private initChart() {
-        this.echartOption = {};
-        this.echartSeries = [];
-        this.nameMap = '';
-        this.jsonMap = {};
-
         if (this.chartEl) {
             echarts.dispose(this.chartContainer);
         }
-        this.chartEl = echarts.init(this.chartContainer);
-        this.createChart();
+        if (this.types && this.types.length > 0) {
+            this.chartEl = echarts.init(this.chartContainer);
+            this.createChart();
+        } else {
+            this.kupManager.debug.logMessage(
+                this,
+                "Can't intialize chart without specifiying at least 1 type.",
+                KupDebugCategory.WARNING
+            );
+        }
     }
-
-    private prepMap(): void {
-        let y = {};
-        echarts.registerMap(this.nameMap, this.jsonMap);
-        y = this.createMapY();
-        this.setMapSeries(y);
-        this.setMapOption();
-        this.chartEl.setOption(this.echartOption, true);
-    }
-
-    private createChart() {
-        let x: string[] = [],
-            y = {};
-
-        switch (this.types[0].toLowerCase()) {
-            case 'map':
-                if (typeof this.mapType === 'string') {
-                    fetch(getAssetPath(`./assets/maps/${this.mapType}.json`))
-                        .then((res) =>
-                            res.text().then((res) => {
-                                this.jsonMap = JSON.parse(res);
-                                this.nameMap = this.mapType;
-                                this.prepMap();
-                            })
-                        )
-                        .catch((err) => {
-                            this.kupManager.debug.logMessage(
-                                this,
-                                "Couldn't fetch map JSON: " + err,
-                                KupDebugCategory.WARNING
-                            );
-                        });
-                } else {
-                    this.jsonMap = this.mapType;
-                    this.nameMap = 'custom';
-                    this.prepMap();
+    private async createChart() {
+        let options: echarts.EChartsOption = null;
+        const firstType = this.types[0];
+        switch (firstType) {
+            case KupEchartTypes.MAP:
+                const mapJson = await (
+                    await fetch(
+                        getAssetPath(`./assets/maps/${this.mapName}.json`)
+                    )
+                ).text();
+                if (!mapJson) {
+                    this.kupManager.debug.logMessage(
+                        this,
+                        "Couldn't fetch map JSON.",
+                        KupDebugCategory.WARNING
+                    );
+                    return;
                 }
+                echarts.registerMap(this.mapName, mapJson);
+                options = this.setMapOptions();
                 break;
-            case 'pie':
-                y = this.createY();
-                this.setPieSeries(y);
-                this.setPieOption(y);
-                this.chartEl.setOption(this.echartOption, true);
+            case KupEchartTypes.PIE:
+                options = this.setPieOptions();
                 break;
             default:
-                x = this.createX();
-                y = this.createY();
-                this.setOption(x, y);
-                this.chartEl.setOption(this.echartOption, true);
+                options = this.setOptions();
                 break;
         }
+        this.chartEl.setOption(options, true);
     }
 
     private createX() {
-        let x = [];
-        let rows = this.data['rows'];
-
+        const x: string[] = [];
         if (!this.axis) {
-            for (let i = 0; i < rows.length; i++) {
-                x[i] = rows[i].cells[0].value;
+            for (let i = 0; i < this.data.rows.length; i++) {
+                const cells = this.data.rows[i].cells;
+                x.push(cells[0].value);
             }
         } else {
-            for (let i = 0; i < rows.length; i++) {
-                x[i] = rows[i].cells[this.axis].value;
+            for (let i = 0; i < this.data.rows.length; i++) {
+                const cells = this.data.rows[i].cells;
+                x.push(cells[this.axis].value);
             }
         }
-
         return x;
     }
 
     private createY() {
-        let y = {};
-        let rows = this.data['rows'];
-
-        if (this.series) {
-            for (const row of rows) {
+        const y = {};
+        if (this.series && this.series.length > 0) {
+            for (const row of this.data.rows) {
                 for (const key of Object.keys(row.cells)) {
                     if (key != this.axis) {
                         if (this.series.indexOf(key) != -1) {
-                            // Temporary - waiting for axes selection prop.
                             const cell = row.cells[key];
                             const value = cell.value;
                             if (!y[key]) {
@@ -268,10 +247,9 @@ export class KupEchart {
                 }
             }
         } else {
-            for (const row of rows) {
+            for (const row of this.data.rows) {
                 for (const key of Object.keys(row.cells)) {
                     if (key !== this.axis) {
-                        // Temporary - waiting for axes selection prop.
                         const cell = row.cells[key];
                         const value = cell.value;
                         if (!y[key]) {
@@ -282,119 +260,11 @@ export class KupEchart {
                 }
             }
         }
-
         return y;
     }
 
-    private createMapY() {
-        // Creates an object that contains all the information needed to derive the values ​​and keys needed to create the chart map.
-        let y = {};
-        let rows = this.data['rows'];
-        let objKey: string;
-
-        for (const row of rows) {
-            for (const key of Object.keys(row.cells)) {
-                if (key == this.axis) {
-                    objKey = row.cells[key].value;
-                    if (!y[objKey]) {
-                        y[objKey] = [];
-                    }
-                } else {
-                    const cell = row.cells[key];
-                    const value = cell.value;
-                    y[objKey].push(value);
-                }
-            }
-        }
-
-        return y;
-    }
-
-    private createLegend(y: {}) {
-        let arr: string[] = [];
-        for (let key in y) {
-            arr.push(key);
-        }
-        return arr;
-    }
-
-    private setPieSeries(y: {}) {
-        let data = [];
-        for (let key in y) {
-            let sum: number = 0;
-            for (let j = 0; j < y[key].length; j++) {
-                sum = sum + parseFloat(y[key][j]);
-            }
-            data.push({
-                name: key,
-                value: sum,
-            });
-        }
-
-        this.echartSeries = [
-            {
-                name: 'echart',
-                type: 'pie',
-                data: data,
-                emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)',
-                    },
-                },
-            },
-        ];
-    }
-
-    private setMapSeries(y: {}) {
-        let data = [];
-        for (let i in y) {
-            data.push({
-                name: i,
-                itemStyle: {
-                    color: y[i][0],
-                },
-            });
-        }
-
-        this.echartSeries = [
-            {
-                name: 'estimate',
-                type: 'map',
-                roam: true,
-                map: this.nameMap,
-                emphasis: {
-                    label: {
-                        show: true,
-                    },
-                },
-
-                data: data,
-            },
-        ];
-    }
-
-    private setOption(x: string[], y: {}) {
-        // Line, bar, scatter
-        let i: number = 0;
-        for (const key in y) {
-            let type: any;
-            if (this.types[i]) {
-                type = this.types[i].toLowerCase();
-            } else {
-                type = 'line';
-            }
-            this.echartSeries.push({
-                data: y[key],
-                name: key,
-                type: type,
-            });
-            i++;
-        }
-
-        this.echartOption = {
-            color: this.themeColors,
+    private setTitle() {
+        return {
             title: {
                 text: this.chartTitle ? this.chartTitle.value : undefined,
                 [this.chartTitle && this.chartTitle.position
@@ -412,13 +282,172 @@ export class KupEchart {
                             : 16,
                 },
             },
-            legend: {
-                data: this.createLegend(y),
-                [this.legend]: 0,
+        } as echarts.TitleComponentOption;
+    }
+
+    private setLegend(y: {}) {
+        const data: string[] = [];
+        for (let key in y) {
+            data.push(key);
+        }
+        return {
+            data: data,
+            [this.legend]: 0,
+            textStyle: {
+                color: this.themeText,
+                fontFamily: this.themeFont,
+            },
+        } as echarts.LegendComponentOption;
+    }
+
+    private setMapOptions() {
+        const y = {};
+        let objKey: string;
+        for (const row of this.data.rows) {
+            for (const key of Object.keys(row.cells)) {
+                const cell = row.cells[key];
+                const value = cell.value;
+                if (this.axis.includes(key)) {
+                    objKey = value;
+                    if (!y[objKey]) {
+                        y[objKey] = [];
+                    }
+                } else {
+                    y[objKey].push(value);
+                }
+            }
+        }
+        const data: echarts.CustomSeriesOption[] = [];
+        for (let key in y) {
+            data.push({
+                name: key,
+                itemStyle: {
+                    color: y[key][0],
+                },
+            });
+        }
+
+        const echartOption: echarts.EChartsOption = {
+            title: this.setTitle(),
+            tooltip: {
+                trigger: 'item',
+                showDelay: 0,
+                transitionDuration: 0.2,
+                formatter: function (
+                    params: echarts.DefaultLabelFormatterCallbackParams
+                ) {
+                    let value = params.color;
+                    return params.name + ': ' + value;
+                },
+            },
+            visualMap: { show: false },
+            series: [
+                {
+                    data: data,
+                    emphasis: {
+                        label: {
+                            show: true,
+                        },
+                    },
+                    map: this.mapName,
+                    roam: true,
+                    type: 'map',
+                } as echarts.MapSeriesOption,
+            ],
+        };
+
+        return echartOption;
+    }
+
+    private setPieOptions() {
+        const y = this.createY();
+        const data = [];
+        for (let key in y) {
+            let sum: number = 0;
+            for (let j = 0; j < y[key].length; j++) {
+                sum = sum + parseFloat(y[key][j]);
+            }
+            data.push({
+                name: key,
+                value: sum,
+            });
+        }
+        return {
+            color: this.themeColors,
+            legend: this.setLegend(y),
+            title: this.setTitle(),
+            tooltip: {
                 textStyle: {
-                    color: this.themeText,
                     fontFamily: this.themeFont,
                 },
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)',
+            },
+            series: [
+                {
+                    name: 'echart',
+                    type: 'pie',
+                    data: data,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        },
+                    },
+                } as echarts.PieSeriesOption,
+            ],
+        } as echarts.EChartsOption;
+    }
+
+    private setOptions() {
+        const x = this.createX();
+        const y = this.createY();
+        let i: number = 0;
+        const series: echarts.SeriesOption[] = [];
+        for (const key in y) {
+            let type: KupEchartTypes;
+            if (this.types[i]) {
+                type = this.types[i];
+            } else {
+                type = KupEchartTypes.LINE;
+            }
+            switch (type) {
+                case KupEchartTypes.BAR:
+                    series.push({
+                        data: y[key],
+                        name: key,
+                        type: 'bar',
+                    } as echarts.BarSeriesOption);
+                    break;
+                case KupEchartTypes.SCATTER:
+                    series.push({
+                        data: y[key],
+                        name: key,
+                        type: 'scatter',
+                    } as echarts.ScatterSeriesOption);
+                    break;
+                case KupEchartTypes.LINE:
+                default:
+                    series.push({
+                        data: y[key],
+                        name: key,
+                        type: 'line',
+                    } as echarts.LineSeriesOption);
+                    break;
+            }
+            i++;
+        }
+        return {
+            color: this.themeColors,
+            legend: this.setLegend(y),
+            series: series,
+            title: this.setTitle(),
+            tooltip: {
+                textStyle: {
+                    fontFamily: this.themeFont,
+                },
+                trigger: 'axis',
             },
             xAxis: {
                 axisLine: { lineStyle: { color: this.themeText } },
@@ -431,12 +460,6 @@ export class KupEchart {
                 splitLine: { lineStyle: { color: this.themeBorder } },
                 type: 'category',
             },
-            tooltip: {
-                textStyle: {
-                    fontFamily: this.themeFont,
-                },
-                trigger: 'axis',
-            },
             yAxis: {
                 axisLine: { lineStyle: { color: this.themeText } },
                 axisLabel: {
@@ -447,47 +470,7 @@ export class KupEchart {
                 splitLine: { lineStyle: { color: this.themeBorder } },
                 type: 'value',
             },
-            series: this.echartSeries,
-        };
-    }
-
-    private setPieOption(y: {}) {
-        this.echartOption = {
-            color: this.themeColors,
-            title: {
-                text: this.chartTitle ? this.chartTitle.value : undefined,
-                [this.chartTitle && this.chartTitle.position
-                    ? this.chartTitle.position
-                    : 'left']: 0,
-                textStyle: {
-                    color:
-                        this.chartTitle && this.chartTitle.color
-                            ? this.chartTitle.color
-                            : 'black',
-                    fontFamily: this.themeFont,
-                    fontSize:
-                        this.chartTitle && this.chartTitle.size
-                            ? this.chartTitle.size
-                            : 16,
-                },
-            },
-            legend: {
-                data: this.createLegend(y),
-                [this.legend]: 0,
-                textStyle: {
-                    color: this.themeText,
-                    fontFamily: this.themeFont,
-                },
-            },
-            tooltip: {
-                textStyle: {
-                    fontFamily: this.themeFont,
-                },
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} ({d}%)',
-            },
-            series: this.echartSeries,
-        };
+        } as echarts.EChartsOption;
     }
 
     private fetchThemeColors() {
@@ -505,49 +488,7 @@ export class KupEchart {
         this.themeFont = this.kupManager.theme.cssVars['--kup-font-family'];
         this.themeText =
             this.kupManager.theme.cssVars[KupThemeColorValues.TEXT];
-
         this.themeColors = colorArray;
-    }
-
-    private setMapOption() {
-        // Create the right json for creating map-like graphics
-        this.echartOption = {
-            title: {
-                text: this.chartTitle ? this.chartTitle.value : undefined,
-                [this.chartTitle && this.chartTitle.position
-                    ? this.chartTitle.position
-                    : 'left']: 0,
-                textStyle: {
-                    color:
-                        this.chartTitle && this.chartTitle.color
-                            ? this.chartTitle.color
-                            : 'black',
-                    fontFamily: this.themeFont,
-                    fontSize:
-                        this.chartTitle && this.chartTitle.size
-                            ? this.chartTitle.size
-                            : 16,
-                },
-            },
-            tooltip: {
-                trigger: 'item',
-                showDelay: 0,
-                transitionDuration: 0.2,
-                formatter: function (params: any) {
-                    let value;
-                    if (params.color != '#c23531') {
-                        value = params.color;
-                    } else {
-                        value = 'no value';
-                    }
-
-                    return (
-                        params.seriesName + '<br/>' + params.name + ': ' + value
-                    );
-                },
-            },
-            series: this.echartSeries,
-        };
     }
 
     /*-------------------------------------------------*/
@@ -557,7 +498,6 @@ export class KupEchart {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.fetchThemeColors();
     }
 
     componentDidLoad() {
@@ -571,7 +511,15 @@ export class KupEchart {
     }
 
     componentDidRender() {
-        this.initChart();
+        if (this.data && this.data.columns && this.data.rows) {
+            this.initChart();
+        } else {
+            this.kupManager.debug.logMessage(
+                this,
+                'Insufficient data.(' + this.data + ')',
+                KupDebugCategory.WARNING
+            );
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
