@@ -242,11 +242,8 @@ export class KupColorPicker {
 
     closePicker(): void {
         this.kupManager.removeClickCallback(this.clickCb);
-        if (!this.isPickerOpened()) {
-            return;
-        }
         const textfieldEl = this.textfieldEl;
-        if (textfieldEl != null) {
+        if (textfieldEl) {
             textfieldEl.classList.remove('toggled');
         }
         this.card.menuVisible = false;
@@ -305,7 +302,20 @@ export class KupColorPicker {
                 wrapperClass={
                     textfieldProps.icon === 'brightness-1' ? 'thumb-icon' : ''
                 }
-                onClick={() => this.openPicker()}
+                onClick={() => {
+                    if (this.isPickerOpened()) {
+                        this.closePicker();
+                    } else {
+                        this.openPicker();
+                    }
+                }}
+                onIconClick={() => {
+                    if (this.isPickerOpened()) {
+                        this.closePicker();
+                    } else {
+                        this.openPicker();
+                    }
+                }}
             />
         );
     }
