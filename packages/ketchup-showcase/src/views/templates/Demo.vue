@@ -542,6 +542,13 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupEchartData: {
+    keys: {
+      'columns?': 'Column[]',
+      'rows?': 'Row[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupEchartLegendPlacement: {
     keys: {
       BOTTOM: 'bottom',
@@ -574,6 +581,7 @@ const demoTypes: DemoTypeJson = {
   KupEchartTypes: {
     keys: {
       BAR: 'Bar',
+      GAUSSIAN: 'Gaussian',
       LINE: 'Line',
       MAP: 'Map',
       PIE: 'Pie',

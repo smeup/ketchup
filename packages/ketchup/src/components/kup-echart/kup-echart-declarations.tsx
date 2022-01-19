@@ -1,3 +1,5 @@
+import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
+
 /**
  * Props of the kup-echart component.
  * Used to export every prop in an object.
@@ -12,13 +14,17 @@ export enum KupEchartProps {
     series = 'The data series to be displayed. They must be of the same type.',
     types = 'The type of the chart. Supported formats: Line, Pie, Map, Scatter.',
 }
+
+export interface KupEchartData {
+    columns: Column[];
+    rows: Row[];
+}
 export interface KupEchartTitle {
     value: string;
     color?: string;
     position?: string;
     size?: number;
 }
-
 export enum KupEchartLegendPlacement {
     BOTTOM = 'bottom',
     LEFT = 'left',
@@ -37,6 +43,7 @@ export enum KupEchartMaps {
 
 export enum KupEchartTypes {
     BAR = 'Bar',
+    GAUSSIAN = 'Gaussian',
     LINE = 'Line',
     MAP = 'Map',
     PIE = 'Pie',

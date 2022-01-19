@@ -21,6 +21,9 @@
     <template v-slot:6>
       <echart-map></echart-map>
     </template>
+    <template v-slot:7>
+      <echart-gaussian></echart-gaussian>
+    </template>
   </comp>
 </template>
 
@@ -32,6 +35,7 @@ import EchartLine from '@/views/components/advanced/echart/examples/EchartLine';
 import EchartPie from '@/views/components/advanced/echart/examples/EchartPie';
 import EchartScatter from '@/views/components/advanced/echart/examples/EchartScatter';
 import EchartMap from '@/views/components/advanced/echart/examples/EchartMap';
+import EchartGaussian from '@/views/components/advanced/echart/examples/EchartGaussian';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
@@ -42,6 +46,7 @@ export default {
     EchartPie,
     EchartScatter,
     EchartMap,
+    EchartGaussian,
     Comp,
   },
   data() {
@@ -49,7 +54,16 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-echart',
       headtitle: 'EChart',
-      titles: ['Playground', 'Events', 'Bar', 'Line', 'Pie', 'Scatter', 'Map'],
+      titles: [
+        'Playground',
+        'Events',
+        'Bar',
+        'Line',
+        'Pie',
+        'Scatter',
+        'Map',
+        'Gaussian',
+      ],
     };
   },
   title: 'Ketchup | EChart',
