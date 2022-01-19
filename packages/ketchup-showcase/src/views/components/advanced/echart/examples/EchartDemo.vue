@@ -59,46 +59,48 @@ export default {
           prop: 'chartTitle',
           description: 'Title of the graph.',
           type: 'KupEchartTitle',
-          default: 'undefined',
+          default: 'null',
           try: 'json',
         },
         {
           prop: 'data',
           description: 'The actual data of the chart.',
-          type: 'object',
-          default: '{}',
+          type: 'KupEchartData',
+          default: 'null',
           try: 'json',
         },
         {
           prop: 'legend',
           description:
             'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types',
-          type: 'string',
+          type: 'KupEchartLegend',
           default: 'right',
           try: 'field',
         },
         {
-          prop: 'mapType',
+          prop: 'mapName',
           description:
-            'It allows you to choose the type of map, between europe, america, asia, oceania, africa, world or pass a custom json to create a map.',
-          type: 'any',
-          default: 'world',
+            'Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".',
+          type: 'KupEchartMaps',
+          default: 'null',
           try: 'field',
         },
         {
           prop: 'series',
           description:
             'The data series to be displayed. They must be of the same type.',
-          type: 'string[]',
-          default: 'undefined',
+          type: 'string',
+          isArray: true,
+          default: '[]',
           try: 'json',
         },
         {
           prop: 'types',
           description:
-            'The type of the chart. Supported formats: Bar, Line, Pie, Scatter, it is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
-          type: 'string[]',
-          default: ['Line'],
+            'The type of the chart. Supported formats: Bar, Gaussian, Line, Map, Pie, Scatter. It is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
+          type: 'KupEchartTypes',
+          isArray: true,
+          default: "['Line']",
           try: 'json',
         },
       ],
@@ -117,7 +119,6 @@ function createComp() {
   comp.data = baseData;
   comp.id = 'demo-component';
   comp.legend = 'bottom';
-  comp.mapType = 'world';
   comp.types = ['Line'];
   return comp;
 }

@@ -542,6 +542,33 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupEchartData: {
+    keys: {
+      'columns?': 'Column[]',
+      'rows?': 'Row[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupEchartLegendPlacement: {
+    keys: {
+      BOTTOM: 'bottom',
+      LEFT: 'left',
+      RIGHT: 'right',
+      TOP: 'top',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
+  KupEchartMaps: {
+    keys: {
+      AFRICA: 'africa',
+      AMERICA: 'america',
+      ASIA: 'asia',
+      EUROPE: 'europe',
+      OCEANIA: 'oceania',
+      WORLD: 'world',
+    },
+    type: DemoTypeFeature.ENUM,
+  },
   KupEchartTitle: {
     keys: {
       value: 'string',
@@ -550,6 +577,17 @@ const demoTypes: DemoTypeJson = {
       'size?': 'number',
     },
     type: DemoTypeFeature.INTERFACE,
+  },
+  KupEchartTypes: {
+    keys: {
+      BAR: 'Bar',
+      GAUSSIAN: 'Gaussian',
+      LINE: 'Line',
+      MAP: 'Map',
+      PIE: 'Pie',
+      SCATTER: 'Scatter',
+    },
+    type: DemoTypeFeature.ENUM,
   },
   KupGlobalFilterMode: {
     keys: {

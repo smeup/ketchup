@@ -7,7 +7,7 @@
           :axis.prop="axis"
           :data.prop="mapData"
           :types.prop="types"
-          :mapType.prop="mapType"
+          :mapName.prop="mapName"
         /> </div
     ></div>
     <br />
@@ -18,7 +18,7 @@
           :axis.prop="axis"
           :data.prop="mapData"
           :types.prop="types"
-          :mapType.prop="mapType1"
+          :mapName.prop="mapName1"
         /> </div
     ></div>
   </div>
@@ -30,10 +30,10 @@ export default {
   data() {
     return {
       axis: 'Col1',
-      types: ['map'],
+      types: ['Map'],
       mapData,
-      mapType: 'world',
-      mapType1: 'europe',
+      mapName: 'world',
+      mapName1: 'europe',
     };
   },
 };

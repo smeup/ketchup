@@ -29,7 +29,7 @@ import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 import { KupObj } from "./managers/kup-objects/kup-objects-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
-import { KupEchartTitle } from "./components/kup-echart/kup-echart-declarations";
+import { KupEchartData, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
@@ -1513,7 +1513,7 @@ export namespace Components {
         "axis": string;
         /**
           * Title of the graph.
-          * @default undefined
+          * @default null
          */
         "chartTitle": KupEchartTitle;
         /**
@@ -1524,9 +1524,9 @@ export namespace Components {
         "customStyle": string;
         /**
           * The actual data of the chart.
-          * @default {}
+          * @default null
          */
-        "data": object;
+        "data": KupEchartData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1535,14 +1535,14 @@ export namespace Components {
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
-          * @default undefined
+          * @default KupEchartLegendPlacement.RIGHT
          */
-        "legend": string;
+        "legend": KupEchartLegendPlacement;
         /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
-          * @default undefined
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".
+          * @default null
          */
-        "mapType": any;
+        "mapName": KupEchartMaps;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -1553,7 +1553,7 @@ export namespace Components {
         "resizeCallback": () => Promise<void>;
         /**
           * The data series to be displayed. They must be of the same type.
-          * @default undefined
+          * @default []
          */
         "series": string[];
         /**
@@ -1563,9 +1563,19 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
-          * @default ['Line']
+          * @default [KupEchartTypes.LINE]
          */
-        "types": String[];
+        "types": KupEchartTypes[];
+        /**
+          * Customization options for the x Axis.
+          * @default null
+         */
+        "xAxis": echarts.XAXisComponentOption;
+        /**
+          * Customization options for the y Axis.
+          * @default null
+         */
+        "yAxis": echarts.YAXisComponentOption;
     }
     interface KupField {
         /**
@@ -4441,7 +4451,7 @@ declare namespace LocalJSX {
         "axis"?: string;
         /**
           * Title of the graph.
-          * @default undefined
+          * @default null
          */
         "chartTitle"?: KupEchartTitle;
         /**
@@ -4452,30 +4462,40 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * The actual data of the chart.
-          * @default {}
+          * @default null
          */
-        "data"?: object;
+        "data"?: KupEchartData;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
-          * @default undefined
+          * @default KupEchartLegendPlacement.RIGHT
          */
-        "legend"?: string;
+        "legend"?: KupEchartLegendPlacement;
         /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
-          * @default undefined
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".
+          * @default null
          */
-        "mapType"?: any;
+        "mapName"?: KupEchartMaps;
         "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
-          * @default undefined
+          * @default []
          */
         "series"?: string[];
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
-          * @default ['Line']
+          * @default [KupEchartTypes.LINE]
          */
-        "types"?: String[];
+        "types"?: KupEchartTypes[];
+        /**
+          * Customization options for the x Axis.
+          * @default null
+         */
+        "xAxis"?: echarts.XAXisComponentOption;
+        /**
+          * Customization options for the y Axis.
+          * @default null
+         */
+        "yAxis"?: echarts.YAXisComponentOption;
     }
     interface KupField {
         /**
