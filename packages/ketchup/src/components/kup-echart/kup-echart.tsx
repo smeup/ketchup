@@ -11,6 +11,7 @@ import {
     Prop,
 } from '@stencil/core';
 import * as echarts from 'echarts';
+import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
 import {
     KupEchartData,
     KupEchartLegendPlacement,
@@ -94,12 +95,12 @@ export class KupEchart {
      * Customization options for the x Axis.
      * @default null
      */
-    @Prop() xAxis: echarts.XAXisComponentOption = null;
+    @Prop() xAxis: XAXisComponentOption = null;
     /**
      * Customization options for the y Axis.
      * @default null
      */
-    @Prop() yAxis: echarts.YAXisComponentOption = null;
+    @Prop() yAxis: YAXisComponentOption = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */

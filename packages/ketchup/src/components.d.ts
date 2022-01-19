@@ -30,6 +30,7 @@ import { KupObj } from "./managers/kup-objects/kup-objects-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartData, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
+import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
@@ -1562,7 +1563,7 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
-          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+          * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
           * @default [KupEchartTypes.LINE]
          */
         "types": KupEchartTypes[];
@@ -1570,12 +1571,12 @@ export namespace Components {
           * Customization options for the x Axis.
           * @default null
          */
-        "xAxis": echarts.XAXisComponentOption;
+        "xAxis": XAXisComponentOption;
         /**
           * Customization options for the y Axis.
           * @default null
          */
-        "yAxis": echarts.YAXisComponentOption;
+        "yAxis": YAXisComponentOption;
     }
     interface KupField {
         /**
@@ -4482,7 +4483,7 @@ declare namespace LocalJSX {
          */
         "series"?: string[];
         /**
-          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+          * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
           * @default [KupEchartTypes.LINE]
          */
         "types"?: KupEchartTypes[];
@@ -4490,12 +4491,12 @@ declare namespace LocalJSX {
           * Customization options for the x Axis.
           * @default null
          */
-        "xAxis"?: echarts.XAXisComponentOption;
+        "xAxis"?: XAXisComponentOption;
         /**
           * Customization options for the y Axis.
           * @default null
          */
-        "yAxis"?: echarts.YAXisComponentOption;
+        "yAxis"?: YAXisComponentOption;
     }
     interface KupField {
         /**
