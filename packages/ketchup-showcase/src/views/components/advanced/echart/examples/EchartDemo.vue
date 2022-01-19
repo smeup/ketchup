@@ -103,6 +103,20 @@ export default {
           default: "['Line']",
           try: 'json',
         },
+        {
+          prop: 'xAxis',
+          description: 'Customization options for the x Axis.',
+          type: 'echarts.XAXisComponentOption',
+          default: 'null',
+          try: 'json',
+        },
+        {
+          prop: 'yAxis',
+          description: 'Customization options for the y Axis.',
+          type: 'echarts.YAXisComponentOption',
+          default: 'null',
+          try: 'json',
+        },
       ],
     };
   },

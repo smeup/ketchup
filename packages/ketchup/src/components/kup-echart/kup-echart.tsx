@@ -32,7 +32,6 @@ import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declaration
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -87,7 +86,7 @@ export class KupEchart {
      */
     @Prop() series: string[] = [];
     /**
-     * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+     * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
      * @default [KupEchartTypes.LINE]
      */
     @Prop() types: KupEchartTypes[] = [KupEchartTypes.LINE];
