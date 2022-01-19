@@ -287,8 +287,8 @@ export class KupEchart {
 
     private generateData(values: string[]) {
         const data: number[][] = [];
-        const max = Math.max.apply(Math, values);
-        const min = Math.min.apply(Math, values);
+        let max = Math.max.apply(Math, values);
+        let min = Math.min.apply(Math, values);
         let average = 0;
         let variance = 0;
         for (let index = 0; index < values.length; index++) {
@@ -300,7 +300,9 @@ export class KupEchart {
             const value = parseFloat(values[index]);
             variance += Math.pow(value - average, 2);
         }
-        variance = variance / (values.length - 1);
+        variance = variance / values.length;
+        max = max + (average / 100) * 50;
+        min = min - (average / 100) * 50;
         for (let i = 0; i <= 200; i++) {
             const x = ((max - min) * i) / 200 + min;
             data.push([x, this.normalDistribution(average, variance, x)]);
@@ -490,12 +492,12 @@ export class KupEchart {
             xAxis: {
                 ...this.setAxisColors(),
                 type: 'value',
+                max: 'dataMax',
+                min: 'dataMin',
                 ...this.xAxis,
             },
             yAxis: {
                 ...this.setAxisColors(),
-                min: 0,
-                max: 1.2,
                 type: 'value',
                 ...this.yAxis,
             },
