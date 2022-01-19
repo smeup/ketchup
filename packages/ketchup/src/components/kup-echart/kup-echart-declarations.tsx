@@ -13,6 +13,8 @@ export enum KupEchartProps {
     mapName = 'Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".',
     series = 'The data series to be displayed. They must be of the same type.',
     types = 'The type of the chart. Supported formats: Line, Pie, Map, Scatter.',
+    xAxis = 'Customization options for the x Axis.',
+    yAxis = 'Customization options for the y Axis.',
 }
 
 export interface KupEchartData {
