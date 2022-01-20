@@ -311,6 +311,7 @@ function setEditableCell(
             return (
                 <kup-color-picker
                     {...cell.data}
+                    class="kup-full-width"
                     disabled={false}
                     onkup-colorpicker-change={(
                         e: CustomEvent<KupColorPickerEventPayload>
