@@ -95,6 +95,11 @@ export namespace Components {
     }
     interface KupAutocomplete {
         /**
+          * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
+          * @default false
+         */
+        "allowInconsistentValues": boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -3238,6 +3243,11 @@ declare namespace LocalJSX {
         "ripple"?: boolean;
     }
     interface KupAutocomplete {
+        /**
+          * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
+          * @default false
+         */
+        "allowInconsistentValues"?: boolean;
         /**
           * Custom style of the component.
           * @default ""
