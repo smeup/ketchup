@@ -686,9 +686,9 @@ function cellEvent(
                 break;
         }
         if (cell.obj) {
-            cell.obj.k = value;
+            cell.obj.k = value.toString();
         }
-        cell.value = value;
+        cell.value = value.toString();
         cell.displayedValue = null;
         cell.displayedValue = getCellValueForDisplay(column, cell);
     }
