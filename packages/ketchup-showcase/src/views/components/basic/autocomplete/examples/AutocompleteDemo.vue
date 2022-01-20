@@ -156,6 +156,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'inputDelay',
+          description: 'Input event emission delay in milliseconds.',
+          type: 'number',
+          default: '300',
+          try: 'field',
+        },
+        {
           prop: 'minimumChars',
           description:
             'The minimum number of chars to trigger the autocomplete.',

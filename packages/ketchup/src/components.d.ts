@@ -102,14 +102,17 @@ export namespace Components {
         "customStyle": string;
         /**
           * Props of the sub-components.
+          * @default undefined
          */
         "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
           * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode": ItemsDisplayMode;
         /**
@@ -125,10 +128,17 @@ export namespace Components {
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue": string;
         /**
+          * Input event emission delay in milliseconds.
+          * @default 300
+         */
+        "inputDelay": number;
+        /**
           * The minimum number of chars to trigger the autocomplete
+          * @default 1
          */
         "minimumChars": number;
         /**
@@ -137,10 +147,12 @@ export namespace Components {
         "refresh": () => Promise<void>;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.CODE
          */
         "selectMode": ItemsDisplayMode;
         /**
           * When true, the items filter is managed server side, otherwise items filter is done client side.
+          * @default false
          */
         "serverHandledFilter": boolean;
         /**
@@ -159,6 +171,7 @@ export namespace Components {
         "setValue": (value: string) => Promise<void>;
         /**
           * When true shows the drop-down icon, for open list.
+          * @default true
          */
         "showDropDownIcon": boolean;
     }
@@ -3233,22 +3246,32 @@ declare namespace LocalJSX {
         "customStyle"?: string;
         /**
           * Props of the sub-components.
+          * @default undefined
          */
         "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Sets how to show the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.DESCRIPTION
          */
         "displayMode"?: ItemsDisplayMode;
         /**
           * Sets the initial value of the component.
+          * @default ""
          */
         "initialValue"?: string;
         /**
+          * Input event emission delay in milliseconds.
+          * @default 300
+         */
+        "inputDelay"?: number;
+        /**
           * The minimum number of chars to trigger the autocomplete
+          * @default 1
          */
         "minimumChars"?: number;
         "onKup-autocomplete-blur"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
@@ -3260,14 +3283,17 @@ declare namespace LocalJSX {
         "onKup-autocomplete-itemclick"?: (event: CustomEvent<KupAutocompleteEventPayload>) => void;
         /**
           * Sets how to return the selected item value. Suported values: "code", "description", "both".
+          * @default ItemsDisplayMode.CODE
          */
         "selectMode"?: ItemsDisplayMode;
         /**
           * When true, the items filter is managed server side, otherwise items filter is done client side.
+          * @default false
          */
         "serverHandledFilter"?: boolean;
         /**
           * When true shows the drop-down icon, for open list.
+          * @default true
          */
         "showDropDownIcon"?: boolean;
     }
