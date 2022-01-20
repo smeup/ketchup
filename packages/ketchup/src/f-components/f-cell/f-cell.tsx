@@ -8,13 +8,13 @@ import type { FImageProps } from '../f-image/f-image-declarations';
 import type { FButtonProps } from '../f-button/f-button-declarations';
 import type { KupChart } from '../../components/kup-chart/kup-chart';
 import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { KupComponent, KupTagNames } from '../../types/GenericTypes';
 import type { KupAutocompleteEventPayload } from '../../components/kup-autocomplete/kup-autocomplete-declarations';
 import type { KupComboboxEventPayload } from '../../components/kup-combobox/kup-combobox-declarations';
 import type { KupDatePickerEventPayload } from '../../components/kup-date-picker/kup-date-picker-declarations';
 import type { KupTimePickerEventPayload } from '../../components/kup-time-picker/kup-time-picker-declarations';
 import type { KupRatingClickEventPayload } from '../../components/kup-rating/kup-rating-declarations';
 import type { KupColorPickerEventPayload } from '../../components/kup-color-picker/kup-color-picker-declarations';
+import { KupComponent, KupTagNames } from '../../types/GenericTypes';
 import {
     autoAlignComps,
     editableTypes,
@@ -285,6 +285,9 @@ function setEditableCell(
                     onkup-autocomplete-input={(
                         e: CustomEvent<KupAutocompleteEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
+                    onkup-autocomplete-iconclick={(
+                        e: CustomEvent<KupAutocompleteEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
                 />
             );
         case FCellTypes.CHECKBOX:
@@ -325,6 +328,9 @@ function setEditableCell(
                     onkup-combobox-input={(
                         e: CustomEvent<KupComboboxEventPayload>
                     ) => cellEvent(e, props, cellType, FCellEvents.INPUT)}
+                    onkup-combobox-iconclick={(
+                        e: CustomEvent<KupComboboxEventPayload>
+                    ) => cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)}
                 />
             );
         case FCellTypes.DATE:
@@ -386,6 +392,9 @@ function setEditableCell(
                     }
                     onInput={(e: InputEvent) =>
                         cellEvent(e, props, cellType, FCellEvents.INPUT)
+                    }
+                    onIconClick={(e: MouseEvent) =>
+                        cellEvent(e, props, cellType, FCellEvents.ICON_CLICK)
                     }
                 />
             );
@@ -654,7 +663,7 @@ function getCellType(cell: Cell, shape?: FCellShapes) {
 }
 
 function cellEvent(
-    e: InputEvent | CustomEvent,
+    e: InputEvent | CustomEvent | MouseEvent,
     props: FCellProps,
     cellType: FCellTypes,
     cellEventName: FCellEvents
@@ -693,7 +702,7 @@ function cellEvent(
         cell.displayedValue = getCellValueForDisplay(column, cell);
     }
     if (comp && (comp as KupComponent).rootElement) {
-        const updateEvent = new CustomEvent<FCellEventPayload>(cellEventName, {
+        const cellEvent = new CustomEvent<FCellEventPayload>(cellEventName, {
             bubbles: true,
             cancelable: true,
             composed: true,
@@ -707,7 +716,7 @@ function cellEvent(
                 type: cellType,
             },
         });
-        (comp as KupComponent).rootElement.dispatchEvent(updateEvent);
+        (comp as KupComponent).rootElement.dispatchEvent(cellEvent);
         try {
             (comp as KupComponent).refresh();
         } catch (error) {}
