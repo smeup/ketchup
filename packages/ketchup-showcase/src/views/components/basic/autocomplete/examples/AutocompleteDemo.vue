@@ -118,6 +118,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'allowInconsistentValues',
+          description:
+            "When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -153,6 +161,13 @@ export default {
           description: 'Sets the initial value of the component.',
           type: 'string',
           default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'inputDelay',
+          description: 'Input event emission delay in milliseconds.',
+          type: 'number',
+          default: '300',
           try: 'field',
         },
         {

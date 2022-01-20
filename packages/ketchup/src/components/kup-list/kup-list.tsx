@@ -338,7 +338,12 @@ export class KupList {
      */
     private handleSelection(index: number): void {
         if (index !== null && index !== undefined && !isNaN(index)) {
-            const value: string = this.data[index].value;
+            const listItems: NodeListOf<HTMLElement> =
+                this.rootElement.shadowRoot.querySelectorAll('.list-item');
+            const value: string = listItems[index].dataset.value;
+            const dataEl = this.data.find(
+                (x: KupListData) => x.value === value
+            );
             switch (this.roleType) {
                 case KupListRole.GROUP:
                     if (this.selected.includes(value)) {
@@ -353,17 +358,14 @@ export class KupList {
                     break;
             }
             for (let index = 0; index < this.data.length; index++) {
-                const item: KupListData = this.data[index];
-                if (this.selected.includes(item.value)) {
-                    item.selected = true;
-                } else {
-                    item.selected = false;
-                }
+                const item = this.data[index];
+                item.selected = false;
             }
+            dataEl.selected = true;
             this.kupClick.emit({
                 comp: this,
                 id: this.rootElement.id,
-                selected: this.data[index],
+                selected: dataEl,
             });
         }
     }

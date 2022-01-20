@@ -25,6 +25,7 @@ import {
 import {
     ItemsDisplayMode,
     KupListEventPayload,
+    ValueDisplayedValue,
 } from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
@@ -56,6 +57,11 @@ export class KupAutocomplete {
     /*-------------------------------------------------*/
 
     /**
+     * When true, the autocomplete fires the change event even when the value typed isn't included in the autocomplete list.
+     * @default false
+     */
+    @Prop() allowInconsistentValues: boolean = false;
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -63,34 +69,47 @@ export class KupAutocomplete {
     @Prop() customStyle: string = '';
     /**
      * Props of the sub-components.
+     * @default undefined
      */
     @Prop({ mutable: true }) data: Object = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
+     * @default false
      */
     @Prop() disabled: boolean = false;
     /**
      * Sets how to show the selected item value. Suported values: "code", "description", "both".
+     * @default ItemsDisplayMode.DESCRIPTION
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Sets the initial value of the component.
+     * @default ""
      */
     @Prop() initialValue: string = '';
     /**
+     * Input event emission delay in milliseconds.
+     * @default 300
+     */
+    @Prop() inputDelay: number = 300;
+    /**
      * The minimum number of chars to trigger the autocomplete
+     * @default 1
      */
     @Prop() minimumChars: number = 1;
     /**
      * Sets how to return the selected item value. Suported values: "code", "description", "both".
+     * @default ItemsDisplayMode.CODE
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**
      * When true, the items filter is managed server side, otherwise items filter is done client side.
+     * @default false
      */
     @Prop({ reflect: true }) serverHandledFilter: boolean = false;
     /**
      * When true shows the drop-down icon, for open list.
+     * @default true
      */
     @Prop() showDropDownIcon: boolean = true;
 
@@ -108,6 +127,7 @@ export class KupAutocomplete {
     private textfieldWrapper: HTMLElement = undefined;
     private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
     private clickCb: KupManagerClickCb = null;
+    private inputTimeout: number;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -178,14 +198,16 @@ export class KupAutocomplete {
         });
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+    onKupChange(value: string) {
         this.doConsistencyCheck = true;
-        this.consistencyCheck(undefined, e.target.value);
-        this.kupChange.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-        });
+        const ret = this.consistencyCheck(undefined, value);
+        if (ret.exists || this.allowInconsistentValues) {
+            this.kupChange.emit({
+                comp: this,
+                id: this.rootElement.id,
+                value: this.value,
+            });
+        }
     }
 
     onKupClick(e: MouseEvent & { target: HTMLInputElement }) {
@@ -206,15 +228,15 @@ export class KupAutocomplete {
         });
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+    onKupInput() {
         this.doConsistencyCheck = true;
-        this.consistencyCheck(undefined, e.target.value);
+        this.consistencyCheck(undefined, this.textfieldEl.value);
         if (this.openList(false)) {
             if (this.listEl != null && !this.serverHandledFilter) {
-                this.listEl.resetFilter(this.displayedValue);
+                this.listEl.filter = this.displayedValue;
             }
         }
-        if (e.target.value.length >= this.minimumChars) {
+        if (this.textfieldEl.value.length >= this.minimumChars) {
             this.kupInput.emit({
                 comp: this,
                 id: this.rootElement.id,
@@ -238,18 +260,12 @@ export class KupAutocomplete {
         });
     }
 
-    onKupItemClick(e: CustomEvent) {
-        this.doConsistencyCheck = true;
-        this.consistencyCheck(e);
+    onKupItemClick(e: CustomEvent<KupListEventPayload>) {
+        this.onKupChange(e.detail.selected.value);
         this.closeList();
         if (this.textfieldEl) {
             this.textfieldEl.focus();
         }
-        this.kupChange.emit({
-            comp: this,
-            id: this.rootElement.id,
-            value: this.value,
-        });
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -356,7 +372,6 @@ export class KupAutocomplete {
      */
     @Method()
     async setValue(value: string) {
-        this.value = value;
         this.doConsistencyCheck = true;
         this.consistencyCheck(undefined, value);
     }
@@ -413,12 +428,15 @@ export class KupAutocomplete {
         return this.listEl.menuVisible == true;
     }
 
-    private consistencyCheck(e?: CustomEvent, valueIn?: string) {
+    private consistencyCheck(
+        e?: CustomEvent,
+        valueIn?: string
+    ): ValueDisplayedValue {
         if (!this.doConsistencyCheck) {
             return;
         }
         this.doConsistencyCheck = false;
-        let ret = consistencyCheck(
+        const ret = consistencyCheck(
             valueIn,
             this.data['kup-list'],
             this.listEl,
@@ -426,12 +444,16 @@ export class KupAutocomplete {
             this.displayMode,
             e
         );
-        this.value = ret.value;
-        this.displayedValue = ret.displayedValue;
-
-        if (this.listEl != null && !this.serverHandledFilter) {
-            this.listEl.resetFilter(this.displayedValue);
+        if (ret.exists || this.allowInconsistentValues) {
+            this.value = ret.value;
+            this.displayedValue = ret.displayedValue;
+            this.listEl.filter = this.displayedValue;
+        } else {
+            this.displayedValue = valueIn;
+            this.listEl.filter = valueIn;
         }
+
+        return ret;
     }
 
     private prepList() {
@@ -522,14 +544,18 @@ export class KupAutocomplete {
                             e: MouseEvent & { target: HTMLInputElement }
                         ) => this.onKupClick(e)}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
-                            this.onKupChange(e)
+                            this.onKupChange(e.target.value)
                         }
                         onFocus={(
                             e: FocusEvent & { target: HTMLInputElement }
                         ) => this.onKupFocus(e)}
-                        onInput={(e: UIEvent & { target: HTMLInputElement }) =>
-                            this.onKupInput(e)
-                        }
+                        onInput={() => {
+                            window.clearTimeout(this.inputTimeout);
+                            this.inputTimeout = window.setTimeout(
+                                () => this.onKupInput(),
+                                this.inputDelay
+                            );
+                        }}
                         onIconClick={(
                             e: MouseEvent & { target: HTMLInputElement }
                         ) => this.onKupIconClick(e)}

@@ -41,7 +41,9 @@ export enum KupListRole {
     GROUP = 'group',
 }
 
-export interface ValueDisplayedValue extends vdv {}
+export interface ValueDisplayedValue extends vdv {
+    exists: boolean;
+}
 
 export enum ItemsDisplayMode {
     CODE = 'code',
