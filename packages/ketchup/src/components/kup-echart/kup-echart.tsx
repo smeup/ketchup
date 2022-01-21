@@ -317,22 +317,20 @@ export class KupEchart {
 
     private setTitle() {
         return {
-            title: {
-                text: this.chartTitle ? this.chartTitle.value : undefined,
-                [this.chartTitle && this.chartTitle.position
-                    ? this.chartTitle.position
-                    : 'left']: 0,
-                textStyle: {
-                    color:
-                        this.chartTitle && this.chartTitle.color
-                            ? this.chartTitle.color
-                            : 'black',
-                    fontFamily: this.themeFont,
-                    fontSize:
-                        this.chartTitle && this.chartTitle.size
-                            ? this.chartTitle.size
-                            : 16,
-                },
+            text: this.chartTitle ? this.chartTitle.value : undefined,
+            [this.chartTitle && this.chartTitle.position
+                ? this.chartTitle.position
+                : 'left']: 0,
+            textStyle: {
+                color:
+                    this.chartTitle && this.chartTitle.color
+                        ? this.chartTitle.color
+                        : 'black',
+                fontFamily: this.themeFont,
+                fontSize:
+                    this.chartTitle && this.chartTitle.size
+                        ? this.chartTitle.size
+                        : 16,
             },
         } as echarts.TitleComponentOption;
     }
