@@ -1234,7 +1234,7 @@ export class KupDataTable {
         operation: string,
         columns?: string[]
     ): Promise<string | Column> {
-        const result = this.kupManager.objects.applyFormulaToColumns(
+        const result = this.kupManager.data.applyFormulaToColumns(
             this.data,
             operation,
             columns

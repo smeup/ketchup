@@ -32,6 +32,7 @@ import {
 } from '../kup-language/kup-language-declarations';
 import { KupObjectsJSON } from '../kup-objects/kup-objects-declarations';
 import { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
+import { KupData } from '../kup-data/kup-data';
 import { KupDates } from '../kup-dates/kup-dates';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
@@ -45,6 +46,7 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupManager
  */
 export class KupManager {
+    data: KupData;
     dates: KupDates;
     debug: KupDebug;
     dynamicPosition: KupDynamicPosition;
@@ -121,6 +123,7 @@ export class KupManager {
                 themeName = theme.name ? theme.name : null;
             }
         }
+        this.data = new KupData();
         this.dates = new KupDates(datesLocale);
         this.debug = new KupDebug(debugActive, debugAutoprint, debugLogLimit);
         this.dynamicPosition = new KupDynamicPosition();
