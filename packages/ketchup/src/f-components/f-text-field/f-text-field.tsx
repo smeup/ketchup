@@ -84,7 +84,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         }
         iconEl = (
             <span
-                tabindex="0"
                 style={iconStyle}
                 onClick={props.onIconClick}
                 class={`mdc-text-field__icon kup-icon action ${iconClass}`}
@@ -151,7 +150,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             )}
             {props.isClearable ? (
                 <span
-                    tabindex="1"
                     class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
                         '--',
                         ''
