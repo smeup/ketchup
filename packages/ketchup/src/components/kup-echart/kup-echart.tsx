@@ -278,38 +278,6 @@ export class KupEchart {
         return y;
     }
 
-    private normalDistribution(average: number, variance: number, x: number) {
-        return (
-            (1 / Math.sqrt(variance * 2 * Math.PI)) *
-            Math.exp(-Math.pow(x - average, 2) / (2 * variance))
-        );
-    }
-
-    private generateData(values: string[]) {
-        const data: number[][] = [];
-        let max = Math.max.apply(Math, values);
-        let min = Math.min.apply(Math, values);
-        let average = 0;
-        let variance = 0;
-        for (let index = 0; index < values.length; index++) {
-            const value = values[index];
-            average += parseFloat(value);
-        }
-        average = average / values.length;
-        for (let index = 0; index < values.length; index++) {
-            const value = parseFloat(values[index]);
-            variance += Math.pow(value - average, 2);
-        }
-        variance = variance / values.length;
-        max = max + (average / 100) * 50;
-        min = min - (average / 100) * 50;
-        for (let i = 0; i <= 200; i++) {
-            const x = ((max - min) * i) / 200 + min;
-            data.push([x, this.normalDistribution(average, variance, x)]);
-        }
-        return data;
-    }
-
     private setAxisColors() {
         return {
             axisLabel: {
@@ -473,7 +441,7 @@ export class KupEchart {
         for (const key in y) {
             const values: string[] = y[key];
             series.push({
-                data: this.generateData(values),
+                data: this.kupManager.data.normalDistribution(values),
                 name: key,
                 showSymbol: false,
                 smooth: true,

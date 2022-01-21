@@ -183,4 +183,65 @@ export class KupData {
         );
         return newColumn;
     }
+    /**
+     * Calculates the normal distribution on a set of values.
+     * @param {string[]} values - Array of values.
+     * @param {number} precision - Number of iterations to run (points). When not specified, defaults to 201.
+     * @returns {number[][]} Returns an array of arrays containing numbers, which are the representation of the calculated normal distribution.
+     */
+    normalDistribution(
+        values: string[] | number[] | String[],
+        precision?: number
+    ): number[][] {
+        if (!precision) {
+            precision = 201;
+        }
+        const data: number[][] = [];
+        let max = Math.max.apply(Math, values);
+        let min = Math.min.apply(Math, values);
+        let average = 0;
+        let variance = 0;
+        for (let index = 0; index < values.length; index++) {
+            const value = values[index];
+            average += this.numberify(value);
+        }
+        average = average / values.length;
+        for (let index = 0; index < values.length; index++) {
+            const value = values[index];
+            variance += Math.pow(this.numberify(value) - average, 2);
+        }
+        variance = variance / values.length;
+        max = max + (average / 100) * 50;
+        min = min - (average / 100) * 50;
+        for (let i = 0; i < precision; i++) {
+            const x = ((max - min) * i) / precision + min;
+            data.push([x, normalDistributionFormula(average, variance, x)]);
+        }
+        return data;
+
+        function normalDistributionFormula(
+            average: number,
+            variance: number,
+            x: number
+        ) {
+            return (
+                (1 / Math.sqrt(variance * 2 * Math.PI)) *
+                Math.exp(-Math.pow(x - average, 2) / (2 * variance))
+            );
+        }
+    }
+    /**
+     * Returns a number from a non specified input type between string, number, or String.
+     * @param {string | String | number} input - Input value to numberify.
+     * @returns {number} Resulting number.
+     */
+    numberify(input: string | String | number): number {
+        return typeof input === 'string' || input instanceof String
+            ? parseFloat(
+                  (input as String).valueOf()
+                      ? input.valueOf()
+                      : (input as string)
+              )
+            : input;
+    }
 }
