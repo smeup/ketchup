@@ -87,6 +87,16 @@ export class KupEchart {
      */
     @Prop() series: string[] = [];
     /**
+     * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+     * @default "100%"
+     */
+    @Prop() sizeX: string = '100%';
+    /**
+     * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default "100%"
+     */
+    @Prop() sizeY: string = '100%';
+    /**
      * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
      * @default [KupEchartTypes.LINE]
      */
@@ -278,38 +288,6 @@ export class KupEchart {
         return y;
     }
 
-    private normalDistribution(average: number, variance: number, x: number) {
-        return (
-            (1 / Math.sqrt(variance * 2 * Math.PI)) *
-            Math.exp(-Math.pow(x - average, 2) / (2 * variance))
-        );
-    }
-
-    private generateData(values: string[]) {
-        const data: number[][] = [];
-        let max = Math.max.apply(Math, values);
-        let min = Math.min.apply(Math, values);
-        let average = 0;
-        let variance = 0;
-        for (let index = 0; index < values.length; index++) {
-            const value = values[index];
-            average += parseFloat(value);
-        }
-        average = average / values.length;
-        for (let index = 0; index < values.length; index++) {
-            const value = parseFloat(values[index]);
-            variance += Math.pow(value - average, 2);
-        }
-        variance = variance / values.length;
-        max = max + (average / 100) * 50;
-        min = min - (average / 100) * 50;
-        for (let i = 0; i <= 200; i++) {
-            const x = ((max - min) * i) / 200 + min;
-            data.push([x, this.normalDistribution(average, variance, x)]);
-        }
-        return data;
-    }
-
     private setAxisColors() {
         return {
             axisLabel: {
@@ -339,22 +317,20 @@ export class KupEchart {
 
     private setTitle() {
         return {
-            title: {
-                text: this.chartTitle ? this.chartTitle.value : undefined,
-                [this.chartTitle && this.chartTitle.position
-                    ? this.chartTitle.position
-                    : 'left']: 0,
-                textStyle: {
-                    color:
-                        this.chartTitle && this.chartTitle.color
-                            ? this.chartTitle.color
-                            : 'black',
-                    fontFamily: this.themeFont,
-                    fontSize:
-                        this.chartTitle && this.chartTitle.size
-                            ? this.chartTitle.size
-                            : 16,
-                },
+            text: this.chartTitle ? this.chartTitle.value : undefined,
+            [this.chartTitle && this.chartTitle.position
+                ? this.chartTitle.position
+                : 'left']: 0,
+            textStyle: {
+                color:
+                    this.chartTitle && this.chartTitle.color
+                        ? this.chartTitle.color
+                        : 'black',
+                fontFamily: this.themeFont,
+                fontSize:
+                    this.chartTitle && this.chartTitle.size
+                        ? this.chartTitle.size
+                        : 16,
             },
         } as echarts.TitleComponentOption;
     }
@@ -473,7 +449,7 @@ export class KupEchart {
         for (const key in y) {
             const values: string[] = y[key];
             series.push({
-                data: this.generateData(values),
+                data: this.kupManager.data.normalDistribution(values),
                 name: key,
                 showSymbol: false,
                 smooth: true,
@@ -619,8 +595,13 @@ export class KupEchart {
     }
 
     render() {
+        const style: GenericObject = {
+            '--kup_echart_height': this.sizeY ? this.sizeY : '100%',
+            '--kup_echart_width': this.sizeX ? this.sizeX : '100%',
+        };
+
         return (
-            <Host>
+            <Host style={style}>
                 <style>
                     {this.kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent

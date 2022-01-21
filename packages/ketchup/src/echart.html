@@ -48,6 +48,12 @@
             const echart2 = document.getElementById('mapchart');
             const echart3 = document.getElementById('gaussianchart');
 
+            echart1.chartTitle = {
+                value: 'This is a title.',
+                color: 'red',
+                position: 'top',
+                size: 16,
+            };
             echart1.series = ['Col3', 'Col4'];
             echart1.types = ['Line', 'Scatter'];
             echart1.data = {

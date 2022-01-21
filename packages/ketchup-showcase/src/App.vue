@@ -719,6 +719,16 @@ export default {
           {
             cells: {
               ROUTE: {
+                value: 'kup-data',
+              },
+            },
+            icon: 'functions',
+            value: 'KupData',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
                 value: 'kup-dates',
               },
             },

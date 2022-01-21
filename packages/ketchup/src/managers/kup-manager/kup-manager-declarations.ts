@@ -1,6 +1,7 @@
 import type { Interaction } from '@interactjs/core/Interaction';
 import type { ActionMap } from '@interactjs/core/scope';
 import type { RectResolvable } from '@interactjs/types/index';
+import type { KupData } from '../kup-data/kup-data';
 import type { KupDates } from '../kup-dates/kup-dates';
 import type { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import type { KupDebug } from '../kup-debug/kup-debug';
@@ -27,6 +28,7 @@ export interface KupDom extends HTMLHtmlElement {
  * Interface for the KupManager class
  */
 export interface KupManager {
+    data: KupData;
     dates: KupDates;
     debug: KupDebug;
     dynamicPosition: KupDynamicPosition;

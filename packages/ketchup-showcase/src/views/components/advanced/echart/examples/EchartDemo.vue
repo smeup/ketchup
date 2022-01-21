@@ -95,6 +95,22 @@ export default {
           try: 'json',
         },
         {
+          prop: 'sizeX',
+          description:
+            'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
+          type: 'string',
+          default: '100%',
+          try: 'field',
+        },
+        {
+          prop: 'sizeY',
+          description:
+            'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+          type: 'string',
+          default: '100%',
+          try: 'field',
+        },
+        {
           prop: 'types',
           description:
             'The type of the chart. Supported formats: Bar, Gaussian, Line, Map, Pie, Scatter. It is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
