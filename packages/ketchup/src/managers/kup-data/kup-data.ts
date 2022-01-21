@@ -8,6 +8,10 @@ import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
+import {
+    KupDataFormulas,
+    KupDataNormalDistributionValues,
+} from './kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -16,6 +20,38 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupData
  */
 export class KupData {
+    formulas: KupDataFormulas = null;
+    /**
+     * Initializes KupData.
+     */
+    constructor() {
+        this.formulas = {
+            normalDistribution(data: KupDataNormalDistributionValues) {
+                for (const key in data) {
+                    const value = data[key];
+                    if (value === null || value === undefined || isNaN(value)) {
+                        dom.ketchup.debug.logMessage(
+                            'kup-data',
+                            'Error while applying normal distribution formula!(' +
+                                key +
+                                ' = ' +
+                                value +
+                                ')',
+                            KupDebugCategory.ERROR
+                        );
+                        return NaN;
+                    }
+                }
+                return (
+                    (1 / Math.sqrt(data.variance * 2 * Math.PI)) *
+                    Math.exp(
+                        -Math.pow(data.x - data.average, 2) /
+                            (2 * data.variance)
+                    )
+                );
+            },
+        };
+    }
     /**
      * Takes a mathematical formula as string in input, with column names between brackets, and returns the result as a number.
      * @param {string} formula - Mathematical operation (i.e.: ([COL1] - [COL2]) * 100 / [COL3]).
@@ -40,7 +76,7 @@ export class KupData {
             return result;
         } catch (e) {
             dom.ketchup.debug.logMessage(
-                'kup-objects',
+                'kup-data',
                 'Error while evaluating the following formula!(' +
                     formula +
                     ')',
@@ -215,20 +251,12 @@ export class KupData {
         min = min - (average / 100) * 50;
         for (let i = 0; i < precision; i++) {
             const x = ((max - min) * i) / precision + min;
-            data.push([x, normalDistributionFormula(average, variance, x)]);
+            data.push([
+                x,
+                this.formulas.normalDistribution({ average, variance, x }),
+            ]);
         }
         return data;
-
-        function normalDistributionFormula(
-            average: number,
-            variance: number,
-            x: number
-        ) {
-            return (
-                (1 / Math.sqrt(variance * 2 * Math.PI)) *
-                Math.exp(-Math.pow(x - average, 2) / (2 * variance))
-            );
-        }
     }
     /**
      * Returns a number from a non specified input type between string, number, or String.
