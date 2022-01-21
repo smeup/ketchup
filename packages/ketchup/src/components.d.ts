@@ -1581,6 +1581,16 @@ export namespace Components {
          */
         "setProps": (props: GenericObject) => Promise<void>;
         /**
+          * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
+         */
+        "sizeX": string;
+        /**
+          * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
+         */
+        "sizeY": string;
+        /**
           * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
           * @default [KupEchartTypes.LINE]
          */
@@ -4518,6 +4528,16 @@ declare namespace LocalJSX {
           * @default []
          */
         "series"?: string[];
+        /**
+          * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
+         */
+        "sizeX"?: string;
+        /**
+          * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
+         */
+        "sizeY"?: string;
         /**
           * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
           * @default [KupEchartTypes.LINE]

@@ -87,6 +87,16 @@ export class KupEchart {
      */
     @Prop() series: string[] = [];
     /**
+     * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+     * @default "100%"
+     */
+    @Prop() sizeX: string = '100%';
+    /**
+     * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default "100%"
+     */
+    @Prop() sizeY: string = '100%';
+    /**
      * The type of the chart. Supported formats: Bar, Gaussian, Line, Pie, Map and Scatter.
      * @default [KupEchartTypes.LINE]
      */
@@ -587,8 +597,13 @@ export class KupEchart {
     }
 
     render() {
+        const style: GenericObject = {
+            '--kup_echart_height': this.sizeY ? this.sizeY : '100%',
+            '--kup_echart_width': this.sizeX ? this.sizeX : '100%',
+        };
+
         return (
-            <Host>
+            <Host style={style}>
                 <style>
                     {this.kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
