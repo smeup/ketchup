@@ -1558,7 +1558,7 @@ export namespace Components {
          */
         "legend": KupEchartLegendPlacement;
         /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
           * @default null
          */
         "mapName": KupEchartMaps;
@@ -4518,7 +4518,7 @@ declare namespace LocalJSX {
          */
         "legend"?: KupEchartLegendPlacement;
         /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
           * @default null
          */
         "mapName"?: KupEchartMaps;

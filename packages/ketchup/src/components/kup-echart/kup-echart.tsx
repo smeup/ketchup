@@ -33,6 +33,8 @@ import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declaration
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { getColumnByName } from '../../utils/cell-utils';
+import { CellsHolder } from '../kup-data-table/kup-data-table-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -77,7 +79,7 @@ export class KupEchart {
      */
     @Prop() legend: KupEchartLegendPlacement = KupEchartLegendPlacement.RIGHT;
     /**
-     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".
+     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
      * @default null
      */
     @Prop() mapName: KupEchartMaps = null;
@@ -243,12 +245,24 @@ export class KupEchart {
         if (!this.axis) {
             for (let i = 0; i < this.data.rows.length; i++) {
                 const cells = this.data.rows[i].cells;
-                x.push(cells[0].value);
+                const treatedCells: CellsHolder = {};
+                for (const key in cells) {
+                    const cell = cells[key];
+                    const title = getColumnByName(this.data.columns, key).title;
+                    treatedCells[title] = cell;
+                }
+                x.push(treatedCells[0].value);
             }
         } else {
             for (let i = 0; i < this.data.rows.length; i++) {
                 const cells = this.data.rows[i].cells;
-                x.push(cells[this.axis].value);
+                const treatedCells: CellsHolder = {};
+                const title = getColumnByName(
+                    this.data.columns,
+                    this.axis
+                ).title;
+                treatedCells[title] = cells[this.axis];
+                x.push(treatedCells[title].value);
             }
         }
         return x;
@@ -263,10 +277,14 @@ export class KupEchart {
                         if (this.series.includes(key)) {
                             const cell = row.cells[key];
                             const value = cell.value;
-                            if (!y[key]) {
-                                y[key] = [];
+                            const title = getColumnByName(
+                                this.data.columns,
+                                key
+                            ).title;
+                            if (!y[title]) {
+                                y[title] = [];
                             }
-                            y[key].push(value);
+                            y[title].push(value);
                         }
                     }
                 }
@@ -277,10 +295,14 @@ export class KupEchart {
                     if (key !== this.axis) {
                         const cell = row.cells[key];
                         const value = cell.value;
-                        if (!y[key]) {
-                            y[key] = [];
+                        const title = getColumnByName(
+                            this.data.columns,
+                            key
+                        ).title;
+                        if (!y[title]) {
+                            y[title] = [];
                         }
-                        y[key].push(value);
+                        y[title].push(value);
                     }
                 }
             }
@@ -345,6 +367,35 @@ export class KupEchart {
         } as echarts.TooltipComponentOption;
     }
 
+    private setVisualMap(
+        max: number,
+        min: number,
+        colors: string[],
+        hasNumericValues: boolean
+    ) {
+        const opts: echarts.EChartsOption = {
+            visualMap: {
+                show: false,
+            },
+        };
+        const colorRange = !hasNumericValues
+            ? undefined
+            : colors.length > 0
+            ? { inRange: { color: colors }, min: min, max: max }
+            : { inRange: { color: this.themeColors }, min: min, max: max };
+        if (colorRange) {
+            opts.visualMap = {
+                ...opts.visualMap,
+                ...colorRange,
+                calculable: true,
+                min: min,
+                max: max,
+                show: true,
+            };
+        }
+        return opts;
+    }
+
     private setMapOptions() {
         const y = {};
         let objKey: string;
@@ -362,30 +413,74 @@ export class KupEchart {
                 }
             }
         }
-        const data: echarts.CustomSeriesOption[] = [];
+        const colors: string[] = [];
+        const data = [];
+        let hasNumericValues = false;
+        let min = 0;
+        let max = 0;
         for (let key in y) {
-            data.push({
-                name: key,
-                itemStyle: {
-                    color: y[key][0],
-                },
-            });
+            let color: string = null;
+            let n: number = null;
+            for (let index = 0; index < y[key].length; index++) {
+                const value = y[key][index];
+                const res = this.kupManager.data.numberify(value);
+                if (isNaN(res)) {
+                    color = value;
+                } else {
+                    n = res;
+                    if (n > max) {
+                        max = n;
+                    }
+                    if (n < min) {
+                        min = n;
+                    }
+                }
+            }
+            if (n !== null) {
+                data.push({
+                    name: key,
+                    value: n ? n : undefined,
+                });
+                if (color) {
+                    colors.push(color);
+                }
+                hasNumericValues = true;
+            } else if (color) {
+                data.push({
+                    itemStyle: {
+                        color: color,
+                    },
+                    name: key,
+                });
+            }
         }
         const echartOption: echarts.EChartsOption = {
+            emphasis: {
+                label: {
+                    show: true,
+                },
+            },
             title: this.setTitle(),
             tooltip: {
                 ...this.setTooltip(),
                 formatter: function (
                     params: echarts.DefaultLabelFormatterCallbackParams
                 ) {
-                    let value = params.color;
-                    return params.name + ': ' + value;
+                    const value = params.value;
+                    if (
+                        isNaN(value as unknown as number) ||
+                        value === null ||
+                        value === undefined
+                    ) {
+                        return null;
+                    } else {
+                        return params.name + ': ' + value;
+                    }
                 },
                 showDelay: 0,
                 trigger: 'item',
                 transitionDuration: 0.2,
             },
-            visualMap: { show: false },
             series: [
                 {
                     data: data,
@@ -399,6 +494,7 @@ export class KupEchart {
                     type: 'map',
                 } as echarts.MapSeriesOption,
             ],
+            ...this.setVisualMap(max, min, colors, hasNumericValues),
         };
 
         return echartOption;

@@ -564,6 +564,7 @@ const demoTypes: DemoTypeJson = {
       AMERICA: 'america',
       ASIA: 'asia',
       EUROPE: 'europe',
+      ITALY: 'italy',
       OCEANIA: 'oceania',
       WORLD: 'world',
     },
