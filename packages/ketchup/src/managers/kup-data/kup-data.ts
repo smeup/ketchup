@@ -2,6 +2,7 @@ import {
     Cell,
     Column,
     DataTable,
+    Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
@@ -252,8 +253,11 @@ export class KupData {
             variance += Math.pow(this.numberify(value) - average, 2);
         }
         variance = variance / values.length;
-        max = max + (average / 100) * 50;
-        min = min - (average / 100) * 50;
+        if (!variance) {
+            variance = 0.001;
+        }
+        max = max + ((average / 100) * 50 + (variance / 100) * 50);
+        min = min - ((average / 100) * 50 + (variance / 100) * 50);
         for (let i = 0; i < precision; i++) {
             const x = ((max - min) * i) / precision + min;
             data.push([
@@ -276,5 +280,73 @@ export class KupData {
                       : (input as string)
               )
             : input;
+    }
+    /**
+     * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
+     * @param {DataTable} dataset - Input dataset.
+     * @param {string[]} columns - Column names to manage.
+     * @returns {DataTable} New dataset with processed data.
+     */
+    datasetDistinct(dataset: DataTable, columns?: string[]): DataTable {
+        const occurrencies: { [index: string]: { [index: string]: number } } =
+            {};
+        const rows = dataset.rows;
+        for (let index = 0; index < rows.length; index++) {
+            const row = rows[index];
+            const cells = row.cells;
+            for (const key in cells) {
+                const cell = cells[key];
+                if (
+                    !columns ||
+                    !columns.length ||
+                    (columns && columns.includes(key))
+                ) {
+                    if (!occurrencies[key]) {
+                        occurrencies[key] = {};
+                    }
+                    const occurrency = occurrencies[key];
+                    occurrency[cell.value] = occurrency[cell.value]
+                        ? occurrency[cell.value] + 1
+                        : 1;
+                }
+            }
+        }
+        const newColumns: Column[] = [];
+        const newRows: Row[] = [];
+        for (const key in occurrencies) {
+            const occurrency = occurrencies[key];
+            const column = dataset.columns.find(
+                (col: Column) => col.name === key
+            );
+            column.obj = {
+                t: 'NR',
+                p: '',
+                k: '',
+            };
+            let ind = 0;
+            newColumns.push(column);
+            for (const j in occurrency) {
+                const value = occurrency[j];
+                let row: Row = null;
+                if (!newRows[ind]) {
+                    newRows[ind] = { cells: {} };
+                }
+                row = newRows[ind];
+                row.cells[key] = {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: value.toString(),
+                    },
+                    title: j,
+                    value: value.toString(),
+                };
+                ind++;
+            }
+        }
+        return {
+            columns: newColumns,
+            rows: newRows,
+        };
     }
 }
