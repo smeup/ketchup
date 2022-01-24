@@ -9,6 +9,7 @@ import { getColumnByName } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    KupDataCustomValues,
     KupDataFormulas,
     KupDataNormalDistributionValues,
 } from './kup-data-declarations';
@@ -26,7 +27,42 @@ export class KupData {
      */
     constructor() {
         this.formulas = {
-            normalDistribution(data: KupDataNormalDistributionValues) {
+            /**
+             * Takes a mathematical formula as string in input, with column names between brackets, and returns the result as a number.
+             * @param {string} formula - Mathematical operation (i.e.: ([COL1] - [COL2]) * 100 / [COL3]).
+             * @param {{ [index: string]: number }} row - Object containing column names as indexes and the related values as keys.
+             * @returns {number} Result of the formula.
+             */
+            custom(data: KupDataCustomValues): number {
+                let formula = data.formula;
+                const row = data.row;
+                const keys = Object.keys(row);
+                for (let i = 0; i < keys.length; i++) {
+                    let key = keys[i];
+                    let value: number = row[key];
+                    if (value != null && !isNaN(value)) {
+                        let re: RegExp = new RegExp(key, 'g');
+                        formula = formula.replace(re, value.toString());
+                    }
+                }
+                formula = formula.replace(/[\[\]']+/g, '');
+                try {
+                    const result = Function(
+                        '"use strict"; return (' + formula + ')'
+                    )() as number;
+                    return result;
+                } catch (e) {
+                    dom.ketchup.debug.logMessage(
+                        'kup-data',
+                        'Error while evaluating the following formula!(' +
+                            formula +
+                            ')',
+                        KupDebugCategory.ERROR
+                    );
+                    return NaN;
+                }
+            },
+            normalDistribution(data: KupDataNormalDistributionValues): number {
                 for (const key in data) {
                     const value = data[key];
                     if (value === null || value === undefined || isNaN(value)) {
@@ -51,39 +87,6 @@ export class KupData {
                 );
             },
         };
-    }
-    /**
-     * Takes a mathematical formula as string in input, with column names between brackets, and returns the result as a number.
-     * @param {string} formula - Mathematical operation (i.e.: ([COL1] - [COL2]) * 100 / [COL3]).
-     * @param {{ [index: string]: number }} row - Object containing column names as indexes and the related values as keys.
-     * @returns {number} Result of the formula.
-     */
-    evaluateFormula(formula: string, row: { [index: string]: number }): number {
-        const keys = Object.keys(row);
-        for (let i = 0; i < keys.length; i++) {
-            let key = keys[i];
-            let value: number = row[key];
-            if (value != null && !isNaN(value)) {
-                let re: RegExp = new RegExp(key, 'g');
-                formula = formula.replace(re, value.toString());
-            }
-        }
-        formula = formula.replace(/[\[\]']+/g, '');
-        try {
-            const result = Function(
-                '"use strict"; return (' + formula + ')'
-            )() as number;
-            return result;
-        } catch (e) {
-            dom.ketchup.debug.logMessage(
-                'kup-data',
-                'Error while evaluating the following formula!(' +
-                    formula +
-                    ')',
-                KupDebugCategory.ERROR
-            );
-            return NaN;
-        }
     }
     /**
      * This method is used to apply math formulas to columns.
@@ -197,7 +200,9 @@ export class KupData {
                     }
                 }
             }
-            const value = this.evaluateFormula(formula, formulaRow).toString();
+            const value = this.formulas
+                .custom({ formula: formula, row: formulaRow })
+                .toString();
             cells[newName] = {
                 ...base,
                 displayedValue: null,
