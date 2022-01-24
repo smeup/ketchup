@@ -68,6 +68,7 @@
         height: 24px;
         outline: none;
         padding: 0 7px;
+        pointer-events: all;
         width: 24px;
         &.#{$kup-icon-clear}:hover {
           background-color: var(--kup-danger-color);
