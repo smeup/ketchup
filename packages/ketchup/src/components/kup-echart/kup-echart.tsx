@@ -33,6 +33,8 @@ import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declaration
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { getColumnByName } from '../../utils/cell-utils';
+import { CellsHolder } from '../kup-data-table/kup-data-table-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -243,12 +245,24 @@ export class KupEchart {
         if (!this.axis) {
             for (let i = 0; i < this.data.rows.length; i++) {
                 const cells = this.data.rows[i].cells;
-                x.push(cells[0].value);
+                const treatedCells: CellsHolder = {};
+                for (const key in cells) {
+                    const cell = cells[key];
+                    const title = getColumnByName(this.data.columns, key).title;
+                    treatedCells[title] = cell;
+                }
+                x.push(treatedCells[0].value);
             }
         } else {
             for (let i = 0; i < this.data.rows.length; i++) {
                 const cells = this.data.rows[i].cells;
-                x.push(cells[this.axis].value);
+                const treatedCells: CellsHolder = {};
+                const title = getColumnByName(
+                    this.data.columns,
+                    this.axis
+                ).title;
+                treatedCells[title] = cells[this.axis];
+                x.push(treatedCells[title].value);
             }
         }
         return x;
@@ -263,10 +277,14 @@ export class KupEchart {
                         if (this.series.includes(key)) {
                             const cell = row.cells[key];
                             const value = cell.value;
-                            if (!y[key]) {
-                                y[key] = [];
+                            const title = getColumnByName(
+                                this.data.columns,
+                                key
+                            ).title;
+                            if (!y[title]) {
+                                y[title] = [];
                             }
-                            y[key].push(value);
+                            y[title].push(value);
                         }
                     }
                 }
@@ -277,10 +295,14 @@ export class KupEchart {
                     if (key !== this.axis) {
                         const cell = row.cells[key];
                         const value = cell.value;
-                        if (!y[key]) {
-                            y[key] = [];
+                        const title = getColumnByName(
+                            this.data.columns,
+                            key
+                        ).title;
+                        if (!y[title]) {
+                            y[title] = [];
                         }
-                        y[key].push(value);
+                        y[title].push(value);
                     }
                 }
             }
