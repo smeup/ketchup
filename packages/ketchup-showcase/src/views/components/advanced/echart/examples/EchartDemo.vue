@@ -80,7 +80,7 @@ export default {
         {
           prop: 'mapName',
           description:
-            'Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world".',
+            'Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".',
           type: 'KupEchartMaps',
           default: 'null',
           try: 'field',

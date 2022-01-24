@@ -566,7 +566,12 @@ export const mapData = {
     },
     {
       name: 'Col2',
-      title: 'value',
+      title: 'Color',
+      size: '10',
+    },
+    {
+      name: 'Col3',
+      title: 'Value',
       size: '10',
     },
   ],
@@ -589,6 +594,14 @@ export const mapData = {
           },
           value: 'red',
         },
+        Col3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100',
+          },
+          value: '100',
+        },
       },
     },
     {
@@ -608,6 +621,14 @@ export const mapData = {
             k: 'Green',
           },
           value: 'Green',
+        },
+        Col3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '200',
+          },
+          value: '200',
         },
       },
     },
@@ -629,6 +650,14 @@ export const mapData = {
           },
           value: 'purple',
         },
+        Col3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '300',
+          },
+          value: '300',
+        },
       },
     },
     {
@@ -649,6 +678,14 @@ export const mapData = {
           },
           value: 'yellow',
         },
+        Col3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '400',
+          },
+          value: '400',
+        },
       },
     },
     {
@@ -668,6 +705,14 @@ export const mapData = {
             k: 'orange',
           },
           value: 'orange',
+        },
+        Col3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '500',
+          },
+          value: '500',
         },
       },
     },
