@@ -404,15 +404,12 @@ export class KupEchart {
         const y = {};
         let objKey: string;
         for (const row of this.data.rows) {
+            objKey = row.cells[this.axis].value;
+            y[objKey] = [];
             for (const key of Object.keys(row.cells)) {
                 const cell = row.cells[key];
                 const value = cell.value;
-                if (this.axis.includes(key)) {
-                    objKey = value;
-                    if (!y[objKey]) {
-                        y[objKey] = [];
-                    }
-                } else {
+                if (!this.axis.includes(key)) {
                     y[objKey].push(value);
                 }
             }
