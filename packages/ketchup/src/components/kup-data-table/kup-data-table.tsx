@@ -76,7 +76,6 @@ import {
 import {
     KupListData,
     ItemsDisplayMode,
-    KupListEventPayload,
 } from '../kup-list/kup-list-declarations';
 import {
     KupManager,

@@ -34,7 +34,11 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { getColumnByName } from '../../utils/cell-utils';
-import { CellsHolder } from '../kup-data-table/kup-data-table-declarations';
+import {
+    CellsHolder,
+    Column,
+} from '../kup-data-table/kup-data-table-declarations';
+import { KupDataFindCellFilters } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -552,6 +556,49 @@ export class KupEchart {
                 type: 'line',
             } as echarts.LineSeriesOption);
         }
+        // "any" because type is mismanaged inside echarts library
+        const tipCb: any = (params: any) => {
+            const wrapper =
+                '<div style="display: flex; flex-direction: column">';
+            let format = wrapper;
+            let count = 0;
+            for (let index = 0; index < params.length; index++) {
+                const param = params[index];
+                const value = param.value[0];
+                const column = this.data.columns.find(
+                    (col: Column) => col.title === param.seriesName
+                ).name;
+                const filters: KupDataFindCellFilters = {
+                    columns: [column],
+                    max: value + (value / 100) * 50,
+                    min: value - (value / 100) * 50,
+                };
+                const cells = this.kupManager.data.datasetOperations.findCell(
+                    this.data,
+                    filters
+                );
+                for (let index = 0; index < cells.length; index++) {
+                    const cell = cells[index];
+                    if (cell.title) {
+                        const remainder = count % 4;
+                        if (!remainder) {
+                            if (count) {
+                                format += `</div>`;
+                            }
+                            format += `<div style="display: flex; flex-direction: row;">`;
+                        }
+                        const style = `style="color: ${param.color}; margin-right: 5px"`;
+                        format += `<span ${style}><strong>${cell.title}</strong>: ${cell.value}</span>`;
+                        count++;
+                    }
+                }
+            }
+            if (format === wrapper) {
+                return null;
+            } else {
+                return format + '</div>';
+            }
+        };
         return {
             color: this.themeColors,
             legend: this.setLegend(y),
@@ -560,6 +607,7 @@ export class KupEchart {
             tooltip: {
                 ...this.setTooltip(),
                 trigger: 'axis',
+                formatter: tipCb,
             },
             xAxis: {
                 ...this.setAxisColors(),
