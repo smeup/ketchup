@@ -727,10 +727,10 @@ function adjustGroupAverageOrFormula(
         }
         if (type == TotalMode.MATH) {
             let formula = totals[key].substring(TotalMode.MATH.length);
-            row.group.totals[key] = dom.ketchup.data.formulas.custom({
-                formula: formula,
-                row: row.group.totals,
-            });
+            row.group.totals[key] = dom.ketchup.data.formulas.custom(
+                formula,
+                row.group.totals
+            );
         }
     });
 
@@ -915,10 +915,10 @@ export function calcTotals(
                     footerRow[key] = rows.length;
                     break;
                 case totals[key].indexOf(TotalMode.MATH) == 0:
-                    footerRow[key] = dom.ketchup.data.formulas.custom({
-                        formula: totals[key].substring(TotalMode.MATH.length),
-                        row: footerRow,
-                    });
+                    footerRow[key] = dom.ketchup.data.formulas.custom(
+                        totals[key].substring(TotalMode.MATH.length),
+                        footerRow
+                    );
                     break;
                 default:
                     break;

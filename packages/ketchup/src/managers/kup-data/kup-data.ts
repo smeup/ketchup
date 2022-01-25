@@ -10,9 +10,9 @@ import { getColumnByName } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
-    KupDataCustomValues,
+    KupDataDatasetOperations,
+    KupDataFindCellFilters,
     KupDataFormulas,
-    KupDataNormalDistributionValues,
 } from './kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -22,11 +22,123 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupData
  */
 export class KupData {
+    datasetOperations: KupDataDatasetOperations = null;
     formulas: KupDataFormulas = null;
     /**
      * Initializes KupData.
      */
     constructor() {
+        this.datasetOperations = {
+            /**
+             * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
+             * @param {DataTable} dataset - Input dataset.
+             * @param {string[]} columns - Column names to manage. When missing, defaults to all columns.
+             * @returns {DataTable} New dataset with processed data.
+             */
+            distinct(dataset: DataTable, columns?: string[]): DataTable {
+                const occurrencies: {
+                    [index: string]: { [index: string]: number };
+                } = {};
+                const rows = dataset.rows;
+                for (let index = 0; index < rows.length; index++) {
+                    const row = rows[index];
+                    const cells = row.cells;
+                    for (const key in cells) {
+                        const cell = cells[key];
+                        if (
+                            !columns ||
+                            !columns.length ||
+                            (columns && columns.includes(key))
+                        ) {
+                            if (!occurrencies[key]) {
+                                occurrencies[key] = {};
+                            }
+                            const occurrency = occurrencies[key];
+                            occurrency[cell.value] = occurrency[cell.value]
+                                ? occurrency[cell.value] + 1
+                                : 1;
+                        }
+                    }
+                }
+                const newColumns: Column[] = [];
+                const newRows: Row[] = [];
+                for (const key in occurrencies) {
+                    const occurrency = occurrencies[key];
+                    const column = dataset.columns.find(
+                        (col: Column) => col.name === key
+                    );
+                    column.obj = {
+                        t: 'NR',
+                        p: '',
+                        k: '',
+                    };
+                    let ind = 0;
+                    newColumns.push(column);
+                    for (const j in occurrency) {
+                        const value = occurrency[j];
+                        let row: Row = null;
+                        if (!newRows[ind]) {
+                            newRows[ind] = { cells: {} };
+                        }
+                        row = newRows[ind];
+                        row.cells[key] = {
+                            obj: {
+                                t: 'NR',
+                                p: '',
+                                k: value.toString(),
+                            },
+                            title: j,
+                            value: value.toString(),
+                        };
+                        ind++;
+                    }
+                }
+                return {
+                    columns: newColumns,
+                    rows: newRows,
+                };
+            },
+            /**
+             * Finds all the cells with the specified value in the given dataset.
+             * @param {DataTable} dataset - Input dataset.
+             * @param {KupDataFindCellFilters} filters - Filters of the reserach. TODO: handle other types of min/maxes
+             * @returns {Cell[]} Array of cells with the specified value.
+             */
+            findCell(
+                dataset: DataTable,
+                filters: KupDataFindCellFilters
+            ): Cell[] {
+                const columns = filters ? filters.columns : null;
+                const min = filters ? filters.min : null;
+                const max = filters ? filters.max : null;
+                const value = filters ? filters.value : null;
+                const result: Cell[] = [];
+                for (let index = 0; index < dataset.rows.length; index++) {
+                    const row = dataset.rows[index];
+                    const cells = row.cells;
+                    for (const key in cells) {
+                        const cell = cells[key];
+                        if (
+                            !columns ||
+                            !columns.length ||
+                            columns.includes(key)
+                        ) {
+                            if (min && max) {
+                                if (
+                                    parseFloat(cell.value) < max &&
+                                    parseFloat(cell.value) > min
+                                ) {
+                                    result.push(cell);
+                                }
+                            } else if (value === cell.value) {
+                                result.push(cell);
+                            }
+                        }
+                    }
+                }
+                return result;
+            },
+        };
         this.formulas = {
             /**
              * Takes a mathematical formula as string in input, with column names between brackets, and returns the result as a number.
@@ -34,9 +146,7 @@ export class KupData {
              * @param {{ [index: string]: number }} row - Object containing column names as indexes and the related values as keys.
              * @returns {number} Result of the formula.
              */
-            custom(data: KupDataCustomValues): number {
-                let formula = data.formula;
-                const row = data.row;
+            custom(formula: string, row: { [index: string]: number }): number {
                 const keys = Object.keys(row);
                 for (let i = 0; i < keys.length; i++) {
                     let key = keys[i];
@@ -63,28 +173,14 @@ export class KupData {
                     return NaN;
                 }
             },
-            normalDistribution(data: KupDataNormalDistributionValues): number {
-                for (const key in data) {
-                    const value = data[key];
-                    if (value === null || value === undefined || isNaN(value)) {
-                        dom.ketchup.debug.logMessage(
-                            'kup-data',
-                            'Error while applying normal distribution formula!(' +
-                                key +
-                                ' = ' +
-                                value +
-                                ')',
-                            KupDebugCategory.ERROR
-                        );
-                        return NaN;
-                    }
-                }
+            normalDistribution(
+                average: number,
+                variance: number,
+                x: number
+            ): number {
                 return (
-                    (1 / Math.sqrt(data.variance * 2 * Math.PI)) *
-                    Math.exp(
-                        -Math.pow(data.x - data.average, 2) /
-                            (2 * data.variance)
-                    )
+                    (1 / Math.sqrt(variance * 2 * Math.PI)) *
+                    Math.exp(-Math.pow(x - average, 2) / (2 * variance))
                 );
             },
         };
@@ -201,9 +297,7 @@ export class KupData {
                     }
                 }
             }
-            const value = this.formulas
-                .custom({ formula: formula, row: formulaRow })
-                .toString();
+            const value = this.formulas.custom(formula, formulaRow).toString();
             cells[newName] = {
                 ...base,
                 displayedValue: null,
@@ -256,13 +350,13 @@ export class KupData {
         if (!variance) {
             variance = 0.001;
         }
-        max = max + ((average / 100) * 50 + (variance / 100) * 50);
-        min = min - ((average / 100) * 50 + (variance / 100) * 50);
+        max = max + ((average / 100) * 50 + (variance / average) * 3);
+        min = min - ((average / 100) * 50 + (variance / average) * 3);
         for (let i = 0; i < precision; i++) {
             const x = ((max - min) * i) / precision + min;
             data.push([
                 x,
-                this.formulas.normalDistribution({ average, variance, x }),
+                this.formulas.normalDistribution(average, variance, x),
             ]);
         }
         return data;
@@ -280,73 +374,5 @@ export class KupData {
                       : (input as string)
               )
             : input;
-    }
-    /**
-     * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
-     * @param {DataTable} dataset - Input dataset.
-     * @param {string[]} columns - Column names to manage.
-     * @returns {DataTable} New dataset with processed data.
-     */
-    datasetDistinct(dataset: DataTable, columns?: string[]): DataTable {
-        const occurrencies: { [index: string]: { [index: string]: number } } =
-            {};
-        const rows = dataset.rows;
-        for (let index = 0; index < rows.length; index++) {
-            const row = rows[index];
-            const cells = row.cells;
-            for (const key in cells) {
-                const cell = cells[key];
-                if (
-                    !columns ||
-                    !columns.length ||
-                    (columns && columns.includes(key))
-                ) {
-                    if (!occurrencies[key]) {
-                        occurrencies[key] = {};
-                    }
-                    const occurrency = occurrencies[key];
-                    occurrency[cell.value] = occurrency[cell.value]
-                        ? occurrency[cell.value] + 1
-                        : 1;
-                }
-            }
-        }
-        const newColumns: Column[] = [];
-        const newRows: Row[] = [];
-        for (const key in occurrencies) {
-            const occurrency = occurrencies[key];
-            const column = dataset.columns.find(
-                (col: Column) => col.name === key
-            );
-            column.obj = {
-                t: 'NR',
-                p: '',
-                k: '',
-            };
-            let ind = 0;
-            newColumns.push(column);
-            for (const j in occurrency) {
-                const value = occurrency[j];
-                let row: Row = null;
-                if (!newRows[ind]) {
-                    newRows[ind] = { cells: {} };
-                }
-                row = newRows[ind];
-                row.cells[key] = {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: value.toString(),
-                    },
-                    title: j,
-                    value: value.toString(),
-                };
-                ind++;
-            }
-        }
-        return {
-            columns: newColumns,
-            rows: newRows,
-        };
     }
 }

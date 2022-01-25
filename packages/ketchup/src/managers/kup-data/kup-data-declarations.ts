@@ -1,28 +1,32 @@
+import {
+    Cell,
+    DataTable,
+} from '../../components/kup-data-table/kup-data-table-declarations';
+
+/**
+ * Interface related to dataset operations.
+ */
+export interface KupDataDatasetOperations {
+    distinct: (dataset: DataTable, columns?: string[]) => DataTable;
+    findCell: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
+}
 /**
  * Interface related to the formulas factory function.
  */
 export interface KupDataFormulas {
-    custom: (data: KupDataCustomValues) => number;
-    normalDistribution: (data: KupDataNormalDistributionValues) => number;
+    custom: (formula: string, row: { [index: string]: number }) => number;
+    normalDistribution: (
+        average: number,
+        variance: number,
+        x: number
+    ) => number;
 }
 /**
- * Contains all available formulas values.
+ * Sets the filters for the cell finder method.
  */
-export type KupDataFormulasValues =
-    | KupDataCustomValues
-    | KupDataNormalDistributionValues;
-/**
- * Values for the normal distribution formula.
- */
-export interface KupDataNormalDistributionValues {
-    average: number;
-    variance: number;
-    x: number;
-}
-/**
- * Values for the custom formula.
- */
-export interface KupDataCustomValues {
-    formula: string;
-    row: { [index: string]: number };
+export interface KupDataFindCellFilters {
+    columns?: string[];
+    min?: number;
+    max?: number;
+    value?: string;
 }
