@@ -1,5 +1,6 @@
 import {
     Cell,
+    Column,
     DataTable,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 
@@ -7,8 +8,27 @@ import {
  * Interface related to dataset operations.
  */
 export interface KupDataDatasetOperations {
+    cell: KupDataCellOperations;
+    column: KupDataColumnsOperations;
     distinct: (dataset: DataTable, columns?: string[]) => DataTable;
-    findCell: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
+    new: (dataset: DataTable, newColumns?: KupDataNewColumn[]) => DataTable;
+}
+/**
+ * Interface related to columns operations.
+ */
+export interface KupDataColumnsOperations {
+    merge: (
+        dataset: DataTable,
+        columns2merge: string[],
+        newColumn: Column
+    ) => DataTable;
+}
+/**
+ * Interface related to cells operations.
+ */
+export interface KupDataCellOperations {
+    find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
+    replace: (dataset: DataTable, cell: Cell, columns?: string[]) => DataTable;
 }
 /**
  * Interface related to the formulas factory function.
@@ -26,7 +46,27 @@ export interface KupDataFormulas {
  */
 export interface KupDataFindCellFilters {
     columns?: string[];
+    range?: KupDataFilterRange;
+    value?: string;
+}
+/**
+ * Interface of the range filter.
+ */
+export interface KupDataFilterRange {
     min?: number;
     max?: number;
+}
+/**
+ * Interface for the creation of a new column.
+ */
+export interface KupDataNewColumn {
+    column: Column;
+    criteria: KupDataNewColumnCriteria;
+}
+/**
+ * Interface for the criteria appliable when creating a new column.
+ */
+export interface KupDataNewColumnCriteria {
+    range?: KupDataFilterRange;
     value?: string;
 }

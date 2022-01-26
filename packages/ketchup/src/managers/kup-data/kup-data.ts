@@ -13,7 +13,15 @@ import {
     KupDataDatasetOperations,
     KupDataFindCellFilters,
     KupDataFormulas,
+    KupDataNewColumn,
 } from './kup-data-declarations';
+import {
+    distinctDataset,
+    findCell,
+    mergeColumns,
+    newDataset,
+    replaceCell,
+} from './kup-data-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -29,114 +37,35 @@ export class KupData {
      */
     constructor() {
         this.datasetOperations = {
-            /**
-             * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
-             * @param {DataTable} dataset - Input dataset.
-             * @param {string[]} columns - Column names to manage. When missing, defaults to all columns.
-             * @returns {DataTable} New dataset with processed data.
-             */
-            distinct(dataset: DataTable, columns?: string[]): DataTable {
-                const occurrencies: {
-                    [index: string]: { [index: string]: number };
-                } = {};
-                const rows = dataset.rows;
-                for (let index = 0; index < rows.length; index++) {
-                    const row = rows[index];
-                    const cells = row.cells;
-                    for (const key in cells) {
-                        const cell = cells[key];
-                        if (
-                            !columns ||
-                            !columns.length ||
-                            (columns && columns.includes(key))
-                        ) {
-                            if (!occurrencies[key]) {
-                                occurrencies[key] = {};
-                            }
-                            const occurrency = occurrencies[key];
-                            occurrency[cell.value] = occurrency[cell.value]
-                                ? occurrency[cell.value] + 1
-                                : 1;
-                        }
-                    }
-                }
-                const newColumns: Column[] = [];
-                const newRows: Row[] = [];
-                for (const key in occurrencies) {
-                    const occurrency = occurrencies[key];
-                    const column = dataset.columns.find(
-                        (col: Column) => col.name === key
-                    );
-                    column.obj = {
-                        t: 'NR',
-                        p: '',
-                        k: '',
-                    };
-                    let ind = 0;
-                    newColumns.push(column);
-                    for (const j in occurrency) {
-                        const value = occurrency[j];
-                        let row: Row = null;
-                        if (!newRows[ind]) {
-                            newRows[ind] = { cells: {} };
-                        }
-                        row = newRows[ind];
-                        row.cells[key] = {
-                            obj: {
-                                t: 'NR',
-                                p: '',
-                                k: value.toString(),
-                            },
-                            title: j,
-                            value: value.toString(),
-                        };
-                        ind++;
-                    }
-                }
-                return {
-                    columns: newColumns,
-                    rows: newRows,
-                };
+            cell: {
+                find(
+                    dataset: DataTable,
+                    filters: KupDataFindCellFilters
+                ): Cell[] {
+                    return findCell(dataset, filters);
+                },
+                replace(
+                    dataset: DataTable,
+                    cell: Cell,
+                    columns?: string[]
+                ): DataTable {
+                    return replaceCell(dataset, cell, columns);
+                },
             },
-            /**
-             * Finds all the cells with the specified value in the given dataset.
-             * @param {DataTable} dataset - Input dataset.
-             * @param {KupDataFindCellFilters} filters - Filters of the reserach. TODO: handle other types of min/maxes
-             * @returns {Cell[]} Array of cells with the specified value.
-             */
-            findCell(
-                dataset: DataTable,
-                filters: KupDataFindCellFilters
-            ): Cell[] {
-                const columns = filters ? filters.columns : null;
-                const min = filters ? filters.min : null;
-                const max = filters ? filters.max : null;
-                const value = filters ? filters.value : null;
-                const result: Cell[] = [];
-                for (let index = 0; index < dataset.rows.length; index++) {
-                    const row = dataset.rows[index];
-                    const cells = row.cells;
-                    for (const key in cells) {
-                        const cell = cells[key];
-                        if (
-                            !columns ||
-                            !columns.length ||
-                            columns.includes(key)
-                        ) {
-                            if (min && max) {
-                                if (
-                                    parseFloat(cell.value) < max &&
-                                    parseFloat(cell.value) > min
-                                ) {
-                                    result.push(cell);
-                                }
-                            } else if (value === cell.value) {
-                                result.push(cell);
-                            }
-                        }
-                    }
-                }
-                return result;
+            column: {
+                merge(
+                    dataset: DataTable,
+                    columns2merge: string[],
+                    newColumn: Column
+                ): DataTable {
+                    return mergeColumns(dataset, columns2merge, newColumn);
+                },
+            },
+            distinct(dataset: DataTable, columns?: string[]): DataTable {
+                return distinctDataset(dataset, columns);
+            },
+            new(dataset: DataTable, newColumns: KupDataNewColumn[]): DataTable {
+                return newDataset(dataset, newColumns);
             },
         };
         this.formulas = {
