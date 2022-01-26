@@ -567,10 +567,12 @@ export class KupEchart {
                 ).name;
                 const filters: KupDataFindCellFilters = {
                     columns: [column],
-                    max: value + (value / 100) * 50,
-                    min: value - (value / 100) * 50,
+                    range: {
+                        max: value + (value / 100) * 50,
+                        min: value - (value / 100) * 50,
+                    },
                 };
-                const cells = this.kupManager.data.datasetOperations.findCell(
+                const cells = this.kupManager.data.datasetOperations.cell.find(
                     this.data,
                     filters
                 );

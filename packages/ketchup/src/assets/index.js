@@ -103,6 +103,10 @@ components.data = [
         value: 'image.html',
     },
     {
+        text: 'KupData',
+        value: 'kupdata.html',
+    },
+    {
         text: 'Layout',
         value: 'layout.html',
     },

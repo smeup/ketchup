@@ -27,6 +27,7 @@ export const config: Config = {
                 { src: 'css-grid.html' },
                 { src: 'dash.html' },
                 { src: 'dash-list.html' },
+                { src: 'kupdata.html' },
                 { src: 'data-table.html' },
                 { src: 'data-table-performance.html' },
                 { src: 'date-picker.html' },
