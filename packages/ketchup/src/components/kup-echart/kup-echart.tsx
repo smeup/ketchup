@@ -233,7 +233,7 @@ export class KupEchart {
                     return;
                 }
                 echarts.registerMap(this.mapName, mapJson);
-                options = this.setMapOptions();
+                options = this.setMapOptions(mapJson);
                 break;
             case KupEchartTypes.PIE:
                 options = this.setPieOptions();
@@ -401,7 +401,21 @@ export class KupEchart {
         return opts;
     }
 
-    private setMapOptions() {
+    private setMapOptions(map: string) {
+        const mapJson = JSON.parse(map);
+        const isoA2: string[] = [];
+        const names: string[] = [];
+        const mapFeatures: {
+            properties: {
+                iso_a2: string;
+                name: string;
+            };
+        }[] = mapJson.features;
+        for (let index = 0; index < mapFeatures.length; index++) {
+            const feature = mapFeatures[index];
+            isoA2.push(feature.properties.iso_a2);
+            names.push(feature.properties.name);
+        }
         const y = {};
         let objKey: string;
         for (const row of this.data.rows) {
@@ -440,7 +454,7 @@ export class KupEchart {
             }
             if (n !== null) {
                 data.push({
-                    name: key,
+                    name: names.includes(key) ? key : names[isoA2.indexOf(key)],
                     value: n ? n : undefined,
                 });
                 if (color) {
@@ -452,7 +466,7 @@ export class KupEchart {
                     itemStyle: {
                         color: color,
                     },
-                    name: key,
+                    name: names.includes(key) ? key : names[isoA2.indexOf(key)],
                 });
             }
         }
