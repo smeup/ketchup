@@ -10,14 +10,40 @@ import {
 } from './kup-data-declarations';
 
 /**
+ * Performs a distinct/count after previously grouping column by ranges.
+ * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataNewColumn[]} rangeColumns - A list of columns coupled with their criteria for creation. These are used to define ranges.
+ * @param {Column} resultingColumn - The resulting column.
+ * @param {Column} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
+ * @returns {DataTable} New dataset with processed data.
+ */
+export function rangedDistinctDataset(
+    dataset: DataTable,
+    rangeColumns: KupDataNewColumn[],
+    resultingColumn: Column,
+    valuesColumn: Column
+): DataTable {
+    const newD = newDataset(dataset, rangeColumns);
+    const columnNames: string[] = [];
+    for (let index = 0; index < rangeColumns.length; index++) {
+        const newColumn = rangeColumns[index].column;
+        columnNames.push(newColumn.name);
+        replaceCell(newD, { value: newColumn.title }, [newColumn.name]);
+    }
+    const mergedDataset = mergeColumns(newD, columnNames, resultingColumn);
+    return distinctDataset(mergedDataset, null, valuesColumn);
+}
+/**
  * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
  * @param {DataTable} dataset - Input dataset.
  * @param {string[]} columns - Column names to manage. When missing, defaults to all columns.
+ * @param {Column} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
  * @returns {DataTable} New dataset with processed data.
  */
 export function distinctDataset(
     dataset: DataTable,
-    columns?: string[]
+    columns?: string[],
+    valuesColumn?: Column
 ): DataTable {
     const occurrencies: {
         [index: string]: { [index: string]: number };
@@ -45,6 +71,9 @@ export function distinctDataset(
     }
     const newColumns: Column[] = [];
     const newRows: Row[] = [];
+    if (valuesColumn) {
+        newColumns.push(valuesColumn);
+    }
     for (const key in occurrencies) {
         const occurrency = occurrencies[key];
         const column = {
@@ -73,6 +102,11 @@ export function distinctDataset(
                 title: j,
                 value: value.toString(),
             };
+            if (valuesColumn) {
+                row.cells[valuesColumn.name] = {
+                    value: j,
+                };
+            }
             rowIndex++;
         }
     }
