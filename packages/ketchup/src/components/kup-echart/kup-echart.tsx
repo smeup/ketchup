@@ -13,7 +13,6 @@ import {
 import * as echarts from 'echarts';
 import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
 import {
-    KupEchartData,
     KupEchartLegendPlacement,
     KupEchartMaps,
     KupEchartProps,
@@ -37,6 +36,7 @@ import { getColumnByName } from '../../utils/cell-utils';
 import {
     CellsHolder,
     Column,
+    DataTable,
 } from '../kup-data-table/kup-data-table-declarations';
 import { KupDataFindCellFilters } from '../../managers/kup-data/kup-data-declarations';
 
@@ -76,7 +76,7 @@ export class KupEchart {
      * The actual data of the chart.
      * @default null
      */
-    @Prop() data: KupEchartData = null;
+    @Prop() data: DataTable = null;
     /**
      * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
      * @default KupEchartLegendPlacement.RIGHT
@@ -132,6 +132,7 @@ export class KupEchart {
     private resizeTimeout: number;
     private chartContainer?: HTMLDivElement;
     private chartEl: echarts.ECharts;
+    private gaussianDatasets: { [index: string]: DataTable };
     private themeBorder: string = null;
     private themeBackground: string = null;
     private themeColors: string[] = null;
@@ -543,8 +544,25 @@ export class KupEchart {
     private setGaussianOptions() {
         const y = this.createY();
         const series: echarts.SeriesOption[] = [];
+        this.gaussianDatasets = {};
         for (const key in y) {
-            const values: string[] = y[key];
+            let values: string[] = null;
+            const column = this.data.columns.find(
+                (col: Column) => col.title === key
+            );
+            if (!this.kupManager.objects.isNumber(column.obj)) {
+                const newDataset =
+                    this.kupManager.data.datasetOperations.distinct(this.data, [
+                        column.name,
+                    ]);
+                values = this.kupManager.data.datasetOperations.cell.getValue(
+                    newDataset,
+                    [column.name]
+                );
+                this.gaussianDatasets[column.name] = newDataset;
+            } else {
+                values = y[key];
+            }
             series.push({
                 data: this.kupManager.data.normalDistribution(values),
                 name: key,
@@ -577,7 +595,9 @@ export class KupEchart {
                     },
                 };
                 const cells = this.kupManager.data.datasetOperations.cell.find(
-                    this.data,
+                    this.gaussianDatasets[column]
+                        ? this.gaussianDatasets[column]
+                        : this.data,
                     filters
                 );
                 for (let index = 0; index < cells.length; index++) {

@@ -29,7 +29,7 @@ import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 import { KupObj } from "./managers/kup-objects/kup-objects-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
-import { KupEchartData, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
+import { KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -1545,7 +1545,7 @@ export namespace Components {
           * The actual data of the chart.
           * @default null
          */
-        "data": KupEchartData;
+        "data": DataTable;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4511,7 +4511,7 @@ declare namespace LocalJSX {
           * The actual data of the chart.
           * @default null
          */
-        "data"?: KupEchartData;
+        "data"?: DataTable;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
           * @default KupEchartLegendPlacement.RIGHT

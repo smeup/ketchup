@@ -18,11 +18,6 @@ export enum KupEchartProps {
     xAxis = 'Customization options for the x Axis.',
     yAxis = 'Customization options for the y Axis.',
 }
-
-export interface KupEchartData {
-    columns: Column[];
-    rows: Row[];
-}
 export interface KupEchartTitle {
     value: string;
     color?: string;
