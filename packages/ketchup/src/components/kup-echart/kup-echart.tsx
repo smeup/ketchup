@@ -562,6 +562,10 @@ export class KupEchart {
             for (let index = 0; index < params.length; index++) {
                 const param = params[index];
                 const value = param.value[0];
+                const x = `<div><span style="margin-right: 5px;"><strong>x:</strong></span><span>${param.value[0]}</span></div>`;
+                if (!index) {
+                    format += x;
+                }
                 const column = this.data.columns.find(
                     (col: Column) => col.title === param.seriesName
                 ).name;
