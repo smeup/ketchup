@@ -551,6 +551,9 @@ const replaceButton = document.querySelector('[label="Replace"]');
 const mergeButton = document.querySelector('[label="Merge"]');
 const distinctButton = document.querySelector('[label="Distinct"]');
 const allInOneButton = document.querySelector('[label="All in one"]');
+const allInOneValuesButton = document.querySelector(
+    '[label="All in one (+ values column)"]'
+);
 const gaussianButton = document.querySelector('[label="Gaussian"]');
 
 const echart = document.querySelector('kup-echart');
@@ -561,6 +564,12 @@ replaceButton.addEventListener('kup-button-click', () => replaceEvent());
 mergeButton.addEventListener('kup-button-click', () => mergeEvent());
 distinctButton.addEventListener('kup-button-click', () => distinctEvent());
 allInOneButton.addEventListener('kup-button-click', () => allInOneEvent());
+allInOneValuesButton.addEventListener('kup-button-click', () =>
+    allInOneEvent({
+        name: 'VALUES',
+        title: 'Values',
+    })
+);
 gaussianButton.addEventListener('kup-button-click', () => gaussianEvent());
 
 function newEvent() {
@@ -611,13 +620,14 @@ function distinctEvent() {
     outputTable.data = newDataset;
 }
 
-function allInOneEvent() {
+function allInOneEvent(titleColumn) {
     outputTable.data = null;
     const dataset = { ...inputTable.data };
     const newDataset = kupManager.data.datasetOperations.rangedDistinct(
         dataset,
         newColumns,
-        resultingColumn
+        resultingColumn,
+        titleColumn
     );
     outputTable.data = newDataset;
 }

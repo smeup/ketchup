@@ -10,12 +10,17 @@ import {
 export interface KupDataDatasetOperations {
     cell: KupDataCellOperations;
     column: KupDataColumnsOperations;
-    distinct: (dataset: DataTable, columns?: string[]) => DataTable;
+    distinct: (
+        dataset: DataTable,
+        columns?: string[],
+        valuesColumn?: Column
+    ) => DataTable;
     new: (dataset: DataTable, newColumns?: KupDataNewColumn[]) => DataTable;
     rangedDistinct: (
         dataset: DataTable,
         rangeColumns: KupDataNewColumn[],
-        resultingColumn: Column
+        resultingColumn: Column,
+        valuesColumn?: Column
     ) => DataTable;
 }
 /**

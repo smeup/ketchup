@@ -65,8 +65,12 @@ export class KupData {
                     return mergeColumns(dataset, columns2merge, newColumn);
                 },
             },
-            distinct(dataset: DataTable, columns?: string[]): DataTable {
-                return distinctDataset(dataset, columns);
+            distinct(
+                dataset: DataTable,
+                columns?: string[],
+                valuesColumn?: Column
+            ): DataTable {
+                return distinctDataset(dataset, columns, valuesColumn);
             },
             new(dataset: DataTable, newColumns: KupDataNewColumn[]): DataTable {
                 return newDataset(dataset, newColumns);
@@ -74,12 +78,14 @@ export class KupData {
             rangedDistinct(
                 dataset: DataTable,
                 rangeColumns: KupDataNewColumn[],
-                resultingColumn: Column
+                resultingColumn: Column,
+                valuesColumn?: Column
             ): DataTable {
                 return rangedDistinctDataset(
                     dataset,
                     rangeColumns,
-                    resultingColumn
+                    resultingColumn,
+                    valuesColumn
                 );
             },
         };
