@@ -2,7 +2,6 @@ import {
     Cell,
     Column,
     DataTable,
-    Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
@@ -21,6 +20,7 @@ import {
     getCellValue,
     mergeColumns,
     newDataset,
+    rangedDistinctDataset,
     replaceCell,
 } from './kup-data-helper';
 
@@ -70,6 +70,17 @@ export class KupData {
             },
             new(dataset: DataTable, newColumns: KupDataNewColumn[]): DataTable {
                 return newDataset(dataset, newColumns);
+            },
+            rangedDistinct(
+                dataset: DataTable,
+                rangeColumns: KupDataNewColumn[],
+                resultingColumn: Column
+            ): DataTable {
+                return rangedDistinctDataset(
+                    dataset,
+                    rangeColumns,
+                    resultingColumn
+                );
             },
         };
         this.formulas = {

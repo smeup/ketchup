@@ -12,6 +12,11 @@ export interface KupDataDatasetOperations {
     column: KupDataColumnsOperations;
     distinct: (dataset: DataTable, columns?: string[]) => DataTable;
     new: (dataset: DataTable, newColumns?: KupDataNewColumn[]) => DataTable;
+    rangedDistinct: (
+        dataset: DataTable,
+        rangeColumns: KupDataNewColumn[],
+        resultingColumn: Column
+    ) => DataTable;
 }
 /**
  * Interface related to columns operations.

@@ -541,10 +541,16 @@ const newColumns = [
     },
 ];
 
+const resultingColumn = {
+    name: '2099',
+    title: 'Range 20-99',
+};
+
 const newButton = document.querySelector('[label="New"]');
 const replaceButton = document.querySelector('[label="Replace"]');
 const mergeButton = document.querySelector('[label="Merge"]');
 const distinctButton = document.querySelector('[label="Distinct"]');
+const allInOneButton = document.querySelector('[label="All in one"]');
 const gaussianButton = document.querySelector('[label="Gaussian"]');
 
 const echart = document.querySelector('kup-echart');
@@ -554,6 +560,7 @@ newButton.addEventListener('kup-button-click', () => newEvent());
 replaceButton.addEventListener('kup-button-click', () => replaceEvent());
 mergeButton.addEventListener('kup-button-click', () => mergeEvent());
 distinctButton.addEventListener('kup-button-click', () => distinctEvent());
+allInOneButton.addEventListener('kup-button-click', () => allInOneEvent());
 gaussianButton.addEventListener('kup-button-click', () => gaussianEvent());
 
 function newEvent() {
@@ -591,10 +598,7 @@ function mergeEvent() {
     const newDataset = kupManager.data.datasetOperations.column.merge(
         { ...outputTable.data },
         ['2039', '4059', '6099'],
-        {
-            name: '2099',
-            title: 'From 20 to 99',
-        }
+        resultingColumn
     );
     outputTable.data = newDataset;
 }
@@ -604,6 +608,17 @@ function distinctEvent() {
     const newDataset = kupManager.data.datasetOperations.distinct({
         ...outputTable.data,
     });
+    outputTable.data = newDataset;
+}
+
+function allInOneEvent() {
+    outputTable.data = null;
+    const dataset = { ...inputTable.data };
+    const newDataset = kupManager.data.datasetOperations.rangedDistinct(
+        dataset,
+        newColumns,
+        resultingColumn
+    );
     outputTable.data = newDataset;
 }
 
