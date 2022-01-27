@@ -47,7 +47,9 @@ export function distinctDataset(
     const newRows: Row[] = [];
     for (const key in occurrencies) {
         const occurrency = occurrencies[key];
-        const column = dataset.columns.find((col: Column) => col.name === key);
+        const column = {
+            ...dataset.columns.find((col: Column) => col.name === key),
+        };
         column.obj = {
             t: 'NR',
             p: '',
@@ -196,6 +198,26 @@ export function findCell(
                 } else if (value === cell.value) {
                     result.push(cell);
                 }
+            }
+        }
+    }
+    return result;
+}
+/**
+ * Returns all the cells values of the specified columns.
+ * @param {DataTable} dataset - Input dataset.
+ * @param {string[]} columns - Column included.
+ * @returns {string[]} Values of the cells.
+ */
+export function getCellValue(dataset: DataTable, columns?: string[]): string[] {
+    const result: string[] = [];
+    for (let index = 0; index < dataset.rows.length; index++) {
+        const row = dataset.rows[index];
+        const cells = row.cells;
+        for (const key in cells) {
+            const cell = cells[key];
+            if (!columns || !columns.length || columns.includes(key)) {
+                result.push(cell.value);
             }
         }
     }
