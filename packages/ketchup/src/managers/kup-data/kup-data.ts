@@ -18,6 +18,7 @@ import {
 import {
     distinctDataset,
     findCell,
+    getCellValue,
     mergeColumns,
     newDataset,
     replaceCell,
@@ -43,6 +44,9 @@ export class KupData {
                     filters: KupDataFindCellFilters
                 ): Cell[] {
                     return findCell(dataset, filters);
+                },
+                getValue(dataset: DataTable, columns?: string[]): string[] {
+                    return getCellValue(dataset, columns);
                 },
                 replace(
                     dataset: DataTable,

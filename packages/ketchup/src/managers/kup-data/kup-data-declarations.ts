@@ -28,6 +28,7 @@ export interface KupDataColumnsOperations {
  */
 export interface KupDataCellOperations {
     find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
+    getValue: (dataset: DataTable, columns?: string[]) => string[];
     replace: (dataset: DataTable, cell: Cell, columns?: string[]) => DataTable;
 }
 /**
