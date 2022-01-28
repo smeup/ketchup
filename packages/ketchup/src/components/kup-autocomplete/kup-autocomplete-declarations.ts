@@ -27,4 +27,9 @@ export enum KupAutocompleteDisplayMode {
 
 export interface KupAutocompleteEventPayload extends KupEventPayload {
     value: any;
+    inputValue: any;
+}
+export interface KupAutocompleteIconClickEventPayload
+    extends KupAutocompleteEventPayload {
+    open: boolean;
 }

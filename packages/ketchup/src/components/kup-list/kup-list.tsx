@@ -169,14 +169,14 @@ export class KupList {
     })
     kupClick: EventEmitter<KupListEventPayload>;
 
-    onKupBlur(_index: number) {
+    onKupBlur() {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
         });
     }
 
-    onKupFocus(_index: number) {
+    onKupFocus() {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
@@ -299,14 +299,6 @@ export class KupList {
     @Method()
     async refresh(): Promise<void> {
         forceUpdate(this);
-    }
-    /**
-     * Resets filter.
-     * @todo FOSLUC to PASCAR: why isn't it enough to change only the prop?
-     */
-    @Method()
-    async resetFilter(newFilter: string) {
-        this.filter = newFilter;
     }
     /**
      * Calls handleSelection internal method to select the given item.
@@ -499,12 +491,12 @@ export class KupList {
                 onBlur={
                     !this.selectable
                         ? (e: FocusEvent) => e.stopPropagation()
-                        : () => this.onKupBlur(index)
+                        : () => this.onKupBlur()
                 }
                 onFocus={
                     !this.selectable
                         ? (e: FocusEvent) => e.stopPropagation()
-                        : () => this.onKupFocus(index)
+                        : () => this.onKupFocus()
                 }
                 onClick={
                     !this.selectable
