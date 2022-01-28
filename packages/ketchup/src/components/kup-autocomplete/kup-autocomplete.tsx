@@ -20,6 +20,7 @@ import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc'
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupAutocompleteEventPayload,
+    KupAutocompleteIconClickEventPayload,
     KupAutocompleteProps,
 } from './kup-autocomplete-declarations';
 import {
@@ -179,7 +180,7 @@ export class KupAutocomplete {
         cancelable: false,
         bubbles: true,
     })
-    kupIconClick: EventEmitter<KupAutocompleteEventPayload>;
+    kupIconClick: EventEmitter<KupAutocompleteIconClickEventPayload>;
 
     @Event({
         eventName: 'kup-autocomplete-itemclick',
@@ -189,12 +190,12 @@ export class KupAutocomplete {
     })
     kupItemClick: EventEmitter<KupAutocompleteEventPayload>;
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur() {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
+            value: this.value,
+            inputValue: this.textfieldEl.value,
         });
     }
 
@@ -206,25 +207,26 @@ export class KupAutocomplete {
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
+                inputValue: this.textfieldEl.value,
             });
         }
     }
 
-    onKupClick(e: MouseEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick() {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
+            value: this.value,
+            inputValue: this.textfieldEl.value,
         });
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupFocus() {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
+            value: this.value,
+            inputValue: this.textfieldEl.value,
         });
     }
 
@@ -241,13 +243,12 @@ export class KupAutocomplete {
                 comp: this,
                 id: this.rootElement.id,
                 value: this.value,
+                inputValue: this.textfieldEl.value,
             });
         }
     }
 
-    onKupIconClick(event: MouseEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-
+    onKupIconClick() {
         if (this.textfieldWrapper.classList.contains('toggled')) {
             this.closeList();
         } else {
@@ -256,7 +257,9 @@ export class KupAutocomplete {
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: target.value,
+            value: this.value,
+            inputValue: this.textfieldEl.value,
+            open: this.textfieldWrapper.classList.contains('toggled'),
         });
     }
 
@@ -270,6 +273,7 @@ export class KupAutocomplete {
             comp: this,
             id: this.rootElement.id,
             value: this.value,
+            inputValue: this.textfieldEl.value,
         });
     }
 
@@ -381,7 +385,10 @@ export class KupAutocomplete {
     /*-------------------------------------------------*/
 
     private openList(forceOpen: boolean): boolean {
-        if (forceOpen != true && this.value.length < this.minimumChars) {
+        if (
+            forceOpen != true &&
+            this.textfieldEl.value.length < this.minimumChars
+        ) {
             this.closeList();
             return false;
         }
@@ -447,10 +454,14 @@ export class KupAutocomplete {
         if (ret.exists || this.allowInconsistentValues) {
             this.value = ret.value;
             this.displayedValue = ret.displayedValue;
-            this.listEl.filter = this.displayedValue;
+            if (this.listEl != null && !this.serverHandledFilter) {
+                this.listEl.filter = this.displayedValue;
+            }
         } else {
             this.displayedValue = valueIn;
-            this.listEl.filter = valueIn;
+            if (this.listEl != null && !this.serverHandledFilter) {
+                this.listEl.filter = valueIn;
+            }
         }
 
         return ret;
@@ -539,16 +550,12 @@ export class KupAutocomplete {
                         }
                         trailingIcon={true}
                         value={this.displayedValue}
-                        onBlur={(e: any) => this.onKupBlur(e)}
-                        onClick={(
-                            e: MouseEvent & { target: HTMLInputElement }
-                        ) => this.onKupClick(e)}
+                        onBlur={() => this.onKupBlur()}
+                        onClick={() => this.onKupClick()}
                         onChange={(e: UIEvent & { target: HTMLInputElement }) =>
                             this.onKupChange(e.target.value)
                         }
-                        onFocus={(
-                            e: FocusEvent & { target: HTMLInputElement }
-                        ) => this.onKupFocus(e)}
+                        onFocus={() => this.onKupFocus()}
                         onInput={() => {
                             window.clearTimeout(this.inputTimeout);
                             this.inputTimeout = window.setTimeout(
@@ -556,9 +563,7 @@ export class KupAutocomplete {
                                 this.inputDelay
                             );
                         }}
-                        onIconClick={(
-                            e: MouseEvent & { target: HTMLInputElement }
-                        ) => this.onKupIconClick(e)}
+                        onIconClick={() => this.onKupIconClick()}
                     >
                         {this.prepList()}
                     </FTextField>
