@@ -72,16 +72,6 @@ Type: `Promise<void>`
 
 
 
-### `resetFilter(newFilter: string) => Promise<void>`
-
-Resets filter.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `select(index?: number) => Promise<void>`
 
 Calls handleSelection internal method to select the given item.
