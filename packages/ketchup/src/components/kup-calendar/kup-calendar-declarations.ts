@@ -1,5 +1,5 @@
 import { KupEventPayload } from '../../types/GenericTypes';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
+import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 
 /**
  * Props of the kup-calendar component.
@@ -27,6 +27,31 @@ export enum KupCalendarViewTypes {
     LIST = 'listMonth',
     MONTH = 'dayGridMonth',
     WEEK = 'timeGridWeek',
+}
+/**
+ * Available view types.
+ */
+export enum KupCalendarOptions {
+    DATE = 'date',
+    DESCR = 'descr',
+    END = 'end',
+    ICON = 'icon',
+    IMAGE = 'image',
+    START = 'start',
+    STYLE = 'style',
+}
+/**
+ * Calendar column.
+ */
+export interface KupCalendarColumn extends Column {
+    calendarOption: KupCalendarOptions;
+}
+/**
+ * Dataset of the calendar.
+ */
+export interface KupCalendarData {
+    columns: KupCalendarColumn[];
+    rows: Row[];
 }
 /**
  * Events payload.

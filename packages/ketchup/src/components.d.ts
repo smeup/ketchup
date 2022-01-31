@@ -16,7 +16,7 @@ import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-d
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
-import { KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
+import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
@@ -497,6 +497,11 @@ export namespace Components {
     }
     interface KupCalendar {
         /**
+          * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
+          * @default null
+         */
+        "currentDate": string;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -506,22 +511,7 @@ export namespace Components {
           * Actual data of the calendar.
           * @default null
          */
-        "data": TableData;
-        /**
-          * Column containing events' dates.
-          * @default null
-         */
-        "dateCol": string;
-        /**
-          * Column containing events' descriptions.
-          * @default null
-         */
-        "descrCol": string;
-        /**
-          * Column containing events' ending time.
-          * @default null
-         */
-        "endCol": string;
+        "data": KupCalendarData;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -533,21 +523,6 @@ export namespace Components {
           * @default false
          */
         "hideNavigation": boolean;
-        /**
-          * Column containing events' icons. There can be multiple icons, divided by ";".
-          * @default null
-         */
-        "iconCol": string;
-        /**
-          * Column containing events' images. There can be multiple images, divided by ";".
-          * @default null
-         */
-        "imageCol": string;
-        /**
-          * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
-          * @default null
-         */
-        "initialDate": string;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -561,16 +536,6 @@ export namespace Components {
           * @param props - Object containing props that will be set to the component.
          */
         "setProps": (props: GenericObject) => Promise<void>;
-        /**
-          * Column containing events' starting time.
-          * @default null
-         */
-        "startCol": string;
-        /**
-          * Column containing events' CSS styles.
-          * @default null
-         */
-        "styleCol": string;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH
@@ -3611,6 +3576,11 @@ declare namespace LocalJSX {
     }
     interface KupCalendar {
         /**
+          * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
+          * @default null
+         */
+        "currentDate"?: string;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -3620,42 +3590,12 @@ declare namespace LocalJSX {
           * Actual data of the calendar.
           * @default null
          */
-        "data"?: TableData;
-        /**
-          * Column containing events' dates.
-          * @default null
-         */
-        "dateCol"?: string;
-        /**
-          * Column containing events' descriptions.
-          * @default null
-         */
-        "descrCol"?: string;
-        /**
-          * Column containing events' ending time.
-          * @default null
-         */
-        "endCol"?: string;
+        "data"?: KupCalendarData;
         /**
           * When disabled, the navigation toolbar won't be displayed.
           * @default false
          */
         "hideNavigation"?: boolean;
-        /**
-          * Column containing events' icons. There can be multiple icons, divided by ";".
-          * @default null
-         */
-        "iconCol"?: string;
-        /**
-          * Column containing events' images. There can be multiple images, divided by ";".
-          * @default null
-         */
-        "imageCol"?: string;
-        /**
-          * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
-          * @default null
-         */
-        "initialDate"?: string;
         /**
           * When a date is clicked.
          */
@@ -3672,16 +3612,6 @@ declare namespace LocalJSX {
           * When the navigation change
          */
         "onKup-calendar-viewchange"?: (event: CustomEvent<KupCalendarViewChangeEventPayload>) => void;
-        /**
-          * Column containing events' starting time.
-          * @default null
-         */
-        "startCol"?: string;
-        /**
-          * Column containing events' CSS styles.
-          * @default null
-         */
-        "styleCol"?: string;
         /**
           * Type of the view.
           * @default KupCalendarViewTypes.MONTH

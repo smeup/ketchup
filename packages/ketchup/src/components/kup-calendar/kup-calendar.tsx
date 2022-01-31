@@ -28,11 +28,7 @@ import itLocale from '@fullcalendar/core/locales/it';
 import plLocale from '@fullcalendar/core/locales/pl';
 import ruLocale from '@fullcalendar/core/locales/ru';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
-import {
-    Row,
-    Column,
-    TableData,
-} from '../kup-data-table/kup-data-table-declarations';
+import { Row, Column } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -43,9 +39,11 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupCalendarData,
     KupCalendarDateClickEventPayload,
     KupCalendarEventClickEventPayload,
     KupCalendarEventDropEventPayload,
+    KupCalendarOptions,
     KupCalendarProps,
     KupCalendarViewChangeEventPayload,
     KupCalendarViewTypes,
@@ -75,6 +73,11 @@ export class KupCalendar {
     /*-------------------------------------------------*/
 
     /**
+     * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
+     * @default null
+     */
+    @Prop() currentDate: string = null;
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -84,52 +87,12 @@ export class KupCalendar {
      * Actual data of the calendar.
      * @default null
      */
-    @Prop() data: TableData = null;
-    /**
-     * Column containing events' dates.
-     * @default null
-     */
-    @Prop() dateCol: string = null;
-    /**
-     * Column containing events' descriptions.
-     * @default null
-     */
-    @Prop() descrCol: string = null;
-    /**
-     * Column containing events' ending time.
-     * @default null
-     */
-    @Prop() endCol: string = null;
+    @Prop() data: KupCalendarData = null;
     /**
      * When disabled, the navigation toolbar won't be displayed.
      * @default false
      */
     @Prop() hideNavigation = false;
-    /**
-     * Column containing events' icons. There can be multiple icons, divided by ";".
-     * @default null
-     */
-    @Prop() iconCol: string = null;
-    /**
-     * Column containing events' images. There can be multiple images, divided by ";".
-     * @default null
-     */
-    @Prop() imageCol: string = null;
-    /**
-     * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
-     * @default null
-     */
-    @Prop() initialDate: string = null;
-    /**
-     * Column containing events' starting time.
-     * @default null
-     */
-    @Prop() startCol: string = null;
-    /**
-     * Column containing events' CSS styles.
-     * @default null
-     */
-    @Prop() styleCol: string = null;
     /**
      * Type of the view.
      * @default KupCalendarViewTypes.MONTH
@@ -146,6 +109,13 @@ export class KupCalendar {
     private kupManager: KupManager = kupManagerInstance();
     private navTitle: HTMLDivElement = null;
     private resizeTimeout: number = null;
+    private dateCol: string = null;
+    private descrCol: string = null;
+    private endCol: string = null;
+    private iconCol: string = null;
+    private imageCol: string = null;
+    private startCol: string = null;
+    private styleCol: string = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -197,17 +167,36 @@ export class KupCalendar {
     /*-------------------------------------------------*/
 
     @Watch('data')
-    @Watch('dateCol')
-    @Watch('descrCol')
-    @Watch('endCol')
-    @Watch('iconCol')
-    @Watch('imageCol')
-    @Watch('initialDate')
-    @Watch('startCol')
-    @Watch('styleCol')
+    @Watch('currentDate')
     setCalendarData() {
         if (this.calendar) {
             this.calendar.destroy();
+        }
+        for (let index = 0; index < this.data.columns.length; index++) {
+            const column = this.data.columns[index];
+            switch (column.calendarOption) {
+                case KupCalendarOptions.DATE:
+                    this.dateCol = column.name;
+                    break;
+                case KupCalendarOptions.DESCR:
+                    this.descrCol = column.name;
+                    break;
+                case KupCalendarOptions.END:
+                    this.endCol = column.name;
+                    break;
+                case KupCalendarOptions.ICON:
+                    this.iconCol = column.name;
+                    break;
+                case KupCalendarOptions.IMAGE:
+                    this.imageCol = column.name;
+                    break;
+                case KupCalendarOptions.START:
+                    this.startCol = column.name;
+                    break;
+                case KupCalendarOptions.STYLE:
+                    this.styleCol = column.name;
+                    break;
+            }
         }
         this.calendar = new Calendar(this.calendarContainer, {
             dateClick: ({ date }) => {
@@ -292,7 +281,7 @@ export class KupCalendar {
             },
             events: this.getEvents(),
             headerToolbar: false,
-            initialDate: this.initialDate,
+            initialDate: this.currentDate,
             initialView: this.viewType,
             locale: this.getLocale(),
             locales: [

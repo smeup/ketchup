@@ -168,7 +168,52 @@ const callback = (e) => {
 const calendars = document.querySelectorAll('kup-calendar');
 for (let index = 0; index < calendars.length; index++) {
     const calendar = calendars[index];
-    calendar.data = { ...data };
+    calendar.data = { columns: [...data.columns], rows: data.rows };
+    const dateCol = calendar.data.columns.find((col) => col.name === 'date');
+    const descrCol = calendar.data.columns.find((col) => col.name === 'descr');
+    const endCol = calendar.data.columns.find((col) => col.name === 'end');
+    const iconCol = calendar.data.columns.find((col) => col.name === 'icon');
+    const imageCol = calendar.data.columns.find((col) => col.name === 'image');
+    const startCol = calendar.data.columns.find((col) => col.name === 'start');
+    const styleCol = calendar.data.columns.find((col) => col.name === 'style');
+    calendar.data.columns[calendar.data.columns.indexOf(dateCol)] = {
+        ...dateCol,
+        calendarOption: 'date',
+    };
+    calendar.data.columns[calendar.data.columns.indexOf(descrCol)] = {
+        ...descrCol,
+        calendarOption: 'descr',
+    };
+    switch (calendar.id) {
+        case 'week-view':
+            calendar.data.columns[calendar.data.columns.indexOf(endCol)] = {
+                ...endCol,
+                calendarOption: 'end',
+            };
+            calendar.data.columns[calendar.data.columns.indexOf(startCol)] = {
+                ...startCol,
+                calendarOption: 'start',
+            };
+            break;
+        case 'with-icon':
+            calendar.data.columns[calendar.data.columns.indexOf(iconCol)] = {
+                ...iconCol,
+                calendarOption: 'icon',
+            };
+            break;
+        case 'with-images':
+            calendar.data.columns[calendar.data.columns.indexOf(imageCol)] = {
+                ...imageCol,
+                calendarOption: 'image',
+            };
+            break;
+        case 'with-style':
+            calendar.data.columns[calendar.data.columns.indexOf(styleCol)] = {
+                ...styleCol,
+                calendarOption: 'style',
+            };
+            break;
+    }
     calendar.addEventListener('kup-calendar-dateclick', callback);
     calendar.addEventListener('kup-calendar-eventclick', callback);
     calendar.addEventListener('kup-calendar-eventdrop', callback);
