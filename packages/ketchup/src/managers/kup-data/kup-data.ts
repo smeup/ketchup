@@ -1,3 +1,4 @@
+import numeral from 'numeral';
 import {
     Cell,
     Column,
@@ -327,12 +328,6 @@ export class KupData {
      * @returns {number} Resulting number.
      */
     numberify(input: string | String | number): number {
-        return typeof input === 'string' || input instanceof String
-            ? parseFloat(
-                  (input as String).valueOf()
-                      ? input.valueOf()
-                      : (input as string)
-              )
-            : input;
+        return numeral(input).value();
     }
 }
