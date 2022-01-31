@@ -608,15 +608,22 @@ export class KupEchart {
                         min: value - (value / 100) * 50,
                     },
                 };
-                const cells = this.kupManager.data.datasetOperations.cell.find(
+                const rows = this.kupManager.data.datasetOperations.row.find(
                     this.gaussianDatasets[column]
                         ? this.gaussianDatasets[column]
                         : this.data,
                     filters
                 );
-                for (let index = 0; index < cells.length; index++) {
-                    const cell = cells[index];
-                    if (cell.title) {
+                for (let index = 0; index < rows.length; index++) {
+                    const row = rows[index];
+                    const cells = row.cells;
+                    if (cells[this.axis] || cells[column].title) {
+                        let title = '';
+                        if (cells[this.axis]) {
+                            title = cells[this.axis].value;
+                        } else {
+                            title = cells[column].title;
+                        }
                         const remainder = count % 4;
                         if (!remainder) {
                             if (count) {
@@ -625,7 +632,7 @@ export class KupEchart {
                             format += `<div style="display: flex; flex-direction: row;">`;
                         }
                         const style = `style="color: ${param.color}; margin-right: 5px"`;
-                        format += `<span ${style}><strong>${cell.title}</strong>: ${cell.value}</span>`;
+                        format += `<span ${style}><strong>${title}</strong>: ${cells[column].value}</span>`;
                         count++;
                     }
                 }
