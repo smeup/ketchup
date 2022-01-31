@@ -2,6 +2,7 @@ import {
     Cell,
     Column,
     DataTable,
+    Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 
 /**
@@ -9,7 +10,8 @@ import {
  */
 export interface KupDataDatasetOperations {
     cell: KupDataCellOperations;
-    column: KupDataColumnsOperations;
+    column: KupDataColumnOperations;
+    row: KupDataRowOperations;
     distinct: (
         dataset: DataTable,
         columns?: string[],
@@ -24,9 +26,17 @@ export interface KupDataDatasetOperations {
     ) => DataTable;
 }
 /**
+ * Interface related to cells operations.
+ */
+export interface KupDataCellOperations {
+    find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
+    getValue: (dataset: DataTable, columns?: string[]) => string[];
+    replace: (dataset: DataTable, cell: Cell, columns?: string[]) => DataTable;
+}
+/**
  * Interface related to columns operations.
  */
-export interface KupDataColumnsOperations {
+export interface KupDataColumnOperations {
     merge: (
         dataset: DataTable,
         columns2merge: string[],
@@ -34,12 +44,10 @@ export interface KupDataColumnsOperations {
     ) => DataTable;
 }
 /**
- * Interface related to cells operations.
+ * Interface related to rows operations.
  */
-export interface KupDataCellOperations {
-    find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
-    getValue: (dataset: DataTable, columns?: string[]) => string[];
-    replace: (dataset: DataTable, cell: Cell, columns?: string[]) => DataTable;
+export interface KupDataRowOperations {
+    find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Row[];
 }
 /**
  * Interface related to the formulas factory function.

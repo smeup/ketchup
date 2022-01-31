@@ -2,6 +2,7 @@ import {
     Cell,
     Column,
     DataTable,
+    Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
@@ -17,6 +18,7 @@ import {
 import {
     distinctDataset,
     findCell,
+    findRow,
     getCellValue,
     mergeColumns,
     newDataset,
@@ -63,6 +65,14 @@ export class KupData {
                     newColumn: Column
                 ): DataTable {
                     return mergeColumns(dataset, columns2merge, newColumn);
+                },
+            },
+            row: {
+                find(
+                    dataset: DataTable,
+                    filters: KupDataFindCellFilters
+                ): Row[] {
+                    return findRow(dataset, filters);
                 },
             },
             distinct(
