@@ -251,6 +251,11 @@ const frameworkRoutes = [
     component: () => import(`@/views/framework/kup-data/KupData.vue`),
   },
   {
+    path: `/kup-dates`,
+    name: 'kup-dates',
+    component: () => import(`@/views/framework/kup-dates/KupDates.vue`),
+  },
+  {
     path: `/kup-debug`,
     name: 'kup-debug',
     component: () => import(`@/views/framework/kup-debug/KupDebug.vue`),
