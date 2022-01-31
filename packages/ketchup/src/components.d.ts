@@ -24,7 +24,7 @@ import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
-import { KupComboboxEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
+import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupObj } from "./managers/kup-objects/kup-objects-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
@@ -4021,7 +4021,7 @@ declare namespace LocalJSX {
         "onKup-combobox-change"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-click"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-focus"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
-        "onKup-combobox-iconclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
+        "onKup-combobox-iconclick"?: (event: CustomEvent<KupComboboxIconClickEventPayload>) => void;
         "onKup-combobox-input"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         "onKup-combobox-itemclick"?: (event: CustomEvent<KupComboboxEventPayload>) => void;
         /**
