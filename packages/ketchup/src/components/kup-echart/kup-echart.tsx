@@ -440,7 +440,7 @@ export class KupEchart {
             for (let index = 0; index < y[key].length; index++) {
                 const value = y[key][index];
                 const res = this.kupManager.data.numberify(value);
-                if (isNaN(res)) {
+                if (isNaN(value)) {
                     color = value;
                 } else {
                     n = res;
