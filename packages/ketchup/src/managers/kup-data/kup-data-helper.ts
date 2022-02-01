@@ -201,41 +201,26 @@ export function newDataset(
 /**
  * Finds all the cells with the specified value in the given dataset.
  * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataFindCellFilters} filters - Filters of the research.
+ * @returns {Row[]} Array of rows fetched after applying the filters.
+ */
+export function findRow(
+    dataset: DataTable,
+    filters: KupDataFindCellFilters
+): Row[] {
+    return finder(dataset, filters).rows;
+}
+/**
+ * Finds all the cells with the specified value in the given dataset.
+ * @param {DataTable} dataset - Input dataset.
  * @param {KupDataFindCellFilters} filters - Filters of the research. TODO: handle other types of min/maxes
- * @returns {Cell[]} Array of cells with the specified value.
+ * @returns {Cell[]}  Array of cells fetched after applying the filters.
  */
 export function findCell(
     dataset: DataTable,
     filters: KupDataFindCellFilters
 ): Cell[] {
-    const columns = filters ? filters.columns : null;
-    const range = filters ? filters.range : null;
-    const value = filters ? filters.value : null;
-    const min = range && range.min ? range.min : null;
-    const max = range && range.max ? range.max : null;
-    const result: Cell[] = [];
-    for (let index = 0; index < dataset.rows.length; index++) {
-        const row = dataset.rows[index];
-        const cells = row.cells;
-        for (const key in cells) {
-            const cell = cells[key];
-            if (!columns || !columns.length || columns.includes(key)) {
-                if (min && max) {
-                    if (
-                        parseFloat(cell.value) === max ||
-                        parseFloat(cell.value) === min ||
-                        (parseFloat(cell.value) < max &&
-                            parseFloat(cell.value) > min)
-                    ) {
-                        result.push(cell);
-                    }
-                } else if (value === cell.value) {
-                    result.push(cell);
-                }
-            }
-        }
-    }
-    return result;
+    return finder(dataset, filters).cells;
 }
 /**
  * Returns all the cells values of the specified columns.
@@ -280,4 +265,48 @@ export function replaceCell(
         }
     }
     return dataset;
+}
+/**
+ * Utility used by findRow and findCell.
+ * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataFindCellFilters} filters - Filters of the research. TODO: handle other types of min/maxes
+ * @returns {{cells: Cell[], rows: Row[]}}  Object containing rows and cells.
+ */
+function finder(
+    dataset: DataTable,
+    filters: KupDataFindCellFilters
+): { cells: Cell[]; rows: Row[] } {
+    const columns = filters ? filters.columns : null;
+    const range = filters ? filters.range : null;
+    const value = filters ? filters.value : null;
+    const min = range && range.min ? range.min : null;
+    const max = range && range.max ? range.max : null;
+    const result: { cells: Cell[]; rows: Row[] } = {
+        cells: [],
+        rows: [],
+    };
+    for (let index = 0; index < dataset.rows.length; index++) {
+        const row = dataset.rows[index];
+        const cells = row.cells;
+        for (const key in cells) {
+            const cell = cells[key];
+            if (!columns || !columns.length || columns.includes(key)) {
+                if (min && max) {
+                    if (
+                        parseFloat(cell.value) === max ||
+                        parseFloat(cell.value) === min ||
+                        (parseFloat(cell.value) < max &&
+                            parseFloat(cell.value) > min)
+                    ) {
+                        result.cells.push(cell);
+                        result.rows.push(row);
+                    }
+                } else if (value === cell.value) {
+                    result.cells.push(cell);
+                    result.rows.push(row);
+                }
+            }
+        }
+    }
+    return result;
 }

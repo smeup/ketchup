@@ -5,7 +5,6 @@ import {
     KupDatesFormats,
     KupDatesNormalize,
 } from '../managers/kup-dates/kup-dates-declarations';
-import { KupDates } from '../managers/kup-dates/kup-dates';
 
 const dom: KupDom = document.documentElement as KupDom;
 
