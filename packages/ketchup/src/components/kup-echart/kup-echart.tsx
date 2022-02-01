@@ -439,11 +439,10 @@ export class KupEchart {
             let n: number = null;
             for (let index = 0; index < y[key].length; index++) {
                 const value = y[key][index];
-                const res = this.kupManager.data.numberify(value);
-                if (isNaN(value)) {
+                if (this.kupManager.theme.colorCheck(value).hexColor) {
                     color = value;
                 } else {
-                    n = res;
+                    n = this.kupManager.data.numberify(value);
                     if (n > max) {
                         max = n;
                     }
@@ -490,6 +489,7 @@ export class KupEchart {
                     ) {
                         return null;
                     } else {
+                        // TODO: pascar formattare value (number), per locale
                         return params.name + ': ' + value;
                     }
                 },
