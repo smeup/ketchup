@@ -13898,3 +13898,982 @@ export const documentDatatable = {
     },
   ],
 };
+
+export const subfile = {
+  columns: [
+    {
+      name: 'INPUT',
+      title: '?',
+    },
+    {
+      name: 'SPAN01',
+      title: '',
+    },
+    {
+      name: 'SPAN02',
+      title: '',
+    },
+    {
+      name: 'SPAN03',
+      title: '',
+    },
+    {
+      name: 'SPAN04',
+      title: '',
+    },
+    {
+      name: 'SPAN05',
+      title: '',
+    },
+    {
+      name: 'CONTO01',
+      title: 'COD. CONTO',
+    },
+    {
+      name: 'CONTO02',
+      title: '',
+    },
+    {
+      name: 'CONTO03',
+      title: '',
+    },
+    {
+      name: 'CONTO04',
+      title: '',
+    },
+    {
+      name: 'CONTO05',
+      title: '',
+    },
+    {
+      name: 'CONTO06',
+      title: '',
+    },
+    {
+      name: 'CONTO07',
+      title: '',
+    },
+    {
+      name: 'CONTO08',
+      title: '',
+    },
+    {
+      name: 'CONTO09',
+      title: '',
+    },
+    {
+      name: 'CONTO10',
+      title: '',
+    },
+    {
+      name: 'CONTO11',
+      title: '',
+    },
+    {
+      name: 'CONTO12',
+      title: '',
+    },
+    {
+      name: 'CONTO13',
+      title: '',
+    },
+    {
+      name: 'CONTO14',
+      title: '',
+    },
+    {
+      name: 'CONTO15',
+      title: '',
+    },
+    {
+      name: 'DESCRIZIONE',
+      title: 'DESCRIZIONE',
+    },
+    {
+      name: 'COL01',
+      title: 'SALDO INIZIALE',
+    },
+    {
+      name: 'COL02',
+      title: '----- DARE -----',
+    },
+    {
+      name: 'COL03',
+      title: '----- AVERE -----',
+    },
+    {
+      name: 'COL04',
+      title: 'SALDO PERIODO',
+    },
+    {
+      name: 'COL05',
+      title: 'SALDO-FINALE',
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        INPUT: {
+          cssClass: 'c-centered',
+          value: '?',
+        },
+        SPAN01: {
+          value: '',
+          style: { width: '20px' },
+        },
+        SPAN02: {
+          value: '',
+          style: { width: '20px' },
+        },
+        SPAN03: {
+          value: '',
+          style: { width: '20px' },
+        },
+        SPAN04: {
+          value: '',
+          style: { width: '20px' },
+        },
+        SPAN05: {
+          value: '',
+          style: { width: '20px' },
+        },
+        CONTO01: {
+          value: 'COD. CONTO',
+          span: {
+            col: 10,
+          },
+        },
+        CONTO09: {
+          value: '',
+          style: { width: '20px' },
+        },
+        CONTO10: {
+          value: 'DESCRIZIONE',
+          span: {
+            col: 5,
+          },
+        },
+        COL01: {
+          value: 'SALDO INIZIALE',
+          cssClass: 'c-right-aligned',
+        },
+        COL02: {
+          value: '----- DARE -----',
+          cssClass: 'c-right-aligned',
+        },
+        COL03: {
+          value: '----- AVERE -----',
+          cssClass: 'c-right-aligned',
+        },
+        COL04: {
+          value: 'SALDO PERIODO',
+          cssClass: 'c-right-aligned',
+        },
+        COL05: {
+          value: 'SALDO-FINALE',
+          cssClass: 'c-right-aligned',
+        },
+      },
+    },
+
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          style: {
+            height: '2px',
+            backgroundColor: 'var(--kup-text-color)',
+            padding: '0px',
+          },
+        },
+        SPAN01: {
+          value: '',
+          span: {
+            col: 2,
+          },
+          style: {
+            height: '2px',
+            padding: '0px',
+          },
+        },
+        SPAN03: {
+          value: '',
+          span: {
+            col: 24,
+          },
+          style: {
+            height: '2px',
+            backgroundColor: 'var(--kup-text-color)',
+            padding: '0px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          style: {
+            height: '20px',
+            padding: '0px',
+          },
+          span: {
+            col: 27,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN01: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN02: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN03: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN04: {
+          value: 'Patrimoniale',
+          style: { backgroundColor: 'var(--kup-danger-color)' },
+          span: {
+            col: 23,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN01: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN02: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN03: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN04: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN05: {
+          value: 'Attività',
+          style: { color: 'var(--kup-danger-color)' },
+          span: {
+            col: 22,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          span: {
+            col: 2,
+          },
+          isEditable: true,
+          style: { width: '20px' },
+        },
+        SPAN02: {
+          value: '',
+          span: {
+            col: 4,
+          },
+        },
+        CONTO01: {
+          value: '',
+          style: { width: '10px' },
+        },
+        CONTO02: {
+          value: 'AA',
+          span: {
+            col: 2,
+          },
+          cssClass: 'strong-text',
+        },
+        CONTO04: {
+          value: 'Prova da cancellare',
+          span: {
+            col: 13,
+          },
+        },
+        COL01: {
+          value: '',
+        },
+        COL02: {
+          value: '',
+        },
+        COL03: {
+          value: '',
+        },
+        COL04: {
+          value: '',
+        },
+        COL05: {
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          isEditable: true,
+          style: { width: '20px' },
+        },
+        SPAN01: {
+          value: '',
+          style: { width: '20px' },
+        },
+        SPAN02: {
+          value: '',
+          style: { width: '20px' },
+        },
+        SPAN03: {
+          value: '',
+          style: { width: '20px' },
+        },
+        SPAN04: {
+          value: '',
+          style: { width: '20px' },
+        },
+        SPAN05: {
+          value: '',
+          style: { width: '20px' },
+        },
+        CONTO01: {
+          value: '',
+        },
+        CONTO02: {
+          value: '1011001',
+          span: {
+            col: 7,
+          },
+          cssClass: 'strong-text',
+        },
+        CONTO09: {
+          value: 'Crediti verso soci',
+          span: {
+            col: 8,
+          },
+        },
+        COL01: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL02: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL03: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL04: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL05: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          span: {
+            col: 2,
+          },
+          isEditable: true,
+          style: { width: '20px' },
+        },
+        SPAN01: {
+          value: '',
+          span: {
+            col: 5,
+          },
+        },
+        CONTO02: {
+          value: '1011002',
+          span: {
+            col: 7,
+          },
+          cssClass: 'strong-text',
+        },
+        CONTO09: {
+          value: 'per versam. già richiamati',
+          span: {
+            col: 8,
+          },
+        },
+        COL01: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL02: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL03: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL04: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL05: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          span: {
+            col: 6,
+          },
+        },
+        CONTO01: {
+          value: 'TOTALE Attività',
+          span: {
+            col: 16,
+          },
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL01: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL02: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL03: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL04: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL05: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+      },
+    },
+    {
+      cells: {
+        SPAN01: {
+          value: '',
+          span: {
+            col: 4,
+          },
+          style: {
+            height: '2px',
+            padding: '0px',
+          },
+        },
+        CONTO01: {
+          value: '',
+          span: {
+            col: 23,
+          },
+          style: {
+            height: '2px',
+            backgroundColor: 'var(--kup-danger-color)',
+            padding: '0px',
+          },
+        },
+      },
+    },
+    // passività
+
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN01: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN02: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN03: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN04: {
+          value: '',
+          style: { width: '10px' },
+        },
+        SPAN05: {
+          value: 'Attività',
+          style: { color: 'var(--kup-danger-color)' },
+          span: {
+            col: 22,
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          span: {
+            col: 2,
+          },
+          isEditable: true,
+          style: { width: '20px' },
+        },
+        SPAN01: {
+          value: '',
+          span: {
+            col: 5,
+          },
+        },
+        CONTO02: {
+          value: '2351',
+          span: {
+            col: 4,
+          },
+          cssClass: 'strong-text',
+        },
+        CONTO06: {
+          value: 'Fornitori nazionali',
+          span: {
+            col: 11,
+          },
+        },
+        COL01: {
+          value: '',
+        },
+        COL02: {
+          value: '',
+        },
+        COL03: {
+          value: '',
+        },
+        COL04: {
+          value: '',
+        },
+        COL05: {
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          span: {
+            col: 2,
+          },
+          isEditable: true,
+          style: { width: '20px' },
+        },
+        SPAN01: {
+          value: '',
+          span: {
+            col: 5,
+          },
+        },
+        CONTO02: {
+          value: '2352',
+          span: {
+            col: 4,
+          },
+          cssClass: 'strong-text',
+        },
+        CONTO06: {
+          value: 'Fornitori esteri',
+          span: {
+            col: 11,
+          },
+        },
+        COL01: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL02: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL03: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL04: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL05: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          span: {
+            col: 2,
+          },
+          isEditable: true,
+          style: { width: '20px' },
+        },
+        SPAN01: {
+          value: '',
+          span: {
+            col: 5,
+          },
+        },
+        CONTO02: {
+          value: '2353',
+          span: {
+            col: 4,
+          },
+          cssClass: 'strong-text',
+        },
+        CONTO06: {
+          value: 'Fornitori di servizi',
+          span: {
+            col: 11,
+          },
+        },
+        COL01: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL02: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL03: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL04: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+        COL05: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          span: {
+            col: 6,
+          },
+        },
+        CONTO01: {
+          value: 'TOTALE Passività',
+          span: {
+            col: 16,
+          },
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL01: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL02: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL03: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL04: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+        COL05: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          cssClass: 'strong-text',
+          style: { color: 'var(--kup-danger-color)' },
+        },
+      },
+    },
+    {
+      cells: {
+        SPAN01: {
+          value: '',
+          span: {
+            col: 4,
+          },
+          style: {
+            height: '2px',
+            padding: '0px',
+          },
+        },
+        CONTO01: {
+          value: '',
+          span: {
+            col: 23,
+          },
+          style: {
+            height: '2px',
+            backgroundColor: 'var(--kup-danger-color)',
+            padding: '0px',
+          },
+        },
+      },
+    },
+
+    {
+      cells: {
+        INPUT: {
+          value: '',
+          span: {
+            col: 4,
+          },
+        },
+        SPAN04: {
+          value: 'DIFFERENZA PATRIMONIALE',
+          span: {
+            col: 18,
+          },
+          style: { backgroundColor: 'var(--kup-warning-color)' },
+        },
+        COL01: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          style: { backgroundColor: 'var(--kup-warning-color)' },
+        },
+        COL02: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          style: { backgroundColor: 'var(--kup-warning-color)' },
+        },
+        COL03: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          style: { backgroundColor: 'var(--kup-warning-color)' },
+        },
+        COL04: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          style: { backgroundColor: 'var(--kup-warning-color)' },
+        },
+        COL05: {
+          value: '1000',
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1000',
+          },
+          style: { backgroundColor: 'var(--kup-warning-color)' },
+        },
+      },
+    },
+  ],
+};
