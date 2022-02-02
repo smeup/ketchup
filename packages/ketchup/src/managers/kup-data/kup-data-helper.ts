@@ -295,9 +295,29 @@ function finder(
             const cell = cells[key];
             if (!columns || !columns.length || columns.includes(key)) {
                 if (min && max) {
-                    let s = '',
+                    let d: Date = null,
+                        s = '',
                         n = 0;
-                    if (typeof min === 'string' || min instanceof String) {
+                    if (dom.ketchup.objects.isDate(cell.obj)) {
+                        d = dom.ketchup.dates.toDate(cell.value);
+                        const dMax = dom.ketchup.dates.toDate(
+                            max instanceof String ? max.valueOf() : max
+                        );
+                        const dMin = dom.ketchup.dates.toDate(
+                            min instanceof String ? min.valueOf() : min
+                        );
+                        if (
+                            d === dMax ||
+                            d === dMin ||
+                            (d < dMax && d > dMin)
+                        ) {
+                            result.cells.push(cell);
+                            result.rows.push(row);
+                        }
+                    } else if (
+                        typeof min === 'string' ||
+                        min instanceof String
+                    ) {
                         s = cell.value;
                         if (s === max || s === min || (s < max && s > min)) {
                             result.cells.push(cell);

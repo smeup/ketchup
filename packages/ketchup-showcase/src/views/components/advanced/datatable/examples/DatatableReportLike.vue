@@ -216,8 +216,7 @@ export default {
       },
       props5: {
         autoFillMissingCells: false,
-        customStyle:
-          '#kup-component{font-family: var(--kup-font-family-monospace)} #kup-component .f-cell{padding: 0 !important}',
+        customStyle: ' #kup-component .f-cell{padding: 0 !important}',
         data: subfile,
         density: 'dense',
         dragEnabled: false,
