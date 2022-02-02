@@ -1,7 +1,9 @@
+import numeral from 'numeral';
 import {
     Cell,
     Column,
     DataTable,
+    Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
@@ -17,12 +19,14 @@ import {
 import {
     distinctDataset,
     findCell,
+    findRow,
     getCellValue,
     mergeColumns,
     newDataset,
     rangedDistinctDataset,
     replaceCell,
 } from './kup-data-helper';
+import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -63,6 +67,14 @@ export class KupData {
                     newColumn: Column
                 ): DataTable {
                     return mergeColumns(dataset, columns2merge, newColumn);
+                },
+            },
+            row: {
+                find(
+                    dataset: DataTable,
+                    filters: KupDataFindCellFilters
+                ): Row[] {
+                    return findRow(dataset, filters);
                 },
             },
             distinct(
@@ -314,15 +326,52 @@ export class KupData {
     /**
      * Returns a number from a non specified input type between string, number, or String.
      * @param {string | String | number} input - Input value to numberify.
+     * @param {KupDatesLocales} locale - Input format locale. Defaults to ENGLISH.
      * @returns {number} Resulting number.
      */
-    numberify(input: string | String | number): number {
-        return typeof input === 'string' || input instanceof String
-            ? parseFloat(
-                  (input as String).valueOf()
-                      ? input.valueOf()
-                      : (input as string)
-              )
-            : input;
+    numberify(
+        input: string | String | number,
+        locale?: KupDatesLocales
+    ): number {
+        if (typeof input === 'string' || input instanceof String) {
+            if (!locale) {
+                locale = KupDatesLocales.ENGLISH;
+            }
+            const numberWithGroupAndDecimalSeparator = 1000.1;
+            const decimalSeparator = Intl.NumberFormat(locale)
+                .formatToParts(numberWithGroupAndDecimalSeparator)
+                .find((part) => part.type === 'decimal').value;
+            const groupSeparator = Intl.NumberFormat(locale)
+                .formatToParts(numberWithGroupAndDecimalSeparator)
+                .find((part) => part.type === 'group').value;
+            input = input.replace(new RegExp('\\' + groupSeparator, 'g'), '');
+            input = input.replace(
+                new RegExp('\\' + decimalSeparator, 'g'),
+                '.'
+            );
+        }
+        const n = numeral(input).value();
+        if (n === null) {
+            return NaN;
+        }
+        return n;
+    }
+
+    format(input: number, locale?: KupDatesLocales): string {
+        // TODO pascar da completare
+        if (!locale) {
+            locale = KupDatesLocales.ENGLISH;
+        }
+        const numberWithGroupAndDecimalSeparator = 1000.1;
+        const decimalSeparator = Intl.NumberFormat(locale)
+            .formatToParts(numberWithGroupAndDecimalSeparator)
+            .find((part) => part.type === 'decimal').value;
+        const groupSeparator = Intl.NumberFormat(locale)
+            .formatToParts(numberWithGroupAndDecimalSeparator)
+            .find((part) => part.type === 'group').value;
+        let customFormat =
+            '0' + groupSeparator + '000' + decimalSeparator + '00';
+        numeral(input).format(customFormat);
+        return '';
     }
 }

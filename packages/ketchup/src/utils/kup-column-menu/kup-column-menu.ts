@@ -486,7 +486,10 @@ export class KupColumnMenu {
             }
         }
         if (!FiltersColumnMenu.isTree(comp)) {
-            if (comp.enableColumnsFormula) {
+            if (
+                dom.ketchup.objects.isNumber(column.obj) &&
+                comp.enableColumnsFormula
+            ) {
                 props.push({
                     fullWidth: true,
                     icon: 'functions',

@@ -26,14 +26,17 @@ export default {
       const columns = [
         {
           name: 'S1',
+          obj: { t: 'NR', p: '', k: '' },
           title: 'Series 1',
         },
         {
           name: 'S2',
+          obj: { t: 'NR', p: '', k: '' },
           title: 'Series 2',
         },
         {
           name: 'S3',
+          obj: { t: 'NR', p: '', k: '' },
           title: 'Series 3',
         },
       ];

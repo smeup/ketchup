@@ -16,6 +16,11 @@
       component-name="kup-data-table"
       :data.prop="props4"
     ></kup-lazy>
+    <kup-lazy
+      style="margin-top: 4em"
+      component-name="kup-data-table"
+      :data.prop="props5"
+    ></kup-lazy>
   </div>
 </template>
 
@@ -25,6 +30,7 @@ import {
   reportDatatable2,
   reportDatatable3,
   reportDatatable4,
+  subfile,
 } from '@/mock/dataTable';
 
 export default {
@@ -199,6 +205,55 @@ export default {
         showFilters: true,
         showFooter: false,
         showGrid: 'Row',
+        showGroups: false,
+        showHeader: false,
+        showLoadMore: false,
+        showTooltipOnRightClick: true,
+        sort: [],
+        sortableColumnsMutateData: true,
+        sortEnabled: true,
+        tooltipEnabled: true,
+      },
+      props5: {
+        autoFillMissingCells: false,
+        customStyle:
+          '#kup-component{font-family: var(--kup-font-family-monospace)} #kup-component .f-cell{padding: 0 !important}',
+        data: subfile,
+        density: 'dense',
+        dragEnabled: false,
+        dropEnabled: false,
+        editableData: true,
+        emptyDataLabel: 'Nessun dato da visualizzare.',
+        enableColumnsFormula: true,
+        enableMergeColumns: true,
+        enableExtraColumns: true,
+        enableSortableColumns: true,
+        expandGroups: false,
+        filters: {},
+        fixedColumns: 0,
+        fixedRows: 0,
+        forceOneLine: false,
+        globalFilter: false,
+        globalFilterValue: '',
+        groupLabelDisplay: 'both',
+        groups: [],
+        headerIsPersistent: true,
+        isFocusable: false,
+        lazyLoadRows: false,
+        lineBreakCharacter: '\n',
+        loadMoreLimit: 1000,
+        loadMoreMode: 'progressive_threshold',
+        loadMoreStep: 60,
+        pageSelected: -1,
+        paginatorPos: 'Top',
+        removableColumns: false,
+        resizableColumns: true,
+        rowsPerPage: 99,
+        scrollOnHover: false,
+        showCustomization: true,
+        showFilters: true,
+        showFooter: false,
+        showGrid: 'None',
         showGroups: false,
         showHeader: false,
         showLoadMore: false,
