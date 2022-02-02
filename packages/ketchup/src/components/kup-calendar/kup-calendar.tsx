@@ -215,17 +215,6 @@ export class KupCalendar {
                 });
             },
             eventDidMount: (info) => {
-                if (this.styleCol) {
-                    const row: Row = info.event.extendedProps.row;
-                    const cell = row.cells[this.styleCol];
-                    const eventCell = info.el.children[0] as HTMLElement;
-                    if (cell && cell.style) {
-                        Object.keys(cell.style).forEach((k) => {
-                            eventCell.style[k] = cell.style[k];
-                        });
-                    }
-                }
-
                 if (this.iconCol) {
                     const row: Row = info.event.extendedProps.row;
                     const cell = row.cells[this.iconCol];
@@ -262,6 +251,18 @@ export class KupCalendar {
                         });
 
                         info.el.appendChild(wrapper);
+                    }
+                }
+
+                if (this.styleCol) {
+                    const row: Row = info.event.extendedProps.row;
+                    const cell = row.cells[this.styleCol];
+                    const eventCell = info.el.children[0] as HTMLElement;
+                    const parent = eventCell.parentElement;
+                    if (cell && cell.style) {
+                        Object.keys(cell.style).forEach((k) => {
+                            parent.style[k] = cell.style[k];
+                        });
                     }
                 }
             },

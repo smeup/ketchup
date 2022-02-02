@@ -85,18 +85,22 @@ export default {
           {
             name: 'date',
             title: 'Date',
+            calendarOption: 'date',
           },
           {
             name: 'descr',
             title: 'Description',
+            calendarOption: 'descr',
           },
           {
             name: 'start',
             title: 'Start',
+            calendarOption: 'start',
           },
           {
             name: 'end',
             title: 'End',
+            calendarOption: 'end',
           },
           {
             name: 'icon',

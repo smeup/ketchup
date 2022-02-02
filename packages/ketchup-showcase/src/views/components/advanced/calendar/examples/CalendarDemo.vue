@@ -61,6 +61,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'currentDate',
+          description:
+            'Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -71,30 +79,9 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the calendar.',
-          type: 'TableData',
+          type: 'KupCalendarData',
           default: 'null',
           try: 'json',
-        },
-        {
-          prop: 'dateCol',
-          description: "Column containing events' dates.",
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'descrCol',
-          description: "Column containing events' descriptions.",
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'endCol',
-          description: "Column containing events' ending time.",
-          type: 'string',
-          default: 'null',
-          try: 'field',
         },
         {
           prop: 'hideNavigation',
@@ -103,44 +90,6 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-        {
-          prop: 'iconCol',
-          description:
-            "Column containing events' icons. There can be multiple icons, divided by ';'.",
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'imagesCol',
-          description:
-            "Column containing events' images. There can be multiple images, divided by ';'.",
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'initialDate',
-          description:
-            'Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).',
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'startCol',
-          description: "Column containing events' starting time.",
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'styleCol',
-          description: "Column containing events' CSS styles.",
-          type: 'string',
-          default: 'null',
-          try: 'field',
         },
         {
           prop: 'viewType',
@@ -161,18 +110,22 @@ function createComp() {
       {
         name: 'date',
         title: 'Date',
+        calendarOption: 'date',
       },
       {
         name: 'descr',
         title: 'Description',
+        calendarOption: 'descr',
       },
       {
         name: 'start',
         title: 'Start',
+        calendarOption: 'start',
       },
       {
         name: 'end',
         title: 'End',
+        calendarOption: 'end',
       },
       {
         name: 'icon',
@@ -321,9 +274,7 @@ function createComp() {
     ],
   };
   comp.id = 'demo-component';
-  comp.dateCol = 'date';
-  comp.descrCol = 'descr';
-  comp.initialDate = '2021-09-17';
+  comp.currentDate = '2021-09-17';
   comp.viewType = 'dayGridMonth';
   return comp;
 }

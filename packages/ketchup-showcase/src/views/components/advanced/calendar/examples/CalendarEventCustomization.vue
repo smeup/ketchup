@@ -4,70 +4,32 @@
       <p>
         In order to customize the calendar's events, you need to set up some
         specific columns in the <span class="code-word">data</span> prop.<br />
-        The most common columns (referenced by the related props) are:<br /><br />
-        - <span class="code-word">dateCol</span>, which is the date of the
+        The most common columns are:<br /><br />
+        - <span class="code-word">date</span>, which is the date of the
         event;<br />
-        - <span class="code-word">descrCol</span>, which is the description of
+        - <span class="code-word">descr</span>, which is the description of the
+        event;<br />
+        - <span class="code-word">start</span>, which is the starting time of
         the event;<br />
-        - <span class="code-word">startCol</span>, which is the starting time of
-        the event;<br />
-        - <span class="code-word">startCol</span>, which is the ending time of
-        the event.<br /><br />
+        - <span class="code-word">end</span>, which is the ending time of the
+        event.<br /><br />
+        This keyword must be set in the property
+        <span class="code-word">calendarOption</span> of the column itself.<br /><br />
         There are also some extra columns, mainly to customize the look of the
-        event:<br /><br />
-        <strong>Custom icons</strong> (<span class="code-word">iconCol</span>
-        prop):
-      </p>
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-calendar
-            :data.prop="basicData"
-            date-col="date"
-            descr-col="descr"
-            icon-col="icon"
-          ></kup-calendar>
-        </div>
-      </div>
-      <p class="centered">Icons type markup</p>
-      <code class="flat">{{ markupIcon }}</code>
-    </div>
-    <div class="demo-wrapper">
-      <p>
-        <strong>Custom images</strong> (<span class="code-word">imageCol</span>
-        prop):
-      </p>
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-calendar
-            :data.prop="basicData"
-            date-col="date"
-            descr-col="descr"
-            image-col="image"
-          ></kup-calendar>
-        </div>
-      </div>
-      <p class="centered">Image type markup</p>
-      <code class="flat">{{ markupImage }}</code>
-    </div>
-    <div class="demo-wrapper">
-      <p>
-        <strong>Custom CSS style</strong> (<span class="code-word"
-          >styleCol</span
+        event.<br />
+        <strong
+          >In the following example were set icons images and custom
+          style</strong
         >
-        prop):
+        (<span class="code-word">icon</span>,
+        <span class="code-word">image</span>,
+        <span class="code-word">style</span> keywords):
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-calendar
-            :data.prop="basicData"
-            date-col="date"
-            descr-col="descr"
-            style-col="style"
-          ></kup-calendar>
+          <kup-calendar :data.prop="basicData"></kup-calendar>
         </div>
       </div>
-      <p class="centered">Style type markup</p>
-      <code class="flat">{{ markupStyle }}</code>
     </div>
   </div>
 </template>
@@ -82,10 +44,12 @@ export default {
           {
             name: 'date',
             title: 'Date',
+            calendarOption: 'date',
           },
           {
             name: 'descr',
             title: 'Description',
+            calendarOption: 'descr',
           },
           {
             name: 'start',
@@ -98,14 +62,17 @@ export default {
           {
             name: 'icon',
             title: 'Icon',
+            calendarOption: 'icon',
           },
           {
             name: 'image',
             title: 'Image',
+            calendarOption: 'image',
           },
           {
             name: 'style',
             title: 'Style',
+            calendarOption: 'style',
           },
         ],
         rows: [
@@ -241,9 +208,6 @@ export default {
           },
         ],
       },
-      markupIcon: '<kup-calendar icon-col="icon"></kup-calendar>',
-      markupImage: '<kup-calendar image-col="image"></kup-calendar>',
-      markupStyle: '<kup-calendar style-col="style"></kup-calendar>',
     };
   },
 };
