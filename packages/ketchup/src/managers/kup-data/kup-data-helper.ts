@@ -4,10 +4,13 @@ import {
     DataTable,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDataFindCellFilters,
     KupDataNewColumn,
 } from './kup-data-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Performs a distinct/count after previously grouping column by ranges.
@@ -213,7 +216,7 @@ export function findRow(
 /**
  * Finds all the cells with the specified value in the given dataset.
  * @param {DataTable} dataset - Input dataset.
- * @param {KupDataFindCellFilters} filters - Filters of the research. TODO: handle other types of min/maxes
+ * @param {KupDataFindCellFilters} filters - Filters of the research.
  * @returns {Cell[]}  Array of cells fetched after applying the filters.
  */
 export function findCell(
@@ -269,7 +272,7 @@ export function replaceCell(
 /**
  * Utility used by findRow and findCell.
  * @param {DataTable} dataset - Input dataset.
- * @param {KupDataFindCellFilters} filters - Filters of the research. TODO: handle other types of min/maxes
+ * @param {KupDataFindCellFilters} filters - Filters of the research.
  * @returns {{cells: Cell[], rows: Row[]}}  Object containing rows and cells.
  */
 function finder(
@@ -292,14 +295,20 @@ function finder(
             const cell = cells[key];
             if (!columns || !columns.length || columns.includes(key)) {
                 if (min && max) {
-                    if (
-                        parseFloat(cell.value) === max ||
-                        parseFloat(cell.value) === min ||
-                        (parseFloat(cell.value) < max &&
-                            parseFloat(cell.value) > min)
-                    ) {
-                        result.cells.push(cell);
-                        result.rows.push(row);
+                    let s = '',
+                        n = 0;
+                    if (typeof min === 'string' || min instanceof String) {
+                        s = cell.value;
+                        if (s === max || s === min || (s < max && s > min)) {
+                            result.cells.push(cell);
+                            result.rows.push(row);
+                        }
+                    } else {
+                        n = dom.ketchup.data.numberify(cell.value);
+                        if (n === max || n === min || (n < max && n > min)) {
+                            result.cells.push(cell);
+                            result.rows.push(row);
+                        }
                     }
                 } else if (value === cell.value) {
                     result.cells.push(cell);

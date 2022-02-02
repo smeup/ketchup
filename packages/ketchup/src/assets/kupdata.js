@@ -1,5 +1,6 @@
 const inputTable = document.querySelector('#input-table');
 const outputTable = document.querySelector('#output-table');
+outputTable.autoFillMissingCells = true;
 const props = {
     autoFillMissingCells: false,
     customStyle: '',
@@ -509,6 +510,7 @@ const newColumns = [
             title: 'Range 20-39',
         },
         criteria: {
+            columns: ['ETA'],
             range: {
                 min: 20,
                 max: 39,
@@ -521,6 +523,7 @@ const newColumns = [
             title: 'Range 40-59',
         },
         criteria: {
+            columns: ['ETA'],
             range: {
                 min: 40,
                 max: 59,
@@ -533,9 +536,52 @@ const newColumns = [
             title: 'Range 60-99',
         },
         criteria: {
+            columns: ['ETA'],
             range: {
                 min: 60,
                 max: 99,
+            },
+        },
+    },
+];
+
+const newColumnsString = [
+    {
+        column: {
+            name: 'AC',
+            title: 'Range A-C',
+        },
+        criteria: {
+            columns: ['COL'],
+            range: {
+                min: 'A',
+                max: 'C',
+            },
+        },
+    },
+    {
+        column: {
+            name: 'DP',
+            title: 'Range D-P',
+        },
+        criteria: {
+            columns: ['COL'],
+            range: {
+                min: 'D',
+                max: 'P',
+            },
+        },
+    },
+    {
+        column: {
+            name: 'QZ',
+            title: 'Range Q-Z',
+        },
+        criteria: {
+            columns: ['COL'],
+            range: {
+                min: 'Q',
+                max: 'Z',
             },
         },
     },
@@ -546,93 +592,149 @@ const resultingColumn = {
     title: 'Range 20-99',
 };
 
-const newButton = document.querySelector('[label="New"]');
-const replaceButton = document.querySelector('[label="Replace"]');
-const mergeButton = document.querySelector('[label="Merge"]');
-const distinctButton = document.querySelector('[label="Distinct"]');
-const allInOneButton = document.querySelector('[label="All in one"]');
-const allInOneValuesButton = document.querySelector(
+const resultingColumnString = {
+    name: 'AZ',
+    title: 'Range A-Z',
+};
+
+const newButtons = document.querySelectorAll('[label="New"]');
+const replaceButtons = document.querySelectorAll('[label="Replace"]');
+const mergeButtons = document.querySelectorAll('[label="Merge"]');
+const distinctButtons = document.querySelectorAll('[label="Distinct"]');
+const allInOneButtons = document.querySelectorAll('[label="All in one"]');
+const allInOneValuesButtons = document.querySelectorAll(
     '[label="All in one (+ values column)"]'
 );
-const gaussianButton = document.querySelector('[label="Gaussian"]');
+const gaussianButtons = document.querySelectorAll('[label="Gaussian"]');
 
 const echart = document.querySelector('kup-echart');
 echart.types = ['Gaussian'];
 
-newButton.addEventListener('kup-button-click', () => newEvent());
-replaceButton.addEventListener('kup-button-click', () => replaceEvent());
-mergeButton.addEventListener('kup-button-click', () => mergeEvent());
-distinctButton.addEventListener('kup-button-click', () => distinctEvent());
-allInOneButton.addEventListener('kup-button-click', () => allInOneEvent());
-allInOneValuesButton.addEventListener('kup-button-click', () =>
-    allInOneEvent({
-        name: 'VALUES',
-        title: 'Values',
-    })
-);
-gaussianButton.addEventListener('kup-button-click', () => gaussianEvent());
+newButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => newEvent(index));
+});
+replaceButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => replaceEvent(index));
+});
+mergeButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => mergeEvent(index));
+});
+distinctButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => distinctEvent(index));
+});
+allInOneButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => allInOneEvent(index));
+});
+allInOneValuesButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () =>
+        allInOneEvent(index, {
+            name: 'VALUES',
+            title: 'Values',
+        })
+    );
+});
+gaussianButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => gaussianEvent(index));
+});
 
-function newEvent() {
+function newEvent(index) {
     outputTable.data = null;
     const dataset = { ...inputTable.data };
     outputTable.data = kupManager.data.datasetOperations.new(
         dataset,
-        newColumns
+        index === 0 ? newColumns : newColumnsString
     );
 }
 
-function replaceEvent() {
-    newEvent();
+function replaceEvent(index) {
+    newEvent(index);
     const newDataset = { ...outputTable.data };
-    kupManager.data.datasetOperations.cell.replace(
-        newDataset,
-        { value: 'From 20 to 39' },
-        ['2039']
-    );
-    kupManager.data.datasetOperations.cell.replace(
-        newDataset,
-        { value: 'From 40 to 59' },
-        ['4059']
-    );
-    kupManager.data.datasetOperations.cell.replace(
-        newDataset,
-        { value: 'From 60 to 99' },
-        ['6099']
-    );
+    if (index === 0) {
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 20 to 39' },
+            ['2039']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 40 to 59' },
+            ['4059']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 60 to 99' },
+            ['6099']
+        );
+    } else {
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From A to C' },
+            ['AC']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From D to P' },
+            ['DP']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From Q to Z' },
+            ['QZ']
+        );
+    }
     outputTable.data = newDataset;
 }
 
-function mergeEvent() {
-    replaceEvent();
-    const newDataset = kupManager.data.datasetOperations.column.merge(
-        { ...outputTable.data },
-        ['2039', '4059', '6099'],
-        resultingColumn
-    );
+function mergeEvent(index) {
+    replaceEvent(index);
+    let newDataset;
+    if (index === 0) {
+        newDataset = kupManager.data.datasetOperations.column.merge(
+            { ...outputTable.data },
+            ['2039', '4059', '6099'],
+            resultingColumn
+        );
+    } else {
+        newDataset = kupManager.data.datasetOperations.column.merge(
+            { ...outputTable.data },
+            ['AC', 'DP', 'QZ'],
+            resultingColumnString
+        );
+    }
     outputTable.data = newDataset;
 }
 
-function distinctEvent() {
-    mergeEvent();
+function distinctEvent(index) {
+    mergeEvent(index);
     const newDataset = kupManager.data.datasetOperations.distinct({
         ...outputTable.data,
     });
     outputTable.data = newDataset;
 }
 
-function allInOneEvent(titleColumn) {
+function allInOneEvent(index, titleColumn) {
     outputTable.data = null;
     const dataset = { ...inputTable.data };
-    const newDataset = kupManager.data.datasetOperations.rangedDistinct(
-        dataset,
-        newColumns,
-        resultingColumn,
-        titleColumn
-    );
+    let newDataset;
+    if (index === 0) {
+        newDataset = kupManager.data.datasetOperations.rangedDistinct(
+            dataset,
+            newColumns,
+            resultingColumn,
+            titleColumn
+        );
+    } else {
+        newDataset = kupManager.data.datasetOperations.rangedDistinct(
+            dataset,
+            newColumnsString,
+            resultingColumnString,
+            titleColumn
+        );
+    }
     outputTable.data = newDataset;
 }
 
-function gaussianEvent() {
-    distinctEvent();
+function gaussianEvent(index) {
+    distinctEvent(index);
     echart.data = outputTable.data;
 }
