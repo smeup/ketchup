@@ -19,8 +19,9 @@
     <kup-lazy
       style="margin-top: 4em"
       component-name="kup-data-table"
-      :data.prop="props5"
+      :data.prop="props5a"
     ></kup-lazy>
+    <kup-lazy component-name="kup-data-table" :data.prop="props5"></kup-lazy>
   </div>
 </template>
 
@@ -213,6 +214,141 @@ export default {
         sortableColumnsMutateData: true,
         sortEnabled: true,
         tooltipEnabled: true,
+      },
+      props5a: {
+        customStyle: ':host { --kup-datatable-border: none; }',
+        showGrid: 'None',
+        showHeader: false,
+        rowsPerPage: 99999,
+        data: {
+          columns: [
+            {
+              name: 'LABEL1',
+              title: 'Label1',
+            },
+            {
+              name: 'VALUE1',
+              title: 'Value1',
+            },
+            {
+              name: 'LABEL2',
+              title: 'Label2',
+            },
+            {
+              name: 'VALUE2',
+              title: 'Value2',
+            },
+            {
+              name: 'LABEL3',
+              title: 'Label3',
+            },
+            {
+              name: 'VALUE3',
+              title: 'Value3',
+            },
+            {
+              name: 'LABEL4',
+              title: 'Label4',
+            },
+            {
+              name: 'VALUE4',
+              title: 'Value4',
+            },
+            {
+              name: 'LABEL5',
+              title: 'Label5',
+            },
+            {
+              name: 'VALUE5',
+              title: 'Value5',
+            },
+          ],
+          rows: [
+            {
+              cells: {
+                LABEL1: {
+                  value: 'Creato da:',
+                },
+                VALUE1: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: 'GIAGIU',
+                },
+                LABEL2: {
+                  value: 'il:',
+                },
+                VALUE2: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: '20/01/22 - 11:16:41',
+                },
+                LABEL3: {
+                  value: 'Esercizio:',
+                },
+                VALUE3: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: '2021',
+                  span: {
+                    col: 3,
+                  },
+                },
+                LABEL4: {
+                  value: 'Pertinenza/condizione:',
+                },
+                VALUE4: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: '   /   ',
+                },
+              },
+            },
+            {
+              cells: {
+                LABEL1: {
+                  value: 'Data da:',
+                },
+                VALUE1: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: '01/01/2021',
+                },
+                LABEL2: {
+                  value: 'a:',
+                },
+                VALUE2: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: '31/01/2021',
+                },
+                LABEL3: {
+                  value: 'Conti da:',
+                },
+                VALUE3: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: '',
+                },
+                LABEL4: {
+                  value: 'a:',
+                },
+                VALUE4: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: '*',
+                },
+                LABEL5: {
+                  value: 'Intercompany:',
+                },
+                VALUE5: {
+                  isEditable: true,
+                  cssClass: 'strong-text',
+                  value: 'Nessuna selezione',
+                },
+              },
+            },
+          ],
+        },
       },
       props5: {
         autoFillMissingCells: false,
