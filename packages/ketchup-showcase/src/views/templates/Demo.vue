@@ -485,6 +485,13 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupCalendarData: {
+    keys: {
+      columns: 'KupCalendarColumn[]',
+      rows: 'Row[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupCalendarViewTypes: {
     keys: {
       DAY: 'timeGridDay',

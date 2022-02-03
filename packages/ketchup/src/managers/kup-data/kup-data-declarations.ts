@@ -72,8 +72,8 @@ export interface KupDataFindCellFilters {
  * Interface of the range filter.
  */
 export interface KupDataFilterRange {
-    min?: number;
-    max?: number;
+    min?: number | string | String;
+    max?: number | string | String;
 }
 /**
  * Interface for the creation of a new column.

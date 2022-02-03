@@ -1,5 +1,6 @@
 const inputTable = document.querySelector('#input-table');
 const outputTable = document.querySelector('#output-table');
+outputTable.autoFillMissingCells = true;
 const props = {
     autoFillMissingCells: false,
     customStyle: '',
@@ -28,6 +29,18 @@ const props = {
                 title: 'Età',
                 tooltip: true,
             },
+            {
+                decimals: 0,
+                isKey: false,
+                name: 'BIRTH',
+                obj: {
+                    k: '',
+                    p: '',
+                    t: 'D8',
+                },
+                title: 'Anno di nascita',
+                tooltip: true,
+            },
         ],
         rows: [
             {
@@ -52,6 +65,14 @@ const props = {
                         },
                         value: '43',
                         displayedValue: '43',
+                    },
+                    BIRTH: {
+                        obj: {
+                            k: '1900-12-12',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1900-12-12',
                     },
                 },
                 id: '0',
@@ -81,6 +102,14 @@ const props = {
                         value: '69',
                         displayedValue: '69',
                     },
+                    BIRTH: {
+                        obj: {
+                            k: '1921-02-01',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1921-02-01',
+                    },
                 },
                 id: '1',
                 object: '',
@@ -108,6 +137,14 @@ const props = {
                         },
                         value: '33',
                         displayedValue: '33',
+                    },
+                    BIRTH: {
+                        obj: {
+                            k: '1932-06-30',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1932-06-30',
                     },
                 },
                 id: '2',
@@ -137,6 +174,14 @@ const props = {
                         value: '24',
                         displayedValue: '24',
                     },
+                    BIRTH: {
+                        obj: {
+                            k: '2015-01-31',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '2015-01-31',
+                    },
                 },
                 id: '3',
                 object: '',
@@ -164,6 +209,14 @@ const props = {
                         },
                         value: '59',
                         displayedValue: '59',
+                    },
+                    BIRTH: {
+                        obj: {
+                            k: '2000-01-01',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '2000-01-01',
                     },
                 },
                 id: '4',
@@ -193,6 +246,14 @@ const props = {
                         value: '33',
                         displayedValue: '33',
                     },
+                    BIRTH: {
+                        obj: {
+                            k: '1999-05-12',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1999-05-12',
+                    },
                 },
                 id: '5',
                 object: '',
@@ -220,6 +281,14 @@ const props = {
                         },
                         value: '51',
                         displayedValue: '51',
+                    },
+                    BIRTH: {
+                        obj: {
+                            k: '1807-08-21',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1807-08-21',
                     },
                 },
                 id: '6',
@@ -249,6 +318,14 @@ const props = {
                         value: '27',
                         displayedValue: '27',
                     },
+                    BIRTH: {
+                        obj: {
+                            k: '1780-10-01',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1780-10-01',
+                    },
                 },
                 id: '7',
                 object: '',
@@ -276,6 +353,14 @@ const props = {
                         },
                         value: '51',
                         displayedValue: '51',
+                    },
+                    BIRTH: {
+                        obj: {
+                            k: '2021-03-12',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '2021-03-12',
                     },
                 },
                 id: '8',
@@ -305,6 +390,14 @@ const props = {
                         value: '79',
                         displayedValue: '79',
                     },
+                    BIRTH: {
+                        obj: {
+                            k: '1790-11-11',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1790-11-11',
+                    },
                 },
                 id: '9',
                 object: '',
@@ -332,6 +425,14 @@ const props = {
                         },
                         value: '29',
                         displayedValue: '29',
+                    },
+                    BIRTH: {
+                        obj: {
+                            k: '1990-12-02',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1990-12-02',
                     },
                 },
                 id: '10',
@@ -361,6 +462,14 @@ const props = {
                         value: '51',
                         displayedValue: '51',
                     },
+                    BIRTH: {
+                        obj: {
+                            k: '1945-03-17',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1945-03-17',
+                    },
                 },
                 id: '11',
                 object: '',
@@ -388,6 +497,14 @@ const props = {
                         },
                         value: '38',
                         displayedValue: '38',
+                    },
+                    BIRTH: {
+                        obj: {
+                            k: '1968-08-15',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1968-08-15',
                     },
                 },
                 id: '12',
@@ -417,6 +534,14 @@ const props = {
                         value: '99',
                         displayedValue: '99',
                     },
+                    BIRTH: {
+                        obj: {
+                            k: '1922-02-24',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1922-02-24',
+                    },
                 },
                 id: '13',
                 object: '',
@@ -444,6 +569,14 @@ const props = {
                         },
                         value: '77',
                         displayedValue: '77',
+                    },
+                    BIRTH: {
+                        obj: {
+                            k: '1850-01-30',
+                            p: '',
+                            t: 'D8',
+                        },
+                        value: '1850-01-30',
                     },
                 },
                 id: '14',
@@ -509,6 +642,7 @@ const newColumns = [
             title: 'Range 20-39',
         },
         criteria: {
+            columns: ['ETA'],
             range: {
                 min: 20,
                 max: 39,
@@ -521,6 +655,7 @@ const newColumns = [
             title: 'Range 40-59',
         },
         criteria: {
+            columns: ['ETA'],
             range: {
                 min: 40,
                 max: 59,
@@ -533,9 +668,94 @@ const newColumns = [
             title: 'Range 60-99',
         },
         criteria: {
+            columns: ['ETA'],
             range: {
                 min: 60,
                 max: 99,
+            },
+        },
+    },
+];
+
+const newColumnsString = [
+    {
+        column: {
+            name: 'AC',
+            title: 'Range A-C',
+        },
+        criteria: {
+            columns: ['COL'],
+            range: {
+                min: 'A',
+                max: 'C',
+            },
+        },
+    },
+    {
+        column: {
+            name: 'DP',
+            title: 'Range D-P',
+        },
+        criteria: {
+            columns: ['COL'],
+            range: {
+                min: 'D',
+                max: 'P',
+            },
+        },
+    },
+    {
+        column: {
+            name: 'QZ',
+            title: 'Range Q-Z',
+        },
+        criteria: {
+            columns: ['COL'],
+            range: {
+                min: 'Q',
+                max: 'Z',
+            },
+        },
+    },
+];
+
+const newColumnsDate = [
+    {
+        column: {
+            name: '17001900',
+            title: 'Range 1700-1900',
+        },
+        criteria: {
+            columns: ['BIRTH'],
+            range: {
+                min: '1700-01-01',
+                max: '1900-12-31',
+            },
+        },
+    },
+    {
+        column: {
+            name: '19011950',
+            title: 'Range 1901-1950',
+        },
+        criteria: {
+            columns: ['BIRTH'],
+            range: {
+                min: '1901-01-01',
+                max: '1950-12-31',
+            },
+        },
+    },
+    {
+        column: {
+            name: '19512022',
+            title: 'Range 1951-2022',
+        },
+        criteria: {
+            columns: ['BIRTH'],
+            range: {
+                min: '1951-01-01',
+                max: '2022-12-31',
             },
         },
     },
@@ -546,93 +766,187 @@ const resultingColumn = {
     title: 'Range 20-99',
 };
 
-const newButton = document.querySelector('[label="New"]');
-const replaceButton = document.querySelector('[label="Replace"]');
-const mergeButton = document.querySelector('[label="Merge"]');
-const distinctButton = document.querySelector('[label="Distinct"]');
-const allInOneButton = document.querySelector('[label="All in one"]');
-const allInOneValuesButton = document.querySelector(
+const resultingColumnString = {
+    name: 'AZ',
+    title: 'Range A-Z',
+};
+
+const resultingColumnDate = {
+    name: '17002022',
+    title: 'Range 1700-2022',
+};
+
+const newButtons = document.querySelectorAll('[label="New"]');
+const replaceButtons = document.querySelectorAll('[label="Replace"]');
+const mergeButtons = document.querySelectorAll('[label="Merge"]');
+const distinctButtons = document.querySelectorAll('[label="Distinct"]');
+const allInOneButtons = document.querySelectorAll('[label="All in one"]');
+const allInOneValuesButtons = document.querySelectorAll(
     '[label="All in one (+ values column)"]'
 );
-const gaussianButton = document.querySelector('[label="Gaussian"]');
+const gaussianButtons = document.querySelectorAll('[label="Gaussian"]');
 
 const echart = document.querySelector('kup-echart');
 echart.types = ['Gaussian'];
 
-newButton.addEventListener('kup-button-click', () => newEvent());
-replaceButton.addEventListener('kup-button-click', () => replaceEvent());
-mergeButton.addEventListener('kup-button-click', () => mergeEvent());
-distinctButton.addEventListener('kup-button-click', () => distinctEvent());
-allInOneButton.addEventListener('kup-button-click', () => allInOneEvent());
-allInOneValuesButton.addEventListener('kup-button-click', () =>
-    allInOneEvent({
-        name: 'VALUES',
-        title: 'Values',
-    })
-);
-gaussianButton.addEventListener('kup-button-click', () => gaussianEvent());
+newButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => newEvent(index));
+});
+replaceButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => replaceEvent(index));
+});
+mergeButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => mergeEvent(index));
+});
+distinctButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => distinctEvent(index));
+});
+allInOneButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => allInOneEvent(index));
+});
+allInOneValuesButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () =>
+        allInOneEvent(index, {
+            name: 'VALUES',
+            title: 'Values',
+        })
+    );
+});
+gaussianButtons.forEach((but, index) => {
+    but.addEventListener('kup-button-click', () => gaussianEvent(index));
+});
 
-function newEvent() {
+function newEvent(index) {
     outputTable.data = null;
     const dataset = { ...inputTable.data };
     outputTable.data = kupManager.data.datasetOperations.new(
         dataset,
-        newColumns
+        index === 0
+            ? newColumns
+            : index === 1
+            ? newColumnsString
+            : newColumnsDate
     );
 }
 
-function replaceEvent() {
-    newEvent();
+function replaceEvent(index) {
+    newEvent(index);
     const newDataset = { ...outputTable.data };
-    kupManager.data.datasetOperations.cell.replace(
-        newDataset,
-        { value: 'From 20 to 39' },
-        ['2039']
-    );
-    kupManager.data.datasetOperations.cell.replace(
-        newDataset,
-        { value: 'From 40 to 59' },
-        ['4059']
-    );
-    kupManager.data.datasetOperations.cell.replace(
-        newDataset,
-        { value: 'From 60 to 99' },
-        ['6099']
-    );
+    if (index === 0) {
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 20 to 39' },
+            ['2039']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 40 to 59' },
+            ['4059']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 60 to 99' },
+            ['6099']
+        );
+    } else if (index === 1) {
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From A to C' },
+            ['AC']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From D to P' },
+            ['DP']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From Q to Z' },
+            ['QZ']
+        );
+    } else if (index === 2) {
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 1700 to 1900' },
+            ['17001900']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 1901 to 1950' },
+            ['19011950']
+        );
+        kupManager.data.datasetOperations.cell.replace(
+            newDataset,
+            { value: 'From 1951 to 2022' },
+            ['19512022']
+        );
+    }
     outputTable.data = newDataset;
 }
 
-function mergeEvent() {
-    replaceEvent();
-    const newDataset = kupManager.data.datasetOperations.column.merge(
-        { ...outputTable.data },
-        ['2039', '4059', '6099'],
-        resultingColumn
-    );
+function mergeEvent(index) {
+    replaceEvent(index);
+    let newDataset;
+    if (index === 0) {
+        newDataset = kupManager.data.datasetOperations.column.merge(
+            { ...outputTable.data },
+            ['2039', '4059', '6099'],
+            resultingColumn
+        );
+    } else if (index === 1) {
+        newDataset = kupManager.data.datasetOperations.column.merge(
+            { ...outputTable.data },
+            ['AC', 'DP', 'QZ'],
+            resultingColumnString
+        );
+    } else if (index === 2) {
+        newDataset = kupManager.data.datasetOperations.column.merge(
+            { ...outputTable.data },
+            ['17001900', '19011950', '19512022'],
+            resultingColumnDate
+        );
+    }
     outputTable.data = newDataset;
 }
 
-function distinctEvent() {
-    mergeEvent();
+function distinctEvent(index) {
+    mergeEvent(index);
     const newDataset = kupManager.data.datasetOperations.distinct({
         ...outputTable.data,
     });
     outputTable.data = newDataset;
 }
 
-function allInOneEvent(titleColumn) {
+function allInOneEvent(index, titleColumn) {
     outputTable.data = null;
     const dataset = { ...inputTable.data };
-    const newDataset = kupManager.data.datasetOperations.rangedDistinct(
-        dataset,
-        newColumns,
-        resultingColumn,
-        titleColumn
-    );
+    let newDataset;
+    if (index === 0) {
+        newDataset = kupManager.data.datasetOperations.rangedDistinct(
+            dataset,
+            newColumns,
+            resultingColumn,
+            titleColumn
+        );
+    } else if (index === 1) {
+        newDataset = kupManager.data.datasetOperations.rangedDistinct(
+            dataset,
+            newColumnsString,
+            resultingColumnString,
+            titleColumn
+        );
+    } else if (index === 2) {
+        newDataset = kupManager.data.datasetOperations.rangedDistinct(
+            dataset,
+            newColumnsDate,
+            resultingColumnDate,
+            titleColumn
+        );
+    }
     outputTable.data = newDataset;
 }
 
-function gaussianEvent() {
-    distinctEvent();
+function gaussianEvent(index) {
+    distinctEvent(index);
     echart.data = outputTable.data;
 }
