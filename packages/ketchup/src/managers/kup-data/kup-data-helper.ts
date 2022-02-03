@@ -178,11 +178,7 @@ export function newDataset(
     for (let index = 0; index < newColumns.length; index++) {
         const newColumn = newColumns[index].column;
         const criteria = newColumns[index].criteria;
-        const filters: KupDataFindCellFilters = {
-            range: criteria.range,
-            value: criteria.value,
-        };
-        const cells = findCell(dataset, filters);
+        const cells = findCell(dataset, criteria);
         let rowIndex = 0;
         for (let index = 0; index < cells.length; index++) {
             const cell = cells[index];

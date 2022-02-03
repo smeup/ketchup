@@ -80,12 +80,5 @@ export interface KupDataFilterRange {
  */
 export interface KupDataNewColumn {
     column: Column;
-    criteria: KupDataNewColumnCriteria;
-}
-/**
- * Interface for the criteria appliable when creating a new column.
- */
-export interface KupDataNewColumnCriteria {
-    range?: KupDataFilterRange;
-    value?: string;
+    criteria: KupDataFindCellFilters;
 }
