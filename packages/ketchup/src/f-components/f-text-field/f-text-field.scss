@@ -75,6 +75,12 @@
         }
       }
 
+      &.mdc-text-field--disabled {
+        .#{$kup-icon} {
+          pointer-events: none;
+        }
+      }
+
       input,
       label {
         font-family: var(--kup_textfield_font_family);
