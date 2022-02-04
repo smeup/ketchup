@@ -20,6 +20,7 @@
       var(--kup-font-family)
     );
     --kup_textfield_font_size: var(--kup-textfield-font-size, 1em);
+    --kup_textfield_font_weight: var(--kup-textfield-font-weight, 400);
     --kup_textfield_fullwidth_height: var(
       --kup-textfield-fullwidth-height,
       40px
@@ -85,6 +86,7 @@
       label {
         font-family: var(--kup_textfield_font_family);
         font-size: 1em;
+        font-weight: var(--kup_textfield_font_weight);
       }
 
       input {

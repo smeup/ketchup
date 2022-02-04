@@ -150,6 +150,7 @@
   }
 
   &.strong-text {
+    --kup-textfield-font-weight: 600;
     font-weight: 600;
   }
 
@@ -158,26 +159,32 @@
   }
 
   &.primary-text {
+    --kup-textfield-color: var(--kup-primary-color) !important;
     color: var(--kup-primary-color) !important;
   }
 
   &.secondary-text {
+    --kup-textfield-color: var(--kup-secondary-color) !important;
     color: var(--kup-secondary-color) !important;
   }
 
   &.success-text {
+    --kup-textfield-color: var(--kup-success-color) !important;
     color: var(--kup-success-color) !important;
   }
 
   &.warning-text {
+    --kup-textfield-color: var(--kup-warning-color) !important;
     color: var(--kup-warning-color) !important;
   }
 
   &.danger-text {
+    --kup-textfield-color: var(--kup-danger-color) !important;
     color: var(--kup-danger-color) !important;
   }
 
   &.purple-text {
+    --kup-textfield-color: #8e15bf !important;
     color: #8e15bf !important;
   }
 
