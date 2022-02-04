@@ -14877,3 +14877,628 @@ export const subfile = {
     },
   ],
 };
+
+export const subfileDrop = {
+  columns: [
+    {
+      name: 'OP',
+      size: '40px',
+      title: 'Op',
+    },
+    {
+      name: 'CONTO',
+      size: '100px',
+      title: 'Conto',
+    },
+    {
+      name: 'SUBCONTO',
+      size: '50px',
+      title: 'Subconto',
+    },
+    {
+      name: 'DESCRIZIONE',
+      title: 'Descrizione',
+    },
+    {
+      name: 'IMPORTO',
+      size: '120px',
+      title: 'Importo',
+    },
+    {
+      name: 'CODIMPORTO',
+      title: 'Cod. Importo',
+    },
+    {
+      name: 'CODIMPORTO2',
+      size: '60px',
+      title: 'Cod. Importo 2',
+    },
+    {
+      name: 'CODIVA',
+      size: '60px',
+      title: 'Cod. Iva',
+    },
+    {
+      name: 'DESCRIVA',
+      title: 'Descr. Iva',
+    },
+    {
+      name: 'DESCRIVA2',
+      title: 'Descr. Iva 2',
+    },
+    {
+      name: 'IND',
+      size: '60px',
+      title: 'Indetr.',
+    },
+    {
+      name: 'S',
+      size: '20px',
+      title: 'S',
+    },
+    {
+      name: 'N',
+      size: '20px',
+      title: 'N',
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        OP: {
+          cssClass: 'strong-text',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            borderBottom: 'var(--kup_datatable_border)',
+            color: 'var(--kup-title-color)',
+          },
+          value: 'Op',
+        },
+        CONTO: {
+          cssClass: 'strong-text',
+          span: { col: 3 },
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            borderBottom: 'var(--kup_datatable_border)',
+            color: 'var(--kup-title-color)',
+          },
+          value: 'Conto',
+        },
+        IMPORTO: {
+          cssClass: 'strong-text c-right-aligned',
+          span: { col: 3 },
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            borderBottom: 'var(--kup_datatable_border)',
+            color: 'var(--kup-title-color)',
+          },
+          value: 'Importo',
+        },
+        CODIVA: {
+          cssClass: 'strong-text',
+          span: { col: 3 },
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            borderBottom: 'var(--kup_datatable_border)',
+            color: 'var(--kup-title-color)',
+          },
+          value: 'Iva',
+        },
+        IND: {
+          cssClass: 'strong-text',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            borderBottom: 'var(--kup_datatable_border)',
+            color: 'var(--kup-title-color)',
+          },
+          value: 'Ind',
+        },
+        S: {
+          cssClass: 'strong-text',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            borderBottom: 'var(--kup_datatable_border)',
+            color: 'var(--kup-title-color)',
+          },
+          value: 'S',
+        },
+        N: {
+          cssClass: 'strong-text',
+          style: {
+            backgroundColor: 'var(--kup-title-background-color)',
+            borderBottom: 'var(--kup_datatable_border)',
+            color: 'var(--kup-title-color)',
+          },
+          value: 'N',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          isEditable: true,
+          value: '',
+        },
+        CONTO: {
+          isEditable: true,
+          span: { col: 2 },
+          value: 'F0004',
+        },
+        SUBCONTO: {
+          isEditable: true,
+          value: 'FOR',
+        },
+        IMPORTO: {
+          cssClass: 'danger-text',
+          obj: { t: 'NR', p: '', k: '232.00' },
+          isEditable: true,
+          span: { col: 3 },
+          value: '232.00',
+        },
+        CODIVA: {
+          isEditable: true,
+          value: '',
+        },
+        DESCRIVA: {
+          span: { col: 2 },
+          value: '',
+        },
+        IND: {
+          isEditable: true,
+          obj: { t: 'NR', p: '', k: '' },
+          value: '',
+        },
+        S: {
+          cssClass: 'danger-text',
+          isEditable: true,
+          value: 'A',
+        },
+        N: {
+          isEditable: true,
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          value: '5',
+        },
+        DESCRIZIONE: {
+          span: {
+            col: 3,
+          },
+          value: 'Ughino Trasporti SPA',
+        },
+        CODIMPORTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '0122',
+        },
+        CODIMPORTO2: {
+          cssClass: 'strong-text c-right-aligned',
+          isEditable: true,
+          value: '300',
+        },
+        DESCRIVA2: {
+          span: { col: 6 },
+          isEditable: true,
+          value: 'Fattura acquisto nazionale',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          isEditable: true,
+          value: '',
+        },
+        CONTO: {
+          isEditable: true,
+          span: { col: 2 },
+          value: '1111001',
+        },
+        SUBCONTO: {
+          isEditable: true,
+          value: '',
+        },
+        IMPORTO: {
+          obj: { t: 'NR', p: '', k: '100.00' },
+          isEditable: true,
+          span: { col: 3 },
+          value: '100.00',
+        },
+        CODIVA: {
+          isEditable: true,
+          value: 'A6',
+        },
+        DESCRIVA: {
+          span: { col: 2 },
+          value: 'Iva 10% Ind',
+        },
+        IND: {
+          isEditable: true,
+          obj: { t: 'NR', p: '', k: '100.00' },
+          value: '100.00',
+        },
+        S: {
+          isEditable: true,
+          value: 'D',
+        },
+        N: {
+          isEditable: true,
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          value: '10',
+        },
+        DESCRIZIONE: {
+          span: {
+            col: 3,
+          },
+          value: 'Impianto e ampliamento',
+        },
+        CODIMPORTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '0122',
+        },
+        CODIMPORTO2: {
+          cssClass: 'strong-text c-right-aligned',
+          isEditable: true,
+          value: '300',
+        },
+        DESCRIVA: {
+          span: { col: 6 },
+          isEditable: true,
+          value: 'Fattura acquisto nazionale',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          isEditable: true,
+          value: '',
+        },
+        CONTO: {
+          isEditable: true,
+          span: { col: 2 },
+          value: '1121001',
+        },
+        SUBCONTO: {
+          isEditable: true,
+          value: '',
+        },
+        IMPORTO: {
+          obj: { t: 'NR', p: '', k: '100.00' },
+          isEditable: true,
+          span: { col: 3 },
+          value: '100.00',
+        },
+        CODIVA: {
+          isEditable: true,
+          value: 'G9',
+        },
+        DESCRIVA: {
+          span: { col: 2 },
+          value: 'Iva 22% Ind',
+        },
+        IND: {
+          isEditable: true,
+          obj: { t: 'NR', p: '', k: '100.00' },
+          value: '100.00',
+        },
+        S: {
+          isEditable: true,
+          value: 'D',
+        },
+        N: {
+          isEditable: true,
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          value: '95',
+        },
+        DESCRIZIONE: {
+          span: {
+            col: 3,
+          },
+          value: 'Terreni e fabbricati',
+        },
+        CODIMPORTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '0122',
+        },
+        CODIMPORTO2: {
+          cssClass: 'strong-text c-right-aligned',
+          isEditable: true,
+          value: '300',
+        },
+        DESCRIVA: {
+          isEditable: true,
+          span: { col: 6 },
+          value: 'Fattura acquisto nazionale',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          isEditable: true,
+          value: '',
+        },
+        CONTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '1234007',
+        },
+        SUBCONTO: {
+          value: '',
+        },
+        IMPORTO: {
+          cssClass: 'danger-text',
+          obj: { t: 'NR', p: '', k: '32.00' },
+          span: { col: 3 },
+          value: '32.00',
+        },
+        CODIVA: {
+          value: '',
+        },
+        DESCRIVA: {
+          span: { col: 2 },
+          value: '',
+        },
+        IND: {
+          obj: { t: 'NR', p: '', k: '' },
+          value: '',
+        },
+        S: {
+          cssClass: 'danger-text',
+          value: 'A',
+        },
+        N: {
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          value: '190',
+        },
+        DESCRIZIONE: {
+          span: {
+            col: 3,
+          },
+          value: 'IVA su acquisti',
+        },
+        CODIMPORTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '0122',
+        },
+        CODIMPORTO2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: '300',
+        },
+        DESCRIVA: {
+          cssClass: 'strong-text',
+          span: { col: 6 },
+          value: 'Fattura acquisto nazionale',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          isEditable: true,
+          value: '',
+        },
+        CONTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '1111001',
+        },
+        SUBCONTO: {
+          value: '',
+        },
+        IMPORTO: {
+          obj: { t: 'NR', p: '', k: '10.00' },
+          span: { col: 3 },
+          value: '10.00',
+        },
+        CODIVA: {
+          value: '',
+        },
+        DESCRIVA: {
+          span: { col: 2 },
+          value: '',
+        },
+        IND: {
+          obj: { t: 'NR', p: '', k: '' },
+          value: '',
+        },
+        S: {
+          value: 'D',
+        },
+        N: {
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          value: '195',
+        },
+        DESCRIZIONE: {
+          span: {
+            col: 3,
+          },
+          value: 'Impianto e ampliamento',
+        },
+        CODIMPORTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '0122',
+        },
+        CODIMPORTO2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: '300',
+        },
+        DESCRIVA: {
+          cssClass: 'strong-text',
+          span: { col: 6 },
+          value: 'Fattura acquisto nazionale',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          isEditable: true,
+          value: '',
+        },
+        CONTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '1121001',
+        },
+        SUBCONTO: {
+          value: '',
+        },
+        IMPORTO: {
+          obj: { t: 'NR', p: '', k: '22.00' },
+          span: { col: 3 },
+          value: '22.00',
+        },
+        CODIVA: {
+          value: '',
+        },
+        DESCRIVA: {
+          span: { col: 2 },
+          value: '',
+        },
+        IND: {
+          obj: { t: 'NR', p: '', k: '' },
+          value: '',
+        },
+        S: {
+          value: 'D',
+        },
+        N: {
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          value: '200',
+        },
+        DESCRIZIONE: {
+          span: {
+            col: 3,
+          },
+          value: 'Terreni e fabbricati',
+        },
+        CODIMPORTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '0122',
+        },
+        CODIMPORTO2: {
+          cssClass: 'strong-text c-right-aligned',
+          value: '300',
+        },
+        DESCRIVA: {
+          cssClass: 'strong-text',
+          span: { col: 6 },
+          value: 'Fattura acquisto nazionale',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          isEditable: true,
+          value: '',
+        },
+        CONTO: {
+          isEditable: true,
+          span: { col: 2 },
+          value: '',
+        },
+        SUBCONTO: {
+          isEditable: true,
+          value: '',
+        },
+        IMPORTO: {
+          obj: { t: 'NR', p: '', k: '' },
+          isEditable: true,
+          span: { col: 3 },
+          value: '',
+        },
+        CODIVA: {
+          isEditable: true,
+          value: '',
+        },
+        DESCRIVA: {
+          span: { col: 2 },
+          value: '',
+        },
+        IND: {
+          isEditable: true,
+          obj: { t: 'NR', p: '', k: '' },
+          value: '',
+        },
+        S: {
+          isEditable: true,
+          value: '',
+        },
+        N: {
+          isEditable: true,
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        OP: {
+          value: '',
+        },
+        DESCRIZIONE: {
+          span: {
+            col: 3,
+          },
+          value: '',
+        },
+        CODIMPORTO: {
+          cssClass: 'strong-text',
+          span: { col: 2 },
+          value: '',
+        },
+        CODIMPORTO2: {
+          cssClass: 'strong-text c-right-aligned',
+          isEditable: true,
+          value: '',
+        },
+        DESCRIVA2: {
+          span: { col: 6 },
+          isEditable: true,
+          value: '',
+        },
+      },
+    },
+  ],
+};
