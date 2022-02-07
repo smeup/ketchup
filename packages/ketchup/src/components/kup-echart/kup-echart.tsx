@@ -760,9 +760,6 @@ export class KupEchart {
     }
 
     componentDidLoad() {
-        if (!this.axis) {
-            this.axis = this.data.columns[0].name;
-        }
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
