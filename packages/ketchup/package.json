@@ -51,6 +51,7 @@
         "interactjs": "^1.10.11",
         "jquery": "^3.6.0",
         "numeral": "^2.0.6",
+        "resize-observer": "^1.0.4",
         "vanilla-picker": "^2.12.1"
     },
     "devDependencies": {
