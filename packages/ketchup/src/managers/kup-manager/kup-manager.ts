@@ -16,7 +16,6 @@ import type {
     KupManagerUtilities,
 } from './kup-manager-declarations';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
-import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { KupDebug } from '../kup-debug/kup-debug';
 import { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-position';
 import { KupInteract } from '../kup-interact/kup-interact';
@@ -25,7 +24,6 @@ import { KupObjects } from '../kup-objects/kup-objects';
 import { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
 import { KupTheme } from '../kup-theme/kup-theme';
 import { KupToolbar } from '../kup-toolbar/kup-toolbar';
-import { ResizeObserver } from 'resize-observer';
 import {
     KupLanguageDefaults,
     KupLanguageJSON,

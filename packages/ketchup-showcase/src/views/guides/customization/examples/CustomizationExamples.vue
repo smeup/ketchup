@@ -82,7 +82,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-checkbox
-            custom-style="#kup-component .checkbox.checkbox--checked .checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }"
+            custom-style="#kup-component .checkbox.checkbox--checked .checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }}"
             label="Check me and I spin"
           ></kup-checkbox>
         </div>
