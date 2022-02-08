@@ -68,6 +68,14 @@ export default {
           type: 'click',
         },
         {
+          name: 'kup-datatable-columnmove',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-datatable-columnremove',
+          type: 'CustomEvent',
+        },
+        {
           name: 'kup-datatable-contextmenu',
           type: 'click',
         },

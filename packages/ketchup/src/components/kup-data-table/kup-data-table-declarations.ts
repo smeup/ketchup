@@ -319,6 +319,15 @@ export interface KupDatatableClickEventPayload extends KupEventPayload {
     details: KupDatatableEventHandlerDetails;
 }
 
+export interface KupDatatableColumnMoveEventPayload extends KupEventPayload {
+    sourceColumn: Column;
+    targetColumn: Column;
+}
+
+export interface KupDatatableColumnRemoveEventPayload extends KupEventPayload {
+    column: Column;
+}
+
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
     card: HTMLKupCardElement;
     event: CustomEvent<KupCardEventPayload | KupEventPayload>;
