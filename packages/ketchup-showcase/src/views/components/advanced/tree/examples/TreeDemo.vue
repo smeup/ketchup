@@ -55,6 +55,10 @@ export default {
           type: 'CustomEvent',
         },
         {
+          name: 'kup-tree-columnremove',
+          type: 'custom',
+        },
+        {
           name: 'kup-tree-nodecollapse',
           type: 'custom',
         },

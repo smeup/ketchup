@@ -51,6 +51,8 @@ import {
     KupDatatableColumnMenuEventPayload,
     KupDatatableRowActionClickEventPayload,
     KupDatatableLoadMoreClickEventPayload,
+    KupDatatableColumnRemoveEventPayload,
+    KupDatatableColumnMoveEventPayload,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -946,7 +948,26 @@ export class KupDataTable {
         bubbles: true,
     })
     kupLoadMoreClick: EventEmitter<KupDatatableLoadMoreClickEventPayload>;
-
+    /**
+     * Event fired when columns are moved (sorted).
+     */
+    @Event({
+        eventName: 'kup-datatable-columnmove',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupColumnMove: EventEmitter<KupDatatableColumnMoveEventPayload>;
+    /**
+     * Event fired when columns are removed (set to hidden).
+     */
+    @Event({
+        eventName: 'kup-datatable-columnremove',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupColumnRemove: EventEmitter<KupDatatableColumnRemoveEventPayload>;
     /**
      * Closes any opened column menu.
      */
@@ -3394,6 +3415,12 @@ export class KupDataTable {
 
         // Moves the sortedColumn into the correct position
         if (this.sortableColumnsMutateData) {
+            this.kupColumnMove.emit({
+                comp: this,
+                id: this.rootElement.id,
+                sourceColumn: this.data.columns[sortedColIndex],
+                targetColumn: this.data.columns[receivingColIndex],
+            });
             this.moveSortedColumns(
                 this.data.columns,
                 receivingColIndex,
@@ -4817,7 +4844,7 @@ export class KupDataTable {
         }
     }
 
-    private handleColumnRemove(column2remove: Column) {
+    handleColumnRemove(column2remove: Column) {
         // Get sorted column current position
         this.getVisibleColumns();
         const columnX = this.getVisibleColumns().find(
@@ -4827,6 +4854,11 @@ export class KupDataTable {
         );
         if (columnX) {
             columnX.visible = false;
+            this.kupColumnRemove.emit({
+                comp: this,
+                id: this.rootElement.id,
+                column: columnX,
+            });
             this.refresh();
         }
     }
