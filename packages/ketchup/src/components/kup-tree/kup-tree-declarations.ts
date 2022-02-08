@@ -143,3 +143,7 @@ export interface KupTreeDynamicMassExpansionEventPayload
     treeNode?: TreeNode;
     expandAll?: boolean;
 }
+
+export interface KupTreeColumnRemoveEventPayload extends KupEventPayload {
+    column: Column;
+}

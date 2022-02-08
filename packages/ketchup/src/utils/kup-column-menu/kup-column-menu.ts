@@ -745,7 +745,8 @@ export class KupColumnMenu {
                         );
                         break;
                     case KupColumnMenuIds.BUTTON_REMOVE:
-                        this.removeColumn(comp, dataStorage['column']);
+                        comp.handleColumnRemove(dataStorage['column']);
+                        this.close(card);
                         break;
                 }
                 break;
@@ -1014,21 +1015,5 @@ export class KupColumnMenu {
             }
         }
         comp.refresh();
-    }
-    /**
-     * The given column will be set to be hidden.
-     * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
-     */
-    removeColumn(comp: KupDataTable | KupTree, column: Column): void {
-        if (
-            FiltersColumnMenu.isTree(comp) &&
-            column.name === treeMainColumnName
-        ) {
-            comp.setTreeColumnVisibility(false);
-        } else {
-            column.visible = false;
-        }
-        comp.closeColumnMenu();
     }
 }
