@@ -746,6 +746,7 @@ export class KupColumnMenu {
                         break;
                     case KupColumnMenuIds.BUTTON_REMOVE:
                         comp.handleColumnRemove(dataStorage['column']);
+                        this.close(card);
                         break;
                 }
                 break;
