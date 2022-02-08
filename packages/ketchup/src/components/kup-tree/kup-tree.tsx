@@ -37,6 +37,7 @@ import {
     KupTreeColumnMenuEventPayload,
     KupTreeDynamicMassExpansionEventPayload,
     KupTreeExpansionMode,
+    KupTreeColumnRemoveEventPayload,
 } from './kup-tree-declarations';
 import { MDCRipple } from '@material/ripple';
 import {
@@ -89,7 +90,6 @@ import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarati
 import { KupPointerEventTypes } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
-    FCellClasses,
     FCellPadding,
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
@@ -495,6 +495,16 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeDynamicMassExpansion: EventEmitter<KupTreeDynamicMassExpansionEventPayload>;
+    /**
+     * Event fired when columns are removed (set to hidden).
+     */
+    @Event({
+        eventName: 'kup-tree-columnremove',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupColumnRemove: EventEmitter<KupTreeColumnRemoveEventPayload>;
 
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
@@ -962,6 +972,25 @@ export class KupTree {
                 treeNodePath,
                 e ? e.ctrlKey : false
             );
+        }
+    }
+
+    handleColumnRemove(column2remove: Column) {
+        // Get sorted column current position
+        this.getVisibleColumns();
+        const columnX = this.getVisibleColumns().find(
+            (col) =>
+                col.name === column2remove.name &&
+                col.title === column2remove.title
+        );
+        if (columnX) {
+            columnX.visible = false;
+            this.kupColumnRemove.emit({
+                comp: this,
+                id: this.rootElement.id,
+                column: columnX,
+            });
+            this.refresh();
         }
     }
 

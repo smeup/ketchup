@@ -4844,7 +4844,7 @@ export class KupDataTable {
         }
     }
 
-    private handleColumnRemove(column2remove: Column) {
+    handleColumnRemove(column2remove: Column) {
         // Get sorted column current position
         this.getVisibleColumns();
         const columnX = this.getVisibleColumns().find(
