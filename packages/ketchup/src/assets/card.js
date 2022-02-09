@@ -2711,15 +2711,15 @@ for (let index = 0; index < cards.length; index++) {
                     val = this.tag.getAttribute(prefix + key);
                     if (val === undefined || val === null) {
                         val = UNSET_OPTION;
-                    } else if (val.substr(0, 1) === '[') {
-                        val = val.substr(1, val.length - 2).split(',');
+                    } else if (val.substring(0, 1) === '[') {
+                        val = val.substring(1, val.length - 1).split(',');
                         for (i = val.length; i--; ) {
                             val[i] = normalizeValue(
                                 val[i].replace(/(^\s*)|(\s*$)/g, '')
                             );
                         }
-                    } else if (val.substr(0, 1) === '{') {
-                        pairs = val.substr(1, val.length - 2).split(',');
+                    } else if (val.substring(0, 1) === '{') {
+                        pairs = val.substring(1, val.length - 1).split(',');
                         val = {};
                         for (i = pairs.length; i--; ) {
                             keyval = pairs[i].split(':', 2);
@@ -4288,8 +4288,8 @@ for (let index = 0; index < cards.length; index++) {
             getCurrentRegionFields: function () {
                 var currentRegion = this.currentRegion;
                 return {
-                    fieldkey: currentRegion.substr(0, 1),
-                    value: this.values[currentRegion.substr(1)],
+                    fieldkey: currentRegion.substring(0, 1),
+                    value: this.values[currentRegion.substring(1)],
                     region: currentRegion,
                 };
             },
@@ -4299,10 +4299,10 @@ for (let index = 0; index < cards.length; index++) {
                     shapeid = this.valueShapes[currentRegion],
                     shape;
                 delete this.shapes[shapeid];
-                switch (currentRegion.substr(0, 1)) {
+                switch (currentRegion.substring(0, 1)) {
                     case 'r':
                         shape = this.renderRange(
-                            currentRegion.substr(1),
+                            currentRegion.substring(1),
                             highlight
                         );
                         break;
@@ -5577,7 +5577,7 @@ for (let index = 0; index < cards.length; index++) {
             },
 
             getShapeAt: function (el, x, y) {
-                var shapeid = el.id.substr(8);
+                var shapeid = el.id.substring(8);
                 return shapeid;
             },
 

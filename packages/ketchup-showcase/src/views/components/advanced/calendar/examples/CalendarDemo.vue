@@ -147,9 +147,9 @@ function createComp() {
             obj: {
               t: 'D8',
               p: '*YYMD',
-              k: new Date().toISOString().substr(0, 10),
+              k: new Date().toISOString().substring(0, 10),
             },
-            value: new Date().toISOString().substr(0, 10),
+            value: new Date().toISOString().substring(0, 10),
           },
           descr: {
             obj: {

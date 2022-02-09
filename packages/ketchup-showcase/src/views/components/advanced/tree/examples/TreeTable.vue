@@ -54,7 +54,7 @@ export default {
       this.optionObj.cell = JSON.stringify(detail.cell);
       this.optionObj.column = JSON.stringify(detail.column);
       this.optionObj.treeNode =
-        JSON.stringify(detail.treeNode).substr(0, 300) + ' ...';
+        JSON.stringify(detail.treeNode).substring(0, 300) + ' ...';
     },
   },
 };
