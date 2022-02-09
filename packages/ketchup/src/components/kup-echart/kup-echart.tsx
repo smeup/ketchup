@@ -440,7 +440,7 @@ export class KupEchart {
             for (let index = 0; index < y[key].length; index++) {
                 const value = y[key][index];
                 if (this.kupManager.theme.colorCheck(value).hexColor) {
-                    color = value;
+                    color = this.kupManager.theme.colorCheck(value).hexColor;
                 } else {
                     n = this.kupManager.data.numberify(value);
                     if (n > max) {
