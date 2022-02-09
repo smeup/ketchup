@@ -134,8 +134,8 @@ export class KupLanguage {
         };
         const separator: number = language.indexOf('_');
         if (separator > -1) {
-            result.variant = language.substr(separator + 1);
-            result.language = language.substr(0, separator);
+            result.variant = language.substring(separator + 1);
+            result.language = language.substring(0, separator);
         } else {
             result.language = language;
         }
