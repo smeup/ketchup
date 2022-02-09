@@ -666,12 +666,12 @@ export class KupColumnMenu {
             suffixFrom = ' 00:00:00';
             suffixTo = ' 23:59:59';
             if (initialValueFrom && initialValueFrom.length >= 10) {
-                initialValueFrom = initialValueFrom.substr(0, 10);
+                initialValueFrom = initialValueFrom.substring(0, 10);
             } else {
                 initialValueFrom = '';
             }
             if (initialValueTo && initialValueTo.length >= 10) {
-                initialValueTo = initialValueTo.substr(0, 10);
+                initialValueTo = initialValueTo.substring(0, 10);
             } else {
                 initialValueTo = '';
             }

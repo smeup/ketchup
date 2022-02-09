@@ -16,7 +16,7 @@ function logCSS(selector, detailedLog) {
         const cssRule = shadowCSS[index].cssText;
         if (cssRule.indexOf('@') < 0) {
             let selectorEnd = shadowCSS[index].cssText.indexOf('{');
-            CSSArray.push(cssRule.substr(0, selectorEnd));
+            CSSArray.push(cssRule.substring(0, selectorEnd));
         }
     }
 
