@@ -746,7 +746,7 @@ export class KupColumnMenu {
                         break;
                     case KupColumnMenuIds.BUTTON_REMOVE:
                         comp.closeColumnMenu().then(() => {
-                            comp.handleColumnRemove(dataStorage['column']);
+                            comp.hideColumn(dataStorage['column']);
                         });
                         break;
                 }

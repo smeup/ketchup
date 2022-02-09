@@ -119,6 +119,10 @@ export default {
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
         },
         {
+          name: 'hideColumn',
+          description: ' Hides the given column.',
+        },
+        {
           name: 'openColumnMenu',
           description: 'Opens the column menu of the given column.',
         },

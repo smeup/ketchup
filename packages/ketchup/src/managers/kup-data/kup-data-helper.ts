@@ -119,6 +119,29 @@ export function distinctDataset(
     };
 }
 /**
+ * Sets the given columns of the input dataset to be hidden.
+ * @param {DataTable | Column[]} dataset - Input dataset or array of columns.
+ * @param {string[]} columns2hide - Columns to merge.
+ * @returns {Column[]} Columns that were set to hidden.
+ */
+export function hideColumns(
+    dataset: DataTable | Column[],
+    columns2hide: string[]
+): Column[] {
+    const columns = (dataset as DataTable).columns
+        ? (dataset as DataTable).columns
+        : (dataset as Column[]);
+    const hidden: Column[] = [];
+    for (let index = 0; index < columns.length; index++) {
+        const column = columns[index];
+        if (columns2hide.includes(column.name)) {
+            column.visible = false;
+            hidden.push(column);
+        }
+    }
+    return hidden;
+}
+/**
  * Takes the columns to merge and creates a new column with their cells. The merged columns will then be removed.
  * @param {DataTable} dataset - Input dataset.
  * @param {string[]} columns2merge - Columns to merge.

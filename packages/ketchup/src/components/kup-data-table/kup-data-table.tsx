@@ -1011,6 +1011,22 @@ export class KupDataTable {
         return getProps(this, KupDataTableProps, descriptions);
     }
     /**
+     * Hides the given column.
+     * @param {Column} column - Column to hide.
+     */
+    @Method()
+    async hideColumn(column: Column): Promise<void> {
+        this.kupManager.data.datasetOperations.column.hide(this.data, [
+            column.name,
+        ]);
+        this.kupColumnRemove.emit({
+            comp: this,
+            id: this.rootElement.id,
+            column: column,
+        });
+        this.refresh();
+    }
+    /**
      * Opens the column menu of the given column.
      * @param {string} column - Name of the column.
      */
@@ -1800,7 +1816,7 @@ export class KupDataTable {
                                 this.getColumns(),
                                 draggedTh.dataset.column
                             );
-                            this.handleColumnRemove(deleted);
+                            this.hideColumn(deleted);
                             this.tableRef.removeAttribute(kupDragActiveAttr);
                         },
                     }
@@ -4841,25 +4857,6 @@ export class KupDataTable {
             +this.kupManager.dynamicPosition.stop(
                 this.dropareaRef as KupDynamicPositionElement
             );
-        }
-    }
-
-    handleColumnRemove(column2remove: Column) {
-        // Get sorted column current position
-        this.getVisibleColumns();
-        const columnX = this.getVisibleColumns().find(
-            (col) =>
-                col.name === column2remove.name &&
-                col.title === column2remove.title
-        );
-        if (columnX) {
-            columnX.visible = false;
-            this.kupColumnRemove.emit({
-                comp: this,
-                id: this.rootElement.id,
-                column: columnX,
-            });
-            this.refresh();
         }
     }
 

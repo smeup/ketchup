@@ -21,6 +21,7 @@ import {
     findCell,
     findRow,
     getCellValue,
+    hideColumns,
     mergeColumns,
     newDataset,
     rangedDistinctDataset,
@@ -61,6 +62,12 @@ export class KupData {
                 },
             },
             column: {
+                hide(
+                    dataset: DataTable | Column[],
+                    columns2hide: string[]
+                ): Column[] {
+                    return hideColumns(dataset, columns2hide);
+                },
                 merge(
                     dataset: DataTable,
                     columns2merge: string[],

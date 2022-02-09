@@ -37,6 +37,7 @@ export interface KupDataCellOperations {
  * Interface related to columns operations.
  */
 export interface KupDataColumnOperations {
+    hide: (dataset: DataTable | Column[], columns2hide: string[]) => Column[];
     merge: (
         dataset: DataTable,
         columns2merge: string[],
