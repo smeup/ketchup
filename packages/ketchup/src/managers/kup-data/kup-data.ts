@@ -18,16 +18,13 @@ import {
 } from './kup-data-declarations';
 import {
     distinctDataset,
-    findCell,
-    findRow,
-    getCellValue,
-    hideColumns,
-    mergeColumns,
     newDataset,
     rangedDistinctDataset,
-    replaceCell,
-} from './kup-data-helper';
+} from './kup-data-dataset-helper';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
+import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
+import { hideColumns, mergeColumns } from './kup-data-column-helper';
+import { findRow } from './kup-data-row-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
