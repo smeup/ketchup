@@ -356,15 +356,22 @@ export class KupTheme {
             );
         }
 
-        let isHex: boolean = color.substr(0, 1) === '#';
-        const isHsl: boolean = color.substr(0, 3).toLowerCase() === 'hsl';
-        const isRgb: boolean = color.substr(0, 3).toLowerCase() === 'rgb';
+        const altRgbRe: RegExp = /R(\d{1,3})G(\d{1,3})B(\d{1,3})/;
+        const altRgb: boolean = altRgbRe.test(color);
+        if (altRgb) {
+            const parts: RegExpMatchArray = color.match(altRgbRe);
+            color = 'rgb(' + parts[1] + ',' + parts[2] + ',' + parts[3] + ')';
+        }
+
+        let isHex: boolean = color.substring(0, 1) === '#';
+        const isHsl: boolean = color.substring(0, 3).toLowerCase() === 'hsl';
+        const isRgb: boolean = color.substring(0, 3).toLowerCase() === 'rgb';
 
         //If true, supposedly it's a code word
         if (!isHex && !isHsl && !isRgb) {
             const oldColor: string = color;
             color = this.codeToHex(color);
-            isHex = color.substr(0, 1) === '#' ? true : false;
+            isHex = color.substring(0, 1) === '#' ? true : false;
             dom.ketchup.debug.logMessage(
                 'theme manager',
                 'Received CODE NAME color ' +
@@ -377,6 +384,7 @@ export class KupTheme {
 
         //Testing whether the color is "hex" value or "hsl"
         let hexColor: string = null;
+        let rgbColor: string = null;
         let hslColor: string = null;
         let hslValues: string = null;
         let hue: string = null;
@@ -385,10 +393,10 @@ export class KupTheme {
 
         if (isHex || isHsl) {
             const oldColor: string = color;
-            let rgbColor: KupThemeRGBValues = null;
+            let rgbColorObj: KupThemeRGBValues = null;
             if (isHex) {
                 hexColor = color;
-                rgbColor = this.hexToRgb(color);
+                rgbColorObj = this.hexToRgb(color);
             } else {
                 hslColor = color;
                 const regexp: RegExp =
@@ -401,22 +409,22 @@ export class KupTheme {
                 const h: number = parseInt(hue.replace('deg', ''));
                 const s: number = parseInt(saturation.replace('%', '')) / 100;
                 const l: number = parseInt(lightness.replace('%', '')) / 100;
-                rgbColor = this.hslToRgb(h, s, l);
+                rgbColorObj = this.hslToRgb(h, s, l);
             }
             try {
                 color =
                     'rgb(' +
-                    rgbColor.r +
+                    rgbColorObj.r +
                     ',' +
-                    rgbColor.g +
+                    rgbColorObj.g +
                     ',' +
-                    rgbColor.b +
+                    rgbColorObj.b +
                     ')';
                 if (isHex) {
                     const hsl: KupThemeHSLValues = this.rgbToHsl(
-                        rgbColor.r,
-                        rgbColor.g,
-                        rgbColor.b
+                        rgbColorObj.r,
+                        rgbColorObj.g,
+                        rgbColorObj.b
                     );
                     hue = hsl.h.toString();
                     saturation = hsl.s.toString() + '%';
@@ -425,9 +433,9 @@ export class KupTheme {
                     hslColor = 'hsl(' + hslValues + ')';
                 } else {
                     hexColor = this.rgbToHex(
-                        rgbColor.r,
-                        rgbColor.g,
-                        rgbColor.b
+                        rgbColorObj.r,
+                        rgbColorObj.g,
+                        rgbColorObj.b
                     );
                 }
                 dom.ketchup.debug.logMessage(
@@ -453,6 +461,7 @@ export class KupTheme {
 
         try {
             rgbValues = values[1] + ',' + values[2] + ',' + values[3];
+            rgbColor = color;
         } catch (error) {
             dom.ketchup.debug.logMessage(
                 'theme-manager',
@@ -502,7 +511,7 @@ export class KupTheme {
             hue: hue,
             lightness: lightness,
             saturation: saturation,
-            rgbColor: color,
+            rgbColor: rgbColor,
             rgbValues: rgbValues,
         };
     }
