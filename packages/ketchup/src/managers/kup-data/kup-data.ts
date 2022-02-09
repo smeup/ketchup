@@ -24,7 +24,11 @@ import {
 } from './kup-data-dataset-helper';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
-import { hideColumns, mergeColumns } from './kup-data-column-helper';
+import {
+    findColumns,
+    hideColumns,
+    mergeColumns,
+} from './kup-data-column-helper';
 import { findRow } from './kup-data-row-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -60,6 +64,12 @@ export class KupData {
                 },
             },
             column: {
+                find(
+                    dataset: DataTable | Column[],
+                    filters: Partial<Column>
+                ): Column[] {
+                    return findColumns(dataset, filters);
+                },
                 hide(
                     dataset: DataTable | Column[],
                     columns2hide: string[]
@@ -105,7 +115,7 @@ export class KupData {
                     valuesColumn
                 );
             },
-            transpose(dataset: DataTable, headerColumn?: Column): DataTable {
+            transpose(dataset: DataTable, headerColumn?: string): DataTable {
                 return transposeDataset(dataset, headerColumn);
             },
         };

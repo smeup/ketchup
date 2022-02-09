@@ -6,7 +6,7 @@ import {
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { findCell, replaceCell } from './kup-data-cell-helper';
-import { mergeColumns } from './kup-data-column-helper';
+import { findColumns, mergeColumns } from './kup-data-column-helper';
 import { KupDataNewColumn } from './kup-data-declarations';
 
 /**
@@ -153,17 +153,17 @@ export function newDataset(
 /**
  * Creates a new dataset with transposed columns and rows.
  * @param {DataTable} dataset - Input dataset.
- * @param {Column} column - When specified, it will be the column used as header. When missing, the header will be a series of progressive numbers.
+ * @param {string} headerColumn - When specified, it will be the column used as header. When missing, the header will be a series of progressive numbers.
  * @returns {DataTable} Transposed dataset.
  */
 export function transposeDataset(
     dataset: DataTable,
-    headerColumn?: Column //TODO: change to string, implement column.find
+    headerColumn?: string
 ): DataTable {
     const transposed: DataTable = { columns: [], rows: [] };
     let firstColumn: Column = null;
     if (headerColumn) {
-        firstColumn = headerColumn;
+        firstColumn = findColumns(dataset, { name: headerColumn })[0];
         transposed.columns.push(firstColumn);
         for (let index = 0; index < dataset.rows.length; index++) {
             const row = dataset.rows[index];

@@ -24,7 +24,7 @@ export interface KupDataDatasetOperations {
         resultingColumn: Column,
         valuesColumn?: Column
     ) => DataTable;
-    transpose: (dataset: DataTable, headerColumn?: Column) => DataTable;
+    transpose: (dataset: DataTable, headerColumn?: string) => DataTable;
 }
 /**
  * Interface related to cells operations.
@@ -38,6 +38,7 @@ export interface KupDataCellOperations {
  * Interface related to columns operations.
  */
 export interface KupDataColumnOperations {
+    find: (dataset: DataTable, filters?: Partial<Column>) => Column[];
     hide: (dataset: DataTable | Column[], columns2hide: string[]) => Column[];
     merge: (
         dataset: DataTable,

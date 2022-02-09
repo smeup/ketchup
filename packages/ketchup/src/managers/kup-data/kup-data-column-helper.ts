@@ -6,6 +6,31 @@ import {
 } from '../../components/kup-data-table/kup-data-table-declarations';
 
 /**
+ * Finds the columns matching the criteria specified in the filters argument.
+ * @param {DataTable | Column[]} dataset - Input dataset or array of columns.
+ * @param {Partial<Column>} filters - Column interface containing the filters to match.
+ * @returns {Column[]} Columns matching the criteria.
+ */
+export function findColumns(
+    dataset: DataTable | Column[],
+    filters: Partial<Column>
+): Column[] {
+    const columns = (dataset as DataTable).columns
+        ? (dataset as DataTable).columns
+        : (dataset as Column[]);
+    const result: Column[] = [];
+    for (let index = 0; index < columns.length; index++) {
+        const column = columns[index];
+        for (const key in filters) {
+            const filter = filters[key];
+            if (column[key] === filter) {
+                result.push(column);
+            }
+        }
+    }
+    return result;
+}
+/**
  * Sets the given columns of the input dataset to be hidden.
  * @param {DataTable | Column[]} dataset - Input dataset or array of columns.
  * @param {string[]} columns2hide - Columns to merge.

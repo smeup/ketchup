@@ -412,7 +412,7 @@ export class KupDataTable {
     /**
      * The data of the table.
      */
-    @Prop() data: TableData;
+    @Prop({ mutable: true }) data: TableData;
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
@@ -420,7 +420,7 @@ export class KupDataTable {
     /**
      * Enables drag.
      */
-    @Prop({ reflect: true }) dragEnabled: boolean = false;
+    @Prop({ mutable: true, reflect: true }) dragEnabled: boolean = false;
     /**
      * Enables drop.
      */
@@ -429,7 +429,7 @@ export class KupDataTable {
      * When set to true, editable cells will be rendered using input components.
      * @default false
      */
-    @Prop() editableData: boolean = false;
+    @Prop({ mutable: true }) editableData: boolean = false;
     /**
      * Defines the label to show when the table is empty.
      */
@@ -647,7 +647,7 @@ export class KupDataTable {
     /**
      * Transposes the data of the data table
      */
-    @Prop() transpose: boolean = false;
+    @Prop({ mutable: true }) transpose: boolean = false;
 
     //-------- State --------
 
@@ -1361,7 +1361,7 @@ export class KupDataTable {
         // transpose
         this.originalData = { ...this.data };
         if (this.data.columns.length > 0) {
-            this.data = this.getTransposedData(this.data.columns[0]);
+            this.data = this.getTransposedData(this.data.columns[0].name);
         }
     }
 
@@ -1500,7 +1500,7 @@ export class KupDataTable {
         }
     }
 
-    private getTransposedData(column?: Column): TableData {
+    private getTransposedData(column?: string): TableData {
         if (column) {
             this.filters = {};
         }
