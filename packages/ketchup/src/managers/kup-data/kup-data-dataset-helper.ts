@@ -1,6 +1,8 @@
 import {
+    CellsHolder,
     Column,
     DataTable,
+    fieldColumn,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { findCell, replaceCell } from './kup-data-cell-helper';
@@ -147,4 +149,81 @@ export function newDataset(
         columns: outputColumns,
         rows: outputRows,
     };
+}
+/**
+ * Creates a new dataset with transposed columns and rows.
+ * @param {DataTable} dataset - Input dataset.
+ * @param {Column} column - When specified, it will be the column used as header. When missing, the header will be a series of progressive numbers.
+ * @returns {DataTable} Transposed dataset.
+ */
+export function transposeDataset(
+    dataset: DataTable,
+    headerColumn?: Column //TODO: change to string, implement column.find
+): DataTable {
+    const transposed: DataTable = { columns: [], rows: [] };
+    let firstColumn: Column = null;
+    if (headerColumn) {
+        firstColumn = headerColumn;
+        transposed.columns.push(firstColumn);
+        for (let index = 0; index < dataset.rows.length; index++) {
+            const row = dataset.rows[index];
+            const cell = row.cells[firstColumn.name];
+            const title = cell.displayedValue
+                ? cell.displayedValue
+                : cell.value;
+            transposed.columns.push({
+                name: cell.value + '_' + row.id,
+                title,
+            });
+        }
+    } else {
+        firstColumn = { name: fieldColumn.toUpperCase(), title: fieldColumn };
+        transposed.columns.push(firstColumn);
+        for (let index = 0; index < dataset.rows.length; index++) {
+            const row = dataset.rows[index];
+            transposed.columns.push({
+                name: row.id,
+                title: '#' + index,
+            });
+        }
+    }
+    for (
+        let index = headerColumn ? 1 : 0;
+        index < dataset.columns.length;
+        index++
+    ) {
+        const oldColumn = dataset.columns[index];
+        const cells: CellsHolder = {};
+        cells[firstColumn.name] = {
+            value: oldColumn.title,
+        };
+
+        for (let index = 1; index < transposed.columns.length; index++) {
+            const newColumn = transposed.columns[index];
+            const oldRow = dataset.rows[index - 1];
+            const cellName = headerColumn ? newColumn.name : oldRow.id;
+            cells[cellName] = oldRow.cells[oldColumn.name];
+            if (oldColumn.icon && !cells[cellName].icon) {
+                cells[cellName].icon = oldColumn.icon;
+            }
+            if (oldColumn.shape && !cells[cellName].shape) {
+                cells[cellName].shape = oldColumn.shape;
+            }
+        }
+        // If a record is key and no column argument is provided, it will be placed on top
+        if (!headerColumn && oldColumn.isKey) {
+            transposed.rows.unshift({
+                id: String(index),
+                cells,
+                name: oldColumn.name,
+            });
+        } else {
+            transposed.rows.push({
+                id: String(index),
+                cells,
+                name: oldColumn.name,
+            });
+        }
+    }
+    return transposed;
 }

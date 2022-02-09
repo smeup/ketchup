@@ -1501,95 +1501,13 @@ export class KupDataTable {
     }
 
     private getTransposedData(column?: Column): TableData {
-        const transposedData: TableData = {};
-        // TODO manage better the filters, this is just a fix in order to release the function
         if (column) {
             this.filters = {};
         }
-        // calc columns
-        const columns: Array<Column> = [];
-        // first item
-        let firstHead: Column = null;
-        if (column) {
-            firstHead = column;
-            columns.push(firstHead);
-            this.data.rows.forEach((row) => {
-                columns.push(
-                    this.getColumnFromCell(row.cells[firstHead.name], row.id)
-                );
-            });
-        } else {
-            firstHead = { name: fieldColumn.toUpperCase(), title: fieldColumn };
-            columns.push(firstHead);
-            for (let index = 0; index < this.data.rows.length; index++) {
-                columns.push({
-                    name: this.data.rows[index].id,
-                    title: '#' + index,
-                });
-            }
-        }
-        // fill columns with the cells in the first original column
-        // set columns
-        transposedData.columns = columns;
-        // calc rows
-        const rows: Array<Row> = [];
-        for (
-            let index = column ? 1 : 0;
-            index < this.data.columns.length;
-            index++
-        ) {
-            const oldColumn = this.data.columns[index];
-            const cells: CellsHolder = {};
-            // set first cell from previous columns
-            // TODO set obj? like this --> obj: oldColumn.obj
-            cells[firstHead.name] = {
-                value: oldColumn.title,
-            };
-
-            for (
-                let index = 1;
-                index < transposedData.columns.length;
-                index++
-            ) {
-                const newColumn = transposedData.columns[index];
-                const oldRow = this.data.rows[index - 1];
-                const cellName: string = column ? newColumn.name : oldRow.id;
-                cells[cellName] = oldRow.cells[oldColumn.name];
-                if (oldColumn.icon && !cells[cellName].icon) {
-                    cells[cellName].icon = oldColumn.icon;
-                }
-                if (oldColumn.shape && !cells[cellName].shape) {
-                    cells[cellName].shape = oldColumn.shape;
-                }
-            }
-            // If a record is key and no column argument is provided, it will be placed on top
-            if (!column && oldColumn.isKey) {
-                rows.unshift({
-                    id: String(index),
-                    cells,
-                    name: oldColumn.name,
-                });
-            } else {
-                rows.push({
-                    id: String(index),
-                    cells,
-                    name: oldColumn.name,
-                });
-            }
-        }
-        // set rows
-        transposedData.rows = rows;
-        // return
-        return transposedData;
-    }
-
-    private getColumnFromCell(cell: Cell, id: string): Column {
-        const title = cell.displayedValue ? cell.displayedValue : cell.value;
-        // TODO set obj? like this --> obj: cell.obj
-        return {
-            name: cell.value + '_' + id,
-            title,
-        };
+        return this.kupManager.data.datasetOperations.transpose(
+            this.data,
+            column
+        );
     }
 
     private stickyHeaderPosition = () => {

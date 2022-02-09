@@ -20,6 +20,7 @@ import {
     distinctDataset,
     newDataset,
     rangedDistinctDataset,
+    transposeDataset,
 } from './kup-data-dataset-helper';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
@@ -103,6 +104,9 @@ export class KupData {
                     resultingColumn,
                     valuesColumn
                 );
+            },
+            transpose(dataset: DataTable, headerColumn?: Column): DataTable {
+                return transposeDataset(dataset, headerColumn);
             },
         };
         this.formulas = {

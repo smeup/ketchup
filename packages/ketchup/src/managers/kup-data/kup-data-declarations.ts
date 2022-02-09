@@ -24,6 +24,7 @@ export interface KupDataDatasetOperations {
         resultingColumn: Column,
         valuesColumn?: Column
     ) => DataTable;
+    transpose: (dataset: DataTable, headerColumn?: Column) => DataTable;
 }
 /**
  * Interface related to cells operations.
