@@ -886,22 +886,22 @@ function replaceEvent(index) {
 
 function mergeEvent(index) {
     replaceEvent(index);
-    let newDataset;
+    const newDataset = { ...outputTable.data };
     if (index === 0) {
-        newDataset = kupManager.data.datasetOperations.column.merge(
-            { ...outputTable.data },
+        kupManager.data.datasetOperations.column.merge(
+            newDataset,
             ['2039', '4059', '6099'],
             resultingColumn
         );
     } else if (index === 1) {
-        newDataset = kupManager.data.datasetOperations.column.merge(
-            { ...outputTable.data },
+        kupManager.data.datasetOperations.column.merge(
+            newDataset,
             ['AC', 'DP', 'QZ'],
             resultingColumnString
         );
     } else if (index === 2) {
-        newDataset = kupManager.data.datasetOperations.column.merge(
-            { ...outputTable.data },
+        kupManager.data.datasetOperations.column.merge(
+            newDataset,
             ['17001900', '19011950', '19512022'],
             resultingColumnDate
         );

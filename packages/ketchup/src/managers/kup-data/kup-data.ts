@@ -54,7 +54,7 @@ export class KupData {
                     dataset: DataTable,
                     cell: Cell,
                     columns?: string[]
-                ): DataTable {
+                ): Cell[] {
                     return replaceCell(dataset, cell, columns);
                 },
             },
@@ -69,7 +69,7 @@ export class KupData {
                     dataset: DataTable,
                     columns2merge: string[],
                     newColumn: Column
-                ): DataTable {
+                ): Column {
                     return mergeColumns(dataset, columns2merge, newColumn);
                 },
             },

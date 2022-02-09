@@ -28,8 +28,8 @@ export function rangedDistinctDataset(
         columnNames.push(newColumn.name);
         replaceCell(newD, { value: newColumn.title }, [newColumn.name]);
     }
-    const mergedDataset = mergeColumns(newD, columnNames, resultingColumn);
-    return distinctDataset(mergedDataset, null, valuesColumn);
+    mergeColumns(newD, columnNames, resultingColumn);
+    return distinctDataset(newD, null, valuesColumn);
 }
 /**
  * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.

@@ -33,13 +33,13 @@ export function hideColumns(
  * @param {DataTable} dataset - Input dataset.
  * @param {string[]} columns2merge - Columns to merge.
  * @param {Column} newColumn - Column created.
- * @returns {DataTable} Dataset with the new column and without the merged columns.
+ * @returns {Column} Resulting column.
  */
 export function mergeColumns(
     dataset: DataTable,
     columns2merge: string[],
     newColumn: Column
-): DataTable {
+): Column {
     const outputCells: Cell[] = [];
     for (let index = 0; index < dataset.rows.length; index++) {
         const row = dataset.rows[index];
@@ -70,5 +70,5 @@ export function mergeColumns(
         rowIndex++;
     }
     dataset.columns.push(newColumn);
-    return dataset;
+    return newColumn;
 }

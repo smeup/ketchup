@@ -31,7 +31,7 @@ export interface KupDataDatasetOperations {
 export interface KupDataCellOperations {
     find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
     getValue: (dataset: DataTable, columns?: string[]) => string[];
-    replace: (dataset: DataTable, cell: Cell, columns?: string[]) => DataTable;
+    replace: (dataset: DataTable, cell: Cell, columns?: string[]) => Cell[];
 }
 /**
  * Interface related to columns operations.
@@ -42,7 +42,7 @@ export interface KupDataColumnOperations {
         dataset: DataTable,
         columns2merge: string[],
         newColumn: Column
-    ) => DataTable;
+    ) => Column;
 }
 /**
  * Interface related to rows operations.
