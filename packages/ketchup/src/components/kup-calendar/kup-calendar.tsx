@@ -172,7 +172,11 @@ export class KupCalendar {
         if (this.calendar) {
             this.calendar.destroy();
         }
-        for (let index = 0; index < this.data.columns.length; index++) {
+        for (
+            let index = 0;
+            this.data && this.data.columns && index < this.data.columns.length;
+            index++
+        ) {
             const column = this.data.columns[index];
             switch (column.calendarOption) {
                 case KupCalendarOptions.DATE:
