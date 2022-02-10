@@ -1270,7 +1270,7 @@ export class KupDataTable {
         operation: string,
         columns?: string[]
     ): Promise<string | Column> {
-        const result = this.kupManager.data.applyFormulaToColumns(
+        const result = this.kupManager.data.datasetOperations.column.new(
             this.data,
             operation,
             columns

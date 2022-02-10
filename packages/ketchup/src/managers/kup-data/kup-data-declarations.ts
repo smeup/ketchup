@@ -45,6 +45,11 @@ export interface KupDataColumnOperations {
         columns2merge: string[],
         newColumn: Column
     ) => Column;
+    new: (
+        dataset: DataTable,
+        operation: string,
+        columns?: string[]
+    ) => string | Column;
 }
 /**
  * Interface related to rows operations.
