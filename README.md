@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 <div style="margin: 20px 0; width: 100%; display: flex; justify-content: center;">
-<img width="50%" src="https://raw.githubusercontent.com/smeup/ketchup/develop/docs/images/ketchup_logo.svg"></img>
+<img style="display: block; margin: 10px auto;" width="50%" src="https://raw.githubusercontent.com/smeup/ketchup/develop/docs/images/ketchup_logo.svg"></img>
 </div>
 
 <details style="margin: 30px 0">
@@ -26,7 +26,7 @@
         <li><a href="#issues">Issues</a></li>
       </ul></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Credits</a></li>
+    <li><a href="#credits">Credits</a></li>
   </ol>
 </details>     
      
