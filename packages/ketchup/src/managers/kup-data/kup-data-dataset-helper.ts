@@ -10,7 +10,7 @@ import { findColumns, mergeColumns } from './kup-data-column-helper';
 import { KupDataNewColumn } from './kup-data-declarations';
 
 /**
- * Performs a distinct/count after previously grouping column by ranges.
+ * Performs a distinct/count after previously grouping columns by ranges.
  * @param {DataTable} dataset - Input dataset.
  * @param {KupDataNewColumn[]} rangeColumns - A list of columns coupled with their criteria for creation. These are used to define ranges.
  * @param {Column} resultingColumn - The resulting column.
@@ -21,7 +21,7 @@ export function rangedDistinctDataset(
     dataset: DataTable,
     rangeColumns: KupDataNewColumn[],
     resultingColumn: Column,
-    valuesColumn: Column
+    valuesColumn?: Column
 ): DataTable {
     const newD = newDataset(dataset, rangeColumns);
     const columnNames: string[] = [];
@@ -35,6 +35,7 @@ export function rangedDistinctDataset(
 }
 /**
  * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
+ * The original value of cells will be stored in the title property of the new cells.
  * @param {DataTable} dataset - Input dataset.
  * @param {string[]} columns - Column names to manage. When missing, defaults to all columns.
  * @param {Column} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.

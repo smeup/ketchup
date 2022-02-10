@@ -17,7 +17,7 @@ export interface KupDataDatasetOperations {
         columns?: string[],
         valuesColumn?: Column
     ) => DataTable;
-    new: (dataset: DataTable, newColumns?: KupDataNewColumn[]) => DataTable;
+    new: (dataset: DataTable, newColumns: KupDataNewColumn[]) => DataTable;
     rangedDistinct: (
         dataset: DataTable,
         rangeColumns: KupDataNewColumn[],

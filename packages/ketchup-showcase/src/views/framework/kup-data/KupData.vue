@@ -4,16 +4,21 @@
       <template v-slot:0>
         <kup-data-basic></kup-data-basic>
       </template>
+      <template v-slot:1>
+        <kup-data-features></kup-data-features>
+      </template>
     </comp>
   </div>
 </template>
 
 <script>
 import KupDataBasic from '@/views/framework/kup-data/examples/KupDataBasic';
+import KupDataFeatures from '@/views/framework/kup-data/examples/KupDataFeatures';
 import Comp from '@/views/templates/Comp';
 export default {
   components: {
     KupDataBasic,
+    KupDataFeatures,
     Comp,
   },
   data() {
@@ -21,7 +26,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/managers/kup-data',
       headtitle: 'KupData',
-      titles: ['Under development'],
+      titles: ['What is it?', 'Features'],
     };
   },
   title: 'Ketchup | KupData',
