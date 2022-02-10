@@ -17,13 +17,14 @@ export interface KupDataDatasetOperations {
         columns?: string[],
         valuesColumn?: Column
     ) => DataTable;
-    new: (dataset: DataTable, newColumns?: KupDataNewColumn[]) => DataTable;
+    new: (dataset: DataTable, newColumns: KupDataNewColumn[]) => DataTable;
     rangedDistinct: (
         dataset: DataTable,
         rangeColumns: KupDataNewColumn[],
         resultingColumn: Column,
         valuesColumn?: Column
     ) => DataTable;
+    transpose: (dataset: DataTable, headerColumn?: string) => DataTable;
 }
 /**
  * Interface related to cells operations.
@@ -31,17 +32,24 @@ export interface KupDataDatasetOperations {
 export interface KupDataCellOperations {
     find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
     getValue: (dataset: DataTable, columns?: string[]) => string[];
-    replace: (dataset: DataTable, cell: Cell, columns?: string[]) => DataTable;
+    replace: (dataset: DataTable, cell: Cell, columns?: string[]) => Cell[];
 }
 /**
  * Interface related to columns operations.
  */
 export interface KupDataColumnOperations {
+    find: (dataset: DataTable, filters?: Partial<Column>) => Column[];
+    hide: (dataset: DataTable | Column[], columns2hide: string[]) => Column[];
     merge: (
         dataset: DataTable,
         columns2merge: string[],
         newColumn: Column
-    ) => DataTable;
+    ) => Column;
+    new: (
+        dataset: DataTable,
+        operation: string,
+        columns?: string[]
+    ) => string | Column;
 }
 /**
  * Interface related to rows operations.

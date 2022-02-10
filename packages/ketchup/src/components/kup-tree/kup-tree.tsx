@@ -608,6 +608,22 @@ export class KupTree {
         return getProps(this, KupTreeProps, descriptions);
     }
     /**
+     * Hides the given column.
+     * @param {Column} column - Column to hide.
+     */
+    @Method()
+    async hideColumn(column: Column): Promise<void> {
+        this.kupManager.data.datasetOperations.column.hide(this.columns, [
+            column.name,
+        ]);
+        this.kupColumnRemove.emit({
+            comp: this,
+            id: this.rootElement.id,
+            column: column,
+        });
+        this.refresh();
+    }
+    /**
      * Opens the column menu of the given column.
      * @param {string} column - Name of the column.
      */
@@ -972,25 +988,6 @@ export class KupTree {
                 treeNodePath,
                 e ? e.ctrlKey : false
             );
-        }
-    }
-
-    handleColumnRemove(column2remove: Column) {
-        // Get sorted column current position
-        this.getVisibleColumns();
-        const columnX = this.getVisibleColumns().find(
-            (col) =>
-                col.name === column2remove.name &&
-                col.title === column2remove.title
-        );
-        if (columnX) {
-            columnX.visible = false;
-            this.kupColumnRemove.emit({
-                comp: this,
-                id: this.rootElement.id,
-                column: columnX,
-            });
-            this.refresh();
         }
     }
 

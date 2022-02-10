@@ -186,6 +186,16 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
+### `hideColumn(column: Column) => Promise<void>`
+
+Hides the given column.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `mergeColumns(columns: string[], separator?: string) => Promise<string | Column>`
 
 This method merges all the columns specified in the argument into a single one.

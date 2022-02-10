@@ -412,7 +412,7 @@ export class KupDataTable {
     /**
      * The data of the table.
      */
-    @Prop() data: TableData;
+    @Prop({ mutable: true }) data: TableData;
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
@@ -420,7 +420,7 @@ export class KupDataTable {
     /**
      * Enables drag.
      */
-    @Prop({ reflect: true }) dragEnabled: boolean = false;
+    @Prop({ mutable: true, reflect: true }) dragEnabled: boolean = false;
     /**
      * Enables drop.
      */
@@ -429,7 +429,7 @@ export class KupDataTable {
      * When set to true, editable cells will be rendered using input components.
      * @default false
      */
-    @Prop() editableData: boolean = false;
+    @Prop({ mutable: true }) editableData: boolean = false;
     /**
      * Defines the label to show when the table is empty.
      */
@@ -647,7 +647,7 @@ export class KupDataTable {
     /**
      * Transposes the data of the data table
      */
-    @Prop() transpose: boolean = false;
+    @Prop({ mutable: true }) transpose: boolean = false;
 
     //-------- State --------
 
@@ -1011,6 +1011,22 @@ export class KupDataTable {
         return getProps(this, KupDataTableProps, descriptions);
     }
     /**
+     * Hides the given column.
+     * @param {Column} column - Column to hide.
+     */
+    @Method()
+    async hideColumn(column: Column): Promise<void> {
+        this.kupManager.data.datasetOperations.column.hide(this.data, [
+            column.name,
+        ]);
+        this.kupColumnRemove.emit({
+            comp: this,
+            id: this.rootElement.id,
+            column: column,
+        });
+        this.refresh();
+    }
+    /**
      * Opens the column menu of the given column.
      * @param {string} column - Name of the column.
      */
@@ -1254,7 +1270,7 @@ export class KupDataTable {
         operation: string,
         columns?: string[]
     ): Promise<string | Column> {
-        const result = this.kupManager.data.applyFormulaToColumns(
+        const result = this.kupManager.data.datasetOperations.column.new(
             this.data,
             operation,
             columns
@@ -1345,7 +1361,7 @@ export class KupDataTable {
         // transpose
         this.originalData = { ...this.data };
         if (this.data.columns.length > 0) {
-            this.data = this.getTransposedData(this.data.columns[0]);
+            this.data = this.getTransposedData(this.data.columns[0].name);
         }
     }
 
@@ -1484,96 +1500,14 @@ export class KupDataTable {
         }
     }
 
-    private getTransposedData(column?: Column): TableData {
-        const transposedData: TableData = {};
-        // TODO manage better the filters, this is just a fix in order to release the function
+    private getTransposedData(column?: string): TableData {
         if (column) {
             this.filters = {};
         }
-        // calc columns
-        const columns: Array<Column> = [];
-        // first item
-        let firstHead: Column = null;
-        if (column) {
-            firstHead = column;
-            columns.push(firstHead);
-            this.data.rows.forEach((row) => {
-                columns.push(
-                    this.getColumnFromCell(row.cells[firstHead.name], row.id)
-                );
-            });
-        } else {
-            firstHead = { name: fieldColumn.toUpperCase(), title: fieldColumn };
-            columns.push(firstHead);
-            for (let index = 0; index < this.data.rows.length; index++) {
-                columns.push({
-                    name: this.data.rows[index].id,
-                    title: '#' + index,
-                });
-            }
-        }
-        // fill columns with the cells in the first original column
-        // set columns
-        transposedData.columns = columns;
-        // calc rows
-        const rows: Array<Row> = [];
-        for (
-            let index = column ? 1 : 0;
-            index < this.data.columns.length;
-            index++
-        ) {
-            const oldColumn = this.data.columns[index];
-            const cells: CellsHolder = {};
-            // set first cell from previous columns
-            // TODO set obj? like this --> obj: oldColumn.obj
-            cells[firstHead.name] = {
-                value: oldColumn.title,
-            };
-
-            for (
-                let index = 1;
-                index < transposedData.columns.length;
-                index++
-            ) {
-                const newColumn = transposedData.columns[index];
-                const oldRow = this.data.rows[index - 1];
-                const cellName: string = column ? newColumn.name : oldRow.id;
-                cells[cellName] = oldRow.cells[oldColumn.name];
-                if (oldColumn.icon && !cells[cellName].icon) {
-                    cells[cellName].icon = oldColumn.icon;
-                }
-                if (oldColumn.shape && !cells[cellName].shape) {
-                    cells[cellName].shape = oldColumn.shape;
-                }
-            }
-            // If a record is key and no column argument is provided, it will be placed on top
-            if (!column && oldColumn.isKey) {
-                rows.unshift({
-                    id: String(index),
-                    cells,
-                    name: oldColumn.name,
-                });
-            } else {
-                rows.push({
-                    id: String(index),
-                    cells,
-                    name: oldColumn.name,
-                });
-            }
-        }
-        // set rows
-        transposedData.rows = rows;
-        // return
-        return transposedData;
-    }
-
-    private getColumnFromCell(cell: Cell, id: string): Column {
-        const title = cell.displayedValue ? cell.displayedValue : cell.value;
-        // TODO set obj? like this --> obj: cell.obj
-        return {
-            name: cell.value + '_' + id,
-            title,
-        };
+        return this.kupManager.data.datasetOperations.transpose(
+            this.data,
+            column
+        );
     }
 
     private stickyHeaderPosition = () => {
@@ -1800,7 +1734,7 @@ export class KupDataTable {
                                 this.getColumns(),
                                 draggedTh.dataset.column
                             );
-                            this.handleColumnRemove(deleted);
+                            this.hideColumn(deleted);
                             this.tableRef.removeAttribute(kupDragActiveAttr);
                         },
                     }
@@ -4841,25 +4775,6 @@ export class KupDataTable {
             +this.kupManager.dynamicPosition.stop(
                 this.dropareaRef as KupDynamicPositionElement
             );
-        }
-    }
-
-    handleColumnRemove(column2remove: Column) {
-        // Get sorted column current position
-        this.getVisibleColumns();
-        const columnX = this.getVisibleColumns().find(
-            (col) =>
-                col.name === column2remove.name &&
-                col.title === column2remove.title
-        );
-        if (columnX) {
-            columnX.visible = false;
-            this.kupColumnRemove.emit({
-                comp: this,
-                id: this.rootElement.id,
-                column: columnX,
-            });
-            this.refresh();
         }
     }
 

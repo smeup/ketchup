@@ -1135,6 +1135,11 @@ export namespace Components {
          */
         "headerIsPersistent": boolean;
         /**
+          * Hides the given column.
+          * @param column - Column to hide.
+         */
+        "hideColumn": (column: Column) => Promise<void>;
+        /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
          */
@@ -2790,6 +2795,11 @@ export namespace Components {
           * The value of the global filter.
          */
         "globalFilterValue": string;
+        /**
+          * Hides the given column.
+          * @param column - Column to hide.
+         */
+        "hideColumn": (column: Column) => Promise<void>;
         /**
           * True if there aren't visible nodes
          */

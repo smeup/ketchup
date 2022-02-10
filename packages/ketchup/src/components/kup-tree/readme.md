@@ -155,6 +155,16 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
+### `hideColumn(column: Column) => Promise<void>`
+
+Hides the given column.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `isEmpty() => Promise<boolean>`
 
 True if there aren't visible nodes
