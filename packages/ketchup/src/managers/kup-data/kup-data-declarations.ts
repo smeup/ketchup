@@ -24,6 +24,11 @@ export interface KupDataDatasetOperations {
         resultingColumn: Column,
         valuesColumn?: Column
     ) => DataTable;
+    sort: (
+        dataset: DataTable,
+        sortType: KupDataDatasetSort,
+        headerColumn: string
+    ) => DataTable;
     transpose: (dataset: DataTable, headerColumn?: string) => DataTable;
 }
 /**
@@ -85,3 +90,7 @@ export interface KupDataNewColumn {
     column: Column;
     criteria: KupDataFindCellFilters;
 }
+/**
+ * Type for manage sort of the dataset.
+ */
+export type KupDataDatasetSort = 'normalDistribution';

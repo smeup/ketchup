@@ -5,9 +5,10 @@ import {
     fieldColumn,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import { findCell, replaceCell } from './kup-data-cell-helper';
+import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, mergeColumns } from './kup-data-column-helper';
-import { KupDataNewColumn } from './kup-data-declarations';
+import { KupDataDatasetSort, KupDataNewColumn } from './kup-data-declarations';
+import { finder } from './kup-data-helper';
 
 /**
  * Performs a distinct/count after previously grouping column by ranges.
@@ -149,6 +150,69 @@ export function newDataset(
         columns: outputColumns,
         rows: outputRows,
     };
+}
+/**
+ * Create a new dataset with sorted elements.
+ * @param dataset Input dataset.
+ * @param sortType Type of sort to apply.
+ * @param headerColumn The column that used for sorting.
+ * @returns Sorted dataset.
+ */
+export function sortDataset(
+    dataset: DataTable,
+    sortType: KupDataDatasetSort,
+    headerColumn?: string
+): DataTable {
+    // if the sort type different by the only one implemented, i decide to return the dataset.
+    if (sortType != 'normalDistribution') return dataset;
+
+    const output: DataTable = {
+        columns: JSON.parse(JSON.stringify(dataset.columns)),
+        rows: [],
+    };
+    const length = dataset.rows.length;
+
+    // sort all column's values by descending
+    let values = getCellValue(dataset, [headerColumn]);
+    values.sort(function (a, b) {
+        return Number(a) - Number(b);
+    });
+    values.reverse();
+    // with set I exclude duplicates values.
+    values = [...new Set(values)];
+
+    // calculate the middle index.
+    const idx = Math.floor(length / 2);
+    let lastIdx = idx - 1;
+    let leftIdx = idx - 1;
+    let rightIdx = idx + 1;
+
+    // sort the rows like a "mountain", the greatest is in the middle and the other are splitted from left and right like a "mountain".
+    for (let i = 0; i < length; i++) {
+        const value = values[i];
+        // loop the rows becouse we have many row with same value.
+        finder(dataset, { columns: [headerColumn], value: value }).rows.forEach(
+            (row) => {
+                const xC = output.rows[idx];
+                if (xC == null) {
+                    output.rows[idx] = JSON.parse(JSON.stringify(row));
+                } else {
+                    output.rows[lastIdx] = JSON.parse(JSON.stringify(row));
+
+                    if (lastIdx > idx) {
+                        // its right from the middle index.
+                        lastIdx = leftIdx;
+                        rightIdx++;
+                    } else {
+                        // its left from the middle index.
+                        lastIdx = rightIdx;
+                        leftIdx--;
+                    }
+                }
+            }
+        );
+    }
+    return output;
 }
 /**
  * Creates a new dataset with transposed columns and rows.

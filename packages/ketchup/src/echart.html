@@ -42,21 +42,17 @@
             <kup-echart id="piechart" legend="bottom" axis="Col1"> </kup-echart>
             <kup-echart id="mapchart" map-name="world"> </kup-echart>
             <kup-echart id="gaussianchart" legend="top"> </kup-echart>
+            <kup-echart id="gaussian1chart" legend="top"> </kup-echart>
+            <kup-echart id="gaussian2chart" legend="top"> </kup-echart>
         </div>
         <script>
             const echart1 = document.getElementById('piechart');
             const echart2 = document.getElementById('mapchart');
             const echart3 = document.getElementById('gaussianchart');
+            const echart4 = document.getElementById('gaussian1chart');
+            const echart5 = document.getElementById('gaussian2chart');
 
-            echart1.chartTitle = {
-                value: 'This is a title.',
-                color: 'red',
-                position: 'top',
-                size: 16,
-            };
-            echart1.series = ['Col3', 'Col4'];
-            echart1.types = ['Line', 'Scatter'];
-            echart1.data = {
+            const mockData = {
                 columns: [
                     {
                         name: 'Col1',
@@ -193,6 +189,15 @@
                     },
                 ],
             };
+            echart1.chartTitle = {
+                value: 'This is a title.',
+                color: 'red',
+                position: 'top',
+                size: 16,
+            };
+            echart1.series = ['Col3', 'Col4'];
+            echart1.types = ['Line', 'Scatter'];
+            echart1.data = mockData;
             echart2.axis = ['Col1'];
             echart2.types = ['Map'];
             echart2.data = {
@@ -425,6 +430,116 @@
             echart3.data = {
                 columns: columns,
                 rows: rows,
+            };
+
+            const testMock = [
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F',
+                'G',
+                'H',
+                'I',
+                'L',
+                'M',
+                'N',
+                'O',
+                'P',
+                'Q',
+                'R',
+                'S',
+                'T',
+                'U',
+                'V',
+                'Z',
+            ];
+
+            const testMockRows = [];
+            for (let index = 0; index < testMock.length; index++) {
+                const element = testMock[index];
+                const value1 = Math.floor(Math.random() * 100);
+                const value2 = Math.floor(Math.random() * 100);
+
+                testMockRows.push({
+                    cells: {
+                        COL1: {
+                            obj: {
+                                t: 'NR',
+                                p: '',
+                                k: value1.toString(),
+                            },
+                            value: value1.toString(),
+                        },
+                        COL2: {
+                            obj: {
+                                t: 'NR',
+                                p: '',
+                                k: value2.toString(),
+                            },
+                            value: value2.toString(),
+                        },
+                        COL3: {
+                            value: element,
+                        },
+                        COL4: {
+                            obj: {
+                                t: 'NR',
+                                p: '',
+                                k: value1.toString(),
+                            },
+                            value: value1.toString(),
+                        },
+                    },
+                });
+            }
+            const testMockColumns = [
+                {
+                    name: 'COL1',
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '',
+                    },
+                    title: 'Series 1',
+                },
+                {
+                    name: 'COL2',
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '',
+                    },
+                    title: 'Series 2',
+                },
+                {
+                    name: 'COL3',
+                    title: 'Series 3',
+                },
+                {
+                    name: 'COL4',
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '',
+                    },
+                    title: 'Copy of Series 1',
+                },
+            ];
+            echart4.series = ['COL1', 'COL4'];
+            echart4.types = ['Gaussian', 'Bar'];
+            echart4.axis = 'COL3';
+            echart4.data = {
+                columns: testMockColumns,
+                rows: testMockRows,
+            };
+            echart5.series = ['COL1', 'COL4', 'COL2'];
+            echart5.types = ['Gaussian', 'Bar', 'Scatter'];
+            echart5.axis = 'COL3';
+            echart5.data = {
+                columns: testMockColumns,
+                rows: testMockRows,
             };
         </script>
     </body>
