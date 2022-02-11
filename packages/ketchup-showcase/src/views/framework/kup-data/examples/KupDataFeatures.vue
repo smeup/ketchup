@@ -77,6 +77,120 @@
             <div class="kup-container">
               <kup-data-table id="ranged-distinct-table"></kup-data-table>
             </div> </div></div
+        ><div class="accordion-slot" slot="4">
+          <p>
+            <span class="code-word"
+              >datasetOperations.transpose(dataset, headerColumn?):
+              DataTable</span
+            ><br />
+            Creates a new dataset with transposed columns and rows.<br /><br />
+            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>headerColumn (string)</strong> - When specified, it will
+            be the column used as header. When missing, the header will be a
+            series of progressive numbers.<br /><br /> </p
+          ><div class="demo-container">
+            <kup-button
+              id="transpose-button"
+              label="Toggle"
+              styling="outlined"
+              @kup-button-click="toggleTranspose"
+            ></kup-button>
+            <div class="kup-container">
+              <kup-data-table id="transpose-table"></kup-data-table>
+            </div> </div></div
+        ><div class="accordion-slot" slot="5">
+          <p>
+            <span class="code-word"
+              >datasetOperations.cell.find(dataset, filters): Cell[]</span
+            ><br />
+            Finds all the cells matching the filters criteria in the input
+            dataset.<br /><br />
+            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>filters (KupDataFindCellFilters)</strong> - Filters of the
+            research.<br /><br />Try typing a value in the text field below, the
+            cells matching it will briefly flash (keep in mind dates' values are
+            in ISO format: 1900-12-12)!<br /><br /> </p
+          ><div class="demo-container">
+            <kup-text-field
+              id="cell-find-text-field"
+              label="Value"
+              styling="outlined"
+              @kup-textfield-input="(e) => toggleCellFind(e)"
+            ></kup-text-field>
+            <div class="kup-container">
+              <kup-data-table id="cell-find-table"></kup-data-table>
+            </div> </div></div
+        ><div class="accordion-slot" slot="6">
+          <p>
+            <span class="code-word"
+              >datasetOperations.cell.getValue(dataset, columns?):
+              string[]</span
+            ><br />
+            Returns all the cells values of the specified columns.<br /><br />
+            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>columns (string[])</strong> - Columns included in the
+            search. When missing, searches all columns.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="7">
+          <p>
+            <span class="code-word"
+              >datasetOperations.cell.replace(dataset, cell, columns?):
+              string[]</span
+            ><br />
+            Overrides the given cell attributes for the specified columns. If no
+            columns are provided, the value will be applied to every column of
+            the dataset.<br /><br />
+            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>cell (Cell)</strong> - New cell.<br />-
+            <strong>columns (string[])</strong> - Columns to be handled.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="8">
+          <p>
+            <span class="code-word"
+              >datasetOperations.columns.find(dataset, filters): Column[]</span
+            ><br />
+            Finds the columns matching the criteria specified in the filters
+            argument.<br /><br />
+            - <strong>dataset (DataTable | Column[])</strong> - Input dataset or
+            array of columns.<br />
+            - <strong>filters (Partial&lt;Column&gt;)</strong> - Column
+            interface containing the filters to match.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="9">
+          <p>
+            <span class="code-word"
+              >datasetOperations.columns.hide(dataset, columns2hide):
+              Column[]</span
+            ><br />
+            Sets the given columns of the input dataset to be hidden.<br /><br />
+            - <strong>dataset (DataTable | Column[])</strong> - Input dataset or
+            array of columns.<br />
+            - <strong>columns2hide (string[])</strong> - Names of columns to
+            hide.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="10">
+          <p>
+            <span class="code-word"
+              >datasetOperations.columns.merge(dataset, columns2merge,
+              newColumn): Column</span
+            ><br />
+            Takes the columns to merge and creates a new column with their
+            cells.
+            <br />The merged columns will then be removed.<br /><br />
+            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>columns2merge (string[])</strong> - Names of columns to
+            merge.<br />- <strong>newColumn (Column)</strong> - Column
+            created.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="11">
+          <p>
+            <span class="code-word"
+              >datasetOperations.columns.new(dataset, operation, columns?):
+              Column</span
+            ><br />
+            This method is used to create a new column from a mathematical
+            formula.<br /><br />
+            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>operation (string)</strong> - Mathematical operation to
+            apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).<br />-
+            <strong>columns (string[])</strong> - Column names used for the
+            mathematical operation. When missing, they will be extracted from
+            the formula.<br /><br /> </p></div
       ></kup-accordion>
     </div>
   </div>
@@ -90,14 +204,18 @@ import {
 } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import { kupDataDataset } from '../../../../mock/dataTable';
 import { KupDataNewColumn } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
+import { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
+var cellFindTable: HTMLKupDataTableElement = null;
 var distinctButton: HTMLKupButtonElement = null;
 var distinctTable: HTMLKupDataTableElement = null;
 var newButton: HTMLKupButtonElement = null;
 var newTable: HTMLKupDataTableElement = null;
 var rangedDistinctButton: HTMLKupButtonElement = null;
 var rangedDistinctTable: HTMLKupDataTableElement = null;
+var transposeButton: HTMLKupButtonElement = null;
+var transposeTable: HTMLKupDataTableElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 const dataset: DataTable = { ...kupDataDataset };
@@ -158,6 +276,11 @@ export default {
      */
     initVariables(): void {
       accordion = document.querySelector('#accordion');
+      // Cell find
+      cellFindTable = document.querySelector('#cell-find-table');
+      cellFindTable.autoFillMissingCells = true;
+      cellFindTable.data = { ...dataset };
+      cellFindTable.rowsPerPage = 999;
       // Distinct
       distinctButton = document.querySelector('#distinct-button');
       distinctButton.icon = 'play_arrow';
@@ -179,6 +302,13 @@ export default {
       rangedDistinctTable.autoFillMissingCells = true;
       rangedDistinctTable.data = { ...dataset };
       rangedDistinctTable.rowsPerPage = 999;
+      // Transpose
+      transposeButton = document.querySelector('#transpose-button');
+      transposeButton.icon = 'play_arrow';
+      transposeTable = document.querySelector('#transpose-table');
+      transposeTable.autoFillMissingCells = true;
+      transposeTable.data = { ...dataset };
+      transposeTable.rowsPerPage = 999;
     },
     /**
      * Initializes the widgets by setting all the values to the related components.
@@ -198,9 +328,71 @@ export default {
             name: '3',
             title: 'datasetOperations.rangedDistinct',
           },
+          {
+            name: '4',
+            title: 'datasetOperations.transpose',
+          },
+          {
+            name: '5',
+            title: 'datasetOperations.cell.find',
+          },
+          {
+            name: '6',
+            title: 'datasetOperations.cell.getValue',
+          },
+          {
+            name: '7',
+            title: 'datasetOperations.cell.replace',
+          },
+          {
+            name: '8',
+            title: 'datasetOperations.columns.find',
+          },
+          {
+            name: '9',
+            title: 'datasetOperations.columns.hide',
+          },
+          {
+            name: '10',
+            title: 'datasetOperations.columns.merge',
+          },
+          {
+            name: '11',
+            title: 'datasetOperations.columns.new',
+          },
         ],
       };
       accordion.expandAll();
+      this.toggleDistinct();
+      this.toggleNew();
+      this.toggleRangedDistinct();
+      this.toggleTranspose();
+    },
+    /**
+     * Toggles the cell find API.
+     */
+    toggleCellFind(e: CustomEvent<KupTextFieldEventPayload>) {
+      const cells = dom.ketchup.data.datasetOperations.cell.find(
+        cellFindTable.data,
+        {
+          value: e.detail.value,
+        }
+      );
+      for (let index = 0; index < cells.length; index++) {
+        const cell = cells[index];
+        cell.style = {
+          backgroundColor: 'var(--kup-primary-color)',
+          color: 'var(--kup-text-on-primary-color)',
+          transition: 'color 500ms, background-color 500ms',
+        };
+        setTimeout(() => {
+          cell.style = {
+            transition: 'color 500ms, background-color 500ms',
+          };
+          cellFindTable.refresh();
+        }, 500);
+      }
+      cellFindTable.refresh();
     },
     /**
      * Toggles the distinct API.
@@ -236,7 +428,7 @@ export default {
       }
     },
     /**
-     * Toggles the ranged distinct API.
+     * Toggles the transpose API.
      */
     toggleRangedDistinct() {
       if (rangedDistinctButton.classList.contains('toggled')) {
@@ -255,6 +447,22 @@ export default {
         rangedDistinctButton.icon = 'undo';
       }
     },
+    /**
+     * Toggles the new API.
+     */
+    toggleTranspose() {
+      if (transposeButton.classList.contains('toggled')) {
+        transposeButton.classList.remove('toggled');
+        transposeTable.data = { ...dataset };
+        transposeButton.icon = 'play_arrow';
+      } else {
+        transposeButton.classList.add('toggled');
+        transposeTable.data = dom.ketchup.data.datasetOperations.transpose(
+          transposeTable.data
+        );
+        transposeButton.icon = 'undo';
+      }
+    },
   },
   mounted() {
     this.initVariables();
@@ -270,3 +478,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+kup-text-field {
+  margin: auto;
+  width: 200px;
+}
+</style>

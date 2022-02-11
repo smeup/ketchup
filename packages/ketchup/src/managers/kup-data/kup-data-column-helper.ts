@@ -38,7 +38,7 @@ export function findColumns(
 /**
  * Sets the given columns of the input dataset to be hidden.
  * @param {DataTable | Column[]} dataset - Input dataset or array of columns.
- * @param {string[]} columns2hide - Columns to merge.
+ * @param {string[]} columns2hide - Names of columns to hide.
  * @returns {Column[]} Columns that were set to hidden.
  */
 export function hideColumns(
@@ -61,7 +61,7 @@ export function hideColumns(
 /**
  * Takes the columns to merge and creates a new column with their cells. The merged columns will then be removed.
  * @param {DataTable} dataset - Input dataset.
- * @param {string[]} columns2merge - Columns to merge.
+ * @param {string[]} columns2merge - Names of columns to merge.
  * @param {Column} newColumn - Column created.
  * @returns {Column} Resulting column.
  */
@@ -104,7 +104,7 @@ export function mergeColumns(
 }
 /**
  * This method is used to create a new column from a mathematical formula.
- * @param {DataTable} dataset - The dataset that must be updated with the new columns.
+ * @param {DataTable} dataset - Input dataset.
  * @param {string} operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
  * @param {string[]} columns - Column names used for the mathematical operation. When missing, they will be extracted from the formula.
  * @returns {string | Column} Returns the new column created or a string containing the error message (if something went wrong).
