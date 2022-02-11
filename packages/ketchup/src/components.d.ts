@@ -26,7 +26,7 @@ import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
-import { KupObj } from "./managers/kup-objects/kup-objects-declarations";
+import { KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
@@ -1100,13 +1100,6 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
-        /**
-          * This method is used to apply math formulas to columns.
-          * @param operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
-          * @param columns - Column names. If missing, they will be extracted from the formula.
-          * @returns Returns the new column created or a string containing the error message if something went wrong.
-         */
-        "formulaOnColumns": (operation: string, columns?: string[]) => Promise<string | Column>;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
         /**
           * Used to retrieve component's props values.
@@ -1169,12 +1162,12 @@ export namespace Components {
          */
         "loadMoreStep": number;
         /**
-          * This method merges all the columns specified in the argument into a single one.
-          * @param columns - Array of column names.
-          * @param separator - Characters used to separate values.
+          * Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
+          * @param type - Type of the column creation.
+          * @param options - Options of the creation.
           * @returns Returns the new column created or a string containing the error message if something went wrong.
          */
-        "mergeColumns": (columns: string[], separator?: string) => Promise<string | Column>;
+        "newColumn": (type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | Column>;
         /**
           * Opens the column menu of the given column.
           * @param column - Name of the column.

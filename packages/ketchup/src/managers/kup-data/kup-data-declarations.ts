@@ -40,15 +40,10 @@ export interface KupDataCellOperations {
 export interface KupDataColumnOperations {
     find: (dataset: DataTable, filters?: Partial<Column>) => Column[];
     hide: (dataset: DataTable | Column[], columns2hide: string[]) => Column[];
-    merge: (
-        dataset: DataTable,
-        columns2merge: string[],
-        newColumn: Column
-    ) => Column;
     new: (
         dataset: DataTable,
-        operation: string,
-        columns?: string[]
+        type: KupDataNewColumnTypes,
+        options: KupDataNewColumnOptions
     ) => string | Column;
 }
 /**
@@ -89,4 +84,21 @@ export interface KupDataFilterRange {
 export interface KupDataNewColumn {
     column: Column;
     criteria: KupDataFindCellFilters;
+}
+/**
+ * Interface containing the options related to column creation when invoking datasetOperations.column.new.
+ */
+export interface KupDataNewColumnOptions {
+    columns?: string[];
+    newColumn?: Column;
+    operation?: string;
+    separator?: string;
+}
+/**
+ * Types of column creation when invoking datasetOperations.column.new.
+ */
+export enum KupDataNewColumnTypes {
+    CONCATENATE = 'concatenate',
+    MATH = 'math',
+    MERGE = 'merge',
 }

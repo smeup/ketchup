@@ -12,6 +12,8 @@ import {
     KupDataFindCellFilters,
     KupDataFormulas,
     KupDataNewColumn,
+    KupDataNewColumnOptions,
+    KupDataNewColumnTypes,
 } from './kup-data-declarations';
 import {
     distinctDataset,
@@ -21,12 +23,7 @@ import {
 } from './kup-data-dataset-helper';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
-import {
-    findColumns,
-    hideColumns,
-    mergeColumns,
-    newColumn,
-} from './kup-data-column-helper';
+import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
 import { findRow } from './kup-data-row-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -74,19 +71,12 @@ export class KupData {
                 ): Column[] {
                     return hideColumns(dataset, columns2hide);
                 },
-                merge(
-                    dataset: DataTable,
-                    columns2merge: string[],
-                    newColumn: Column
-                ): Column {
-                    return mergeColumns(dataset, columns2merge, newColumn);
-                },
                 new(
                     dataset: DataTable,
-                    operation: string,
-                    columns?: string[]
+                    type: KupDataNewColumnTypes,
+                    options: KupDataNewColumnOptions
                 ): string | Column {
-                    return newColumn(dataset, operation, columns);
+                    return newColumn(dataset, type, options);
                 },
             },
             row: {
@@ -222,7 +212,7 @@ export class KupData {
     /**
      * Returns a number from a non specified input type between string, number, or String.
      * @param {string | String | number} input - Input value to numberify.
-     * @param {KupDatesLocales} locale - Input format locale. Defaults to ENGLISH.
+     * @param {KupDatesLocales} locale - Input format locale. Defaults to KupDatesLocales.ENGLISH.
      * @returns {number} Resulting number.
      */
     numberify(

@@ -6,8 +6,11 @@ import {
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { findCell, replaceCell } from './kup-data-cell-helper';
-import { findColumns, mergeColumns } from './kup-data-column-helper';
-import { KupDataNewColumn } from './kup-data-declarations';
+import { findColumns, newColumn } from './kup-data-column-helper';
+import {
+    KupDataNewColumn,
+    KupDataNewColumnTypes,
+} from './kup-data-declarations';
 
 /**
  * Performs a distinct/count after previously grouping columns by ranges.
@@ -30,7 +33,10 @@ export function rangedDistinctDataset(
         columnNames.push(newColumn.name);
         replaceCell(newD, { value: newColumn.title }, [newColumn.name]);
     }
-    mergeColumns(newD, columnNames, resultingColumn);
+    newColumn(newD, KupDataNewColumnTypes.MERGE, {
+        columns: columnNames,
+        newColumn: resultingColumn,
+    });
     return distinctDataset(newD, null, valuesColumn);
 }
 /**

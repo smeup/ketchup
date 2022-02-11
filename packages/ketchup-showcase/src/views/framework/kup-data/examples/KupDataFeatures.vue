@@ -167,31 +167,21 @@
         ><div class="accordion-slot" slot="10">
           <p>
             <span class="code-word"
-              >datasetOperations.column.merge(dataset, columns2merge,
-              newColumn): Column</span
-            ><br />
-            Takes the columns to merge and creates a new column with their
-            cells.
-            <br />The merged columns will then be removed.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
-            - <strong>columns2merge (string[])</strong> - Names of columns to
-            merge.<br />- <strong>newColumn (Column)</strong> - Column
-            created.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="11">
-          <p>
-            <span class="code-word"
-              >datasetOperations.column.new(dataset, operation, columns?):
+              >datasetOperations.column.new(dataset, type, options): string |
               Column</span
             ><br />
-            This method is used to create a new column from a mathematical
-            formula.<br /><br />
+            Creates a new column with the specified options.<br />A string will
+            be returned in case something went wrong, containing the error
+            message.<br /><br />
             - <strong>dataset (DataTable)</strong> - Input dataset.<br />
-            - <strong>operation (string)</strong> - Mathematical operation to
-            apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).<br />-
-            <strong>columns (string[])</strong> - Column names used for the
-            mathematical operation. When missing, they will be extracted from
-            the formula.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="12">
+            - <strong>type (KupDataNewColumnTypes)</strong> - Type of column
+            creation. Supported types:
+            <span class="code-word">concatenate</span>,
+            <span class="code-word">math</span>,
+            <span class="code-word">merge</span>.<br />-
+            <strong>options (KupDataNewColumnOptions)</strong> - Options used by
+            the submethods to create the column.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="11">
           <p>
             <span class="code-word"
               >datasetOperations.row.find(dataset, filters): Column[]</span
@@ -201,7 +191,7 @@
             - <strong>dataset (DataTable)</strong> - Input dataset.<br />
             - <strong>filters (KupDataFindCellFilters)</strong> - Filters of the
             research.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="13">
+        ><div class="accordion-slot" slot="12">
           <p>
             <span class="code-word">formulas.custom(formula, row): number</span
             ><br />
@@ -212,7 +202,7 @@
             - <strong>row ({ [index: string]: number })</strong> - Object
             containing column names as indexes and the related values as
             keys.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="14">
+        ><div class="accordion-slot" slot="13">
           <p>
             <span class="code-word"
               >formulas.normalDistribution(average, variance, x): number</span
@@ -221,7 +211,7 @@
             - <strong>average (number)</strong> - Average.<br />
             - <strong>variance (number)</strong> - Variance.<br />-
             <strong>x (number)</strong> - X coordinate.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="15">
+        ><div class="accordion-slot" slot="14">
           <p>
             <span class="code-word"
               >normalDistribution(values, precision?): number[][]</span
@@ -231,7 +221,7 @@
             of values.<br />
             - <strong>precision (number)</strong> - Number of iterations to run
             (points). When not specified, defaults to 201.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="16">
+        ><div class="accordion-slot" slot="15">
           <p>
             <span class="code-word">numberify(input, locale?): number</span
             ><br />
@@ -404,30 +394,26 @@ export default {
           },
           {
             name: '10',
-            title: 'datasetOperations.column.merge',
-          },
-          {
-            name: '11',
             title: 'datasetOperations.column.new',
           },
           {
-            name: '12',
+            name: '11',
             title: 'datasetOperations.row.find',
           },
           {
-            name: '13',
+            name: '12',
             title: 'formulas.custom',
           },
           {
-            name: '14',
+            name: '13',
             title: 'formulas.normalDistribution',
           },
           {
-            name: '15',
+            name: '14',
             title: 'normalDistribution',
           },
           {
-            name: '16',
+            name: '15',
             title: 'numberify',
           },
         ],
