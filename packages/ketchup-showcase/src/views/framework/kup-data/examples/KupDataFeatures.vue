@@ -145,7 +145,7 @@
         ><div class="accordion-slot" slot="8">
           <p>
             <span class="code-word"
-              >datasetOperations.columns.find(dataset, filters): Column[]</span
+              >datasetOperations.column.find(dataset, filters): Column[]</span
             ><br />
             Finds the columns matching the criteria specified in the filters
             argument.<br /><br />
@@ -156,7 +156,7 @@
         ><div class="accordion-slot" slot="9">
           <p>
             <span class="code-word"
-              >datasetOperations.columns.hide(dataset, columns2hide):
+              >datasetOperations.column.hide(dataset, columns2hide):
               Column[]</span
             ><br />
             Sets the given columns of the input dataset to be hidden.<br /><br />
@@ -167,7 +167,7 @@
         ><div class="accordion-slot" slot="10">
           <p>
             <span class="code-word"
-              >datasetOperations.columns.merge(dataset, columns2merge,
+              >datasetOperations.column.merge(dataset, columns2merge,
               newColumn): Column</span
             ><br />
             Takes the columns to merge and creates a new column with their
@@ -180,7 +180,7 @@
         ><div class="accordion-slot" slot="11">
           <p>
             <span class="code-word"
-              >datasetOperations.columns.new(dataset, operation, columns?):
+              >datasetOperations.column.new(dataset, operation, columns?):
               Column</span
             ><br />
             This method is used to create a new column from a mathematical
@@ -191,6 +191,56 @@
             <strong>columns (string[])</strong> - Column names used for the
             mathematical operation. When missing, they will be extracted from
             the formula.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="12">
+          <p>
+            <span class="code-word"
+              >datasetOperations.row.find(dataset, filters): Column[]</span
+            ><br />
+            Finds all the rows containing cells matching the filters criteria in
+            the input dataset.<br /><br />
+            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>filters (KupDataFindCellFilters)</strong> - Filters of the
+            research.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="13">
+          <p>
+            <span class="code-word">formulas.custom(formula, row): number</span
+            ><br />
+            Takes a mathematical formula as string in input, with column names
+            between brackets, and returns the result as a number.<br /><br />
+            - <strong>formula (string)</strong> - Mathematical operation (i.e.:
+            ([COL1] - [COL2]) * 100 / [COL3]).<br />
+            - <strong>row ({ [index: string]: number })</strong> - Object
+            containing column names as indexes and the related values as
+            keys.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="14">
+          <p>
+            <span class="code-word"
+              >formulas.normalDistribution(average, variance, x): number</span
+            ><br />
+            Calculates a single Y point of a normal distribution.<br /><br />
+            - <strong>average (number)</strong> - Average.<br />
+            - <strong>variance (number)</strong> - Variance.<br />-
+            <strong>x (number)</strong> - X coordinate.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="15">
+          <p>
+            <span class="code-word"
+              >normalDistribution(values, precision?): number[][]</span
+            ><br />
+            Calculates the normal distribution on a set of values.<br /><br />
+            - <strong>values (string[] | number[] | String[])</strong> - Array
+            of values.<br />
+            - <strong>precision (number)</strong> - Number of iterations to run
+            (points). When not specified, defaults to 201.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="16">
+          <p>
+            <span class="code-word">numberify(input, locale?): number</span
+            ><br />
+            Returns a number from a non specified input type between string,
+            number, or String.<br /><br />
+            - <strong>input (string | String | number)</strong> - Input value to
+            numberify.<br />
+            - <strong>locale (KupDatesLocales)</strong> - Input format locale.
+            Defaults to KupDatesLocales.ENGLISH.<br /><br /> </p></div
       ></kup-accordion>
     </div>
   </div>
@@ -346,19 +396,39 @@ export default {
           },
           {
             name: '8',
-            title: 'datasetOperations.columns.find',
+            title: 'datasetOperations.column.find',
           },
           {
             name: '9',
-            title: 'datasetOperations.columns.hide',
+            title: 'datasetOperations.column.hide',
           },
           {
             name: '10',
-            title: 'datasetOperations.columns.merge',
+            title: 'datasetOperations.column.merge',
           },
           {
             name: '11',
-            title: 'datasetOperations.columns.new',
+            title: 'datasetOperations.column.new',
+          },
+          {
+            name: '12',
+            title: 'datasetOperations.row.find',
+          },
+          {
+            name: '13',
+            title: 'formulas.custom',
+          },
+          {
+            name: '14',
+            title: 'formulas.normalDistribution',
+          },
+          {
+            name: '15',
+            title: 'normalDistribution',
+          },
+          {
+            name: '16',
+            title: 'numberify',
           },
         ],
       };

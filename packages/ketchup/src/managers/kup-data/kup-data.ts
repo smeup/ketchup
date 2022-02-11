@@ -158,6 +158,13 @@ export class KupData {
                     return NaN;
                 }
             },
+            /**
+             * Calculates a single Y point of a normal distribution.
+             * @param {number} average - Average.
+             * @param {number} variance - Variance.
+             * @param {number} x - X coordinate.
+             * @returns {number} Result.
+             */
             normalDistribution(
                 average: number,
                 variance: number,
@@ -172,7 +179,7 @@ export class KupData {
     }
     /**
      * Calculates the normal distribution on a set of values.
-     * @param {string[]} values - Array of values.
+     * @param {string[] | number[] | String[]} values - Array of values.
      * @param {number} precision - Number of iterations to run (points). When not specified, defaults to 201.
      * @returns {number[][]} Returns an array of arrays containing numbers, which are the representation of the calculated normal distribution.
      */

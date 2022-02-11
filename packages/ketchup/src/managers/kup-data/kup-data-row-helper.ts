@@ -6,7 +6,7 @@ import { KupDataFindCellFilters } from './kup-data-declarations';
 import { finder } from './kup-data-helper';
 
 /**
- * Finds all the cells with the specified value in the given dataset.
+ * Finds all the rows containing cells matching the filters criteria in the input dataset.
  * @param {DataTable} dataset - Input dataset.
  * @param {KupDataFindCellFilters} filters - Filters of the research.
  * @returns {Row[]} Array of rows fetched after applying the filters.
