@@ -7,6 +7,11 @@ import {
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { KupObj } from '../kup-objects/kup-objects-declarations';
+import {
+    KupDataNewColumnOptions,
+    KupDataNewColumnTypes,
+} from './kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -38,7 +43,7 @@ export function findColumns(
 /**
  * Sets the given columns of the input dataset to be hidden.
  * @param {DataTable | Column[]} dataset - Input dataset or array of columns.
- * @param {string[]} columns2hide - Columns to merge.
+ * @param {string[]} columns2hide - Names of columns to hide.
  * @returns {Column[]} Columns that were set to hidden.
  */
 export function hideColumns(
@@ -59,57 +64,152 @@ export function hideColumns(
     return hidden;
 }
 /**
- * Takes the columns to merge and creates a new column with their cells. The merged columns will then be removed.
+ * Creates a new column with the specified options.
  * @param {DataTable} dataset - Input dataset.
- * @param {string[]} columns2merge - Columns to merge.
- * @param {Column} newColumn - Column created.
- * @returns {Column} Resulting column.
+ * @param {KupDataNewColumnTypes} type - Type of column creation.
+ * @param {KupDataNewColumnOptions} options - Options used by the submethods to create the column.
+ * @returns {string | Column} Returns the new column created or a string containing the error message (if something went wrong).
  */
-export function mergeColumns(
+export function newColumn(
     dataset: DataTable,
-    columns2merge: string[],
-    newColumn: Column
-): Column {
-    const outputCells: Cell[] = [];
-    for (let index = 0; index < dataset.rows.length; index++) {
-        const row = dataset.rows[index];
+    type: KupDataNewColumnTypes,
+    options?: KupDataNewColumnOptions
+): string | Column {
+    switch (type) {
+        case KupDataNewColumnTypes.CONCATENATE:
+            return newColumnFromConcatenate(
+                dataset,
+                options.columns,
+                options.separator
+            );
+        case KupDataNewColumnTypes.MATH:
+            return newColumnFromMath(
+                dataset,
+                options.operation,
+                options.columns
+            );
+        case KupDataNewColumnTypes.MERGE:
+            return newColumnFromMerge(
+                dataset,
+                options.columns,
+                options.newColumn
+            );
+        default:
+            const message =
+                'Wrong type used to invoke new column creation!(' + type + ')';
+            dom.ketchup.debug.logMessage(
+                'kup-data',
+                message,
+                KupDebugCategory.WARNING
+            );
+            return message;
+    }
+}
+/**
+ * This method concatenates all the columns specified in the argument into a single one.
+ * @param {DataTable} dataset - Input dataset.
+ * @param {string[]} columns - Array of column names.
+ * @param {string} separator - Characters used to separate values.
+ * @returns {string|Column}  Returns the new column created or a string containing the error message (if something went wrong).
+ */
+function newColumnFromConcatenate(
+    dataset: DataTable,
+    columns: string[],
+    separator?: string
+): string | Column {
+    if (!columns || columns.length === 0) {
+        const message =
+            'Invalid array, interrupting column merging!(' + columns + ')';
+        dom.ketchup.debug.logMessage(
+            'kup-data',
+            message,
+            KupDebugCategory.WARNING
+        );
+        return message;
+    }
+    let firstColumn: Column = null;
+    const titles: string[] = [];
+    const objs: KupObj[] = [];
+    separator = separator ? separator : ' ';
+    for (let index = 0; index < dataset.columns.length; index++) {
+        const col = dataset.columns[index];
+        if (columns.includes(col.name)) {
+            objs.push(col.obj);
+            titles[columns.indexOf(col.name)] = col.title;
+        }
+        if (columns[0] === col.name) {
+            firstColumn = col;
+        }
+        if (
+            col.mergedFrom &&
+            col.mergedFrom.toString() === columns.toString()
+        ) {
+            const message =
+                'The product of these columns in the same order already exists!(' +
+                columns.toString() +
+                ')';
+            dom.ketchup.debug.logMessage(
+                'kup-data',
+                message,
+                KupDebugCategory.WARNING
+            );
+            return message;
+        }
+    }
+    const newName = columns.join('_');
+    const newObj =
+        objs.length > 0 && dom.ketchup.objects.isSameKupObj(objs)
+            ? objs[0]
+            : null;
+    const newTitle = titles.join(separator);
+    dataset.rows.forEach((row) => {
         const cells = row.cells;
-        for (const key in cells) {
-            const cell = cells[key];
-            if (columns2merge.includes(key)) {
-                outputCells.push({ ...cell });
-                delete cells[key];
+        const values: string[] = [];
+        let base: Cell = null;
+        if (cells) {
+            for (let index = 0; index < columns.length; index++) {
+                const column = columns[index];
+                const cell = cells[column];
+                if (cell) {
+                    if (!base) {
+                        base = cell;
+                    }
+                    values.push(cell.value);
+                }
             }
         }
-    }
-    for (let index = 0; index < columns2merge.length; index++) {
-        const column2removeIndex = dataset.columns.findIndex(
-            (col: Column) => col.name === columns2merge[index]
-        );
-        dataset.columns.splice(column2removeIndex, 1);
-    }
-    let rowIndex = 0;
-    for (let index = 0; index < outputCells.length; index++) {
-        const outputCell = outputCells[index];
-        let row: Row = null;
-        if (!dataset.rows[rowIndex]) {
-            dataset.rows[rowIndex] = { cells: {} };
+        const value = values.join(separator);
+        if (values.length > 0) {
+            cells[newName] = {
+                ...base,
+                displayedValue: null,
+                obj: newObj ? { ...newObj, k: value } : null,
+                value: value,
+            };
         }
-        row = dataset.rows[rowIndex];
-        row.cells[newColumn.name] = outputCell;
-        rowIndex++;
-    }
-    dataset.columns.push(newColumn);
+    });
+    const newColumn: Column = {
+        ...firstColumn,
+        name: newName,
+        title: newTitle,
+        obj: newObj,
+        mergedFrom: columns,
+    };
+    dataset.columns.splice(
+        dataset.columns.indexOf(firstColumn) + 1,
+        0,
+        newColumn
+    );
     return newColumn;
 }
 /**
  * This method is used to create a new column from a mathematical formula.
- * @param {DataTable} dataset - The dataset that must be updated with the new columns.
+ * @param {DataTable} dataset - Input dataset.
  * @param {string} operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
  * @param {string[]} columns - Column names used for the mathematical operation. When missing, they will be extracted from the formula.
  * @returns {string | Column} Returns the new column created or a string containing the error message (if something went wrong).
  */
-export function newColumn(
+function newColumnFromMath(
     dataset: DataTable,
     operation: string,
     columns?: string[]
@@ -236,5 +336,49 @@ export function newColumn(
         0,
         newColumn
     );
+    return newColumn;
+}
+/**
+ * Takes the columns to merge and creates a new column with their cells. The merged columns will then be removed.
+ * @param {DataTable} dataset - Input dataset.
+ * @param {string[]} columns2merge - Names of columns to merge.
+ * @param {Column} newColumn - Column created.
+ * @returns {Column} Resulting column.
+ */
+export function newColumnFromMerge(
+    dataset: DataTable,
+    columns2merge: string[],
+    newColumn: Column
+): Column {
+    const outputCells: Cell[] = [];
+    for (let index = 0; index < dataset.rows.length; index++) {
+        const row = dataset.rows[index];
+        const cells = row.cells;
+        for (const key in cells) {
+            const cell = cells[key];
+            if (columns2merge.includes(key)) {
+                outputCells.push({ ...cell });
+                delete cells[key];
+            }
+        }
+    }
+    for (let index = 0; index < columns2merge.length; index++) {
+        const column2removeIndex = dataset.columns.findIndex(
+            (col: Column) => col.name === columns2merge[index]
+        );
+        dataset.columns.splice(column2removeIndex, 1);
+    }
+    let rowIndex = 0;
+    for (let index = 0; index < outputCells.length; index++) {
+        const outputCell = outputCells[index];
+        let row: Row = null;
+        if (!dataset.rows[rowIndex]) {
+            dataset.rows[rowIndex] = { cells: {} };
+        }
+        row = dataset.rows[rowIndex];
+        row.cells[newColumn.name] = outputCell;
+        rowIndex++;
+    }
+    dataset.columns.push(newColumn);
     return newColumn;
 }

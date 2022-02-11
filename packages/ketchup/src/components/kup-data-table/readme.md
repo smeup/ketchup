@@ -156,16 +156,6 @@ Type: `Promise<void>`
 
 
 
-### `formulaOnColumns(operation: string, columns?: string[]) => Promise<string | Column>`
-
-This method is used to apply math formulas to columns.
-
-#### Returns
-
-Type: `Promise<string | Column>`
-
-Returns the new column created or a string containing the error message if something went wrong.
-
 ### `getInternalState() => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>`
 
 
@@ -196,9 +186,9 @@ Type: `Promise<void>`
 
 
 
-### `mergeColumns(columns: string[], separator?: string) => Promise<string | Column>`
+### `newColumn(type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | Column>`
 
-This method merges all the columns specified in the argument into a single one.
+Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
 
 #### Returns
 

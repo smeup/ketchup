@@ -162,6 +162,10 @@ import {
     pageChange,
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
+import {
+    KupDataNewColumnOptions,
+    KupDataNewColumnTypes,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1027,6 +1031,30 @@ export class KupDataTable {
         this.refresh();
     }
     /**
+     * Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
+     * @param {KupDataNewColumnTypes} type - Type of the column creation.
+     * @param {KupDataNewColumnOptions} options - Options of the creation.
+     * @returns {string|Column} Returns the new column created or a string containing the error message if something went wrong.
+     */
+    @Method()
+    async newColumn(
+        type: KupDataNewColumnTypes,
+        options: KupDataNewColumnOptions
+    ): Promise<string | Column> {
+        const result = this.kupManager.data.datasetOperations.column.new(
+            this.data,
+            type,
+            options
+        );
+        const error = !!(
+            typeof result === 'string' || result instanceof String
+        );
+        if (!error) {
+            this.refresh();
+        }
+        return result;
+    }
+    /**
      * Opens the column menu of the given column.
      * @param {string} column - Name of the column.
      */
@@ -1162,127 +1190,6 @@ export class KupDataTable {
             });
         }
     }
-    /**
-     * This method merges all the columns specified in the argument into a single one.
-     * @param {string[]} columns - Array of column names.
-     * @param {string} separator - Characters used to separate values.
-     * @returns {string|Column} Returns the new column created or a string containing the error message if something went wrong.
-     */
-    @Method()
-    async mergeColumns(
-        columns: string[],
-        separator?: string
-    ): Promise<string | Column> {
-        if (!columns || columns.length === 0) {
-            const message =
-                'Invalid array, interrupting column merging!(' + columns + ')';
-            this.kupManager.debug.logMessage(
-                this,
-                message,
-                KupDebugCategory.WARNING
-            );
-            return message;
-        }
-        let firstColumn: Column = null;
-        const titles: string[] = [];
-        const objs: KupObj[] = [];
-        separator = separator ? separator : ' ';
-        for (let index = 0; index < this.data.columns.length; index++) {
-            const col = this.data.columns[index];
-            if (columns.includes(col.name)) {
-                objs.push(col.obj);
-                titles[columns.indexOf(col.name)] = col.title;
-            }
-            if (columns[0] === col.name) {
-                firstColumn = col;
-            }
-            if (
-                col.mergedFrom &&
-                col.mergedFrom.toString() === columns.toString()
-            ) {
-                const message =
-                    'The product of these columns in the same order already exists!(' +
-                    columns.toString() +
-                    ')';
-                this.kupManager.debug.logMessage(
-                    this,
-                    message,
-                    KupDebugCategory.WARNING
-                );
-                return message;
-            }
-        }
-        const newName = columns.join('_');
-        const newObj =
-            objs.length > 0 && this.kupManager.objects.isSameKupObj(objs)
-                ? objs[0]
-                : null;
-        const newTitle = titles.join(separator);
-        this.data.rows.forEach((row) => {
-            const cells = row.cells;
-            const values: string[] = [];
-            let base: Cell = null;
-            if (cells) {
-                for (let index = 0; index < columns.length; index++) {
-                    const column = columns[index];
-                    const cell = cells[column];
-                    if (cell) {
-                        if (!base) {
-                            base = cell;
-                        }
-                        values.push(cell.value);
-                    }
-                }
-            }
-            const value = values.join(separator);
-            if (values.length > 0) {
-                cells[newName] = {
-                    ...base,
-                    displayedValue: null,
-                    obj: newObj ? { ...newObj, k: value } : null,
-                    value: value,
-                };
-            }
-        });
-        const newColumn: Column = {
-            ...firstColumn,
-            name: newName,
-            title: newTitle,
-            obj: newObj,
-            mergedFrom: columns,
-        };
-        this.data.columns.splice(
-            this.data.columns.indexOf(firstColumn) + 1,
-            0,
-            newColumn
-        );
-        this.refresh();
-        return newColumn;
-    }
-    /**
-     * This method is used to apply math formulas to columns.
-     * @param {string} operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
-     * @param {string[]} columns - Column names. If missing, they will be extracted from the formula.
-     * @returns {string|Column} Returns the new column created or a string containing the error message if something went wrong.
-     */
-    @Method()
-    async formulaOnColumns(
-        operation: string,
-        columns?: string[]
-    ): Promise<string | Column> {
-        const result = this.kupManager.data.datasetOperations.column.new(
-            this.data,
-            operation,
-            columns
-        );
-        const error = !!(
-            typeof result === 'string' || result instanceof String
-        );
-        if (!error) {
-            this.refresh();
-        }
-        return result;
-    }
 
     private closeDropCard() {
         this.kupManager.dynamicPosition.stop(
@@ -1311,7 +1218,9 @@ export class KupDataTable {
                     this.refresh();
                 },
                 mergeCb: () => {
-                    this.mergeColumns([receiving.name, starter.name]);
+                    this.newColumn(KupDataNewColumnTypes.CONCATENATE, {
+                        columns: [receiving.name, starter.name],
+                    });
                     this.closeDropCard();
                 },
                 moveCb: () => {
@@ -1785,7 +1694,9 @@ export class KupDataTable {
                     if (onlySort) {
                         this.handleColumnSort(receiving, starter);
                     } else if (onlyMerge) {
-                        this.mergeColumns([receiving.name, starter.name]);
+                        this.newColumn(KupDataNewColumnTypes.CONCATENATE, {
+                            columns: [receiving.name, starter.name],
+                        });
                     } else {
                         this.createDropCard(starter, receiving);
                     }

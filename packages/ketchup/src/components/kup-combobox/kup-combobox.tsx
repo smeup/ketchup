@@ -432,6 +432,7 @@ export class KupCombobox {
                 this.#listEl.filter = this.displayedValue;
             }
         } else {
+            this.value = valueIn;
             this.displayedValue = valueIn;
             if (this.#listEl != null) {
                 this.#listEl.filter = valueIn;
