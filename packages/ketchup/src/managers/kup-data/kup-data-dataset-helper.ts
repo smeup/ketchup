@@ -5,13 +5,15 @@ import {
     fieldColumn,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
-import { findColumns, mergeColumns } from './kup-data-column-helper';
-import { KupDataDatasetSort, KupDataNewColumn } from './kup-data-declarations';
-import { finder } from './kup-data-helper';
+import { findCell, replaceCell } from './kup-data-cell-helper';
+import { findColumns, newColumn } from './kup-data-column-helper';
+import {
+    KupDataNewColumn,
+    KupDataNewColumnTypes,
+} from './kup-data-declarations';
 
 /**
- * Performs a distinct/count after previously grouping column by ranges.
+ * Performs a distinct/count after previously grouping columns by ranges.
  * @param {DataTable} dataset - Input dataset.
  * @param {KupDataNewColumn[]} rangeColumns - A list of columns coupled with their criteria for creation. These are used to define ranges.
  * @param {Column} resultingColumn - The resulting column.
@@ -22,7 +24,7 @@ export function rangedDistinctDataset(
     dataset: DataTable,
     rangeColumns: KupDataNewColumn[],
     resultingColumn: Column,
-    valuesColumn: Column
+    valuesColumn?: Column
 ): DataTable {
     const newD = newDataset(dataset, rangeColumns);
     const columnNames: string[] = [];
@@ -31,11 +33,15 @@ export function rangedDistinctDataset(
         columnNames.push(newColumn.name);
         replaceCell(newD, { value: newColumn.title }, [newColumn.name]);
     }
-    mergeColumns(newD, columnNames, resultingColumn);
+    newColumn(newD, KupDataNewColumnTypes.MERGE, {
+        columns: columnNames,
+        newColumn: resultingColumn,
+    });
     return distinctDataset(newD, null, valuesColumn);
 }
 /**
  * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
+ * The original value of cells will be stored in the title property of the new cells.
  * @param {DataTable} dataset - Input dataset.
  * @param {string[]} columns - Column names to manage. When missing, defaults to all columns.
  * @param {Column} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
@@ -141,7 +147,7 @@ export function newDataset(
                 outputRows[rowIndex] = { cells: {} };
             }
             outputRow = outputRows[rowIndex];
-            outputRow.cells[newColumn.name] = cell;
+            outputRow.cells[newColumn.name] = JSON.parse(JSON.stringify(cell));
             rowIndex++;
         }
         outputColumns.push(newColumn);

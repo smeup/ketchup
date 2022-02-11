@@ -17,7 +17,7 @@ export interface KupDataDatasetOperations {
         columns?: string[],
         valuesColumn?: Column
     ) => DataTable;
-    new: (dataset: DataTable, newColumns?: KupDataNewColumn[]) => DataTable;
+    new: (dataset: DataTable, newColumns: KupDataNewColumn[]) => DataTable;
     rangedDistinct: (
         dataset: DataTable,
         rangeColumns: KupDataNewColumn[],
@@ -45,11 +45,11 @@ export interface KupDataCellOperations {
 export interface KupDataColumnOperations {
     find: (dataset: DataTable, filters?: Partial<Column>) => Column[];
     hide: (dataset: DataTable | Column[], columns2hide: string[]) => Column[];
-    merge: (
+    new: (
         dataset: DataTable,
-        columns2merge: string[],
-        newColumn: Column
-    ) => Column;
+        type: KupDataNewColumnTypes,
+        options: KupDataNewColumnOptions
+    ) => string | Column;
 }
 /**
  * Interface related to rows operations.
@@ -91,6 +91,23 @@ export interface KupDataNewColumn {
     criteria: KupDataFindCellFilters;
 }
 /**
- * Type for manage sort of the dataset.
+ * Type to manage sort of the dataset.
  */
 export type KupDataDatasetSort = 'normalDistribution';
+/**
+ * Interface containing the options related to column creation when invoking datasetOperations.column.new.
+ */
+export interface KupDataNewColumnOptions {
+    columns?: string[];
+    newColumn?: Column;
+    operation?: string;
+    separator?: string;
+}
+/**
+ * Types of column creation when invoking datasetOperations.column.new.
+ */
+export enum KupDataNewColumnTypes {
+    CONCATENATE = 'concatenate',
+    MATH = 'math',
+    MERGE = 'merge',
+}

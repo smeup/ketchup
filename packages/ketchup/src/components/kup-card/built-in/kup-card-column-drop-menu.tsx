@@ -14,6 +14,7 @@ import {
 import { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { KupCard } from '../kup-card';
 import { KupCardColumnDropMenuOptions } from '../kup-card-declarations';
+import { KupDataNewColumnTypes } from '../../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -213,17 +214,27 @@ async function applyFormula(component: KupCard) {
     if (combobox) {
         const value = (await combobox.getValue()) as KupLanguageTotals;
         if (premadeFormulas.includes(value)) {
-            dom.ketchup.data.applyFormulaToColumns(options.data, value, [
-                options.receivingColumn.name,
-                options.starterColumn.name,
-            ]);
+            dom.ketchup.data.datasetOperations.column.new(
+                options.data,
+                KupDataNewColumnTypes.MATH,
+                {
+                    columns: [
+                        options.receivingColumn.name,
+                        options.starterColumn.name,
+                    ],
+                    operation: value,
+                }
+            );
             if (options.formulaCb !== undefined) {
                 options.formulaCb();
             }
         } else {
-            const result = dom.ketchup.data.applyFormulaToColumns(
+            const result = dom.ketchup.data.datasetOperations.column.new(
                 options.data,
-                value
+                KupDataNewColumnTypes.MATH,
+                {
+                    operation: value,
+                }
             );
             if (typeof result === 'string' || result instanceof String) {
                 combobox.classList.add('kup-danger');

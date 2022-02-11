@@ -47,6 +47,7 @@ import {
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
+import { KupDataNewColumnTypes } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -811,7 +812,11 @@ export class KupColumnMenu {
                 switch (compID) {
                     case KupColumnMenuIds.TEXTFIELD_FORMULA:
                         (comp as KupDataTable)
-                            .formulaOnColumns(compEvent.detail.value)
+                            .newColumn(KupDataNewColumnTypes.MATH, {
+                                operation: (
+                                    compEvent as CustomEvent<KupTextFieldEventPayload>
+                                ).detail.value,
+                            })
                             .then((res) => {
                                 if (
                                     typeof res === 'string' ||

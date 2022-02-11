@@ -888,23 +888,20 @@ function mergeEvent(index) {
     replaceEvent(index);
     const newDataset = { ...outputTable.data };
     if (index === 0) {
-        kupManager.data.datasetOperations.column.merge(
-            newDataset,
-            ['2039', '4059', '6099'],
-            resultingColumn
-        );
+        kupManager.data.datasetOperations.column.new(newDataset, 'merge', {
+            columns: ['2039', '4059', '6099'],
+            newColumn: resultingColumn,
+        });
     } else if (index === 1) {
-        kupManager.data.datasetOperations.column.merge(
-            newDataset,
-            ['AC', 'DP', 'QZ'],
-            resultingColumnString
-        );
+        kupManager.data.datasetOperations.column.new(newDataset, 'merge', {
+            columns: ['AC', 'DP', 'QZ'],
+            newColumn: resultingColumnString,
+        });
     } else if (index === 2) {
-        kupManager.data.datasetOperations.column.merge(
-            newDataset,
-            ['17001900', '19011950', '19512022'],
-            resultingColumnDate
-        );
+        kupManager.data.datasetOperations.column.new(newDataset, 'merge', {
+            columns: ['17001900', '19011950', '19512022'],
+            newColumn: resultingColumnDate,
+        });
     }
     outputTable.data = newDataset;
 }
