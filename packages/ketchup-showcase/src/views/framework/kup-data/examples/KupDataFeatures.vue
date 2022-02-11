@@ -77,6 +77,18 @@
             <div class="kup-container">
               <kup-data-table id="ranged-distinct-table"></kup-data-table>
             </div> </div></div
+        ><div class="accordion-slot" slot="3b">
+          <p>
+            <span class="code-word"
+              >datasetOperations.sort(dataset, sortType, headerColumn?):
+              DataTable</span
+            ><br />
+            Creates a new dataset with sorted elements.<br /><br />
+            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>sortType (KupDataDatasetSort)</strong> - Type of sort to
+            apply.<br />
+            - <strong>headerColumn (string)</strong> - The column used for
+            sorting.<br /><br /> </p></div
         ><div class="accordion-slot" slot="4">
           <p>
             <span class="code-word"
@@ -367,6 +379,10 @@ export default {
           {
             name: '3',
             title: 'datasetOperations.rangedDistinct',
+          },
+          {
+            name: '3b',
+            title: 'datasetOperations.sort',
           },
           {
             name: '4',

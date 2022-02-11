@@ -39,6 +39,7 @@ import {
     DataTable,
 } from '../kup-data-table/kup-data-table-declarations';
 import { KupDataFindCellFilters } from '../../managers/kup-data/kup-data-declarations';
+import { kupTypes } from '../../f-components/f-cell/f-cell-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -245,27 +246,26 @@ export class KupEchart {
         this.chartEl.setOption(options, true);
     }
 
-    private createX() {
+    private createX(dataset: DataTable = null) {
         const x: string[] = [];
+        if (!dataset) dataset = this.data;
         if (!this.axis) {
-            for (let i = 0; i < this.data.rows.length; i++) {
-                const cells = this.data.rows[i].cells;
+            for (let i = 0; i < dataset.rows.length; i++) {
+                const cells = dataset.rows[i].cells;
                 const treatedCells: CellsHolder = {};
                 for (const key in cells) {
                     const cell = cells[key];
-                    const title = getColumnByName(this.data.columns, key).title;
+                    const title = getColumnByName(dataset.columns, key).title;
                     treatedCells[title] = cell;
                 }
-                x.push(treatedCells[0].value);
+                // TODO: Ask if is correct or change to use other system.
+                if (treatedCells[0]) x.push(treatedCells[0].value);
             }
         } else {
-            for (let i = 0; i < this.data.rows.length; i++) {
-                const cells = this.data.rows[i].cells;
+            for (let i = 0; i < dataset.rows.length; i++) {
+                const cells = dataset.rows[i].cells;
                 const treatedCells: CellsHolder = {};
-                const title = getColumnByName(
-                    this.data.columns,
-                    this.axis
-                ).title;
+                const title = getColumnByName(dataset.columns, this.axis).title;
                 treatedCells[title] = cells[this.axis];
                 x.push(treatedCells[title].value);
             }
@@ -558,93 +558,180 @@ export class KupEchart {
     }
 
     private setGaussianOptions() {
+        let x = this.createX();
         const y = this.createY();
         const series: echarts.SeriesOption[] = [];
+        const mixedSeries =
+            this.types.filter((i) => i != KupEchartTypes.GAUSSIAN).length > 0;
+        const needSortDataset =
+            this.types.filter((j) => j != KupEchartTypes.GAUSSIAN).length == 1;
         this.gaussianDatasets = {};
+        let i: number = 0;
         for (const key in y) {
+            let type: KupEchartTypes;
+            if (this.types[i]) {
+                type = this.types[i];
+            } else {
+                type = KupEchartTypes.GAUSSIAN;
+            }
             let values: string[] = null;
             const column = this.data.columns.find(
                 (col: Column) => col.title === key
             );
-            if (!this.kupManager.objects.isNumber(column.obj)) {
-                const newDataset =
-                    this.kupManager.data.datasetOperations.distinct(this.data, [
-                        column.name,
-                    ]);
-                values = this.kupManager.data.datasetOperations.cell.getValue(
-                    newDataset,
-                    [column.name]
-                );
-                this.gaussianDatasets[column.name] = newDataset;
+            if (type == KupEchartTypes.GAUSSIAN) {
+                if (!this.kupManager.objects.isNumber(column.obj)) {
+                    const newDataset =
+                        this.kupManager.data.datasetOperations.distinct(
+                            this.data,
+                            [column.name]
+                        );
+                    values =
+                        this.kupManager.data.datasetOperations.cell.getValue(
+                            newDataset,
+                            [column.name]
+                        );
+                    this.gaussianDatasets[column.name] = newDataset;
+                } else {
+                    values = y[key];
+                }
             } else {
-                values = y[key];
+                if (needSortDataset) {
+                    // if there is only one series other than the Gaussian then I apply the sorting algorithm that arranges the data in "mountain"
+                    const contextDataset =
+                        this.kupManager.data.datasetOperations.sort(
+                            this.data,
+                            'normalDistribution',
+                            column.name
+                        );
+                    values =
+                        this.kupManager.data.datasetOperations.cell.getValue(
+                            contextDataset,
+                            [column.name]
+                        );
+                    x = this.createX(contextDataset);
+                } else {
+                    values =
+                        this.kupManager.data.datasetOperations.cell.getValue(
+                            this.data,
+                            [column.name]
+                        );
+                }
             }
-            series.push({
-                data: this.kupManager.data.normalDistribution(values),
-                name: key,
-                showSymbol: false,
-                smooth: true,
-                type: 'line',
-            } as echarts.LineSeriesOption);
+            this.addSeries(
+                type,
+                series,
+                values,
+                key,
+                mixedSeries,
+                needSortDataset
+            );
+            i++;
         }
         // "any" because type is mismanaged inside echarts library
-        const tipCb: any = (params: any) => {
+        const tipCb: any = (params: any[]) => {
+            params.sort((a, b) => a.seriesIndex - b.seriesIndex);
             const wrapper =
                 '<div style="display: flex; flex-direction: column">';
             let format = wrapper;
             let count = 0;
             for (let index = 0; index < params.length; index++) {
                 const param = params[index];
-                const value = param.value[0];
-                const x = `<div><span style="margin-right: 5px;"><strong>x:</strong></span><span>${param.value[0]}</span></div>`;
-                if (!index) {
-                    format += x;
-                }
-                const column = this.data.columns.find(
-                    (col: Column) => col.title === param.seriesName
-                ).name;
-                const filters: KupDataFindCellFilters = {
-                    columns: [column],
-                    range: {
-                        max: value + (value / 100) * 50,
-                        min: value - (value / 100) * 50,
-                    },
-                };
-                const rows = this.kupManager.data.datasetOperations.row.find(
-                    this.gaussianDatasets[column]
-                        ? this.gaussianDatasets[column]
-                        : this.data,
-                    filters
-                );
-                for (let index = 0; index < rows.length; index++) {
-                    const row = rows[index];
-                    const cells = row.cells;
-                    if (cells[this.axis] || cells[column].title) {
-                        let title = '';
-                        if (cells[this.axis]) {
-                            title = cells[this.axis].value;
-                        } else {
-                            title = cells[column].title;
-                        }
-                        const remainder = count % 4;
-                        if (!remainder) {
-                            if (count) {
-                                format += `</div>`;
-                            }
-                            format += `<div style="display: flex; flex-direction: row;">`;
-                        }
-                        const style = `style="color: ${param.color}; margin-right: 5px"`;
-                        format += `<span ${style}><strong>${title}</strong>: ${cells[column].value}</span>`;
-                        count++;
+
+                if (
+                    this.types[param.seriesIndex] == undefined ||
+                    this.types[param.seriesIndex] == KupEchartTypes.GAUSSIAN
+                ) {
+                    const value = param.value[0];
+                    const x = `<div style="color: ${param.color};"><span style="margin-right: 5px;"><strong>x:</strong></span><span>${param.value[0]}</span></div>`;
+                    if (!index) {
+                        format += x;
                     }
+
+                    const column = this.data.columns.find(
+                        (col: Column) => col.title === param.seriesName
+                    ).name;
+                    const filters: KupDataFindCellFilters = {
+                        columns: [column],
+                        range: {
+                            max: value + (value / 100) * 50,
+                            min: value - (value / 100) * 50,
+                        },
+                    };
+                    const rows =
+                        this.kupManager.data.datasetOperations.row.find(
+                            this.gaussianDatasets[column]
+                                ? this.gaussianDatasets[column]
+                                : this.data,
+                            filters
+                        );
+                    for (let index = 0; index < rows.length; index++) {
+                        const row = rows[index];
+                        const cells = row.cells;
+                        if (cells[this.axis] || cells[column].title) {
+                            let title = '';
+                            if (cells[this.axis]) {
+                                title = cells[this.axis].value;
+                            } else {
+                                title = cells[column].title;
+                            }
+                            const remainder = count % 4;
+                            if (!remainder) {
+                                if (count) {
+                                    format += `</div>`;
+                                }
+                                format += `<div style="display: flex; flex-direction: row;">`;
+                            }
+                            const style = `style="color: ${param.color}; margin-right: 5px"`;
+                            format += `<span ${style}><strong>${title}</strong>: ${cells[column].value}</span>`;
+                            count++;
+                        }
+                    }
+                    if (format !== wrapper) format += '</div>';
+                } else {
+                    const style = `style="color: ${param.color}; margin-right: 5px"`;
+                    format += `<div ${style}><strong>${param.name}</strong>: ${param.value}</div>`;
                 }
             }
             if (format === wrapper) {
                 return null;
             } else {
-                return format + '</div>';
+                return format;
             }
         };
+        // list of x-axis, one for the non-Gaussian series which appears on the left and one for the Gaussian series on the right.
+        const xAxisTmp = [
+            {
+                ...this.setAxisColors(),
+                data: x.length > 0 ? x : null,
+                type: 'category',
+                ...this.xAxis,
+            },
+            {
+                ...this.setAxisColors(),
+                type: 'value',
+                max: 'dataMax',
+                min: 'dataMin',
+                ...this.xAxis,
+            },
+        ];
+        // list of y-axis, one for the non-Gaussian series which appears at the bottom and one for the Gaussian series at the top.
+        const yAxisTmp = [
+            {
+                ...this.setAxisColors(),
+                type: 'value',
+                ...this.yAxis,
+            },
+            {
+                ...this.setAxisColors(),
+                type: 'value',
+                ...this.yAxis,
+            },
+        ];
+        // If the series are not mixed, then I eliminate the extra axis
+        if (!mixedSeries) {
+            xAxisTmp.splice(0, 1);
+            yAxisTmp.splice(0, 1);
+        }
         return {
             color: this.themeColors,
             legend: this.setLegend(y),
@@ -655,19 +742,55 @@ export class KupEchart {
                 trigger: 'axis',
                 formatter: tipCb,
             },
-            xAxis: {
-                ...this.setAxisColors(),
-                type: 'value',
-                max: 'dataMax',
-                min: 'dataMin',
-                ...this.xAxis,
-            },
-            yAxis: {
-                ...this.setAxisColors(),
-                type: 'value',
-                ...this.yAxis,
-            },
+            xAxis: xAxisTmp,
+            yAxis: yAxisTmp,
         } as echarts.EChartsOption;
+    }
+
+    private addSeries(
+        type: KupEchartTypes,
+        series: echarts.SeriesOption[],
+        values: string[],
+        key: string,
+        mixedSeries: boolean = false,
+        needSortDataset: boolean = false
+    ) {
+        switch (type) {
+            case KupEchartTypes.GAUSSIAN:
+                series.push({
+                    data: this.kupManager.data.normalDistribution(values),
+                    name: key,
+                    showSymbol: false,
+                    smooth: true,
+                    type: 'line',
+                    xAxisIndex: mixedSeries ? 1 : 0,
+                    yAxisIndex: mixedSeries ? 1 : 0,
+                } as echarts.LineSeriesOption);
+                break;
+            case KupEchartTypes.BAR:
+                series.push({
+                    data: values,
+                    name: key,
+                    type: 'bar',
+                    barWidth: needSortDataset ? '100%' : undefined,
+                } as echarts.BarSeriesOption);
+                break;
+            case KupEchartTypes.SCATTER:
+                series.push({
+                    data: values,
+                    name: key,
+                    type: 'scatter',
+                } as echarts.ScatterSeriesOption);
+                break;
+            case KupEchartTypes.LINE:
+            default:
+                series.push({
+                    data: values,
+                    name: key,
+                    type: 'line',
+                } as echarts.LineSeriesOption);
+                break;
+        }
     }
 
     private setOptions() {
@@ -683,30 +806,7 @@ export class KupEchart {
             } else {
                 type = KupEchartTypes.LINE;
             }
-            switch (type) {
-                case KupEchartTypes.BAR:
-                    series.push({
-                        data: values,
-                        name: key,
-                        type: 'bar',
-                    } as echarts.BarSeriesOption);
-                    break;
-                case KupEchartTypes.SCATTER:
-                    series.push({
-                        data: values,
-                        name: key,
-                        type: 'scatter',
-                    } as echarts.ScatterSeriesOption);
-                    break;
-                case KupEchartTypes.LINE:
-                default:
-                    series.push({
-                        data: values,
-                        name: key,
-                        type: 'line',
-                    } as echarts.LineSeriesOption);
-                    break;
-            }
+            this.addSeries(type, series, values, key);
             i++;
         }
         return {

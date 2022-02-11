@@ -9,6 +9,7 @@ import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDataDatasetOperations,
+    KupDataDatasetSort,
     KupDataFindCellFilters,
     KupDataFormulas,
     KupDataNewColumn,
@@ -19,6 +20,7 @@ import {
     distinctDataset,
     newDataset,
     rangedDistinctDataset,
+    sortDataset,
     transposeDataset,
 } from './kup-data-dataset-helper';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
@@ -109,6 +111,13 @@ export class KupData {
                     resultingColumn,
                     valuesColumn
                 );
+            },
+            sort(
+                dataset: DataTable,
+                sortType: KupDataDatasetSort,
+                headerColumn: string
+            ): DataTable {
+                return sortDataset(dataset, sortType, headerColumn);
             },
             transpose(dataset: DataTable, headerColumn?: string): DataTable {
                 return transposeDataset(dataset, headerColumn);
