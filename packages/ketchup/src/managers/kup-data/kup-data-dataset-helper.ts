@@ -141,7 +141,7 @@ export function newDataset(
                 outputRows[rowIndex] = { cells: {} };
             }
             outputRow = outputRows[rowIndex];
-            outputRow.cells[newColumn.name] = cell;
+            outputRow.cells[newColumn.name] = JSON.parse(JSON.stringify(cell));
             rowIndex++;
         }
         outputColumns.push(newColumn);
