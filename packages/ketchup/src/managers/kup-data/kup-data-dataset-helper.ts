@@ -5,12 +5,18 @@ import {
     fieldColumn,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import { findCell, replaceCell } from './kup-data-cell-helper';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, newColumn } from './kup-data-column-helper';
 import {
+    KupDataDatasetSort,
     KupDataNewColumn,
     KupDataNewColumnTypes,
 } from './kup-data-declarations';
+import { finder } from './kup-data-helper';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Performs a distinct/count after previously grouping columns by ranges.
@@ -158,45 +164,51 @@ export function newDataset(
     };
 }
 /**
- * Create a new dataset with sorted elements.
- * @param dataset Input dataset.
- * @param sortType Type of sort to apply.
- * @param headerColumn The column that used for sorting.
- * @returns Sorted dataset.
+ * Creates a new dataset with sorted elements.
+ * @param {DataTable} dataset Input dataset.
+ * @param {KupDataDatasetSort} sortType Type of sort to apply.
+ * @param {string} headerColumn The column used for sorting.
+ * @returns {DataTable} Sorted dataset.
  */
 export function sortDataset(
     dataset: DataTable,
     sortType: KupDataDatasetSort,
     headerColumn?: string
 ): DataTable {
-    // if the sort type different by the only one implemented, i decide to return the dataset.
-    if (sortType != 'normalDistribution') return dataset;
-
+    if (sortType != 'normalDistribution') {
+        const message = 'Wrong sort type! (' + sortType + ')';
+        dom.ketchup.debug.logMessage(
+            'kup-data',
+            message,
+            KupDebugCategory.WARNING
+        );
+        return dataset;
+    }
     const output: DataTable = {
         columns: JSON.parse(JSON.stringify(dataset.columns)),
         rows: [],
     };
     const length = dataset.rows.length;
 
-    // sort all column's values by descending
+    // sort all columns values by descending
     let values = getCellValue(dataset, [headerColumn]);
     values.sort(function (a, b) {
         return Number(a) - Number(b);
     });
     values.reverse();
-    // with set I exclude duplicates values.
+    // excluding duplicates values.
     values = [...new Set(values)];
 
-    // calculate the middle index.
+    // calculating middle index
     const idx = Math.floor(length / 2);
     let lastIdx = idx - 1;
     let leftIdx = idx - 1;
     let rightIdx = idx + 1;
 
-    // sort the rows like a "mountain", the greatest is in the middle and the other are splitted from left and right like a "mountain".
+    // sort the rows like a "mountain", the greatest is in the middle and the other ones are splitted left and right
     for (let i = 0; i < length; i++) {
         const value = values[i];
-        // loop the rows becouse we have many row with same value.
+        // looping the rows because we have many rows with same value.
         finder(dataset, { columns: [headerColumn], value: value }).rows.forEach(
             (row) => {
                 const xC = output.rows[idx];
@@ -206,11 +218,11 @@ export function sortDataset(
                     output.rows[lastIdx] = JSON.parse(JSON.stringify(row));
 
                     if (lastIdx > idx) {
-                        // its right from the middle index.
+                        // right from the middle index.
                         lastIdx = leftIdx;
                         rightIdx++;
                     } else {
-                        // its left from the middle index.
+                        // left from the middle index.
                         lastIdx = rightIdx;
                         leftIdx--;
                     }

@@ -19,10 +19,10 @@
     <div>
       <h4>One Gaussian series and one Bar series</h4>
       <p
-        >This example contains a Gaussian series and a Bar series. The Bar
-        series is automatically sorted to be compared with the Gaussian one. The
-        X axis for the bar series is bottom while for the Gaussian series it is
-        top. The Y axis for the bar series is on the left while for the Gaussian
+        >This example shows a Gaussian series and a Bar series. The Bar series
+        is automatically sorted to be compared with the Gaussian one. The X axis
+        for the bar series is bottom while for the Gaussian series it is top.
+        The Y axis for the bar series is on the left while for the Gaussian
         series it is on the right.</p
       >
       <div class="demo-container">
@@ -39,10 +39,10 @@
     <div>
       <h4>One Gaussian series, one Bar series and one Scatter series</h4>
       <p
-        >Questo esempio contiene una serie gaussiana, una serie Bar e una serie
-        Scatter. The X axis for the non Gaussian series is bottom while for the
-        Gaussian series it is top. The Y axis for the non Gaussian series is on
-        the left while for the Gaussian series it is on the right.</p
+        >This example shows a Gaussian, a Bar and a Scatter series. The X axis
+        for the non Gaussian series is bottom while for the Gaussian series it
+        is top. The Y axis for the non Gaussian series is on the left while for
+        the Gaussian series it is on the right.</p
       >
       <div class="demo-container">
         <div class="kup-container">
