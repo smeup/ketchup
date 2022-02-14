@@ -6,12 +6,12 @@
           <p>
             <span class="code-word"
               >datasetOperations.distinct(dataset, columns?, valuesColumn?):
-              DataTable</span
+              KupDataDataset</span
             ><br />
             Creates a new dataset with an amount of cells equal to a distinct
             calculation applied to the given columns.<br />The original value of
             cells will be stored in the title property of the new cells.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>columns (string[])</strong> - Column names to manage. When
             missing, defaults to all columns.<br />
             - <strong>valuesColumn (Column)</strong> - When present, this column
@@ -30,12 +30,12 @@
         ><div class="accordion-slot" slot="2">
           <p>
             <span class="code-word"
-              >datasetOperations.new(dataset, newColumns): DataTable</span
+              >datasetOperations.new(dataset, newColumns): KupDataDataset</span
             ><br />
             Creates a new dataset from the input one.<br />
             The new columns are to be specified in the columns argument along
             with their creation criteria.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>newColumns (KupDataNewColumn[])</strong> - Array
             containing the specifics of the new columns to be created.<br /><br /> </p
           ><div class="demo-container">
@@ -52,13 +52,13 @@
           <p>
             <span class="code-word"
               >datasetOperations.rangedDistinct(dataset, rangeColumns,
-              resultingColumn, valuesColumn?): DataTable</span
+              resultingColumn, valuesColumn?): KupDataDataset</span
             ><br />
             Performs a distinct/count after previously grouping columns by
             ranges.<br />This method is, essentially, a combination of other
             steps such as <span class="code-word">new</span> and
             <span class="code-word">distinct</span>.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>rangeColumns (KupDataNewColumn[])</strong> - A list of
             columns coupled with their criteria for creation. These are used to
             define ranges.<br />
@@ -81,10 +81,10 @@
           <p>
             <span class="code-word"
               >datasetOperations.sort(dataset, sortType, headerColumn?):
-              DataTable</span
+              KupDataDataset</span
             ><br />
             Creates a new dataset with sorted elements.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>sortType (KupDataDatasetSort)</strong> - Type of sort to
             apply.<br />
             - <strong>headerColumn (string)</strong> - The column used for
@@ -93,10 +93,10 @@
           <p>
             <span class="code-word"
               >datasetOperations.transpose(dataset, headerColumn?):
-              DataTable</span
+              KupDataDataset</span
             ><br />
             Creates a new dataset with transposed columns and rows.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>headerColumn (string)</strong> - When specified, it will
             be the column used as header. When missing, the header will be a
             series of progressive numbers.<br /><br /> </p
@@ -117,7 +117,7 @@
             ><br />
             Finds all the cells matching the filters criteria in the input
             dataset.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>filters (KupDataFindCellFilters)</strong> - Filters of the
             research.<br /><br />Try typing a value in the text field below, the
             cells matching it will briefly flash (keep in mind dates' values are
@@ -139,7 +139,7 @@
               string[]</span
             ><br />
             Returns all the cells values of the specified columns.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>columns (string[])</strong> - Columns included in the
             search. When missing, searches all columns.<br /><br /> </p></div
         ><div class="accordion-slot" slot="7">
@@ -151,7 +151,7 @@
             Overrides the given cell attributes for the specified columns. If no
             columns are provided, the value will be applied to every column of
             the dataset.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>cell (Cell)</strong> - New cell.<br />-
             <strong>columns (string[])</strong> - Columns to be handled.<br /><br /> </p></div
         ><div class="accordion-slot" slot="8">
@@ -161,8 +161,8 @@
             ><br />
             Finds the columns matching the criteria specified in the filters
             argument.<br /><br />
-            - <strong>dataset (DataTable | Column[])</strong> - Input dataset or
-            array of columns.<br />
+            - <strong>dataset (KupDataDataset | Column[])</strong> - Input
+            dataset or array of columns.<br />
             - <strong>filters (Partial&lt;Column&gt;)</strong> - Column
             interface containing the filters to match.<br /><br /> </p></div
         ><div class="accordion-slot" slot="9">
@@ -172,8 +172,8 @@
               Column[]</span
             ><br />
             Sets the given columns of the input dataset to be hidden.<br /><br />
-            - <strong>dataset (DataTable | Column[])</strong> - Input dataset or
-            array of columns.<br />
+            - <strong>dataset (KupDataDataset | Column[])</strong> - Input
+            dataset or array of columns.<br />
             - <strong>columns2hide (string[])</strong> - Names of columns to
             hide.<br /><br /> </p></div
         ><div class="accordion-slot" slot="10">
@@ -185,7 +185,7 @@
             Creates a new column with the specified options.<br />A string will
             be returned in case something went wrong, containing the error
             message.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>type (KupDataNewColumnTypes)</strong> - Type of column
             creation. Supported types:
             <span class="code-word">concatenate</span>,
@@ -200,7 +200,7 @@
             ><br />
             Finds all the rows containing cells matching the filters criteria in
             the input dataset.<br /><br />
-            - <strong>dataset (DataTable)</strong> - Input dataset.<br />
+            - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>filters (KupDataFindCellFilters)</strong> - Filters of the
             research.<br /><br /> </p></div
         ><div class="accordion-slot" slot="12">
@@ -250,13 +250,11 @@
 
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
-import {
-  Column,
-  DataTable,
-} from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
+import { Column } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import { kupDataDataset } from '../../../../mock/dataTable';
 import { KupDataNewColumn } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 import { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import { KupDataDataset } from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var cellFindTable: HTMLKupDataTableElement = null;
@@ -270,7 +268,7 @@ var transposeButton: HTMLKupButtonElement = null;
 var transposeTable: HTMLKupDataTableElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
-const dataset: DataTable = { ...kupDataDataset };
+const dataset: KupDataDataset = { ...kupDataDataset };
 const newColumn: KupDataNewColumn[] = [
   {
     column: {
@@ -553,7 +551,7 @@ export default {
 
 <style lang="scss" scoped>
 kup-text-field {
-  margin: auto;
-  width: 200px;
+  margin: auto !important;
+  width: 200px !important;
 }
 </style>

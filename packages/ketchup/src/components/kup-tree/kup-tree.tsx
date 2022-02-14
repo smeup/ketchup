@@ -1710,7 +1710,7 @@ export class KupTree {
     }
 
     renderFooter() {
-        const nodesCell: HTMLTableDataCellElement = <td></td>;
+        const nodesCell: HTMLElement = <td></td>;
         const footerCells = this.getVisibleColumns().map((column: Column) => {
             let totalMenu = undefined;
             let menuLabel = TotalLabel.CALC;

@@ -69,11 +69,6 @@ export enum KupDataTableProps {
     totals = 'Defines the current totals options.',
 }
 
-export interface DataTable {
-    columns?: Array<Column>;
-    rows?: Array<Row>;
-}
-
 export interface CellData {
     [index: string]: any;
 }
@@ -153,11 +148,6 @@ export interface RowGroup {
         k: string;
     };
     totals: { [index: string]: any }; // TODO manage this any
-}
-
-export interface TableData {
-    columns?: Array<Column>;
-    rows?: Array<Row>;
 }
 
 export interface GenericMap {

@@ -34,7 +34,6 @@ import {
     ShowGrid,
     SortMode,
     SortObject,
-    TableData,
     TotalsMap,
     TotalMode,
     TotalLabel,
@@ -163,6 +162,7 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
+    KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -416,7 +416,7 @@ export class KupDataTable {
     /**
      * The data of the table.
      */
-    @Prop({ mutable: true }) data: TableData;
+    @Prop({ mutable: true }) data: KupDataDataset;
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
@@ -795,7 +795,7 @@ export class KupDataTable {
      * contains the original data, used in transposed function
      * @private
      */
-    private originalData: TableData = undefined;
+    private originalData: KupDataDataset = undefined;
 
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
@@ -1277,7 +1277,7 @@ export class KupDataTable {
     private switchToTotalsMatrix(): void {
         if (this.rows.length === 0 || !this.rows[0].group) return;
         // calc totals matrix data
-        const totalsMatrixData: TableData = {};
+        const totalsMatrixData: KupDataDataset = {};
         // calc columns id
         // note that the sorting of the columns depends on the totals selection
         // the first column is the one that is selected first in the totals, and so on...
@@ -1409,7 +1409,7 @@ export class KupDataTable {
         }
     }
 
-    private getTransposedData(column?: string): TableData {
+    private getTransposedData(column?: string): KupDataDataset {
         if (column) {
             this.filters = {};
         }
@@ -2137,7 +2137,7 @@ export class KupDataTable {
      * @memberof KupDataTable
      */
     private rowDetail(row: Row, x: number, y: number): void {
-        const transposedData: TableData = this.getTransposedData();
+        const transposedData: KupDataDataset = this.getTransposedData();
         const cardData: KupCardData = {
             button: [
                 {

@@ -7,7 +7,8 @@ import {
 
 import { getDecimalSeparator } from '../../utils/utils';
 
-import { Row, TableData } from '../kup-data-table/kup-data-table-declarations';
+import { Row } from '../kup-data-table/kup-data-table-declarations';
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-dash-list',
@@ -43,7 +44,7 @@ export class KupDashList {
     textColor: Array<any> = [];
 
     @Prop()
-    data: TableData;
+    data: KupDataDataset;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */

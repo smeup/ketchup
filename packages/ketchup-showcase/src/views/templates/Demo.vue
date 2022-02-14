@@ -549,6 +549,13 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupDataDataset: {
+    keys: {
+      'columns?': 'Column[]',
+      'rows?': 'Row[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupEchartLegendPlacement: {
     keys: {
       BOTTOM: 'bottom',
@@ -668,13 +675,6 @@ const demoTypes: DemoTypeJson = {
     keys: {
       column: 'string',
       sortMode: 'SortMode',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
-  TableData: {
-    keys: {
-      'columns?': 'Column[]',
-      'rows?': 'Row[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },

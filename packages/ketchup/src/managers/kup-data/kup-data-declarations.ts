@@ -1,10 +1,16 @@
 import {
     Cell,
     Column,
-    DataTable,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 
+/**
+ * Generic dataset interface.
+ */
+export interface KupDataDataset {
+    columns?: Column[];
+    rows?: Row[];
+}
 /**
  * Interface related to dataset operations.
  */
@@ -13,40 +19,53 @@ export interface KupDataDatasetOperations {
     column: KupDataColumnOperations;
     row: KupDataRowOperations;
     distinct: (
-        dataset: DataTable,
+        dataset: KupDataDataset,
         columns?: string[],
         valuesColumn?: Column
-    ) => DataTable;
-    new: (dataset: DataTable, newColumns: KupDataNewColumn[]) => DataTable;
+    ) => KupDataDataset;
+    new: (
+        dataset: KupDataDataset,
+        newColumns: KupDataNewColumn[]
+    ) => KupDataDataset;
     rangedDistinct: (
-        dataset: DataTable,
+        dataset: KupDataDataset,
         rangeColumns: KupDataNewColumn[],
         resultingColumn: Column,
         valuesColumn?: Column
-    ) => DataTable;
+    ) => KupDataDataset;
     sort: (
-        dataset: DataTable,
+        dataset: KupDataDataset,
         sortType: KupDataDatasetSort,
         headerColumn: string
-    ) => DataTable;
-    transpose: (dataset: DataTable, headerColumn?: string) => DataTable;
+    ) => KupDataDataset;
+    transpose: (
+        dataset: KupDataDataset,
+        headerColumn?: string
+    ) => KupDataDataset;
 }
 /**
  * Interface related to cells operations.
  */
 export interface KupDataCellOperations {
-    find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Cell[];
-    getValue: (dataset: DataTable, columns?: string[]) => string[];
-    replace: (dataset: DataTable, cell: Cell, columns?: string[]) => Cell[];
+    find: (dataset: KupDataDataset, filters?: KupDataFindCellFilters) => Cell[];
+    getValue: (dataset: KupDataDataset, columns?: string[]) => string[];
+    replace: (
+        dataset: KupDataDataset,
+        cell: Cell,
+        columns?: string[]
+    ) => Cell[];
 }
 /**
  * Interface related to columns operations.
  */
 export interface KupDataColumnOperations {
-    find: (dataset: DataTable, filters?: Partial<Column>) => Column[];
-    hide: (dataset: DataTable | Column[], columns2hide: string[]) => Column[];
+    find: (dataset: KupDataDataset, filters?: Partial<Column>) => Column[];
+    hide: (
+        dataset: KupDataDataset | Column[],
+        columns2hide: string[]
+    ) => Column[];
     new: (
-        dataset: DataTable,
+        dataset: KupDataDataset,
         type: KupDataNewColumnTypes,
         options: KupDataNewColumnOptions
     ) => string | Column;
@@ -55,7 +74,7 @@ export interface KupDataColumnOperations {
  * Interface related to rows operations.
  */
 export interface KupDataRowOperations {
-    find: (dataset: DataTable, filters?: KupDataFindCellFilters) => Row[];
+    find: (dataset: KupDataDataset, filters?: KupDataFindCellFilters) => Row[];
 }
 /**
  * Interface related to the formulas factory function.

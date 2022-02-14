@@ -36,10 +36,11 @@ import { getColumnByName } from '../../utils/cell-utils';
 import {
     CellsHolder,
     Column,
-    DataTable,
 } from '../kup-data-table/kup-data-table-declarations';
-import { KupDataFindCellFilters } from '../../managers/kup-data/kup-data-declarations';
-import { kupTypes } from '../../f-components/f-cell/f-cell-declarations';
+import {
+    KupDataDataset,
+    KupDataFindCellFilters,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -77,7 +78,7 @@ export class KupEchart {
      * The actual data of the chart.
      * @default null
      */
-    @Prop() data: DataTable = null;
+    @Prop() data: KupDataDataset = null;
     /**
      * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
      * @default KupEchartLegendPlacement.RIGHT
@@ -133,7 +134,7 @@ export class KupEchart {
     private resizeTimeout: number;
     private chartContainer?: HTMLDivElement;
     private chartEl: echarts.ECharts;
-    private gaussianDatasets: { [index: string]: DataTable };
+    private gaussianDatasets: { [index: string]: KupDataDataset };
     private themeBorder: string = null;
     private themeBackground: string = null;
     private themeColors: string[] = null;
@@ -246,7 +247,7 @@ export class KupEchart {
         this.chartEl.setOption(options, true);
     }
 
-    private createX(dataset: DataTable = null) {
+    private createX(dataset: KupDataDataset = null) {
         const x: string[] = [];
         if (!dataset) dataset = this.data;
         if (!this.axis) {
