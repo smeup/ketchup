@@ -18,11 +18,9 @@ import type {
     PointerEvent,
 } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
-import type { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import type { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import {
     Cell,
-    Column,
     FixedCellsClasses,
     FixedCellsCSSVarsBase,
     GroupLabelDisplayMode,
@@ -162,6 +160,7 @@ import {
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
 import {
+    KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
@@ -804,7 +803,7 @@ export class KupDataTable {
     private stickyTheadRef: any;
     private customizeTopButtonRef: any;
     private customizeTopPanelRef: HTMLKupCardElement;
-    private sizedColumns: Column[] = undefined;
+    private sizedColumns: KupDataColumn[] = undefined;
     private intObserver: IntersectionObserver = undefined;
     private navBarHeight: number = 0;
     private theadIntersecting: boolean = false;
@@ -1016,10 +1015,10 @@ export class KupDataTable {
     }
     /**
      * Hides the given column.
-     * @param {Column} column - Column to hide.
+     * @param {KupDataColumn} column - Column to hide.
      */
     @Method()
-    async hideColumn(column: Column): Promise<void> {
+    async hideColumn(column: KupDataColumn): Promise<void> {
         this.kupManager.data.datasetOperations.column.hide(this.data, [
             column.name,
         ]);
@@ -1034,13 +1033,13 @@ export class KupDataTable {
      * Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
      * @param {KupDataNewColumnTypes} type - Type of the column creation.
      * @param {KupDataNewColumnOptions} options - Options of the creation.
-     * @returns {string|Column} Returns the new column created or a string containing the error message if something went wrong.
+     * @returns {string|KupDataColumn} Returns the new column created or a string containing the error message if something went wrong.
      */
     @Method()
     async newColumn(
         type: KupDataNewColumnTypes,
         options: KupDataNewColumnOptions
-    ): Promise<string | Column> {
+    ): Promise<string | KupDataColumn> {
         const result = this.kupManager.data.datasetOperations.column.new(
             this.data,
             type,
@@ -1200,7 +1199,7 @@ export class KupDataTable {
         this.columnDropCard = null;
     }
 
-    private createDropCard(starter: Column, receiving: Column) {
+    private createDropCard(starter: KupDataColumn, receiving: KupDataColumn) {
         if (this.columnDropCard) {
             this.closeDropCard();
         }
@@ -1287,7 +1286,7 @@ export class KupDataTable {
             if (this.rows[0].group.column !== columnKey) ids.push(columnKey);
         });
         // calc columns
-        const totalsMatrixColumns: Array<Column> = [];
+        const totalsMatrixColumns: Array<KupDataColumn> = [];
         ids.forEach((id) => {
             this.data.columns.forEach((column) => {
                 if (column.name === id) {
@@ -1379,7 +1378,10 @@ export class KupDataTable {
 
     // TODO
     // this is momentary
-    private setObjForTotalsMatrix(column: Column, totals: TotalsMap): void {
+    private setObjForTotalsMatrix(
+        column: KupDataColumn,
+        totals: TotalsMap
+    ): void {
         const obj = column.obj;
         const totalMode = totals[column.name];
         if (this.kupManager.objects.isDate(obj)) {
@@ -2104,7 +2106,7 @@ export class KupDataTable {
         this.resetSelectedRows();
     }
 
-    getColumns(): Array<Column> {
+    getColumns(): Array<KupDataColumn> {
         return this.data && this.data.columns
             ? this.data.columns
             : [{ title: '', name: '' }];
@@ -2170,7 +2172,7 @@ export class KupDataTable {
             ],
             text: [this.kupManager.language.translate(KupLanguageRow.DETAIL)],
         };
-        const columns: Column[] = cardData.datatable[0].data.columns;
+        const columns: KupDataColumn[] = cardData.datatable[0].data.columns;
         const rows: Row[] = cardData.datatable[0].data.rows;
         // Placing the key and icon columns before any other column
         columns.unshift(
@@ -2205,7 +2207,7 @@ export class KupDataTable {
         // Setting up icons
         let keyCell: Cell = null;
         for (let index = 0; index < rows.length; index++) {
-            const column: Column = this.data.columns.find(
+            const column: KupDataColumn = this.data.columns.find(
                 (x) => x.name === rows[index].name
             );
             if (!column) {
@@ -2367,7 +2369,7 @@ export class KupDataTable {
         }
 
         let cell: Cell = null,
-            column: Column = null,
+            column: KupDataColumn = null,
             isGroupRow: boolean = false,
             row: Row = null;
         if (isBody) {
@@ -2519,7 +2521,7 @@ export class KupDataTable {
         return details;
     }
 
-    getVisibleColumns(): Array<Column> {
+    getVisibleColumns(): Array<KupDataColumn> {
         // TODO: change into `visible ?? true` when TS dependency has been updated
         const visibleColumns = this.getColumns().filter(({ visible }) =>
             visible !== undefined ? visible : true
@@ -2567,7 +2569,7 @@ export class KupDataTable {
         return null;
     }
 
-    getColumnValues(column: Column): ValueDisplayedValue[] {
+    getColumnValues(column: KupDataColumn): ValueDisplayedValue[] {
         return this.filtersRowsInstance.getColumnValues(
             this,
             column,
@@ -2872,7 +2874,7 @@ export class KupDataTable {
         }
     }
 
-    private onRemoveFilter(column: Column) {
+    private onRemoveFilter(column: KupDataColumn) {
         // resetting current page
         this.resetCurrentPage();
         const newFilters: GenericFilter = { ...this.filters };
@@ -2880,7 +2882,7 @@ export class KupDataTable {
         this.filters = newFilters;
     }
 
-    private getFilterValueForTooltip(column: Column): string {
+    private getFilterValueForTooltip(column: KupDataColumn): string {
         return this.filtersColumnMenuInstance.getFilterValueForTooltip(
             this.filters,
             column
@@ -3068,7 +3070,7 @@ export class KupDataTable {
         }
     }
 
-    private openTotalMenu(column: Column) {
+    private openTotalMenu(column: KupDataColumn) {
         this.openedTotalMenu = column.name;
     }
 
@@ -3244,7 +3246,10 @@ export class KupDataTable {
     }
 
     //==== Column sort order methods ====
-    private handleColumnSort(receivingColumn: Column, sortedColumn: Column) {
+    private handleColumnSort(
+        receivingColumn: KupDataColumn,
+        sortedColumn: KupDataColumn
+    ) {
         // Get receiving column position
         const receivingColIndex = this.data.columns.findIndex(
             (col) =>
@@ -3281,7 +3286,7 @@ export class KupDataTable {
      * @param sortedColumnIndex - The index where the column will be removed
      */
     private moveSortedColumns(
-        columns: Column[],
+        columns: KupDataColumn[],
         receivingColumnIndex: number,
         sortedColumnIndex: number
     ) {
@@ -3291,7 +3296,7 @@ export class KupDataTable {
     }
 
     @Method() async defaultSortingFunction(
-        columns: Column[],
+        columns: KupDataColumn[],
         receivingColumnIndex: number,
         sortedColumnIndex: number,
         useNewObject: boolean = false
@@ -3320,7 +3325,7 @@ export class KupDataTable {
     private composeHeaderCellClassAndStyle(
         columnIndex: number,
         extraCells: number = 0,
-        column: Column
+        column: KupDataColumn
     ): {
         columnClass: GenericObject;
         thStyle: GenericObject;
@@ -3680,7 +3685,7 @@ export class KupDataTable {
         );
     }
 
-    areTotalsSelected(column: Column): boolean {
+    areTotalsSelected(column: KupDataColumn): boolean {
         return this.totals && this.totals[column.name] ? true : false;
     }
 
@@ -3727,7 +3732,7 @@ export class KupDataTable {
         }
     }
 
-    private onTotalMenuOpen(column: Column) {
+    private onTotalMenuOpen(column: KupDataColumn) {
         this.closeMenuAndTooltip();
         this.closeTotalMenu();
         this.openTotalMenu(column);
@@ -3784,7 +3789,7 @@ export class KupDataTable {
         }
 
         const footerCells = this.getVisibleColumns().map(
-            (column: Column, columnIndex) => {
+            (column: KupDataColumn, columnIndex) => {
                 const fixedCellStyle = this.composeFixedCellStyleAndClass(
                     columnIndex + 1 + extraCells,
                     0,
@@ -4689,7 +4694,7 @@ export class KupDataTable {
         }
     }
 
-    private handleColumnGroup(column2group: Column) {
+    private handleColumnGroup(column2group: KupDataColumn) {
         // Get sorted column current position
         this.getVisibleColumns();
         const columnX = this.getVisibleColumns().find(

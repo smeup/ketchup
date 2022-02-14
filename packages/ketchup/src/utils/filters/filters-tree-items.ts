@@ -1,9 +1,4 @@
-import type {
-    Cell,
-    CellsHolder,
-    Column,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import type { CellsHolder } from '../../components/kup-data-table/kup-data-table-declarations';
 import type {
     GenericFilter,
     ValueDisplayedValue,
@@ -14,6 +9,7 @@ import {
 } from '../../components/kup-tree/kup-tree-declarations';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { FiltersRows } from './filters-rows';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 /**
  * Filtering algorithms related to tree items rows.
@@ -25,7 +21,7 @@ export class FiltersTreeItems extends FiltersRows {
         items: TreeNode[] = [],
         filters: GenericFilter = {},
         globalFilter: string = '',
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         treeExpandedPropName,
         columnFilters?: FiltersColumnMenu
     ): Array<TreeNode> {
@@ -64,7 +60,7 @@ export class FiltersTreeItems extends FiltersRows {
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
         let retValue = false;
@@ -97,7 +93,7 @@ export class FiltersTreeItems extends FiltersRows {
         filters: GenericFilter = {},
         globalFilter: string,
         isUsingGlobalFilter: boolean = false,
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         treeExpandedPropName,
         columnFilters?: FiltersColumnMenu
     ): boolean {
@@ -156,7 +152,7 @@ export class FiltersTreeItems extends FiltersRows {
 
     extractColumnValues(
         rows: Array<TreeNode>,
-        column: Column,
+        column: KupDataColumn,
         values: ValueDisplayedValue[]
     ) {
         if (rows == null || rows.length == 0) {

@@ -355,24 +355,6 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
-  Column: {
-    keys: {
-      name: 'string',
-      title: 'string',
-      'size?': 'string',
-      'visible?': 'boolean',
-      'hideValuesRepetitions?': 'boolean',
-      'obj?': 'KupObj',
-      'shape?': 'string',
-      'decimals?': 'number',
-      'icon?': 'string',
-      'formula?': 'string',
-      'valuesForFilter?': 'string[]',
-      'isKey?': 'boolean',
-      'children?': 'ColumnChild[]',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
   FButtonStyling: {
     keys: {
       FLAT: 'flat',
@@ -442,7 +424,7 @@ const demoTypes: DemoTypeJson = {
   },
   KupAccordionData: {
     keys: {
-      columns: 'Column[]',
+      columns: 'KupDataColumn[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -455,7 +437,7 @@ const demoTypes: DemoTypeJson = {
   },
   KupBoxData: {
     keys: {
-      'columns?': 'Column[]',
+      'columns?': 'KupDataColumn[]',
       'rows?': 'BoxRow[]',
     },
     type: DemoTypeFeature.INTERFACE,
@@ -549,9 +531,27 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupDataColumn: {
+    keys: {
+      name: 'string',
+      title: 'string',
+      'size?': 'string',
+      'visible?': 'boolean',
+      'hideValuesRepetitions?': 'boolean',
+      'obj?': 'KupObj',
+      'shape?': 'string',
+      'decimals?': 'number',
+      'icon?': 'string',
+      'formula?': 'string',
+      'valuesForFilter?': 'string[]',
+      'isKey?': 'boolean',
+      'children?': 'ColumnChild[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupDataDataset: {
     keys: {
-      'columns?': 'Column[]',
+      'columns?': 'KupDataColumn[]',
       'rows?': 'Row[]',
     },
     type: DemoTypeFeature.INTERFACE,

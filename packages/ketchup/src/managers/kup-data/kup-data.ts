@@ -1,12 +1,12 @@
 import numeral from 'numeral';
 import {
     Cell,
-    Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    KupDataColumn,
     KupDataDataset,
     KupDataDatasetOperations,
     KupDataDatasetSort,
@@ -65,22 +65,22 @@ export class KupData {
             },
             column: {
                 find(
-                    dataset: KupDataDataset | Column[],
-                    filters: Partial<Column>
-                ): Column[] {
+                    dataset: KupDataDataset | KupDataColumn[],
+                    filters: Partial<KupDataColumn>
+                ): KupDataColumn[] {
                     return findColumns(dataset, filters);
                 },
                 hide(
-                    dataset: KupDataDataset | Column[],
+                    dataset: KupDataDataset | KupDataColumn[],
                     columns2hide: string[]
-                ): Column[] {
+                ): KupDataColumn[] {
                     return hideColumns(dataset, columns2hide);
                 },
                 new(
                     dataset: KupDataDataset,
                     type: KupDataNewColumnTypes,
                     options: KupDataNewColumnOptions
-                ): string | Column {
+                ): string | KupDataColumn {
                     return newColumn(dataset, type, options);
                 },
             },
@@ -95,7 +95,7 @@ export class KupData {
             distinct(
                 dataset: KupDataDataset,
                 columns?: string[],
-                valuesColumn?: Column
+                valuesColumn?: KupDataColumn
             ): KupDataDataset {
                 return distinctDataset(dataset, columns, valuesColumn);
             },
@@ -108,8 +108,8 @@ export class KupData {
             rangedDistinct(
                 dataset: KupDataDataset,
                 rangeColumns: KupDataNewColumn[],
-                resultingColumn: Column,
-                valuesColumn?: Column
+                resultingColumn: KupDataColumn,
+                valuesColumn?: KupDataColumn
             ): KupDataDataset {
                 return rangedDistinctDataset(
                     dataset,

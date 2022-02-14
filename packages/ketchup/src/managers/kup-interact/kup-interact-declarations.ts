@@ -3,9 +3,9 @@ import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import { KupBoxRow } from '../../components/kup-box/kup-box-declarations';
 import {
     Cell,
-    Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
+import { KupDataColumn } from '../kup-data/kup-data-declarations';
 /**
  * HTML Attribute attached to dialogs.
  * Referenced by kup-theme.css
@@ -117,7 +117,7 @@ export interface KupDropEventPayload {
  */
 export interface KupDropEventSource {
     cell?: Cell;
-    column?: Column;
+    column?: KupDataColumn;
     id?: string;
     multiple?: boolean;
     row?: Row | KupBoxRow;
@@ -130,5 +130,5 @@ export interface KupDropEventTarget {
     id?: string;
     row?: Row | KupBoxRow;
     cell?: Cell;
-    column?: Column;
+    column?: KupDataColumn;
 }

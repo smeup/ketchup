@@ -1,6 +1,5 @@
 import {
     Cell,
-    Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
@@ -8,6 +7,7 @@ import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
 import {
+    KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
@@ -22,13 +22,13 @@ const dom: KupDom = document.documentElement as KupDom;
  * @returns {Column[]} Columns matching the criteria.
  */
 export function findColumns(
-    dataset: KupDataDataset | Column[],
-    filters: Partial<Column>
-): Column[] {
+    dataset: KupDataDataset | KupDataColumn[],
+    filters: Partial<KupDataColumn>
+): KupDataColumn[] {
     const columns = (dataset as KupDataDataset).columns
         ? (dataset as KupDataDataset).columns
-        : (dataset as Column[]);
-    const result: Column[] = [];
+        : (dataset as KupDataColumn[]);
+    const result: KupDataColumn[] = [];
     for (let index = 0; index < columns.length; index++) {
         const column = columns[index];
         for (const key in filters) {
@@ -44,16 +44,16 @@ export function findColumns(
  * Sets the given columns of the input dataset to be hidden.
  * @param {KupDataDataset | Column[]} dataset - Input dataset or array of columns.
  * @param {string[]} columns2hide - Names of columns to hide.
- * @returns {Column[]} Columns that were set to hidden.
+ * @returns {KupDataColumn[]} Columns that were set to hidden.
  */
 export function hideColumns(
-    dataset: KupDataDataset | Column[],
+    dataset: KupDataDataset | KupDataColumn[],
     columns2hide: string[]
-): Column[] {
+): KupDataColumn[] {
     const columns = (dataset as KupDataDataset).columns
         ? (dataset as KupDataDataset).columns
-        : (dataset as Column[]);
-    const hidden: Column[] = [];
+        : (dataset as KupDataColumn[]);
+    const hidden: KupDataColumn[] = [];
     for (let index = 0; index < columns.length; index++) {
         const column = columns[index];
         if (columns2hide.includes(column.name)) {
@@ -74,7 +74,7 @@ export function newColumn(
     dataset: KupDataDataset,
     type: KupDataNewColumnTypes,
     options?: KupDataNewColumnOptions
-): string | Column {
+): string | KupDataColumn {
     switch (type) {
         case KupDataNewColumnTypes.CONCATENATE:
             return newColumnFromConcatenate(
@@ -116,7 +116,7 @@ function newColumnFromConcatenate(
     dataset: KupDataDataset,
     columns: string[],
     separator?: string
-): string | Column {
+): string | KupDataColumn {
     if (!columns || columns.length === 0) {
         const message =
             'Invalid array, interrupting column merging!(' + columns + ')';
@@ -127,7 +127,7 @@ function newColumnFromConcatenate(
         );
         return message;
     }
-    let firstColumn: Column = null;
+    let firstColumn: KupDataColumn = null;
     const titles: string[] = [];
     const objs: KupObj[] = [];
     separator = separator ? separator : ' ';
@@ -188,7 +188,7 @@ function newColumnFromConcatenate(
             };
         }
     });
-    const newColumn: Column = {
+    const newColumn: KupDataColumn = {
         ...firstColumn,
         name: newName,
         title: newTitle,
@@ -207,13 +207,13 @@ function newColumnFromConcatenate(
  * @param {KupDataDataset} dataset - Input dataset.
  * @param {string} operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
  * @param {string[]} columns - Column names used for the mathematical operation. When missing, they will be extracted from the formula.
- * @returns {string | Column} Returns the new column created or a string containing the error message (if something went wrong).
+ * @returns {string | KupDataColumn} Returns the new column created or a string containing the error message (if something went wrong).
  */
 function newColumnFromMath(
     dataset: KupDataDataset,
     operation: string,
     columns?: string[]
-): string | Column {
+): string | KupDataColumn {
     if (!columns) {
         columns = [];
     }
@@ -235,7 +235,7 @@ function newColumnFromMath(
     }
     const titles: string[] = [];
     const formulaRow: { [index: string]: number } = {};
-    let firstColumn: Column = null;
+    let firstColumn: KupDataColumn = null;
     let formula = '';
     switch (operation) {
         case KupLanguageTotals.AVERAGE:
@@ -324,7 +324,7 @@ function newColumnFromMath(
             value: value,
         };
     });
-    const newColumn: Column = {
+    const newColumn: KupDataColumn = {
         ...firstColumn,
         name: newName,
         title: newTitle,
@@ -342,14 +342,14 @@ function newColumnFromMath(
  * Takes the columns to merge and creates a new column with their cells. The merged columns will then be removed.
  * @param {KupDataDataset} dataset - Input dataset.
  * @param {string[]} columns2merge - Names of columns to merge.
- * @param {Column} newColumn - Column created.
- * @returns {Column} Resulting column.
+ * @param {KupDataColumn} newColumn - Column created.
+ * @returns {KupDataColumn} Resulting column.
  */
 export function newColumnFromMerge(
     dataset: KupDataDataset,
     columns2merge: string[],
-    newColumn: Column
-): Column {
+    newColumn: KupDataColumn
+): KupDataColumn {
     const outputCells: Cell[] = [];
     for (let index = 0; index < dataset.rows.length; index++) {
         const row = dataset.rows[index];
@@ -364,7 +364,7 @@ export function newColumnFromMerge(
     }
     for (let index = 0; index < columns2merge.length; index++) {
         const column2removeIndex = dataset.columns.findIndex(
-            (col: Column) => col.name === columns2merge[index]
+            (col: KupDataColumn) => col.name === columns2merge[index]
         );
         dataset.columns.splice(column2removeIndex, 1);
     }

@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -20,7 +20,7 @@ import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClic
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
-import { KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
+import { KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
@@ -1034,7 +1034,7 @@ export namespace Components {
           * The data of the table.
          */
         "data": KupDataDataset;
-        "defaultSortingFunction": (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
+        "defaultSortingFunction": (columns: KupDataColumn[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<KupDataColumn[]>;
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
@@ -1131,7 +1131,7 @@ export namespace Components {
           * Hides the given column.
           * @param column - Column to hide.
          */
-        "hideColumn": (column: Column) => Promise<void>;
+        "hideColumn": (column: KupDataColumn) => Promise<void>;
         /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
@@ -1167,7 +1167,7 @@ export namespace Components {
           * @param options - Options of the creation.
           * @returns Returns the new column created or a string containing the error message if something went wrong.
          */
-        "newColumn": (type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | Column>;
+        "newColumn": (type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | KupDataColumn>;
         /**
           * Opens the column menu of the given column.
           * @param column - Name of the column.
@@ -2721,7 +2721,7 @@ export namespace Components {
         /**
           * The columns of the tree when tree visualization is active.
          */
-        "columns"?: Column[];
+        "columns"?: KupDataColumn[];
         /**
           * Custom style of the component.
           * @default ""
@@ -2792,7 +2792,7 @@ export namespace Components {
           * Hides the given column.
           * @param column - Column to hide.
          */
-        "hideColumn": (column: Column) => Promise<void>;
+        "hideColumn": (column: KupDataColumn) => Promise<void>;
         /**
           * True if there aren't visible nodes
          */
@@ -5411,7 +5411,7 @@ declare namespace LocalJSX {
         /**
           * The columns of the tree when tree visualization is active.
          */
-        "columns"?: Column[];
+        "columns"?: KupDataColumn[];
         /**
           * Custom style of the component.
           * @default ""

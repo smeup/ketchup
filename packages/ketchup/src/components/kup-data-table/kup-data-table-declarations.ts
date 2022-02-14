@@ -5,6 +5,7 @@ import {
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 /**
  * Props of the kup-data-table component.
@@ -96,27 +97,6 @@ export interface KupDatatableCellSpan {
 }
 export interface CellsHolder {
     [index: string]: Cell;
-}
-
-export interface Column {
-    name: string;
-    title: string;
-    size?: string;
-    visible?: boolean;
-    hideValuesRepetitions?: boolean;
-    obj?: KupObj;
-    objs?: KupObj[]; // A column could contain multiple objs
-    shape?: FCellShapes;
-    decimals?: number;
-    icon?: string;
-    formula?: string;
-    valuesForFilter?: string[];
-    isKey?: boolean;
-    children?: ColumnChild[];
-    cssClass?: string;
-    style?: GenericMap;
-    mergedFrom?: string[];
-    resultOf?: string;
 }
 export interface ColumnChild {
     name: string;
@@ -272,7 +252,7 @@ export const totalMenuOpenID = 'TOMEOPID';
 export interface KupDatatableEventHandlerDetails {
     area: string;
     cell: Cell;
-    column: Column;
+    column: KupDataColumn;
     filterRemove: HTMLElement;
     isGroupRow: boolean;
     row: Row;
@@ -310,12 +290,12 @@ export interface KupDatatableClickEventPayload extends KupEventPayload {
 }
 
 export interface KupDatatableColumnMoveEventPayload extends KupEventPayload {
-    sourceColumn: Column;
-    targetColumn: Column;
+    sourceColumn: KupDataColumn;
+    targetColumn: KupDataColumn;
 }
 
 export interface KupDatatableColumnRemoveEventPayload extends KupEventPayload {
-    column: Column;
+    column: KupDataColumn;
 }
 
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
@@ -339,7 +319,7 @@ export interface KupDatatableRowActionClickEventPayload
 export interface KupDataTableCellButtonClickEventPayload
     extends KupEventPayload {
     cell: Cell;
-    column: Column;
+    column: KupDataColumn;
     row: Row;
 }
 export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {

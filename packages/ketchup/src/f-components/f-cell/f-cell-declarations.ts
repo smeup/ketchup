@@ -1,9 +1,9 @@
 import type { VNode } from '@stencil/core';
 import type {
     Cell,
-    Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 import {
     FComponent,
     KupEventPayload,
@@ -16,7 +16,7 @@ export const autoAlignComps = [KupTagNames.DATA_TABLE, KupTagNames.TREE];
  */
 export interface FCellProps extends FComponent {
     cell?: Cell;
-    column?: Column;
+    column?: KupDataColumn;
     component?: unknown;
     density?: FCellPadding;
     editable?: boolean;
@@ -178,7 +178,7 @@ export const kupTypes = [
  */
 export interface FCellEventPayload extends KupEventPayload {
     cell: Cell;
-    column: Column;
+    column: KupDataColumn;
     event: CustomEvent | InputEvent | MouseEvent;
     row: Row;
     type: FCellTypes;

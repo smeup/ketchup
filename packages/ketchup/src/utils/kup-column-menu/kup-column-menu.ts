@@ -12,7 +12,6 @@ import {
     KupDynamicPositionPlacement,
 } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import type {
-    Column,
     ColumnChild,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
@@ -47,7 +46,10 @@ import {
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { KupDataNewColumnTypes } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataNewColumnTypes,
+} from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -132,13 +134,13 @@ export class KupColumnMenu {
     /**
      * Function called by the column menu card to prepare its 'data' prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @param {KupCardData} currentData - 'data' prop of the column menu card when it's already initialized.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
     prepData(
         comp: KupDataTable | KupTree,
-        column: Column,
+        column: KupDataColumn,
         currentData?: KupCardData
     ): KupCardData {
         const data: KupCardData = currentData ? { ...currentData } : {};
@@ -163,10 +165,13 @@ export class KupColumnMenu {
     /**
      * Handles the column menu's button prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Buttons props.
      */
-    prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+    prepButton(
+        comp: KupDataTable | KupTree,
+        column: KupDataColumn
+    ): GenericObject[] {
         const props: GenericObject[] = [];
         if (
             !FiltersColumnMenu.isTree(comp) &&
@@ -250,12 +255,12 @@ export class KupColumnMenu {
     /**
      * Handles the column menu's checkbox prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Checkboxes props.
      */
     prepCheckbox(
         comp: KupDataTable | KupTree,
-        column: Column
+        column: KupDataColumn
     ): GenericObject[] {
         const props: GenericObject[] = [];
         if (
@@ -319,26 +324,29 @@ export class KupColumnMenu {
     /**
      * Handles the column menu's chip prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Chips props (only 1 is handled).
      */
-    prepChip(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+    prepChip(
+        comp: KupDataTable | KupTree,
+        column: KupDataColumn
+    ): GenericObject[] {
         let props: GenericObject[] = [];
         const chipProps: FChipsProps = {};
         if (column.children) {
             const chipData: FChipData[] = [];
             for (let index = 0; index < column.children.length; index++) {
                 const child: ColumnChild = column.children[index];
-                let childColumn: Column = null;
+                let childColumn: KupDataColumn = null;
                 try {
                     if (FiltersColumnMenu.isTree(comp)) {
                         (comp as KupTree).columns;
                         childColumn = (comp as KupTree).columns.find(
-                            (x: Column) => x.name === child.name
+                            (x: KupDataColumn) => x.name === child.name
                         );
                     } else {
                         childColumn = (comp as KupDataTable).data.columns.find(
-                            (x: Column) => x.name === child.name
+                            (x: KupDataColumn) => x.name === child.name
                         );
                     }
                 } catch (error) {
@@ -365,10 +373,13 @@ export class KupColumnMenu {
     /**
      * Handles the column menu's switch prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Switches props.
      */
-    prepSwitch(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+    prepSwitch(
+        comp: KupDataTable | KupTree,
+        column: KupDataColumn
+    ): GenericObject[] {
         const props: GenericObject[] = [];
         if (!FiltersColumnMenu.isTree(comp)) {
             if (!dom.ketchup.objects.isEmptyKupObj(column.obj)) {
@@ -405,7 +416,10 @@ export class KupColumnMenu {
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @returns {GenericObject[]} Tab bar props.
      */
-    prepTabBar(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+    prepTabBar(
+        comp: KupDataTable | KupTree,
+        column: KupDataColumn
+    ): GenericObject[] {
         const props: GenericObject[] = [{ data: [] }];
         const data: KupTabBarData[] = props[0].data;
         if (comp.showFilters) {
@@ -444,12 +458,12 @@ export class KupColumnMenu {
     /**
      * Handles the column menu's textfield prop.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Text fields props.
      */
     prepTextfield(
         comp: KupDataTable | KupTree,
-        column: Column
+        column: KupDataColumn
     ): GenericObject[] {
         let props: GenericObject[] = [];
         if (comp.showFilters) {
@@ -514,7 +528,7 @@ export class KupColumnMenu {
      */
     prepIntervalTextfield(
         comp: KupDataTable | KupTree,
-        column: Column
+        column: KupDataColumn
     ): GenericObject[] {
         let props: GenericObject[] = [];
         if (!comp.showFilters) {
@@ -568,12 +582,12 @@ export class KupColumnMenu {
     /**
      * Handles the column menu's interval timepicker props (time column type).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Time picker fields props.
      */
     prepIntervalTimePicker(
         comp: KupDataTable | KupTree,
-        column: Column
+        column: KupDataColumn
     ): GenericObject[] {
         let props: GenericObject[] = [];
         if (!comp.showFilters) {
@@ -635,12 +649,12 @@ export class KupColumnMenu {
     /**
      * Handles the column menu's interval datepicker props (date/timestamp column type).
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @returns {GenericObject[]} Date picker fields props.
      */
     prepIntervalDatePicker(
         comp: KupDataTable | KupTree,
-        column: Column
+        column: KupDataColumn
     ): GenericObject[] {
         let props: GenericObject[] = [];
         if (!comp.showFilters) {
@@ -879,12 +893,12 @@ export class KupColumnMenu {
      * Triggered when the text filter changes.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {string} value - New value of the filter.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      */
     textfieldChange(
         comp: KupDataTable | KupTree,
         value: string,
-        column: Column
+        column: KupDataColumn
     ): void {
         if (!FiltersColumnMenu.isTree(comp)) {
             comp.resetCurrentPage();
@@ -908,7 +922,7 @@ export class KupColumnMenu {
     intervalChange(
         comp: KupDataTable | KupTree,
         value: string,
-        column: Column,
+        column: KupDataColumn,
         index: FilterInterval,
         needNormalize: boolean,
         suffix?: string
@@ -940,7 +954,7 @@ export class KupColumnMenu {
         comp.filters = newFilters;
     }
 
-    saveTextualFilters(comp: KupDataTable | KupTree, column: Column) {
+    saveTextualFilters(comp: KupDataTable | KupTree, column: KupDataColumn) {
         const newFilters: GenericFilter = { ...comp.filters };
         this.filtersColumnMenuInstance.saveTextualFilters(
             newFilters,
@@ -952,13 +966,13 @@ export class KupColumnMenu {
      * Triggered when the checkbox list changes.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {boolean} checked - State of the changed checkbox.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @param {string} filterValue - Value used to filter.
      */
     checkboxChange(
         comp: KupDataTable | KupTree,
         checked: boolean,
-        column: Column,
+        column: KupDataColumn,
         filterValueItem: ValueDisplayedValue
     ): void {
         if (!FiltersColumnMenu.isTree(comp)) {
@@ -1006,14 +1020,14 @@ export class KupColumnMenu {
     /**
      * Sets the given column as key for the table.
      * @param {KupDataTable} comp - Component using the column menu.
-     * @param {Column} column - Column of the menu.
+     * @param {KupDataColumn} column - Column of the menu.
      * @param {string} value - The status of the switch.
      */
     setKey(comp: KupDataTable, column: string, value: string): void {
-        const columns: Column[] = comp.data.columns;
+        const columns: KupDataColumn[] = comp.data.columns;
         const switchOn: boolean = value === 'on' ? true : false;
         for (let index = 0; index < columns.length; index++) {
-            const col: Column = columns[index];
+            const col: KupDataColumn = columns[index];
             if (col.name === column) {
                 col.isKey = switchOn;
             } else if (switchOn) {

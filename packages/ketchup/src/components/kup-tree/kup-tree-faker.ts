@@ -1,8 +1,6 @@
 //---- Types ----
-import {
-    CellsHolder,
-    Column,
-} from './../kup-data-table/kup-data-table-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import { CellsHolder } from './../kup-data-table/kup-data-table-declarations';
 import {
     TreeNode,
     TreeNodePath,
@@ -28,7 +26,7 @@ export interface DynamicExpansionFakerOptions {
 }
 
 export interface TreeConfigData {
-    columns: Column[];
+    columns: KupDataColumn[];
     data: TreeNode[];
 }
 

@@ -33,11 +33,9 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { getColumnByName } from '../../utils/cell-utils';
+import { CellsHolder } from '../kup-data-table/kup-data-table-declarations';
 import {
-    CellsHolder,
-    Column,
-} from '../kup-data-table/kup-data-table-declarations';
-import {
+    KupDataColumn,
     KupDataDataset,
     KupDataFindCellFilters,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -577,7 +575,7 @@ export class KupEchart {
             }
             let values: string[] = null;
             const column = this.data.columns.find(
-                (col: Column) => col.title === key
+                (col: KupDataColumn) => col.title === key
             );
             if (type == KupEchartTypes.GAUSSIAN) {
                 if (!this.kupManager.objects.isNumber(column.obj)) {
@@ -649,7 +647,7 @@ export class KupEchart {
                     }
 
                     const column = this.data.columns.find(
-                        (col: Column) => col.title === param.seriesName
+                        (col: KupDataColumn) => col.title === param.seriesName
                     ).name;
                     const filters: KupDataFindCellFilters = {
                         columns: [column],

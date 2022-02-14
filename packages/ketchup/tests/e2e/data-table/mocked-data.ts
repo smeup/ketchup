@@ -1,9 +1,11 @@
 import {
     Cell,
-    Column,
     Row,
 } from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import { KupDataDataset } from '../../../src/managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataDataset,
+} from '../../../src/managers/kup-data/kup-data-declarations';
 
 const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
 
@@ -13,7 +15,7 @@ const fld2Values = ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go'];
 //     return Math.floor(Math.random() * (max - min) + min);
 // }
 
-function columnFactory(name: string, title: string): Column {
+function columnFactory(name: string, title: string): KupDataColumn {
     return {
         name,
         title,
@@ -50,7 +52,7 @@ export function LongTextDataFactory(
     let i = 0;
 
     // Composes columns
-    const columns: Column[] = [];
+    const columns: KupDataColumn[] = [];
     for (i = 0; i < numberOfCols; i++) {
         columns.push(columnFactory('FLD' + (i + 1), 'Column ' + (i + 1)));
     }
@@ -77,7 +79,7 @@ export function LongTextDataFactory(
 }
 
 export function createData(colSize: number, rowSize: number): KupDataDataset {
-    const columns: Column[] = [];
+    const columns: KupDataColumn[] = [];
     for (let i = 0; i < colSize; i++) {
         columns.push({
             name: 'FLD' + i,

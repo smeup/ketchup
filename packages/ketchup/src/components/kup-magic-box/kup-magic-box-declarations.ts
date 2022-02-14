@@ -1,7 +1,5 @@
-import type {
-    Column,
-    Row,
-} from '../kup-data-table/kup-data-table-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import type { Row } from '../kup-data-table/kup-data-table-declarations';
 /**
  * Props of the kup-magic-box component.
  * Used to export every prop in an object.
@@ -14,7 +12,7 @@ export enum KupMagicBoxProps {
  * Data prop of kup-magic-box.
  */
 export interface MagicBoxData {
-    columns: Column[];
+    columns: KupDataColumn[];
     rows: Row[];
 }
 /**

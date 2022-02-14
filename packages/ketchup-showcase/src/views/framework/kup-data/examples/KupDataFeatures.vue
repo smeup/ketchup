@@ -250,11 +250,13 @@
 
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
-import { Column } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import { kupDataDataset } from '../../../../mock/dataTable';
 import { KupDataNewColumn } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 import { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
-import { KupDataDataset } from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
+import {
+  KupDataColumn,
+  KupDataDataset,
+} from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var cellFindTable: HTMLKupDataTableElement = null;
@@ -310,7 +312,7 @@ const newColumn: KupDataNewColumn[] = [
     },
   },
 ];
-const resultColumn: Column = {
+const resultColumn: KupDataColumn = {
   name: '2099',
   title: 'Lucky numbers 20-99',
 };

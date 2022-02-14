@@ -1,5 +1,3 @@
-import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
-
 /**
  * Props of the kup-echart component.
  * Used to export every prop in an object.
@@ -24,6 +22,7 @@ export interface KupEchartTitle {
     position?: string;
     size?: number;
 }
+
 export enum KupEchartLegendPlacement {
     BOTTOM = 'bottom',
     LEFT = 'left',

@@ -6,7 +6,6 @@ import type { KupDataTable } from '../../components/kup-data-table/kup-data-tabl
 import type { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     Cell,
-    Column,
     Row,
     CellsHolder,
     SortMode,
@@ -23,6 +22,7 @@ import { FiltersColumnMenu } from './filters-column-menu';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 const kupObjects: KupObjects = dom.ketchup
@@ -76,7 +76,7 @@ export class FiltersRows extends Filters {
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
         return this.areCellsCompliant(
@@ -94,7 +94,7 @@ export class FiltersRows extends Filters {
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
         if (isUsingGlobalFilter) {
@@ -234,7 +234,7 @@ export class FiltersRows extends Filters {
 
     hasFilters(
         filters: GenericFilter = {},
-        columns: Column[],
+        columns: KupDataColumn[],
         columnFilters?: FiltersColumnMenu
     ) {
         if (filters == null) {
@@ -249,7 +249,7 @@ export class FiltersRows extends Filters {
         }
         for (let i = 0; i < keys.length; i++) {
             let key = keys[i];
-            let col: Column = null;
+            let col: KupDataColumn = null;
             if (key === treeMainColumnName) {
                 col = {
                     name: treeMainColumnName,
@@ -279,7 +279,7 @@ export class FiltersRows extends Filters {
         rows: Array<Row> = [],
         filters: GenericFilter = {},
         globalFilter: string = '',
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): Array<Row> {
         if (!rows || rows == null) {
@@ -318,7 +318,7 @@ export class FiltersRows extends Filters {
 
     getColumnValues(
         comp: KupDataTable | KupTree,
-        column: Column,
+        column: KupDataColumn,
         globalFilterValue: string,
         columnFilters?: FiltersColumnMenu
     ): ValueDisplayedValue[] {
@@ -407,7 +407,7 @@ export class FiltersRows extends Filters {
 
     extractColumnValues(
         rows: Array<Row>,
-        column: Column,
+        column: KupDataColumn,
         values: ValueDisplayedValue[]
     ) {
         /** il valore delle righe attualmente filtrate, formattato */
@@ -419,7 +419,7 @@ export class FiltersRows extends Filters {
 
     addColumnValueFromRow(
         values: ValueDisplayedValue[],
-        column: Column,
+        column: KupDataColumn,
         cell: Cell
     ) {
         if (cell) {

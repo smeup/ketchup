@@ -1,10 +1,10 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { dataTableHideRepetitionsData } from './mocked-data';
 import { rowsSelector } from './data-table-selectors';
-import { Column } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import { _numberToString, stringToNumber } from '../../../src/utils/utils';
 import { getColumnByName } from '../../../src/utils/cell-utils';
 import { KupObjects } from '../../../src/managers/kup-objects/kup-objects';
+import { KupDataColumn } from '../../../src/managers/kup-data/kup-data-declarations';
 
 describe('kup-data-table with hide repetitions active', () => {
     it('hides values where the previous cell on the same column has the same value', async () => {
@@ -39,7 +39,7 @@ describe('kup-data-table with hide repetitions active', () => {
                                 row.cells[column].value !==
                                     currentArr[index - 1].cells[column].value)
                         ) {
-                            const _column: Column = getColumnByName(
+                            const _column: KupDataColumn = getColumnByName(
                                 columns,
                                 column
                             );

@@ -14,7 +14,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
+import { Row } from '../kup-data-table/kup-data-table-declarations';
 import { KupListData } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
@@ -35,6 +35,7 @@ import {
     kupDropEvent,
     KupDropEventTypes,
 } from '../../managers/kup-interact/kup-interact-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -197,7 +198,7 @@ export class KupMagicBox {
                         index < this.data.columns.length;
                         index++
                     ) {
-                        const col: Column = this.data.columns[index];
+                        const col: KupDataColumn = this.data.columns[index];
                         if (
                             col.obj &&
                             this.kupManager.objects.isNumber(col.obj)
@@ -263,7 +264,7 @@ export class KupMagicBox {
     private updateData(e: CustomEvent): void {
         {
             const data: MagicBoxData = { ...this.data };
-            const column: Column =
+            const column: KupDataColumn =
                 e.detail.sourceElement && e.detail.sourceElement.column
                     ? e.detail.sourceElement.column
                     : null;
@@ -275,7 +276,7 @@ export class KupMagicBox {
                 if (!data.columns) {
                     data.columns = [column];
                 } else {
-                    const columnExists: Column = this.data.columns.find(
+                    const columnExists: KupDataColumn = this.data.columns.find(
                         (x) => x.name === column.name
                     );
                     if (!columnExists) {

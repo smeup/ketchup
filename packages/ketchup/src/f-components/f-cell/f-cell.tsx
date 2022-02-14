@@ -1,6 +1,5 @@
 import type {
     Cell,
-    Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
@@ -36,6 +35,7 @@ import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupButtonClickEventPayload } from '../../components/kup-button/kup-button-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -270,7 +270,7 @@ function setEditableCell(
     cellType: string,
     classObj: Record<string, boolean>,
     cell: Cell,
-    column: Column,
+    column: KupDataColumn,
     props: FCellProps
 ): unknown {
     switch (cellType) {
@@ -408,7 +408,7 @@ function setCell(
     content: unknown,
     classObj: Record<string, boolean>,
     cell: Cell,
-    column: Column,
+    column: KupDataColumn,
     props: FCellProps
 ): unknown {
     switch (cellType) {
@@ -493,7 +493,7 @@ function setKupCell(
     subcomponentProps: unknown,
     cell: Cell,
     row: Row,
-    column: Column,
+    column: KupDataColumn,
     props: FCellProps
 ): unknown {
     switch (cellType) {

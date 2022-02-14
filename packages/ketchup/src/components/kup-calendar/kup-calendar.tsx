@@ -28,7 +28,7 @@ import itLocale from '@fullcalendar/core/locales/it';
 import plLocale from '@fullcalendar/core/locales/pl';
 import ruLocale from '@fullcalendar/core/locales/ru';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
-import { Row, Column } from '../kup-data-table/kup-data-table-declarations';
+import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -56,6 +56,7 @@ import {
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { KupDatesLocales } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -356,7 +357,7 @@ export class KupCalendar {
         this.emitNavEvent();
     }
 
-    private getColumns(): Column[] {
+    private getColumns(): KupDataColumn[] {
         if (this.data && this.data.rows) {
             return this.data.columns;
         }

@@ -1,9 +1,9 @@
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
     Cell,
     CellsHolder,
-    Column,
     Row,
     RowAction,
 } from './../kup-data-table/kup-data-table-declarations';
@@ -90,7 +90,7 @@ export const treeMainColumnName = 'TREE_COLUMN';
 export interface KupTreeEventHandlerDetails {
     area: string;
     cell: Cell;
-    column: Column;
+    column: KupDataColumn;
     filterRemove: HTMLSpanElement;
     row: Row;
     td: HTMLElement;
@@ -122,7 +122,7 @@ export interface KupTreeNodeSelectedEventPayload
 
 export interface KupTreeNodeButtonClickEventPayload
     extends KupTreeNodeCollapseEventPayload {
-    column: Column;
+    column: KupDataColumn;
     columnName: string;
     auto: boolean;
 }
@@ -145,5 +145,5 @@ export interface KupTreeDynamicMassExpansionEventPayload
 }
 
 export interface KupTreeColumnRemoveEventPayload extends KupEventPayload {
-    column: Column;
+    column: KupDataColumn;
 }

@@ -1,25 +1,15 @@
 import { E2EElement, newE2EPage } from '@stencil/core/testing';
-
-import {
-    Column,
-    GenericMap,
-} from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import {
-    TreeNode,
-    treeExpandedPropName,
-} from '../../../src/components/kup-tree/kup-tree-declarations';
+import { GenericMap } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import { TreeNode } from '../../../src/components/kup-tree/kup-tree-declarations';
 import {
     flattenTree,
-    getRandomInteger,
     getRndTreeNode,
-    getTreeNodeFromPath,
-    TreeConfigData,
-    TreeFactory,
     DynamicExpansionFaker,
 } from '../../../src/components/kup-tree/kup-tree-faker';
 import { KupTreeSelectors } from './tree__selectors';
 import { testTreeNodeValue } from './tree__test__helpers';
 import { defaultData } from './mocked-data';
+import { KupDataColumn } from '../../../src/managers/kup-data/kup-data-declarations';
 
 const dataTreeConfiguration: {
     depth: number;
@@ -28,7 +18,7 @@ const dataTreeConfiguration: {
 };
 
 let data: TreeNode[] | undefined;
-let columns: Column[] | undefined;
+let columns: KupDataColumn[] | undefined;
 let page, treeElement, treeHeader, visibleColumns, expandedListener;
 let dynamicCallbackFaker;
 

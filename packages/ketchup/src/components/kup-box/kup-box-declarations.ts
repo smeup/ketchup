@@ -1,11 +1,8 @@
-import {
-    Cell,
-    Column,
-    RowAction,
-} from '../kup-data-table/kup-data-table-declarations';
+import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
 import { KupBadge } from '../kup-badge/kup-badge';
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 /**
  * Props of the kup-box component.
  * Used to export every prop in an object.
@@ -43,7 +40,7 @@ export enum KupBoxProps {
     tooltipLoadTimeout = 'Defines the timeout for tooltip load.',
 }
 export interface KupBoxData {
-    columns?: Column[];
+    columns?: KupDataColumn[];
     rows?: KupBoxRow[];
 }
 export interface KupBoxRow extends Identifiable {
@@ -98,7 +95,7 @@ export interface KupBoxKanban {
 export interface KupBoxEventHandlerDetails {
     boxObject: HTMLElement;
     cell: Cell;
-    column: Column;
+    column: KupDataColumn;
     row: KupBoxRow;
 }
 

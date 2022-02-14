@@ -1,4 +1,4 @@
-import { Column } from '../kup-data-table/kup-data-table-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
@@ -14,7 +14,7 @@ export enum KupAccordionProps {
  * Data of the accordion.
  */
 export interface KupAccordionData {
-    columns: Column[];
+    columns: KupDataColumn[];
 }
 
 export interface KupAccordionItemSelectedEventPayload extends KupEventPayload {

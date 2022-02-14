@@ -136,13 +136,13 @@ Type: `Promise<void>`
 
 
 
-### `defaultSortingFunction(columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>`
+### `defaultSortingFunction(columns: KupDataColumn[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<KupDataColumn[]>`
 
 
 
 #### Returns
 
-Type: `Promise<Column[]>`
+Type: `Promise<KupDataColumn[]>`
 
 
 
@@ -176,7 +176,7 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
-### `hideColumn(column: Column) => Promise<void>`
+### `hideColumn(column: KupDataColumn) => Promise<void>`
 
 Hides the given column.
 
@@ -186,13 +186,13 @@ Type: `Promise<void>`
 
 
 
-### `newColumn(type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | Column>`
+### `newColumn(type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | KupDataColumn>`
 
 Invokes the KupData API for column creation, then refreshes the component in case no errors were catched.
 
 #### Returns
 
-Type: `Promise<string | Column>`
+Type: `Promise<string | KupDataColumn>`
 
 Returns the new column created or a string containing the error message if something went wrong.
 

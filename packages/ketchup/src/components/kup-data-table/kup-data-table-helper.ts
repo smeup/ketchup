@@ -7,7 +7,6 @@ import {
     GroupObject,
     TotalMode,
     TotalsMap,
-    Column,
     RowGroup,
 } from './kup-data-table-declarations';
 import { isEmpty, stringToNumber } from '../../utils/utils';
@@ -19,9 +18,8 @@ import {
     compareCell,
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -164,7 +162,7 @@ export function filterRows(
     rows: Array<Row> = [],
     filters: GenericFilter = {},
     globalFilter: string = '',
-    columns: Column[] = [],
+    columns: KupDataColumn[] = [],
     columnFilters?: FiltersColumnMenu,
     filtersRows?: FiltersRows
 ): Array<Row> {
@@ -182,7 +180,7 @@ export function filterRows(
 }
 
 export function groupRows(
-    columns: Column[] = [],
+    columns: KupDataColumn[] = [],
     rows: Row[] = [],
     groups: GroupObject[] = [],
     totals: TotalsMap = {}
@@ -738,7 +736,7 @@ function adjustGroupAverageOrFormula(
 }
 
 export function normalizeRows(
-    columns: Array<Column>,
+    columns: Array<KupDataColumn>,
     rows: Array<Row>
 ): Array<Row> {
     if (rows) {
