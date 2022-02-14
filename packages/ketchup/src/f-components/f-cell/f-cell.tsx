@@ -1,7 +1,4 @@
-import type {
-    Cell,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import type { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
 import type { FImageProps } from '../f-image/f-image-declarations';
 import type { FButtonProps } from '../f-button/f-button-declarations';
@@ -35,7 +32,10 @@ import { FImage } from '../f-image/f-image';
 import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupButtonClickEventPayload } from '../../components/kup-button/kup-button-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -492,7 +492,7 @@ function setKupCell(
     classObj: Record<string, boolean>,
     subcomponentProps: unknown,
     cell: Cell,
-    row: Row,
+    row: KupDataRow,
     column: KupDataColumn,
     props: FCellProps
 ): unknown {

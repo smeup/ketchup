@@ -14,14 +14,12 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
 import { KupListData } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupMagicBoxProps,
     MagicBoxDisplay,
-    MagicBoxData,
 } from './kup-magic-box-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -35,7 +33,11 @@ import {
     kupDropEvent,
     KupDropEventTypes,
 } from '../../managers/kup-interact/kup-interact-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataDataset,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -72,7 +74,7 @@ export class KupMagicBox {
      * Sets the data that will be used to display different components.
      * @default null
      */
-    @Prop({ mutable: true }) data: MagicBoxData = null;
+    @Prop({ mutable: true }) data: KupDataDataset = null;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -263,12 +265,12 @@ export class KupMagicBox {
      */
     private updateData(e: CustomEvent): void {
         {
-            const data: MagicBoxData = { ...this.data };
+            const data: KupDataDataset = { ...this.data };
             const column: KupDataColumn =
                 e.detail.sourceElement && e.detail.sourceElement.column
                     ? e.detail.sourceElement.column
                     : null;
-            const row: Row =
+            const row: KupDataRow =
                 e.detail.sourceElement && e.detail.sourceElement.row
                     ? e.detail.sourceElement.row
                     : null;

@@ -1,8 +1,5 @@
 import numeral from 'numeral';
-import {
-    Cell,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
@@ -15,6 +12,7 @@ import {
     KupDataNewColumn,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
+    KupDataRow,
 } from './kup-data-declarations';
 import {
     distinctDataset,
@@ -88,7 +86,7 @@ export class KupData {
                 find(
                     dataset: KupDataDataset,
                     filters: KupDataFindCellFilters
-                ): Row[] {
+                ): KupDataRow[] {
                     return findRow(dataset, filters);
                 },
             },

@@ -1,7 +1,6 @@
 import {
     CellsHolder,
     fieldColumn,
-    Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
@@ -13,6 +12,7 @@ import {
     KupDataDatasetSort,
     KupDataNewColumn,
     KupDataNewColumnTypes,
+    KupDataRow,
 } from './kup-data-declarations';
 import { finder } from './kup-data-helper';
 
@@ -83,7 +83,7 @@ export function distinctDataset(
         }
     }
     const newColumns: KupDataColumn[] = [];
-    const newRows: Row[] = [];
+    const newRows: KupDataRow[] = [];
     if (valuesColumn) {
         newColumns.push(valuesColumn);
     }
@@ -101,7 +101,7 @@ export function distinctDataset(
         newColumns.push(column);
         for (const j in occurrency) {
             const value = occurrency[j];
-            let row: Row = null;
+            let row: KupDataRow = null;
             if (!newRows[rowIndex]) {
                 newRows[rowIndex] = { cells: {} };
             }
@@ -140,7 +140,7 @@ export function newDataset(
     newColumns: KupDataNewColumn[]
 ): KupDataDataset {
     const outputColumns: KupDataColumn[] = [];
-    const outputRows: Row[] = [];
+    const outputRows: KupDataRow[] = [];
     for (let index = 0; index < newColumns.length; index++) {
         const newColumn = newColumns[index].column;
         const criteria = newColumns[index].criteria;
@@ -148,7 +148,7 @@ export function newDataset(
         let rowIndex = 0;
         for (let index = 0; index < cells.length; index++) {
             const cell = cells[index];
-            let outputRow: Row = null;
+            let outputRow: KupDataRow = null;
             if (!outputRows[rowIndex]) {
                 outputRows[rowIndex] = { cells: {} };
             }

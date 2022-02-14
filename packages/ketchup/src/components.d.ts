@@ -36,7 +36,6 @@ import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
-import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -2002,7 +2001,7 @@ export namespace Components {
           * Sets the data that will be used to display different components.
           * @default null
          */
-        "data": MagicBoxData;
+        "data": KupDataDataset;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4817,7 +4816,7 @@ declare namespace LocalJSX {
           * Sets the data that will be used to display different components.
           * @default null
          */
-        "data"?: MagicBoxData;
+        "data"?: KupDataDataset;
     }
     interface KupNavBar {
         /**

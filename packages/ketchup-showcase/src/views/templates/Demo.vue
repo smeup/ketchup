@@ -438,7 +438,7 @@ const demoTypes: DemoTypeJson = {
   KupBoxData: {
     keys: {
       'columns?': 'KupDataColumn[]',
-      'rows?': 'BoxRow[]',
+      'rows?': 'KupBoxRow[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -470,7 +470,7 @@ const demoTypes: DemoTypeJson = {
   KupCalendarData: {
     keys: {
       columns: 'KupCalendarColumn[]',
-      rows: 'Row[]',
+      rows: 'KupDataRow[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -552,7 +552,20 @@ const demoTypes: DemoTypeJson = {
   KupDataDataset: {
     keys: {
       'columns?': 'KupDataColumn[]',
-      'rows?': 'Row[]',
+      'rows?': 'KupDataRow[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupDataRow: {
+    keys: {
+      cells: 'CellsHolder',
+      'actions?': 'Array<RowAction>',
+      'group?': 'RowGroup',
+      'id?': 'string',
+      'readOnly?': 'boolean',
+      'cssClass?': 'string',
+      'name?': 'string',
+      'unselectable?': 'boolean',
     },
     type: DemoTypeFeature.INTERFACE,
   },

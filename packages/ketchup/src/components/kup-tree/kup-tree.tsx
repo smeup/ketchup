@@ -16,7 +16,6 @@ import {
 import type { PointerEvent } from '@interactjs/types/index';
 import {
     Cell,
-    Row,
     TotalLabel,
     TotalMode,
     TotalsMap,
@@ -93,7 +92,10 @@ import {
     FCellProps,
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -748,7 +750,7 @@ export class KupTree {
         });
     }
 
-    nodesToRows(): Row[] {
+    nodesToRows(): KupDataRow[] {
         function children(TreeNode: TreeNode) {
             for (let index = 0; index < TreeNode.children.length; index++) {
                 const node: TreeNode = TreeNode.children[index];
@@ -760,7 +762,7 @@ export class KupTree {
                 }
             }
         }
-        let rows: Row[] = [];
+        let rows: KupDataRow[] = [];
         for (let index = 0; index < this.data.length; index++) {
             const node: TreeNode = this.data[index];
             rows.push({
@@ -890,7 +892,7 @@ export class KupTree {
             filterRemove: HTMLElement = el.closest('th .filter-remove');
         let cell: Cell = null,
             column: KupDataColumn = null,
-            row: Row = null;
+            row: KupDataRow = null;
         if (isBody) {
             if (td) {
                 cell = td['data-cell'];

@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                      | Type           | Default |
-| ------------- | -------------- | ---------------------------------------------------------------- | -------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                   | `string`       | `''`    |
-| `data`        | --             | Sets the data that will be used to display different components. | `MagicBoxData` | `null`  |
+| Property      | Attribute      | Description                                                      | Type             | Default |
+| ------------- | -------------- | ---------------------------------------------------------------- | ---------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                   | `string`         | `''`    |
+| `data`        | --             | Sets the data that will be used to display different components. | `KupDataDataset` | `null`  |
 
 
 ## Methods

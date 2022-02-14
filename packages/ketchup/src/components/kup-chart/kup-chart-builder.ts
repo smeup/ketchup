@@ -1,4 +1,3 @@
-import { Row } from '../kup-data-table/kup-data-table-declarations';
 import { formatToNumber } from '../../utils/cell-utils';
 import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
@@ -8,6 +7,7 @@ import { KupDatesNormalize } from '../../managers/kup-dates/kup-dates-declaratio
 import {
     KupDataColumn,
     KupDataDataset,
+    KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 
 export function getSerieDecode(serie: string, series: KupDataColumn[]): string {
@@ -67,7 +67,7 @@ export const convertRows = (
     if (data.rows) {
         const kupDates: KupDates = new KupDates();
         const kupObjects: KupObjects = new KupObjects();
-        data.rows.forEach((r: Row) => {
+        data.rows.forEach((r: KupDataRow) => {
             const cells = r.cells;
 
             const currentRow = [];

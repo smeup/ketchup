@@ -6,7 +6,6 @@ import type { KupDataTable } from '../../components/kup-data-table/kup-data-tabl
 import type { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     Cell,
-    Row,
     CellsHolder,
     SortMode,
 } from '../../components/kup-data-table/kup-data-table-declarations';
@@ -22,7 +21,10 @@ import { FiltersColumnMenu } from './filters-column-menu';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 const kupObjects: KupObjects = dom.ketchup
@@ -72,7 +74,7 @@ export class FiltersRows extends Filters {
     }
 
     isRowCompliant(
-        r: Row,
+        r: KupDataRow,
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
@@ -276,18 +278,18 @@ export class FiltersRows extends Filters {
      *    single filters and global filter, all controls on a single column are done in a single cycle.
      */
     filterRows(
-        rows: Array<Row> = [],
+        rows: Array<KupDataRow> = [],
         filters: GenericFilter = {},
         globalFilter: string = '',
         columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
-    ): Array<Row> {
+    ): Array<KupDataRow> {
         if (!rows || rows == null) {
             return [];
         }
 
         // There are rows to filter
-        let filteredRows: Array<Row> = [];
+        let filteredRows: Array<KupDataRow> = [];
         const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
 
         if (
@@ -295,7 +297,7 @@ export class FiltersRows extends Filters {
             isUsingGlobalFilter
         ) {
             for (let i = 0; i < rows.length; i++) {
-                let r: Row = rows[i];
+                let r: KupDataRow = rows[i];
                 if (
                     this.isRowCompliant(
                         r,
@@ -406,7 +408,7 @@ export class FiltersRows extends Filters {
     }
 
     extractColumnValues(
-        rows: Array<Row>,
+        rows: Array<KupDataRow>,
         column: KupDataColumn,
         values: ValueDisplayedValue[]
     ) {

@@ -1,7 +1,4 @@
-import {
-    Cell,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
@@ -11,6 +8,7 @@ import {
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
+    KupDataRow,
 } from './kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -371,7 +369,7 @@ export function newColumnFromMerge(
     let rowIndex = 0;
     for (let index = 0; index < outputCells.length; index++) {
         const outputCell = outputCells[index];
-        let row: Row = null;
+        let row: KupDataRow = null;
         if (!dataset.rows[rowIndex]) {
             dataset.rows[rowIndex] = { cells: {} };
         }

@@ -1,8 +1,11 @@
 import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
 import { KupBadge } from '../kup-badge/kup-badge';
-import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
+import { KupEventPayload } from '../../types/GenericTypes';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 /**
  * Props of the kup-box component.
  * Used to export every prop in an object.
@@ -43,11 +46,7 @@ export interface KupBoxData {
     columns?: KupDataColumn[];
     rows?: KupBoxRow[];
 }
-export interface KupBoxRow extends Identifiable {
-    cells: {
-        [index: string]: Cell;
-    };
-    actions?: Array<RowAction>;
+export interface KupBoxRow extends KupDataRow {
     layout?: KupBoxLayout;
     badgeData?: KupBadge[];
 }

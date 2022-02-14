@@ -4,11 +4,11 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-
 import { getDecimalSeparator } from '../../utils/utils';
-
-import { Row } from '../kup-data-table/kup-data-table-declarations';
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataDataset,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-dash-list',
@@ -69,7 +69,7 @@ export class KupDashList {
         let rows = [];
         var count = 0;
 
-        this.data.rows.forEach((r: Row) => {
+        this.data.rows.forEach((r: KupDataRow) => {
             let icon = '';
             let unit = '';
             let descr = '';

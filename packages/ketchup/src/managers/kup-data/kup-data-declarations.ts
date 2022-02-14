@@ -1,8 +1,10 @@
 import {
     Cell,
+    CellsHolder,
     ColumnChild,
     GenericMap,
-    Row,
+    RowAction,
+    RowGroup,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
@@ -12,7 +14,7 @@ import { KupObj } from '../kup-objects/kup-objects-declarations';
  */
 export interface KupDataDataset {
     columns?: KupDataColumn[];
-    rows?: Row[];
+    rows?: KupDataRow[];
 }
 /**
  * Generic column interface.
@@ -36,6 +38,19 @@ export interface KupDataColumn {
     style?: GenericMap;
     mergedFrom?: string[];
     resultOf?: string;
+}
+/**
+ * Generic row interface.
+ */
+export interface KupDataRow {
+    cells: CellsHolder;
+    actions?: Array<RowAction>;
+    group?: RowGroup;
+    id?: string;
+    readOnly?: boolean;
+    cssClass?: string;
+    name?: string;
+    unselectable?: boolean;
 }
 /**
  * Interface related to dataset operations.
@@ -103,7 +118,10 @@ export interface KupDataColumnOperations {
  * Interface related to rows operations.
  */
 export interface KupDataRowOperations {
-    find: (dataset: KupDataDataset, filters?: KupDataFindCellFilters) => Row[];
+    find: (
+        dataset: KupDataDataset,
+        filters?: KupDataFindCellFilters
+    ) => KupDataRow[];
 }
 /**
  * Interface related to the formulas factory function.

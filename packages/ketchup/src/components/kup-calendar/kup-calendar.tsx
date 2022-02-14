@@ -28,7 +28,6 @@ import itLocale from '@fullcalendar/core/locales/it';
 import plLocale from '@fullcalendar/core/locales/pl';
 import ruLocale from '@fullcalendar/core/locales/ru';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -56,7 +55,10 @@ import {
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { KupDatesLocales } from '../../managers/kup-dates/kup-dates-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -221,7 +223,7 @@ export class KupCalendar {
             },
             eventDidMount: (info) => {
                 if (this.iconCol) {
-                    const row: Row = info.event.extendedProps.row;
+                    const row: KupDataRow = info.event.extendedProps.row;
                     const cell = row.cells[this.iconCol];
                     if (cell && cell.value) {
                         const wrapper = document.createElement('div');
@@ -243,7 +245,7 @@ export class KupCalendar {
                 }
 
                 if (this.imageCol) {
-                    const row: Row = info.event.extendedProps.row;
+                    const row: KupDataRow = info.event.extendedProps.row;
                     const cell = row.cells[this.imageCol];
                     if (cell && cell.value) {
                         const wrapper = document.createElement('div');
@@ -260,7 +262,7 @@ export class KupCalendar {
                 }
 
                 if (this.styleCol) {
-                    const row: Row = info.event.extendedProps.row;
+                    const row: KupDataRow = info.event.extendedProps.row;
                     const cell = row.cells[this.styleCol];
                     const eventCell = info.el.children[0] as HTMLElement;
                     const parent = eventCell.parentElement;
@@ -384,7 +386,7 @@ export class KupCalendar {
         }
     }
 
-    private getRows(): Row[] {
+    private getRows(): KupDataRow[] {
         if (this.data && this.data.rows) {
             return this.data.rows;
         }

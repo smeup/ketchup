@@ -1,9 +1,9 @@
 import type { VNode } from '@stencil/core';
-import type {
-    Cell,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import type { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import {
     FComponent,
     KupEventPayload,
@@ -23,7 +23,7 @@ export interface FCellProps extends FComponent {
     indents?: VNode[];
     previousValue?: string;
     renderKup?: boolean;
-    row?: Row;
+    row?: KupDataRow;
     setSizes?: boolean;
     shape?: FCellShapes;
 }
@@ -180,6 +180,6 @@ export interface FCellEventPayload extends KupEventPayload {
     cell: Cell;
     column: KupDataColumn;
     event: CustomEvent | InputEvent | MouseEvent;
-    row: Row;
+    row: KupDataRow;
     type: FCellTypes;
 }

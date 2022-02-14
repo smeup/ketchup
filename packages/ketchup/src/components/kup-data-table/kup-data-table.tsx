@@ -27,7 +27,6 @@ import {
     GroupObject,
     LoadMoreMode,
     PaginatorPos,
-    Row,
     RowAction,
     ShowGrid,
     SortMode,
@@ -164,6 +163,7 @@ import {
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
+    KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
@@ -664,7 +664,7 @@ export class KupDataTable {
     private currentRowsPerPage = 10;
 
     @State()
-    private selectedRows: Array<Row> = [];
+    private selectedRows: Array<KupDataRow> = [];
 
     @State()
     private selectedColumn: string;
@@ -764,10 +764,10 @@ export class KupDataTable {
         this.calculateData();
     }
 
-    private rows: Array<Row>;
+    private rows: Array<KupDataRow>;
     private rowsLength: number = 0;
 
-    private paginatedRows: Array<Row>;
+    private paginatedRows: Array<KupDataRow>;
     private paginatedRowsLength: number = 0;
 
     private footer: { [index: string]: any }; // TODO change any
@@ -775,7 +775,7 @@ export class KupDataTable {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private renderedRows: Array<Row> = [];
+    private renderedRows: Array<KupDataRow> = [];
 
     private loadMoreEventCounter: number = 0;
 
@@ -1321,7 +1321,7 @@ export class KupDataTable {
         // set columns
         totalsMatrixData.columns = totalsMatrixColumns;
         // calc rows
-        const totalsMatrixRows: Array<Row> = [];
+        const totalsMatrixRows: Array<KupDataRow> = [];
         let index = 0;
         this.rows.forEach((row) => {
             const cells: CellsHolder = {};
@@ -1930,7 +1930,7 @@ export class KupDataTable {
         return this._rowsLength(this.paginatedRows);
     }
 
-    private _rowsLength(r: Array<Row>): number {
+    private _rowsLength(r: Array<KupDataRow>): number {
         if (r == null) {
             return 0;
         }
@@ -2132,13 +2132,13 @@ export class KupDataTable {
     }
     /**
      * Opens a card containing the detail of the given row.
-     * @param {Row} row - Row for which the detail was requested.
+     * @param {KupDataRow} row - Row for which the detail was requested.
      * @param {number} x - Initial x coordinates of the card.
      * @param {number} y - Initial y coordinates of the card.
      * @private
      * @memberof KupDataTable
      */
-    private rowDetail(row: Row, x: number, y: number): void {
+    private rowDetail(row: KupDataRow, x: number, y: number): void {
         const transposedData: KupDataDataset = this.getTransposedData();
         const cardData: KupCardData = {
             button: [
@@ -2173,7 +2173,7 @@ export class KupDataTable {
             text: [this.kupManager.language.translate(KupLanguageRow.DETAIL)],
         };
         const columns: KupDataColumn[] = cardData.datatable[0].data.columns;
-        const rows: Row[] = cardData.datatable[0].data.rows;
+        const rows: KupDataRow[] = cardData.datatable[0].data.rows;
         // Placing the key and icon columns before any other column
         columns.unshift(
             {
@@ -2371,7 +2371,7 @@ export class KupDataTable {
         let cell: Cell = null,
             column: KupDataColumn = null,
             isGroupRow: boolean = false,
-            row: Row = null;
+            row: KupDataRow = null;
         if (isBody) {
             if (tr) {
                 if (tr.classList.contains('group')) {
@@ -2578,7 +2578,7 @@ export class KupDataTable {
         );
     }
 
-    getRows(): Array<Row> {
+    getRows(): Array<KupDataRow> {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
@@ -2671,7 +2671,7 @@ export class KupDataTable {
         this.paginatedRows.forEach((row) => this.forceRowGroupExpansion(row));
     }
 
-    private forceRowGroupExpansion(row: Row) {
+    private forceRowGroupExpansion(row: KupDataRow) {
         // check if row is group
         if (!row.group) {
             return;
@@ -2918,7 +2918,7 @@ export class KupDataTable {
         }
     }
 
-    private onRowClick(row: Row, td: HTMLElement, emitEvent?: boolean) {
+    private onRowClick(row: KupDataRow, td: HTMLElement, emitEvent?: boolean) {
         // selecting row
         if (!row.unselectable) {
             switch (this.selection) {
@@ -3009,7 +3009,7 @@ export class KupDataTable {
         });
     }
 
-    private onRowActionExpanderClick(e: MouseEvent, row: Row) {
+    private onRowActionExpanderClick(e: MouseEvent, row: KupDataRow) {
         e.stopPropagation();
 
         this.kupRowActionClick.emit({
@@ -3020,7 +3020,7 @@ export class KupDataTable {
         });
     }
 
-    private handleRowSelect(row: Row) {
+    private handleRowSelect(row: KupDataRow) {
         const index = this.selectedRows.indexOf(row);
 
         if (index < 0) {
@@ -3041,7 +3041,7 @@ export class KupDataTable {
         });
     }
 
-    private onRowExpand(row: Row) {
+    private onRowExpand(row: KupDataRow) {
         // row should be a 'group' row
         row.group.expanded = !row.group.expanded;
 
@@ -3160,7 +3160,7 @@ export class KupDataTable {
         this.rows.forEach((r) => this.adjustGroupStateFromRow(r));
     }
 
-    private adjustGroupStateFromRow(row: Row): void {
+    private adjustGroupStateFromRow(row: KupDataRow): void {
         if (!row || !row.hasOwnProperty('group')) {
             // not a groping row, nothing to do
             return;
@@ -3232,7 +3232,7 @@ export class KupDataTable {
         return colSpan;
     }
 
-    private isGroupExpanded({ group }: Row): boolean {
+    private isGroupExpanded({ group }: KupDataRow): boolean {
         if (!group) {
             return false;
         }
@@ -4007,10 +4007,10 @@ export class KupDataTable {
     }
 
     private renderRow(
-        row: Row,
+        row: KupDataRow,
         level = 0,
         rowCssIndex: number = 0,
-        previousRow?: Row
+        previousRow?: KupDataRow
     ) {
         const visibleColumns = this.getVisibleColumns();
         let rowActionsCount: number = 0;
@@ -4455,7 +4455,7 @@ export class KupDataTable {
 
     private renderActions(
         actions: Array<RowAction>,
-        row: Row,
+        row: KupDataRow,
         type: string
     ): JSX.Element[] {
         return actions.map((action, index) => {

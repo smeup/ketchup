@@ -1,10 +1,8 @@
-import {
-    Cell,
-    Row,
-} from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import { Cell } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import {
     KupDataColumn,
     KupDataDataset,
+    KupDataRow,
 } from '../../../src/managers/kup-data/kup-data-declarations';
 
 const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
@@ -58,9 +56,9 @@ export function LongTextDataFactory(
     }
 
     // Composes rows
-    const rows: Row[] = [];
+    const rows: KupDataRow[] = [];
     for (i = 0; i < numberOfRows; i++) {
-        let row: Row = {
+        let row: KupDataRow = {
             cells: {},
         };
 
@@ -87,7 +85,7 @@ export function createData(colSize: number, rowSize: number): KupDataDataset {
         });
     }
 
-    const rows: Row[] = [];
+    const rows: KupDataRow[] = [];
     for (let i = 0; i < rowSize; i++) {
         const currentRow: {
             cells: any;

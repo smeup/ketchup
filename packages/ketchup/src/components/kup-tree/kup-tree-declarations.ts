@@ -1,10 +1,12 @@
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
     Cell,
     CellsHolder,
-    Row,
     RowAction,
 } from './../kup-data-table/kup-data-table-declarations';
 /**
@@ -92,7 +94,7 @@ export interface KupTreeEventHandlerDetails {
     cell: Cell;
     column: KupDataColumn;
     filterRemove: HTMLSpanElement;
-    row: Row;
+    row: KupDataRow;
     td: HTMLElement;
     th: HTMLElement;
     tr: HTMLTableRowElement;

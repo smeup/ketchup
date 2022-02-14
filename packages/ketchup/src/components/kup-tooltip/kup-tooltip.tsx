@@ -33,7 +33,6 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
@@ -44,6 +43,7 @@ import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDataRow } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -428,7 +428,7 @@ export class KupTooltip {
         }
     }
 
-    private getRows(): Row[] {
+    private getRows(): KupDataRow[] {
         return this.hasDetailData() ? this.detailData.rows : [];
     }
 
