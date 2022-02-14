@@ -1,8 +1,6 @@
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupEventPayload } from '../../types/GenericTypes';
-import {
-    Column,
-    DataTable,
-} from '../kup-data-table/kup-data-table-declarations';
+import { Column } from '../kup-data-table/kup-data-table-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 /**
@@ -46,7 +44,7 @@ export interface TooltipAction {
     url: string;
 }
 
-export interface TooltipDetailData extends DataTable {
+export interface TooltipDetailData extends KupDataDataset {
     actions?: { command: Array<TooltipAction> };
 }
 

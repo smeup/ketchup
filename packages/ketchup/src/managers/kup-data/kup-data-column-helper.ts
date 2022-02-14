@@ -1,7 +1,6 @@
 import {
     Cell,
     Column,
-    DataTable,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
@@ -9,6 +8,7 @@ import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
 import {
+    KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
 } from './kup-data-declarations';
@@ -17,16 +17,16 @@ const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Finds the columns matching the criteria specified in the filters argument.
- * @param {DataTable | Column[]} dataset - Input dataset or array of columns.
+ * @param {KupDataDataset | Column[]} dataset - Input dataset or array of columns.
  * @param {Partial<Column>} filters - Column interface containing the filters to match.
  * @returns {Column[]} Columns matching the criteria.
  */
 export function findColumns(
-    dataset: DataTable | Column[],
+    dataset: KupDataDataset | Column[],
     filters: Partial<Column>
 ): Column[] {
-    const columns = (dataset as DataTable).columns
-        ? (dataset as DataTable).columns
+    const columns = (dataset as KupDataDataset).columns
+        ? (dataset as KupDataDataset).columns
         : (dataset as Column[]);
     const result: Column[] = [];
     for (let index = 0; index < columns.length; index++) {
@@ -42,16 +42,16 @@ export function findColumns(
 }
 /**
  * Sets the given columns of the input dataset to be hidden.
- * @param {DataTable | Column[]} dataset - Input dataset or array of columns.
+ * @param {KupDataDataset | Column[]} dataset - Input dataset or array of columns.
  * @param {string[]} columns2hide - Names of columns to hide.
  * @returns {Column[]} Columns that were set to hidden.
  */
 export function hideColumns(
-    dataset: DataTable | Column[],
+    dataset: KupDataDataset | Column[],
     columns2hide: string[]
 ): Column[] {
-    const columns = (dataset as DataTable).columns
-        ? (dataset as DataTable).columns
+    const columns = (dataset as KupDataDataset).columns
+        ? (dataset as KupDataDataset).columns
         : (dataset as Column[]);
     const hidden: Column[] = [];
     for (let index = 0; index < columns.length; index++) {
@@ -65,13 +65,13 @@ export function hideColumns(
 }
 /**
  * Creates a new column with the specified options.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {KupDataNewColumnTypes} type - Type of column creation.
  * @param {KupDataNewColumnOptions} options - Options used by the submethods to create the column.
  * @returns {string | Column} Returns the new column created or a string containing the error message (if something went wrong).
  */
 export function newColumn(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     type: KupDataNewColumnTypes,
     options?: KupDataNewColumnOptions
 ): string | Column {
@@ -107,13 +107,13 @@ export function newColumn(
 }
 /**
  * This method concatenates all the columns specified in the argument into a single one.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {string[]} columns - Array of column names.
  * @param {string} separator - Characters used to separate values.
  * @returns {string|Column}  Returns the new column created or a string containing the error message (if something went wrong).
  */
 function newColumnFromConcatenate(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     columns: string[],
     separator?: string
 ): string | Column {
@@ -204,13 +204,13 @@ function newColumnFromConcatenate(
 }
 /**
  * This method is used to create a new column from a mathematical formula.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {string} operation - Mathematical operation to apply (i.e.: "sum", "average", ([COL1] - [COL2]) * 100 / [COL3]).
  * @param {string[]} columns - Column names used for the mathematical operation. When missing, they will be extracted from the formula.
  * @returns {string | Column} Returns the new column created or a string containing the error message (if something went wrong).
  */
 function newColumnFromMath(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     operation: string,
     columns?: string[]
 ): string | Column {
@@ -340,13 +340,13 @@ function newColumnFromMath(
 }
 /**
  * Takes the columns to merge and creates a new column with their cells. The merged columns will then be removed.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {string[]} columns2merge - Names of columns to merge.
  * @param {Column} newColumn - Column created.
  * @returns {Column} Resulting column.
  */
 export function newColumnFromMerge(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     columns2merge: string[],
     newColumn: Column
 ): Column {

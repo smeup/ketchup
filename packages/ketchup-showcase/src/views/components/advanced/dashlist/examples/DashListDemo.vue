@@ -50,7 +50,7 @@ export default {
         {
           prop: 'data',
           description: '',
-          type: 'TableData',
+          type: 'KupDataDataset',
           default: 'undefined',
           try: 'json',
         },

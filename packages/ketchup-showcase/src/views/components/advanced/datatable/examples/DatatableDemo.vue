@@ -170,7 +170,7 @@ export default {
         {
           prop: 'data',
           description: 'The data of the table.',
-          type: 'TableData',
+          type: 'KupDataDataset',
           default: 'undefined',
           try: 'json',
         },

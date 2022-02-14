@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -20,13 +20,13 @@ import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClic
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
+import { KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
-import { KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
@@ -682,7 +682,7 @@ export namespace Components {
           * The actual data of the chart.
           * @default undefined
          */
-        "data": DataTable;
+        "data": KupDataDataset;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1003,7 +1003,7 @@ export namespace Components {
     interface KupDashList {
         "active": boolean;
         "columnsNumber": number;
-        "data": TableData;
+        "data": KupDataDataset;
         "fontsize": string;
         "fullWidth": boolean;
         "horizontal": boolean;
@@ -1033,7 +1033,7 @@ export namespace Components {
         /**
           * The data of the table.
          */
-        "data": TableData;
+        "data": KupDataDataset;
         "defaultSortingFunction": (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
@@ -1100,7 +1100,7 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
-        "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
+        "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataDataset; }>;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1508,7 +1508,7 @@ export namespace Components {
           * The actual data of the chart.
           * @default null
          */
-        "data": DataTable;
+        "data": KupDataDataset;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -3733,7 +3733,7 @@ declare namespace LocalJSX {
           * The actual data of the chart.
           * @default undefined
          */
-        "data"?: DataTable;
+        "data"?: KupDataDataset;
         /**
           * Customize the hAxes for multiple-chart.
          */
@@ -3990,7 +3990,7 @@ declare namespace LocalJSX {
     interface KupDashList {
         "active"?: boolean;
         "columnsNumber"?: number;
-        "data"?: TableData;
+        "data"?: KupDataDataset;
         "fontsize"?: string;
         "fullWidth"?: boolean;
         "horizontal"?: boolean;
@@ -4015,7 +4015,7 @@ declare namespace LocalJSX {
         /**
           * The data of the table.
          */
-        "data"?: TableData;
+        "data"?: KupDataDataset;
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
@@ -4447,7 +4447,7 @@ declare namespace LocalJSX {
           * The actual data of the chart.
           * @default null
          */
-        "data"?: DataTable;
+        "data"?: KupDataDataset;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
           * @default KupEchartLegendPlacement.RIGHT

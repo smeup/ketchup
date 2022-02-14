@@ -2,12 +2,12 @@ import numeral from 'numeral';
 import {
     Cell,
     Column,
-    DataTable,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    KupDataDataset,
     KupDataDatasetOperations,
     KupDataDatasetSort,
     KupDataFindCellFilters,
@@ -44,16 +44,19 @@ export class KupData {
         this.datasetOperations = {
             cell: {
                 find(
-                    dataset: DataTable,
+                    dataset: KupDataDataset,
                     filters: KupDataFindCellFilters
                 ): Cell[] {
                     return findCell(dataset, filters);
                 },
-                getValue(dataset: DataTable, columns?: string[]): string[] {
+                getValue(
+                    dataset: KupDataDataset,
+                    columns?: string[]
+                ): string[] {
                     return getCellValue(dataset, columns);
                 },
                 replace(
-                    dataset: DataTable,
+                    dataset: KupDataDataset,
                     cell: Cell,
                     columns?: string[]
                 ): Cell[] {
@@ -62,19 +65,19 @@ export class KupData {
             },
             column: {
                 find(
-                    dataset: DataTable | Column[],
+                    dataset: KupDataDataset | Column[],
                     filters: Partial<Column>
                 ): Column[] {
                     return findColumns(dataset, filters);
                 },
                 hide(
-                    dataset: DataTable | Column[],
+                    dataset: KupDataDataset | Column[],
                     columns2hide: string[]
                 ): Column[] {
                     return hideColumns(dataset, columns2hide);
                 },
                 new(
-                    dataset: DataTable,
+                    dataset: KupDataDataset,
                     type: KupDataNewColumnTypes,
                     options: KupDataNewColumnOptions
                 ): string | Column {
@@ -83,28 +86,31 @@ export class KupData {
             },
             row: {
                 find(
-                    dataset: DataTable,
+                    dataset: KupDataDataset,
                     filters: KupDataFindCellFilters
                 ): Row[] {
                     return findRow(dataset, filters);
                 },
             },
             distinct(
-                dataset: DataTable,
+                dataset: KupDataDataset,
                 columns?: string[],
                 valuesColumn?: Column
-            ): DataTable {
+            ): KupDataDataset {
                 return distinctDataset(dataset, columns, valuesColumn);
             },
-            new(dataset: DataTable, newColumns: KupDataNewColumn[]): DataTable {
+            new(
+                dataset: KupDataDataset,
+                newColumns: KupDataNewColumn[]
+            ): KupDataDataset {
                 return newDataset(dataset, newColumns);
             },
             rangedDistinct(
-                dataset: DataTable,
+                dataset: KupDataDataset,
                 rangeColumns: KupDataNewColumn[],
                 resultingColumn: Column,
                 valuesColumn?: Column
-            ): DataTable {
+            ): KupDataDataset {
                 return rangedDistinctDataset(
                     dataset,
                     rangeColumns,
@@ -113,13 +119,16 @@ export class KupData {
                 );
             },
             sort(
-                dataset: DataTable,
+                dataset: KupDataDataset,
                 sortType: KupDataDatasetSort,
                 headerColumn: string
-            ): DataTable {
+            ): KupDataDataset {
                 return sortDataset(dataset, sortType, headerColumn);
             },
-            transpose(dataset: DataTable, headerColumn?: string): DataTable {
+            transpose(
+                dataset: KupDataDataset,
+                headerColumn?: string
+            ): KupDataDataset {
                 return transposeDataset(dataset, headerColumn);
             },
         };

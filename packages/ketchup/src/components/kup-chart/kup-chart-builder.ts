@@ -1,15 +1,11 @@
-import {
-    Row,
-    Column,
-    DataTable,
-} from '../kup-data-table/kup-data-table-declarations';
-
+import { Row, Column } from '../kup-data-table/kup-data-table-declarations';
 import { formatToNumber } from '../../utils/cell-utils';
 import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import { KupDates } from '../../managers/kup-dates/kup-dates';
 import { KupDatesNormalize } from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 
 export function getSerieDecode(serie: string, series: Column[]): string {
     if (serie == null || series == null) {
@@ -25,7 +21,10 @@ export function getSerieDecode(serie: string, series: Column[]): string {
     return serie;
 }
 
-export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
+export const convertColumns = (
+    data: KupDataDataset,
+    { series, axis }
+): Column[] => {
     if (!data || !series) {
         return [];
     }

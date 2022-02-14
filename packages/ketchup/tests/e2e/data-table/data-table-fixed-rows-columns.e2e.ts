@@ -1,13 +1,9 @@
 import { newE2EPage } from '@stencil/core/testing';
-
 import { createData } from './mocked-data';
-
 import {
     Column,
     FixedCellsClasses,
-    FixedCellsCSSVarsBase,
 } from '../../../src/components/kup-data-table/kup-data-table-declarations';
-
 import { getElementClientRect } from '../E2eTestUtilities';
 
 /**
@@ -169,9 +165,8 @@ describe.each([
                 await page.addStyleTag({ content: tableCustomHeightStyle });
 
                 // Set the fixed direction elements
-                const propDirection = getPropDirectionFromCurrent(
-                    currentDirection
-                );
+                const propDirection =
+                    getPropDirectionFromCurrent(currentDirection);
                 await tableElement.setProperty(propDirection, fixedCount);
                 // Sets height correctly to force a scrollable table
                 await page.addStyleTag({ content: tableCustomHeightStyle });

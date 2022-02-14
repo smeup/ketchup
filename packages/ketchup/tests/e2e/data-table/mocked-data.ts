@@ -2,8 +2,8 @@ import {
     Cell,
     Column,
     Row,
-    DataTable,
 } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import { KupDataDataset } from '../../../src/managers/kup-data/kup-data-declarations';
 
 const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
 
@@ -45,7 +45,7 @@ function cellFactory(
 export function LongTextDataFactory(
     numberOfCols: number = 4,
     numberOfRows: number = 20
-): DataTable {
+): KupDataDataset {
     const longText = "Column's width defined by the matrix setup";
     let i = 0;
 
@@ -76,7 +76,7 @@ export function LongTextDataFactory(
     };
 }
 
-export function createData(colSize: number, rowSize: number): DataTable {
+export function createData(colSize: number, rowSize: number): KupDataDataset {
     const columns: Column[] = [];
     for (let i = 0; i < colSize; i++) {
         columns.push({
@@ -356,7 +356,7 @@ export function DataWithHeaderLineBreaksFactory(
     ],
     lineBreakPlaceholder = '|'
 ) {
-    const tableData: DataTable = createData(
+    const tableData: KupDataDataset = createData(
         tableSize.colSize,
         tableSize.rowSize
     );
@@ -936,16 +936,11 @@ export const groupingData = GroupingDataFactory();
 
 // Builds the data for the data table when equal values must not be displayed.
 // Placed here a forced type to allow a correct usage later
-let dataTableHideRepetitions = GroupingDataFactory() as DataTable;
+let dataTableHideRepetitions = GroupingDataFactory() as KupDataDataset;
 
 // @ts-ignore
 dataTableHideRepetitions.columns.forEach((column) => {
     column.hideValuesRepetitions = true;
-});
-
-// @ts-ignore
-dataTableHideRepetitions.rows.forEach((row) => {
-    row.cells.FLD1.options = true;
 });
 
 export const dataTableHideRepetitionsData = dataTableHideRepetitions;
@@ -1216,19 +1211,16 @@ export const tableButtonData = {
                 },
                 RAW: {
                     obj: {
-                        k:
-                            'M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)',
+                        k: 'M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)',
                         p: '',
                         t: '',
                     },
                     options: false,
-                    value:
-                        'M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)',
+                    value: 'M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)',
                 },
                 BTN: {
                     obj: {
-                        k:
-                            'M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)',
+                        k: 'M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)',
                         p: 'BTN',
                         t: 'J4',
                     },
@@ -1573,14 +1565,12 @@ export const tableButtonData = {
                 },
                 RAW: {
                     obj: {
-                        k:
-                            'I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)',
+                        k: 'I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)',
                         p: '',
                         t: '',
                     },
                     options: false,
-                    value:
-                        'I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)',
+                    value: 'I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)',
                 },
                 BTN: {
                     data: {
@@ -1588,8 +1578,7 @@ export const tableButtonData = {
                         icon: 'pencil',
                     },
                     obj: {
-                        k:
-                            'I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS)) T(Test)',
+                        k: 'I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS)) T(Test)',
                         p: 'BTN',
                         t: 'J4',
                     },
@@ -1718,22 +1707,19 @@ export const tableButtonData = {
                 },
                 RAW: {
                     obj: {
-                        k:
-                            'S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
+                        k: 'S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                         p: '',
                         t: '',
                     },
                     options: false,
-                    value:
-                        'S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
+                    value: 'S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                 },
                 BTN: {
                     data: {
                         icon: 'pencil',
                     },
                     obj: {
-                        k:
-                            'S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                        k: 'S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                         p: 'BTN',
                         t: 'J4',
                     },
@@ -2373,22 +2359,19 @@ export const tableButtonData = {
                 },
                 RAW: {
                     obj: {
-                        k:
-                            'B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
+                        k: 'B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                         p: '',
                         t: '',
                     },
                     options: false,
-                    value:
-                        'B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
+                    value: 'B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                 },
                 BTN: {
                     data: {
                         icon: 'pencil',
                     },
                     obj: {
-                        k:
-                            'B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                        k: 'B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                         p: 'BTN',
                         t: 'J4',
                     },
@@ -2448,22 +2431,19 @@ export const tableButtonData = {
                 },
                 RAW: {
                     obj: {
-                        k:
-                            'B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
+                        k: 'B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
                         p: '',
                         t: '',
                     },
                     options: false,
-                    value:
-                        'B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
+                    value: 'B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
                 },
                 BTN: {
                     data: {
                         flat: false,
                     },
                     obj: {
-                        k:
-                            'B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
+                        k: 'B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
                         p: 'BTN',
                         t: 'J4',
                     },
@@ -2522,14 +2502,12 @@ export const tableButtonData = {
                 },
                 RAW: {
                     obj: {
-                        k:
-                            'B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                        k: 'B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                         p: '',
                         t: '',
                     },
                     options: false,
-                    value:
-                        'B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                    value: 'B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                 },
                 BTN: {
                     data: {
@@ -2537,8 +2515,7 @@ export const tableButtonData = {
                         flat: false,
                     },
                     obj: {
-                        k:
-                            'B(Yes) M(CN;COL;SANCOS) T(Run action) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                        k: 'B(Yes) M(CN;COL;SANCOS) T(Run action) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                         p: 'BTN',
                         t: 'J4',
                     },
@@ -2598,22 +2575,19 @@ export const tableButtonData = {
                 },
                 RAW: {
                     obj: {
-                        k:
-                            'B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                        k: 'B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                         p: '',
                         t: '',
                     },
                     options: false,
-                    value:
-                        'B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                    value: 'B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                 },
                 BTN: {
                     data: {
                         label: 'Dettaglio',
                     },
                     obj: {
-                        k:
-                            'B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                        k: 'B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                         p: 'BTN',
                         t: 'J4',
                     },
@@ -2673,22 +2647,19 @@ export const tableButtonData = {
                 },
                 RAW: {
                     obj: {
-                        k:
-                            'B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
+                        k: 'B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                         p: '',
                         t: '',
                     },
                     options: false,
-                    value:
-                        'B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
+                    value: 'B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                 },
                 BTN: {
                     data: {
                         icon: 'pencil',
                     },
                     obj: {
-                        k:
-                            'B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
+                        k: 'B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                         p: 'BTN',
                         t: 'J4',
                     },

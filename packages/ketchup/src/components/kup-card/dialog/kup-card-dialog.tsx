@@ -4,12 +4,10 @@ import type { GenericObject } from '../../../types/GenericTypes';
 import type { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList, dialogHeader } from '../kup-card-helper';
-import {
-    Column,
-    TableData,
-} from '../../kup-data-table/kup-data-table-declarations';
+import { Column } from '../../kup-data-table/kup-data-table-declarations';
 import { KupLanguageRow } from '../../../managers/kup-language/kup-language-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
+import { KupDataDataset } from '../../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -249,7 +247,7 @@ function prevButton(component: KupCard): void {
     let nextButton: HTMLKupButtonElement = null;
     let prevButton: HTMLKupButtonElement = null;
     let table: HTMLKupDataTableElement = null;
-    let data: TableData = null;
+    let data: KupDataDataset = null;
     if (root) {
         table = root.querySelector('kup-data-table');
         nextButton = root.querySelector('#' + KupCardIds.NEXT_ROW);
@@ -286,7 +284,7 @@ function nextButton(component: KupCard): void {
     let nextButton: HTMLKupButtonElement = null;
     let prevButton: HTMLKupButtonElement = null;
     let table: HTMLKupDataTableElement = null;
-    let data: TableData = null;
+    let data: KupDataDataset = null;
     if (root) {
         table = root.querySelector('kup-data-table');
         nextButton = root.querySelector('#' + KupCardIds.NEXT_ROW);
@@ -315,9 +313,9 @@ function nextButton(component: KupCard): void {
 }
 /**
  * Returns the index of the first visible numerical column.
- * @param {TableData}  data - Table data.
+ * @param {KupDataDataset} data - Table data.
  */
-function getVisibleColumn(data: TableData): number {
+function getVisibleColumn(data: KupDataDataset): number {
     for (let index = 0; index < data.columns.length; index++) {
         const column: Column = data.columns[index];
         if (!isNaN(parseInt(column.name)) && column.visible) {

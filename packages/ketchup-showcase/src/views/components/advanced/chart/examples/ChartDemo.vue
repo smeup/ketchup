@@ -90,7 +90,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the chart.',
-          type: 'TableData',
+          type: 'KupDataDataset',
           default: 'undefined',
           try: 'json',
         },

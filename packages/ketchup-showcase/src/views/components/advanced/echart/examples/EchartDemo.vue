@@ -65,7 +65,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the chart.',
-          type: 'DataTable',
+          type: 'KupDataDataset',
           default: 'null',
           try: 'json',
         },

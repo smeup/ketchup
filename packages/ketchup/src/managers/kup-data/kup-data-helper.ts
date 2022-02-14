@@ -1,21 +1,23 @@
 import {
     Cell,
-    DataTable,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupDataFindCellFilters } from './kup-data-declarations';
+import {
+    KupDataDataset,
+    KupDataFindCellFilters,
+} from './kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Utility used by findRow and findCell.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {KupDataFindCellFilters} filters - Filters of the research.
  * @returns {{cells: Cell[], rows: Row[]}}  Object containing rows and cells.
  */
 export function finder(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     filters: KupDataFindCellFilters
 ): { cells: Cell[]; rows: Row[] } {
     const columns = filters ? filters.columns : null;

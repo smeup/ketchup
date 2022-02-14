@@ -1,7 +1,6 @@
 import {
     CellsHolder,
     Column,
-    DataTable,
     fieldColumn,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
@@ -10,6 +9,7 @@ import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, newColumn } from './kup-data-column-helper';
 import {
+    KupDataDataset,
     KupDataDatasetSort,
     KupDataNewColumn,
     KupDataNewColumnTypes,
@@ -20,18 +20,18 @@ const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Performs a distinct/count after previously grouping columns by ranges.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {KupDataNewColumn[]} rangeColumns - A list of columns coupled with their criteria for creation. These are used to define ranges.
  * @param {Column} resultingColumn - The resulting column.
  * @param {Column} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
- * @returns {DataTable} New dataset with processed data.
+ * @returns {KupDataDataset} New dataset with processed data.
  */
 export function rangedDistinctDataset(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     rangeColumns: KupDataNewColumn[],
     resultingColumn: Column,
     valuesColumn?: Column
-): DataTable {
+): KupDataDataset {
     const newD = newDataset(dataset, rangeColumns);
     const columnNames: string[] = [];
     for (let index = 0; index < rangeColumns.length; index++) {
@@ -48,16 +48,16 @@ export function rangedDistinctDataset(
 /**
  * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
  * The original value of cells will be stored in the title property of the new cells.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {string[]} columns - Column names to manage. When missing, defaults to all columns.
  * @param {Column} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
- * @returns {DataTable} New dataset with processed data.
+ * @returns {KupDataDataset} New dataset with processed data.
  */
 export function distinctDataset(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     columns?: string[],
     valuesColumn?: Column
-): DataTable {
+): KupDataDataset {
     const occurrencies: {
         [index: string]: { [index: string]: number };
     } = {};
@@ -131,14 +131,14 @@ export function distinctDataset(
 /**
  * Creates a new dataset from the input one.
  * The new columns are to be specified in the columns argument along with their creation criteria.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {KupDataNewColumn[]} newColumns - Array containing the specifics of the new columns to be created.
- * @returns {DataTable} Resulting dataset.
+ * @returns {KupDataDataset} Resulting dataset.
  */
 export function newDataset(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     newColumns: KupDataNewColumn[]
-): DataTable {
+): KupDataDataset {
     const outputColumns: Column[] = [];
     const outputRows: Row[] = [];
     for (let index = 0; index < newColumns.length; index++) {
@@ -165,16 +165,16 @@ export function newDataset(
 }
 /**
  * Creates a new dataset with sorted elements.
- * @param {DataTable} dataset Input dataset.
+ * @param {KupDataDataset} dataset Input dataset.
  * @param {KupDataDatasetSort} sortType Type of sort to apply.
  * @param {string} headerColumn The column used for sorting.
- * @returns {DataTable} Sorted dataset.
+ * @returns {KupDataDataset} Sorted dataset.
  */
 export function sortDataset(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     sortType: KupDataDatasetSort,
     headerColumn?: string
-): DataTable {
+): KupDataDataset {
     if (sortType != 'normalDistribution') {
         const message = 'Wrong sort type! (' + sortType + ')';
         dom.ketchup.debug.logMessage(
@@ -184,7 +184,7 @@ export function sortDataset(
         );
         return dataset;
     }
-    const output: DataTable = {
+    const output: KupDataDataset = {
         columns: JSON.parse(JSON.stringify(dataset.columns)),
         rows: [],
     };
@@ -234,15 +234,15 @@ export function sortDataset(
 }
 /**
  * Creates a new dataset with transposed columns and rows.
- * @param {DataTable} dataset - Input dataset.
+ * @param {KupDataDataset} dataset - Input dataset.
  * @param {string} headerColumn - When specified, it will be the column used as header. When missing, the header will be a series of progressive numbers.
- * @returns {DataTable} Transposed dataset.
+ * @returns {KupDataDataset} Transposed dataset.
  */
 export function transposeDataset(
-    dataset: DataTable,
+    dataset: KupDataDataset,
     headerColumn?: string
-): DataTable {
-    const transposed: DataTable = { columns: [], rows: [] };
+): KupDataDataset {
+    const transposed: KupDataDataset = { columns: [], rows: [] };
     let firstColumn: Column = null;
     if (headerColumn) {
         firstColumn = findColumns(dataset, { name: headerColumn })[0];

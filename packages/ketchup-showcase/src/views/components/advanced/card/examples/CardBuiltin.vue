@@ -67,7 +67,7 @@
         <br />
         <br />
         <span class="code-word">options</span> <br />
-        <span class="code-word">- data (DataTable)</span>: The dataset
+        <span class="code-word">- data (KupDataDataset)</span>: The dataset
         containing rows and columns which must be treated.<br /><span
           class="code-word"
           >- enableFormula (boolean)</span
