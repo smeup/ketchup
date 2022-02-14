@@ -143,9 +143,11 @@ export class KupGrid {
             content.push(el);
         }
 
-        const style: GenericObject = {
-            ['--kup_grid_columns']: this.columns,
-        };
+        const style: GenericObject = {};
+
+        if (this.columns && this.columns !== 12) {
+            style['--kup_grid_columns'] = this.columns;
+        }
 
         return (
             <Host style={style}>

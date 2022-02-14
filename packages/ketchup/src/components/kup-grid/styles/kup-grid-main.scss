@@ -84,7 +84,10 @@
       display: grid;
       margin: 0px;
       grid-gap: var(--kup_grid_gap_mobile);
-      grid-template-columns: repeat(8, minmax(0px, 1fr));
+      grid-template-columns: repeat(
+        var(--kup_grid_columns, 8),
+        minmax(0px, 1fr)
+      );
     }
   }
 }
@@ -95,7 +98,10 @@
       display: grid;
       margin: 0px;
       grid-gap: var(--kup_grid_gap_mobile);
-      grid-template-columns: repeat(4, minmax(0px, 1fr));
+      grid-template-columns: repeat(
+        var(--kup_grid_columns, 4),
+        minmax(0px, 1fr)
+      );
     }
   }
 }
