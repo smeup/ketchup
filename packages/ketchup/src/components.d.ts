@@ -30,6 +30,7 @@ import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
+import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -1523,7 +1524,7 @@ export namespace Components {
           * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
           * @default null
          */
-        "map": KupEchartMaps | string | GeoJSON.GeoJSON;
+        "map": KupEchartMaps | string | GeoJSON;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4456,7 +4457,7 @@ declare namespace LocalJSX {
           * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
           * @default null
          */
-        "map"?: KupEchartMaps | string | GeoJSON.GeoJSON;
+        "map"?: KupEchartMaps | string | GeoJSON;
         "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.

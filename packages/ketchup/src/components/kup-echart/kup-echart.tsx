@@ -11,6 +11,7 @@ import {
     Prop,
 } from '@stencil/core';
 import * as echarts from 'echarts';
+import { GeoJSON, FeatureCollection } from 'geojson';
 import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
 import {
     KupEchartLegendPlacement,
@@ -86,7 +87,7 @@ export class KupEchart {
      * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
      * @default null
      */
-    @Prop() map: KupEchartMaps | string | GeoJSON.GeoJSON = null;
+    @Prop() map: KupEchartMaps | string | GeoJSON = null;
     /**
      * The data series to be displayed. They must be of the same type.
      * @default []
@@ -221,7 +222,7 @@ export class KupEchart {
             case KupEchartTypes.MAP:
                 let stringifiedMap = '';
                 if (this.map) {
-                    if ((this.map as GeoJSON.FeatureCollection).features) {
+                    if ((this.map as FeatureCollection).features) {
                         stringifiedMap = JSON.stringify(this.map);
                     } else if (
                         Object.values(KupEchartMaps).includes(
@@ -414,7 +415,7 @@ export class KupEchart {
     }
 
     private setMapOptions(map: string) {
-        const mapJson: GeoJSON.FeatureCollection = JSON.parse(map);
+        const mapJson: FeatureCollection = JSON.parse(map);
         const isoA2: string[] = [];
         const names: string[] = [];
         for (let index = 0; index < mapJson.features.length; index++) {
