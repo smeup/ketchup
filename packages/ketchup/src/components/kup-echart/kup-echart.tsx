@@ -246,7 +246,10 @@ export class KupEchart {
                     );
                     return;
                 }
-                echarts.registerMap('', stringifiedMap);
+                echarts.registerMap(
+                    this.rootElement.id ? this.rootElement.id : '',
+                    stringifiedMap
+                );
                 options = this.setMapOptions(stringifiedMap);
                 break;
             case KupEchartTypes.PIE:
@@ -514,7 +517,7 @@ export class KupEchart {
                             show: true,
                         },
                     },
-                    map: '',
+                    map: this.rootElement.id ? this.rootElement.id : '',
                     roam: true,
                     type: 'map',
                 } as echarts.MapSeriesOption,

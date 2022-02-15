@@ -4,6 +4,7 @@
     <div class="demo-container">
       <div class="kup-container">
         <kup-echart
+          id="map1"
           :axis.prop="axis"
           :data.prop="mapData"
           :types.prop="types"
@@ -15,6 +16,7 @@
     <div class="demo-container">
       <div class="kup-container">
         <kup-echart
+          id="map2"
           :axis.prop="axis"
           :data.prop="mapData"
           :types.prop="types"
@@ -25,6 +27,7 @@
     <div class="demo-container">
       <div class="kup-container">
         <kup-echart
+          id="map3"
           :axis.prop="axis"
           :data.prop="mapData"
           :types.prop="types"
