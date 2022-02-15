@@ -113,7 +113,8 @@
         ><div class="accordion-slot" slot="5">
           <p>
             <span class="code-word"
-              >datasetOperations.cell.find(dataset, filters): Cell[]</span
+              >datasetOperations.cell.find(dataset, filters):
+              KupDataCell[]</span
             ><br />
             Finds all the cells matching the filters criteria in the input
             dataset.<br /><br />
@@ -152,7 +153,7 @@
             columns are provided, the value will be applied to every column of
             the dataset.<br /><br />
             - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
-            - <strong>cell (Cell)</strong> - New cell.<br />-
+            - <strong>cell (KupDataCell)</strong> - New cell.<br />-
             <strong>columns (string[])</strong> - Columns to be handled.<br /><br /> </p></div
         ><div class="accordion-slot" slot="8">
           <p>

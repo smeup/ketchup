@@ -1,6 +1,8 @@
 //---- Types ----
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
-import { CellsHolder } from './../kup-data-table/kup-data-table-declarations';
+import {
+    KupDataColumn,
+    KupDataRowCells,
+} from '../../managers/kup-data/kup-data-declarations';
 import {
     TreeNode,
     TreeNodePath,
@@ -268,7 +270,7 @@ function TreeNodeFactory(
     const depthAndIndex: string = depth.current.toString() + index.toString();
 
     // Adds cells to the Node
-    let cells: CellsHolder = {};
+    let cells: KupDataRowCells = {};
     if (columns && columns.length) {
         for (let j = 0; j < columns.length; j++) {
             const colName = columns[j].name;

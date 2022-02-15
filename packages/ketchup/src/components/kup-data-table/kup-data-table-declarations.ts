@@ -10,6 +10,7 @@ import {
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -76,45 +77,14 @@ export enum KupDataTableProps {
     tooltipEnabled = 'Enable show tooltip',
     totals = 'Defines the current totals options.',
 }
-
 export interface KupDataTableDataset {
     columns?: KupDataColumn[];
     rows?: KupDataTableRow[];
 }
-
 export interface KupDataTableRow extends KupDataRow {
+    cells: KupDataTableRowCells;
     group?: KupDataTableRowGroup;
 }
-
-export interface CellData {
-    [index: string]: any;
-}
-
-export interface Cell {
-    value: string;
-    cardID?: number;
-    cssClass?: string;
-    data?: CellData;
-    displayedValue?: string;
-    icon?: string;
-    info?: FCellInfo;
-    isEditable?: boolean;
-    obj?: KupObj;
-    shape?: FCellShapes;
-    span?: KupDatatableCellSpan;
-    style?: GenericMap;
-    styleContent?: GenericMap;
-    title?: string;
-}
-
-export interface KupDatatableCellSpan {
-    col: number;
-    row: number;
-}
-export interface CellsHolder {
-    [index: string]: Cell;
-}
-
 export interface KupDataTableRowGroup {
     children: Array<KupDataTableRow>;
     column: string;
@@ -125,6 +95,16 @@ export interface KupDataTableRowGroup {
     obj: KupObj;
     parent: KupDataTableRow;
     totals: GenericObject;
+}
+export interface KupDataTableRowCells {
+    [index: string]: KupDataTableCell;
+}
+export interface KupDataTableCell extends KupDataCell {
+    span?: KupDataTableCellSpan;
+}
+export interface KupDataTableCellSpan {
+    col: number;
+    row: number;
 }
 
 export interface SortObject {
@@ -244,7 +224,7 @@ export const totalMenuOpenID = 'TOMEOPID';
  */
 export interface KupDatatableEventHandlerDetails {
     area: string;
-    cell: Cell;
+    cell: KupDataTableCell;
     column: KupDataColumn;
     filterRemove: HTMLElement;
     isGroupRow: boolean;
@@ -311,7 +291,7 @@ export interface KupDatatableRowActionClickEventPayload
 }
 export interface KupDataTableCellButtonClickEventPayload
     extends KupEventPayload {
-    cell: Cell;
+    cell: KupDataTableCell;
     column: KupDataColumn;
     row: KupDataRow;
 }

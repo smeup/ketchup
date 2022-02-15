@@ -1,14 +1,13 @@
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
+    KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
-import {
-    Cell,
-    CellsHolder,
-    RowAction,
-} from './../kup-data-table/kup-data-table-declarations';
+import { RowAction } from './../kup-data-table/kup-data-table-declarations';
 /**
  * Props of the kup-tree component.
  * Used to export every prop in an object.
@@ -57,23 +56,18 @@ export const treeExpandedPropName = 'isExpanded';
 export interface TreeNode {
     data?: GenericObject;
     actions?: Array<RowAction>;
-    cells: CellsHolder;
+    cells: KupDataRowCells;
     children: Array<TreeNode>;
     disabled: boolean;
     expandable: boolean;
     icon?: string;
     iconColor?: string;
     id?: string;
-    obj: {
-        t: string;
-        p: string;
-        k: string;
-    };
+    obj: KupObj;
     options?: boolean;
     readOnly?: boolean;
     style?: { [index: string]: string };
     value: string;
-    /** used for render or not render node (and children) while filtering */
     visible?: boolean;
     [treeExpandedPropName]?: boolean;
 }
@@ -91,7 +85,7 @@ export const treeMainColumnName = 'TREE_COLUMN';
  */
 export interface KupTreeEventHandlerDetails {
     area: string;
-    cell: Cell;
+    cell: KupDataCell;
     column: KupDataColumn;
     filterRemove: HTMLSpanElement;
     row: KupDataRow;

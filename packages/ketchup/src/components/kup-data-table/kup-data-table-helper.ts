@@ -1,13 +1,13 @@
 import numeral from 'numeral';
 import {
     SortObject,
-    Cell,
     SortMode,
     GroupObject,
     TotalMode,
     TotalsMap,
     KupDataTableRow,
     KupDataTableRowGroup,
+    KupDataTableCell,
 } from './kup-data-table-declarations';
 import { isEmpty, stringToNumber } from '../../utils/utils';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
@@ -89,12 +89,12 @@ function sortGroupRows(
     // sorting rows
     rows.sort((r1, r2) => {
         // creating fake cells
-        const cell1: Cell = {
+        const cell1: KupDataTableCell = {
             obj: r1.group.obj,
             value: r1.group.id,
         };
 
-        const cell2: Cell = {
+        const cell2: KupDataTableCell = {
             obj: r2.group.obj,
             value: r2.group.id,
         };
@@ -132,8 +132,8 @@ function compareRows(
     r2: KupDataTableRow,
     sortObj: SortObject
 ): number {
-    const cell1: Cell = r1.cells[sortObj.column];
-    const cell2: Cell = r2.cells[sortObj.column];
+    const cell1: KupDataTableCell = r1.cells[sortObj.column];
+    const cell2: KupDataTableCell = r2.cells[sortObj.column];
 
     if (!cell1 && !cell2) {
         return 0;

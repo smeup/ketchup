@@ -1,7 +1,4 @@
-import {
-    CellsHolder,
-    fieldColumn,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import { fieldColumn } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
@@ -13,6 +10,7 @@ import {
     KupDataNewColumn,
     KupDataNewColumnTypes,
     KupDataRow,
+    KupDataRowCells,
 } from './kup-data-declarations';
 import { finder } from './kup-data-helper';
 
@@ -275,7 +273,7 @@ export function transposeDataset(
         index++
     ) {
         const oldColumn = dataset.columns[index];
-        const cells: CellsHolder = {};
+        const cells: KupDataRowCells = {};
         cells[firstColumn.name] = {
             value: oldColumn.title,
         };

@@ -1,8 +1,9 @@
-import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
+import { RowAction } from '../kup-data-table/kup-data-table-declarations';
 import { KupBadge } from '../kup-badge/kup-badge';
 import { KupEventPayload } from '../../types/GenericTypes';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -93,7 +94,7 @@ export interface KupBoxKanban {
  */
 export interface KupBoxEventHandlerDetails {
     boxObject: HTMLElement;
-    cell: Cell;
+    cell: KupDataCell;
     column: KupDataColumn;
     row: KupBoxRow;
 }

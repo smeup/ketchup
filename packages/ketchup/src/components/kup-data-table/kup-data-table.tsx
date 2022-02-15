@@ -20,7 +20,6 @@ import type {
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import type { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import {
-    Cell,
     FixedCellsClasses,
     FixedCellsCSSVarsBase,
     GroupLabelDisplayMode,
@@ -36,7 +35,6 @@ import {
     TotalLabel,
     KupDatatableEventHandlerDetails,
     KupDataTableProps,
-    CellsHolder,
     fieldColumn,
     iconColumn,
     keyColumn,
@@ -51,6 +49,8 @@ import {
     KupDatatableColumnMoveEventPayload,
     KupDataTableDataset,
     KupDataTableRow,
+    KupDataTableRowCells,
+    KupDataTableCell,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -1321,7 +1321,7 @@ export class KupDataTable {
         const totalsMatrixRows: Array<KupDataTableRow> = [];
         let index = 0;
         this.rows.forEach((row) => {
-            const cells: CellsHolder = {};
+            const cells: KupDataTableRowCells = {};
             ids.forEach((id) => {
                 let totalValue = row.group.totals[id];
                 if (!totalValue) {
@@ -2202,7 +2202,7 @@ export class KupDataTable {
             );
         }
         // Setting up icons
-        let keyCell: Cell = null;
+        let keyCell: KupDataTableCell = null;
         for (let index = 0; index < rows.length; index++) {
             const column: KupDataColumn = this.data.columns.find(
                 (x) => x.name === rows[index].name
@@ -2218,7 +2218,7 @@ export class KupDataTable {
             const editable: boolean = rows[index].cells[row.id].isEditable
                 ? true
                 : false;
-            let iconCell: Cell = null;
+            let iconCell: KupDataTableCell = null;
             if (column.isKey || editable) {
                 columns.find(
                     (x) => x.name === iconColumn.toUpperCase()
@@ -2365,7 +2365,7 @@ export class KupDataTable {
             }
         }
 
-        let cell: Cell = null,
+        let cell: KupDataTableCell = null,
             column: KupDataColumn = null,
             isGroupRow: boolean = false,
             row: KupDataTableRow = null;

@@ -11,16 +11,16 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupButtonListClickEventPayload } from "./components/kup-button-list/kup-button-list-declarations";
 import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClickEventPayload, KupCalendarEventDropEventPayload, KupCalendarViewChangeEventPayload, KupCalendarViewTypes } from "./components/kup-calendar/kup-calendar-declarations";
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
+import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
-import { KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
@@ -620,7 +620,7 @@ export namespace Components {
           * The data of the cell.
           * @default false
          */
-        "data": Cell;
+        "data": KupDataCell;
         /**
           * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
          */
@@ -3691,7 +3691,7 @@ declare namespace LocalJSX {
           * The data of the cell.
           * @default false
          */
-        "data"?: Cell;
+        "data"?: KupDataCell;
         /**
           * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
          */

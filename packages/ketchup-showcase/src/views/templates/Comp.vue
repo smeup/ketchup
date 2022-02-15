@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import type { Components } from '@sme.up/ketchup/dist/types/components';
-import type { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
+import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 var labels: NodeListOf<HTMLKupCellElement> = null;
 var sections: NodeListOf<HTMLElement> = null;
 var title: NodeListOf<HTMLElement> = null;
@@ -67,7 +67,7 @@ export default {
     this.checkNav();
   },
   methods: {
-    setCell(item: string): Cell {
+    setCell(item: string): KupDataCell {
       return {
         cssClass: 'expand-on-hover c-centered',
         obj: {

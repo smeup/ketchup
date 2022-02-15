@@ -34,11 +34,11 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { getColumnByName } from '../../utils/cell-utils';
-import { CellsHolder } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupDataColumn,
     KupDataDataset,
     KupDataFindCellFilters,
+    KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
@@ -268,7 +268,7 @@ export class KupEchart {
         if (!this.axis) {
             for (let i = 0; i < dataset.rows.length; i++) {
                 const cells = dataset.rows[i].cells;
-                const treatedCells: CellsHolder = {};
+                const treatedCells: KupDataRowCells = {};
                 for (const key in cells) {
                     const cell = cells[key];
                     const title = getColumnByName(dataset.columns, key).title;
@@ -280,7 +280,7 @@ export class KupEchart {
         } else {
             for (let i = 0; i < dataset.rows.length; i++) {
                 const cells = dataset.rows[i].cells;
-                const treatedCells: CellsHolder = {};
+                const treatedCells: KupDataRowCells = {};
                 const title = getColumnByName(dataset.columns, this.axis).title;
                 treatedCells[title] = cells[this.axis];
                 x.push(treatedCells[title].value);

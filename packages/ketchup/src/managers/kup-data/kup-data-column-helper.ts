@@ -1,9 +1,9 @@
-import { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataDataset,
     KupDataNewColumnOptions,
@@ -163,7 +163,7 @@ function newColumnFromConcatenate(
     dataset.rows.forEach((row) => {
         const cells = row.cells;
         const values: string[] = [];
-        let base: Cell = null;
+        let base: KupDataCell = null;
         if (cells) {
             for (let index = 0; index < columns.length; index++) {
                 const column = columns[index];
@@ -299,7 +299,7 @@ function newColumnFromMath(
     }
     dataset.rows.forEach((row) => {
         const cells = row.cells;
-        let base: Cell = null;
+        let base: KupDataCell = null;
         if (cells) {
             for (let index = 0; index < columns.length; index++) {
                 const column = columns[index];
@@ -348,7 +348,7 @@ export function newColumnFromMerge(
     columns2merge: string[],
     newColumn: KupDataColumn
 ): KupDataColumn {
-    const outputCells: Cell[] = [];
+    const outputCells: KupDataCell[] = [];
     for (let index = 0; index < dataset.rows.length; index++) {
         const row = dataset.rows[index];
         const cells = row.cells;

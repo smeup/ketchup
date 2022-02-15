@@ -17,7 +17,6 @@ import {
     SortObject,
     SortMode,
     RowAction,
-    Cell,
 } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupBoxRow,
@@ -84,7 +83,10 @@ import {
     pageChange,
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataCell,
+    KupDataColumn,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -695,7 +697,7 @@ export class KupBox {
 
     private getEventDetails(el: HTMLElement): KupBoxEventHandlerDetails {
         let boxObject = null;
-        let cell: Cell = null;
+        let cell: KupDataCell = null;
         let row: KupBoxRow = null;
         let column: KupDataColumn = null;
         if (el) {

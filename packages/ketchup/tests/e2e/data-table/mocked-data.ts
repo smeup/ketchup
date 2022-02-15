@@ -1,5 +1,5 @@
-import { Cell } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataDataset,
     KupDataRow,
@@ -25,7 +25,7 @@ function cellFactory(
     t: string = 'nr',
     p: string = '',
     k: string = value
-): Cell {
+): KupDataCell {
     return {
         value,
         obj: {

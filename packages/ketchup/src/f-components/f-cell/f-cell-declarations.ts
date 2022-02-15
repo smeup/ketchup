@@ -1,6 +1,6 @@
 import type { VNode } from '@stencil/core';
-import type { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -15,7 +15,7 @@ export const autoAlignComps = [KupTagNames.DATA_TABLE, KupTagNames.TREE];
  * Props of the f-cell component.
  */
 export interface FCellProps extends FComponent {
-    cell?: Cell;
+    cell?: KupDataCell;
     column?: KupDataColumn;
     component?: unknown;
     density?: FCellPadding;
@@ -177,7 +177,7 @@ export const kupTypes = [
  * Payload of the event fired when a cell is updated.
  */
 export interface FCellEventPayload extends KupEventPayload {
-    cell: Cell;
+    cell: KupDataCell;
     column: KupDataColumn;
     event: CustomEvent | InputEvent | MouseEvent;
     row: KupDataRow;

@@ -1,9 +1,8 @@
+import { RowAction } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
-    Cell,
-    CellsHolder,
-    RowAction,
-} from '../../components/kup-data-table/kup-data-table-declarations';
-import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+    FCellInfo,
+    FCellShapes,
+} from '../../f-components/f-cell/f-cell-declarations';
 import { GenericMap } from '../../types/GenericTypes';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
 
@@ -46,13 +45,34 @@ export interface KupDataColumnChild {
  * Generic row interface.
  */
 export interface KupDataRow {
-    cells: CellsHolder;
+    cells: KupDataRowCells;
     actions?: Array<RowAction>;
     id?: string;
     readOnly?: boolean;
     cssClass?: string;
     name?: string;
     unselectable?: boolean;
+}
+export interface KupDataRowCells {
+    [index: string]: KupDataCell;
+}
+/**
+ * Generic cell interface.
+ */
+export interface KupDataCell {
+    value: string;
+    cardID?: number;
+    cssClass?: string;
+    data?: GenericMap;
+    displayedValue?: string;
+    icon?: string;
+    info?: FCellInfo;
+    isEditable?: boolean;
+    obj?: KupObj;
+    shape?: FCellShapes;
+    style?: GenericMap;
+    styleContent?: GenericMap;
+    title?: string;
 }
 /**
  * Interface related to dataset operations.
@@ -90,13 +110,16 @@ export interface KupDataDatasetOperations {
  * Interface related to cells operations.
  */
 export interface KupDataCellOperations {
-    find: (dataset: KupDataDataset, filters?: KupDataFindCellFilters) => Cell[];
+    find: (
+        dataset: KupDataDataset,
+        filters?: KupDataFindCellFilters
+    ) => KupDataCell[];
     getValue: (dataset: KupDataDataset, columns?: string[]) => string[];
     replace: (
         dataset: KupDataDataset,
-        cell: Cell,
+        cell: KupDataCell,
         columns?: string[]
-    ) => Cell[];
+    ) => KupDataCell[];
 }
 /**
  * Interface related to columns operations.

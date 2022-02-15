@@ -119,12 +119,12 @@
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
 import { FCellEventPayload } from '@sme.up/ketchup/dist/types/f-components/f-cell/f-cell-declarations';
-import { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import { KupThemeColor } from '@sme.up/ketchup/dist/types/managers/kup-theme/kup-theme-declarations';
 import {
   KupDataColumn,
   KupDataRow,
 } from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
+import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var brightnessSelector: HTMLKupTextFieldElement = null;
@@ -308,7 +308,7 @@ export default {
           title: key,
         };
         columns.push(column);
-        const cell: Cell = {
+        const cell: KupDataCell = {
           value: colorCheck[key],
         };
         row.cells[key.toUpperCase()] = cell;
