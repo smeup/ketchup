@@ -83,10 +83,10 @@ export class KupEchart {
      */
     @Prop() legend: KupEchartLegendPlacement = KupEchartLegendPlacement.RIGHT;
     /**
-     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
+     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
      * @default null
      */
-    @Prop() mapName: KupEchartMaps = null;
+    @Prop() map: KupEchartMaps | string | GeoJSON.GeoJSON = null;
     /**
      * The data series to be displayed. They must be of the same type.
      * @default []
@@ -219,12 +219,25 @@ export class KupEchart {
                 options = this.setGaussianOptions();
                 break;
             case KupEchartTypes.MAP:
-                const mapJson = await (
-                    await fetch(
-                        getAssetPath(`./assets/maps/${this.mapName}.json`)
-                    )
-                ).text();
-                if (!mapJson) {
+                let stringifiedMap = '';
+                if (this.map) {
+                    if ((this.map as GeoJSON.FeatureCollection).features) {
+                        stringifiedMap = JSON.stringify(this.map);
+                    } else if (
+                        Object.values(KupEchartMaps).includes(
+                            this.map as KupEchartMaps
+                        )
+                    ) {
+                        stringifiedMap = await (
+                            await fetch(
+                                getAssetPath(`./assets/maps/${this.map}.json`)
+                            )
+                        ).text();
+                    } else {
+                        stringifiedMap = this.map as string;
+                    }
+                }
+                if (!stringifiedMap) {
                     this.kupManager.debug.logMessage(
                         this,
                         "Couldn't fetch map JSON.",
@@ -232,8 +245,8 @@ export class KupEchart {
                     );
                     return;
                 }
-                echarts.registerMap(this.mapName, mapJson);
-                options = this.setMapOptions(mapJson);
+                echarts.registerMap('', stringifiedMap);
+                options = this.setMapOptions(stringifiedMap);
                 break;
             case KupEchartTypes.PIE:
                 options = this.setPieOptions();
@@ -401,17 +414,11 @@ export class KupEchart {
     }
 
     private setMapOptions(map: string) {
-        const mapJson = JSON.parse(map);
+        const mapJson: GeoJSON.FeatureCollection = JSON.parse(map);
         const isoA2: string[] = [];
         const names: string[] = [];
-        const mapFeatures: {
-            properties: {
-                iso_a2: string;
-                name: string;
-            };
-        }[] = mapJson.features;
-        for (let index = 0; index < mapFeatures.length; index++) {
-            const feature = mapFeatures[index];
+        for (let index = 0; index < mapJson.features.length; index++) {
+            const feature = mapJson.features[index];
             isoA2.push(feature.properties.iso_a2);
             names.push(feature.properties.name);
         }
@@ -506,7 +513,7 @@ export class KupEchart {
                             show: true,
                         },
                     },
-                    map: this.mapName,
+                    map: '',
                     roam: true,
                     type: 'map',
                 } as echarts.MapSeriesOption,

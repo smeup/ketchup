@@ -78,10 +78,9 @@ export default {
           try: 'field',
         },
         {
-          prop: 'mapName',
-          description:
-            'Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".',
-          type: 'KupEchartMaps',
+          prop: 'map',
+          description: `Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.`,
+          type: 'KupEchartMaps | string | GeoJSON.GeoJSON',
           default: 'null',
           try: 'field',
         },

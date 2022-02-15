@@ -1520,10 +1520,10 @@ export namespace Components {
          */
         "legend": KupEchartLegendPlacement;
         /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
           * @default null
          */
-        "mapName": KupEchartMaps;
+        "map": KupEchartMaps | string | GeoJSON.GeoJSON;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -4453,10 +4453,10 @@ declare namespace LocalJSX {
          */
         "legend"?: KupEchartLegendPlacement;
         /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
           * @default null
          */
-        "mapName"?: KupEchartMaps;
+        "map"?: KupEchartMaps | string | GeoJSON.GeoJSON;
         "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
