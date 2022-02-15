@@ -23,13 +23,19 @@
           :map.prop="mapName1"
         /> </div
     ></div>
-    <p>Custom map (provided through a custom JSON).</p>
+    <p
+      >Custom map (provided through a custom JSON).<br />
+      In this example, the country is colored (red) thanks to the axis value,
+      which is Italy (matched with the feature name inside the JSON map).<br />The
+      CUSTOM word, however, keeps its native color (blue) because it's not
+      present on the axis.</p
+    >
     <div class="demo-container">
       <div class="kup-container">
         <kup-echart
           id="map3"
-          :axis.prop="axis"
-          :data.prop="mapData"
+          axis="NAME"
+          :data.prop="mapData3"
           :types.prop="types"
           :map.prop="mapName3"
         /> </div
@@ -47,12 +53,38 @@ export default {
       mapData,
       mapName: 'world',
       mapName1: 'europe',
+      mapData3: {
+        columns: [
+          {
+            name: 'Name',
+            title: 'NAME',
+          },
+          {
+            name: 'COLOR',
+            title: 'Color',
+          },
+        ],
+        rows: [
+          {
+            cells: {
+              NAME: {
+                value: 'Italy',
+              },
+              COLOR: {
+                value: 'red',
+              },
+            },
+          },
+        ],
+      },
       mapName3: {
         type: 'FeatureCollection',
         features: [
           {
             type: 'Feature',
-            properties: {},
+            properties: {
+              name: 'Italy',
+            },
             geometry: {
               type: 'Polygon',
               coordinates: [
