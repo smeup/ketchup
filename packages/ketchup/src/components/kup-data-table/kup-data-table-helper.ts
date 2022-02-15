@@ -6,7 +6,8 @@ import {
     GroupObject,
     TotalMode,
     TotalsMap,
-    RowGroup,
+    KupDataTableRow,
+    KupDataTableRowGroup,
 } from './kup-data-table-declarations';
 import { isEmpty, stringToNumber } from '../../utils/utils';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
@@ -18,17 +19,14 @@ import {
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
-import {
-    KupDataColumn,
-    KupDataRow,
-} from '../../managers/kup-data/kup-data-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 export function sortRows(
-    rows: Array<KupDataRow> = [],
+    rows: Array<KupDataTableRow> = [],
     sort: Array<SortObject> = []
-): Array<KupDataRow> {
+): Array<KupDataTableRow> {
     if (!rows || rows.length === 0) {
         return [];
     }
@@ -48,7 +46,7 @@ export function sortRows(
     const isMultiSort = sort.length > 1;
 
     // sorting rows
-    return rows.slice(0).sort((r1: KupDataRow, r2: KupDataRow) => {
+    return rows.slice(0).sort((r1: KupDataTableRow, r2: KupDataTableRow) => {
         if (isMultiSort) {
             for (let i = 0; i < sort.length; i++) {
                 const compare = compareRows(r1, r2, sort[i]);
@@ -68,9 +66,9 @@ export function sortRows(
 }
 
 function sortGroupRows(
-    rows: Array<KupDataRow> = [],
+    rows: Array<KupDataTableRow> = [],
     sort: Array<SortObject> = []
-): Array<KupDataRow> {
+): Array<KupDataTableRow> {
     if (!rows || rows.length === 0) {
         return [];
     }
@@ -130,8 +128,8 @@ function getSortOnColumn(
 }
 
 function compareRows(
-    r1: KupDataRow,
-    r2: KupDataRow,
+    r1: KupDataTableRow,
+    r2: KupDataTableRow,
     sortObj: SortObject
 ): number {
     const cell1: Cell = r1.cells[sortObj.column];
@@ -165,13 +163,13 @@ function compareRows(
  */
 
 export function filterRows(
-    rows: Array<KupDataRow> = [],
+    rows: Array<KupDataTableRow> = [],
     filters: GenericFilter = {},
     globalFilter: string = '',
     columns: KupDataColumn[] = [],
     columnFilters?: FiltersColumnMenu,
     filtersRows?: FiltersRows
-): Array<KupDataRow> {
+): Array<KupDataTableRow> {
     if (filtersRows == null) {
         filtersRows = new FiltersRows();
     }
@@ -187,10 +185,10 @@ export function filterRows(
 
 export function groupRows(
     columns: KupDataColumn[] = [],
-    rows: KupDataRow[] = [],
+    rows: KupDataTableRow[] = [],
     groups: GroupObject[] = [],
     totals: TotalsMap = {}
-): Array<KupDataRow> {
+): Array<KupDataTableRow> {
     if (!rows) {
         return [];
     }
@@ -220,12 +218,12 @@ export function groupRows(
     }
 
     // creating root
-    const groupRows: Array<KupDataRow> = [];
+    const groupRows: Array<KupDataTableRow> = [];
 
     // obj used to calculate the group distinct value
     let distinctObj = {};
 
-    rows.forEach((row: KupDataRow) => {
+    rows.forEach((row: KupDataTableRow) => {
         // getting column name from first group
         const columnName = validGroups[0].column;
         // getting row value
@@ -235,7 +233,7 @@ export function groupRows(
             const column = getColumnByName(columns, columnName);
             const cellValueForDisplay = getCellValueForDisplay(column, cell);
             const cellValue = cell.value;
-            let groupRow: KupDataRow = null;
+            let groupRow: KupDataTableRow = null;
             // check in already in groupedRow
             for (let currentGroupRow of groupRows) {
                 if (currentGroupRow.group.label === cellValueForDisplay) {
@@ -274,7 +272,7 @@ export function groupRows(
                     );
                     const tempCellValue = tempCell.value;
                     // check if group already exists
-                    let tempGroupingRow: KupDataRow = null;
+                    let tempGroupingRow: KupDataTableRow = null;
                     for (let j = 0; j < groupRow.group.children.length; j++) {
                         const childGroup = groupRow.group.children[j];
                         const groupLabel = childGroup.group.label;
@@ -320,9 +318,9 @@ export function groupRows(
 }
 
 function updateGroupTotal(
-    groupRow: KupDataRow,
+    groupRow: KupDataTableRow,
     totals: TotalsMap,
-    addedRow: KupDataRow,
+    addedRow: KupDataTableRow,
     distinctObj: Object
 ): void {
     if (!groupRow || !totals) {
@@ -604,7 +602,7 @@ function updateGroupTotal(
 }
 
 function adjustGroupsDistinct(
-    groupRows: Array<KupDataRow>,
+    groupRows: Array<KupDataTableRow>,
     totals: TotalsMap,
     distinctObj: Object
 ) {
@@ -630,7 +628,7 @@ function adjustGroupsDistinct(
 }
 
 function adjustGroupsAverageOrFormula(
-    groupRows: Array<KupDataRow>,
+    groupRows: Array<KupDataTableRow>,
     type: TotalMode,
     totals: TotalsMap
 ): void {
@@ -670,7 +668,7 @@ function adjustGroupsAverageOrFormula(
 }
 
 function adjustGroupDistinct(
-    groupRow: KupDataRow,
+    groupRow: KupDataTableRow,
     toAdjustKeys: Array<string>,
     distinctObj: Object
 ) {
@@ -696,7 +694,7 @@ function adjustGroupDistinct(
  * @returns number of 'leaf' of group
  */
 function adjustGroupAverageOrFormula(
-    row: KupDataRow,
+    row: KupDataTableRow,
     type: TotalMode,
     toAdjustKeys: Array<string>,
     totals: TotalsMap
@@ -743,11 +741,11 @@ function adjustGroupAverageOrFormula(
 
 export function normalizeRows(
     columns: Array<KupDataColumn>,
-    rows: Array<KupDataRow>
-): Array<KupDataRow> {
+    rows: Array<KupDataTableRow>
+): Array<KupDataTableRow> {
     if (rows) {
         const normalizedrows = Object.assign(rows);
-        rows.forEach((row: KupDataRow) => {
+        rows.forEach((row: KupDataTableRow) => {
             columns.forEach((column) => {
                 if (row.cells) {
                     const cell = row.cells[column.name];
@@ -769,7 +767,7 @@ export function normalizeRows(
 }
 
 export function calcTotals(
-    rows: Array<KupDataRow> = [],
+    rows: Array<KupDataTableRow> = [],
     totals: { [index: string]: TotalMode } = {}
 ): { [index: string]: number } {
     if (isEmpty(rows) || isEmpty(totals)) {
@@ -932,7 +930,7 @@ export function calcTotals(
     return footerRow;
 }
 
-function adjustGroupId(row: KupDataRow): void {
+function adjustGroupId(row: KupDataTableRow): void {
     if (!row.group) {
         return;
     }
@@ -950,7 +948,7 @@ function adjustGroupId(row: KupDataRow): void {
 }
 
 export function paginateRows(
-    rows: KupDataRow[],
+    rows: KupDataTableRow[],
     currentPage: number,
     rowsPerPage: number,
     areGrouped: boolean
@@ -960,7 +958,7 @@ export function paginateRows(
     if (areGrouped == false) {
         return rows.slice(start, end);
     }
-    let pagRows: Array<KupDataRow> = [];
+    let pagRows: Array<KupDataTableRow> = [];
 
     _paginateRows(rows, pagRows, start, Number(rowsPerPage), 0);
 
@@ -968,8 +966,8 @@ export function paginateRows(
 }
 
 function _paginateRows(
-    rows: KupDataRow[],
-    pagRows: KupDataRow[],
+    rows: KupDataTableRow[],
+    pagRows: KupDataTableRow[],
     start: number,
     rowsPerPage: number,
     ci: number
@@ -977,7 +975,7 @@ function _paginateRows(
     let added: boolean = false;
     for (let i: number = 0; i < rows.length; i++) {
         let originalRow = rows[i];
-        let row: KupDataRow = cloneRow(rows[i]);
+        let row: KupDataTableRow = cloneRow(rows[i]);
         if (
             originalRow.group != null &&
             originalRow.group.children != null &&
@@ -1011,11 +1009,11 @@ function _paginateRows(
     return { ci: ci, added: added };
 }
 
-function cloneRow(row: KupDataRow): KupDataRow {
+function cloneRow(row: KupDataTableRow): KupDataTableRow {
     if (row == null) {
         return null;
     }
-    let cloned: KupDataRow = {
+    let cloned: KupDataTableRow = {
         id: row.id,
         cells: { ...row.cells },
         actions: row.actions ? [...row.actions] : null,
@@ -1027,22 +1025,22 @@ function cloneRow(row: KupDataRow): KupDataRow {
     return cloned;
 }
 
-function cloneRows(rows: Array<KupDataRow>): Array<KupDataRow> {
+function cloneRows(rows: Array<KupDataTableRow>): Array<KupDataTableRow> {
     if (rows == null) {
         return null;
     }
-    let cloned: Array<KupDataRow> = [];
+    let cloned: Array<KupDataTableRow> = [];
     for (let i: number = 0; i < rows.length; i++) {
         cloned[cloned.length] = cloneRow(rows[i]);
     }
     return cloned;
 }
 
-function cloneRowGroup(group: RowGroup): RowGroup {
+function cloneRowGroup(group: KupDataTableRowGroup): KupDataTableRowGroup {
     if (group == null) {
         return null;
     }
-    let cloned: RowGroup = {
+    let cloned: KupDataTableRowGroup = {
         id: group.id,
         parent: { ...group.parent },
         column: group.column,

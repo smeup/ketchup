@@ -2,7 +2,11 @@ import {
     FCellInfo,
     FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
-import { KupEventPayload } from '../../types/GenericTypes';
+import {
+    GenericMap,
+    GenericObject,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
@@ -73,6 +77,15 @@ export enum KupDataTableProps {
     totals = 'Defines the current totals options.',
 }
 
+export interface KupDataTableDataset {
+    columns?: KupDataColumn[];
+    rows?: KupDataTableRow[];
+}
+
+export interface KupDataTableRow extends KupDataRow {
+    group?: KupDataTableRowGroup;
+}
+
 export interface CellData {
     [index: string]: any;
 }
@@ -101,30 +114,17 @@ export interface KupDatatableCellSpan {
 export interface CellsHolder {
     [index: string]: Cell;
 }
-export interface ColumnChild {
-    name: string;
-    obj: KupObj;
-    icon?: string;
-}
 
-export interface RowGroup {
-    id: string;
-    parent: KupDataRow;
+export interface KupDataTableRowGroup {
+    children: Array<KupDataTableRow>;
     column: string;
-    columnLabel: string; // Saves the column label in case either LABEL or BOTH modes for the groupLabelDisplay are activated
-    expanded: boolean; // not sure if this is needed
+    columnLabel: string;
+    expanded: boolean;
+    id: string;
     label: string;
-    children: Array<KupDataRow>;
-    obj: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    totals: { [index: string]: any }; // TODO manage this any
-}
-
-export interface GenericMap {
-    [index: string]: string;
+    obj: KupObj;
+    parent: KupDataTableRow;
+    totals: GenericObject;
 }
 
 export interface SortObject {

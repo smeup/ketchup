@@ -37,6 +37,12 @@ export interface FComponent {
     wrapperClass?: string;
 }
 /**
+ * Generic map.
+ */
+export interface GenericMap {
+    [index: string]: string;
+}
+/**
  * Generic object.
  */
 export interface GenericObject {

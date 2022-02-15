@@ -569,6 +569,13 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupDataTableDataset: {
+    keys: {
+      'columns?': 'KupDataColumn[]',
+      'rows?': 'KupDataTableRow[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupEchartLegendPlacement: {
     keys: {
       BOTTOM: 'bottom',

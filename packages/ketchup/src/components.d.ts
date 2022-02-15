@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -1033,7 +1033,7 @@ export namespace Components {
         /**
           * The data of the table.
          */
-        "data": KupDataDataset;
+        "data": KupDataTableDataset;
         "defaultSortingFunction": (columns: KupDataColumn[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<KupDataColumn[]>;
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
@@ -1100,7 +1100,7 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
-        "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataDataset; }>;
+        "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTableDataset; }>;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -4015,7 +4015,7 @@ declare namespace LocalJSX {
         /**
           * The data of the table.
          */
-        "data"?: KupDataDataset;
+        "data"?: KupDataTableDataset;
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */

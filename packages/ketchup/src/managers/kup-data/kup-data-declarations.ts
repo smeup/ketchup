@@ -1,12 +1,10 @@
 import {
     Cell,
     CellsHolder,
-    ColumnChild,
-    GenericMap,
     RowAction,
-    RowGroup,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+import { GenericMap } from '../../types/GenericTypes';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
 
 /**
@@ -22,22 +20,27 @@ export interface KupDataDataset {
 export interface KupDataColumn {
     name: string;
     title: string;
-    size?: string;
-    visible?: boolean;
-    hideValuesRepetitions?: boolean;
-    obj?: KupObj;
-    objs?: KupObj[]; // A column could contain multiple objs
-    shape?: FCellShapes;
-    decimals?: number;
-    icon?: string;
-    formula?: string;
-    valuesForFilter?: string[];
-    isKey?: boolean;
-    children?: ColumnChild[];
+    children?: KupDataColumnChild[];
     cssClass?: string;
-    style?: GenericMap;
+    decimals?: number;
+    formula?: string;
+    hideValuesRepetitions?: boolean;
+    icon?: string;
+    isKey?: boolean;
     mergedFrom?: string[];
+    obj?: KupObj;
+    objs?: KupObj[];
     resultOf?: string;
+    shape?: FCellShapes;
+    size?: string;
+    valuesForFilter?: string[];
+    visible?: boolean;
+    style?: GenericMap;
+}
+export interface KupDataColumnChild {
+    name: string;
+    obj: KupObj;
+    icon?: string;
 }
 /**
  * Generic row interface.
@@ -45,7 +48,6 @@ export interface KupDataColumn {
 export interface KupDataRow {
     cells: CellsHolder;
     actions?: Array<RowAction>;
-    group?: RowGroup;
     id?: string;
     readOnly?: boolean;
     cssClass?: string;
