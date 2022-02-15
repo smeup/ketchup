@@ -14,7 +14,6 @@ import {
 } from '@stencil/core';
 import type { PointerEvent } from '@interactjs/types/index';
 import {
-    Column,
     SortObject,
     SortMode,
     RowAction,
@@ -85,6 +84,7 @@ import {
     pageChange,
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -361,7 +361,7 @@ export class KupBox {
      */
     private kupManager: KupManager = kupManagerInstance();
     private boxLayout: KupBoxLayout;
-    private visibleColumns: Column[] = [];
+    private visibleColumns: KupDataColumn[] = [];
     private rows: KupBoxRow[] = [];
     private filteredRows: KupBoxRow[] = [];
     private tooltip: KupTooltip;
@@ -539,7 +539,7 @@ export class KupBox {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private getColumns(): Array<Column> {
+    private getColumns(): Array<KupDataColumn> {
         return this.data && this.data.columns
             ? this.data.columns
             : [{ title: '', name: '', size: undefined }];
@@ -697,7 +697,7 @@ export class KupBox {
         let boxObject = null;
         let cell: Cell = null;
         let row: KupBoxRow = null;
-        let column: Column = null;
+        let column: KupDataColumn = null;
         if (el) {
             boxObject =
                 el.closest('.box-object') || el.querySelector('.box-object');
@@ -1244,7 +1244,7 @@ export class KupBox {
         section: Section,
         parent: Section,
         row: KupBoxRow,
-        visibleColumns: Column[]
+        visibleColumns: KupDataColumn[]
     ) {
         let sectionContent = null;
 
@@ -1396,7 +1396,7 @@ export class KupBox {
         }: {
             boxObject: BoxObject;
             row: KupBoxRow;
-            visibleColumns: Column[];
+            visibleColumns: KupDataColumn[];
         },
         fromSection?: boolean
     ) {
@@ -1404,7 +1404,7 @@ export class KupBox {
             'box-object': true,
         };
         const boStyle = {};
-        let column: Column = null;
+        let column: KupDataColumn = null;
         let index = -1;
         for (let i = 0; i < visibleColumns.length; i++) {
             const c = visibleColumns[i];

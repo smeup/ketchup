@@ -1,5 +1,8 @@
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import { KupEventPayload } from '../../types/GenericTypes';
-import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 
 /**
  * Props of the kup-calendar component.
@@ -36,7 +39,7 @@ export enum KupCalendarOptions {
 /**
  * Calendar column.
  */
-export interface KupCalendarColumn extends Column {
+export interface KupCalendarColumn extends KupDataColumn {
     calendarOption: KupCalendarOptions;
 }
 /**
@@ -44,13 +47,13 @@ export interface KupCalendarColumn extends Column {
  */
 export interface KupCalendarData {
     columns: KupCalendarColumn[];
-    rows: Row[];
+    rows: KupDataRow[];
 }
 /**
  * Events payload.
  */
 export interface KupCalendarEventClickEventPayload extends KupEventPayload {
-    row: Row;
+    row: KupDataRow;
 }
 export interface KupCalendarDateClickEventPayload extends KupEventPayload {
     date: Date;

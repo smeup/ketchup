@@ -1,13 +1,16 @@
-import { Row, Column } from '../kup-data-table/kup-data-table-declarations';
 import { formatToNumber } from '../../utils/cell-utils';
 import { ChartSerie } from './kup-chart-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import { KupDates } from '../../managers/kup-dates/kup-dates';
 import { KupDatesNormalize } from '../../managers/kup-dates/kup-dates-declarations';
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataDataset,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
-export function getSerieDecode(serie: string, series: Column[]): string {
+export function getSerieDecode(serie: string, series: KupDataColumn[]): string {
     if (serie == null || series == null) {
         return null;
     }
@@ -24,12 +27,12 @@ export function getSerieDecode(serie: string, series: Column[]): string {
 export const convertColumns = (
     data: KupDataDataset,
     { series, axis }
-): Column[] => {
+): KupDataColumn[] => {
     if (!data || !series) {
         return [];
     }
 
-    const columns: Column[] = [];
+    const columns: KupDataColumn[] = [];
 
     // axis
     const axisColumn = getColumnByName(data.columns, axis);
@@ -52,10 +55,9 @@ export const convertColumns = (
 
 export const convertRows = (
     data: any,
-    columns: Column[],
+    columns: KupDataColumn[],
     showMarks: boolean
 ) => {
-    const kupObjects: KupObjects = new KupObjects();
     if (!data) {
         return [];
     }
@@ -65,7 +67,7 @@ export const convertRows = (
     if (data.rows) {
         const kupDates: KupDates = new KupDates();
         const kupObjects: KupObjects = new KupObjects();
-        data.rows.forEach((r: Row) => {
+        data.rows.forEach((r: KupDataRow) => {
             const cells = r.cells;
 
             const currentRow = [];

@@ -1,9 +1,11 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../kup-date-picker/kup-date-picker-declarations';
-import { Column } from '../../components/kup-data-table/kup-data-table-declarations';
 import Picker from 'vanilla-picker';
-import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataDataset,
+} from '../../managers/kup-data/kup-data-declarations';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -61,8 +63,8 @@ export interface KupCardColumnDropMenuOptions {
     enableFormula: boolean;
     enableMerge: boolean;
     enableMove: boolean;
-    receivingColumn?: Column;
-    starterColumn?: Column;
+    receivingColumn?: KupDataColumn;
+    starterColumn?: KupDataColumn;
     formulaCb?: () => void;
     mergeCb?: () => void;
     moveCb?: () => void;
@@ -113,7 +115,7 @@ export interface KupCardData {
     checkbox?: GenericObject[];
     chip?: GenericObject[];
     color?: string[];
-    columns?: Column[];
+    columns?: KupDataColumn[];
     combobox?: GenericObject[];
     datatable?: GenericObject[];
     datepicker?: GenericObject[];

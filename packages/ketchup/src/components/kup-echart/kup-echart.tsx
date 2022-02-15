@@ -11,6 +11,7 @@ import {
     Prop,
 } from '@stencil/core';
 import * as echarts from 'echarts';
+import { GeoJSON, FeatureCollection } from 'geojson';
 import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
 import {
     KupEchartLegendPlacement,
@@ -33,11 +34,9 @@ import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarat
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { getColumnByName } from '../../utils/cell-utils';
+import { CellsHolder } from '../kup-data-table/kup-data-table-declarations';
 import {
-    CellsHolder,
-    Column,
-} from '../kup-data-table/kup-data-table-declarations';
-import {
+    KupDataColumn,
     KupDataDataset,
     KupDataFindCellFilters,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -85,10 +84,10 @@ export class KupEchart {
      */
     @Prop() legend: KupEchartLegendPlacement = KupEchartLegendPlacement.RIGHT;
     /**
-     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
+     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
      * @default null
      */
-    @Prop() mapName: KupEchartMaps = null;
+    @Prop() map: KupEchartMaps | string | GeoJSON = null;
     /**
      * The data series to be displayed. They must be of the same type.
      * @default []
@@ -221,12 +220,25 @@ export class KupEchart {
                 options = this.setGaussianOptions();
                 break;
             case KupEchartTypes.MAP:
-                const mapJson = await (
-                    await fetch(
-                        getAssetPath(`./assets/maps/${this.mapName}.json`)
-                    )
-                ).text();
-                if (!mapJson) {
+                let stringifiedMap = '';
+                if (this.map) {
+                    if ((this.map as FeatureCollection).features) {
+                        stringifiedMap = JSON.stringify(this.map);
+                    } else if (
+                        Object.values(KupEchartMaps).includes(
+                            this.map as KupEchartMaps
+                        )
+                    ) {
+                        stringifiedMap = await (
+                            await fetch(
+                                getAssetPath(`./assets/maps/${this.map}.json`)
+                            )
+                        ).text();
+                    } else {
+                        stringifiedMap = this.map as string;
+                    }
+                }
+                if (!stringifiedMap) {
                     this.kupManager.debug.logMessage(
                         this,
                         "Couldn't fetch map JSON.",
@@ -234,8 +246,11 @@ export class KupEchart {
                     );
                     return;
                 }
-                echarts.registerMap(this.mapName, mapJson);
-                options = this.setMapOptions(mapJson);
+                echarts.registerMap(
+                    this.rootElement.id ? this.rootElement.id : '',
+                    stringifiedMap
+                );
+                options = this.setMapOptions(stringifiedMap);
                 break;
             case KupEchartTypes.PIE:
                 options = this.setPieOptions();
@@ -403,17 +418,11 @@ export class KupEchart {
     }
 
     private setMapOptions(map: string) {
-        const mapJson = JSON.parse(map);
+        const mapJson: FeatureCollection = JSON.parse(map);
         const isoA2: string[] = [];
         const names: string[] = [];
-        const mapFeatures: {
-            properties: {
-                iso_a2: string;
-                name: string;
-            };
-        }[] = mapJson.features;
-        for (let index = 0; index < mapFeatures.length; index++) {
-            const feature = mapFeatures[index];
+        for (let index = 0; index < mapJson.features.length; index++) {
+            const feature = mapJson.features[index];
             isoA2.push(feature.properties.iso_a2);
             names.push(feature.properties.name);
         }
@@ -508,7 +517,7 @@ export class KupEchart {
                             show: true,
                         },
                     },
-                    map: this.mapName,
+                    map: this.rootElement.id ? this.rootElement.id : '',
                     roam: true,
                     type: 'map',
                 } as echarts.MapSeriesOption,
@@ -577,7 +586,7 @@ export class KupEchart {
             }
             let values: string[] = null;
             const column = this.data.columns.find(
-                (col: Column) => col.title === key
+                (col: KupDataColumn) => col.title === key
             );
             if (type == KupEchartTypes.GAUSSIAN) {
                 if (!this.kupManager.objects.isNumber(column.obj)) {
@@ -649,7 +658,7 @@ export class KupEchart {
                     }
 
                     const column = this.data.columns.find(
-                        (col: Column) => col.title === param.seriesName
+                        (col: KupDataColumn) => col.title === param.seriesName
                     ).name;
                     const filters: KupDataFindCellFilters = {
                         columns: [column],

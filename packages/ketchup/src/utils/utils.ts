@@ -1,10 +1,12 @@
 import numeral from 'numeral';
-import { GenericObject, Identifiable } from '../types/GenericTypes';
+import { GenericObject } from '../types/GenericTypes';
 import { KupDom } from '../managers/kup-manager/kup-manager-declarations';
 import {
     KupDatesFormats,
     KupDatesNormalize,
 } from '../managers/kup-dates/kup-dates-declarations';
+import { KupBoxRow } from '../components/kup-box/kup-box-declarations';
+import { KupDataRow } from '../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -16,7 +18,7 @@ export enum DateTimeFormatOptionsMonth {
     NARROW = 'narrow',
 }
 
-export function identify(array: Array<Identifiable>) {
+export function identify(array: Array<KupBoxRow | KupDataRow>) {
     if (array) {
         for (let i = 0; i < array.length; i++) {
             array[i].id = i.toString();

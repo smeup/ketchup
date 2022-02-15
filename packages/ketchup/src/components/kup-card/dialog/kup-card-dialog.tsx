@@ -4,10 +4,12 @@ import type { GenericObject } from '../../../types/GenericTypes';
 import type { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { compList, dialogHeader } from '../kup-card-helper';
-import { Column } from '../../kup-data-table/kup-data-table-declarations';
 import { KupLanguageRow } from '../../../managers/kup-language/kup-language-declarations';
 import { KupCardCSSClasses, KupCardIds } from '../kup-card-declarations';
-import { KupDataDataset } from '../../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataDataset,
+} from '../../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -259,9 +261,11 @@ function prevButton(component: KupCard): void {
     if (data) {
         let visibleColumnIndex: number = getVisibleColumn(data);
         if (visibleColumnIndex) {
-            const currColumn: Column = data.columns[visibleColumnIndex];
-            const prevColumn: Column = data.columns[visibleColumnIndex - 1];
-            const prevPrevColumn: Column = data.columns[visibleColumnIndex - 2];
+            const currColumn: KupDataColumn = data.columns[visibleColumnIndex];
+            const prevColumn: KupDataColumn =
+                data.columns[visibleColumnIndex - 1];
+            const prevPrevColumn: KupDataColumn =
+                data.columns[visibleColumnIndex - 2];
             if (!isNaN(parseInt(prevColumn.name))) {
                 currColumn.visible = false;
                 prevColumn.visible = true;
@@ -296,9 +300,11 @@ function nextButton(component: KupCard): void {
     if (data) {
         let visibleColumnIndex: number = getVisibleColumn(data);
         if (visibleColumnIndex) {
-            const currColumn: Column = data.columns[visibleColumnIndex];
-            const nextColumn: Column = data.columns[visibleColumnIndex + 1];
-            const nextNextColumn: Column = data.columns[visibleColumnIndex + 2];
+            const currColumn: KupDataColumn = data.columns[visibleColumnIndex];
+            const nextColumn: KupDataColumn =
+                data.columns[visibleColumnIndex + 1];
+            const nextNextColumn: KupDataColumn =
+                data.columns[visibleColumnIndex + 2];
             if (nextColumn) {
                 currColumn.visible = false;
                 nextColumn.visible = true;
@@ -317,7 +323,7 @@ function nextButton(component: KupCard): void {
  */
 function getVisibleColumn(data: KupDataDataset): number {
     for (let index = 0; index < data.columns.length; index++) {
-        const column: Column = data.columns[index];
+        const column: KupDataColumn = data.columns[index];
         if (!isNaN(parseInt(column.name)) && column.visible) {
             return index;
         }

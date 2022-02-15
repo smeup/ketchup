@@ -87,11 +87,11 @@ import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-mana
 import { FChipData } from '@sme.up/ketchup/dist/types/f-components/f-chip/f-chip-declarations';
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
+import { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import {
-  Cell,
-  Column,
-  Row,
-} from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
+  KupDataColumn,
+  KupDataRow,
+} from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var combobox: HTMLKupComboboxElement = null;
@@ -171,7 +171,7 @@ export default {
       };
       combobox.initialValue = dom.ketchup.language.name;
       languagesChip.data = languagesChipData;
-      const columns: Column[] = [
+      const columns: KupDataColumn[] = [
         {
           cssClass: 'strong-text',
           name: 'KEYS',
@@ -179,10 +179,10 @@ export default {
           title: 'Keys',
         },
       ];
-      const rows: Row[] = [];
+      const rows: KupDataRow[] = [];
       for (let index = 0; index < keys.length; index++) {
         const key = keys[index];
-        const row: Row = {
+        const row: KupDataRow = {
           cells: {
             KEYS: {
               style: { borderRight: '1px solid var(--kup-border-color)' },
@@ -193,7 +193,7 @@ export default {
         for (let j = 0; j < languages.length; j++) {
           const language = languages[j];
           if (index === 0) {
-            const column: Column = {
+            const column: KupDataColumn = {
               name: language.toUpperCase(),
               title: language,
             };

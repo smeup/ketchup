@@ -140,7 +140,7 @@ export default {
           prop: 'columns',
           description:
             'The columns of the tree when tree visualization is active.',
-          type: 'Column',
+          type: 'KupDataColumn',
           isArray: true,
           default: 'undefined',
           try: 'json',

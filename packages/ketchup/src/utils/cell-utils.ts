@@ -1,7 +1,6 @@
 import numeral from 'numeral';
 import {
     Cell,
-    Column,
     SortMode,
 } from '../components/kup-data-table/kup-data-table-declarations';
 import {
@@ -13,6 +12,7 @@ import {
 import { ValueDisplayedValue } from './filters/filters-declarations';
 import { KupDom } from '../managers/kup-manager/kup-manager-declarations';
 import { KupDatesFormats } from '../managers/kup-dates/kup-dates-declarations';
+import { KupDataColumn } from '../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -20,7 +20,10 @@ const dom: KupDom = document.documentElement as KupDom;
 // COMMONS
 // -------------
 
-export function getCellValueForDisplay(column: Column, cell: Cell): string {
+export function getCellValueForDisplay(
+    column: KupDataColumn,
+    cell: Cell
+): string {
     if (cell != null) {
         if (cell.displayedValue != null) {
             return cell.displayedValue;
@@ -35,7 +38,7 @@ export function getCellValueForDisplay(column: Column, cell: Cell): string {
 
 export function getValueForDisplay2(
     values: ValueDisplayedValue,
-    column?: Column
+    column?: KupDataColumn
 ): string {
     if (values == null) {
         return '';
@@ -58,7 +61,11 @@ export function formatToNumber(cell: Cell): number {
     return numeral(cell.value).value();
 }
 
-function _getCellValueForDisplay(value, column: Column, cell: Cell): string {
+function _getCellValueForDisplay(
+    value,
+    column: KupDataColumn,
+    cell: Cell
+): string {
     let obj = column != null ? column.obj : null;
     if (cell != null) {
         obj = cell.obj ? cell.obj : obj;
@@ -100,7 +107,10 @@ export function getValueForDisplay(value, obj, decimals: number): string {
     return value;
 }
 
-export function getColumnByName(columns: Column[], name: string): Column {
+export function getColumnByName(
+    columns: KupDataColumn[],
+    name: string
+): KupDataColumn {
     if (columns == null) {
         return null;
     }

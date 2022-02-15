@@ -1,9 +1,9 @@
 import type { VNode } from '@stencil/core';
-import type {
-    Cell,
-    Column,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import type { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import {
     FComponent,
     KupEventPayload,
@@ -16,14 +16,14 @@ export const autoAlignComps = [KupTagNames.DATA_TABLE, KupTagNames.TREE];
  */
 export interface FCellProps extends FComponent {
     cell?: Cell;
-    column?: Column;
+    column?: KupDataColumn;
     component?: unknown;
     density?: FCellPadding;
     editable?: boolean;
     indents?: VNode[];
     previousValue?: string;
     renderKup?: boolean;
-    row?: Row;
+    row?: KupDataRow;
     setSizes?: boolean;
     shape?: FCellShapes;
 }
@@ -178,8 +178,8 @@ export const kupTypes = [
  */
 export interface FCellEventPayload extends KupEventPayload {
     cell: Cell;
-    column: Column;
+    column: KupDataColumn;
     event: CustomEvent | InputEvent | MouseEvent;
-    row: Row;
+    row: KupDataRow;
     type: FCellTypes;
 }

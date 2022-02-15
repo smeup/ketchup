@@ -355,24 +355,6 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
-  Column: {
-    keys: {
-      name: 'string',
-      title: 'string',
-      'size?': 'string',
-      'visible?': 'boolean',
-      'hideValuesRepetitions?': 'boolean',
-      'obj?': 'KupObj',
-      'shape?': 'string',
-      'decimals?': 'number',
-      'icon?': 'string',
-      'formula?': 'string',
-      'valuesForFilter?': 'string[]',
-      'isKey?': 'boolean',
-      'children?': 'ColumnChild[]',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
   FButtonStyling: {
     keys: {
       FLAT: 'flat',
@@ -442,7 +424,7 @@ const demoTypes: DemoTypeJson = {
   },
   KupAccordionData: {
     keys: {
-      columns: 'Column[]',
+      columns: 'KupDataColumn[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -455,8 +437,8 @@ const demoTypes: DemoTypeJson = {
   },
   KupBoxData: {
     keys: {
-      'columns?': 'Column[]',
-      'rows?': 'BoxRow[]',
+      'columns?': 'KupDataColumn[]',
+      'rows?': 'KupBoxRow[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -488,7 +470,7 @@ const demoTypes: DemoTypeJson = {
   KupCalendarData: {
     keys: {
       columns: 'KupCalendarColumn[]',
-      rows: 'Row[]',
+      rows: 'KupDataRow[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -549,10 +531,41 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupDataColumn: {
+    keys: {
+      name: 'string',
+      title: 'string',
+      'size?': 'string',
+      'visible?': 'boolean',
+      'hideValuesRepetitions?': 'boolean',
+      'obj?': 'KupObj',
+      'shape?': 'string',
+      'decimals?': 'number',
+      'icon?': 'string',
+      'formula?': 'string',
+      'valuesForFilter?': 'string[]',
+      'isKey?': 'boolean',
+      'children?': 'ColumnChild[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupDataDataset: {
     keys: {
-      'columns?': 'Column[]',
-      'rows?': 'Row[]',
+      'columns?': 'KupDataColumn[]',
+      'rows?': 'KupDataRow[]',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupDataRow: {
+    keys: {
+      cells: 'CellsHolder',
+      'actions?': 'Array<RowAction>',
+      'group?': 'RowGroup',
+      'id?': 'string',
+      'readOnly?': 'boolean',
+      'cssClass?': 'string',
+      'name?': 'string',
+      'unselectable?': 'boolean',
     },
     type: DemoTypeFeature.INTERFACE,
   },

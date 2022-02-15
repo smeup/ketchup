@@ -1,9 +1,9 @@
+import { Cell } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import {
-    Cell,
-    Column,
-    Row,
-} from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import { KupDataDataset } from '../../../src/managers/kup-data/kup-data-declarations';
+    KupDataColumn,
+    KupDataDataset,
+    KupDataRow,
+} from '../../../src/managers/kup-data/kup-data-declarations';
 
 const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
 
@@ -13,7 +13,7 @@ const fld2Values = ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go'];
 //     return Math.floor(Math.random() * (max - min) + min);
 // }
 
-function columnFactory(name: string, title: string): Column {
+function columnFactory(name: string, title: string): KupDataColumn {
     return {
         name,
         title,
@@ -50,15 +50,15 @@ export function LongTextDataFactory(
     let i = 0;
 
     // Composes columns
-    const columns: Column[] = [];
+    const columns: KupDataColumn[] = [];
     for (i = 0; i < numberOfCols; i++) {
         columns.push(columnFactory('FLD' + (i + 1), 'Column ' + (i + 1)));
     }
 
     // Composes rows
-    const rows: Row[] = [];
+    const rows: KupDataRow[] = [];
     for (i = 0; i < numberOfRows; i++) {
-        let row: Row = {
+        let row: KupDataRow = {
             cells: {},
         };
 
@@ -77,7 +77,7 @@ export function LongTextDataFactory(
 }
 
 export function createData(colSize: number, rowSize: number): KupDataDataset {
-    const columns: Column[] = [];
+    const columns: KupDataColumn[] = [];
     for (let i = 0; i < colSize; i++) {
         columns.push({
             name: 'FLD' + i,
@@ -85,7 +85,7 @@ export function createData(colSize: number, rowSize: number): KupDataDataset {
         });
     }
 
-    const rows: Row[] = [];
+    const rows: KupDataRow[] = [];
     for (let i = 0; i < rowSize; i++) {
         const currentRow: {
             cells: any;

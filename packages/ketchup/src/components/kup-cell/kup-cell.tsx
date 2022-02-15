@@ -14,11 +14,7 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import {
-    Cell,
-    Column,
-    Row,
-} from '../kup-data-table/kup-data-table-declarations';
+import { Cell } from '../kup-data-table/kup-data-table-declarations';
 import { KupCellProps } from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
@@ -30,6 +26,10 @@ import {
     KupDragEffect,
 } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-cell',
@@ -179,7 +179,7 @@ export class KupCell {
         }
     }
 
-    private generateColumn(): Column {
+    private generateColumn(): KupDataColumn {
         const colname: string =
             this.data && this.data.obj && this.data.obj.t
                 ? this.data.obj.t + ';' + this.data.obj.p
@@ -196,9 +196,9 @@ export class KupCell {
         };
     }
 
-    private generateRow(): Row {
-        const col: Column = this.generateColumn();
-        const row: Row = { cells: {} };
+    private generateRow(): KupDataRow {
+        const col: KupDataColumn = this.generateColumn();
+        const row: KupDataRow = { cells: {} };
         row.cells[col.name] = this.data;
         return row;
     }

@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, Column, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -20,7 +20,7 @@ import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClic
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
-import { KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
+import { KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
@@ -30,13 +30,13 @@ import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-decl
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
 import { KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
+import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
-import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
@@ -1034,7 +1034,7 @@ export namespace Components {
           * The data of the table.
          */
         "data": KupDataDataset;
-        "defaultSortingFunction": (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
+        "defaultSortingFunction": (columns: KupDataColumn[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<KupDataColumn[]>;
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
@@ -1131,7 +1131,7 @@ export namespace Components {
           * Hides the given column.
           * @param column - Column to hide.
          */
-        "hideColumn": (column: Column) => Promise<void>;
+        "hideColumn": (column: KupDataColumn) => Promise<void>;
         /**
           * When set to true, clicked-on rows will have a visual feedback.
           * @default false
@@ -1167,7 +1167,7 @@ export namespace Components {
           * @param options - Options of the creation.
           * @returns Returns the new column created or a string containing the error message if something went wrong.
          */
-        "newColumn": (type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | Column>;
+        "newColumn": (type: KupDataNewColumnTypes, options: KupDataNewColumnOptions) => Promise<string | KupDataColumn>;
         /**
           * Opens the column menu of the given column.
           * @param column - Name of the column.
@@ -1521,10 +1521,10 @@ export namespace Components {
          */
         "legend": KupEchartLegendPlacement;
         /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
           * @default null
          */
-        "mapName": KupEchartMaps;
+        "map": KupEchartMaps | string | GeoJSON;
         /**
           * This method is used to trigger a new render of the component.
          */
@@ -2002,7 +2002,7 @@ export namespace Components {
           * Sets the data that will be used to display different components.
           * @default null
          */
-        "data": MagicBoxData;
+        "data": KupDataDataset;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2721,7 +2721,7 @@ export namespace Components {
         /**
           * The columns of the tree when tree visualization is active.
          */
-        "columns"?: Column[];
+        "columns"?: KupDataColumn[];
         /**
           * Custom style of the component.
           * @default ""
@@ -2792,7 +2792,7 @@ export namespace Components {
           * Hides the given column.
           * @param column - Column to hide.
          */
-        "hideColumn": (column: Column) => Promise<void>;
+        "hideColumn": (column: KupDataColumn) => Promise<void>;
         /**
           * True if there aren't visible nodes
          */
@@ -4454,10 +4454,10 @@ declare namespace LocalJSX {
          */
         "legend"?: KupEchartLegendPlacement;
         /**
-          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world".
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america", "italy" and "world". It's possible to supply a custom JSON too.
           * @default null
          */
-        "mapName"?: KupEchartMaps;
+        "map"?: KupEchartMaps | string | GeoJSON;
         "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
@@ -4817,7 +4817,7 @@ declare namespace LocalJSX {
           * Sets the data that will be used to display different components.
           * @default null
          */
-        "data"?: MagicBoxData;
+        "data"?: KupDataDataset;
     }
     interface KupNavBar {
         /**
@@ -5411,7 +5411,7 @@ declare namespace LocalJSX {
         /**
           * The columns of the tree when tree visualization is active.
          */
-        "columns"?: Column[];
+        "columns"?: KupDataColumn[];
         /**
           * Custom style of the component.
           * @default ""

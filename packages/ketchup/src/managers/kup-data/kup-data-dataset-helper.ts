@@ -1,18 +1,18 @@
 import {
     CellsHolder,
-    Column,
     fieldColumn,
-    Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, newColumn } from './kup-data-column-helper';
 import {
+    KupDataColumn,
     KupDataDataset,
     KupDataDatasetSort,
     KupDataNewColumn,
     KupDataNewColumnTypes,
+    KupDataRow,
 } from './kup-data-declarations';
 import { finder } from './kup-data-helper';
 
@@ -22,15 +22,15 @@ const dom: KupDom = document.documentElement as KupDom;
  * Performs a distinct/count after previously grouping columns by ranges.
  * @param {KupDataDataset} dataset - Input dataset.
  * @param {KupDataNewColumn[]} rangeColumns - A list of columns coupled with their criteria for creation. These are used to define ranges.
- * @param {Column} resultingColumn - The resulting column.
- * @param {Column} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
+ * @param {KupDataColumn} resultingColumn - The resulting column.
+ * @param {KupDataColumn} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
  * @returns {KupDataDataset} New dataset with processed data.
  */
 export function rangedDistinctDataset(
     dataset: KupDataDataset,
     rangeColumns: KupDataNewColumn[],
-    resultingColumn: Column,
-    valuesColumn?: Column
+    resultingColumn: KupDataColumn,
+    valuesColumn?: KupDataColumn
 ): KupDataDataset {
     const newD = newDataset(dataset, rangeColumns);
     const columnNames: string[] = [];
@@ -50,13 +50,13 @@ export function rangedDistinctDataset(
  * The original value of cells will be stored in the title property of the new cells.
  * @param {KupDataDataset} dataset - Input dataset.
  * @param {string[]} columns - Column names to manage. When missing, defaults to all columns.
- * @param {Column} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
+ * @param {KupDataColumn} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
  * @returns {KupDataDataset} New dataset with processed data.
  */
 export function distinctDataset(
     dataset: KupDataDataset,
     columns?: string[],
-    valuesColumn?: Column
+    valuesColumn?: KupDataColumn
 ): KupDataDataset {
     const occurrencies: {
         [index: string]: { [index: string]: number };
@@ -82,15 +82,15 @@ export function distinctDataset(
             }
         }
     }
-    const newColumns: Column[] = [];
-    const newRows: Row[] = [];
+    const newColumns: KupDataColumn[] = [];
+    const newRows: KupDataRow[] = [];
     if (valuesColumn) {
         newColumns.push(valuesColumn);
     }
     for (const key in occurrencies) {
         const occurrency = occurrencies[key];
         const column = {
-            ...dataset.columns.find((col: Column) => col.name === key),
+            ...dataset.columns.find((col: KupDataColumn) => col.name === key),
         };
         column.obj = {
             t: 'NR',
@@ -101,7 +101,7 @@ export function distinctDataset(
         newColumns.push(column);
         for (const j in occurrency) {
             const value = occurrency[j];
-            let row: Row = null;
+            let row: KupDataRow = null;
             if (!newRows[rowIndex]) {
                 newRows[rowIndex] = { cells: {} };
             }
@@ -139,8 +139,8 @@ export function newDataset(
     dataset: KupDataDataset,
     newColumns: KupDataNewColumn[]
 ): KupDataDataset {
-    const outputColumns: Column[] = [];
-    const outputRows: Row[] = [];
+    const outputColumns: KupDataColumn[] = [];
+    const outputRows: KupDataRow[] = [];
     for (let index = 0; index < newColumns.length; index++) {
         const newColumn = newColumns[index].column;
         const criteria = newColumns[index].criteria;
@@ -148,7 +148,7 @@ export function newDataset(
         let rowIndex = 0;
         for (let index = 0; index < cells.length; index++) {
             const cell = cells[index];
-            let outputRow: Row = null;
+            let outputRow: KupDataRow = null;
             if (!outputRows[rowIndex]) {
                 outputRows[rowIndex] = { cells: {} };
             }
@@ -243,7 +243,7 @@ export function transposeDataset(
     headerColumn?: string
 ): KupDataDataset {
     const transposed: KupDataDataset = { columns: [], rows: [] };
-    let firstColumn: Column = null;
+    let firstColumn: KupDataColumn = null;
     if (headerColumn) {
         firstColumn = findColumns(dataset, { name: headerColumn })[0];
         transposed.columns.push(firstColumn);

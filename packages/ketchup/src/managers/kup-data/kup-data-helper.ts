@@ -1,11 +1,9 @@
-import {
-    Cell,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDataDataset,
     KupDataFindCellFilters,
+    KupDataRow,
 } from './kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -14,18 +12,18 @@ const dom: KupDom = document.documentElement as KupDom;
  * Utility used by findRow and findCell.
  * @param {KupDataDataset} dataset - Input dataset.
  * @param {KupDataFindCellFilters} filters - Filters of the research.
- * @returns {{cells: Cell[], rows: Row[]}}  Object containing rows and cells.
+ * @returns {{cells: Cell[], rows: KupDataRow[]}}  Object containing rows and cells.
  */
 export function finder(
     dataset: KupDataDataset,
     filters: KupDataFindCellFilters
-): { cells: Cell[]; rows: Row[] } {
+): { cells: Cell[]; rows: KupDataRow[] } {
     const columns = filters ? filters.columns : null;
     const range = filters ? filters.range : null;
     const value = filters ? filters.value : null;
     const min = range && range.min ? range.min : null;
     const max = range && range.max ? range.max : null;
-    const result: { cells: Cell[]; rows: Row[] } = {
+    const result: { cells: Cell[]; rows: KupDataRow[] } = {
         cells: [],
         rows: [],
     };

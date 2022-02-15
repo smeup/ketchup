@@ -2,9 +2,13 @@ import {
     FCellInfo,
     FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
-import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
+import { KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 /**
  * Props of the kup-data-table component.
@@ -97,51 +101,20 @@ export interface KupDatatableCellSpan {
 export interface CellsHolder {
     [index: string]: Cell;
 }
-
-export interface Column {
-    name: string;
-    title: string;
-    size?: string;
-    visible?: boolean;
-    hideValuesRepetitions?: boolean;
-    obj?: KupObj;
-    objs?: KupObj[]; // A column could contain multiple objs
-    shape?: FCellShapes;
-    decimals?: number;
-    icon?: string;
-    formula?: string;
-    valuesForFilter?: string[];
-    isKey?: boolean;
-    children?: ColumnChild[];
-    cssClass?: string;
-    style?: GenericMap;
-    mergedFrom?: string[];
-    resultOf?: string;
-}
 export interface ColumnChild {
     name: string;
     obj: KupObj;
     icon?: string;
 }
 
-export interface Row extends Identifiable {
-    cells: CellsHolder;
-    actions?: Array<RowAction>;
-    group?: RowGroup;
-    readOnly?: boolean;
-    cssClass?: string;
-    name?: string;
-    unselectable?: boolean;
-}
-
 export interface RowGroup {
     id: string;
-    parent: Row;
+    parent: KupDataRow;
     column: string;
     columnLabel: string; // Saves the column label in case either LABEL or BOTH modes for the groupLabelDisplay are activated
     expanded: boolean; // not sure if this is needed
     label: string;
-    children: Array<Row>;
+    children: Array<KupDataRow>;
     obj: {
         t: string;
         p: string;
@@ -272,10 +245,10 @@ export const totalMenuOpenID = 'TOMEOPID';
 export interface KupDatatableEventHandlerDetails {
     area: string;
     cell: Cell;
-    column: Column;
+    column: KupDataColumn;
     filterRemove: HTMLElement;
     isGroupRow: boolean;
-    row: Row;
+    row: KupDataRow;
     td: HTMLElement;
     textfield: HTMLElement;
     th: HTMLElement;
@@ -296,12 +269,12 @@ export enum SelectionMode {
 }
 
 export interface KupDatatableAutoRowSelectEventPayload extends KupEventPayload {
-    selectedRow: Row;
+    selectedRow: KupDataRow;
 }
 
 export interface KupDatatableRowSelectedEventPayload extends KupEventPayload {
-    selectedRows: Array<Row>;
-    clickedRow: Row;
+    selectedRows: Array<KupDataRow>;
+    clickedRow: KupDataRow;
     clickedColumn: string;
 }
 
@@ -310,12 +283,12 @@ export interface KupDatatableClickEventPayload extends KupEventPayload {
 }
 
 export interface KupDatatableColumnMoveEventPayload extends KupEventPayload {
-    sourceColumn: Column;
-    targetColumn: Column;
+    sourceColumn: KupDataColumn;
+    targetColumn: KupDataColumn;
 }
 
 export interface KupDatatableColumnRemoveEventPayload extends KupEventPayload {
-    column: Column;
+    column: KupDataColumn;
 }
 
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
@@ -326,21 +299,21 @@ export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
 
 export interface KupDatatableOptionClickEventPayload extends KupEventPayload {
     column: string;
-    row: Row;
+    row: KupDataRow;
 }
 
 export interface KupDatatableRowActionClickEventPayload
     extends KupEventPayload {
     type: 'default' | 'variable' | 'expander';
-    row: Row;
+    row: KupDataRow;
     action?: RowAction;
     index?: number;
 }
 export interface KupDataTableCellButtonClickEventPayload
     extends KupEventPayload {
     cell: Cell;
-    column: Column;
-    row: Row;
+    column: KupDataColumn;
+    row: KupDataRow;
 }
 export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {
     loadItems: number;

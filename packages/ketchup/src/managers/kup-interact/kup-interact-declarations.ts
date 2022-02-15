@@ -1,11 +1,8 @@
 import type { DropEvent, InteractEvent } from '@interactjs/types/index';
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import { KupBoxRow } from '../../components/kup-box/kup-box-declarations';
-import {
-    Cell,
-    Column,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
+import { KupDataColumn, KupDataRow } from '../kup-data/kup-data-declarations';
 /**
  * HTML Attribute attached to dialogs.
  * Referenced by kup-theme.css
@@ -117,18 +114,18 @@ export interface KupDropEventPayload {
  */
 export interface KupDropEventSource {
     cell?: Cell;
-    column?: Column;
+    column?: KupDataColumn;
     id?: string;
     multiple?: boolean;
-    row?: Row | KupBoxRow;
-    selectedRows?: Row[] | KupBoxRow[];
+    row?: KupDataRow | KupBoxRow;
+    selectedRows?: KupDataRow[] | KupBoxRow[];
 }
 /**
  * Target of the drop event payload.
  */
 export interface KupDropEventTarget {
     id?: string;
-    row?: Row | KupBoxRow;
+    row?: KupDataRow | KupBoxRow;
     cell?: Cell;
-    column?: Column;
+    column?: KupDataColumn;
 }

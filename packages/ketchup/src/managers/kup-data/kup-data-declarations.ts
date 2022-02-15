@@ -1,15 +1,56 @@
 import {
     Cell,
-    Column,
-    Row,
+    CellsHolder,
+    ColumnChild,
+    GenericMap,
+    RowAction,
+    RowGroup,
 } from '../../components/kup-data-table/kup-data-table-declarations';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+import { KupObj } from '../kup-objects/kup-objects-declarations';
 
 /**
  * Generic dataset interface.
  */
 export interface KupDataDataset {
-    columns?: Column[];
-    rows?: Row[];
+    columns?: KupDataColumn[];
+    rows?: KupDataRow[];
+}
+/**
+ * Generic column interface.
+ */
+export interface KupDataColumn {
+    name: string;
+    title: string;
+    size?: string;
+    visible?: boolean;
+    hideValuesRepetitions?: boolean;
+    obj?: KupObj;
+    objs?: KupObj[]; // A column could contain multiple objs
+    shape?: FCellShapes;
+    decimals?: number;
+    icon?: string;
+    formula?: string;
+    valuesForFilter?: string[];
+    isKey?: boolean;
+    children?: ColumnChild[];
+    cssClass?: string;
+    style?: GenericMap;
+    mergedFrom?: string[];
+    resultOf?: string;
+}
+/**
+ * Generic row interface.
+ */
+export interface KupDataRow {
+    cells: CellsHolder;
+    actions?: Array<RowAction>;
+    group?: RowGroup;
+    id?: string;
+    readOnly?: boolean;
+    cssClass?: string;
+    name?: string;
+    unselectable?: boolean;
 }
 /**
  * Interface related to dataset operations.
@@ -21,7 +62,7 @@ export interface KupDataDatasetOperations {
     distinct: (
         dataset: KupDataDataset,
         columns?: string[],
-        valuesColumn?: Column
+        valuesColumn?: KupDataColumn
     ) => KupDataDataset;
     new: (
         dataset: KupDataDataset,
@@ -30,8 +71,8 @@ export interface KupDataDatasetOperations {
     rangedDistinct: (
         dataset: KupDataDataset,
         rangeColumns: KupDataNewColumn[],
-        resultingColumn: Column,
-        valuesColumn?: Column
+        resultingColumn: KupDataColumn,
+        valuesColumn?: KupDataColumn
     ) => KupDataDataset;
     sort: (
         dataset: KupDataDataset,
@@ -59,22 +100,28 @@ export interface KupDataCellOperations {
  * Interface related to columns operations.
  */
 export interface KupDataColumnOperations {
-    find: (dataset: KupDataDataset, filters?: Partial<Column>) => Column[];
+    find: (
+        dataset: KupDataDataset,
+        filters?: Partial<KupDataColumn>
+    ) => KupDataColumn[];
     hide: (
-        dataset: KupDataDataset | Column[],
+        dataset: KupDataDataset | KupDataColumn[],
         columns2hide: string[]
-    ) => Column[];
+    ) => KupDataColumn[];
     new: (
         dataset: KupDataDataset,
         type: KupDataNewColumnTypes,
         options: KupDataNewColumnOptions
-    ) => string | Column;
+    ) => string | KupDataColumn;
 }
 /**
  * Interface related to rows operations.
  */
 export interface KupDataRowOperations {
-    find: (dataset: KupDataDataset, filters?: KupDataFindCellFilters) => Row[];
+    find: (
+        dataset: KupDataDataset,
+        filters?: KupDataFindCellFilters
+    ) => KupDataRow[];
 }
 /**
  * Interface related to the formulas factory function.
@@ -106,7 +153,7 @@ export interface KupDataFilterRange {
  * Interface for the creation of a new column.
  */
 export interface KupDataNewColumn {
-    column: Column;
+    column: KupDataColumn;
     criteria: KupDataFindCellFilters;
 }
 /**
@@ -118,7 +165,7 @@ export type KupDataDatasetSort = 'normalDistribution';
  */
 export interface KupDataNewColumnOptions {
     columns?: string[];
-    newColumn?: Column;
+    newColumn?: KupDataColumn;
     operation?: string;
     separator?: string;
 }
