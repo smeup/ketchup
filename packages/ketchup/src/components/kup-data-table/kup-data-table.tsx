@@ -26,7 +26,6 @@ import {
     GroupObject,
     LoadMoreMode,
     PaginatorPos,
-    RowAction,
     ShowGrid,
     SortMode,
     SortObject,
@@ -165,6 +164,7 @@ import {
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
+    KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
@@ -553,7 +553,7 @@ export class KupDataTable {
     /**
      * Sets the actions of the rows.
      */
-    @Prop() rowActions: Array<RowAction>;
+    @Prop() rowActions: Array<KupDataRowAction>;
     /**
      * Sets the number of rows per page to display.
      */
@@ -4455,7 +4455,7 @@ export class KupDataTable {
     }
 
     private renderActions(
-        actions: Array<RowAction>,
+        actions: Array<KupDataRowAction>,
         row: KupDataTableRow,
         type: string
     ): JSX.Element[] {

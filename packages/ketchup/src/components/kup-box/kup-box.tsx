@@ -16,7 +16,6 @@ import type { PointerEvent } from '@interactjs/types/index';
 import {
     SortObject,
     SortMode,
-    RowAction,
 } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupBoxRow,
@@ -86,6 +85,7 @@ import {
 import {
     KupDataCell,
     KupDataColumn,
+    KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
@@ -515,7 +515,7 @@ export class KupBox {
         return getProps(this, KupBoxProps, descriptions);
     }
     @Method()
-    async loadRowActions(row: KupBoxRow, actions: RowAction[]) {
+    async loadRowActions(row: KupBoxRow, actions: KupDataRowAction[]) {
         row.actions = actions;
 
         // show menu
@@ -881,7 +881,11 @@ export class KupBox {
         }
     }
 
-    private onRowActionClick(row: KupBoxRow, action: RowAction, index: number) {
+    private onRowActionClick(
+        row: KupBoxRow,
+        action: KupDataRowAction,
+        index: number
+    ) {
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,

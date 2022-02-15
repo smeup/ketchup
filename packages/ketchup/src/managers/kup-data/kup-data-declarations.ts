@@ -1,4 +1,3 @@
-import { RowAction } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
     FCellInfo,
     FCellShapes,
@@ -46,15 +45,19 @@ export interface KupDataColumnChild {
  */
 export interface KupDataRow {
     cells: KupDataRowCells;
-    actions?: Array<RowAction>;
-    id?: string;
-    readOnly?: boolean;
+    actions?: Array<KupDataRowAction>;
     cssClass?: string;
+    id?: string;
     name?: string;
+    readOnly?: boolean;
     unselectable?: boolean;
 }
 export interface KupDataRowCells {
     [index: string]: KupDataCell;
+}
+export interface KupDataRowAction {
+    text: string;
+    icon: string;
 }
 /**
  * Generic cell interface.

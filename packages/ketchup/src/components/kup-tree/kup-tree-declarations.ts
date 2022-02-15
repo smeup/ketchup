@@ -2,12 +2,12 @@ import {
     KupDataCell,
     KupDataColumn,
     KupDataRow,
+    KupDataRowAction,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
-import { RowAction } from './../kup-data-table/kup-data-table-declarations';
 /**
  * Props of the kup-tree component.
  * Used to export every prop in an object.
@@ -55,7 +55,7 @@ export const treeExpandedPropName = 'isExpanded';
 
 export interface TreeNode {
     data?: GenericObject;
-    actions?: Array<RowAction>;
+    actions?: Array<KupDataRowAction>;
     cells: KupDataRowCells;
     children: Array<TreeNode>;
     disabled: boolean;

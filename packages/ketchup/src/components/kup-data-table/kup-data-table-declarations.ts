@@ -1,18 +1,11 @@
-import {
-    FCellInfo,
-    FCellShapes,
-} from '../../f-components/f-cell/f-cell-declarations';
-import {
-    GenericMap,
-    GenericObject,
-    KupEventPayload,
-} from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
     KupDataCell,
     KupDataColumn,
     KupDataRow,
+    KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
 
 /**
@@ -154,11 +147,6 @@ export interface GroupObject {
     visible: boolean;
 }
 
-export interface RowAction {
-    text: string;
-    icon: string;
-}
-
 export enum ShowGrid {
     NONE = 'None',
     ROW = 'Row',
@@ -286,7 +274,7 @@ export interface KupDatatableRowActionClickEventPayload
     extends KupEventPayload {
     type: 'default' | 'variable' | 'expander';
     row: KupDataRow;
-    action?: RowAction;
+    action?: KupDataRowAction;
     index?: number;
 }
 export interface KupDataTableCellButtonClickEventPayload
