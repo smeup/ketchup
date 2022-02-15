@@ -15,7 +15,6 @@ import {
 } from '@stencil/core';
 import type { PointerEvent } from '@interactjs/types/index';
 import {
-    Cell,
     TotalLabel,
     TotalMode,
     TotalsMap,
@@ -93,6 +92,7 @@ import {
 } from '../../f-components/f-cell/f-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -890,7 +890,7 @@ export class KupTree {
             th = el.closest('th'),
             tr = el.closest('tr'),
             filterRemove: HTMLElement = el.closest('th .filter-remove');
-        let cell: Cell = null,
+        let cell: KupDataCell = null,
             column: KupDataColumn = null,
             row: KupDataRow = null;
         if (isBody) {
@@ -1237,7 +1237,7 @@ export class KupTree {
      */
     private getToolTipEventHandlers(
         treeNodeData: TreeNode,
-        cell: Cell,
+        cell: KupDataCell,
         hasTooltip: boolean
     ) {
         let eventHandlers = undefined;
@@ -1603,7 +1603,7 @@ export class KupTree {
                 treeNodeData.obj.k +
                 ';';
         }
-        const cell: Cell = {
+        const cell: KupDataCell = {
             obj: treeNodeData.obj,
             value: treeNodeData.value,
         };

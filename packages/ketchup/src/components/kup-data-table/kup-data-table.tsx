@@ -20,14 +20,12 @@ import type {
 import type { ResizeEvent } from '@interactjs/actions/resize/plugin';
 import type { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import {
-    Cell,
     FixedCellsClasses,
     FixedCellsCSSVarsBase,
     GroupLabelDisplayMode,
     GroupObject,
     LoadMoreMode,
     PaginatorPos,
-    RowAction,
     ShowGrid,
     SortMode,
     SortObject,
@@ -36,7 +34,6 @@ import {
     TotalLabel,
     KupDatatableEventHandlerDetails,
     KupDataTableProps,
-    CellsHolder,
     fieldColumn,
     iconColumn,
     keyColumn,
@@ -49,6 +46,10 @@ import {
     KupDatatableLoadMoreClickEventPayload,
     KupDatatableColumnRemoveEventPayload,
     KupDatatableColumnMoveEventPayload,
+    KupDataTableDataset,
+    KupDataTableRow,
+    KupDataTableRowCells,
+    KupDataTableCell,
 } from './kup-data-table-declarations';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
@@ -163,7 +164,7 @@ import {
     KupDataDataset,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
-    KupDataRow,
+    KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
@@ -172,10 +173,6 @@ import {
     shadow: true,
 })
 export class KupDataTable {
-    //////////////////////////////
-    // Begin state stuff
-    //////////////////////////////
-
     @Prop() stateId: string = '';
     @Prop() store: KupStore;
 
@@ -415,7 +412,7 @@ export class KupDataTable {
     /**
      * The data of the table.
      */
-    @Prop({ mutable: true }) data: KupDataDataset;
+    @Prop({ mutable: true }) data: KupDataTableDataset;
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
@@ -556,7 +553,7 @@ export class KupDataTable {
     /**
      * Sets the actions of the rows.
      */
-    @Prop() rowActions: Array<RowAction>;
+    @Prop() rowActions: Array<KupDataRowAction>;
     /**
      * Sets the number of rows per page to display.
      */
@@ -664,7 +661,7 @@ export class KupDataTable {
     private currentRowsPerPage = 10;
 
     @State()
-    private selectedRows: Array<KupDataRow> = [];
+    private selectedRows: Array<KupDataTableRow> = [];
 
     @State()
     private selectedColumn: string;
@@ -764,10 +761,10 @@ export class KupDataTable {
         this.calculateData();
     }
 
-    private rows: Array<KupDataRow>;
+    private rows: Array<KupDataTableRow>;
     private rowsLength: number = 0;
 
-    private paginatedRows: Array<KupDataRow>;
+    private paginatedRows: Array<KupDataTableRow>;
     private paginatedRowsLength: number = 0;
 
     private footer: { [index: string]: any }; // TODO change any
@@ -775,7 +772,7 @@ export class KupDataTable {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private renderedRows: Array<KupDataRow> = [];
+    private renderedRows: Array<KupDataTableRow> = [];
 
     private loadMoreEventCounter: number = 0;
 
@@ -1321,10 +1318,10 @@ export class KupDataTable {
         // set columns
         totalsMatrixData.columns = totalsMatrixColumns;
         // calc rows
-        const totalsMatrixRows: Array<KupDataRow> = [];
+        const totalsMatrixRows: Array<KupDataTableRow> = [];
         let index = 0;
         this.rows.forEach((row) => {
-            const cells: CellsHolder = {};
+            const cells: KupDataTableRowCells = {};
             ids.forEach((id) => {
                 let totalValue = row.group.totals[id];
                 if (!totalValue) {
@@ -1930,7 +1927,7 @@ export class KupDataTable {
         return this._rowsLength(this.paginatedRows);
     }
 
-    private _rowsLength(r: Array<KupDataRow>): number {
+    private _rowsLength(r: Array<KupDataTableRow>): number {
         if (r == null) {
             return 0;
         }
@@ -2132,13 +2129,13 @@ export class KupDataTable {
     }
     /**
      * Opens a card containing the detail of the given row.
-     * @param {KupDataRow} row - Row for which the detail was requested.
+     * @param {KupDataTableRow} row - Row for which the detail was requested.
      * @param {number} x - Initial x coordinates of the card.
      * @param {number} y - Initial y coordinates of the card.
      * @private
      * @memberof KupDataTable
      */
-    private rowDetail(row: KupDataRow, x: number, y: number): void {
+    private rowDetail(row: KupDataTableRow, x: number, y: number): void {
         const transposedData: KupDataDataset = this.getTransposedData();
         const cardData: KupCardData = {
             button: [
@@ -2173,7 +2170,7 @@ export class KupDataTable {
             text: [this.kupManager.language.translate(KupLanguageRow.DETAIL)],
         };
         const columns: KupDataColumn[] = cardData.datatable[0].data.columns;
-        const rows: KupDataRow[] = cardData.datatable[0].data.rows;
+        const rows: KupDataTableRow[] = cardData.datatable[0].data.rows;
         // Placing the key and icon columns before any other column
         columns.unshift(
             {
@@ -2205,7 +2202,7 @@ export class KupDataTable {
             );
         }
         // Setting up icons
-        let keyCell: Cell = null;
+        let keyCell: KupDataTableCell = null;
         for (let index = 0; index < rows.length; index++) {
             const column: KupDataColumn = this.data.columns.find(
                 (x) => x.name === rows[index].name
@@ -2221,7 +2218,7 @@ export class KupDataTable {
             const editable: boolean = rows[index].cells[row.id].isEditable
                 ? true
                 : false;
-            let iconCell: Cell = null;
+            let iconCell: KupDataTableCell = null;
             if (column.isKey || editable) {
                 columns.find(
                     (x) => x.name === iconColumn.toUpperCase()
@@ -2368,10 +2365,10 @@ export class KupDataTable {
             }
         }
 
-        let cell: Cell = null,
+        let cell: KupDataTableCell = null,
             column: KupDataColumn = null,
             isGroupRow: boolean = false,
-            row: KupDataRow = null;
+            row: KupDataTableRow = null;
         if (isBody) {
             if (tr) {
                 if (tr.classList.contains('group')) {
@@ -2578,7 +2575,7 @@ export class KupDataTable {
         );
     }
 
-    getRows(): Array<KupDataRow> {
+    getRows(): Array<KupDataTableRow> {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
@@ -2671,7 +2668,7 @@ export class KupDataTable {
         this.paginatedRows.forEach((row) => this.forceRowGroupExpansion(row));
     }
 
-    private forceRowGroupExpansion(row: KupDataRow) {
+    private forceRowGroupExpansion(row: KupDataTableRow) {
         // check if row is group
         if (!row.group) {
             return;
@@ -2918,7 +2915,11 @@ export class KupDataTable {
         }
     }
 
-    private onRowClick(row: KupDataRow, td: HTMLElement, emitEvent?: boolean) {
+    private onRowClick(
+        row: KupDataTableRow,
+        td: HTMLElement,
+        emitEvent?: boolean
+    ) {
         // selecting row
         if (!row.unselectable) {
             switch (this.selection) {
@@ -3009,7 +3010,7 @@ export class KupDataTable {
         });
     }
 
-    private onRowActionExpanderClick(e: MouseEvent, row: KupDataRow) {
+    private onRowActionExpanderClick(e: MouseEvent, row: KupDataTableRow) {
         e.stopPropagation();
 
         this.kupRowActionClick.emit({
@@ -3020,7 +3021,7 @@ export class KupDataTable {
         });
     }
 
-    private handleRowSelect(row: KupDataRow) {
+    private handleRowSelect(row: KupDataTableRow) {
         const index = this.selectedRows.indexOf(row);
 
         if (index < 0) {
@@ -3041,7 +3042,7 @@ export class KupDataTable {
         });
     }
 
-    private onRowExpand(row: KupDataRow) {
+    private onRowExpand(row: KupDataTableRow) {
         // row should be a 'group' row
         row.group.expanded = !row.group.expanded;
 
@@ -3160,7 +3161,7 @@ export class KupDataTable {
         this.rows.forEach((r) => this.adjustGroupStateFromRow(r));
     }
 
-    private adjustGroupStateFromRow(row: KupDataRow): void {
+    private adjustGroupStateFromRow(row: KupDataTableRow): void {
         if (!row || !row.hasOwnProperty('group')) {
             // not a groping row, nothing to do
             return;
@@ -3232,7 +3233,7 @@ export class KupDataTable {
         return colSpan;
     }
 
-    private isGroupExpanded({ group }: KupDataRow): boolean {
+    private isGroupExpanded({ group }: KupDataTableRow): boolean {
         if (!group) {
             return false;
         }
@@ -4007,10 +4008,10 @@ export class KupDataTable {
     }
 
     private renderRow(
-        row: KupDataRow,
+        row: KupDataTableRow,
         level = 0,
         rowCssIndex: number = 0,
-        previousRow?: KupDataRow
+        previousRow?: KupDataTableRow
     ) {
         const visibleColumns = this.getVisibleColumns();
         let rowActionsCount: number = 0;
@@ -4454,8 +4455,8 @@ export class KupDataTable {
     }
 
     private renderActions(
-        actions: Array<RowAction>,
-        row: KupDataRow,
+        actions: Array<KupDataRowAction>,
+        row: KupDataTableRow,
         type: string
     ): JSX.Element[] {
         return actions.map((action, index) => {

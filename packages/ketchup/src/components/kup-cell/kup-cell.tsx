@@ -14,7 +14,6 @@ import {
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { Cell } from '../kup-data-table/kup-data-table-declarations';
 import { KupCellProps } from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
@@ -27,6 +26,7 @@ import {
 } from '../../managers/kup-interact/kup-interact-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -56,7 +56,7 @@ export class KupCell {
      * The data of the cell.
      * @default false
      */
-    @Prop() data: Cell = null;
+    @Prop() data: KupDataCell = null;
     /**
      * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
      */

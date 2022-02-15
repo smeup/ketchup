@@ -63,7 +63,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the cell.',
-          type: 'Cell',
+          type: 'KupDataCell',
           default: 'null',
           try: 'json',
         },

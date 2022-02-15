@@ -277,25 +277,6 @@ enum DemoTypeFeature {
 
 // JSON used to display custom types inside tooltip
 const demoTypes: DemoTypeJson = {
-  Cell: {
-    keys: {
-      value: 'string',
-      'cardID?': 'number',
-      'cssClass?': 'string',
-      'data?': 'CellData',
-      'displayedValue?': 'string',
-      'icon?': 'string',
-      'info?': 'FCellInfo',
-      'isEditable?': 'boolean',
-      'obj?': 'KupObj',
-      'shape?': 'FCellShapes',
-      'span?': 'KupDatatableCellSpan',
-      'style?': 'GenericMap',
-      'styleContent?': 'GenericMap',
-      'title?': 'string',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
   ChartAspect: {
     keys: {
       D2: '2D',
@@ -531,6 +512,24 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupDataCell: {
+    keys: {
+      value: 'string',
+      'cardID?': 'number',
+      'cssClass?': 'string',
+      'data?': 'CellData',
+      'displayedValue?': 'string',
+      'icon?': 'string',
+      'info?': 'FCellInfo',
+      'isEditable?': 'boolean',
+      'obj?': 'KupObj',
+      'shape?': 'FCellShapes',
+      'style?': 'GenericMap',
+      'styleContent?': 'GenericMap',
+      'title?': 'string',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupDataColumn: {
     keys: {
       name: 'string',
@@ -558,14 +557,20 @@ const demoTypes: DemoTypeJson = {
   },
   KupDataRow: {
     keys: {
-      cells: 'CellsHolder',
+      cells: 'KupDataRowCells',
       'actions?': 'Array<RowAction>',
-      'group?': 'RowGroup',
       'id?': 'string',
       'readOnly?': 'boolean',
       'cssClass?': 'string',
       'name?': 'string',
       'unselectable?': 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
+  KupDataTableDataset: {
+    keys: {
+      'columns?': 'KupDataColumn[]',
+      'rows?': 'KupDataTableRow[]',
     },
     type: DemoTypeFeature.INTERFACE,
   },
@@ -701,7 +706,7 @@ const demoTypes: DemoTypeJson = {
     keys: {
       'data?': 'Object',
       'actions?': 'RowAction[]',
-      cells: 'CellsHolder',
+      cells: 'KupDataRowCells',
       children: 'TreeNode[]',
       disabled: 'boolean',
       expandable: 'boolean',

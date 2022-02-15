@@ -25,9 +25,9 @@
 
 ## Events
 
-| Event              | Description | Type                           |
-| ------------------ | ----------- | ------------------------------ |
-| `kup-echart-click` |             | `CustomEvent<KupEventPayload>` |
+| Event              | Description | Type                                      |
+| ------------------ | ----------- | ----------------------------------------- |
+| `kup-echart-click` |             | `CustomEvent<KupEchartClickEventPayload>` |
 
 
 ## Methods

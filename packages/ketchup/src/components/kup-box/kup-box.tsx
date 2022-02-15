@@ -16,8 +16,6 @@ import type { PointerEvent } from '@interactjs/types/index';
 import {
     SortObject,
     SortMode,
-    RowAction,
-    Cell,
 } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupBoxRow,
@@ -84,7 +82,11 @@ import {
     pageChange,
     rowsPerPageChange,
 } from '../../f-components/f-paginator/f-paginator-utils';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataCell,
+    KupDataColumn,
+    KupDataRowAction,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -513,7 +515,7 @@ export class KupBox {
         return getProps(this, KupBoxProps, descriptions);
     }
     @Method()
-    async loadRowActions(row: KupBoxRow, actions: RowAction[]) {
+    async loadRowActions(row: KupBoxRow, actions: KupDataRowAction[]) {
         row.actions = actions;
 
         // show menu
@@ -695,7 +697,7 @@ export class KupBox {
 
     private getEventDetails(el: HTMLElement): KupBoxEventHandlerDetails {
         let boxObject = null;
-        let cell: Cell = null;
+        let cell: KupDataCell = null;
         let row: KupBoxRow = null;
         let column: KupDataColumn = null;
         if (el) {
@@ -879,7 +881,11 @@ export class KupBox {
         }
     }
 
-    private onRowActionClick(row: KupBoxRow, action: RowAction, index: number) {
+    private onRowActionClick(
+        row: KupBoxRow,
+        action: KupDataRowAction,
+        index: number
+    ) {
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,

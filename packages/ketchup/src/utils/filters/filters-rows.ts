@@ -4,11 +4,7 @@ import type {
 } from './filters-declarations';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
-import {
-    Cell,
-    CellsHolder,
-    SortMode,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import { SortMode } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
     compareValues,
     getCellValueForDisplay,
@@ -22,8 +18,10 @@ import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarati
 import { KupObjects } from '../../managers/kup-objects/kup-objects';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
+    KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -38,7 +36,7 @@ const kupObjects: KupObjects = dom.ketchup
  */
 export class FiltersRows extends Filters {
     isFilterCompliantForCell(
-        cellValue: Cell,
+        cellValue: KupDataCell,
         filterValue: string,
         interval: string[]
     ) {
@@ -55,7 +53,7 @@ export class FiltersRows extends Filters {
     }
 
     isFilterCompliantForCellObj(
-        cellValue: Cell,
+        cellValue: KupDataCell,
         filterValue: string,
         interval: string[]
     ) {
@@ -92,7 +90,7 @@ export class FiltersRows extends Filters {
     }
 
     areCellsCompliant(
-        cells: CellsHolder,
+        cells: KupDataRowCells,
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
@@ -422,7 +420,7 @@ export class FiltersRows extends Filters {
     addColumnValueFromRow(
         values: ValueDisplayedValue[],
         column: KupDataColumn,
-        cell: Cell
+        cell: KupDataCell
     ) {
         if (cell) {
             let item: ValueDisplayedValue = {

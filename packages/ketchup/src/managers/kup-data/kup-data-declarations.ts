@@ -1,12 +1,8 @@
 import {
-    Cell,
-    CellsHolder,
-    ColumnChild,
-    GenericMap,
-    RowAction,
-    RowGroup,
-} from '../../components/kup-data-table/kup-data-table-declarations';
-import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
+    FCellInfo,
+    FCellShapes,
+} from '../../f-components/f-cell/f-cell-declarations';
+import { GenericMap } from '../../types/GenericTypes';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
 
 /**
@@ -22,35 +18,64 @@ export interface KupDataDataset {
 export interface KupDataColumn {
     name: string;
     title: string;
-    size?: string;
-    visible?: boolean;
-    hideValuesRepetitions?: boolean;
-    obj?: KupObj;
-    objs?: KupObj[]; // A column could contain multiple objs
-    shape?: FCellShapes;
-    decimals?: number;
-    icon?: string;
-    formula?: string;
-    valuesForFilter?: string[];
-    isKey?: boolean;
-    children?: ColumnChild[];
+    children?: KupDataColumnChild[];
     cssClass?: string;
-    style?: GenericMap;
+    decimals?: number;
+    formula?: string;
+    hideValuesRepetitions?: boolean;
+    icon?: string;
+    isKey?: boolean;
     mergedFrom?: string[];
+    obj?: KupObj;
+    objs?: KupObj[];
     resultOf?: string;
+    shape?: FCellShapes;
+    size?: string;
+    valuesForFilter?: string[];
+    visible?: boolean;
+    style?: GenericMap;
+}
+export interface KupDataColumnChild {
+    name: string;
+    obj: KupObj;
+    icon?: string;
 }
 /**
  * Generic row interface.
  */
 export interface KupDataRow {
-    cells: CellsHolder;
-    actions?: Array<RowAction>;
-    group?: RowGroup;
-    id?: string;
-    readOnly?: boolean;
+    cells: KupDataRowCells;
+    actions?: Array<KupDataRowAction>;
     cssClass?: string;
+    id?: string;
     name?: string;
+    readOnly?: boolean;
     unselectable?: boolean;
+}
+export interface KupDataRowCells {
+    [index: string]: KupDataCell;
+}
+export interface KupDataRowAction {
+    text: string;
+    icon: string;
+}
+/**
+ * Generic cell interface.
+ */
+export interface KupDataCell {
+    value: string;
+    cardID?: number;
+    cssClass?: string;
+    data?: GenericMap;
+    displayedValue?: string;
+    icon?: string;
+    info?: FCellInfo;
+    isEditable?: boolean;
+    obj?: KupObj;
+    shape?: FCellShapes;
+    style?: GenericMap;
+    styleContent?: GenericMap;
+    title?: string;
 }
 /**
  * Interface related to dataset operations.
@@ -88,13 +113,16 @@ export interface KupDataDatasetOperations {
  * Interface related to cells operations.
  */
 export interface KupDataCellOperations {
-    find: (dataset: KupDataDataset, filters?: KupDataFindCellFilters) => Cell[];
+    find: (
+        dataset: KupDataDataset,
+        filters?: KupDataFindCellFilters
+    ) => KupDataCell[];
     getValue: (dataset: KupDataDataset, columns?: string[]) => string[];
     replace: (
         dataset: KupDataDataset,
-        cell: Cell,
+        cell: KupDataCell,
         columns?: string[]
-    ) => Cell[];
+    ) => KupDataCell[];
 }
 /**
  * Interface related to columns operations.

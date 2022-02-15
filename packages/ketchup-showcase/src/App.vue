@@ -102,10 +102,10 @@
 
 <script lang="ts">
 import type { Components } from '@sme.up/ketchup/dist/types/components';
-import type { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
 import type { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
 import { KupTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tree/kup-tree-declarations';
+import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
 var drawer: HTMLKupDrawerElement = null;
 var main: HTMLElement = null;
@@ -214,7 +214,7 @@ export default {
       });
     },
     treeClick(e: CustomEvent<KupTreeNodeSelectedEventPayload>): void {
-      const route: Cell =
+      const route: KupDataCell =
         e.detail.treeNode.cells && e.detail.treeNode.cells['ROUTE']
           ? e.detail.treeNode.cells['ROUTE']
           : null;

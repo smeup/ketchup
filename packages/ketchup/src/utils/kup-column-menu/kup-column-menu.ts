@@ -11,13 +11,9 @@ import {
     KupDynamicPositionElement,
     KupDynamicPositionPlacement,
 } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
-import type {
-    ColumnChild,
-    GroupObject,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import type { GroupObject } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { KupTextFieldEventPayload } from '../../components/kup-text-field/kup-text-field-declarations';
 import type { KupTextField } from '../../components/kup-text-field/kup-text-field';
-import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import { unsetTooltip } from '../helpers';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import {
@@ -336,7 +332,7 @@ export class KupColumnMenu {
         if (column.children) {
             const chipData: FChipData[] = [];
             for (let index = 0; index < column.children.length; index++) {
-                const child: ColumnChild = column.children[index];
+                const child = column.children[index];
                 let childColumn: KupDataColumn = null;
                 try {
                     if (FiltersColumnMenu.isTree(comp)) {

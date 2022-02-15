@@ -1,4 +1,3 @@
-import type { CellsHolder } from '../../components/kup-data-table/kup-data-table-declarations';
 import type {
     GenericFilter,
     ValueDisplayedValue,
@@ -9,7 +8,10 @@ import {
 } from '../../components/kup-tree/kup-tree-declarations';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { FiltersRows } from './filters-rows';
-import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataRowCells,
+} from '../../managers/kup-data/kup-data-declarations';
 
 /**
  * Filtering algorithms related to tree items rows.
@@ -66,7 +68,7 @@ export class FiltersTreeItems extends FiltersRows {
         let retValue = false;
 
         if (node.cells != null) {
-            let cellsHolder: CellsHolder = node.cells;
+            let cellsHolder: KupDataRowCells = node.cells;
             cellsHolder[treeMainColumnName] = {
                 obj: node.obj,
                 value: node.value,
@@ -160,7 +162,7 @@ export class FiltersTreeItems extends FiltersRows {
         }
         /** il valore delle righe attualmente filtrate, formattato */
         rows.forEach((node): void => {
-            let cellsHolder: CellsHolder = node.cells;
+            let cellsHolder: KupDataRowCells = node.cells;
             cellsHolder[treeMainColumnName] = {
                 obj: node.obj,
                 value: node.value,

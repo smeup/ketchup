@@ -56,8 +56,8 @@ export default {
       mapData3: {
         columns: [
           {
-            name: 'Name',
-            title: 'NAME',
+            name: 'NAME',
+            title: 'Name',
           },
           {
             name: 'COLOR',

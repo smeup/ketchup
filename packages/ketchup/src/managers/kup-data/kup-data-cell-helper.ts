@@ -1,5 +1,5 @@
-import { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
+    KupDataCell,
     KupDataDataset,
     KupDataFindCellFilters,
 } from './kup-data-declarations';
@@ -9,12 +9,12 @@ import { finder } from './kup-data-helper';
  * Finds all the cells matching the filters criteria in the input dataset.
  * @param {KupDataDataset} dataset - Input dataset.
  * @param {KupDataFindCellFilters} filters - Filters of the research.
- * @returns {Cell[]}  Array of cells fetched after applying the filters.
+ * @returns {KupDataCell[]}  Array of cells fetched after applying the filters.
  */
 export function findCell(
     dataset: KupDataDataset,
     filters: KupDataFindCellFilters
-): Cell[] {
+): KupDataCell[] {
     return finder(dataset, filters).cells;
 }
 /**
@@ -44,16 +44,16 @@ export function getCellValue(
  * Overrides the given cell attributes for the specified columns.
  * If no columns are provided, the value will be applied to every column of the dataset.
  * @param {KupDataDataset} dataset - Input dataset.
- * @param {Cell} cell - New cell.
+ * @param {KupDataCell} cell - New cell.
  * @param {string[]} columns - Columns to be handled.
- * @returns {Cell[]} Replaced cells.
+ * @returns {KupDataCell[]} Replaced cells.
  */
 export function replaceCell(
     dataset: KupDataDataset,
-    cell: Cell,
+    cell: KupDataCell,
     columns?: string[]
-): Cell[] {
-    const replaced: Cell[] = [];
+): KupDataCell[] {
+    const replaced: KupDataCell[] = [];
     for (let index = 0; index < dataset.rows.length; index++) {
         const row = dataset.rows[index];
         const cells = row.cells;

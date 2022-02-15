@@ -1,8 +1,8 @@
 import numeral from 'numeral';
-import { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataDataset,
     KupDataDatasetOperations,
@@ -44,7 +44,7 @@ export class KupData {
                 find(
                     dataset: KupDataDataset,
                     filters: KupDataFindCellFilters
-                ): Cell[] {
+                ): KupDataCell[] {
                     return findCell(dataset, filters);
                 },
                 getValue(
@@ -55,9 +55,9 @@ export class KupData {
                 },
                 replace(
                     dataset: KupDataDataset,
-                    cell: Cell,
+                    cell: KupDataCell,
                     columns?: string[]
-                ): Cell[] {
+                ): KupDataCell[] {
                     return replaceCell(dataset, cell, columns);
                 },
             },

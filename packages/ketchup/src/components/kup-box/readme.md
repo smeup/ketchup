@@ -66,7 +66,7 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
-### `loadRowActions(row: KupBoxRow, actions: RowAction[]) => Promise<void>`
+### `loadRowActions(row: KupBoxRow, actions: KupDataRowAction[]) => Promise<void>`
 
 
 

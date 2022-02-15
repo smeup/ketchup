@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Cell, GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, RowAction, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
@@ -20,16 +20,16 @@ import { KupCalendarData, KupCalendarDateClickEventPayload, KupCalendarEventClic
 import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } from "./components/kup-card/kup-card-declarations";
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
-import { KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes } from "./managers/kup-data/kup-data-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
-import { KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
+import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, KupEchartTitle, KupEchartTypes } from "./components/kup-echart/kup-echart-declarations";
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
@@ -286,7 +286,7 @@ export namespace Components {
           * @default undefined
          */
         "layout": KupBoxLayout;
-        "loadRowActions": (row: KupBoxRow, actions: RowAction[]) => Promise<void>;
+        "loadRowActions": (row: KupBoxRow, actions: KupDataRowAction[]) => Promise<void>;
         /**
           * Enable multi selection
           * @default false
@@ -620,7 +620,7 @@ export namespace Components {
           * The data of the cell.
           * @default false
          */
-        "data": Cell;
+        "data": KupDataCell;
         /**
           * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
          */
@@ -1033,7 +1033,7 @@ export namespace Components {
         /**
           * The data of the table.
          */
-        "data": KupDataDataset;
+        "data": KupDataTableDataset;
         "defaultSortingFunction": (columns: KupDataColumn[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<KupDataColumn[]>;
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
@@ -1100,7 +1100,7 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
-        "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataDataset; }>;
+        "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: KupDataTableDataset; }>;
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -1200,7 +1200,7 @@ export namespace Components {
         /**
           * Sets the actions of the rows.
          */
-        "rowActions": Array<RowAction>;
+        "rowActions": Array<KupDataRowAction>;
         /**
           * Sets the number of rows per page to display.
          */
@@ -3691,7 +3691,7 @@ declare namespace LocalJSX {
           * The data of the cell.
           * @default false
          */
-        "data"?: Cell;
+        "data"?: KupDataCell;
         /**
           * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
          */
@@ -4015,7 +4015,7 @@ declare namespace LocalJSX {
         /**
           * The data of the table.
          */
-        "data"?: KupDataDataset;
+        "data"?: KupDataTableDataset;
         /**
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
@@ -4194,7 +4194,7 @@ declare namespace LocalJSX {
         /**
           * Sets the actions of the rows.
          */
-        "rowActions"?: Array<RowAction>;
+        "rowActions"?: Array<KupDataRowAction>;
         /**
           * Sets the number of rows per page to display.
          */
@@ -4458,7 +4458,7 @@ declare namespace LocalJSX {
           * @default null
          */
         "map"?: KupEchartMaps | string | GeoJSON;
-        "onKup-echart-click"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-echart-click"?: (event: CustomEvent<KupEchartClickEventPayload>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
           * @default []

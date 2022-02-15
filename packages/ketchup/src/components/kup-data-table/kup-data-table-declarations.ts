@@ -1,13 +1,11 @@
-import {
-    FCellInfo,
-    FCellShapes,
-} from '../../f-components/f-cell/f-cell-declarations';
-import { KupEventPayload } from '../../types/GenericTypes';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
+    KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
 
 /**
@@ -72,59 +70,34 @@ export enum KupDataTableProps {
     tooltipEnabled = 'Enable show tooltip',
     totals = 'Defines the current totals options.',
 }
-
-export interface CellData {
-    [index: string]: any;
+export interface KupDataTableDataset {
+    columns?: KupDataColumn[];
+    rows?: KupDataTableRow[];
 }
-
-export interface Cell {
-    value: string;
-    cardID?: number;
-    cssClass?: string;
-    data?: CellData;
-    displayedValue?: string;
-    icon?: string;
-    info?: FCellInfo;
-    isEditable?: boolean;
-    obj?: KupObj;
-    shape?: FCellShapes;
-    span?: KupDatatableCellSpan;
-    style?: GenericMap;
-    styleContent?: GenericMap;
-    title?: string;
+export interface KupDataTableRow extends KupDataRow {
+    cells: KupDataTableRowCells;
+    group?: KupDataTableRowGroup;
 }
-
-export interface KupDatatableCellSpan {
+export interface KupDataTableRowGroup {
+    children: Array<KupDataTableRow>;
+    column: string;
+    columnLabel: string;
+    expanded: boolean;
+    id: string;
+    label: string;
+    obj: KupObj;
+    parent: KupDataTableRow;
+    totals: GenericObject;
+}
+export interface KupDataTableRowCells {
+    [index: string]: KupDataTableCell;
+}
+export interface KupDataTableCell extends KupDataCell {
+    span?: KupDataTableCellSpan;
+}
+export interface KupDataTableCellSpan {
     col: number;
     row: number;
-}
-export interface CellsHolder {
-    [index: string]: Cell;
-}
-export interface ColumnChild {
-    name: string;
-    obj: KupObj;
-    icon?: string;
-}
-
-export interface RowGroup {
-    id: string;
-    parent: KupDataRow;
-    column: string;
-    columnLabel: string; // Saves the column label in case either LABEL or BOTH modes for the groupLabelDisplay are activated
-    expanded: boolean; // not sure if this is needed
-    label: string;
-    children: Array<KupDataRow>;
-    obj: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    totals: { [index: string]: any }; // TODO manage this any
-}
-
-export interface GenericMap {
-    [index: string]: string;
 }
 
 export interface SortObject {
@@ -172,11 +145,6 @@ export enum PaginatorPos {
 export interface GroupObject {
     column: string;
     visible: boolean;
-}
-
-export interface RowAction {
-    text: string;
-    icon: string;
 }
 
 export enum ShowGrid {
@@ -244,7 +212,7 @@ export const totalMenuOpenID = 'TOMEOPID';
  */
 export interface KupDatatableEventHandlerDetails {
     area: string;
-    cell: Cell;
+    cell: KupDataTableCell;
     column: KupDataColumn;
     filterRemove: HTMLElement;
     isGroupRow: boolean;
@@ -306,12 +274,12 @@ export interface KupDatatableRowActionClickEventPayload
     extends KupEventPayload {
     type: 'default' | 'variable' | 'expander';
     row: KupDataRow;
-    action?: RowAction;
+    action?: KupDataRowAction;
     index?: number;
 }
 export interface KupDataTableCellButtonClickEventPayload
     extends KupEventPayload {
-    cell: Cell;
+    cell: KupDataTableCell;
     column: KupDataColumn;
     row: KupDataRow;
 }

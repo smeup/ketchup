@@ -1,4 +1,3 @@
-import type { Cell } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { FCheckboxProps } from '../f-checkbox/f-checkbox-declarations';
 import type { FImageProps } from '../f-image/f-image-declarations';
 import type { FButtonProps } from '../f-button/f-button-declarations';
@@ -33,6 +32,7 @@ import { FChip } from '../f-chip/f-chip';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupButtonClickEventPayload } from '../../components/kup-button/kup-button-declarations';
 import {
+    KupDataCell,
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -168,7 +168,7 @@ export const FCell: FunctionalComponent<FCellProps> = (props: FCellProps) => {
 function setCellSize(
     cellType: string,
     subcomponentProps: unknown,
-    cell: Cell,
+    cell: KupDataCell,
     props: FCellProps
 ) {
     switch (cellType) {
@@ -216,7 +216,7 @@ function setCellSize(
 function setCellSizeKup(
     cellType: string,
     subcomponentProps: unknown,
-    cell: Cell
+    cell: KupDataCell
 ) {
     switch (cellType) {
         case FCellTypes.BAR:
@@ -269,7 +269,7 @@ function setCellSizeKup(
 function setEditableCell(
     cellType: string,
     classObj: Record<string, boolean>,
-    cell: Cell,
+    cell: KupDataCell,
     column: KupDataColumn,
     props: FCellProps
 ): unknown {
@@ -407,7 +407,7 @@ function setCell(
     subcomponentProps: unknown,
     content: unknown,
     classObj: Record<string, boolean>,
-    cell: Cell,
+    cell: KupDataCell,
     column: KupDataColumn,
     props: FCellProps
 ): unknown {
@@ -491,7 +491,7 @@ function setKupCell(
     cellType: string,
     classObj: Record<string, boolean>,
     subcomponentProps: unknown,
-    cell: Cell,
+    cell: KupDataCell,
     row: KupDataRow,
     column: KupDataColumn,
     props: FCellProps
@@ -589,7 +589,7 @@ function setKupCell(
     }
 }
 
-function getCellType(cell: Cell, shape?: FCellShapes) {
+function getCellType(cell: KupDataCell, shape?: FCellShapes) {
     const obj = cell.obj;
     if (shape) {
         switch (shape.toUpperCase()) {

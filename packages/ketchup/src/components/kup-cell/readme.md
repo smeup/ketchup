@@ -10,7 +10,7 @@
 | Property      | Attribute      | Description                                                                             | Type                                                                                  | Default             |
 | ------------- | -------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------- |
 | `customStyle` | `custom-style` | Custom style of the component.                                                          | `string`                                                                              | `''`                |
-| `data`        | --             | The data of the cell.                                                                   | `Cell`                                                                                | `null`              |
+| `data`        | --             | The data of the cell.                                                                   | `KupDataCell`                                                                         | `null`              |
 | `density`     | `density`      | The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'. | `FCellPadding.DENSE \| FCellPadding.MEDIUM \| FCellPadding.NONE \| FCellPadding.WIDE` | `FCellPadding.NONE` |
 | `dragEnabled` | `drag-enabled` | When set to true, the component is draggable.                                           | `boolean`                                                                             | `false`             |
 
