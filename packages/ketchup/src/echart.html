@@ -198,7 +198,7 @@
             echart1.series = ['Col3', 'Col4'];
             echart1.types = ['Line', 'Scatter'];
             echart1.data = mockData;
-            echart2.axis = ['Col1'];
+            echart2.axis = 'Col1';
             echart2.types = ['Map'];
             echart2.data = {
                 columns: [
@@ -541,6 +541,9 @@
                 columns: testMockColumns,
                 rows: testMockRows,
             };
+            document.addEventListener('kup-echart-click', (e) => {
+                console.log(e);
+            });
         </script>
     </body>
 </html>

@@ -14,6 +14,7 @@ import * as echarts from 'echarts';
 import { GeoJSON, FeatureCollection } from 'geojson';
 import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
 import {
+    KupEchartClickEventPayload,
     KupEchartLegendPlacement,
     KupEchartMaps,
     KupEchartProps,
@@ -24,11 +25,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import {
-    GenericObject,
-    KupComponent,
-    KupEventPayload,
-} from '../../types/GenericTypes';
+import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
@@ -38,6 +35,7 @@ import {
     KupDataColumn,
     KupDataDataset,
     KupDataFindCellFilters,
+    KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 
@@ -123,22 +121,17 @@ export class KupEchart {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    /**
-     * Instance of the KupManager class.
-     */
-    private kupManager: KupManager = kupManagerInstance();
-    /**
-     * Used to prevent too many resizes callbacks at once.
-     */
-    private resizeTimeout: number;
-    private chartContainer?: HTMLDivElement;
-    private chartEl: echarts.ECharts;
-    private gaussianDatasets: { [index: string]: KupDataDataset };
-    private themeBorder: string = null;
-    private themeBackground: string = null;
-    private themeColors: string[] = null;
-    private themeFont: string = null;
-    private themeText: string = null;
+    #kupManager: KupManager = kupManagerInstance();
+    #resizeTimeout: number;
+    #chartContainer?: HTMLDivElement;
+    #chartEl: echarts.ECharts;
+    #gaussianDatasets: { [index: string]: KupDataDataset };
+    #sortedDataset: KupDataDataset = null;
+    #themeBorder: string = null;
+    #themeBackground: string = null;
+    #themeColors: string[] = null;
+    #themeFont: string = null;
+    #themeText: string = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -150,11 +143,7 @@ export class KupEchart {
         cancelable: false,
         bubbles: true,
     })
-    kupEchartClick: EventEmitter<KupEventPayload>;
-
-    private onKupClick() {
-        this.kupEchartClick.emit({ comp: this, id: this.rootElement.id });
-    }
+    kupEchartClick: EventEmitter<KupEchartClickEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -181,8 +170,8 @@ export class KupEchart {
      */
     @Method()
     async resizeCallback(): Promise<void> {
-        window.clearTimeout(this.resizeTimeout);
-        this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+        window.clearTimeout(this.#resizeTimeout);
+        this.#resizeTimeout = window.setTimeout(() => this.refresh(), 300);
     }
     /**
      * Sets the props to the component.
@@ -197,27 +186,31 @@ export class KupEchart {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private initChart() {
-        if (this.chartEl) {
-            echarts.dispose(this.chartContainer);
+    #initChart() {
+        if (this.#chartEl) {
+            echarts.dispose(this.#chartContainer);
         }
         if (this.types && this.types.length > 0) {
-            this.chartEl = echarts.init(this.chartContainer);
-            this.createChart();
+            this.#chartEl = echarts.init(this.#chartContainer);
+            this.#createChart();
         } else {
-            this.kupManager.debug.logMessage(
+            this.#kupManager.debug.logMessage(
                 this,
                 "Can't intialize chart without specifiying at least 1 type.",
                 KupDebugCategory.WARNING
             );
         }
     }
-    private async createChart() {
+    async #createChart() {
+        this.#sortedDataset = null;
+        if (!this.axis && !this.types.includes(KupEchartTypes.GAUSSIAN)) {
+            this.axis = this.data.columns[0].name;
+        }
         let options: echarts.EChartsOption = null;
         const firstType = this.types[0];
         switch (firstType) {
             case KupEchartTypes.GAUSSIAN:
-                options = this.setGaussianOptions();
+                options = this.#setGaussianOptions();
                 break;
             case KupEchartTypes.MAP:
                 let stringifiedMap = '';
@@ -239,7 +232,7 @@ export class KupEchart {
                     }
                 }
                 if (!stringifiedMap) {
-                    this.kupManager.debug.logMessage(
+                    this.#kupManager.debug.logMessage(
                         this,
                         "Couldn't fetch map JSON.",
                         KupDebugCategory.WARNING
@@ -250,19 +243,39 @@ export class KupEchart {
                     this.rootElement.id ? this.rootElement.id : '',
                     stringifiedMap
                 );
-                options = this.setMapOptions(stringifiedMap);
+                options = this.#setMapOptions(stringifiedMap);
                 break;
             case KupEchartTypes.PIE:
-                options = this.setPieOptions();
+                options = this.#setPieOptions();
                 break;
             default:
-                options = this.setOptions();
+                options = this.#setOptions();
                 break;
         }
-        this.chartEl.setOption(options, true);
+        this.#chartEl.setOption(options, true);
+        this.#chartEl.on('click', (e) => {
+            const column = this.#kupManager.data.datasetOperations.column.find(
+                this.data,
+                {
+                    title: e.seriesName,
+                }
+            )[0];
+            let row: KupDataRow = null;
+            if (this.#sortedDataset && e.seriesType === 'bar') {
+                this.#sortedDataset.rows[e.dataIndex];
+            } else {
+                row = this.data.rows[e.dataIndex];
+            }
+            this.kupEchartClick.emit({
+                comp: this,
+                id: this.rootElement.id,
+                column: column,
+                row: row,
+            });
+        });
     }
 
-    private createX(dataset: KupDataDataset = null) {
+    #createX(dataset: KupDataDataset = null) {
         const x: string[] = [];
         if (!dataset) dataset = this.data;
         if (!this.axis) {
@@ -289,7 +302,7 @@ export class KupEchart {
         return x;
     }
 
-    private createY() {
+    #createY() {
         const y = {};
         if (this.series && this.series.length > 0) {
             for (const row of this.data.rows) {
@@ -331,19 +344,19 @@ export class KupEchart {
         return y;
     }
 
-    private setAxisColors() {
+    #setAxisColors() {
         return {
             axisLabel: {
-                color: this.themeText,
-                fontFamily: this.themeFont,
+                color: this.#themeText,
+                fontFamily: this.#themeFont,
             },
-            axisLine: { lineStyle: { color: this.themeText } },
-            axisTick: { lineStyle: { color: this.themeBorder } },
-            splitLine: { lineStyle: { color: this.themeBorder } },
+            axisLine: { lineStyle: { color: this.#themeText } },
+            axisTick: { lineStyle: { color: this.#themeBorder } },
+            splitLine: { lineStyle: { color: this.#themeBorder } },
         } as echarts.XAXisComponentOption | echarts.YAXisComponentOption;
     }
 
-    private setLegend(y: {}) {
+    #setLegend(y: {}) {
         const data: string[] = [];
         for (let key in y) {
             data.push(key);
@@ -352,13 +365,13 @@ export class KupEchart {
             data: data,
             [this.legend]: 0,
             textStyle: {
-                color: this.themeText,
-                fontFamily: this.themeFont,
+                color: this.#themeText,
+                fontFamily: this.#themeFont,
             },
         } as echarts.LegendComponentOption;
     }
 
-    private setTitle() {
+    #setTitle() {
         return {
             text: this.chartTitle ? this.chartTitle.value : undefined,
             [this.chartTitle && this.chartTitle.position
@@ -369,7 +382,7 @@ export class KupEchart {
                     this.chartTitle && this.chartTitle.color
                         ? this.chartTitle.color
                         : 'black',
-                fontFamily: this.themeFont,
+                fontFamily: this.#themeFont,
                 fontSize:
                     this.chartTitle && this.chartTitle.size
                         ? this.chartTitle.size
@@ -378,17 +391,17 @@ export class KupEchart {
         } as echarts.TitleComponentOption;
     }
 
-    private setTooltip() {
+    #setTooltip() {
         return {
-            backgroundColor: this.themeBackground,
+            backgroundColor: this.#themeBackground,
             textStyle: {
-                color: this.themeText,
-                fontFamily: this.themeFont,
+                color: this.#themeText,
+                fontFamily: this.#themeFont,
             },
         } as echarts.TooltipComponentOption;
     }
 
-    private setVisualMap(
+    #setVisualMap(
         max: number,
         min: number,
         colors: string[],
@@ -403,7 +416,7 @@ export class KupEchart {
             ? undefined
             : colors.length > 0
             ? { inRange: { color: colors }, min: min, max: max }
-            : { inRange: { color: this.themeColors }, min: min, max: max };
+            : { inRange: { color: this.#themeColors }, min: min, max: max };
         if (colorRange) {
             opts.visualMap = {
                 ...opts.visualMap,
@@ -417,7 +430,7 @@ export class KupEchart {
         return opts;
     }
 
-    private setMapOptions(map: string) {
+    #setMapOptions(map: string) {
         const mapJson: FeatureCollection = JSON.parse(map);
         const isoA2: string[] = [];
         const names: string[] = [];
@@ -450,11 +463,11 @@ export class KupEchart {
             for (let index = 0; index < y[key].length; index++) {
                 const value = y[key][index];
                 const hexColor =
-                    this.kupManager.theme.colorCheck(value).hexColor;
+                    this.#kupManager.theme.colorCheck(value).hexColor;
                 if (hexColor) {
                     color = hexColor;
                 } else {
-                    n = this.kupManager.data.numberify(value);
+                    n = this.#kupManager.data.numberify(value);
                     if (n > max) {
                         max = n;
                     }
@@ -487,9 +500,9 @@ export class KupEchart {
                     show: true,
                 },
             },
-            title: this.setTitle(),
+            title: this.#setTitle(),
             tooltip: {
-                ...this.setTooltip(),
+                ...this.#setTooltip(),
                 formatter: function (
                     params: echarts.DefaultLabelFormatterCallbackParams
                 ) {
@@ -518,18 +531,22 @@ export class KupEchart {
                         },
                     },
                     map: this.rootElement.id ? this.rootElement.id : '',
+                    name: this.#kupManager.data.datasetOperations.column.find(
+                        this.data,
+                        { name: this.axis }
+                    )[0].title,
                     roam: true,
                     type: 'map',
                 } as echarts.MapSeriesOption,
             ],
-            ...this.setVisualMap(max, min, colors, hasNumericValues),
+            ...this.#setVisualMap(max, min, colors, hasNumericValues),
         };
 
         return echartOption;
     }
 
-    private setPieOptions() {
-        const y = this.createY();
+    #setPieOptions() {
+        const y = this.#createY();
         const data = [];
         for (let key in y) {
             let sum: number = 0;
@@ -542,17 +559,20 @@ export class KupEchart {
             });
         }
         return {
-            color: this.themeColors,
-            legend: this.setLegend(y),
-            title: this.setTitle(),
+            color: this.#themeColors,
+            legend: this.#setLegend(y),
+            title: this.#setTitle(),
             tooltip: {
-                ...this.setTooltip(),
+                ...this.#setTooltip(),
                 trigger: 'item',
                 formatter: '{a} <br/>{b}: {c} ({d}%)',
             },
             series: [
                 {
-                    name: 'echart',
+                    name: this.#kupManager.data.datasetOperations.column.find(
+                        this.data,
+                        { name: this.axis }
+                    )[0].title,
                     type: 'pie',
                     data: data,
                     emphasis: {
@@ -567,15 +587,15 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
-    private setGaussianOptions() {
-        let x = this.createX();
-        const y = this.createY();
+    #setGaussianOptions() {
+        let x = this.#createX();
+        const y = this.#createY();
         const series: echarts.SeriesOption[] = [];
         const mixedSeries =
             this.types.filter((i) => i != KupEchartTypes.GAUSSIAN).length > 0;
         const needSortDataset =
             this.types.filter((j) => j != KupEchartTypes.GAUSSIAN).length == 1;
-        this.gaussianDatasets = {};
+        this.#gaussianDatasets = {};
         let i: number = 0;
         for (const key in y) {
             let type: KupEchartTypes;
@@ -589,45 +609,45 @@ export class KupEchart {
                 (col: KupDataColumn) => col.title === key
             );
             if (type == KupEchartTypes.GAUSSIAN) {
-                if (!this.kupManager.objects.isNumber(column.obj)) {
+                if (!this.#kupManager.objects.isNumber(column.obj)) {
                     const newDataset =
-                        this.kupManager.data.datasetOperations.distinct(
+                        this.#kupManager.data.datasetOperations.distinct(
                             this.data,
                             [column.name]
                         );
                     values =
-                        this.kupManager.data.datasetOperations.cell.getValue(
+                        this.#kupManager.data.datasetOperations.cell.getValue(
                             newDataset,
                             [column.name]
                         );
-                    this.gaussianDatasets[column.name] = newDataset;
+                    this.#gaussianDatasets[column.name] = newDataset;
                 } else {
                     values = y[key];
                 }
             } else {
                 if (needSortDataset) {
                     // if there is only one series other than the Gaussian then I apply the sorting algorithm that arranges the data in "mountain"
-                    const contextDataset =
-                        this.kupManager.data.datasetOperations.sort(
+                    this.#sortedDataset =
+                        this.#kupManager.data.datasetOperations.sort(
                             this.data,
                             'normalDistribution',
                             column.name
                         );
                     values =
-                        this.kupManager.data.datasetOperations.cell.getValue(
-                            contextDataset,
+                        this.#kupManager.data.datasetOperations.cell.getValue(
+                            this.#sortedDataset,
                             [column.name]
                         );
-                    x = this.createX(contextDataset);
+                    x = this.#createX(this.#sortedDataset);
                 } else {
                     values =
-                        this.kupManager.data.datasetOperations.cell.getValue(
+                        this.#kupManager.data.datasetOperations.cell.getValue(
                             this.data,
                             [column.name]
                         );
                 }
             }
-            this.addSeries(
+            this.#addSeries(
                 type,
                 series,
                 values,
@@ -668,9 +688,9 @@ export class KupEchart {
                         },
                     };
                     const rows =
-                        this.kupManager.data.datasetOperations.row.find(
-                            this.gaussianDatasets[column]
-                                ? this.gaussianDatasets[column]
+                        this.#kupManager.data.datasetOperations.row.find(
+                            this.#gaussianDatasets[column]
+                                ? this.#gaussianDatasets[column]
                                 : this.data,
                             filters
                         );
@@ -711,13 +731,13 @@ export class KupEchart {
         // list of x-axis, one for the non-Gaussian series which appears on the left and one for the Gaussian series on the right.
         const xAxisTmp = [
             {
-                ...this.setAxisColors(),
+                ...this.#setAxisColors(),
                 data: x.length > 0 ? x : null,
                 type: 'category',
                 ...this.xAxis,
             },
             {
-                ...this.setAxisColors(),
+                ...this.#setAxisColors(),
                 type: 'value',
                 max: 'dataMax',
                 min: 'dataMin',
@@ -727,12 +747,12 @@ export class KupEchart {
         // list of y-axis, one for the non-Gaussian series which appears at the bottom and one for the Gaussian series at the top.
         const yAxisTmp = [
             {
-                ...this.setAxisColors(),
+                ...this.#setAxisColors(),
                 type: 'value',
                 ...this.yAxis,
             },
             {
-                ...this.setAxisColors(),
+                ...this.#setAxisColors(),
                 type: 'value',
                 ...this.yAxis,
             },
@@ -743,12 +763,12 @@ export class KupEchart {
             yAxisTmp.splice(0, 1);
         }
         return {
-            color: this.themeColors,
-            legend: this.setLegend(y),
+            color: this.#themeColors,
+            legend: this.#setLegend(y),
             series: series,
-            title: this.setTitle(),
+            title: this.#setTitle(),
             tooltip: {
-                ...this.setTooltip(),
+                ...this.#setTooltip(),
                 trigger: 'axis',
                 formatter: tipCb,
             },
@@ -757,7 +777,7 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
-    private addSeries(
+    #addSeries(
         type: KupEchartTypes,
         series: echarts.SeriesOption[],
         values: string[],
@@ -768,7 +788,7 @@ export class KupEchart {
         switch (type) {
             case KupEchartTypes.GAUSSIAN:
                 series.push({
-                    data: this.kupManager.data.normalDistribution(values),
+                    data: this.#kupManager.data.normalDistribution(values),
                     name: key,
                     showSymbol: false,
                     smooth: true,
@@ -803,9 +823,9 @@ export class KupEchart {
         }
     }
 
-    private setOptions() {
-        const x = this.createX();
-        const y = this.createY();
+    #setOptions() {
+        const x = this.#createX();
+        const y = this.#createY();
         let i: number = 0;
         const series: echarts.SeriesOption[] = [];
         for (const key in y) {
@@ -816,50 +836,50 @@ export class KupEchart {
             } else {
                 type = KupEchartTypes.LINE;
             }
-            this.addSeries(type, series, values, key);
+            this.#addSeries(type, series, values, key);
             i++;
         }
         return {
-            color: this.themeColors,
-            legend: this.setLegend(y),
+            color: this.#themeColors,
+            legend: this.#setLegend(y),
             series: series,
-            title: this.setTitle(),
+            title: this.#setTitle(),
             tooltip: {
-                ...this.setTooltip(),
+                ...this.#setTooltip(),
                 trigger: 'axis',
             },
             xAxis: {
-                ...this.setAxisColors(),
+                ...this.#setAxisColors(),
                 data: x,
                 type: 'category',
                 ...this.xAxis,
             },
             yAxis: {
-                ...this.setAxisColors(),
+                ...this.#setAxisColors(),
                 type: 'value',
                 ...this.yAxis,
             },
         } as echarts.EChartsOption;
     }
 
-    private fetchThemeColors() {
+    #fetchThemeColors() {
         let colorArray: string[] = [];
         let key: string = '--kup-chart-color-';
         for (
             let index = 1;
-            this.kupManager.theme.cssVars[key + index];
+            this.#kupManager.theme.cssVars[key + index];
             index++
         ) {
-            colorArray.push(this.kupManager.theme.cssVars[key + index]);
+            colorArray.push(this.#kupManager.theme.cssVars[key + index]);
         }
-        this.themeBackground =
-            this.kupManager.theme.cssVars[KupThemeColorValues.BACKGROUND];
-        this.themeBorder =
-            this.kupManager.theme.cssVars[KupThemeColorValues.BORDER];
-        this.themeFont = this.kupManager.theme.cssVars['--kup-font-family'];
-        this.themeText =
-            this.kupManager.theme.cssVars[KupThemeColorValues.TEXT];
-        this.themeColors = colorArray;
+        this.#themeBackground =
+            this.#kupManager.theme.cssVars[KupThemeColorValues.BACKGROUND];
+        this.#themeBorder =
+            this.#kupManager.theme.cssVars[KupThemeColorValues.BORDER];
+        this.#themeFont = this.#kupManager.theme.cssVars['--kup-font-family'];
+        this.#themeText =
+            this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
+        this.#themeColors = colorArray;
     }
 
     /*-------------------------------------------------*/
@@ -867,31 +887,31 @@ export class KupEchart {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.register(this);
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        this.kupManager.resize.observe(this.rootElement);
-        this.kupManager.debug.logLoad(this, true);
+        this.#kupManager.resize.observe(this.rootElement);
+        this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
-        this.fetchThemeColors();
+        this.#kupManager.debug.logRender(this, false);
+        this.#fetchThemeColors();
     }
 
     componentDidRender() {
         if (this.data && this.data.columns && this.data.rows) {
-            this.initChart();
+            this.#initChart();
         } else {
-            this.kupManager.debug.logMessage(
+            this.#kupManager.debug.logMessage(
                 this,
                 'Insufficient data.(' + this.data + ')',
                 KupDebugCategory.WARNING
             );
         }
-        this.kupManager.debug.logRender(this, true);
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -903,15 +923,14 @@ export class KupEchart {
         return (
             <Host style={style}>
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
                 <div
                     id={componentWrapperId}
-                    onClick={() => this.onKupClick()}
                     ref={(chartContainer) =>
-                        (this.chartContainer = chartContainer)
+                        (this.#chartContainer = chartContainer)
                     }
                 ></div>
             </Host>
@@ -919,7 +938,7 @@ export class KupEchart {
     }
 
     disconnectedCallback() {
-        this.kupManager.theme.unregister(this);
-        this.kupManager.resize.unobserve(this.rootElement);
+        this.#kupManager.theme.unregister(this);
+        this.#kupManager.resize.unobserve(this.rootElement);
     }
 }

@@ -1,3 +1,9 @@
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupEventPayload } from '../../types/GenericTypes';
+
 /**
  * Props of the kup-echart component.
  * Used to export every prop in an object.
@@ -47,4 +53,8 @@ export enum KupEchartTypes {
     MAP = 'Map',
     PIE = 'Pie',
     SCATTER = 'Scatter',
+}
+export interface KupEchartClickEventPayload extends KupEventPayload {
+    column: KupDataColumn;
+    row: KupDataRow;
 }
