@@ -141,8 +141,7 @@ export class KupButtonList {
                 KupDebugCategory.WARNING
             );
             const data = this.data as KupDataDataset;
-            this.data =
-                this.kupManager.data.datasetOperations.row.toTreeNode(data);
+            this.data = this.kupManager.data.datasetOperations.row.toNode(data);
         }
     }
 

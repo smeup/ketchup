@@ -45,11 +45,11 @@ export interface KupDataColumnChild {
  */
 export interface KupDataRow {
     cells: KupDataRowCells;
-    actions?: Array<KupDataRowAction>;
+    actions?: KupDataRowAction[];
     cssClass?: string;
     id?: string;
-    transposedColumnName?: string;
     readOnly?: boolean;
+    transposedColumnName?: string;
 }
 export interface KupDataRowCells {
     [index: string]: KupDataCell;
@@ -165,7 +165,7 @@ export interface KupDataRowOperations {
         dataset: KupDataDataset,
         filters?: KupDataFindCellFilters
     ) => KupDataRow[];
-    toTreeNode: (dataset: KupDataDataset) => KupDataNode[];
+    toNode: (dataset: KupDataDataset) => KupDataNode[];
 }
 /**
  * Interface related to the formulas factory function.

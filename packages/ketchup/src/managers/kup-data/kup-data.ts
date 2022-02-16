@@ -90,7 +90,7 @@ export class KupData {
                 ): KupDataRow[] {
                     return findRow(dataset, filters);
                 },
-                toTreeNode(dataset: KupDataDataset): KupDataNode[] {
+                toNode(dataset: KupDataDataset): KupDataNode[] {
                     return toNode(dataset);
                 },
             },

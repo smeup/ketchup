@@ -1192,7 +1192,7 @@ export class KupTree {
                 const data = this.data as KupDataDataset;
                 this.columns = data.columns;
                 this.data =
-                    this.kupManager.data.datasetOperations.row.toTreeNode(data);
+                    this.kupManager.data.datasetOperations.row.toNode(data);
                 this.showColumns = true;
                 this.showHeader = true;
             }
