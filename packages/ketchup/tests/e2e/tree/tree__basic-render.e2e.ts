@@ -1,6 +1,4 @@
 import { E2EElement, newE2EPage } from '@stencil/core/testing';
-import { GenericMap } from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import { TreeNode } from '../../../src/components/kup-tree/kup-tree-declarations';
 import {
     flattenTree,
     getRndTreeNode,
@@ -9,7 +7,11 @@ import {
 import { KupTreeSelectors } from './tree__selectors';
 import { testTreeNodeValue } from './tree__test__helpers';
 import { defaultData } from './mocked-data';
-import { KupDataColumn } from '../../../src/managers/kup-data/kup-data-declarations';
+import {
+    KupDataColumn,
+    KupDataNode,
+} from '../../../src/managers/kup-data/kup-data-declarations';
+import { GenericMap } from '../../../src/types/GenericTypes';
 
 const dataTreeConfiguration: {
     depth: number;
@@ -17,7 +19,7 @@ const dataTreeConfiguration: {
     depth: 4,
 };
 
-let data: TreeNode[] | undefined;
+let data: KupDataNode[] | undefined;
 let columns: KupDataColumn[] | undefined;
 let page, treeElement, treeHeader, visibleColumns, expandedListener;
 let dynamicCallbackFaker;
@@ -538,7 +540,7 @@ describe('kup-tree with data', () => {
                 await page.waitForChanges();
 
                 // Controls that current data has no children element set
-                let updatedData: TreeNode[] = await treeElement.getProperty(
+                let updatedData: KupDataNode[] = await treeElement.getProperty(
                     'data'
                 );
                 if (updatedData[0].children) {

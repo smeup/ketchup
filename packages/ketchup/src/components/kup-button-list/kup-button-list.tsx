@@ -10,6 +10,7 @@ import {
     Prop,
     State,
     VNode,
+    Watch,
 } from '@stencil/core';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
@@ -23,15 +24,16 @@ import {
 } from '../../f-components/f-button/f-button-declarations';
 import {
     KupButtonListClickEventPayload,
+    KupButtonListNode,
     KupButtonListProps,
 } from './kup-button-list-declarations';
-import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { KupListData } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { setProps } from '../../utils/utils';
 import { KupDropdownButtonEventPayload } from '../kup-dropdown-button/kup-dropdown-button-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-button-list',
@@ -72,7 +74,7 @@ export class KupButtonList {
      * Props of the sub-components.
      * @default []
      */
-    @Prop() data: TreeNode[] = [];
+    @Prop() data: KupButtonListNode[] = [];
     /**
      * When set to true, the sub-components are disabled.
      * @default false
@@ -127,6 +129,23 @@ export class KupButtonList {
     }
 
     /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('data')
+    checkDataset(newData: KupButtonListNode[] | KupDataDataset) {
+        if ((newData as KupDataDataset).columns) {
+            this.kupManager.debug.logMessage(
+                this,
+                'Detected KupDataDataset: converting rows to nodes.',
+                KupDebugCategory.WARNING
+            );
+            const data = this.data as KupDataDataset;
+            this.data = this.kupManager.data.datasetOperations.row.toNode(data);
+        }
+    }
+
+    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -174,7 +193,7 @@ export class KupButtonList {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private renderButton(node: TreeNode, index: number): VNode {
+    private renderButton(node: KupButtonListNode, index: number): VNode {
         if (node === null) {
             this.kupManager.debug.logMessage(
                 this,
@@ -213,7 +232,10 @@ export class KupButtonList {
         return <FButton {...props} />;
     }
 
-    private renderDropdownButton(node: TreeNode, index: number): VNode {
+    private renderDropdownButton(
+        node: KupButtonListNode,
+        index: number
+    ): VNode {
         if (node === null) {
             this.kupManager.debug.logMessage(
                 this,
@@ -252,7 +274,7 @@ export class KupButtonList {
     }
 
     private prepareDataFromTreeNode(
-        node: TreeNode,
+        node: KupButtonListNode,
         index: number
     ): GenericObject {
         const data: GenericObject = node.data != null ? { ...node.data } : {};
@@ -301,11 +323,13 @@ export class KupButtonList {
         return data;
     }
 
-    private getKupListDataForChildren(children: TreeNode[]): KupListData[] {
+    private getKupListDataForChildren(
+        children: KupButtonListNode[]
+    ): KupListData[] {
         let ris: KupListData[] = [];
 
         for (let i = 0; i < children.length; i++) {
-            let tn: TreeNode = children[i];
+            let tn: KupButtonListNode = children[i];
             ris.push({ text: tn.value, icon: tn.icon, value: i.toString() });
         }
         return ris;
@@ -318,7 +342,7 @@ export class KupButtonList {
             subIndexInt = Number(subIndex);
         }
 
-        let tn: TreeNode = this.data[indexInt];
+        let tn: KupButtonListNode = this.data[indexInt];
         if (subIndexInt != -1) {
             return tn.children[subIndexInt].obj;
         }
@@ -331,7 +355,7 @@ export class KupButtonList {
         }
         const columns: VNode[] = [];
         for (let i = 0; i < this.data.length; i++) {
-            const node: TreeNode = this.data[i];
+            const node: KupButtonListNode = this.data[i];
             let b: VNode = null;
             if (node.children != null && node.children.length > 0) {
                 b = this.renderDropdownButton(node, i);
@@ -351,6 +375,7 @@ export class KupButtonList {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.checkDataset(this.data);
         this.kupManager.theme.register(this);
     }
 

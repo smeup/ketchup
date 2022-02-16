@@ -1,6 +1,7 @@
 import {
     KupDataCell,
     KupDataColumn,
+    KupDataNode,
     KupDataRow,
     KupDataRowAction,
     KupDataRowCells,
@@ -47,31 +48,6 @@ export enum KupTreeProps {
     useDynamicExpansion = 'When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property. Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.',
 }
 
-/**
- * The name of the property used by the tree component to store whether a TreeNode is open or closed
- * @constant
- */
-export const treeExpandedPropName = 'isExpanded';
-
-export interface TreeNode {
-    data?: GenericObject;
-    actions?: Array<KupDataRowAction>;
-    cells: KupDataRowCells;
-    children: Array<TreeNode>;
-    disabled: boolean;
-    expandable: boolean;
-    icon?: string;
-    iconColor?: string;
-    id?: string;
-    obj: KupObj;
-    options?: boolean;
-    readOnly?: boolean;
-    style?: { [index: string]: string };
-    value: string;
-    visible?: boolean;
-    [treeExpandedPropName]?: boolean;
-}
-
 export type TreeNodePath = number[];
 
 /**
@@ -101,7 +77,7 @@ export enum KupTreeExpansionMode {
 
 export interface KupTreeNodeCollapseEventPayload extends KupEventPayload {
     treeNodePath: TreeNodePath;
-    treeNode: TreeNode;
+    treeNode: KupDataNode;
 }
 
 export interface KupTreeNodeExpandEventPayload
@@ -136,7 +112,7 @@ export interface KupTreeColumnMenuEventPayload extends KupEventPayload {
 export interface KupTreeDynamicMassExpansionEventPayload
     extends KupEventPayload {
     treeNodePath?: TreeNodePath;
-    treeNode?: TreeNode;
+    treeNode?: KupDataNode;
     expandAll?: boolean;
 }
 

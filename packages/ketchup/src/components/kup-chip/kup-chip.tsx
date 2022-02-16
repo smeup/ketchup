@@ -23,9 +23,9 @@ import { KupChipEventPayload, KupChipProps } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
-import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -57,7 +57,7 @@ export class KupChip {
      * List of elements.
      * @default []
      */
-    @Prop({ mutable: true }) dataNew: TreeNode[] = [];
+    @Prop({ mutable: true }) dataNew: KupDataNode[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD

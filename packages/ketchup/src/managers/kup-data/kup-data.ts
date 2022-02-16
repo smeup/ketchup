@@ -12,6 +12,7 @@ import {
     KupDataNewColumn,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
+    KupDataNode,
     KupDataRow,
 } from './kup-data-declarations';
 import {
@@ -24,7 +25,7 @@ import {
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
-import { findRow } from './kup-data-row-helper';
+import { findRow, toNode } from './kup-data-row-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -88,6 +89,9 @@ export class KupData {
                     filters: KupDataFindCellFilters
                 ): KupDataRow[] {
                     return findRow(dataset, filters);
+                },
+                toNode(dataset: KupDataDataset): KupDataNode[] {
+                    return toNode(dataset);
                 },
             },
             distinct(

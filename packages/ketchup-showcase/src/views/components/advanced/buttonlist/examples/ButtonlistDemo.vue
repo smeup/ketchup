@@ -114,7 +114,7 @@ export default {
         {
           prop: 'data',
           description: 'Props of the sub-components.',
-          type: 'TreeNode',
+          type: 'KupButtonListNode',
           isArray: true,
           default: '[]',
           try: 'json',

@@ -156,7 +156,7 @@ export default {
         {
           prop: 'data',
           description: 'The actual data of the chart.',
-          type: 'TreeNode',
+          type: 'KupDataNode',
           isArray: true,
           default: '[]',
           try: 'json',

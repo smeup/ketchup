@@ -5,7 +5,6 @@ import {
     FChipType,
 } from '../f-chip/f-chip-declarations';
 import { FImage } from '../f-image/f-image';
-import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { FImageProps } from '../f-image/f-image-declarations';
@@ -13,6 +12,7 @@ import {
     KupThemeColorValues,
     KupThemeIconValues,
 } from '../../managers/kup-theme/kup-theme-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -182,10 +182,10 @@ function createChipList(
  *
  * @return {FChipData} Array of FChipData.
  */
-function treeNode2Data(dataNew: TreeNode[]): FChipData[] {
-    function children(TreeNode: TreeNode) {
+function treeNode2Data(dataNew: KupDataNode[]): FChipData[] {
+    function children(TreeNode: KupDataNode) {
         for (let index = 0; index < TreeNode.children.length; index++) {
-            const node: TreeNode = TreeNode.children[index];
+            const node: KupDataNode = TreeNode.children[index];
             data.push({
                 icon: TreeNode.children[index].icon,
                 label: TreeNode.children[index].value,
@@ -199,7 +199,7 @@ function treeNode2Data(dataNew: TreeNode[]): FChipData[] {
     }
     const data: FChipData[] = [];
     for (let index = 0; index < dataNew.length; index++) {
-        const node: TreeNode = dataNew[index];
+        const node: KupDataNode = dataNew[index];
         data.push({
             icon: node.icon,
             label: node.value,
