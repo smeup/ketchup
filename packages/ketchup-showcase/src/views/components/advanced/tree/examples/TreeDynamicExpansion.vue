@@ -10,7 +10,7 @@
     <p
       >This page contains a lot of logging operations to help understand better
       how the <code class="inline">collapse</code> and
-      <code class="inline">expand</code> event of the TreeNodes are triggered
+      <code class="inline">expand</code> event of the KupDataNodes are triggered
       and with which payload.</p
     >
 
@@ -27,7 +27,7 @@
     <p
       >In other words this means that you always have to control the event
       payload field <code class="inline" v-text="childrenRequestProp" /> to
-      check if the <code class="inline">kup-tree</code> is requiring TreeNode
+      check if the <code class="inline">kup-tree</code> is requiring KupDataNode
       children to be fetched or if the current event is simply a notification of
       a node expansion.</p
     >
@@ -106,9 +106,8 @@ export default {
       useCallbackTable = DynamicExpansionFaker(3, 3),
       // TODO horrible name, change it
       useCallbackCallback = kupTreeDynamicCallbackFactory(useCallback),
-      useCallbackTableCallback = kupTreeDynamicCallbackFactory(
-        useCallbackTable
-      );
+      useCallbackTableCallback =
+        kupTreeDynamicCallbackFactory(useCallbackTable);
 
     return {
       callbacks: {

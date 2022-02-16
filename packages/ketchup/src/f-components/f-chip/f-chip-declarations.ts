@@ -1,12 +1,12 @@
 import type { FComponent } from '../../types/GenericTypes';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
-import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 /**
  * Props of the f-chip component.
  */
 export interface FChipsProps extends FComponent {
     data?: FChipData[];
-    dataNew?: TreeNode[];
+    dataNew?: KupDataNode[];
     onClick?: ((event: MouseEvent) => void)[];
     onBlur?: ((event: FocusEvent) => void)[];
     onFocus?: ((event: FocusEvent) => void)[];

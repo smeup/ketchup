@@ -295,13 +295,13 @@ export function transposeDataset(
             transposed.rows.unshift({
                 id: String(index),
                 cells,
-                name: oldColumn.name,
+                transposedColumnName: oldColumn.name,
             });
         } else {
             transposed.rows.push({
                 id: String(index),
                 cells,
-                name: oldColumn.name,
+                transposedColumnName: oldColumn.name,
             });
         }
     }

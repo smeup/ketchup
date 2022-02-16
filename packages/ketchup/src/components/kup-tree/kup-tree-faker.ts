@@ -1,16 +1,13 @@
 //---- Types ----
 import {
     KupDataColumn,
+    KupDataNode,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
-import {
-    TreeNode,
-    TreeNodePath,
-    treeExpandedPropName,
-} from './kup-tree-declarations';
+import { TreeNodePath } from './kup-tree-declarations';
 
 interface TreeRndNodeGetter {
-    selectedTreeNode: TreeNode | null;
+    selectedTreeNode: KupDataNode | null;
     treeNodePath: TreeNodePath | null;
 }
 
@@ -29,7 +26,7 @@ export interface DynamicExpansionFakerOptions {
 
 export interface TreeConfigData {
     columns: KupDataColumn[];
-    data: TreeNode[];
+    data: KupDataNode[];
 }
 
 //---- Constants ----
@@ -98,9 +95,9 @@ export function getRandomInteger(maximum: number = 10): number {
 }
 
 export function getTreeNodeFromPath(
-    treeNodes: TreeNode[],
+    treeNodes: KupDataNode[],
     path: TreeNodePath
-): TreeNode | null {
+): KupDataNode | null {
     if (path.length) {
         let supportTreeNode = treeNodes[path[0]];
         for (let i = 1; i < path.length; i++) {
@@ -112,16 +109,16 @@ export function getTreeNodeFromPath(
 }
 
 export function flattenTree(
-    nodesToFlatten: TreeNode[],
+    nodesToFlatten: KupDataNode[],
     useIsExpandedFlag = true
 ) {
-    let flattenedNodes: TreeNode[] = [];
+    let flattenedNodes: KupDataNode[] = [];
     if (nodesToFlatten && nodesToFlatten.length) {
         for (let i = 0; i < nodesToFlatten.length; i++) {
             flattenedNodes.push(nodesToFlatten[i]);
             if (
                 !useIsExpandedFlag ||
-                (useIsExpandedFlag && nodesToFlatten[i][treeExpandedPropName])
+                (useIsExpandedFlag && nodesToFlatten[i].isExpanded)
             ) {
                 flattenedNodes = flattenedNodes.concat(
                     flattenTree(nodesToFlatten[i].children)
@@ -140,7 +137,7 @@ export function flattenTree(
  * @param currentDepth
  */
 function randomlyTraverseTree(
-    currentDepthTreeElements: TreeNode[],
+    currentDepthTreeElements: KupDataNode[],
     desiredTreeNodeDepth: number,
     currentDepth: number = 0
 ): TreeRndNodeGetter {
@@ -195,7 +192,7 @@ function randomlyTraverseTree(
 }
 
 export function getRndTreeNode(
-    currentDepthTreeElements: TreeNode[],
+    currentDepthTreeElements: KupDataNode[],
     treeDepth: number
 ): TreeRndNodeGetter {
     return randomlyTraverseTree(
@@ -238,7 +235,7 @@ function TreeNodeFactory(
     } = {
         minimumChildCount: 0,
     }
-): TreeNode {
+): KupDataNode {
     let childrenCount = Math.max(
         getRandomInteger(options.maximumChildCount || 5),
         options.minimumChildCount
@@ -314,9 +311,7 @@ function TreeNodeFactory(
 
         id: depth.path + depthAndIndex + childrenCount.toString(),
 
-        [treeExpandedPropName]: getBooleanOnProbability(
-            options.isExpandedProbability || 0
-        ),
+        isExpanded: getBooleanOnProbability(options.isExpandedProbability || 0),
 
         obj: {
             t: 'TN', // TODO Stands for TreeNode -> Update with effective value
@@ -358,7 +353,7 @@ export function TreeFactory(
         columns.push(ColumnFactory(i, options.forceColumnVisibility));
     }
 
-    const data: TreeNode[] = [];
+    const data: KupDataNode[] = [];
 
     for (let j = 0; j < treeOptions.minimumChildCount; j++) {
         data.push(
@@ -408,7 +403,7 @@ export function DynamicExpansionFaker(
     }
 ) {
     // Function to copy a tree node but not its children.
-    function copyTreeNodeWithoutChildren(node: TreeNode): TreeNode {
+    function copyTreeNodeWithoutChildren(node: KupDataNode): KupDataNode {
         const { children, ...otherProps } = node;
         return {
             ...otherProps,
@@ -417,7 +412,7 @@ export function DynamicExpansionFaker(
     }
 
     function getTreeNodeChildren(
-        startTreeChildren: TreeNode[],
+        startTreeChildren: KupDataNode[],
         nodePath: TreeNodePath = []
     ) {
         let children = startTreeChildren;

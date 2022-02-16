@@ -77,6 +77,7 @@ export interface KupDataTableDataset {
 export interface KupDataTableRow extends KupDataRow {
     cells: KupDataTableRowCells;
     group?: KupDataTableRowGroup;
+    unselectable?: boolean;
 }
 export interface KupDataTableRowGroup {
     children: Array<KupDataTableRow>;

@@ -9,7 +9,7 @@
 | ------------- | -------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | -------------------- |
 | `customStyle` | `custom-style` | Custom style of the component.                                                 | `string`                                                                        | `''`                 |
 | `data`        | --             | List of elements.                                                              | `FChipData[]`                                                                   | `[]`                 |
-| `dataNew`     | --             | List of elements.                                                              | `TreeNode[]`                                                                    | `[]`                 |
+| `dataNew`     | --             | List of elements.                                                              | `KupDataNode[]`                                                                 | `[]`                 |
 | `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default. | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
 
 

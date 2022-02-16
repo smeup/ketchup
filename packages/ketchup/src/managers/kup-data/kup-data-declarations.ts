@@ -2,7 +2,7 @@ import {
     FCellInfo,
     FCellShapes,
 } from '../../f-components/f-cell/f-cell-declarations';
-import { GenericMap } from '../../types/GenericTypes';
+import { GenericMap, GenericObject } from '../../types/GenericTypes';
 import { KupObj } from '../kup-objects/kup-objects-declarations';
 
 /**
@@ -48,9 +48,8 @@ export interface KupDataRow {
     actions?: Array<KupDataRowAction>;
     cssClass?: string;
     id?: string;
-    name?: string;
+    transposedColumnName?: string;
     readOnly?: boolean;
-    unselectable?: boolean;
 }
 export interface KupDataRowCells {
     [index: string]: KupDataCell;
@@ -66,7 +65,7 @@ export interface KupDataCell {
     value: string;
     cardID?: number;
     cssClass?: string;
-    data?: GenericMap;
+    data?: GenericObject;
     displayedValue?: string;
     icon?: string;
     info?: FCellInfo;
@@ -76,6 +75,22 @@ export interface KupDataCell {
     style?: GenericMap;
     styleContent?: GenericMap;
     title?: string;
+}
+/**
+ * Generic tree node interface.
+ */
+export interface KupDataNode extends KupDataRow {
+    children: KupDataNode[];
+    disabled: boolean;
+    expandable: boolean;
+    obj: KupObj;
+    value: string;
+    icon?: string;
+    iconColor?: string;
+    isExpanded?: boolean;
+    options?: boolean;
+    style?: GenericMap;
+    visible?: boolean;
 }
 /**
  * Interface related to dataset operations.
@@ -150,6 +165,7 @@ export interface KupDataRowOperations {
         dataset: KupDataDataset,
         filters?: KupDataFindCellFilters
     ) => KupDataRow[];
+    toTreeNode: (dataset: KupDataDataset) => KupDataNode[];
 }
 /**
  * Interface related to the formulas factory function.

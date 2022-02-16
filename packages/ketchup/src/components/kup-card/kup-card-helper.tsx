@@ -4,7 +4,6 @@ import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupCard } from './kup-card';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
-import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import {
     KupCardCSSClasses,
     KupCardIds,
@@ -12,6 +11,7 @@ import {
 } from './kup-card-declarations';
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 /**
  * This function returns a list of components.
  * @param {GenericObject[]} compArray - Components' props.
@@ -203,7 +203,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
             const chip: HTMLKupChipElement = root.querySelector(
                 '#' + KupCardIds.COLUMNS_LIST
             );
-            const node: TreeNode = e.detail.treeNode;
+            const node: KupDataNode = e.detail.treeNode;
             const obj: KupObj = e.detail.treeNode.obj;
             if (
                 obj &&

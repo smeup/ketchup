@@ -2205,7 +2205,7 @@ export class KupDataTable {
         let keyCell: KupDataTableCell = null;
         for (let index = 0; index < rows.length; index++) {
             const column: KupDataColumn = this.data.columns.find(
-                (x) => x.name === rows[index].name
+                (x) => x.name === rows[index].transposedColumnName
             );
             if (!column) {
                 this.kupManager.debug.logMessage(
