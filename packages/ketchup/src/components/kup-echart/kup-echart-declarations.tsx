@@ -57,4 +57,6 @@ export enum KupEchartTypes {
 export interface KupEchartClickEventPayload extends KupEventPayload {
     column: KupDataColumn;
     row: KupDataRow;
+    x: number | string;
+    y: number | string;
 }

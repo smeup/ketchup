@@ -262,8 +262,8 @@ export class KupEchart {
             )[0];
             let row: KupDataRow = null;
             if (this.#sortedDataset && e.seriesType === 'bar') {
-                this.#sortedDataset.rows[e.dataIndex];
-            } else {
+                row = this.#sortedDataset.rows[e.dataIndex];
+            } else if (!Array.isArray(e.data)) {
                 row = this.data.rows[e.dataIndex];
             }
             this.kupEchartClick.emit({
@@ -271,6 +271,8 @@ export class KupEchart {
                 id: this.rootElement.id,
                 column: column,
                 row: row,
+                x: Array.isArray(e.data as number[]) ? e.data[0] : e.name,
+                y: Array.isArray(e.data as number[]) ? e.data[1] : e.value,
             });
         });
     }
@@ -448,6 +450,13 @@ export class KupEchart {
                 const cell = row.cells[key];
                 const value = cell.value;
                 if (!this.axis.includes(key)) {
+                    if (
+                        this.series &&
+                        this.series.length > 0 &&
+                        !this.series.includes(key)
+                    ) {
+                        continue;
+                    }
                     y[objKey].push(value);
                 }
             }
