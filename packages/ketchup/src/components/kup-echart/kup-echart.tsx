@@ -254,6 +254,7 @@ export class KupEchart {
         }
         this.#chartEl.setOption(options, true);
         this.#chartEl.on('click', (e) => {
+            console.log(e);
             const column = this.#kupManager.data.datasetOperations.column.find(
                 this.data,
                 {
@@ -263,7 +264,7 @@ export class KupEchart {
             let row: KupDataRow = null;
             if (this.#sortedDataset && e.seriesType === 'bar') {
                 row = this.#sortedDataset.rows[e.dataIndex];
-            } else {
+            } else if (!Array.isArray(e.data)) {
                 row = this.data.rows[e.dataIndex];
             }
             this.kupEchartClick.emit({
@@ -271,8 +272,8 @@ export class KupEchart {
                 id: this.rootElement.id,
                 column: column,
                 row: row,
-                x: Array.isArray(e.value as number[]) ? e.value[0] : e.name,
-                y: Array.isArray(e.value as number[]) ? e.value[1] : e.value,
+                x: Array.isArray(e.data as number[]) ? e.data[0] : e.name,
+                y: Array.isArray(e.data as number[]) ? e.data[1] : e.value,
             });
         });
     }
