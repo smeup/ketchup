@@ -271,8 +271,8 @@ export class KupEchart {
                 id: this.rootElement.id,
                 column: column,
                 row: row,
-                x: (e.value as number[]).length ? e.value[0] : null,
-                y: (e.value as number[]).length ? e.value[1] : null,
+                x: Array.isArray(e.value as number[]) ? e.value[0] : e.name,
+                y: Array.isArray(e.value as number[]) ? e.value[1] : e.value,
             });
         });
     }
