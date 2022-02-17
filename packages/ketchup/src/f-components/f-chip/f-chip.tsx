@@ -69,24 +69,22 @@ function createChipList(
     }
 
     for (let i = 0; props.data && i < props.data.length; i++) {
-        let indent = 0;
         const chipGroup: VNode[] = [];
-        recursive(props.data[i]);
+        recursive(props.data[i], 0);
         chipList.push(<div class="chip-set__item">{...chipGroup}</div>);
 
-        function recursive(chip: KupChipNode) {
-            chipGroup.push(createChip(chip));
+        function recursive(chip: KupChipNode, indent: number) {
+            chipGroup.push(createChip(chip, indent));
             if (chip.children && chip.children.length > 0) {
-                ++indent;
                 for (let index = 0; index < chip.children.length; index++) {
                     if (chip.children[index]) {
-                        recursive(chip.children[index]);
+                        recursive(chip.children[index], indent + 1);
                     }
                 }
             }
         }
 
-        function createChip(chip: KupChipNode): VNode {
+        function createChip(chip: KupChipNode, indent: number): VNode {
             let componentClass: string = `chip ${
                 indent > 0 ? 'chip--is-child' : ''
             }`;
