@@ -254,7 +254,6 @@ export class KupEchart {
         }
         this.#chartEl.setOption(options, true);
         this.#chartEl.on('click', (e) => {
-            console.log(e);
             const column = this.#kupManager.data.datasetOperations.column.find(
                 this.data,
                 {
