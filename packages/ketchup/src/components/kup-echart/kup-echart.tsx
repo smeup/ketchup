@@ -262,7 +262,7 @@ export class KupEchart {
             )[0];
             let row: KupDataRow = null;
             if (this.#sortedDataset && e.seriesType === 'bar') {
-                this.#sortedDataset.rows[e.dataIndex];
+                row = this.#sortedDataset.rows[e.dataIndex];
             } else {
                 row = this.data.rows[e.dataIndex];
             }
@@ -271,6 +271,8 @@ export class KupEchart {
                 id: this.rootElement.id,
                 column: column,
                 row: row,
+                x: (e.value as number[]).length ? e.value[0] : null,
+                y: (e.value as number[]).length ? e.value[1] : null,
             });
         });
     }
