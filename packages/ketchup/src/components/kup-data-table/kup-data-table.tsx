@@ -89,7 +89,6 @@ import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import {
-    FChipData,
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
@@ -166,6 +165,7 @@ import {
     KupDataNewColumnTypes,
     KupDataRowAction,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -5092,7 +5092,7 @@ export class KupDataTable {
                 const column = getColumnByName(this.getColumns(), group.column);
 
                 if (column) {
-                    const a: FChipData = {
+                    const a: KupChipNode = {
                         label: column.title,
                         value: column.name,
                         checked: true,

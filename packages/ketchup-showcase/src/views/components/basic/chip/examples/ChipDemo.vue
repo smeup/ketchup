@@ -95,7 +95,7 @@ export default {
           prop: 'data',
           description:
             'Object array containing the data of the chips: value, icon, label, title to be shown and checked status.',
-          type: 'FChipData',
+          type: 'KupChipNode',
           isArray: true,
           default: '[]',
           try: 'json',

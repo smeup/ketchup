@@ -32,7 +32,9 @@ export function toNode(dataset: KupDataDataset): KupDataNode[] {
             disabled: false,
             expandable: false,
             obj: null,
-            value: '#' + (index + 1),
+            value: dataset.rows[index].id
+                ? dataset.rows[index].id
+                : '#' + (index + 1),
         };
         nodes.push(node);
     }

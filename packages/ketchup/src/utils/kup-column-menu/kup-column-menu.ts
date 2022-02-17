@@ -38,7 +38,6 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import { KupColumnMenuIds } from './kup-column-menu-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
-    FChipData,
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
@@ -46,6 +45,7 @@ import {
     KupDataColumn,
     KupDataNewColumnTypes,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -330,7 +330,7 @@ export class KupColumnMenu {
         let props: GenericObject[] = [];
         const chipProps: FChipsProps = {};
         if (column.children) {
-            const chipData: FChipData[] = [];
+            const chipData: KupChipNode[] = [];
             for (let index = 0; index < column.children.length; index++) {
                 const child = column.children[index];
                 let childColumn: KupDataColumn = null;

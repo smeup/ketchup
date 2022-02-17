@@ -1,20 +1,13 @@
-import { FunctionalComponent, h } from '@stencil/core';
-import {
-    FChipData,
-    FChipsProps,
-    FChipType,
-} from '../f-chip/f-chip-declarations';
+import { FunctionalComponent, h, VNode } from '@stencil/core';
+import { FChipsProps, FChipType } from '../f-chip/f-chip-declarations';
 import { FImage } from '../f-image/f-image';
-import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { FImageProps } from '../f-image/f-image-declarations';
 import {
     KupThemeColorValues,
     KupThemeIconValues,
 } from '../../managers/kup-theme/kup-theme-declarations';
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
-
-const dom: KupDom = document.documentElement as KupDom;
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -64,156 +57,141 @@ function createChipList(
     isChoice: boolean,
     isFilter: boolean,
     isInput: boolean
-): HTMLElement[] {
-    const chipList: Array<HTMLElement> = [];
-    let chipEl: HTMLElement;
+): VNode[] {
+    const chipList: VNode[] = [];
 
-    if (props.dataNew && props.dataNew.length > 0) {
-        props.data = treeNode2Data(props.dataNew);
+    if ((props.data as KupDataDataset).columns) {
+        const data = props.data as KupDataDataset;
+        props.data = this.kupManager.data.datasetOperations.row.toNode(data);
     }
 
     for (let i = 0; props.data && i < props.data.length; i++) {
-        // could happen due to functions that change the data (such as transposition, etc)
-        if (!props.data[i]) {
-            continue;
-        }
+        let indent = 0;
+        const chipGroup: VNode[] = [];
+        recursive(props.data[i]);
+        chipList.push(<div class="chip-set__item">{...chipGroup}</div>);
 
-        let componentClass: string = 'chip';
-        let iconEl = [];
-        let iconClass = 'chip__icon chip__icon--leading';
-
-        if (isFilter || isChoice) {
-            if (props.data[i].checked) {
-                componentClass += ' chip--selected';
-                if (isFilter) {
-                    iconClass += ' chip__icon--leading-hidden';
+        function recursive(chip: KupChipNode) {
+            chipGroup.push(createChip(chip));
+            if (chip.children && chip.children.length > 0) {
+                ++indent;
+                for (let index = 0; index < chip.children.length; index++) {
+                    if (chip.children[index]) {
+                        recursive(chip.children[index]);
+                    }
                 }
             }
         }
 
-        if (props.data[i].icon) {
-            const p: FImageProps = {
-                color:
-                    isChoice && props.data[i].checked
-                        ? `var(${KupThemeColorValues.PRIMARY})`
-                        : `var(${KupThemeColorValues.TEXT})`,
-                resource: props.data[i].icon,
-                sizeX: '18px',
-                sizeY: '18px',
-                wrapperClass: iconClass,
-            };
-            iconEl.push(<FImage {...p} />);
-        }
+        function createChip(chip: KupChipNode): VNode {
+            let componentClass: string = `chip ${
+                indent > 0 ? 'chip--is-child' : ''
+            }`;
+            let iconEl = [];
+            let iconClass = 'chip__icon chip__icon--leading';
 
-        if (isFilter) {
-            iconEl.push(
-                <span class="chip__checkmark">
-                    <svg class="chip__checkmark-svg" viewBox="-2 -3 30 30">
-                        <path
-                            class="chip__checkmark-path"
-                            fill="none"
-                            stroke="black"
-                            d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                        />
-                    </svg>
-                </span>
-            );
-        }
+            if (!chip.label) {
+                chip.label = chip.value;
+            }
 
-        chipEl = (
-            <div
-                class={componentClass}
-                data-value={props.data[i].value}
-                onClick={
-                    props.onClick && props.onClick[i] ? props.onClick[i] : null
+            if (isFilter || isChoice) {
+                if (chip.checked) {
+                    componentClass += ' chip--selected';
+                    if (isFilter) {
+                        iconClass += ' chip__icon--leading-hidden';
+                    }
                 }
-                role="row"
-                title={props.data[i].title ? props.data[i].title : ''}
-            >
-                {iconEl}
-                <span role="gridcell">
-                    <span
-                        role="button"
-                        tabindex={i}
-                        class="chip__primary-action"
-                        // @ts-ignore
-                        value={props.data[i].value}
-                        checked={props.data[i].checked}
-                        onBlur={
-                            props.onBlur && props.onBlur[i]
-                                ? props.onBlur[i]
-                                : null
-                        }
-                        onFocus={
-                            props.onFocus && props.onFocus[i]
-                                ? props.onFocus[i]
-                                : null
-                        }
-                    >
-                        <span class="chip__text">{props.data[i].label}</span>
+            }
+
+            if (chip.icon) {
+                const p: FImageProps = {
+                    color:
+                        isChoice && chip.checked
+                            ? `var(${KupThemeColorValues.PRIMARY})`
+                            : `var(${KupThemeColorValues.TEXT})`,
+                    resource: chip.icon,
+                    sizeX: '18px',
+                    sizeY: '18px',
+                    wrapperClass: iconClass,
+                };
+                iconEl.push(<FImage {...p} />);
+            }
+
+            if (isFilter) {
+                iconEl.push(
+                    <span class="chip__checkmark">
+                        <svg class="chip__checkmark-svg" viewBox="-2 -3 30 30">
+                            <path
+                                class="chip__checkmark-path"
+                                fill="none"
+                                stroke="black"
+                                d="M1.73,12.91 8.1,19.28 22.79,4.59"
+                            />
+                        </svg>
                     </span>
-                </span>
-                {isInput ? (
+                );
+            }
+
+            const indentStyle = {
+                ['--kup_chip_indent_offset']: indent.toString(),
+            };
+
+            return (
+                <div
+                    class={componentClass}
+                    data-value={chip.value}
+                    onClick={
+                        props.onClick && props.onClick[i]
+                            ? props.onClick[i]
+                            : null
+                    }
+                    role="row"
+                    style={indentStyle}
+                    title={chip.title ? chip.title : ''}
+                >
+                    {iconEl}
                     <span role="gridcell">
                         <span
-                            tabindex="-1"
-                            class={`kup-icon chip__icon ${KupThemeIconValues.CLEAR.replace(
-                                '--',
-                                ''
-                            )}`}
-                            onClick={
-                                props.onIconClick && props.onIconClick[i]
-                                    ? props.onIconClick[i]
+                            role="button"
+                            tabindex={i}
+                            class="chip__primary-action"
+                            // @ts-ignore
+                            value={chip.value}
+                            checked={chip.checked}
+                            onBlur={
+                                props.onBlur && props.onBlur[i]
+                                    ? props.onBlur[i]
                                     : null
                             }
-                        ></span>
+                            onFocus={
+                                props.onFocus && props.onFocus[i]
+                                    ? props.onFocus[i]
+                                    : null
+                            }
+                        >
+                            <span class="chip__text">{chip.label}</span>
+                        </span>
                     </span>
-                ) : undefined}
-            </div>
-        );
-        chipList.push(chipEl);
+                    {isInput ? (
+                        <span role="gridcell">
+                            <span
+                                tabindex="-1"
+                                class={`kup-icon chip__icon ${KupThemeIconValues.CLEAR.replace(
+                                    '--',
+                                    ''
+                                )}`}
+                                onClick={
+                                    props.onIconClick && props.onIconClick[i]
+                                        ? props.onIconClick[i]
+                                        : null
+                                }
+                            ></span>
+                        </span>
+                    ) : undefined}
+                </div>
+            );
+        }
     }
 
     return chipList;
-}
-
-/**
- * This function converts TreeNode[] to FChipData[]. This is valid until FChipData is removed.
- *
- * @return {FChipData} Array of FChipData.
- */
-function treeNode2Data(dataNew: KupDataNode[]): FChipData[] {
-    function children(TreeNode: KupDataNode) {
-        for (let index = 0; index < TreeNode.children.length; index++) {
-            const node: KupDataNode = TreeNode.children[index];
-            data.push({
-                icon: TreeNode.children[index].icon,
-                label: TreeNode.children[index].value,
-                obj: TreeNode.children[index].obj,
-                value: TreeNode.children[index].id,
-            });
-            if (node.children) {
-                children(node);
-            }
-        }
-    }
-    const data: FChipData[] = [];
-    for (let index = 0; index < dataNew.length; index++) {
-        const node: KupDataNode = dataNew[index];
-        data.push({
-            icon: node.icon,
-            label: node.value,
-            obj: node.obj,
-            value: node.id,
-        });
-        if (node.children) {
-            children(dataNew[index]);
-        }
-    }
-    dom.ketchup.debug.logMessage(
-        'f-chip',
-        'Chip data was deducted from a TreeNode[] structure (experimental feature).',
-        KupDebugCategory.WARNING
-    );
-    return data;
 }

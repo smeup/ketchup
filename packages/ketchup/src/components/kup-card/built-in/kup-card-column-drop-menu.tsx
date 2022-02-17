@@ -1,11 +1,13 @@
 import { h, VNode } from '@stencil/core';
-import { KupChipEventPayload } from '../../kup-chip/kup-chip-declarations';
+import {
+    KupChipEventPayload,
+    KupChipNode,
+} from '../../kup-chip/kup-chip-declarations';
 import {
     KupListData,
     KupListEventPayload,
 } from '../../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
-import { FChipData } from '../../../f-components/f-chip/f-chip-declarations';
 import {
     KupLanguageColumn,
     KupLanguageGeneric,
@@ -27,7 +29,7 @@ const premadeFormulas = [
 
 export function prepareColumnDropMenu(component: KupCard) {
     const options = component.data.options as KupCardColumnDropMenuOptions;
-    const chipData: FChipData[] = [];
+    const chipData: KupChipNode[] = [];
     let list: VNode, combobox: VNode, button: VNode, chipSet: VNode;
     for (let index = 0; index < options.data.columns.length; index++) {
         const column = options.data.columns[index];

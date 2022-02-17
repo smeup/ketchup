@@ -44,7 +44,7 @@ export interface KupDataColumnChild {
  * Generic row interface.
  */
 export interface KupDataRow {
-    cells: KupDataRowCells;
+    cells?: KupDataRowCells;
     actions?: KupDataRowAction[];
     cssClass?: string;
     id?: string;
@@ -80,16 +80,17 @@ export interface KupDataCell {
  * Generic tree node interface.
  */
 export interface KupDataNode extends KupDataRow {
-    children: KupDataNode[];
-    disabled: boolean;
-    expandable: boolean;
-    obj: KupObj;
     value: string;
+    children?: KupDataNode[];
+    disabled?: boolean;
+    expandable?: boolean;
+    obj?: KupObj;
     icon?: string;
     iconColor?: string;
     isExpanded?: boolean;
     options?: boolean;
     style?: GenericMap;
+    title?: string;
     visible?: boolean;
 }
 /**

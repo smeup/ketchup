@@ -84,7 +84,6 @@
 
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
-import { FChipData } from '@sme.up/ketchup/dist/types/f-components/f-chip/f-chip-declarations';
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 import {
@@ -92,6 +91,7 @@ import {
   KupDataRow,
 } from '@sme.up/ketchup/src/managers/kup-data/kup-data-declarations';
 import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
+import { KupChipNode } from '@sme.up/ketchup/dist/types/components/kup-chip/kup-chip-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var combobox: HTMLKupComboboxElement = null;
@@ -149,7 +149,7 @@ export default {
       };
       const languages: string[] = dom.ketchup.language.getLanguages();
       const keys = Object.keys(dom.ketchup.language.list['english'].keys);
-      const languagesChipData: FChipData[] = [];
+      const languagesChipData: KupChipNode[] = [];
       const languagesListData: KupListData[] = [];
       for (let index = 0; index < languages.length; index++) {
         languagesChipData.push({

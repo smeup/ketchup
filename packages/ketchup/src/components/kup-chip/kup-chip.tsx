@@ -15,17 +15,19 @@ import {
 } from '../../managers/kup-manager/kup-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import {
-    FChipData,
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { KupChipEventPayload, KupChipProps } from './kup-chip-declarations';
+import {
+    KupChipEventPayload,
+    KupChipNode,
+    KupChipProps,
+} from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -52,12 +54,7 @@ export class KupChip {
      * List of elements.
      * @default []
      */
-    @Prop({ mutable: true }) data: FChipData[] = [];
-    /**
-     * List of elements.
-     * @default []
-     */
-    @Prop({ mutable: true }) dataNew: KupDataNode[] = [];
+    @Prop({ mutable: true }) data: KupChipNode[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
@@ -276,7 +273,6 @@ export class KupChip {
                 ? true
                 : false,
             data: this.data,
-            dataNew: this.dataNew,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
@@ -301,10 +297,7 @@ export class KupChip {
             props.onFocus.push(() => this.onKupFocus(j));
             props.onIconClick.push(() => this.onKupIconClick(j));
         }
-        if (
-            (!this.data || this.data.length === 0) &&
-            (!this.dataNew || this.dataNew.length === 0)
-        ) {
+        if (!this.data || this.data.length === 0) {
             return;
         }
 

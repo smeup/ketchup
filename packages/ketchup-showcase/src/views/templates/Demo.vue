@@ -355,17 +355,6 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
-  FChipData: {
-    keys: {
-      label: 'string',
-      value: 'string',
-      'checked?': 'boolean',
-      'icon?': 'string',
-      'obj?': 'KupObj',
-      'title?': 'string',
-    },
-    type: DemoTypeFeature.INTERFACE,
-  },
   FChipType: {
     keys: {
       CHOICE: 'choice',
@@ -533,6 +522,29 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.INTERFACE,
   },
+  KupChipNode: {
+    keys: {
+      label: 'string',
+      value: 'string',
+      'cells?': 'KupDataRowCells',
+      'checked?': 'boolean',
+      'children?': 'KupDataNode[]',
+      'disabled?': 'boolean',
+      'expandable?': 'boolean',
+      'obj?': 'KupObj',
+      'actions?': 'RowAction[]',
+      'icon?': 'string',
+      'iconColor?': 'string',
+      'id?': 'string',
+      'isExpanded?': 'boolean',
+      'options?': 'boolean',
+      'readOnly?': 'boolean',
+      'style?': 'Object',
+      'title?': 'string',
+      'visible?': 'boolean',
+    },
+    type: DemoTypeFeature.INTERFACE,
+  },
   KupDataCell: {
     keys: {
       value: 'string',
@@ -578,12 +590,12 @@ const demoTypes: DemoTypeJson = {
   },
   KupDataNode: {
     keys: {
-      cells: 'KupDataRowCells',
-      children: 'KupDataNode[]',
-      disabled: 'boolean',
-      expandable: 'boolean',
-      obj: 'KupObj',
       value: 'string',
+      'cells?': 'KupDataRowCells',
+      'children?': 'KupDataNode[]',
+      'disabled?': 'boolean',
+      'expandable?': 'boolean',
+      'obj?': 'KupObj',
       'actions?': 'RowAction[]',
       'icon?': 'string',
       'iconColor?': 'string',

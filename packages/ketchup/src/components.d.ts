@@ -20,8 +20,8 @@ import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } 
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
-import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
-import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
+import { KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
+import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
@@ -833,12 +833,7 @@ export namespace Components {
           * List of elements.
           * @default []
          */
-        "data": FChipData[];
-        /**
-          * List of elements.
-          * @default []
-         */
-        "dataNew": KupDataNode[];
+        "data": KupChipNode[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -3866,12 +3861,7 @@ declare namespace LocalJSX {
           * List of elements.
           * @default []
          */
-        "data"?: FChipData[];
-        /**
-          * List of elements.
-          * @default []
-         */
-        "dataNew"?: KupDataNode[];
+        "data"?: KupChipNode[];
         /**
           * Triggered when a chip loses focus.
          */

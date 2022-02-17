@@ -1,6 +1,5 @@
 import { h, VNode } from '@stencil/core';
 import type { GenericObject } from '../../types/GenericTypes';
-import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupCard } from './kup-card';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
@@ -12,6 +11,7 @@ import {
 import { KupColumnMenuIds } from '../../utils/kup-column-menu/kup-column-menu-declarations';
 import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 /**
  * This function returns a list of components.
  * @param {GenericObject[]} compArray - Components' props.
@@ -210,7 +210,7 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                 obj.t !== '' &&
                 (obj.t !== '**' || (obj.t === '**' && !obj.k))
             ) {
-                const chipData: FChipData[] =
+                const chipData: KupChipNode[] =
                     chip && chip.data ? chip.data : null;
                 // This should be handled server-side, data should arrive correctly.
                 // Right now the only way to bind chips with tree nodes is a consistent value - which is the child column's name.
@@ -220,8 +220,8 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                     '_' +
                     (node.id ? node.id.replace(/\//g, '_') : '');
                 if (chipData) {
-                    const existingChip: FChipData = chipData.find(
-                        (x: FChipData) => x.value === key
+                    const existingChip: KupChipNode = chipData.find(
+                        (x: KupChipNode) => x.value === key
                     );
                     if (existingChip) {
                         chipData.splice(chipData.indexOf(existingChip), 1);

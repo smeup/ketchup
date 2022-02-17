@@ -1,32 +1,15 @@
 import type { FComponent } from '../../types/GenericTypes';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
-import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 /**
  * Props of the f-chip component.
  */
 export interface FChipsProps extends FComponent {
-    data?: FChipData[];
-    dataNew?: KupDataNode[];
+    data?: KupChipNode[];
     onClick?: ((event: MouseEvent) => void)[];
     onBlur?: ((event: FocusEvent) => void)[];
     onFocus?: ((event: FocusEvent) => void)[];
     onIconClick?: ((event: MouseEvent) => void)[];
     type?: FChipType;
-}
-/**
- * The object of a single chip contained in a chip set.
- * @property {string} value - Intrinsic/server side value.
- * @property {string} icon - Icon displayed on the left.
- * @property {string} label - Displayed text.
- * @property {boolean} checked - Defines whether a chip is selected or not.
- */
-export interface FChipData {
-    label: string;
-    value: string;
-    checked?: boolean;
-    icon?: string;
-    obj?: KupObj;
-    title?: string;
 }
 /**
  * Types of the f-chip component.
