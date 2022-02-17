@@ -450,6 +450,13 @@ export class KupEchart {
                 const cell = row.cells[key];
                 const value = cell.value;
                 if (!this.axis.includes(key)) {
+                    if (
+                        this.series &&
+                        this.series.length > 0 &&
+                        !this.series.includes(key)
+                    ) {
+                        continue;
+                    }
                     y[objKey].push(value);
                 }
             }
