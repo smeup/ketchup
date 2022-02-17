@@ -8,6 +8,9 @@ import {
 } from '../../managers/kup-theme/kup-theme-declarations';
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -62,7 +65,7 @@ function createChipList(
 
     if ((props.data as KupDataDataset).columns) {
         const data = props.data as KupDataDataset;
-        props.data = this.kupManager.data.datasetOperations.row.toNode(data);
+        props.data = dom.ketchup.data.datasetOperations.row.toNode(data);
     }
 
     for (let i = 0; props.data && i < props.data.length; i++) {
