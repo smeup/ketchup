@@ -115,81 +115,83 @@ export class KupChip {
     })
     kupIconClick: EventEmitter<KupChipEventPayload>;
 
-    onKupBlur(i: number) {
-        let obj: KupObj = null;
-        let value: string = null;
-        if (this.data[i]) {
-            obj = this.data[i].obj;
-            value = this.data[i].value;
-        }
+    onKupBlur(chip: KupChipNode) {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            value: value,
+            chip: chip,
         });
     }
 
-    onKupClick(i: number) {
+    onKupClick(chip: KupChipNode) {
         const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
         const isFilter: boolean = this.type.toLowerCase() === FChipType.FILTER;
-        let obj: KupObj = null;
-        let value: string = null;
-        if (this.data[i]) {
-            obj = this.data[i].obj;
-            value = this.data[i].value;
-        }
         if (isChoice) {
-            for (let j = 0; j < this.data.length; j++) {
-                if (j !== i && this.data[j].checked) {
-                    this.data[j].checked = false;
+            for (let index = 0; index < this.data.length; index++) {
+                const node = this.data[index];
+                recursive(node);
+
+                function recursive(node: KupChipNode) {
+                    if (node !== chip) {
+                        node.checked = false;
+                    }
+                    for (
+                        let index = 0;
+                        node.children && index < node.children.length;
+                        index++
+                    ) {
+                        if (node.children[index]) {
+                            recursive(node.children[index]);
+                        }
+                    }
                 }
             }
         }
         if (isChoice || isFilter) {
-            if (this.data[i].checked) {
-                this.data[i].checked = false;
-            } else {
-                this.data[i].checked = true;
-            }
-            let newData = [...this.data];
-            this.data = newData;
+            chip.checked = chip.checked ? false : true;
         }
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            value: value,
+            chip: chip,
         });
+        this.refresh();
     }
 
-    onKupFocus(i: number) {
-        let value: string = null;
-        if (this.data[i]) {
-            value = this.data[i].value;
-        }
+    onKupFocus(chip: KupChipNode) {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            value: value,
+            chip: chip,
         });
     }
 
-    onKupIconClick(i: number) {
-        let value: string = null;
-        if (this.data[i]) {
-            value = this.data[i].value;
-        }
-        this.data.splice(i, 1);
-        let newData = [...this.data];
-        this.data = newData;
+    onKupIconClick(chip: KupChipNode) {
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            value: value,
+            chip: chip,
         });
+        for (let index = 0; index < this.data.length; index++) {
+            recursive(this.data[index], this.data);
+            function recursive(node: KupChipNode, array: KupChipNode[]) {
+                const i = array.indexOf(chip);
+                if (i > -1) {
+                    array.splice(i, 1);
+                    return;
+                }
+                for (
+                    let index = 0;
+                    node.children && index < node.children.length;
+                    index++
+                ) {
+                    if (node.children[index]) {
+                        recursive(node.children[index], node.children);
+                    }
+                }
+            }
+        }
+        this.refresh();
     }
 
     /*-------------------------------------------------*/
@@ -292,10 +294,10 @@ export class KupChip {
                 : false,
         };
         for (let j = 0; j < this.data.length; j++) {
-            props.onBlur.push(() => this.onKupBlur(j));
-            props.onClick.push(() => this.onKupClick(j));
-            props.onFocus.push(() => this.onKupFocus(j));
-            props.onIconClick.push(() => this.onKupIconClick(j));
+            props.onBlur.push((chip) => this.onKupBlur(chip));
+            props.onClick.push((chip) => this.onKupClick(chip));
+            props.onFocus.push((chip) => this.onKupFocus(chip));
+            props.onIconClick.push((chip) => this.onKupIconClick(chip));
         }
         if (!this.data || this.data.length === 0) {
             return;

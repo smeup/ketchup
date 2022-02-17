@@ -183,7 +183,7 @@ function getCombobox(component: KupCard): HTMLKupComboboxElement {
 
 function typeColumn(e: CustomEvent<KupChipEventPayload>, component: KupCard) {
     const combobox = getCombobox(component);
-    const value = e.detail.value;
+    const value = e.detail.chip.value;
     combobox.getValue().then((res) => {
         let currentFormula = res;
         currentFormula += '[' + value + ']';

@@ -65,6 +65,7 @@ Type: `Promise<void>`
 | `--kup-chip-font-size`         | Sets font size of the chips.                                       |
 | `--kup-chip-font-weight`       | Sets font weight of the chips.                                     |
 | `--kup-chip-height`            | Sets height of the chips.                                          |
+| `--kup-chip-indent-multiplier` | Sets the indentation multiplier for children chips.                |
 | `--kup-chip-margin`            | Sets margin of the chips.                                          |
 | `--kup-chip-padding`           | Sets padding of the chips.                                         |
 | `--kup-chip-primary-color`     | Sets primary color of the component.                               |

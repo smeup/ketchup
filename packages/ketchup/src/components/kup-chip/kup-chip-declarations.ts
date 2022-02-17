@@ -17,6 +17,5 @@ export interface KupChipNode extends KupDataNode {
 }
 
 export interface KupChipEventPayload extends KupEventPayload {
-    index: number;
-    value: string;
+    chip: KupChipNode;
 }

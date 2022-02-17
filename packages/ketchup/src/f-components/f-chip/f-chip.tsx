@@ -142,7 +142,7 @@ function createChipList(
                     data-value={chip.value}
                     onClick={
                         props.onClick && props.onClick[i]
-                            ? props.onClick[i]
+                            ? props.onClick[i].bind(props.onClick[i], chip)
                             : null
                     }
                     role="row"
@@ -160,12 +160,18 @@ function createChipList(
                             checked={chip.checked}
                             onBlur={
                                 props.onBlur && props.onBlur[i]
-                                    ? props.onBlur[i]
+                                    ? props.onBlur[i].bind(
+                                          props.onBlur[i],
+                                          chip
+                                      )
                                     : null
                             }
                             onFocus={
                                 props.onFocus && props.onFocus[i]
-                                    ? props.onFocus[i]
+                                    ? props.onFocus[i].bind(
+                                          props.onFocus[i],
+                                          chip
+                                      )
                                     : null
                             }
                         >
@@ -182,12 +188,15 @@ function createChipList(
                                 )}`}
                                 onClick={
                                     props.onIconClick && props.onIconClick[i]
-                                        ? props.onIconClick[i]
+                                        ? props.onIconClick[i].bind(
+                                              props.onIconClick[i],
+                                              chip
+                                          )
                                         : null
                                 }
                             ></span>
                         </span>
-                    ) : undefined}
+                    ) : null}
                 </div>
             );
         }

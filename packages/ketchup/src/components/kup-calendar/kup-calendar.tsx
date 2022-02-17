@@ -404,11 +404,11 @@ export class KupCalendar {
         for (const key in KupCalendarViewTypes) {
             const view: KupCalendarViewTypes = KupCalendarViewTypes[key];
             const chipData: KupChipNode = {
-                value: key,
+                checked: this.viewType === view ? true : false,
                 label: this.kupManager.language.translate(
                     KupLanguageGeneric[key]
                 ),
-                checked: this.viewType === view ? true : false,
+                value: key,
             };
             props.data.push(chipData);
             props.onClick.push(() => this.changeView(view));
