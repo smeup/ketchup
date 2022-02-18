@@ -418,7 +418,7 @@ export class KupEchart {
             ? undefined
             : colors.length > 0
             ? { inRange: { color: colors }, min: min, max: max }
-            : { inRange: { color: this.#themeColors }, min: min, max: max };
+            : { inRange: { color: this.#themeColors[0] }, min: min, max: max };
         if (colorRange) {
             opts.visualMap = {
                 ...opts.visualMap,
