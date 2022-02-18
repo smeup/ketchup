@@ -280,6 +280,7 @@ export class KupChip {
                 : false,
             onBlur: [],
             onClick: [],
+            onExpansionClick: [],
             onFocus: [],
             onIconClick: [],
             secondary: this.rootElement.classList.contains('kup-secondary')
@@ -296,6 +297,10 @@ export class KupChip {
         for (let j = 0; j < this.data.length; j++) {
             props.onBlur.push((chip) => this.onKupBlur(chip));
             props.onClick.push((chip) => this.onKupClick(chip));
+            props.onExpansionClick.push((chip) => {
+                chip.isExpanded = !chip.isExpanded ? true : false;
+                this.refresh();
+            });
             props.onFocus.push((chip) => this.onKupFocus(chip));
             props.onIconClick.push((chip) => this.onKupIconClick(chip));
         }

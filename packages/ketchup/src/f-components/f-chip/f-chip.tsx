@@ -74,8 +74,42 @@ function createChipList(
         chipList.push(<div class="chip-set__item">{...chipGroup}</div>);
 
         function recursive(chip: KupChipNode, indent: number) {
-            chipGroup.push(createChip(chip, indent));
-            if (chip.children && chip.children.length > 0) {
+            const hasChildren = !!(chip.children && chip.children.length > 0);
+            const showChildren = !!(hasChildren && chip.isExpanded);
+            const indentStyle = {
+                ['--kup_chip_indent_offset']: indent.toString(),
+            };
+
+            chipGroup.push(
+                <div
+                    class={`chip-set__wrapper ${
+                        hasChildren && !showChildren
+                            ? 'chip-set__wrapper--hidden-children'
+                            : ''
+                    }`}
+                >
+                    <div class="chip-set__indent" style={indentStyle}></div>
+                    {hasChildren ? (
+                        <FImage
+                            onClick={
+                                props.onExpansionClick &&
+                                props.onExpansionClick[i]
+                                    ? props.onExpansionClick[i].bind(
+                                          props.onExpansionClick[i],
+                                          chip
+                                      )
+                                    : null
+                            }
+                            resource={`${KupThemeIconValues.DROPDOWN}`}
+                            sizeX="18px"
+                            sizeY="18px"
+                            wrapperClass="dropdown-icon"
+                        ></FImage>
+                    ) : null}
+                    {createChip(chip)}
+                </div>
+            );
+            if (showChildren) {
                 for (let index = 0; index < chip.children.length; index++) {
                     if (chip.children[index]) {
                         recursive(chip.children[index], indent + 1);
@@ -84,10 +118,8 @@ function createChipList(
             }
         }
 
-        function createChip(chip: KupChipNode, indent: number): VNode {
-            let componentClass: string = `chip ${
-                indent > 0 ? 'chip--is-child' : ''
-            }`;
+        function createChip(chip: KupChipNode): VNode {
+            let componentClass: string = `chip `;
             let iconEl = [];
             let iconClass = 'chip__icon chip__icon--leading';
 
@@ -132,11 +164,6 @@ function createChipList(
                     </span>
                 );
             }
-
-            const indentStyle = {
-                ['--kup_chip_indent_offset']: indent.toString(),
-            };
-
             return (
                 <div
                     class={componentClass}
@@ -147,9 +174,9 @@ function createChipList(
                             : null
                     }
                     role="row"
-                    style={indentStyle}
                     title={chip.title ? chip.title : ''}
                 >
+                    <span class="chip-set__indent"></span>
                     {iconEl}
                     <span role="gridcell">
                         <span

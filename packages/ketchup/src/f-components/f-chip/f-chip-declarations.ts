@@ -5,8 +5,9 @@ import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
  */
 export interface FChipsProps extends FComponent {
     data?: KupChipNode[];
-    onClick?: ((chip: KupChipNode) => void)[];
     onBlur?: ((chip: KupChipNode) => void)[];
+    onClick?: ((chip: KupChipNode) => void)[];
+    onExpansionClick?: ((chip: KupChipNode) => void)[];
     onFocus?: ((chip: KupChipNode) => void)[];
     onIconClick?: ((chip: KupChipNode) => void)[];
     type?: FChipType;
