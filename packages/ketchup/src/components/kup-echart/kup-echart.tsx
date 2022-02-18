@@ -130,6 +130,8 @@ export class KupEchart {
     #themeBorder: string = null;
     #themeBackground: string = null;
     #themeColors: string[] = null;
+    #themeColorBrighter: string = null;
+    #themeColorDarker: string = null;
     #themeFont: string = null;
     #themeText: string = null;
 
@@ -418,7 +420,13 @@ export class KupEchart {
             ? undefined
             : colors.length > 0
             ? { inRange: { color: colors }, min: min, max: max }
-            : { inRange: { color: this.#themeColors[0] }, min: min, max: max };
+            : {
+                  inRange: {
+                      color: [this.#themeColorBrighter, this.#themeColorDarker],
+                  },
+                  min: min,
+                  max: max,
+              };
         if (colorRange) {
             opts.visualMap = {
                 ...opts.visualMap,
@@ -889,6 +897,14 @@ export class KupEchart {
         this.#themeText =
             this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
         this.#themeColors = colorArray;
+        const colorCheck = this.#kupManager.theme.colorCheck(colorArray[0]);
+        console.log(colorCheck);
+        this.#themeColorDarker = `hsl(${colorCheck.hue}, ${
+            colorCheck.saturation
+        },  ${(parseFloat(colorCheck.lightness) - 30).toString()}%)`;
+        this.#themeColorBrighter = `hsl(${colorCheck.hue}, ${
+            colorCheck.saturation
+        }, ${(parseFloat(colorCheck.lightness) + 30).toString()}%)`;
     }
 
     /*-------------------------------------------------*/
