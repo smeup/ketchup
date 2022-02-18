@@ -117,22 +117,35 @@ function createComp() {
   let comp = document.createElement('kup-chip');
   comp.data = [
     {
-      value: '1_chip',
-      icon: 'filter_1',
-      label: 'First chip',
-      checked: false,
+      children: [
+        {
+          icon: 'filter_1',
+          label: 'First',
+          value: '1a',
+        },
+        {
+          icon: 'filter_2',
+          label: 'Second',
+          value: '1b',
+        },
+      ],
+      icon: 'widgets',
+      label: 'Chips with icons',
+      value: '1',
     },
     {
-      value: '2_chip',
-      icon: 'filter_2',
-      label: 'Second chip',
-      checked: true,
-    },
-    {
-      value: '3_chip',
-      icon: 'filter_3',
-      label: 'Third chip',
-      checked: false,
+      children: [
+        {
+          label: 'First',
+          value: '2a',
+        },
+        {
+          label: 'Second',
+          value: '2b',
+        },
+      ],
+      value: '2',
+      label: 'Chips without icons',
     },
   ];
   comp.id = 'demo-component';

@@ -9,6 +9,7 @@ import {
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupChipNode } from '../../components/kup-chip/kup-chip-declarations';
 import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -103,6 +104,16 @@ function createChipList(
                             resource={`${KupThemeIconValues.DROPDOWN}`}
                             sizeX="18px"
                             sizeY="18px"
+                            title={
+                                dom.ketchup.language.translate(
+                                    KupLanguageGeneric.EXPAND
+                                ) +
+                                '/' +
+                                dom.ketchup.language.translate(
+                                    KupLanguageGeneric.COLLAPSE
+                                ) +
+                                ' (CTRL + Click)'
+                            }
                             wrapperClass="dropdown-icon"
                         ></FImage>
                     ) : null}

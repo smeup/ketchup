@@ -163,10 +163,12 @@ export interface KupDataColumnOperations {
  * Interface related to nodes operations.
  */
 export interface KupDataNodeOperations {
+    remove: (nodes: KupDataNode[], node2remove: KupDataNode) => KupDataNode;
     setProperties: (
         nodes: KupDataNode[],
         properties: Partial<KupDataNode>,
-        recursively?: boolean
+        recursively?: boolean,
+        exclude?: KupDataNode[]
     ) => KupDataNode[];
     toStream: (nodes: KupDataNode[]) => KupDataNode[];
 }

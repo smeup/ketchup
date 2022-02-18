@@ -25,7 +25,6 @@ import {
 } from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 
@@ -127,25 +126,12 @@ export class KupChip {
         const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
         const isFilter: boolean = this.type.toLowerCase() === FChipType.FILTER;
         if (isChoice) {
-            for (let index = 0; index < this.data.length; index++) {
-                const node = this.data[index];
-                recursive(node);
-
-                function recursive(node: KupChipNode) {
-                    if (node !== chip) {
-                        node.checked = false;
-                    }
-                    for (
-                        let index = 0;
-                        node.children && index < node.children.length;
-                        index++
-                    ) {
-                        if (node.children[index]) {
-                            recursive(node.children[index]);
-                        }
-                    }
-                }
-            }
+            this.kupManager.data.datasetOperations.node.setProperties(
+                this.data,
+                { checked: false } as KupChipNode,
+                true,
+                [chip]
+            );
         }
         if (isChoice || isFilter) {
             chip.checked = chip.checked ? false : true;
@@ -170,27 +156,11 @@ export class KupChip {
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
-            chip: chip,
+            chip: this.kupManager.data.datasetOperations.node.remove(
+                this.data,
+                chip
+            ),
         });
-        for (let index = 0; index < this.data.length; index++) {
-            recursive(this.data[index], this.data);
-            function recursive(node: KupChipNode, array: KupChipNode[]) {
-                const i = array.indexOf(chip);
-                if (i > -1) {
-                    array.splice(i, 1);
-                    return;
-                }
-                for (
-                    let index = 0;
-                    node.children && index < node.children.length;
-                    index++
-                ) {
-                    if (node.children[index]) {
-                        recursive(node.children[index], node.children);
-                    }
-                }
-            }
-        }
         this.refresh();
     }
 
@@ -297,8 +267,15 @@ export class KupChip {
         for (let j = 0; j < this.data.length; j++) {
             props.onBlur.push((chip) => this.onKupBlur(chip));
             props.onClick.push((chip) => this.onKupClick(chip));
-            props.onExpansionClick.push((chip) => {
+            props.onExpansionClick.push((chip, e) => {
                 chip.isExpanded = !chip.isExpanded ? true : false;
+                if (e.ctrlKey && chip.children && chip.children.length > 0) {
+                    this.kupManager.data.datasetOperations.node.setProperties(
+                        chip.children,
+                        { isExpanded: chip.isExpanded },
+                        true
+                    );
+                }
                 this.refresh();
             });
             props.onFocus.push((chip) => this.onKupFocus(chip));
