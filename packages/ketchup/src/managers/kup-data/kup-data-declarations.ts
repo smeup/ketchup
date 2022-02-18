@@ -99,6 +99,7 @@ export interface KupDataNode extends KupDataRow {
 export interface KupDataDatasetOperations {
     cell: KupDataCellOperations;
     column: KupDataColumnOperations;
+    node: KupDataNodeOperations;
     row: KupDataRowOperations;
     distinct: (
         dataset: KupDataDataset,
@@ -157,6 +158,17 @@ export interface KupDataColumnOperations {
         type: KupDataNewColumnTypes,
         options: KupDataNewColumnOptions
     ) => string | KupDataColumn;
+}
+/**
+ * Interface related to nodes operations.
+ */
+export interface KupDataNodeOperations {
+    setProperties: (
+        nodes: KupDataNode[],
+        properties: Partial<KupDataNode>,
+        recursively?: boolean
+    ) => KupDataNode[];
+    toStream: (nodes: KupDataNode[]) => KupDataNode[];
 }
 /**
  * Interface related to rows operations.

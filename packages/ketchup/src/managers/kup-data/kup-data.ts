@@ -26,6 +26,7 @@ import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
 import { findRow, toNode } from './kup-data-row-helper';
+import { setPropertiesNode, toStreamNodes } from './kup-data-node-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -81,6 +82,18 @@ export class KupData {
                     options: KupDataNewColumnOptions
                 ): string | KupDataColumn {
                     return newColumn(dataset, type, options);
+                },
+            },
+            node: {
+                setProperties(
+                    nodes: KupDataNode[],
+                    properties: Partial<KupDataNode>,
+                    recursively: boolean
+                ): KupDataNode[] {
+                    return setPropertiesNode(nodes, properties, recursively);
+                },
+                toStream(nodes: KupDataNode[]): KupDataNode[] {
+                    return toStreamNodes(nodes);
                 },
             },
             row: {
