@@ -2,12 +2,14 @@ import type {
     GenericFilter,
     ValueDisplayedValue,
 } from './filters-declarations';
-import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
+import {
+    KupTreeNode,
+    treeMainColumnName,
+} from '../../components/kup-tree/kup-tree-declarations';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { FiltersRows } from './filters-rows';
 import {
     KupDataColumn,
-    KupDataNode,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 
@@ -18,12 +20,12 @@ import {
  */
 export class FiltersTreeItems extends FiltersRows {
     filterRows(
-        items: KupDataNode[] = [],
+        items: KupTreeNode[] = [],
         filters: GenericFilter = {},
         globalFilter: string = '',
         columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
-    ): Array<KupDataNode> {
+    ): Array<KupTreeNode> {
         if (!items || items == null) {
             return [];
         }
@@ -54,7 +56,7 @@ export class FiltersTreeItems extends FiltersRows {
     }
 
     isNodeCompliant(
-        node: KupDataNode,
+        node: KupTreeNode,
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
@@ -87,7 +89,7 @@ export class FiltersTreeItems extends FiltersRows {
     }
 
     private setNodeVisibility(
-        node: KupDataNode,
+        node: KupTreeNode,
         filters: GenericFilter = {},
         globalFilter: string,
         isUsingGlobalFilter: boolean = false,
@@ -133,7 +135,7 @@ export class FiltersTreeItems extends FiltersRows {
         return visibility;
     }
 
-    private setAllVisible(items: KupDataNode[]) {
+    private setAllVisible(items: KupTreeNode[]) {
         if (items) {
             items.forEach((element) => {
                 element.visible = true;
@@ -143,7 +145,7 @@ export class FiltersTreeItems extends FiltersRows {
     }
 
     extractColumnValues(
-        rows: Array<KupDataNode>,
+        rows: Array<KupTreeNode>,
         column: KupDataColumn,
         values: ValueDisplayedValue[]
     ) {
@@ -169,20 +171,20 @@ export class FiltersTreeItems extends FiltersRows {
         return values;
     }
 
-    expandCollapseNode(treeNode: KupDataNode, expandNode: boolean = false) {
+    expandCollapseNode(treeNode: KupTreeNode, expandNode: boolean = false) {
         // The node is expandable, which means there are sub trees
         if (treeNode.expandable) {
             // If the node does not already have the property to toggle expansion we add it
             // Notice how, if the property is already set, its first value will be the same value that was provided by the object itself
             // and only if the node must be expanded automatically then [treeExpandedPropName] is set to true forcibly.
-            // This is done to allow a KupDataNode to force its [treeExpandedPropName] to true so that specific nodes can be already set to open.
+            // This is done to allow a KupTreeNode to force its [treeExpandedPropName] to true so that specific nodes can be already set to open.
             treeNode.isExpanded = treeNode.hasOwnProperty('isExpanded')
                 ? treeNode.isExpanded || expandNode
                 : expandNode;
         }
     }
 
-    expandCollapseAllNodes(treeNode: KupDataNode, expandNode: boolean = false) {
+    expandCollapseAllNodes(treeNode: KupTreeNode, expandNode: boolean = false) {
         // The node is expandable, which means there are sub trees
         if (treeNode.expandable && !treeNode.disabled) {
             this.expandCollapseNode(treeNode, expandNode);

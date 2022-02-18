@@ -33,6 +33,7 @@ import {
     KupTreeDynamicMassExpansionEventPayload,
     KupTreeExpansionMode,
     KupTreeColumnRemoveEventPayload,
+    KupTreeNode,
 } from './kup-tree-declarations';
 import { MDCRipple } from '@material/ripple';
 import {
@@ -93,7 +94,6 @@ import {
     KupDataCell,
     KupDataColumn,
     KupDataDataset,
-    KupDataNode,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
@@ -216,7 +216,7 @@ export class KupTree {
     /**
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
-    @Prop() data: KupDataNode[] = [];
+    @Prop() data: KupTreeNode[] = [];
     /**
      * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
      */
@@ -233,9 +233,9 @@ export class KupTree {
      * @see useDynamicExpansion
      */
     @Prop() dynamicExpansionCallback: (
-        treeNodeToExpand: KupDataNode,
+        treeNodeToExpand: KupTreeNode,
         treeNodePath: TreeNodePath
-    ) => Promise<KupDataNode[]> | undefined = undefined;
+    ) => Promise<KupTreeNode[]> | undefined = undefined;
     /**
      * When set to true, editable cells will be rendered using input components.
      * @default false
@@ -391,7 +391,7 @@ export class KupTree {
     /*-------------------------------------------------*/
 
     /**
-     * Fired when a KupDataNode gets collapsed (closed).
+     * Fired when a KupTreeNode gets collapsed (closed).
      */
     @Event({
         eventName: 'kup-tree-nodecollapse',
@@ -407,10 +407,10 @@ export class KupTree {
      * @event kup-tree-nodeexpand
      * @type {object}
      * @property {TreeNodePath} treeNodePath - The array of indexes to retrieve the current treeNode inside the data prop.
-     * @property {KupDataNode} treeNode - Reference to the KupDataNode data object which is being expanded (passed through the data prop).
+     * @property {KupTreeNode} treeNode - Reference to the KupTreeNode data object which is being expanded (passed through the data prop).
      * @property {boolean} usesDynamicExpansion - Flag to notify that the component is running in dynamicExpansion mode.
      * @property {boolean} dynamicExpansionRequireChildren - Flag to notify that the current dynamicExpansion event
-     *  requires the parent component to add KupDataNode children to the given KupDataNode.
+     *  requires the parent component to add KupTreeNode children to the given KupTreeNode.
      * @see useDynamicExpansion
      * @see dynamicExpansionCallback
      * @since 1.0.0
@@ -515,9 +515,12 @@ export class KupTree {
 
     @Watch('data')
     enrichDataWhenChanged(
-        newData: KupDataNode[] | KupDataDataset,
-        oldData: KupDataNode[]
+        newData: KupTreeNode[] | KupDataDataset,
+        oldData: KupTreeNode[]
     ) {
+        if (!newData) {
+            newData = [];
+        }
         if (newData !== oldData) {
             this.refreshStructureState();
         }
@@ -733,7 +736,7 @@ export class KupTree {
         }
     }
 
-    onKupTreeNodeDblClick(treeNodeData: KupDataNode, treeNodePath: string) {
+    onKupTreeNodeDblClick(treeNodeData: KupTreeNode, treeNodePath: string) {
         for (let index = 0; index < this.clickTimeout.length; index++) {
             clearTimeout(this.clickTimeout[index]);
             this.kupManager.debug.logMessage(
@@ -755,9 +758,9 @@ export class KupTree {
     }
 
     nodesToRows(): KupDataRow[] {
-        function children(TreeNode: KupDataNode) {
+        function children(TreeNode: KupTreeNode) {
             for (let index = 0; index < TreeNode.children.length; index++) {
-                const node: KupDataNode = TreeNode.children[index];
+                const node: KupTreeNode = TreeNode.children[index];
                 rows.push({
                     cells: TreeNode.children[index].cells,
                 });
@@ -768,7 +771,7 @@ export class KupTree {
         }
         let rows: KupDataRow[] = [];
         for (let index = 0; index < this.data.length; index++) {
-            const node: KupDataNode = this.data[index];
+            const node: KupTreeNode = this.data[index];
             rows.push({
                 cells: this.data[index].cells,
             });
@@ -793,11 +796,11 @@ export class KupTree {
         }
     }
 
-    expandCollapseNode(treeNode: KupDataNode, expandNode: boolean = false) {
+    expandCollapseNode(treeNode: KupTreeNode, expandNode: boolean = false) {
         this.filtersTreeItemsInstance.expandCollapseNode(treeNode, expandNode);
     }
 
-    expandCollapseAllNodes(treeNode: KupDataNode, expandNode: boolean = false) {
+    expandCollapseAllNodes(treeNode: KupTreeNode, expandNode: boolean = false) {
         this.filtersTreeItemsInstance.expandCollapseAllNodes(
             treeNode,
             expandNode
@@ -845,7 +848,7 @@ export class KupTree {
     /*
      *For launch the event when selected node
      */
-    launchNodeEvent(treeNodePath: TreeNodePath, treeNode: KupDataNode) {
+    launchNodeEvent(treeNodePath: TreeNodePath, treeNode: KupTreeNode) {
         if (treeNodePath && treeNodePath.length > 0) {
             if (treeNodePath[0] != -1) {
                 var tn = treeNode.children[treeNodePath[0]];
@@ -950,7 +953,7 @@ export class KupTree {
     // When a TreeNode can be selected
     hdlTreeNodeClick(
         e: MouseEvent,
-        treeNodeData: KupDataNode,
+        treeNodeData: KupTreeNode,
         treeNodePath: string,
         auto: boolean
     ) {
@@ -994,7 +997,7 @@ export class KupTree {
 
     // When a TreeNode must be expanded or closed.
     hdlTreeNodeExpanderClick(
-        treeNodeData: KupDataNode,
+        treeNodeData: KupTreeNode,
         treeNodePath: string,
         ctrlKey: boolean
     ) {
@@ -1095,7 +1098,7 @@ export class KupTree {
         return this.totals && Object.keys(this.totals).length > 0;
     }
 
-    private handleChildren(TreeNode: KupDataNode, expand: boolean) {
+    private handleChildren(TreeNode: KupTreeNode, expand: boolean) {
         for (let index = 0; index < TreeNode.children.length; index++) {
             let node = TreeNode.children[index];
             if (!node.disabled) {
@@ -1152,12 +1155,12 @@ export class KupTree {
         );
     }
 
-    getRows(): Array<KupDataNode> {
+    getRows(): Array<KupTreeNode> {
         return this.data ? this.data : [];
     }
 
     private filterNodes() {
-        let items: KupDataNode[] = this.filtersTreeItemsInstance.filterRows(
+        let items: KupTreeNode[] = this.filtersTreeItemsInstance.filterRows(
             this.getRows(),
             this.filters,
             this.globalFilterValue,
@@ -1168,7 +1171,7 @@ export class KupTree {
         this.visibleNodes = this.calculateVisibleNodes(items);
     }
 
-    private calculateVisibleNodes(items: KupDataNode[]): number {
+    private calculateVisibleNodes(items: KupTreeNode[]): number {
         let count = 0;
         if (items) {
             items.forEach((element) => {
@@ -1241,7 +1244,7 @@ export class KupTree {
      * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
      */
     private getToolTipEventHandlers(
-        treeNodeData: KupDataNode,
+        treeNodeData: KupTreeNode,
         cell: KupDataCell,
         hasTooltip: boolean
     ) {
@@ -1433,15 +1436,15 @@ export class KupTree {
     }
 
     /**
-     * Given a KupDataNode, reads through its data then composes and returns its JSX object.
-     * @param treeNodeData - The KupDataNode object to parse.
-     * @param treeNodePath - A string containing the comma(,) separated indexes of the KupDataNodes to use,
-     *    sorted from left to right, to access the current KupDataNode starting from the data prop children object.
-     * @param treeNodeDepth - An integer to keep track of the depth level of the current KupDataNode. Used for indentation.
+     * Given a KupTreeNode, reads through its data then composes and returns its JSX object.
+     * @param treeNodeData - The KupTreeNode object to parse.
+     * @param treeNodePath - A string containing the comma(,) separated indexes of the KupTreeNodes to use,
+     *    sorted from left to right, to access the current KupTreeNode starting from the data prop children object.
+     * @param treeNodeDepth - An integer to keep track of the depth level of the current KupTreeNode. Used for indentation.
      * @returns The the JSX created from the current tree node.
      */
     renderTreeNode(
-        treeNodeData: KupDataNode,
+        treeNodeData: KupTreeNode,
         treeNodePath: string,
         treeNodeDepth: number = 0
     ): JSX.Element {
@@ -1958,16 +1961,16 @@ export class KupTree {
     }
 
     /**
-     * Given a KupDataNode, reads through its data to compose and return the KupDataNodes of the root of this KupDataNode
-     * and its children nodes, composing an array of JSX KupDataNodes.
-     * @param treeNodeData - The KupDataNode object to parse.
-     * @param treeNodePath - A string containing the comma(,) separated indexes of the KupDataNodes to use,
-     *    sorted from left to right, to access the current KupDataNode starting from the data prop children object.
-     * @param treeNodeDepth - An integer to keep track of the depth level of the current KupDataNode. Used for indentation.
-     * @returns An array of JSX KupDataNodes created from the given treeNodeData.
+     * Given a KupTreeNode, reads through its data to compose and return the KupTreeNodes of the root of this KupTreeNode
+     * and its children nodes, composing an array of JSX KupTreeNodes.
+     * @param treeNodeData - The KupTreeNode object to parse.
+     * @param treeNodePath - A string containing the comma(,) separated indexes of the KupTreeNodes to use,
+     *    sorted from left to right, to access the current KupTreeNode starting from the data prop children object.
+     * @param treeNodeDepth - An integer to keep track of the depth level of the current KupTreeNode. Used for indentation.
+     * @returns An array of JSX KupTreeNodes created from the given treeNodeData.
      */
     renderTree(
-        treeNodeData: KupDataNode,
+        treeNodeData: KupTreeNode,
         treeNodePath: string,
         treeNodeDepth: number = 0
     ): JSX.Element[] {

@@ -1,13 +1,12 @@
 //---- Types ----
 import {
     KupDataColumn,
-    KupDataNode,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
-import { TreeNodePath } from './kup-tree-declarations';
+import { KupTreeNode, TreeNodePath } from './kup-tree-declarations';
 
 interface TreeRndNodeGetter {
-    selectedTreeNode: KupDataNode | null;
+    selectedTreeNode: KupTreeNode | null;
     treeNodePath: TreeNodePath | null;
 }
 
@@ -26,7 +25,7 @@ export interface DynamicExpansionFakerOptions {
 
 export interface TreeConfigData {
     columns: KupDataColumn[];
-    data: KupDataNode[];
+    data: KupTreeNode[];
 }
 
 //---- Constants ----
@@ -95,9 +94,9 @@ export function getRandomInteger(maximum: number = 10): number {
 }
 
 export function getTreeNodeFromPath(
-    treeNodes: KupDataNode[],
+    treeNodes: KupTreeNode[],
     path: TreeNodePath
-): KupDataNode | null {
+): KupTreeNode | null {
     if (path.length) {
         let supportTreeNode = treeNodes[path[0]];
         for (let i = 1; i < path.length; i++) {
@@ -109,10 +108,10 @@ export function getTreeNodeFromPath(
 }
 
 export function flattenTree(
-    nodesToFlatten: KupDataNode[],
+    nodesToFlatten: KupTreeNode[],
     useIsExpandedFlag = true
 ) {
-    let flattenedNodes: KupDataNode[] = [];
+    let flattenedNodes: KupTreeNode[] = [];
     if (nodesToFlatten && nodesToFlatten.length) {
         for (let i = 0; i < nodesToFlatten.length; i++) {
             flattenedNodes.push(nodesToFlatten[i]);
@@ -137,7 +136,7 @@ export function flattenTree(
  * @param currentDepth
  */
 function randomlyTraverseTree(
-    currentDepthTreeElements: KupDataNode[],
+    currentDepthTreeElements: KupTreeNode[],
     desiredTreeNodeDepth: number,
     currentDepth: number = 0
 ): TreeRndNodeGetter {
@@ -192,7 +191,7 @@ function randomlyTraverseTree(
 }
 
 export function getRndTreeNode(
-    currentDepthTreeElements: KupDataNode[],
+    currentDepthTreeElements: KupTreeNode[],
     treeDepth: number
 ): TreeRndNodeGetter {
     return randomlyTraverseTree(
@@ -235,7 +234,7 @@ function TreeNodeFactory(
     } = {
         minimumChildCount: 0,
     }
-): KupDataNode {
+): KupTreeNode {
     let childrenCount = Math.max(
         getRandomInteger(options.maximumChildCount || 5),
         options.minimumChildCount
@@ -353,7 +352,7 @@ export function TreeFactory(
         columns.push(ColumnFactory(i, options.forceColumnVisibility));
     }
 
-    const data: KupDataNode[] = [];
+    const data: KupTreeNode[] = [];
 
     for (let j = 0; j < treeOptions.minimumChildCount; j++) {
         data.push(
@@ -403,7 +402,7 @@ export function DynamicExpansionFaker(
     }
 ) {
     // Function to copy a tree node but not its children.
-    function copyTreeNodeWithoutChildren(node: KupDataNode): KupDataNode {
+    function copyTreeNodeWithoutChildren(node: KupTreeNode): KupTreeNode {
         const { children, ...otherProps } = node;
         return {
             ...otherProps,
@@ -412,7 +411,7 @@ export function DynamicExpansionFaker(
     }
 
     function getTreeNodeChildren(
-        startTreeChildren: KupDataNode[],
+        startTreeChildren: KupTreeNode[],
         nodePath: TreeNodePath = []
     ) {
         let children = startTreeChildren;

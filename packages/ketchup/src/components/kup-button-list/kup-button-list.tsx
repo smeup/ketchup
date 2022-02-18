@@ -134,6 +134,9 @@ export class KupButtonList {
 
     @Watch('data')
     checkDataset(newData: KupButtonListNode[] | KupDataDataset) {
+        if (!newData) {
+            newData = [];
+        }
         if ((newData as KupDataDataset).columns) {
             this.kupManager.debug.logMessage(
                 this,

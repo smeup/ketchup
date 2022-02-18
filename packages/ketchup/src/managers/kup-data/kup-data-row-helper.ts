@@ -28,10 +28,6 @@ export function toNode(dataset: KupDataDataset): KupDataNode[] {
     for (let index = 0; index < dataset.rows.length; index++) {
         const node: KupDataNode = {
             ...dataset.rows[index],
-            children: [],
-            disabled: false,
-            expandable: false,
-            obj: null,
             value: dataset.rows[index].id
                 ? dataset.rows[index].id
                 : '#' + (index + 1),
