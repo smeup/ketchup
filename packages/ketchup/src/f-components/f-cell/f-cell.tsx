@@ -559,6 +559,7 @@ function setKupCell(
             return (
                 <kup-color-picker
                     {...subcomponentProps}
+                    class="kup-full-width"
                     disabled
                 ></kup-color-picker>
             );
