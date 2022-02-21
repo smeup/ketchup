@@ -8,6 +8,7 @@ import {
     Host,
     Method,
     Prop,
+    Watch,
 } from '@stencil/core';
 import {
     KupManager,
@@ -27,6 +28,7 @@ import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -165,6 +167,26 @@ export class KupChip {
     }
 
     /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('data')
+    checkDataset(newData: KupChipNode[] | KupDataDataset) {
+        if (!newData) {
+            newData = [];
+        }
+        if ((newData as KupDataDataset).columns) {
+            this.kupManager.debug.logMessage(
+                this,
+                'Detected KupDataDataset: converting rows to nodes.',
+                KupDebugCategory.WARNING
+            );
+            const data = this.data as KupDataDataset;
+            this.data = this.kupManager.data.datasetOperations.row.toNode(data);
+        }
+    }
+
+    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -200,6 +222,7 @@ export class KupChip {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
+        this.checkDataset(this.data);
     }
 
     componentDidLoad() {
