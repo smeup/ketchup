@@ -217,10 +217,14 @@ export class KupMagicBox {
                                 this.kupManager.objects.isNumber(col.obj)) ||
                             props['axis'] !== null
                         ) {
-                            props['series'].push({
-                                code: col.name,
-                                decode: col.title,
-                            });
+                            if (this.display === MagicBoxDisplay.CHART) {
+                                props['series'].push({
+                                    code: col.name,
+                                    decode: col.title,
+                                });
+                            } else {
+                                props['series'].push(col.name);
+                            }
                         } else {
                             props['axis'] = col.name;
                         }
@@ -260,7 +264,9 @@ export class KupMagicBox {
                     break;
                 case MagicBoxDisplay.TREE:
                     props.data = this.data;
-                    content.push(<kup-tree {...props}></kup-tree>);
+                    content.push(
+                        <kup-tree class="kup-full-width" {...props}></kup-tree>
+                    );
                     break;
                 default:
                     this.kupManager.debug.logMessage(

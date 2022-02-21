@@ -206,7 +206,7 @@ export class KupTree {
     /**
      * The columns of the tree when tree visualization is active.
      */
-    @Prop() columns?: KupDataColumn[];
+    @Prop({ mutable: true }) columns?: KupDataColumn[];
     /**
      * Custom style of the component.
      * @default ""
@@ -216,7 +216,7 @@ export class KupTree {
     /**
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
-    @Prop() data: KupTreeNode[] = [];
+    @Prop({ mutable: true }) data: KupTreeNode[] = [];
     /**
      * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
      */
@@ -298,7 +298,7 @@ export class KupTree {
     /**
      * Shows the tree data as a table.
      */
-    @Prop() showColumns: boolean = false;
+    @Prop({ mutable: true }) showColumns: boolean = false;
     /**
      * When set to true enables the column filters.
      */
@@ -311,7 +311,7 @@ export class KupTree {
      * Flag: shows the header of the tree when the tree is displayed as a table.
      * @see showColumns
      */
-    @Prop() showHeader: boolean = false;
+    @Prop({ mutable: true }) showHeader: boolean = false;
     /**
      * Shows the icons of the nodes.
      */

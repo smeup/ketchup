@@ -74,7 +74,7 @@ export class KupButtonList {
      * Props of the sub-components.
      * @default []
      */
-    @Prop() data: KupButtonListNode[] = [];
+    @Prop({ mutable: true }) data: KupButtonListNode[] = [];
     /**
      * When set to true, the sub-components are disabled.
      * @default false
