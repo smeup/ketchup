@@ -239,6 +239,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-card](../kup-card)
+ - [kup-magic-box](../kup-magic-box)
  - [kup-tooltip](../kup-tooltip)
 
 ### Depends on
@@ -340,6 +341,7 @@ graph TD;
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
   kup-tab-bar --> kup-badge
+  kup-magic-box --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

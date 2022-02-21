@@ -188,12 +188,22 @@ export class KupMagicBox {
             const props: GenericObject = {};
             switch (this.display) {
                 case MagicBoxDisplay.BOX:
-                    props['data'] = this.data;
+                    props.data = this.data;
                     content.push(<kup-box {...props}></kup-box>);
+                    break;
+                case MagicBoxDisplay.BUTTON_LIST:
+                    props.data = this.data;
+                    content.push(
+                        <kup-button-list {...props}></kup-button-list>
+                    );
+                    break;
+                case MagicBoxDisplay.CHIP:
+                    props.data = this.data;
+                    content.push(<kup-chip {...props}></kup-chip>);
                     break;
                 case MagicBoxDisplay.CHART:
                 case MagicBoxDisplay.ECHART:
-                    props['data'] = this.data;
+                    props.data = this.data;
                     props['series'] = [];
                     for (
                         let index = 0;
@@ -230,23 +240,25 @@ export class KupMagicBox {
                     if (this.display === MagicBoxDisplay.CHART) {
                         content.push(<kup-chart {...props}></kup-chart>);
                     } else {
-                        //Echart series broken?
-                        props['series'] = null;
                         content.push(<kup-echart {...props}></kup-echart>);
                     }
                     break;
                 case MagicBoxDisplay.DATATABLE:
-                    props['data'] = this.data;
+                    props.data = this.data;
                     props['autoFillMissingCells'] = true;
                     content.push(<kup-data-table {...props}></kup-data-table>);
                     break;
                 case MagicBoxDisplay.JSON:
-                    props['data'] = this.data;
+                    props.data = this.data;
                     content.push(
                         <pre class="json">
                             {JSON.stringify(this.data, null, 2)}
                         </pre>
                     );
+                    break;
+                case MagicBoxDisplay.TREE:
+                    props.data = this.data;
+                    content.push(<kup-tree {...props}></kup-tree>);
                     break;
                 default:
                     this.kupManager.debug.logMessage(

@@ -11,8 +11,11 @@ export enum KupMagicBoxProps {
  */
 export enum MagicBoxDisplay {
     BOX = 'Box',
+    BUTTON_LIST = 'Button List',
     CHART = 'Chart',
+    CHIP = 'Chip',
     ECHART = 'Echart',
     DATATABLE = 'Datatable',
     JSON = 'JSON',
+    TREE = 'Tree',
 }

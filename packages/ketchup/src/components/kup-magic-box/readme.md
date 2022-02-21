@@ -51,9 +51,12 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-box](../kup-box)
+- [kup-button-list](../kup-button-list)
+- [kup-chip](../kup-chip)
 - [kup-chart](../kup-chart)
 - [kup-echart](../kup-echart)
 - [kup-data-table](../kup-data-table)
+- [kup-tree](../kup-tree)
 - [kup-combobox](../kup-combobox)
 - [kup-button](../kup-button)
 - [kup-badge](../kup-badge)
@@ -62,9 +65,12 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-magic-box --> kup-box
+  kup-magic-box --> kup-button-list
+  kup-magic-box --> kup-chip
   kup-magic-box --> kup-chart
   kup-magic-box --> kup-echart
   kup-magic-box --> kup-data-table
+  kup-magic-box --> kup-tree
   kup-magic-box --> kup-combobox
   kup-magic-box --> kup-button
   kup-magic-box --> kup-badge
