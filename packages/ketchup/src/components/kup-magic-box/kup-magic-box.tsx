@@ -81,14 +81,9 @@ export class KupMagicBox {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    /**
-     * Instance of the KupManager class.
-     */
-    private kupManager: KupManager = kupManagerInstance();
-    /**
-     * Element which enables the drag on move feature.
-     */
     private dragHandler: HTMLElement = null;
+    private kupManager = kupManagerInstance();
+    private textArea: HTMLKupTextFieldElement = null;
     private wrapperRef: HTMLElement = null;
 
     /*-------------------------------------------------*/
@@ -176,12 +171,15 @@ export class KupMagicBox {
         const content: VNode[] = [];
         const props: GenericObject = {};
         if (this.display === KupMagicBoxDisplay.JSON) {
-            props.initialValue = JSON.stringify(this.data, null, 2);
+            props.initialValue = this.data
+                ? JSON.stringify(this.data, null, 2)
+                : '';
             props.textArea = true;
             content.push(
                 <kup-text-field
                     class="kup-full-width kup-full-height"
                     {...props}
+                    ref={(el) => (this.textArea = el)}
                     onkup-textfield-input={(
                         e: CustomEvent<KupTextFieldEventPayload>
                     ) => {
@@ -342,6 +340,13 @@ export class KupMagicBox {
                 }
             }
             this.data = data;
+            if (this.data && this.textArea) {
+                try {
+                    this.textArea.setValue(JSON.stringify(this.data, null, 2));
+                } catch (error) {
+                    this.textArea.setValue('Invalid JSON:' + error);
+                }
+            }
         }
     }
 
