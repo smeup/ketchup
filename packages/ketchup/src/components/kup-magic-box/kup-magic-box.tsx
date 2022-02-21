@@ -19,7 +19,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupMagicBoxProps,
-    MagicBoxDisplay,
+    KupMagicBoxDisplay,
 } from './kup-magic-box-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -38,6 +38,7 @@ import {
     KupDataDataset,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -56,9 +57,9 @@ export class KupMagicBox {
 
     /**
      * Data will be displayed using this component.
-     * @default MagicBoxDisplay.DATATABLE
+     * @default KupMagicBoxDisplay.DATATABLE
      */
-    @State() display: MagicBoxDisplay = MagicBoxDisplay.DATATABLE;
+    @State() display: KupMagicBoxDisplay = KupMagicBoxDisplay.DATATABLE;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -129,11 +130,11 @@ export class KupMagicBox {
      */
     private comboboxProps(): GenericObject {
         const listData: KupListData[] = [];
-        for (const key in MagicBoxDisplay) {
-            if (Object.prototype.hasOwnProperty.call(MagicBoxDisplay, key)) {
+        for (const key in KupMagicBoxDisplay) {
+            if (Object.prototype.hasOwnProperty.call(KupMagicBoxDisplay, key)) {
                 listData.push({
-                    text: MagicBoxDisplay[key],
-                    value: MagicBoxDisplay[key],
+                    text: KupMagicBoxDisplay[key],
+                    value: KupMagicBoxDisplay[key],
                     selected: false,
                 });
             }
@@ -173,7 +174,37 @@ export class KupMagicBox {
             this.data.columns.length > 0
         );
         const content: VNode[] = [];
-        if (!hasColumns) {
+        const props: GenericObject = {};
+        if (this.display === KupMagicBoxDisplay.JSON) {
+            props.initialValue = JSON.stringify(this.data, null, 2);
+            props.textArea = true;
+            content.push(
+                <kup-text-field
+                    class="kup-full-width kup-full-height"
+                    {...props}
+                    onkup-textfield-input={(
+                        e: CustomEvent<KupTextFieldEventPayload>
+                    ) => {
+                        try {
+                            this.data = JSON.parse(e.detail.value);
+                        } catch (error) {
+                            this.data = {
+                                columns: [{ name: 'ERROR', title: 'Error' }],
+                                rows: [
+                                    {
+                                        cells: {
+                                            ERROR: {
+                                                value: 'Invalid JSON:' + error,
+                                            },
+                                        },
+                                    },
+                                ],
+                            };
+                        }
+                    }}
+                ></kup-text-field>
+            );
+        } else if (!hasColumns) {
             content.push(
                 <div class="empty">
                     <FImage sizeY="100px" resource="move_to_inbox" />
@@ -185,24 +216,23 @@ export class KupMagicBox {
                 </div>
             );
         } else {
-            const props: GenericObject = {};
             switch (this.display) {
-                case MagicBoxDisplay.BOX:
+                case KupMagicBoxDisplay.BOX:
                     props.data = this.data;
                     content.push(<kup-box {...props}></kup-box>);
                     break;
-                case MagicBoxDisplay.BUTTON_LIST:
+                case KupMagicBoxDisplay.BUTTON_LIST:
                     props.data = this.data;
                     content.push(
                         <kup-button-list {...props}></kup-button-list>
                     );
                     break;
-                case MagicBoxDisplay.CHIP:
+                case KupMagicBoxDisplay.CHIP:
                     props.data = this.data;
                     content.push(<kup-chip {...props}></kup-chip>);
                     break;
-                case MagicBoxDisplay.CHART:
-                case MagicBoxDisplay.ECHART:
+                case KupMagicBoxDisplay.CHART:
+                case KupMagicBoxDisplay.ECHART:
                     props.data = this.data;
                     props['series'] = [];
                     props['axis'] = null;
@@ -217,7 +247,7 @@ export class KupMagicBox {
                                 this.kupManager.objects.isNumber(col.obj)) ||
                             props['axis'] !== null
                         ) {
-                            if (this.display === MagicBoxDisplay.CHART) {
+                            if (this.display === KupMagicBoxDisplay.CHART) {
                                 props['series'].push({
                                     code: col.name,
                                     decode: col.title,
@@ -243,26 +273,18 @@ export class KupMagicBox {
                             KupDebugCategory.WARNING
                         );
                     }
-                    if (this.display === MagicBoxDisplay.CHART) {
+                    if (this.display === KupMagicBoxDisplay.CHART) {
                         content.push(<kup-chart {...props}></kup-chart>);
                     } else {
                         content.push(<kup-echart {...props}></kup-echart>);
                     }
                     break;
-                case MagicBoxDisplay.DATATABLE:
+                case KupMagicBoxDisplay.DATATABLE:
                     props.data = this.data;
                     props['autoFillMissingCells'] = true;
                     content.push(<kup-data-table {...props}></kup-data-table>);
                     break;
-                case MagicBoxDisplay.JSON:
-                    props.data = this.data;
-                    content.push(
-                        <pre class="json">
-                            {JSON.stringify(this.data, null, 2)}
-                        </pre>
-                    );
-                    break;
-                case MagicBoxDisplay.TREE:
+                case KupMagicBoxDisplay.TREE:
                     props.data = this.data;
                     content.push(
                         <kup-tree class="kup-full-width" {...props}></kup-tree>

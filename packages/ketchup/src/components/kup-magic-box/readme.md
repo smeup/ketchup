@@ -50,6 +50,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-text-field](../kup-text-field)
 - [kup-box](../kup-box)
 - [kup-button-list](../kup-button-list)
 - [kup-chip](../kup-chip)
@@ -64,6 +65,7 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-magic-box --> kup-text-field
   kup-magic-box --> kup-box
   kup-magic-box --> kup-button-list
   kup-magic-box --> kup-chip

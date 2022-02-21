@@ -9,7 +9,7 @@ export enum KupMagicBoxProps {
 /**
  * Viable display modes selectable in kup-magic-box.
  */
-export enum MagicBoxDisplay {
+export enum KupMagicBoxDisplay {
     BOX = 'Box',
     BUTTON_LIST = 'Button List',
     CHART = 'Chart',
