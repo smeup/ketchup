@@ -291,8 +291,9 @@ export class KupEchart {
                     const title = getColumnByName(dataset.columns, key).title;
                     treatedCells[title] = cell;
                 }
-                // TODO: Ask if is correct or change to use other system.
-                if (treatedCells[0]) x.push(treatedCells[0].value);
+                if (treatedCells[0]) {
+                    x.push(treatedCells[0].value);
+                }
             }
         } else {
             for (let i = 0; i < dataset.rows.length; i++) {
@@ -315,14 +316,17 @@ export class KupEchart {
                         if (this.series.includes(key)) {
                             const cell = row.cells[key];
                             const value = cell.value;
-                            const title = getColumnByName(
+                            const column = getColumnByName(
                                 this.data.columns,
                                 key
-                            ).title;
-                            if (!y[title]) {
-                                y[title] = [];
+                            );
+                            if (column) {
+                                const title = column.title;
+                                if (!y[title]) {
+                                    y[title] = [];
+                                }
+                                y[title].push(value);
                             }
-                            y[title].push(value);
                         }
                     }
                 }
@@ -333,14 +337,14 @@ export class KupEchart {
                     if (key !== this.axis) {
                         const cell = row.cells[key];
                         const value = cell.value;
-                        const title = getColumnByName(
-                            this.data.columns,
-                            key
-                        ).title;
-                        if (!y[title]) {
-                            y[title] = [];
+                        const column = getColumnByName(this.data.columns, key);
+                        if (column) {
+                            const title = column.title;
+                            if (!y[title]) {
+                                y[title] = [];
+                            }
+                            y[title].push(value);
                         }
-                        y[title].push(value);
                     }
                 }
             }
@@ -898,7 +902,6 @@ export class KupEchart {
             this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
         this.#themeColors = colorArray;
         const colorCheck = this.#kupManager.theme.colorCheck(colorArray[0]);
-        console.log(colorCheck);
         this.#themeColorDarker = `hsl(${colorCheck.hue}, ${
             colorCheck.saturation
         },  ${(parseFloat(colorCheck.lightness) - 30).toString()}%)`;

@@ -205,6 +205,7 @@ export class KupMagicBox {
                 case MagicBoxDisplay.ECHART:
                     props.data = this.data;
                     props['series'] = [];
+                    props['axis'] = null;
                     for (
                         let index = 0;
                         index < this.data.columns.length;
@@ -212,8 +213,9 @@ export class KupMagicBox {
                     ) {
                         const col: KupDataColumn = this.data.columns[index];
                         if (
-                            col.obj &&
-                            this.kupManager.objects.isNumber(col.obj)
+                            (col.obj &&
+                                this.kupManager.objects.isNumber(col.obj)) ||
+                            props['axis'] !== null
                         ) {
                             props['series'].push({
                                 code: col.name,
