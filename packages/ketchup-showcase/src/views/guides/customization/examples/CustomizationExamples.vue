@@ -53,7 +53,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .chip:first-child .f-image__icon{ background-color: pink !important; }"
+            custom-style="#kup-component .chip-set__item:first-child .chip { background-color: blue !important; color: pink !important; } #kup-component .chip:first-child .f-image__icon{ background-color: pink !important; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -163,16 +163,14 @@ export default {
     return {
       chipData: [
         {
-          value: '1',
           icon: 'widgets',
-          label: "I'm blue.",
-          checked: false,
+          id: '1',
+          value: "I'm blue.",
         },
         {
-          value: '2',
           icon: 'widgets',
-          label: 'Me too... sometimes.',
-          checked: false,
+          id: '2',
+          value: 'Me too... sometimes.',
         },
       ],
       tabbarData: [
@@ -195,7 +193,7 @@ export default {
       markup3:
         '#kup-component .chip { background-color: blue !important; color: pink !important; } #kup-component .f-image__icon { background-color: pink !important; }',
       markup4:
-        '#kup-component .chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .chip:first-child .f-image__icon { background-color: pink !important; }',
+        '#kup-component .chip-set__item:first-child .chip { background-color: blue !important; color: pink !important; } #kup-component .chip:first-child .f-image__icon { background-color: pink !important; }',
 
       markup5:
         '#kup-component button { color: transparent; } #kup-component button:hover { color: var(--kup-text-on-primary-color); }',

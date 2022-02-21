@@ -13,7 +13,6 @@ export enum KupChipProps {
 
 export interface KupChipNode extends KupDataNode {
     checked?: boolean;
-    label?: string;
 }
 
 export interface KupChipEventPayload extends KupEventPayload {

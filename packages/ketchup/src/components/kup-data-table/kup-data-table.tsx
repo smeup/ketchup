@@ -5093,8 +5093,8 @@ export class KupDataTable {
 
                 if (column) {
                     const a: KupChipNode = {
-                        label: column.title,
-                        value: column.name,
+                        value: column.title,
+                        id: column.name,
                         checked: true,
                     };
                     return a;

@@ -120,32 +120,32 @@ function createComp() {
       children: [
         {
           icon: 'filter_1',
-          label: 'First',
-          value: '1a',
+          id: '1a',
+          value: 'First',
         },
         {
           icon: 'filter_2',
-          label: 'Second',
-          value: '1b',
+          id: '1b',
+          value: 'Second',
         },
       ],
       icon: 'widgets',
-      label: 'Chips with icons',
-      value: '1',
+      id: '1',
+      value: 'Chips with icons',
     },
     {
       children: [
         {
-          label: 'First',
-          value: '2a',
+          id: '2a',
+          value: 'First',
         },
         {
-          label: 'Second',
-          value: '2b',
+          id: '2b',
+          value: 'Second',
         },
       ],
-      value: '2',
-      label: 'Chips without icons',
+      id: '2',
+      value: 'Chips without icons',
     },
   ];
   comp.id = 'demo-component';

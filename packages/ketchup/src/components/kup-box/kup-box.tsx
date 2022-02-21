@@ -1579,9 +1579,8 @@ export class KupBox {
             };
             for (let index = 0; index < sortingKey.length; index++) {
                 props.data.push({
-                    checked: false,
-                    label: sortingKey[index],
                     value: sortingKey[index],
+                    id: sortingKey[index],
                 });
             }
             kanbanJSX.push(

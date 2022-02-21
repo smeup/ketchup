@@ -27,22 +27,19 @@ export default {
     return {
       data: [
         {
-          value: 'input1',
           icon: 'filter_list',
-          label: 'First filter',
-          checked: false,
+          id: 'input1',
+          value: 'First filter',
         },
         {
-          value: 'input2',
           icon: 'filter_list',
-          label: 'Second filter',
-          checked: false,
+          id: 'input2',
+          value: 'Second filter',
         },
         {
-          value: 'input3',
           icon: 'filter_list',
-          label: 'Third filter',
-          checked: false,
+          id: 'input3',
+          value: 'Third filter',
         },
       ],
       markupBasic: '<kup-chip type="input"></kup-chip>',

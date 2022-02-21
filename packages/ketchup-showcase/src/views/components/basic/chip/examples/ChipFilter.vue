@@ -26,22 +26,22 @@ export default {
     return {
       data: [
         {
-          value: 'filter1',
-          icon: 'sentiment_very_dissatisfied',
-          label: 'NOPE!',
           checked: false,
+          icon: 'sentiment_very_dissatisfied',
+          id: 'filter1',
+          value: 'NOPE!',
         },
         {
-          value: 'filter2',
+          checked: true,
           icon: 'sentiment_satisfied',
-          label: 'Satisfied',
-          checked: true,
+          id: 'filter2',
+          value: 'Satisfied',
         },
         {
-          value: 'filter3',
-          icon: 'sentiment_very_satisfied',
-          label: 'Happy!',
           checked: true,
+          icon: 'sentiment_very_satisfied',
+          id: 'filter3',
+          value: 'Happy!',
         },
       ],
       markupBasic: '<kup-chip type="filter"></kup-chip>',

@@ -520,7 +520,6 @@ const demoTypes: DemoTypeJson = {
   },
   KupChipNode: {
     keys: {
-      label: 'string',
       value: 'string',
       'cells?': 'KupDataRowCells',
       'checked?': 'boolean',

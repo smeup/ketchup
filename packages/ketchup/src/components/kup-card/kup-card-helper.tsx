@@ -228,9 +228,9 @@ export function layoutSpecificEvents(component: KupCard, e: CustomEvent): void {
                     } else {
                         chipData.push({
                             icon: node.icon,
-                            label: node.value,
+                            value: node.value,
                             obj: node.obj,
-                            value: key,
+                            id: key,
                         });
                     }
                     apply.classList.add('visible');

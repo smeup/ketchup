@@ -279,7 +279,7 @@ export default {
       const localesListData: KupListData[] = [];
       for (let index = 0; index < locales.length; index++) {
         localesChipData.push({
-          label: locales[index],
+          id: locales[index],
           value: locales[index],
         });
         localesListData.push({

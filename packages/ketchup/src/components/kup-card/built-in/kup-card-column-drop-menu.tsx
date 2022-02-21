@@ -40,9 +40,9 @@ export function prepareColumnDropMenu(component: KupCard) {
         ) {
             chipData.push({
                 obj: column.obj,
-                label: column.name,
-                title: column.title,
                 value: column.name,
+                title: column.title,
+                id: column.name,
             });
         }
     }

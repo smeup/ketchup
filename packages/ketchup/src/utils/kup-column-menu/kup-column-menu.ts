@@ -354,9 +354,9 @@ export class KupColumnMenu {
                 }
                 chipData.push({
                     icon: child.icon ? child.icon : null,
-                    label: childColumn ? childColumn.title : '*Not found!',
+                    value: childColumn ? childColumn.title : '*Not found!',
                     obj: child.obj ? child.obj : null,
-                    value: childColumn ? childColumn.name : '*NOTFND',
+                    id: childColumn ? childColumn.name : '*NOTFND',
                 });
             }
             chipProps.dataSet = { initialData: [...chipData] };

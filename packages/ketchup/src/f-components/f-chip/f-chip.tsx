@@ -116,6 +116,13 @@ function createChipList(
                             }
                             wrapperClass="dropdown-icon"
                         ></FImage>
+                    ) : indent ? (
+                        <FImage
+                            resource="blank"
+                            sizeX="18px"
+                            sizeY="18px"
+                            wrapperClass="dropdown-icon"
+                        ></FImage>
                     ) : null}
                     {createChip(chip)}
                 </div>
@@ -133,10 +140,6 @@ function createChipList(
             let componentClass: string = `chip `;
             let iconEl = [];
             let iconClass = 'chip__icon chip__icon--leading';
-
-            if (!chip.label) {
-                chip.label = chip.value;
-            }
 
             if (isFilter || isChoice) {
                 if (chip.checked) {
@@ -178,7 +181,7 @@ function createChipList(
             return (
                 <div
                     class={componentClass}
-                    data-value={chip.value}
+                    data-value={chip.id}
                     onClick={
                         props.onClick && props.onClick[i]
                             ? props.onClick[i].bind(props.onClick[i], chip)
@@ -195,7 +198,7 @@ function createChipList(
                             tabindex={i}
                             class="chip__primary-action"
                             // @ts-ignore
-                            value={chip.value}
+                            value={chip.id}
                             checked={chip.checked}
                             onBlur={
                                 props.onBlur && props.onBlur[i]
@@ -214,7 +217,7 @@ function createChipList(
                                     : null
                             }
                         >
-                            <span class="chip__text">{chip.label}</span>
+                            <span class="chip__text">{chip.value}</span>
                         </span>
                     </span>
                     {isInput ? (

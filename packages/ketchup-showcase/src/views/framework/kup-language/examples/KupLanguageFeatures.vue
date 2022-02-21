@@ -153,7 +153,7 @@ export default {
       const languagesListData: KupListData[] = [];
       for (let index = 0; index < languages.length; index++) {
         languagesChipData.push({
-          label: languages[index],
+          id: languages[index],
           value: languages[index],
         });
         languagesListData.push({
