@@ -1,4 +1,10 @@
 import numeral from 'numeral';
+import 'numeral/locales/chs';
+import 'numeral/locales/es';
+import 'numeral/locales/fr';
+import 'numeral/locales/it';
+import 'numeral/locales/pl';
+import 'numeral/locales/ru';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
@@ -41,6 +47,7 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupData {
     datasetOperations: KupDataDatasetOperations = null;
     formulas: KupDataFormulas = null;
+    numeral: typeof numeral = numeral;
     /**
      * Initializes KupData.
      */
@@ -259,54 +266,34 @@ export class KupData {
         return data;
     }
     /**
-     * Returns a number from a non specified input type between string, number, or String.
+     * Returns a number from a non-specified input type between string, number, or String.
      * @param {string | String | number} input - Input value to numberify.
-     * @param {KupDatesLocales} locale - Input format locale. Defaults to KupDatesLocales.ENGLISH.
-     * @returns {number} Resulting number.
+     * @returns {number} Resulting number or NaN (when not a number).
      */
-    numberify(
-        input: string | String | number,
-        locale?: KupDatesLocales
-    ): number {
-        if (typeof input === 'string' || input instanceof String) {
-            if (!locale) {
-                locale = KupDatesLocales.ENGLISH;
-            }
-            const numberWithGroupAndDecimalSeparator = 1000.1;
-            const decimalSeparator = Intl.NumberFormat(locale)
-                .formatToParts(numberWithGroupAndDecimalSeparator)
-                .find((part) => part.type === 'decimal').value;
-            const groupSeparator = Intl.NumberFormat(locale)
-                .formatToParts(numberWithGroupAndDecimalSeparator)
-                .find((part) => part.type === 'group').value;
-            input = input.replace(new RegExp('\\' + groupSeparator, 'g'), '');
-            input = input.replace(
-                new RegExp('\\' + decimalSeparator, 'g'),
-                '.'
-            );
-        }
-        const n = numeral(input).value();
+    numberify(input: string | String | number): number {
+        const n = this.numeral(input).value();
         if (n === null) {
             return NaN;
         }
         return n;
     }
-
-    format(input: number, locale?: KupDatesLocales): string {
-        // TODO pascar da completare
-        if (!locale) {
-            locale = KupDatesLocales.ENGLISH;
+    /**
+     * Formats the input number with the specified format of the currently set locale.
+     * @param {string | String | number} input - Input number which will be automatically "numberified".
+     * @param {string} format - Desired format. Defaults to '0,0.0' (i.e.: 2,000,000.51)
+     * @returns {string} Formatted number.
+     */
+    format(input: string | String | number, format?: string): string {
+        const n = this.numberify(input);
+        if (!format) {
+            const positiveN = Math.abs(n);
+            const decimals = positiveN - Math.floor(positiveN);
+            if (decimals) {
+                format = '0,0.0';
+            } else {
+                format = '0,0';
+            }
         }
-        const numberWithGroupAndDecimalSeparator = 1000.1;
-        const decimalSeparator = Intl.NumberFormat(locale)
-            .formatToParts(numberWithGroupAndDecimalSeparator)
-            .find((part) => part.type === 'decimal').value;
-        const groupSeparator = Intl.NumberFormat(locale)
-            .formatToParts(numberWithGroupAndDecimalSeparator)
-            .find((part) => part.type === 'group').value;
-        let customFormat =
-            '0' + groupSeparator + '000' + decimalSeparator + '00';
-        numeral(input).format(customFormat);
-        return '';
+        return this.numeral(n).format(format);
     }
 }
