@@ -178,17 +178,6 @@ export interface KupDataRowOperations {
     toNode: (dataset: KupDataDataset) => KupDataNode[];
 }
 /**
- * Interface related to the formulas factory function.
- */
-export interface KupDataFormulas {
-    custom: (formula: string, row: { [index: string]: number }) => number;
-    normalDistribution: (
-        average: number,
-        variance: number,
-        x: number
-    ) => number;
-}
-/**
  * Sets the filters for the cell finder method.
  */
 export interface KupDataFindCellFilters {

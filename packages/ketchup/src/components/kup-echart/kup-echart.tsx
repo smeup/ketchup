@@ -38,6 +38,7 @@ import {
     KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupMathLocales } from '../../managers/kup-math/kup-math-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -256,18 +257,14 @@ export class KupEchart {
         }
         this.#chartEl.setOption(options, true);
         this.#chartEl.on('click', (e) => {
-            const column = this.#kupManager.data.datasetOperations.column.find(
-                this.data,
-                {
-                    title: e.seriesName,
-                }
-            )[0];
+            const column = this.#kupManager.data.column.find(this.data, {
+                title: e.seriesName,
+            })[0];
             let row: KupDataRow = null;
             if (e.seriesType === 'map') {
-                row = this.#kupManager.data.datasetOperations.row.find(
-                    this.data,
-                    { value: e.name }
-                )[0];
+                row = this.#kupManager.data.row.find(this.data, {
+                    value: e.name,
+                })[0];
             } else if (this.#sortedDataset && e.seriesType === 'bar') {
                 row = this.#sortedDataset.rows[e.dataIndex];
             } else if (!Array.isArray(e.data)) {
@@ -442,7 +439,7 @@ export class KupEchart {
                 ...colorRange,
                 calculable: true,
                 formatter: (value) => {
-                    return this.#kupManager.data.format(value as string);
+                    return this.#kupManager.math.format(value as string);
                 },
                 min: min,
                 max: max,
@@ -496,7 +493,7 @@ export class KupEchart {
                 if (hexColor) {
                     color = hexColor;
                 } else {
-                    n = this.#kupManager.data.numberify(value);
+                    n = this.#kupManager.math.numberify(value);
                     if (n > max) {
                         max = n;
                     }
@@ -533,13 +530,13 @@ export class KupEchart {
                 return null;
             } else {
                 //TODO: handle locale properly inside KupData [KupDataLocale]
-                this.#kupManager.data.numeral.locale(
-                    this.#kupManager.dates.locale
+                this.#kupManager.math.setLocale(
+                    KupMathLocales[this.#kupManager.dates.locale]
                 );
                 return (
                     params.name +
                     ': ' +
-                    this.#kupManager.data.format(value as string)
+                    this.#kupManager.math.format(value as string)
                 );
             }
         };
@@ -566,10 +563,9 @@ export class KupEchart {
                         },
                     },
                     map: this.rootElement.id ? this.rootElement.id : '',
-                    name: this.#kupManager.data.datasetOperations.column.find(
-                        this.data,
-                        { name: this.axis }
-                    )[0].title,
+                    name: this.#kupManager.data.column.find(this.data, {
+                        name: this.axis,
+                    })[0].title,
                     roam: true,
                     type: 'map',
                 } as echarts.MapSeriesOption,
@@ -604,10 +600,9 @@ export class KupEchart {
             },
             series: [
                 {
-                    name: this.#kupManager.data.datasetOperations.column.find(
-                        this.data,
-                        { name: this.axis }
-                    )[0].title,
+                    name: this.#kupManager.data.column.find(this.data, {
+                        name: this.axis,
+                    })[0].title,
                     type: 'pie',
                     data: data,
                     emphasis: {
@@ -645,16 +640,13 @@ export class KupEchart {
             );
             if (type == KupEchartTypes.GAUSSIAN) {
                 if (!this.#kupManager.objects.isNumber(column.obj)) {
-                    const newDataset =
-                        this.#kupManager.data.datasetOperations.distinct(
-                            this.data,
-                            [column.name]
-                        );
-                    values =
-                        this.#kupManager.data.datasetOperations.cell.getValue(
-                            newDataset,
-                            [column.name]
-                        );
+                    const newDataset = this.#kupManager.data.distinct(
+                        this.data,
+                        [column.name]
+                    );
+                    values = this.#kupManager.data.cell.getValue(newDataset, [
+                        column.name,
+                    ]);
                     this.#gaussianDatasets[column.name] = newDataset;
                 } else {
                     values = y[key];
@@ -662,24 +654,20 @@ export class KupEchart {
             } else {
                 if (needSortDataset) {
                     // if there is only one series other than the Gaussian then I apply the sorting algorithm that arranges the data in "mountain"
-                    this.#sortedDataset =
-                        this.#kupManager.data.datasetOperations.sort(
-                            this.data,
-                            'normalDistribution',
-                            column.name
-                        );
-                    values =
-                        this.#kupManager.data.datasetOperations.cell.getValue(
-                            this.#sortedDataset,
-                            [column.name]
-                        );
+                    this.#sortedDataset = this.#kupManager.data.sort(
+                        this.data,
+                        'normalDistribution',
+                        column.name
+                    );
+                    values = this.#kupManager.data.cell.getValue(
+                        this.#sortedDataset,
+                        [column.name]
+                    );
                     x = this.#createX(this.#sortedDataset);
                 } else {
-                    values =
-                        this.#kupManager.data.datasetOperations.cell.getValue(
-                            this.data,
-                            [column.name]
-                        );
+                    values = this.#kupManager.data.cell.getValue(this.data, [
+                        column.name,
+                    ]);
                 }
             }
             this.#addSeries(
@@ -722,13 +710,12 @@ export class KupEchart {
                             min: value - (value / 100) * 50,
                         },
                     };
-                    const rows =
-                        this.#kupManager.data.datasetOperations.row.find(
-                            this.#gaussianDatasets[column]
-                                ? this.#gaussianDatasets[column]
-                                : this.data,
-                            filters
-                        );
+                    const rows = this.#kupManager.data.row.find(
+                        this.#gaussianDatasets[column]
+                            ? this.#gaussianDatasets[column]
+                            : this.data,
+                        filters
+                    );
                     for (let index = 0; index < rows.length; index++) {
                         const row = rows[index];
                         const cells = row.cells;
@@ -823,7 +810,7 @@ export class KupEchart {
         switch (type) {
             case KupEchartTypes.GAUSSIAN:
                 series.push({
-                    data: this.#kupManager.data.normalDistribution(values),
+                    data: this.#kupManager.math.normalDistribution(values),
                     name: key,
                     showSymbol: false,
                     smooth: true,

@@ -1016,9 +1016,7 @@ export class KupDataTable {
      */
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
-        this.kupManager.data.datasetOperations.column.hide(this.data, [
-            column.name,
-        ]);
+        this.kupManager.data.column.hide(this.data, [column.name]);
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
@@ -1037,7 +1035,7 @@ export class KupDataTable {
         type: KupDataNewColumnTypes,
         options: KupDataNewColumnOptions
     ): Promise<string | KupDataColumn> {
-        const result = this.kupManager.data.datasetOperations.column.new(
+        const result = this.kupManager.data.column.new(
             this.data,
             type,
             options
@@ -1412,10 +1410,7 @@ export class KupDataTable {
         if (column) {
             this.filters = {};
         }
-        return this.kupManager.data.datasetOperations.transpose(
-            this.data,
-            column
-        );
+        return this.kupManager.data.transpose(this.data, column);
     }
 
     private stickyHeaderPosition = () => {

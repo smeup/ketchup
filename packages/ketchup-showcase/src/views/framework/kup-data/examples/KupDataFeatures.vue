@@ -445,12 +445,9 @@ export default {
      * Toggles the cell find API.
      */
     toggleCellFind(e: CustomEvent<KupTextFieldEventPayload>) {
-      const cells = dom.ketchup.data.datasetOperations.cell.find(
-        cellFindTable.data,
-        {
-          value: e.detail.value,
-        }
-      );
+      const cells = dom.ketchup.data.cell.find(cellFindTable.data, {
+        value: e.detail.value,
+      });
       for (let index = 0; index < cells.length; index++) {
         const cell = cells[index];
         cell.style = {
@@ -477,9 +474,7 @@ export default {
         distinctButton.icon = 'play_arrow';
       } else {
         distinctButton.classList.add('toggled');
-        distinctTable.data = dom.ketchup.data.datasetOperations.distinct(
-          distinctTable.data
-        );
+        distinctTable.data = dom.ketchup.data.distinct(distinctTable.data);
         distinctButton.icon = 'undo';
       }
     },
@@ -493,10 +488,7 @@ export default {
         newButton.icon = 'play_arrow';
       } else {
         newButton.classList.add('toggled');
-        newTable.data = dom.ketchup.data.datasetOperations.new(
-          newTable.data,
-          newColumn
-        );
+        newTable.data = dom.ketchup.data.new(newTable.data, newColumn);
         newButton.icon = 'undo';
       }
     },
@@ -512,7 +504,7 @@ export default {
         rangedDistinctButton.classList.add('toggled');
         rangedDistinctTable.data =
           // eslint-disable-next-line prettier/prettier
-          dom.ketchup.data.datasetOperations.rangedDistinct(
+          dom.ketchup.data.rangedDistinct(
             rangedDistinctTable.data,
             newColumn,
             resultColumn
@@ -530,9 +522,7 @@ export default {
         transposeButton.icon = 'play_arrow';
       } else {
         transposeButton.classList.add('toggled');
-        transposeTable.data = dom.ketchup.data.datasetOperations.transpose(
-          transposeTable.data
-        );
+        transposeTable.data = dom.ketchup.data.transpose(transposeTable.data);
         transposeButton.icon = 'undo';
       }
     },

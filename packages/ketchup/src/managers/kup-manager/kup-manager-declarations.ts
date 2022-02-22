@@ -9,6 +9,7 @@ import type { KupDynamicPosition } from '../kup-dynamic-position/kup-dynamic-pos
 import type { KupInteract } from '../kup-interact/kup-interact';
 import type { KupLanguage } from '../kup-language/kup-language';
 import type { KupLanguageJSON } from '../kup-language/kup-language-declarations';
+import type { KupMath } from '../kup-math/kup-math';
 import type { KupObjects } from '../kup-objects/kup-objects';
 import type { KupObjectsJSON } from '../kup-objects/kup-objects-declarations';
 import type { KupScrollOnHover } from '../kup-scroll-on-hover/kup-scroll-on-hover';
@@ -35,6 +36,7 @@ export interface KupManager {
     interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
+    math: KupMath;
     objects: KupObjects;
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
@@ -68,6 +70,7 @@ export interface KupManagerClickCb {
  * Interface for the KupManager override settings.
  */
 export interface KupManagerInitialization {
+    autoSetLocalization?: boolean;
     dates?: KupManagerDatesSettings;
     debug?: KupManagerDebugSettings;
     interact?: KupManagerInteractSettings;
