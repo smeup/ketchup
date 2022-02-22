@@ -294,6 +294,8 @@ export class KupData {
                 format = '0,0';
             }
         }
-        return this.numeral(n).format(format);
+        const formatted = this.numeral(n).format(format);
+        this.numeral.locale('en'); // TODO: Remove when KupData locale is handled [KupDataLocale]
+        return formatted;
     }
 }
