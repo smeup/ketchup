@@ -441,6 +441,9 @@ export class KupEchart {
                 ...opts.visualMap,
                 ...colorRange,
                 calculable: true,
+                formatter: (value) => {
+                    return this.#kupManager.data.format(value as string);
+                },
                 min: min,
                 max: max,
                 show: true,
@@ -520,6 +523,25 @@ export class KupEchart {
                 });
             }
         }
+        const tipCb = (params: echarts.DefaultLabelFormatterCallbackParams) => {
+            const value = params.value;
+            if (
+                isNaN(value as unknown as number) ||
+                value === null ||
+                value === undefined
+            ) {
+                return null;
+            } else {
+                this.#kupManager.data.numeral.locale(
+                    this.#kupManager.dates.locale
+                );
+                return (
+                    params.name +
+                    ': ' +
+                    this.#kupManager.data.format(value as string)
+                );
+            }
+        };
         const echartOption: echarts.EChartsOption = {
             emphasis: {
                 label: {
@@ -529,21 +551,7 @@ export class KupEchart {
             title: this.#setTitle(),
             tooltip: {
                 ...this.#setTooltip(),
-                formatter: function (
-                    params: echarts.DefaultLabelFormatterCallbackParams
-                ) {
-                    const value = params.value;
-                    if (
-                        isNaN(value as unknown as number) ||
-                        value === null ||
-                        value === undefined
-                    ) {
-                        return null;
-                    } else {
-                        // TODO: pascar formattare value (number), per locale
-                        return params.name + ': ' + value;
-                    }
-                },
+                formatter: tipCb,
                 showDelay: 0,
                 trigger: 'item',
                 transitionDuration: 0.2,
