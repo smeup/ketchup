@@ -64,11 +64,6 @@ function createChipList(
 ): VNode[] {
     const chipList: VNode[] = [];
 
-    if ((props.data as KupDataDataset).columns) {
-        const data = props.data as KupDataDataset;
-        props.data = dom.ketchup.data.datasetOperations.row.toNode(data);
-    }
-
     for (let i = 0; props.data && i < props.data.length; i++) {
         const chipGroup: VNode[] = [];
         recursive(props.data[i], 0);
