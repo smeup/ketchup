@@ -266,32 +266,11 @@ export class KupData {
         return data;
     }
     /**
-     * Returns a number from a non specified input type between string, number, or String.
+     * Returns a number from a non-specified input type between string, number, or String.
      * @param {string | String | number} input - Input value to numberify.
-     * @param {KupDatesLocales} locale - Input format locale. Defaults to KupDatesLocales.ENGLISH.
-     * @returns {number} Resulting number.
+     * @returns {number} Resulting number or NaN (when not a number).
      */
-    numberify(
-        input: string | String | number,
-        locale?: KupDatesLocales
-    ): number {
-        if (typeof input === 'string' || input instanceof String) {
-            if (!locale) {
-                locale = KupDatesLocales.ENGLISH;
-            }
-            const numberWithGroupAndDecimalSeparator = 1000.1;
-            const decimalSeparator = Intl.NumberFormat(locale)
-                .formatToParts(numberWithGroupAndDecimalSeparator)
-                .find((part) => part.type === 'decimal').value;
-            const groupSeparator = Intl.NumberFormat(locale)
-                .formatToParts(numberWithGroupAndDecimalSeparator)
-                .find((part) => part.type === 'group').value;
-            input = input.replace(new RegExp('\\' + groupSeparator, 'g'), '');
-            input = input.replace(
-                new RegExp('\\' + decimalSeparator, 'g'),
-                '.'
-            );
-        }
+    numberify(input: string | String | number): number {
         const n = this.numeral(input).value();
         if (n === null) {
             return NaN;

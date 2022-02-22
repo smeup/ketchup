@@ -532,6 +532,7 @@ export class KupEchart {
             ) {
                 return null;
             } else {
+                //TODO: handle locale properly inside KupData
                 this.#kupManager.data.numeral.locale(
                     this.#kupManager.dates.locale
                 );
