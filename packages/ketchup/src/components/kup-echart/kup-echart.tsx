@@ -263,7 +263,12 @@ export class KupEchart {
                 }
             )[0];
             let row: KupDataRow = null;
-            if (this.#sortedDataset && e.seriesType === 'bar') {
+            if (e.seriesType === 'map') {
+                row = this.#kupManager.data.datasetOperations.row.find(
+                    this.data,
+                    { value: e.name }
+                )[0];
+            } else if (this.#sortedDataset && e.seriesType === 'bar') {
                 row = this.#sortedDataset.rows[e.dataIndex];
             } else if (!Array.isArray(e.data)) {
                 row = this.data.rows[e.dataIndex];
