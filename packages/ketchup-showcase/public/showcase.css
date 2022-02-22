@@ -164,7 +164,7 @@ table#customstyle-tab kup-text-field {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 130;
+  z-index: calc(var(--kup-navbar-zindex) + 1);
 }
 
 #sample-wrapper.theming {

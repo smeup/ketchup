@@ -79,6 +79,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -99,6 +100,7 @@ graph TD;
   kup-box --> kup-button-list
   kup-cell --> kup-button-list
   kup-data-table --> kup-button-list
+  kup-magic-box --> kup-button-list
   kup-tree --> kup-button-list
   style kup-button-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

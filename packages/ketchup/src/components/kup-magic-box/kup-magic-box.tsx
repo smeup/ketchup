@@ -19,7 +19,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupMagicBoxProps,
-    MagicBoxDisplay,
+    KupMagicBoxDisplay,
 } from './kup-magic-box-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
@@ -38,6 +38,7 @@ import {
     KupDataDataset,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupTextFieldEventPayload } from '../kup-text-field/kup-text-field-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -56,9 +57,9 @@ export class KupMagicBox {
 
     /**
      * Data will be displayed using this component.
-     * @default MagicBoxDisplay.DATATABLE
+     * @default KupMagicBoxDisplay.DATATABLE
      */
-    @State() display: MagicBoxDisplay = MagicBoxDisplay.DATATABLE;
+    @State() display: KupMagicBoxDisplay = KupMagicBoxDisplay.DATATABLE;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -80,14 +81,9 @@ export class KupMagicBox {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    /**
-     * Instance of the KupManager class.
-     */
-    private kupManager: KupManager = kupManagerInstance();
-    /**
-     * Element which enables the drag on move feature.
-     */
     private dragHandler: HTMLElement = null;
+    private kupManager = kupManagerInstance();
+    private textArea: HTMLKupTextFieldElement = null;
     private wrapperRef: HTMLElement = null;
 
     /*-------------------------------------------------*/
@@ -129,11 +125,11 @@ export class KupMagicBox {
      */
     private comboboxProps(): GenericObject {
         const listData: KupListData[] = [];
-        for (const key in MagicBoxDisplay) {
-            if (Object.prototype.hasOwnProperty.call(MagicBoxDisplay, key)) {
+        for (const key in KupMagicBoxDisplay) {
+            if (Object.prototype.hasOwnProperty.call(KupMagicBoxDisplay, key)) {
                 listData.push({
-                    text: MagicBoxDisplay[key],
-                    value: MagicBoxDisplay[key],
+                    text: KupMagicBoxDisplay[key],
+                    value: KupMagicBoxDisplay[key],
                     selected: false,
                 });
             }
@@ -173,7 +169,40 @@ export class KupMagicBox {
             this.data.columns.length > 0
         );
         const content: VNode[] = [];
-        if (!hasColumns) {
+        const props: GenericObject = {};
+        if (this.display === KupMagicBoxDisplay.JSON) {
+            props.initialValue = this.data
+                ? JSON.stringify(this.data, null, 2)
+                : '';
+            props.textArea = true;
+            content.push(
+                <kup-text-field
+                    class="kup-full-width kup-full-height"
+                    {...props}
+                    ref={(el) => (this.textArea = el)}
+                    onkup-textfield-input={(
+                        e: CustomEvent<KupTextFieldEventPayload>
+                    ) => {
+                        try {
+                            this.data = JSON.parse(e.detail.value);
+                        } catch (error) {
+                            this.data = {
+                                columns: [{ name: 'ERROR', title: 'Error' }],
+                                rows: [
+                                    {
+                                        cells: {
+                                            ERROR: {
+                                                value: 'Invalid JSON:' + error,
+                                            },
+                                        },
+                                    },
+                                ],
+                            };
+                        }
+                    }}
+                ></kup-text-field>
+            );
+        } else if (!hasColumns) {
             content.push(
                 <div class="empty">
                     <FImage sizeY="100px" resource="move_to_inbox" />
@@ -185,16 +214,26 @@ export class KupMagicBox {
                 </div>
             );
         } else {
-            const props: GenericObject = {};
             switch (this.display) {
-                case MagicBoxDisplay.BOX:
-                    props['data'] = this.data;
+                case KupMagicBoxDisplay.BOX:
+                    props.data = this.data;
                     content.push(<kup-box {...props}></kup-box>);
                     break;
-                case MagicBoxDisplay.CHART:
-                case MagicBoxDisplay.ECHART:
-                    props['data'] = this.data;
+                case KupMagicBoxDisplay.BUTTON_LIST:
+                    props.data = this.data;
+                    content.push(
+                        <kup-button-list {...props}></kup-button-list>
+                    );
+                    break;
+                case KupMagicBoxDisplay.CHIP:
+                    props.data = this.data;
+                    content.push(<kup-chip {...props}></kup-chip>);
+                    break;
+                case KupMagicBoxDisplay.CHART:
+                case KupMagicBoxDisplay.ECHART:
+                    props.data = this.data;
                     props['series'] = [];
+                    props['axis'] = null;
                     for (
                         let index = 0;
                         index < this.data.columns.length;
@@ -202,13 +241,18 @@ export class KupMagicBox {
                     ) {
                         const col: KupDataColumn = this.data.columns[index];
                         if (
-                            col.obj &&
-                            this.kupManager.objects.isNumber(col.obj)
+                            (col.obj &&
+                                this.kupManager.objects.isNumber(col.obj)) ||
+                            props['axis'] !== null
                         ) {
-                            props['series'].push({
-                                code: col.name,
-                                decode: col.title,
-                            });
+                            if (this.display === KupMagicBoxDisplay.CHART) {
+                                props['series'].push({
+                                    code: col.name,
+                                    decode: col.title,
+                                });
+                            } else {
+                                props['series'].push(col.name);
+                            }
                         } else {
                             props['axis'] = col.name;
                         }
@@ -227,25 +271,21 @@ export class KupMagicBox {
                             KupDebugCategory.WARNING
                         );
                     }
-                    if (this.display === MagicBoxDisplay.CHART) {
+                    if (this.display === KupMagicBoxDisplay.CHART) {
                         content.push(<kup-chart {...props}></kup-chart>);
                     } else {
-                        //Echart series broken?
-                        props['series'] = null;
                         content.push(<kup-echart {...props}></kup-echart>);
                     }
                     break;
-                case MagicBoxDisplay.DATATABLE:
-                    props['data'] = this.data;
+                case KupMagicBoxDisplay.DATATABLE:
+                    props.data = this.data;
                     props['autoFillMissingCells'] = true;
                     content.push(<kup-data-table {...props}></kup-data-table>);
                     break;
-                case MagicBoxDisplay.JSON:
-                    props['data'] = this.data;
+                case KupMagicBoxDisplay.TREE:
+                    props.data = this.data;
                     content.push(
-                        <pre class="json">
-                            {JSON.stringify(this.data, null, 2)}
-                        </pre>
+                        <kup-tree class="kup-full-width" {...props}></kup-tree>
                     );
                     break;
                 default:
@@ -300,6 +340,13 @@ export class KupMagicBox {
                 }
             }
             this.data = data;
+            if (this.data && this.textArea) {
+                try {
+                    this.textArea.setValue(JSON.stringify(this.data, null, 2));
+                } catch (error) {
+                    this.textArea.setValue('Invalid JSON:' + error);
+                }
+            }
         }
     }
 

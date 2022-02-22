@@ -44,7 +44,7 @@ export interface KupDataColumnChild {
  * Generic row interface.
  */
 export interface KupDataRow {
-    cells: KupDataRowCells;
+    cells?: KupDataRowCells;
     actions?: KupDataRowAction[];
     cssClass?: string;
     id?: string;
@@ -80,17 +80,13 @@ export interface KupDataCell {
  * Generic tree node interface.
  */
 export interface KupDataNode extends KupDataRow {
-    children: KupDataNode[];
-    disabled: boolean;
-    expandable: boolean;
-    obj: KupObj;
     value: string;
+    children?: KupDataNode[];
+    disabled?: boolean;
+    obj?: KupObj;
     icon?: string;
-    iconColor?: string;
     isExpanded?: boolean;
-    options?: boolean;
-    style?: GenericMap;
-    visible?: boolean;
+    title?: string;
 }
 /**
  * Interface related to dataset operations.
@@ -98,6 +94,7 @@ export interface KupDataNode extends KupDataRow {
 export interface KupDataDatasetOperations {
     cell: KupDataCellOperations;
     column: KupDataColumnOperations;
+    node: KupDataNodeOperations;
     row: KupDataRowOperations;
     distinct: (
         dataset: KupDataDataset,
@@ -156,6 +153,19 @@ export interface KupDataColumnOperations {
         type: KupDataNewColumnTypes,
         options: KupDataNewColumnOptions
     ) => string | KupDataColumn;
+}
+/**
+ * Interface related to nodes operations.
+ */
+export interface KupDataNodeOperations {
+    remove: (nodes: KupDataNode[], node2remove: KupDataNode) => KupDataNode;
+    setProperties: (
+        nodes: KupDataNode[],
+        properties: Partial<KupDataNode>,
+        recursively?: boolean,
+        exclude?: KupDataNode[]
+    ) => KupDataNode[];
+    toStream: (nodes: KupDataNode[]) => KupDataNode[];
 }
 /**
  * Interface related to rows operations.

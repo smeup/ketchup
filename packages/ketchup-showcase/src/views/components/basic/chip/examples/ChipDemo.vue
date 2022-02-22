@@ -95,7 +95,7 @@ export default {
           prop: 'data',
           description:
             'Object array containing the data of the chips: value, icon, label, title to be shown and checked status.',
-          type: 'FChipData',
+          type: 'KupChipNode',
           isArray: true,
           default: '[]',
           try: 'json',
@@ -117,22 +117,35 @@ function createComp() {
   let comp = document.createElement('kup-chip');
   comp.data = [
     {
-      value: '1_chip',
-      icon: 'filter_1',
-      label: 'First chip',
-      checked: false,
+      children: [
+        {
+          icon: 'filter_1',
+          id: '1a',
+          value: 'First',
+        },
+        {
+          icon: 'filter_2',
+          id: '1b',
+          value: 'Second',
+        },
+      ],
+      icon: 'widgets',
+      id: '1',
+      value: 'Chips with icons',
     },
     {
-      value: '2_chip',
-      icon: 'filter_2',
-      label: 'Second chip',
-      checked: true,
-    },
-    {
-      value: '3_chip',
-      icon: 'filter_3',
-      label: 'Third chip',
-      checked: false,
+      children: [
+        {
+          id: '2a',
+          value: 'First',
+        },
+        {
+          id: '2b',
+          value: 'Second',
+        },
+      ],
+      id: '2',
+      value: 'Chips without icons',
     },
   ];
   comp.id = 'demo-component';

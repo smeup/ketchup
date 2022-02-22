@@ -8,6 +8,7 @@
   --kup_chip_font_size: var(--kup-chip-font-size, var(--kup-font-size));
   --kup_chip_font_weight: var(--kup-chip-font-weight, var(--kup-font-weight));
   --kup_chip_height: var(--kup-chip-height, 32px);
+  --kup_chip_indent_multiplier: var(--kup-chip-indent-multiplier, 10);
   --kup_chip_margin: var(--kup-chip-margin, 4px);
   --kup_chip_padding: var(--kup-chip-padding, 0 12px);
   --kup_chip_primary_color: var(
@@ -33,10 +34,41 @@
     flex-wrap: wrap;
     box-sizing: border-box;
 
+    .chip-set__item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chip-set__wrapper {
+      display: flex;
+
+      .dropdown-icon {
+        cursor: pointer;
+        margin: auto 0;
+        transform: rotate(180deg);
+        transform-origin: unset;
+
+        &:hover {
+          opacity: 0.75;
+        }
+      }
+
+      &--hidden-children {
+        .dropdown-icon {
+          transform: unset;
+        }
+      }
+    }
+
+    .chip-set__indent {
+      width: calc(
+        var(--kup_chip_margin) * var(--kup_chip_indent_offset) *
+          var(--kup_chip_indent_multiplier)
+      );
+    }
+
     .chip {
       align-items: center;
-      display: inline-flex;
-      position: relative;
       background-color: var(--kup_chip_background_color);
       background-image: linear-gradient(
         to right,
@@ -44,20 +76,23 @@
         rgba(var(--kup_chip_text_color_rgb), 0.1) 0.1%,
         rgba(var(--kup_chip_text_color_rgb), 0.1)
       );
-      color: var(--kup_chip_text_color);
       border-radius: var(--kup_chip_border_radius);
+      border-width: 0;
+      box-sizing: border-box;
+      color: var(--kup_chip_text_color);
+      cursor: pointer;
+      display: inline-flex;
       font-size: 0.875em;
       font-weight: var(--kup_chip_font_weight);
+      height: var(--kup_chip_height);
       letter-spacing: 0.0178571429em;
+      margin: var(--kup_chip_margin);
+      max-width: max-content;
+      outline: none;
+      padding: var(--kup_chip_padding);
+      position: relative;
       text-decoration: inherit;
       text-transform: inherit;
-      height: var(--kup_chip_height);
-      box-sizing: border-box;
-      padding: var(--kup_chip_padding);
-      border-width: 0;
-      outline: none;
-      cursor: pointer;
-      margin: var(--kup_chip_margin);
 
       .chip__icon--leading {
         color: var(--kup_chip_text_color);
@@ -218,6 +253,12 @@
   &.#{$kup-class-warning} {
     --kup-chip-primary-color: var(--kup-warning-color);
     --kup-chip-primary-color-rgb: var(--kup-warning-color-rgb);
+  }
+
+  .#{$kup-icon}.#{$kup-icon-dropdown} {
+    -webkit-mask: var(--kup-dropdown-icon);
+    mask: var(--kup-dropdown-icon);
+    transition: opacity 125ms, transform 0.15s;
   }
 
   .#{$kup-icon}.#{$kup-icon-clear} {

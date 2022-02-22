@@ -16,7 +16,7 @@ export enum KupButtonListProps {
 }
 
 export interface KupButtonListNode extends KupDataNode {
-    children: KupButtonListNode[];
+    children?: KupButtonListNode[];
     data?: GenericObject;
 }
 

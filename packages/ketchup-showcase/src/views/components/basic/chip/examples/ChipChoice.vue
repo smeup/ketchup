@@ -26,22 +26,22 @@ export default {
     return {
       data: [
         {
-          value: 'choice1',
+          checked: false,
           icon: 'sentiment_very_dissatisfied',
-          label: 'NOPE!',
-          checked: false,
+          id: 'choice1',
+          value: 'NOPE!',
         },
         {
-          value: 'choice2',
+          checked: false,
           icon: 'sentiment_satisfied',
-          label: 'Satisfied',
-          checked: false,
+          id: 'choice2',
+          value: 'Satisfied',
         },
         {
-          value: 'choice3',
-          icon: 'sentiment_very_satisfied',
-          label: 'Happy!',
           checked: true,
+          icon: 'sentiment_very_satisfied',
+          id: 'choice3',
+          value: 'Happy!',
         },
       ],
       markupBasic: '<kup-chip type="choice"></kup-chip>',

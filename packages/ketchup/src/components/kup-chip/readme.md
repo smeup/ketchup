@@ -8,8 +8,7 @@
 | Property      | Attribute      | Description                                                                    | Type                                                                            | Default              |
 | ------------- | -------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | -------------------- |
 | `customStyle` | `custom-style` | Custom style of the component.                                                 | `string`                                                                        | `''`                 |
-| `data`        | --             | List of elements.                                                              | `FChipData[]`                                                                   | `[]`                 |
-| `dataNew`     | --             | List of elements.                                                              | `KupDataNode[]`                                                                 | `[]`                 |
+| `data`        | --             | List of elements.                                                              | `KupChipNode[]`                                                                 | `[]`                 |
 | `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default. | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
 
 
@@ -66,6 +65,7 @@ Type: `Promise<void>`
 | `--kup-chip-font-size`         | Sets font size of the chips.                                       |
 | `--kup-chip-font-weight`       | Sets font weight of the chips.                                     |
 | `--kup-chip-height`            | Sets height of the chips.                                          |
+| `--kup-chip-indent-multiplier` | Sets the indentation multiplier for children chips.                |
 | `--kup-chip-margin`            | Sets margin of the chips.                                          |
 | `--kup-chip-padding`           | Sets padding of the chips.                                         |
 | `--kup-chip-primary-color`     | Sets primary color of the component.                               |
@@ -79,6 +79,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-card](../kup-card)
+ - [kup-magic-box](../kup-magic-box)
 
 ### Depends on
 
@@ -90,6 +91,7 @@ graph TD;
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-card --> kup-chip
+  kup-magic-box --> kup-chip
   style kup-chip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

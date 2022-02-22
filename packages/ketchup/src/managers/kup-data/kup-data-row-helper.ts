@@ -26,15 +26,15 @@ export function findRow(
 export function toNode(dataset: KupDataDataset): KupDataNode[] {
     const nodes: KupDataNode[] = [];
     for (let index = 0; index < dataset.rows.length; index++) {
-        const node: KupDataNode = {
+        const node: Partial<KupDataNode> = {
             ...dataset.rows[index],
-            children: [],
-            disabled: false,
-            expandable: false,
-            obj: null,
-            value: '#' + (index + 1),
         };
-        nodes.push(node);
+        if (!node.value) {
+            node.value = dataset.rows[index].id
+                ? dataset.rows[index].id
+                : '#' + (index + 1);
+        }
+        nodes.push(node as KupDataNode);
     }
     return nodes;
 }

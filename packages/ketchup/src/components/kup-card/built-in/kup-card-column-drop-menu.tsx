@@ -1,11 +1,13 @@
 import { h, VNode } from '@stencil/core';
-import { KupChipEventPayload } from '../../kup-chip/kup-chip-declarations';
+import {
+    KupChipEventPayload,
+    KupChipNode,
+} from '../../kup-chip/kup-chip-declarations';
 import {
     KupListData,
     KupListEventPayload,
 } from '../../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../../f-components/f-button/f-button-declarations';
-import { FChipData } from '../../../f-components/f-chip/f-chip-declarations';
 import {
     KupLanguageColumn,
     KupLanguageGeneric,
@@ -27,7 +29,7 @@ const premadeFormulas = [
 
 export function prepareColumnDropMenu(component: KupCard) {
     const options = component.data.options as KupCardColumnDropMenuOptions;
-    const chipData: FChipData[] = [];
+    const chipData: KupChipNode[] = [];
     let list: VNode, combobox: VNode, button: VNode, chipSet: VNode;
     for (let index = 0; index < options.data.columns.length; index++) {
         const column = options.data.columns[index];
@@ -38,9 +40,9 @@ export function prepareColumnDropMenu(component: KupCard) {
         ) {
             chipData.push({
                 obj: column.obj,
-                label: column.name,
-                title: column.title,
                 value: column.name,
+                title: column.title,
+                id: column.name,
             });
         }
     }
@@ -181,7 +183,7 @@ function getCombobox(component: KupCard): HTMLKupComboboxElement {
 
 function typeColumn(e: CustomEvent<KupChipEventPayload>, component: KupCard) {
     const combobox = getCombobox(component);
-    const value = e.detail.value;
+    const value = e.detail.chip.value;
     combobox.getValue().then((res) => {
         let currentFormula = res;
         currentFormula += '[' + value + ']';

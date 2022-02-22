@@ -130,6 +130,8 @@ export class KupEchart {
     #themeBorder: string = null;
     #themeBackground: string = null;
     #themeColors: string[] = null;
+    #themeColorBrighter: string = null;
+    #themeColorDarker: string = null;
     #themeFont: string = null;
     #themeText: string = null;
 
@@ -261,7 +263,12 @@ export class KupEchart {
                 }
             )[0];
             let row: KupDataRow = null;
-            if (this.#sortedDataset && e.seriesType === 'bar') {
+            if (e.seriesType === 'map') {
+                row = this.#kupManager.data.datasetOperations.row.find(
+                    this.data,
+                    { value: e.name }
+                )[0];
+            } else if (this.#sortedDataset && e.seriesType === 'bar') {
                 row = this.#sortedDataset.rows[e.dataIndex];
             } else if (!Array.isArray(e.data)) {
                 row = this.data.rows[e.dataIndex];
@@ -289,8 +296,9 @@ export class KupEchart {
                     const title = getColumnByName(dataset.columns, key).title;
                     treatedCells[title] = cell;
                 }
-                // TODO: Ask if is correct or change to use other system.
-                if (treatedCells[0]) x.push(treatedCells[0].value);
+                if (treatedCells[0]) {
+                    x.push(treatedCells[0].value);
+                }
             }
         } else {
             for (let i = 0; i < dataset.rows.length; i++) {
@@ -313,14 +321,17 @@ export class KupEchart {
                         if (this.series.includes(key)) {
                             const cell = row.cells[key];
                             const value = cell.value;
-                            const title = getColumnByName(
+                            const column = getColumnByName(
                                 this.data.columns,
                                 key
-                            ).title;
-                            if (!y[title]) {
-                                y[title] = [];
+                            );
+                            if (column) {
+                                const title = column.title;
+                                if (!y[title]) {
+                                    y[title] = [];
+                                }
+                                y[title].push(value);
                             }
-                            y[title].push(value);
                         }
                     }
                 }
@@ -331,14 +342,14 @@ export class KupEchart {
                     if (key !== this.axis) {
                         const cell = row.cells[key];
                         const value = cell.value;
-                        const title = getColumnByName(
-                            this.data.columns,
-                            key
-                        ).title;
-                        if (!y[title]) {
-                            y[title] = [];
+                        const column = getColumnByName(this.data.columns, key);
+                        if (column) {
+                            const title = column.title;
+                            if (!y[title]) {
+                                y[title] = [];
+                            }
+                            y[title].push(value);
                         }
-                        y[title].push(value);
                     }
                 }
             }
@@ -418,7 +429,13 @@ export class KupEchart {
             ? undefined
             : colors.length > 0
             ? { inRange: { color: colors }, min: min, max: max }
-            : { inRange: { color: this.#themeColors }, min: min, max: max };
+            : {
+                  inRange: {
+                      color: [this.#themeColorBrighter, this.#themeColorDarker],
+                  },
+                  min: min,
+                  max: max,
+              };
         if (colorRange) {
             opts.visualMap = {
                 ...opts.visualMap,
@@ -889,6 +906,13 @@ export class KupEchart {
         this.#themeText =
             this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
         this.#themeColors = colorArray;
+        const colorCheck = this.#kupManager.theme.colorCheck(colorArray[0]);
+        this.#themeColorDarker = `hsl(${colorCheck.hue}, ${
+            colorCheck.saturation
+        },  ${(parseFloat(colorCheck.lightness) - 30).toString()}%)`;
+        this.#themeColorBrighter = `hsl(${colorCheck.hue}, ${
+            colorCheck.saturation
+        }, ${(parseFloat(colorCheck.lightness) + 30).toString()}%)`;
     }
 
     /*-------------------------------------------------*/

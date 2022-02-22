@@ -11,7 +11,7 @@ import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from 
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataNode, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
+import { KupDataCell, KupDataColumn, KupDataDataset, KupDataNewColumnOptions, KupDataNewColumnTypes, KupDataRowAction } from "./managers/kup-data/kup-data-declarations";
 import { FButtonProps, FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { KupButtonClickEventPayload } from "./components/kup-button/kup-button-declarations";
 import { KupButtonListClickEventPayload, KupButtonListNode } from "./components/kup-button-list/kup-button-list-declarations";
@@ -20,8 +20,8 @@ import { KupCardClickPayload, KupCardData, KupCardEventPayload, KupCardFamily } 
 import { FCellPadding } from "./f-components/f-cell/f-cell-declarations";
 import { ChartAspect, ChartAxis, ChartOfflineMode, ChartSerie, ChartTitle, ChartType, KupChartClickEvent, KupChartSort, KupChartTrendlines } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxEventPayload } from "./components/kup-checkbox/kup-checkbox-declarations";
-import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
-import { KupChipEventPayload } from "./components/kup-chip/kup-chip-declarations";
+import { KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip-declarations";
+import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
 import { GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
@@ -45,7 +45,7 @@ import { KupTabBarClickEventPayload, KupTabBarData, KupTabBarEventPayload } from
 import { KupTextFieldEventPayload } from "./components/kup-text-field/kup-text-field-declarations";
 import { KupTimePickerEventPayload } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { KupTooltipActionCommandClickEventPayload, KupTooltipDefaultEventPayload, KupTooltipLoadEventPayload, KupTooltipTreeDynamicMassExpansionEventPayload, KupTooltipTreeNodeButtonClickEventPayload, KupTooltipTreeNodeDblClickEventPayload, KupTooltipTreeNodeExpandEventPayload, KupTooltipTreeNodeSelectedEventPayload, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
-import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupTreeColumnMenuEventPayload, KupTreeColumnRemoveEventPayload, KupTreeContextMenuEventPayload, KupTreeDynamicMassExpansionEventPayload, KupTreeExpansionMode, KupTreeNode, KupTreeNodeButtonClickEventPayload, KupTreeNodeCollapseEventPayload, KupTreeNodeExpandEventPayload, KupTreeNodeSelectedEventPayload, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 export namespace Components {
     interface KupAccordion {
         /**
@@ -833,12 +833,7 @@ export namespace Components {
           * List of elements.
           * @default []
          */
-        "data": FChipData[];
-        /**
-          * List of elements.
-          * @default []
-         */
-        "dataNew": KupDataNode[];
+        "data": KupChipNode[];
         /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
@@ -2731,7 +2726,7 @@ export namespace Components {
         /**
           * The json data used to populate the tree view: the basic, always visible tree nodes.
          */
-        "data": KupDataNode[];
+        "data": KupTreeNode[];
         /**
           * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
          */
@@ -2741,9 +2736,9 @@ export namespace Components {
           * @see useDynamicExpansion
          */
         "dynamicExpansionCallback": (
-        treeNodeToExpand: KupDataNode,
+        treeNodeToExpand: KupTreeNode,
         treeNodePath: TreeNodePath
-    ) => Promise<KupDataNode[]> | undefined;
+    ) => Promise<KupTreeNode[]> | undefined;
         /**
           * When set to true, editable cells will be rendered using input components.
           * @default false
@@ -3866,12 +3861,7 @@ declare namespace LocalJSX {
           * List of elements.
           * @default []
          */
-        "data"?: FChipData[];
-        /**
-          * List of elements.
-          * @default []
-         */
-        "dataNew"?: KupDataNode[];
+        "data"?: KupChipNode[];
         /**
           * Triggered when a chip loses focus.
          */
@@ -5421,7 +5411,7 @@ declare namespace LocalJSX {
         /**
           * The json data used to populate the tree view: the basic, always visible tree nodes.
          */
-        "data"?: KupDataNode[];
+        "data"?: KupTreeNode[];
         /**
           * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
          */
@@ -5431,9 +5421,9 @@ declare namespace LocalJSX {
           * @see useDynamicExpansion
          */
         "dynamicExpansionCallback"?: (
-        treeNodeToExpand: KupDataNode,
+        treeNodeToExpand: KupTreeNode,
         treeNodePath: TreeNodePath
-    ) => Promise<KupDataNode[]> | undefined;
+    ) => Promise<KupTreeNode[]> | undefined;
         /**
           * When set to true, editable cells will be rendered using input components.
           * @default false
@@ -5488,7 +5478,7 @@ declare namespace LocalJSX {
         "onKup-tree-didunload"?: (event: CustomEvent<KupEventPayload>) => void;
         "onKup-tree-dynamicmassexpansion"?: (event: CustomEvent<KupTreeDynamicMassExpansionEventPayload>) => void;
         /**
-          * Fired when a KupDataNode gets collapsed (closed).
+          * Fired when a KupTreeNode gets collapsed (closed).
          */
         "onKup-tree-nodecollapse"?: (event: CustomEvent<KupTreeNodeCollapseEventPayload>) => void;
         "onKup-tree-nodedblclick"?: (event: CustomEvent<KupTreeNodeCollapseEventPayload>) => void;
@@ -5497,9 +5487,9 @@ declare namespace LocalJSX {
           * @event kup-tree-nodeexpand
           * @type {object}
           * @property {TreeNodePath} treeNodePath - The array of indexes to retrieve the current treeNode inside the data prop.
-          * @property {KupDataNode} treeNode - Reference to the KupDataNode data object which is being expanded (passed through the data prop).
+          * @property {KupTreeNode} treeNode - Reference to the KupTreeNode data object which is being expanded (passed through the data prop).
           * @property {boolean} usesDynamicExpansion - Flag to notify that the component is running in dynamicExpansion mode.
-          * @property {boolean} dynamicExpansionRequireChildren - Flag to notify that the current dynamicExpansion event requires the parent component to add KupDataNode children to the given KupDataNode.
+          * @property {boolean} dynamicExpansionRequireChildren - Flag to notify that the current dynamicExpansion event requires the parent component to add KupTreeNode children to the given KupTreeNode.
           * @see useDynamicExpansion *
           * @see dynamicExpansionCallback *
           * @since 1.0.0

@@ -182,7 +182,7 @@
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
-import { FChipData } from '@sme.up/ketchup/dist/types/f-components/f-chip/f-chip-declarations';
+import { KupChipNode } from '@sme.up/ketchup/dist/types/components/kup-chip/kup-chip-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var combobox: HTMLKupComboboxElement = null;
@@ -275,11 +275,11 @@ export default {
         ],
       };
       const locales: string[] = dom.ketchup.dates.getLocales();
-      const localesChipData: FChipData[] = [];
+      const localesChipData: KupChipNode[] = [];
       const localesListData: KupListData[] = [];
       for (let index = 0; index < locales.length; index++) {
         localesChipData.push({
-          label: locales[index],
+          id: locales[index],
           value: locales[index],
         });
         localesListData.push({

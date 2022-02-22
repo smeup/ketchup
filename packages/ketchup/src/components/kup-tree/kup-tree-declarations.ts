@@ -7,7 +7,11 @@ import {
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
 import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
-import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
+import {
+    GenericMap,
+    GenericObject,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 /**
  * Props of the kup-tree component.
@@ -46,6 +50,13 @@ export enum KupTreeProps {
     tooltipLoadTimeout = 'Defines the timeout for tooltip load',
     totals = 'Defines the current totals options.',
     useDynamicExpansion = 'When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property. Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.',
+}
+
+export interface KupTreeNode extends KupDataNode {
+    expandable?: boolean;
+    iconColor?: string;
+    style?: GenericMap;
+    visible?: boolean;
 }
 
 export type TreeNodePath = number[];

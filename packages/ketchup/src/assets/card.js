@@ -325,16 +325,16 @@ for (let index = 0; index < cards.length; index++) {
             {
                 data: [
                     {
-                        value: '1_chip',
-                        icon: 'filter_1',
-                        label: 'First chip',
                         checked: false,
+                        icon: 'filter_1',
+                        id: '1_chip',
+                        value: 'First chip',
                     },
                     {
-                        value: '2_chip',
-                        icon: 'filter_2',
-                        label: 'Second chip',
                         checked: true,
+                        icon: 'filter_2',
+                        id: '2_chip',
+                        value: 'Second chip',
                     },
                 ],
             },

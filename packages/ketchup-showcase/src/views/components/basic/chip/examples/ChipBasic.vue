@@ -3,18 +3,18 @@
     <div class="demo-wrapper">
       <p>
         Chips are commonly used when there is a list of labels or tags. The chip
-        data must be set inside the
-        <span class="code-word">data</span> prop, which is structured like this:
+        options can be set through the <span class="code-word">data</span> prop,
+        which is structured like this:
         <br />
         <br />
-        <span class="code-word">value</span> is mandatory and defines the value
-        of the chip.
+        <span class="code-word">id</span> is mandatory and defines the unique
+        identifier of the chip.
         <br />
-        <span class="code-word">icon</span> defines the icon to be displayed
-        inside the component, it is not mandatory.
+        <span class="code-word">icon</span> defines the icon displayed inside
+        the component, it is not mandatory.
         <br />
-        <span class="code-word">label</span> defines the text to be displayed
-        inside the component.
+        <span class="code-word">value</span> defines the text displayed inside
+        the component.
         <br />
         <span class="code-word">obj</span> defines the
         <span class="code-word">KupObj</span> tied to that chip.
@@ -48,20 +48,20 @@ export default {
     return {
       data: [
         {
-          value: 'text',
-          label: 'Text only',
+          id: 'text',
+          value: 'Text only',
           checked: false,
         },
         {
-          value: 'icon',
+          id: 'icon',
           icon: 'widgets',
-          label: 'With icon',
+          value: 'With icon',
           checked: false,
         },
       ],
       markupBasic: '<kup-chip></kup-chip>',
       markupObject:
-        "{ value: 'text', label: 'Text only', checked: false }, { value: 'icon', icon: 'widgets', label: 'With icon', checked: false}",
+        "{ id: 'text', value: 'Text only' }, { id: 'icon', icon: 'widgets', value: 'With icon'}",
     };
   },
 };

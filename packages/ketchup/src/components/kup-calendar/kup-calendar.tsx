@@ -49,7 +49,6 @@ import {
 } from './kup-calendar-declarations';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import {
-    FChipData,
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
@@ -59,6 +58,7 @@ import {
     KupDataColumn,
     KupDataRow,
 } from '../../managers/kup-data/kup-data-declarations';
+import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -403,12 +403,12 @@ export class KupCalendar {
         };
         for (const key in KupCalendarViewTypes) {
             const view: KupCalendarViewTypes = KupCalendarViewTypes[key];
-            const chipData: FChipData = {
-                value: key,
-                label: this.kupManager.language.translate(
+            const chipData: KupChipNode = {
+                checked: this.viewType === view ? true : false,
+                value: this.kupManager.language.translate(
                     KupLanguageGeneric[key]
                 ),
-                checked: this.viewType === view ? true : false,
+                id: key,
             };
             props.data.push(chipData);
             props.onClick.push(() => this.changeView(view));
