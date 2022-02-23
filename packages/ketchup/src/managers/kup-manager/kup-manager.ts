@@ -323,7 +323,13 @@ export function kupManagerInstance(): KupManager {
         }
         globalThis.kupManager = dom.ketchup;
         if (overrides && overrides.autoSetLocalization) {
-            dom.ketchup.setLibraryLocalization(dom.ketchup.dates.locale);
+            const locale = dom.ketchup.dates.locale;
+            if (!overrides.language || !overrides.language.name) {
+                dom.ketchup.language.set(KupLanguageDefaults[locale]);
+            }
+            if (!overrides.math || !overrides.math.locale) {
+                dom.ketchup.math.setLocale(KupMathLocales[locale]);
+            }
         }
         document.dispatchEvent(new CustomEvent('kup-manager-ready'));
     }

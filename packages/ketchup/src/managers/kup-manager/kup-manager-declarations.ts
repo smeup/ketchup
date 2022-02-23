@@ -18,6 +18,7 @@ import type { KupTheme } from '../kup-theme/kup-theme';
 import type { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { ResizeObserver } from 'resize-observer';
+import { KupMathLocales } from '../kup-math/kup-math-declarations';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -75,6 +76,7 @@ export interface KupManagerInitialization {
     debug?: KupManagerDebugSettings;
     interact?: KupManagerInteractSettings;
     language?: KupManagerLanguageSettings;
+    math?: KupManagerMathSettings;
     objects?: KupManagerObjectsSettings;
     scrollOnHover?: KupManagerScrollOnHoverSettings;
     theme?: KupManagerThemeSettings;
@@ -108,6 +110,12 @@ export interface KupManagerInteractSettings {
 export interface KupManagerLanguageSettings {
     list?: KupLanguageJSON;
     name?: string;
+}
+/**
+ * KupMath initialization settings.
+ */
+export interface KupManagerMathSettings {
+    locale?: KupMathLocales;
 }
 /**
  * KupObjects initialization settings.
