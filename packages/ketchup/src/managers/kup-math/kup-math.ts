@@ -124,7 +124,6 @@ export class KupMath {
             }
         }
         const formatted = this.numeral(n).format(format);
-        this.numeral.locale('en'); // TODO: Remove when KupData locale is handled [KupDataLocale]
         return formatted;
     }
     /**
