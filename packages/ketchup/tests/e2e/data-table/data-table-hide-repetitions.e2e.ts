@@ -5,6 +5,12 @@ import { _numberToString, stringToNumber } from '../../../src/utils/utils';
 import { getColumnByName } from '../../../src/utils/cell-utils';
 import { KupObjects } from '../../../src/managers/kup-objects/kup-objects';
 import { KupDataColumn } from '../../../src/managers/kup-data/kup-data-declarations';
+import { KupManager } from '../../../src/managers/kup-manager/kup-manager';
+import { KupDom } from '../../../src/managers/kup-manager/kup-manager-declarations';
+
+if (!(document.documentElement as KupDom).ketchup) {
+    (document.documentElement as KupDom).ketchup = new KupManager();
+}
 
 describe('kup-data-table with hide repetitions active', () => {
     it('hides values where the previous cell on the same column has the same value', async () => {

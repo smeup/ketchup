@@ -930,6 +930,9 @@ export function calcTotals(
                 default:
                     break;
             }
+            if (footerRow[key]) {
+                footerRow[key] = +footerRow[key].toFixed(2);
+            }
         }
     }
     return footerRow;

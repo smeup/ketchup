@@ -1,4 +1,6 @@
 import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
+import { KupManager } from '../../managers/kup-manager/kup-manager';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupChart } from './kup-chart';
 import { convertColumns, convertRows } from './kup-chart-builder';
 
@@ -110,6 +112,10 @@ const series = [
     { code: 'Col2', decode: 'Decode Col2' },
     { code: 'Col3', decode: 'Decode Col3' },
 ];
+
+if (!(document.documentElement as KupDom).ketchup) {
+    (document.documentElement as KupDom).ketchup = new KupManager();
+}
 
 describe('data conversion', () => {
     it('can convert null', () => {
