@@ -135,6 +135,7 @@ export class KupEchart {
     #themeColorDarker: string = null;
     #themeFont: string = null;
     #themeText: string = null;
+    #mapObj: GenericObject = {};
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -206,8 +207,25 @@ export class KupEchart {
     }
     async #createChart() {
         this.#sortedDataset = null;
-        if (!this.axis && !this.types.includes(KupEchartTypes.GAUSSIAN)) {
-            this.axis = this.data.columns[0].name;
+        if (
+            !this.types.includes(KupEchartTypes.GAUSSIAN) &&
+            (!this.axis ||
+                !this.#kupManager.data.column.find(this.data, {
+                    name: this.axis,
+                }).length)
+        ) {
+            for (let index = 0; index < this.data.columns.length; index++) {
+                const column = this.data.columns[index];
+                if (!this.#kupManager.objects.isNumber(column.obj)) {
+                    this.axis = column.name;
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'Axis overridden. (' + this.axis + ')',
+                        KupDebugCategory.WARNING
+                    );
+                    break;
+                }
+            }
         }
         let options: echarts.EChartsOption = null;
         const firstType = this.types[0];
@@ -263,7 +281,7 @@ export class KupEchart {
             let row: KupDataRow = null;
             if (e.seriesType === 'map') {
                 row = this.#kupManager.data.row.find(this.data, {
-                    value: e.name,
+                    value: this.#mapObj[e.name],
                 })[0];
             } else if (this.#sortedDataset && e.seriesType === 'bar') {
                 row = this.#sortedDataset.rows[e.dataIndex];
@@ -502,9 +520,10 @@ export class KupEchart {
                     }
                 }
             }
+            const keyIsName = names.includes(key);
             if (n !== null) {
                 data.push({
-                    name: names.includes(key) ? key : names[isoA2.indexOf(key)],
+                    name: keyIsName ? key : names[isoA2.indexOf(key)],
                     value: n ? n : undefined,
                 });
                 if (color) {
@@ -516,9 +535,14 @@ export class KupEchart {
                     itemStyle: {
                         color: color,
                     },
-                    name: names.includes(key) ? key : names[isoA2.indexOf(key)],
+                    name: keyIsName ? key : names[isoA2.indexOf(key)],
                 });
             }
+            this.#mapObj[
+                keyIsName
+                    ? names[names.indexOf(key)]
+                    : names[isoA2.indexOf(key)]
+            ] = key;
         }
         const tipCb = (params: echarts.DefaultLabelFormatterCallbackParams) => {
             const value = params.value;
