@@ -21,25 +21,26 @@ import type {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import {
     KupDatePickerEventPayload,
     KupDatePickerProps,
 } from './kup-date-picker-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupDatesFormats,
     KupDatesNormalize,
-} from '../../utils/kup-dates/kup-dates-declarations';
+} from '../../managers/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
-import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import {
     KupCardClickPayload,
     KupCardData,
+    KupCardFamily,
 } from '../kup-card/kup-card-declarations';
 
 @Component({
@@ -573,11 +574,10 @@ export class KupDatePicker {
             <kup-card
                 ref={(el) => (this.pickerContainerEl = el)}
                 data={data}
-                layout-family="builtin"
-                layout-number="1"
-                size-x="300px"
-                size-y="300px"
-                is-menu
+                layoutFamily={KupCardFamily.BUILT_IN}
+                sizeX="300px"
+                sizeY="300px"
+                isMenu
                 onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
                     if (ev.detail.value != null && ev.detail.value != '')
                         this.onKupDatePickerItemClick(ev.detail.value);
@@ -599,6 +599,7 @@ export class KupDatePicker {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
         this.watchFirstDayIndex();
@@ -646,6 +647,7 @@ export class KupDatePicker {
     }
 
     disconnectedCallback() {
+        this.kupManager.dates.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.pickerContainerEl) {
             this.pickerContainerEl.remove();

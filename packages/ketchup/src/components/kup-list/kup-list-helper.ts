@@ -29,21 +29,20 @@ export function consistencyCheck(
     displayMode: ItemsDisplayMode,
     e?: CustomEvent
 ): ValueDisplayedValue {
+    const validList = !!(listEl && listData && listData['data']);
     let value: string = '';
     let displayedValue: string = '';
-
     let selected: KupListData = null;
     if (e != null) {
         selected = e.detail.selected;
     }
-    if (selected == null && valueIn != null && listData && listData['data']) {
+    if (selected == null && valueIn != null && validList) {
         selected = getItemByDisplayMode(listData, valueIn, displayMode, true);
         listEl.data = [...listData['data']];
     }
     if (selected == null && valueIn == null && listData) {
         selected = getFirstItemSelected(listData);
     }
-
     if (selected == null) {
         selected = {
             text: valueIn == null ? '' : valueIn,
@@ -51,11 +50,22 @@ export function consistencyCheck(
         };
     }
     value = getValueOfItemByDisplayMode(selected, selectMode, ' - ');
-
     displayedValue = getValueOfItemByDisplayMode(selected, displayMode, ' - ');
+    const trueValue = getValueOfItemByDisplayMode(
+        selected,
+        ItemsDisplayMode.CODE,
+        ' - '
+    );
     return {
         value: value,
         displayedValue: displayedValue,
+        exists:
+            validList &&
+            (listData['data'] as KupListData[]).find(
+                (x) => x.value === trueValue
+            )
+                ? true
+                : false,
     };
 }
 

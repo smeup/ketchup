@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>KupData</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                background-color: var(--kup-background-color);
+                box-sizing: border-box;
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+            .wrapper {
+                display: flex;
+                padding: 2em;
+                width: 100%;
+            }
+            .mid {
+                justify-content: space-evenly;
+            }
+            kup-data-table {
+                width: 100%;
+            }
+            h3 {
+                text-align: center;
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h3>Range calculations + normal distribution</h3>
+        <div class="wrapper top"
+            ><kup-data-table id="input-table"></kup-data-table
+        ></div>
+        <h3>Numeric range</h3>
+        <div class="wrapper mid">
+            <kup-button label="New"></kup-button>
+            <kup-button label="Replace"></kup-button>
+            <kup-button label="Merge"></kup-button>
+            <kup-button label="Distinct"></kup-button>
+            <kup-button label="All in one"></kup-button>
+            <kup-button label="All in one (+ values column)"></kup-button>
+            <kup-button label="Gaussian"></kup-button>
+        </div>
+        <h3>String range</h3>
+        <div class="wrapper mid">
+            <kup-button label="New"></kup-button>
+            <kup-button label="Replace"></kup-button>
+            <kup-button label="Merge"></kup-button>
+            <kup-button label="Distinct"></kup-button>
+            <kup-button label="All in one"></kup-button>
+            <kup-button label="All in one (+ values column)"></kup-button>
+            <kup-button label="Gaussian"></kup-button>
+        </div>
+        <h3>Date range</h3>
+        <div class="wrapper mid">
+            <kup-button label="New"></kup-button>
+            <kup-button label="Replace"></kup-button>
+            <kup-button label="Merge"></kup-button>
+            <kup-button label="Distinct"></kup-button>
+            <kup-button label="All in one"></kup-button>
+            <kup-button label="All in one (+ values column)"></kup-button>
+            <kup-button label="Gaussian"></kup-button>
+        </div>
+        <div class="wrapper bottom"
+            ><kup-data-table
+                rows-per-page="9999"
+                id="output-table"
+            ></kup-data-table
+            ><kup-echart size-x="50%" size-y="300px"></kup-echart
+        ></div>
+        <script src="/assets/kupdata.js"></script>
+    </body>
+</html>

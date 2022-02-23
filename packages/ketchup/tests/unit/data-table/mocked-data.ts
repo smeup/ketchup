@@ -1,6 +1,6 @@
-import { Column } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import { KupDataColumn } from '../../../src/managers/kup-data/kup-data-declarations';
 
-const mockedColumns: Column[] = [
+const mockedColumns: KupDataColumn[] = [
     {
         name: 'FLD1',
         title: 'Column A',

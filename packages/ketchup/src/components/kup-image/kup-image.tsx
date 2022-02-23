@@ -13,7 +13,7 @@ import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
 import { KupBadge } from '../kup-badge/kup-badge';
 import { FImage } from '../../f-components/f-image/f-image';
@@ -25,8 +25,8 @@ import {
     KupImageClickEventPayload,
     KupImageProps,
 } from './kup-image-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 

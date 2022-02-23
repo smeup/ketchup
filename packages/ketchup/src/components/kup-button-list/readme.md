@@ -13,7 +13,7 @@
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
 | `columns`       | `columns`        | Number of columns.                                                                                             | `number`                                                                                                                    | `0`                     |
 | `customStyle`   | `custom-style`   | Custom style of the component.                                                                                 | `string`                                                                                                                    | `''`                    |
-| `data`          | --               | Props of the sub-components.                                                                                   | `TreeNode[]`                                                                                                                | `[]`                    |
+| `data`          | --               | Props of the sub-components.                                                                                   | `KupButtonListNode[]`                                                                                                       | `[]`                    |
 | `disabled`      | `disabled`       | When set to true, the sub-components are disabled.                                                             | `boolean`                                                                                                                   | `false`                 |
 | `showSelection` | `show-selection` | When set to true, highlights the selected button with the secondary color of KupTheme.                         | `boolean`                                                                                                                   | `true`                  |
 | `styling`       | `styling`        | Defines the style of the buttons. Available styles are "flat", "outlined" and "raised" (which is the default). | `FButtonStyling.FLAT \| FButtonStyling.FLOATING \| FButtonStyling.ICON \| FButtonStyling.OUTLINED \| FButtonStyling.RAISED` | `FButtonStyling.RAISED` |
@@ -79,6 +79,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -99,6 +100,7 @@ graph TD;
   kup-box --> kup-button-list
   kup-cell --> kup-button-list
   kup-data-table --> kup-button-list
+  kup-magic-box --> kup-button-list
   kup-tree --> kup-button-list
   style kup-button-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

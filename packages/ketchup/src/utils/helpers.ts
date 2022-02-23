@@ -1,12 +1,12 @@
 import { TooltipRelatedObject } from '../components/kup-tooltip/kup-tooltip-declarations';
-import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 import { KupTooltip } from '../components/kup-tooltip/kup-tooltip';
+import { KupDataCell } from '../managers/kup-data/kup-data-declarations';
 
 export function setTooltip(
     event: MouseEvent,
     rowId: string,
     colId: string,
-    cell: Cell,
+    cell: KupDataCell,
     tooltip: KupTooltip
 ) {
     if (event != null) {

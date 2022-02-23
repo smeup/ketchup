@@ -13,7 +13,7 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';

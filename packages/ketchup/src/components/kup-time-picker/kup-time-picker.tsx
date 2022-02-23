@@ -15,7 +15,7 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { KupListData } from '../kup-list/kup-list-declarations';
 import {
     isValidFormattedStringTime,
@@ -34,17 +34,18 @@ import {
     KupComponent,
     KupEventPayload,
 } from '../../types/GenericTypes';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupDatesFormats } from '../../utils/kup-dates/kup-dates-declarations';
+import { KupDatesFormats } from '../../managers/kup-dates/kup-dates-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     KupCardClickPayload,
     KupCardData,
+    KupCardFamily,
 } from '../kup-card/kup-card-declarations';
-import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 @Component({
     tag: 'kup-time-picker',
@@ -586,11 +587,11 @@ export class KupTimePicker {
                 <kup-card
                     ref={(el) => (this.pickerKupEl = el)}
                     data={data}
-                    layout-family="builtin"
-                    layout-number="2"
-                    size-x="300px"
-                    size-y="450px"
-                    is-menu
+                    layoutFamily={KupCardFamily.BUILT_IN}
+                    layoutNumber={2}
+                    sizeX="300px"
+                    sizeY="450px"
+                    isMenu
                     onkup-card-click={(
                         ev: CustomEvent<KupCardClickPayload>
                     ) => {
@@ -681,6 +682,7 @@ export class KupTimePicker {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
         this.watchTimeMinutesStep();
@@ -730,6 +732,7 @@ export class KupTimePicker {
     }
 
     disconnectedCallback() {
+        this.kupManager.dates.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.pickerKupEl) {
             this.pickerKupEl.remove();

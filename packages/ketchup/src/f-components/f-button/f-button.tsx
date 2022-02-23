@@ -1,5 +1,5 @@
 import { FunctionalComponent, h, VNode } from '@stencil/core';
-import type { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+import type { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
 import { FImageProps } from '../f-image/f-image-declarations';

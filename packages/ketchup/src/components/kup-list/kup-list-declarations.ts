@@ -1,6 +1,6 @@
 import { KupEventPayload } from '../../types/GenericTypes';
 import { ValueDisplayedValue as vdv } from '../../utils/filters/filters-declarations';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 
 /**
  * Props of the kup-list component.
@@ -41,7 +41,9 @@ export enum KupListRole {
     GROUP = 'group',
 }
 
-export interface ValueDisplayedValue extends vdv {}
+export interface ValueDisplayedValue extends vdv {
+    exists: boolean;
+}
 
 export enum ItemsDisplayMode {
     CODE = 'code',

@@ -1,10 +1,11 @@
+import { KupTagNames } from '../../types/GenericTypes';
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     KupDatesFormats,
     KupDatesNormalize,
-} from '../kup-dates/kup-dates-declarations';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
+} from '../../managers/kup-dates/kup-dates-declarations';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
 import {
     formattedStringToCustomUnformattedStringTime,
     formattedStringToDefaultUnformattedStringTimestamp,
@@ -35,7 +36,7 @@ export class Filters {
      * @returns {comp is KupTree} Returns true when the component is KupTree.
      */
     static isTree(comp: KupDataTable | KupTree): comp is KupTree {
-        return (comp as KupTree).rootElement.tagName === 'KUP-TREE';
+        return (comp as KupTree).rootElement.tagName === KupTagNames.TREE;
     }
 
     isObjFiltrableByInterval(obj): boolean {

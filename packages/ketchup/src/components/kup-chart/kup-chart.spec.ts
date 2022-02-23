@@ -1,9 +1,8 @@
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 import { KupChart } from './kup-chart';
-
 import { convertColumns, convertRows } from './kup-chart-builder';
-import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
-const dataMock: DataTable = {
+const dataMock: KupDataDataset = {
     columns: [
         {
             name: 'Col1',

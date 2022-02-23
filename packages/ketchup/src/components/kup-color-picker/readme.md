@@ -95,13 +95,57 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
+### Depends on
+
+- [kup-card](../kup-card)
+
 ### Graph
 ```mermaid
 graph TD;
-  kup-box --> kup-color-picker
-  kup-cell --> kup-color-picker
+  kup-color-picker --> kup-card
+  kup-card --> kup-badge
+  kup-card --> kup-button
+  kup-card --> kup-chip
+  kup-card --> kup-list
+  kup-card --> kup-combobox
+  kup-card --> kup-autocomplete
+  kup-card --> kup-checkbox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
+  kup-card --> kup-data-table
+  kup-card --> kup-spinner
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
+  kup-card --> kup-tab-bar
+  kup-card --> kup-tree
+  kup-card --> kup-switch
+  kup-badge --> kup-badge
+  kup-button --> kup-badge
+  kup-chip --> kup-badge
+  kup-list --> kup-radio
+  kup-list --> kup-badge
+  kup-combobox --> kup-list
+  kup-autocomplete --> kup-list
+  kup-date-picker --> kup-card
+  kup-time-picker --> kup-card
+  kup-time-picker --> kup-list
   kup-data-table --> kup-color-picker
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-card
+  kup-tooltip --> kup-box
+  kup-tooltip --> kup-list
+  kup-tooltip --> kup-tree
+  kup-box --> kup-color-picker
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-badge
   kup-tree --> kup-color-picker
+  kup-tab-bar --> kup-badge
+  kup-cell --> kup-color-picker
   style kup-color-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

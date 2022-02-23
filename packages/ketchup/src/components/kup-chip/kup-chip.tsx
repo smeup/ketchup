@@ -8,24 +8,27 @@ import {
     Host,
     Method,
     Prop,
+    Watch,
 } from '@stencil/core';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import {
-    FChipData,
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { KupChipEventPayload, KupChipProps } from './kup-chip-declarations';
+import {
+    KupChipEventPayload,
+    KupChipNode,
+    KupChipProps,
+} from './kup-chip-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
-import { TreeNode } from '../kup-tree/kup-tree-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -52,12 +55,7 @@ export class KupChip {
      * List of elements.
      * @default []
      */
-    @Prop({ mutable: true }) data: FChipData[] = [];
-    /**
-     * List of elements.
-     * @default []
-     */
-    @Prop({ mutable: true }) dataNew: TreeNode[] = [];
+    @Prop({ mutable: true }) data: KupChipNode[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      * @default FChipType.STANDARD
@@ -118,81 +116,74 @@ export class KupChip {
     })
     kupIconClick: EventEmitter<KupChipEventPayload>;
 
-    onKupBlur(i: number) {
-        let obj: KupObj = null;
-        let value: string = null;
-        if (this.data[i]) {
-            obj = this.data[i].obj;
-            value = this.data[i].value;
-        }
+    onKupBlur(chip: KupChipNode) {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            value: value,
+            chip: chip,
         });
     }
 
-    onKupClick(i: number) {
+    onKupClick(chip: KupChipNode) {
         const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
         const isFilter: boolean = this.type.toLowerCase() === FChipType.FILTER;
-        let obj: KupObj = null;
-        let value: string = null;
-        if (this.data[i]) {
-            obj = this.data[i].obj;
-            value = this.data[i].value;
-        }
         if (isChoice) {
-            for (let j = 0; j < this.data.length; j++) {
-                if (j !== i && this.data[j].checked) {
-                    this.data[j].checked = false;
-                }
-            }
+            this.kupManager.data.datasetOperations.node.setProperties(
+                this.data,
+                { checked: false } as KupChipNode,
+                true,
+                [chip]
+            );
         }
         if (isChoice || isFilter) {
-            if (this.data[i].checked) {
-                this.data[i].checked = false;
-            } else {
-                this.data[i].checked = true;
-            }
-            let newData = [...this.data];
-            this.data = newData;
+            chip.checked = chip.checked ? false : true;
         }
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            value: value,
+            chip: chip,
         });
+        this.refresh();
     }
 
-    onKupFocus(i: number) {
-        let value: string = null;
-        if (this.data[i]) {
-            value = this.data[i].value;
-        }
+    onKupFocus(chip: KupChipNode) {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            value: value,
+            chip: chip,
         });
     }
 
-    onKupIconClick(i: number) {
-        let value: string = null;
-        if (this.data[i]) {
-            value = this.data[i].value;
-        }
-        this.data.splice(i, 1);
-        let newData = [...this.data];
-        this.data = newData;
+    onKupIconClick(chip: KupChipNode) {
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
-            index: i,
-            value: value,
+            chip: this.kupManager.data.datasetOperations.node.remove(
+                this.data,
+                chip
+            ),
         });
+        this.refresh();
+    }
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('data')
+    checkDataset(newData: KupChipNode[] | KupDataDataset) {
+        if (!newData) {
+            newData = [];
+        }
+        if ((newData as KupDataDataset).columns) {
+            this.kupManager.debug.logMessage(
+                this,
+                'Detected KupDataDataset: converting rows to nodes.',
+                KupDebugCategory.WARNING
+            );
+            const data = this.data as KupDataDataset;
+            this.data = this.kupManager.data.datasetOperations.row.toNode(data);
+        }
     }
 
     /*-------------------------------------------------*/
@@ -231,6 +222,7 @@ export class KupChip {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
+        this.checkDataset(this.data);
     }
 
     componentDidLoad() {
@@ -276,12 +268,12 @@ export class KupChip {
                 ? true
                 : false,
             data: this.data,
-            dataNew: this.dataNew,
             info: this.rootElement.classList.contains('kup-info')
                 ? true
                 : false,
             onBlur: [],
             onClick: [],
+            onExpansionClick: [],
             onFocus: [],
             onIconClick: [],
             secondary: this.rootElement.classList.contains('kup-secondary')
@@ -296,15 +288,23 @@ export class KupChip {
                 : false,
         };
         for (let j = 0; j < this.data.length; j++) {
-            props.onBlur.push(() => this.onKupBlur(j));
-            props.onClick.push(() => this.onKupClick(j));
-            props.onFocus.push(() => this.onKupFocus(j));
-            props.onIconClick.push(() => this.onKupIconClick(j));
+            props.onBlur.push((chip) => this.onKupBlur(chip));
+            props.onClick.push((chip) => this.onKupClick(chip));
+            props.onExpansionClick.push((chip, e) => {
+                chip.isExpanded = !chip.isExpanded ? true : false;
+                if (e.ctrlKey && chip.children && chip.children.length > 0) {
+                    this.kupManager.data.datasetOperations.node.setProperties(
+                        chip.children,
+                        { isExpanded: chip.isExpanded },
+                        true
+                    );
+                }
+                this.refresh();
+            });
+            props.onFocus.push((chip) => this.onKupFocus(chip));
+            props.onIconClick.push((chip) => this.onKupIconClick(chip));
         }
-        if (
-            (!this.data || this.data.length === 0) &&
-            (!this.dataNew || this.dataNew.length === 0)
-        ) {
+        if (!this.data || this.data.length === 0) {
             return;
         }
 

@@ -10,15 +10,10 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import {
-    Cell,
-    Column,
-    Row,
-} from '../kup-data-table/kup-data-table-declarations';
 import { KupCellProps } from './kup-cell-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import {
@@ -28,8 +23,13 @@ import {
 import {
     KupDragDataTransferCallback,
     KupDragEffect,
-} from '../../utils/kup-interact/kup-interact-declarations';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+} from '../../managers/kup-interact/kup-interact-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import {
+    KupDataCell,
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-cell',
@@ -56,7 +56,7 @@ export class KupCell {
      * The data of the cell.
      * @default false
      */
-    @Prop() data: Cell = null;
+    @Prop() data: KupDataCell = null;
     /**
      * The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'.
      */
@@ -179,14 +179,14 @@ export class KupCell {
         }
     }
 
-    private generateColumn(): Column {
+    private generateColumn(): KupDataColumn {
         const colname: string =
             this.data && this.data.obj && this.data.obj.t
-                ? this.data.obj.t + '|' + this.data.obj.p
+                ? this.data.obj.t + ';' + this.data.obj.p
                 : 'KUPCELL';
         const coltitle: string =
             this.data && this.data.obj && this.data.obj.t
-                ? this.data.obj.t + '|' + this.data.obj.p
+                ? this.data.obj.t + ';' + this.data.obj.p
                 : this.kupManager.language.translate(
                       KupLanguageGeneric.EMPTY_OBJECT
                   );
@@ -196,9 +196,9 @@ export class KupCell {
         };
     }
 
-    private generateRow(): Row {
-        const col: Column = this.generateColumn();
-        const row: Row = { cells: {} };
+    private generateRow(): KupDataRow {
+        const col: KupDataColumn = this.generateColumn();
+        const row: KupDataRow = { cells: {} };
         row.cells[col.name] = this.data;
         return row;
     }
@@ -208,6 +208,7 @@ export class KupCell {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
@@ -224,11 +225,6 @@ export class KupCell {
     componentDidRender() {
         this.didRenderInteractables();
         this.kupManager.debug.logRender(this, true);
-    }
-
-    disconnectedCallback() {
-        this.kupManager.language.unregister(this);
-        this.kupManager.theme.unregister(this);
     }
 
     render() {
@@ -253,5 +249,11 @@ export class KupCell {
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallback() {
+        this.kupManager.dates.unregister(this);
+        this.kupManager.language.unregister(this);
+        this.kupManager.theme.unregister(this);
     }
 }

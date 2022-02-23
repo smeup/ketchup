@@ -1,22 +1,18 @@
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
 import { KupEventPayload } from '../../types/GenericTypes';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
 
 /**
  * Props of the kup-calendar component.
  * Used to export every prop in an object.
  */
 export enum KupCalendarProps {
+    currentDate = 'Sets the date of the calendar. Must be in ISO format (YYYY-MM-DD).',
     customStyle = 'Custom style of the component.',
     data = ' Actual data of the calendar.',
-    dateCol = "Column containing events' dates.",
-    descrCol = "Column containing events' descriptions.",
-    endCol = "Column containing events' ending time.",
     hideNavigation = "When disabled, the navigation toolbar won't be displayed.",
-    iconCol = "Column containing events' icons. There can be multiple icons, divided by ';'.",
-    imageCol = "Column containing events' images. There can be multiple images, divided by ';'.",
-    initialDate = 'Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).',
-    startCol = "Column containing events' starting time.",
-    styleCol = "Column containing events' CSS styles.",
     viewType = 'Type of the view.',
 }
 /**
@@ -29,10 +25,35 @@ export enum KupCalendarViewTypes {
     WEEK = 'timeGridWeek',
 }
 /**
+ * Available view types.
+ */
+export enum KupCalendarOptions {
+    DATE = 'date',
+    DESCR = 'descr',
+    END = 'end',
+    ICON = 'icon',
+    IMAGE = 'image',
+    START = 'start',
+    STYLE = 'style',
+}
+/**
+ * Calendar column.
+ */
+export interface KupCalendarColumn extends KupDataColumn {
+    calendarOption: KupCalendarOptions;
+}
+/**
+ * Dataset of the calendar.
+ */
+export interface KupCalendarData {
+    columns: KupCalendarColumn[];
+    rows: KupDataRow[];
+}
+/**
  * Events payload.
  */
 export interface KupCalendarEventClickEventPayload extends KupEventPayload {
-    row: Row;
+    row: KupDataRow;
 }
 export interface KupCalendarDateClickEventPayload extends KupEventPayload {
     date: Date;

@@ -24,13 +24,13 @@ export const jlObjectsDataTable = {
           data: {
             data: [
               {
-                value: 'text',
-                label: 'Text only',
+                id: 'text',
+                value: 'Text only',
               },
               {
-                value: 'icon',
+                id: 'icon',
                 icon: 'widgets',
-                label: 'With icon',
+                value: 'With icon',
               },
             ],
           },
@@ -50,10 +50,10 @@ export const jlObjectsDataTable = {
           data: {
             data: [
               {
-                label: 'Federico Robertozzi',
+                value: 'Federico Robertozzi',
               },
               {
-                label: 'Parodonte Frascati',
+                value: 'Parodonte Frascati',
               },
             ],
           },

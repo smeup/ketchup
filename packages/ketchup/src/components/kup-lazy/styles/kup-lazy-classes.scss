@@ -2,16 +2,20 @@
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
 
+:host(.#{$kup-class-bottom-aligned}) {
+  --kup-lazy-ver-alignment: flex-end;
+}
+
 :host(.#{$kup-class-left-aligned}) {
-  #kup-component {
-    justify-content: left;
-  }
+  --kup-lazy-hor-alignment: flex-start;
 }
 
 :host(.#{$kup-class-right-aligned}) {
-  #kup-component {
-    justify-content: right;
-  }
+  --kup-lazy-hor-alignment: flex-end;
+}
+
+:host(.#{$kup-class-top-aligned}) {
+  --kup-lazy-ver-alignment: flex-start;
 }
 
 :host(.kup-to-be-loaded) {
@@ -20,11 +24,5 @@
     & > * {
       margin: auto;
     }
-  }
-}
-
-:host(.kup-data-table.kup-loaded) {
-  #kup-component {
-    display: block;
   }
 }

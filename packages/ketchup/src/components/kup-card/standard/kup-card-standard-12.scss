@@ -1,6 +1,7 @@
 .standard-layout-12 {
   background-color: var(--kup-background-color);
-  box-shadow: var(--kup-box-shadow);
+  box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
+    0 1px 1px 0 rgba(128, 128, 128, 0.1), 0 1px 3px 0 rgba(128, 128, 128, 0.6);
   color: var(--kup-text-color);
   min-width: 200px;
   min-width: -moz-max-content; /* Firefox/Gecko */

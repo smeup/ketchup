@@ -1,7 +1,3 @@
-import type {
-    Column,
-    Row,
-} from '../kup-data-table/kup-data-table-declarations';
 /**
  * Props of the kup-magic-box component.
  * Used to export every prop in an object.
@@ -11,18 +7,15 @@ export enum KupMagicBoxProps {
     data = 'Sets the data that will be used to display different components.',
 }
 /**
- * Data prop of kup-magic-box.
- */
-export interface MagicBoxData {
-    columns: Column[];
-    rows: Row[];
-}
-/**
  * Viable display modes selectable in kup-magic-box.
  */
-export enum MagicBoxDisplay {
+export enum KupMagicBoxDisplay {
     BOX = 'Box',
+    BUTTON_LIST = 'Button List',
     CHART = 'Chart',
+    CHIP = 'Chip',
+    ECHART = 'Echart',
     DATATABLE = 'Datatable',
     JSON = 'JSON',
+    TREE = 'Tree',
 }

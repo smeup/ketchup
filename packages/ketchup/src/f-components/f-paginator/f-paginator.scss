@@ -1,0 +1,25 @@
+.f-paginator {
+  margin: 0.5em 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+
+  .prev-page,
+  .next-page {
+    margin: 0 0.25em;
+  }
+
+  kup-combobox {
+    display: inline-block;
+    margin: 0 0.25em;
+    z-index: 0;
+
+    &.page-selector {
+      width: 100px;
+    }
+
+    &.rows-selector {
+      width: 150px;
+    }
+  }
+}

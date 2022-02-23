@@ -18,6 +18,9 @@
             <kup-autocomplete id="ac"></kup-autocomplete>
             <kup-text-field id="tf"></kup-text-field>
             <script>
+                document.addEventListener('kup-autocomplete-change', (e) => {
+                    console.log(e);
+                });
                 window.onload = function () {
                     let ac =
                         document.getElementsByTagName('kup-autocomplete')[0];

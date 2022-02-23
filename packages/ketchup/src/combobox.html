@@ -21,6 +21,7 @@
     </head>
     <body>
         <h4>Material Combobox (widget)</h4>
+        isSelect=true
         <kup-combobox
             disabled
             is-filterable="false"
@@ -33,8 +34,24 @@
             is-select="true"
             display-mode="both"
             select-mode="code"
-        >
-        </kup-combobox>
+        ></kup-combobox>
+        <br />
+        isSelect=false
+        <kup-combobox
+            disabled
+            is-filterable="false"
+            field-id="pluto3"
+            is-select="false"
+            display-mode="both"
+            select-mode="code"
+        ></kup-combobox>
+        <kup-combobox
+            is-filterable="false"
+            field-id="pluto4"
+            is-select="false"
+            display-mode="both"
+            select-mode="code"
+        ></kup-combobox>
         <script>
             let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
             let itemsForListBox = [
@@ -85,6 +102,18 @@
                 'kup-list': JSON.parse(JSON.stringify(listData)),
             };
             selectBox2.initialValue = 'Text 4';
+            let selectBox3 = document.getElementsByTagName('kup-combobox')[2];
+            selectBox3.data = {
+                'text-field': { ...textfieldData },
+                'kup-list': JSON.parse(JSON.stringify(listData)),
+            };
+            selectBox3.initialValue = 'Text 3';
+            let selectBox4 = document.getElementsByTagName('kup-combobox')[3];
+            selectBox4.data = {
+                'text-field': { ...textfieldData },
+                'kup-list': JSON.parse(JSON.stringify(listData)),
+            };
+            selectBox4.initialValue = 'Text 2';
         </script>
     </body>
 </html>

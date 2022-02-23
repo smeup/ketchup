@@ -1,0 +1,89 @@
+.built-in-layout-1 {
+  background-color: var(--kup-background-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 1px -1px rgba(128, 128, 128, 0.1),
+    0 1px 1px 0 rgba(128, 128, 128, 0.1), 0 1px 3px 0 rgba(128, 128, 128, 0.6);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  padding: 0.5em;
+
+  .section-1 {
+    box-sizing: border-box;
+    height: 5em;
+    overflow: auto;
+    padding-bottom: 1em;
+    width: 100%;
+
+    .sub-1 {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .section-2 {
+    height: calc(100% - 60px);
+    overflow: auto;
+    width: 100%;
+  }
+
+  .prev-page {
+    margin-left: auto;
+  }
+
+  .change-view-button {
+    margin: auto;
+    width: 12em;
+    text-align: center;
+  }
+
+  #change-view-button button {
+    text-transform: capitalize;
+  }
+
+  .next-page {
+    margin-right: auto;
+  }
+
+  .calendar {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  thead {
+    border-bottom: 1px solid var(--kup-border-color);
+  }
+
+  .item-text {
+    color: rgba(var(--kup-text-color-rgb), 0.5);
+  }
+
+  .item {
+    text-align: center;
+
+    &:not(.selected) .item-number:hover {
+      background-color: var(--kup-hover-background-color);
+    }
+    &.selected .item-number,
+    &.selected .item-number:hover {
+      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+    }
+  }
+
+  .item-number {
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    line-height: 2.5em;
+    margin: auto;
+    width: 2.5em;
+    transition: background-color 0.25s;
+    text-transform: capitalize;
+  }
+}

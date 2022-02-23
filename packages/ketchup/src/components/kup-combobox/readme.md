@@ -19,15 +19,15 @@
 
 ## Events
 
-| Event                    | Description | Type                                   |
-| ------------------------ | ----------- | -------------------------------------- |
-| `kup-combobox-blur`      |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-change`    |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-click`     |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-focus`     |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-iconclick` |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-input`     |             | `CustomEvent<KupComboboxEventPayload>` |
-| `kup-combobox-itemclick` |             | `CustomEvent<KupComboboxEventPayload>` |
+| Event                    | Description | Type                                            |
+| ------------------------ | ----------- | ----------------------------------------------- |
+| `kup-combobox-blur`      |             | `CustomEvent<KupComboboxEventPayload>`          |
+| `kup-combobox-change`    |             | `CustomEvent<KupComboboxEventPayload>`          |
+| `kup-combobox-click`     |             | `CustomEvent<KupComboboxEventPayload>`          |
+| `kup-combobox-focus`     |             | `CustomEvent<KupComboboxEventPayload>`          |
+| `kup-combobox-iconclick` |             | `CustomEvent<KupComboboxIconClickEventPayload>` |
+| `kup-combobox-input`     |             | `CustomEvent<KupComboboxEventPayload>`          |
+| `kup-combobox-itemclick` |             | `CustomEvent<KupComboboxEventPayload>`          |
 
 
 ## Methods
@@ -102,7 +102,6 @@ Type: `Promise<void>`
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
  - [kup-magic-box](../kup-magic-box)
- - [kup-paginator](../kup-paginator)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -121,7 +120,6 @@ graph TD;
   kup-cell --> kup-combobox
   kup-data-table --> kup-combobox
   kup-magic-box --> kup-combobox
-  kup-paginator --> kup-combobox
   kup-tree --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
 ```
