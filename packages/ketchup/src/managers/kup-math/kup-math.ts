@@ -129,10 +129,22 @@ export class KupMath {
     /**
      * Returns a number from a non-specified input type between string, number, or String.
      * @param {string | String | number} input - Input value to numberify.
+     * @param {boolean} inputIsLocalized - Numberifies assuming the input string is in the current KupMath locale's format.
      * @returns {number} Resulting number or NaN (when not a number).
      */
-    numberify(input: string | String | number): number {
-        const n = this.numeral(input).value();
+    numberify(
+        input: string | String | number,
+        inputIsLocalized?: boolean
+    ): number {
+        let n = NaN;
+        if (inputIsLocalized) {
+            n = this.numeral(input).value();
+        } else {
+            const locale = this.numeral.locale();
+            this.numeral.locale(KupMathLocales.en);
+            n = this.numeral(input).value();
+            this.numeral.locale(locale);
+        }
         if (n === null) {
             return NaN;
         }

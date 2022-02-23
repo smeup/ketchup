@@ -19,11 +19,15 @@
           </p></div
         ><div class="accordion-slot" slot="3">
           <p>
-            <span class="code-word">numberify(input): number</span><br />
+            <span class="code-word"
+              >numberify(input, isInputLocalized?): number</span
+            ><br />
             Returns a number from a non-specified input type between string,
             number, or String.<br /><br />
             - <strong>input (string | String | number)</strong> - Input value to
-            numberify.<br /><br /> </p></div
+            numberify.<br />- <strong>isInputLocalized (boolean)</strong> -
+            Numberifies assuming the input string is in the current KupMath
+            locale's format.<br /><br /> </p></div
         ><div class="accordion-slot" slot="4">
           <p>
             <span class="code-word">format(input, format): string</span><br />
