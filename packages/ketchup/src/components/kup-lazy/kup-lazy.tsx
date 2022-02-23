@@ -299,13 +299,13 @@ export class KupLazy {
             className += ' kup-to-be-loaded';
         }
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host class={className}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>{content}</div>
             </Host>
         );

@@ -40,7 +40,7 @@ describe('kup-button-list', () => {
 
         await page.waitForChanges();
 
-        const rows = await page.findAll('kup-button-list >>> div.f-button--wrapper');
+        const rows = await page.findAll('kup-button-list >>> div.f-button');
         expect(rows).toHaveLength(buttons.length);
 
         for (let i = 0; i < rows.length; i++) {
@@ -85,7 +85,7 @@ describe('kup-button-list', () => {
 
         await page.waitForChanges();
 
-        const rows = await page.findAll('kup-button-list >>> div.f-button--wrapper');
+        const rows = await page.findAll('kup-button-list >>> div.f-button');
         expect(rows).toHaveLength(buttons.length);
 
         for (let i = 0; i < rows.length; i++) {
@@ -131,7 +131,7 @@ describe('kup-button-list', () => {
 
         await page.waitForChanges();
 
-        const rows = await page.findAll('kup-button-list >>> div.f-button--wrapper');
+        const rows = await page.findAll('kup-button-list >>> div.f-button');
         expect(rows).toHaveLength(buttons.length);
 
         const kupbtn = await page.find('kup-button-list');
@@ -181,9 +181,11 @@ describe('kup-button-list', () => {
 
         await page.waitForChanges();
 
-        const btns = await page.findAll('kup-button-list >>> div.f-button--wrapper');
+        const btns = await page.findAll('kup-button-list >>> div.f-button');
         expect(btns).toHaveLength(buttons.length - 1);
-        const ddbtns = await page.findAll('kup-button-list >>> kup-dropdown-button');
+        const ddbtns = await page.findAll(
+            'kup-button-list >>> kup-dropdown-button'
+        );
         expect(ddbtns).toHaveLength(1);
     });
 });

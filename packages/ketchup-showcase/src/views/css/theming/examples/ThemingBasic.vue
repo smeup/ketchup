@@ -1,10 +1,10 @@
 <template>
   <div>
     <p>
-      Ketch.UP components use CSS variables in order to handle their style, it's
+      Ketchup components use CSS variables in order to handle their style, it's
       a powerful and easy way to customize colors, fonts, icons, etc. In
       addition to this variables, it is also possible to set a
-      <span class="code-word">customStyle</span> on each Ketch.UP component. For
+      <span class="code-word">customStyle</span> on each Ketchup component. For
       example, buttons apply the uppercase transformation to their labels. You
       can choose to change this behavior in your theme by using the custom style
       attribute of the theme JSON, which is structured like this:

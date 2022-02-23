@@ -3,7 +3,7 @@
 //
 // Copy/paste the code below inside Google Chrome Dev Tools console, then run logCSS() with the following arguments:
 //
-// 1) String - CSS selector of your Ketch.UP component, for example "kup-data-table#my-table"
+// 1) String - CSS selector of your Ketchup component, for example "kup-data-table#my-table"
 // 2) Boolean - Whether you want a detailed log or not
 //
 // Note: detailedLog will inflate time because of console.logs, useful to check individual entries only.
@@ -92,11 +92,11 @@ function logCSS(selector, detailedLog) {
     console.log('Total time estimated: ' + (end - start) + 'ms.');
 }
 //
-// Check how many event listeners are defined on a Ketch.UP component and its children.
+// Check how many event listeners are defined on a Ketchup component and its children.
 //
 // Copy/paste the code below inside Google Chrome Dev Tools console, then run logEvents() with the following arguments:
 //
-// 1) String - CSS selector of your Ketch.UP component, for example "kup-data-table#my-table"
+// 1) String - CSS selector of your Ketchup component, for example "kup-data-table#my-table"
 // 2) Boolean - Whether you want a detailed log or not
 //
 function logEvents(selector, detailedLog) {

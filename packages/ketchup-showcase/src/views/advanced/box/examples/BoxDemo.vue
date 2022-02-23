@@ -32,6 +32,10 @@ export default {
             "Content will be vertically aligned to section's bottom.",
         },
         {
+          class: 'kup-center-aligned',
+          description: 'Content will be horizontally centered.',
+        },
+        {
           class: 'kup-danger',
           description:
             'The component will be rendered using the danger color of the app.',
@@ -48,11 +52,6 @@ export default {
           class: 'kup-info',
           description:
             'The component will be rendered using the informational color of the app.',
-        },
-        {
-          class: 'kup-left-aligned',
-          description:
-            "Content will be horizontally aligned to section's left.",
         },
         {
           class: 'kup-paddingless',
@@ -110,10 +109,6 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kupBoxDropped',
-          type: 'CustomEvent',
-        },
-        {
           name: 'kup-box-selected',
           type: 'CustomEvent',
         },
@@ -123,6 +118,18 @@ export default {
         },
         {
           name: 'kup-box-rowactionmenuclick',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-click',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-input',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kup-cell-update',
           type: 'CustomEvent',
         },
       ],
@@ -196,6 +203,14 @@ export default {
           description: 'Drop can be done in section.',
           type: 'boolean',
           default: 'undefined',
+          try: 'switch',
+        },
+        {
+          prop: 'editableData',
+          description:
+            'When set to true, editable cells will be rendered using input components.',
+          type: 'boolean',
+          default: 'false',
           try: 'switch',
         },
         {

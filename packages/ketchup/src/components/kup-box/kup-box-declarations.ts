@@ -5,6 +5,7 @@ import {
 } from '../kup-data-table/kup-data-table-declarations';
 import { KupBadge } from '../kup-badge/kup-badge';
 import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
+import { FCellShapes } from '../../f-components/f-cell/f-cell-declarations';
 /**
  * Props of the kup-box component.
  * Used to export every prop in an object.
@@ -69,13 +70,12 @@ export interface Section {
     collapsible?: boolean;
     columns?: number;
     title?: string;
-    cssClass?: string;
 }
 
 export interface BoxObject {
     column?: string;
     value?: string;
-    shape?: string;
+    shape?: FCellShapes;
     config?: any;
 }
 

@@ -149,13 +149,13 @@ export class KupBadge {
             imageEl = <FImage {...this.imageData}></FImage>;
         }
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId} onClick={() => this.onKupClick()}>
                     {this.text}
                     {imageEl}

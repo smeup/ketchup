@@ -87,10 +87,6 @@ export default {
           name: 'kup-autocomplete-itemclick',
           type: 'click',
         },
-        {
-          name: 'kup-autocomplete-filterchanged',
-          type: 'CustomEvent',
-        },
       ],
       demoMethods: [
         {
@@ -121,14 +117,6 @@ export default {
         },
       ],
       demoProps: [
-        {
-          prop: 'callBackOnFilterUpdate',
-          description:
-            'Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.',
-          type: 'Promise<any[]>',
-          default: 'undefined',
-          try: 'json',
-        },
         {
           prop: 'customStyle',
           description:
@@ -186,9 +174,16 @@ export default {
         {
           prop: 'serverHandledFilter',
           description:
-            'When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.',
+            'When true, the items filter is managed server side, otherwise items filter is done client side.',
           type: 'boolean',
           default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showDropDownIcon',
+          description: 'When true shows the drop-down icon, for open list.',
+          type: 'boolean',
+          default: 'true',
           try: 'switch',
         },
       ],

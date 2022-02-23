@@ -162,6 +162,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'helperEnabled',
+          description: 'When true, the helper will be displayed.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'helperWhenFocused',
           description:
             'The helper will be shown only when the field is focused.',

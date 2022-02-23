@@ -27,6 +27,7 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -88,6 +89,7 @@ export class KupColorPicker {
     private anchorEl: HTMLElement;
     private picker: Picker;
     private textfieldEl: HTMLElement;
+    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -262,17 +264,26 @@ export class KupColorPicker {
                 });
             };
             this.picker['onOpen'] = function () {
-                that.rootElement.style.setProperty(
-                    '--kup_colorpicker_picker_width',
-                    that.textfieldEl.clientWidth + 'px'
-                );
-                that.kupManager.utilities.pointerDownCallbacks.add({
-                    cb: () => {
-                        that.picker.closeHandler(null);
-                    },
-                    onlyOnce: true,
-                    el: that.picker['domElement'],
-                });
+                if (that.disabled) {
+                    that.picker.closeHandler(null);
+                } else {
+                    that.rootElement.style.setProperty(
+                        '--kup_colorpicker_picker_width',
+                        that.textfieldEl.clientWidth + 'px'
+                    );
+                    if (!that.clickCb) {
+                        that.clickCb = {
+                            cb: () => {
+                                that.picker.closeHandler(null);
+                                that.kupManager.removeClickCallback(
+                                    that.clickCb
+                                );
+                            },
+                            el: that.picker['domElement'],
+                        };
+                    }
+                    that.kupManager.addClickCallback(this.clickCb, true);
+                }
             };
         }
         this.kupManager.debug.logLoad(this, true);
@@ -289,7 +300,7 @@ export class KupColorPicker {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         if (root) {
-            this.textfieldEl = root.querySelector('.f-text-field--wrapper');
+            this.textfieldEl = root.querySelector('.f-text-field');
             if (this.textfieldEl) {
                 FTextFieldMDC(this.textfieldEl);
             }
@@ -318,13 +329,13 @@ export class KupColorPicker {
             ['--kup_colorpicker_thumb_color']: this.value ? this.value : '',
         };
 
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host style={style}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId} ref={(el) => (this.anchorEl = el)}>
                     {widget}
                 </div>

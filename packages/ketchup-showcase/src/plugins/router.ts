@@ -120,6 +120,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/rating/Rating.vue`),
   },
   {
+    path: `/snackbar`,
+    name: 'snackbar',
+    component: () => import(`@/views/basic/snackbar/Snackbar.vue`),
+  },
+  {
     path: `/spinner`,
     name: 'spinner',
     component: () => import(`@/views/basic/spinner/Spinner.vue`),
@@ -166,6 +171,11 @@ let advancedRoutes = [
     path: `/card`,
     name: 'card',
     component: () => import(`@/views/advanced/card/Card.vue`),
+  },
+  {
+    path: `/cell`,
+    name: 'cell',
+    component: () => import(`@/views/advanced/cell/Cell.vue`),
   },
   {
     path: `/chart`,

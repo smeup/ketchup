@@ -7,6 +7,7 @@ export interface FTextFieldProps extends FComponent {
     fullHeight?: boolean;
     fullWidth?: boolean;
     helper?: string;
+    helperEnabled?: boolean;
     helperWhenFocused?: boolean;
     icon?: string;
     inputType?: string;
@@ -30,6 +31,6 @@ export interface FTextFieldProps extends FComponent {
     onFocus?: (event: FocusEvent) => void;
     onInput?: (event: UIEvent) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
-    onIconClick?:(event: MouseEvent)=>void;
-    onClearIconClick?: (event:MouseEvent)=>void;
+    onIconClick?: (event: MouseEvent) => void;
+    onClearIconClick?: (event: MouseEvent) => void;
 }

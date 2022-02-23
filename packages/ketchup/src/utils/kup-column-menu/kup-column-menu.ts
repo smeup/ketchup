@@ -1,7 +1,10 @@
 import type { KupCardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import type { KupDom } from '../kup-manager/kup-manager-declarations';
+import type {
+    KupDom,
+    KupManagerClickCb,
+} from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
 import {
@@ -49,6 +52,7 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupColumnMenu
  */
 export class KupColumnMenu {
+    clickCb: KupManagerClickCb = null;
     filtersColumnMenuInstance = new FiltersColumnMenu();
     filtersRowsInstance = new FiltersRows();
     /**
@@ -76,6 +80,7 @@ export class KupColumnMenu {
      */
     close(card: HTMLKupCardElement): void {
         card.menuVisible = false;
+        dom.ketchup.removeClickCallback(this.clickCb);
         dom.ketchup.dynamicPosition.stop(
             card as unknown as KupDynamicPositionElement
         );
@@ -106,13 +111,15 @@ export class KupColumnMenu {
                         true
                     );
                 }
-                dom.ketchup.utilities.pointerDownCallbacks.add({
-                    cb: () => {
-                        this.close(card);
-                    },
-                    onlyOnce: true,
-                    el: card,
-                });
+                if (!this.clickCb) {
+                    this.clickCb = {
+                        cb: () => {
+                            this.close(card);
+                        },
+                        el: card,
+                    };
+                }
+                dom.ketchup.addClickCallback(this.clickCb, true);
                 dom.ketchup.dynamicPosition.start(card as any);
                 card.menuVisible = true;
             }

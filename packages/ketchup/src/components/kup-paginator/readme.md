@@ -7,13 +7,14 @@
 
 ## Properties
 
-| Property          | Attribute           | Description | Type                                         | Default              |
-| ----------------- | ------------------- | ----------- | -------------------------------------------- | -------------------- |
-| `currentPage`     | `current-page`      |             | `number`                                     | `1`                  |
-| `max`             | `max`               |             | `number`                                     | `0`                  |
-| `mode`            | `mode`              |             | `PaginatorMode.FULL \| PaginatorMode.SIMPLE` | `PaginatorMode.FULL` |
-| `perPage`         | `per-page`          |             | `number`                                     | `10`                 |
-| `selectedPerPage` | `selected-per-page` |             | `number`                                     | `10`                 |
+| Property          | Attribute           | Description                    | Type                                         | Default              |
+| ----------------- | ------------------- | ------------------------------ | -------------------------------------------- | -------------------- |
+| `currentPage`     | `current-page`      |                                | `number`                                     | `1`                  |
+| `customStyle`     | `custom-style`      | Custom style of the component. | `string`                                     | `''`                 |
+| `max`             | `max`               |                                | `number`                                     | `0`                  |
+| `mode`            | `mode`              |                                | `PaginatorMode.FULL \| PaginatorMode.SIMPLE` | `PaginatorMode.FULL` |
+| `perPage`         | `per-page`          |                                | `number`                                     | `10`                 |
+| `selectedPerPage` | `selected-per-page` |                                | `number`                                     | `10`                 |
 
 
 ## Events

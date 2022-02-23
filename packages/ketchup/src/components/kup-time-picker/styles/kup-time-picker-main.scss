@@ -1,6 +1,7 @@
 :host {
   display: block;
   font-size: var(--kup-font-size);
+  width: max-content;
 }
 
 #time-picker-div {
@@ -527,6 +528,6 @@
   transform: rotate(0deg);
 }
 
-.f-text-field--wrapper {
+.f-text-field {
   position: relative;
 }

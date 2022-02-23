@@ -47,6 +47,10 @@ components.data = [
         value: 'card.html',
     },
     {
+        text: 'Cell',
+        value: 'cell.html',
+    },
+    {
         text: 'Chart',
         value: 'chart.html',
     },
@@ -117,6 +121,10 @@ components.data = [
     {
         text: 'Rating',
         value: 'rating.html',
+    },
+    {
+        text: 'Snackbar',
+        value: 'snackbar.html',
     },
     {
         text: 'Switch',

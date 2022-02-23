@@ -45,7 +45,7 @@ th[#{$kup-dd-draggable}] {
     transition: opacity 0.25s;
     width: 50px;
 
-    .f-image--wrapper {
+    .f-image {
       width: 100%;
       position: absolute;
       &:first-of-type {
@@ -58,7 +58,7 @@ th[#{$kup-dd-draggable}] {
 
     &[#{$kup-dd-drag-over}] {
       opacity: 1;
-      .f-image--wrapper {
+      .f-image {
         &:first-of-type {
           opacity: 0;
         }

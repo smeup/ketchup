@@ -10,7 +10,6 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
-
 import {
     ChartType,
     ChartAspect,
@@ -773,13 +772,14 @@ export class KupChart {
             width: this.sizeX,
             minWidth: this.sizeX,
         };
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
 
         return (
             <Host style={this.elStyle}>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div
                     id={componentWrapperId}
                     ref={(chartContainer) =>

@@ -41,15 +41,14 @@
   min-width: var(--kup_badge_min_size);
   padding: var(--kup_badge_padding);
   text-align: center;
-}
 
-.f-image--wrapper {
-  display: block;
-  position: relative;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: inherit;
-  width: inherit;
+  .f-image {
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: inherit;
+    width: inherit;
+  }
 }

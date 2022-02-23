@@ -25,6 +25,12 @@
       <template v-slot:7>
         <card-dialog></card-dialog>
       </template>
+      <template v-slot:8>
+        <card-builtin></card-builtin>
+      </template>
+      <template v-slot:9>
+        <card-free></card-free>
+      </template>
     </comp>
   </div>
 </template>
@@ -34,6 +40,8 @@ import CardDemo from '@/views/advanced/card/examples/CardDemo';
 import CardBasic from '@/views/advanced/card/examples/CardBasic';
 import CardStyling from '@/views/advanced/card/examples/CardStyling';
 import CardMenu from '@/views/advanced/card/examples/CardMenu';
+import CardBuiltin from '@/views/advanced/card/examples/CardBuiltin';
+import CardFree from '@/views/advanced/card/examples/CardFree';
 import CardCollapsible from '@/views/advanced/card/examples/CardCollapsible';
 import CardDialog from '@/views/advanced/card/examples/CardDialog';
 import CardScalable from '@/views/advanced/card/examples/CardScalable';
@@ -45,6 +53,8 @@ export default {
     CardBasic,
     CardStyling,
     CardMenu,
+    CardBuiltin,
+    CardFree,
     CardCollapsible,
     CardDialog,
     CardScalable,
@@ -65,6 +75,8 @@ export default {
         'Collapsible layouts',
         'Scalable layouts',
         'Dialog layouts',
+        'Builtin layouts',
+        'Free layouts',
       ],
     };
   },

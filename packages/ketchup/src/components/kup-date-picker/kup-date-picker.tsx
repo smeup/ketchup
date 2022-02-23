@@ -23,17 +23,9 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import {
-    getMonthsAsStringByLocale,
-    getDaysOfWeekAsStringByLocale,
-    fillString,
-    DateTimeFormatOptionsMonth,
-} from '../../utils/utils';
-import {
     KupDatePickerEventPayload,
     KupDatePickerProps,
-    SourceEvent,
 } from './kup-date-picker-declarations';
-import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
@@ -43,6 +35,12 @@ import {
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import {
+    KupCardClickPayload,
+    KupCardData,
+} from '../kup-card/kup-card-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -99,14 +97,13 @@ export class KupDatePicker {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private calendarView: SourceEvent = SourceEvent.DATE;
     private textfieldEl: HTMLInputElement = null;
-    private pickerContainerEl: HTMLElement = null;
+    private pickerContainerEl: HTMLKupCardElement = null;
     private pickerEl: { value: string; date: Date } = {
         value: new Date().toISOString(),
         date: new Date(),
     };
-    private pickerOpened: boolean = false;
+    private clickCb: KupManagerClickCb = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -198,6 +195,8 @@ export class KupDatePicker {
             id: this.rootElement.id,
             value: this.value,
         });
+
+        this.setFocus();
     }
 
     onKupClearIconClick() {
@@ -213,20 +212,6 @@ export class KupDatePicker {
             comp: this,
             id: this.rootElement.id,
         });
-    }
-
-    onKupDatePickerMonthYearItemClick(value: string) {
-        switch (this.calendarView) {
-            case SourceEvent.MONTH: {
-                this.calendarView = SourceEvent.DATE;
-                break;
-            }
-            case SourceEvent.YEAR: {
-                this.calendarView = SourceEvent.MONTH;
-                break;
-            }
-        }
-        this.refreshPickerComponentValue(value);
     }
 
     onKupBlur() {
@@ -458,46 +443,58 @@ export class KupDatePicker {
     }
 
     openPicker() {
-        this.calendarView = SourceEvent.DATE;
-        let textfieldEl = this.textfieldEl;
-        let containerEl = this.pickerContainerEl;
-        this.pickerOpened = true;
+        const textfieldEl = this.textfieldEl;
+        this.pickerContainerEl.menuVisible = true;
+        const elStyle = this.pickerContainerEl.style;
+        elStyle.height = 'auto';
+        elStyle.minWidth = this.textfieldEl.parentElement.clientWidth + 'px';
         this.refreshPickerComponentValue(this.getValueForPickerComponent());
         if (textfieldEl != null) {
             textfieldEl.classList.add('toggled');
         }
-        if (containerEl != null) {
-            containerEl.classList.add('visible');
-            const elStyle = containerEl.style;
-            elStyle.height = 'auto';
-            elStyle.minWidth = textfieldEl.clientWidth + 'px';
+        if (
+            this.kupManager.dynamicPosition.isRegistered(this.pickerContainerEl)
+        ) {
+            this.kupManager.dynamicPosition.changeAnchor(
+                this.pickerContainerEl,
+                this.textfieldEl.parentElement
+            );
+        } else {
+            this.kupManager.dynamicPosition.register(
+                this.pickerContainerEl,
+                this.textfieldEl.parentElement,
+                0,
+                KupDynamicPositionPlacement.AUTO,
+                true
+            );
         }
-        this.kupManager.utilities.pointerDownCallbacks.add({
-            cb: () => {
-                this.closePicker();
-            },
-            onlyOnce: true,
-            el: this.pickerContainerEl,
-        });
+        this.kupManager.dynamicPosition.start(this.pickerContainerEl);
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.closePicker();
+                },
+                el: this.pickerContainerEl,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
     }
 
     closePicker() {
+        this.kupManager.removeClickCallback(this.clickCb);
         if (!this.isPickerOpened()) {
             return;
         }
         let textfieldEl = this.textfieldEl;
-        let containerEl = this.pickerContainerEl;
-        this.pickerOpened = false;
         if (textfieldEl != null) {
             textfieldEl.classList.remove('toggled');
         }
-        if (containerEl != null) {
-            containerEl.classList.remove('visible');
-        }
+        this.pickerContainerEl.menuVisible = false;
+        this.kupManager.dynamicPosition.stop(this.pickerContainerEl);
     }
 
     isPickerOpened(): boolean {
-        return this.pickerOpened;
+        return this.pickerContainerEl.menuVisible == true;
     }
 
     getTextFieldId(): string {
@@ -505,22 +502,24 @@ export class KupDatePicker {
     }
 
     prepTextfield(initialValue: string): VNode {
+        const fullHeight =
+            this.rootElement.classList.contains('kup-full-height');
+        const fullWidth = this.rootElement.classList.contains('kup-full-width');
         const textfieldData: FTextFieldProps = {
             ...this.data['kup-text-field'],
         };
-
         if (!textfieldData.icon) {
             textfieldData.icon = 'calendar';
         }
-
         if (textfieldData.icon) {
             textfieldData.trailingIcon = true;
         }
-
         return (
             <FTextField
                 {...textfieldData}
                 disabled={this.disabled}
+                fullHeight={fullHeight}
+                fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
                 value={initialValue}
                 onBlur={() => this.onKupBlur()}
@@ -562,374 +561,29 @@ export class KupDatePicker {
     }
 
     prepDatePicker() {
-        let date: Date = this.pickerEl.date;
-        let months = getMonthsAsStringByLocale();
-        let curYear: number = date.getFullYear();
-        let yearRange = this.getInitEndYear(curYear);
-        let initYear: number = yearRange.initYear;
-        let endYear: number = yearRange.endYear;
-
-        let changeViewButtonLabel: string = 'not-set';
-        switch (this.calendarView) {
-            case SourceEvent.DATE: {
-                changeViewButtonLabel =
-                    months[date.getMonth()] + ', ' + curYear.toString();
-                break;
-            }
-            case SourceEvent.MONTH: {
-                changeViewButtonLabel = curYear.toString();
-                break;
-            }
-            case SourceEvent.YEAR: {
-                changeViewButtonLabel =
-                    initYear.toString() + ' - ' + endYear.toString();
-                break;
-            }
-        }
-
-        let prevButtonComp = null;
-        let nextButtonComp = null;
-        prevButtonComp = (
-            <kup-button
-                id="prev-page"
-                icon="chevron_left"
-                onkup-button-click={() => this.prevPage()}
-            ></kup-button>
-        );
-        nextButtonComp = (
-            <kup-button
-                id="next-page"
-                icon="chevron_right"
-                onkup-button-click={() => this.nextPage()}
-            ></kup-button>
-        );
+        const data: KupCardData = {
+            options: {
+                initialValue: this.value,
+                firstDayIndex: this.firstDayIndex,
+                resetStatus: true,
+            },
+        };
 
         return (
-            <div
-                id="date-picker-div"
-                ref={(el) => (this.pickerContainerEl = el as any)}
-            >
-                <div class="section-1">
-                    <div class="sub-1 nav">
-                        {prevButtonComp}
-                        <kup-button
-                            customStyle="#kup-component button {text-transform:capitalize}"
-                            id="change-view-button"
-                            styling={FButtonStyling.FLAT}
-                            label={changeViewButtonLabel}
-                            onkup-button-click={() => this.changeView()}
-                        ></kup-button>
-                        {nextButtonComp}
-                    </div>
-                </div>
-                <div class="section-2">{this.createCalendar()}</div>
-            </div>
+            <kup-card
+                ref={(el) => (this.pickerContainerEl = el)}
+                data={data}
+                layout-family="builtin"
+                layout-number="1"
+                size-x="300px"
+                size-y="300px"
+                is-menu
+                onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
+                    if (ev.detail.value != null && ev.detail.value != '')
+                        this.onKupDatePickerItemClick(ev.detail.value);
+                }}
+            ></kup-card>
         );
-    }
-
-    createCalendar() {
-        switch (this.calendarView) {
-            case SourceEvent.DATE: {
-                return this.createDaysCalendar();
-            }
-            case SourceEvent.MONTH: {
-                return this.createMonthsCalendar();
-            }
-            case SourceEvent.YEAR: {
-                return this.createYearsCalendar();
-            }
-        }
-    }
-
-    private createDaysCalendar() {
-        let days = getDaysOfWeekAsStringByLocale(this.firstDayIndex);
-
-        let date: Date = this.pickerEl.date;
-        let selecteDate: Date = new Date(date);
-
-        let thead = [];
-        let tbody = [];
-        for (let index = 0; index < days.length; index++) {
-            thead.push(
-                <th>
-                    <span class="item-text">{days[index]}</span>
-                </th>
-            );
-        }
-
-        let firstMonthDay = new Date(date.getFullYear(), date.getMonth(), 1);
-        let lastMonthDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-        let finish: boolean = false;
-        let currentDayIndex = this.firstDayIndex;
-        let firstMonthDayIndex = firstMonthDay.getDay();
-        let row = [];
-        let daysForRowAdded = 0;
-        while (!finish) {
-            if (currentDayIndex == firstMonthDayIndex) {
-                break;
-            }
-            row.push(<td class="item empty"></td>);
-            currentDayIndex++;
-            daysForRowAdded++;
-            if (currentDayIndex > 6) {
-                currentDayIndex = 0;
-            }
-        }
-        let dayCount = 1;
-        while (dayCount <= lastMonthDay.getDate()) {
-            for (let i = daysForRowAdded; i < 7; i++) {
-                let dayClass = 'item';
-                let dataIndex = {
-                    'data-index':
-                        date.getFullYear().toString() +
-                        '-' +
-                        fillString(
-                            (date.getMonth() + 1).toString(),
-                            '0',
-                            2,
-                            true
-                        ) +
-                        '-' +
-                        fillString(dayCount.toString(), '0', 2, true),
-                };
-                if (
-                    dayCount === selecteDate.getDate() &&
-                    date.getMonth() === selecteDate.getMonth() &&
-                    date.getFullYear() === selecteDate.getFullYear()
-                ) {
-                    dayClass += ' selected';
-                }
-                row.push(
-                    <td class={dayClass}>
-                        <span
-                            {...dataIndex}
-                            class="item-number"
-                            onClick={() => {
-                                this.onKupDatePickerItemClick(
-                                    dataIndex['data-index']
-                                );
-                            }}
-                        >
-                            {dayCount}
-                        </span>
-                    </td>
-                );
-                dayCount++;
-                if (dayCount > lastMonthDay.getDate()) {
-                    break;
-                }
-            }
-            if (row.length > 0) {
-                tbody.push(<tr>{row}</tr>);
-                row = [];
-            }
-            daysForRowAdded = 0;
-        }
-
-        return (
-            <table id="calendar">
-                <thead>{thead}</thead>
-                <tbody>{tbody}</tbody>
-            </table>
-        );
-    }
-
-    private createMonthsCalendar() {
-        let months = getMonthsAsStringByLocale(
-            DateTimeFormatOptionsMonth.SHORT
-        );
-
-        let date: Date = this.pickerEl.date;
-        let selecteDate: Date;
-        if (this.value == null || this.value.trim() == '') {
-            selecteDate = new Date();
-        } else {
-            selecteDate = new Date(this.value);
-        }
-        let tbody = [];
-        let row = [];
-        let monthCount = 0;
-        while (monthCount < 12) {
-            for (let i = 0; i < 4; i++) {
-                let monthClass = 'item';
-                let dataIndex = {
-                    'data-index':
-                        date.getFullYear().toString() +
-                        '-' +
-                        fillString((monthCount + 1).toString(), '0', 2, true) +
-                        '-' +
-                        fillString(date.getDate().toString(), '0', 2, true),
-                };
-                if (
-                    monthCount === selecteDate.getMonth() &&
-                    date.getFullYear() == selecteDate.getFullYear()
-                ) {
-                    monthClass += ' selected';
-                }
-                row.push(
-                    <td class={monthClass}>
-                        <span
-                            {...dataIndex}
-                            class="item-number"
-                            onClick={() => {
-                                this.onKupDatePickerMonthYearItemClick(
-                                    dataIndex['data-index']
-                                );
-                            }}
-                        >
-                            {months[monthCount]}
-                        </span>
-                    </td>
-                );
-                monthCount++;
-            }
-            if (row.length > 0) {
-                tbody.push(<tr>{row}</tr>);
-                row = [];
-            }
-        }
-
-        return (
-            <table id="calendar">
-                <tbody>{tbody}</tbody>
-            </table>
-        );
-    }
-
-    private createYearsCalendar() {
-        let date: Date = this.pickerEl.date;
-        let curYear: number = date.getFullYear();
-        let yearRange = this.getInitEndYear(curYear);
-        let initYear: number = yearRange.initYear;
-        let endYear: number = yearRange.endYear;
-
-        let selecteDate: Date;
-        if (this.value == null || this.value.trim() == '') {
-            selecteDate = new Date();
-        } else {
-            selecteDate = new Date(this.value);
-        }
-        let tbody = [];
-        let row = [];
-        let yearCount = initYear;
-        while (yearCount <= endYear) {
-            for (let i = 0; i < 4; i++) {
-                let yearClass = 'item';
-                let dataIndex = {
-                    'data-index':
-                        yearCount.toString() +
-                        '-' +
-                        fillString(
-                            (date.getMonth() + 1).toString(),
-                            '0',
-                            2,
-                            true
-                        ) +
-                        '-' +
-                        fillString(date.getDate().toString(), '0', 2, true),
-                };
-                if (yearCount === selecteDate.getFullYear()) {
-                    yearClass += ' selected';
-                }
-                row.push(
-                    <td class={yearClass}>
-                        <span
-                            {...dataIndex}
-                            class="item-number"
-                            onClick={() => {
-                                this.onKupDatePickerMonthYearItemClick(
-                                    dataIndex['data-index']
-                                );
-                            }}
-                        >
-                            {yearCount}
-                        </span>
-                    </td>
-                );
-                yearCount++;
-            }
-            if (row.length > 0) {
-                tbody.push(<tr>{row}</tr>);
-                row = [];
-            }
-        }
-
-        return (
-            <table id="calendar">
-                <tbody>{tbody}</tbody>
-            </table>
-        );
-    }
-
-    private changeView() {
-        switch (this.calendarView) {
-            case SourceEvent.DATE: {
-                this.calendarView = SourceEvent.MONTH;
-                break;
-            }
-            case SourceEvent.MONTH: {
-                this.calendarView = SourceEvent.YEAR;
-                break;
-            }
-            case SourceEvent.YEAR: {
-                this.calendarView = SourceEvent.DATE;
-            }
-        }
-        this.refresh();
-    }
-
-    private prevPage() {
-        let date: Date = this.pickerEl.date;
-        let yy: number = date.getFullYear();
-        let mm: number = date.getMonth();
-
-        if (this.calendarView == SourceEvent.DATE) {
-            if (mm < 1) {
-                mm = 11;
-                yy--;
-            } else {
-                mm--;
-            }
-        }
-        if (this.calendarView == SourceEvent.MONTH) {
-            yy--;
-        }
-        if (this.calendarView == SourceEvent.YEAR) {
-            let yearRange = this.getInitEndYear(yy);
-            yy = yearRange.initYear - 1;
-        }
-        date.setFullYear(yy);
-        date.setMonth(mm);
-        this.pickerEl.value = date.toISOString();
-        this.pickerEl.date = date;
-        this.refresh();
-    }
-
-    private nextPage() {
-        let date: Date = this.pickerEl.date;
-        let yy: number = date.getFullYear();
-        let mm: number = date.getMonth();
-        if (this.calendarView == SourceEvent.DATE) {
-            if (mm > 10) {
-                mm = 0;
-                yy++;
-            } else {
-                mm++;
-            }
-        }
-        if (this.calendarView == SourceEvent.MONTH) {
-            yy++;
-        }
-        if (this.calendarView == SourceEvent.YEAR) {
-            let yearRange = this.getInitEndYear(yy);
-            yy = yearRange.endYear + 1;
-        }
-        date.setFullYear(yy);
-        date.setMonth(mm);
-        this.pickerEl.value = date.toISOString();
-        this.pickerEl.date = date;
-        this.refresh();
     }
 
     getDateForOutput(): string {
@@ -967,7 +621,7 @@ export class KupDatePicker {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            const f: HTMLElement = root.querySelector('.f-text-field');
             if (f) {
                 this.textfieldEl = f.querySelector('input');
                 FTextFieldMDC(f);
@@ -977,34 +631,13 @@ export class KupDatePicker {
     }
 
     render() {
-        const hostClass: Record<string, boolean> = {};
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf(
-                'kup-full-height'
-            ) > -1
-        ) {
-            hostClass['kup-full-height'] = true;
-        }
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['fullWidth']
-        ) {
-            hostClass['kup-full-width'] = true;
-        }
-
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
-            <Host class={hostClass}>
-                {customStyle ? <style>{customStyle}</style> : null}
+            <Host>
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     {this.prepTextfield(this.getDateForOutput())}
                 </div>
@@ -1014,5 +647,8 @@ export class KupDatePicker {
 
     disconnectedCallback() {
         this.kupManager.theme.unregister(this);
+        if (this.pickerContainerEl) {
+            this.pickerContainerEl.remove();
+        }
     }
 }

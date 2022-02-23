@@ -30,7 +30,6 @@ import { getProps, setProps } from '../../utils/utils';
 import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
-    kupDraggableAttr,
     kupDraggableColumnAttr,
     kupDraggableRowAttr,
     kupDropEvent,
@@ -228,6 +227,7 @@ export class KupMagicBox {
                     break;
                 case MagicBoxDisplay.DATATABLE:
                     props['data'] = this.data;
+                    props['autoFillMissingCells'] = true;
                     content.push(<kup-data-table {...props}></kup-data-table>);
                     break;
                 case MagicBoxDisplay.JSON:
@@ -332,13 +332,13 @@ export class KupMagicBox {
     }
 
     render() {
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div class="magic-box-wrapper">
                         <div class="actions" id="drag-handle">

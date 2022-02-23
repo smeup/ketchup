@@ -81,6 +81,64 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'expand-on-hover',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Cell becomes larger on mouse over.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'expand-on-hover',
+          cssClass: 'expand-on-hover',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'reduce-on-hover',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Cell becomes smaller on mouse over.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'reduce-on-hover',
+          cssClass: 'reduce-on-hover',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'link',
         },
         DESCR: {
@@ -99,6 +157,64 @@ export const cellClassesDataTable = {
           },
           value: 'link',
           cssClass: 'link',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'monospace',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Cell will be rendered with the theme's monospace font.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'monospace',
+          cssClass: 'monospace',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'obj',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'It will display the theme cursor set for objects.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'obj',
+          cssClass: 'obj',
         },
       },
     },
@@ -158,6 +274,93 @@ export const cellClassesDataTable = {
           },
           value: 'strong-text',
           cssClass: 'strong-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'primary-text',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Text will be set to the theme's primary color.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'primary-text',
+          cssClass: 'primary-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'secondary-text',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: "Text will be set to the theme's primary color.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'secondary-text',
+          cssClass: 'secondary-text',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'underlined',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'Text will be underlined.',
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'underlined',
+          cssClass: 'underlined',
         },
       },
     },
@@ -531,7 +734,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            'A triangle-shaped indicator will be displayed on the top right of the cell.',
+            'A triangle-shaped indicator will be displayed on the top right of the cell (this class will be omitted when the cell has a density).',
         },
         EXAMPLE: {
           obj: {
@@ -669,6 +872,36 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'c-round',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value:
+            "Cell content's borders will be heavily shaped (50px border radius). In the example the background is set to teal just to see the borders.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'c-round',
+          cssClass: 'c-round c-teal-bg',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'c-shaped',
         },
         DESCR: {
@@ -678,7 +911,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            "Cell content's borders will be shaped (4px border radius). In the example the background is set to teal to see the borders.",
+            "Cell content's borders will be shaped (4px border radius). In the example the background is set to teal just to see the borders.",
         },
         EXAMPLE: {
           obj: {
@@ -699,6 +932,36 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
+          value: 'c-padded',
+        },
+        DESCR: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value:
+            "Cell content's will have padding (1em). In the example the background is set to teal just to see the padding.",
+        },
+        EXAMPLE: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
+          value: 'c-padded',
+          cssClass: 'c-padded c-teal-bg',
+        },
+      },
+    },
+    {
+      cells: {
+        CSSCLASS: {
+          obj: {
+            t: '',
+            p: '',
+            k: '',
+          },
           value: 'c-hor-padded',
         },
         DESCR: {
@@ -708,7 +971,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            "Cell content's will have horizontal padding (.5rem). In the example the background is set to teal to see the padding.",
+            "Cell content's will have horizontal padding (.5em). In the example the background is set to teal just to see the padding.",
         },
         EXAMPLE: {
           obj: {
@@ -738,7 +1001,7 @@ export const cellClassesDataTable = {
             k: '',
           },
           value:
-            "Cell content's will have vertical padding (.5rem). In the example the background is set to teal to see the padding.",
+            "Cell content's will have vertical padding (.5em). In the example the background is set to teal just to see the padding.",
         },
         EXAMPLE: {
           obj: {

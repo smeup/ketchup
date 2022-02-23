@@ -11,7 +11,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-
 import {
     TooltipData,
     TooltipDetailData,
@@ -38,13 +37,13 @@ import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
-    KupDynamicPositionPlacement,
 } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
 import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -209,6 +208,7 @@ export class KupTooltip {
 
     @Watch('data')
     onDataChanged() {
+        this.kupManager.removeClickCallback(this.clickCb);
         this.waitingServerResponse = false;
         if (this.relatedObject == null) {
             this.kupManager.dynamicPosition.stop(
@@ -240,16 +240,19 @@ export class KupTooltip {
                 this.relatedObject.element
             );
         }
-        this.kupManager.utilities.pointerDownCallbacks.add({
-            cb: () => {
-                this.data = null;
-                this.kupManager.dynamicPosition.stop(
-                    this.rootElement as unknown as KupDynamicPositionElement
-                );
-            },
-            onlyOnce: true,
-            el: this.rootElement,
-        });
+        if (!this.clickCb) {
+            this.clickCb = {
+                cb: () => {
+                    this.data = null;
+                    this.kupManager.dynamicPosition.stop(
+                        this.rootElement as unknown as KupDynamicPositionElement
+                    );
+                    this.kupManager.removeClickCallback(this.clickCb);
+                },
+                el: this.rootElement,
+            };
+        }
+        this.kupManager.addClickCallback(this.clickCb, true);
         this.kupManager.dynamicPosition.start(
             this.rootElement as KupDynamicPositionElement
         );
@@ -283,6 +286,7 @@ export class KupTooltip {
 
     private _mouseIsOn: boolean = false;
     private waitingServerResponse = false;
+    private clickCb: KupManagerClickCb = null;
 
     // ---- Public methods  ----
 
@@ -996,13 +1000,13 @@ export class KupTooltip {
         if (this.isCardLayout()) {
             return this.getCardLayoutContent();
         }
-
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div
                         id="wrapper"

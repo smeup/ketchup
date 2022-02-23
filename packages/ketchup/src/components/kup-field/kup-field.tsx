@@ -316,14 +316,13 @@ export class KupField {
         if ((submitIsRight || submitIsBottom) && submit) {
             toRender.push(submit);
         }
-
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId} class={wrapperClass}>
                     {toRender}
                 </div>

@@ -3,6 +3,7 @@ import type { ActionMap } from '@interactjs/core/scope';
 import type { RectResolvable } from '@interactjs/types/index';
 import type {
     KupDom,
+    KupManagerClickCb,
     KupManagerDatesSettings,
     KupManagerDebugSettings,
     KupManagerInitialization,
@@ -33,11 +34,12 @@ import { KupThemeJSON } from '../kup-theme/kup-theme-declarations';
 import { KupDates } from '../kup-dates/kup-dates';
 import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import { KupSearch } from '../kup-search/kup-search';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
- * This class controls every other Ketch.UP utility suite.
+ * This class controls every other Ketchup utility suite.
  * @module KupManager
  */
 export class KupManager {
@@ -51,6 +53,7 @@ export class KupManager {
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: KupScrollOnHover;
+    search: KupSearch;
     utilities: KupManagerUtilities;
     theme: KupTheme;
     toolbar: KupToolbar;
@@ -58,7 +61,7 @@ export class KupManager {
      * Initializes KupManager.
      */
     constructor(overrides?: KupManagerInitialization) {
-        let datesLocale: string = null,
+        let datesLocale: KupDatesLocales = null,
             debugActive: boolean = null,
             debugAutoprint: boolean = null,
             debugLogLimit: number = null,
@@ -147,10 +150,10 @@ export class KupManager {
             scrollOnHoverDelay,
             scrollOnHoverStep
         );
+        this.search = new KupSearch();
         this.utilities = {
-            lastPointerDownPath: null,
+            clickCallbacks: new Set(),
             lastPointerDownString: null,
-            pointerDownCallbacks: new Set(),
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
@@ -158,16 +161,7 @@ export class KupManager {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =
                 paths[0].innerText || (paths[0] as HTMLInputElement).value;
-            this.utilities.lastPointerDownPath = paths;
             this.utilities.lastPointerDownString = lastString;
-            this.utilities.pointerDownCallbacks.forEach((obj) => {
-                if (obj.el.isConnected && !paths.includes(obj.el)) {
-                    obj.cb();
-                    if (obj.onlyOnce) {
-                        this.utilities.pointerDownCallbacks.delete(obj);
-                    }
-                }
-            });
             if (lastString) {
                 document.dispatchEvent(
                     new CustomEvent('kup-manager-stringfinder', {
@@ -176,6 +170,19 @@ export class KupManager {
                     })
                 );
             }
+        });
+        document.addEventListener('click', (e) => {
+            const paths = e.composedPath() as HTMLElement[];
+            this.utilities.clickCallbacks.forEach((obj) => {
+                if (
+                    obj &&
+                    obj.el &&
+                    obj.el.isConnected &&
+                    !paths.includes(obj.el)
+                ) {
+                    obj.cb();
+                }
+            });
         });
     }
     /**
@@ -236,9 +243,30 @@ export class KupManager {
         this.dates.setLocale(locale);
         this.language.set(KupLanguageDefaults[locale]);
     }
+    /**
+     * Adds a new click callback.
+     * @param {KupManagerClickCb} cb - The callback to add.
+     * @param {boolean} async - When true, the callback will be added asynchrounously to prevent instant firing if it was added through a click event.
+     */
+    addClickCallback(cb: KupManagerClickCb, async?: boolean): void {
+        if (async) {
+            setTimeout(() => {
+                this.utilities.clickCallbacks.add(cb);
+            }, 0);
+        } else {
+            this.utilities.clickCallbacks.add(cb);
+        }
+    }
+    /**
+     * Removes the given click callback.
+     * @param {KupManagerClickCb} cb - The callback to remove.
+     */
+    removeClickCallback(cb: KupManagerClickCb): void {
+        this.utilities.clickCallbacks.delete(cb);
+    }
 }
 /**
- * Called by the Ketch.UP components to retrieve the instance of KupManager (or creating a new one when missing).
+ * Called by the Ketchup components to retrieve the instance of KupManager (or creating a new one when missing).
  * @returns {KupManager} KupManager instance.
  */
 export function kupManagerInstance(): KupManager {

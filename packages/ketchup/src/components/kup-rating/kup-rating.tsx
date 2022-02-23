@@ -11,7 +11,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
@@ -210,13 +209,13 @@ export class KupRating {
     }
 
     render() {
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <div>{this.stars}</div>
                 </div>

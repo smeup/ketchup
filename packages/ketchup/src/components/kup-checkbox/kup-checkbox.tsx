@@ -10,7 +10,6 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-
 import {
     KupManager,
     kupManagerInstance,
@@ -245,14 +244,13 @@ export class KupCheckbox {
             onChange: () => this.onKupChange(),
             onFocus: () => this.onKupFocus(),
         };
-
-        const customStyle: string = this.kupManager.theme.setCustomStyle(
-            this.rootElement as KupComponent
-        );
-
         return (
             <Host>
-                {customStyle ? <style>{customStyle}</style> : null}
+                <style>
+                    {this.kupManager.theme.setKupStyle(
+                        this.rootElement as KupComponent
+                    )}
+                </style>
                 <div id={componentWrapperId}>
                     <FCheckbox {...props} />
                 </div>
