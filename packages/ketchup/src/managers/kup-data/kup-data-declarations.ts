@@ -89,39 +89,6 @@ export interface KupDataNode extends KupDataRow {
     title?: string;
 }
 /**
- * Interface related to dataset operations.
- */
-export interface KupDataDatasetOperations {
-    cell: KupDataCellOperations;
-    column: KupDataColumnOperations;
-    node: KupDataNodeOperations;
-    row: KupDataRowOperations;
-    distinct: (
-        dataset: KupDataDataset,
-        columns?: string[],
-        valuesColumn?: KupDataColumn
-    ) => KupDataDataset;
-    new: (
-        dataset: KupDataDataset,
-        newColumns: KupDataNewColumn[]
-    ) => KupDataDataset;
-    rangedDistinct: (
-        dataset: KupDataDataset,
-        rangeColumns: KupDataNewColumn[],
-        resultingColumn: KupDataColumn,
-        valuesColumn?: KupDataColumn
-    ) => KupDataDataset;
-    sort: (
-        dataset: KupDataDataset,
-        sortType: KupDataDatasetSort,
-        headerColumn: string
-    ) => KupDataDataset;
-    transpose: (
-        dataset: KupDataDataset,
-        headerColumn?: string
-    ) => KupDataDataset;
-}
-/**
  * Interface related to cells operations.
  */
 export interface KupDataCellOperations {
@@ -204,7 +171,7 @@ export interface KupDataNewColumn {
  */
 export type KupDataDatasetSort = 'normalDistribution';
 /**
- * Interface containing the options related to column creation when invoking datasetOperations.column.new.
+ * Interface containing the options related to column creation when invoking column.new.
  */
 export interface KupDataNewColumnOptions {
     columns?: string[];
@@ -213,7 +180,7 @@ export interface KupDataNewColumnOptions {
     separator?: string;
 }
 /**
- * Types of column creation when invoking datasetOperations.column.new.
+ * Types of column creation when invoking column.new.
  */
 export enum KupDataNewColumnTypes {
     CONCATENATE = 'concatenate',

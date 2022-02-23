@@ -722,7 +722,7 @@ export default {
                 value: 'kup-data',
               },
             },
-            icon: 'functions',
+            icon: 'table-edit',
             value: 'KupData',
             visible: true,
           },
@@ -774,6 +774,16 @@ export default {
             },
             icon: 'translate',
             value: 'KupLanguage',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-math',
+              },
+            },
+            icon: 'functions',
+            value: 'KupMath',
             visible: true,
           },
           {

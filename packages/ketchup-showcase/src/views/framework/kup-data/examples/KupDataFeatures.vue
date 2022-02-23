@@ -5,8 +5,7 @@
         <div class="accordion-slot" slot="1">
           <p>
             <span class="code-word"
-              >datasetOperations.distinct(dataset, columns?, valuesColumn?):
-              KupDataDataset</span
+              >distinct(dataset, columns?, valuesColumn?): KupDataDataset</span
             ><br />
             Creates a new dataset with an amount of cells equal to a distinct
             calculation applied to the given columns.<br />The original value of
@@ -30,7 +29,7 @@
         ><div class="accordion-slot" slot="2">
           <p>
             <span class="code-word"
-              >datasetOperations.new(dataset, newColumns): KupDataDataset</span
+              >new(dataset, newColumns): KupDataDataset</span
             ><br />
             Creates a new dataset from the input one.<br />
             The new columns are to be specified in the columns argument along
@@ -51,8 +50,8 @@
         ><div class="accordion-slot" slot="3">
           <p>
             <span class="code-word"
-              >datasetOperations.rangedDistinct(dataset, rangeColumns,
-              resultingColumn, valuesColumn?): KupDataDataset</span
+              >rangedDistinct(dataset, rangeColumns, resultingColumn,
+              valuesColumn?): KupDataDataset</span
             ><br />
             Performs a distinct/count after previously grouping columns by
             ranges.<br />This method is, essentially, a combination of other
@@ -80,8 +79,7 @@
         ><div class="accordion-slot" slot="3b">
           <p>
             <span class="code-word"
-              >datasetOperations.sort(dataset, sortType, headerColumn?):
-              KupDataDataset</span
+              >sort(dataset, sortType, headerColumn?): KupDataDataset</span
             ><br />
             Creates a new dataset with sorted elements.<br /><br />
             - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
@@ -92,8 +90,7 @@
         ><div class="accordion-slot" slot="4">
           <p>
             <span class="code-word"
-              >datasetOperations.transpose(dataset, headerColumn?):
-              KupDataDataset</span
+              >transpose(dataset, headerColumn?): KupDataDataset</span
             ><br />
             Creates a new dataset with transposed columns and rows.<br /><br />
             - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
@@ -113,8 +110,7 @@
         ><div class="accordion-slot" slot="5">
           <p>
             <span class="code-word"
-              >datasetOperations.cell.find(dataset, filters):
-              KupDataCell[]</span
+              >cell.find(dataset, filters): KupDataCell[]</span
             ><br />
             Finds all the cells matching the filters criteria in the input
             dataset.<br /><br />
@@ -136,8 +132,7 @@
         ><div class="accordion-slot" slot="6">
           <p>
             <span class="code-word"
-              >datasetOperations.cell.getValue(dataset, columns?):
-              string[]</span
+              >cell.getValue(dataset, columns?): string[]</span
             ><br />
             Returns all the cells values of the specified columns.<br /><br />
             - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
@@ -146,8 +141,7 @@
         ><div class="accordion-slot" slot="7">
           <p>
             <span class="code-word"
-              >datasetOperations.cell.replace(dataset, cell, columns?):
-              string[]</span
+              >cell.replace(dataset, cell, columns?): string[]</span
             ><br />
             Overrides the given cell attributes for the specified columns. If no
             columns are provided, the value will be applied to every column of
@@ -158,7 +152,7 @@
         ><div class="accordion-slot" slot="8">
           <p>
             <span class="code-word"
-              >datasetOperations.column.find(dataset, filters): Column[]</span
+              >column.find(dataset, filters): Column[]</span
             ><br />
             Finds the columns matching the criteria specified in the filters
             argument.<br /><br />
@@ -169,8 +163,7 @@
         ><div class="accordion-slot" slot="9">
           <p>
             <span class="code-word"
-              >datasetOperations.column.hide(dataset, columns2hide):
-              Column[]</span
+              >column.hide(dataset, columns2hide): Column[]</span
             ><br />
             Sets the given columns of the input dataset to be hidden.<br /><br />
             - <strong>dataset (KupDataDataset | Column[])</strong> - Input
@@ -180,8 +173,7 @@
         ><div class="accordion-slot" slot="10">
           <p>
             <span class="code-word"
-              >datasetOperations.column.new(dataset, type, options): string |
-              Column</span
+              >column.new(dataset, type, options): string | Column</span
             ><br />
             Creates a new column with the specified options.<br />A string will
             be returned in case something went wrong, containing the error
@@ -196,54 +188,13 @@
             the submethods to create the column.<br /><br /> </p></div
         ><div class="accordion-slot" slot="11">
           <p>
-            <span class="code-word"
-              >datasetOperations.row.find(dataset, filters): Column[]</span
+            <span class="code-word">row.find(dataset, filters): Column[]</span
             ><br />
             Finds all the rows containing cells matching the filters criteria in
             the input dataset.<br /><br />
             - <strong>dataset (KupDataDataset)</strong> - Input dataset.<br />
             - <strong>filters (KupDataFindCellFilters)</strong> - Filters of the
             research.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="12">
-          <p>
-            <span class="code-word">formulas.custom(formula, row): number</span
-            ><br />
-            Takes a mathematical formula as string in input, with column names
-            between brackets, and returns the result as a number.<br /><br />
-            - <strong>formula (string)</strong> - Mathematical operation (i.e.:
-            ([COL1] - [COL2]) * 100 / [COL3]).<br />
-            - <strong>row ({ [index: string]: number })</strong> - Object
-            containing column names as indexes and the related values as
-            keys.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="13">
-          <p>
-            <span class="code-word"
-              >formulas.normalDistribution(average, variance, x): number</span
-            ><br />
-            Calculates a single Y point of a normal distribution.<br /><br />
-            - <strong>average (number)</strong> - Average.<br />
-            - <strong>variance (number)</strong> - Variance.<br />-
-            <strong>x (number)</strong> - X coordinate.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="14">
-          <p>
-            <span class="code-word"
-              >normalDistribution(values, precision?): number[][]</span
-            ><br />
-            Calculates the normal distribution on a set of values.<br /><br />
-            - <strong>values (string[] | number[] | String[])</strong> - Array
-            of values.<br />
-            - <strong>precision (number)</strong> - Number of iterations to run
-            (points). When not specified, defaults to 201.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="15">
-          <p>
-            <span class="code-word">numberify(input, locale?): number</span
-            ><br />
-            Returns a number from a non specified input type between string,
-            number, or String.<br /><br />
-            - <strong>input (string | String | number)</strong> - Input value to
-            numberify.<br />
-            - <strong>locale (KupDatesLocales)</strong> - Input format locale.
-            Defaults to KupDatesLocales.ENGLISH.<br /><br /> </p></div
       ></kup-accordion>
     </div>
   </div>
@@ -371,67 +322,51 @@ export default {
         columns: [
           {
             name: '1',
-            title: 'datasetOperations.distinct',
+            title: 'distinct',
           },
           {
             name: '2',
-            title: 'datasetOperations.new',
+            title: 'new',
           },
           {
             name: '3',
-            title: 'datasetOperations.rangedDistinct',
+            title: 'rangedDistinct',
           },
           {
             name: '3b',
-            title: 'datasetOperations.sort',
+            title: 'sort',
           },
           {
             name: '4',
-            title: 'datasetOperations.transpose',
+            title: 'transpose',
           },
           {
             name: '5',
-            title: 'datasetOperations.cell.find',
+            title: 'cell.find',
           },
           {
             name: '6',
-            title: 'datasetOperations.cell.getValue',
+            title: 'cell.getValue',
           },
           {
             name: '7',
-            title: 'datasetOperations.cell.replace',
+            title: 'cell.replace',
           },
           {
             name: '8',
-            title: 'datasetOperations.column.find',
+            title: 'column.find',
           },
           {
             name: '9',
-            title: 'datasetOperations.column.hide',
+            title: 'column.hide',
           },
           {
             name: '10',
-            title: 'datasetOperations.column.new',
+            title: 'column.new',
           },
           {
             name: '11',
-            title: 'datasetOperations.row.find',
-          },
-          {
-            name: '12',
-            title: 'formulas.custom',
-          },
-          {
-            name: '13',
-            title: 'formulas.normalDistribution',
-          },
-          {
-            name: '14',
-            title: 'normalDistribution',
-          },
-          {
-            name: '15',
-            title: 'numberify',
+            title: 'row.find',
           },
         ],
       };

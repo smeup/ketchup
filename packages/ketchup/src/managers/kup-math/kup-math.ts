@@ -30,9 +30,18 @@ export class KupMath {
             return normalDistributionFormula(average, variance, x);
         },
     };
-    locale: KupMathLocales = null;
+    locale: KupMathLocales;
     managedComponents: Set<KupComponent>;
-    numeral = numeral;
+    numeral: typeof numeral;
+    /**
+     * Initializes KupMath.
+     */
+    constructor(locale?: KupMathLocales) {
+        this.locale = locale ? locale : KupMathLocales.en;
+        this.managedComponents = new Set();
+        this.numeral = numeral;
+        this.numeral.locale(this.locale);
+    }
     /**
      * Sets the locale of the numeral instance.
      * @returns {KupMathLocales} Locale string.
