@@ -402,10 +402,10 @@ export class KupTimePicker {
         this.value = value;
     }
 
+
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
-
     getFormattedValue(value: string): string {
         return formattedStringToCustomUnformattedStringTime(
             value,
