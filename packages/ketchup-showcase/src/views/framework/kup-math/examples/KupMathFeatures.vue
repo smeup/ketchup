@@ -1,8 +1,50 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <kup-accordion id="accordion"
-        ><div class="accordion-slot" slot="1">
+      <kup-accordion id="accordion">
+        <div class="accordion-slot" slot="1">
+          <p>
+            <span class="code-word">register(component): void</span><br />
+            Registers a KupComponent in KupMath, in order to be automatically
+            refreshed whenever the locale changes.<br /><br />
+            - <strong>component (any)</strong> - The Ketchup component to be
+            registered.<br /> </p
+        ></div>
+        <div class="accordion-slot" slot="2">
+          <p>
+            <span class="code-word">setLocale(locale): void</span><br />
+            Sets the locale of the numeral instance.<br /><br />
+            - <strong>locale (KupMathLocales)</strong> - Numeraljs locale
+            string.
+          </p></div
+        ><div class="accordion-slot" slot="3">
+          <p>
+            <span class="code-word">numberify(input): number</span><br />
+            Returns a number from a non-specified input type between string,
+            number, or String.<br /><br />
+            - <strong>input (string | String | number)</strong> - Input value to
+            numberify.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="4">
+          <p>
+            <span class="code-word">format(input, format): string</span><br />
+            Formats the input number with the specified format of the currently
+            set locale.<br /><br />
+            - <strong>input (string | String | number)</strong> - Input number
+            which will be automatically "numberified".<br />
+            - <strong>format (string)</strong> - Desired format. Defaults to
+            '0,0.0' (i.e.: 2,000,000.51).
+          </p></div
+        ><div class="accordion-slot" slot="5">
+          <p>
+            <span class="code-word"
+              >normalDistribution(values, precision?): number[][]</span
+            ><br />
+            Calculates the normal distribution on a set of values.<br /><br />
+            - <strong>values (string[] | number[] | String[])</strong> - Array
+            of values.<br />
+            - <strong>precision (number)</strong> - Number of iterations to run
+            (points). When not specified, defaults to 201.<br /><br /> </p></div
+        ><div class="accordion-slot" slot="6">
           <p>
             <span class="code-word">formulas.custom(formula, row): number</span
             ><br />
@@ -13,7 +55,7 @@
             - <strong>row ({ [index: string]: number })</strong> - Object
             containing column names as indexes and the related values as
             keys.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="2">
+        ><div class="accordion-slot" slot="7">
           <p>
             <span class="code-word"
               >formulas.normalDistribution(average, variance, x): number</span
@@ -22,26 +64,13 @@
             - <strong>average (number)</strong> - Average.<br />
             - <strong>variance (number)</strong> - Variance.<br />-
             <strong>x (number)</strong> - X coordinate.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="3">
+        ><div class="accordion-slot" slot="8">
           <p>
-            <span class="code-word"
-              >normalDistribution(values, precision?): number[][]</span
-            ><br />
-            Calculates the normal distribution on a set of values.<br /><br />
-            - <strong>values (string[] | number[] | String[])</strong> - Array
-            of values.<br />
-            - <strong>precision (number)</strong> - Number of iterations to run
-            (points). When not specified, defaults to 201.<br /><br /> </p></div
-        ><div class="accordion-slot" slot="4">
-          <p>
-            <span class="code-word">numberify(input, locale?): number</span
-            ><br />
-            Returns a number from a non specified input type between string,
-            number, or String.<br /><br />
-            - <strong>input (string | String | number)</strong> - Input value to
-            numberify.<br />
-            - <strong>locale (KupDatesLocales)</strong> - Input format locale.
-            Defaults to KupDatesLocales.ENGLISH.<br /><br /> </p></div
+            <span class="code-word">unregister(component): void</span><br />
+            Unregisters a KupComponent, so it won't be refreshed when the
+            KupMath locale changes.<br /><br />
+            - <strong>component (any)</strong> - The Ketchup component to be
+            unregistered.<br /> </p></div
       ></kup-accordion>
     </div>
   </div>
@@ -74,19 +103,35 @@ export default {
         columns: [
           {
             name: '1',
-            title: 'formulas.custom',
+            title: 'register',
           },
           {
             name: '2',
-            title: 'formulas.normalDistribution',
+            title: 'setLocale',
           },
           {
             name: '3',
-            title: 'normalDistribution',
+            title: 'numberify',
           },
           {
             name: '4',
-            title: 'numberify',
+            title: 'format',
+          },
+          {
+            name: '5',
+            title: 'normalDistribution',
+          },
+          {
+            name: '6',
+            title: 'formulas.custom',
+          },
+          {
+            name: '7',
+            title: 'formulas.normalDistribution',
+          },
+          {
+            name: '8',
+            title: 'unregister',
           },
         ],
       };

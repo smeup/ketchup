@@ -44,7 +44,7 @@ export class KupMath {
     }
     /**
      * Sets the locale of the numeral instance.
-     * @returns {KupMathLocales} Locale string.
+     * @param {KupMathLocales} locale - Numeraljs locale string.
      */
     setLocale(locale: KupMathLocales): void {
         if (!KupMathLocales[locale]) {
@@ -109,7 +109,7 @@ export class KupMath {
     /**
      * Formats the input number with the specified format of the currently set locale.
      * @param {string | String | number} input - Input number which will be automatically "numberified".
-     * @param {string} format - Desired format. Defaults to '0,0.0' (i.e.: 2,000,000.51)
+     * @param {string} format - Desired format. Defaults to '0,0.0' (i.e.: 2,000,000.51).
      * @returns {string} Formatted number.
      */
     format(input: string | String | number, format?: string): string {
