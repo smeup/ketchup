@@ -34,7 +34,7 @@ export function removeNode(
     return removed;
 }
 /**
- * Sets the values specified in the filters to every node of the input array.
+ * Sets the values specified in the properties to every node of the input array.
  * @param {KupDataNode[]} nodes - Input array of nodes.
  * @param {Partial<KupDataNode>} properties - New properties values to set.
  * @param {boolean} recursively - Sets values to every child node.

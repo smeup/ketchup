@@ -1,10 +1,12 @@
+import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDataDataset,
     KupDataFindCellFilters,
     KupDataNode,
     KupDataRow,
 } from './kup-data-declarations';
-import { finder } from './kup-data-helper';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Finds all the rows containing cells matching the filters criteria in the input dataset.
@@ -16,7 +18,7 @@ export function findRow(
     dataset: KupDataDataset,
     filters: KupDataFindCellFilters
 ): KupDataRow[] {
-    return finder(dataset, filters).rows;
+    return dom.ketchup.data.finder(dataset, filters).rows;
 }
 /**
  * Converts the rows of the input dataset to tree nodes.

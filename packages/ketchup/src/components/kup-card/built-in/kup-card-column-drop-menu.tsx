@@ -216,7 +216,7 @@ async function applyFormula(component: KupCard) {
     if (combobox) {
         const value = (await combobox.getValue()) as KupLanguageTotals;
         if (premadeFormulas.includes(value)) {
-            dom.ketchup.data.datasetOperations.column.new(
+            dom.ketchup.data.column.new(
                 options.data,
                 KupDataNewColumnTypes.MATH,
                 {
@@ -231,7 +231,7 @@ async function applyFormula(component: KupCard) {
                 options.formulaCb();
             }
         } else {
-            const result = dom.ketchup.data.datasetOperations.column.new(
+            const result = dom.ketchup.data.column.new(
                 options.data,
                 KupDataNewColumnTypes.MATH,
                 {

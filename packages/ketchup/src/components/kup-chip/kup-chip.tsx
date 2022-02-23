@@ -128,7 +128,7 @@ export class KupChip {
         const isChoice: boolean = this.type.toLowerCase() === FChipType.CHOICE;
         const isFilter: boolean = this.type.toLowerCase() === FChipType.FILTER;
         if (isChoice) {
-            this.kupManager.data.datasetOperations.node.setProperties(
+            this.kupManager.data.node.setProperties(
                 this.data,
                 { checked: false } as KupChipNode,
                 true,
@@ -158,10 +158,7 @@ export class KupChip {
         this.kupIconClick.emit({
             comp: this,
             id: this.rootElement.id,
-            chip: this.kupManager.data.datasetOperations.node.remove(
-                this.data,
-                chip
-            ),
+            chip: this.kupManager.data.node.remove(this.data, chip),
         });
         this.refresh();
     }
@@ -182,7 +179,7 @@ export class KupChip {
                 KupDebugCategory.WARNING
             );
             const data = this.data as KupDataDataset;
-            this.data = this.kupManager.data.datasetOperations.row.toNode(data);
+            this.data = this.kupManager.data.row.toNode(data);
         }
     }
 
@@ -293,7 +290,7 @@ export class KupChip {
             props.onExpansionClick.push((chip, e) => {
                 chip.isExpanded = !chip.isExpanded ? true : false;
                 if (e.ctrlKey && chip.children && chip.children.length > 0) {
-                    this.kupManager.data.datasetOperations.node.setProperties(
+                    this.kupManager.data.node.setProperties(
                         chip.children,
                         { isExpanded: chip.isExpanded },
                         true

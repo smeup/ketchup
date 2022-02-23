@@ -1,9 +1,11 @@
+import { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDataCell,
     KupDataDataset,
     KupDataFindCellFilters,
 } from './kup-data-declarations';
-import { finder } from './kup-data-helper';
+
+const dom: KupDom = document.documentElement as KupDom;
 
 /**
  * Finds all the cells matching the filters criteria in the input dataset.
@@ -15,7 +17,7 @@ export function findCell(
     dataset: KupDataDataset,
     filters: KupDataFindCellFilters
 ): KupDataCell[] {
-    return finder(dataset, filters).cells;
+    return dom.ketchup.data.finder(dataset, filters).cells;
 }
 /**
  * Returns all the cells values of the specified columns.

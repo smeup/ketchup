@@ -308,11 +308,11 @@ function newColumnFromMath(
                     if (!base) {
                         base = cell;
                     }
-                    formulaRow[column] = dom.ketchup.data.numberify(cell.value);
+                    formulaRow[column] = dom.ketchup.math.numberify(cell.value);
                 }
             }
         }
-        const value = dom.ketchup.data.formulas
+        const value = dom.ketchup.math.formulas
             .custom(formula, formulaRow)
             .toString();
         cells[newName] = {

@@ -622,9 +622,7 @@ export class KupTree {
      */
     @Method()
     async hideColumn(column: KupDataColumn): Promise<void> {
-        this.kupManager.data.datasetOperations.column.hide(this.columns, [
-            column.name,
-        ]);
+        this.kupManager.data.column.hide(this.columns, [column.name]);
         this.kupColumnRemove.emit({
             comp: this,
             id: this.rootElement.id,
@@ -1194,8 +1192,7 @@ export class KupTree {
                 );
                 const data = this.data as KupDataDataset;
                 this.columns = data.columns;
-                this.data =
-                    this.kupManager.data.datasetOperations.row.toNode(data);
+                this.data = this.kupManager.data.row.toNode(data);
                 this.showColumns = true;
                 this.showHeader = true;
             }

@@ -282,6 +282,11 @@ const frameworkRoutes = [
     component: () => import(`@/views/framework/kup-manager/KupManager.vue`),
   },
   {
+    path: `/kup-math`,
+    name: 'kup-math',
+    component: () => import(`@/views/framework/kup-math/KupMath.vue`),
+  },
+  {
     path: `/kup-objects`,
     name: 'kup-objects',
     component: () => import(`@/views/framework/kup-objects/KupObjects.vue`),

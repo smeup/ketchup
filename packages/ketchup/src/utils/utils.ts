@@ -1,4 +1,3 @@
-import numeral from 'numeral';
 import { GenericObject } from '../types/GenericTypes';
 import { KupDom } from '../managers/kup-manager/kup-manager-declarations';
 import {
@@ -183,7 +182,7 @@ export function stringToNumber(input: string): number {
     if (!input || input == null || input.trim() == '') {
         input = '0';
     }
-    return numeral(input).value();
+    return dom.ketchup.math.numberify(input);
 }
 
 /**
@@ -307,7 +306,10 @@ function numberStringToNumberString(
     if (decFmt != '.') {
         input = input.replace(/,/g, '.');
     }
-    if (numeral(input).value() == null || isNaN(numeral(input).value())) {
+    if (
+        dom.ketchup.math.numberify(input) == null ||
+        isNaN(dom.ketchup.math.numberify(input))
+    ) {
         return originalInputValue;
     }
     let unf: number = stringToNumber(input);

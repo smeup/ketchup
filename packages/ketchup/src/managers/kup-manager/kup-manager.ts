@@ -38,6 +38,8 @@ import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupSearch } from '../kup-search/kup-search';
 import { KupDynamicPositionElement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupMathLocales } from '../kup-math/kup-math-declarations';
+import { KupMath } from '../kup-math/kup-math';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -53,6 +55,7 @@ export class KupManager {
     interact: KupInteract;
     language: KupLanguage;
     magicBox: HTMLKupMagicBoxElement;
+    math: KupMath;
     objects: KupObjects;
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
@@ -130,6 +133,7 @@ export class KupManager {
         this.interact = new KupInteract(dialogZIndex, dialogRestrictContainer);
         this.language = new KupLanguage(languageList, languageName);
         this.magicBox = null;
+        this.math = new KupMath();
         this.overrides = overrides ? overrides : null;
         this.objects = new KupObjects(objectsList);
         this.resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
@@ -279,6 +283,7 @@ export class KupManager {
         }
         this.dates.setLocale(locale);
         this.language.set(KupLanguageDefaults[locale]);
+        this.math.setLocale(KupMathLocales[locale]);
     }
     /**
      * Adds a new click callback.
@@ -317,6 +322,15 @@ export function kupManagerInstance(): KupManager {
             dom.ketchup.debug.toggle(dom.ketchup.debug.active);
         }
         globalThis.kupManager = dom.ketchup;
+        if (overrides && overrides.autoSetLocalization) {
+            const locale = dom.ketchup.dates.locale;
+            if (!overrides.language || !overrides.language.name) {
+                dom.ketchup.language.set(KupLanguageDefaults[locale]);
+            }
+            if (!overrides.math || !overrides.math.locale) {
+                dom.ketchup.math.setLocale(KupMathLocales[locale]);
+            }
+        }
         document.dispatchEvent(new CustomEvent('kup-manager-ready'));
     }
     return dom.ketchup;
