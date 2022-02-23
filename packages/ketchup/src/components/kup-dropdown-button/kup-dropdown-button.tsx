@@ -15,7 +15,7 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { ItemsDisplayMode } from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
@@ -30,8 +30,8 @@ import {
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
-import { KupDynamicPositionPlacement } from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 
 @Component({
     tag: 'kup-dropdown-button',

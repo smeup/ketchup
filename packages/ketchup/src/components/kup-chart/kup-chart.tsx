@@ -28,17 +28,17 @@ import {
     convertRows,
     getSerieDecode,
 } from './kup-chart-builder';
-import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { getProps, identify, setProps } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
+import { KupDataDataset } from '../../managers/kup-data/kup-data-declarations';
 
 declare const google: any;
 declare const $: any;
@@ -88,7 +88,7 @@ export class KupChart {
      * The actual data of the chart.
      * @default undefined
      */
-    @Prop() data: DataTable;
+    @Prop() data: KupDataDataset;
     /**
      * Customize the hAxis.
      * @default undefined

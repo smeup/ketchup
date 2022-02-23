@@ -4,13 +4,7 @@ import type {
 } from './filters-declarations';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
-import {
-    Cell,
-    Column,
-    Row,
-    CellsHolder,
-    SortMode,
-} from '../../components/kup-data-table/kup-data-table-declarations';
+import { SortMode } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
     compareValues,
     getCellValueForDisplay,
@@ -21,8 +15,14 @@ import {
 import { Filters } from './filters';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
-import { KupObjects } from '../kup-objects/kup-objects';
-import { KupDom } from '../kup-manager/kup-manager-declarations';
+import { KupObjects } from '../../managers/kup-objects/kup-objects';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import {
+    KupDataCell,
+    KupDataColumn,
+    KupDataRow,
+    KupDataRowCells,
+} from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 const kupObjects: KupObjects = dom.ketchup
@@ -36,7 +36,7 @@ const kupObjects: KupObjects = dom.ketchup
  */
 export class FiltersRows extends Filters {
     isFilterCompliantForCell(
-        cellValue: Cell,
+        cellValue: KupDataCell,
         filterValue: string,
         interval: string[]
     ) {
@@ -53,7 +53,7 @@ export class FiltersRows extends Filters {
     }
 
     isFilterCompliantForCellObj(
-        cellValue: Cell,
+        cellValue: KupDataCell,
         filterValue: string,
         interval: string[]
     ) {
@@ -72,11 +72,11 @@ export class FiltersRows extends Filters {
     }
 
     isRowCompliant(
-        r: Row,
+        r: KupDataRow,
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
         return this.areCellsCompliant(
@@ -90,11 +90,11 @@ export class FiltersRows extends Filters {
     }
 
     areCellsCompliant(
-        cells: CellsHolder,
+        cells: KupDataRowCells,
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
         if (isUsingGlobalFilter) {
@@ -234,7 +234,7 @@ export class FiltersRows extends Filters {
 
     hasFilters(
         filters: GenericFilter = {},
-        columns: Column[],
+        columns: KupDataColumn[],
         columnFilters?: FiltersColumnMenu
     ) {
         if (filters == null) {
@@ -249,7 +249,7 @@ export class FiltersRows extends Filters {
         }
         for (let i = 0; i < keys.length; i++) {
             let key = keys[i];
-            let col: Column = null;
+            let col: KupDataColumn = null;
             if (key === treeMainColumnName) {
                 col = {
                     name: treeMainColumnName,
@@ -276,18 +276,18 @@ export class FiltersRows extends Filters {
      *    single filters and global filter, all controls on a single column are done in a single cycle.
      */
     filterRows(
-        rows: Array<Row> = [],
+        rows: Array<KupDataRow> = [],
         filters: GenericFilter = {},
         globalFilter: string = '',
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
-    ): Array<Row> {
+    ): Array<KupDataRow> {
         if (!rows || rows == null) {
             return [];
         }
 
         // There are rows to filter
-        let filteredRows: Array<Row> = [];
+        let filteredRows: Array<KupDataRow> = [];
         const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
 
         if (
@@ -295,7 +295,7 @@ export class FiltersRows extends Filters {
             isUsingGlobalFilter
         ) {
             for (let i = 0; i < rows.length; i++) {
-                let r: Row = rows[i];
+                let r: KupDataRow = rows[i];
                 if (
                     this.isRowCompliant(
                         r,
@@ -318,7 +318,7 @@ export class FiltersRows extends Filters {
 
     getColumnValues(
         comp: KupDataTable | KupTree,
-        column: Column,
+        column: KupDataColumn,
         globalFilterValue: string,
         columnFilters?: FiltersColumnMenu
     ): ValueDisplayedValue[] {
@@ -406,8 +406,8 @@ export class FiltersRows extends Filters {
     }
 
     extractColumnValues(
-        rows: Array<Row>,
-        column: Column,
+        rows: Array<KupDataRow>,
+        column: KupDataColumn,
         values: ValueDisplayedValue[]
     ) {
         /** il valore delle righe attualmente filtrate, formattato */
@@ -419,8 +419,8 @@ export class FiltersRows extends Filters {
 
     addColumnValueFromRow(
         values: ValueDisplayedValue[],
-        column: Column,
-        cell: Cell
+        column: KupDataColumn,
+        cell: KupDataCell
     ) {
         if (cell) {
             let item: ValueDisplayedValue = {

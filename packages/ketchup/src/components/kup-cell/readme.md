@@ -10,7 +10,7 @@
 | Property      | Attribute      | Description                                                                             | Type                                                                                  | Default             |
 | ------------- | -------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------- |
 | `customStyle` | `custom-style` | Custom style of the component.                                                          | `string`                                                                              | `''`                |
-| `data`        | --             | The data of the cell.                                                                   | `Cell`                                                                                | `null`              |
+| `data`        | --             | The data of the cell.                                                                   | `KupDataCell`                                                                         | `null`              |
 | `density`     | `density`      | The density of the cell, defaults at 'dense' and can be also set to 'wide' or 'medium'. | `FCellPadding.DENSE \| FCellPadding.MEDIUM \| FCellPadding.NONE \| FCellPadding.WIDE` | `FCellPadding.NONE` |
 | `dragEnabled` | `drag-enabled` | When set to true, the component is draggable.                                           | `boolean`                                                                             | `false`             |
 
@@ -119,36 +119,36 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-badge --> kup-badge
-  kup-combobox --> kup-list
-  kup-date-picker --> kup-card
+  kup-color-picker --> kup-card
   kup-card --> kup-badge
-  kup-card --> kup-chip
-  kup-card --> kup-autocomplete
   kup-card --> kup-button
-  kup-card --> kup-checkbox
+  kup-card --> kup-chip
+  kup-card --> kup-list
   kup-card --> kup-combobox
+  kup-card --> kup-autocomplete
+  kup-card --> kup-checkbox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
   kup-card --> kup-data-table
-  kup-card --> kup-list
   kup-card --> kup-spinner
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
   kup-card --> kup-tab-bar
   kup-card --> kup-tree
   kup-card --> kup-switch
-  kup-chip --> kup-badge
   kup-button --> kup-badge
+  kup-chip --> kup-badge
+  kup-combobox --> kup-list
+  kup-date-picker --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
-  kup-data-table --> kup-button
-  kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
+  kup-data-table --> kup-button
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
@@ -173,7 +173,6 @@ graph TD;
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
   kup-box --> kup-text-field
-  kup-box --> kup-paginator
   kup-box --> kup-autocomplete
   kup-box --> kup-color-picker
   kup-box --> kup-date-picker
@@ -186,8 +185,6 @@ graph TD;
   kup-box --> kup-gauge
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button

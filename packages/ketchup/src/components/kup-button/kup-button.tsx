@@ -14,7 +14,7 @@ import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import {
     FButtonProps,
@@ -24,7 +24,7 @@ import {
     KupButtonClickEventPayload,
     KupButtonProps,
 } from './kup-button-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 

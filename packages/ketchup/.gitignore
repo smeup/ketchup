@@ -26,3 +26,7 @@ UserInterfaceState.xcuserstate
 .env
 
 /dist
+
+# Ignores auto generated css files for f-components and kup-theme
+/src/f-components/**/*.css
+/src/managers/kup-theme/*.css

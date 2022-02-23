@@ -1,9 +1,9 @@
 import { h, VNode } from '@stencil/core';
 import type { KupCard } from '../kup-card';
-import type { KupDom } from '../../../utils/kup-manager/kup-manager-declarations';
+import type { KupDom } from '../../../managers/kup-manager/kup-manager-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { GenericObject } from '../../../types/GenericTypes';
-import { KupThemeColorValues } from '../../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeColorValues } from '../../../managers/kup-theme/kup-theme-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 

@@ -1,0 +1,369 @@
+.built-in-layout-4 {
+  background: var(--kup-background-color);
+  box-shadow: rgb(128 128 128 / 10%) 0px 2px 1px -1px,
+    rgb(128 128 128 / 10%) 0px 1px 1px 0px,
+    rgb(128 128 128 / 60%) 0px 1px 3px 0px;
+  box-sizing: border-box;
+  $color-bg: var(--kup-background-color);
+
+  @mixin border-deco() {
+    //Firefox bug: https://github.com/Sphinxxxx/vanilla-picker/issues/1
+    //  outline: 1px solid silver;
+    box-shadow: 0 0 0 1px var(--kup-border-color);
+  }
+
+  //The arrow is only used in popup mode
+  .picker_arrow {
+    position: absolute;
+
+    //Don't cover the individual picker child elements.
+    //We also need to add a z-index to the main .picker_wrapper below, so the arrow stays above/inside the wrapper:
+    //https://stackoverflow.com/questions/1806421/how-to-get-a-parent-element-to-appear-above-child
+    z-index: -1;
+  }
+
+  .picker_wrapper.popup {
+    position: absolute;
+    z-index: 2; //On top of non-popup pickers' selectors
+    margin: 1.5em;
+
+    &,
+    .picker_arrow::before,
+    .picker_arrow::after {
+      background: $color-bg;
+      box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.4);
+    }
+
+    .picker_arrow {
+      width: 3em;
+      height: 3em;
+      margin: 0;
+
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -99;
+      }
+      &::before {
+        width: 100%;
+        height: 100%;
+        transform: skew(45deg);
+        transform-origin: 0 100%;
+      }
+      &::after {
+        width: 150%;
+        height: 150%;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .popup.popup_top {
+    bottom: 100%;
+    left: 0;
+
+    .picker_arrow {
+      bottom: 0;
+      left: 0;
+      transform: rotate(-90deg);
+    }
+  }
+
+  .popup.popup_bottom {
+    top: 100%;
+    left: 0;
+
+    .picker_arrow {
+      top: 0;
+      left: 0;
+      transform: rotate(90deg) scale(1, -1);
+    }
+  }
+
+  .popup.popup_left {
+    top: 0;
+    right: 100%;
+
+    .picker_arrow {
+      top: 0;
+      right: 0;
+      transform: scale(-1, 1);
+    }
+  }
+
+  .popup.popup_right {
+    top: 0;
+    left: 100%;
+
+    .picker_arrow {
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .picker_wrapper.no_alpha .picker_alpha {
+    display: none;
+  }
+  //Always keep the editor on-screen, for screen readers:
+  .picker_wrapper.no_editor .picker_editor {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+  .picker_wrapper.no_cancel .picker_cancel {
+    display: none;
+  }
+
+  .layout_default {
+    $width-gutter: 1em;
+    $width-slider: 2em;
+
+    &.picker_wrapper {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-items: stretch;
+
+      font-size: 10px;
+      width: 25em;
+      //Since we use "em"s for layout here, restore the correct font-size on elements with text:
+      input,
+      button {
+        font-size: 1em;
+      }
+
+      padding: $width-gutter/2;
+      > * {
+        margin: $width-gutter/2;
+      }
+
+      //https://stackoverflow.com/questions/29732575/line-break-in-multi-line-flexbox
+      //We use this to insert a line break after .picker_alpha,
+      //which lets us set .picker_sl to use all available space to the left of it (via flex-grow: 1),
+      //and we don't have to calculate the exact width for .picker_sl.
+      &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 0;
+        order: 1;
+      }
+    }
+
+    .picker_slider,
+    .picker_selector {
+      padding: $width-slider/2;
+    }
+
+    .picker_hue {
+      width: 100%;
+    }
+
+    .picker_sl {
+      //width: calc(100% - #{2*$width-gutter} - #{$width-slider});
+      flex: 1 1 auto;
+
+      //With variable width, we need a pseudo-element to make it a square, whatever size:
+      &::before {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+      }
+    }
+
+    .picker_editor {
+      order: 1;
+      //width: 100%;
+      width: 6.5em;
+
+      input {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .picker_sample {
+      order: 1;
+      //width: 170px;
+      //height: 30px;
+      flex: 1 1 auto;
+    }
+
+    .picker_done,
+    .picker_cancel {
+      order: 1;
+    }
+  }
+  .picker_wrapper {
+    box-sizing: border-box;
+    background: $color-bg;
+    @include border-deco();
+
+    cursor: default;
+    font-family: sans-serif;
+    color: #444;
+
+    //Needed for the default popup behavior, where the parent is temporarily disabled via "pointer-events: none"
+    pointer-events: auto;
+    //The wrapper needs to be focusable (via `tabindex`), or else the popup loses focus
+    //if you click anywhere on the picker's background, and closeHandler() closes the popup.
+    //However, we don't want all the decoration:
+    &:focus {
+      outline: none;
+    }
+
+    //Reset custom styles on certain Firefox installs (#21)
+    button,
+    input {
+      box-sizing: border-box;
+      border: none;
+      @include border-deco();
+
+      outline: none;
+      &:focus,
+      &:active {
+        box-shadow: 0 0 2px 1px var(--kup-border-color);
+      }
+    }
+    button {
+      padding: 0.4em 0.6em;
+      cursor: pointer;
+
+      background-color: whitesmoke;
+      background-image: linear-gradient(0deg, gainsboro, transparent);
+      &:active {
+        background-image: linear-gradient(0deg, transparent, gainsboro);
+      }
+    }
+  }
+
+  .picker_selector {
+    position: absolute;
+    z-index: 1; //On top of nearby sliders
+    display: block;
+    transform: translate(-50%, -50%);
+
+    border: 2px solid white;
+    border-radius: 100%;
+
+    box-shadow: 0 0 3px 1px #67b9ff;
+    background: currentColor;
+    cursor: pointer;
+  }
+
+  .picker_slider .picker_selector {
+    border-radius: 2px;
+  }
+
+  .picker_hue {
+    position: relative;
+
+    background-image: linear-gradient(
+      90deg,
+      red,
+      yellow,
+      lime,
+      cyan,
+      blue,
+      magenta,
+      red
+    );
+    @include border-deco();
+  }
+
+  .picker_sl {
+    $desat: #808080;
+    //https://css-tricks.com/thing-know-gradients-transparent-black/
+    $desat0: rgba($desat, 0);
+    $white0: rgba(white, 0);
+    $black0: rgba(black, 0);
+
+    position: relative;
+
+    @include border-deco();
+    background-image:
+        /*
+          Different SL pickers
+          https://en.wikipedia.org/wiki/HSL_and_HSV
+        */
+        
+        //HSV
+        //linear-gradient( 0deg, black, $black0),
+        //linear-gradient(90deg, white, $white0);
+        
+        //HSL:
+      linear-gradient(180deg, white, $white0 50%),
+      linear-gradient(0deg, black, $black0 50%),
+      linear-gradient(90deg, $desat, $desat0);
+
+    //Hue, chroma, lightness (almost):
+    //linear-gradient( 45deg, #eee   50%, transparent 50%), //Masking the triangle
+    //linear-gradient(135deg, white   0%, $white0  50%),   //Lightness, white
+    //linear-gradient(-45deg, black   0%, $black0  50%),  //Lightness, black
+    //linear-gradient( 45deg, $desat 50%, $desat0 100%); //Saturation
+  }
+
+  .picker_alpha,
+  .picker_sample {
+    position: relative;
+
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Cpath d='M1,0H0V1H2V2H1' fill='lightgrey'/%3E%3C/svg%3E")
+      left top / contain white;
+    @include border-deco();
+
+    .picker_selector {
+      background: none;
+    }
+  }
+
+  .picker_editor {
+    input {
+      font-family: monospace;
+      padding: 0.2em 0.4em;
+    }
+  }
+
+  .picker_sample {
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: currentColor;
+    }
+  }
+
+  //Kup edits.
+  .picker_done,
+  .picker_arrow {
+    display: none;
+  }
+
+  .layout_default.picker_wrapper {
+    bottom: unset;
+    font-size: var(--kup-font-size);
+    left: unset;
+    padding: 0.25em;
+    right: unset;
+    top: unset;
+    width: 100%;
+  }
+
+  .layout_default .picker_editor input {
+    background: none;
+    color: var(--kup-text-color);
+    font-family: var(--kup-font-family);
+    font-size: var(--kup-font-size);
+  }
+
+  .picker_wrapper.popup {
+    box-shadow: var(--kup-box-shadow);
+    margin: 0;
+    outline: none;
+  }
+}

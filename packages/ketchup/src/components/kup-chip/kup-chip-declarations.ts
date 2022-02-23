@@ -1,4 +1,5 @@
-import { KupEventPayload } from "../../types/GenericTypes";
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { KupEventPayload } from '../../types/GenericTypes';
 
 /**
  * Props of the kup-chip component.
@@ -10,7 +11,10 @@ export enum KupChipProps {
     type = 'The type of chip. Available types: input, filter, choice or empty for default.',
 }
 
+export interface KupChipNode extends KupDataNode {
+    checked?: boolean;
+}
+
 export interface KupChipEventPayload extends KupEventPayload {
-    index: number;
-    value: string;
+    chip: KupChipNode;
 }

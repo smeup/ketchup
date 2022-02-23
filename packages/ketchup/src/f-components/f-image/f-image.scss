@@ -1,0 +1,38 @@
+.f-image {
+  display: block;
+  margin: auto;
+  position: relative;
+  height: var(--kup_image_height, 100%);
+  width: var(--kup_image_width, 100%);
+
+  &.#{$kup-class-fit} {
+    img {
+      max-width: max-content;
+      object-fit: contain;
+    }
+  }
+
+  img {
+    display: block;
+    margin: auto;
+    height: var(--kup_image_height, 100%);
+    width: var(--kup_image_width, 100%);
+  }
+
+  .f-image__css {
+    overflow: hidden;
+    height: var(--kup_image_height, 100%);
+    width: var(--kup_image_width, 100%);
+  }
+
+  .f-image__icon {
+    margin: auto;
+    height: var(--kup_image_height, 100%);
+    width: var(--kup_image_width, 100%);
+  }
+
+  .css-step.bottom-aligned {
+    bottom: 0;
+    position: absolute;
+  }
+}

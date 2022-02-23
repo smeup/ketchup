@@ -14,11 +14,8 @@ import {
 } from '@stencil/core';
 import type { PointerEvent } from '@interactjs/types/index';
 import {
-    Column,
     SortObject,
     SortMode,
-    RowAction,
-    Cell,
 } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupBoxRow,
@@ -43,11 +40,10 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 import { KupCardData } from '../kup-card/kup-card-declarations';
-import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
@@ -61,14 +57,14 @@ import {
 import { FImage } from '../../f-components/f-image/f-image';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
-import { KupScrollOnHoverElement } from '../../utils/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupScrollOnHoverElement } from '../../managers/kup-scroll-on-hover/kup-scroll-on-hover-declarations';
+import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import {
     KupLanguageGeneric,
     KupLanguageSearch,
-} from '../../utils/kup-language/kup-language-declarations';
+} from '../../managers/kup-language/kup-language-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import {
     KupDragDataTransferCallback,
     KupDragEffect,
@@ -76,9 +72,21 @@ import {
     KupDropDataTransferCallback,
     KupDropEventTypes,
     KupPointerEventTypes,
-} from '../../utils/kup-interact/kup-interact-declarations';
+} from '../../managers/kup-interact/kup-interact-declarations';
 import { FCell } from '../../f-components/f-cell/f-cell';
 import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
+import { FPaginator } from '../../f-components/f-paginator/f-paginator';
+import { KupComboboxEventPayload } from '../kup-combobox/kup-combobox-declarations';
+import { FPaginatorMode } from '../../f-components/f-paginator/f-paginator-declarations';
+import {
+    pageChange,
+    rowsPerPageChange,
+} from '../../f-components/f-paginator/f-paginator-utils';
+import {
+    KupDataCell,
+    KupDataColumn,
+    KupDataRowAction,
+} from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -355,7 +363,7 @@ export class KupBox {
      */
     private kupManager: KupManager = kupManagerInstance();
     private boxLayout: KupBoxLayout;
-    private visibleColumns: Column[] = [];
+    private visibleColumns: KupDataColumn[] = [];
     private rows: KupBoxRow[] = [];
     private filteredRows: KupBoxRow[] = [];
     private tooltip: KupTooltip;
@@ -507,7 +515,7 @@ export class KupBox {
         return getProps(this, KupBoxProps, descriptions);
     }
     @Method()
-    async loadRowActions(row: KupBoxRow, actions: RowAction[]) {
+    async loadRowActions(row: KupBoxRow, actions: KupDataRowAction[]) {
         row.actions = actions;
 
         // show menu
@@ -533,7 +541,7 @@ export class KupBox {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    private getColumns(): Array<Column> {
+    private getColumns(): Array<KupDataColumn> {
         return this.data && this.data.columns
             ? this.data.columns
             : [{ title: '', name: '', size: undefined }];
@@ -689,9 +697,9 @@ export class KupBox {
 
     private getEventDetails(el: HTMLElement): KupBoxEventHandlerDetails {
         let boxObject = null;
-        let cell: Cell = null;
+        let cell: KupDataCell = null;
         let row: KupBoxRow = null;
-        let column: Column = null;
+        let column: KupDataColumn = null;
         if (el) {
             boxObject =
                 el.closest('.box-object') || el.querySelector('.box-object');
@@ -873,7 +881,11 @@ export class KupBox {
         }
     }
 
-    private onRowActionClick(row: KupBoxRow, action: RowAction, index: number) {
+    private onRowActionClick(
+        row: KupBoxRow,
+        action: KupDataRowAction,
+        index: number
+    ) {
         this.kupRowActionClick.emit({
             comp: this,
             id: this.rootElement.id,
@@ -904,13 +916,23 @@ export class KupBox {
         this.rowActionMenuOpened = null;
     }
 
-    private handlePageChanged({ detail }) {
-        this.currentPage = detail.newPage;
+    private handlePageChange(pageNumber: number) {
+        const newPage = pageChange(
+            pageNumber,
+            this.filteredRows.length,
+            this.currentRowsPerPage
+        );
+        if (newPage) {
+            this.currentPage = newPage;
+        }
     }
 
-    private handleRowsPerPageChanged({ detail }) {
-        this.currentRowsPerPage = detail.newRowsPerPage;
-        this.adjustPaginator();
+    private handleRowsPerPageChange(rowsNumber: number) {
+        const newRows = rowsPerPageChange(rowsNumber, this.filteredRows.length);
+        if (newRows) {
+            this.currentRowsPerPage = newRows;
+            this.adjustPaginator();
+        }
     }
 
     private adjustPaginator() {
@@ -1228,7 +1250,7 @@ export class KupBox {
         section: Section,
         parent: Section,
         row: KupBoxRow,
-        visibleColumns: Column[]
+        visibleColumns: KupDataColumn[]
     ) {
         let sectionContent = null;
 
@@ -1380,7 +1402,7 @@ export class KupBox {
         }: {
             boxObject: BoxObject;
             row: KupBoxRow;
-            visibleColumns: Column[];
+            visibleColumns: KupDataColumn[];
         },
         fromSection?: boolean
     ) {
@@ -1388,7 +1410,7 @@ export class KupBox {
             'box-object': true,
         };
         const boStyle = {};
-        let column: Column = null;
+        let column: KupDataColumn = null;
         let index = -1;
         for (let i = 0; i < visibleColumns.length; i++) {
             const c = visibleColumns[i];
@@ -1557,9 +1579,8 @@ export class KupBox {
             };
             for (let index = 0; index < sortingKey.length; index++) {
                 props.data.push({
-                    checked: false,
-                    label: sortingKey[index],
                     value: sortingKey[index],
+                    id: sortingKey[index],
                 });
             }
             kanbanJSX.push(
@@ -1729,11 +1750,17 @@ export class KupBox {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
+        }
+        if (
+            this.data &&
+            this.data.rows &&
+            this.currentRowsPerPage > this.data.rows.length
+        ) {
+            this.currentRowsPerPage = this.data.rows.length;
         }
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
@@ -1840,18 +1867,22 @@ export class KupBox {
         let paginator = null;
         if (this.pagination) {
             paginator = (
-                <kup-paginator
-                    max={this.filteredRows.length}
-                    perPage={this.pageSize}
+                <FPaginator
+                    id={top ? 'top-paginator' : 'bottom-paginator'}
                     currentPage={this.currentPage}
-                    selectedPerPage={this.currentRowsPerPage}
-                    onkup-paginator-pagechanged={(e) =>
-                        this.handlePageChanged(e)
+                    max={this.filteredRows.length}
+                    mode={FPaginatorMode.SIMPLE}
+                    perPage={
+                        this.currentRowsPerPage
+                            ? this.currentRowsPerPage
+                            : this.pageSize
                     }
-                    onkup-paginator-rowsperpagechanged={(e) =>
-                        this.handleRowsPerPageChanged(e)
+                    onPageChange={(e: CustomEvent<KupComboboxEventPayload>) =>
+                        this.handlePageChange(e.detail.value)
                     }
-                    mode={PaginatorMode.SIMPLE}
+                    onRowsChange={(e: CustomEvent<KupComboboxEventPayload>) =>
+                        this.handleRowsPerPageChange(e.detail.value)
+                    }
                 />
             );
         }

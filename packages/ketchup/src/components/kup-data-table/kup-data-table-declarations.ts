@@ -1,10 +1,13 @@
-import {
-    FCellInfo,
-    FCellShapes,
-} from '../../f-components/f-cell/f-cell-declarations';
-import { Identifiable, KupEventPayload } from '../../types/GenericTypes';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
+import {
+    KupDataCell,
+    KupDataColumn,
+    KupDataRow,
+    KupDataRowAction,
+} from '../../managers/kup-data/kup-data-declarations';
+
 /**
  * Props of the kup-data-table component.
  * Used to export every prop in an object.
@@ -18,6 +21,8 @@ export enum KupDataTableProps {
     dropEnabled = 'Enables drop.',
     editableData = 'When set to true, editable cells will be rendered using input components.',
     emptyDataLabel = 'Defines the label to show when the table is empty.',
+    enableColumnsFormula = 'Enables the choice to set formulas on columns by dragging them into different columns.',
+    enableMergeColumns = 'Enables the merging of columns by dragging them into different columns.',
     enableExtraColumns = 'Enables adding extra columns.',
     enableSortableColumns = 'Enables the sorting of columns by dragging them into different columns.',
     expandGroups = 'Expands groups when set to true.',
@@ -65,107 +70,35 @@ export enum KupDataTableProps {
     tooltipEnabled = 'Enable show tooltip',
     totals = 'Defines the current totals options.',
 }
-
-export interface DataTable {
-    columns?: Array<Column>;
-    rows?: Array<Row>;
+export interface KupDataTableDataset {
+    columns?: KupDataColumn[];
+    rows?: KupDataTableRow[];
 }
-
-export interface CellData {
-    [index: string]: any;
-}
-
-export interface Cell {
-    value: string;
-    cardID?: number;
-    cssClass?: string;
-    data?: CellData;
-    displayedValue?: string;
-    icon?: string;
-    info?: FCellInfo;
-    isEditable?: boolean;
-    obj?: KupObj;
-    shape?: FCellShapes;
-    span?: KupDatatableCellSpan;
-    style?: GenericMap;
-    styleContent?: GenericMap;
-    title?: string;
-}
-
-export interface KupDatatableCellSpan {
-    col: number;
-    row: number;
-}
-export interface CellsHolder {
-    [index: string]: Cell;
-}
-
-export interface Column {
-    name: string;
-    title: string;
-    size?: string;
-    visible?: boolean;
-    hideValuesRepetitions?: boolean;
-    obj?: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    // a column can contain heterogeneous objs
-    objs?: KupObj[];
-    shape?: FCellShapes;
-    decimals?: number;
-    icon?: string;
-    formula?: string;
-    valuesForFilter?: string[];
-    isKey?: boolean;
-    children?: ColumnChild[];
-    cssClass?: string;
-    style?: GenericMap;
-}
-export interface ColumnChild {
-    name: string;
-    obj: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    icon?: string;
-}
-
-export interface Row extends Identifiable {
-    cells: CellsHolder;
-    actions?: Array<RowAction>;
-    group?: RowGroup;
-    readOnly?: boolean;
-    cssClass?: string;
-    name?: string;
+export interface KupDataTableRow extends KupDataRow {
+    cells?: KupDataTableRowCells;
+    group?: KupDataTableRowGroup;
     unselectable?: boolean;
 }
-
-export interface RowGroup {
-    id: string;
-    parent: Row;
+export interface KupDataTableRowGroup {
+    children: Array<KupDataTableRow>;
     column: string;
-    columnLabel: string; // Saves the column label in case either LABEL or BOTH modes for the groupLabelDisplay are activated
-    expanded: boolean; // not sure if this is needed
+    columnLabel: string;
+    expanded: boolean;
+    id: string;
     label: string;
-    children: Array<Row>;
-    obj: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    totals: { [index: string]: any }; // TODO manage this any
+    obj: KupObj;
+    parent: KupDataTableRow;
+    totals: GenericObject;
 }
-
-export interface TableData {
-    columns?: Array<Column>;
-    rows?: Array<Row>;
+export interface KupDataTableRowCells {
+    [index: string]: KupDataTableCell;
 }
-
-export interface GenericMap {
-    [index: string]: string;
+export interface KupDataTableCell extends KupDataCell {
+    span?: KupDataTableCellSpan;
+}
+export interface KupDataTableCellSpan {
+    col: number;
+    row: number;
 }
 
 export interface SortObject {
@@ -213,11 +146,6 @@ export enum PaginatorPos {
 export interface GroupObject {
     column: string;
     visible: boolean;
-}
-
-export interface RowAction {
-    text: string;
-    icon: string;
 }
 
 export enum ShowGrid {
@@ -285,11 +213,11 @@ export const totalMenuOpenID = 'TOMEOPID';
  */
 export interface KupDatatableEventHandlerDetails {
     area: string;
-    cell: Cell;
-    column: Column;
+    cell: KupDataTableCell;
+    column: KupDataColumn;
     filterRemove: HTMLElement;
     isGroupRow: boolean;
-    row: Row;
+    row: KupDataRow;
     td: HTMLElement;
     textfield: HTMLElement;
     th: HTMLElement;
@@ -310,17 +238,26 @@ export enum SelectionMode {
 }
 
 export interface KupDatatableAutoRowSelectEventPayload extends KupEventPayload {
-    selectedRow: Row;
+    selectedRow: KupDataRow;
 }
 
 export interface KupDatatableRowSelectedEventPayload extends KupEventPayload {
-    selectedRows: Array<Row>;
-    clickedRow: Row;
+    selectedRows: Array<KupDataRow>;
+    clickedRow: KupDataRow;
     clickedColumn: string;
 }
 
 export interface KupDatatableClickEventPayload extends KupEventPayload {
     details: KupDatatableEventHandlerDetails;
+}
+
+export interface KupDatatableColumnMoveEventPayload extends KupEventPayload {
+    sourceColumn: KupDataColumn;
+    targetColumn: KupDataColumn;
+}
+
+export interface KupDatatableColumnRemoveEventPayload extends KupEventPayload {
+    column: KupDataColumn;
 }
 
 export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
@@ -331,21 +268,21 @@ export interface KupDatatableColumnMenuEventPayload extends KupEventPayload {
 
 export interface KupDatatableOptionClickEventPayload extends KupEventPayload {
     column: string;
-    row: Row;
+    row: KupDataRow;
 }
 
 export interface KupDatatableRowActionClickEventPayload
     extends KupEventPayload {
     type: 'default' | 'variable' | 'expander';
-    row: Row;
-    action?: RowAction;
+    row: KupDataRow;
+    action?: KupDataRowAction;
     index?: number;
 }
 export interface KupDataTableCellButtonClickEventPayload
     extends KupEventPayload {
-    cell: Cell;
-    column: Column;
-    row: Row;
+    cell: KupDataTableCell;
+    column: KupDataColumn;
+    row: KupDataRow;
 }
 export interface KupDatatableLoadMoreClickEventPayload extends KupEventPayload {
     loadItems: number;

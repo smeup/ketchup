@@ -7,18 +7,18 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type        | Default     |
-| --------------- | ---------------- | ----------- | ----------- | ----------- |
-| `active`        | `active`         |             | `boolean`   | `false`     |
-| `columnsNumber` | `columns-number` |             | `number`    | `1`         |
-| `data`          | --               |             | `TableData` | `undefined` |
-| `fontsize`      | `fontsize`       |             | `string`    | `''`        |
-| `fullWidth`     | `full-width`     |             | `boolean`   | `true`      |
-| `horizontal`    | `horizontal`     |             | `boolean`   | `false`     |
-| `iconColor`     | --               |             | `any[]`     | `[]`        |
-| `layout`        | `layout`         |             | `string`    | `'1'`       |
-| `textColor`     | --               |             | `any[]`     | `[]`        |
-| `valueColor`    | --               |             | `any[]`     | `[]`        |
+| Property        | Attribute        | Description | Type             | Default     |
+| --------------- | ---------------- | ----------- | ---------------- | ----------- |
+| `active`        | `active`         |             | `boolean`        | `false`     |
+| `columnsNumber` | `columns-number` |             | `number`         | `1`         |
+| `data`          | --               |             | `KupDataDataset` | `undefined` |
+| `fontsize`      | `fontsize`       |             | `string`         | `''`        |
+| `fullWidth`     | `full-width`     |             | `boolean`        | `true`      |
+| `horizontal`    | `horizontal`     |             | `boolean`        | `false`     |
+| `iconColor`     | --               |             | `any[]`          | `[]`        |
+| `layout`        | `layout`         |             | `string`         | `'1'`       |
+| `textColor`     | --               |             | `any[]`          | `[]`        |
+| `valueColor`    | --               |             | `any[]`          | `[]`        |
 
 
 ## Events

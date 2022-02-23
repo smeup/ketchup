@@ -12,8 +12,8 @@ import { KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+} from '../../managers/kup-manager/kup-manager';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 
 @Component({

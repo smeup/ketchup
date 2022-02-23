@@ -1,6 +1,11 @@
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
-import { KupObj } from '../../utils/kup-objects/kup-objects-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { SourceEvent } from '../kup-date-picker/kup-date-picker-declarations';
+import Picker from 'vanilla-picker';
+import {
+    KupDataColumn,
+    KupDataDataset,
+} from '../../managers/kup-data/kup-data-declarations';
 /**
  * Props of the kup-card component.
  * Used to export every prop in an object.
@@ -16,17 +21,17 @@ export enum KupCardProps {
     sizeY = 'The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
 }
 /**
- * Options prop of the kup-card calendar builtin.
+ * Options of the built-in calendar.
  */
-export interface KupCardBuiltinCalendarOptions {
+export interface KupCardBuiltInCalendarOptions {
     initialValue?: string | KupObj;
     firstDayIndex?: number;
     resetStatus: boolean;
 }
 /**
- * Data prop of the element kup-card calendar builtin.
+ * Data of the built-in calendar.
  */
-export interface KupCardBuiltinCalendarData {
+export interface KupCardBuiltInCalendarData {
     value?: Date;
     firstDayIndex?: number;
     calendarView?: SourceEvent;
@@ -35,15 +40,15 @@ export interface KupCardBuiltinCalendarData {
     year?: number;
 }
 /**
- * Html element of kup-card calendar builtin.
+ * Html element of the built-in calendar.
  */
-export interface KupCardBuiltinCalendar extends HTMLElement {
-    kupData: KupCardBuiltinCalendarData;
+export interface KupCardBuiltInCalendar extends HTMLElement {
+    kupData: KupCardBuiltInCalendarData;
 }
 /**
- * Options prop of the kup-card clock builtin.
+ * Options of the built-in clock.
  */
-export interface KupCardBuiltinClockOptions {
+export interface KupCardBuiltInClockOptions {
     initialValue?: string | KupObj;
     manageSeconds?: boolean;
     hoursActive?: boolean;
@@ -51,9 +56,31 @@ export interface KupCardBuiltinClockOptions {
     secondsActive?: boolean;
 }
 /**
- * Element ids for kup-card clock builtin.
+ * Options of the built-in column drop menu.
  */
-export enum KupCardBuiltinClockElements {
+export interface KupCardColumnDropMenuOptions {
+    data: KupDataDataset;
+    enableFormula: boolean;
+    enableMerge: boolean;
+    enableMove: boolean;
+    receivingColumn?: KupDataColumn;
+    starterColumn?: KupDataColumn;
+    formulaCb?: () => void;
+    mergeCb?: () => void;
+    moveCb?: () => void;
+}
+/**
+ * Options of the built-in color picker.
+ */
+export interface KupCardColorPickerOptions {
+    initialValue: string;
+    changeCb?: (color: any) => void;
+    creationCb?: (picker: Picker) => void;
+}
+/**
+ * Element ids for built-in clock.
+ */
+export enum KupCardBuiltInClockElements {
     CLOCK = 'clockEl',
     HOURS = 'hoursEl',
     MINUTES = 'minutesEl',
@@ -63,9 +90,9 @@ export enum KupCardBuiltinClockElements {
     SECONDSCIRCLE = 'secondsCircleEl',
 }
 /**
- * Data prop of the element kup-card clock builtin.
+ * Data prop of the built-in clock.
  */
-export interface KupCardBuiltinClockData {
+export interface KupCardBuiltInClockData {
     value?: string;
     manageSeconds?: boolean;
     hoursActive?: boolean;
@@ -73,10 +100,10 @@ export interface KupCardBuiltinClockData {
     secondsActive?: boolean;
 }
 /**
- * Html element of kup-card clock builtin.
+ * Html element of the built-in clock
  */
-export interface KupCardBuiltinClock extends HTMLElement {
-    kupData: KupCardBuiltinClockData;
+export interface KupCardBuiltInClock extends HTMLElement {
+    kupData: KupCardBuiltInClockData;
 }
 /**
  * Data prop of the kup-card component.
@@ -88,13 +115,18 @@ export interface KupCardData {
     checkbox?: GenericObject[];
     chip?: GenericObject[];
     color?: string[];
+    columns?: KupDataColumn[];
     combobox?: GenericObject[];
     datatable?: GenericObject[];
     datepicker?: GenericObject[];
     image?: GenericObject[];
     list?: GenericObject[];
     object?: KupObj[];
-    options?: KupCardBuiltinCalendarOptions | KupCardBuiltinClockOptions;
+    options?:
+        | KupCardBuiltInCalendarOptions
+        | KupCardBuiltInClockOptions
+        | KupCardColumnDropMenuOptions
+        | KupCardColorPickerOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];
@@ -106,7 +138,7 @@ export interface KupCardData {
 /**
  * Layout families of the kup-card component.
  * @enum {string}
- * @property {string} BUILTIN - Cards belonging to this family will created automatically by library.
+ * @property {string} BUILT_IN - Cards belonging to this family will be created automatically by the library and will have premade behaviors.
  * @property {string} COLLAPSIBLE - Cards belonging to this family will display an area usable to expand the content of the card.
  * @property {string} DIALOG - Cards belonging to this family will be movable and usually closable.
  * @property {string} FREE - This family of card will only receive slots, usually already arranged from the outside style.
@@ -114,7 +146,7 @@ export interface KupCardData {
  * @property {string} STANDARD - Stndard layouts.
  */
 export enum KupCardFamily {
-    BUILTIN = 'builtin',
+    BUILT_IN = 'built-in',
     COLLAPSIBLE = 'collapsible',
     DIALOG = 'dialog',
     FREE = 'free',
@@ -139,7 +171,7 @@ export enum KupCardIds {
  * Recurring CSS classes.
  */
 export enum KupCardCSSClasses {
-    BUILTIN_CARD = 'builtin-card',
+    BUILT_IN_CARD = 'built-in-card',
     CARD_VIEW = 'card-view',
     CLICKABLE_LINK = 'clickable-link',
     COLLAPSIBLE_ACTIVE = 'collapsible-active',

@@ -1,14 +1,13 @@
 import numeral from 'numeral';
 import {
-    Row,
     SortObject,
-    Cell,
     SortMode,
     GroupObject,
     TotalMode,
     TotalsMap,
-    Column,
-    RowGroup,
+    KupDataTableRow,
+    KupDataTableRowGroup,
+    KupDataTableCell,
 } from './kup-data-table-declarations';
 import { isEmpty, stringToNumber } from '../../utils/utils';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
@@ -19,16 +18,15 @@ import {
     compareCell,
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import { kupManagerInstance } from '../../utils/kup-manager/kup-manager';
-import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
-import { KupDom } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupDom } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
 export function sortRows(
-    rows: Array<Row> = [],
+    rows: Array<KupDataTableRow> = [],
     sort: Array<SortObject> = []
-): Array<Row> {
+): Array<KupDataTableRow> {
     if (!rows || rows.length === 0) {
         return [];
     }
@@ -48,7 +46,7 @@ export function sortRows(
     const isMultiSort = sort.length > 1;
 
     // sorting rows
-    return rows.slice(0).sort((r1: Row, r2: Row) => {
+    return rows.slice(0).sort((r1: KupDataTableRow, r2: KupDataTableRow) => {
         if (isMultiSort) {
             for (let i = 0; i < sort.length; i++) {
                 const compare = compareRows(r1, r2, sort[i]);
@@ -68,9 +66,9 @@ export function sortRows(
 }
 
 function sortGroupRows(
-    rows: Array<Row> = [],
+    rows: Array<KupDataTableRow> = [],
     sort: Array<SortObject> = []
-): Array<Row> {
+): Array<KupDataTableRow> {
     if (!rows || rows.length === 0) {
         return [];
     }
@@ -91,12 +89,12 @@ function sortGroupRows(
     // sorting rows
     rows.sort((r1, r2) => {
         // creating fake cells
-        const cell1: Cell = {
+        const cell1: KupDataTableCell = {
             obj: r1.group.obj,
             value: r1.group.id,
         };
 
-        const cell2: Cell = {
+        const cell2: KupDataTableCell = {
             obj: r2.group.obj,
             value: r2.group.id,
         };
@@ -129,9 +127,13 @@ function getSortOnColumn(
     return null;
 }
 
-function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
-    const cell1: Cell = r1.cells[sortObj.column];
-    const cell2: Cell = r2.cells[sortObj.column];
+function compareRows(
+    r1: KupDataTableRow,
+    r2: KupDataTableRow,
+    sortObj: SortObject
+): number {
+    const cell1: KupDataTableCell = r1.cells[sortObj.column];
+    const cell2: KupDataTableCell = r2.cells[sortObj.column];
 
     if (!cell1 && !cell2) {
         return 0;
@@ -161,13 +163,13 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
  */
 
 export function filterRows(
-    rows: Array<Row> = [],
+    rows: Array<KupDataTableRow> = [],
     filters: GenericFilter = {},
     globalFilter: string = '',
-    columns: Column[] = [],
+    columns: KupDataColumn[] = [],
     columnFilters?: FiltersColumnMenu,
     filtersRows?: FiltersRows
-): Array<Row> {
+): Array<KupDataTableRow> {
     if (filtersRows == null) {
         filtersRows = new FiltersRows();
     }
@@ -182,11 +184,11 @@ export function filterRows(
 }
 
 export function groupRows(
-    columns: Column[] = [],
-    rows: Row[] = [],
+    columns: KupDataColumn[] = [],
+    rows: KupDataTableRow[] = [],
     groups: GroupObject[] = [],
     totals: TotalsMap = {}
-): Array<Row> {
+): Array<KupDataTableRow> {
     if (!rows) {
         return [];
     }
@@ -216,12 +218,12 @@ export function groupRows(
     }
 
     // creating root
-    const groupRows: Array<Row> = [];
+    const groupRows: Array<KupDataTableRow> = [];
 
     // obj used to calculate the group distinct value
     let distinctObj = {};
 
-    rows.forEach((row: Row) => {
+    rows.forEach((row: KupDataTableRow) => {
         // getting column name from first group
         const columnName = validGroups[0].column;
         // getting row value
@@ -231,7 +233,7 @@ export function groupRows(
             const column = getColumnByName(columns, columnName);
             const cellValueForDisplay = getCellValueForDisplay(column, cell);
             const cellValue = cell.value;
-            let groupRow: Row = null;
+            let groupRow: KupDataTableRow = null;
             // check in already in groupedRow
             for (let currentGroupRow of groupRows) {
                 if (currentGroupRow.group.label === cellValueForDisplay) {
@@ -270,7 +272,7 @@ export function groupRows(
                     );
                     const tempCellValue = tempCell.value;
                     // check if group already exists
-                    let tempGroupingRow: Row = null;
+                    let tempGroupingRow: KupDataTableRow = null;
                     for (let j = 0; j < groupRow.group.children.length; j++) {
                         const childGroup = groupRow.group.children[j];
                         const groupLabel = childGroup.group.label;
@@ -316,9 +318,9 @@ export function groupRows(
 }
 
 function updateGroupTotal(
-    groupRow: Row,
+    groupRow: KupDataTableRow,
     totals: TotalsMap,
-    addedRow: Row,
+    addedRow: KupDataTableRow,
     distinctObj: Object
 ): void {
     if (!groupRow || !totals) {
@@ -600,7 +602,7 @@ function updateGroupTotal(
 }
 
 function adjustGroupsDistinct(
-    groupRows: Array<Row>,
+    groupRows: Array<KupDataTableRow>,
     totals: TotalsMap,
     distinctObj: Object
 ) {
@@ -626,7 +628,7 @@ function adjustGroupsDistinct(
 }
 
 function adjustGroupsAverageOrFormula(
-    groupRows: Array<Row>,
+    groupRows: Array<KupDataTableRow>,
     type: TotalMode,
     totals: TotalsMap
 ): void {
@@ -666,7 +668,7 @@ function adjustGroupsAverageOrFormula(
 }
 
 function adjustGroupDistinct(
-    groupRow: Row,
+    groupRow: KupDataTableRow,
     toAdjustKeys: Array<string>,
     distinctObj: Object
 ) {
@@ -692,7 +694,7 @@ function adjustGroupDistinct(
  * @returns number of 'leaf' of group
  */
 function adjustGroupAverageOrFormula(
-    row: Row,
+    row: KupDataTableRow,
     type: TotalMode,
     toAdjustKeys: Array<string>,
     totals: TotalsMap
@@ -727,51 +729,23 @@ function adjustGroupAverageOrFormula(
         }
         if (type == TotalMode.MATH) {
             let formula = totals[key].substring(TotalMode.MATH.length);
-            row.group.totals[key] = evaluateFormula(formula, row.group.totals);
+            row.group.totals[key] = dom.ketchup.data.formulas.custom(
+                formula,
+                row.group.totals
+            );
         }
     });
 
     return numberOfLeaf;
 }
 
-export function evaluateFormula(
-    formula: string,
-    row: { [index: string]: number }
-): number {
-    const kupManager = kupManagerInstance();
-    let formula1: string = formula;
-    const keys = Object.keys(row);
-    for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        let value: number = row[key];
-        if (value != null && !isNaN(value)) {
-            let re: RegExp = new RegExp(key, 'g');
-            formula1 = formula1.replace(re, value.toString());
-        }
-    }
-    try {
-        return evaluateString(formula1);
-    } catch (e) {
-        kupManager.debug.logMessage(
-            'kup-data-table-helper',
-            'Error during evaluate formula [' + formula1 + ']',
-            KupDebugCategory.ERROR
-        );
-        return NaN;
-    }
-}
-
-export function evaluateString(f: string) {
-    return Function('"use strict"; return (' + f + ')')();
-}
-
 export function normalizeRows(
-    columns: Array<Column>,
-    rows: Array<Row>
-): Array<Row> {
+    columns: Array<KupDataColumn>,
+    rows: Array<KupDataTableRow>
+): Array<KupDataTableRow> {
     if (rows) {
         const normalizedrows = Object.assign(rows);
-        rows.forEach((row: Row) => {
+        rows.forEach((row: KupDataTableRow) => {
             columns.forEach((column) => {
                 if (row.cells) {
                     const cell = row.cells[column.name];
@@ -793,7 +767,7 @@ export function normalizeRows(
 }
 
 export function calcTotals(
-    rows: Array<Row> = [],
+    rows: Array<KupDataTableRow> = [],
     totals: { [index: string]: TotalMode } = {}
 ): { [index: string]: number } {
     if (isEmpty(rows) || isEmpty(totals)) {
@@ -943,8 +917,10 @@ export function calcTotals(
                     footerRow[key] = rows.length;
                     break;
                 case totals[key].indexOf(TotalMode.MATH) == 0:
-                    let formula = totals[key].substring(TotalMode.MATH.length);
-                    footerRow[key] = evaluateFormula(formula, footerRow);
+                    footerRow[key] = dom.ketchup.data.formulas.custom(
+                        totals[key].substring(TotalMode.MATH.length),
+                        footerRow
+                    );
                     break;
                 default:
                     break;
@@ -954,7 +930,7 @@ export function calcTotals(
     return footerRow;
 }
 
-function adjustGroupId(row: Row): void {
+function adjustGroupId(row: KupDataTableRow): void {
     if (!row.group) {
         return;
     }
@@ -972,7 +948,7 @@ function adjustGroupId(row: Row): void {
 }
 
 export function paginateRows(
-    rows: Row[],
+    rows: KupDataTableRow[],
     currentPage: number,
     rowsPerPage: number,
     areGrouped: boolean
@@ -982,7 +958,7 @@ export function paginateRows(
     if (areGrouped == false) {
         return rows.slice(start, end);
     }
-    let pagRows: Array<Row> = [];
+    let pagRows: Array<KupDataTableRow> = [];
 
     _paginateRows(rows, pagRows, start, Number(rowsPerPage), 0);
 
@@ -990,8 +966,8 @@ export function paginateRows(
 }
 
 function _paginateRows(
-    rows: Row[],
-    pagRows: Row[],
+    rows: KupDataTableRow[],
+    pagRows: KupDataTableRow[],
     start: number,
     rowsPerPage: number,
     ci: number
@@ -999,7 +975,7 @@ function _paginateRows(
     let added: boolean = false;
     for (let i: number = 0; i < rows.length; i++) {
         let originalRow = rows[i];
-        let row: Row = cloneRow(rows[i]);
+        let row: KupDataTableRow = cloneRow(rows[i]);
         if (
             originalRow.group != null &&
             originalRow.group.children != null &&
@@ -1033,11 +1009,11 @@ function _paginateRows(
     return { ci: ci, added: added };
 }
 
-function cloneRow(row: Row): Row {
+function cloneRow(row: KupDataTableRow): KupDataTableRow {
     if (row == null) {
         return null;
     }
-    let cloned: Row = {
+    let cloned: KupDataTableRow = {
         id: row.id,
         cells: { ...row.cells },
         actions: row.actions ? [...row.actions] : null,
@@ -1049,22 +1025,22 @@ function cloneRow(row: Row): Row {
     return cloned;
 }
 
-function cloneRows(rows: Array<Row>): Array<Row> {
+function cloneRows(rows: Array<KupDataTableRow>): Array<KupDataTableRow> {
     if (rows == null) {
         return null;
     }
-    let cloned: Array<Row> = [];
+    let cloned: Array<KupDataTableRow> = [];
     for (let i: number = 0; i < rows.length; i++) {
         cloned[cloned.length] = cloneRow(rows[i]);
     }
     return cloned;
 }
 
-function cloneRowGroup(group: RowGroup): RowGroup {
+function cloneRowGroup(group: KupDataTableRowGroup): KupDataTableRowGroup {
     if (group == null) {
         return null;
     }
-    let cloned: RowGroup = {
+    let cloned: KupDataTableRowGroup = {
         id: group.id,
         parent: { ...group.parent },
         column: group.column,
