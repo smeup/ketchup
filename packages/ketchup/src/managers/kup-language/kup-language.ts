@@ -163,7 +163,9 @@ export class KupLanguage {
      * @param {any} component - The component calling this function.
      */
     register(component: any): void {
-        this.managedComponents.add(component.rootElement);
+        this.managedComponents.add(
+            component.rootElement ? component.rootElement : component
+        );
     }
     /**
      * Unregisters a KupComponent, so it won't be refreshed when the language changes.
@@ -172,7 +174,9 @@ export class KupLanguage {
      */
     unregister(component: any): void {
         if (this.managedComponents) {
-            this.managedComponents.delete(component.rootElement);
+            this.managedComponents.delete(
+                component.rootElement ? component.rootElement : component
+            );
         }
     }
 }

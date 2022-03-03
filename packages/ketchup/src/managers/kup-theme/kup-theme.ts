@@ -218,7 +218,7 @@ export class KupTheme {
      * @param {any} comp - The component calling this function.
      */
     register(comp: any): void {
-        this.managedComponents.add(comp.rootElement);
+        this.managedComponents.add(comp.rootElement ? comp.rootElement : comp);
     }
     /**
      * Unregisters a KupComponent, so it won't be refreshed when the theme changes.
@@ -226,7 +226,9 @@ export class KupTheme {
      */
     unregister(comp: any): void {
         if (this.managedComponents) {
-            this.managedComponents.delete(comp.rootElement);
+            this.managedComponents.delete(
+                comp.rootElement ? comp.rootElement : comp
+            );
         }
     }
     /**
