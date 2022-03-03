@@ -74,6 +74,11 @@
                 @kup-textfield-input="updateFormat"
               ></kup-text-field>
               <kup-text-field
+                id="format-option"
+                label="Type a format"
+                @kup-textfield-input="updateFormat"
+              ></kup-text-field>
+              <kup-text-field
                 label="Formatted result"
                 disabled
                 id="format-output"
@@ -129,6 +134,7 @@ import { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/
 
 var accordion: HTMLKupAccordionElement = null;
 var formatInput: HTMLKupTextFieldElement = null;
+var formatOption: HTMLKupTextFieldElement = null;
 var formatOutput: HTMLKupTextFieldElement = null;
 var localeCombobox: HTMLKupComboboxElement = null;
 var localeTextfield: HTMLKupTextFieldElement = null;
@@ -158,6 +164,7 @@ export default {
     initVariables(): void {
       accordion = document.querySelector('#accordion');
       formatInput = document.querySelector('#format-input');
+      formatOption = document.querySelector('#format-option');
       formatOutput = document.querySelector('#format-output');
       localeCombobox = document.querySelector('#locale-input');
       localeTextfield = document.querySelector('#locale-output');
@@ -225,7 +232,10 @@ export default {
       numberifyInput.setValue('1demo2');
       numberifyOutput.setValue(dom.ketchup.math.numberify('1demo2').toString());
       formatInput.setValue('1725.25');
-      formatOutput.setValue(dom.ketchup.math.format('1725.25').toString());
+      formatOption.setValue('0,0.00$');
+      formatOutput.setValue(
+        dom.ketchup.math.format('1725.25', '0,0.00$').toString()
+      );
       accordion.expandAll();
     },
     /**
@@ -239,10 +249,11 @@ export default {
     },
     /**
      * Updates the format output text field.
-     * @param {CustomEvent<KupTextFieldEventPayload>} e - Event fired by format input textfield.
      */
-    updateFormat(e: CustomEvent<KupTextFieldEventPayload>) {
-      const formatted = dom.ketchup.math.format(e.detail.value);
+    async updateFormat() {
+      const input = await formatInput.getValue();
+      const format = await formatOption.getValue();
+      const formatted = dom.ketchup.math.format(input, format);
       formatOutput.setValue(formatted);
     },
     /**
