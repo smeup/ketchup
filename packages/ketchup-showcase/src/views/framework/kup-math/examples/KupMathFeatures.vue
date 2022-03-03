@@ -93,7 +93,24 @@
             - <strong>values (string[] | number[] | String[])</strong> - Array
             of values.<br />
             - <strong>precision (number)</strong> - Number of iterations to run
-            (points). When not specified, defaults to 201.<br /><br /> </p></div
+            (points). When not specified, defaults to 201.<br /><br />You can
+            try this algorithm by typing a series of numbers in the text field
+            below, separated by a ";" character. They will be plotted as a
+            Gaussian curve through the
+            <a href="https://ketchup.smeup.com/ketchup-showcase/#/echart"
+              >kup-echart</a
+            >
+            component.
+          </p>
+          <div class="demo-container">
+            <div class="kup-container">
+              <kup-text-field
+                id="nd-input"
+                label="Type values"
+                @kup-textfield-input="updateNormalDist"
+              ></kup-text-field>
+              <kup-echart id="nd-output"></kup-echart>
+            </div> </div></div
         ><div class="accordion-slot" slot="6">
           <p>
             <span class="code-word">formulas.custom(formula, row): number</span
@@ -131,6 +148,10 @@ import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-mana
 import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 import { KupTextFieldEventPayload } from '@sme.up/ketchup/dist/types/components/kup-text-field/kup-text-field-declarations';
+import {
+  KupDataColumn,
+  KupDataRow,
+} from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var formatInput: HTMLKupTextFieldElement = null;
@@ -138,6 +159,8 @@ var formatOption: HTMLKupTextFieldElement = null;
 var formatOutput: HTMLKupTextFieldElement = null;
 var localeCombobox: HTMLKupComboboxElement = null;
 var localeTextfield: HTMLKupTextFieldElement = null;
+var ndInput: HTMLKupTextFieldElement = null;
+var ndOutput: HTMLKupEchartElement = null;
 var numberifyInput: HTMLKupTextFieldElement = null;
 var numberifyOutput: HTMLKupTextFieldElement = null;
 
@@ -168,6 +191,8 @@ export default {
       formatOutput = document.querySelector('#format-output');
       localeCombobox = document.querySelector('#locale-input');
       localeTextfield = document.querySelector('#locale-output');
+      ndInput = document.querySelector('#nd-input');
+      ndOutput = document.querySelector('#nd-output');
       numberifyInput = document.querySelector('#numberify-input');
       numberifyOutput = document.querySelector('#numberify-output');
     },
@@ -229,14 +254,25 @@ export default {
       localeCombobox.initialValue = dom.ketchup.dates.locale;
       const formatted = dom.ketchup.math.format(123456789.12);
       localeTextfield.setValue(formatted);
-      numberifyInput.setValue('1demo2');
-      numberifyOutput.setValue(dom.ketchup.math.numberify('1demo2').toString());
       formatInput.setValue('1725.25');
       formatOption.setValue('0,0.00$');
       formatOutput.setValue(
         dom.ketchup.math.format('1725.25', '0,0.00$').toString()
       );
+      numberifyInput.setValue('1demo2');
+      numberifyOutput.setValue(dom.ketchup.math.numberify('1demo2').toString());
+      ndInput.setValue('10;20;30');
+      this.updateNormalDist({ detail: { value: '10;20;30' } });
       accordion.expandAll();
+    },
+    /**
+     * Updates the format output text field.
+     */
+    async updateFormat() {
+      const input = await formatInput.getValue();
+      const format = await formatOption.getValue();
+      const formatted = dom.ketchup.math.format(input, format);
+      formatOutput.setValue(formatted);
     },
     /**
      * Updates the KupMath localization.
@@ -248,13 +284,36 @@ export default {
       localeTextfield.setValue(formatted);
     },
     /**
-     * Updates the format output text field.
+     * Updates the normal distribution chart.
+     * @param {CustomEvent<KupTextFieldEventPayload>} e - Event fired by numberify input textfield.
      */
-    async updateFormat() {
-      const input = await formatInput.getValue();
-      const format = await formatOption.getValue();
-      const formatted = dom.ketchup.math.format(input, format);
-      formatOutput.setValue(formatted);
+    updateNormalDist(e: CustomEvent<KupTextFieldEventPayload>) {
+      const values = e.detail.value.split(';');
+      const columns: KupDataColumn[] = [
+        {
+          name: 'GAU',
+          title: 'Gaussian series',
+          obj: { t: 'NR', p: '', k: '' },
+        },
+      ];
+      const rows: KupDataRow[] = [];
+      for (let index = 0; index < values.length; index++) {
+        const value = values[index];
+        rows.push({
+          cells: {
+            GAU: {
+              value: value,
+            },
+          },
+        });
+      }
+      ndOutput.data = {
+        columns: columns,
+        rows: rows,
+      };
+      ndOutput.legend = 'bottom' as any;
+      ndOutput.sizeY = '300px';
+      ndOutput.types = ['Gaussian' as any];
     },
     /**
      * Updates the numberify output text field.
