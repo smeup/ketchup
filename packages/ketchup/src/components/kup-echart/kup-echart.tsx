@@ -122,11 +122,13 @@ export class KupEchart {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #kupManager: KupManager = kupManagerInstance();
-    #resizeTimeout: number;
     #chartContainer?: HTMLDivElement;
     #chartEl: echarts.ECharts;
+    #firstResize: boolean = true;
     #gaussianDatasets: { [index: string]: KupDataDataset };
+    #kupManager: KupManager = kupManagerInstance();
+    #mapObj: GenericObject = {};
+    #resizeTimeout: number;
     #sortedDataset: KupDataDataset = null;
     #themeBorder: string = null;
     #themeBackground: string = null;
@@ -135,7 +137,6 @@ export class KupEchart {
     #themeColorDarker: string = null;
     #themeFont: string = null;
     #themeText: string = null;
-    #mapObj: GenericObject = {};
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -175,7 +176,13 @@ export class KupEchart {
     @Method()
     async resizeCallback(): Promise<void> {
         window.clearTimeout(this.#resizeTimeout);
-        this.#resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+        this.#resizeTimeout = window.setTimeout(() => {
+            if (!this.#firstResize) {
+                this.refresh();
+            } else {
+                this.#firstResize = false;
+            }
+        }, 300);
     }
     /**
      * Sets the props to the component.
