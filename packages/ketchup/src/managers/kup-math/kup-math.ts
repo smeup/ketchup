@@ -43,11 +43,11 @@ export class KupMath {
         this.numeral.locale(this.locale);
     }
     /**
-     * Sets the locale of the numeral instance.
+     * Sets the locale of the numeral instance. The locales available must be tied to the KupDates locales.
      * @param {KupMathLocales} locale - Numeraljs locale string.
      */
     setLocale(locale: KupMathLocales): void {
-        if (!KupMathLocales[locale]) {
+        if (!Object.values(KupMathLocales).includes(locale)) {
             locale = KupMathLocales.en;
             dom.ketchup.debug.logMessage(
                 'kup-math',
@@ -109,7 +109,7 @@ export class KupMath {
     /**
      * Formats the input number with the specified format of the currently set locale.
      * @param {string | String | number} input - Input number which will be automatically "numberified".
-     * @param {string} format - Desired format. Defaults to '0,0.0' (i.e.: 2,000,000.51).
+     * @param {string} format - Desired format. Defaults to '0,0.00' (i.e.: 2,000,000.51).
      * @returns {string} Formatted number.
      */
     format(input: string | String | number, format?: string): string {
@@ -118,7 +118,7 @@ export class KupMath {
             const positiveN = Math.abs(n);
             const decimals = positiveN - Math.floor(positiveN);
             if (decimals) {
-                format = '0,0.0';
+                format = '0,0.00';
             } else {
                 format = '0,0';
             }
@@ -155,7 +155,9 @@ export class KupMath {
      * @param {any} component - The Ketchup component to be registered.
      */
     register(component: any): void {
-        this.managedComponents.add(component.rootElement);
+        this.managedComponents.add(
+            component.rootElement ? component.rootElement : component
+        );
     }
     /**
      * Unregisters a KupComponent, so it won't be refreshed when the locale changes.
@@ -164,7 +166,9 @@ export class KupMath {
      */
     unregister(component: any): void {
         if (this.managedComponents) {
-            this.managedComponents.delete(component.rootElement);
+            this.managedComponents.delete(
+                component.rootElement ? component.rootElement : component
+            );
         }
     }
 }

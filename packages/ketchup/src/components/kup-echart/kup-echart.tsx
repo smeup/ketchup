@@ -122,11 +122,12 @@ export class KupEchart {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    #kupManager: KupManager = kupManagerInstance();
-    #resizeTimeout: number;
     #chartContainer?: HTMLDivElement;
     #chartEl: echarts.ECharts;
     #gaussianDatasets: { [index: string]: KupDataDataset };
+    #kupManager: KupManager = kupManagerInstance();
+    #mapObj: GenericObject = {};
+    #resizeTimeout: number;
     #sortedDataset: KupDataDataset = null;
     #themeBorder: string = null;
     #themeBackground: string = null;
@@ -135,7 +136,6 @@ export class KupEchart {
     #themeColorDarker: string = null;
     #themeFont: string = null;
     #themeText: string = null;
-    #mapObj: GenericObject = {};
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -175,7 +175,19 @@ export class KupEchart {
     @Method()
     async resizeCallback(): Promise<void> {
         window.clearTimeout(this.#resizeTimeout);
-        this.#resizeTimeout = window.setTimeout(() => this.refresh(), 300);
+        this.#resizeTimeout = window.setTimeout(() => {
+            if (this.#chartEl) {
+                const xMin = this.rootElement.clientWidth - 5;
+                const xMax = this.rootElement.clientWidth + 5;
+                const yMin = this.rootElement.clientHeight - 5;
+                const yMax = this.rootElement.clientHeight + 5;
+                const x = this.#chartEl.getWidth();
+                const y = this.#chartEl.getHeight();
+                if (x < xMin || x > xMax || y < yMin || y > yMax) {
+                    this.#chartEl.resize();
+                }
+            }
+        }, 300);
     }
     /**
      * Sets the props to the component.
