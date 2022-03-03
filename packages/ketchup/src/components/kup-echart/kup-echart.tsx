@@ -124,7 +124,6 @@ export class KupEchart {
 
     #chartContainer?: HTMLDivElement;
     #chartEl: echarts.ECharts;
-    #firstResize: boolean = true;
     #gaussianDatasets: { [index: string]: KupDataDataset };
     #kupManager: KupManager = kupManagerInstance();
     #mapObj: GenericObject = {};
@@ -177,10 +176,16 @@ export class KupEchart {
     async resizeCallback(): Promise<void> {
         window.clearTimeout(this.#resizeTimeout);
         this.#resizeTimeout = window.setTimeout(() => {
-            if (!this.#firstResize) {
-                this.refresh();
-            } else {
-                this.#firstResize = false;
+            if (this.#chartEl) {
+                const xMin = this.rootElement.clientWidth - 5;
+                const xMax = this.rootElement.clientWidth + 5;
+                const yMin = this.rootElement.clientHeight - 5;
+                const yMax = this.rootElement.clientHeight + 5;
+                const x = this.#chartEl.getWidth();
+                const y = this.#chartEl.getHeight();
+                if (x < xMin || x > xMax || y < yMin || y > yMax) {
+                    this.#chartEl.resize();
+                }
             }
         }, 300);
     }
