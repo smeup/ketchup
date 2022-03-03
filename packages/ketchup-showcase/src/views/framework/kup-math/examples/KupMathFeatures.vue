@@ -282,6 +282,7 @@ export default {
       dom.ketchup.math.setLocale(kupMathLocales[e.detail.value]);
       const formatted = dom.ketchup.math.format(123456789.12);
       localeTextfield.setValue(formatted);
+      this.updateFormat();
     },
     /**
      * Updates the normal distribution chart.
@@ -292,7 +293,7 @@ export default {
       const columns: KupDataColumn[] = [
         {
           name: 'GAU',
-          title: 'Gaussian series',
+          title: 'Normal distribution',
           obj: { t: 'NR', p: '', k: '' },
         },
       ];
