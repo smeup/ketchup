@@ -211,8 +211,6 @@ export class KupDataTable {
                 this.pageSelected = state.pageSelected;
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
-                this.selectRow = state.selectRow;
-                this.selectRowsById = state.selectRowsById;
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
@@ -566,14 +564,6 @@ export class KupDataTable {
      * Set the type of the rows selection.
      */
     @Prop() selection: SelectionMode = SelectionMode.SINGLE;
-    /**
-     * Selects the row at the specified rendered rows prosition (base 1).
-     */
-    @Prop() selectRow: number;
-    /**
-     * Semicolon separated rows id to select.
-     */
-    @Prop() selectRowsById: string;
     /**
      * If set to true, displays the button to open the customization panel.
      */
@@ -1164,13 +1154,13 @@ export class KupDataTable {
      */
     @Method()
     async setSelectedRows(
-        rowsById: string,
+        rowsIds: string[],
         emitEvent?: boolean
     ): Promise<void> {
         this.selectedRows = [];
-        if (rowsById) {
-            this.selectedRows = this.renderedRows.filter((r) => {
-                return rowsById.split(';').indexOf(r.id) >= 0;
+        if (rowsIds && rowsIds.length > 0) {
+            this.selectedRows = this.renderedRows.filter((row) => {
+                return rowsIds.includes(row.id);
             });
         }
 
@@ -2047,19 +2037,6 @@ export class KupDataTable {
         this.didLoadObservers();
         this.didLoadEventHandling();
         this.didLoadInteractables();
-        if (this.selectRowsById) {
-            this.setSelectedRows(this.selectRowsById);
-        } else if (this.selectRow && this.selectRow > 0) {
-            if (this.selectRow <= this.renderedRows.length) {
-                this.selectedRows = [];
-                this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
-                this.kupAutoRowSelect.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    selectedRow: this.selectedRows[0],
-                });
-            }
-        }
         this.lazyLoadCells = true;
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);

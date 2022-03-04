@@ -1205,14 +1205,6 @@ export namespace Components {
          */
         "scrollOnHover": boolean;
         /**
-          * Selects the row at the specified rendered rows prosition (base 1).
-         */
-        "selectRow": number;
-        /**
-          * Semicolon separated rows id to select.
-         */
-        "selectRowsById": string;
-        /**
           * Set the type of the rows selection.
          */
         "selection": SelectionMode;
@@ -1232,7 +1224,7 @@ export namespace Components {
           * @param rowsById - String containing the ids separated by ";".
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
          */
-        "setSelectedRows": (rowsById: string, emitEvent?: boolean) => Promise<void>;
+        "setSelectedRows": (rowsIds: string[], emitEvent?: boolean) => Promise<void>;
         /**
           * If set to true, displays the button to open the customization panel.
          */
@@ -4193,14 +4185,6 @@ declare namespace LocalJSX {
           * Activates the scroll on hover function.
          */
         "scrollOnHover"?: boolean;
-        /**
-          * Selects the row at the specified rendered rows prosition (base 1).
-         */
-        "selectRow"?: number;
-        /**
-          * Semicolon separated rows id to select.
-         */
-        "selectRowsById"?: string;
         /**
           * Set the type of the rows selection.
          */
