@@ -425,20 +425,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'selectRow',
-          description: 'Selects the specified row.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
-          prop: 'selectRowsById',
-          description: 'Semicolon separated rows id to select.',
-          type: 'string',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
           prop: 'showCustomization',
           description:
             'If set to true, displays the button to open the customization panel.',

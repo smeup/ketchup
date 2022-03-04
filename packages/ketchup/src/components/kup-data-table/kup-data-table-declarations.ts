@@ -49,8 +49,6 @@ export enum KupDataTableProps {
     rowActions = 'Sets the actions of the rows.',
     rowsPerPage = 'Sets the number of rows per page to display.',
     scrollOnHover = 'Activates the scroll on hover function.',
-    selectRow = 'Selects the row at the specified rendered rows prosition (base 1).',
-    selectRowsById = 'Semicolon separated rows id to select.',
     showCustomization = 'If set to true, displays the button to open the customization panel.',
     showFilters = 'When set to true enables the column filters.',
     showFooter = 'When set to true shows the footer.',

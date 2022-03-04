@@ -211,8 +211,6 @@ export class KupDataTable {
                 this.pageSelected = state.pageSelected;
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
-                this.selectRow = state.selectRow;
-                this.selectRowsById = state.selectRowsById;
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
@@ -566,14 +564,6 @@ export class KupDataTable {
      * Set the type of the rows selection.
      */
     @Prop() selection: SelectionMode = SelectionMode.SINGLE;
-    /**
-     * Selects the row at the specified rendered rows prosition (base 1).
-     */
-    @Prop() selectRow: number;
-    /**
-     * Semicolon separated rows id to select.
-     */
-    @Prop() selectRowsById: string;
     /**
      * If set to true, displays the button to open the customization panel.
      */
@@ -1159,19 +1149,23 @@ export class KupDataTable {
     }
     /**
      * This method will set the selected rows of the component.
-     * @param {string} rowsById - String containing the ids separated by ";".
+     * @param {string|number[]} rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
      * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
      */
     @Method()
     async setSelectedRows(
-        rowsById: string,
+        rowsIdentifiers: string[] | number[],
         emitEvent?: boolean
     ): Promise<void> {
         this.selectedRows = [];
-        if (rowsById) {
-            this.selectedRows = this.renderedRows.filter((r) => {
-                return rowsById.split(';').indexOf(r.id) >= 0;
-            });
+        for (let index = 0; index < rowsIdentifiers.length; index++) {
+            const id = rowsIdentifiers[index];
+            if (typeof id === 'number') {
+                this.selectedRows.push(this.renderedRows[id]);
+            } else {
+                const row = this.data.rows.find((row) => row.id === id);
+                this.selectedRows.push(row);
+            }
         }
 
         if (emitEvent !== false) {
@@ -2047,19 +2041,6 @@ export class KupDataTable {
         this.didLoadObservers();
         this.didLoadEventHandling();
         this.didLoadInteractables();
-        if (this.selectRowsById) {
-            this.setSelectedRows(this.selectRowsById);
-        } else if (this.selectRow && this.selectRow > 0) {
-            if (this.selectRow <= this.renderedRows.length) {
-                this.selectedRows = [];
-                this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
-                this.kupAutoRowSelect.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    selectedRow: this.selectedRows[0],
-                });
-            }
-        }
         this.lazyLoadCells = true;
         this.kupDidLoad.emit({ comp: this, id: this.rootElement.id });
         this.kupManager.resize.observe(this.rootElement);
