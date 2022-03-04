@@ -1149,19 +1149,23 @@ export class KupDataTable {
     }
     /**
      * This method will set the selected rows of the component.
-     * @param {string} rowsById - String containing the ids separated by ";".
+     * @param {string|number[]} rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
      * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
      */
     @Method()
     async setSelectedRows(
-        rowsIds: string[],
+        rowsIdentifiers: string[] | number[],
         emitEvent?: boolean
     ): Promise<void> {
         this.selectedRows = [];
-        if (rowsIds && rowsIds.length > 0) {
-            this.selectedRows = this.renderedRows.filter((row) => {
-                return rowsIds.includes(row.id);
-            });
+        for (let index = 0; index < rowsIdentifiers.length; index++) {
+            const id = rowsIdentifiers[index];
+            if (typeof id === 'number') {
+                this.selectedRows.push(this.renderedRows[id]);
+            } else {
+                const row = this.data.rows.find((row) => row.id === id);
+                this.selectedRows.push(row);
+            }
         }
 
         if (emitEvent !== false) {

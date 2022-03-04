@@ -1221,10 +1221,10 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * This method will set the selected rows of the component.
-          * @param rowsById - String containing the ids separated by ";".
+          * @param rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
          */
-        "setSelectedRows": (rowsIds: string[], emitEvent?: boolean) => Promise<void>;
+        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>;
         /**
           * If set to true, displays the button to open the customization panel.
          */
