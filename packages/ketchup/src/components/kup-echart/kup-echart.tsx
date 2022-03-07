@@ -576,15 +576,46 @@ export class KupEchart {
                 {
                     data: data,
                     emphasis: {
+                        itemStyle: {
+                            areaColor: null,
+                            borderWidth: 1.5,
+                        },
                         label: {
+                            color: this.#themeText,
+                            fontFamily: this.#themeFont,
                             show: true,
                         },
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: this.#themeBackground,
+                            borderColor: this.#themeText,
+                        },
+                    },
+                    label: {
+                        backgroundColor: this.#themeBackground,
+                        borderColor: this.#themeBorder,
+                        borderRadius: 4,
+                        borderWidth: 1,
+                        color: this.#themeText,
+                        fontFamily: this.#themeFont,
+                        padding: 4,
                     },
                     map: this.rootElement.id ? this.rootElement.id : '',
                     name: this.#kupManager.data.column.find(this.data, {
                         name: this.axis,
                     })[0].title,
                     roam: true,
+                    select: {
+                        itemStyle: {
+                            areaColor: this.#themeColors[0],
+                        },
+                        label: {
+                            color: this.#themeText,
+                            fontFamily: this.#themeFont,
+                            show: true,
+                        },
+                    },
                     type: 'map',
                 } as echarts.MapSeriesOption,
             ],
