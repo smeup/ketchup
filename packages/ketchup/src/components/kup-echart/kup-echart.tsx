@@ -552,9 +552,9 @@ export class KupEchart {
                 return null;
             } else {
                 return (
-                    params.name +
-                    ': ' +
-                    this.#kupManager.math.format(value as string)
+                    "<div style='min-width: 60px; text-align: center'>" +
+                    this.#kupManager.math.format(value as string) +
+                    '</div>'
                 );
             }
         };
@@ -587,10 +587,8 @@ export class KupEchart {
                         },
                     },
                     itemStyle: {
-                        normal: {
-                            areaColor: this.#themeBackground,
-                            borderColor: this.#themeText,
-                        },
+                        areaColor: this.#themeBackground,
+                        borderColor: this.#themeText,
                     },
                     label: {
                         backgroundColor: this.#themeBackground,
