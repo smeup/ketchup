@@ -12,7 +12,11 @@ import {
 } from '@stencil/core';
 import * as echarts from 'echarts';
 import { GeoJSON, FeatureCollection } from 'geojson';
-import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
+import {
+    VisualMapComponentOption,
+    XAXisComponentOption,
+    YAXisComponentOption,
+} from 'echarts';
 import {
     KupEchartClickEventPayload,
     KupEchartLegendPlacement,
@@ -441,14 +445,20 @@ export class KupEchart {
         const colorRange = !hasNumericValues
             ? undefined
             : colors.length > 0
-            ? { inRange: { color: colors }, min: min, max: max }
-            : {
+            ? ({
+                  inRange: { color: colors },
+                  min: min,
+                  max: max,
+                  textStyle: { color: this.#themeText },
+              } as VisualMapComponentOption)
+            : ({
                   inRange: {
                       color: [this.#themeColorBrighter, this.#themeColorDarker],
                   },
                   min: min,
                   max: max,
-              };
+                  textStyle: { color: this.#themeText },
+              } as VisualMapComponentOption);
         if (colorRange) {
             opts.visualMap = {
                 ...opts.visualMap,
