@@ -63,6 +63,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'consistencyCheck',
+          description:
+            'When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'data',
           description: 'The actual data of the chart.',
           type: 'KupDataDataset',

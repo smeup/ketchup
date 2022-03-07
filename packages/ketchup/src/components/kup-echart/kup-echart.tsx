@@ -38,7 +38,6 @@ import {
     KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupMathLocales } from '../../managers/kup-math/kup-math-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -60,7 +59,13 @@ export class KupEchart {
      * Sets the axis of the chart.
      * @default ""
      */
-    @Prop() axis: string = '';
+    @Prop({ mutable: true }) axis: string = '';
+    /**
+     * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis).
+     * For performances purposes, this prop will run only once when the component is initially created.
+     * @default false
+     */
+    @Prop() consistencyCheck: boolean = false;
     /**
      * Title of the graph.
      * @default null
@@ -217,28 +222,9 @@ export class KupEchart {
             );
         }
     }
+
     async #createChart() {
         this.#sortedDataset = null;
-        if (
-            !this.types.includes(KupEchartTypes.GAUSSIAN) &&
-            (!this.axis ||
-                !this.#kupManager.data.column.find(this.data, {
-                    name: this.axis,
-                }).length)
-        ) {
-            for (let index = 0; index < this.data.columns.length; index++) {
-                const column = this.data.columns[index];
-                if (!this.#kupManager.objects.isNumber(column.obj)) {
-                    this.axis = column.name;
-                    this.#kupManager.debug.logMessage(
-                        this,
-                        'Axis overridden. (' + this.axis + ')',
-                        KupDebugCategory.WARNING
-                    );
-                    break;
-                }
-            }
-        }
         let options: echarts.EChartsOption = null;
         const firstType = this.types[0];
         switch (firstType) {
@@ -943,6 +929,34 @@ export class KupEchart {
         }, ${(parseFloat(colorCheck.lightness) + 30).toString()}%)`;
     }
 
+    #checks() {
+        // Automatically sets axis when there is no Gaussian chart and when axis is invalid.
+        // The first visible and non-numerical column will be used as axis.
+        if (
+            !this.types.includes(KupEchartTypes.GAUSSIAN) &&
+            (!this.axis ||
+                !this.#kupManager.data.column.find(this.data, {
+                    name: this.axis,
+                }).length)
+        ) {
+            for (let index = 0; index < this.data.columns.length; index++) {
+                const column = this.data.columns[index];
+                if (
+                    column.visible &&
+                    !this.#kupManager.objects.isNumber(column.obj)
+                ) {
+                    this.axis = column.name;
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'Axis overridden. (' + this.axis + ')',
+                        KupDebugCategory.WARNING
+                    );
+                    break;
+                }
+            }
+        }
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -950,6 +964,9 @@ export class KupEchart {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
+        if (this.consistencyCheck) {
+            this.#checks();
+        }
     }
 
     componentDidLoad() {

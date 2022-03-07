@@ -244,7 +244,7 @@ Type: `Promise<void>`
 
 
 
-### `setSelectedRows(rowsIds: string[], emitEvent?: boolean) => Promise<void>`
+### `setSelectedRows(rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>`
 
 This method will set the selected rows of the component.
 

@@ -1486,6 +1486,11 @@ export namespace Components {
          */
         "chartTitle": KupEchartTitle;
         /**
+          * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.
+          * @default false
+         */
+        "consistencyCheck": boolean;
+        /**
           * Custom style of the component.
           * @default ""
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -4411,6 +4416,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "chartTitle"?: KupEchartTitle;
+        /**
+          * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.
+          * @default false
+         */
+        "consistencyCheck"?: boolean;
         /**
           * Custom style of the component.
           * @default ""
