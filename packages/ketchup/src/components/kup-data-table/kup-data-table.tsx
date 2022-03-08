@@ -38,7 +38,6 @@ import {
     iconColumn,
     keyColumn,
     SelectionMode,
-    KupDatatableAutoRowSelectEventPayload,
     KupDatatableRowSelectedEventPayload,
     KupDatatableClickEventPayload,
     KupDatatableColumnMenuEventPayload,
@@ -968,17 +967,6 @@ export class KupDataTable {
     kupResetSelectedRows: EventEmitter<KupEventPayload>;
 
     /**
-     * When a row is auto selected via selectRow prop
-     */
-    @Event({
-        eventName: 'kup-datatable-autorowselect',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupAutoRowSelect: EventEmitter<KupDatatableAutoRowSelectEventPayload>;
-
-    /**
      * When a row is selected
      */
     @Event({
@@ -1270,7 +1258,7 @@ export class KupDataTable {
             if (typeof id === 'number') {
                 this.selectedRows.push(this.renderedRows[id]);
             } else {
-                const row = this.data.rows.find((row) => row.id === id);
+                const row = this.renderedRows.find((row) => row.id === id);
                 this.selectedRows.push(row);
             }
         }
@@ -4514,6 +4502,7 @@ export class KupDataTable {
             const rowClass = {
                 selected: this.selectedRows.includes(row),
             };
+
             if (row.cssClass) {
                 rowClass[row.cssClass] = true;
             }
