@@ -1,4 +1,5 @@
 import type { Dayjs } from 'dayjs';
+import type { GenericObject } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupObj, KupObjectsJSON } from './kup-objects-declarations';
 import * as objJson from './obj.json';
