@@ -39,6 +39,7 @@ import {
     KupDataColumn,
     KupDataDataset,
     KupDataFindCellFilters,
+    KupDataNewColumnTypes,
     KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -969,10 +970,16 @@ export class KupEchart {
     }
 
     #checks() {
+        const gaussianCount = this.types.filter(
+            (type) => type === KupEchartTypes.GAUSSIAN
+        ).length;
+        const nonGaussianCount = this.types.filter(
+            (type) => type === KupEchartTypes.GAUSSIAN
+        ).length;
         // Automatically sets axis when there is no Gaussian chart and when axis is invalid.
         // The first visible and non-numerical column will be used as axis.
         if (
-            !this.types.includes(KupEchartTypes.GAUSSIAN) &&
+            !gaussianCount &&
             (!this.axis ||
                 !this.#kupManager.data.column.find(this.data, {
                     name: this.axis,
@@ -991,6 +998,35 @@ export class KupEchart {
                         KupDebugCategory.WARNING
                     );
                     break;
+                }
+            }
+        }
+        // Automatically copies columns when there are multiple types and 1 of them is GAUSSIAN and when column count is 1.
+        if (
+            gaussianCount === 1 &&
+            nonGaussianCount > 0 &&
+            this.data.columns &&
+            ((this.data.columns.length === 1 && !this.axis) ||
+                (this.data.columns.length === 2 && this.axis))
+        ) {
+            const series = !this.axis
+                ? this.data.columns[0]
+                : this.data.columns.filter((col) => col.name !== this.axis)[0];
+            for (let index = 0; index < this.types.length; index++) {
+                const type = this.types[index];
+                if (type !== KupEchartTypes.GAUSSIAN) {
+                    this.#kupManager.data.column.new(
+                        this.data,
+                        KupDataNewColumnTypes.DUPLICATE,
+                        {
+                            columns: [series.name],
+                            newColumn: {
+                                ...series,
+                                name: series.name + index,
+                                title: series.title + `(${type})`,
+                            },
+                        }
+                    );
                 }
             }
         }
