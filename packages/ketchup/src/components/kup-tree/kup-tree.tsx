@@ -50,7 +50,6 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { getColumnByName } from '../../utils/cell-utils';
 import {
-    deepEqual,
     getProps,
     numberToFormattedStringNumber,
     setProps,
@@ -146,32 +145,65 @@ export class KupTree {
         if (this.store && this.stateId) {
             let somethingChanged = false;
 
-            if (!deepEqual(this.state.filters, this.filters)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.filters,
+                    this.filters
+                )
+            ) {
                 this.state.filters = { ...this.filters };
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.density, this.density)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.density,
+                    this.density
+                )
+            ) {
                 this.state.density = this.density;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showFilters,
+                    this.showFilters
+                )
+            ) {
                 this.state.showFilters = this.showFilters;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showFooter,
+                    this.showFooter
+                )
+            ) {
                 this.state.showFooter = this.showFooter;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.totals, this.totals)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.totals,
+                    this.totals
+                )
+            ) {
                 this.state.totals = { ...this.totals };
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilter,
+                    this.globalFilter
+                )
+            ) {
                 this.state.globalFilter = this.globalFilter;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilterValue,
+                    this.globalFilterValue
+                )
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
                 somethingChanged = true;

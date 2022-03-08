@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from 'util';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
@@ -32,6 +33,8 @@ export function findColumns(
         for (const key in filters) {
             const filter = filters[key];
             if (column[key] === filter) {
+                result.push(column);
+            } else if (dom.ketchup.objects.deepEqual(column[key], filter)) {
                 result.push(column);
             }
         }

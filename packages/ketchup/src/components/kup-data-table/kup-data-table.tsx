@@ -68,7 +68,6 @@ import {
 import {
     numberToFormattedStringNumber,
     identify,
-    deepEqual,
     getProps,
     setProps,
 } from '../../utils/utils';
@@ -222,34 +221,59 @@ export class KupDataTable {
     persistState(): void {
         if (this.store && this.stateId) {
             let somethingChanged = false;
-            if (!deepEqual(this.state.filters, this.filters)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.filters,
+                    this.filters
+                )
+            ) {
                 this.state.filters = { ...this.filters };
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.groups, this.groups)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.groups,
+                    this.groups
+                )
+            ) {
                 this.state.groups = [...this.groups];
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.sort, this.sort)) {
+            if (
+                !this.kupManager.objects.deepEqual(this.state.sort, this.sort)
+            ) {
                 this.state.sort = [...this.sort];
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.expandGroups, this.expandGroups)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.expandGroups,
+                    this.expandGroups
+                )
+            ) {
                 this.state.expandGroups = this.expandGroups;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(this.state.groupLabelDisplay, this.groupLabelDisplay)
+                !this.kupManager.objects.deepEqual(
+                    this.state.groupLabelDisplay,
+                    this.groupLabelDisplay
+                )
             ) {
                 this.state.groupLabelDisplay = this.groupLabelDisplay;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.density, this.density)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.density,
+                    this.density
+                )
+            ) {
                 this.state.density = this.density;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.enableExtraColumns,
                     this.enableExtraColumns
                 )
@@ -258,7 +282,7 @@ export class KupDataTable {
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.enableSortableColumns,
                     this.enableSortableColumns
                 )
@@ -266,22 +290,35 @@ export class KupDataTable {
                 this.state.enableSortableColumns = this.enableSortableColumns;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.forceOneLine, this.forceOneLine)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.forceOneLine,
+                    this.forceOneLine
+                )
+            ) {
                 this.state.forceOneLine = this.forceOneLine;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilter,
+                    this.globalFilter
+                )
+            ) {
                 this.state.globalFilter = this.globalFilter;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+                !this.kupManager.objects.deepEqual(
+                    this.state.globalFilterValue,
+                    this.globalFilterValue
+                )
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.headerIsPersistent,
                     this.headerIsPersistent
                 )
@@ -289,44 +326,89 @@ export class KupDataTable {
                 this.state.headerIsPersistent = this.headerIsPersistent;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.lazyLoadRows, this.lazyLoadRows)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.lazyLoadRows,
+                    this.lazyLoadRows
+                )
+            ) {
                 this.state.lazyLoadRows = this.lazyLoadRows;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.loadMoreLimit, this.loadMoreLimit)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.loadMoreLimit,
+                    this.loadMoreLimit
+                )
+            ) {
                 this.state.loadMoreLimit = this.loadMoreLimit;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.selection, this.selection)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.selection,
+                    this.selection
+                )
+            ) {
                 this.state.selection = this.selection;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.rowsPerPage,
+                    this.currentRowsPerPage
+                )
+            ) {
                 this.state.rowsPerPage = this.currentRowsPerPage;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showFilters,
+                    this.showFilters
+                )
+            ) {
                 this.state.showFilters = this.showFilters;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showGroups, this.showGroups)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showGroups,
+                    this.showGroups
+                )
+            ) {
                 this.state.showGroups = this.showGroups;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showHeader, this.showHeader)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showHeader,
+                    this.showHeader
+                )
+            ) {
                 this.state.showHeader = this.showHeader;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showLoadMore, this.showLoadMore)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showLoadMore,
+                    this.showLoadMore
+                )
+            ) {
                 this.state.showLoadMore = this.showLoadMore;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.sortEnabled, this.sortEnabled)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.sortEnabled,
+                    this.sortEnabled
+                )
+            ) {
                 this.state.sortEnabled = this.sortEnabled;
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.sortableColumnsMutateData,
                     this.sortableColumnsMutateData
                 )
@@ -335,28 +417,53 @@ export class KupDataTable {
                     this.sortableColumnsMutateData;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.pageSelected, this.currentPage)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.pageSelected,
+                    this.currentPage
+                )
+            ) {
                 this.state.pageSelected = this.currentPage;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.dragEnabled, this.dragEnabled)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.dragEnabled,
+                    this.dragEnabled
+                )
+            ) {
                 this.state.dragEnabled = this.dragEnabled;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.dropEnabled, this.dropEnabled)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.dropEnabled,
+                    this.dropEnabled
+                )
+            ) {
                 this.state.dropEnabled = this.dropEnabled;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.showFooter,
+                    this.showFooter
+                )
+            ) {
                 this.state.showFooter = this.showFooter;
                 somethingChanged = true;
             }
-            if (!deepEqual(this.state.totals, this.totals)) {
+            if (
+                !this.kupManager.objects.deepEqual(
+                    this.state.totals,
+                    this.totals
+                )
+            ) {
                 this.state.totals = { ...this.totals };
                 somethingChanged = true;
             }
             if (
-                !deepEqual(
+                !this.kupManager.objects.deepEqual(
                     this.state.selectRowsById,
                     this.selectedRows.reduce(
                         (accumulator, row, currentIndex) => {
