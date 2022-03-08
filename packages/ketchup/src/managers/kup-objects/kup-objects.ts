@@ -281,7 +281,9 @@ export class KupObjects {
      * @returns {boolean} True when the object is null or empty.
      */
     isEmptyKupObj(obj: KupObj): boolean {
-        if (!obj) return true;
+        if (this.isEmptyJsObject(obj)) {
+            return true;
+        }
         return (
             (!obj.t || obj.t.trim() == '') &&
             (!obj.p || obj.p.trim() == '') &&
@@ -312,5 +314,55 @@ export class KupObjects {
             return dom.ketchup.dates.toDayjs(obj.k, 'DDMMYYYY');
         }
         return dom.ketchup.dates.toDayjs(obj.k);
+    }
+    /**
+     * Check whether two JS objects are deeply equal. When the arguments aren't objects, they are tested directly for equity.
+     * @param {GenericObject} object1 - First object to test.
+     * @param {GenericObject} object2 - Second object to test.
+     * @returns {boolean} True if the objects are equal.
+     * @see https://dmitripavlutin.com/how-to-compare-objects-in-javascript/#4-deep-equality
+     */
+    deepEqual(object1: any, object2: any): boolean {
+        if (!(this.isJsObject(object1) && this.isJsObject(object2))) {
+            return object1 === object2;
+        }
+        const keys1 = Object.keys(object1);
+        const keys2 = Object.keys(object2);
+        if (keys1.length !== keys2.length) {
+            return false;
+        }
+        for (const key of keys1) {
+            const val1 = object1[key];
+            const val2 = object2[key];
+            const areObjects = this.isJsObject(val1) && this.isJsObject(val2);
+            if (
+                (areObjects && !this.deepEqual(val1, val2)) ||
+                (!areObjects && val1 !== val2)
+            ) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
+     * Check whether the argument is a JavaScript object.
+     * @param {GenericObject} object - Object to test.
+     * @returns {boolean} True if the argument is a JavaScript object.
+     * @see https://dmitripavlutin.com/how-to-compare-objects-in-javascript/#4-deep-equality
+     */
+    isJsObject(object: any): boolean {
+        return object != null && typeof object === 'object';
+    }
+    /**
+     * Check whether the object is empty or not.
+     * @param {GenericObject} object - Object to check.
+     * @returns {boolean} True if the object is empty.
+     */
+    isEmptyJsObject(obj: GenericObject): boolean {
+        return (
+            !obj ||
+            obj === null ||
+            (Object.keys(obj).length === 0 && obj.constructor === Object)
+        );
     }
 }

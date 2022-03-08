@@ -12,7 +12,11 @@ import {
 } from '@stencil/core';
 import * as echarts from 'echarts';
 import { GeoJSON, FeatureCollection } from 'geojson';
-import { XAXisComponentOption, YAXisComponentOption } from 'echarts';
+import {
+    VisualMapComponentOption,
+    XAXisComponentOption,
+    YAXisComponentOption,
+} from 'echarts';
 import {
     KupEchartClickEventPayload,
     KupEchartLegendPlacement,
@@ -38,7 +42,6 @@ import {
     KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
-import { KupMathLocales } from '../../managers/kup-math/kup-math-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -60,7 +63,13 @@ export class KupEchart {
      * Sets the axis of the chart.
      * @default ""
      */
-    @Prop() axis: string = '';
+    @Prop({ mutable: true }) axis: string = '';
+    /**
+     * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis).
+     * For performances purposes, this prop will run only once when the component is initially created.
+     * @default false
+     */
+    @Prop() consistencyCheck: boolean = false;
     /**
      * Title of the graph.
      * @default null
@@ -217,28 +226,9 @@ export class KupEchart {
             );
         }
     }
+
     async #createChart() {
         this.#sortedDataset = null;
-        if (
-            !this.types.includes(KupEchartTypes.GAUSSIAN) &&
-            (!this.axis ||
-                !this.#kupManager.data.column.find(this.data, {
-                    name: this.axis,
-                }).length)
-        ) {
-            for (let index = 0; index < this.data.columns.length; index++) {
-                const column = this.data.columns[index];
-                if (!this.#kupManager.objects.isNumber(column.obj)) {
-                    this.axis = column.name;
-                    this.#kupManager.debug.logMessage(
-                        this,
-                        'Axis overridden. (' + this.axis + ')',
-                        KupDebugCategory.WARNING
-                    );
-                    break;
-                }
-            }
-        }
         let options: echarts.EChartsOption = null;
         const firstType = this.types[0];
         switch (firstType) {
@@ -455,14 +445,20 @@ export class KupEchart {
         const colorRange = !hasNumericValues
             ? undefined
             : colors.length > 0
-            ? { inRange: { color: colors }, min: min, max: max }
-            : {
+            ? ({
+                  inRange: { color: colors },
+                  min: min,
+                  max: max,
+                  textStyle: { color: this.#themeText },
+              } as VisualMapComponentOption)
+            : ({
                   inRange: {
                       color: [this.#themeColorBrighter, this.#themeColorDarker],
                   },
                   min: min,
                   max: max,
-              };
+                  textStyle: { color: this.#themeText },
+              } as VisualMapComponentOption);
         if (colorRange) {
             opts.visualMap = {
                 ...opts.visualMap,
@@ -566,9 +562,9 @@ export class KupEchart {
                 return null;
             } else {
                 return (
-                    params.name +
-                    ': ' +
-                    this.#kupManager.math.format(value as string)
+                    "<div style='min-width: 60px; text-align: center'>" +
+                    this.#kupManager.math.format(value as string) +
+                    '</div>'
                 );
             }
         };
@@ -590,15 +586,44 @@ export class KupEchart {
                 {
                     data: data,
                     emphasis: {
+                        itemStyle: {
+                            areaColor: null,
+                            borderWidth: 1.5,
+                        },
                         label: {
+                            color: this.#themeText,
+                            fontFamily: this.#themeFont,
                             show: true,
                         },
+                    },
+                    itemStyle: {
+                        areaColor: this.#themeBackground,
+                        borderColor: this.#themeText,
+                    },
+                    label: {
+                        backgroundColor: this.#themeBackground,
+                        borderColor: this.#themeBorder,
+                        borderRadius: 4,
+                        borderWidth: 1,
+                        color: this.#themeText,
+                        fontFamily: this.#themeFont,
+                        padding: 4,
                     },
                     map: this.rootElement.id ? this.rootElement.id : '',
                     name: this.#kupManager.data.column.find(this.data, {
                         name: this.axis,
                     })[0].title,
                     roam: true,
+                    select: {
+                        itemStyle: {
+                            areaColor: this.#themeColors[0],
+                        },
+                        label: {
+                            color: this.#themeText,
+                            fontFamily: this.#themeFont,
+                            show: true,
+                        },
+                    },
                     type: 'map',
                 } as echarts.MapSeriesOption,
             ],
@@ -943,6 +968,34 @@ export class KupEchart {
         }, ${(parseFloat(colorCheck.lightness) + 30).toString()}%)`;
     }
 
+    #checks() {
+        // Automatically sets axis when there is no Gaussian chart and when axis is invalid.
+        // The first visible and non-numerical column will be used as axis.
+        if (
+            !this.types.includes(KupEchartTypes.GAUSSIAN) &&
+            (!this.axis ||
+                !this.#kupManager.data.column.find(this.data, {
+                    name: this.axis,
+                }).length)
+        ) {
+            for (let index = 0; index < this.data.columns.length; index++) {
+                const column = this.data.columns[index];
+                if (
+                    column.visible &&
+                    !this.#kupManager.objects.isNumber(column.obj)
+                ) {
+                    this.axis = column.name;
+                    this.#kupManager.debug.logMessage(
+                        this,
+                        'Axis overridden. (' + this.axis + ')',
+                        KupDebugCategory.WARNING
+                    );
+                    break;
+                }
+            }
+        }
+    }
+
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
@@ -950,6 +1003,9 @@ export class KupEchart {
     componentWillLoad() {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
+        if (this.consistencyCheck) {
+            this.#checks();
+        }
     }
 
     componentDidLoad() {

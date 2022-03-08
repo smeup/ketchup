@@ -33,6 +33,8 @@ export function findColumns(
             const filter = filters[key];
             if (column[key] === filter) {
                 result.push(column);
+            } else if (dom.ketchup.objects.deepEqual(column[key], filter)) {
+                result.push(column);
             }
         }
     }

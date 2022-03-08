@@ -8,7 +8,7 @@ import {
     KupDataTableRowGroup,
     KupDataTableCell,
 } from './kup-data-table-declarations';
-import { isEmpty, stringToNumber } from '../../utils/utils';
+import { stringToNumber } from '../../utils/utils';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
@@ -773,7 +773,10 @@ export function calcTotals(
     rows: Array<KupDataTableRow> = [],
     totals: { [index: string]: TotalMode } = {}
 ): { [index: string]: number } {
-    if (isEmpty(rows) || isEmpty(totals)) {
+    if (
+        dom.ketchup.objects.isEmptyJsObject(rows) ||
+        dom.ketchup.objects.isEmptyJsObject(totals)
+    ) {
         return {};
     }
     const keys = Object.keys(totals);

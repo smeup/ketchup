@@ -56,10 +56,6 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-datatable-autorowselect',
-          type: 'CustomEvent',
-        },
-        {
           name: 'kup-datatable-rowselected',
           type: 'CustomEvent',
         },
@@ -422,20 +418,6 @@ export default {
           description: 'Set the type of the rows selection.',
           type: 'SelectionMode',
           default: 'single',
-          try: 'field',
-        },
-        {
-          prop: 'selectRow',
-          description: 'Selects the specified row.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
-          prop: 'selectRowsById',
-          description: 'Semicolon separated rows id to select.',
-          type: 'string',
-          default: 'undefined',
           try: 'field',
         },
         {

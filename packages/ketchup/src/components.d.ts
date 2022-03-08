@@ -24,7 +24,7 @@ import { KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip
 import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableAutoRowSelectEventPayload, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
@@ -1205,14 +1205,6 @@ export namespace Components {
          */
         "scrollOnHover": boolean;
         /**
-          * Selects the row at the specified rendered rows prosition (base 1).
-         */
-        "selectRow": number;
-        /**
-          * Semicolon separated rows id to select.
-         */
-        "selectRowsById": string;
-        /**
           * Set the type of the rows selection.
          */
         "selection": SelectionMode;
@@ -1229,10 +1221,10 @@ export namespace Components {
         "setProps": (props: GenericObject) => Promise<void>;
         /**
           * This method will set the selected rows of the component.
-          * @param rowsById - String containing the ids separated by ";".
+          * @param rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
           * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
          */
-        "setSelectedRows": (rowsById: string, emitEvent?: boolean) => Promise<void>;
+        "setSelectedRows": (rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>;
         /**
           * If set to true, displays the button to open the customization panel.
          */
@@ -1493,6 +1485,11 @@ export namespace Components {
           * @default null
          */
         "chartTitle": KupEchartTitle;
+        /**
+          * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.
+          * @default false
+         */
+        "consistencyCheck": boolean;
         /**
           * Custom style of the component.
           * @default ""
@@ -4117,10 +4114,6 @@ declare namespace LocalJSX {
          */
         "loadMoreStep"?: number;
         /**
-          * When a row is auto selected via selectRow prop
-         */
-        "onKup-datatable-autorowselect"?: (event: CustomEvent<KupDatatableAutoRowSelectEventPayload>) => void;
-        /**
           * Generic click event on data table.
          */
         "onKup-datatable-click"?: (event: CustomEvent<KupDatatableClickEventPayload>) => void;
@@ -4193,14 +4186,6 @@ declare namespace LocalJSX {
           * Activates the scroll on hover function.
          */
         "scrollOnHover"?: boolean;
-        /**
-          * Selects the row at the specified rendered rows prosition (base 1).
-         */
-        "selectRow"?: number;
-        /**
-          * Semicolon separated rows id to select.
-         */
-        "selectRowsById"?: string;
         /**
           * Set the type of the rows selection.
          */
@@ -4427,6 +4412,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "chartTitle"?: KupEchartTitle;
+        /**
+          * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.
+          * @default false
+         */
+        "consistencyCheck"?: boolean;
         /**
           * Custom style of the component.
           * @default ""
