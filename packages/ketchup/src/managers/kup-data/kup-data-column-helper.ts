@@ -1,4 +1,3 @@
-import { isDeepStrictEqual } from 'util';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupLanguageTotals } from '../kup-language/kup-language-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
