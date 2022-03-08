@@ -282,7 +282,9 @@ export class KupObjects {
      * @returns {boolean} True when the object is null or empty.
      */
     isEmptyKupObj(obj: KupObj): boolean {
-        if (!obj) return true;
+        if (this.isEmptyJsObject(obj)) {
+            return true;
+        }
         return (
             (!obj.t || obj.t.trim() == '') &&
             (!obj.p || obj.p.trim() == '') &&
@@ -351,5 +353,17 @@ export class KupObjects {
      */
     isJsObject(object: any): boolean {
         return object != null && typeof object === 'object';
+    }
+    /**
+     * Check whether the object is empty or not.
+     * @param {GenericObject} object - Object to check.
+     * @returns {boolean} True if the object is empty.
+     */
+    isEmptyJsObject(obj: GenericObject): boolean {
+        return (
+            !obj ||
+            obj === null ||
+            (Object.keys(obj).length === 0 && obj.constructor === Object)
+        );
     }
 }
