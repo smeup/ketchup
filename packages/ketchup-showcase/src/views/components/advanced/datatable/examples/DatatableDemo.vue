@@ -56,10 +56,6 @@ export default {
           type: 'CustomEvent',
         },
         {
-          name: 'kup-datatable-autorowselect',
-          type: 'CustomEvent',
-        },
-        {
           name: 'kup-datatable-rowselected',
           type: 'CustomEvent',
         },
