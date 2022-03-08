@@ -184,6 +184,7 @@ export interface KupDataNewColumnOptions {
  */
 export enum KupDataNewColumnTypes {
     CONCATENATE = 'concatenate',
+    DUPLICATE = 'duplicate',
     MATH = 'math',
     MERGE = 'merge',
 }

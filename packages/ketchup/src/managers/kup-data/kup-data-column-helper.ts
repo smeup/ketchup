@@ -73,7 +73,7 @@ export function hideColumns(
 export function newColumn(
     dataset: KupDataDataset,
     type: KupDataNewColumnTypes,
-    options?: KupDataNewColumnOptions
+    options: KupDataNewColumnOptions
 ): string | KupDataColumn {
     switch (type) {
         case KupDataNewColumnTypes.CONCATENATE:
@@ -81,6 +81,12 @@ export function newColumn(
                 dataset,
                 options.columns,
                 options.separator
+            );
+        case KupDataNewColumnTypes.DUPLICATE:
+            return newColumnFromDuplication(
+                dataset,
+                options.columns,
+                options.newColumn
             );
         case KupDataNewColumnTypes.MATH:
             return newColumnFromMath(
@@ -110,7 +116,7 @@ export function newColumn(
  * @param {KupDataDataset} dataset - Input dataset.
  * @param {string[]} columns - Array of column names.
  * @param {string} separator - Characters used to separate values.
- * @returns {string|Column}  Returns the new column created or a string containing the error message (if something went wrong).
+ * @returns {string|KupDataColumn}  Returns the new column created or a string containing the error message (if something went wrong).
  */
 function newColumnFromConcatenate(
     dataset: KupDataDataset,
@@ -200,6 +206,31 @@ function newColumnFromConcatenate(
         0,
         newColumn
     );
+    return newColumn;
+}
+/**
+ * Creates a duplicate of the specified column.
+ * @param {KupDataDataset} dataset - Input dataset.
+ * @param {string[]} column2duplicate - Name of the column to duplicate (the first occurrence of the array will be used).
+ * @param {KupDataColumn} newColumn - Column created.
+ * @returns {KupDataColumn} Resulting column.
+ */
+export function newColumnFromDuplication(
+    dataset: KupDataDataset,
+    column2duplicate: string[],
+    newColumn: KupDataColumn
+): KupDataColumn {
+    const duplicatedName = column2duplicate[0];
+    for (let index = 0; index < dataset.rows.length; index++) {
+        const row = dataset.rows[index];
+        const cells = row.cells;
+        if (cells && cells[duplicatedName]) {
+            cells[newColumn.name] = {
+                ...cells[duplicatedName],
+            };
+        }
+    }
+    dataset.columns.push(newColumn);
     return newColumn;
 }
 /**
