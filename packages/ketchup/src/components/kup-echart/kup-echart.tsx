@@ -1022,7 +1022,7 @@ export class KupEchart {
                             columns: [series.name],
                             newColumn: {
                                 ...series,
-                                name: series.name + index,
+                                name: series.name + '_' + index,
                                 title: series.title + `(${type})`,
                             },
                         }
