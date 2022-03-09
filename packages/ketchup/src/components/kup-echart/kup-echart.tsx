@@ -1032,16 +1032,25 @@ export class KupEchart {
                 }
             }
         }
-        // Checks for multiple series with the same column name when number of series and chart types are equal.
-        // Creates duplicate columns in case they are present.
+        // Checks for multiple series with the same column nam, creating duplicate columns in case they are present.
+        // When there are more types than series, new series will be automatically added to match chart types.
         if (
             this.series &&
             this.types &&
             this.series.length &&
             this.types.length &&
-            this.series.length === this.types.length &&
             this.data.columns
         ) {
+            if (this.types.length > this.series.length) {
+                const lastSerie = this.series[this.series.length - 1];
+                for (
+                    let index = this.series.length - 1;
+                    index < this.types.length;
+                    index++
+                ) {
+                    this.series.push(lastSerie);
+                }
+            }
             const occurrences: { [index: string]: number[] } = {};
             for (let index = 0; index < this.series.length; index++) {
                 const serie = this.series[index];
