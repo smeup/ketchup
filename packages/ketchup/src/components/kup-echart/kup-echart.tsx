@@ -1032,7 +1032,7 @@ export class KupEchart {
                 }
             }
         }
-        // Checks for multiple series with the same column nam, creating duplicate columns in case they are present.
+        // Checks for multiple series with the same column name, creating duplicate columns in case they are present.
         // When there are more types than series, new series will be automatically added to match chart types.
         if (
             this.series &&
@@ -1044,7 +1044,7 @@ export class KupEchart {
             if (this.types.length > this.series.length) {
                 const lastSerie = this.series[this.series.length - 1];
                 for (
-                    let index = this.series.length - 1;
+                    let index = this.series.length;
                     index < this.types.length;
                     index++
                 ) {
