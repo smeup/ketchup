@@ -320,19 +320,19 @@ export class KupList {
         if (index !== null && index !== undefined && !isNaN(index)) {
             const listItems: NodeListOf<HTMLElement> =
                 this.rootElement.shadowRoot.querySelectorAll('.list-item');
-            const value: string = listItems[index].dataset.id;
-            const dataEl = this.data.find((x: KupListNode) => x.id === value);
+            const id: string = listItems[index].dataset.id;
+            const dataEl = this.data.find((x: KupListNode) => x.id === id);
             switch (this.roleType) {
                 case KupListRole.GROUP:
-                    if (this.selected.includes(value)) {
-                        this.selected.splice(this.selected.indexOf(value), 1);
+                    if (this.selected.includes(id)) {
+                        this.selected.splice(this.selected.indexOf(id), 1);
                     } else {
-                        this.selected.push(value);
+                        this.selected.push(id);
                     }
                     this.selected = new Array(...this.selected);
                     break;
                 default:
-                    this.selected = new Array(value);
+                    this.selected = new Array(id);
                     break;
             }
             for (let index = 0; index < this.data.length; index++) {
@@ -464,7 +464,7 @@ export class KupList {
                 class={classAttr}
                 role={roleAttr}
                 tabindex={tabIndexAttr}
-                data-value={item.id}
+                data-id={item.id}
                 aria-selected={ariaSelectedAttr}
                 aria-checked={ariaCheckedAttr}
                 onBlur={

@@ -106,7 +106,7 @@ export default {
         {
           prop: 'data',
           description: 'The data of the list.',
-          type: 'KupListData',
+          type: 'KupListNode',
           isArray: true,
           default: '[]',
           try: 'json',
