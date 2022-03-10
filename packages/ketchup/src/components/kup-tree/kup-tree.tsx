@@ -62,7 +62,7 @@ import {
     ValueDisplayedValue,
 } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
-import { KupListData } from '../kup-list/kup-list-declarations';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 import {
     GenericObject,
     KupComponent,
@@ -1815,55 +1815,45 @@ export class KupTree {
                 }
 
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    let listData: KupListData[] = [
+                    let listData: KupListNode[] = [
                         {
-                            text: translation[TotalLabel.COUNT],
-                            value: TotalMode.COUNT,
-                            selected: false,
+                            id: TotalMode.COUNT,
+                            value: translation[TotalLabel.COUNT],
                         },
                         {
-                            text: translation[TotalLabel.DISTINCT],
-                            value: TotalMode.DISTINCT,
-                            selected: false,
+                            id: TotalMode.DISTINCT,
+                            value: translation[TotalLabel.DISTINCT],
                         },
                     ];
                     if (this.kupManager.objects.isNumber(column.obj)) {
-                        // TODO Move these objects in declarations
                         listData.push(
                             {
-                                text: translation[TotalLabel.SUM],
-                                value: TotalMode.SUM,
-                                selected: false,
+                                id: TotalMode.SUM,
+                                value: translation[TotalLabel.SUM],
                             },
                             {
-                                text: translation[TotalLabel.AVERAGE],
-                                value: TotalMode.AVERAGE,
-                                selected: false,
+                                id: TotalMode.AVERAGE,
+                                value: translation[TotalLabel.AVERAGE],
                             },
                             {
-                                text: translation[TotalLabel.MIN],
-                                value: TotalMode.MIN,
-                                selected: false,
+                                id: TotalMode.MIN,
+                                value: translation[TotalLabel.MIN],
                             },
                             {
-                                text: translation[TotalLabel.MAX],
-                                value: TotalMode.MAX,
-                                selected: false,
+                                id: TotalMode.MAX,
+                                value: translation[TotalLabel.MAX],
                             }
                         );
                     }
-                    // TODO replace this with find which is a better approach
-                    // Note that this is not supported in older IE
                     let selectedItem = listData.find(
-                        (item) => item.text === menuLabel
+                        (item) => item.value === menuLabel
                     );
                     if (selectedItem) {
                         selectedItem.selected = true;
                         listData.push({
-                            text: translation[TotalLabel.CANC],
-                            value: TotalLabel.CANC,
-                            selected: false,
+                            id: TotalLabel.CANC,
                             separator: true,
+                            value: translation[TotalLabel.CANC],
                         });
                     }
 

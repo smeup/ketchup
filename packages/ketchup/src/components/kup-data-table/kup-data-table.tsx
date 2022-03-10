@@ -71,7 +71,7 @@ import {
     setProps,
 } from '../../utils/utils';
 import {
-    KupListData,
+    KupListNode,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import {
@@ -3932,69 +3932,60 @@ export class KupDataTable {
                 }
 
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    const listData: KupListData[] = [
+                    const listData: KupListNode[] = [
                         {
-                            text: translation[TotalLabel.COUNT],
-                            value: TotalMode.COUNT,
-                            selected: false,
+                            id: TotalMode.COUNT,
+                            value: translation[TotalLabel.COUNT],
                         },
                         {
-                            text: translation[TotalLabel.DISTINCT],
-                            value: TotalMode.DISTINCT,
-                            selected: false,
+                            id: TotalMode.DISTINCT,
+                            value: translation[TotalLabel.DISTINCT],
                         },
                     ];
                     if (this.kupManager.objects.isNumber(column.obj)) {
                         // TODO Move these objects in declarations
                         listData.push(
                             {
-                                text: translation[TotalLabel.SUM],
-                                value: TotalMode.SUM,
-                                selected: false,
+                                id: TotalMode.SUM,
                                 separator: true,
+                                value: translation[TotalLabel.SUM],
                             },
                             {
-                                text: translation[TotalLabel.AVERAGE],
-                                value: TotalMode.AVERAGE,
-                                selected: false,
+                                id: TotalMode.AVERAGE,
+                                value: translation[TotalLabel.AVERAGE],
                             },
                             {
-                                text: translation[TotalLabel.MIN],
-                                value: TotalMode.MIN,
-                                selected: false,
+                                id: TotalMode.MIN,
+                                value: translation[TotalLabel.MIN],
                             },
                             {
-                                text: translation[TotalLabel.MAX],
-                                value: TotalMode.MAX,
-                                selected: false,
+                                id: TotalMode.MAX,
+                                value: translation[TotalLabel.MAX],
                             }
                         );
                     } else if (this.kupManager.objects.isDate(column.obj)) {
                         listData.push(
                             {
-                                text: translation[TotalLabel.MIN],
-                                value: TotalMode.MIN,
-                                selected: false,
+                                id: TotalMode.MIN,
                                 separator: true,
+                                value: translation[TotalLabel.MIN],
                             },
                             {
-                                text: translation[TotalLabel.MAX],
-                                value: TotalMode.MAX,
-                                selected: false,
+                                id: TotalMode.MAX,
+                                value: translation[TotalLabel.MAX],
                             }
                         );
                     }
                     if (this.totals) {
-                        const selectedItem: KupListData = listData.find(
+                        const selectedItem: KupListNode = listData.find(
                             (item) => item.value === this.totals[column.name]
                         );
                         if (selectedItem) {
                             selectedItem.selected = true;
                             listData.push({
-                                text: translation[TotalLabel.CANC],
-                                value: TotalLabel.CANC,
-                                selected: false,
+                                id: TotalLabel.CANC,
                                 separator: true,
+                                value: translation[TotalLabel.CANC],
                             });
                         }
                     }
@@ -4809,45 +4800,45 @@ export class KupDataTable {
         codes: Array<string>,
         icons: Array<string>,
         selectedCode: string
-    ): KupListData[] {
-        const listItems: KupListData[] = [];
+    ): KupListNode[] {
+        const listItems: KupListNode[] = [];
         for (let i = 0; i < codes.length; i++) {
-            let text: KupLanguageKey = null;
+            let value: KupLanguageKey = null;
             switch (codes[i]) {
                 //This whole customization panel thingy must be purged, for now -- it's ugly
                 case 'big':
-                    text = KupLanguageFontsize.BIG;
+                    value = KupLanguageFontsize.BIG;
                     break;
                 case 'Col':
-                    text = KupLanguageGrid.COLUMN;
+                    value = KupLanguageGrid.COLUMN;
                     break;
                 case 'Complete':
-                    text = KupLanguageGrid.COMPLETE;
+                    value = KupLanguageGrid.COMPLETE;
                     break;
                 case 'dense':
-                    text = KupLanguageDensity.DENSE;
+                    value = KupLanguageDensity.DENSE;
                     break;
                 case 'medium':
-                    text = KupLanguageDensity.MEDIUM;
+                    value = KupLanguageDensity.MEDIUM;
                     break;
                 case 'None':
-                    text = KupLanguageGrid.NONE;
+                    value = KupLanguageGrid.NONE;
                     break;
                 case 'small':
-                    text = KupLanguageFontsize.SMALL;
+                    value = KupLanguageFontsize.SMALL;
                     break;
                 case 'Row':
-                    text = KupLanguageGrid.ROW;
+                    value = KupLanguageGrid.ROW;
                     break;
                 case 'wide':
-                    text = KupLanguageDensity.WIDE;
+                    value = KupLanguageDensity.WIDE;
                     break;
             }
             listItems[i] = {
-                text: this.kupManager.language.translate(text),
-                value: codes[i],
-                selected: selectedCode == codes[i],
                 icon: icons[i],
+                id: codes[i],
+                selected: selectedCode == codes[i],
+                value: this.kupManager.language.translate(value),
             };
         }
         return listItems;
@@ -4870,7 +4861,7 @@ export class KupDataTable {
     }
 
     private renderFontSizePanel() {
-        const listItems: KupListData[] = this.createListData(
+        const listItems: KupListNode[] = this.createListData(
             this.FONTSIZE_CODES,
             this.FONTSIZE_ICONS,
             this.fontsize
@@ -4932,7 +4923,7 @@ export class KupDataTable {
     }
 
     private renderDensityPanel() {
-        const listItems: KupListData[] = this.createListData(
+        const listItems: KupListNode[] = this.createListData(
             Object.values(FCellPadding),
             this.DENSITY_ICONS,
             this.density
@@ -5043,7 +5034,7 @@ export class KupDataTable {
     }
 
     private renderGridPanel() {
-        const listItems: KupListData[] = this.createListData(
+        const listItems: KupListNode[] = this.createListData(
             this.GRID_CODES,
             this.GRID_ICONS,
             this.showGrid

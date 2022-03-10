@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { KupListData } from '../../components/kup-list/kup-list-declarations';
+import { KupListNode } from '../../components/kup-list/kup-list-declarations';
 import {
     KupLanguageGeneric,
     KupLanguagePage,
@@ -108,14 +108,14 @@ export const FPaginator: FunctionalComponent<FPaginatorProps> = (
 };
 
 function getPageItems(props: FPaginatorProps, maxNumberOfPage: number) {
-    const pageItems: KupListData[] = [];
+    const pageItems: KupListNode[] = [];
 
     for (let i = 1; i <= maxNumberOfPage; i++) {
         const selected = i == props.currentPage;
         pageItems.push({
-            text: i.toString(),
-            value: i.toString(),
+            id: i.toString(),
             selected: selected,
+            value: i.toString(),
         });
     }
 
@@ -123,7 +123,7 @@ function getPageItems(props: FPaginatorProps, maxNumberOfPage: number) {
 }
 
 function getRowsItems(props: FPaginatorProps) {
-    const rowsPerPageItems: KupListData[] = [];
+    const rowsPerPageItems: KupListNode[] = [];
     let i = props.perPage;
 
     if (i === 0) {
@@ -133,18 +133,18 @@ function getRowsItems(props: FPaginatorProps) {
     while (i < props.max) {
         const selected = i == props.perPage;
         rowsPerPageItems.push({
-            text: i.toString(),
-            value: i.toString(),
+            id: i.toString(),
             selected: selected,
+            value: i.toString(),
         });
         i = i * 2;
     }
 
     const selected = props.max == props.perPage;
     rowsPerPageItems.push({
-        text: props.max.toString(),
-        value: props.max.toString(),
+        id: props.max.toString(),
         selected: selected,
+        value: props.max.toString(),
     });
 
     return rowsPerPageItems;

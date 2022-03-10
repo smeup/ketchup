@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
-import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
+import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
@@ -1903,7 +1903,7 @@ export namespace Components {
           * The data of the list.
           * @default []
          */
-        "data": KupListData[];
+        "data": KupListNode[];
         /**
           * Selects how the items must display their label and how they can be filtered for.
           * @default ItemsDisplayMode.DESCRIPTION
@@ -4731,7 +4731,7 @@ declare namespace LocalJSX {
           * The data of the list.
           * @default []
          */
-        "data"?: KupListData[];
+        "data"?: KupListNode[];
         /**
           * Selects how the items must display their label and how they can be filtered for.
           * @default ItemsDisplayMode.DESCRIPTION

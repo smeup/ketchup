@@ -661,7 +661,7 @@ const demoTypes: DemoTypeJson = {
     },
     type: DemoTypeFeature.ENUM,
   },
-  KupListData: {
+  KupListNode: {
     keys: {
       text: 'string',
       value: 'string',

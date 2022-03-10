@@ -1,6 +1,6 @@
 import { KupEventPayload } from '../../types/GenericTypes';
 import { ValueDisplayedValue as vdv } from '../../utils/filters/filters-declarations';
-import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
 
 /**
  * Props of the kup-list component.
@@ -23,11 +23,7 @@ export enum KupListProps {
 /**
  * Data structure of a single list item.
  */
-export interface KupListData {
-    obj?: KupObj;
-    text: string;
-    value: string;
-    icon?: string;
+export interface KupListNode extends KupDataNode {
     secondaryText?: string;
     selected?: boolean;
     separator?: boolean;
@@ -51,5 +47,5 @@ export enum ItemsDisplayMode {
     DESCRIPTION_AND_CODE = 'both',
 }
 export interface KupListEventPayload extends KupEventPayload {
-    selected: KupListData;
+    selected: KupListNode;
 }

@@ -1,16 +1,16 @@
-import { KupListData } from '../../../src/components/kup-list/kup-list-declarations';
+import { KupListNode } from '../../../src/components/kup-list/kup-list-declarations';
 
 export function AutocompleteItemFactory(
     itemsCount = 20,
     baseCode = 'CD',
     baseDescription = 'Item '
-): KupListData[] {
-    const toRet: KupListData[] = [];
+): KupListNode[] {
+    const toRet: KupListNode[] = [];
 
     for (let i = 0; i < itemsCount; i++) {
         toRet.push({
-            value: baseCode + i,
-            text: baseDescription + i,
+            id: baseCode + i,
+            value: baseDescription + i,
         });
     }
 

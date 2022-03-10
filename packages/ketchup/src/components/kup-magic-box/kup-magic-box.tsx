@@ -10,11 +10,8 @@ import {
     VNode,
 } from '@stencil/core';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
-import {
-    KupManager,
-    kupManagerInstance,
-} from '../../managers/kup-manager/kup-manager';
-import { KupListData } from '../kup-list/kup-list-declarations';
+import { kupManagerInstance } from '../../managers/kup-manager/kup-manager';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import {
@@ -124,13 +121,13 @@ export class KupMagicBox {
      * @returns {GenericObject} Combobox props.
      */
     private comboboxProps(): GenericObject {
-        const listData: KupListData[] = [];
+        const listData: KupListNode[] = [];
         for (const key in KupMagicBoxDisplay) {
             if (Object.prototype.hasOwnProperty.call(KupMagicBoxDisplay, key)) {
                 listData.push({
-                    text: KupMagicBoxDisplay[key],
-                    value: KupMagicBoxDisplay[key],
+                    id: KupMagicBoxDisplay[key],
                     selected: false,
+                    value: KupMagicBoxDisplay[key],
                 });
             }
         }

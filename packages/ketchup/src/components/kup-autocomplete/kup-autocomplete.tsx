@@ -437,14 +437,14 @@ export class KupAutocomplete {
 
     private consistencyCheck(
         e?: CustomEvent,
-        valueIn?: string
+        idIn?: string
     ): ValueDisplayedValue {
         if (!this.doConsistencyCheck) {
             return;
         }
         this.doConsistencyCheck = false;
         const ret = consistencyCheck(
-            valueIn,
+            idIn,
             this.data['kup-list'],
             this.listEl,
             this.selectMode,
@@ -458,9 +458,9 @@ export class KupAutocomplete {
                 this.listEl.filter = this.displayedValue;
             }
         } else {
-            this.displayedValue = valueIn;
+            this.displayedValue = idIn;
             if (this.listEl != null && !this.serverHandledFilter) {
-                this.listEl.filter = valueIn;
+                this.listEl.filter = idIn;
             }
         }
 

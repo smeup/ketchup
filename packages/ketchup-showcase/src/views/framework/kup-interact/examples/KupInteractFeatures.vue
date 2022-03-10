@@ -165,7 +165,7 @@
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
-import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
+import { KupListNode } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var combobox: HTMLKupComboboxElement = null;
@@ -255,12 +255,12 @@ export default {
           },
         ],
       };
-      const dragEffectsListData: KupListData[] = [];
+      const dragEffectsListData: KupListNode[] = [];
       for (const key in KupDragEffect) {
         if (Object.prototype.hasOwnProperty.call(KupDragEffect, key)) {
           const effect: string = KupDragEffect[key];
           dragEffectsListData.push({
-            text: effect,
+            id: effect,
             value: effect,
           });
         }
