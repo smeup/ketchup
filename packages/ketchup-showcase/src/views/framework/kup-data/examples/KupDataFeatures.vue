@@ -182,6 +182,7 @@
             - <strong>type (KupDataNewColumnTypes)</strong> - Type of column
             creation. Supported types:
             <span class="code-word">concatenate</span>,
+            <span class="code-word">duplicate</span>,
             <span class="code-word">math</span>,
             <span class="code-word">merge</span>.<br />-
             <strong>options (KupDataNewColumnOptions)</strong> - Options used by

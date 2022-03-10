@@ -39,6 +39,7 @@ import {
     KupDataColumn,
     KupDataDataset,
     KupDataFindCellFilters,
+    KupDataNewColumnTypes,
     KupDataRow,
     KupDataRowCells,
 } from '../../managers/kup-data/kup-data-declarations';
@@ -969,10 +970,16 @@ export class KupEchart {
     }
 
     #checks() {
+        const gaussianCount = this.types.filter(
+            (type) => type === KupEchartTypes.GAUSSIAN
+        ).length;
+        const nonGaussianCount = this.types.filter(
+            (type) => type === KupEchartTypes.GAUSSIAN
+        ).length;
         // Automatically sets axis when there is no Gaussian chart and when axis is invalid.
         // The first visible and non-numerical column will be used as axis.
         if (
-            !this.types.includes(KupEchartTypes.GAUSSIAN) &&
+            !gaussianCount &&
             (!this.axis ||
                 !this.#kupManager.data.column.find(this.data, {
                     name: this.axis,
@@ -991,6 +998,96 @@ export class KupEchart {
                         KupDebugCategory.WARNING
                     );
                     break;
+                }
+            }
+        }
+        // Automatically copies columns when there are multiple types and no specified series.
+        // Also 1 types must be GAUSSIAN.
+        if (
+            (!this.series || !this.series.length) &&
+            gaussianCount === 1 &&
+            nonGaussianCount > 0 &&
+            this.data.columns &&
+            ((this.data.columns.length === 1 && !this.axis) ||
+                (this.data.columns.length === 2 && this.axis))
+        ) {
+            const series = !this.axis
+                ? this.data.columns[0]
+                : this.data.columns.filter((col) => col.name !== this.axis)[0];
+            for (let index = 0; index < this.types.length; index++) {
+                const type = this.types[index];
+                if (type !== KupEchartTypes.GAUSSIAN) {
+                    this.#kupManager.data.column.new(
+                        this.data,
+                        KupDataNewColumnTypes.DUPLICATE,
+                        {
+                            columns: [series.name],
+                            newColumn: {
+                                ...series,
+                                name: series.name + '_' + index,
+                                title: series.title + ` (${type})`,
+                            },
+                        }
+                    );
+                }
+            }
+        }
+        // Checks for multiple series with the same column name, creating duplicate columns in case they are present.
+        // When there are more types than series, new series will be automatically added to match chart types.
+        if (
+            this.series &&
+            this.types &&
+            this.series.length &&
+            this.types.length &&
+            this.data.columns
+        ) {
+            if (this.types.length > this.series.length) {
+                const lastSerie = this.series[this.series.length - 1];
+                for (
+                    let index = this.series.length;
+                    index < this.types.length;
+                    index++
+                ) {
+                    this.series.push(lastSerie);
+                }
+            }
+            const occurrences: { [index: string]: number[] } = {};
+            for (let index = 0; index < this.series.length; index++) {
+                const serie = this.series[index];
+                if (Object.keys(occurrences).includes(serie)) {
+                    occurrences[serie].push(index);
+                } else {
+                    occurrences[serie] = [index];
+                }
+            }
+            for (const key in occurrences) {
+                const indexes = occurrences[key];
+                for (
+                    let index = 1;
+                    indexes.length > 1 && index < indexes.length;
+                    index++
+                ) {
+                    const seriesIndex = indexes[index];
+                    const column = this.#kupManager.data.column.find(
+                        this.data,
+                        { name: this.series[seriesIndex] }
+                    )[0];
+                    const newName = column.name + '_' + index;
+                    this.#kupManager.data.column.new(
+                        this.data,
+                        KupDataNewColumnTypes.DUPLICATE,
+                        {
+                            columns: [column.name],
+                            newColumn: {
+                                ...column,
+                                name: newName,
+                                title:
+                                    column.title +
+                                    ` (${this.types[seriesIndex]})`,
+                            },
+                        }
+                    );
+                    this.series[seriesIndex] = newName;
                 }
             }
         }

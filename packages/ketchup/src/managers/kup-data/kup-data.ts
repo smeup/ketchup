@@ -64,7 +64,7 @@ export class KupData {
         new(
             dataset: KupDataDataset,
             type: KupDataNewColumnTypes,
-            options?: KupDataNewColumnOptions
+            options: KupDataNewColumnOptions
         ): string | KupDataColumn {
             return newColumn(dataset, type, options);
         },
