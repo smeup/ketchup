@@ -696,8 +696,8 @@
             "--kup-drawer-color": "#000000",
             "--kup-navbar-height": "80px",
             "--kup-drawer-width": "320px",
-            "--kup-font-family": "Oswald",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
+            "--kup-font-family": "Oswald, sans-serif",
+            "--kup-font-family-monospace": "Xanh Mono, monospace",
             "--kup-font-size": "16px",
             "--kup-text-color": "#fefefe",
             "--kup-text-on-primary-color": "#4a4a4a",
@@ -736,7 +736,7 @@
             "--kup-search-icon": "search"
         },
         "imports": [
-            "url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500&display=swap')"
+            "url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Xanh+Mono&display=swap')"
         ],
         "customStyles": {}
     },
