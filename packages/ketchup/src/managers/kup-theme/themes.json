@@ -685,6 +685,61 @@
             "KUP-DATA-TABLE": "#kup-component th { --kup_datatable_th_border: none; font-weight: normal; }"
         }
     },
+    "silver": {
+        "cssVariables": {
+            "--kup-primary-color": "#c0c0c0",
+            "--kup-secondary-color": "#c0c0c0",
+            "--kup-background-color": "#000000",
+            "--kup-navbar-background-color": "#ffffff",
+            "--kup-navbar-color": "#000000",
+            "--kup-drawer-background-color": "#ffffff",
+            "--kup-drawer-color": "#000000",
+            "--kup-navbar-height": "80px",
+            "--kup-drawer-width": "320px",
+            "--kup-font-family": "Oswald",
+            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
+            "--kup-font-size": "16px",
+            "--kup-text-color": "#fefefe",
+            "--kup-text-on-primary-color": "#4a4a4a",
+            "--kup-text-on-secondary-color": "#4a4a4a",
+            "--kup-disabled-background-color": "#3c3c3c",
+            "--kup-disabled-color": "#7e7e7e",
+            "--kup-hover-background-color": "#3c3c3c",
+            "--kup-hover-color": "#dddddd",
+            "--kup-title-background-color": "#151515",
+            "--kup-title-color": "#d9d9d9",
+            "--kup-icon-color": "#c0c0c0",
+            "--kup-border-color": "#c0c0c0",
+            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
+            "--kup-info-color": "#2592df",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#d91e18",
+            "--kup-spinner-color": "#c0c0c0",
+            "--kup-chart-color-1": "#60c3fc",
+            "--kup-chart-color-2": "#e268d8",
+            "--kup-chart-color-3": "#860bb5",
+            "--kup-chart-color-4": "#1a83e4",
+            "--kup-obj-cursor": "inherit",
+            "--kup-drawer-zindex": "900",
+            "--kup-navbar-zindex": "900"
+        },
+        "icons": {
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-dropdown-icon": "arrow_drop_down",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove",
+            "--kup-key-icon": "key-variant",
+            "--kup-search-icon": "search"
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500&display=swap')"
+        ],
+        "customStyles": {}
+    },
     "teal": {
         "cssVariables": {
             "--kup-primary-color": "#068A9C",

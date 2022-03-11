@@ -295,57 +295,58 @@ export default {
     return {
       listdata1: [
         {
-          text:
+          value:
             "slot with the name 'descr' to set the description of the dash.",
-          value: '1',
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value' to set the value for the dash.",
-          value: '2',
+          value: "slot with the name 'value' to set the value for the dash.",
+          id: '2',
           icon: 'trending_flat',
           trailingIcon: true,
         },
       ],
       listdata2: [
         {
-          text: "slot with the name 'icon' to select the icon of the dash.",
-          value: '1',
+          value: "slot with the name 'icon' to select the icon of the dash.",
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value-int' to handle integer values.",
-          value: '2',
+          value: "slot with the name 'value-int' to handle integer values.",
+          id: '2',
 
           icon: 'trending_flat',
         },
 
         {
-          text: "a section with the name 'value-dec' to handle decimal values.",
-          value: '3',
+          value:
+            "a section with the name 'value-dec' to handle decimal values.",
+          id: '3',
           icon: 'trending_flat',
         },
         {
-          text:
+          value:
             "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
-          value: '4',
+          id: '4',
           icon: 'trending_flat',
         },
       ],
 
       listdata3: [
         {
-          text:
+          value:
             "slot with the name 'descr' to set the description of the dash.",
-          value: '1',
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value' to set the value for the dash.",
-          value: '2',
+          value: "slot with the name 'value' to set the value for the dash.",
+          id: '2',
           icon: 'trending_flat',
           trailingIcon: true,
         },
@@ -353,117 +354,118 @@ export default {
 
       listdata4: [
         {
-          text: "slot with the name 'icon' to select the icon of the dash.",
-          value: '1',
+          value: "slot with the name 'icon' to select the icon of the dash.",
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value-int' to handle integer values.",
-          value: '2',
+          value: "slot with the name 'value-int' to handle integer values.",
+          id: '2',
 
           icon: 'trending_flat',
         },
 
         {
-          text: "a section with the name 'value-dec' to handle decimal values.",
-          value: '3',
+          value:
+            "a section with the name 'value-dec' to handle decimal values.",
+          id: '3',
           icon: 'trending_flat',
         },
         {
-          text:
+          value:
             "a section with the name 'unit' rappresent the unit of the value (example: %,cm,km,ettc..).",
-          value: '4',
+          id: '4',
           icon: 'trending_flat',
         },
         {
-          text:
+          value:
             "slot with the name 'descr' to set the description of the dash.",
-          value: '5',
+          id: '5',
           icon: 'trending_flat',
           trailingIcon: true,
         },
       ],
       listdata5: [
         {
-          text: "slot with the name 'icon' to select the icon of the dash.",
-          value: '1',
+          value: "slot with the name 'icon' to select the icon of the dash.",
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value' to set the value for the dash.",
-          value: '2',
+          value: "slot with the name 'value' to set the value for the dash.",
+          id: '2',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text:
+          value:
             "slot with the name 'descr' to set the description of the dash.",
-          value: '3',
+          id: '3',
           icon: 'trending_flat',
           trailingIcon: true,
         },
       ],
       listdata6: [
         {
-          text: "slot with the name 'icon' to select the icon of the dash.",
-          value: '1',
+          value: "slot with the name 'icon' to select the icon of the dash.",
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value' to set the value for the dash.",
-          value: '2',
+          value: "slot with the name 'value' to set the value for the dash.",
+          id: '2',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text:
+          value:
             "slot with the name 'descr' to set the description of the dash.",
-          value: '3',
+          id: '3',
           icon: 'trending_flat',
           trailingIcon: true,
         },
       ],
       listdata7: [
         {
-          text: "slot with the name 'icon' to select the icon of the dash.",
-          value: '1',
+          value: "slot with the name 'icon' to select the icon of the dash.",
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value' to set the value for the dash.",
-          value: '2',
+          value: "slot with the name 'value' to set the value for the dash.",
+          id: '2',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text:
+          value:
             "slot with the name 'descr' to set the description of the dash.",
-          value: '3',
+          id: '3',
           icon: 'trending_flat',
           trailingIcon: true,
         },
       ],
       listdata8: [
         {
-          text: "slot with the name 'icon' to select the icon of the dash.",
-          value: '1',
+          value: "slot with the name 'icon' to select the icon of the dash.",
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value' to set the value for the dash.",
-          value: '2',
+          value: "slot with the name 'value' to set the value for the dash.",
+          id: '2',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text:
+          value:
             "slot with the name 'descr' to set the description of the dash.",
-          value: '3',
+          id: '3',
           icon: 'trending_flat',
           trailingIcon: true,
         },
