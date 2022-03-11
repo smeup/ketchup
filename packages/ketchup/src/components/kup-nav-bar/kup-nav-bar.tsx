@@ -158,17 +158,21 @@ export class KupNavBar {
             }
         }
         return [
-            <section
-                class={`${navbarClass}__section ${navbarClass}__section--align-start`}
-            >
-                {leftSlots}
-            </section>,
-            <section
-                class={`${navbarClass}__section ${navbarClass}__section--align-end`}
-                role="toolbar"
-            >
-                {rightSlots}
-            </section>,
+            leftSlots.length ? (
+                <section
+                    class={`${navbarClass}__section ${navbarClass}__section--align-start`}
+                >
+                    {leftSlots}
+                </section>
+            ) : null,
+            rightSlots.length ? (
+                <section
+                    class={`${navbarClass}__section ${navbarClass}__section--align-end`}
+                    role="toolbar"
+                >
+                    {rightSlots}
+                </section>
+            ) : null,
         ];
     }
 

@@ -354,6 +354,12 @@
         const navBar = document.createElement('kup-nav-bar');
         navBar.style.gridArea = 'nav-bar';
         navBar.classList.add('header');
+        const label = document.createElement('div');
+        label.innerHTML = 'Nav bar';
+        label.slot = 'right';
+        label.style.textAlign = 'center';
+        label.style.width = '100%';
+        navBar.appendChild(label);
         return navBar;
     }
 
