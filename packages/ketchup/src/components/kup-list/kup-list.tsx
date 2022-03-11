@@ -351,6 +351,9 @@ export class KupList {
         if (item.selected != true) {
             item.selected = false;
         }
+        if (!item.id) {
+            item.id = item.value;
+        }
 
         let imageTag: HTMLElement = undefined;
         if (
