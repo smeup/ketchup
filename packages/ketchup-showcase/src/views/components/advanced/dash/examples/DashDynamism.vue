@@ -44,21 +44,21 @@ export default {
     return {
       listdata: [
         {
-          text: "slot with the name 'icon' to select the icon of the dash.",
-          value: '1',
+          value: "slot with the name 'icon' to select the icon of the dash.",
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'value' to set the value for the dash.",
-          value: '2',
+          value: "slot with the name 'value' to set the value for the dash.",
+          id: '2',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text:
+          value:
             "slot with the name 'descr' to set the description of the dash.",
-          value: '3',
+          id: '3',
           icon: 'trending_flat',
           trailingIcon: true,
         },

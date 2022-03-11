@@ -39,14 +39,14 @@ export default {
     return {
       data: [
         {
+          id: 'Favorites',
           value: 'Favorites',
-          text: 'Favorites',
           icon: '',
           active: true,
         },
         {
+          id: 'Settings',
           value: 'Settings',
-          text: 'Settings',
           icon: '',
           active: false,
         },

@@ -1831,13 +1831,13 @@ export class KupBox {
             // creating items
             const visibleColumnsItems = this.visibleColumns.map((column) => {
                 const item = {
-                    text: column.title,
-                    value: column.name,
+                    value: column.title,
+                    id: column.name,
                     selected: column.name === this.sortBy,
                 };
                 return item;
             });
-            const items = [{ text: '', value: '' }, ...visibleColumnsItems];
+            const items = [{ value: '', id: '' }, ...visibleColumnsItems];
             let textfieldData = {
                 label: this.kupManager.language.translate(
                     KupLanguageGeneric.SORT_BY

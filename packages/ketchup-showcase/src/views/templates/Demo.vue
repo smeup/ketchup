@@ -663,7 +663,7 @@ const demoTypes: DemoTypeJson = {
   },
   KupListNode: {
     keys: {
-      text: 'string',
+      id: 'string',
       value: 'string',
       'icon?': 'string',
       'secondaryText?': 'string',
