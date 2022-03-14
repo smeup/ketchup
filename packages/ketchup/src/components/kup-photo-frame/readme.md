@@ -17,9 +17,10 @@
 
 ## Events
 
-| Event                   | Description                             | Type                           |
-| ----------------------- | --------------------------------------- | ------------------------------ |
-| `kup-photoframe-loaded` | Triggered when the component is loaded. | `CustomEvent<KupEventPayload>` |
+| Event                              | Description                               | Type                           |
+| ---------------------------------- | ----------------------------------------- | ------------------------------ |
+| `kup-photoframe-placeholderloaded` | Triggered when the placeholder is loaded. | `CustomEvent<KupEventPayload>` |
+| `kup-photoframe-resourceloaded`    | Triggered when the resource is loaded.    | `CustomEvent<KupEventPayload>` |
 
 
 ## Methods

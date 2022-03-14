@@ -2,20 +2,10 @@
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
 
-:host(.#{$kup-class-horizontal}) {
-  img {
-    height: 100%;
-  }
-}
-
-:host(.#{$kup-class-vertical}) {
-  img {
-    width: 100%;
-  }
-}
-
 :host(.#{$kup-class-fit}) {
   img {
+    height: 100%;
     object-fit: cover;
+    width: 100%;
   }
 }

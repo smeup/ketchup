@@ -4873,9 +4873,13 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Triggered when the component is loaded.
+          * Triggered when the placeholder is loaded.
          */
-        "onKup-photoframe-loaded"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-photoframe-placeholderloaded"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when the resource is loaded.
+         */
+        "onKup-photoframe-resourceloaded"?: (event: CustomEvent<KupEventPayload>) => void;
         /**
           * Html attributes of the picture before the component enters the viewport.
           * @default {}

@@ -70,22 +70,33 @@ export class KupPhotoFrame {
     #intObserver: IntersectionObserver = null;
     #kupManager = kupManagerInstance();
     #placeholderEl: HTMLImageElement = null;
-    #resourceLoaded = false;
+    #renderResource = false;
+    #wrapperEl: HTMLElement = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
     /**
-     * Triggered when the component is loaded.
+     * Triggered when the placeholder is loaded.
      */
     @Event({
-        eventName: 'kup-photoframe-loaded',
+        eventName: 'kup-photoframe-placeholderload',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupPhotoFrameLoaded: EventEmitter<KupEventPayload>;
+    kupPhotoFramePlaceholderLoad: EventEmitter<KupEventPayload>;
+    /**
+     * Triggered when the resource is loaded.
+     */
+    @Event({
+        eventName: 'kup-photoframe-resourceload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupPhotoFrameResourceLoad: EventEmitter<KupEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -125,6 +136,7 @@ export class KupPhotoFrame {
             entries: IntersectionObserverEntry[]
         ) => {
             entries.forEach((entry) => {
+                console.log(entry.intersectionRatio);
                 if (entry.isIntersecting) {
                     this.isInViewport = true;
                     this.#intObserver.unobserve(this.rootElement);
@@ -148,7 +160,6 @@ export class KupPhotoFrame {
     }
 
     componentDidLoad() {
-        this.#intObserver.observe(this.rootElement);
         this.#kupManager.debug.logLoad(this, true);
     }
 
@@ -157,19 +168,12 @@ export class KupPhotoFrame {
     }
 
     componentDidRender() {
-        if (this.#resourceLoaded) {
-            this.kupPhotoFrameLoaded.emit({
-                comp: this,
-                id: this.rootElement.id,
-            });
-            this.#placeholderEl.classList.add('placeholder--fade-out');
-        }
         this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
-        if (this.isInViewport && !this.#resourceLoaded) {
-            this.#resourceLoaded = true;
+        if (this.isInViewport && !this.#renderResource) {
+            this.#renderResource = true;
         }
         return (
             <Host>
@@ -178,7 +182,12 @@ export class KupPhotoFrame {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
+                <div
+                    id={componentWrapperId}
+                    ref={(el) => {
+                        this.#wrapperEl = el;
+                    }}
+                >
                     <img
                         {...this.placeholderAttrs}
                         class="placeholder"
@@ -188,16 +197,34 @@ export class KupPhotoFrame {
                                 this.#placeholderEl.naturalWidth >
                                 this.#placeholderEl.naturalHeight
                             ) {
-                                this.rootElement.classList.add(
-                                    'kup-horizontal'
-                                );
+                                this.#wrapperEl.classList.add('horizontal');
                             } else {
-                                this.rootElement.classList.add('kup-vertical');
+                                this.#wrapperEl.classList.add('vertical');
                             }
+                            this.#intObserver.observe(this.rootElement);
+                            this.#placeholderEl.classList.add(
+                                'placeholder--loaded'
+                            );
+                            this.kupPhotoFramePlaceholderLoad.emit({
+                                comp: this,
+                                id: this.rootElement.id,
+                            });
                         }}
                     ></img>
-                    {this.#resourceLoaded ? (
-                        <img {...this.resourceAttrs} class="resource"></img>
+                    {this.#renderResource ? (
+                        <img
+                            {...this.resourceAttrs}
+                            class="resource"
+                            onLoad={() => {
+                                this.#placeholderEl.classList.add(
+                                    'placeholder--fade-out'
+                                );
+                                this.kupPhotoFrameResourceLoad.emit({
+                                    comp: this,
+                                    id: this.rootElement.id,
+                                });
+                            }}
+                        ></img>
                     ) : null}
                 </div>
             </Host>
