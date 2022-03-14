@@ -136,7 +136,6 @@ export class KupPhotoFrame {
             entries: IntersectionObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                console.log(entry.intersectionRatio);
                 if (entry.isIntersecting) {
                     this.isInViewport = true;
                     this.#intObserver.unobserve(this.rootElement);
