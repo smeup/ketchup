@@ -104,7 +104,8 @@ Type: `Promise<void>`
 | `--kup-list-font-weight`        | Sets font weight of the component.                                                |
 | `--kup-list-group-item-height`  | Sets height of each list item when the list contains radio buttons or checkboxes. |
 | `--kup-list-item-height`        | Sets height of each list item.                                                    |
-| `--kup-list-item-padding`       | Sets padding of each list item.                                                   |
+| `--kup-list-item-padding-left`  | Sets left padding of each list item.                                              |
+| `--kup-list-item-padding-right` | Sets right padding of each list item.                                             |
 | `--kup-list-max-height-as-menu` | Sets max height when list is menu.                                                |
 | `--kup-list-primary-color`      | Sets the primary color of the component.                                          |
 | `--kup-list-primary-color-rgb`  | Sets the RGB values of the primary color of the component (used for shaders).     |
@@ -121,20 +122,21 @@ Type: `Promise<void>`
  - [kup-combobox](../kup-combobox)
  - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
+ - [kup-list](.)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
 ### Depends on
 
+- [kup-list](.)
 - [kup-radio](../kup-radio)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-list --> kup-radio
-  kup-list --> kup-badge
+  kup-list --> kup-list
   kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-card --> kup-list

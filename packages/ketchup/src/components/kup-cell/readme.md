@@ -116,6 +116,7 @@ graph TD;
   kup-cell --> kup-radio
   kup-cell --> kup-badge
   kup-autocomplete --> kup-list
+  kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-badge --> kup-badge
