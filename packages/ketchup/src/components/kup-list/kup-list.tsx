@@ -347,12 +347,30 @@ export class KupList {
         }
     }
 
+    #isNested() {
+        return this.rootElement.hasAttribute('nested-list');
+    }
+
     #renderListItem(item: KupListNode, index: number) {
         if (item.selected != true) {
             item.selected = false;
         }
         if (!item.id) {
             item.id = item.value;
+        }
+
+        let nestedList: VNode = null;
+        if (item.children && item.children.length > 0) {
+            this.rootElement.setAttribute('nested-list', '');
+            nestedList = (
+                <kup-list
+                    class="kup-paddingless"
+                    data={item.children}
+                    isMenu={true}
+                    menuVisible={true}
+                    nested-list
+                ></kup-list>
+            );
         }
 
         let imageTag: HTMLElement = undefined;
@@ -380,7 +398,11 @@ export class KupList {
         }
         let classAttr = 'list-item';
         let tabIndexAttr = item.selected == true ? '0' : '-1';
-        if (item.selected == true && this.#isListBoxRule()) {
+        if (
+            !this.#isNested() &&
+            item.selected == true &&
+            this.#isListBoxRule()
+        ) {
             classAttr += ' list-item--selected';
         }
         if (this.focused === index) {
@@ -483,10 +505,26 @@ export class KupList {
                 onClick={
                     !this.selectable
                         ? (e: MouseEvent) => e.stopPropagation()
+                        : this.#isNested()
+                        ? (e: MouseEvent) => {
+                              e.stopPropagation();
+                              this.onKupClick(index);
+                          }
                         : () => this.onKupClick(index)
                 }
             >
                 {innerSpanTag}
+                {nestedList
+                    ? [
+                          <FImage
+                              resource="chevron-right"
+                              sizeX="1.5em"
+                              sizeY="1.5em"
+                              wrapperClass="list-item__expand-icon"
+                          ></FImage>,
+                          nestedList,
+                      ]
+                    : null}
             </li>
         );
         return vNodes;
