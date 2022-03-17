@@ -1,0 +1,70 @@
+/**
+* @prop --kup-photoframe-border: Sets the border of the component.
+* @prop --kup-photoframe-fade-out-time: Sets the time of the plcaeholder's fade out transition.
+*/
+
+:host {
+  --kup_photoframe_border: var(
+    --kup-photoframe-border,
+    1px inset var(--kup-border-color)
+  );
+  --kup_photoframe_fade_out_time: var(--kup-photoframe-fade-out-time, 2000ms);
+
+  border: var(--kup_photoframe_border);
+  display: block;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+#kup-component {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.horizontal {
+  img {
+    width: 100%;
+  }
+}
+
+.vertical {
+  img {
+    height: 100%;
+  }
+}
+
+.placeholder {
+  display: none;
+  transition: opacity var(--kup_photoframe_fade_out_time) ease-out;
+  will-change: opacity;
+  z-index: 1;
+
+  &--loaded {
+    display: block;
+  }
+
+  &--fade-out {
+    opacity: 0;
+    position: absolute;
+  }
+}
+
+.resource {
+  display: none;
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+
+  &--fade-in {
+    display: block;
+    position: relative;
+  }
+}
