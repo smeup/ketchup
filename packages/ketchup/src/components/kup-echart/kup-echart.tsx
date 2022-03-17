@@ -965,13 +965,16 @@ export class KupEchart {
         this.#themeText =
             this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
         this.#computedColors = colorArray;
-        const colorCheck = this.#kupManager.theme.colorCheck(colorArray[0]);
-        this.#firstColorDarker = `hsl(${colorCheck.hue}, ${
-            colorCheck.saturation
-        },  ${(parseFloat(colorCheck.lightness) - 30).toString()}%)`;
-        this.#firstColorBrighter = `hsl(${colorCheck.hue}, ${
-            colorCheck.saturation
-        }, ${(parseFloat(colorCheck.lightness) + 30).toString()}%)`;
+        const colorCheckDark = this.#kupManager.theme.colorCheck(colorArray[0]);
+        const colorCheckBright = this.#kupManager.theme.colorCheck(
+            this.colors && this.colors[1] ? this.colors[1] : colorArray[0]
+        );
+        this.#firstColorDarker = `hsl(${colorCheckDark.hue}, ${
+            colorCheckDark.saturation
+        },  ${(parseFloat(colorCheckDark.lightness) - 30).toString()}%)`;
+        this.#firstColorBrighter = `hsl(${colorCheckBright.hue}, ${
+            colorCheckBright.saturation
+        }, ${(parseFloat(colorCheckBright.lightness) + 30).toString()}%)`;
     }
 
     #checks() {
