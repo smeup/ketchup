@@ -1486,6 +1486,11 @@ export namespace Components {
          */
         "chartTitle": KupEchartTitle;
         /**
+          * Overrides theme's colors.
+          * @default []
+         */
+        "colors": string[];
+        /**
           * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.
           * @default false
          */
@@ -4457,6 +4462,11 @@ declare namespace LocalJSX {
           * @default null
          */
         "chartTitle"?: KupEchartTitle;
+        /**
+          * Overrides theme's colors.
+          * @default []
+         */
+        "colors"?: string[];
         /**
           * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.
           * @default false

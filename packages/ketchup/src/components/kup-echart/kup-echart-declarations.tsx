@@ -11,6 +11,7 @@ import { KupEventPayload } from '../../types/GenericTypes';
 export enum KupEchartProps {
     axis = 'Sets the axis of the chart.',
     chartTitle = 'Title of the graph.',
+    colors = "Overrides theme's colors.",
     consistencyCheck = 'When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.',
     customStyle = 'Custom style of the component.',
     data = 'The actual data of the chart.',
