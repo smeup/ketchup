@@ -95,7 +95,7 @@ Distributed under the Apache 2.0 License. [Click here for more information](http
 
 ## Credits
 
-List of open source library/resources we used and which we'd like to thank:
+List of open source libraries/resources we used and which we'd like to thank:
 
 -   [Day.js](https://day.js.org/)
 -   [d3-shape](https://www.npmjs.com/package/d3-shape)
