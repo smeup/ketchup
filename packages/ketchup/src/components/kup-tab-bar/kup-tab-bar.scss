@@ -27,7 +27,6 @@
   --kup_tabbar_tab_padding: var(--kup-tabbar-tab-padding, 0 24px);
 
   display: block;
-  font-family: var(--kup_tabbar_font_family);
   font-size: var(--kup_tabbar_font_size);
 }
 
@@ -71,6 +70,7 @@
       appearance: none;
       z-index: 1;
       height: var(--kup_tabbar_height);
+      font-family: var(--kup_tabbar_font_family);
       font-size: 0.875em;
       font-weight: var(--kup_tabbar_font_weight);
       letter-spacing: 0.0892857143em;

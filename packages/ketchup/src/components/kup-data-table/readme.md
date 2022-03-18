@@ -323,6 +323,7 @@ graph TD;
   kup-badge --> kup-badge
   kup-button --> kup-badge
   kup-chip --> kup-badge
+  kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-combobox --> kup-list

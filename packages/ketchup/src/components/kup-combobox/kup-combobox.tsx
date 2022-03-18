@@ -413,11 +413,11 @@ export class KupCombobox {
 
     #consistencyCheck(
         e: CustomEvent,
-        valueIn: string,
+        idIn: string,
         setValue: boolean
     ): ValueDisplayedValue {
         let ret = consistencyCheck(
-            valueIn,
+            idIn,
             this.data['kup-list'],
             this.#listEl,
             this.selectMode,
@@ -432,10 +432,10 @@ export class KupCombobox {
                 this.#listEl.filter = this.displayedValue;
             }
         } else {
-            this.value = valueIn;
-            this.displayedValue = valueIn;
+            this.value = idIn;
+            this.displayedValue = idIn;
             if (this.#listEl != null) {
-                this.#listEl.filter = valueIn;
+                this.#listEl.filter = idIn;
             }
         }
 

@@ -1,28 +1,28 @@
 import {
     ItemsDisplayMode,
-    KupListData,
+    KupListNode,
     ValueDisplayedValue,
 } from './kup-list-declarations';
 
-export function getValueOfItemByDisplayMode(
-    item: KupListData,
+export function getIdOfItemByDisplayMode(
+    item: KupListNode,
     mode: ItemsDisplayMode,
     separator: string
 ): string {
     if (mode == ItemsDisplayMode.CODE) {
-        return item.value;
+        return item.id;
     }
     if (mode == ItemsDisplayMode.DESCRIPTION) {
-        return item.text;
+        return item.value;
     }
     if (mode == ItemsDisplayMode.DESCRIPTION_AND_CODE) {
-        return item.value + separator + item.text;
+        return item.id + separator + item.value;
     }
-    return item.value;
+    return item.id;
 }
 
 export function consistencyCheck(
-    valueIn: string,
+    idIn: string,
     listData: Object,
     listEl: any,
     selectMode: ItemsDisplayMode,
@@ -30,46 +30,44 @@ export function consistencyCheck(
     e?: CustomEvent
 ): ValueDisplayedValue {
     const validList = !!(listEl && listData && listData['data']);
-    let value: string = '';
+    let id: string = '';
     let displayedValue: string = '';
-    let selected: KupListData = null;
+    let selected: KupListNode = null;
     if (e != null) {
         selected = e.detail.selected;
     }
-    if (selected == null && valueIn != null && validList) {
-        selected = getItemByDisplayMode(listData, valueIn, displayMode, true);
+    if (selected == null && idIn != null && validList) {
+        selected = getItemByDisplayMode(listData, idIn, displayMode, true);
         listEl.data = [...listData['data']];
     }
-    if (selected == null && valueIn == null && listData) {
+    if (selected == null && idIn == null && listData) {
         selected = getFirstItemSelected(listData);
     }
     if (selected == null) {
         selected = {
-            text: valueIn == null ? '' : valueIn,
-            value: valueIn == null ? '' : valueIn,
+            id: idIn == null ? '' : idIn,
+            value: idIn == null ? '' : idIn,
         };
     }
-    value = getValueOfItemByDisplayMode(selected, selectMode, ' - ');
-    displayedValue = getValueOfItemByDisplayMode(selected, displayMode, ' - ');
-    const trueValue = getValueOfItemByDisplayMode(
+    id = getIdOfItemByDisplayMode(selected, selectMode, ' - ');
+    displayedValue = getIdOfItemByDisplayMode(selected, displayMode, ' - ');
+    const trueValue = getIdOfItemByDisplayMode(
         selected,
         ItemsDisplayMode.CODE,
         ' - '
     );
     return {
-        value: value,
+        value: id,
         displayedValue: displayedValue,
         exists:
             validList &&
-            (listData['data'] as KupListData[]).find(
-                (x) => x.value === trueValue
-            )
+            (listData['data'] as KupListNode[]).find((x) => x.id === trueValue)
                 ? true
                 : false,
     };
 }
 
-export function getFirstItemSelected(listData: Object): KupListData {
+export function getFirstItemSelected(listData: Object): KupListNode {
     if (listData['data']) {
         for (let i = 0; i < listData['data'].length; i++) {
             if (listData['data'][i].selected) {
@@ -80,22 +78,22 @@ export function getFirstItemSelected(listData: Object): KupListData {
     return null;
 }
 
-export function getItemByValue(
+export function getItemById(
     listData: Object,
-    value: string,
+    id: string,
     setSelected: boolean
-): KupListData {
+): KupListNode {
     if (listData && listData['data']) {
         let found: boolean = false;
-        let item: KupListData = null;
+        let item: KupListNode = null;
         for (let i = 0; i < listData['data'].length; i++) {
             if (setSelected == true) {
                 listData['data'][i].selected = false;
             }
             if (
                 !found &&
-                listData['data'][i].value.toString().toLowerCase() ==
-                    value.toString().toLowerCase()
+                listData['data'][i].id.toString().toLowerCase() ==
+                    id.toString().toLowerCase()
             ) {
                 item = listData['data'][i];
                 item.selected = true;
@@ -107,8 +105,8 @@ export function getItemByValue(
         }
         for (let i = 0; i < listData['data'].length; i++) {
             if (
-                listData['data'][i].text.toString().toLowerCase() ==
-                value.toString().toLowerCase()
+                listData['data'][i].value.toString().toLowerCase() ==
+                id.toString().toLowerCase()
             ) {
                 item = listData['data'][i];
                 item.selected = true;
@@ -125,15 +123,15 @@ export function getItemByValue(
 
 export function getItemByDisplayMode(
     listData: Object,
-    value: string,
+    id: string,
     displayMode: ItemsDisplayMode,
     setSelected: boolean
-): KupListData {
+): KupListNode {
     if (listData && listData['data']) {
         let found: boolean = false;
-        let item: KupListData = null;
+        let item: KupListNode = null;
         for (let i = 0; i < listData['data'].length; i++) {
-            let displayedValue = getValueOfItemByDisplayMode(
+            let displayedValue = getIdOfItemByDisplayMode(
                 listData['data'][i],
                 displayMode,
                 ' - '
@@ -144,7 +142,7 @@ export function getItemByDisplayMode(
             if (
                 !found &&
                 displayedValue.toString().toLowerCase() ==
-                    value.toString().toLowerCase()
+                    id.toString().toLowerCase()
             ) {
                 item = listData['data'][i];
                 item.selected = true;
@@ -155,5 +153,5 @@ export function getItemByDisplayMode(
             return item;
         }
     }
-    return getItemByValue(listData, value, setSelected);
+    return getItemById(listData, id, setSelected);
 }

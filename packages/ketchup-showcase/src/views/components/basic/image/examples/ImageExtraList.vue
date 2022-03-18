@@ -1123,6 +1123,14 @@
             ></kup-image>
             <div class="icon-label">ketchup</div>
           </div>
+          <div class="icon-wrapper" title="instagram">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="instagram"
+            ></kup-image>
+            <div class="icon-label">Instagram</div>
+          </div>
           <div class="icon-wrapper" title="key">
             <kup-image size-x="48px" size-y="48px" resource="key"></kup-image>
             <div class="icon-label">key</div>
@@ -1351,6 +1359,14 @@
             ></kup-image>
             <div class="icon-label">periodic-table-co2</div>
           </div>
+          <div class="icon-wrapper" title="pinterest">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="pinterest"
+            ></kup-image>
+            <div class="icon-label">pinterest</div>
+          </div>
           <div class="icon-wrapper" title="play">
             <kup-image size-x="48px" size-y="48px" resource="play"></kup-image>
             <div class="icon-label">play</div>
@@ -1426,6 +1442,14 @@
               resource="rename-box"
             ></kup-image>
             <div class="icon-label">rename-box</div>
+          </div>
+          <div class="icon-wrapper" title="reddit">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="reddit"
+            ></kup-image>
+            <div class="icon-label">Reddit</div>
           </div>
           <div class="icon-wrapper" title="reorder-horizontal">
             <kup-image

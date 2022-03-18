@@ -83,6 +83,7 @@ export interface KupDataNode extends KupDataRow {
     value: string;
     children?: KupDataNode[];
     disabled?: boolean;
+    expandable?: boolean;
     obj?: KupObj;
     icon?: string;
     isExpanded?: boolean;

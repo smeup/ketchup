@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { KupAccordionData, KupAccordionItemSelectedEventPayload } from "./components/kup-accordion/kup-accordion-declarations";
 import { GenericObject, KupEventPayload } from "./types/GenericTypes";
-import { ItemsDisplayMode, KupListData, KupListEventPayload, KupListRole } from "./components/kup-list/kup-list-declarations";
+import { ItemsDisplayMode, KupListEventPayload, KupListNode, KupListRole } from "./components/kup-list/kup-list-declarations";
 import { KupAutocompleteEventPayload, KupAutocompleteIconClickEventPayload } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { KupBoxAutoSelectEventPayload, KupBoxClickEventPayload, KupBoxContextMenuEventPayload, KupBoxData, KupBoxKanban, KupBoxLayout, KupBoxRow, KupBoxRowActionClickEventPayload, KupBoxSelectedEventPayload } from "./components/kup-box/kup-box-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
@@ -1486,6 +1486,11 @@ export namespace Components {
          */
         "chartTitle": KupEchartTitle;
         /**
+          * Overrides theme's colors.
+          * @default []
+         */
+        "colors": string[];
+        /**
           * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.
           * @default false
          */
@@ -1903,7 +1908,7 @@ export namespace Components {
           * The data of the list.
           * @default []
          */
-        "data": KupListData[];
+        "data": KupListNode[];
         /**
           * Selects how the items must display their label and how they can be filtered for.
           * @default ItemsDisplayMode.DESCRIPTION
@@ -2042,6 +2047,44 @@ export namespace Components {
           * @default KupNavBarStyling.STANDARD
          */
         "styling": KupNavBarStyling;
+    }
+    interface KupPhotoFrame {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Html attributes of the picture before the component enters the viewport.
+          * @default {}
+         */
+        "placeholderAttrs": GenericObject;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Html attributes of the picture after the component enters the viewport.
+          * @default {}
+         */
+        "resourceAttrs": GenericObject;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+        /**
+          * Percentage of the component dimensions entering the viewport (0.1 => 1).
+          * @default 0.25
+         */
+        "threshold": number;
     }
     interface KupProbe {
         /**
@@ -3060,6 +3103,12 @@ declare global {
         prototype: HTMLKupNavBarElement;
         new (): HTMLKupNavBarElement;
     };
+    interface HTMLKupPhotoFrameElement extends Components.KupPhotoFrame, HTMLStencilElement {
+    }
+    var HTMLKupPhotoFrameElement: {
+        prototype: HTMLKupPhotoFrameElement;
+        new (): HTMLKupPhotoFrameElement;
+    };
     interface HTMLKupProbeElement extends Components.KupProbe, HTMLStencilElement {
     }
     var HTMLKupProbeElement: {
@@ -3169,6 +3218,7 @@ declare global {
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
+        "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-probe": HTMLKupProbeElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
@@ -4413,6 +4463,11 @@ declare namespace LocalJSX {
          */
         "chartTitle"?: KupEchartTitle;
         /**
+          * Overrides theme's colors.
+          * @default []
+         */
+        "colors"?: string[];
+        /**
           * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.
           * @default false
          */
@@ -4731,7 +4786,7 @@ declare namespace LocalJSX {
           * The data of the list.
           * @default []
          */
-        "data"?: KupListData[];
+        "data"?: KupListNode[];
         /**
           * Selects how the items must display their label and how they can be filtered for.
           * @default ItemsDisplayMode.DESCRIPTION
@@ -4819,6 +4874,37 @@ declare namespace LocalJSX {
           * @default KupNavBarStyling.STANDARD
          */
         "styling"?: KupNavBarStyling;
+    }
+    interface KupPhotoFrame {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Triggered when the placeholder is loaded.
+         */
+        "onKup-photoframe-placeholderload"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Triggered when the resource is loaded.
+         */
+        "onKup-photoframe-resourceload"?: (event: CustomEvent<KupEventPayload>) => void;
+        /**
+          * Html attributes of the picture before the component enters the viewport.
+          * @default {}
+         */
+        "placeholderAttrs"?: GenericObject;
+        /**
+          * Html attributes of the picture after the component enters the viewport.
+          * @default {}
+         */
+        "resourceAttrs"?: GenericObject;
+        /**
+          * Percentage of the component dimensions entering the viewport (0.1 => 1).
+          * @default 0.25
+         */
+        "threshold"?: number;
     }
     interface KupProbe {
         /**
@@ -5591,6 +5677,7 @@ declare namespace LocalJSX {
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
+        "kup-photo-frame": KupPhotoFrame;
         "kup-probe": KupProbe;
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
@@ -5640,6 +5727,7 @@ declare module "@stencil/core" {
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
+            "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;

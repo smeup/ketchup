@@ -4,7 +4,7 @@ import {
     KupCardEventPayload,
     KupCardFamily,
 } from '../../components/kup-card/kup-card-declarations';
-import { KupListData } from '../../components/kup-list/kup-list-declarations';
+import { KupListNode } from '../../components/kup-list/kup-list-declarations';
 import { KupLanguageDebug } from '../kup-language/kup-language-declarations';
 import {
     KupDebugCategory,
@@ -70,35 +70,35 @@ export class KupDebug {
         const debugWidget: HTMLKupCardElement =
             document.createElement('kup-card');
         const languages: string[] = dom.ketchup.language.getLanguages();
-        const languagesListData: KupListData[] = [];
+        const languagesListData: KupListNode[] = [];
         for (let index = 0; index < languages.length; index++) {
             languagesListData.push({
-                text: languages[index],
-                value: languages[index],
+                id: languages[index],
                 selected:
                     languages[index] === dom.ketchup.language.name
                         ? true
                         : false,
+                value: languages[index],
             });
         }
         const themes: string[] = dom.ketchup.theme.getThemes();
-        const themesListData: KupListData[] = [];
+        const themesListData: KupListNode[] = [];
         for (let index = 0; index < themes.length; index++) {
             themesListData.push({
-                text: themes[index],
-                value: themes[index],
+                id: themes[index],
                 selected:
                     themes[index] === dom.ketchup.theme.name ? true : false,
+                value: themes[index],
             });
         }
         const locales: string[] = dom.ketchup.dates.getLocales();
-        const localesListData: KupListData[] = [];
+        const localesListData: KupListNode[] = [];
         for (let index = 0; index < locales.length; index++) {
             localesListData.push({
-                text: locales[index],
-                value: locales[index],
+                id: locales[index],
                 selected:
                     locales[index] === dom.ketchup.dates.locale ? true : false,
+                value: locales[index],
             });
         }
         debugWidget.data = {

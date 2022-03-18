@@ -13,14 +13,14 @@ import {
     VNode,
 } from '@stencil/core';
 import {
-    KupListData,
+    KupListNode,
     KupListEventPayload,
     KupListProps,
     KupListRole,
 } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { ItemsDisplayMode } from './kup-list-declarations';
-import { getValueOfItemByDisplayMode } from './kup-list-helper';
+import { getIdOfItemByDisplayMode } from './kup-list-helper';
 import {
     KupManager,
     kupManagerInstance,
@@ -75,7 +75,7 @@ export class KupList {
      * The data of the list.
      * @default []
      */
-    @Prop({ mutable: true }) data: KupListData[] = [];
+    @Prop({ mutable: true }) data: KupListNode[] = [];
     /**
      * Selects how the items must display their label and how they can be filtered for.
      * @default ItemsDisplayMode.DESCRIPTION
@@ -231,8 +231,8 @@ export class KupList {
             this.focused === undefined
         ) {
             if (this.selected.length === 1) {
-                const selectedItem: KupListData = this.data.find(
-                    (x: KupListData) => x.value === this.selected[0]
+                const selectedItem: KupListNode = this.data.find(
+                    (x: KupListNode) => x.id === this.selected[0]
                 );
                 this.focused = this.data.indexOf(selectedItem) + 1;
             } else {
@@ -257,8 +257,8 @@ export class KupList {
             this.focused === undefined
         ) {
             if (this.selected.length === 1) {
-                const selectedItem: KupListData = this.data.find(
-                    (x: KupListData) => x.value === this.selected[0]
+                const selectedItem: KupListNode = this.data.find(
+                    (x: KupListNode) => x.id === this.selected[0]
                 );
                 this.focused = this.data.indexOf(selectedItem) - 1;
             } else {
@@ -312,26 +312,6 @@ export class KupList {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
-    #setUnselected(item: KupListData, index: number) {
-        item.selected = false;
-        this.#sendInfoToSubComponent(index, item);
-    }
-
-    #sendInfoToSubComponent(index: number, item: KupListData) {
-        if (this.#isRadioButtonRule()) {
-            if (this.#radios[index]) {
-                let dataTmp = [
-                    {
-                        value: item.value,
-                        label: '',
-                        checked: item.selected == true ? true : false,
-                    },
-                ];
-                this.#radios[index].data = dataTmp;
-            }
-        }
-    }
-
     /**
      * Selects the specified item.
      * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
@@ -340,26 +320,24 @@ export class KupList {
         if (index !== null && index !== undefined && !isNaN(index)) {
             const listItems: NodeListOf<HTMLElement> =
                 this.rootElement.shadowRoot.querySelectorAll('.list-item');
-            const value: string = listItems[index].dataset.value;
-            const dataEl = this.data.find(
-                (x: KupListData) => x.value === value
-            );
+            const id: string = listItems[index].dataset.id;
+            const dataEl = this.data.find((x: KupListNode) => x.id === id);
             switch (this.roleType) {
                 case KupListRole.GROUP:
-                    if (this.selected.includes(value)) {
-                        this.selected.splice(this.selected.indexOf(value), 1);
+                    if (this.selected.includes(id)) {
+                        this.selected.splice(this.selected.indexOf(id), 1);
                     } else {
-                        this.selected.push(value);
+                        this.selected.push(id);
                     }
                     this.selected = new Array(...this.selected);
                     break;
                 default:
-                    this.selected = new Array(value);
+                    this.selected = new Array(id);
                     break;
             }
             for (let index = 0; index < this.data.length; index++) {
                 const item = this.data[index];
-                item.selected = this.selected.includes(item.value);
+                item.selected = this.selected.includes(item.id);
             }
             this.kupClick.emit({
                 comp: this,
@@ -369,9 +347,30 @@ export class KupList {
         }
     }
 
-    #renderListItem(item: KupListData, index: number) {
+    #isNested() {
+        return this.rootElement.hasAttribute('nested-list');
+    }
+
+    #renderListItem(item: KupListNode, index: number) {
         if (item.selected != true) {
             item.selected = false;
+        }
+        if (!item.id) {
+            item.id = item.value;
+        }
+
+        let nestedList: VNode = null;
+        if (item.children && item.children.length > 0) {
+            this.rootElement.setAttribute('nested-list', '');
+            nestedList = (
+                <kup-list
+                    class="kup-paddingless"
+                    data={item.children}
+                    isMenu={true}
+                    menuVisible={true}
+                    nested-list
+                ></kup-list>
+            );
         }
 
         let imageTag: HTMLElement = undefined;
@@ -383,13 +382,13 @@ export class KupList {
             imageTag = this.#getIconTag(item.icon);
         }
         let primaryTextTag = [
-            getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
+            getIdOfItemByDisplayMode(item, this.displayMode, ' - '),
         ];
 
         let secTextTag = [];
         if (this.twoLine && item.secondaryText && item.secondaryText != '') {
             primaryTextTag = [
-                <span class="list-item__primary-text">{item.text}</span>,
+                <span class="list-item__primary-text">{item.value}</span>,
             ];
             secTextTag = [
                 <span class="list-item__secondary-text">
@@ -399,7 +398,11 @@ export class KupList {
         }
         let classAttr = 'list-item';
         let tabIndexAttr = item.selected == true ? '0' : '-1';
-        if (item.selected == true && this.#isListBoxRule()) {
+        if (
+            !this.#isNested() &&
+            item.selected == true &&
+            this.#isListBoxRule()
+        ) {
             classAttr += ' list-item--selected';
         }
         if (this.focused === index) {
@@ -424,7 +427,7 @@ export class KupList {
             ariaCheckedAttr = item.selected == true ? 'true' : 'false';
             let dataTmp = [
                 {
-                    value: item.value,
+                    value: item.id,
                     label: '',
                     checked: item.selected == true ? true : false,
                 },
@@ -486,7 +489,7 @@ export class KupList {
                 class={classAttr}
                 role={roleAttr}
                 tabindex={tabIndexAttr}
-                data-value={item.value}
+                data-id={item.id}
                 aria-selected={ariaSelectedAttr}
                 aria-checked={ariaCheckedAttr}
                 onBlur={
@@ -502,10 +505,26 @@ export class KupList {
                 onClick={
                     !this.selectable
                         ? (e: MouseEvent) => e.stopPropagation()
+                        : this.#isNested()
+                        ? (e: MouseEvent) => {
+                              e.stopPropagation();
+                              this.onKupClick(index);
+                          }
                         : () => this.onKupClick(index)
                 }
             >
                 {innerSpanTag}
+                {nestedList
+                    ? [
+                          <FImage
+                              resource="chevron-right"
+                              sizeX="1.5em"
+                              sizeY="1.5em"
+                              wrapperClass="list-item__expand-icon"
+                          ></FImage>,
+                          nestedList,
+                      ]
+                    : null}
             </li>
         );
         return vNodes;
@@ -550,25 +569,25 @@ export class KupList {
         }
     }
 
-    #itemCompliant(item: KupListData): boolean {
+    #itemCompliant(item: KupListNode): boolean {
         if (!this.filter) {
             return true;
         }
 
         if (this.displayMode == ItemsDisplayMode.CODE) {
             return (
-                item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+                item.id.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
             );
         }
         if (this.displayMode == ItemsDisplayMode.DESCRIPTION) {
             return (
-                item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+                item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
             );
         }
 
         return (
-            item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
-            item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+            item.id.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
+            item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
         );
     }
 
@@ -580,9 +599,9 @@ export class KupList {
         this.#kupManager.debug.logLoad(this, false);
         this.#kupManager.theme.register(this);
         for (let index = 0; index < this.data.length; index++) {
-            const el: KupListData = this.data[index];
+            const el: KupListNode = this.data[index];
             if (el.selected) {
-                this.selected.push(el.value);
+                this.selected.push(el.id);
             }
         }
     }

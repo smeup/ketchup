@@ -84,7 +84,7 @@
 
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
-import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
+import { KupListNode } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 import {
   KupDataColumn,
@@ -150,17 +150,17 @@ export default {
       const languages: string[] = dom.ketchup.language.getLanguages();
       const keys = Object.keys(dom.ketchup.language.list['english'].keys);
       const languagesChipData: KupChipNode[] = [];
-      const languagesListData: KupListData[] = [];
+      const languagesListData: KupListNode[] = [];
       for (let index = 0; index < languages.length; index++) {
         languagesChipData.push({
           id: languages[index],
           value: languages[index],
         });
         languagesListData.push({
-          text: languages[index],
-          value: languages[index],
+          id: languages[index],
           selected:
             languages[index] === dom.ketchup.dates.locale ? true : false,
+          value: languages[index],
         });
       }
       combobox.data = {

@@ -66,6 +66,11 @@ export class KupEchart {
      */
     @Prop({ mutable: true }) axis: string = '';
     /**
+     * Overrides theme's colors.
+     * @default []
+     */
+    @Prop() colors: string[] = [];
+    /**
      * When true, performs checks in order to properly initialize props which could be missing (i.e.: axis).
      * For performances purposes, this prop will run only once when the component is initially created.
      * @default false
@@ -141,9 +146,9 @@ export class KupEchart {
     #sortedDataset: KupDataDataset = null;
     #themeBorder: string = null;
     #themeBackground: string = null;
-    #themeColors: string[] = null;
-    #themeColorBrighter: string = null;
-    #themeColorDarker: string = null;
+    #computedColors: string[] = null;
+    #minColorHeatMap: string = null;
+    #maxColorHeatMap: string = null;
     #themeFont: string = null;
     #themeText: string = null;
 
@@ -454,7 +459,7 @@ export class KupEchart {
               } as VisualMapComponentOption)
             : ({
                   inRange: {
-                      color: [this.#themeColorBrighter, this.#themeColorDarker],
+                      color: [this.#minColorHeatMap, this.#maxColorHeatMap],
                   },
                   min: min,
                   max: max,
@@ -617,7 +622,7 @@ export class KupEchart {
                     roam: true,
                     select: {
                         itemStyle: {
-                            areaColor: this.#themeColors[0],
+                            areaColor: this.#computedColors[0],
                         },
                         label: {
                             color: this.#themeText,
@@ -648,7 +653,7 @@ export class KupEchart {
             });
         }
         return {
-            color: this.#themeColors,
+            color: this.#computedColors,
             legend: this.#setLegend(y),
             title: this.#setTitle(),
             tooltip: {
@@ -843,7 +848,7 @@ export class KupEchart {
             yAxisTmp.splice(0, 1);
         }
         return {
-            color: this.#themeColors,
+            color: this.#computedColors,
             legend: this.#setLegend(y),
             series: series,
             title: this.#setTitle(),
@@ -920,7 +925,7 @@ export class KupEchart {
             i++;
         }
         return {
-            color: this.#themeColors,
+            color: this.#computedColors,
             legend: this.#setLegend(y),
             series: series,
             title: this.#setTitle(),
@@ -942,8 +947,8 @@ export class KupEchart {
         } as echarts.EChartsOption;
     }
 
-    #fetchThemeColors() {
-        let colorArray: string[] = [];
+    #fetchcomputedColors() {
+        let colorArray: string[] = this.colors ? this.colors : [];
         let key: string = '--kup-chart-color-';
         for (
             let index = 1;
@@ -959,14 +964,27 @@ export class KupEchart {
         this.#themeFont = this.#kupManager.theme.cssVars['--kup-font-family'];
         this.#themeText =
             this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
-        this.#themeColors = colorArray;
-        const colorCheck = this.#kupManager.theme.colorCheck(colorArray[0]);
-        this.#themeColorDarker = `hsl(${colorCheck.hue}, ${
-            colorCheck.saturation
-        },  ${(parseFloat(colorCheck.lightness) - 30).toString()}%)`;
-        this.#themeColorBrighter = `hsl(${colorCheck.hue}, ${
-            colorCheck.saturation
-        }, ${(parseFloat(colorCheck.lightness) + 30).toString()}%)`;
+        this.#computedColors = colorArray;
+        if (this.colors && this.colors[0]) {
+            this.#maxColorHeatMap = this.colors[0];
+        } else {
+            const colorCheckDark = this.#kupManager.theme.colorCheck(
+                colorArray[0]
+            );
+            this.#maxColorHeatMap = `hsl(${colorCheckDark.hue}, ${
+                colorCheckDark.saturation
+            },  ${(parseFloat(colorCheckDark.lightness) - 30).toString()}%)`;
+        }
+        if (this.colors && this.colors[1]) {
+            this.#minColorHeatMap = this.colors[1];
+        } else {
+            const colorCheckBright = this.#kupManager.theme.colorCheck(
+                this.colors && this.colors[1] ? this.colors[1] : colorArray[0]
+            );
+            this.#minColorHeatMap = `hsl(${colorCheckBright.hue}, ${
+                colorCheckBright.saturation
+            }, ${(parseFloat(colorCheckBright.lightness) + 30).toString()}%)`;
+        }
     }
 
     #checks() {
@@ -1112,7 +1130,7 @@ export class KupEchart {
 
     componentWillRender() {
         this.#kupManager.debug.logRender(this, false);
-        this.#fetchThemeColors();
+        this.#fetchcomputedColors();
     }
 
     componentDidRender() {

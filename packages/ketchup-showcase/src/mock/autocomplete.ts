@@ -15,8 +15,8 @@ export function AutocompleteItemFactory(
 
   for (let i = 0; i < itemsCount; i++) {
     toRet.push({
-      value: baseCode + i,
-      text: baseDescription + i,
+      id: baseCode + i,
+      value: baseDescription + i,
     });
   }
 

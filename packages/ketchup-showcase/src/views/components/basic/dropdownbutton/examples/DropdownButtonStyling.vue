@@ -107,18 +107,18 @@ export default {
         'kup-list': {
           data: [
             {
-              text: 'Extra action #1',
-              value: '1',
+              value: 'Extra action #1',
+              id: '1',
               icon: 'filter_1',
             },
             {
-              text: 'Extra action #2',
-              value: '2',
+              value: 'Extra action #2',
+              id: '2',
               icon: 'filter_2',
             },
             {
-              text: 'Extra action #3',
-              value: '3',
+              value: 'Extra action #3',
+              id: '3',
               icon: 'filter_3',
             },
           ],

@@ -180,7 +180,7 @@
 
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
-import { KupListData } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
+import { KupListNode } from '@sme.up/ketchup/dist/types/components/kup-list/kup-list-declarations';
 import { KupComboboxEventPayload } from '@sme.up/ketchup/dist/types/components/kup-combobox/kup-combobox-declarations';
 import { KupChipNode } from '@sme.up/ketchup/dist/types/components/kup-chip/kup-chip-declarations';
 
@@ -276,16 +276,16 @@ export default {
       };
       const locales: string[] = dom.ketchup.dates.getLocales();
       const localesChipData: KupChipNode[] = [];
-      const localesListData: KupListData[] = [];
+      const localesListData: KupListNode[] = [];
       for (let index = 0; index < locales.length; index++) {
         localesChipData.push({
           id: locales[index],
           value: locales[index],
         });
         localesListData.push({
-          text: locales[index],
-          value: locales[index],
+          id: locales[index],
           selected: locales[index] === dom.ketchup.dates.locale ? true : false,
+          value: locales[index],
         });
       }
       combobox.data = {

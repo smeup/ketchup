@@ -19,164 +19,164 @@ for (let index = 0; index < cards.length; index++) {
 const components = document.querySelector('#components');
 components.data = [
     {
-        text: 'Accordion',
-        value: 'accordion.html',
+        value: 'Accordion',
+        id: 'accordion.html',
     },
     {
-        text: 'Autocomplete',
-        value: 'autocomplete.html',
+        value: 'Autocomplete',
+        id: 'autocomplete.html',
     },
     {
-        text: 'Box',
-        value: 'box.html',
+        value: 'Box',
+        id: 'box.html',
     },
     {
-        text: 'Button',
-        value: 'button.html',
+        value: 'Button',
+        id: 'button.html',
     },
     {
-        text: 'Button list',
-        value: 'button-list.html',
+        value: 'Button list',
+        id: 'button-list.html',
     },
     {
-        text: 'Calendar',
-        value: 'calendar.html',
+        value: 'Calendar',
+        id: 'calendar.html',
     },
     {
-        text: 'Card',
-        value: 'card.html',
+        value: 'Card',
+        id: 'card.html',
     },
     {
-        text: 'Cell',
-        value: 'cell.html',
+        value: 'Cell',
+        id: 'cell.html',
     },
     {
-        text: 'Chart',
-        value: 'chart.html',
+        value: 'Chart',
+        id: 'chart.html',
     },
     {
-        text: 'Checkbox',
-        value: 'checkbox.html',
+        value: 'Checkbox',
+        id: 'checkbox.html',
     },
     {
-        text: 'Chip',
-        value: 'chip.html',
+        value: 'Chip',
+        id: 'chip.html',
     },
     {
-        text: 'Color picker',
-        value: 'color-picker.html',
+        value: 'Color picker',
+        id: 'color-picker.html',
     },
     {
-        text: 'Combobox',
-        value: 'combobox.html',
+        value: 'Combobox',
+        id: 'combobox.html',
     },
     {
-        text: 'Dash list',
-        value: 'dash-list.html',
+        value: 'Dash list',
+        id: 'dash-list.html',
     },
     {
-        text: 'Data table',
-        value: 'data-table.html',
+        value: 'Data table',
+        id: 'data-table.html',
     },
     {
-        text: 'Date picker',
-        value: 'date-picker.html',
+        value: 'Date picker',
+        id: 'date-picker.html',
     },
     {
-        text: 'Drawer',
-        value: 'drawer.html',
+        value: 'Drawer',
+        id: 'drawer.html',
     },
     {
-        text: 'Dropdown button',
-        value: 'dropdown-button.html',
+        value: 'Dropdown button',
+        id: 'dropdown-button.html',
     },
     {
-        text: 'Echart',
-        value: 'echart.html',
+        value: 'Echart',
+        id: 'echart.html',
     },
     {
-        text: 'Gauge',
-        value: 'gauge.html',
+        value: 'Gauge',
+        id: 'gauge.html',
     },
     {
-        text: 'Image',
-        value: 'image.html',
+        value: 'Image',
+        id: 'image.html',
     },
     {
-        text: 'KupData',
-        value: 'kupdata.html',
+        value: 'KupData',
+        id: 'kupdata.html',
     },
     {
-        text: 'Layout',
-        value: 'layout.html',
+        value: 'Layout',
+        id: 'layout.html',
     },
     {
-        text: 'List',
-        value: 'list.html',
+        value: 'List',
+        id: 'list.html',
     },
     {
-        text: 'Magic box',
-        value: 'magic-box.html',
+        value: 'Magic box',
+        id: 'magic-box.html',
     },
     {
-        text: 'Nav bar',
-        value: 'nav-bar.html',
+        value: 'Nav bar',
+        id: 'nav-bar.html',
     },
     {
-        text: 'Radio',
-        value: 'radio.html',
+        value: 'Radio',
+        id: 'radio.html',
     },
     {
-        text: 'Rating',
-        value: 'rating.html',
+        value: 'Rating',
+        id: 'rating.html',
     },
     {
-        text: 'Snackbar',
-        value: 'snackbar.html',
+        value: 'Snackbar',
+        id: 'snackbar.html',
     },
     {
-        text: 'Switch',
-        value: 'switch.html',
+        value: 'Switch',
+        id: 'switch.html',
     },
     {
-        text: 'Tab bar',
-        value: 'tab-bar.html',
+        value: 'Tab bar',
+        id: 'tab-bar.html',
     },
     {
-        text: 'Time picker',
-        value: 'time-picker.html',
+        value: 'Time picker',
+        id: 'time-picker.html',
     },
     {
-        text: 'Text field',
-        value: 'text-field.html',
+        value: 'Text field',
+        id: 'text-field.html',
     },
     {
-        text: 'Tooltip',
-        value: 'tooltip.html',
+        value: 'Tooltip',
+        id: 'tooltip.html',
     },
     {
-        text: 'Tree',
-        value: 'tree.html',
+        value: 'Tree',
+        id: 'tree.html',
     },
 ];
 // Setting up performance pages
 const performances = document.querySelector('#performances');
 performances.data = [
     {
-        text: 'Box',
-        value: 'box-performance.html',
+        value: 'Box',
+        id: 'box-performance.html',
     },
     {
-        text: 'Card',
-        value: 'card-performance.html',
+        value: 'Card',
+        id: 'card-performance.html',
     },
     {
-        text: 'Data table',
-        value: 'data-table-performance.html',
+        value: 'Data table',
+        id: 'data-table-performance.html',
     },
     {
-        text: 'Tree',
-        value: 'tree-performance.html',
+        value: 'Tree',
+        id: 'tree-performance.html',
     },
 ];
 // Setting up events
@@ -214,7 +214,7 @@ document.addEventListener('kup-button-click', (e) => {
     }
 });
 document.addEventListener('kup-list-click', (e) => {
-    gotoPage(e, e.detail.selected.value);
+    gotoPage(e, e.detail.selected.id);
 });
 
 function isDarkMode() {

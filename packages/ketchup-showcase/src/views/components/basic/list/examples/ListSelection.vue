@@ -66,17 +66,17 @@ export default {
     return {
       dataLIST: [
         {
-          text: 'First item',
-          value: '1',
+          value: 'First item',
+          id: '1',
           selected: true,
         },
         {
-          text: 'Second item',
-          value: '2',
+          value: 'Second item',
+          id: '2',
         },
         {
-          text: 'Third item',
-          value: '3',
+          value: 'Third item',
+          id: '3',
         },
       ],
       markupListbox: '<kup-list role-type="listbox"></kup-list>',
