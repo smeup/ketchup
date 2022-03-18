@@ -147,8 +147,8 @@ export class KupEchart {
     #themeBorder: string = null;
     #themeBackground: string = null;
     #computedColors: string[] = null;
-    #firstColorBrighter: string = null;
-    #firstColorDarker: string = null;
+    #minColorHeatMap: string = null;
+    #maxColorHeatMap: string = null;
     #themeFont: string = null;
     #themeText: string = null;
 
@@ -459,7 +459,7 @@ export class KupEchart {
               } as VisualMapComponentOption)
             : ({
                   inRange: {
-                      color: [this.#firstColorBrighter, this.#firstColorDarker],
+                      color: [this.#minColorHeatMap, this.#maxColorHeatMap],
                   },
                   min: min,
                   max: max,
@@ -965,16 +965,26 @@ export class KupEchart {
         this.#themeText =
             this.#kupManager.theme.cssVars[KupThemeColorValues.TEXT];
         this.#computedColors = colorArray;
-        const colorCheckDark = this.#kupManager.theme.colorCheck(colorArray[0]);
-        const colorCheckBright = this.#kupManager.theme.colorCheck(
-            this.colors && this.colors[1] ? this.colors[1] : colorArray[0]
-        );
-        this.#firstColorDarker = `hsl(${colorCheckDark.hue}, ${
-            colorCheckDark.saturation
-        },  ${(parseFloat(colorCheckDark.lightness) - 30).toString()}%)`;
-        this.#firstColorBrighter = `hsl(${colorCheckBright.hue}, ${
-            colorCheckBright.saturation
-        }, ${(parseFloat(colorCheckBright.lightness) + 30).toString()}%)`;
+        if (this.colors && this.colors[0]) {
+            this.#maxColorHeatMap = this.colors[0];
+        } else {
+            const colorCheckDark = this.#kupManager.theme.colorCheck(
+                colorArray[0]
+            );
+            this.#maxColorHeatMap = `hsl(${colorCheckDark.hue}, ${
+                colorCheckDark.saturation
+            },  ${(parseFloat(colorCheckDark.lightness) - 30).toString()}%)`;
+        }
+        if (this.colors && this.colors[1]) {
+            this.#minColorHeatMap = this.colors[1];
+        } else {
+            const colorCheckBright = this.#kupManager.theme.colorCheck(
+                this.colors && this.colors[1] ? this.colors[1] : colorArray[0]
+            );
+            this.#minColorHeatMap = `hsl(${colorCheckBright.hue}, ${
+                colorCheckBright.saturation
+            }, ${(parseFloat(colorCheckBright.lightness) + 30).toString()}%)`;
+        }
     }
 
     #checks() {
