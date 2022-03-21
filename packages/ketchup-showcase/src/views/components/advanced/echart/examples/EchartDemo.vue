@@ -88,7 +88,7 @@ export default {
         {
           prop: 'legend',
           description:
-            'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types',
+            'Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types',
           type: 'KupEchartLegendPlacement',
           default: 'right',
           try: 'field',

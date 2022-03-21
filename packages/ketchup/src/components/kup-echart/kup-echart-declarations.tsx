@@ -34,6 +34,7 @@ export interface KupEchartTitle {
 export enum KupEchartLegendPlacement {
     BOTTOM = 'bottom',
     LEFT = 'left',
+    HIDDEN = 'hidden',
     RIGHT = 'right',
     TOP = 'top',
 }
