@@ -979,7 +979,7 @@ export class KupEchart {
             this.#minColorHeatMap = this.colors[1];
         } else {
             const colorCheckBright = this.#kupManager.theme.colorCheck(
-                this.colors && this.colors[1] ? this.colors[1] : colorArray[0]
+                colorArray[0]
             );
             this.#minColorHeatMap = `hsl(${colorCheckBright.hue}, ${
                 colorCheckBright.saturation
