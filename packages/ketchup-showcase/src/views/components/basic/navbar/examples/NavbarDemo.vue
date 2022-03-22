@@ -83,7 +83,7 @@ function createComp() {
   comp.id = 'demo-component';
   comp.style.position = 'absolute';
   comp.style.top = '0';
-  comp.style.zIndex = 'calc(var(--kup-navbar-zindex) - 1)';
+  comp.style.zIndex = 'calc(var(--kup-navbar-zindex) + 1)';
   comp.styling = 'standard';
   comp.appendChild(button);
   comp.appendChild(buttonMenu);
