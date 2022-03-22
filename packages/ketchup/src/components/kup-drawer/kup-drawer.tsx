@@ -217,7 +217,13 @@ export class KupDrawer {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div class="backdrop" onPointerDown={() => this.close()} />
+                <div
+                    class="backdrop"
+                    onPointerDown={(e) => {
+                        e.stopPropagation();
+                        this.close();
+                    }}
+                />
                 <div id={componentWrapperId}>
                     <div class={drawerClass}>{this.content()}</div>
                 </div>

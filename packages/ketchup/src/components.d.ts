@@ -1513,7 +1513,7 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types, some combinations might not work.
           * @default KupEchartLegendPlacement.RIGHT
          */
         "legend": KupEchartLegendPlacement;
@@ -4484,7 +4484,7 @@ declare namespace LocalJSX {
          */
         "data"?: KupDataDataset;
         /**
-          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+          * Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types, some combinations might not work.
           * @default KupEchartLegendPlacement.RIGHT
          */
         "legend"?: KupEchartLegendPlacement;

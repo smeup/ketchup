@@ -93,7 +93,7 @@ export class KupEchart {
      */
     @Prop() data: KupDataDataset = null;
     /**
-     * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+     * Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types, some combinations might not work.
      * @default KupEchartLegendPlacement.RIGHT
      */
     @Prop() legend: KupEchartLegendPlacement = KupEchartLegendPlacement.RIGHT;
@@ -393,6 +393,9 @@ export class KupEchart {
     }
 
     #setLegend(y: {}) {
+        if (this.legend === KupEchartLegendPlacement.HIDDEN) {
+            return null;
+        }
         const data: string[] = [];
         for (let key in y) {
             data.push(key);
@@ -979,7 +982,7 @@ export class KupEchart {
             this.#minColorHeatMap = this.colors[1];
         } else {
             const colorCheckBright = this.#kupManager.theme.colorCheck(
-                this.colors && this.colors[1] ? this.colors[1] : colorArray[0]
+                colorArray[0]
             );
             this.#minColorHeatMap = `hsl(${colorCheckBright.hue}, ${
                 colorCheckBright.saturation
