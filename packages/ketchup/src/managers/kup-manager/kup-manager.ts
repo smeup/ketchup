@@ -40,6 +40,7 @@ import { KupSearch } from '../kup-search/kup-search';
 import { KupDynamicPositionElement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupMath } from '../kup-math/kup-math';
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -64,6 +65,7 @@ export class KupManager {
     utilities: KupManagerUtilities;
     theme: KupTheme;
     toolbar: KupToolbar;
+    tooltip: KupTooltip;
     /**
      * Initializes KupManager.
      */
@@ -166,6 +168,7 @@ export class KupManager {
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
+        this.tooltip = new KupTooltip();
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =

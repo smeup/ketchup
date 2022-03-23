@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>KupTooltip</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                background-color: var(--kup-background-color);
+                box-sizing: border-box;
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+            .wrapper {
+                display: flex;
+                justify-content: space-evenly;
+                padding: 2em;
+                width: 100%;
+            }
+            h3 {
+                text-align: center;
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h3>KupTooltip</h3>
+        <div class="wrapper"
+            ><kup-button id="create" label="Create"></kup-button
+            ><kup-button id="anchor" label="Anchor to me"></kup-button
+            ><kup-button id="anchor2" label="Anchor to me isntead"></kup-button
+            ><kup-button id="show" label="Show"></kup-button
+            ><kup-button id="hide" label="Hide"></kup-button
+        ></div>
+        <script src="/assets/kuptooltip.js"></script>
+    </body>
+</html>
