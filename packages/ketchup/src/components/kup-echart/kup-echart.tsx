@@ -951,7 +951,8 @@ export class KupEchart {
     }
 
     #fetchcomputedColors() {
-        let colorArray: string[] = this.colors ? this.colors : [];
+        let colorArray: string[] =
+            this.colors && this.colors.length > 0 ? [...this.colors] : [];
         let key: string = '--kup-chart-color-';
         for (
             let index = 1;
