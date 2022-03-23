@@ -147,6 +147,7 @@ echart1.chartTitle = {
     position: 'top',
     size: 16,
 };
+echart1.colors = ['blue'];
 echart1.series = ['Col3', 'Col4'];
 echart1.types = ['Line', 'Scatter'];
 echart1.data = mockData;
