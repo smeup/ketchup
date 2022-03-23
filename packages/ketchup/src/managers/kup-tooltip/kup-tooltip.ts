@@ -6,6 +6,7 @@ import {
     KupDynamicPositionAnchor,
     KupDynamicPositionElement,
 } from '../kup-dynamic-position/kup-dynamic-position-declarations';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -20,18 +21,7 @@ export class KupTooltip {
      * Initializes KupTooltip.
      */
     constructor() {}
-    #setOptions(options: Partial<HTMLKupCardElement>) {
-        for (const key in options) {
-            if (Object.prototype.hasOwnProperty.call(options, key)) {
-                const prop = options[key];
-                this.element[key] = prop;
-            }
-        }
-    }
-    anchorTo(anchorEl: KupDynamicPositionAnchor) {
-        if (!this.element) {
-            this.create();
-        }
+    #dynPos(anchorEl: KupDynamicPositionAnchor) {
         if (dom.ketchup.dynamicPosition.isRegistered(this.element)) {
             dom.ketchup.dynamicPosition.changeAnchor(this.element, anchorEl);
         } else {
@@ -43,8 +33,9 @@ export class KupTooltip {
                 true
             );
         }
+        dom.ketchup.dynamicPosition.start(this.element);
     }
-    create(options?: Partial<HTMLKupCardElement>) {
+    #create(options?: Partial<HTMLKupCardElement>) {
         this.element = document.createElement('kup-card');
         this.element.isMenu = true;
         this.element.layoutNumber = 15;
@@ -61,6 +52,14 @@ export class KupTooltip {
             el: this.element,
         };
     }
+    #setOptions(options: Partial<HTMLKupCardElement>) {
+        for (const key in options) {
+            if (Object.prototype.hasOwnProperty.call(options, key)) {
+                const prop = options[key];
+                this.element[key] = prop;
+            }
+        }
+    }
     hide() {
         if (this.element) {
             this.element.menuVisible = false;
@@ -68,13 +67,33 @@ export class KupTooltip {
             dom.ketchup.removeClickCallback(this.#clickCb);
         }
     }
-    show(options?: Partial<HTMLKupCardElement>) {
+    show(
+        anchorEl?: KupDynamicPositionAnchor,
+        options?: Partial<HTMLKupCardElement>
+    ) {
+        // Creates the card or updates it with new options
         if (!this.element) {
-            this.create(options);
-        } else {
+            this.#create(options);
+        } else if (options) {
             this.#setOptions(options);
         }
-        dom.ketchup.dynamicPosition.start(this.element);
+        // If an anchor was provided, initializes or updates dynamic positioning
+        if (anchorEl) {
+            this.#dynPos(anchorEl);
+        }
+        // If the tooltip is already visible, it's pointless to go on
+        if (this.element.menuVisible) {
+            return;
+        }
+        // If the dynamic positioning is still to be registered, a warning is thrown
+        if (!dom.ketchup.dynamicPosition.isRegistered(this.element)) {
+            dom.ketchup.debug.logMessage(
+                'kup-tooltip',
+                'Unable to display KupTooltip without specifying a valid anchor point.',
+                KupDebugCategory.WARNING
+            );
+            return;
+        }
         this.element.menuVisible = true;
         dom.ketchup.addClickCallback(this.#clickCb, true);
     }
