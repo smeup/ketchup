@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                      | Type           | Default |
-| ------------- | -------------- | ---------------------------------------------------------------- | -------------- | ------- |
-| `customStyle` | `custom-style` | Custom style of the component.                                   | `string`       | `''`    |
-| `data`        | --             | Sets the data that will be used to display different components. | `MagicBoxData` | `null`  |
+| Property      | Attribute      | Description                                                      | Type             | Default |
+| ------------- | -------------- | ---------------------------------------------------------------- | ---------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                   | `string`         | `''`    |
+| `data`        | --             | Sets the data that will be used to display different components. | `KupDataDataset` | `null`  |
 
 
 ## Methods
@@ -50,9 +50,14 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-text-field](../kup-text-field)
 - [kup-box](../kup-box)
+- [kup-button-list](../kup-button-list)
+- [kup-chip](../kup-chip)
 - [kup-chart](../kup-chart)
+- [kup-echart](../kup-echart)
 - [kup-data-table](../kup-data-table)
+- [kup-tree](../kup-tree)
 - [kup-combobox](../kup-combobox)
 - [kup-button](../kup-button)
 - [kup-badge](../kup-badge)
@@ -60,9 +65,14 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-magic-box --> kup-text-field
   kup-magic-box --> kup-box
+  kup-magic-box --> kup-button-list
+  kup-magic-box --> kup-chip
   kup-magic-box --> kup-chart
+  kup-magic-box --> kup-echart
   kup-magic-box --> kup-data-table
+  kup-magic-box --> kup-tree
   kup-magic-box --> kup-combobox
   kup-magic-box --> kup-button
   kup-magic-box --> kup-badge
@@ -72,7 +82,6 @@ graph TD;
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
   kup-box --> kup-text-field
-  kup-box --> kup-paginator
   kup-box --> kup-autocomplete
   kup-box --> kup-color-picker
   kup-box --> kup-date-picker
@@ -86,16 +95,16 @@ graph TD;
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
   kup-card --> kup-badge
-  kup-card --> kup-chip
-  kup-card --> kup-autocomplete
   kup-card --> kup-button
-  kup-card --> kup-checkbox
+  kup-card --> kup-chip
+  kup-card --> kup-list
   kup-card --> kup-combobox
+  kup-card --> kup-autocomplete
+  kup-card --> kup-checkbox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
   kup-card --> kup-data-table
-  kup-card --> kup-list
   kup-card --> kup-spinner
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
@@ -103,12 +112,12 @@ graph TD;
   kup-card --> kup-tree
   kup-card --> kup-switch
   kup-badge --> kup-badge
+  kup-button --> kup-badge
   kup-chip --> kup-badge
-  kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
-  kup-button --> kup-badge
   kup-combobox --> kup-list
+  kup-autocomplete --> kup-list
   kup-date-picker --> kup-card
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
@@ -116,9 +125,8 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
-  kup-data-table --> kup-button
-  kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
+  kup-data-table --> kup-button
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-data-table --> kup-autocomplete
@@ -155,14 +163,13 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
+  kup-color-picker --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-button-list --> kup-dropdown-button
   kup-button-list --> kup-badge
   kup-dropdown-button --> kup-list
   kup-dropdown-button --> kup-badge
-  kup-paginator --> kup-combobox
-  kup-paginator --> kup-badge
   kup-tab-bar --> kup-badge
   style kup-magic-box fill:#f9f,stroke:#333,stroke-width:4px
 ```

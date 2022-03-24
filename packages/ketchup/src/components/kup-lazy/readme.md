@@ -16,7 +16,24 @@
 | `showPlaceholder` | `show-placeholder` | Displays an animated SVG placeholder until the component is loaded.                                                                     | `boolean`                                                             | `true`               |
 
 
+## Events
+
+| Event             | Description                             | Type                           |
+| ----------------- | --------------------------------------- | ------------------------------ |
+| `kup-lazy-loaded` | Triggered when the component is loaded. | `CustomEvent<KupEventPayload>` |
+
+
 ## Methods
+
+### `getComponent() => Promise<HTMLElement>`
+
+Returns the HTMLElement of the component to lazy load.
+
+#### Returns
+
+Type: `Promise<HTMLElement>`
+
+Lazy loaded component.
 
 ### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
@@ -51,10 +68,12 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                           | Description                         |
-| ------------------------------ | ----------------------------------- |
-| `--kup-lazy-animation-time`    | Sets the duration of the animation. |
-| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon. |
+| Name                           | Description                                        |
+| ------------------------------ | -------------------------------------------------- |
+| `--kup-lazy-animation-time`    | Sets the duration of the animation.                |
+| `--kup-lazy-hor-alignment`     | Sets the horizontal alignment of the subcomponent. |
+| `--kup-lazy-placeholder-color` | Sets color of the placeholder icon.                |
+| `--kup-lazy-ver-alignment`     | Sets the vertical alignment of the subcomponent.   |
 
 
 ----------------------------------------------

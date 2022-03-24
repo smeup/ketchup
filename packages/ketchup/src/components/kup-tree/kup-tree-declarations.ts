@@ -1,12 +1,18 @@
-import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
-import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 import {
-    Cell,
-    CellsHolder,
-    Column,
-    Row,
-    RowAction,
-} from './../kup-data-table/kup-data-table-declarations';
+    KupDataCell,
+    KupDataColumn,
+    KupDataNode,
+    KupDataRow,
+    KupDataRowAction,
+    KupDataRowCells,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import {
+    GenericMap,
+    GenericObject,
+    KupEventPayload,
+} from '../../types/GenericTypes';
+import { KupCardEventPayload } from '../kup-card/kup-card-declarations';
 /**
  * Props of the kup-tree component.
  * Used to export every prop in an object.
@@ -46,34 +52,11 @@ export enum KupTreeProps {
     useDynamicExpansion = 'When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property. Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.',
 }
 
-/**
- * The name of the property used by the tree component to store whether a TreeNode is open or closed
- * @constant
- */
-export const treeExpandedPropName = 'isExpanded';
-
-export interface TreeNode {
-    data?: GenericObject;
-    actions?: Array<RowAction>;
-    cells: CellsHolder;
-    children: Array<TreeNode>;
-    disabled: boolean;
-    expandable: boolean;
-    icon?: string;
+export interface KupTreeNode extends KupDataNode {
+    expandable?: boolean;
     iconColor?: string;
-    id?: string;
-    obj: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    options?: boolean;
-    readOnly?: boolean;
-    style?: { [index: string]: string };
-    value: string;
-    /** used for render or not render node (and children) while filtering */
+    style?: GenericMap;
     visible?: boolean;
-    [treeExpandedPropName]?: boolean;
 }
 
 export type TreeNodePath = number[];
@@ -89,10 +72,10 @@ export const treeMainColumnName = 'TREE_COLUMN';
  */
 export interface KupTreeEventHandlerDetails {
     area: string;
-    cell: Cell;
-    column: Column;
+    cell: KupDataCell;
+    column: KupDataColumn;
     filterRemove: HTMLSpanElement;
-    row: Row;
+    row: KupDataRow;
     td: HTMLElement;
     th: HTMLElement;
     tr: HTMLTableRowElement;
@@ -105,7 +88,7 @@ export enum KupTreeExpansionMode {
 
 export interface KupTreeNodeCollapseEventPayload extends KupEventPayload {
     treeNodePath: TreeNodePath;
-    treeNode: TreeNode;
+    treeNode: KupDataNode;
 }
 
 export interface KupTreeNodeExpandEventPayload
@@ -122,7 +105,7 @@ export interface KupTreeNodeSelectedEventPayload
 
 export interface KupTreeNodeButtonClickEventPayload
     extends KupTreeNodeCollapseEventPayload {
-    column: Column;
+    column: KupDataColumn;
     columnName: string;
     auto: boolean;
 }
@@ -140,6 +123,10 @@ export interface KupTreeColumnMenuEventPayload extends KupEventPayload {
 export interface KupTreeDynamicMassExpansionEventPayload
     extends KupEventPayload {
     treeNodePath?: TreeNodePath;
-    treeNode?: TreeNode;
+    treeNode?: KupDataNode;
     expandAll?: boolean;
+}
+
+export interface KupTreeColumnRemoveEventPayload extends KupEventPayload {
+    column: KupDataColumn;
 }

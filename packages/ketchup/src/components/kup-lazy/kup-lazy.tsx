@@ -1,19 +1,24 @@
 import {
     Component,
     Element,
+    Event,
+    EventEmitter,
     forceUpdate,
     h,
     Host,
     Prop,
     State,
 } from '@stencil/core';
-
 import { Method } from '@stencil/core/internal';
-import { GenericObject, KupComponent } from '../../types/GenericTypes';
+import {
+    GenericObject,
+    KupComponent,
+    KupEventPayload,
+} from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupLazyProps, KupLazyRender } from './kup-lazy-declarations';
@@ -79,6 +84,23 @@ export class KupLazy {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    private lazyComponent: HTMLElement = null;
+    private lazyComponentLoaded = false;
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * Triggered when the component is loaded.
+     */
+    @Event({
+        eventName: 'kup-lazy-loaded',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupLazyLoaded: EventEmitter<KupEventPayload>;
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -92,6 +114,14 @@ export class KupLazy {
     @Method()
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         return getProps(this, KupLazyProps, descriptions);
+    }
+    /**
+     * Returns the HTMLElement of the component to lazy load.
+     * @returns {HTMLElement} Lazy loaded component.
+     */
+    @Method()
+    async getComponent(): Promise<HTMLElement> {
+        return this.lazyComponent;
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -156,6 +186,13 @@ export class KupLazy {
     }
 
     componentDidRender() {
+        if (this.lazyComponent && !this.lazyComponentLoaded) {
+            this.lazyComponentLoaded = true;
+            this.kupLazyLoaded.emit({
+                comp: this,
+                id: this.rootElement.id,
+            });
+        }
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -292,7 +329,12 @@ export class KupLazy {
                 this.isInViewport)
         ) {
             let Tag = this.componentName;
-            content = <Tag {...this.data}></Tag>;
+            content = (
+                <Tag
+                    {...this.data}
+                    ref={(el: HTMLElement) => (this.lazyComponent = el)}
+                ></Tag>
+            );
             className += ' kup-loaded';
         } else if (this.showPlaceholder) {
             content = resource;

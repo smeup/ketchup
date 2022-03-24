@@ -1,0 +1,24 @@
+.built-in-layout-3 {
+  background: var(--kup-background-color);
+  box-shadow: rgb(128 128 128 / 10%) 0px 2px 1px -1px,
+    rgb(128 128 128 / 10%) 0px 1px 1px 0px,
+    rgb(128 128 128 / 60%) 0px 1px 3px 0px;
+  box-sizing: border-box;
+  overflow: auto;
+
+  kup-button,
+  kup-combobox {
+    margin: 0 auto 0.75em auto;
+  }
+
+  kup-combobox {
+    width: 95%;
+  }
+
+  .sub-chip {
+    border-top: 1px solid var(--kup-border-color);
+    max-height: 33vh;
+    overflow: auto;
+    width: 100%;
+  }
+}

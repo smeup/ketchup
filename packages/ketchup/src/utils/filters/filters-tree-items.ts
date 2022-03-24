@@ -1,19 +1,17 @@
 import type {
-    Cell,
-    CellsHolder,
-    Column,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
-import type {
     GenericFilter,
     ValueDisplayedValue,
 } from './filters-declarations';
 import {
+    KupTreeNode,
     treeMainColumnName,
-    TreeNode,
 } from '../../components/kup-tree/kup-tree-declarations';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { FiltersRows } from './filters-rows';
+import {
+    KupDataColumn,
+    KupDataRowCells,
+} from '../../managers/kup-data/kup-data-declarations';
 
 /**
  * Filtering algorithms related to tree items rows.
@@ -22,13 +20,12 @@ import { FiltersRows } from './filters-rows';
  */
 export class FiltersTreeItems extends FiltersRows {
     filterRows(
-        items: TreeNode[] = [],
+        items: KupTreeNode[] = [],
         filters: GenericFilter = {},
         globalFilter: string = '',
-        columns: Column[] = [],
-        treeExpandedPropName,
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
-    ): Array<TreeNode> {
+    ): Array<KupTreeNode> {
         if (!items || items == null) {
             return [];
         }
@@ -50,7 +47,6 @@ export class FiltersTreeItems extends FiltersRows {
                     globalFilter,
                     isUsingGlobalFilter,
                     columns,
-                    treeExpandedPropName,
                     columnFilters
                 )
             ) {
@@ -60,17 +56,17 @@ export class FiltersTreeItems extends FiltersRows {
     }
 
     isNodeCompliant(
-        node: TreeNode,
+        node: KupTreeNode,
         filters: GenericFilter = {},
         globalFilter: string = '',
         isUsingGlobalFilter: boolean = false,
-        columns: Column[] = [],
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
         let retValue = false;
 
         if (node.cells != null) {
-            let cellsHolder: CellsHolder = node.cells;
+            let cellsHolder: KupDataRowCells = node.cells;
             cellsHolder[treeMainColumnName] = {
                 obj: node.obj,
                 value: node.value,
@@ -93,12 +89,11 @@ export class FiltersTreeItems extends FiltersRows {
     }
 
     private setNodeVisibility(
-        node: TreeNode,
+        node: KupTreeNode,
         filters: GenericFilter = {},
         globalFilter: string,
         isUsingGlobalFilter: boolean = false,
-        columns: Column[] = [],
-        treeExpandedPropName,
+        columns: KupDataColumn[] = [],
         columnFilters?: FiltersColumnMenu
     ): boolean {
         if (columnFilters == null) {
@@ -126,15 +121,10 @@ export class FiltersTreeItems extends FiltersRows {
                                 globalFilter,
                                 isUsingGlobalFilter,
                                 columns,
-                                treeExpandedPropName,
                                 columnFilters
                             )
                         ) {
-                            this.expandCollapseNode(
-                                node,
-                                true,
-                                treeExpandedPropName
-                            );
+                            this.expandCollapseNode(node, true);
                             visibility = true;
                         }
                     }
@@ -145,7 +135,7 @@ export class FiltersTreeItems extends FiltersRows {
         return visibility;
     }
 
-    private setAllVisible(items: TreeNode[]) {
+    private setAllVisible(items: KupTreeNode[]) {
         if (items) {
             items.forEach((element) => {
                 element.visible = true;
@@ -155,8 +145,8 @@ export class FiltersTreeItems extends FiltersRows {
     }
 
     extractColumnValues(
-        rows: Array<TreeNode>,
-        column: Column,
+        rows: Array<KupTreeNode>,
+        column: KupDataColumn,
         values: ValueDisplayedValue[]
     ) {
         if (rows == null || rows.length == 0) {
@@ -164,7 +154,7 @@ export class FiltersTreeItems extends FiltersRows {
         }
         /** il valore delle righe attualmente filtrate, formattato */
         rows.forEach((node): void => {
-            let cellsHolder: CellsHolder = node.cells;
+            let cellsHolder: KupDataRowCells = node.cells;
             cellsHolder[treeMainColumnName] = {
                 obj: node.obj,
                 value: node.value,
@@ -181,41 +171,30 @@ export class FiltersTreeItems extends FiltersRows {
         return values;
     }
 
-    expandCollapseNode(
-        treeNode: TreeNode,
-        expandNode: boolean = false,
-        treeExpandedPropName
-    ) {
+    expandCollapseNode(treeNode: KupTreeNode, expandNode: boolean = false) {
         // The node is expandable, which means there are sub trees
         if (treeNode.expandable) {
             // If the node does not already have the property to toggle expansion we add it
             // Notice how, if the property is already set, its first value will be the same value that was provided by the object itself
             // and only if the node must be expanded automatically then [treeExpandedPropName] is set to true forcibly.
-            // This is done to allow a TreeNode to force its [treeExpandedPropName] to true so that specific nodes can be already set to open.
-            treeNode[treeExpandedPropName] = treeNode.hasOwnProperty(
-                treeExpandedPropName
-            )
-                ? treeNode[treeExpandedPropName] || expandNode
+            // This is done to allow a KupTreeNode to force its [treeExpandedPropName] to true so that specific nodes can be already set to open.
+            treeNode.isExpanded = treeNode.hasOwnProperty('isExpanded')
+                ? treeNode.isExpanded || expandNode
                 : expandNode;
         }
     }
 
-    expandCollapseAllNodes(
-        treeNode: TreeNode,
-        expandNode: boolean = false,
-        treeExpandedPropName
-    ) {
+    expandCollapseAllNodes(treeNode: KupTreeNode, expandNode: boolean = false) {
         // The node is expandable, which means there are sub trees
         if (treeNode.expandable && !treeNode.disabled) {
-            this.expandCollapseNode(treeNode, expandNode, treeExpandedPropName);
+            this.expandCollapseNode(treeNode, expandNode);
             // Enriches also direct subtrees recursively (if it has children)
             if (treeNode.children && treeNode.children.length) {
                 // To save some function calls, only child elements which are expandable will be enriched
                 for (let i = 0; i < treeNode.children.length; i++) {
                     this.expandCollapseAllNodes(
                         treeNode.children[i],
-                        expandNode,
-                        treeExpandedPropName
+                        expandNode
                     );
                 }
             }

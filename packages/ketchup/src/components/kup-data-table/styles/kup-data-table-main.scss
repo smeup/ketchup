@@ -476,6 +476,10 @@ th.obj:hover span:not(.overlay-action) {
   }
 }
 
+.group-wrapper {
+  --kup-chip-margin: 0 4px;
+}
+
 .totals-value {
   font-weight: bold;
 }

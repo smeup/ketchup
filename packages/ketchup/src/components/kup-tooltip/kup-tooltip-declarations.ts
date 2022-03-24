@@ -1,10 +1,12 @@
-import { KupEventPayload } from '../../types/GenericTypes';
 import {
-    Column,
-    DataTable,
-} from '../kup-data-table/kup-data-table-declarations';
+    KupDataColumn,
+    KupDataDataset,
+    KupDataNode,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
+import { KupEventPayload } from '../../types/GenericTypes';
 import { KupTree } from '../kup-tree/kup-tree';
-import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
+import { TreeNodePath } from '../kup-tree/kup-tree-declarations';
 /**
  * Props of the kup-tooltip component.
  * Used to export every prop in an object.
@@ -20,10 +22,7 @@ export enum KupTooltipProps {
     relatedObject = 'Container element for tooltip',
 }
 
-export interface TooltipObject {
-    t: String;
-    p: String;
-    k: String;
+export interface TooltipObject extends KupObj {
     url: String;
 }
 
@@ -46,7 +45,7 @@ export interface TooltipAction {
     url: string;
 }
 
-export interface TooltipDetailData extends DataTable {
+export interface TooltipDetailData extends KupDataDataset {
     actions?: { command: Array<TooltipAction> };
 }
 
@@ -57,7 +56,7 @@ export interface TooltipRelatedObject {
     colId?: string;
 }
 
-export interface TooltipCellOptions extends TreeNode {
+export interface TooltipCellOptions extends KupDataNode {
     config?: any;
 }
 
@@ -82,7 +81,7 @@ export interface KupTooltipDefaultEventPayload extends KupEventPayload {
 
 export interface KupTooltipTreeNodeExpandEventPayload extends KupEventPayload {
     treeNodePath: TreeNodePath;
-    treeNode: TreeNode;
+    treeNode: KupDataNode;
     usesDynamicExpansion?: boolean;
     dynamicExpansionRequireChildren?: boolean;
     tree: KupTree;
@@ -91,7 +90,7 @@ export interface KupTooltipTreeNodeExpandEventPayload extends KupEventPayload {
 export interface KupTooltipTreeNodeSelectedEventPayload
     extends KupEventPayload {
     treeNodePath: TreeNodePath;
-    treeNode: TreeNode;
+    treeNode: KupDataNode;
     columnName: string;
     auto: boolean;
     tree: KupTree;
@@ -99,18 +98,18 @@ export interface KupTooltipTreeNodeSelectedEventPayload
 
 export interface KupTooltipTreeNodeButtonClickEventPayload
     extends KupTooltipTreeNodeSelectedEventPayload {
-    column: Column;
+    column: KupDataColumn;
 }
 
 export interface KupTooltipTreeNodeDblClickEventPayload
     extends KupEventPayload {
     treeNodePath: TreeNodePath;
-    treeNode: TreeNode;
+    treeNode: KupDataNode;
 }
 
 export interface KupTooltipTreeDynamicMassExpansionEventPayload
     extends KupEventPayload {
     treeNodePath?: TreeNodePath;
-    treeNode?: TreeNode;
+    treeNode?: KupDataNode;
     expandAll?: boolean;
 }

@@ -1,4 +1,4 @@
-import type { Column } from '../../components/kup-data-table/kup-data-table-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { Filters } from './filters';
 import {
@@ -16,7 +16,7 @@ export class FiltersColumnMenu extends Filters {
     /**
      * Gets the value of the filter prop.
      * @param {GenericFilter} filters - Filters of the component.
-     * @param {Column} column - Name of the column.
+     * @param {string} column - Name of the column.
      * @returns {string} Value of the filter.
      */
     getTextFilterValue(filters: GenericFilter = {}, column: string): string {
@@ -25,7 +25,7 @@ export class FiltersColumnMenu extends Filters {
     /**
      * Gets the value of the filter prop, set temporarly.
      * @param {GenericFilter} filters - Filters of the component.
-     * @param {Column} column - Name of the column.
+     * @param {string} column - Name of the column.
      * @returns {string} Value of the filter.
      */
     getTextFilterValueTmp(filters: GenericFilter = {}, column: string): string {
@@ -53,33 +53,36 @@ export class FiltersColumnMenu extends Filters {
     /**
      * Returns whether a column has filters or not.
      * @param {GenericFilter} filters - Filters of the component.
-     * @param {Column} column - Name of the column.
+     * @param {KupDataColumn} column - Name of the column.
      * @returns {boolean} True when a given column has filters.
      */
-    hasFiltersForColumn(filters: GenericFilter = {}, column: Column): boolean {
+    hasFiltersForColumn(
+        filters: GenericFilter = {},
+        column: KupDataColumn
+    ): boolean {
         return this._hasFiltersForColumn(filters, column, false);
     }
     /**
      * Returns whether a column has filters or not.
      * @param {GenericFilter} filters - Filters of the component.
-     * @param {Column} column - Name of the column.
+     * @param {KupDataColumn} column - Name of the column.
      * @returns {boolean} True when a given column has filters.
      */
     hasFiltersForColumnTmp(
         filters: GenericFilter = {},
-        column: Column
+        column: KupDataColumn
     ): boolean {
         return this._hasFiltersForColumn(filters, column, true);
     }
     /**
      * Returns whether a column has filters or not.
      * @param {GenericFilter} filters - Filters of the component.
-     * @param {Column} column - Name of the column.
+     * @param {KupDataColumn} column - Name of the column.
      * @returns {boolean} True when a given column has filters.
      */
     private _hasFiltersForColumn(
         filters: GenericFilter = {},
-        column: Column,
+        column: KupDataColumn,
         tmp: boolean
     ): boolean {
         if (!column) {
@@ -105,7 +108,7 @@ export class FiltersColumnMenu extends Filters {
     /**
      * Returns the values of column menu's checkboxes.
      * @param {GenericFilter} filters - Filters of the component.
-     * @param {Column} column - Name of the column.
+     * @param {string} column - Name of the column.
      * @returns {Array<string>} Array of checkboxes values.
      */
     getCheckBoxFilterValues(
@@ -129,26 +132,26 @@ export class FiltersColumnMenu extends Filters {
     /**
      * Returns whether a text field should be a date or time picker.
      * @param {GenericFilter} filters - Filters of the component.
-     * @param {Column} column - Name of the column.
+     * @param {KupDataColumn} column - Name of the column.
      * @returns {boolean} True when the text field is a date or time picker.
      */
     hasIntervalTextFieldFilterValues(
         filters: GenericFilter = {},
-        column: Column
+        column: KupDataColumn
     ): boolean {
         return this._hasIntervalTextFieldFilterValues(filters, column, false);
     }
 
     hasIntervalTextFieldFilterValuesTmp(
         filters: GenericFilter = {},
-        column: Column
+        column: KupDataColumn
     ): boolean {
         return this._hasIntervalTextFieldFilterValues(filters, column, true);
     }
 
     private _hasIntervalTextFieldFilterValues(
         filters: GenericFilter = {},
-        column: Column,
+        column: KupDataColumn,
         tmp: boolean
     ): boolean {
         if (column == null) {
@@ -254,26 +257,26 @@ export class FiltersColumnMenu extends Filters {
         }
     }
 
-    isColumnFiltrableByInterval(column: Column): boolean {
+    isColumnFiltrableByInterval(column: KupDataColumn): boolean {
         return this.isObjFiltrableByInterval(column.obj);
     }
 
     getIntervalTextFieldFilterValues(
         filters: GenericFilter = {},
-        column: Column
+        column: KupDataColumn
     ): Array<string> {
         return this._getIntervalTextFieldFilterValues(filters, column, false);
     }
     getIntervalTextFieldFilterValuesTmp(
         filters: GenericFilter = {},
-        column: Column
+        column: KupDataColumn
     ): Array<string> {
         return this._getIntervalTextFieldFilterValues(filters, column, true);
     }
 
     private _getIntervalTextFieldFilterValues(
         filters: GenericFilter = {},
-        column: Column,
+        column: KupDataColumn,
         tmp: boolean
     ): Array<string> {
         if (!this._hasIntervalTextFieldFilterValues(filters, column, tmp)) {
@@ -498,7 +501,7 @@ export class FiltersColumnMenu extends Filters {
 
     getFilterValueForTooltip(
         filters: GenericFilter = {},
-        column: Column
+        column: KupDataColumn
     ): string {
         let txtFilter = this.getTextFilterValue(filters, column.name);
         let interval = this.getIntervalTextFieldFilterValues(filters, column);

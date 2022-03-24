@@ -11,7 +11,6 @@ import {
     Prop,
     State,
     VNode,
-    Watch,
 } from '@stencil/core';
 import {
     KupListData,
@@ -25,14 +24,14 @@ import { getValueOfItemByDisplayMode } from './kup-list-helper';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import {
     GenericObject,
     KupComponent,
     KupEventPayload,
 } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
-import { KupThemeColorValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeColorValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 
@@ -132,14 +131,13 @@ export class KupList {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
-    private filteredItems: KupListData[] = [];
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
+    #kupManager: KupManager = kupManagerInstance();
 
-    private radios: KupRadio[] = [];
-    private listItems: HTMLElement[] = [];
+    #radios: KupRadio[] = [];
+    #listItems: HTMLElement[] = [];
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -169,14 +167,14 @@ export class KupList {
     })
     kupClick: EventEmitter<KupListEventPayload>;
 
-    onKupBlur(_index: number) {
+    onKupBlur() {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
         });
     }
 
-    onKupFocus(_index: number) {
+    onKupFocus() {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
@@ -184,7 +182,7 @@ export class KupList {
     }
 
     onKupClick(index: number) {
-        this.handleSelection(index);
+        this.#handleSelection(index);
     }
 
     /*-------------------------------------------------*/
@@ -208,7 +206,7 @@ export class KupList {
                 case 'Enter':
                     e.preventDefault();
                     e.stopPropagation();
-                    this.handleSelection(this.focused);
+                    this.#handleSelection(this.focused);
                     break;
             }
         }
@@ -217,16 +215,6 @@ export class KupList {
     /*-------------------------------------------------*/
     /*                  W a t c h e r s                */
     /*-------------------------------------------------*/
-
-    @Watch('filter')
-    watchFilter() {
-        this.filteredItems = [];
-        let index = 0;
-        this.data.map((item) => {
-            this.setUnselected(item, index++);
-        });
-        this.data = [...this.data];
-    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -253,10 +241,10 @@ export class KupList {
         } else {
             this.focused++;
         }
-        if (this.focused > this.listItems.length - 1) {
+        if (this.focused > this.#listItems.length - 1) {
             this.focused = 0;
         }
-        this.listItems[this.focused].focus();
+        this.#listItems[this.focused].focus();
     }
     /**
      * Focuses the previous element of the list.
@@ -280,9 +268,9 @@ export class KupList {
             this.focused--;
         }
         if (this.focused < 0) {
-            this.focused = this.listItems.length - 1;
+            this.focused = this.#listItems.length - 1;
         }
-        this.listItems[this.focused].focus();
+        this.#listItems[this.focused].focus();
     }
     /**
      * Used to retrieve component's props values.
@@ -301,14 +289,6 @@ export class KupList {
         forceUpdate(this);
     }
     /**
-     * Resets filter.
-     * @todo FOSLUC to PASCAR: why isn't it enough to change only the prop?
-     */
-    @Method()
-    async resetFilter(newFilter: string) {
-        this.filter = newFilter;
-    }
-    /**
      * Calls handleSelection internal method to select the given item.
      * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
      */
@@ -317,7 +297,7 @@ export class KupList {
         if (index === undefined) {
             index = this.focused;
         }
-        this.handleSelection(index);
+        this.#handleSelection(index);
     }
     /**
      * Sets the props to the component.
@@ -332,13 +312,38 @@ export class KupList {
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
 
+    #setUnselected(item: KupListData, index: number) {
+        item.selected = false;
+        this.#sendInfoToSubComponent(index, item);
+    }
+
+    #sendInfoToSubComponent(index: number, item: KupListData) {
+        if (this.#isRadioButtonRule()) {
+            if (this.#radios[index]) {
+                let dataTmp = [
+                    {
+                        value: item.value,
+                        label: '',
+                        checked: item.selected == true ? true : false,
+                    },
+                ];
+                this.#radios[index].data = dataTmp;
+            }
+        }
+    }
+
     /**
      * Selects the specified item.
      * @param {number} index - Based zero index of the item that must be selected, when not provided the list will attempt to select the focused element.
      */
-    private handleSelection(index: number): void {
+    #handleSelection(index: number): void {
         if (index !== null && index !== undefined && !isNaN(index)) {
-            const value: string = this.data[index].value;
+            const listItems: NodeListOf<HTMLElement> =
+                this.rootElement.shadowRoot.querySelectorAll('.list-item');
+            const value: string = listItems[index].dataset.value;
+            const dataEl = this.data.find(
+                (x: KupListData) => x.value === value
+            );
             switch (this.roleType) {
                 case KupListRole.GROUP:
                     if (this.selected.includes(value)) {
@@ -353,28 +358,18 @@ export class KupList {
                     break;
             }
             for (let index = 0; index < this.data.length; index++) {
-                const item: KupListData = this.data[index];
-                if (this.selected.includes(item.value)) {
-                    item.selected = true;
-                } else {
-                    item.selected = false;
-                }
+                const item = this.data[index];
+                item.selected = this.selected.includes(item.value);
             }
             this.kupClick.emit({
                 comp: this,
                 id: this.rootElement.id,
-                selected: this.data[index],
+                selected: dataEl,
             });
         }
     }
 
-    renderSeparator() {
-        return <li role="separator" class="list-divider"></li>;
-    }
-
-    renderListItem(item: KupListData, index: number) {
-        this.filteredItems[index] = item;
-
+    #renderListItem(item: KupListData, index: number) {
         if (item.selected != true) {
             item.selected = false;
         }
@@ -385,7 +380,7 @@ export class KupList {
             item.icon != null &&
             item.icon.trim() != ''
         ) {
-            imageTag = this.getIconTag(item.icon);
+            imageTag = this.#getIconTag(item.icon);
         }
         let primaryTextTag = [
             getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
@@ -404,7 +399,7 @@ export class KupList {
         }
         let classAttr = 'list-item';
         let tabIndexAttr = item.selected == true ? '0' : '-1';
-        if (item.selected == true && this.isListBoxRule()) {
+        if (item.selected == true && this.#isListBoxRule()) {
             classAttr += ' list-item--selected';
         }
         if (this.focused === index) {
@@ -424,7 +419,7 @@ export class KupList {
                 {secTextTag}
             </span>,
         ];
-        if (this.isRadioButtonRule()) {
+        if (this.#isRadioButtonRule()) {
             roleAttr = 'radio';
             ariaCheckedAttr = item.selected == true ? 'true' : 'false';
             let dataTmp = [
@@ -443,7 +438,7 @@ export class KupList {
                     <kup-radio
                         data={dataTmp}
                         id={this.rootElement.id + '_' + index}
-                        ref={(el) => (this.radios[index] = el as any)}
+                        ref={(el) => (this.#radios[index] = el as any)}
                     ></kup-radio>
                 </span>,
                 imageTag,
@@ -455,7 +450,7 @@ export class KupList {
                     {secTextTag}
                 </label>,
             ];
-        } else if (this.isCheckBoxRule()) {
+        } else if (this.#isCheckBoxRule()) {
             roleAttr = 'checkbox';
             ariaCheckedAttr = item.selected == true ? 'true' : 'false';
             let checkedAttr: boolean = item.selected == true ? true : false;
@@ -486,7 +481,7 @@ export class KupList {
         vNodes.push(
             <li
                 ref={(el: HTMLLIElement) => {
-                    this.listItems.push(el);
+                    this.#listItems.push(el);
                 }}
                 class={classAttr}
                 role={roleAttr}
@@ -497,12 +492,12 @@ export class KupList {
                 onBlur={
                     !this.selectable
                         ? (e: FocusEvent) => e.stopPropagation()
-                        : () => this.onKupBlur(index)
+                        : () => this.onKupBlur()
                 }
                 onFocus={
                     !this.selectable
                         ? (e: FocusEvent) => e.stopPropagation()
-                        : () => this.onKupFocus(index)
+                        : () => this.onKupFocus()
                 }
                 onClick={
                     !this.selectable
@@ -516,7 +511,7 @@ export class KupList {
         return vNodes;
     }
 
-    getIconTag(icon: string) {
+    #getIconTag(icon: string) {
         const large: boolean = this.rootElement.classList.contains('kup-large');
         const propsFImage = {
             color: `var(${KupThemeColorValues.PRIMARY})`,
@@ -533,71 +528,29 @@ export class KupList {
         );
     }
 
-    setUnselected(item: KupListData, index: number) {
-        item.selected = false;
-        this.sendInfoToSubComponent(index, item);
+    #isMultiSelection(): boolean {
+        return this.#isCheckBoxRule();
     }
 
-    setSelected(item: KupListData, index: number) {
-        item.selected = true;
-        this.sendInfoToSubComponent(index, item);
-    }
-
-    sendInfoToSubComponent(index: number, item: KupListData) {
-        if (this.isRadioButtonRule()) {
-            if (this.radios[index]) {
-                let dataTmp = [
-                    {
-                        value: item.value,
-                        label: '',
-                        checked: item.selected == true ? true : false,
-                    },
-                ];
-                this.radios[index].data = dataTmp;
-            }
-        }
-    }
-
-    getLiIndexElementForValue(key: string): number {
-        let index = -1;
-        let i = 0;
-        this.filteredItems.forEach((item) => {
-            if (item.value == key) {
-                index = i;
-            }
-            i++;
-        });
-
-        return index;
-    }
-
-    isSingleSelection(): boolean {
-        return this.isRadioButtonRule() || this.isListBoxRule();
-    }
-
-    isMultiSelection(): boolean {
-        return this.isCheckBoxRule();
-    }
-
-    isCheckBoxRule(): boolean {
+    #isCheckBoxRule(): boolean {
         return this.roleType == KupListRole.GROUP;
     }
 
-    isRadioButtonRule(): boolean {
+    #isRadioButtonRule(): boolean {
         return this.roleType == KupListRole.RADIOGROUP;
     }
 
-    isListBoxRule(): boolean {
+    #isListBoxRule(): boolean {
         return this.roleType == KupListRole.LISTBOX;
     }
 
-    checkRoleType() {
-        if (!this.isCheckBoxRule() && !this.isRadioButtonRule()) {
+    #checkRoleType() {
+        if (!this.#isCheckBoxRule() && !this.#isRadioButtonRule()) {
             this.roleType = KupListRole.LISTBOX;
         }
     }
 
-    itemCompliant(item: KupListData): boolean {
+    #itemCompliant(item: KupListData): boolean {
         if (!this.filter) {
             return true;
         }
@@ -624,8 +577,8 @@ export class KupList {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.register(this);
+        this.#kupManager.debug.logLoad(this, false);
+        this.#kupManager.theme.register(this);
         for (let index = 0; index < this.data.length; index++) {
             const el: KupListData = this.data[index];
             if (el.selected) {
@@ -635,11 +588,11 @@ export class KupList {
     }
 
     componentDidLoad() {
-        this.kupManager.debug.logLoad(this, true);
+        this.#kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupManager.debug.logRender(this, false);
+        this.#kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -653,11 +606,11 @@ export class KupList {
                 this.rootElement.focus();
             }, 0);
         }
-        this.kupManager.debug.logRender(this, true);
+        this.#kupManager.debug.logRender(this, true);
     }
 
     render() {
-        this.listItems = [];
+        this.#listItems = [];
         let componentClass: string = 'list';
         let wrapperClass = undefined;
 
@@ -669,7 +622,7 @@ export class KupList {
             }
         }
 
-        this.checkRoleType();
+        this.#checkRoleType();
 
         if (this.selectable != true) {
             componentClass += ' list--non-interactive';
@@ -683,21 +636,24 @@ export class KupList {
             componentClass += ' text-hidden';
         }
 
+        if (!this.data || this.data.length === 0) {
+            componentClass += ' list--empty';
+        }
+
         let roleAttr = this.roleType;
 
         let ariaMultiSelectable: string = 'false';
-        if (this.isMultiSelection()) {
+        if (this.#isMultiSelection()) {
             ariaMultiSelectable = 'true';
         }
 
-        this.filteredItems = [];
-        this.radios = [];
+        this.#radios = [];
         let index = 0;
 
         return (
             <Host>
                 <style>
-                    {this.kupManager.theme.setKupStyle(
+                    {this.#kupManager.theme.setKupStyle(
                         this.rootElement as KupComponent
                     )}
                 </style>
@@ -705,12 +661,11 @@ export class KupList {
                     <ul
                         class={componentClass}
                         role={roleAttr}
-                        id={'kup-list_' + this.rootElement.id}
                         aria-multiselectable={ariaMultiSelectable}
                     >
                         {this.data
-                            .filter((item) => this.itemCompliant(item))
-                            .map((item) => this.renderListItem(item, index++))}
+                            .filter((item) => this.#itemCompliant(item))
+                            .map((item) => this.#renderListItem(item, index++))}
                     </ul>
                 </div>
             </Host>
@@ -718,6 +673,6 @@ export class KupList {
     }
 
     disconnectedCallback() {
-        this.kupManager.theme.unregister(this);
+        this.#kupManager.theme.unregister(this);
     }
 }

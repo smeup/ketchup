@@ -1,24 +1,29 @@
 import type { VNode } from '@stencil/core';
-import type {
-    Cell,
-    Column,
-    Row,
-} from '../../components/kup-data-table/kup-data-table-declarations';
-import type { FComponent, KupEventPayload } from '../../types/GenericTypes';
-export const autoAlignComps = ['KUP-DATA-TABLE', 'KUP-TREE'];
+import {
+    KupDataCell,
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
+import {
+    FComponent,
+    KupEventPayload,
+    KupTagNames,
+} from '../../types/GenericTypes';
+
+export const autoAlignComps = [KupTagNames.DATA_TABLE, KupTagNames.TREE];
 /**
  * Props of the f-cell component.
  */
 export interface FCellProps extends FComponent {
-    cell?: Cell;
-    column?: Column;
+    cell?: KupDataCell;
+    column?: KupDataColumn;
     component?: unknown;
     density?: FCellPadding;
     editable?: boolean;
     indents?: VNode[];
     previousValue?: string;
     renderKup?: boolean;
-    row?: Row;
+    row?: KupDataRow;
     setSizes?: boolean;
     shape?: FCellShapes;
 }
@@ -35,6 +40,7 @@ export interface FCellInfo {
  */
 export enum FCellEvents {
     CLICK = 'kup-cell-click',
+    ICON_CLICK = 'kup-cell-iconclick',
     INPUT = 'kup-cell-input',
     UPDATE = 'kup-cell-update',
 }
@@ -171,9 +177,9 @@ export const kupTypes = [
  * Payload of the event fired when a cell is updated.
  */
 export interface FCellEventPayload extends KupEventPayload {
-    cell: Cell;
-    column: Column;
-    event: CustomEvent | InputEvent;
-    row: Row;
+    cell: KupDataCell;
+    column: KupDataColumn;
+    event: CustomEvent | InputEvent | MouseEvent;
+    row: KupDataRow;
     type: FCellTypes;
 }

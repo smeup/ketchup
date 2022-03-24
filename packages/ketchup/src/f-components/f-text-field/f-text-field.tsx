@@ -1,6 +1,6 @@
 import type { FTextFieldProps } from './f-text-field-declarations';
 import { FunctionalComponent, getAssetPath, h, VNode } from '@stencil/core';
-import { KupThemeIconValues } from '../../utils/kup-theme/kup-theme-declarations';
+import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 
 /*-------------------------------------------------*/
 /*                C o m p o n e n t                */
@@ -84,7 +84,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
         }
         iconEl = (
             <span
-                tabindex="0"
                 style={iconStyle}
                 onClick={props.onIconClick}
                 class={`mdc-text-field__icon kup-icon action ${iconClass}`}
@@ -151,7 +150,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
             )}
             {props.isClearable ? (
                 <span
-                    tabindex="1"
                     class={`mdc-text-field__icon kup-icon ${KupThemeIconValues.CLEAR.replace(
                         '--',
                         ''
@@ -175,7 +173,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
 }
 
 function setHelper(props: FTextFieldProps): HTMLDivElement {
-    if (props.helperEnabled) {
+    if (props.helperEnabled !== false) {
         if (props.helper) {
             const classObj: Record<string, boolean> = {
                 'mdc-text-field-helper-text': true,

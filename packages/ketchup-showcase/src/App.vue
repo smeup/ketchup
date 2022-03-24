@@ -16,21 +16,7 @@
         leading-label
         slot="right"
         @kup-switch-change="changeTheme"
-      ></kup-switch>
-      <kup-button
-        class="kup-pulsating"
-        icon="bug"
-        icon-off="bug"
-        id="debug-toggler"
-        slot="right"
-        toggable
-        @kup-button-click="toggleDebug"
-      ></kup-button>
-      <kup-button
-        icon="home"
-        @kup-button-click="$router.push('/').catch(() => {})"
-        slot="right"
-      ></kup-button
+      ></kup-switch
       ><kup-button
         icon="menu"
         @kup-button-click="menuClick"
@@ -41,6 +27,8 @@
         drag-enabled
         :data.prop="navbarCellData"
         slot="left"
+        @click="$router.push('/').catch(() => {})"
+        title="Ketchup home"
     /></kup-nav-bar>
     <kup-drawer
       class="kup-full-width kup-permanent"
@@ -67,8 +55,8 @@
           @kup-tree-nodeselected="treeClick"
         ></kup-tree
         ><div class="version"
-          ><a href="https://github.com/smeup/ketchup/releases/tag/v4.2.0"
-            >v4.2.0</a
+          ><a href="https://github.com/smeup/ketchup/releases/tag/v5.0.0"
+            >v5.0.0</a
           ></div
         ></div
       >
@@ -94,7 +82,7 @@
           size-y="24px"
         ></kup-image>
       </a>
-      <span class="company-text">© Copyright 2021 - Sme.UP Spa</span>
+      <span class="company-text">© Copyright 2022 - Sme.UP Spa</span>
       <a
         class="footer__icon--trailing"
         target="_blank"
@@ -116,12 +104,11 @@
 
 <script lang="ts">
 import type { Components } from '@sme.up/ketchup/dist/types/components';
-import type { Cell } from '@sme.up/ketchup/dist/types/components/kup-data-table/kup-data-table-declarations';
-import type { KupDom } from '@sme.up/ketchup/dist/types/utils/kup-manager/kup-manager-declarations';
+import type { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import type { KupSwitchEventPayload } from '@sme.up/ketchup/dist/types/components/kup-switch/kup-switch-declarations';
 import { KupTreeNodeSelectedEventPayload } from '@sme.up/ketchup/dist/types/components/kup-tree/kup-tree-declarations';
+import { KupDataCell } from '@sme.up/ketchup/dist/types/managers/kup-data/kup-data-declarations';
 
-var debug: HTMLKupButtonElement = null;
 var drawer: HTMLKupDrawerElement = null;
 var main: HTMLElement = null;
 var modal: HTMLElement = null;
@@ -132,6 +119,9 @@ var theme: HTMLKupSwitchElement = null;
 const dom: KupDom = document.documentElement as KupDom;
 
 export default {
+  beforeUpdate: function () {
+    document.documentElement.scrollTop = 0;
+  },
   beforeCreate: function () {
     if (
       window.matchMedia &&
@@ -157,7 +147,6 @@ export default {
     });
   },
   mounted: function () {
-    debug = document.getElementById('debug-toggler') as HTMLKupButtonElement;
     drawer = document.getElementById('app__drawer') as HTMLKupDrawerElement;
     main = document.getElementById('app__content') as HTMLElement;
     main.style.padding = '';
@@ -169,15 +158,6 @@ export default {
       dom.ketchup.setLibraryLocalization(dom.ketchup.dates.locale);
     });
     document.addEventListener('kup-drawer-ready', () => this.removeSpinner());
-    document.addEventListener('kup-debug-active', () => {
-      debug.checked = true;
-    });
-    document.addEventListener('kup-debug-inactive', () => {
-      debug.checked = false;
-    });
-    document.addEventListener('kup-manager-stringfinder', (e: CustomEvent) => {
-      console.log('[kup-manager-stringfinder] => ' + e.detail.string);
-    });
   },
   methods: {
     changeTheme(e: CustomEvent<KupSwitchEventPayload>): void {
@@ -235,17 +215,8 @@ export default {
         }
       });
     },
-    toggleDebug(): void {
-      if (dom.ketchup.debug.isDebug()) {
-        console.log('Debug deactivated.');
-        dom.ketchup.debug.toggle(false);
-      } else {
-        console.log('Debug activated.');
-        dom.ketchup.debug.toggle(true);
-      }
-    },
     treeClick(e: CustomEvent<KupTreeNodeSelectedEventPayload>): void {
-      const route: Cell =
+      const route: KupDataCell =
         e.detail.treeNode.cells && e.detail.treeNode.cells['ROUTE']
           ? e.detail.treeNode.cells['ROUTE']
           : null;
@@ -299,6 +270,7 @@ export default {
                     value: 'box',
                   },
                 },
+                icon: 'view-quilt',
                 value: 'Box',
                 visible: true,
               },
@@ -308,6 +280,7 @@ export default {
                     value: 'buttonlist',
                   },
                 },
+                icon: 'more_horiz',
                 value: 'Button list',
                 visible: true,
               },
@@ -317,6 +290,7 @@ export default {
                     value: 'calendar',
                   },
                 },
+                icon: 'event_note',
                 value: 'Calendar',
                 visible: true,
               },
@@ -326,6 +300,7 @@ export default {
                     value: 'card',
                   },
                 },
+                icon: 'art_track',
                 value: 'Card',
                 visible: true,
               },
@@ -335,6 +310,7 @@ export default {
                     value: 'cell',
                   },
                 },
+                icon: 'extension',
                 value: 'Cell',
                 visible: true,
               },
@@ -344,6 +320,7 @@ export default {
                     value: 'chart',
                   },
                 },
+                icon: 'chart-bar',
                 value: 'Chart',
                 visible: true,
               },
@@ -353,6 +330,7 @@ export default {
                     value: 'dash',
                   },
                 },
+                icon: 'thermostat-box',
                 value: 'Dash',
                 visible: true,
               },
@@ -362,6 +340,7 @@ export default {
                     value: 'dashlist',
                   },
                 },
+                icon: 'recent_actors',
                 value: 'Dash list',
                 visible: true,
               },
@@ -371,7 +350,18 @@ export default {
                     value: 'datatable',
                   },
                 },
+                icon: 'table',
                 value: 'Data table',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
+                    value: 'echart',
+                  },
+                },
+                icon: 'multiline_chart',
+                value: 'EChart',
                 visible: true,
               },
               {
@@ -380,6 +370,7 @@ export default {
                     value: 'field',
                   },
                 },
+                icon: 'edit',
                 value: 'Field',
                 visible: true,
               },
@@ -389,6 +380,7 @@ export default {
                     value: 'tooltip',
                   },
                 },
+                icon: 'insert_comment',
                 value: 'Tooltip',
                 visible: true,
               },
@@ -398,11 +390,13 @@ export default {
                     value: 'tree',
                   },
                 },
+                icon: 'file-tree',
                 value: 'Tree',
                 visible: true,
               },
             ],
             expandable: true,
+            icon: 'shape-plus',
             isExpanded: false,
             value: 'Advanced',
             visible: true,
@@ -415,6 +409,7 @@ export default {
                     value: 'accordion',
                   },
                 },
+                icon: 'view-sequential',
                 value: 'Accordion',
                 visible: true,
               },
@@ -424,6 +419,7 @@ export default {
                     value: 'autocomplete',
                   },
                 },
+                icon: 'text_format',
                 value: 'Autocomplete',
                 visible: true,
               },
@@ -433,6 +429,7 @@ export default {
                     value: 'badge',
                   },
                 },
+                icon: 'notifications',
                 value: 'Badge',
                 visible: true,
               },
@@ -442,6 +439,7 @@ export default {
                     value: 'button',
                   },
                 },
+                icon: 'brightness-1',
                 value: 'Button',
                 visible: true,
               },
@@ -451,6 +449,7 @@ export default {
                     value: 'checkbox',
                   },
                 },
+                icon: 'check_box',
                 value: 'Checkbox',
                 visible: true,
               },
@@ -460,6 +459,7 @@ export default {
                     value: 'chip',
                   },
                 },
+                icon: 'label',
                 value: 'Chip',
                 visible: true,
               },
@@ -469,6 +469,7 @@ export default {
                     value: 'colorpicker',
                   },
                 },
+                icon: 'colorize',
                 value: 'Color picker',
                 visible: true,
               },
@@ -478,6 +479,7 @@ export default {
                     value: 'combobox',
                   },
                 },
+                icon: 'format-font-size-decrease',
                 value: 'Combobox',
                 visible: true,
               },
@@ -487,6 +489,7 @@ export default {
                     value: 'datepicker',
                   },
                 },
+                icon: 'event',
                 value: 'Date picker',
                 visible: true,
               },
@@ -496,6 +499,7 @@ export default {
                     value: 'drawer',
                   },
                 },
+                icon: 'web',
                 value: 'Drawer',
                 visible: true,
               },
@@ -505,6 +509,7 @@ export default {
                     value: 'dropdownbutton',
                   },
                 },
+                icon: 'play_for_work',
                 value: 'Dropdown button',
                 visible: true,
               },
@@ -514,6 +519,7 @@ export default {
                     value: 'gauge',
                   },
                 },
+                icon: 'gauge',
                 value: 'Gauge',
                 visible: true,
               },
@@ -523,6 +529,7 @@ export default {
                     value: 'grid',
                   },
                 },
+                icon: 'apps',
                 value: 'Grid',
                 visible: true,
               },
@@ -532,6 +539,7 @@ export default {
                     value: 'iframe',
                   },
                 },
+                icon: 'open-in-browser',
                 value: 'Iframe',
                 visible: true,
               },
@@ -541,6 +549,7 @@ export default {
                     value: 'image',
                   },
                 },
+                icon: 'image',
                 value: 'Image',
                 visible: true,
               },
@@ -550,6 +559,7 @@ export default {
                     value: 'lazy',
                   },
                 },
+                icon: 'compare',
                 value: 'Lazy',
                 visible: true,
               },
@@ -559,6 +569,7 @@ export default {
                     value: 'list',
                   },
                 },
+                icon: 'list',
                 value: 'List',
                 visible: true,
               },
@@ -568,6 +579,7 @@ export default {
                     value: 'navbar',
                   },
                 },
+                icon: 'web_asset',
                 value: 'Nav bar',
                 visible: true,
               },
@@ -577,6 +589,7 @@ export default {
                     value: 'progressbar',
                   },
                 },
+                icon: 'data_usage',
                 value: 'Progress bar',
                 visible: true,
               },
@@ -586,6 +599,7 @@ export default {
                     value: 'radio',
                   },
                 },
+                icon: 'radiobox-marked',
                 value: 'Radio',
                 visible: true,
               },
@@ -595,6 +609,7 @@ export default {
                     value: 'rating',
                   },
                 },
+                icon: 'star',
                 value: 'Rating',
                 visible: true,
               },
@@ -604,6 +619,7 @@ export default {
                     value: 'snackbar',
                   },
                 },
+                icon: 'wb_iridescent',
                 value: 'Snackbar',
                 visible: true,
               },
@@ -613,6 +629,7 @@ export default {
                     value: 'spinner',
                   },
                 },
+                icon: 'vanish',
                 value: 'Spinner',
                 visible: true,
               },
@@ -622,6 +639,7 @@ export default {
                     value: 'switch',
                   },
                 },
+                icon: 'toll',
                 value: 'Switch',
                 visible: true,
               },
@@ -631,6 +649,7 @@ export default {
                     value: 'tabbar',
                   },
                 },
+                icon: 'tab',
                 value: 'Tab bar',
                 visible: true,
               },
@@ -640,6 +659,7 @@ export default {
                     value: 'textfield',
                   },
                 },
+                icon: 'text_fields',
                 value: 'Text field',
                 visible: true,
               },
@@ -649,11 +669,13 @@ export default {
                     value: 'timepicker',
                   },
                 },
+                icon: 'access_time',
                 value: 'Time picker',
                 visible: true,
               },
             ],
             expandable: true,
+            icon: 'shape',
             isExpanded: false,
             value: 'Basic',
             visible: true,
@@ -666,11 +688,13 @@ export default {
                     value: 'qlik',
                   },
                 },
+                icon: 'chart-pie',
                 value: 'Qlik',
                 visible: true,
               },
             ],
             expandable: true,
+            icon: 'lightbulb-on',
             isExpanded: false,
             value: '3rd Parties',
             visible: true,
@@ -687,26 +711,128 @@ export default {
           {
             cells: {
               ROUTE: {
-                value: 'customization',
+                value: 'kup-manager',
               },
             },
-            value: 'Customization',
+            icon: 'settings',
+            value: 'KupManager',
             visible: true,
           },
           {
             cells: {
               ROUTE: {
-                value: 'theming',
+                value: 'kup-data',
               },
             },
-            value: 'Theming',
+            icon: 'functions',
+            value: 'KupData',
             visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-dates',
+              },
+            },
+            icon: 'calendar',
+            value: 'KupDates',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-debug',
+              },
+            },
+            icon: 'bug',
+            value: 'KupDebug',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-dynamic-position',
+              },
+            },
+            icon: 'location_on',
+            value: 'KupDynamicPosition',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-interact',
+              },
+            },
+            icon: 'touch_app',
+            value: 'KupInteract',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-language',
+              },
+            },
+            icon: 'translate',
+            value: 'KupLanguage',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-objects',
+              },
+            },
+            icon: 'tag',
+            value: 'KupObjects',
+            visible: false,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-scroll-on-hover',
+              },
+            },
+            icon: 'compare_arrows',
+            value: 'KupScrollOnHover',
+            visible: false,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-search',
+              },
+            },
+            icon: 'pageview',
+            value: 'KupSearch',
+            visible: false,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-theme',
+              },
+            },
+            icon: 'style',
+            value: 'KupTheme',
+            visible: true,
+          },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-toolbar',
+              },
+            },
+            icon: 'wrench',
+            value: 'KupToolbar',
+            visible: false,
           },
         ],
         expandable: true,
-        icon: 'style',
+        icon: 'web',
         isExpanded: false,
-        value: 'CSS',
+        value: 'Framework',
         visible: true,
       },
       {
@@ -714,35 +840,18 @@ export default {
           {
             cells: {
               ROUTE: {
-                value: 'debugging',
+                value: 'customization',
               },
             },
-            value: 'Debugging',
-            visible: true,
-          },
-          {
-            cells: {
-              ROUTE: {
-                value: 'dynamicposition',
-              },
-            },
-            value: 'Dynamic position',
-            visible: true,
-          },
-          {
-            cells: {
-              ROUTE: {
-                value: 'scrollonhover',
-              },
-            },
-            value: 'Scroll on hover',
+            icon: 'style',
+            value: 'Style customization',
             visible: true,
           },
         ],
         expandable: true,
-        icon: 'json',
+        icon: 'library_books',
         isExpanded: false,
-        value: 'Javascript',
+        value: 'Guides',
         visible: true,
       },
     ],
@@ -762,6 +871,7 @@ html {
   color: var(--kup-text-color);
   font-family: var(--kup-font-family);
   font-size: var(--kup-font-size);
+  overscroll-behavior: none;
 }
 
 a {
@@ -876,9 +986,15 @@ label {
 }
 
 .navbar__logo {
+  --kup-obj-cursor: pointer;
   height: 100%;
   margin-left: 12px;
+  transition: opacity 120ms ease;
   width: 128px;
+
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
 .logo a {
@@ -969,6 +1085,10 @@ a.footer__icon--trailing {
   padding-left: var(--kup-drawer-width);
 }
 
+.accordion-slot {
+  padding: 1em;
+}
+
 ::-webkit-scrollbar {
   width: 9px;
 }
@@ -988,9 +1108,7 @@ a.footer__icon--trailing {
     padding-bottom: 2.5em;
   }
 
-  #debug-toggler,
-  #app__footer,
-  #theme-switch {
+  #app__footer {
     display: none;
   }
 }

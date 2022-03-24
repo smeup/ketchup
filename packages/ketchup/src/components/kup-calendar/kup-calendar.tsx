@@ -9,6 +9,7 @@ import {
     Host,
     Method,
     Prop,
+    Watch,
 } from '@stencil/core';
 import {
     Calendar,
@@ -28,35 +29,36 @@ import plLocale from '@fullcalendar/core/locales/pl';
 import ruLocale from '@fullcalendar/core/locales/ru';
 import zhLocale from '@fullcalendar/core/locales/zh-cn';
 import {
-    Row,
-    Column,
-    TableData,
-} from '../kup-data-table/kup-data-table-declarations';
-import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { getColumnByName } from '../../utils/cell-utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { FButton } from '../../f-components/f-button/f-button';
 import { getProps, setProps } from '../../utils/utils';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
+    KupCalendarData,
     KupCalendarDateClickEventPayload,
     KupCalendarEventClickEventPayload,
     KupCalendarEventDropEventPayload,
+    KupCalendarOptions,
     KupCalendarProps,
     KupCalendarViewChangeEventPayload,
     KupCalendarViewTypes,
 } from './kup-calendar-declarations';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import {
-    FChipData,
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
-import { KupDatesLocales } from '../../utils/kup-dates/kup-dates-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
+import { KupDatesLocales } from '../../managers/kup-dates/kup-dates-declarations';
+import {
+    KupDataColumn,
+    KupDataRow,
+} from '../../managers/kup-data/kup-data-declarations';
+import { KupChipNode } from '../kup-chip/kup-chip-declarations';
 
 @Component({
     tag: 'kup-calendar',
@@ -74,6 +76,11 @@ export class KupCalendar {
     /*-------------------------------------------------*/
 
     /**
+     * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
+     * @default null
+     */
+    @Prop() currentDate: string = null;
+    /**
      * Custom style of the component.
      * @default ""
      * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -83,52 +90,12 @@ export class KupCalendar {
      * Actual data of the calendar.
      * @default null
      */
-    @Prop() data: TableData = null;
-    /**
-     * Column containing events' dates.
-     * @default null
-     */
-    @Prop() dateCol: string = null;
-    /**
-     * Column containing events' descriptions.
-     * @default null
-     */
-    @Prop() descrCol: string = null;
-    /**
-     * Column containing events' ending time.
-     * @default null
-     */
-    @Prop() endCol: string = null;
+    @Prop() data: KupCalendarData = null;
     /**
      * When disabled, the navigation toolbar won't be displayed.
      * @default false
      */
     @Prop() hideNavigation = false;
-    /**
-     * Column containing events' icons. There can be multiple icons, divided by ";".
-     * @default null
-     */
-    @Prop() iconCol: string = null;
-    /**
-     * Column containing events' images. There can be multiple images, divided by ";".
-     * @default null
-     */
-    @Prop() imageCol: string = null;
-    /**
-     * Sets the initial date of the calendar. Must be in ISO format (YYYY-MM-DD).
-     * @default null
-     */
-    @Prop() initialDate: string = null;
-    /**
-     * Column containing events' starting time.
-     * @default null
-     */
-    @Prop() startCol: string = null;
-    /**
-     * Column containing events' CSS styles.
-     * @default null
-     */
-    @Prop() styleCol: string = null;
     /**
      * Type of the view.
      * @default KupCalendarViewTypes.MONTH
@@ -145,6 +112,13 @@ export class KupCalendar {
     private kupManager: KupManager = kupManagerInstance();
     private navTitle: HTMLDivElement = null;
     private resizeTimeout: number = null;
+    private dateCol: string = null;
+    private descrCol: string = null;
+    private endCol: string = null;
+    private iconCol: string = null;
+    private imageCol: string = null;
+    private startCol: string = null;
+    private styleCol: string = null;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -159,7 +133,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarEventClicked: EventEmitter<KupCalendarEventClickEventPayload>;
+    kupCalendarEventClick: EventEmitter<KupCalendarEventClickEventPayload>;
     /**
      * When a date is clicked.
      */
@@ -169,7 +143,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarDateClicked: EventEmitter<KupCalendarDateClickEventPayload>;
+    kupCalendarDateClick: EventEmitter<KupCalendarDateClickEventPayload>;
     /**
      * When a date is dropped.
      */
@@ -179,7 +153,7 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarEventDropped: EventEmitter<KupCalendarEventDropEventPayload>;
+    kupCalendarEventDrop: EventEmitter<KupCalendarEventDropEventPayload>;
     /**
      * When the navigation change
      */
@@ -189,7 +163,152 @@ export class KupCalendar {
         cancelable: false,
         bubbles: true,
     })
-    kupCalendarViewChanged: EventEmitter<KupCalendarViewChangeEventPayload>;
+    kupCalendarViewChange: EventEmitter<KupCalendarViewChangeEventPayload>;
+
+    /*-------------------------------------------------*/
+    /*                  W a t c h e r s                */
+    /*-------------------------------------------------*/
+
+    @Watch('data')
+    @Watch('currentDate')
+    setCalendarData() {
+        if (this.calendar) {
+            this.calendar.destroy();
+        }
+        for (
+            let index = 0;
+            this.data && this.data.columns && index < this.data.columns.length;
+            index++
+        ) {
+            const column = this.data.columns[index];
+            switch (column.calendarOption) {
+                case KupCalendarOptions.DATE:
+                    this.dateCol = column.name;
+                    break;
+                case KupCalendarOptions.DESCR:
+                    this.descrCol = column.name;
+                    break;
+                case KupCalendarOptions.END:
+                    this.endCol = column.name;
+                    break;
+                case KupCalendarOptions.ICON:
+                    this.iconCol = column.name;
+                    break;
+                case KupCalendarOptions.IMAGE:
+                    this.imageCol = column.name;
+                    break;
+                case KupCalendarOptions.START:
+                    this.startCol = column.name;
+                    break;
+                case KupCalendarOptions.STYLE:
+                    this.styleCol = column.name;
+                    break;
+            }
+        }
+        this.calendar = new Calendar(this.calendarContainer, {
+            dateClick: ({ date }) => {
+                this.kupCalendarDateClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    date: date,
+                });
+            },
+            editable: true,
+            eventClick: ({ event }) => {
+                this.kupCalendarEventClick.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    row: event.extendedProps.row,
+                });
+            },
+            eventDidMount: (info) => {
+                if (this.iconCol) {
+                    const row: KupDataRow = info.event.extendedProps.row;
+                    const cell = row.cells[this.iconCol];
+                    if (cell && cell.value) {
+                        const wrapper = document.createElement('div');
+                        wrapper.classList.add('icon-wrapper');
+
+                        cell.value.split(';').forEach((icon) => {
+                            const span = document.createElement('span');
+                            span.className = 'custom-icon';
+                            const path: string = getAssetPath(
+                                `./assets/svg/${icon}.svg`
+                            );
+                            span.style.mask = `url('${path}') no-repeat center`;
+                            span.style.webkitMask = `url('${path}') no-repeat center`;
+                            wrapper.appendChild(span);
+                        });
+
+                        info.el.appendChild(wrapper);
+                    }
+                }
+
+                if (this.imageCol) {
+                    const row: KupDataRow = info.event.extendedProps.row;
+                    const cell = row.cells[this.imageCol];
+                    if (cell && cell.value) {
+                        const wrapper = document.createElement('div');
+                        wrapper.classList.add('image-wrapper');
+
+                        cell.value.split(';').forEach((icon) => {
+                            const img = document.createElement('img');
+                            img.src = icon;
+                            wrapper.appendChild(img);
+                        });
+
+                        info.el.appendChild(wrapper);
+                    }
+                }
+
+                if (this.styleCol) {
+                    const row: KupDataRow = info.event.extendedProps.row;
+                    const cell = row.cells[this.styleCol];
+                    const eventCell = info.el.children[0] as HTMLElement;
+                    const parent = eventCell.parentElement;
+                    if (cell && cell.style) {
+                        Object.keys(cell.style).forEach((k) => {
+                            parent.style[k] = cell.style[k];
+                        });
+                    }
+                }
+            },
+            eventDrop: ({ event, oldEvent }) => {
+                this.kupCalendarEventDrop.emit({
+                    comp: this,
+                    id: this.rootElement.id,
+                    fromDate: {
+                        start: oldEvent.start,
+                        end: oldEvent.end,
+                    },
+                    toDate: {
+                        start: event.start,
+                        end: event.end,
+                    },
+                });
+            },
+            events: this.getEvents(),
+            headerToolbar: false,
+            initialDate: this.currentDate,
+            initialView: this.viewType,
+            locale: this.getLocale(),
+            locales: [
+                esLocale,
+                frLocale,
+                itLocale,
+                plLocale,
+                ruLocale,
+                zhLocale,
+            ],
+            plugins: [
+                dayGridPlugin,
+                interactionPlugin,
+                listPlugin,
+                timeGridPlugin,
+            ],
+        });
+        this.calendar.render();
+    }
 
     /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
@@ -240,7 +359,7 @@ export class KupCalendar {
         this.emitNavEvent();
     }
 
-    private getColumns(): Column[] {
+    private getColumns(): KupDataColumn[] {
         if (this.data && this.data.rows) {
             return this.data.columns;
         }
@@ -267,7 +386,7 @@ export class KupCalendar {
         }
     }
 
-    private getRows(): Row[] {
+    private getRows(): KupDataRow[] {
         if (this.data && this.data.rows) {
             return this.data.rows;
         }
@@ -284,12 +403,12 @@ export class KupCalendar {
         };
         for (const key in KupCalendarViewTypes) {
             const view: KupCalendarViewTypes = KupCalendarViewTypes[key];
-            const chipData: FChipData = {
-                value: key,
-                label: this.kupManager.language.translate(
+            const chipData: KupChipNode = {
+                checked: this.viewType === view ? true : false,
+                value: this.kupManager.language.translate(
                     KupLanguageGeneric[key]
                 ),
-                checked: this.viewType === view ? true : false,
+                id: key,
             };
             props.data.push(chipData);
             props.onClick.push(() => this.changeView(view));
@@ -370,7 +489,7 @@ export class KupCalendar {
             .subtract(this.calendar.view.currentEnd, 1, 'day')
             .toDate();
 
-        this.kupCalendarViewChanged.emit({
+        this.kupCalendarViewChange.emit({
             comp: this,
             id: this.rootElement.id,
             from: this.calendar.view.currentStart,
@@ -391,114 +510,14 @@ export class KupCalendar {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
+        this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        this.calendar = new Calendar(this.calendarContainer, {
-            dateClick: ({ date }) => {
-                this.kupCalendarDateClicked.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    date: date,
-                });
-            },
-            editable: true,
-            eventClick: ({ event }) => {
-                this.kupCalendarEventClicked.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    row: event.extendedProps.row,
-                });
-            },
-            eventDidMount: (info) => {
-                if (this.styleCol) {
-                    const row: Row = info.event.extendedProps.row;
-                    const cell = row.cells[this.styleCol];
-                    const eventCell = info.el.children[0] as HTMLElement;
-                    if (cell && cell.style) {
-                        Object.keys(cell.style).forEach((k) => {
-                            eventCell.style[k] = cell.style[k];
-                        });
-                    }
-                }
-
-                if (this.iconCol) {
-                    const row: Row = info.event.extendedProps.row;
-                    const cell = row.cells[this.iconCol];
-                    if (cell && cell.value) {
-                        const wrapper = document.createElement('div');
-                        wrapper.classList.add('icon-wrapper');
-
-                        cell.value.split(';').forEach((icon) => {
-                            const span = document.createElement('span');
-                            span.className = 'custom-icon';
-                            const path: string = getAssetPath(
-                                `./assets/svg/${icon}.svg`
-                            );
-                            span.style.mask = `url('${path}') no-repeat center`;
-                            span.style.webkitMask = `url('${path}') no-repeat center`;
-                            wrapper.appendChild(span);
-                        });
-
-                        info.el.appendChild(wrapper);
-                    }
-                }
-
-                if (this.imageCol) {
-                    const row: Row = info.event.extendedProps.row;
-                    const cell = row.cells[this.imageCol];
-                    if (cell && cell.value) {
-                        const wrapper = document.createElement('div');
-                        wrapper.classList.add('image-wrapper');
-
-                        cell.value.split(';').forEach((icon) => {
-                            const img = document.createElement('img');
-                            img.src = icon;
-                            wrapper.appendChild(img);
-                        });
-
-                        info.el.appendChild(wrapper);
-                    }
-                }
-            },
-            eventDrop: ({ event, oldEvent }) => {
-                this.kupCalendarEventDropped.emit({
-                    comp: this,
-                    id: this.rootElement.id,
-                    fromDate: {
-                        start: oldEvent.start,
-                        end: oldEvent.end,
-                    },
-                    toDate: {
-                        start: event.start,
-                        end: event.end,
-                    },
-                });
-            },
-            events: this.getEvents(),
-            headerToolbar: false,
-            initialDate: this.initialDate,
-            initialView: this.viewType,
-            locale: this.getLocale(),
-            locales: [
-                esLocale,
-                frLocale,
-                itLocale,
-                plLocale,
-                ruLocale,
-                zhLocale,
-            ],
-            plugins: [
-                dayGridPlugin,
-                interactionPlugin,
-                listPlugin,
-                timeGridPlugin,
-            ],
-        });
-        this.calendar.render();
+        this.setCalendarData();
         this.updateCalendar();
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
@@ -580,6 +599,7 @@ export class KupCalendar {
         if (this.calendar) {
             this.calendar.destroy();
         }
+        this.kupManager.dates.unregister(this);
         this.kupManager.language.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
         this.kupManager.theme.unregister(this);

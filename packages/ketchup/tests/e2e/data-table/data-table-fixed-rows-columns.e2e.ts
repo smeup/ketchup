@@ -1,14 +1,8 @@
 import { newE2EPage } from '@stencil/core/testing';
-
 import { createData } from './mocked-data';
-
-import {
-    Column,
-    FixedCellsClasses,
-    FixedCellsCSSVarsBase,
-} from '../../../src/components/kup-data-table/kup-data-table-declarations';
-
+import { FixedCellsClasses } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import { getElementClientRect } from '../E2eTestUtilities';
+import { KupDataColumn } from '../../../src/managers/kup-data/kup-data-declarations';
 
 /**
  * Page element created before each test by the beforeEach function
@@ -63,7 +57,7 @@ function getPropDirectionFromCurrent(direction: string): string {
     );
 }
 
-function getDataTableVisibleColumns(columns: Column[]) {
+function getDataTableVisibleColumns(columns: KupDataColumn[]) {
     return columns.filter((col) => col.visible === undefined || col.visible)
         .length;
 }
@@ -169,9 +163,8 @@ describe.each([
                 await page.addStyleTag({ content: tableCustomHeightStyle });
 
                 // Set the fixed direction elements
-                const propDirection = getPropDirectionFromCurrent(
-                    currentDirection
-                );
+                const propDirection =
+                    getPropDirectionFromCurrent(currentDirection);
                 await tableElement.setProperty(propDirection, fixedCount);
                 // Sets height correctly to force a scrollable table
                 await page.addStyleTag({ content: tableCustomHeightStyle });

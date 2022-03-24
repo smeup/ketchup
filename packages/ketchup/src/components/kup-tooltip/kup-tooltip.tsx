@@ -32,18 +32,18 @@ import {
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
+} from '../../managers/kup-manager/kup-manager';
 import {
     kupDynamicPositionAttribute,
     KupDynamicPositionElement,
-} from '../../utils/kup-dynamic-position/kup-dynamic-position-declarations';
+} from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { GenericObject, KupComponent } from '../../types/GenericTypes';
-import { KupLanguageGeneric } from '../../utils/kup-language/kup-language-declarations';
+import { KupLanguageGeneric } from '../../managers/kup-language/kup-language-declarations';
 import { KupCardFamily } from '../kup-card/kup-card-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
-import { KupManagerClickCb } from '../../utils/kup-manager/kup-manager-declarations';
+import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
+import { KupDataRow } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -428,7 +428,7 @@ export class KupTooltip {
         }
     }
 
-    private getRows(): Row[] {
+    private getRows(): KupDataRow[] {
         return this.hasDetailData() ? this.detailData.rows : [];
     }
 

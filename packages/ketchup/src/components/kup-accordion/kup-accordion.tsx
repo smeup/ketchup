@@ -17,9 +17,8 @@ import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
-} from '../../utils/kup-manager/kup-manager';
+} from '../../managers/kup-manager/kup-manager';
 import { getProps, setProps } from '../../utils/utils';
-import { Column } from '../kup-data-table/kup-data-table-declarations';
 import {
     KupAccordionData,
     KupAccordionProps,
@@ -30,7 +29,8 @@ import { componentWrapperId } from '../../variables/GenericVariables';
 import {
     KupThemeColorValues,
     KupThemeIconValues,
-} from '../../utils/kup-theme/kup-theme-declarations';
+} from '../../managers/kup-theme/kup-theme-declarations';
+import { KupDataColumn } from '../../managers/kup-data/kup-data-declarations';
 
 @Component({
     tag: 'kup-accordion',
@@ -236,7 +236,7 @@ export class KupAccordion {
         }
 
         for (let i = 0; i < this.data.columns.length; i++) {
-            const column: Column = this.data.columns[i];
+            const column: KupDataColumn = this.data.columns[i];
             const itemName: string = column.name;
             const isItemSelected: boolean = this.isItemSelected(itemName);
             const isItemExpandible: boolean = this.isItemExpandible(itemName);

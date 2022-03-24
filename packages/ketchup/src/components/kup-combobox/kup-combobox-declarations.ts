@@ -17,4 +17,9 @@ export enum KupComboboxProps {
 
 export interface KupComboboxEventPayload extends KupEventPayload {
     value: any;
+    inputValue: any;
+}
+export interface KupComboboxIconClickEventPayload
+    extends KupComboboxEventPayload {
+    open: boolean;
 }
