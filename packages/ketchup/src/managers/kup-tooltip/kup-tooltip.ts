@@ -7,7 +7,10 @@ import {
     KupDynamicPositionElement,
 } from '../kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
-import { KupTooltipAnchor } from './kup-tooltip-declarations';
+import {
+    KupTooltipAnchor,
+    KupTooltipCallbacks,
+} from './kup-tooltip-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -34,10 +37,10 @@ export class KupTooltip {
             // If the current anchor exists and is not included in the event path,
             // the leaving callback is fired.
             if (this.currentAnchor && !paths.includes(this.currentAnchor)) {
-                if (this.currentAnchor.kupTooltipLeaveCb) {
+                if (this.currentAnchor.kupTooltip.leave) {
                     requestAnimationFrame(
-                        this.currentAnchor.kupTooltipLeaveCb.bind(
-                            this.currentAnchor.kupTooltipLeaveCb,
+                        this.currentAnchor.kupTooltip.leave.bind(
+                            this.currentAnchor.kupTooltip.leave,
                             e
                         )
                     );
@@ -50,10 +53,10 @@ export class KupTooltip {
                         // If the current anchor is the same as the registered element found
                         // in the path, the mouse over function is invoked
                         if (this.currentAnchor === element) {
-                            if (element.kupTooltipOverCb) {
+                            if (element.kupTooltip.over) {
                                 requestAnimationFrame(
-                                    element.kupTooltipOverCb.bind(
-                                        element.kupTooltipOverCb,
+                                    element.kupTooltip.over.bind(
+                                        element.kupTooltip.over,
                                         e
                                     )
                                 );
@@ -61,10 +64,10 @@ export class KupTooltip {
                             // Otherwise, the mouse enter callback will be invoked
                         } else {
                             this.currentAnchor = element;
-                            if (element.kupTooltipEnterCb) {
+                            if (element.kupTooltip.enter) {
                                 requestAnimationFrame(
-                                    element.kupTooltipEnterCb.bind(
-                                        element.kupTooltipEnterCb,
+                                    element.kupTooltip.enter.bind(
+                                        element.kupTooltip.enter,
                                         e
                                     )
                                 );
@@ -175,9 +178,12 @@ export class KupTooltip {
         cbLeave?: (e: PointerEvent) => void
     ): void {
         this.managedElements.add(element);
-        element.kupTooltipEnterCb = cbEnter;
-        element.kupTooltipOverCb = cbOver;
-        element.kupTooltipLeaveCb = cbLeave;
+        const kupTooltip: KupTooltipCallbacks = {
+            enter: cbEnter,
+            over: cbOver,
+            leave: cbLeave,
+        };
+        element.kupTooltip = kupTooltip;
     }
     /**
      * Unregisters an HTMLElement, preventing its attached callback from being invoked.

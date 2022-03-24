@@ -1,5 +1,7 @@
 const dataTable = document.getElementById('data-table');
 const registerThis = document.getElementById('register-this');
+const registerThisInstead = document.getElementById('register-this-instead');
+const unregisterBoth = document.getElementById('unregister-both');
 
 const dataTableTooltip = (e) => {
     const cell = e.detail.details.td;
@@ -20,13 +22,13 @@ const dataTableTooltip = (e) => {
     }
 };
 
-const registerThisTooltip = () => {
-    registerThis.disabled = true;
+const registerThisTooltip = (anchor) => {
+    anchor.disabled = true;
     kupManager.tooltip.register(
-        registerThis,
+        anchor,
         () => {
             console.log('In callback.');
-            kupManager.tooltip.show(registerThis, {
+            kupManager.tooltip.show(anchor, {
                 data: {
                     text: ['Hi!'],
                 },
@@ -39,7 +41,7 @@ const registerThisTooltip = () => {
                 '--kup-background-color',
                 kupManager.theme.randomColor(128)
             );
-            kupManager.tooltip.show(registerThis, {
+            kupManager.tooltip.show(anchor, {
                 data: {
                     text: [
                         'Coordinates',
@@ -63,8 +65,23 @@ const registerThisTooltip = () => {
     );
 };
 
+const unregister = () => {
+    kupManager.tooltip.unregister(registerThis);
+    registerThis.disabled = false;
+    kupManager.tooltip.unregister(registerThisInstead);
+    registerThisInstead.disabled = false;
+};
+
 dataTable.addEventListener('kup-datatable-contextmenu', dataTableTooltip);
-registerThis.addEventListener('kup-button-click', registerThisTooltip);
+registerThis.addEventListener(
+    'kup-button-click',
+    registerThisTooltip.bind(registerThisTooltip, registerThis)
+);
+registerThisInstead.addEventListener(
+    'kup-button-click',
+    registerThisTooltip.bind(registerThisTooltip, registerThisInstead)
+);
+unregisterBoth.addEventListener('kup-button-click', unregister);
 
 dataTable.data = {
     columns: [
