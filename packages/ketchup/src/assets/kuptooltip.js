@@ -1,4 +1,5 @@
 const dataTable = document.getElementById('data-table');
+const registerThis = document.getElementById('register-this');
 
 const dataTableTooltip = (e) => {
     const cell = e.detail.details.td;
@@ -19,7 +20,51 @@ const dataTableTooltip = (e) => {
     }
 };
 
+const registerThisTooltip = () => {
+    registerThis.disabled = true;
+    kupManager.tooltip.register(
+        registerThis,
+        () => {
+            console.log('In callback.');
+            kupManager.tooltip.show(registerThis, {
+                data: {
+                    text: ['Hi!'],
+                },
+                layoutNumber: '8',
+            });
+        },
+        (e) => {
+            console.log('Hovering.');
+            kupManager.tooltip.element.style.setProperty(
+                '--kup-background-color',
+                kupManager.theme.randomColor(128)
+            );
+            kupManager.tooltip.show(registerThis, {
+                data: {
+                    text: [
+                        'Coordinates',
+                        'x:',
+                        e.x,
+                        'y:',
+                        e.y,
+                        'currentAnchor',
+                        kupManager.tooltip.currentAnchor
+                            ? kupManager.tooltip.currentAnchor.tagName
+                            : '',
+                    ],
+                },
+                layoutNumber: '15',
+            });
+        },
+        () => {
+            console.log('Out callback.');
+            kupManager.tooltip.hide();
+        }
+    );
+};
+
 dataTable.addEventListener('kup-datatable-contextmenu', dataTableTooltip);
+registerThis.addEventListener('kup-button-click', registerThisTooltip);
 
 dataTable.data = {
     columns: [

@@ -31,11 +31,20 @@
                 text-align: center;
                 width: 100%;
             }
+            .button-wrapper {
+                display: flex;
+                justify-content: space-evenly;
+                margin: 1em 0;
+                width: 100;
+            }
         </style>
     </head>
 
     <body>
         <h3>KupTooltip</h3>
+        <div class="button-wrapper">
+            <kup-button id="register-this" label="Register this"></kup-button>
+        </div>
         <kup-data-table id="data-table"></kup-data-table>
         <script src="/assets/kuptooltip.js"></script>
     </body>
