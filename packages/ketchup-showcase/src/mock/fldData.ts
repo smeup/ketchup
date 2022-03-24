@@ -89,21 +89,21 @@ export const fldDataWupCombobox = [
     prop: 'data',
     value: [
       {
-        text: 'DELGIO',
-        value: 'sme001',
+        value: 'DELGIO',
+        id: 'sme001',
       },
       {
-        text: 'SANCOS',
-        value: 'sme002',
+        value: 'SANCOS',
+        id: 'sme002',
         selected: true,
       },
       {
-        text: 'PARFRA',
-        value: 'sme004',
+        value: 'PARFRA',
+        id: 'sme004',
       },
       {
-        text: 'ZAMCHI',
-        value: 'sme006',
+        value: 'ZAMCHI',
+        id: 'sme006',
       },
     ],
   },
@@ -115,21 +115,21 @@ export const fldDataWupComboboxSeparator = [
     prop: 'data',
     value: [
       {
-        text: 'DELGIO',
-        value: 'sme001',
+        value: 'DELGIO',
+        id: 'sme001',
       },
       {
-        text: 'SANCOS',
-        value: 'sme002',
+        value: 'SANCOS',
+        id: 'sme002',
       },
       {
-        text: 'PARFRA',
-        value: 'sme004',
+        value: 'PARFRA',
+        id: 'sme004',
         separator: true,
       },
       {
-        text: 'ZAMCHI',
-        value: 'sme006',
+        value: 'ZAMCHI',
+        id: 'sme006',
       },
     ],
   },
@@ -141,20 +141,20 @@ export const fldDataWupComboboxUnselected = [
     prop: 'data',
     value: [
       {
-        text: 'DELGIO',
-        value: 'sme001',
+        value: 'DELGIO',
+        id: 'sme001',
       },
       {
-        text: 'SANCOS',
-        value: 'sme002',
+        value: 'SANCOS',
+        id: 'sme002',
       },
       {
-        text: 'PARFRA',
-        value: 'sme004',
+        value: 'PARFRA',
+        id: 'sme004',
       },
       {
-        text: 'ZAMCHI',
-        value: 'sme006',
+        value: 'ZAMCHI',
+        id: 'sme006',
       },
     ],
   },

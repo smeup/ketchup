@@ -27,7 +27,7 @@ import {
     KupButtonListNode,
     KupButtonListProps,
 } from './kup-button-list-declarations';
-import { KupListData } from '../kup-list/kup-list-declarations';
+import { KupListNode } from '../kup-list/kup-list-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { setProps } from '../../utils/utils';
@@ -144,7 +144,7 @@ export class KupButtonList {
                 KupDebugCategory.WARNING
             );
             const data = this.data as KupDataDataset;
-            this.data = this.kupManager.data.datasetOperations.row.toNode(data);
+            this.data = this.kupManager.data.row.toNode(data);
         }
     }
 
@@ -328,12 +328,12 @@ export class KupButtonList {
 
     private getKupListDataForChildren(
         children: KupButtonListNode[]
-    ): KupListData[] {
-        let ris: KupListData[] = [];
+    ): KupListNode[] {
+        const ris: KupListNode[] = [];
 
         for (let i = 0; i < children.length; i++) {
-            let tn: KupButtonListNode = children[i];
-            ris.push({ text: tn.value, icon: tn.icon, value: i.toString() });
+            const tn: KupButtonListNode = children[i];
+            ris.push({ icon: tn.icon, id: i.toString(), value: tn.value });
         }
         return ris;
     }

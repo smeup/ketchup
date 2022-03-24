@@ -83,43 +83,11 @@ export interface KupDataNode extends KupDataRow {
     value: string;
     children?: KupDataNode[];
     disabled?: boolean;
+    expandable?: boolean;
     obj?: KupObj;
     icon?: string;
     isExpanded?: boolean;
     title?: string;
-}
-/**
- * Interface related to dataset operations.
- */
-export interface KupDataDatasetOperations {
-    cell: KupDataCellOperations;
-    column: KupDataColumnOperations;
-    node: KupDataNodeOperations;
-    row: KupDataRowOperations;
-    distinct: (
-        dataset: KupDataDataset,
-        columns?: string[],
-        valuesColumn?: KupDataColumn
-    ) => KupDataDataset;
-    new: (
-        dataset: KupDataDataset,
-        newColumns: KupDataNewColumn[]
-    ) => KupDataDataset;
-    rangedDistinct: (
-        dataset: KupDataDataset,
-        rangeColumns: KupDataNewColumn[],
-        resultingColumn: KupDataColumn,
-        valuesColumn?: KupDataColumn
-    ) => KupDataDataset;
-    sort: (
-        dataset: KupDataDataset,
-        sortType: KupDataDatasetSort,
-        headerColumn: string
-    ) => KupDataDataset;
-    transpose: (
-        dataset: KupDataDataset,
-        headerColumn?: string
-    ) => KupDataDataset;
 }
 /**
  * Interface related to cells operations.
@@ -178,17 +146,6 @@ export interface KupDataRowOperations {
     toNode: (dataset: KupDataDataset) => KupDataNode[];
 }
 /**
- * Interface related to the formulas factory function.
- */
-export interface KupDataFormulas {
-    custom: (formula: string, row: { [index: string]: number }) => number;
-    normalDistribution: (
-        average: number,
-        variance: number,
-        x: number
-    ) => number;
-}
-/**
  * Sets the filters for the cell finder method.
  */
 export interface KupDataFindCellFilters {
@@ -215,7 +172,7 @@ export interface KupDataNewColumn {
  */
 export type KupDataDatasetSort = 'normalDistribution';
 /**
- * Interface containing the options related to column creation when invoking datasetOperations.column.new.
+ * Interface containing the options related to column creation when invoking column.new.
  */
 export interface KupDataNewColumnOptions {
     columns?: string[];
@@ -224,10 +181,11 @@ export interface KupDataNewColumnOptions {
     separator?: string;
 }
 /**
- * Types of column creation when invoking datasetOperations.column.new.
+ * Types of column creation when invoking column.new.
  */
 export enum KupDataNewColumnTypes {
     CONCATENATE = 'concatenate',
+    DUPLICATE = 'duplicate',
     MATH = 'math',
     MERGE = 'merge',
 }

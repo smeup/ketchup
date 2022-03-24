@@ -1,4 +1,3 @@
-import numeral from 'numeral';
 import {
     SortObject,
     SortMode,
@@ -9,7 +8,7 @@ import {
     KupDataTableRowGroup,
     KupDataTableCell,
 } from './kup-data-table-declarations';
-import { isEmpty, stringToNumber } from '../../utils/utils';
+import { stringToNumber } from '../../utils/utils';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import {
@@ -334,7 +333,9 @@ function updateGroupTotal(
     }
 
     keys.forEach((key) => {
-        const currentTotalValue = groupRow.group.totals[key] || 0;
+        const currentTotalValue = dom.ketchup.math.numberify(
+            groupRow.group.totals[key] || 0
+        );
 
         const cell = addedRow.cells[key];
 
@@ -360,7 +361,9 @@ function updateGroupTotal(
                 case TotalMode.DISTINCT:
                     let cellValue;
                     if (_isNumber) {
-                        cellValue = numeral(stringToNumber(cell.value)).value();
+                        cellValue = dom.ketchup.math.numberify(
+                            stringToNumber(cell.value)
+                        );
                     } else {
                         cellValue = cell.value;
                     }
@@ -413,20 +416,20 @@ function updateGroupTotal(
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
                     if (_isNumber) {
-                        const cellValue = numeral(stringToNumber(cell.value));
+                        const cellValue = dom.ketchup.math.numberify(
+                            stringToNumber(cell.value)
+                        );
 
-                        groupRow.group.totals[key] = numeral(cellValue)
-                            .add(currentTotalValue)
-                            .value();
+                        groupRow.group.totals[key] =
+                            cellValue + currentTotalValue;
                         // updating parents
                         let parent = groupRow.group.parent;
                         while (parent != null) {
-                            const currentParentSum =
-                                parent.group.totals[key] || 0;
-
-                            parent.group.totals[key] = numeral(cellValue)
-                                .add(currentParentSum)
-                                .value();
+                            const currentParentSum = dom.ketchup.math.numberify(
+                                parent.group.totals[key] || 0
+                            );
+                            parent.group.totals[key] =
+                                cellValue + currentParentSum;
 
                             parent = parent.group.parent;
                         }
@@ -436,9 +439,9 @@ function updateGroupTotal(
                 case TotalMode.MIN:
                     if (_isNumber) {
                         const currentTotalValue = groupRow.group.totals[key];
-                        const cellValue = numeral(
+                        const cellValue = dom.ketchup.math.numberify(
                             stringToNumber(cell.value)
-                        ).value();
+                        );
                         if (currentTotalValue) {
                             groupRow.group.totals[key] = Math.min(
                                 currentTotalValue,
@@ -515,9 +518,9 @@ function updateGroupTotal(
                 case TotalMode.MAX:
                     if (_isNumber) {
                         const currentTotalValue = groupRow.group.totals[key];
-                        const cellValue = numeral(
+                        const cellValue = dom.ketchup.math.numberify(
                             stringToNumber(cell.value)
-                        ).value();
+                        );
                         if (currentTotalValue) {
                             groupRow.group.totals[key] = Math.max(
                                 currentTotalValue,
@@ -723,13 +726,13 @@ function adjustGroupAverageOrFormula(
     // adjust average/formulas
     toAdjustKeys.forEach((key) => {
         if (type == TotalMode.AVERAGE) {
-            row.group.totals[key] = numeral(row.group.totals[key])
-                .divide(numberOfLeaf)
-                .value();
+            row.group.totals[key] =
+                dom.ketchup.math.numberify(row.group.totals[key]) /
+                numberOfLeaf;
         }
         if (type == TotalMode.MATH) {
             let formula = totals[key].substring(TotalMode.MATH.length);
-            row.group.totals[key] = dom.ketchup.data.formulas.custom(
+            row.group.totals[key] = dom.ketchup.math.formulas.custom(
                 formula,
                 row.group.totals
             );
@@ -770,7 +773,10 @@ export function calcTotals(
     rows: Array<KupDataTableRow> = [],
     totals: { [index: string]: TotalMode } = {}
 ): { [index: string]: number } {
-    if (isEmpty(rows) || isEmpty(totals)) {
+    if (
+        dom.ketchup.objects.isEmptyJsObject(rows) ||
+        dom.ketchup.objects.isEmptyJsObject(totals)
+    ) {
         return {};
     }
     const keys = Object.keys(totals);
@@ -795,9 +801,9 @@ export function calcTotals(
                     if (totals[key] === TotalMode.DISTINCT) {
                         let cellValue;
                         if (dom.ketchup.objects.isNumber(cell.obj)) {
-                            cellValue = numeral(
+                            cellValue = dom.ketchup.math.numberify(
                                 stringToNumber(cell.value)
-                            ).value();
+                            );
                         } else {
                             cellValue = cell.value;
                         }
@@ -811,7 +817,9 @@ export function calcTotals(
                             distinctList.push(cellValue);
                         }
                     } else if (dom.ketchup.objects.isNumber(cell.obj)) {
-                        const cellValue = numeral(stringToNumber(cell.value));
+                        const cellValue = dom.ketchup.math.numberify(
+                            stringToNumber(cell.value)
+                        );
                         let currentFooterValue = footerRow[key];
                         switch (true) {
                             // TODO DRY the MIN and MAX functions
@@ -819,28 +827,30 @@ export function calcTotals(
                                 if (currentFooterValue) {
                                     footerRow[key] = Math.min(
                                         currentFooterValue,
-                                        cellValue.value()
+                                        cellValue
                                     );
                                 } else {
-                                    footerRow[key] = cellValue.value();
+                                    footerRow[key] = cellValue;
                                 }
                                 break;
                             case totals[key] === TotalMode.MAX:
                                 if (currentFooterValue) {
                                     footerRow[key] = Math.max(
                                         currentFooterValue,
-                                        cellValue.value()
+                                        cellValue
                                     );
                                 } else {
-                                    footerRow[key] = cellValue.value();
+                                    footerRow[key] = cellValue;
                                 }
                                 break;
                             default:
                                 // SUM
                                 currentFooterValue = footerRow[key] || 0;
-                                footerRow[key] = cellValue
-                                    .add(currentFooterValue)
-                                    .value();
+                                footerRow[key] =
+                                    cellValue +
+                                    dom.ketchup.math.numberify(
+                                        currentFooterValue
+                                    );
                         }
                         // TODO DRY the MIN and MAX functions
                     } else if (dom.ketchup.objects.isDate(cell.obj)) {
@@ -908,22 +918,23 @@ export function calcTotals(
                 case totals[key] === TotalMode.AVERAGE:
                     const sum: number = footerRow[key];
                     if (sum && rows.length > 0) {
-                        footerRow[key] = numeral(sum)
-                            .divide(rows.length)
-                            .value();
+                        footerRow[key] = sum / rows.length;
                     }
                     break;
                 case totals[key] === TotalMode.COUNT:
                     footerRow[key] = rows.length;
                     break;
                 case totals[key].indexOf(TotalMode.MATH) == 0:
-                    footerRow[key] = dom.ketchup.data.formulas.custom(
+                    footerRow[key] = dom.ketchup.math.formulas.custom(
                         totals[key].substring(TotalMode.MATH.length),
                         footerRow
                     );
                     break;
                 default:
                     break;
+            }
+            if (footerRow[key]) {
+                footerRow[key] = +footerRow[key].toFixed(2);
             }
         }
     }

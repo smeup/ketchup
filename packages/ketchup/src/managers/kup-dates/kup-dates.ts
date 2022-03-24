@@ -332,7 +332,9 @@ export class KupDates {
      * @param {any} component - The Ketchup component to be registered.
      */
     register(component: any): void {
-        this.managedComponents.add(component.rootElement);
+        this.managedComponents.add(
+            component.rootElement ? component.rootElement : component
+        );
     }
     /**
      * Unregisters a KupComponent, so it won't be refreshed when the locale changes.
@@ -341,7 +343,9 @@ export class KupDates {
      */
     unregister(component: any): void {
         if (this.managedComponents) {
-            this.managedComponents.delete(component.rootElement);
+            this.managedComponents.delete(
+                component.rootElement ? component.rootElement : component
+            );
         }
     }
 }

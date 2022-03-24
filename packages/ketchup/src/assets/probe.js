@@ -35,40 +35,40 @@ combobox.data = {
     'kup-list': {
         data: [
             {
-                text: 'No features',
-                value: 'empty',
+                value: 'No features',
+                id: 'empty',
             },
             {
-                text: 'KupDebug',
-                value: 'debug',
+                value: 'KupDebug',
+                id: 'debug',
             },
             {
-                text: 'KupLanguage',
-                value: 'language',
+                value: 'KupLanguage',
+                id: 'language',
             },
             {
-                text: 'KupTheme',
-                value: 'theme',
+                value: 'KupTheme',
+                id: 'theme',
             },
             {
-                text: 'Long cycle (props)',
-                value: 'cycleprops',
+                value: 'Long cycle (props)',
+                id: 'cycleprops',
             },
             {
-                text: 'Long cycle (variables)',
-                value: 'cyclevars',
+                value: 'Long cycle (variables)',
+                id: 'cyclevars',
             },
             {
-                text: 'Long cycle (KupObjects)',
-                value: 'cycleobjects',
+                value: 'Long cycle (KupObjects)',
+                id: 'cycleobjects',
             },
             {
-                text: 'Long cycle (object function)',
-                value: 'cycleobjectsfunction',
+                value: 'Long cycle (object function)',
+                id: 'cycleobjectsfunction',
             },
             {
-                text: 'All features',
-                value: 'full',
+                value: 'All features',
+                id: 'full',
             },
         ],
     },

@@ -1,5 +1,6 @@
 import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
 import { KupDataNode } from '../../managers/kup-data/kup-data-declarations';
+import { KupObj } from '../../managers/kup-objects/kup-objects-declarations';
 import { GenericObject, KupEventPayload } from '../../types/GenericTypes';
 
 /**
@@ -23,5 +24,5 @@ export interface KupButtonListNode extends KupDataNode {
 export interface KupButtonListClickEventPayload extends KupEventPayload {
     index: string;
     subIndex: string;
-    obj: any;
+    obj: KupObj;
 }

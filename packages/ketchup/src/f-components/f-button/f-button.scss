@@ -38,7 +38,6 @@
   );
   --kup-spinner-color: var(--kup_button_primary_color);
 
-  font-family: var(--kup_button_font_family);
   font-size: var(--kup_button_font_size);
 
   .button {
@@ -53,6 +52,7 @@
     color: var(--kup_button_primary_color);
     cursor: pointer;
     display: inline-flex;
+    font-family: var(--kup_button_font_family);
     font-size: 0.775em;
     font-weight: var(--kup_button_font_weight);
     height: var(--kup_button_height);

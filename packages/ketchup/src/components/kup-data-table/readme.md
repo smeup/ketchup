@@ -70,8 +70,6 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `rowActions`                | --                             | Sets the actions of the rows.                                                                                                                                                                                                  | `KupDataRowAction[]`                                                                                      | `undefined`                          |
 | `rowsPerPage`               | `rows-per-page`                | Sets the number of rows per page to display.                                                                                                                                                                                   | `number`                                                                                                  | `10`                                 |
 | `scrollOnHover`             | `scroll-on-hover`              | Activates the scroll on hover function.                                                                                                                                                                                        | `boolean`                                                                                                 | `false`                              |
-| `selectRow`                 | `select-row`                   | Selects the row at the specified rendered rows prosition (base 1).                                                                                                                                                             | `number`                                                                                                  | `undefined`                          |
-| `selectRowsById`            | `select-rows-by-id`            | Semicolon separated rows id to select.                                                                                                                                                                                         | `string`                                                                                                  | `undefined`                          |
 | `selection`                 | `selection`                    | Set the type of the rows selection.                                                                                                                                                                                            | `SelectionMode.MULTIPLE \| SelectionMode.MULTIPLE_CHECKBOX \| SelectionMode.NONE \| SelectionMode.SINGLE` | `SelectionMode.SINGLE`               |
 | `showCustomization`         | `show-customization`           | If set to true, displays the button to open the customization panel.                                                                                                                                                           | `boolean`                                                                                                 | `true`                               |
 | `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                   | `boolean`                                                                                                 | `false`                              |
@@ -99,7 +97,6 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 | Event                             | Description                                                                           | Type                                                  |
 | --------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `kup-datatable-autorowselect`     | When a row is auto selected via selectRow prop                                        | `CustomEvent<KupDatatableAutoRowSelectEventPayload>`  |
 | `kup-datatable-click`             | Generic click event on data table.                                                    | `CustomEvent<KupDatatableClickEventPayload>`          |
 | `kup-datatable-columnmenu`        | Emitted by the column menu card when opened/closed or when a kup-card-event is fired. | `CustomEvent<KupDatatableColumnMenuEventPayload>`     |
 | `kup-datatable-columnmove`        | Event fired when columns are moved (sorted).                                          | `CustomEvent<KupDatatableColumnMoveEventPayload>`     |
@@ -246,7 +243,7 @@ Type: `Promise<void>`
 
 
 
-### `setSelectedRows(rowsById: string, emitEvent?: boolean) => Promise<void>`
+### `setSelectedRows(rowsIdentifiers: string[] | number[], emitEvent?: boolean) => Promise<void>`
 
 This method will set the selected rows of the component.
 
@@ -326,6 +323,7 @@ graph TD;
   kup-badge --> kup-badge
   kup-button --> kup-badge
   kup-chip --> kup-badge
+  kup-list --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-badge
   kup-combobox --> kup-list

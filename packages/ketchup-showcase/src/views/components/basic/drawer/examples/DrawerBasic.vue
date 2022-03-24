@@ -59,15 +59,14 @@ export default {
 
       listdata: [
         {
-          text: "slot with the name 'title' to set the title of drawer.",
-          value: '1',
+          value: "slot with the name 'title' to set the title of drawer.",
+          id: '1',
           icon: 'trending_flat',
           trailingIcon: true,
         },
         {
-          text: "slot with the name 'subtitle' to set the subtitle of drawer.",
-          value: '2',
-
+          value: "slot with the name 'subtitle' to set the subtitle of drawer.",
+          id: '2',
           icon: 'trending_flat',
         },
       ],

@@ -106,7 +106,7 @@ export default {
         {
           prop: 'data',
           description: 'The data of the list.',
-          type: 'KupListData',
+          type: 'KupListNode',
           isArray: true,
           default: '[]',
           try: 'json',
@@ -197,20 +197,20 @@ function createComp() {
   let comp = document.createElement('kup-list');
   comp.data = [
     {
-      text: 'First choice',
-      value: '1',
+      value: 'First choice',
+      id: '1',
       icon: 'add_alert',
       trailingIcon: true,
     },
     {
-      text: 'Selected choice',
-      value: '2',
+      value: 'Selected choice',
+      id: '2',
       selected: true,
       icon: 'ac_unit',
     },
     {
-      text: 'Third choice (below a separator)',
-      value: '3',
+      value: 'Third choice (below a separator)',
+      id: '3',
       icon: '3d_rotation',
       separator: true,
     },

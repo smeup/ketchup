@@ -73,21 +73,21 @@ export default {
     return {
       dataLIST: [
         {
-          text: 'First item',
+          value: 'First item',
           secondaryText: 'I am a description',
-          value: '1',
+          id: '1',
           icon: 'filter_1',
         },
         {
-          text: 'Second item',
+          value: 'Second item',
           secondaryText: 'I am a description',
-          value: '2',
+          id: '2',
           icon: 'filter_2',
         },
         {
-          text: 'Third item',
+          value: 'Third item',
           secondaryText: 'I am a description',
-          value: '3',
+          id: '3',
           icon: 'filter_3',
         },
       ],

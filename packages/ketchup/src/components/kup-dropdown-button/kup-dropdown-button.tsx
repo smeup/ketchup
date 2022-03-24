@@ -48,7 +48,7 @@ export class KupDropdownButton {
     /*                   S t a t e s                   */
     /*-------------------------------------------------*/
 
-    @State() value: string = '';
+    @State() id: string = '';
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -241,7 +241,7 @@ export class KupDropdownButton {
         this.kupBlur.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.id,
         });
     }
 
@@ -250,7 +250,7 @@ export class KupDropdownButton {
         this.kupClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.id,
         });
     }
 
@@ -258,7 +258,7 @@ export class KupDropdownButton {
         this.kupFocus.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.id,
         });
     }
 
@@ -277,13 +277,13 @@ export class KupDropdownButton {
         this.kupChange.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.id,
         });
 
         this.kupItemClick.emit({
             comp: this,
             id: this.rootElement.id,
-            value: this.value,
+            value: this.id,
         });
     }
 
@@ -305,7 +305,7 @@ export class KupDropdownButton {
      */
     @Method()
     async getValue(): Promise<string> {
-        return this.value;
+        return this.id;
     }
     /**
      * This method is used to trigger a new render of the component.
@@ -327,7 +327,7 @@ export class KupDropdownButton {
      */
     @Method()
     async setValue(value: string): Promise<void> {
-        this.value = value;
+        this.id = value;
     }
 
     /*-------------------------------------------------*/
@@ -395,16 +395,16 @@ export class KupDropdownButton {
     /**
      * Checks the consistency of the list.
      */
-    private consistencyCheck(e?: CustomEvent, valueIn?: string): void {
+    private consistencyCheck(e?: CustomEvent, idIn?: string): void {
         const ret = consistencyCheck(
-            valueIn,
+            idIn,
             this.data['kup-list'],
             this.listEl,
             this.selectMode,
             this.displayMode,
             e
         );
-        this.value = ret.value;
+        this.id = ret.value;
     }
 
     /*-------------------------------------------------*/
@@ -414,7 +414,7 @@ export class KupDropdownButton {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.value = this.initialValue;
+        this.id = this.initialValue;
         if (!this.data) {
             this.data = {
                 'kup-list': {},
@@ -423,7 +423,7 @@ export class KupDropdownButton {
     }
 
     componentDidLoad() {
-        this.consistencyCheck(undefined, this.value);
+        this.consistencyCheck(undefined, this.id);
         this.kupManager.debug.logLoad(this, true);
     }
 

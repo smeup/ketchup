@@ -1,34 +1,16 @@
-import numeral from 'numeral';
-import 'numeral/locales/chs';
-import 'numeral/locales/es';
-import 'numeral/locales/fr';
-import 'numeral/locales/it';
-import 'numeral/locales/pl';
-import 'numeral/locales/ru';
-import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
-import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDataCell,
     KupDataColumn,
     KupDataDataset,
-    KupDataDatasetOperations,
     KupDataDatasetSort,
     KupDataFindCellFilters,
-    KupDataFormulas,
     KupDataNewColumn,
     KupDataNewColumnOptions,
     KupDataNewColumnTypes,
     KupDataNode,
     KupDataRow,
+    KupDataRowCells,
 } from './kup-data-declarations';
-import {
-    distinctDataset,
-    newDataset,
-    rangedDistinctDataset,
-    sortDataset,
-    transposeDataset,
-} from './kup-data-dataset-helper';
-import { KupDatesLocales } from '../kup-dates/kup-dates-declarations';
 import { findCell, getCellValue, replaceCell } from './kup-data-cell-helper';
 import { findColumns, hideColumns, newColumn } from './kup-data-column-helper';
 import { findRow, toNode } from './kup-data-row-helper';
@@ -37,6 +19,9 @@ import {
     setPropertiesNode,
     toStreamNode,
 } from './kup-data-node-helper';
+import { fieldColumn } from '../../components/kup-data-table/kup-data-table-declarations';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -45,257 +30,444 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupData
  */
 export class KupData {
-    datasetOperations: KupDataDatasetOperations = null;
-    formulas: KupDataFormulas = null;
-    numeral: typeof numeral = numeral;
+    cell = {
+        find(
+            dataset: KupDataDataset,
+            filters: KupDataFindCellFilters
+        ): KupDataCell[] {
+            return findCell(dataset, filters);
+        },
+        getValue(dataset: KupDataDataset, columns?: string[]): string[] {
+            return getCellValue(dataset, columns);
+        },
+        replace(
+            dataset: KupDataDataset,
+            cell: KupDataCell,
+            columns?: string[]
+        ): KupDataCell[] {
+            return replaceCell(dataset, cell, columns);
+        },
+    };
+    column = {
+        find(
+            dataset: KupDataDataset | KupDataColumn[],
+            filters: Partial<KupDataColumn>
+        ): KupDataColumn[] {
+            return findColumns(dataset, filters);
+        },
+        hide(
+            dataset: KupDataDataset | KupDataColumn[],
+            columns2hide: string[]
+        ): KupDataColumn[] {
+            return hideColumns(dataset, columns2hide);
+        },
+        new(
+            dataset: KupDataDataset,
+            type: KupDataNewColumnTypes,
+            options: KupDataNewColumnOptions
+        ): string | KupDataColumn {
+            return newColumn(dataset, type, options);
+        },
+    };
+    node = {
+        remove(nodes: KupDataNode[], node2remove: KupDataNode): KupDataNode {
+            return removeNode(nodes, node2remove);
+        },
+        setProperties(
+            nodes: KupDataNode[],
+            properties: Partial<KupDataNode>,
+            recursively?: boolean,
+            exclude?: KupDataNode[]
+        ): KupDataNode[] {
+            return setPropertiesNode(nodes, properties, recursively, exclude);
+        },
+        toStream(nodes: KupDataNode[]): KupDataNode[] {
+            return toStreamNode(nodes);
+        },
+    };
+    row = {
+        find(
+            dataset: KupDataDataset,
+            filters: KupDataFindCellFilters
+        ): KupDataRow[] {
+            return findRow(dataset, filters);
+        },
+        toNode(dataset: KupDataDataset): KupDataNode[] {
+            return toNode(dataset);
+        },
+    };
     /**
-     * Initializes KupData.
+     * Utility used by findRow and findCell.
+     * @param {KupDataDataset} dataset - Input dataset.
+     * @param {KupDataFindCellFilters} filters - Filters of the research.
+     * @returns {{cells: KupDataCell[], rows: KupDataRow[]}}  Object containing rows and cells.
      */
-    constructor() {
-        this.datasetOperations = {
-            cell: {
-                find(
-                    dataset: KupDataDataset,
-                    filters: KupDataFindCellFilters
-                ): KupDataCell[] {
-                    return findCell(dataset, filters);
-                },
-                getValue(
-                    dataset: KupDataDataset,
-                    columns?: string[]
-                ): string[] {
-                    return getCellValue(dataset, columns);
-                },
-                replace(
-                    dataset: KupDataDataset,
-                    cell: KupDataCell,
-                    columns?: string[]
-                ): KupDataCell[] {
-                    return replaceCell(dataset, cell, columns);
-                },
-            },
-            column: {
-                find(
-                    dataset: KupDataDataset | KupDataColumn[],
-                    filters: Partial<KupDataColumn>
-                ): KupDataColumn[] {
-                    return findColumns(dataset, filters);
-                },
-                hide(
-                    dataset: KupDataDataset | KupDataColumn[],
-                    columns2hide: string[]
-                ): KupDataColumn[] {
-                    return hideColumns(dataset, columns2hide);
-                },
-                new(
-                    dataset: KupDataDataset,
-                    type: KupDataNewColumnTypes,
-                    options: KupDataNewColumnOptions
-                ): string | KupDataColumn {
-                    return newColumn(dataset, type, options);
-                },
-            },
-            node: {
-                remove(
-                    nodes: KupDataNode[],
-                    node2remove: KupDataNode
-                ): KupDataNode {
-                    return removeNode(nodes, node2remove);
-                },
-                setProperties(
-                    nodes: KupDataNode[],
-                    properties: Partial<KupDataNode>,
-                    recursively: boolean,
-                    exclude: KupDataNode[]
-                ): KupDataNode[] {
-                    return setPropertiesNode(
-                        nodes,
-                        properties,
-                        recursively,
-                        exclude
-                    );
-                },
-                toStream(nodes: KupDataNode[]): KupDataNode[] {
-                    return toStreamNode(nodes);
-                },
-            },
-            row: {
-                find(
-                    dataset: KupDataDataset,
-                    filters: KupDataFindCellFilters
-                ): KupDataRow[] {
-                    return findRow(dataset, filters);
-                },
-                toNode(dataset: KupDataDataset): KupDataNode[] {
-                    return toNode(dataset);
-                },
-            },
-            distinct(
-                dataset: KupDataDataset,
-                columns?: string[],
-                valuesColumn?: KupDataColumn
-            ): KupDataDataset {
-                return distinctDataset(dataset, columns, valuesColumn);
-            },
-            new(
-                dataset: KupDataDataset,
-                newColumns: KupDataNewColumn[]
-            ): KupDataDataset {
-                return newDataset(dataset, newColumns);
-            },
-            rangedDistinct(
-                dataset: KupDataDataset,
-                rangeColumns: KupDataNewColumn[],
-                resultingColumn: KupDataColumn,
-                valuesColumn?: KupDataColumn
-            ): KupDataDataset {
-                return rangedDistinctDataset(
-                    dataset,
-                    rangeColumns,
-                    resultingColumn,
-                    valuesColumn
-                );
-            },
-            sort(
-                dataset: KupDataDataset,
-                sortType: KupDataDatasetSort,
-                headerColumn: string
-            ): KupDataDataset {
-                return sortDataset(dataset, sortType, headerColumn);
-            },
-            transpose(
-                dataset: KupDataDataset,
-                headerColumn?: string
-            ): KupDataDataset {
-                return transposeDataset(dataset, headerColumn);
-            },
+    finder(
+        dataset: KupDataDataset,
+        filters: KupDataFindCellFilters
+    ): { cells: KupDataCell[]; rows: KupDataRow[] } {
+        const columns = filters ? filters.columns : null;
+        const range = filters ? filters.range : null;
+        const value = filters ? filters.value : null;
+        const min = range && range.min ? range.min : null;
+        const max = range && range.max ? range.max : null;
+        const result: { cells: KupDataCell[]; rows: KupDataRow[] } = {
+            cells: [],
+            rows: [],
         };
-        this.formulas = {
-            /**
-             * Takes a mathematical formula as string in input, with column names between brackets, and returns the result as a number.
-             * @param {string} formula - Mathematical operation (i.e.: ([COL1] - [COL2]) * 100 / [COL3]).
-             * @param {{ [index: string]: number }} row - Object containing column names as indexes and the related values as keys.
-             * @returns {number} Result of the formula.
-             */
-            custom(formula: string, row: { [index: string]: number }): number {
-                const keys = Object.keys(row);
-                for (let i = 0; i < keys.length; i++) {
-                    let key = keys[i];
-                    let value: number = row[key];
-                    if (value != null && !isNaN(value)) {
-                        let re: RegExp = new RegExp(key, 'g');
-                        formula = formula.replace(re, value.toString());
+        for (let index = 0; index < dataset.rows.length; index++) {
+            const row = dataset.rows[index];
+            const cells = row.cells;
+            for (const key in cells) {
+                const cell = cells[key];
+                if (!columns || !columns.length || columns.includes(key)) {
+                    if (min && max) {
+                        let d: Date = null,
+                            s = '',
+                            n = 0;
+                        if (dom.ketchup.objects.isDate(cell.obj)) {
+                            d = dom.ketchup.dates.toDate(cell.value);
+                            const dMax = dom.ketchup.dates.toDate(
+                                max instanceof String ? max.valueOf() : max
+                            );
+                            const dMin = dom.ketchup.dates.toDate(
+                                min instanceof String ? min.valueOf() : min
+                            );
+                            if (
+                                d === dMax ||
+                                d === dMin ||
+                                (d < dMax && d > dMin)
+                            ) {
+                                result.cells.push(cell);
+                                result.rows.push(row);
+                            }
+                        } else if (
+                            typeof min === 'string' ||
+                            min instanceof String
+                        ) {
+                            s = cell.value;
+                            if (
+                                s === max ||
+                                s === min ||
+                                (s < max && s > min)
+                            ) {
+                                result.cells.push(cell);
+                                result.rows.push(row);
+                            }
+                        } else {
+                            n = dom.ketchup.math.numberify(cell.value);
+                            if (
+                                n === max ||
+                                n === min ||
+                                (n < max && n > min)
+                            ) {
+                                result.cells.push(cell);
+                                result.rows.push(row);
+                            }
+                        }
+                    } else if (value === cell.value) {
+                        result.cells.push(cell);
+                        result.rows.push(row);
                     }
                 }
-                formula = formula.replace(/[\[\]']+/g, '');
-                try {
-                    const result = Function(
-                        '"use strict"; return (' + formula + ')'
-                    )() as number;
-                    return result;
-                } catch (e) {
-                    dom.ketchup.debug.logMessage(
-                        'kup-data',
-                        'Error while evaluating the following formula!(' +
-                            formula +
-                            ')',
-                        KupDebugCategory.ERROR
-                    );
-                    return NaN;
+            }
+        }
+        return result;
+    }
+    /**
+     * Creates a new dataset with an amount of cells equal to a distinct calculation applied to the given columns.
+     * The original value of cells will be stored in the title property of the new cells.
+     * @param {KupDataDataset} dataset - Input dataset.
+     * @param {string[]} columns - Column names to manage. When missing, defaults to all columns.
+     * @param {KupDataColumn} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
+     * @returns {KupDataDataset} New dataset with processed data.
+     */
+    distinct(
+        dataset: KupDataDataset,
+        columns?: string[],
+        valuesColumn?: KupDataColumn
+    ): KupDataDataset {
+        const occurrencies: {
+            [index: string]: { [index: string]: number };
+        } = {};
+        const rows = dataset.rows;
+        for (let index = 0; index < rows.length; index++) {
+            const row = rows[index];
+            const cells = row.cells;
+            for (const key in cells) {
+                const cell = cells[key];
+                if (
+                    !columns ||
+                    !columns.length ||
+                    (columns && columns.includes(key))
+                ) {
+                    if (!occurrencies[key]) {
+                        occurrencies[key] = {};
+                    }
+                    const occurrency = occurrencies[key];
+                    occurrency[cell.value] = occurrency[cell.value]
+                        ? occurrency[cell.value] + 1
+                        : 1;
                 }
-            },
-            /**
-             * Calculates a single Y point of a normal distribution.
-             * @param {number} average - Average.
-             * @param {number} variance - Variance.
-             * @param {number} x - X coordinate.
-             * @returns {number} Result.
-             */
-            normalDistribution(
-                average: number,
-                variance: number,
-                x: number
-            ): number {
-                return (
-                    (1 / Math.sqrt(variance * 2 * Math.PI)) *
-                    Math.exp(-Math.pow(x - average, 2) / (2 * variance))
-                );
-            },
+            }
+        }
+        const newColumns: KupDataColumn[] = [];
+        const newRows: KupDataRow[] = [];
+        if (valuesColumn) {
+            newColumns.push(valuesColumn);
+        }
+        for (const key in occurrencies) {
+            const occurrency = occurrencies[key];
+            const column = {
+                ...dataset.columns.find(
+                    (col: KupDataColumn) => col.name === key
+                ),
+            };
+            column.obj = {
+                t: 'NR',
+                p: '',
+                k: '',
+            };
+            let rowIndex = 0;
+            newColumns.push(column);
+            for (const j in occurrency) {
+                const value = occurrency[j];
+                let row: KupDataRow = null;
+                if (!newRows[rowIndex]) {
+                    newRows[rowIndex] = { cells: {} };
+                }
+                row = newRows[rowIndex];
+                row.cells[key] = {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: value.toString(),
+                    },
+                    title: j,
+                    value: value.toString(),
+                };
+                if (valuesColumn) {
+                    row.cells[valuesColumn.name] = {
+                        value: j,
+                    };
+                }
+                rowIndex++;
+            }
+        }
+        return {
+            columns: newColumns,
+            rows: newRows,
         };
     }
     /**
-     * Calculates the normal distribution on a set of values.
-     * @param {string[] | number[] | String[]} values - Array of values.
-     * @param {number} precision - Number of iterations to run (points). When not specified, defaults to 201.
-     * @returns {number[][]} Returns an array of arrays containing numbers, which are the representation of the calculated normal distribution.
+     * Creates a new dataset from the input one.
+     * The new columns are to be specified in the columns argument along with their creation criteria.
+     * @param {KupDataDataset} dataset - Input dataset.
+     * @param {KupDataNewColumn[]} newColumns - Array containing the specifics of the new columns to be created.
+     * @returns {KupDataDataset} Resulting dataset.
      */
-    normalDistribution(
-        values: string[] | number[] | String[],
-        precision?: number
-    ): number[][] {
-        if (!precision) {
-            precision = 201;
+    new(
+        dataset: KupDataDataset,
+        newColumns: KupDataNewColumn[]
+    ): KupDataDataset {
+        const outputColumns: KupDataColumn[] = [];
+        const outputRows: KupDataRow[] = [];
+        for (let index = 0; index < newColumns.length; index++) {
+            const newColumn = newColumns[index].column;
+            const criteria = newColumns[index].criteria;
+            const cells = findCell(dataset, criteria);
+            let rowIndex = 0;
+            for (let index = 0; index < cells.length; index++) {
+                const cell = cells[index];
+                let outputRow: KupDataRow = null;
+                if (!outputRows[rowIndex]) {
+                    outputRows[rowIndex] = { cells: {} };
+                }
+                outputRow = outputRows[rowIndex];
+                outputRow.cells[newColumn.name] = JSON.parse(
+                    JSON.stringify(cell)
+                );
+                rowIndex++;
+            }
+            outputColumns.push(newColumn);
         }
-        const data: number[][] = [];
-        let max = Math.max.apply(Math, values);
-        let min = Math.min.apply(Math, values);
-        let average = 0;
-        let variance = 0;
-        for (let index = 0; index < values.length; index++) {
-            const value = values[index];
-            average += this.numberify(value);
-        }
-        average = average / values.length;
-        for (let index = 0; index < values.length; index++) {
-            const value = values[index];
-            variance += Math.pow(this.numberify(value) - average, 2);
-        }
-        variance = variance / values.length;
-        if (!variance) {
-            variance = 0.001;
-        }
-        max = max + ((average / 100) * 50 + (variance / average) * 3);
-        min = min - ((average / 100) * 50 + (variance / average) * 3);
-        for (let i = 0; i < precision; i++) {
-            const x = ((max - min) * i) / precision + min;
-            data.push([
-                x,
-                this.formulas.normalDistribution(average, variance, x),
-            ]);
-        }
-        return data;
+        return {
+            columns: outputColumns,
+            rows: outputRows,
+        };
     }
     /**
-     * Returns a number from a non-specified input type between string, number, or String.
-     * @param {string | String | number} input - Input value to numberify.
-     * @returns {number} Resulting number or NaN (when not a number).
+     * Performs a distinct/count after previously grouping columns by ranges.
+     * @param {KupDataDataset} dataset - Input dataset.
+     * @param {KupDataNewColumn[]} rangeColumns - A list of columns coupled with their criteria for creation. These are used to define ranges.
+     * @param {KupDataColumn} resultingColumn - The resulting column.
+     * @param {KupDataColumn} valuesColumn - When present, this column will be included in the final dataset containing the original values of the cells.
+     * @returns {KupDataDataset} New dataset with processed data.
      */
-    numberify(input: string | String | number): number {
-        const n = this.numeral(input).value();
-        if (n === null) {
-            return NaN;
+    rangedDistinct(
+        dataset: KupDataDataset,
+        rangeColumns: KupDataNewColumn[],
+        resultingColumn: KupDataColumn,
+        valuesColumn?: KupDataColumn
+    ): KupDataDataset {
+        const newD = this.new(dataset, rangeColumns);
+        const columnNames: string[] = [];
+        for (let index = 0; index < rangeColumns.length; index++) {
+            const newColumn = rangeColumns[index].column;
+            columnNames.push(newColumn.name);
+            replaceCell(newD, { value: newColumn.title }, [newColumn.name]);
         }
-        return n;
+        newColumn(newD, KupDataNewColumnTypes.MERGE, {
+            columns: columnNames,
+            newColumn: resultingColumn,
+        });
+        return this.distinct(newD, null, valuesColumn);
     }
     /**
-     * Formats the input number with the specified format of the currently set locale.
-     * @param {string | String | number} input - Input number which will be automatically "numberified".
-     * @param {string} format - Desired format. Defaults to '0,0.0' (i.e.: 2,000,000.51)
-     * @returns {string} Formatted number.
+     * Creates a new dataset with sorted elements.
+     * @param {KupDataDataset} dataset Input dataset.
+     * @param {KupDataDatasetSort} sortType Type of sort to apply.
+     * @param {string} headerColumn The column used for sorting.
+     * @returns {KupDataDataset} Sorted dataset.
      */
-    format(input: string | String | number, format?: string): string {
-        const n = this.numberify(input);
-        if (!format) {
-            const positiveN = Math.abs(n);
-            const decimals = positiveN - Math.floor(positiveN);
-            if (decimals) {
-                format = '0,0.0';
-            } else {
-                format = '0,0';
+    sort(
+        dataset: KupDataDataset,
+        sortType: KupDataDatasetSort,
+        headerColumn: string
+    ): KupDataDataset {
+        if (sortType != 'normalDistribution') {
+            const message = 'Wrong sort type! (' + sortType + ')';
+            dom.ketchup.debug.logMessage(
+                'kup-data',
+                message,
+                KupDebugCategory.WARNING
+            );
+            return dataset;
+        }
+        const output: KupDataDataset = {
+            columns: JSON.parse(JSON.stringify(dataset.columns)),
+            rows: [],
+        };
+        const length = dataset.rows.length;
+
+        // sort all columns values by descending
+        let values = getCellValue(dataset, [headerColumn]);
+        values.sort(function (a, b) {
+            return Number(a) - Number(b);
+        });
+        values.reverse();
+        // excluding duplicates values.
+        values = [...new Set(values)];
+
+        // calculating middle index
+        const idx = Math.floor(length / 2);
+        let lastIdx = idx - 1;
+        let leftIdx = idx - 1;
+        let rightIdx = idx + 1;
+
+        // sort the rows like a "mountain", the greatest is in the middle and the other ones are splitted left and right
+        for (let i = 0; i < length; i++) {
+            const value = values[i];
+            // looping the rows because we have many rows with same value.
+            this.finder(dataset, {
+                columns: [headerColumn],
+                value: value,
+            }).rows.forEach((row) => {
+                const xC = output.rows[idx];
+                if (xC == null) {
+                    output.rows[idx] = JSON.parse(JSON.stringify(row));
+                } else {
+                    output.rows[lastIdx] = JSON.parse(JSON.stringify(row));
+
+                    if (lastIdx > idx) {
+                        // right from the middle index.
+                        lastIdx = leftIdx;
+                        rightIdx++;
+                    } else {
+                        // left from the middle index.
+                        lastIdx = rightIdx;
+                        leftIdx--;
+                    }
+                }
+            });
+        }
+        return output;
+    }
+    /**
+     * Creates a new dataset with transposed columns and rows.
+     * @param {KupDataDataset} dataset - Input dataset.
+     * @param {string} headerColumn - When specified, it will be the column used as header. When missing, the header will be a series of progressive numbers.
+     * @returns {KupDataDataset} Transposed dataset.
+     */
+    transpose(dataset: KupDataDataset, headerColumn?: string): KupDataDataset {
+        const transposed: KupDataDataset = { columns: [], rows: [] };
+        let firstColumn: KupDataColumn = null;
+        if (headerColumn) {
+            firstColumn = findColumns(dataset, { name: headerColumn })[0];
+            transposed.columns.push(firstColumn);
+            for (let index = 0; index < dataset.rows.length; index++) {
+                const row = dataset.rows[index];
+                const cell = row.cells[firstColumn.name];
+                const title = cell.displayedValue
+                    ? cell.displayedValue
+                    : cell.value;
+                transposed.columns.push({
+                    name: cell.value + '_' + row.id,
+                    title,
+                });
+            }
+        } else {
+            firstColumn = {
+                name: fieldColumn.toUpperCase(),
+                title: fieldColumn,
+            };
+            transposed.columns.push(firstColumn);
+            for (let index = 0; index < dataset.rows.length; index++) {
+                const row = dataset.rows[index];
+                transposed.columns.push({
+                    name: row.id,
+                    title: '#' + index,
+                });
             }
         }
-        const formatted = this.numeral(n).format(format);
-        this.numeral.locale('en'); // TODO: Remove when KupData locale is handled [KupDataLocale]
-        return formatted;
+        for (
+            let index = headerColumn ? 1 : 0;
+            index < dataset.columns.length;
+            index++
+        ) {
+            const oldColumn = dataset.columns[index];
+            const cells: KupDataRowCells = {};
+            cells[firstColumn.name] = {
+                value: oldColumn.title,
+            };
+
+            for (let index = 1; index < transposed.columns.length; index++) {
+                const newColumn = transposed.columns[index];
+                const oldRow = dataset.rows[index - 1];
+                const cellName = headerColumn ? newColumn.name : oldRow.id;
+                cells[cellName] = oldRow.cells[oldColumn.name];
+                if (oldColumn.icon && !cells[cellName].icon) {
+                    cells[cellName].icon = oldColumn.icon;
+                }
+                if (oldColumn.shape && !cells[cellName].shape) {
+                    cells[cellName].shape = oldColumn.shape;
+                }
+            }
+            // If a record is key and no column argument is provided, it will be placed on top
+            if (!headerColumn && oldColumn.isKey) {
+                transposed.rows.unshift({
+                    id: String(index),
+                    cells,
+                    transposedColumnName: oldColumn.name,
+                });
+            } else {
+                transposed.rows.push({
+                    id: String(index),
+                    cells,
+                    transposedColumnName: oldColumn.name,
+                });
+            }
+        }
+        return transposed;
     }
 }

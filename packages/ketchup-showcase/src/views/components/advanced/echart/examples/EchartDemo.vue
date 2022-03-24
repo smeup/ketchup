@@ -63,6 +63,22 @@ export default {
           try: 'json',
         },
         {
+          prop: 'colors',
+          description: "Overrides theme's colors.",
+          type: 'string',
+          default: 'null',
+          isArray: true,
+          try: 'json',
+        },
+        {
+          prop: 'consistencyCheck',
+          description:
+            'When true, performs checks in order to properly initialize props which could be missing (i.e.: axis). For performances purposes, this prop will run only once when the component is initially created.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'data',
           description: 'The actual data of the chart.',
           type: 'KupDataDataset',
@@ -72,7 +88,7 @@ export default {
         {
           prop: 'legend',
           description:
-            'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types',
+            'Sets the position of the legend. Supported values: bottom, left, right, top, hidden. Keep in mind that legend types are tied to chart types',
           type: 'KupEchartLegendPlacement',
           default: 'right',
           try: 'field',

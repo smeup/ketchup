@@ -1,4 +1,3 @@
-import numeral from 'numeral';
 import { GenericObject } from '../types/GenericTypes';
 import { KupDom } from '../managers/kup-manager/kup-manager-declarations';
 import {
@@ -24,38 +23,6 @@ export function identify(array: Array<KupBoxRow | KupDataRow>) {
             array[i].id = i.toString();
         }
     }
-}
-
-export function format(first: string, middle: string, last: string): string {
-    return (
-        (first || '') + (middle ? ` ${middle}` : '') + (last ? ` ${last}` : '')
-    );
-}
-
-export function generateUniqueId(field: string = 'def'): string {
-    return new Date().getTime() + field.trim().replace(/\s/g, '_');
-}
-
-export function generateUuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
-        /[xy]/g,
-        function (c) {
-            var r = (Math.random() * 16) | 0,
-                v = c == 'x' ? r : (r & 0x3) | 0x8;
-            return v.toString(16);
-        }
-    );
-}
-
-export function eventFromElement(
-    element: HTMLElement,
-    eventSource: HTMLElement
-) {
-    while (eventSource) {
-        if (eventSource === element) return true;
-        eventSource = eventSource.parentElement;
-    }
-    return false;
 }
 
 function getSeparator(locale, separatorType) {
@@ -118,38 +85,6 @@ function getCurrentTimeFormatFromBrowserLocale(manageSeconds: boolean): string {
 }
 
 /**
- * Convert argument to boolean. Everything is false unless: true, "true", 1, "1", "on", "yes"
- * @param value the value to convert
- * @returns the boolean value of passed argument
- */
-export function getBoolean(value: any) {
-    switch (value) {
-        case true:
-        case 'true':
-        case 1:
-        case '1':
-        case 'on':
-        case 'yes':
-            return true;
-        default:
-            return false;
-    }
-}
-
-/**
- * Check if an object is undefined, null or empty
- * @param obj the object to check
- * @returns true or false
- */
-export function isEmpty(obj: any) {
-    return (
-        !obj ||
-        obj === null ||
-        (Object.keys(obj).length === 0 && obj.constructor === Object)
-    );
-}
-
-/**
  * @param value number as string, formatted by actual browser locale
  * @param type - type of number for calculate suffix
  * @returns true if number string in input is a valid number
@@ -183,7 +118,7 @@ export function stringToNumber(input: string): number {
     if (!input || input == null || input.trim() == '') {
         input = '0';
     }
-    return numeral(input).value();
+    return dom.ketchup.math.numberify(input);
 }
 
 /**
@@ -307,7 +242,10 @@ function numberStringToNumberString(
     if (decFmt != '.') {
         input = input.replace(/,/g, '.');
     }
-    if (numeral(input).value() == null || isNaN(numeral(input).value())) {
+    if (
+        dom.ketchup.math.numberify(input) == null ||
+        isNaN(dom.ketchup.math.numberify(input))
+    ) {
         return originalInputValue;
     }
     let unf: number = stringToNumber(input);
@@ -681,36 +619,6 @@ export function fillString(
     } else {
         return stringIn + stringOut;
     }
-}
-
-export function deepEqual(object1, object2): boolean {
-    if (!(isObject(object1) && isObject(object2))) {
-        return object1 === object2;
-    }
-    const keys1 = Object.keys(object1);
-    const keys2 = Object.keys(object2);
-
-    if (keys1.length !== keys2.length) {
-        return false;
-    }
-
-    for (const key of keys1) {
-        const val1 = object1[key];
-        const val2 = object2[key];
-        const areObjects = isObject(val1) && isObject(val2);
-        if (
-            (areObjects && !deepEqual(val1, val2)) ||
-            (!areObjects && val1 !== val2)
-        ) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-export function isObject(object): boolean {
-    return object != null && typeof object === 'object';
 }
 
 /**

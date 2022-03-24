@@ -12,12 +12,12 @@ dropdownEl.data = {
     'kup-list': {
         data: [
             {
-                text: 'Short',
-                value: 'short',
+                value: 'Short',
+                id: 'short',
             },
             {
-                text: 'Standard',
-                value: 'standard',
+                value: 'Standard',
+                id: 'standard',
             },
         ],
     },
