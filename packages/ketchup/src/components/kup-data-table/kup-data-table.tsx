@@ -1438,7 +1438,6 @@ export class KupDataTable {
         this.groups = [];
         // update data
         this.data = { ...totalsMatrixData };
-        // console.log(this.data);
         // calc totals
         // distinct becomes count
         // count becomes sum
@@ -2376,7 +2375,8 @@ export class KupDataTable {
     }
 
     private getEventDetails(
-        path: HTMLElement[]
+        path: HTMLElement[],
+        e?: PointerEvent
     ): KupDatatableEventHandlerDetails {
         let isHeader: boolean,
             isBody: boolean,
@@ -2479,6 +2479,7 @@ export class KupDataTable {
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
             isGroupRow: isGroupRow,
+            originalEvent: e,
             row: row ? row : null,
             td: td ? td : null,
             textfield: textfield ? textfield : null,
@@ -2489,7 +2490,8 @@ export class KupDataTable {
 
     private clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e),
+            e
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2534,7 +2536,8 @@ export class KupDataTable {
         e: PointerEvent
     ): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e),
+            e
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2573,7 +2576,8 @@ export class KupDataTable {
 
     private dblClickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e),
+            e
         );
         if (details.area === 'body') {
             if (this.selection == SelectionMode.MULTIPLE) {
