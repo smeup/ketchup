@@ -55,7 +55,7 @@
         "vanilla-picker": "^2.12.1"
     },
     "devDependencies": {
-        "@stencil/core": "^2.14.1",
+        "@stencil/core": "^2.14.2",
         "@stencil/sass": "^1.4.1",
         "@types/d3-shape": "^2.1.0",
         "@types/geojson": "^7946.0.8",
@@ -67,7 +67,7 @@
         "jest": "^26.6.3",
         "jest-cli": "^26.6.3",
         "jest-environment-node": "^26.6.2",
-        "puppeteer": "^10.0.0",
+        "puppeteer": "^13.5.1",
         "rimraf": "^3.0.2",
         "sass": "^1.46.0"
     },
