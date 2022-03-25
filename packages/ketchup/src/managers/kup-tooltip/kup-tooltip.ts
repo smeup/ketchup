@@ -20,13 +20,16 @@ const dom: KupDom = document.documentElement as KupDom;
  */
 export class KupTooltip {
     currentAnchor: KupTooltipAnchor = null;
-    element: HTMLKupCardElement;
-    managedElements: Set<KupTooltipAnchor>;
+    delay: number = null;
+    element: HTMLKupCardElement = null;
+    managedElements: Set<KupTooltipAnchor> = null;
+    timeout: ReturnType<typeof setTimeout> = null;
     #clickCb: KupManagerClickCb = null;
     /**
      * Initializes KupTooltip.
      */
-    constructor() {
+    constructor(delay?: number) {
+        this.delay = delay ? delay : 125;
         this.managedElements = new Set();
         document.addEventListener('pointermove', (e) => {
             const paths = e.composedPath() as HTMLElement[];
@@ -34,19 +37,38 @@ export class KupTooltip {
             if (paths.includes(this.element)) {
                 return;
             }
+            const enterHandler = (anchor: KupTooltipAnchor) => {
+                this.timeout = null;
+                requestAnimationFrame(
+                    anchor.kupTooltip.enter.bind(anchor.kupTooltip.enter, e)
+                );
+            };
+            const overHandler = (anchor: KupTooltipAnchor) => {
+                requestAnimationFrame(
+                    anchor.kupTooltip.over.bind(anchor.kupTooltip.over, e)
+                );
+            };
+            const leaveHandler = () => {
+                requestAnimationFrame(
+                    this.currentAnchor.kupTooltip.leave.bind(
+                        this.currentAnchor.kupTooltip.leave,
+                        e
+                    )
+                );
+            };
             // If the current anchor exists and is not included in the event path,
             // the leaving callback is fired.
             if (this.currentAnchor && !paths.includes(this.currentAnchor)) {
-                if (this.currentAnchor.kupTooltip.leave) {
-                    requestAnimationFrame(
-                        this.currentAnchor.kupTooltip.leave.bind(
-                            this.currentAnchor.kupTooltip.leave,
-                            e
-                        )
-                    );
+                if (this.timeout) {
+                    clearTimeout(this.timeout);
+                    this.timeout = null;
+                } else {
+                    if (this.currentAnchor.kupTooltip.leave) {
+                        leaveHandler();
+                    }
                 }
                 this.currentAnchor = null;
-            } else {
+            } else if (!this.timeout) {
                 for (let index = 0; index < paths.length; index++) {
                     const element = paths[index] as KupTooltipAnchor;
                     if (this.managedElements.has(element)) {
@@ -54,23 +76,23 @@ export class KupTooltip {
                         // in the path, the mouse over function is invoked
                         if (this.currentAnchor === element) {
                             if (element.kupTooltip.over) {
-                                requestAnimationFrame(
-                                    element.kupTooltip.over.bind(
-                                        element.kupTooltip.over,
-                                        e
-                                    )
-                                );
+                                overHandler(element);
                             }
                             // Otherwise, the mouse enter callback will be invoked
                         } else {
                             this.currentAnchor = element;
                             if (element.kupTooltip.enter) {
-                                requestAnimationFrame(
-                                    element.kupTooltip.enter.bind(
-                                        element.kupTooltip.enter,
-                                        e
-                                    )
-                                );
+                                if (this.delay) {
+                                    this.timeout = setTimeout(
+                                        enterHandler.bind(
+                                            enterHandler,
+                                            element
+                                        ),
+                                        this.delay
+                                    );
+                                } else {
+                                    enterHandler(element);
+                                }
                             }
                         }
                     }
@@ -78,13 +100,13 @@ export class KupTooltip {
             }
         });
     }
-    #dynPos(anchorEl: KupDynamicPositionAnchor) {
+    #dynPos(anchor: KupDynamicPositionAnchor) {
         if (dom.ketchup.dynamicPosition.isRegistered(this.element)) {
-            dom.ketchup.dynamicPosition.changeAnchor(this.element, anchorEl);
+            dom.ketchup.dynamicPosition.changeAnchor(this.element, anchor);
         } else {
             dom.ketchup.dynamicPosition.register(
                 this.element as KupDynamicPositionElement,
-                anchorEl,
+                anchor,
                 null,
                 null,
                 true
@@ -94,6 +116,7 @@ export class KupTooltip {
     }
     #create(options?: Partial<HTMLKupCardElement>) {
         this.element = document.createElement('kup-card');
+        this.element.id = 'kup-tooltip';
         this.element.isMenu = true;
         this.element.layoutNumber = 15;
         this.element.sizeX = 'auto';
@@ -125,7 +148,7 @@ export class KupTooltip {
         }
     }
     show(
-        anchorEl?: KupDynamicPositionAnchor,
+        anchor?: KupDynamicPositionAnchor,
         options?: Partial<HTMLKupCardElement>
     ) {
         // Creates the card or updates it with new options
@@ -135,8 +158,8 @@ export class KupTooltip {
             this.#setOptions(options);
         }
         // If an anchor was provided, initializes or updates dynamic positioning
-        if (anchorEl) {
-            this.#dynPos(anchorEl);
+        if (anchor) {
+            this.#dynPos(anchor);
         }
         // If the tooltip is already visible, it's pointless to go on
         if (this.element.menuVisible) {
@@ -180,8 +203,8 @@ export class KupTooltip {
         this.managedElements.add(element);
         const kupTooltip: KupTooltipCallbacks = {
             enter: cbEnter,
-            over: cbOver,
             leave: cbLeave,
+            over: cbOver,
         };
         element.kupTooltip = kupTooltip;
     }

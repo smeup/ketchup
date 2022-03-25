@@ -82,6 +82,7 @@ export interface KupManagerInitialization {
     objects?: KupManagerObjectsSettings;
     scrollOnHover?: KupManagerScrollOnHoverSettings;
     theme?: KupManagerThemeSettings;
+    tooltip?: KupManagerTooltipSettings;
 }
 /**
  * KupDates initialization settings.
@@ -138,6 +139,12 @@ export interface KupManagerScrollOnHoverSettings {
 export interface KupManagerThemeSettings {
     list?: KupThemeJSON;
     name?: string;
+}
+/**
+ * KupDates initialization settings.
+ */
+export interface KupManagerTooltipSettings {
+    delay?: number;
 }
 /**
  * KupTheme initialization settings.
