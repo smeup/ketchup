@@ -140,6 +140,9 @@ export class KupTooltip {
             }
         }
     }
+    /**
+     * Hides the tooltip.
+     */
     hide() {
         if (this.element) {
             this.element.menuVisible = false;
@@ -147,6 +150,11 @@ export class KupTooltip {
             dom.ketchup.removeClickCallback(this.#clickCb);
         }
     }
+    /**
+     * Displays the tooltip.
+     * @param {KupTooltipAnchor} anchor - Anchor point of the tooltip.
+     * @param {Partial<HTMLKupCardElement>} options - Props/attributes of the tooltip.
+     */
     show(
         anchor?: KupDynamicPositionAnchor,
         options?: Partial<HTMLKupCardElement>

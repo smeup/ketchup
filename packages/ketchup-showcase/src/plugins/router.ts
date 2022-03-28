@@ -307,6 +307,11 @@ const frameworkRoutes = [
     name: 'kup-toolbar',
     component: () => import(`@/views/framework/kup-toolbar/KupToolbar.vue`),
   },
+  {
+    path: `/kup-tooltip`,
+    name: 'kup-tooltip',
+    component: () => import(`@/views/framework/kup-tooltip/KupTooltip.vue`),
+  },
 ];
 
 const routes = [

@@ -827,6 +827,16 @@ export default {
             value: 'KupToolbar',
             visible: false,
           },
+          {
+            cells: {
+              ROUTE: {
+                value: 'kup-tooltip',
+              },
+            },
+            icon: 'insert_comment',
+            value: 'KupTooltip',
+            visible: false,
+          },
         ],
         expandable: true,
         icon: 'web',
