@@ -5,39 +5,35 @@
 
 ## Properties
 
-| Property                  | Attribute                     | Description                                                                                        | Type            | Default     |
-| ------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------- | --------------- | ----------- |
-| `cardData`                | --                            | Data of the card linked to the box when the latter's layout must be a premade template.            | `GenericObject` | `null`      |
-| `columns`                 | `columns`                     | Number of columns                                                                                  | `number`        | `1`         |
-| `customStyle`             | `custom-style`                | Custom style of the component.                                                                     | `string`        | `''`        |
-| `data`                    | --                            | Actual data of the box.                                                                            | `KupBoxData`    | `null`      |
-| `dragEnabled`             | `drag-enabled`                | Enable dragging                                                                                    | `boolean`       | `false`     |
-| `dropEnabled`             | `drop-enabled`                | Enable dropping                                                                                    | `boolean`       | `false`     |
-| `dropOnSection`           | `drop-on-section`             | Drop can be done in section                                                                        | `boolean`       | `false`     |
-| `editableData`            | `editable-data`               | When set to true, editable cells will be rendered using input components.                          | `boolean`       | `false`     |
-| `enableRowActions`        | `enable-row-actions`          | If enabled, a button to load / display the row actions will be displayed on the right of every box | `boolean`       | `false`     |
-| `globalFilter`            | `global-filter`               | When set to true it activates the global filter.                                                   | `boolean`       | `false`     |
-| `globalFilterValue`       | `global-filter-value`         | The value of the global filter.                                                                    | `string`        | `''`        |
-| `kanban`                  | --                            | Displays the boxlist as a Kanban.                                                                  | `KupBoxKanban`  | `null`      |
-| `layout`                  | --                            | How the field will be displayed. If not present, a default one will be created.                    | `KupBoxLayout`  | `undefined` |
-| `multiSelection`          | `multi-selection`             | Enable multi selection                                                                             | `boolean`       | `false`     |
-| `pageSelected`            | `page-selected`               | Current page number                                                                                | `number`        | `1`         |
-| `pageSize`                | `page-size`                   | Number of boxes per page                                                                           | `number`        | `10`        |
-| `pagination`              | `pagination`                  | Enables pagination                                                                                 | `boolean`       | `false`     |
-| `rowsPerPage`             | `rows-per-page`               | Number of current rows per page                                                                    | `number`        | `undefined` |
-| `scrollOnHover`           | `scroll-on-hover`             | Activates the scroll on hover function.                                                            | `boolean`       | `false`     |
-| `selectBox`               | `select-box`                  | Automatically selects the box at the specified index                                               | `number`        | `undefined` |
-| `selectedRowsState`       | `selected-rows-state`         | Multiple selection                                                                                 | `string`        | `undefined` |
-| `showSelection`           | `show-selection`              | If enabled, highlights the selected box/boxes                                                      | `boolean`       | `true`      |
-| `showTooltipOnRightClick` | `show-tooltip-on-right-click` | If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.   | `boolean`       | `true`      |
-| `sortBy`                  | `sort-by`                     | If sorting is enabled, specifies which column to sort                                              | `string`        | `undefined` |
-| `sortEnabled`             | `sort-enabled`                | Enable sorting                                                                                     | `boolean`       | `false`     |
-| `stateId`                 | `state-id`                    |                                                                                                    | `string`        | `''`        |
-| `store`                   | --                            |                                                                                                    | `KupStore`      | `undefined` |
-| `swipeDisabled`           | `swipe-disabled`              | Disable swipe                                                                                      | `boolean`       | `false`     |
-| `tooltipDetailTimeout`    | `tooltip-detail-timeout`      | Defines the timeout for tooltip detail                                                             | `number`        | `undefined` |
-| `tooltipEnabled`          | `tooltip-enabled`             | Enable show tooltip                                                                                | `boolean`       | `true`      |
-| `tooltipLoadTimeout`      | `tooltip-load-timeout`        | Defines the timeout for tooltip load                                                               | `number`        | `undefined` |
+| Property            | Attribute             | Description                                                                                        | Type            | Default     |
+| ------------------- | --------------------- | -------------------------------------------------------------------------------------------------- | --------------- | ----------- |
+| `cardData`          | --                    | Data of the card linked to the box when the latter's layout must be a premade template.            | `GenericObject` | `null`      |
+| `columns`           | `columns`             | Number of columns                                                                                  | `number`        | `1`         |
+| `customStyle`       | `custom-style`        | Custom style of the component.                                                                     | `string`        | `''`        |
+| `data`              | --                    | Actual data of the box.                                                                            | `KupBoxData`    | `null`      |
+| `dragEnabled`       | `drag-enabled`        | Enable dragging                                                                                    | `boolean`       | `false`     |
+| `dropEnabled`       | `drop-enabled`        | Enable dropping                                                                                    | `boolean`       | `false`     |
+| `dropOnSection`     | `drop-on-section`     | Drop can be done in section                                                                        | `boolean`       | `false`     |
+| `editableData`      | `editable-data`       | When set to true, editable cells will be rendered using input components.                          | `boolean`       | `false`     |
+| `enableRowActions`  | `enable-row-actions`  | If enabled, a button to load / display the row actions will be displayed on the right of every box | `boolean`       | `false`     |
+| `globalFilter`      | `global-filter`       | When set to true it activates the global filter.                                                   | `boolean`       | `false`     |
+| `globalFilterValue` | `global-filter-value` | The value of the global filter.                                                                    | `string`        | `''`        |
+| `kanban`            | --                    | Displays the boxlist as a Kanban.                                                                  | `KupBoxKanban`  | `null`      |
+| `layout`            | --                    | How the field will be displayed. If not present, a default one will be created.                    | `KupBoxLayout`  | `undefined` |
+| `multiSelection`    | `multi-selection`     | Enable multi selection                                                                             | `boolean`       | `false`     |
+| `pageSelected`      | `page-selected`       | Current page number                                                                                | `number`        | `1`         |
+| `pageSize`          | `page-size`           | Number of boxes per page                                                                           | `number`        | `10`        |
+| `pagination`        | `pagination`          | Enables pagination                                                                                 | `boolean`       | `false`     |
+| `rowsPerPage`       | `rows-per-page`       | Number of current rows per page                                                                    | `number`        | `undefined` |
+| `scrollOnHover`     | `scroll-on-hover`     | Activates the scroll on hover function.                                                            | `boolean`       | `false`     |
+| `selectBox`         | `select-box`          | Automatically selects the box at the specified index                                               | `number`        | `undefined` |
+| `selectedRowsState` | `selected-rows-state` | Multiple selection                                                                                 | `string`        | `undefined` |
+| `showSelection`     | `show-selection`      | If enabled, highlights the selected box/boxes                                                      | `boolean`       | `true`      |
+| `sortBy`            | `sort-by`             | If sorting is enabled, specifies which column to sort                                              | `string`        | `undefined` |
+| `sortEnabled`       | `sort-enabled`        | Enable sorting                                                                                     | `boolean`       | `false`     |
+| `stateId`           | `state-id`            |                                                                                                    | `string`        | `''`        |
+| `store`             | --                    |                                                                                                    | `KupStore`      | `undefined` |
+| `swipeDisabled`     | `swipe-disabled`      | Disable swipe                                                                                      | `boolean`       | `false`     |
 
 
 ## Events
@@ -116,14 +112,12 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-magic-box](../kup-magic-box)
- - [kup-tooltip](../kup-tooltip)
 
 ### Depends on
 
 - [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
-- [kup-tooltip](../kup-tooltip)
 - [kup-combobox](../kup-combobox)
 - [kup-text-field](../kup-text-field)
 - [kup-autocomplete](../kup-autocomplete)
@@ -145,7 +139,6 @@ graph TD;
   kup-box --> kup-card
   kup-box --> kup-checkbox
   kup-box --> kup-badge
-  kup-box --> kup-tooltip
   kup-box --> kup-combobox
   kup-box --> kup-text-field
   kup-box --> kup-autocomplete
@@ -200,7 +193,6 @@ graph TD;
   kup-time-picker --> kup-list
   kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
   kup-data-table --> kup-button
@@ -217,9 +209,25 @@ graph TD;
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
-  kup-tooltip --> kup-box
+  kup-switch --> kup-card
+  kup-color-picker --> kup-card
+  kup-rating --> kup-card
+  kup-image --> kup-spinner
+  kup-image --> kup-card
+  kup-image --> kup-badge
+  kup-spinner --> kup-card
+  kup-button-list --> kup-dropdown-button
+  kup-button-list --> kup-card
+  kup-button-list --> kup-badge
+  kup-dropdown-button --> kup-list
+  kup-dropdown-button --> kup-card
+  kup-dropdown-button --> kup-badge
+  kup-chart --> kup-card
+  kup-gauge --> kup-card
+  kup-progress-bar --> kup-card
+  kup-tab-bar --> kup-card
+  kup-tab-bar --> kup-badge
   kup-tree --> kup-card
-  kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-autocomplete
@@ -236,24 +244,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  kup-color-picker --> kup-card
-  kup-rating --> kup-card
-  kup-image --> kup-spinner
-  kup-image --> kup-card
-  kup-image --> kup-badge
-  kup-spinner --> kup-card
-  kup-button-list --> kup-dropdown-button
-  kup-button-list --> kup-card
-  kup-button-list --> kup-badge
-  kup-dropdown-button --> kup-list
-  kup-dropdown-button --> kup-card
-  kup-dropdown-button --> kup-badge
-  kup-chart --> kup-card
-  kup-gauge --> kup-card
-  kup-progress-bar --> kup-card
-  kup-switch --> kup-card
-  kup-tab-bar --> kup-card
-  kup-tab-bar --> kup-badge
   kup-magic-box --> kup-box
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```

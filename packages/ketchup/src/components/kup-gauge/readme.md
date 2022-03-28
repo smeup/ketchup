@@ -197,12 +197,7 @@ graph TD;
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-gauge
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-card
-  kup-tooltip --> kup-box
-  kup-tooltip --> kup-list
-  kup-tooltip --> kup-tree
-  kup-box --> kup-gauge
+  kup-switch --> kup-card
   kup-color-picker --> kup-card
   kup-rating --> kup-card
   kup-image --> kup-spinner
@@ -217,10 +212,10 @@ graph TD;
   kup-dropdown-button --> kup-badge
   kup-chart --> kup-card
   kup-progress-bar --> kup-card
-  kup-tree --> kup-gauge
-  kup-switch --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
+  kup-tree --> kup-gauge
+  kup-box --> kup-gauge
   kup-cell --> kup-gauge
   style kup-gauge fill:#f9f,stroke:#333,stroke-width:4px
 ```

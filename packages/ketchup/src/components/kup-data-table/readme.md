@@ -78,7 +78,6 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `showGroups`                | `show-groups`                  | When set to true enables the column grouping.                                                                                                                                                                                  | `boolean`                                                                                                 | `false`                              |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                         | `boolean`                                                                                                 | `true`                               |
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                      | `boolean`                                                                                                 | `false`                              |
-| `showTooltipOnRightClick`   | `show-tooltip-on-right-click`  | If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.                                                                                                                               | `boolean`                                                                                                 | `true`                               |
 | `sort`                      | --                             | Defines the current sorting options.                                                                                                                                                                                           | `SortObject[]`                                                                                            | `[]`                                 |
 | `sortEnabled`               | `sort-enabled`                 | When set to true enables the sorting of the columns by clicking on the column header.                                                                                                                                          | `boolean`                                                                                                 | `true`                               |
 | `sortableColumnsMutateData` | `sortable-columns-mutate-data` | If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event                                                                                       | `boolean`                                                                                                 | `true`                               |
@@ -86,9 +85,6 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `store`                     | --                             |                                                                                                                                                                                                                                | `KupStore`                                                                                                | `undefined`                          |
 | `tableHeight`               | `table-height`                 | Sets the height of the table.                                                                                                                                                                                                  | `string`                                                                                                  | `undefined`                          |
 | `tableWidth`                | `table-width`                  | Sets the width of the table.                                                                                                                                                                                                   | `string`                                                                                                  | `undefined`                          |
-| `tooltipDetailTimeout`      | `tooltip-detail-timeout`       | Defines the timeout for tooltip detail                                                                                                                                                                                         | `number`                                                                                                  | `undefined`                          |
-| `tooltipEnabled`            | `tooltip-enabled`              | Enable show tooltip                                                                                                                                                                                                            | `boolean`                                                                                                 | `true`                               |
-| `tooltipLoadTimeout`        | `tooltip-load-timeout`         | Defines the timeout for tooltip load                                                                                                                                                                                           | `number`                                                                                                  | `undefined`                          |
 | `totals`                    | --                             | Defines the current totals options                                                                                                                                                                                             | `TotalsMap`                                                                                               | `undefined`                          |
 | `transpose`                 | `transpose`                    | Transposes the data of the data table                                                                                                                                                                                          | `boolean`                                                                                                 | `false`                              |
 
@@ -279,7 +275,6 @@ Type: `Promise<void>`
 
 - [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
-- [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
 - [kup-switch](../kup-switch)
 - [kup-button](../kup-button)
@@ -302,7 +297,6 @@ Type: `Promise<void>`
 graph TD;
   kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
   kup-data-table --> kup-switch
   kup-data-table --> kup-button
@@ -346,7 +340,6 @@ graph TD;
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
   kup-tree --> kup-card
-  kup-tree --> kup-tooltip
   kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-autocomplete
@@ -363,29 +356,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-badge
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-card
-  kup-tooltip --> kup-box
-  kup-tooltip --> kup-list
-  kup-tooltip --> kup-tree
-  kup-box --> kup-card
-  kup-box --> kup-checkbox
-  kup-box --> kup-badge
-  kup-box --> kup-tooltip
-  kup-box --> kup-combobox
-  kup-box --> kup-text-field
-  kup-box --> kup-autocomplete
-  kup-box --> kup-color-picker
-  kup-box --> kup-date-picker
-  kup-box --> kup-rating
-  kup-box --> kup-time-picker
-  kup-box --> kup-image
-  kup-box --> kup-button
-  kup-box --> kup-button-list
-  kup-box --> kup-chart
-  kup-box --> kup-gauge
-  kup-box --> kup-progress-bar
-  kup-box --> kup-radio
   kup-color-picker --> kup-card
   kup-rating --> kup-card
   kup-image --> kup-spinner

@@ -91,7 +91,6 @@ Type: `Promise<void>`
  - [kup-field](../kup-field)
  - [kup-iframe](../kup-iframe)
  - [kup-magic-box](../kup-magic-box)
- - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -124,8 +123,7 @@ graph TD;
   kup-time-picker --> kup-card
   kup-time-picker --> kup-list
   kup-data-table --> kup-button
-  kup-tooltip --> kup-button
-  kup-box --> kup-button
+  kup-switch --> kup-card
   kup-color-picker --> kup-card
   kup-rating --> kup-card
   kup-image --> kup-spinner
@@ -141,10 +139,10 @@ graph TD;
   kup-chart --> kup-card
   kup-gauge --> kup-card
   kup-progress-bar --> kup-card
-  kup-tree --> kup-button
-  kup-switch --> kup-card
   kup-tab-bar --> kup-card
   kup-tab-bar --> kup-badge
+  kup-tree --> kup-button
+  kup-box --> kup-button
   kup-cell --> kup-button
   kup-field --> kup-button
   kup-iframe --> kup-button

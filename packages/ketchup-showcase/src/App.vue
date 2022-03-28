@@ -376,16 +376,6 @@ export default {
               {
                 cells: {
                   ROUTE: {
-                    value: 'tooltip',
-                  },
-                },
-                icon: 'insert_comment',
-                value: 'Tooltip',
-                visible: true,
-              },
-              {
-                cells: {
-                  ROUTE: {
                     value: 'tree',
                   },
                 },

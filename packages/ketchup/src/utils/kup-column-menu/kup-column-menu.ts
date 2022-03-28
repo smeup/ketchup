@@ -5,7 +5,6 @@ import type {
     KupDom,
     KupManagerClickCb,
 } from '../../managers/kup-manager/kup-manager-declarations';
-import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     KupDynamicPositionElement,
@@ -14,7 +13,6 @@ import {
 import type { GroupObject } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { KupTextFieldEventPayload } from '../../components/kup-text-field/kup-text-field-declarations';
 import type { KupTextField } from '../../components/kup-text-field/kup-text-field';
-import { unsetTooltip } from '../helpers';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import {
     FilterInterval,
@@ -61,16 +59,8 @@ export class KupColumnMenu {
      * Function called by the component when the column menu must be opened.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
      * @param {string} column - Name of the column.
-     * @param {KupTooltip} tooltip - Tooltip of the component, when present.
      */
-    open(
-        comp: KupDataTable | KupTree,
-        column: string,
-        tooltip?: KupTooltip
-    ): void {
-        if (tooltip) {
-            unsetTooltip(tooltip);
-        }
+    open(comp: KupDataTable | KupTree, column: string): void {
         this.filtersColumnMenuInstance.resetTextualFilters(
             comp.filters,
             column

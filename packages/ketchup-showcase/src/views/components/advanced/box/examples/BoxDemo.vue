@@ -316,14 +316,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'showTooltipOnRightClick',
-          description:
-            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
-          type: 'boolean',
-          default: 'true',
-          try: 'switch',
-        },
-        {
           prop: 'sortBy',
           description: 'If sorting is enabled, specifies which column to sort.',
           type: 'string',
@@ -358,27 +350,6 @@ export default {
           default: 'false',
           try: 'switch',
         },
-        {
-          prop: 'tooltipDetailTimeout',
-          description: 'Defines the timeout for tooltip detail.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
-          prop: 'tooltipEnabled',
-          description: 'Enable tooltip.',
-          type: 'boolean',
-          default: 'true',
-          try: 'switch',
-        },
-        {
-          prop: 'tooltipLoadTimeout',
-          description: 'Defines the timeout for tooltip load.',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
       ],
     };
   },
@@ -390,8 +361,6 @@ function createComp() {
   comp.data = defaultData;
   comp.id = 'demo-component';
   comp.showSelection = true;
-  comp.showTooltipOnRightClick = true;
-  comp.tooltipEnabled = true;
   return comp;
 }
 </script>

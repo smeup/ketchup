@@ -44,10 +44,8 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
-import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { getProps, identify, setProps } from '../../utils/utils';
 import {
     GenericObject,
@@ -340,11 +338,6 @@ export class KupBox {
      */
     @Prop() showSelection: boolean = true;
     /**
-     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-     * @default true
-     */
-    @Prop() showTooltipOnRightClick: boolean = true;
-    /**
      * If sorting is enabled, specifies which column to sort
      * @default undefined
      */
@@ -361,21 +354,6 @@ export class KupBox {
      * @default false
      */
     @Prop() swipeDisabled: boolean = false;
-    /**
-     * Defines the timeout for tooltip detail
-     * @default undefined
-     */
-    @Prop() tooltipDetailTimeout: number;
-    /**
-     * Enable show tooltip
-     * @default true
-     */
-    @Prop() tooltipEnabled: boolean = true;
-    /**
-     * Defines the timeout for tooltip load
-     * @default undefined
-     */
-    @Prop() tooltipLoadTimeout: number;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -389,7 +367,6 @@ export class KupBox {
     private visibleColumns: KupDataColumn[] = [];
     private rows: KupBoxRow[] = [];
     private filteredRows: KupBoxRow[] = [];
-    private tooltip: KupTooltip;
     private globalFilterTimeout: number;
     private boxContainer: KupScrollOnHoverElement;
     private sectionRef: HTMLElement = null;
@@ -718,7 +695,10 @@ export class KupBox {
         }
     }
 
-    private getEventDetails(el: HTMLElement): KupBoxEventHandlerDetails {
+    private getEventDetails(
+        el: HTMLElement,
+        e?: PointerEvent
+    ): KupBoxEventHandlerDetails {
         let boxObject = null;
         let cell: KupDataCell = null;
         let row: KupBoxRow = null;
@@ -738,23 +718,15 @@ export class KupBox {
 
         return {
             boxObject: boxObject ? boxObject : null,
-            row: row ? row : null,
             column: column ? column : null,
             cell: cell ? cell : null,
+            originalEvent: e,
+            row: row ? row : null,
         };
     }
 
     private contextMenuHandler(e: PointerEvent): KupBoxEventHandlerDetails {
-        const details = this.getEventDetails(e.target as HTMLElement);
-        if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
-            setTooltip(
-                e as any,
-                details.row.id,
-                details.column.name,
-                details.cell,
-                this.tooltip
-            );
-        }
+        const details = this.getEventDetails(e.target as HTMLElement, e);
         return details;
     }
 
@@ -1450,36 +1422,12 @@ export class KupBox {
             column = this.data.columns.find((x) => x.name === boxObject.column);
         }
         const cell = row.cells[boxObject.column];
-        let _hasTooltip = false;
         let title: string = undefined;
-        if (_hasTooltip) {
+        if (!this.kupManager.objects.isEmptyKupObj(cell.obj)) {
             classObj['is-obj'] = true;
             if (this.kupManager.debug.isDebug()) {
                 title =
                     cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
-            }
-        }
-        let tipEvents: {} = null;
-        if (_hasTooltip) {
-            if (!this.showTooltipOnRightClick) {
-                tipEvents = {
-                    onMouseEnter: (ev) => {
-                        if (_hasTooltip) {
-                            setTooltip(
-                                ev,
-                                row.id,
-                                boxObject.column,
-                                cell,
-                                this.tooltip
-                            );
-                        } else if (!_hasTooltip) {
-                            unsetTooltip(this.tooltip);
-                        }
-                    },
-                    onMouseLeave: () => {
-                        unsetTooltip(this.tooltip);
-                    },
-                };
             }
         }
         const cellProps: FCellProps = {
@@ -1500,7 +1448,6 @@ export class KupBox {
                 class={classObj}
                 style={boStyle}
                 title={title}
-                {...tipEvents}
             >
                 {cell && column ? (
                     <FCell {...cellProps} />
@@ -1625,25 +1572,6 @@ export class KupBox {
         };
     }
 
-    renderTooltip() {
-        if (this.tooltipEnabled == false) {
-            return null;
-        }
-        return (
-            <kup-tooltip
-                class="box-tooltip"
-                owner={this.rootElement.tagName}
-                loadTimeout={
-                    this.showTooltipOnRightClick == true
-                        ? 0
-                        : this.tooltipLoadTimeout
-                }
-                detailTimeout={this.tooltipDetailTimeout}
-                ref={(el: any) => (this.tooltip = el as KupTooltip)}
-            ></kup-tooltip>
-        );
-    }
-
     didLoadInteractables() {
         this.interactableTouch.push(this.boxContainer);
         const tapCb = (e: PointerEvent) => {
@@ -1652,7 +1580,6 @@ export class KupBox {
                 return;
             }
             switch (e.button) {
-                // right click
                 case 2:
                     this.kupBoxContextMenu.emit({
                         comp: this,
@@ -1947,8 +1874,6 @@ export class KupBox {
             }
         }
 
-        const tooltip = this.renderTooltip();
-
         return (
             <Host>
                 <style>
@@ -1971,10 +1896,6 @@ export class KupBox {
                             onContextMenu={(e: MouseEvent) => {
                                 e.preventDefault();
                             }}
-                            onMouseLeave={(ev) => {
-                                ev.stopPropagation();
-                                unsetTooltip(this.tooltip);
-                            }}
                             ref={(el: HTMLElement) =>
                                 (this.boxContainer =
                                     el as KupScrollOnHoverElement)
@@ -1982,7 +1903,6 @@ export class KupBox {
                         >
                             {boxContent}
                         </div>
-                        {tooltip}
                     </div>
                 </div>
             </Host>
