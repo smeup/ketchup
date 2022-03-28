@@ -81,10 +81,47 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-accordion](../kup-accordion)
+ - [kup-autocomplete](../kup-autocomplete)
+ - [kup-badge](../kup-badge)
  - [kup-box](../kup-box)
+ - [kup-button](../kup-button)
+ - [kup-button-list](../kup-button-list)
+ - [kup-calendar](../kup-calendar)
+ - [kup-card](.)
+ - [kup-cell](../kup-cell)
+ - [kup-chart](../kup-chart)
+ - [kup-checkbox](../kup-checkbox)
+ - [kup-chip](../kup-chip)
  - [kup-color-picker](../kup-color-picker)
+ - [kup-combobox](../kup-combobox)
+ - [kup-dash](../kup-dash)
+ - [kup-dash-list](../kup-dash-list)
  - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
+ - [kup-drawer](../kup-drawer)
+ - [kup-dropdown-button](../kup-dropdown-button)
+ - [kup-echart](../kup-echart)
+ - [kup-field](../kup-field)
+ - [kup-gauge](../kup-gauge)
+ - [kup-grid](../kup-grid)
+ - [kup-iframe](../kup-iframe)
+ - [kup-image](../kup-image)
+ - [kup-lazy](../kup-lazy)
+ - [kup-list](../kup-list)
+ - [kup-magic-box](../kup-magic-box)
+ - [kup-nav-bar](../kup-nav-bar)
+ - [kup-photo-frame](../kup-photo-frame)
+ - [kup-probe](../kup-probe)
+ - [kup-progress-bar](../kup-progress-bar)
+ - [kup-qlik](../kup-qlik)
+ - [kup-radio](../kup-radio)
+ - [kup-rating](../kup-rating)
+ - [kup-snackbar](../kup-snackbar)
+ - [kup-spinner](../kup-spinner)
+ - [kup-switch](../kup-switch)
+ - [kup-tab-bar](../kup-tab-bar)
+ - [kup-text-field](../kup-text-field)
  - [kup-time-picker](../kup-time-picker)
  - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
@@ -108,49 +145,55 @@ Type: `Promise<void>`
 - [kup-tab-bar](../kup-tab-bar)
 - [kup-tree](../kup-tree)
 - [kup-switch](../kup-switch)
+- [kup-card](.)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-card --> kup-badge
-  kup-card --> kup-button
-  kup-card --> kup-chip
-  kup-card --> kup-list
-  kup-card --> kup-combobox
-  kup-card --> kup-autocomplete
-  kup-card --> kup-checkbox
-  kup-card --> kup-date-picker
-  kup-card --> kup-text-field
-  kup-card --> kup-time-picker
-  kup-card --> kup-data-table
-  kup-card --> kup-spinner
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
-  kup-card --> kup-tab-bar
-  kup-card --> kup-tree
-  kup-card --> kup-switch
-  kup-badge --> kup-badge
-  kup-button --> kup-badge
-  kup-chip --> kup-badge
-  kup-list --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-badge
-  kup-combobox --> kup-list
-  kup-autocomplete --> kup-list
+  kup-card --> kup-card
+  kup-badge --> kup-card
+  kup-button --> kup-card
+  kup-chip --> kup-card
+  kup-list --> kup-card
+  kup-radio --> kup-card
+  kup-combobox --> kup-card
+  kup-autocomplete --> kup-card
+  kup-checkbox --> kup-card
   kup-date-picker --> kup-card
+  kup-text-field --> kup-card
   kup-time-picker --> kup-card
   kup-data-table --> kup-card
   kup-tooltip --> kup-card
   kup-box --> kup-card
   kup-color-picker --> kup-card
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-button-list --> kup-dropdown-button
-  kup-button-list --> kup-badge
-  kup-dropdown-button --> kup-list
-  kup-dropdown-button --> kup-badge
+  kup-rating --> kup-card
+  kup-image --> kup-card
+  kup-spinner --> kup-card
+  kup-button-list --> kup-card
+  kup-dropdown-button --> kup-card
+  kup-chart --> kup-card
+  kup-gauge --> kup-card
+  kup-progress-bar --> kup-card
   kup-tree --> kup-card
-  kup-tab-bar --> kup-badge
+  kup-switch --> kup-card
+  kup-tab-bar --> kup-card
+  kup-accordion --> kup-card
+  kup-calendar --> kup-card
+  kup-cell --> kup-card
+  kup-dash --> kup-card
+  kup-dash-list --> kup-card
+  kup-drawer --> kup-card
+  kup-echart --> kup-card
+  kup-field --> kup-card
+  kup-grid --> kup-card
+  kup-iframe --> kup-card
+  kup-lazy --> kup-card
+  kup-magic-box --> kup-card
+  kup-nav-bar --> kup-card
+  kup-photo-frame --> kup-card
+  kup-probe --> kup-card
+  kup-qlik --> kup-card
+  kup-snackbar --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

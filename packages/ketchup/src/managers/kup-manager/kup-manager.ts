@@ -13,6 +13,7 @@ import type {
     KupManagerScrollOnHoverSettings,
     KupManagerStringFinderPayload,
     KupManagerThemeSettings,
+    KupManagerTooltipSettings,
     KupManagerUtilities,
 } from './kup-manager-declarations';
 import type { ResizableKupComponent } from '../../types/GenericTypes';
@@ -40,6 +41,7 @@ import { KupSearch } from '../kup-search/kup-search';
 import { KupDynamicPositionElement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupMath } from '../kup-math/kup-math';
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -64,6 +66,7 @@ export class KupManager {
     utilities: KupManagerUtilities;
     theme: KupTheme;
     toolbar: KupToolbar;
+    tooltip: KupTooltip;
     /**
      * Initializes KupManager.
      */
@@ -82,7 +85,8 @@ export class KupManager {
             scrollOnHoverDelay: number = null,
             scrollOnHoverStep: number = null,
             themeList: KupThemeJSON = null,
-            themeName: string = null;
+            themeName: string = null,
+            tooltipDelay: number = null;
         if (overrides) {
             const dates: KupManagerDatesSettings = overrides.dates;
             const debug: KupManagerDebugSettings = overrides.debug;
@@ -92,6 +96,7 @@ export class KupManager {
             const scrollOnHover: KupManagerScrollOnHoverSettings =
                 overrides.scrollOnHover;
             const theme: KupManagerThemeSettings = overrides.theme;
+            const tooltip: KupManagerTooltipSettings = overrides.tooltip;
             if (dates) {
                 datesLocale = dates.locale ? dates.locale : null;
             }
@@ -124,6 +129,9 @@ export class KupManager {
             if (theme) {
                 themeList = theme.list ? theme.list : null;
                 themeName = theme.name ? theme.name : null;
+            }
+            if (tooltip) {
+                tooltipDelay = tooltip.delay ? tooltip.delay : null;
             }
         }
         this.data = new KupData();
@@ -166,6 +174,7 @@ export class KupManager {
         };
         this.theme = new KupTheme(themeList, themeName);
         this.toolbar = new KupToolbar();
+        this.tooltip = new KupTooltip(tooltipDelay);
         document.addEventListener('pointerdown', (e) => {
             const paths = e.composedPath() as HTMLElement[];
             const lastString =
