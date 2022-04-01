@@ -4,6 +4,7 @@ import { KupCardCSSClasses } from '../kup-card-declarations';
 import { prepareCalendar } from './kup-card-calendar';
 import { prepareClock } from './kup-card-clock';
 import { prepareColumnDropMenu } from './kup-card-column-drop-menu';
+import { prepareNumeric } from './kup-card-numeric';
 
 /**
  * 1st built-in layout, calendar view.
@@ -58,5 +59,21 @@ export function create4(component: KupCard): VNode {
         <div
             class={`built-in-layout-${component.layoutNumber} ${KupCardCSSClasses.BUILT_IN_CARD}`}
         ></div>
+    );
+}
+
+/**
+ * 5th built-in layout, numeric picker.
+ * This layout is rendered after the render cycle completes.
+ * @param {KupCard} component - Card component.
+ * @returns {VNode} 4th built-in layout virtual node.
+ */
+export function create5(component: KupCard): VNode {
+    return (
+        <div
+            class={`built-in-layout-${component.layoutNumber} ${KupCardCSSClasses.BUILT_IN_CARD}`}
+        >
+            {prepareNumeric(component)}
+        </div>
     );
 }

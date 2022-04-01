@@ -2048,6 +2048,34 @@ export namespace Components {
          */
         "styling": KupNavBarStyling;
     }
+    interface KupNumericPicker {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+          * @default null
+         */
+        "data": Object;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupPhotoFrame {
         /**
           * Custom style of the component.
@@ -3103,6 +3131,12 @@ declare global {
         prototype: HTMLKupNavBarElement;
         new (): HTMLKupNavBarElement;
     };
+    interface HTMLKupNumericPickerElement extends Components.KupNumericPicker, HTMLStencilElement {
+    }
+    var HTMLKupNumericPickerElement: {
+        prototype: HTMLKupNumericPickerElement;
+        new (): HTMLKupNumericPickerElement;
+    };
     interface HTMLKupPhotoFrameElement extends Components.KupPhotoFrame, HTMLStencilElement {
     }
     var HTMLKupPhotoFrameElement: {
@@ -3218,6 +3252,7 @@ declare global {
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
+        "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-probe": HTMLKupProbeElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
@@ -4875,6 +4910,19 @@ declare namespace LocalJSX {
          */
         "styling"?: KupNavBarStyling;
     }
+    interface KupNumericPicker {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+          * @default null
+         */
+        "data"?: Object;
+    }
     interface KupPhotoFrame {
         /**
           * Custom style of the component.
@@ -5677,6 +5725,7 @@ declare namespace LocalJSX {
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
+        "kup-numeric-picker": KupNumericPicker;
         "kup-photo-frame": KupPhotoFrame;
         "kup-probe": KupProbe;
         "kup-progress-bar": KupProgressBar;
@@ -5727,6 +5776,7 @@ declare module "@stencil/core" {
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
+            "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
