@@ -115,6 +115,10 @@ export default {
             "Returns the props' values of the component. When invoked giving true as the only argument, returns the props descriptions instead.",
         },
         {
+          name: 'getSelectedRows',
+          description: 'Returns the selected rows of the component.',
+        },
+        {
           name: 'hideColumn',
           description: ' Hides the given column.',
         },

@@ -173,6 +173,16 @@ Type: `Promise<GenericObject>`
 
 List of props as object, each key will be a prop.
 
+### `getSelectedRows() => Promise<Array<KupDataTableRow>>`
+
+This method will get the selected rows of the component.
+
+#### Returns
+
+Type: `Promise<KupDataTableRow[]>`
+
+
+
 ### `hideColumn(column: KupDataColumn) => Promise<void>`
 
 Hides the given column.
