@@ -1096,6 +1096,13 @@ export class KupDataTable {
         return getProps(this, KupDataTableProps, descriptions);
     }
     /**
+     * This method will get the selected rows of the component.
+     */
+    @Method()
+    async getSelectedRows(): Promise<Array<KupDataTableRow>> {
+        return this.selectedRows;
+    }
+    /**
      * Hides the given column.
      * @param {KupDataColumn} column - Column to hide.
      */
@@ -1242,6 +1249,7 @@ export class KupDataTable {
     async setProps(props: GenericObject): Promise<void> {
         setProps(this, KupDataTableProps, props);
     }
+
     /**
      * This method will set the selected rows of the component.
      * @param {string|number[]} rowsIdentifiers - Array of ids (dataset) or indexes (rendered rows).
