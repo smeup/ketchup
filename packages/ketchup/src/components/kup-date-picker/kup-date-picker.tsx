@@ -576,7 +576,7 @@ export class KupDatePicker {
                 data={data}
                 layoutFamily={KupCardFamily.BUILT_IN}
                 sizeX="300px"
-                sizeY="300px"
+                sizeY="auto"
                 isMenu
                 onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
                     if (ev.detail.value != null && ev.detail.value != '')
