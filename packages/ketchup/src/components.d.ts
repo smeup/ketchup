@@ -37,6 +37,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -2061,20 +2062,64 @@ export namespace Components {
          */
         "data": Object;
         /**
+          * Defaults at false. When set to true, the component has decimals.
+          * @default false
+         */
+        "decimals": boolean;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
           * Used to retrieve component's props values.
           * @param descriptions - When provided and true, the result will be the list of props with their description.
           * @returns List of props as object, each key will be a prop.
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+          * @default ""
+         */
+        "initialValue": string;
+        /**
+          * when set, the component allows you to enter decimals with a maximum of characters.
+          * @default null
+         */
+        "maxDecimals": number;
+        /**
+          * When set, the component allows you to enter integer numbers with a maximum of characters.
+          * @default null
+         */
+        "maxIntegers": number;
+        /**
+          * When set, the component allows you to enter numbers with a maximum of characters, including decimals.
+          * @default null
+         */
+        "maxLength": number;
+        /**
+          * Defaults at false. When set to true, the component has negative number.
+          * @default false
+         */
+        "negative": boolean;
+        /**
           * This method is used to trigger a new render of the component.
          */
         "refresh": () => Promise<void>;
         /**
-          * Sets the props to the component.
-          * @param props - Object containing props that will be set to the component.
+          * Sets the focus to the component.
          */
-        "setProps": (props: GenericObject) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @param value - Value to be set.
+         */
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupPhotoFrame {
         /**
@@ -4922,6 +4967,50 @@ declare namespace LocalJSX {
           * @default null
          */
         "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component has decimals.
+          * @default false
+         */
+        "decimals"?: boolean;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component
+          * @default ""
+         */
+        "initialValue"?: string;
+        /**
+          * when set, the component allows you to enter decimals with a maximum of characters.
+          * @default null
+         */
+        "maxDecimals"?: number;
+        /**
+          * When set, the component allows you to enter integer numbers with a maximum of characters.
+          * @default null
+         */
+        "maxIntegers"?: number;
+        /**
+          * When set, the component allows you to enter numbers with a maximum of characters, including decimals.
+          * @default null
+         */
+        "maxLength"?: number;
+        /**
+          * Defaults at false. When set to true, the component has negative number.
+          * @default false
+         */
+        "negative"?: boolean;
+        "onKup-numericpicker-blur"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-change"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-cleariconclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-numericpicker-click"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-focus"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-iconclick"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-input"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-itemclick"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-textfieldsubmit"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
     }
     interface KupPhotoFrame {
         /**

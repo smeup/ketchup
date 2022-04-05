@@ -43,8 +43,32 @@
         </script>
         <h1>Numeric picker</h1>
         <h4>Basic</h4>
-        <kup-numeric-picker id="date-picker1"></kup-numeric-picker>
-
+        <kup-numeric-picker id="numeric-picker1"></kup-numeric-picker>
+        <h4>With max 2 decimals</h4>
+        <kup-numeric-picker
+            id="numeric-picker2"
+            decimals="true"
+            max-decimals="2"
+        ></kup-numeric-picker>
+        <h4>With max 2 decimals and 3 integers</h4>
+        <kup-numeric-picker
+            id="numeric-picker3"
+            decimals="true"
+            max-decimals="2"
+            max-integers="3"
+        ></kup-numeric-picker>
+        <h4>With negative and decimals</h4>
+        <kup-numeric-picker
+            id="numeric-picker4"
+            decimals="true"
+            negative="true"
+        ></kup-numeric-picker>
+        <h4>With max length 8</h4>
+        <kup-numeric-picker
+            id="numeric-picker5"
+            decimals="true"
+            max-length="8"
+        ></kup-numeric-picker>
         <script></script>
         <br /><br /><br /><br
     /></body>

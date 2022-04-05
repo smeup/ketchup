@@ -171,4 +171,16 @@ export class KupMath {
             );
         }
     }
+    /**
+     * Convert input into number and return the locale string.
+     *
+     * @param {any} value - The value to convert.
+     */
+    toNumberLocaleString(value: string): string {
+        const maximumFractionDigits: number = 14;
+        if (value == null || value == '') return value;
+        return Number(value).toLocaleString(this.locale, {
+            maximumFractionDigits: maximumFractionDigits,
+        });
+    }
 }

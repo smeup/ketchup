@@ -1,4 +1,2 @@
-:host {
-  display: block;
-  font-size: var(--kup-font-size);
-}
+@import 'styles/kup-numeric-picker-main.scss';
+@import 'styles/kup-numeric-picker-classes.scss';

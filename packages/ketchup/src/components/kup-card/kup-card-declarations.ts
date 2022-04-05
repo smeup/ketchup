@@ -152,7 +152,8 @@ export interface KupCardData {
         | KupCardBuiltInCalendarOptions
         | KupCardBuiltInClockOptions
         | KupCardColumnDropMenuOptions
-        | KupCardColorPickerOptions;
+        | KupCardColorPickerOptions
+        | KupCardBuiltInNumericOptions;
     progressbar?: GenericObject[];
     switch?: GenericObject[];
     tabbar?: GenericObject[];

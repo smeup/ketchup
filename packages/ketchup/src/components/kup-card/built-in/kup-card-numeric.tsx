@@ -36,9 +36,8 @@ export function prepareNumeric(component: KupCard) {
         if (options.initialValue) {
             if (obj && obj.k) el.kupData.value = obj.k;
             else el.kupData.value = options.initialValue.toString();
-            el.kupData.localeValue = Number(el.kupData.value).toLocaleString(
-                dom.ketchup.math.locale,
-                { maximumFractionDigits: maximumFractionDigits }
+            el.kupData.localeValue = dom.ketchup.math.toNumberLocaleString(
+                el.kupData.value
             );
         }
         options.resetStatus = false;
@@ -201,10 +200,7 @@ function setSign(component: KupCard) {
     if (strVal.startsWith('-')) return;
     strVal = '-' + strVal;
     el.kupData.value = strVal;
-    el.kupData.localeValue = Number(strVal).toLocaleString(
-        dom.ketchup.math.locale,
-        { maximumFractionDigits: maximumFractionDigits }
-    );
+    el.kupData.localeValue = dom.ketchup.math.toNumberLocaleString(strVal);
     component.refresh();
 }
 
@@ -251,10 +247,7 @@ function setValue(component: KupCard, value: string) {
 
     strVal += value;
     el.kupData.value = strVal;
-    el.kupData.localeValue = Number(strVal).toLocaleString(
-        dom.ketchup.math.locale,
-        { maximumFractionDigits: maximumFractionDigits }
-    );
+    el.kupData.localeValue = dom.ketchup.math.toNumberLocaleString(strVal);
     component.refresh();
 }
 
