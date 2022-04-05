@@ -93,12 +93,12 @@ export class KupNumericPicker {
      * when set, the component allows you to enter decimals with a maximum of characters.
      * @default null
      */
-    @Prop() maxDecimals: number = null;
+    @Prop({ mutable: true }) maxDecimals: number = null;
     /**
      * When set, the component allows you to enter integer numbers with a maximum of characters.
      * @default null
      */
-    @Prop() maxIntegers: number = null;
+    @Prop({ mutable: true }) maxIntegers: number = null;
     /**
      * When set, the component allows you to enter numbers with a maximum of characters, including decimals.
      * @default null
@@ -494,6 +494,11 @@ export class KupNumericPicker {
     }
 
     prepTextfield(): VNode {
+        if (!this.decimals && !this.maxIntegers) this.maxIntegers = 17;
+        if (this.decimals && !this.maxIntegers && !this.maxDecimals) {
+            this.maxIntegers = 15;
+            this.maxDecimals = 2;
+        }
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');

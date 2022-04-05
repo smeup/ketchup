@@ -108,6 +108,12 @@ const basicRoutes = [
     component: () => import(`@/views/components/basic/navbar/Navbar.vue`),
   },
   {
+    path: `/numericpicker`,
+    name: 'numericpicker',
+    component: () =>
+      import(`@/views/components/basic/numericpicker/NumericPicker.vue`),
+  },
+  {
     path: `/progressbar`,
     name: 'progressbar',
     component: () =>
