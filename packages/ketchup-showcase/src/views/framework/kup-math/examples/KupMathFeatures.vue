@@ -340,7 +340,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 kup-text-field,
 kup-date-picker,
 kup-combobox {
