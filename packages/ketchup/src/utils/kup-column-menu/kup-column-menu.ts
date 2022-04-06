@@ -458,7 +458,7 @@ export class KupColumnMenu {
                     column
                 )
             ) {
-                props.concat(this.prepIntervalTextfield(comp, column));
+                props = props.concat(this.prepIntervalTextfield(comp, column));
             } else if (dom.ketchup.objects.isStringObject(column.obj)) {
                 let filterInitialValue =
                     this.filtersColumnMenuInstance.getTextFilterValue(
