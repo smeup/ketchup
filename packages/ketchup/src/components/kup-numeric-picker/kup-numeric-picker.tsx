@@ -518,7 +518,7 @@ export class KupNumericPicker {
                 fullHeight={fullHeight}
                 fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
-                value={this.kupManager.math.toNumberLocaleString(this.value)}
+                value={this.kupManager.math.numbers.toLocaleString(this.value)}
                 onBlur={() => this.onKupBlur()}
                 onChange={(e: InputEvent) => this.onKupChange(e)}
                 onClearIconClick={() => this.onKupClearIconClick()}

@@ -8,7 +8,11 @@ import 'numeral/locales/ru';
 import { KupComponent } from '../../types/GenericTypes';
 import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupMathFormulas, KupMathLocales } from './kup-math-declarations';
+import {
+    KupMathFormulas,
+    KupMathLocales,
+    KupMathNumbers,
+} from './kup-math-declarations';
 import { customFormula, normalDistributionFormula } from './kup-math-helper';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -32,7 +36,17 @@ export class KupMath {
     };
     locale: KupMathLocales;
     managedComponents: Set<KupComponent>;
+    numbers: KupMathNumbers = {
+        toLocaleString(value: string): string {
+            const maximumFractionDigits: number = 14;
+            if (value == null || value == '') return value;
+            return Number(value).toLocaleString(dom.ketchup.math.locale, {
+                maximumFractionDigits: maximumFractionDigits,
+            });
+        },
+    };
     numeral: typeof numeral;
+
     /**
      * Initializes KupMath.
      */
@@ -170,17 +184,5 @@ export class KupMath {
                 component.rootElement ? component.rootElement : component
             );
         }
-    }
-    /**
-     * Convert input into number and return the locale string.
-     *
-     * @param {any} value - The value to convert.
-     */
-    toNumberLocaleString(value: string): string {
-        const maximumFractionDigits: number = 14;
-        if (value == null || value == '') return value;
-        return Number(value).toLocaleString(this.locale, {
-            maximumFractionDigits: maximumFractionDigits,
-        });
     }
 }

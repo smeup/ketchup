@@ -140,7 +140,7 @@
             unregistered.<br /> </p></div
         ><div class="accordion-slot" slot="9">
           <p>
-            <span class="code-word">toNumberLocaleString(value): string</span
+            <span class="code-word">numbers.toLocaleString(value): string</span
             ><br />
             Convert input value into number and return the locale string.<br /><br />
             - <strong>value (string)</strong> - The value to be converted.<br />
@@ -265,7 +265,7 @@ export default {
           },
           {
             name: '9',
-            title: 'toNumberLocaleString',
+            title: 'numbers.toLocaleString',
           },
         ],
       };
@@ -298,7 +298,7 @@ export default {
       this.updateNormalDist({ detail: { value: '10;20;30' } });
       numberLocaleStringInput.setValue('1024.32');
       numberLocaleStringOutput.setValue(
-        dom.ketchup.math.toNumberLocaleString('1024.32')
+        dom.ketchup.math.numbers.toLocaleString('1024.32')
       );
       accordion.expandAll();
     },
@@ -366,8 +366,8 @@ export default {
      * @param {CustomEvent<KupTextFieldEventPayload>} e - Event fired by number locale string input textfield.
      */
     updateNumberLocaleString(e: CustomEvent<KupTextFieldEventPayload>) {
-      const numLocale = dom.ketchup.math
-        .toNumberLocaleString(e.detail.value)
+      const numLocale = dom.ketchup.math.numbers
+        .toLocaleString(e.detail.value)
         .toString();
       numberLocaleStringOutput.setValue(numLocale);
     },
