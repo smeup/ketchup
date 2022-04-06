@@ -585,6 +585,16 @@ export default {
               {
                 cells: {
                   ROUTE: {
+                    value: 'numericpicker',
+                  },
+                },
+                icon: 'calculator',
+                value: 'Numeric picker',
+                visible: true,
+              },
+              {
+                cells: {
+                  ROUTE: {
                     value: 'progressbar',
                   },
                 },

@@ -138,6 +138,27 @@
             KupMath locale changes.<br /><br />
             - <strong>component (any)</strong> - The Ketchup component to be
             unregistered.<br /> </p></div
+        ><div class="accordion-slot" slot="9">
+          <p>
+            <span class="code-word">numbers.toLocaleString(value): string</span
+            ><br />
+            Convert input value into number and return the locale string.<br /><br />
+            - <strong>value (string)</strong> - The value to be converted.<br />
+          </p>
+          <div class="demo-container">
+            <div class="kup-container">
+              <kup-text-field
+                id="numberLocaleString-input"
+                label="Type a string"
+                @kup-textfield-input="updateNumberLocaleString"
+              ></kup-text-field>
+              <kup-text-field
+                label="ToNumberLocaleString result"
+                disabled
+                id="numberLocaleString-output"
+              ></kup-text-field>
+            </div>
+          </div> </div
       ></kup-accordion>
     </div>
   </div>
@@ -163,6 +184,8 @@ var ndInput: HTMLKupTextFieldElement = null;
 var ndOutput: HTMLKupEchartElement = null;
 var numberifyInput: HTMLKupTextFieldElement = null;
 var numberifyOutput: HTMLKupTextFieldElement = null;
+var numberLocaleStringInput: HTMLKupTextFieldElement = null;
+var numberLocaleStringOutput: HTMLKupTextFieldElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 const kupMathLocales = {
@@ -195,6 +218,12 @@ export default {
       ndOutput = document.querySelector('#nd-output');
       numberifyInput = document.querySelector('#numberify-input');
       numberifyOutput = document.querySelector('#numberify-output');
+      numberLocaleStringInput = document.querySelector(
+        '#numberLocaleString-input'
+      );
+      numberLocaleStringOutput = document.querySelector(
+        '#numberLocaleString-output'
+      );
     },
     /**
      * Initializes the widgets by setting all the values to the related components.
@@ -234,6 +263,10 @@ export default {
             name: '8',
             title: 'unregister',
           },
+          {
+            name: '9',
+            title: 'numbers.toLocaleString',
+          },
         ],
       };
       const locales: string[] = dom.ketchup.dates.getLocales();
@@ -263,6 +296,10 @@ export default {
       numberifyOutput.setValue(dom.ketchup.math.numberify('1demo2').toString());
       ndInput.setValue('10;20;30');
       this.updateNormalDist({ detail: { value: '10;20;30' } });
+      numberLocaleStringInput.setValue('1024.32');
+      numberLocaleStringOutput.setValue(
+        dom.ketchup.math.numbers.toLocaleString('1024.32')
+      );
       accordion.expandAll();
     },
     /**
@@ -323,6 +360,16 @@ export default {
     updateNumberify(e: CustomEvent<KupTextFieldEventPayload>) {
       const numberified = dom.ketchup.math.numberify(e.detail.value).toString();
       numberifyOutput.setValue(numberified);
+    },
+    /**
+     * Updates the number locale string output text field.
+     * @param {CustomEvent<KupTextFieldEventPayload>} e - Event fired by number locale string input textfield.
+     */
+    updateNumberLocaleString(e: CustomEvent<KupTextFieldEventPayload>) {
+      const numLocale = dom.ketchup.math.numbers
+        .toLocaleString(e.detail.value)
+        .toString();
+      numberLocaleStringOutput.setValue(numLocale);
     },
   },
   mounted() {

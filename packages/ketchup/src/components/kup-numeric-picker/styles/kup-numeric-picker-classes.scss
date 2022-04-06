@@ -1,0 +1,42 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+
+:host(.#{$kup-class-full-height}) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+  }
+}
+
+:host(.#{$kup-class-full-width}) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}
+
+:host(.#{$kup-class-danger}) {
+  --kup-textfield-primary-color: var(--kup-danger-color);
+  --kup-textfield-primary-color-rgb: var(--kup-danger-color-rgb);
+}
+
+:host(.#{$kup-class-info}) {
+  --kup-textfield-primary-color: var(--kup-info-color);
+  --kup-textfield-primary-color-rgb: var(--kup-info-color-rgb);
+}
+
+:host(.#{$kup-class-secondary}) {
+  --kup-textfield-primary-color: var(--kup-secondary-color);
+  --kup-textfield-primary-color-rgb: var(--kup-secondary-color-rgb);
+}
+
+:host(.#{$kup-class-success}) {
+  --kup-textfield-primary-color: var(--kup-success-color);
+  --kup-textfield-primary-color-rgb: var(--kup-success-color-rgb);
+}
+
+:host(.#{$kup-class-warning}) {
+  --kup-textfield-primary-color: var(--kup-warning-color);
+  --kup-textfield-primary-color-rgb: var(--kup-warning-color-rgb);
+}

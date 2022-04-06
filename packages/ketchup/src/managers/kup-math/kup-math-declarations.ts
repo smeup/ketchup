@@ -21,3 +21,9 @@ export enum KupMathLocales {
     pl = 'pl',
     ru = 'ru',
 }
+/**
+ * Interface related to the numbers factory function.
+ */
+export interface KupMathNumbers {
+    toLocaleString: (value: string) => string;
+}

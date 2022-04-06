@@ -23,9 +23,9 @@ import {
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
 import {
-    KupDatePickerEventPayload,
-    KupDatePickerProps,
-} from './kup-date-picker-declarations';
+    KupNumericPickerEventPayload,
+    KupNumericPickerProps,
+} from './kup-numeric-picker-declarations';
 import { KupDebugCategory } from '../../managers/kup-debug/kup-debug-declarations';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import {
@@ -42,13 +42,14 @@ import {
     KupCardData,
     KupCardFamily,
 } from '../kup-card/kup-card-declarations';
+import { doNotExpectFiles } from '@stencil/core/testing/testing-utils';
 
 @Component({
-    tag: 'kup-date-picker',
-    styleUrl: 'kup-date-picker.scss',
+    tag: 'kup-numeric-picker',
+    styleUrl: 'kup-numeric-picker.scss',
     shadow: true,
 })
-export class KupDatePicker {
+export class KupNumericPicker {
     @Element() rootElement: HTMLElement;
 
     /*-------------------------------------------------*/
@@ -74,21 +75,40 @@ export class KupDatePicker {
      */
     @Prop({ mutable: true }) data: Object = null;
     /**
+     * Defaults at false. When set to true, the component has decimals.
+     * @default false
+     */
+    @Prop() decimals: boolean = false;
+    /**
      * Defaults at false. When set to true, the component is disabled.
      * @default false
      */
     @Prop() disabled: boolean = false;
     /**
-     * First day number (0 - sunday, 1 - monday, ...)
-     * TODO: manage with kupDates.locale, remove prop
-     * @default 1
-     */
-    @Prop() firstDayIndex: number = 1;
-    /**
      * Sets the initial value of the component
      * @default ""
      */
     @Prop() initialValue: string = '';
+    /**
+     * when set, the component allows you to enter decimals with a maximum of characters.
+     * @default null
+     */
+    @Prop({ mutable: true }) maxDecimals: number = null;
+    /**
+     * When set, the component allows you to enter integer numbers with a maximum of characters.
+     * @default null
+     */
+    @Prop({ mutable: true }) maxIntegers: number = null;
+    /**
+     * When set, the component allows you to enter numbers with a maximum of characters, including decimals.
+     * @default null
+     */
+    @Prop() maxLength: number = null;
+    /**
+     * Defaults at false. When set to true, the component has negative number.
+     * @default false
+     */
+    @Prop() negative: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -111,78 +131,78 @@ export class KupDatePicker {
     /*-------------------------------------------------*/
 
     @Event({
-        eventName: 'kup-datepicker-blur',
+        eventName: 'kup-numericpicker-blur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBlur: EventEmitter<KupDatePickerEventPayload>;
+    kupBlur: EventEmitter<KupNumericPickerEventPayload>;
 
     @Event({
-        eventName: 'kup-datepicker-change',
+        eventName: 'kup-numericpicker-change',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupChange: EventEmitter<KupDatePickerEventPayload>;
+    kupChange: EventEmitter<KupNumericPickerEventPayload>;
 
     @Event({
-        eventName: 'kup-datepicker-click',
+        eventName: 'kup-numericpicker-click',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupClick: EventEmitter<KupDatePickerEventPayload>;
+    kupClick: EventEmitter<KupNumericPickerEventPayload>;
 
     @Event({
-        eventName: 'kup-datepicker-focus',
+        eventName: 'kup-numericpicker-focus',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupFocus: EventEmitter<KupDatePickerEventPayload>;
+    kupFocus: EventEmitter<KupNumericPickerEventPayload>;
 
     @Event({
-        eventName: 'kup-datepicker-input',
+        eventName: 'kup-numericpicker-input',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupInput: EventEmitter<KupDatePickerEventPayload>;
+    kupInput: EventEmitter<KupNumericPickerEventPayload>;
 
     @Event({
-        eventName: 'kup-datepicker-iconclick',
+        eventName: 'kup-numericpicker-iconclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupIconClick: EventEmitter<KupDatePickerEventPayload>;
+    kupIconClick: EventEmitter<KupNumericPickerEventPayload>;
 
     @Event({
-        eventName: 'kup-datepicker-itemclick',
+        eventName: 'kup-numericpicker-itemclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupItemClick: EventEmitter<KupDatePickerEventPayload>;
+    kupItemClick: EventEmitter<KupNumericPickerEventPayload>;
 
     @Event({
-        eventName: 'kup-datepicker-textfieldsubmit',
+        eventName: 'kup-numericpicker-textfieldsubmit',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTextFieldSubmit: EventEmitter<KupDatePickerEventPayload>;
+    kupTextFieldSubmit: EventEmitter<KupNumericPickerEventPayload>;
 
     @Event({
-        eventName: 'kup-datepicker-cleariconclick',
+        eventName: 'kup-numericpicker-cleariconclick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
     kupClearIconClick: EventEmitter<KupEventPayload>;
 
-    onKupDatePickerItemClick(value: string) {
+    onKupPickerItemClick(value: string) {
         this.setPickerValueSelected(value);
 
         this.kupChange.emit({
@@ -293,24 +313,6 @@ export class KupDatePicker {
     }
 
     /*-------------------------------------------------*/
-    /*                  W a t c h e r s                */
-    /*-------------------------------------------------*/
-
-    @Watch('firstDayIndex')
-    watchFirstDayIndex() {
-        if (this.firstDayIndex > 6 || this.firstDayIndex < 0) {
-            this.kupManager.debug.logMessage(
-                this,
-                'property first-day-index=[' +
-                    this.firstDayIndex +
-                    '] not allowed: it must be >= 0 and <= 6',
-                KupDebugCategory.WARNING
-            );
-            this.firstDayIndex = 1;
-        }
-    }
-
-    /*-------------------------------------------------*/
     /*           P u b l i c   M e t h o d s           */
     /*-------------------------------------------------*/
 
@@ -331,12 +333,12 @@ export class KupDatePicker {
     async getProps(descriptions?: boolean): Promise<GenericObject> {
         let props: GenericObject = {};
         if (descriptions) {
-            props = KupDatePickerProps;
+            props = KupNumericPickerProps;
         } else {
-            for (const key in KupDatePickerProps) {
+            for (const key in KupNumericPickerProps) {
                 if (
                     Object.prototype.hasOwnProperty.call(
-                        KupDatePickerProps,
+                        KupNumericPickerProps,
                         key
                     )
                 ) {
@@ -380,45 +382,35 @@ export class KupDatePicker {
         eventToRaise: EventEmitter,
         isOnInputEvent?: boolean
     ) {
-        let newValue = eventDetailValue;
-        if (this.kupManager.dates.isValid(eventDetailValue)) {
-            newValue = this.kupManager.dates.format(
-                this.kupManager.dates.normalize(
-                    eventDetailValue,
-                    KupDatesNormalize.DATE
-                ),
-                KupDatesFormats.ISO_DATE
-            );
+        let newValue = this.kupManager.math.numberify(eventDetailValue, true);
+        if (newValue) {
+            let str = newValue.toString();
+            // here we check the input digits and fix with numeric picker rules.
+            const idx = str.indexOf('.');
+            let int = idx > -1 ? str.substring(0, idx) : str;
+            let dec = idx > -1 ? str.substring(idx + 1) : '';
 
-            this.refreshPickerComponentValue(newValue);
-            if (isOnInputEvent != true) {
-                this.setValue(newValue);
+            if (this.maxIntegers && int.length > this.maxIntegers)
+                int = int.substring(int.length - this.maxIntegers);
+            if (this.maxDecimals && dec.length > this.maxDecimals)
+                dec = dec.substring(0, this.maxDecimals);
+            while (this.maxLength && int.length + dec.length > this.maxLength) {
+                if (dec.length > 1) dec = dec.substring(0, dec.length - 1);
+                else if (int.length > 1) int = int.substring(1);
             }
-        }
 
-        if (newValue != null) {
+            str = idx > -1 ? `${int}.${dec}` : int;
+
+            if (isOnInputEvent != true) {
+                this.setValue(str);
+            }
             if (eventToRaise != null) {
                 eventToRaise.emit({
                     id: this.rootElement.id,
-                    value: newValue,
+                    value: str,
                 });
             }
         }
-    }
-
-    refreshPickerComponentValue(value: string) {
-        if (!this.isPickerOpened()) {
-            return;
-        }
-        let d: Date;
-        if (this.kupManager.dates.isValid(value, KupDatesFormats.ISO_DATE)) {
-            d = new Date(value);
-        } else {
-            d = new Date();
-        }
-        this.pickerEl.value = d.toISOString();
-        this.pickerEl.date = d;
-        this.refresh();
     }
 
     setPickerValueSelected(newValue?: string) {
@@ -449,7 +441,6 @@ export class KupDatePicker {
         const elStyle = this.pickerContainerEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldEl.parentElement.clientWidth + 'px';
-        this.refreshPickerComponentValue(this.getValueForPickerComponent());
         if (textfieldEl != null) {
             textfieldEl.classList.add('toggled');
         }
@@ -502,7 +493,12 @@ export class KupDatePicker {
         return this.textfieldEl.id;
     }
 
-    prepTextfield(initialValue: string): VNode {
+    prepTextfield(): VNode {
+        if (!this.decimals && !this.maxIntegers) this.maxIntegers = 17;
+        if (this.decimals && !this.maxIntegers && !this.maxDecimals) {
+            this.maxIntegers = 15;
+            this.maxDecimals = 2;
+        }
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
@@ -510,7 +506,7 @@ export class KupDatePicker {
             ...this.data['kup-text-field'],
         };
         if (!textfieldData.icon) {
-            textfieldData.icon = 'calendar';
+            textfieldData.icon = 'calculator';
         }
         if (textfieldData.icon) {
             textfieldData.trailingIcon = true;
@@ -522,7 +518,7 @@ export class KupDatePicker {
                 fullHeight={fullHeight}
                 fullWidth={fullWidth}
                 id={this.rootElement.id + '_text-field'}
-                value={initialValue}
+                value={this.kupManager.math.numbers.toLocaleString(this.value)}
                 onBlur={() => this.onKupBlur()}
                 onChange={(e: InputEvent) => this.onKupChange(e)}
                 onClearIconClick={() => this.onKupClearIconClick()}
@@ -532,40 +528,20 @@ export class KupDatePicker {
                 onKeyDown={(e: KeyboardEvent) => this.onkupTextFieldSubmit(e)}
                 onInput={(e: InputEvent) => this.onKupInput(e)}
             >
-                {this.prepDatePicker()}
+                {this.prepPicker()}
             </FTextField>
         );
     }
 
-    getInitEndYear(curYear: number): { initYear: number; endYear: number } {
-        let initYear: number = curYear - (curYear % 10);
-        let endYear: number = initYear + 16 - 1;
-
-        return { initYear: initYear, endYear: endYear };
-    }
-
-    isRelatedTargetInThisComponent(e: any): boolean {
-        if (!e.relatedTarget) {
-            return false;
-        }
-        let id = e.relatedTarget.id;
-        if (id == null || id.trim() == '') {
-            return false;
-        }
-        if (id == this.getTextFieldId()) {
-            return true;
-        }
-
-        let idConc =
-            '#prev-page#next-page#date-picker-div#change-view-button#calendar#';
-        return idConc.indexOf('#' + id + '#') >= 0;
-    }
-
-    prepDatePicker() {
+    prepPicker() {
         const data: KupCardData = {
             options: {
+                decimals: this.decimals,
                 initialValue: this.value,
-                firstDayIndex: this.firstDayIndex,
+                maxDecimals: this.maxDecimals,
+                maxIntegers: this.maxIntegers,
+                maxLength: this.maxLength,
+                negative: this.negative,
                 resetStatus: true,
             },
         };
@@ -575,23 +551,16 @@ export class KupDatePicker {
                 ref={(el) => (this.pickerContainerEl = el)}
                 data={data}
                 layoutFamily={KupCardFamily.BUILT_IN}
+                layoutNumber={5}
                 sizeX="300px"
                 sizeY="auto"
                 isMenu
                 onkup-card-click={(ev: CustomEvent<KupCardClickPayload>) => {
-                    if (ev.detail.value != null && ev.detail.value != '')
-                        this.onKupDatePickerItemClick(ev.detail.value);
+                    if (ev.detail.value != null)
+                        this.onKupPickerItemClick(ev.detail.value);
                 }}
             ></kup-card>
         );
-    }
-
-    getDateForOutput(): string {
-        if (this.value == null || this.value.trim() == '') {
-            return '';
-        }
-        let v1 = this.kupManager.dates.format(this.value);
-        return v1;
     }
 
     /*-------------------------------------------------*/
@@ -602,7 +571,6 @@ export class KupDatePicker {
         this.kupManager.dates.register(this);
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.watchFirstDayIndex();
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -639,9 +607,7 @@ export class KupDatePicker {
                         this.rootElement as KupComponent
                     )}
                 </style>
-                <div id={componentWrapperId}>
-                    {this.prepTextfield(this.getDateForOutput())}
-                </div>
+                <div id={componentWrapperId}>{this.prepTextfield()}</div>
             </Host>
         );
     }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Date-Picker</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato"
+            rel="stylesheet"
+        />
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <style>
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true },
+            };
+        </script>
+        <h1>Numeric picker</h1>
+        <h4>Basic</h4>
+        <kup-numeric-picker id="numeric-picker1"></kup-numeric-picker>
+        <h4>With max 2 decimals</h4>
+        <kup-numeric-picker
+            id="numeric-picker2"
+            decimals="true"
+            max-decimals="2"
+        ></kup-numeric-picker>
+        <h4>With max 2 decimals and 3 integers</h4>
+        <kup-numeric-picker
+            id="numeric-picker3"
+            decimals="true"
+            max-decimals="2"
+            max-integers="3"
+        ></kup-numeric-picker>
+        <h4>With negative and decimals</h4>
+        <kup-numeric-picker
+            id="numeric-picker4"
+            decimals="true"
+            negative="true"
+        ></kup-numeric-picker>
+        <h4>With max length 8</h4>
+        <kup-numeric-picker
+            id="numeric-picker5"
+            decimals="true"
+            max-length="8"
+        ></kup-numeric-picker>
+        <script></script>
+        <br /><br /><br /><br
+    /></body>
+</html>
