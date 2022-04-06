@@ -89,6 +89,7 @@ export const fTextFieldUsers = [
     KupTagNames.COMBOBOX,
     KupTagNames.DATA_TABLE,
     KupTagNames.DATE_PICKER,
+    KupTagNames.NUMERIC_PICKER,
     KupTagNames.TEXT_FIELD,
     KupTagNames.TIME_PICKER,
     KupTagNames.TREE,

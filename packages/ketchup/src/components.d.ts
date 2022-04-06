@@ -24,7 +24,7 @@ import { KupChipEventPayload, KupChipNode } from "./components/kup-chip/kup-chip
 import { FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { KupColorPickerEventPayload } from "./components/kup-color-picker/kup-color-picker-declarations";
 import { KupComboboxEventPayload, KupComboboxIconClickEventPayload } from "./components/kup-combobox/kup-combobox-declarations";
-import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { GroupLabelDisplayMode, GroupObject, KupDatatableClickEventPayload, KupDatatableColumnMenuEventPayload, KupDatatableColumnMoveEventPayload, KupDatatableColumnRemoveEventPayload, KupDataTableDataset, KupDatatableLoadMoreClickEventPayload, KupDataTableRow, KupDatatableRowActionClickEventPayload, KupDatatableRowSelectedEventPayload, LoadMoreMode, PaginatorPos, SelectionMode, ShowGrid, SortObject, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { GenericFilter, KupGlobalFilterMode } from "./utils/filters/filters-declarations";
 import { KupDatePickerEventPayload } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupDropdownButtonEventPayload } from "./components/kup-dropdown-button/kup-dropdown-button-declarations";
@@ -37,6 +37,7 @@ import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
 import { KupLazyRender } from "./components/kup-lazy/kup-lazy-declarations";
 import { KupNavBarStyling } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { KupNumericPickerEventPayload } from "./components/kup-numeric-picker/kup-numeric-picker-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { KupRadioChangeEventPayload, KupRadioData } from "./components/kup-radio/kup-radio-declarations";
 import { KupRatingClickEventPayload } from "./components/kup-rating/kup-rating-declarations";
@@ -1082,6 +1083,10 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
+          * This method will get the selected rows of the component.
+         */
+        "getSelectedRows": () => Promise<Array<KupDataTableRow>>;
+        /**
           * When set to true it activates the global filter.
          */
         "globalFilter": boolean;
@@ -2010,6 +2015,78 @@ export namespace Components {
           * @default KupNavBarStyling.STANDARD
          */
         "styling": KupNavBarStyling;
+    }
+    interface KupNumericPicker {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+          * @default null
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component has decimals.
+          * @default false
+         */
+        "decimals": boolean;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Retrieves the component's value.
+          * @returns Value of the component.
+         */
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+          * @default ""
+         */
+        "initialValue": string;
+        /**
+          * when set, the component allows you to enter decimals with a maximum of characters.
+          * @default null
+         */
+        "maxDecimals": number;
+        /**
+          * When set, the component allows you to enter integer numbers with a maximum of characters.
+          * @default null
+         */
+        "maxIntegers": number;
+        /**
+          * When set, the component allows you to enter numbers with a maximum of characters, including decimals.
+          * @default null
+         */
+        "maxLength": number;
+        /**
+          * Defaults at false. When set to true, the component has negative number.
+          * @default false
+         */
+        "negative": boolean;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the focus to the component.
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * Sets the component's value.
+          * @param value - Value to be set.
+         */
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupPhotoFrame {
         /**
@@ -2993,6 +3070,12 @@ declare global {
         prototype: HTMLKupNavBarElement;
         new (): HTMLKupNavBarElement;
     };
+    interface HTMLKupNumericPickerElement extends Components.KupNumericPicker, HTMLStencilElement {
+    }
+    var HTMLKupNumericPickerElement: {
+        prototype: HTMLKupNumericPickerElement;
+        new (): HTMLKupNumericPickerElement;
+    };
     interface HTMLKupPhotoFrameElement extends Components.KupPhotoFrame, HTMLStencilElement {
     }
     var HTMLKupPhotoFrameElement: {
@@ -3102,6 +3185,7 @@ declare global {
         "kup-list": HTMLKupListElement;
         "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-nav-bar": HTMLKupNavBarElement;
+        "kup-numeric-picker": HTMLKupNumericPickerElement;
         "kup-photo-frame": HTMLKupPhotoFrameElement;
         "kup-probe": HTMLKupProbeElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
@@ -4722,6 +4806,63 @@ declare namespace LocalJSX {
          */
         "styling"?: KupNavBarStyling;
     }
+    interface KupNumericPicker {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+          * @default null
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component has decimals.
+          * @default false
+         */
+        "decimals"?: boolean;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component
+          * @default ""
+         */
+        "initialValue"?: string;
+        /**
+          * when set, the component allows you to enter decimals with a maximum of characters.
+          * @default null
+         */
+        "maxDecimals"?: number;
+        /**
+          * When set, the component allows you to enter integer numbers with a maximum of characters.
+          * @default null
+         */
+        "maxIntegers"?: number;
+        /**
+          * When set, the component allows you to enter numbers with a maximum of characters, including decimals.
+          * @default null
+         */
+        "maxLength"?: number;
+        /**
+          * Defaults at false. When set to true, the component has negative number.
+          * @default false
+         */
+        "negative"?: boolean;
+        "onKup-numericpicker-blur"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-change"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-cleariconclick"?: (event: CustomEvent<KupEventPayload>) => void;
+        "onKup-numericpicker-click"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-focus"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-iconclick"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-input"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-itemclick"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+        "onKup-numericpicker-textfieldsubmit"?: (event: CustomEvent<KupNumericPickerEventPayload>) => void;
+    }
     interface KupPhotoFrame {
         /**
           * Custom style of the component.
@@ -5453,6 +5594,7 @@ declare namespace LocalJSX {
         "kup-list": KupList;
         "kup-magic-box": KupMagicBox;
         "kup-nav-bar": KupNavBar;
+        "kup-numeric-picker": KupNumericPicker;
         "kup-photo-frame": KupPhotoFrame;
         "kup-probe": KupProbe;
         "kup-progress-bar": KupProgressBar;
@@ -5502,6 +5644,7 @@ declare module "@stencil/core" {
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
+            "kup-numeric-picker": LocalJSX.KupNumericPicker & JSXBase.HTMLAttributes<HTMLKupNumericPickerElement>;
             "kup-photo-frame": LocalJSX.KupPhotoFrame & JSXBase.HTMLAttributes<HTMLKupPhotoFrameElement>;
             "kup-probe": LocalJSX.KupProbe & JSXBase.HTMLAttributes<HTMLKupProbeElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;

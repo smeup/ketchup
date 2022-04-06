@@ -1,0 +1,41 @@
+.built-in-layout-5 {
+    background: var(--kup-background-color);
+    box-shadow: var(--kup-box-shadow);
+    box-sizing: border-box;
+    overflow: auto;
+    padding: 0.5em;
+  
+    > table {
+        width: 100%;
+        
+        > tr > td {
+        > div.value {
+            text-align: right;
+            color: var(--kup-primary-color);
+            border-bottom: 1px solid var(--kup-border-color);
+            min-height: 1.5em;
+        }
+    
+        > .f-button {
+            display: flex;
+            justify-content: center;
+        }
+    
+        > div.number {
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            line-height: 2.5em;
+            margin: auto;
+            width: 2.5em;
+            transition: background-color 0.25s;
+            text-transform: capitalize;
+    
+            &:hover {
+                background-color: var(--kup-hover-background-color);
+            }
+        }
+        }
+    }
+  }

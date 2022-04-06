@@ -127,6 +127,10 @@ components.data = [
         id: 'nav-bar.html',
     },
     {
+        value: 'Numeric picker',
+        id: 'numeric-picker.html',
+    },
+    {
         value: 'Radio',
         id: 'radio.html',
     },

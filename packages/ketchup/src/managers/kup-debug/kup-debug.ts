@@ -325,6 +325,7 @@ export class KupDebug {
                         break;
                     case 'kup-debug-locale-changer':
                         dom.ketchup.dates.setLocale(compEvent.detail.value);
+                        dom.ketchup.math.setLocale(compEvent.detail.value);
                         break;
                     case 'kup-debug-theme-changer':
                         dom.ketchup.theme.set(compEvent.detail.value);

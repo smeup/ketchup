@@ -88,6 +88,7 @@ export enum KupTagNames {
     LIST = 'KUP-LIST',
     MAGIC_BOX = 'KUP-MAGIC-BOX',
     NAV_BAR = 'KUP-NAV-BAR',
+    NUMERIC_PICKER = 'KUP-NUMERIC-PICKER',
     PROBE = 'KUP-PROBE',
     PROGRESS_BAR = 'KUP-PROGRESS-BAR',
     QLIK = 'KUP-QLIK',
