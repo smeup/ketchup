@@ -18,6 +18,11 @@
           }}<br />{{ darkThemeExample4 }}<br
         /></code>
         There are many initialization settings, here is the list:<br /><br />
+        <span class="code-word">assetsPath</span>(string): sets the URL where
+        static assets used by the library are located, such as SVGs.<br /><br />
+        <span class="code-word">autoSetLocalization</span>(boolean): when true,
+        the library automatically sets KupLanguage and KupMath locales to
+        KupDates'.<br /><br />
         <span class="code-word">dates</span><br />
         - <strong>locale(string)</strong>: sets the locale of the library (used
         by components such as kup-date-picker).<br /><br />
