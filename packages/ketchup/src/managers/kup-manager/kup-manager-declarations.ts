@@ -73,6 +73,7 @@ export interface KupManagerClickCb {
  * Interface for the KupManager override settings.
  */
 export interface KupManagerInitialization {
+    assetsPath?: string;
     autoSetLocalization?: boolean;
     dates?: KupManagerDatesSettings;
     debug?: KupManagerDebugSettings;

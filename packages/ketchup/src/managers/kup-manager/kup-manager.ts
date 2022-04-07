@@ -42,6 +42,7 @@ import { KupDynamicPositionElement } from '../../managers/kup-dynamic-position/k
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
 import { KupMath } from '../kup-math/kup-math';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
+import { setAssetPath } from '@stencil/core';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -88,15 +89,18 @@ export class KupManager {
             themeName: string = null,
             tooltipDelay: number = null;
         if (overrides) {
-            const dates: KupManagerDatesSettings = overrides.dates;
-            const debug: KupManagerDebugSettings = overrides.debug;
-            const interact: KupManagerInteractSettings = overrides.interact;
-            const language: KupManagerLanguageSettings = overrides.language;
-            const objects: KupManagerObjectsSettings = overrides.objects;
-            const scrollOnHover: KupManagerScrollOnHoverSettings =
-                overrides.scrollOnHover;
-            const theme: KupManagerThemeSettings = overrides.theme;
-            const tooltip: KupManagerTooltipSettings = overrides.tooltip;
+            const assetsPath = overrides.assetsPath;
+            const dates = overrides.dates;
+            const debug = overrides.debug;
+            const interact = overrides.interact;
+            const language = overrides.language;
+            const objects = overrides.objects;
+            const scrollOnHover = overrides.scrollOnHover;
+            const theme = overrides.theme;
+            const tooltip = overrides.tooltip;
+            if (assetsPath) {
+                setAssetPath(assetsPath);
+            }
             if (dates) {
                 datesLocale = dates.locale ? dates.locale : null;
             }
