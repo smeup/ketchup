@@ -24,9 +24,8 @@ const dataTableTooltip = (e) => {
 
 const registerThisTooltip = (anchor) => {
     anchor.disabled = true;
-    kupManager.tooltip.register(
-        anchor,
-        () => {
+    kupManager.tooltip.register(anchor, {
+        enter: () => {
             console.log('In callback.');
             kupManager.tooltip.show(anchor, {
                 data: {
@@ -35,7 +34,7 @@ const registerThisTooltip = (anchor) => {
                 layoutNumber: '8',
             });
         },
-        (e) => {
+        over: (e) => {
             console.log('Hovering.');
             kupManager.tooltip.element.style.setProperty(
                 '--kup-background-color',
@@ -58,11 +57,11 @@ const registerThisTooltip = (anchor) => {
                 layoutNumber: '15',
             });
         },
-        () => {
+        leave: () => {
             console.log('Out callback.');
             kupManager.tooltip.hide();
-        }
-    );
+        },
+    });
 };
 
 const unregister = () => {

@@ -198,23 +198,13 @@ export class KupTooltip {
     /**
      * Registers an HTMLElement as KupTooltipAnchor, triggering callback invocation on mouse over.
      * @param {KupTooltipAnchor} element - The HTML element to be registered.
-     * @param {(e: PointerEvent) => void} cbEnter - Callback invoked when hovering on the the element for the first time.
-     * @param {(e: PointerEvent) => void} cbOver - Callback invoked when hovering on the element.
-     * @param {(e: PointerEvent) => void} cbLeave - Callback invoked when leaving the element.
+     * @param {KupTooltipCallbacks} options - Optional callbacks.
      */
-    register(
-        element: KupTooltipAnchor,
-        cbEnter?: (e: PointerEvent) => void,
-        cbOver?: (e: PointerEvent) => void,
-        cbLeave?: (e: PointerEvent) => void
-    ): void {
+    register(element: KupTooltipAnchor, options?: KupTooltipCallbacks): void {
         this.managedElements.add(element);
-        const kupTooltip: KupTooltipCallbacks = {
-            enter: cbEnter,
-            leave: cbLeave,
-            over: cbOver,
-        };
-        element.kupTooltip = kupTooltip;
+        if (options !== null && options) {
+            element.kupTooltip = options;
+        }
     }
     /**
      * Unregisters an HTMLElement, preventing its attached callback from being invoked.
