@@ -20,6 +20,7 @@ import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import type { ResizeObserver } from 'resize-observer';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
+import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -145,6 +146,7 @@ export interface KupManagerThemeSettings {
  * KupDates initialization settings.
  */
 export interface KupManagerTooltipSettings {
+    fCellCallbacks?: KupTooltipCallbacks;
     delay?: number;
 }
 /**

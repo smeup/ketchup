@@ -1423,7 +1423,7 @@ export class KupBox {
         }
         const cell = row.cells[boxObject.column];
         let title: string = undefined;
-        if (!this.kupManager.objects.isEmptyKupObj(cell.obj)) {
+        if (cell && !this.kupManager.objects.isEmptyKupObj(cell.obj)) {
             classObj['is-obj'] = true;
             if (this.kupManager.debug.isDebug()) {
                 title =

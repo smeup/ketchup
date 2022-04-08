@@ -1,4 +1,5 @@
 const dataTable = document.getElementById('data-table');
+const fCellHover = document.getElementById('fcell-hover');
 const registerThis = document.getElementById('register-this');
 const registerThisInstead = document.getElementById('register-this-instead');
 const unregisterBoth = document.getElementById('unregister-both');
@@ -19,6 +20,51 @@ const dataTableTooltip = (e) => {
             },
             layoutNumber: kupManager.objects.isNumber(column.obj) ? '10' : '15',
         });
+    }
+};
+
+const fCellToggle = () => {
+    if (kupManager.tooltip.fCellCallbacks) {
+        kupManager.tooltip.fCellCallbacks = null;
+    } else {
+        kupManager.tooltip.fCellCallbacks = {
+            enter: (_e, anchor) => {
+                anchor.style.setProperty(
+                    '--kup-cell-background',
+                    'var(--kup-primary-color)'
+                );
+                anchor.style.setProperty(
+                    '--kup-cell-text-color',
+                    'var(--kup-text-on-primary-color)'
+                );
+                const props = anchor['kup-get-cell-props']();
+                const cardText = ['Cell props'];
+                for (const key in props) {
+                    const prop = props[key];
+                    if (key !== 'component') {
+                        cardText.push(key);
+                        let value = '';
+                        try {
+                            value = JSON.stringify(prop);
+                        } catch (error) {
+                            value = 'Unstringifiable JSON';
+                        }
+                        cardText.push(value);
+                    }
+                }
+                kupManager.tooltip.show(anchor, {
+                    data: {
+                        text: cardText,
+                    },
+                    layoutNumber: 15,
+                });
+            },
+            leave: (_e, anchor) => {
+                anchor.style.setProperty('--kup-cell-background', '');
+                anchor.style.setProperty('--kup-cell-text-color', '');
+                kupManager.tooltip.hide();
+            },
+        };
     }
 };
 
@@ -72,6 +118,7 @@ const unregister = () => {
 };
 
 dataTable.addEventListener('kup-datatable-contextmenu', dataTableTooltip);
+fCellHover.addEventListener('kup-button-click', fCellToggle);
 registerThis.addEventListener(
     'kup-button-click',
     registerThisTooltip.bind(registerThisTooltip, registerThis)

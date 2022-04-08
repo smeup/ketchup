@@ -11,6 +11,7 @@ import {
     KupTooltipAnchor,
     KupTooltipCallbacks,
 } from './kup-tooltip-declarations';
+import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -22,14 +23,16 @@ export class KupTooltip {
     currentAnchor: KupTooltipAnchor = null;
     delay: number = null;
     element: HTMLKupCardElement = null;
+    fCellCallbacks: KupTooltipCallbacks = null;
     managedElements: Set<KupTooltipAnchor> = null;
     timeout: ReturnType<typeof setTimeout> = null;
     #clickCb: KupManagerClickCb = null;
     /**
      * Initializes KupTooltip.
      */
-    constructor(delay?: number) {
+    constructor(delay?: number, fCellCallbacks?: KupTooltipCallbacks) {
         this.delay = delay ? delay : 125;
+        this.fCellCallbacks = fCellCallbacks ? fCellCallbacks : null;
         this.managedElements = new Set();
         document.addEventListener('pointermove', (e) => {
             const paths = e.composedPath() as HTMLElement[];
@@ -39,21 +42,29 @@ export class KupTooltip {
             }
             const enterHandler = (anchor: KupTooltipAnchor) => {
                 this.timeout = null;
+                const callbacks = anchor.classList.contains('f-cell')
+                    ? this.fCellCallbacks
+                    : anchor.kupTooltip;
                 requestAnimationFrame(
-                    anchor.kupTooltip.enter.bind(anchor.kupTooltip.enter, e)
+                    callbacks.enter.bind(callbacks.enter, e, anchor)
                 );
             };
             const overHandler = (anchor: KupTooltipAnchor) => {
+                const callbacks = anchor.classList.contains('f-cell')
+                    ? this.fCellCallbacks
+                    : anchor.kupTooltip;
                 requestAnimationFrame(
-                    anchor.kupTooltip.over.bind(anchor.kupTooltip.over, e)
+                    callbacks.over.bind(callbacks.over, e, anchor)
                 );
             };
-            const leaveHandler = () => {
+            const leaveHandler = (anchor: KupTooltipAnchor) => {
+                const callbacks = this.currentAnchor.classList.contains(
+                    'f-cell'
+                )
+                    ? this.fCellCallbacks
+                    : this.currentAnchor.kupTooltip;
                 requestAnimationFrame(
-                    this.currentAnchor.kupTooltip.leave.bind(
-                        this.currentAnchor.kupTooltip.leave,
-                        e
-                    )
+                    callbacks.leave.bind(callbacks.leave, e, anchor)
                 );
             };
             // If the current anchor exists and is not included in the event path,
@@ -63,25 +74,37 @@ export class KupTooltip {
                     clearTimeout(this.timeout);
                     this.timeout = null;
                 } else {
-                    if (this.currentAnchor.kupTooltip.leave) {
-                        leaveHandler();
+                    const callbacks = this.currentAnchor.kupTooltip
+                        ? this.currentAnchor.kupTooltip
+                        : this.fCellCallbacks;
+                    if (callbacks.leave) {
+                        leaveHandler(this.currentAnchor);
                     }
                 }
                 this.currentAnchor = null;
             } else if (!this.timeout) {
                 for (let index = 0; index < paths.length; index++) {
                     const element = paths[index] as KupTooltipAnchor;
-                    if (this.managedElements.has(element)) {
+                    if (
+                        element &&
+                        (this.managedElements.has(element) ||
+                            (this.fCellCallbacks &&
+                                element.classList &&
+                                element.classList.contains('f-cell')))
+                    ) {
+                        const callbacks = element.kupTooltip
+                            ? element.kupTooltip
+                            : this.fCellCallbacks;
                         // If the current anchor is the same as the registered element found
                         // in the path, the mouse over function is invoked
                         if (this.currentAnchor === element) {
-                            if (element.kupTooltip.over) {
+                            if (callbacks.over) {
                                 overHandler(element);
                             }
                             // Otherwise, the mouse enter callback will be invoked
                         } else {
                             this.currentAnchor = element;
-                            if (element.kupTooltip.enter) {
+                            if (callbacks.enter) {
                                 if (this.delay) {
                                     this.timeout = setTimeout(
                                         enterHandler.bind(
