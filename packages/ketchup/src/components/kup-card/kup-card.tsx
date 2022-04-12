@@ -134,7 +134,7 @@ export class KupCard {
     private scalingActive: boolean = false;
     private componentWrapper: HTMLElement = null;
     private colorPicker: Picker = null;
-    private firstColorPickerChange: boolean = null;
+    private firstColorPickerChange: boolean = true;
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -399,7 +399,6 @@ export class KupCard {
                     const color = colorPickerOptions
                         ? colorPickerOptions.initialValue
                         : null;
-                    this.firstColorPickerChange = true;
                     if (!this.colorPicker) {
                         this.colorPicker = new Picker({
                             alpha: false,
