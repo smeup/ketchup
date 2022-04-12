@@ -5,7 +5,16 @@
         <span class="code-word">KupTooltip</span> replaces the old kup-tooltip
         component (in case you're familiar with it).<br />
         Basically it instances a kup-card component and handles the
-        displaying/hiding on demand or on hover.
+        displaying/hiding on demand or on hover.<br /><br />
+        There are three ways to use
+        <span class="code-word">KupTooltip</span>:<br /><br />
+        - <strong>programmatically</strong>, by invoking the
+        <span class="code-word">show()</span> API;<br />
+        - <strong>on mouse hover</strong>, by registering an HTMLElement through
+        the <span class="code-word">register</span> API;<br />
+        -
+        <strong>on a functional cell (FCell) inside a Ketchup component</strong
+        >, by specifying enter, leave, over callbacks.
       </p>
     </div>
   </div>

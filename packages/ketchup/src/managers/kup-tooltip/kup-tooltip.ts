@@ -11,7 +11,6 @@ import {
     KupTooltipAnchor,
     KupTooltipCallbacks,
 } from './kup-tooltip-declarations';
-import { FCellProps } from '../../f-components/f-cell/f-cell-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -175,7 +174,7 @@ export class KupTooltip {
     }
     /**
      * Displays the tooltip.
-     * @param {KupTooltipAnchor} anchor - Anchor point of the tooltip.
+     * @param {KupDynamicPositionAnchor} anchor - Anchor point of the tooltip: HTML element or x/y coordinates.
      * @param {Partial<HTMLKupCardElement>} options - Props/attributes of the tooltip.
      */
     show(

@@ -41,15 +41,57 @@
           <p>
             <span class="code-word">show(anchor?, options?): void</span><br />
             Displays the tooltip.<br /><br />
-            - <strong>anchor (KupTooltipAnchor)</strong> - Anchor point of the
-            tooltip.<br />
+            - <strong>anchor (KupDynamicPositionAnchor)</strong> - Anchor point
+            of the tooltip: HTML element or x/y coordinates.<br />
             - <strong>options (Partial&lt;HTMLKupCardElement&gt;)</strong> -
-            Props/attributes of the tooltip.<br /><br /> </p></div
+            Props/attributes of the tooltip.<br /><br />
+          </p>
+          <div class="demo-container">
+            <div class="kup-container">
+              <kup-button
+                id="show-button"
+                label="Show - anchored here"
+                @kup-button-click="(e) => show(e)"
+              ></kup-button>
+              <kup-button
+                id="show-mouse-button"
+                label="Show - anchored on mouse coords"
+                @click="(e) => show(e)"
+              ></kup-button>
+            </div> </div></div
         ><div class="accordion-slot" slot="4">
           <p>
             <span class="code-word">hide(): void</span><br />
             Hides the tooltip.<br /><br /></p></div
         ><div class="accordion-slot" slot="5">
+          <p>
+            <span class="code-word">fCellCallbacks: KupTooltipCallbacks</span
+            ><br />
+            By setting a value to this property, KupTooltip will be
+            automatically displayed on mouse over when hovering on a FCell
+            functional component.<br /><br />The available callbacks are:<br /><br />
+            - <strong>enter</strong>: (event: PointerEvent, anchor: HTMLElement)
+            => void<br />- <strong>over</strong>: (event: PointerEvent, anchor:
+            HTMLElement) => void<br />- <strong>leave</strong>: (event:
+            PointerEvent, anchor: HTMLElement) => void<br />In order to properly
+            read the cell's props, it's possible to invoke a getter associated
+            to the attribute
+            <span class="code-word">kup-get-cell-props</span> on the FCell
+            HTMLElement.</p
+          >
+          <code class="flat"
+            >const props = anchor['kup-get-cell-props']();</code
+          >
+          <div class="demo-container">
+            <div class="kup-container">
+              <kup-button
+                id="fcell-button"
+                label="Toggle FCell callbacks"
+                @kup-button-click="fCellCallbacks()"
+              ></kup-button>
+            </div>
+            <kup-data-table id="fcell-data-table"></kup-data-table></div></div
+        ><div class="accordion-slot" slot="6">
           <p>
             <span class="code-word">unregister(element): void</span><br />
             Unregisters an HTMLElement, preventing its attached callback from
@@ -64,10 +106,13 @@
 <script lang="ts">
 import { KupDom } from '@sme.up/ketchup/dist/types/managers/kup-manager/kup-manager-declarations';
 import { KupTooltipAnchor } from '@sme.up/ketchup/dist/types/managers/kup-tooltip/kup-tooltip-declarations';
+import { KupButtonClickEventPayload } from '@sme.up/ketchup/dist/types/components/kup-button/kup-button-declarations';
 
 var accordion: HTMLKupAccordionElement = null;
 var anchor: KupTooltipAnchor = null;
+var fCellDatatable: HTMLKupDataTableElement = null;
 var registerButton: HTMLKupButtonElement = null;
+var showButton: HTMLKupButtonElement = null;
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -83,7 +128,9 @@ export default {
     initVariables(): void {
       accordion = document.querySelector('#accordion');
       anchor = document.querySelector('#anchor');
+      fCellDatatable = document.querySelector('#fcell-data-table');
       registerButton = document.querySelector('#register-button');
+      showButton = document.querySelector('#show-button');
     },
     /**
      * Initializes the widgets by setting all the values to the related components.
@@ -109,7 +156,23 @@ export default {
           },
           {
             name: '5',
+            title: 'fCellCallbacks',
+          },
+          {
+            name: '6',
             title: 'unregister',
+          },
+        ],
+      };
+      fCellDatatable.data = {
+        columns: [{ name: 'FCELL', title: 'FCell' }],
+        rows: [
+          {
+            cells: {
+              FCELL: {
+                value: 'Toggle the callbacks the hover on me!',
+              },
+            },
           },
         ],
       };
@@ -163,6 +226,84 @@ export default {
           dom.ketchup.tooltip.hide();
         },
       });
+    },
+    /**
+     * Enables fCellCallbacks.
+     */
+    fCellCallbacks() {
+      if (dom.ketchup.tooltip.fCellCallbacks) {
+        dom.ketchup.tooltip.fCellCallbacks = null;
+      } else {
+        dom.ketchup.tooltip.fCellCallbacks = {
+          enter: (_e, anchor) => {
+            anchor.style.setProperty(
+              '--kup-cell-background',
+              'var(--kup-primary-color)'
+            );
+            anchor.style.setProperty(
+              '--kup-cell-text-color',
+              'var(--kup-text-on-primary-color)'
+            );
+            const props = anchor['kup-get-cell-props']();
+            const cardText = ['Cell props'];
+            for (const key in props) {
+              const prop = props[key];
+              if (key !== 'component') {
+                cardText.push(key);
+                let value = '';
+                try {
+                  value = JSON.stringify(prop);
+                } catch (error) {
+                  value = 'Unstringifiable JSON';
+                }
+                cardText.push(value);
+              }
+            }
+            dom.ketchup.tooltip.show(anchor, {
+              data: {
+                text: cardText,
+              },
+              layoutNumber: 15,
+            });
+          },
+          leave: (_e, anchor) => {
+            anchor.style.setProperty('--kup-cell-background', '');
+            anchor.style.setProperty('--kup-cell-text-color', '');
+            dom.ketchup.tooltip.hide();
+          },
+        };
+      }
+    },
+    /**
+     * Displays the tooltip.
+     */
+    show(event: MouseEvent | CustomEvent<KupButtonClickEventPayload>) {
+      if (event.type === 'kup-button-click') {
+        dom.ketchup.tooltip.show(showButton, {
+          data: { text: ["I'm anchored to this button"] },
+          layoutNumber: 1,
+        });
+      } else {
+        const rect = document.documentElement.getBoundingClientRect();
+        const x = (event as MouseEvent).clientX - rect.left;
+        const y = (event as MouseEvent).clientY - rect.top;
+        dom.ketchup.tooltip.show(
+          {
+            x,
+            y,
+          },
+          {
+            data: {
+              text: [
+                "I'm anchored to mouse x and y coordinates",
+                x.toString(),
+                y.toString(),
+              ],
+            },
+            layoutNumber: 1,
+          }
+        );
+      }
     },
   },
   mounted() {
