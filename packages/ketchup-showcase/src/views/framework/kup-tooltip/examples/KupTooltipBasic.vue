@@ -13,8 +13,8 @@
         - <strong>on mouse hover</strong>, by registering an HTMLElement through
         the <span class="code-word">register</span> API;<br />
         -
-        <strong>on a functional cell (FCell) inside a Ketchup component</strong
-        >, by specifying enter, leave, over callbacks.
+        <strong>on mouse hover but on a functional cell (FCell)</strong> inside
+        a Ketchup component, by specifying enter, leave, over callbacks.
       </p>
     </div>
   </div>
