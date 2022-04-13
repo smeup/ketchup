@@ -55,7 +55,7 @@
         "vanilla-picker": "^2.12.1"
     },
     "devDependencies": {
-        "@stencil/core": "^2.14.2",
+        "@stencil/core": "^2.15.0",
         "@stencil/sass": "^1.4.1",
         "@types/d3-shape": "^2.1.0",
         "@types/geojson": "^7946.0.8",
