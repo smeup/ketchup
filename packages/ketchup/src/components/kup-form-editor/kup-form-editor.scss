@@ -1,0 +1,45 @@
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.form {
+    display: grid;
+    grid-gap: 0.5em;
+    width: 100%;
+    height: 100%;    
+}
+
+.section {
+    display: grid;
+    width: 100%;
+    height: 100%;
+}
+
+.section-dropzone {
+    border: 1px solid var(--kup-border-color);
+    min-height: 100px;
+}
+
+.component {
+    height: fit-content;
+    padding: 1em;
+    margin: 0.5em;
+    box-shadow: var(--kup-box-shadow);
+}
+
+.layout-row {
+    grid-auto-flow: column;
+    grid-template-columns: min-content;
+}
+
+.layout-column {
+    grid-auto-flow: row;
+    grid-template-rows: min-content;
+}
