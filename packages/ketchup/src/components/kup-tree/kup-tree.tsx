@@ -993,9 +993,11 @@ export class KupTree {
             (this.expansionMode.toLowerCase() === KupTreeExpansionMode.NODE &&
                 !treeNodeData.expandable)
         ) {
-            const td = this.getEventPath(e).find((el) => {
-                if (el.tagName === 'TD') return el;
-            });
+            const td = e
+                ? this.getEventPath(e).find((el) => {
+                      if (el.tagName === 'TD') return el;
+                  })
+                : null;
             // If this TreeNode is not disabled, then it can be selected and an event is emitted
             if (treeNodeData && !treeNodeData.disabled) {
                 if (this.autoSelectionNodeMode)
