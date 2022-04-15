@@ -20,6 +20,7 @@ import type { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import type { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import type { ResizeObserver } from 'resize-observer';
 import { KupMathLocales } from '../kup-math/kup-math-declarations';
+import { Options } from 'html2canvas';
 /**
  * Interface used to define the HTML element with Ketchup specific properties.
  */
@@ -54,6 +55,10 @@ export interface KupManager {
     setLibraryLocalization: (locale: KupDatesLocales) => void;
     addClickCallback: (cb: KupManagerClickCb, async?: boolean) => void;
     removeClickCallback: (cb: KupManagerClickCb) => void;
+    rasterize: (
+        el: HTMLElement,
+        options?: Partial<Options>
+    ) => Promise<HTMLCanvasElement>;
 }
 /**
  * Interface for the KupManager utilities.
