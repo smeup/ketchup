@@ -7,31 +7,70 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+    > * {
+        margin-left: 0.5em;
+    }
 }
 
 .form {
     display: grid;
-    grid-gap: 0.5em;
-    width: 100%;
-    height: 100%;    
+    grid-gap: 0.5em;   
+}
+
+.form-dropzone {
+    padding: 1em;
+    border: 1px solid var(--kup-primary-color);
 }
 
 .section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-header {
+    display: flex;
+    flex-direction: column;
+
+    > * {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+
+        > .section-header-actions {
+            display: flex;
+            justify-content: end;
+    
+            > * {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+    }    
+}
+
+.section-body {
     display: grid;
-    width: 100%;
-    height: 100%;
 }
 
 .section-dropzone {
-    border: 1px solid var(--kup-border-color);
+    border: 1px solid var(--kup-primary-color);
     min-height: 100px;
+}
+
+.section-draggable {
+    border: 1px solid var(--kup-secondary-color);
+    padding: 1em;
 }
 
 .component {
     height: fit-content;
     padding: 1em;
     margin: 0.5em;
-    box-shadow: var(--kup-box-shadow);
+}
+
+.component-draggable {
+    border: 1px solid var(--kup-secondary-color);
 }
 
 .layout-row {

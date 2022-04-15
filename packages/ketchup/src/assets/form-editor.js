@@ -120,7 +120,7 @@ const data1 = {
                     },
                     fun: 'F(MAT;Plain.Poc.WebupJS.Api.Repositories.UtilsRepository;FromCsv) 1(FILE;;users)',
                     title: '*NONE',
-                    type: 'ASI',
+                    type: 'MAT',
                     id: '{C6BB07DF-FC62-453B-8AF3-79CB1EE050C3}',
                     loaded: true,
                 },

@@ -13,6 +13,20 @@ export interface KupFormEditorEventPayload extends KupEventPayload {
     data: KupForm;
 }
 
+export enum KupFormEditorDragTypes {
+    Components = '1',
+    Sections = '2',
+}
+
+export enum KupFormEditorLabels {
+    Loaded = 'Loaded',
+    Reset = 'Reset',
+    Save = 'Save',
+    Components = 'Components',
+    Sections = 'Sections',
+    Column = 'Column',
+}
+
 /**
  * Extend html element properties for Form Editor
  */
@@ -24,7 +38,9 @@ export interface KupFormEditorElement extends HTMLDivElement {
  * Additional kupData for html element.
  */
 export interface KupFormEditorData {
-    section: KupSection;
+    parent?: KupForm | KupSection;
+    form?: KupForm;
+    section?: KupSection;
     componnent?: KupComponent;
 }
 
