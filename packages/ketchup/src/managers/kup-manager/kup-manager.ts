@@ -36,6 +36,7 @@ import { KupMath } from '../kup-math/kup-math';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setAssetPath } from '@stencil/core';
 import { KupTooltipCallbacks } from '../kup-tooltip/kup-tooltip-declarations';
+import html2canvas, { Options } from 'html2canvas';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -308,6 +309,24 @@ export class KupManager {
         } else {
             this.utilities.clickCallbacks.add(cb);
         }
+    }
+    /**
+     * Rasterizes an HTMLElement, transforming into a canvas.
+     * @param {HTMLElement} el - Element to rasterize.
+     * @returns {HTMLCanvasElement} - Canvas created from the HTMLElement.
+     *
+     * CSS Mask is not supported:
+     * @see https://github.com/niklasvh/html2canvas/issues/2814
+     * Warning in console about sourcemap, claimed to be solved here but...:
+     * @see https://github.com/niklasvh/html2canvas/pull/2787/files
+     */
+    async rasterize(
+        el: HTMLElement,
+        options?: Partial<Options>
+    ): Promise<HTMLCanvasElement> {
+        return html2canvas(el, options).then((canvas) => {
+            return canvas;
+        });
     }
     /**
      * Removes the given click callback.
