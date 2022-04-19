@@ -1131,4 +1131,16 @@ a.footer__icon--trailing {
     display: none;
   }
 }
+
+#rasterize-viewer {
+  background: var(--kup-background-color);
+  bottom: 0;
+  border: 1px solid var(--kup-border-color);
+  height: 30vh;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  width: 30vw;
+  z-index: calc(var(--kup-navbar-zindex) + 1);
+}
 </style>
