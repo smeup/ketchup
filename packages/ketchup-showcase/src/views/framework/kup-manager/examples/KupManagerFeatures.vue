@@ -218,7 +218,6 @@ export default {
      * Toggles the kup-manager rasterize.
      */
     toggleRasterize() {
-      console.log('Here');
       let wrapper = document.querySelector('#rasterize-viewer');
       if (wrapper) {
         wrapper.remove();
