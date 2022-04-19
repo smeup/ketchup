@@ -76,6 +76,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-cell](../kup-cell)
  - [kup-data-table](../kup-data-table)
+ - [kup-form-editor](../kup-form-editor)
  - [kup-list](../kup-list)
  - [kup-tree](../kup-tree)
 
@@ -143,6 +144,7 @@ graph TD;
   kup-tree --> kup-radio
   kup-box --> kup-radio
   kup-cell --> kup-radio
+  kup-form-editor --> kup-radio
   style kup-radio fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
