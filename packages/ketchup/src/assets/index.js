@@ -95,6 +95,10 @@ components.data = [
         id: 'echart.html',
     },
     {
+        value: 'Form editor',
+        id: 'form-editor.html',
+    },
+    {
         value: 'Gauge',
         id: 'gauge.html',
     },

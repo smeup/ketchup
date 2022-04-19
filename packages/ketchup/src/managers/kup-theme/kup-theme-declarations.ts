@@ -15,6 +15,7 @@ export const fButtonUsers = [
     KupTagNames.CARD,
     KupTagNames.DATA_TABLE,
     KupTagNames.DROPDOWN_BUTTON,
+    KupTagNames.FORM_EDITOR,
     KupTagNames.SNACKBAR,
 ];
 /**
@@ -63,6 +64,7 @@ export const fImageUsers = [
     KupTagNames.CHIP,
     KupTagNames.DATA_TABLE,
     KupTagNames.DROPDOWN_BUTTON,
+    KupTagNames.FORM_EDITOR,
     KupTagNames.IMAGE,
     KupTagNames.LIST,
     KupTagNames.MAGIC_BOX,

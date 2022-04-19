@@ -80,6 +80,7 @@ export enum KupTagNames {
     DRAWER = 'KUP-DRAWER',
     DROPDOWN_BUTTON = 'KUP-DROPDOWN-BUTTON',
     FIELD = 'KUP-FIELD',
+    FORM_EDITOR = 'KUP-FORM-EDITOR',
     GAUGE = 'KUP-GAUGE',
     GRID = 'KUP-GRID',
     IFRAME = 'KUP-IFRAME',
