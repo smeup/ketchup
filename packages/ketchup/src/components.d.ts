@@ -32,6 +32,7 @@ import { KupEchartClickEventPayload, KupEchartLegendPlacement, KupEchartMaps, Ku
 import { GeoJSON } from "geojson";
 import { XAXisComponentOption, YAXisComponentOption } from "echarts";
 import { KupFieldChangeEvent, KupFieldSubmitEvent } from "./components/kup-field/kup-field-declarations";
+import { KupForm, KupFormEditorEventPayload } from "./components/kup-form-editor/kup-form-editor-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { KupImageClickEventPayload } from "./components/kup-image/kup-image-declarations";
@@ -1593,6 +1594,34 @@ export namespace Components {
          */
         "type": string;
     }
+    interface KupFormEditor {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * The data of the component.
+          * @default false
+         */
+        "data": KupForm;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is used to trigger a new render of the component.
+         */
+        "refresh": () => Promise<void>;
+        /**
+          * Sets the props to the component.
+          * @param props - Object containing props that will be set to the component.
+         */
+        "setProps": (props: GenericObject) => Promise<void>;
+    }
     interface KupGauge {
         /**
           * Sets how much the arc of the gauge should be thick.
@@ -3022,6 +3051,12 @@ declare global {
         prototype: HTMLKupFieldElement;
         new (): HTMLKupFieldElement;
     };
+    interface HTMLKupFormEditorElement extends Components.KupFormEditor, HTMLStencilElement {
+    }
+    var HTMLKupFormEditorElement: {
+        prototype: HTMLKupFormEditorElement;
+        new (): HTMLKupFormEditorElement;
+    };
     interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {
     }
     var HTMLKupGaugeElement: {
@@ -3177,6 +3212,7 @@ declare global {
         "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
         "kup-field": HTMLKupFieldElement;
+        "kup-form-editor": HTMLKupFormEditorElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
@@ -4507,6 +4543,20 @@ declare namespace LocalJSX {
          */
         "type"?: string;
     }
+    interface KupFormEditor {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * The data of the component.
+          * @default false
+         */
+        "data"?: KupForm;
+        "onKup-formeditor-save"?: (event: CustomEvent<KupFormEditorEventPayload>) => void;
+    }
     interface KupGauge {
         /**
           * Sets how much the arc of the gauge should be thick.
@@ -5586,6 +5636,7 @@ declare namespace LocalJSX {
         "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
         "kup-field": KupField;
+        "kup-form-editor": KupFormEditor;
         "kup-gauge": KupGauge;
         "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
@@ -5636,6 +5687,7 @@ declare module "@stencil/core" {
             "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
+            "kup-form-editor": LocalJSX.KupFormEditor & JSXBase.HTMLAttributes<HTMLKupFormEditorElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
