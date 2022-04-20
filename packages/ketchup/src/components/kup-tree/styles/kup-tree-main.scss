@@ -2,6 +2,7 @@
 * @prop --kup-tree-border: Sets border of the component.
 * @prop --kup-tree-color: Sets text color of the component.
 * @prop --kup-tree-color-rgb: Sets text color RGB values of the component (used for shaders).
+* @prop --kup-tree-filter-background-color: Sets the background color of the global filter.
 * @prop --kup-tree-font-family: Sets font family of the component.
 * @prop --kup-tree-font-family-monospace: Sets monospace font family of the component (for number cells).
 * @prop --kup-tree-font-size: Sets font size of the component.
@@ -18,6 +19,7 @@
   --kup_tree_color: var(--kup-tree-color, var(--kup-text-color));
   --kup_tree_color_rgb: var(--kup-tree-color-rgb, var(--kup-text-color-rgb));
   --kup_tree_font_family: var(--kup-tree-font-family, var(--kup-font-family));
+  --kup_tree_filter_background_color: var(--kup-tree-filter-background-color, var(--kup-background-color));
   --kup_tree_font_family_monospace: var(
     --kup-tree-font-family-monospace,
     var(--kup-font-family-monospace)
@@ -80,10 +82,6 @@
 
 .wrapper {
   overflow-x: auto;
-
-  #global-filter {
-    margin-bottom: 1em;
-  }
 
   .kup-tree {
     border-collapse: collapse;
@@ -209,6 +207,14 @@
       border-bottom: solid 1px var(--kup-border-color);
     }
   }
+}
+
+#global-filter {
+  background: var(--kup_tree_filter_background_color);
+  margin-bottom: 1em;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .first-node .cell-content {
