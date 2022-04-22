@@ -1912,9 +1912,18 @@ export class KupDataTable {
         }
         if (this.dropEnabled) {
             const dataCb: KupDropDataTransferCallback = () => {
-                const receivingDetails = this.getEventDetails([
-                    this.rootElement.shadowRoot.querySelector('td:hover'),
-                ]);
+                const cell =
+                    this.rootElement.shadowRoot.querySelector('td:hover');
+                if (!cell) {
+                    this.kupManager.debug.logMessage(
+                        this,
+                        "Couldn't find cell hovered to retrieve dropzone informations!",
+                        KupDebugCategory.WARNING
+                    );
+                    return;
+                }
+                const path = this.getEventPath(cell);
+                const receivingDetails = this.getEventDetails(path);
                 return {
                     cell: receivingDetails.cell,
                     column: receivingDetails.column,
@@ -2152,10 +2161,8 @@ export class KupDataTable {
 
     //======== Utility methods ========
 
-    private getEventPath(e: PointerEvent): HTMLElement[] {
+    private getEventPath(currentEl: unknown): HTMLElement[] {
         let path: HTMLElement[] = [];
-
-        let currentEl: unknown = e.target as HTMLElement;
         while (
             currentEl &&
             currentEl !== this.rootElement &&
@@ -2497,7 +2504,7 @@ export class KupDataTable {
 
     private clickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e.target)
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2542,7 +2549,7 @@ export class KupDataTable {
         e: PointerEvent
     ): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e.target)
         );
         if (details.area === 'header') {
             if (details.th && details.column) {
@@ -2581,7 +2588,7 @@ export class KupDataTable {
 
     private dblClickHandler(e: PointerEvent): KupDatatableEventHandlerDetails {
         const details: KupDatatableEventHandlerDetails = this.getEventDetails(
-            this.getEventPath(e)
+            this.getEventPath(e.target)
         );
         if (details.area === 'body') {
             if (this.selection == SelectionMode.MULTIPLE) {
