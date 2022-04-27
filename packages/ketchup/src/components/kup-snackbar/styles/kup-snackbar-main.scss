@@ -5,6 +5,7 @@
   display: block;
   left: 0;
   outline: none;
+  pointer-events: none;
   position: fixed;
   transition: opacity 0.15s cubic-bezier(0, 0, 0.2, 1) 0ms,
     transform 0.15s cubic-bezier(0, 0, 0.2, 1) 0ms,
@@ -39,6 +40,7 @@
 
   &__text {
     padding: 14px 16px;
+    pointer-events: all;
     white-space: nowrap;
   }
 
@@ -48,16 +50,20 @@
     --kup-button-primary-color-h: var(--kup-navbar-color-h);
     --kup-button-primary-color-s: var(--kup-navbar-color-s);
     --kup-button-primary-color-l: var(--kup-navbar-color-l);
+    
     align-items: center;
     display: flex;
     justify-content: flex-end;
     margin-right: 8px;
+    pointer-events: all;
     width: 100%;
   }
 
   &__close {
     --kup-button-font-size: 11px;
+
     margin-left: 8px;
+    pointer-events: all;
   }
 }
 
