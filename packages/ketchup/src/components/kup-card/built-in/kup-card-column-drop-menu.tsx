@@ -199,8 +199,7 @@ function listClick(
     e: CustomEvent<KupListEventPayload>,
     options: KupCardColumnDropMenuOptions
 ) {
-    const value = e.detail.selected.value;
-    switch (value) {
+    switch (e.detail.selected.id) {
         case KupLanguageGeneric.MERGE:
             if (options.mergeCb) {
                 options.mergeCb();
